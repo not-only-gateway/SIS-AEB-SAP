@@ -1,10 +1,16 @@
 .setting_row_container{
     margin: 2vh auto auto;
-
+    border-radius: 8px;
+    border: transparent 2px solid;
     width: 75%;
     display: flex;
     justify-content: space-between;
+    padding: 10px;
     align-content: center;
+}
+div.setting_row_container:hover {
+    border-radius: 8px;
+    border: #39adf6 2px solid;
 }
 .settings_container{
     display: grid;

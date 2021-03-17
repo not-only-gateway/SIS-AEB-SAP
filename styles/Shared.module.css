@@ -20,9 +20,9 @@
     z-index: 0;
 }
 .title_container{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    margin: auto;
+    font-size: 1.1rem;
+    font-weight: 425;
     grid-column: 1;
 }
 .reduced_container{

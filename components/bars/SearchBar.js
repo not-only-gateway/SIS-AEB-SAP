@@ -62,21 +62,27 @@ export default function SearchBarComponent(dark){
                 />
             </Paper>
 
-
-
             <div className={styles.bar_profile_container}>
-                <p style={{
-                    marginRight: '1vw',
-                    fontSize: '16px',
-                    lineBreak: 'auto',
-                    textAlign: 'right',
-                    textTransform: 'capitalize'
-                }}>INCIsdasdasdasdasdasdasdasdasd</p>
-                <Avatar
-                    style={{height: '45px', marginRight: '1%', width: '45px'}}
-                    // src={this.state.profile.pic}
-                    alt="user"
-                />
+                {typeof cookies.get('jwt') === 'undefined' ?
+                    null
+                    :
+                    (
+                        <div>
+                            <p style={{
+                                marginRight: '1vw',
+                                fontSize: '16px',
+                                lineBreak: 'auto',
+                                textAlign: 'right',
+                                textTransform: 'capitalize'
+                            }}>INCIsdasdasdasdasdasdasdasdasd</p>
+                            <Avatar
+                                style={{height: '45px', marginRight: '1%', width: '45px'}}
+                                // src={this.state.profile.pic}
+                                alt="user"
+                            />
+                        </div>
+                    )
+                }
             </div>
 
 
