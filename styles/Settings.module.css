@@ -1,0 +1,12 @@
+.setting_row_container{
+    margin: 2vh auto auto;
+
+    width: 75%;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+.settings_container{
+    display: grid;
+    align-content: space-between;
+}

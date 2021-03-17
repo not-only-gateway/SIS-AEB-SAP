@@ -1,0 +1,26 @@
+{
+  "name": "sis-aeb",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "i18next": "^19.9.0",
+    "i18next-browser-languagedetector": "^6.0.1",
+    "i18next-http-backend": "^1.1.1",
+    "next": "10.0.7",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-i18next": "^11.8.8",
+    "react-infinite-scroll-component": "^6.0.0"
+  },
+  "devDependencies": {
+    "@material-ui/styles": "^4.11.3",
+    "universal-cookie": "^4.0.4"
+  }
+}
