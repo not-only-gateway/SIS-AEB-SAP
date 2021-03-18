@@ -4,6 +4,7 @@ import Cookies from "universal-cookie/lib";
 import styles from '../../styles/bar/Bar.module.css'
 import {useEffect, useState} from "react";
 import {getLogo} from "../../config/Theme";
+import {searchFieldStyle} from "../../styles/bar/BarMaterialStyles";
 
 const cookies = new Cookies()
 
@@ -13,17 +14,7 @@ export default function SearchBarComponent(dark){
     //     setLogo()
     // }), [])
 
-    const paperStyle = {
-        backgroundColor: dark ? '#272e38' : '#f7f8fa',
-        height:'6vh',
-        boxShadow: 'none',
-        width: '100%',
-        gridColumn: '4',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent:'space-between',
-        borderRadius:'8px',
-    }
+
     const inputStyle = {
         width: '90%',
         color: dark ? 'white' : null
@@ -50,7 +41,7 @@ export default function SearchBarComponent(dark){
                <Button style={secondaryButtonStyle}>Help</Button>
                <Button style={secondaryButtonStyle}>About</Button>
            </div>
-            <Paper component="form" style={paperStyle}>
+            <Paper component="form" style={{...searchFieldStyle, ...{backgroundColor: dark ? '#272e38' : '#f7f8fa'}}}>
                 <IconButton aria-label="search" disabled={searchValue === null || searchValue === ''}>
                     <SearchRounded style={{color: dark ? 'white' : null}}/>
                 </IconButton>

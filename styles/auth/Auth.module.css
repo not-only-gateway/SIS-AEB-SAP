@@ -8,7 +8,10 @@
 
     }
     .input_half_container{
-
+        position: fixed;
+        right: 0;
+        height: 100vh;
+        width: 70vw;
         grid-column: 2;
 
         display: grid;

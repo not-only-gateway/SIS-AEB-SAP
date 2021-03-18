@@ -46,7 +46,7 @@ export default function SignIn() {
         }
         else{
             const locale = cookies.get('lang')
-            router.push('/signup', '/signup', {locale}).catch(r => console.log(r))
+            router.push('/signin', '/signin', {locale}).catch(r => console.log(r))
         }
     }, [])
 
