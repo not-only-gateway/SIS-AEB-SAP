@@ -20,10 +20,12 @@
     z-index: 0;
 }
 .title_container{
-    margin: auto;
     font-size: 1.1rem;
     font-weight: 425;
     grid-column: 1;
+
+    display: flex;
+    justify-content: space-between;
 }
 .reduced_container{
     height: 31.5vh;

@@ -16,7 +16,6 @@ export const searchFieldStyle = {
     height:'6vh',
     boxShadow: 'none',
     width: '100%',
-    gridColumn: '4',
     display: 'flex',
     alignItems: 'center',
     justifyContent:'space-between',

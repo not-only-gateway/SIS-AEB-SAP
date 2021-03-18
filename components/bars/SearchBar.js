@@ -27,7 +27,7 @@ export default function SearchBarComponent(dark){
         fontWeight: '400'
     }
     const logoStyle = {
-        width:'7vw',
+        height:'7vh',
         margin:'auto'
     }
     const [searchValue, setSearchValue] = useState(null)
@@ -37,25 +37,26 @@ export default function SearchBarComponent(dark){
             <div style={{gridColumn: 1, display: 'flex', justifyContent: 'center', alignContent: 'center'}}>
                 <img style={logoStyle} src={getLogo(dark)} alt={"aeb"}/>
             </div>
-           <div style={{gridColumn: 2, display: 'flex', justifyContent:'space-evenly'}}>
-               <Button style={secondaryButtonStyle}>Help</Button>
-               <Button style={secondaryButtonStyle}>About</Button>
-           </div>
-            <Paper component="form" style={{...searchFieldStyle, ...{backgroundColor: dark ? '#272e38' : '#f7f8fa'}}}>
-                <IconButton aria-label="search" disabled={searchValue === null || searchValue === ''}>
-                    <SearchRounded style={{color: dark ? 'white' : null}}/>
-                </IconButton>
-                <InputBase
-                    style={inputStyle}
-                    placeholder={"Search"}
-                    onChange={event => setSearchValue(event.target.value)}
-                    onKeyDown={key => (key.key === "Enter"? this.setState({redirect: true}): console.log("."))}
-                />
-            </Paper>
-
-            <div className={styles.bar_profile_container}>
+            <div style={{gridColumn: 2, display: 'flex', justifyContent:'space-evenly'}}>
+                <Button style={secondaryButtonStyle}>Help</Button>
+                <Button style={secondaryButtonStyle}>About</Button>
+            </div>
+            <div style={{gridColumn: 3}}>
+                <Paper component="form" style={{...searchFieldStyle, ...{backgroundColor: dark ? '#272e38' : '#f7f8fa'}}}>
+                    <IconButton aria-label="search" disabled={searchValue === null || searchValue === ''}>
+                        <SearchRounded style={{color: dark ? 'white' : null}}/>
+                    </IconButton>
+                    <InputBase
+                        style={inputStyle}
+                        placeholder={"Search"}
+                        onChange={event => setSearchValue(event.target.value)}
+                        onKeyDown={key => (key.key === "Enter"? this.setState({redirect: true}): console.log("."))}
+                    />
+                </Paper>
+            </div>
+            <div className={styles.bar_profile_container} style={{gridColumn: 4}}>
                 {typeof cookies.get('jwt') === 'undefined' ?
-                    null
+                    <Button>Sign in</Button>
                     :
                     (
                         <div>
