@@ -1,9 +1,10 @@
 export default {
-    explore: 'Explorar',
-    notifications: 'Notificações',
-    messages: 'Mensagens',
-    archive: 'Arquivos',
+
     extensions: 'Ramais',
     settings: 'Configurações',
-    signout: 'Sair'
+    signout: 'Sair',
+    help: 'Ajuda',
+    about: 'Sobre',
+    search: 'Pesquisar',
+    signin: 'Entrar'
 }

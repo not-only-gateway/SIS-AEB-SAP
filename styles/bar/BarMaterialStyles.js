@@ -21,3 +21,15 @@ export const searchFieldStyle = {
     justifyContent:'space-between',
     borderRadius:'8px',
 }
+
+export const secondaryButtonStyle = {
+    textTransform: 'none',
+    fontSize: '.85rem',
+
+    height: 'fit-content',
+    fontWeight: '400'
+}
+export const logoStyle = {
+    height:'7vh',
+    margin:'auto'
+}

@@ -78,13 +78,17 @@ export default class NavBarComponent extends React.Component{
                             </Button>
                         </Link>
                     </div>
-                    <div className={sharedStyles.button_container}>
-                        {/*<Link href={{ pathname: "/signin", locale: this.props.locale}}>*/}
-                            <Button disabled style={{...buttonStyle, ...{color: this.props.dark ? 'white' : '#111111'}}}>
-                                <ExitToAppRounded style={{...iconStyle, ...{color: !this.props.dark ? '#777777' : '#ededed'}}}/>{this.state.lang.signout}
-                            </Button>
-                        {/*</Link>*/}
-                    </div>
+                    {cookies.get('jwt') !== undefined ?
+                        <div className={sharedStyles.button_container}>
+                            <Link href={{ pathname: "/signin", locale: this.props.locale}}>
+                                <Button disabled style={{...buttonStyle, ...{color: this.props.dark ? 'white' : '#111111'}}}>
+                                    <ExitToAppRounded style={{...iconStyle, ...{color: !this.props.dark ? '#777777' : '#ededed'}}}/>{this.state.lang.signout}
+                                </Button>
+                            </Link>
+                        </div>
+                        :
+                        null
+                    }
             </div>
         )
     }

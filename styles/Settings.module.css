@@ -11,6 +11,7 @@
 div.setting_row_container:hover {
     border-radius: 8px;
     border: #39adf6 2px solid;
+
 }
 .settings_container{
     display: grid;

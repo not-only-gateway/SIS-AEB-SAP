@@ -1,9 +1,9 @@
 export default {
-    explore: 'Explorar',
-    notifications: 'Notificaciones',
-    messages: 'Mensajes',
-    archive: 'Archivo',
-    extensions: 'Perfil',
+    extensions: 'Extensiones',
     settings: 'Ajustes',
-    signout: 'Desconectar'
+    signout: 'Desconectar',
+    help: 'Ayuda',
+    about: 'Sobre',
+    search: 'Buscar',
+    signin: 'Registrarse'
 }

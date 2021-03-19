@@ -1,7 +1,7 @@
 import styles from '../styles/Layout.module.css'
 import Cookies from 'universal-cookie/lib'
 import NavBarComponent from "./bars/NavBar";
-import SearchBarComponent from "./bars/SearchBar";
+import SearchBar from "./bars/SearchBar";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import shared from '../styles/Shared.module.css'
@@ -21,6 +21,8 @@ export default function Layout ({ children }) {
     });
     useEffect(() => {
         setDark(cookies.get('theme', {path: '/'}) === '0')
+        if(locale !== cookies.get('lang') && cookies.get('lang') !== undefined)
+            router.push(router.pathname, router.pathname, {locale: cookies.get('lang')}).catch(error => console.log(error))
     }, [])
 
     const componentStyle = {
@@ -43,7 +45,7 @@ export default function Layout ({ children }) {
             overflow:'hidden'
         }}>
             <div style={componentStyle} className={styles.top}>
-                {SearchBarComponent(dark, locale)}
+                <SearchBar locale={locale} dark={dark}/>
             </div>
             <div>
                 {router.pathname === '/settings' ?

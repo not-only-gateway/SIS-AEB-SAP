@@ -28,7 +28,8 @@ export default function Settings() {
                     <div style={{width: '100%', height: '100%'}}>
                         <div className={shared.title_container} style={{borderBottom: props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid'}}>
                             <p style={{textAlign: 'Left', fontWeight: 500, fontSize: '1.1rem'}}>SETTINGS</p>
-                            <Button><InfoRounded style={{color: !props.dark ? '#777777' : '#ededed', fontSize: '1.8rem'}}/></Button>
+
+                                <InfoRounded style={{color: !props.dark ? '#777777' : '#ededed', fontSize: '1.8rem'}}/>
                         </div>
                         <div className={style.settings_container}>
                             <div className={style.setting_row_container}>
