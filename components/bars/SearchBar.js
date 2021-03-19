@@ -9,6 +9,7 @@ import en from "../../locales/bar/en";
 import React from 'react'
 import es from "../../locales/bar/es";
 import pt from "../../locales/bar/pt";
+import Link from 'next/link'
 
 const cookies = new Cookies()
 
@@ -87,7 +88,9 @@ export default class SearchBar extends React.Component{
                 </div>
                 <div className={styles.bar_profile_container} style={{gridColumn: 4}}>
                     { this.state.profile === null ?
-                        <Button style={{color: (this.props.dark ? 'white' :  '#777777'), marginRight: '10px', textTransform: 'none'}}>{this.state.lang.signin}</Button>
+                        <Link href={{ pathname: "/signin", locale: this.props.locale}}>
+                            <Button style={{color: (this.props.dark ? 'white' :  '#777777'), marginRight: '10px', textTransform: 'none'}}>{this.state.lang.signin}</Button>
+                        </Link>
                         :
                         (
                             <div>

@@ -16,11 +16,13 @@ import MuiAlert from "@material-ui/lab/Alert";
 export default function Settings() {
     const router = useRouter()
     const { locale } = router
+
     const changeLang = (event) => {
         const locale = event.target.value
         setCookiesLanguage(locale)
         router.push('/settings', '/settings', {locale}).catch(r => console.log(r))
     }
+
     return (
         <Layout>
             {props => (
