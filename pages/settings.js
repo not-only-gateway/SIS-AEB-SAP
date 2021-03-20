@@ -12,6 +12,7 @@ import setCookiesLanguage from "../config/Language";
 import {setTheme} from "../config/Theme";
 import {InfoRounded} from "@material-ui/icons";
 import MuiAlert from "@material-ui/lab/Alert";
+import Head from "next/head";
 
 export default function Settings() {
     const router = useRouter()

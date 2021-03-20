@@ -45,6 +45,9 @@ render() {
             <AuthLayout>
                 {props => (
                     <div className={styles.forms_container}>
+                        <Head>
+                            <title>{props.lang.signin}</title>
+                        </Head>
                         <div className={styles.form_content_container} >
                             <div>
                                 <p style={{fontSize: '.9rem', marginTop: 'auto'}}>{props.lang.signinWelcomeText}</p>

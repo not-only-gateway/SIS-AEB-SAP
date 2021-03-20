@@ -2,7 +2,7 @@ import React from 'react'
 import {Button} from "@material-ui/core";
 import Cookies from "universal-cookie/lib";
 import {
-    ExitToAppRounded, GroupRounded,
+    ExitToAppRounded, GroupRounded, HistoryRounded,
     SettingsRounded
 } from "@material-ui/icons";
 import styles from '../../styles/bar/Bar.module.css'
@@ -78,13 +78,23 @@ export default class NavBarComponent extends React.Component{
                             </Button>
                         </Link>
                     </div>
+
                     {cookies.get('jwt') !== undefined ?
-                        <div className={sharedStyles.button_container}>
-                            <Link href={{ pathname: "/signin", locale: this.props.locale}}>
-                                <Button disabled style={{...buttonStyle, ...{color: this.props.dark ? 'white' : '#111111'}}}>
-                                    <ExitToAppRounded style={{...iconStyle, ...{color: !this.props.dark ? '#777777' : '#ededed'}}}/>{this.state.lang.signout}
-                                </Button>
-                            </Link>
+                        <div>
+                            <div className={sharedStyles.button_container}>
+                                <Link href={{ pathname: "/signin", locale: this.props.locale}}>
+                                    <Button disabled style={{...buttonStyle, ...{color: this.props.dark ? 'white' : '#111111'}}}>
+                                        <ExitToAppRounded style={{...iconStyle, ...{color: !this.props.dark ? '#777777' : '#ededed'}}}/>{this.state.lang.signout}
+                                    </Button>
+                                </Link>
+                            </div>
+                            <div  className={sharedStyles.button_container} style={{borderRight: this.props.path === '/activity' ? '#39adf6 3px solid': null}}>
+                                <Link href={{ pathname: "/activity", locale: this.props.locale}}>
+                                    <Button style={{...buttonStyle, ...{color: this.props.dark ? 'white' : '#111111'}}}>
+                                        <HistoryRounded style={{...iconStyle, ...{color: !this.props.dark ? '#777777' : '#ededed'}}}/> {this.state.lang.activity}
+                                    </Button>
+                                </Link>
+                            </div>
                         </div>
                         :
                         null

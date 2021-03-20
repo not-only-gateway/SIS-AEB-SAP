@@ -5,5 +5,6 @@ export default {
     help: 'Help',
     about: 'About',
     search: 'Search',
-    signin: 'Sign in'
+    signin: 'Sign in',
+    activity: 'Account activity'
 }

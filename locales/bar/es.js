@@ -5,5 +5,6 @@ export default {
     help: 'Ayuda',
     about: 'Sobre',
     search: 'Buscar',
-    signin: 'Registrarse'
+    signin: 'Registrarse',
+    activity: 'Actividad de la cuenta'
 }
