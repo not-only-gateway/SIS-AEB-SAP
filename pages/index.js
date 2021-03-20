@@ -1,9 +1,9 @@
-import Layout from "../components/Layout";
+import Layout from "../components/layout/Layout";
 import React from "react";
 import {useRouter} from "next/router";
 import shared from "../styles/Shared.module.css";
 // import personaLayout from "../components/PersonaLayout";
-import Persona from "../components/PersonaLayout";
+import Persona from "../components/layout/PersonaLayout";
 import Head from "next/head";
 import {Button} from "@material-ui/core";
 

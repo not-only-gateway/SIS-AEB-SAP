@@ -1,12 +1,12 @@
-import styles from '../styles/Layout.module.css'
+import styles from '../../styles/Layout.module.css'
 import Cookies from 'universal-cookie/lib'
-import NavBarComponent from "./bars/NavBar";
-import SearchBar from "./bars/SearchBar";
+import NavBarComponent from "../bar/NavBar";
+import SearchBar from "../bar/SearchBar";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import shared from '../styles/Shared.module.css'
+import shared from '../../styles/Shared.module.css'
 import {createMuiTheme} from "@material-ui/core";
-import {setTheme} from "../config/Theme";
+import {setTheme} from "../../config/Theme";
 
 const cookies = new Cookies()
 

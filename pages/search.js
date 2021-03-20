@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Layout from "../components/Layout";
+import Layout from "../components/layout/Layout";
 import shared from "../styles/Shared.module.css";
 import React from "react";
 

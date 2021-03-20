@@ -1,0 +1,28 @@
+.title_container{
+    display: grid;
+    justify-content: center;
+    align-content: space-between;
+
+    width: 50%;
+}
+
+.container{
+    display: grid;
+    justify-content: center;
+    align-content: space-between;
+
+    width: 100%;
+    min-height: 100%;
+
+    overflow: auto;
+}
+
+.form_row{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+
+    width: 93%;
+    height: fit-content;
+}

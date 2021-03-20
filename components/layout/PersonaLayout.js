@@ -1,4 +1,4 @@
-import styles from '../styles/Layout.module.css'
+import styles from '../../styles/Layout.module.css'
 import {Avatar, Button} from "@material-ui/core";
 import React from 'react'
 import {CakeRounded} from "@material-ui/icons";

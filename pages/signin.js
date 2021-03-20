@@ -8,7 +8,7 @@ import Brightness7RoundedIcon from '@material-ui/icons/Brightness7Rounded';
 import Brightness3RoundedIcon from '@material-ui/icons/Brightness3Rounded';
 import {setTheme} from "../config/Theme";
 import {ThemeProvider} from "@material-ui/styles";
-import AuthLayout from "../components/AuthLayout";
+import AuthLayout from "../components/layout/AuthLayout";
 import setCookiesLanguage from "../config/Language";
 import {useRouter} from "next/router";
 import en from "../locales/auth/en";
@@ -35,12 +35,7 @@ export default class SignIn extends React.Component {
         email: null,
     }
 
-    componentDidMount() {
-        ClearStorage().catch(error => console.log(error))
-    }
-
-
-render() {
+    render() {
         return (
             <AuthLayout>
                 {props => (

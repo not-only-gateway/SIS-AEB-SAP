@@ -89,7 +89,7 @@ export default class SearchBar extends React.Component{
                 <div className={styles.bar_profile_container} style={{gridColumn: 4}}>
                     { this.state.profile === null ?
                         <Link href={{ pathname: "/signin", locale: this.props.locale}}>
-                            <Button style={{color: (this.props.dark ? 'white' :  '#777777'), marginRight: '10px', textTransform: 'none'}}>{this.state.lang.signin}</Button>
+                            <Button style={{color: (this.props.dark ? 'white' :  'black'), marginRight: '10px', textTransform: 'none'}}>{this.state.lang.signin}</Button>
                         </Link>
                         :
                         (

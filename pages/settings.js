@@ -1,4 +1,4 @@
-import Layout from "../components/Layout";
+import Layout from "../components/layout/Layout";
 import React, {useState} from "react";
 import {useRouter} from "next/router";
 import shared from "../styles/Shared.module.css";
