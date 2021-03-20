@@ -79,3 +79,11 @@ div.persona_container:hover{
     line-height: .0001vh;
     text-align: right;
 }
+.modal_container{
+    margin: 12.5vh auto auto;
+    width: 40vw;
+    border-radius: 8px;
+    height: 75vh;
+
+
+}

@@ -1,9 +1,14 @@
 import React from 'react'
 import Cookies from "universal-cookie/lib";
-import {Avatar} from "@material-ui/core";
-import styles from '../../styles/Form.module.css'
+import {Avatar, Button, IconButton, InputBase, Paper} from "@material-ui/core";
+import styles from '../../styles/form/Form.module.css'
 import axios from "axios";
 import Host from "../../config/Host";
+import {searchFieldStyle} from "../../styles/bar/BarMaterialStyles";
+import {SearchRounded} from "@material-ui/icons";
+import {inputStyle} from "../../styles/auth/AuthMaterialStyles";
+import {paperStyle} from "../../styles/form/FormMaterialStyles";
+import PersonFormFields from "./PersonFormFields";
 
 const cookies = new Cookies()
 
@@ -12,8 +17,9 @@ export default class PersonForm extends React.Component{
         super(props);
         this.state={
             canEdit: false,
-            canAskForUpdate: parseInt(cookies.get('id')) === props.id,
-            person: null
+            ownProfile: parseInt(cookies.get('id')) === props.id,
+            profile: null,
+            page: 0
         }
     }
 
@@ -61,17 +67,22 @@ export default class PersonForm extends React.Component{
         }
     }
 
-
-
     render() {
         return(
             <div className={styles.container}>
                 <div className={styles.title_container}>
-                    <Avatar src={this.props.pic} alt={this.props.name}/>
-                    <p>{this.props.name}</p>
+                    <Avatar src={'https://rollingstone.uol.com.br/media/_versions/marcos_jeeves_teaser_reprod_widemd.jpg'} style={{width: '8vh', height: '8vh'}}/>
+                    {/*<Avatar src={this.props.pic} alt={this.state.profile.name}/>*/}
+                    {/*<p>{this.state.profile.name}</p>*/}
+                    <p>Gustavo Roque</p>
                 </div>
-                <div>
-
+                <div className={styles.form_rows_container}>
+                    <div className={styles.form_row}>
+                        <Button onClick={() => this.setState({page: this.state.page-1})} disabled={this.state.page === 0}>Prev</Button>
+                        <p>{this.state.page}</p>
+                        <Button onClick={() => this.setState({page: this.state.page+1})} disabled={this.state.page === 3}>Next</Button>
+                    </div>
+                    <PersonFormFields page={this.state.page}/>
                 </div>
             </div>
         )

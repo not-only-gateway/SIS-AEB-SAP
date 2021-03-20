@@ -1,6 +1,7 @@
 .title_container{
     display: grid;
     justify-content: center;
+    justify-items: center;
     align-content: space-between;
 
     width: 50%;
@@ -9,9 +10,11 @@
 .container{
     display: grid;
     justify-content: center;
-    align-content: space-between;
+    justify-items: center;
 
-    width: 100%;
+    align-content: space-around;
+
+    width: 40vw;
     min-height: 100%;
 
     overflow: auto;
@@ -23,6 +26,14 @@
     align-content: center;
     align-items: center;
 
-    width: 93%;
+    width: 33vw;
     height: fit-content;
+}
+
+.form_rows_container{
+    margin-top: 1vh;
+
+    display: grid;
+    justify-content: space-between;
+    height: 55vh;
 }

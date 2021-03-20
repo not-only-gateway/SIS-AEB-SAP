@@ -10,9 +10,7 @@ import {Button} from "@material-ui/core";
 export default function Index() {
   const router = useRouter()
   const { locale } = router
-  function renderModal(){
-    alert("CLICKED MODAL")
-  }
+
   return (
       <div>
         <Head>
@@ -30,7 +28,6 @@ export default function Index() {
                               admin={false}
                               email={' gustavo.roque@aeb.gov.br'}
                               phone={'123123-1231'}
-                              renderModal={renderModal}
                               id={1}
                               dark={props.dark}
                               birth={1616246020664}
@@ -41,7 +38,6 @@ export default function Index() {
                               admin={false}
                               email={'romulo.doboxe@aeb.gov.br'}
                               phone={'42069-6969'}
-                              renderModal={renderModal}
                               id={2}
                               dark={props.dark}
                               birth={1}

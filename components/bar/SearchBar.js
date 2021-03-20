@@ -81,7 +81,7 @@ export default class SearchBar extends React.Component{
                         <InputBase
                             style={{width: '90%', color: this.props.dark ? 'white' : null}}
                             placeholder={this.state.lang.search}
-                            onChange={event => this.setState(event.target.value)}
+                            onChange={event => this.setState({searchInput:event.target.value })}
                             onKeyDown={key => (key.key === "Enter"? this.setState({redirect: true}): console.log("."))}
                         />
                     </Paper>
