@@ -66,10 +66,10 @@
     align-items: center;
     text-transform: none;
 
-    width: 33vw;
+    width: 50vw;
     max-height: 11vh;
     border: transparent 2px solid;
-    margin-bottom: 1vh;
+    margin-top: 1vh;
     border-radius: 8px;
     transition: 0.15s;
 }

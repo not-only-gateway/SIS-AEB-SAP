@@ -16,19 +16,18 @@
     position: relative;
     z-index: 5;
 }
-.fieldset_style{
+.unity_collaborators_container{
     display: grid;
-    width: 50%;
-    border-radius: 8px;
-    justify-content: center;
+    width: 75%;
+    justify-items: center;
 }
 .title_container{
-    font-size: 1.1rem;
-    font-weight: 425;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
     grid-column: 1;
-
+    width: 85%;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
 }
 .reduced_container{
