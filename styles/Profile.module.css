@@ -1,0 +1,23 @@
+.profile_container{
+    display: grid;
+    /*justify-content: center;*/
+    align-content: space-around;
+
+    margin: auto;
+    height: 90%;
+    width: 60%;
+}
+.profile_info_row{
+    display: flex;
+    justify-content: space-between;
+
+}
+.title_container{
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    align-content: space-between;
+
+    margin: 2vh auto 5vh;
+    width: 50%;
+}

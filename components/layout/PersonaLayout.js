@@ -3,30 +3,48 @@ import {Avatar, Button, Modal} from "@material-ui/core";
 import React from 'react'
 import {CakeRounded} from "@material-ui/icons";
 import PersonForm from "../form/PersonForm";
+import axios from "axios";
+import Host from "../../config/Host";
+import Cookies from "universal-cookie/lib";
+import Person from "../profile/Person";
+
+const cookies = new Cookies()
 
 export default class Persona extends React.Component{
     constructor(props) {
         super(props);
         this.state={
-            formOpen: false
+            modalOpen: false,
+            canEdit: false,
+            ownProfile: false,
         }
     }
-    renderForm(){
-        if(this.state.formOpen){
+
+    componentDidMount() {
+        this.setState({
+            canEdit: (localStorage.getItem('profile') !== null && (JSON.parse(localStorage.getItem('profile')).is_administrator === true)),
+            ownProfile: parseInt(cookies.get('id')) === this.props.id
+        })
+    }
+
+    renderModal(){
+        if(this.state.modalOpen){
+            
             return(
-                <Modal open={this.state.formOpen} onClose={() => this.setState({formOpen: false})}>
-                    <div className={styles.modal_container} style={{backgroundColor: !this.props.dark ? 'white' : '#262d37'}}>
-                        <PersonForm id={this.props.id} dark={this.props.dark}/>
+                <Modal open={this.state.modalOpen} onClose={() => this.setState({modalOpen: false})}>
+                    <div className={styles.modal_container} style={{backgroundColor: !this.props.dark ? 'white' : '#303741'}}>
+                        {this.state.canEdit || this.state.ownProfile ? <PersonForm id={this.props.id} dark={this.props.dark}/> : <Person/>}
                     </div>
                 </Modal>
             )
         }
     }
+    
     render(){
         return (
             <div className={styles.persona_container}  key={this.props.id}>
-                {this.renderForm()}
-                <Button onClick={() => this.setState({formOpen: true})} style={{width: '100%', height: '11vh', backgroundColor: 'transparent', display: 'flex', justifyContent: 'space-between', textTransform: 'none'}}>
+                {this.renderModal()}
+                <Button onClick={() => this.setState({modalOpen: true})} style={{width: '100%', height: '11vh', backgroundColor: 'transparent', display: 'flex', justifyContent: 'space-between', textTransform: 'none'}}>
                     <Avatar src={this.props.pic} alt={this.props.name} style={{marginLeft: '10px', height: '7vh', width: '7vh'}}/>
                     <div className={styles.persona_text_fields_container} style={{marginRight: '10px'}}>
                         <div style={{display: 'flex', justifyContent: 'flex-end'}}>

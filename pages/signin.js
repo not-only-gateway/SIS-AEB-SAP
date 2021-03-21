@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Cookies from 'universal-cookie/lib'
 import styles from '../styles/auth/Auth.module.css'
-import {Button, createMuiTheme, IconButton, InputBase, MenuItem, Paper, Select, TextField} from "@material-ui/core";
+import {Button, IconButton, InputBase, MenuItem, Paper, Select, TextField} from "@material-ui/core";
 import {VisibilityOffRounded, VisibilityRounded} from "@material-ui/icons";
 import {useEffect, useState} from "react";
 import Brightness7RoundedIcon from '@material-ui/icons/Brightness7Rounded';

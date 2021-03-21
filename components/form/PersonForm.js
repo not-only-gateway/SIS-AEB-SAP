@@ -16,16 +16,15 @@ export default class PersonForm extends React.Component{
     constructor(props) {
         super(props);
         this.state={
-            canEdit: false,
-            ownProfile: parseInt(cookies.get('id')) === props.id,
             profile: null,
-            page: 0
+            page: 0,
+            hasMadeChanges: false
         }
+        this.handleChange = this.handleChange.bind(this)
     }
 
     componentDidMount() {
         this.fetchData().catch(e => console.log(e))
-        this.fetchAccess().catch(e => console.log(e))
     }
 
     async fetchData(){
@@ -49,22 +48,14 @@ export default class PersonForm extends React.Component{
         }
     }
 
-    async fetchAccess(){
-        try {
-            await axios({
-                method: 'get',
-                url: Host + 'access',
-                headers:{'authorization': cookies.get('jwt')}
-            }).then(res => {
-                this.setState({
-                    canEdit: res.data
-                })
-            }).catch(error => {
-                console.log(error)
+    handleChange(event){
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+        if(!this.state.hasMadeChanges)
+            this.setState({
+                hasMadeChanges: true
             })
-        } catch (error) {
-            console.log(error)
-        }
     }
 
     render() {
@@ -74,15 +65,26 @@ export default class PersonForm extends React.Component{
                     <Avatar src={'https://rollingstone.uol.com.br/media/_versions/marcos_jeeves_teaser_reprod_widemd.jpg'} style={{width: '8vh', height: '8vh'}}/>
                     {/*<Avatar src={this.props.pic} alt={this.state.profile.name}/>*/}
                     {/*<p>{this.state.profile.name}</p>*/}
-                    <p>Gustavo Roque</p>
+                    <p style={{color: (this.props.dark? 'white': 'black'), fontSize: '1.2rem', fontWeight: 440}}>Gustavo Roque</p>
                 </div>
                 <div className={styles.form_rows_container}>
-                    <div className={styles.form_row}>
-                        <Button onClick={() => this.setState({page: this.state.page-1})} disabled={this.state.page === 0}>Prev</Button>
-                        <p>{this.state.page}</p>
-                        <Button onClick={() => this.setState({page: this.state.page+1})} disabled={this.state.page === 3}>Next</Button>
+                    <div>
+                        {this.state.page === 0 ?
+                            null
+                            :
+                            <Button style={{color: (this.props.dark? 'white': 'black'), float: 'left'}} onClick={() => this.setState({page: this.state.page-1})} >Prev</Button>
+                        }
+                        {this.state.page === 2 ?
+                            null
+                            :
+                            <Button style={{color: (this.props.dark? 'white': 'black'), float: 'right'}} onClick={() => this.setState({page: this.state.page+1})} disabled={this.state.page === 2}>Next</Button>
+                        }
                     </div>
-                    <PersonFormFields page={this.state.page}/>
+                    <PersonFormFields page={this.state.page} handleChange={this.handleChange} dark={this.props.dark}/>
+                    <div className={styles.form_row}>
+                        <Button disabled={!this.state.hasMadeChanges}>Save</Button>
+                        <Button disabled={!this.state.hasMadeChanges}>Discard</Button>
+                    </div>
                 </div>
             </div>
         )
