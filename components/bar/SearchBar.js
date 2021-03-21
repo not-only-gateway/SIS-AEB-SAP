@@ -66,50 +66,9 @@ export default class SearchBar extends React.Component{
     render(){
         return (
             <div className={styles.top_bar_container} style={{color: this.props.dark ? 'white' : '#111111'}}>
-                <div style={{gridColumn: 1, display: 'flex', justifyContent: 'center', alignContent: 'center'}}>
-                    <img style={logoStyle} src={getLogo(this.props.dark)} alt={"aeb"}/>
-                </div>
-                <div style={{gridColumn: 2, display: 'flex', justifyContent:'space-evenly'}}>
-                    <Button style={{...secondaryButtonStyle, ...{color: this.props.dark ? 'white' : 'black'}}}>{this.state.lang.help}</Button>
-                    <Button style={{...secondaryButtonStyle, ...{color: this.props.dark ? 'white' : 'black'}}}>{this.state.lang.about}</Button>
-                </div>
-                <div style={{gridColumn: 3}}>
-                    <Paper component="form" style={{...searchFieldStyle, ...{backgroundColor: this.props.dark ? '#272e38' : '#f7f8fa'}}}>
-                        <IconButton aria-label="search" disabled={this.state.searchValue === null || this.state.searchValue === ''}>
-                            <SearchRounded style={{color: this.props.dark ? 'white' : null}}/>
-                        </IconButton>
-                        <InputBase
-                            style={{width: '90%', color: this.props.dark ? 'white' : null}}
-                            placeholder={this.state.lang.search}
-                            onChange={event => this.setState({searchInput:event.target.value })}
-                            onKeyDown={key => (key.key === "Enter"? this.setState({redirect: true}): console.log("."))}
-                        />
-                    </Paper>
-                </div>
-                <div className={styles.bar_profile_container} style={{gridColumn: 4}}>
-                    { this.state.profile === null ?
-                        <Link href={{ pathname: "/signin", locale: this.props.locale}}>
-                            <Button style={{color: (this.props.dark ? 'white' :  'black'), marginRight: '10px', textTransform: 'none'}}>{this.state.lang.signin}</Button>
-                        </Link>
-                        :
-                        (
-                            <div>
-                                <p style={{
-                                    marginRight: '1vw',
-                                    fontSize: '16px',
-                                    lineBreak: 'auto',
-                                    textAlign: 'right',
-                                    textTransform: 'capitalize'
-                                }}>{this.state.profile.name}</p>
-                                <Avatar
-                                    style={{height: '45px', marginRight: '1%', width: '45px'}}
-                                    src={this.state.profile.pic}
-                                    alt={this.state.profile.name}
-                                />
-                            </div>
-                        )
-                    }
-                </div>
+
+
+
             </div>
         )
     }

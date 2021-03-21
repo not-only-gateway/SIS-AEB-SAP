@@ -28,20 +28,22 @@ export default function Settings() {
         <Layout>
             {props => (
                 <div className={shared.content_container} style={{backgroundColor: props.dark ? '#303741' : 'white'}}>
-                    <div style={{width: '100%', height: '100%'}}>
-                        <div className={shared.title_container} style={{borderBottom: props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid'}}>
-                            <p style={{textAlign: 'Left', fontWeight: 500, fontSize: '1.1rem'}}>SETTINGS</p>
-
-                                <InfoRounded style={{color: !props.dark ? '#777777' : '#ededed', fontSize: '1.8rem'}}/>
+                    <div style={{width: '60%', height: '100%', marginTop: '6vh'}}>
+                        <div className={shared.title_container}>
+                            <h3>SETTINGS</h3>
+                            <InfoRounded style={{marginLeft: '1vw', color: !props.dark ? '#777777' : '#ededed', fontSize: '1.8rem'}}/>
                         </div>
-                        <div className={style.settings_container}>
+                        <fieldset style={{width: '40vw' ,borderRadius: '8px', border : (props.dark ? '#262d37 3px solid':'#f4f8fb 3px solid'),margin: '5vh auto auto'}}  className={style.settings_container}>
+                            <legend style={{color: (props.dark ? 'white': 'black'), paddingLeft: '10px', paddingRight: '10px', borderRadius: '8px',border : (props.dark ? '#262d37 3px solid':'#f4f8fb 3px solid')}}>
+                                <p>Local</p>
+                            </legend>
                             <div className={style.setting_row_container}>
                                 <p>Theme</p>
                                 <Button style={{...{color: props.dark ? 'white' : '#111111'}}} onClick={() => props.changeTheme()} >
                                     {!props.dark ? <Brightness7RoundedIcon  style={{...iconStyle, ...{color: !props.dark ? '#777777' : '#ededed'}}}/> : <Brightness3RoundedIcon style={{...iconStyle, ...{color: !props.dark ? '#777777' : '#ededed'}}}/>}
                                 </Button>
                             </div>
-                            <div className={style.setting_row_container}>
+                            <div className={style.setting_row_container} style={{marginBottom: '3vh'}}>
                                 <p>Language</p>
                                 <ThemeProvider theme={createMuiTheme({
                                     palette: {
@@ -72,7 +74,7 @@ export default function Settings() {
                                     </Select>
                                 </ThemeProvider>
                             </div>
-                        </div>
+                        </fieldset>
                     </div>
                 </div>
             )

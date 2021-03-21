@@ -5,19 +5,22 @@
     margin: auto auto 1vh;
 }
 .content_container{
-    margin-left: 37vw;
-    margin-top: 21vh;
-    box-shadow: rgba(0, 0, 0, 0.05) 0 1px 2px 0;
-    width: 40vw;
-    min-height: 70vh;
-    padding: 1vw;
-    border-radius: 8px;
+
+    background-color: red;
+    width: 83vw;
+
     display: grid;
     align-items: flex-start;
     justify-items: center;
     align-content: space-between;
     position: relative;
-    z-index: 0;
+    z-index: 5;
+}
+.fieldset_style{
+    display: grid;
+    width: 50%;
+    border-radius: 8px;
+    justify-content: center;
 }
 .title_container{
     font-size: 1.1rem;
@@ -25,12 +28,8 @@
     grid-column: 1;
 
     display: flex;
-    justify-content: space-between;
-    align-content: center;
+    justify-content: flex-start;
     align-items: center;
-    width: 90%;
-    margin: auto;
-
 }
 .reduced_container{
     height: 31.5vh;

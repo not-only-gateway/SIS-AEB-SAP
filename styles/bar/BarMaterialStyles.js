@@ -1,7 +1,7 @@
 export const buttonStyle = {
     textTransform: 'none',
-    width:'14vw',
-
+    width:'100%',
+    height: "6vh",
     fontSize: '.9rem',
     justifyContent:'flex-start',
     alignItems:'center',
@@ -30,6 +30,5 @@ export const secondaryButtonStyle = {
     fontWeight: '400'
 }
 export const logoStyle = {
-    height:'7vh',
-    margin:'auto'
+    width: '7vw',
 }

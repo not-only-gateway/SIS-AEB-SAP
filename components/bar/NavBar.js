@@ -1,17 +1,24 @@
 import React from 'react'
-import {Button} from "@material-ui/core";
+import {Avatar, Button, IconButton, InputBase, Paper} from "@material-ui/core";
 import Cookies from "universal-cookie/lib";
 import {
-    ExitToAppRounded, GroupRounded, HistoryRounded,
+    ExitToAppRounded, GroupRounded, HistoryRounded, SearchRounded,
     SettingsRounded
 } from "@material-ui/icons";
 import styles from '../../styles/bar/Bar.module.css'
 import sharedStyles from '../../styles/Shared.module.css'
-import {buttonStyle, iconStyle} from "../../styles/bar/BarMaterialStyles";
+import {
+    buttonStyle,
+    iconStyle,
+    logoStyle,
+    searchFieldStyle,
+    secondaryButtonStyle
+} from "../../styles/bar/BarMaterialStyles";
 import en from "../../locales/bar/en";
 import es from "../../locales/bar/es";
 import pt from "../../locales/bar/pt";
 import Link from 'next/link'
+import {getLogo} from "../../config/Theme";
 
 const cookies = new Cookies()
 
@@ -19,7 +26,8 @@ export default class NavBarComponent extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            lang: en
+            lang: en,
+            profile: null
         }
     }
     componentDidMount() {
@@ -63,15 +71,21 @@ export default class NavBarComponent extends React.Component{
     render() {
 
         return (
-            <div className={styles.left_bar_container}>
-                    <div  className={sharedStyles.button_container} style={{borderRight: this.props.path === '/' ? '#39adf6 3px solid': null}}>
+            <div className={styles.nav_bar_container}>
+                <div style={{gridRow: 1, margin: 'auto'}}>
+                    <img style={logoStyle} src={getLogo(this.props.dark)} alt={"aeb"}/>
+                </div>
+
+
+                <div style={{gridRow: 2, display: 'grid', justifyContent: 'flex-start', alignContent: 'center'}}>
+                    <div className={styles.button_container} style={{backgroundColor: this.props.path === '/' ? (this.props.dark ? '#303741' : 'white'): null}}>
                         <Link href={{ pathname: "/", locale: this.props.locale}}>
                             <Button style={{...buttonStyle, ...{color: this.props.dark ? 'white' : '#111111'}}} >
                                 <GroupRounded style={{...iconStyle, ...{color: !this.props.dark ? '#777777' : '#ededed'}}}/> {this.state.lang.extensions}
                             </Button>
                         </Link>
                     </div>
-                    <div  className={sharedStyles.button_container} style={{borderRight: this.props.path === '/settings' ? '#39adf6 3px solid': null}}>
+                    <div className={styles.button_container} style={{backgroundColor: this.props.path === '/settings' ? (this.props.dark ? '#303741' : 'white'): null}}>
                         <Link href={{ pathname: "/settings", locale: this.props.locale}}>
                             <Button style={{...buttonStyle, ...{color: this.props.dark ? 'white' : '#111111'}}}>
                                 <SettingsRounded style={{...iconStyle, ...{color: !this.props.dark ? '#777777' : '#ededed'}}}/> {this.state.lang.settings}
@@ -99,6 +113,38 @@ export default class NavBarComponent extends React.Component{
                         :
                         null
                     }
+                </div>
+                <div className={styles.bar_profile_container} style={{gridRow: 3}}>
+                    { this.state.profile === null ?
+                        <>
+                            <Link href={{ pathname: "/signin", locale: this.props.locale}}>
+                                <Button style={{color: (this.props.dark ? 'white' :  'black'), marginRight: '10px', textTransform: 'none'}}>{this.state.lang.signin}</Button>
+                            </Link>
+                            <div style={{ display: 'flex', justifyContent:'space-evenly'}}>
+                                <Button style={{...secondaryButtonStyle, ...{color: this.props.dark ? 'white' : 'black'}}}>{this.state.lang.help}</Button>
+                                <Button style={{...secondaryButtonStyle, ...{color: this.props.dark ? 'white' : 'black'}}}>{this.state.lang.about}</Button>
+                            </div>
+                        </>
+                        :
+                        (
+                            <div>
+                                <p style={{
+                                    marginRight: '1vw',
+                                    fontSize: '16px',
+                                    lineBreak: 'auto',
+                                    textAlign: 'right',
+                                    textTransform: 'capitalize'
+                                }}>{this.state.profile.name}</p>
+                                <Avatar
+                                    style={{height: '45px', marginRight: '1%', width: '45px'}}
+                                    src={this.state.profile.pic}
+                                    alt={this.state.profile.name}
+                                />
+                            </div>
+                        )
+                    }
+
+                </div>
             </div>
         )
     }

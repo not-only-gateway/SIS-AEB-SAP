@@ -26,7 +26,7 @@ export default function Layout ({ children }) {
     }, [])
 
     const componentStyle = {
-        backgroundColor: !dark ? 'white' : '#303741',
+        backgroundColor: !dark ? '#f4f8fb' : '#262d37',
         color: !dark ? 'white' : 'white'
     }
 
@@ -38,16 +38,15 @@ export default function Layout ({ children }) {
     }
     return (
         <div style={{
-            backgroundColor: !dark ? '#f4f8fb' : '#262d37',
             color:  !dark ? '#111111' : 'white',
             width: '100%',
             minHeight:'100vh',
             overflow:'hidden'
         }}>
-            <div style={componentStyle} className={styles.top}>
-                <SearchBar locale={locale} dark={dark}/>
-            </div>
-            <div>
+            {/*<div style={componentStyle} className={styles.top}>*/}
+            {/*    <SearchBar locale={locale} dark={dark}/>*/}
+            {/*</div>*/}
+            <div className={styles.children_container} style={{backgroundColor: !dark ? 'white' : '#303741'}}>
                 {router.pathname === '/settings' ?
                     children({dark, theme, changeTheme})
                 :
