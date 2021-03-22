@@ -21,7 +21,7 @@ export default function Index() {
         <Layout>
           {props => (
               <div className={shared.content_container} style={{backgroundColor: props.dark ? '#303741' : 'white'}}>
-                  <div className={styles.header_container}>
+                  <div className={styles.header_container} style={{backgroundColor: props.dark ? '#303741' : 'white'}}>
                       <div className={shared.title_container}>
                           <h2>Ramais</h2>
                           <InfoRounded style={{color: !props.dark ? '#777777' : '#ededed', fontSize: '1.8rem'}}/>
@@ -34,8 +34,6 @@ export default function Index() {
                               <InputBase
                                   style={{width: '93%', color: (props.dark ? 'white' : null)}}
                                   placeholder={'Search'}
-                                  // onChange={event => this.setState({searchInput:event.target.value })}
-                                  // onKeyDown={key => (key.key === "Enter"? this.setState({redirect: true}): console.log("."))}
                               />
                           </Paper>
                       </div>
