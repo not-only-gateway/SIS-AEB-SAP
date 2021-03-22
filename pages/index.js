@@ -21,36 +21,26 @@ export default function Index() {
         <Layout>
           {props => (
               <div className={shared.content_container} style={{backgroundColor: props.dark ? '#303741' : 'white'}}>
-                  <div className={shared.title_container}>
-                      <h2>Ramais</h2>
-                      <InfoRounded style={{color: !props.dark ? '#777777' : '#ededed', fontSize: '1.8rem'}}/>
-                  </div>
-                  <div className={styles.paper_container}>
-                      <Paper component="form" style={{...searchFieldStyle, ...{backgroundColor: props.dark ? '#272e38' : '#f4f8fb', boxShadow: 'rgba(0, 0, 0, 0.05) 0 1px 2px 0'}}}>
-                          <IconButton aria-label="search">
-                              <SearchRounded style={{color: props.dark ? 'white' : null}}/>
-                          </IconButton>
-                          <InputBase
-                              style={{width: '90%', color: props.dark ? 'white' : null}}
-                              placeholder={'Search'}
-                              // onChange={event => this.setState({searchInput:event.target.value })}
-                              // onKeyDown={key => (key.key === "Enter"? this.setState({redirect: true}): console.log("."))}
-                          />
-                      </Paper>
+                  <div className={styles.header_container}>
+                      <div className={shared.title_container}>
+                          <h2>Ramais</h2>
+                          <InfoRounded style={{color: !props.dark ? '#777777' : '#ededed', fontSize: '1.8rem'}}/>
+                      </div>
+                      <div className={styles.paper_container}>
+                          <Paper component="form" style={{...searchFieldStyle, ...{backgroundColor: props.dark ? '#272e38' : '#f4f8fb', boxShadow: 'rgba(0, 0, 0, 0.05) 0 1px 2px 0'}}}>
+                              <IconButton aria-label="search">
+                                  <SearchRounded style={{color: props.dark ? 'white' : null}}/>
+                              </IconButton>
+                              <InputBase
+                                  style={{width: '93%', color: (props.dark ? 'white' : null)}}
+                                  placeholder={'Search'}
+                                  // onChange={event => this.setState({searchInput:event.target.value })}
+                                  // onKeyDown={key => (key.key === "Enter"? this.setState({redirect: true}): console.log("."))}
+                              />
+                          </Paper>
+                      </div>
                   </div>
                   <div className={shared.unity_collaborators_container} >
-                      <div style={{
-                          borderRadius: '8px',
-                          border : (props.dark ? '#262d37 3px solid':'#f4f8fb 3px solid'),
-                          marginBottom: '1vh',
-                          width: '100%'
-                      }}>
-                          <Button style={{width: '100%', display: 'flex', justifyContent: 'flex-start',color: (props.dark ? 'white': 'black')}}>
-                              <h3>CTIC</h3>
-                              <h4 style={{marginLeft: '1vw', marginRight: '1vw'}}>-</h4>
-                              <h4>Coordenação de tecnologia da informação e comunicação</h4>
-                          </Button>
-                      </div>
                       <div>
                           <Persona
                               pic={'https://rollingstone.uol.com.br/media/_versions/marcos_jeeves_teaser_reprod_widemd.jpg'}
@@ -72,6 +62,7 @@ export default function Index() {
                               dark={props.dark}
                               birth={1}
                           />
+
                       </div>
                   </div>
 

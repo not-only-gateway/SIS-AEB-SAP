@@ -19,6 +19,7 @@
 .unity_collaborators_container{
     display: grid;
     width: 75%;
+    margin-top: 30vh;
     justify-items: center;
 }
 .title_container{

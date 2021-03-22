@@ -1,4 +1,18 @@
 .paper_container{
     width: 75%;
     margin: 2vh auto 5vh;
+
+}
+.header_container{
+    position: fixed;
+    width: 83vw;
+    left: 17vw;
+    background-color: white;
+    border-radius: 8px;
+    z-index: 2;
+
+    display: grid;
+    justify-items: center;
+
+
 }

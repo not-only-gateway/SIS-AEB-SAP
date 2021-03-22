@@ -9,11 +9,7 @@
     border: transparent 2px solid;
     transition: 0.15s;
 }
-div.setting_row_container:hover{
-    border: #39adf6 2px solid;
-    border-radius: 8px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
-}
+
 .settings_container{
     display: grid;
     align-content: space-between;

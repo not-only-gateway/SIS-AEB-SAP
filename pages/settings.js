@@ -35,22 +35,22 @@ export default function Settings() {
                     <div style={{width: '75%', height: '100%'}}>
 
                         <div style={{width: '100%'}}  className={style.settings_container}>
-                            <div style={{
-                                color: (props.dark ? 'white': 'black'),
-                                paddingLeft: '10px',
-                                paddingRight: '10px',
-                                borderRadius: '8px',
-                                border : (props.dark ? '#262d37 3px solid':'#f4f8fb 3px solid')}}>
-                                <h4>Local</h4>
-                            </div>
+
                             <div className={style.setting_row_container}>
                                 <p>Theme</p>
-                                <Button style={{...{color: props.dark ? 'white' : '#111111'}}} onClick={() => props.changeTheme()} >
-                                    {!props.dark ? <Brightness7RoundedIcon  style={{...iconStyle, ...{color: !props.dark ? '#777777' : '#ededed'}}}/> : <Brightness3RoundedIcon style={{...iconStyle, ...{color: !props.dark ? '#777777' : '#ededed'}}}/>}
-                                </Button>
+                                <ThemeProvider theme={createMuiTheme({
+                                    palette: {
+                                        type: props.dark ? "dark" : 'light'
+                                    }
+                                })}>
+                                    <Button style={{...{color: props.dark ? 'white' : '#111111'}}} onClick={() => props.changeTheme()} >
+                                        {!props.dark ? <Brightness7RoundedIcon  style={{...iconStyle, ...{color: !props.dark ? '#777777' : '#ededed'}}}/> : <Brightness3RoundedIcon style={{...iconStyle, ...{color: !props.dark ? '#777777' : '#ededed'}}}/>}
+                                    </Button>
+                                </ThemeProvider>
                             </div>
                             <div className={style.setting_row_container} style={{marginBottom: '3vh'}}>
                                 <p>Language</p>
+
                                 <ThemeProvider theme={createMuiTheme({
                                     palette: {
                                         type: props.dark ? "dark" : 'light'

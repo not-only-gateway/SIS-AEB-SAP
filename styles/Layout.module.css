@@ -66,18 +66,13 @@
     align-items: center;
     text-transform: none;
 
-    width: 50vw;
+    width: 62.333333vw;
     max-height: 11vh;
-    border: transparent 2px solid;
     margin-top: 1vh;
     border-radius: 8px;
     transition: 0.15s;
 }
-div.persona_container:hover{
-    border: #39adf6 2px solid;
-    border-radius: 8px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
-}
+
 .persona_text_fields_container{
     display: grid;
     line-height: .0001vh;
