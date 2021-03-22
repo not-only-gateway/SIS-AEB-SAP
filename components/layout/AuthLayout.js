@@ -10,7 +10,7 @@ import en from "../../locales/auth/en";
 import es from "../../locales/auth/es";
 import pt from "../../locales/auth/pt";
 import axios from "axios";
-import Host from "../../config/Host";
+import Host from '../../config/Host'
 import ClearStorage from "../../config/ClearStorage";
 
 const cookies = new Cookies()

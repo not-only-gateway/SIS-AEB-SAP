@@ -24,7 +24,6 @@ import {
 import axios from 'axios'
 import React from 'react'
 import ClearStorage from "../config/ClearStorage";
-import Host from "../config/Host";
 
 const cookies = new Cookies()
 

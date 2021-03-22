@@ -18,6 +18,23 @@
     justify-items: center;
     align-content: space-between;
 
-    margin: 2vh auto 5vh;
+    margin: 2vh auto 2vh;
     width: 50%;
+}
+.person_unity_field_container{
+    display: grid;
+    justify-items: center;
+}
+.simplified_profile_container{
+    border-radius: 8px;
+    width: 150px;
+
+    min-height: 75px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }

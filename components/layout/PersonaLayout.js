@@ -33,7 +33,13 @@ export default class Persona extends React.Component{
             return(
                 <Modal open={this.state.modalOpen} onClose={() => this.setState({modalOpen: false})}>
                     <div className={styles.modal_container} style={{backgroundColor: !this.props.dark ? 'white' : '#303741'}}>
-                        {this.state.canEdit || this.state.ownProfile ? <PersonForm id={this.props.id} dark={this.props.dark}/> : <Person/>}
+                        {this.state.canEdit || this.state.ownProfile ? <PersonForm id={this.props.id} dark={this.props.dark}/> : <Person dark={this.props.dark}
+                                                                                                                                         name={this.props.name}
+                                                                                                                                         email={this.props.email}
+                                                                                                                                         pic={this.props.pic}
+                                                                                                                                         phone={this.props.phone}
+
+                                                                                                                                    />}
                     </div>
                 </Modal>
             )
