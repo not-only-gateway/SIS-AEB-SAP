@@ -34,12 +34,17 @@ export default class NavBarComponent extends React.Component{
         super(props);
         this.state = {
             lang: en,
-            profile: null
+            profile: null,
+            isAdmin: false
         }
     }
 
     componentDidMount() {
         this.setLanguage(this.props.locale)
+        this.setState({
+            isAdmin: localStorage.getItem('profile') !== null && JSON.parse(localStorage.getItem('profile')).is_administrator,
+            profile: localStorage.getItem('profile')
+        })
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -124,7 +129,7 @@ export default class NavBarComponent extends React.Component{
                     {cookies.get('adm_token') === undefined?
 
                             <div className={styles.button_container}>
-                                {localStorage.getItem('profile') !== null && JSON.parse(localStorage.getItem('profile')).is_administrator ?
+                                {this.state.isAdmin ?
                                     <Button style={{...buttonStyle, ...{color: this.props.dark ? 'white' : '#111111'}}}>
                                         <LockRounded style={{...iconStyle, ...{color: !this.props.dark ? '#777777' : '#ededed'}}}/> {this.state.lang.supervisorRevalidate}
                                         {/*should render modal here  */}

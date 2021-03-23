@@ -9,15 +9,13 @@
 
 .container{
     display: grid;
-    justify-content: center;
     justify-items: center;
+    align-content: space-evenly;
 
-    align-content: space-around;
+    width: 83vw;
+    height: 100vh;
 
-    width: 40vw;
-    min-height: 100%;
-
-    overflow: auto;
+    overflow: hidden;
 }
 
 .form_row{
@@ -26,16 +24,31 @@
     align-content: center;
     align-items: center;
 
-    width: 33vw;
+    width: 100%;
     height: fit-content;
 
     margin-bottom: 2vh;
 }
 
 .form_rows_container{
-    margin-top: 1vh;
-
     display: grid;
     justify-content: space-between;
-    height: 55vh;
+}
+.from_buttons_container{
+    display: flex;
+    justify-content: space-between;
+    width: 85%;
+}
+.field_set{
+    display: grid;
+    justify-content: center;
+    border-radius: 8px;
+    width: 49%;
+}
+.page_container{
+    display: flex;
+    justify-content: space-between;
+    align-content: flex-start;
+    align-items: flex-start;
+    width: 75vw;
 }

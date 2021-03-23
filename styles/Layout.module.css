@@ -72,7 +72,10 @@
     border-radius: 8px;
     transition: 0.15s;
 }
-
+.persona_fields_container{
+    display: flex;
+    align-items: center;
+}
 .persona_text_fields_container{
     display: grid;
     line-height: .0001vh;
