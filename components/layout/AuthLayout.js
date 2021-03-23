@@ -25,7 +25,7 @@ export default function AuthLayout({ children }) {
         if(cookies.get('jwt') !== undefined)
             signout().catch(error => console.log(error))
 
-        setDark(cookies.get('theme', { path: '/' }) === '0')
+        setDark(cookies.get('theme') === '0')
 
         if(locale !== cookies.get('lang') && cookies.get('lang') !== undefined)
             router.push('/signin', '/signin', {locale: cookies.get('lang')}).catch(error => console.log(error))
@@ -59,8 +59,11 @@ export default function AuthLayout({ children }) {
                     password: password
                 }
             }).then(res => {
-                cookies.set('jwt', res.data.jwt, { path: '/', expires: (res.data.valid_until - Date.now()) })
-                cookies.set('id', res.data.id, { path: '/', expires: (res.data.valid_until - Date.now()) })
+                cookies.set('jwt', res.data.jwt, { path: '/', expires: (res.data.jwt_exp - Date.now()) })
+                cookies.set('id', res.data.id, { path: '/', expires: (res.data.jwt_exp - Date.now()) })
+                if (res.data.adm_token !== null) {
+                    cookies.set('adm_token', res.data.adm_token, { path: '/', expires: (res.data.adm_token_exp - Date.now()) })
+                }
                 localStorage.setItem('profile', JSON.stringify(res.data.profile))
 
                 router.push('/', '/', { locale })

@@ -6,5 +6,8 @@ export default {
     about: 'About',
     search: 'Search',
     signin: 'Sign in',
-    activity: 'Account activity'
+    activity: 'Account activity',
+    supervisor: 'Log in as administrator',
+    supervisorExit: 'Remove administrator access',
+    supervisorRevalidate: 'Validate administrator access'
 }

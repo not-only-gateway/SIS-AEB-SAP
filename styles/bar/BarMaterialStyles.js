@@ -6,6 +6,7 @@ export const buttonStyle = {
     justifyContent:'flex-start',
     alignItems:'center',
     fontWeight:'440',
+    textAlign: 'left'
 }
 export const iconStyle = {
     marginRight:'1vw',

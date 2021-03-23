@@ -1,9 +1,16 @@
 import React from 'react'
-import {Avatar, Button, IconButton, InputBase, Paper} from "@material-ui/core";
+import { Avatar, Button } from "@material-ui/core";
 import Cookies from "universal-cookie/lib";
 import {
-    ExitToAppRounded, GroupRounded, HistoryRounded, SearchRounded,
-    SettingsRounded
+    ExitToAppRounded,
+    GroupRounded,
+    HistoryRounded,
+    LockRounded,
+    NoEncryptionRounded,
+    RadioButtonCheckedRounded,
+    SearchRounded,
+    SettingsRounded,
+    SupervisorAccountRounded
 } from "@material-ui/icons";
 import styles from '../../styles/bar/Bar.module.css'
 import sharedStyles from '../../styles/Shared.module.css'
@@ -11,7 +18,6 @@ import {
     buttonStyle,
     iconStyle,
     logoStyle,
-    searchFieldStyle,
     secondaryButtonStyle
 } from "../../styles/bar/BarMaterialStyles";
 import en from "../../locales/bar/en";
@@ -23,6 +29,7 @@ import {getLogo} from "../../config/Theme";
 const cookies = new Cookies()
 
 export default class NavBarComponent extends React.Component{
+
     constructor(props) {
         super(props);
         this.state = {
@@ -30,6 +37,7 @@ export default class NavBarComponent extends React.Component{
             profile: null
         }
     }
+
     componentDidMount() {
         this.setLanguage(this.props.locale)
     }
@@ -94,24 +102,44 @@ export default class NavBarComponent extends React.Component{
                     </div>
 
                     {cookies.get('jwt') !== undefined ?
-                        <div>
-                            <div className={sharedStyles.button_container}>
+                        <>
+                            <div className={styles.button_container}>
                                 <Link href={{ pathname: "/signin", locale: this.props.locale}}>
-                                    <Button disabled style={{...buttonStyle, ...{color: this.props.dark ? 'white' : '#111111'}}}>
-                                        <ExitToAppRounded style={{...iconStyle, ...{color: !this.props.dark ? '#777777' : '#ededed'}}}/>{this.state.lang.signout}
+                                    <Button style={{...buttonStyle, ...{color: this.props.dark ? 'white' : '#111111'}}}>
+                                        <ExitToAppRounded style={{...iconStyle, ...{color: !this.props.dark ? '#777777' : '#ededed'}}}/> {this.state.lang.signout}
                                     </Button>
                                 </Link>
                             </div>
-                            <div  className={sharedStyles.button_container} style={{borderRight: this.props.path === '/activity' ? '#39adf6 3px solid': null}}>
+                            <div className={styles.button_container} style={{borderRight: this.props.path === '/activity' ? '#39adf6 3px solid': null}}>
                                 <Link href={{ pathname: "/activity", locale: this.props.locale}}>
                                     <Button style={{...buttonStyle, ...{color: this.props.dark ? 'white' : '#111111'}}}>
                                         <HistoryRounded style={{...iconStyle, ...{color: !this.props.dark ? '#777777' : '#ededed'}}}/> {this.state.lang.activity}
                                     </Button>
                                 </Link>
                             </div>
-                        </div>
+                        </>
                         :
                         null
+                    }
+                    {cookies.get('adm_token') === undefined?
+
+                            <div className={styles.button_container}>
+                                {localStorage.getItem('profile') !== null && JSON.parse(localStorage.getItem('profile')).is_administrator ?
+                                    <Button style={{...buttonStyle, ...{color: this.props.dark ? 'white' : '#111111'}}}>
+                                        <LockRounded style={{...iconStyle, ...{color: !this.props.dark ? '#777777' : '#ededed'}}}/> {this.state.lang.supervisorRevalidate}
+                                        {/*should render modal here  */}
+                                    </Button>
+                                    :
+                                    null
+                                }
+                            </div>
+
+                        :
+                        <div className={styles.button_container}>
+                            <Button style={{...buttonStyle, ...{color: this.props.dark ? 'white' : '#111111'}}} onClick={() => cookies.remove('adm_token')}>
+                                <LockRounded style={{...iconStyle, ...{color: !this.props.dark ? '#777777' : '#ededed'}}}/> {this.state.lang.supervisorExit}
+                            </Button>
+                        </div>
                     }
                 </div>
                 <div className={styles.bar_profile_container} style={{gridRow: 3}}>

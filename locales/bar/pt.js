@@ -6,5 +6,9 @@ export default {
     about: 'Sobre',
     search: 'Pesquisar',
     signin: 'Entrar',
-    activity: 'Atividade da conta'
+    activity: 'Atividade da conta',
+    supervisor: 'Entrar como administrador',
+    supervisorExit: 'Remover acesso de administrador',
+    supervisorRevalidate: 'Validar acesso de administrador'
+
 }
