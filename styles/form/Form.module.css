@@ -43,7 +43,6 @@
     display: grid;
     justify-content: center;
     border-radius: 8px;
-    width: 49%;
 }
 .page_container{
     display: flex;

@@ -75,7 +75,7 @@ export default function profile(){
                                     :
                                     <Button style={{color: (props.dark? 'white': 'black'), float: 'left'}} onClick={() => setPage(page-1)} >Prev</Button>
                                 }
-                                {page === 2 ?
+                                {page === 1 ?
                                     null
                                     :
                                     <Button style={{color: (props.dark? 'white': 'black'), float: 'right'}} onClick={() => setPage(page+1)}>Next</Button>
