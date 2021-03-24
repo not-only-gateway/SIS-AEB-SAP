@@ -3,7 +3,7 @@ import styles from '../../styles/Profile.module.css'
 import {Avatar, Button} from "@material-ui/core";
 import SimplifiedProfile from "./SimplifiedProfile";
 
-export default class Person extends React.Component{
+export default class PersonProfile extends React.Component{
     constructor(props) {
         super(props);
     }

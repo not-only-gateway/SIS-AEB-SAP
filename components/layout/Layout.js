@@ -10,14 +10,17 @@ import {setTheme} from "../../config/Theme";
 const cookies = new Cookies()
 
 export default function Layout ({ children }) {
+
     const [dark, setDark] =  useState(false)
     const router = useRouter()
     const { locale } = router
+
     const theme = createMuiTheme({
         palette: {
             type: dark ? "dark" : "light"
         }
     });
+
     useEffect(() => {
         setDark(cookies.get('theme', {path: '/'}) === '0')
         if(locale !== cookies.get('lang') && cookies.get('lang') !== undefined)

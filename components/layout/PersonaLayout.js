@@ -6,7 +6,7 @@ import Profile from "../../pages/profile";
 import axios from "axios";
 import Host from "../../config/Host";
 import Cookies from "universal-cookie/lib";
-import Person from "../profile/Person";
+import PersonProfile from "../profile/PersonProfile";
 import Link from 'next/link'
 import shared from '../../styles/Shared.module.css'
 import {personaContainerStyle} from "../../styles/persona/PersonaMaterialStyles";
@@ -36,11 +36,11 @@ export default class Persona extends React.Component{
             return(
                 <Modal open={this.state.modalOpen} onClose={() => this.setState({modalOpen: false})}>
                     <div className={styles.modal_container} style={{backgroundColor: !this.props.dark ? 'white' : '#303741'}}>
-                        <Person dark={this.props.dark}
-                                name={this.props.name}
-                                email={this.props.email}
-                                pic={this.props.pic}
-                                phone={this.props.phone}
+                        <PersonProfile dark={this.props.dark}
+                                       name={this.props.name}
+                                       email={this.props.email}
+                                       pic={this.props.pic}
+                                       phone={this.props.phone}
                         />
                     </div>
                 </Modal>
@@ -72,7 +72,7 @@ export default class Persona extends React.Component{
                         type: this.props.dark ? "dark" : "light"
                     }
                 })}>
-                    {cookies.get('adm_token') !== undefined || this.state.ownProfile ?
+                    {cookies.get('adm_token') === undefined || this.state.ownProfile ?
 
                             <>
                                 <Link href={{pathname: '/profile', query: { id: this.props.id}}}>
