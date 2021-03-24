@@ -1,17 +1,5 @@
 .paper_container{
-    width: 75%;
-    margin: 2vh auto 5vh;
-
-}
-.header_container{
-    position: fixed;
-    width: 83vw;
-    left: 17vw;
-    border-radius: 8px;
-    z-index: 2;
-
-    display: grid;
-    justify-items: center;
-
+    width: 58vw;
+    margin: 2vh auto 2vh;
 
 }

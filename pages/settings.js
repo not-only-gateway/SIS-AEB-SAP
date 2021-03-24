@@ -28,15 +28,14 @@ export default function Settings() {
         <Layout>
             {props => (
                 <div className={shared.content_container} style={{backgroundColor: props.dark ? '#303741' : 'white'}}>
-                    <div className={shared.title_container}>
-                        <h2>Settings</h2>
-                        <InfoRounded style={{color: !props.dark ? '#777777' : '#ededed', fontSize: '1.8rem'}}/>
+                    <div style={{margin: 'auto', width: '45vw'}}>
+                        <p style={{fontSize:'1.7rem', fontWeight:'550', textAlign: 'left'}}>Settings</p>
+                        <p style={{fontSize:'.9rem', textAlign: 'left'}}>Info about settings</p>
                     </div>
-                    <div style={{width: '75%', height: '100%'}}>
 
-                        <div style={{width: '100%'}}  className={style.settings_container}>
+                        <div className={style.settings_container} >
 
-                            <div className={style.setting_row_container}>
+                            <div className={style.setting_row_container} style={{borderBottom : (props.dark ? '#262d37 3px solid':'#f4f8fb 3px solid')}}>
                                 <p>Theme</p>
                                 <ThemeProvider theme={createMuiTheme({
                                     palette: {
@@ -48,7 +47,7 @@ export default function Settings() {
                                     </Button>
                                 </ThemeProvider>
                             </div>
-                            <div className={style.setting_row_container} style={{marginBottom: '3vh'}}>
+                            <div className={style.setting_row_container} style={{borderBottom : (props.dark ? '#262d37 3px solid':'#f4f8fb 3px solid')}}>
                                 <p>Language</p>
 
                                 <ThemeProvider theme={createMuiTheme({
@@ -81,7 +80,6 @@ export default function Settings() {
                                 </ThemeProvider>
                             </div>
                         </div>
-                    </div>
                 </div>
             )
             }

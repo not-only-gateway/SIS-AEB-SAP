@@ -2,8 +2,9 @@
 @media (orientation: landscape){
     .nav_bar_container{
         display: grid;
-        grid-template-rows: 10vh 70vh 30vh;
-        justify-content: center;
+        grid-template-rows:  33.333vh 33.333vh 33.333vh;
+        justify-items: center;
+
         position: fixed;
         height: 100vh;
         width: 17vw;
@@ -18,7 +19,7 @@
 
     .top_bar_container{
         display: grid;
-        grid-template-columns: 14vw 23vw 40vw 23vw;
+        grid-template-columns: 33.333vw 33.333vw 33.333vw;
         align-content: center;
         align-items: center;
         height: 100%;
@@ -28,7 +29,10 @@
 
     .bar_profile_container{
         display: grid;
-        justify-items: center;
+        align-items: flex-end;
+        align-content: flex-end;
+        justify-content: space-between;
+
     }
 }
 

@@ -45,7 +45,7 @@ export default class SignIn extends React.Component {
                         <div className={styles.form_content_container} >
                             <div>
                                 <p style={{fontSize: '.9rem', marginTop: 'auto'}}>{props.lang.signinWelcomeText}</p>
-                                <p style={{fontSize:'1.7rem', fontWeight:'550', textAlign:'left', marginTop: 'auto'}}>{props.lang.signin}</p>
+                                <p style={{fontSize:'1.7rem', fontWeight:'550', textAlign:'left'}}> {props.lang.signin} </p>
                             </div>
                         </div>
                         <div className={styles.form_fields_container}>

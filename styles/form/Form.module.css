@@ -10,44 +10,41 @@
 .container{
     display: grid;
     justify-items: center;
-    align-content: space-evenly;
 
     width: 83vw;
     height: 100vh;
 
-    overflow: hidden;
 }
 
 .form_row{
     display: flex;
     justify-content: space-between;
-    align-content: center;
     align-items: center;
-
     width: 100%;
-    height: fit-content;
-
     margin-bottom: 2vh;
 }
 
 .form_rows_container{
     display: grid;
     justify-content: space-between;
+    background-color: red;
 }
 .from_buttons_container{
     display: flex;
     justify-content: space-between;
-    width: 85%;
+    width:45vw;
+    margin-top: 2vh;
 }
-.field_set{
+.field_set_container{
     display: grid;
-    justify-content: center;
-    border-radius: 8px;
+    align-items: center;
+    height: fit-content;
+    width: 45vw;
+    margin-top: 2vh;
 }
-.page_container{
-    display: flex;
-    justify-content: space-between;
-    align-content: flex-start;
-    align-items: flex-start;
+.forms_container{
+    display: grid;
+    justify-items: center;
     width: 75vw;
+    margin-bottom: auto;
 }

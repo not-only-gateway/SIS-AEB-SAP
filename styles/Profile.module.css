@@ -10,7 +10,8 @@
 .profile_info_row{
     display: flex;
     justify-content: space-between;
-
+    align-content: center;
+    align-items: center;
 }
 .title_container{
     display: grid;
@@ -18,7 +19,7 @@
     justify-items: center;
     align-content: space-between;
 
-    margin: 2vh auto 2vh;
+    margin: 2vh auto;
     width: 50%;
 }
 .person_unity_field_container{
@@ -27,9 +28,9 @@
 }
 .simplified_profile_container{
     border-radius: 8px;
-    width: 150px;
+    width: 13vw;
 
-    min-height: 75px;
+    height: 6vh;
     display: flex;
     justify-content: space-around;
     align-items: center;

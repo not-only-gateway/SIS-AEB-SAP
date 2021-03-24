@@ -1,6 +1,15 @@
 import React, {useEffect, useState} from 'react'
 import Cookies from "universal-cookie/lib";
-import {Avatar, Button, createMuiTheme, IconButton, InputBase, Paper, ThemeProvider} from "@material-ui/core";
+import {
+    Avatar,
+    Button,
+    createMuiTheme,
+    IconButton,
+    InputBase,
+    Paper, Popover,
+    TextField,
+    ThemeProvider
+} from "@material-ui/core";
 import styles from '../styles/form/Form.module.css'
 import axios from "axios";
 import Host from "../config/Host";
@@ -19,8 +28,8 @@ const cookies = new Cookies()
 
 export default function profile(){
     const [changed, setChanged] = useState(false)
-    const [page, setPage] = useState(0)
-    const [profile, setProfile] = useState({})
+
+    const [profile, setProfile] = useState(null)
     const router = useRouter()
     const {id} = router.query
 
@@ -57,46 +66,28 @@ export default function profile(){
     return(
         <>
             <Head>
-                <title>{profile.name}</title>
+                <title>{profile?.name}</title>
             </Head>
             <Layout>
                 {props => (
-                    <div className={styles.container}>
-                        <div className={styles.title_container}>
-                            <Avatar src={profile.pic} style={{width: '125px', height: '125px'}}/>
-                            {/*<Avatar src={props.pic} alt={state.profile.name}/>*/}
-                            {/*<p>{state.profile.name}</p>*/}
-                            <p style={{color: (props.dark? 'white': 'black'), fontSize: '1.2rem', fontWeight: 440}}>{profile.name}</p>
+                    <div style={{height: '100%', overflowX: 'hidden',overflowY: 'auto'}}>
+                        <div style={{margin: 'auto', width: '45vw'}}>
+                            <p style={{fontSize:'1.7rem', fontWeight:'550', textAlign: 'left'}}> Profile</p>
+                            <p style={{fontSize:'.9rem',textAlign: 'left'}}>Info about profile</p>
                         </div>
-                        <div style={{width: '85%'}}>
-                            <>
-                                {page === 0 ?
-                                    null
-                                    :
-                                    <Button style={{color: (props.dark? 'white': 'black'), float: 'left'}} onClick={() => setPage(page-1)} >Prev</Button>
-                                }
-                                {page === 1 ?
-                                    null
-                                    :
-                                    <Button style={{color: (props.dark? 'white': 'black'), float: 'right'}} onClick={() => setPage(page+1)}>Next</Button>
-                                }
-                            </>
-                        </div>
-                        <div className={styles.form_rows_container}>
-                            <PersonFormFields page={page} handleChange={handleChange} dark={props.dark}/>
-                        </div>
-
-                        <div className={styles.from_buttons_container}>
-                            <div className={styles.form_row}>
-                                <Button disabled={!changed}>Save</Button>
-                                <Button disabled={!changed}>Discard</Button>
+                        <div className={styles.container} >
+                            <PersonFormFields handleChange={handleChange} dark={props.dark}/>
+                            <div className={styles.from_buttons_container}>
+                                <div className={styles.form_row}>
+                                    <Button disabled={!changed}>Save</Button>
+                                    <Button disabled={!changed}>Discard</Button>
+                                </div>
                             </div>
                         </div>
-
                     </div>
+
                 )
                 }
-
             </Layout>
         </>
 

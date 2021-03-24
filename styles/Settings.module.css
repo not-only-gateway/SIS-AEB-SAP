@@ -1,16 +1,13 @@
 .setting_row_container{
     margin: 2vh auto auto;
-    border-radius: 8px;
-    width: 75%;
+    width: 45vw;
     display: flex;
     justify-content: space-between;
-    padding: 10px;
     align-content: center;
-    border: transparent 2px solid;
-    transition: 0.15s;
 }
 
 .settings_container{
     display: grid;
     align-content: space-between;
+    width: 45vw;
 }

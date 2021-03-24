@@ -12,7 +12,6 @@ export default class SimplifiedProfile extends React.Component{
                 <Avatar src={this.props.pic} alt={this.props.name}/>
                 <div style={{color: this.props.dark ? 'white':'black',
                     fontSize: '.9rem',
-                    fontWeight: 450,
                     maxWidth: '60%',
                     whiteSpace: 'nowrap',
                     textOverflow: 'ellipsis',

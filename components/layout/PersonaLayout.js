@@ -72,7 +72,7 @@ export default class Persona extends React.Component{
                         type: this.props.dark ? "dark" : "light"
                     }
                 })}>
-                    {cookies.get('adm_token') === undefined || this.state.ownProfile ?
+                    {cookies.get('adm_token') !== undefined || this.state.ownProfile ?
 
                             <>
                                 <Link href={{pathname: '/profile', query: { id: this.props.id}}}>

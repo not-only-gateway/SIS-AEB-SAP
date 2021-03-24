@@ -15,5 +15,6 @@ export default {
     signupWelcomeText1: 'Bienvenido.',
     signupWelcomeText2: '¡Únete a la comunidad completando el formulario!',
     signupWelcomeText3: 'Estamos ansiosos por tenerte aquí con nosotros.',
-    join: 'Unete a la communidad'
+    join: 'Unete a la communidad',
+
 }

@@ -4,6 +4,19 @@
     height: fit-content;
     margin: auto auto 1vh;
 }
+
+.header_container{
+    position: fixed;
+    width: 81vw;
+
+    left: 18vw;
+    z-index: 2;
+    display: grid;
+    justify-items: center;
+
+}
+
+
 .content_container{
 
     background-color: red;
@@ -13,36 +26,24 @@
     align-items: flex-start;
     justify-items: center;
     align-content: space-between;
-    position: relative;
-    z-index: 5;
+    /*z-index: 5;*/
 }
 .unity_collaborators_container{
     display: grid;
-    width: 75%;
-    margin-top: 24vh;
+    width: 58vw;
+    margin-top: 22vh;
     justify-items: center;
 }
 .title_container{
     margin-top: 2vh;
     margin-bottom: 2vh;
     grid-column: 1;
-    width: 85%;
+    width: 75vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.reduced_container{
-    height: 31.5vh;
-    box-shadow: rgba(0, 0, 0, 0.05) 0 1px 2px 0;
-    width: 17vw;
-    border-radius: 8px;
-}
-.extended_container{
-    height: 45.5vh;
-    box-shadow: rgba(0, 0, 0, 0.05) 0 1px 2px 0;
-    width: 17vw;
-    border-radius: 8px;
-}
+
 .options_container{
     width: 92%;
     display: flex;

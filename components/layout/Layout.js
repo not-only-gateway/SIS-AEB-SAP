@@ -1,7 +1,6 @@
 import styles from '../../styles/Layout.module.css'
 import Cookies from 'universal-cookie/lib'
 import NavBarComponent from "../bar/NavBar";
-import SearchBar from "../bar/SearchBar";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import shared from '../../styles/Shared.module.css'
@@ -37,15 +36,7 @@ export default function Layout ({ children }) {
         console.log(cookies.get('theme'))
     }
     return (
-        <div style={{
-            color:  !dark ? '#111111' : 'white',
-            width: '100%',
-            minHeight:'100vh',
-            overflow:'hidden'
-        }}>
-            {/*<div style={componentStyle} className={styles.top}>*/}
-            {/*    <SearchBar locale={locale} dark={dark}/>*/}
-            {/*</div>*/}
+        <div style={{color: dark? 'white': 'black'}}>
             <div className={styles.children_container} style={{backgroundColor: !dark ? 'white' : '#303741'}}>
                 {router.pathname === '/settings' ?
                     children({dark, theme, changeTheme})

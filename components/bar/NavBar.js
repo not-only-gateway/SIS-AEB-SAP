@@ -85,7 +85,7 @@ export default class NavBarComponent extends React.Component{
 
         return (
             <div className={styles.nav_bar_container}>
-                <div style={{gridRow: 1, margin: 'auto'}}>
+                <div style={{gridRow: 1, alignItems: 'flex-start'}}>
                     <img style={logoStyle} src={getLogo(this.props.dark)} alt={"aeb"}/>
                 </div>
 
@@ -153,10 +153,7 @@ export default class NavBarComponent extends React.Component{
                             <Link href={{ pathname: "/signin", locale: this.props.locale}}>
                                 <Button style={{color: (this.props.dark ? 'white' :  'black'), marginRight: '10px', textTransform: 'none'}}>{this.state.lang.signin}</Button>
                             </Link>
-                            <div style={{ display: 'flex', justifyContent:'space-evenly'}}>
-                                <Button style={{...secondaryButtonStyle, ...{color: this.props.dark ? 'white' : 'black'}}}>{this.state.lang.help}</Button>
-                                <Button style={{...secondaryButtonStyle, ...{color: this.props.dark ? 'white' : 'black'}}}>{this.state.lang.about}</Button>
-                            </div>
+
                         </>
                         :
                         (
@@ -176,7 +173,10 @@ export default class NavBarComponent extends React.Component{
                             </div>
                         )
                     }
-
+                    <div style={{ display: 'flex', justifyContent:'space-evenly'}}>
+                        <Button style={{...secondaryButtonStyle, ...{color: this.props.dark ? 'white' : 'black'}}}>{this.state.lang.help}</Button>
+                        <Button style={{...secondaryButtonStyle, ...{color: this.props.dark ? 'white' : 'black'}}}>{this.state.lang.about}</Button>
+                    </div>
                 </div>
             </div>
         )
