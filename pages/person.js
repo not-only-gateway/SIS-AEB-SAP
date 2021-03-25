@@ -5,40 +5,29 @@ import styles from '../styles/form/Form.module.css'
 import axios from "axios";
 import Host from "../config/Host";
 
-import PersonProfileForm from "../components/form/PersonProfileForm";
+import ProfileForm from "../components/forms/person/ProfileForm";
 import Head from "next/head";
 import Layout from "../components/layout/Layout";
 import {useRouter} from "next/router";
-import PersonUnityForm from "../components/form/PersonUnityForm";
+import CollaboratorForm from "../components/forms/person/CollaboratorForm";
 import {ThemeProvider} from "@material-ui/styles";
 
 const cookies = new Cookies()
 
-export default function profile(){
+export default function person(){
 
     const [changed, setChanged] = useState(false)
     const router = useRouter()
     const {id} = router.query
     const [dark, setDark] =  useState(false)
     const disabled = (new Cookies()).get('adm_token') !== undefined
-    const [smallFieldContainer, setSmall]=useState(null)
-    const [mediumFieldContainer, setMedium]=useState(null)
-    const [selectFieldContainer, setSelect]=useState(null)
 
     useEffect(() => {
         setDark(cookies.get('theme') === '0')
-
-        //needs dark first before setting background
-        setSelect({
-            width: '32%',
-            backgroundColor: (cookies.get('theme') !== '0' ? '#f7f8fa': '#272e38'),
-        })
-        setMedium({width: '22vw', backgroundColor: (cookies.get('theme') !== '0' ? '#f7f8fa': '#272e38')})
-        setSmall({width: '32%', backgroundColor: (cookies.get('theme') !== '0' ? '#f7f8fa': '#272e38')})
     }, [])
 
     const handleChangeProfile = (event) => {
-        profile[event.target.name] = event.target.value
+        person[event.target.name] = event.target.value
 
         if(!changed)
             setChanged(true)
@@ -55,7 +44,7 @@ export default function profile(){
             }
         })}>
             <Head>
-                <title>{profile?.name}</title>
+                <title>{person?.name}</title>
             </Head>
             <Layout>
                 {() => (
@@ -65,20 +54,14 @@ export default function profile(){
                             <p style={{fontSize:'.9rem',textAlign: 'left'}}>Info about profile</p>
                         </div>
                         <div className={styles.container} >
-                            <PersonProfileForm handleChange={handleChangeProfile}
-                                               dark={dark}
-                                               smallFieldContainer={smallFieldContainer}
-                                               mediumFieldContainer={mediumFieldContainer}
-                                               selectFieldContainer={selectFieldContainer}
-                                               disabled={disabled}
-                                               id={id}
+                            <ProfileForm handleChange={handleChangeProfile}
+                                         dark={dark}
+                                         disabled={disabled}
+                                         id={id}
                             />
-                            <PersonUnityForm dark={dark}
-                                             smallFieldContainer={smallFieldContainer}
-                                             mediumFieldContainer={mediumFieldContainer}
-                                             selectFieldContainer={selectFieldContainer}
-                                             disabled={disabled}
-                                             id={id}
+                            <CollaboratorForm dark={dark}
+                                              disabled={disabled}
+                                              id={id}
                             />
                             <div className={styles.from_buttons_container}>
                                 <div className={styles.form_row}>

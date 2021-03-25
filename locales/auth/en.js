@@ -13,7 +13,7 @@ export default {
     terms: 'Terms of service',
     about: 'About',
     signupWelcomeText1: 'Welcome.',
-    signupWelcomeText2: 'Join the community by filling the form!',
+    signupWelcomeText2: 'Join the community by filling the forms!',
     signupWelcomeText3: 'We can\'t wait to have you here with us.',
     join: 'Join the community'
 }

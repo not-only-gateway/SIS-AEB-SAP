@@ -1,4 +1,4 @@
-import styles from "../../styles/form/Form.module.css";
+import styles from "../../../styles/form/Form.module.css";
 import {
     Avatar,
     Button,
@@ -20,12 +20,12 @@ import {
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 import axios from "axios";
-import Host from "../../config/Host";
+import Host from "../../../config/Host";
 import Cookies from "universal-cookie/lib";
 
 const cookies = new Cookies()
 
-export default function PersonUnityForm(props){
+export default function CollaboratorForm(props){
 
     const [unities, setUnities] = useState(null)
 

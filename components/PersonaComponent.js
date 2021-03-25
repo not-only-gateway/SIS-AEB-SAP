@@ -2,7 +2,7 @@ import styles from '../styles/Layout.module.css'
 import {Avatar, Button, createMuiTheme, Modal, ThemeProvider} from "@material-ui/core";
 import React from 'react'
 import {CakeRounded} from "@material-ui/icons";
-import Profile from "../pages/profile";
+import Profile from "../pages/person";
 import axios from "axios";
 import Host from "../config/Host";
 import Cookies from "universal-cookie/lib";
@@ -69,7 +69,7 @@ export default class PersonaComponent extends React.Component{
                     {JSON.parse(localStorage.getItem('profile'))?.is_administrator || this.state.ownProfile ?
 
                             <>
-                                <Link href={{pathname: '/profile', query: { id: this.props.id}}}>
+                                <Link href={{pathname: '/person', query: { id: this.props.id}}}>
                                     <Button style={personaContainerStyle}>
                                         {this.renderContent()}
                                     </Button>

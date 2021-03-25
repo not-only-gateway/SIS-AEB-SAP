@@ -1,6 +1,6 @@
 import styles from '../../styles/Layout.module.css'
 import Cookies from 'universal-cookie/lib'
-import NavBarComponent from "../bar/NavBar";
+import NavBarComponent from "../navigation/NavBar";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import shared from '../../styles/Shared.module.css'

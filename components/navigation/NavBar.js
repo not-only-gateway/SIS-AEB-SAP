@@ -129,26 +129,6 @@ export default class NavBarComponent extends React.Component{
                         :
                         null
                     }
-                    {cookies.get('adm_token') === undefined?
-
-                            <div className={styles.button_container}>
-                                {this.state.isAdmin ?
-                                    <Button style={{...buttonStyle, ...{color: this.props.dark ? 'white' : '#111111'}}}>
-                                        <LockRounded style={{...iconStyle, ...{color: !this.props.dark ? '#777777' : '#ededed'}}}/> {this.state.lang.supervisorRevalidate}
-                                        {/*should render modal here  */}
-                                    </Button>
-                                    :
-                                    null
-                                }
-                            </div>
-
-                        :
-                        <div className={styles.button_container}>
-                            <Button style={{...buttonStyle, ...{color: this.props.dark ? 'white' : '#111111'}}} onClick={() => cookies.remove('adm_token')}>
-                                <LockRounded style={{...iconStyle, ...{color: !this.props.dark ? '#777777' : '#ededed'}}}/> {this.state.lang.supervisorExit}
-                            </Button>
-                        </div>
-                    }
                 </div>
                 <div className={styles.bar_profile_container} style={{gridRow: 3}}>
                     { this.state.profile === null ?
