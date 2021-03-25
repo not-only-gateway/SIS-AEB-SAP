@@ -1,15 +1,15 @@
-import styles from '../../styles/Layout.module.css'
+import styles from '../styles/Layout.module.css'
 import {Avatar, Button, createMuiTheme, Modal, ThemeProvider} from "@material-ui/core";
 import React from 'react'
 import {CakeRounded} from "@material-ui/icons";
-import Profile from "../../pages/profile";
+import Profile from "../pages/profile";
 import axios from "axios";
-import Host from "../../config/Host";
+import Host from "../config/Host";
 import Cookies from "universal-cookie/lib";
-import PersonProfile from "../profile/PersonProfile";
+import PersonProfile from "./profile/PersonProfile";
 import Link from 'next/link'
-import shared from '../../styles/Shared.module.css'
-import {personaContainerStyle} from "../../styles/persona/PersonaMaterialStyles";
+import shared from '../styles/Shared.module.css'
+import {personaContainerStyle} from "../styles/persona/PersonaMaterialStyles";
 
 const cookies = new Cookies()
 
@@ -36,11 +36,9 @@ export default class Persona extends React.Component{
             return(
                 <Modal open={this.state.modalOpen} onClose={() => this.setState({modalOpen: false})}>
                     <div className={styles.modal_container} style={{backgroundColor: !this.props.dark ? 'white' : '#303741'}}>
-                        <PersonProfile dark={this.props.dark}
-                                       name={this.props.name}
-                                       email={this.props.email}
-                                       pic={this.props.pic}
-                                       phone={this.props.phone}
+                        <PersonProfile
+                            dark={this.props.dark}
+                            id={this.props.id}
                         />
                     </div>
                 </Modal>
@@ -59,6 +57,7 @@ export default class Persona extends React.Component{
 
                 <p style={{fontSize: '.9rem', fontWeight:400, color: (this.props.dark ? '#e2e2e2': '#111111')}}>{this.props.email}</p>
                 <p style={{fontSize: '.9rem', fontWeight:400, color: (this.props.dark ? '#e2e2e2': '#111111')}}>{this.props.phone.substr(this.props.phone.length-4, this.props.phone.length)}</p> {/*last 4 digits*/}
+
             </>
         )
     }
@@ -72,7 +71,7 @@ export default class Persona extends React.Component{
                         type: this.props.dark ? "dark" : "light"
                     }
                 })}>
-                    {cookies.get('adm_token') === undefined || this.state.ownProfile ?
+                    {JSON.parse(localStorage.getItem('profile'))?.is_administrator || this.state.ownProfile ?
 
                             <>
                                 <Link href={{pathname: '/profile', query: { id: this.props.id}}}>
@@ -80,7 +79,7 @@ export default class Persona extends React.Component{
                                         {this.renderContent()}
                                     </Button>
                                 </Link>
-                                <Button variant={'outlined'} style={{color: (this.props.dark ? '#e2e2e2': '#111111'), borderRadius: '8px',    border : (this.props.dark ? '#262d37 2px solid':'#f4f8fb 2px solid')}}>
+                                <Button variant={'outlined'} style={{color: (this.props.dark ? '#e2e2e2': '#111111'), borderRadius: '8px',border : (this.props.dark ? '#262d37 2px solid':'#f4f8fb 2px solid')}}>
                                     CTIC
                                 </Button>
                             </>

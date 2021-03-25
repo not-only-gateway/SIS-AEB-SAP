@@ -37,7 +37,7 @@ export default function PersonProfileForm(props){
         try {
             await axios({
                 method: 'get',
-                url: Host + 'person',
+                url: Host() + 'person',
                 headers:{'authorization': cookies.get('jwt')},
                 params: {
                     id: props.id
@@ -82,7 +82,7 @@ export default function PersonProfileForm(props){
                                     disabled={props.disabled}
                                     label="Birth"
                                     format="dd/MM/yyyy"
-                                    value={profile === null ? (new Date()).toLocaleDateString() : profile.birth.toLocaleDateString()}
+                                    value={profile === null ? (new Date()).toLocaleDateString() : (new Date(profile.birth)).toLocaleDateString()}
                                     // onChange={handleDateChange}
                                     KeyboardButtonProps={{
                                         'aria-label': 'change date',
@@ -151,7 +151,7 @@ export default function PersonProfileForm(props){
                         <TextField disabled={props.disabled} label={'pis / pasep'} value={profile?.pis} variant={"outlined"} style={props.mediumFieldContainer}/>
                     </div>
                     <div className={styles.form_row}>
-                        <TextField disabled={props.disabled} label={'Corp Email'} value={profile?.corporative_email} variant={"outlined"} style={props.smallFieldContainer} required/>
+                        <TextField disabled={props.disabled} label={'Corp Email'} value={profile?.corporate_email} variant={"outlined"} style={props.smallFieldContainer} required/>
                         <TextField disabled={props.disabled} label={'Extension'} value={profile?.extension} variant={"outlined"} style={props.smallFieldContainer} required/>
                         <TextField disabled={props.disabled} label={'Registration'} value={profile?.registration} variant={"outlined"} style={props.smallFieldContainer}/>
                     </div>
