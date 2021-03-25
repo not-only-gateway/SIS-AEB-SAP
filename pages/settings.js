@@ -1,5 +1,5 @@
 import Layout from "../components/layout/Layout";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import shared from "../styles/Shared.module.css";
 import style from '../styles/Settings.module.css'
@@ -13,10 +13,16 @@ import {setTheme} from "../config/Theme";
 import {InfoRounded} from "@material-ui/icons";
 import MuiAlert from "@material-ui/lab/Alert";
 import Head from "next/head";
+import Cookies from "universal-cookie/lib";
 
 export default function Settings() {
     const router = useRouter()
     const { locale } = router
+    const [dark, setDark] = useState(false)
+
+    useEffect(() => {
+        setDark((new Cookies()).get('theme') === '0')
+    },[])
 
     const changeLang = (event) => {
         const locale = event.target.value
@@ -25,36 +31,30 @@ export default function Settings() {
     }
 
     return (
-        <Layout>
-            {props => (
-                <div className={shared.content_container} style={{backgroundColor: props.dark ? '#303741' : 'white'}}>
-                    <div style={{margin: 'auto', width: '45vw'}}>
-                        <p style={{fontSize:'1.7rem', fontWeight:'550', textAlign: 'left'}}>Settings</p>
-                        <p style={{fontSize:'.9rem', textAlign: 'left'}}>Info about settings</p>
-                    </div>
 
-                        <div className={style.settings_container} >
+            <Layout>
+                {props =>
+                    <ThemeProvider theme={createMuiTheme({
+                        palette: {
+                            type: props.dark ? "dark" : "light"
+                        }
+                    })}>
+                    <div className={shared.content_container} style={{backgroundColor: props.dark ? '#303741' : 'white'}}>
+                        <div style={{margin: 'auto', width: '45vw'}}>
+                            <p style={{fontSize:'1.7rem', fontWeight:'550', textAlign: 'left'}}>Settings</p>
+                            <p style={{fontSize:'.9rem', textAlign: 'left'}}>Info about settings</p>
+                        </div>
 
-                            <div className={style.setting_row_container} style={{borderBottom : (props.dark ? '#262d37 3px solid':'#f4f8fb 3px solid')}}>
-                                <p>Theme</p>
-                                <ThemeProvider theme={createMuiTheme({
-                                    palette: {
-                                        type: props.dark ? "dark" : 'light'
-                                    }
-                                })}>
+                            <div className={style.settings_container} >
+
+                                <div className={style.setting_row_container} style={{borderBottom : (props.dark ? '#262d37 3px solid':'#f4f8fb 3px solid')}}>
+                                    <p>Theme</p>
                                     <Button style={{...{color: props.dark ? 'white' : '#111111'}}} onClick={() => props.changeTheme()} >
                                         {!props.dark ? <Brightness7RoundedIcon  style={{...iconStyle, ...{color: !props.dark ? '#777777' : '#ededed'}}}/> : <Brightness3RoundedIcon style={{...iconStyle, ...{color: !props.dark ? '#777777' : '#ededed'}}}/>}
                                     </Button>
-                                </ThemeProvider>
-                            </div>
-                            <div className={style.setting_row_container} style={{borderBottom : (props.dark ? '#262d37 3px solid':'#f4f8fb 3px solid')}}>
-                                <p>Language</p>
-
-                                <ThemeProvider theme={createMuiTheme({
-                                    palette: {
-                                        type: props.dark ? "dark" : 'light'
-                                    }
-                                })}>
+                                </div>
+                                <div className={style.setting_row_container} style={{borderBottom : (props.dark ? '#262d37 3px solid':'#f4f8fb 3px solid')}}>
+                                    <p>Language</p>
                                     <Select
                                         labelId="select-id"
                                         disableUnderline
@@ -77,13 +77,13 @@ export default function Settings() {
                                             Español
                                         </MenuItem>
                                     </Select>
-                                </ThemeProvider>
+                                </div>
                             </div>
-                        </div>
-                </div>
-            )
-            }
+                    </div>
+                    </ThemeProvider>
+                }
 
-        </Layout>
+            </Layout>
+
     )
 }

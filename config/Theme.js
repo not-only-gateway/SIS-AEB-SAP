@@ -4,7 +4,7 @@ import {createMuiTheme} from "@material-ui/core";
 const cookies = new Cookies()
 
 
-export function setTheme(){
+export function setThemeCookie(){
 
     switch(cookies.get('theme')){
         case '0': {

@@ -4,8 +4,8 @@ import NavBarComponent from "../bar/NavBar";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import shared from '../../styles/Shared.module.css'
-import {createMuiTheme} from "@material-ui/core";
-import {setTheme} from "../../config/Theme";
+import {createMuiTheme, ThemeProvider} from "@material-ui/core";
+import {setThemeCookie} from "../../config/Theme";
 
 const cookies = new Cookies()
 
@@ -15,14 +15,10 @@ export default function Layout ({ children }) {
     const router = useRouter()
     const { locale } = router
 
-    const theme = createMuiTheme({
-        palette: {
-            type: dark ? "dark" : "light"
-        }
-    });
 
     useEffect(() => {
         setDark(cookies.get('theme', {path: '/'}) === '0')
+
         if(locale !== cookies.get('lang') && cookies.get('lang') !== undefined)
             router.push(router.pathname, router.pathname, {locale: cookies.get('lang')}).catch(error => console.log(error))
     }, [])
@@ -34,22 +30,19 @@ export default function Layout ({ children }) {
 
     const changeTheme = () => {
         setDark(!dark)
-        console.log(cookies.get('theme'))
-        setTheme()
-        console.log(cookies.get('theme'))
+        setThemeCookie()
     }
     return (
         <div style={{color: dark? 'white': 'black'}}>
             <div className={styles.children_container} style={{backgroundColor: !dark ? 'white' : '#303741'}}>
                 {router.pathname === '/settings' ?
-                    children({dark, theme, changeTheme})
+                    children({ dark ,changeTheme})
                 :
-                    children({dark, theme})
+                    children()
                 }
-
             </div>
             <div style={componentStyle} className={styles.left}>
-                <NavBarComponent dark={dark} locale={locale} path={router.pathname} changeTheme={changeTheme}/>
+                <NavBarComponent dark={dark} locale={locale} path={router.pathname}/>
             </div>
         </div>
     )

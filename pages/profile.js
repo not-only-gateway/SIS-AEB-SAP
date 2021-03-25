@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import Cookies from "universal-cookie/lib";
-import {Button} from "@material-ui/core";
+import {Button, createMuiTheme} from "@material-ui/core";
 import styles from '../styles/form/Form.module.css'
 import axios from "axios";
 import Host from "../config/Host";
@@ -10,6 +10,7 @@ import Head from "next/head";
 import Layout from "../components/layout/Layout";
 import {useRouter} from "next/router";
 import PersonUnityForm from "../components/form/PersonUnityForm";
+import {ThemeProvider} from "@material-ui/styles";
 
 const cookies = new Cookies()
 
@@ -20,6 +21,9 @@ export default function profile(){
     const {id} = router.query
     const [dark, setDark] =  useState(false)
     const disabled = (new Cookies()).get('adm_token') !== undefined
+    const [smallFieldContainer, setSmall]=useState(null)
+    const [mediumFieldContainer, setMedium]=useState(null)
+    const [selectFieldContainer, setSelect]=useState(null)
 
     useEffect(() => {
         setDark(cookies.get('theme') === '0')
@@ -27,10 +31,10 @@ export default function profile(){
         //needs dark first before setting background
         setSelect({
             width: '32%',
-            backgroundColor: (dark ? '#f7f8fa': '#272e38'),
+            backgroundColor: (cookies.get('theme') !== '0' ? '#f7f8fa': '#272e38'),
         })
-        setMedium({width: '22vw', backgroundColor: (dark ? '#f7f8fa': '#272e38')})
-        setSmall({width: '32%', backgroundColor: (dark ? '#f7f8fa': '#272e38')})
+        setMedium({width: '22vw', backgroundColor: (cookies.get('theme') !== '0' ? '#f7f8fa': '#272e38')})
+        setSmall({width: '32%', backgroundColor: (cookies.get('theme') !== '0' ? '#f7f8fa': '#272e38')})
     }, [])
 
     const handleChangeProfile = (event) => {
@@ -44,14 +48,12 @@ export default function profile(){
 
     }
 
-    const [smallFieldContainer, setSmall]=useState(null)
-
-    const [mediumFieldContainer, setMedium]=useState(null)
-
-    const [selectFieldContainer, setSelect]=useState(null)
-
     return(
-        <>
+        <ThemeProvider theme={createMuiTheme({
+            palette: {
+                type: dark ? "dark" : "light"
+            }
+        })}>
             <Head>
                 <title>{profile?.name}</title>
             </Head>
@@ -90,7 +92,7 @@ export default function profile(){
                 )
                 }
             </Layout>
-        </>
+        </ThemeProvider>
 
     )
 }

@@ -25,6 +25,7 @@ import es from "../../locales/bar/es";
 import pt from "../../locales/bar/pt";
 import Link from 'next/link'
 import {getLogo} from "../../config/Theme";
+import SimplifiedProfile from "../profile/SimplifiedProfile";
 
 const cookies = new Cookies()
 
@@ -41,10 +42,12 @@ export default class NavBarComponent extends React.Component{
 
     componentDidMount() {
         this.setLanguage(this.props.locale)
-        this.setState({
-            isAdmin: localStorage.getItem('profile') !== null && JSON.parse(localStorage.getItem('profile')).is_administrator,
-            profile: localStorage.getItem('profile')
-        })
+
+        if(localStorage.getItem('profile') !== null)
+            this.setState({
+                isAdmin: localStorage.getItem('profile') !== null && JSON.parse(localStorage.getItem('profile')).is_administrator,
+                profile: JSON.parse(localStorage.getItem('profile'))
+            })
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -157,20 +160,11 @@ export default class NavBarComponent extends React.Component{
                         </>
                         :
                         (
-                            <div>
-                                <p style={{
-                                    marginRight: '1vw',
-                                    fontSize: '16px',
-                                    lineBreak: 'auto',
-                                    textAlign: 'right',
-                                    textTransform: 'capitalize'
-                                }}>{this.state.profile.name}</p>
-                                <Avatar
-                                    style={{height: '45px', marginRight: '1%', width: '45px'}}
-                                    src={this.state.profile.pic}
-                                    alt={this.state.profile.name}
-                                />
-                            </div>
+                            <Link href={{pathname: 'profile',  locale: this.props.locale, query: { id:this.state.profile.id }}}>
+                                <a>
+                                    <SimplifiedProfile name={this.state.profile.name} pic={this.state.profile.pic} dark={this.props.dark}/>
+                                </a>
+                            </Link>
                         )
                     }
                     <div style={{ display: 'flex', justifyContent:'space-evenly'}}>

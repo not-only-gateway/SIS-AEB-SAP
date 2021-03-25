@@ -13,7 +13,7 @@ import {personaContainerStyle} from "../styles/persona/PersonaMaterialStyles";
 
 const cookies = new Cookies()
 
-export default class Persona extends React.Component{
+export default class PersonaComponent extends React.Component{
     constructor(props) {
         super(props);
         this.state={
@@ -66,11 +66,6 @@ export default class Persona extends React.Component{
         return (
             <div className={styles.persona_container}  key={this.props.id}>
                 {this.renderModal()}
-                <ThemeProvider theme={createMuiTheme({
-                    palette: {
-                        type: this.props.dark ? "dark" : "light"
-                    }
-                })}>
                     {JSON.parse(localStorage.getItem('profile'))?.is_administrator || this.state.ownProfile ?
 
                             <>
@@ -95,7 +90,6 @@ export default class Persona extends React.Component{
                         </>
 
                     }
-                </ThemeProvider>
             </div>
         )
     }
