@@ -27,7 +27,6 @@ export default class ContactForm extends React.Component{
     }
 
     async fetchData() {
-        this.setState({loading: true})
         try {
             await axios({
                 method: 'get',
