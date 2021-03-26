@@ -63,12 +63,6 @@ export default function person(){
                                               disabled={disabled}
                                               id={id}
                             />
-                            <div className={styles.from_buttons_container}>
-                                <div className={styles.form_row}>
-                                    <Button disabled={!changed}>Save</Button>
-                                    <Button disabled={!changed}>Discard</Button>
-                                </div>
-                            </div>
                         </div>
                     </div>
 

@@ -43,7 +43,7 @@ export default function Signin() {
         try {
             await axios({
                 method: 'delete',
-                url: Host + 'auth',
+                url: Host() + 'auth',
                 headers:{'authorization': cookies.get('jwt')}
             }).then(() => {
                 ClearStorage().catch(e => console.log(e))

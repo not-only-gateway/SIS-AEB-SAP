@@ -140,7 +140,7 @@ export default class NavBarComponent extends React.Component{
                         </>
                         :
                         (
-                            <Link href={{pathname: 'profile',  locale: this.props.locale, query: { id:this.state.profile.id }}}>
+                            <Link href={{pathname: '/person',  locale: this.props.locale, query: { id:this.state.profile.id }}}>
                                 <a>
                                     <SimplifiedProfile name={this.state.profile.name} pic={this.state.profile.pic} dark={this.props.dark}/>
                                 </a>

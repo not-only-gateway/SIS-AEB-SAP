@@ -18,13 +18,13 @@ export default function ProfileForm(props) {
 
     return (
         <div className={styles.forms_container}>
-            <BasicForm mediumContainer={mediumContainer} smallContainer={smallContainer} selectStyle={selectStyle}
+            <BasicForm id={props.id} mediumContainer={mediumContainer} smallContainer={smallContainer} selectStyle={selectStyle}
                        dark={props.dark} disabled={props.disabled}/>
-            <ContactForm mediumContainer={mediumContainer} smallContainer={smallContainer} selectStyle={selectStyle}
+            <ContactForm id={props.id} mediumContainer={mediumContainer} smallContainer={smallContainer} selectStyle={selectStyle}
                          dark={props.dark} disabled={props.disabled}/>
-            <DocumentsForm mediumContainer={mediumContainer} smallContainer={smallContainer} selectStyle={selectStyle}
+            <DocumentsForm id={props.id} mediumContainer={mediumContainer} smallContainer={smallContainer} selectStyle={selectStyle}
                            dark={props.dark} disabled={props.disabled}/>
-            <AddressForm mediumContainer={mediumContainer} smallContainer={smallContainer} selectStyle={selectStyle}
+            <AddressForm id={props.id} mediumContainer={mediumContainer} smallContainer={smallContainer} selectStyle={selectStyle}
                          dark={props.dark} disabled={props.disabled}/>
         </div>
     )
