@@ -2,7 +2,7 @@ import Layout from "../components/layout/Layout";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import styles from '../styles/index/Index.module.css'
-import PersonaComponent from "../components/PersonaComponent";
+import Persona from "../components/Persona";
 import {createMuiTheme, IconButton, InputBase, Modal, Paper, ThemeProvider} from "@material-ui/core";
 import {searchFieldStyle} from "../styles/bar/BarMaterialStyles";
 import {SearchRounded} from "@material-ui/icons";
@@ -77,7 +77,7 @@ export default function Index() {
                     <div className={styles.personas_container}>
                         {people.length > 0 && !loading ?
                             people.map(person =>
-                                <PersonaComponent
+                                <Persona
                                     pic={person.pic}
                                     name={person.name}
                                     admin={person.is_administrator}

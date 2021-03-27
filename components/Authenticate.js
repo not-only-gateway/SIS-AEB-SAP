@@ -8,9 +8,7 @@ import Brightness7RoundedIcon from '@material-ui/icons/Brightness7Rounded';
 import Brightness3RoundedIcon from '@material-ui/icons/Brightness3Rounded';
 import {setTheme} from "../config/Theme";
 import {ThemeProvider} from "@material-ui/styles";
-import Signin from "../pages/signin";
-import setCookiesLanguage from "../config/Language";
-import {useRouter} from "next/router";
+
 import en from "../locales/auth/en";
 import es from "../locales/auth/es";
 import pt from "../locales/auth/pt";
@@ -21,12 +19,10 @@ import {
     paperStyle,
     secondaryButtonStyle
 } from "../styles/auth/AuthMaterialStyles";
-import axios from 'axios'
+import PropTypes from 'prop-types'
 import React from 'react'
 
-const cookies = new Cookies()
-
-export default function AuthComponent(props) {
+export default function Authenticate(props) {
     const [visible, setVisible] = useState(false)
     const [password, setPassword] = useState(null)
     const [email, setEmail] = useState(null)
@@ -107,5 +103,14 @@ export default function AuthComponent(props) {
             </div>
         </>
     )
+}
 
+Authenticate.propTypes = {
+    dark: PropTypes.bool,
+    theme: PropTypes.object,
+    changeTheme: PropTypes.func,
+    changeLang: PropTypes.func,
+    lang: PropTypes.object,
+    locale: PropTypes.string,
+    authenticate: PropTypes.func
 }

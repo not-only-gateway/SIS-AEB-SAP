@@ -8,7 +8,7 @@ import Link from 'next/link'
 
 const cookies = new Cookies()
 
-export default class PersonaComponent extends React.Component {
+export default class Persona extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

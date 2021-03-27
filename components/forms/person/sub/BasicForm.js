@@ -27,7 +27,11 @@ export default class BasicForm extends React.Component {
             corporateEmail: null,
             mother: null,
             father: null,
-            disabledPerson: null
+            disabledPerson: null,
+            birthPlace: null,
+            pic: null,
+            nationality: null,
+            admin: null
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleDateChange = this.handleDateChange.bind(this)
@@ -59,7 +63,11 @@ export default class BasicForm extends React.Component {
                     corporateEmail: res.data.corporate_email,
                     father: res.data.father_name,
                     mother: res.data.mother_name,
-                    disabledPerson: res.data.disabled_person
+                    disabledPerson: res.data.disabled_person,
+                    birthPlace: res.data.birth_place,
+                    pic: res.data.pic,
+                    nationality: res.data.nationality,
+                    admin: res.data.is_administrator
                 })
             }).catch(error => {
                 console.log(error)
@@ -68,6 +76,40 @@ export default class BasicForm extends React.Component {
             console.log(error)
         }
         this.setState({loading: false})
+    }
+
+    async saveChanges(){
+        try {
+            await axios({
+                method: 'patch',
+                url: Host() + 'person',
+                headers: {'authorization': cookies.get('jwt')},
+                data: {
+                    id: this.props.id,
+                    pic: this.state.pic,
+                    name: this.state.name,
+                    birth: this.state.birth,
+                    birth_place: this.state.birthPlace,
+                    education: this.state.education,
+                    gender: this.state.gender,
+                    marital_status: this.state.marital,
+                    extension: this.state.extension,
+                    registration:this.state.registration,
+                    corporate_email: this.state.corporateEmail,
+                    father_name: this.state.father,
+                    mother_name: this.state.mother,
+                    disabled_person: this.state.disabledPerson,
+                    nationality: this.state.nationality,
+                    is_administrator: this.state.admin
+                }
+            }).then(() => {
+                this.setState({changed: false})
+            }).catch(error => {
+                console.log(error)
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     handleDateChange(event) {
@@ -101,12 +143,28 @@ export default class BasicForm extends React.Component {
                             </Button>
                             <TextField label={'Name'} value={this.state.name} variant={'outlined'}
                                        style={{
-                                           width: '80%',
+                                           width: '50%',
                                            backgroundColor: (!this.props.dark ? '#f7f8fa' : '#272e38')
                                        }}
                                        onChange={this.handleChange}
                                        name={'name'}
                                        required/>
+                            <FormControl variant='outlined' disabled={this.props.disabled}
+                                         style={{...this.props.selectStyle, ...{width: '30%', margin: 'auto'}}}>
+                                <InputLabel id='disabled-select'>Administrator</InputLabel>
+                                <Select
+                                    labelId='disabled-select'
+                                    id='disabled-select'
+                                    value={this.state.admin}
+                                    onChange={this.handleChange}
+                                    name={'admin'}
+                                    label='Administrator'
+                                >
+                                    <MenuItem value={true}>yes</MenuItem>
+                                    <MenuItem value={false}>no</MenuItem>
+                                </Select>
+                            </FormControl>
+
                         </div>
 
                         <TextField label={'Father name'} value={this.state.father} variant={'outlined'}
@@ -118,6 +176,16 @@ export default class BasicForm extends React.Component {
                                    style={this.props.mediumContainer}
                                    onChange={this.handleChange}
                                    name={'mother'}
+                                   required/>
+                        <TextField label={'Birth place'} value={this.state.birthPlace} variant={'outlined'}
+                                   style={this.props.mediumContainer}
+                                   onChange={this.handleChange}
+                                   name={'birthPlace'}
+                                   required/>
+                        <TextField label={'Nationality'} value={this.state.nationality} variant={'outlined'}
+                                   style={this.props.mediumContainer}
+                                   onChange={this.handleChange}
+                                   name={'nationality'}
                                    required/>
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                             <Grid container justify='space-around' style={{width: '49%', marginTop: '0vh', marginBottom: 'auto'}}>
