@@ -8,7 +8,7 @@ export default class SimplifiedProfile extends React.Component{
     }
     render() {
         return(
-            <div className={styles.simplified_profile_container} style={{backgroundColor: this.props.dark ? '#3b424c' : 'white'}}>
+            <div className={styles.simplified_profile_container} style={{backgroundColor: this.props.dark ? '#303741' : 'white'}}>
                 <Avatar src={this.props.pic} alt={this.props.name}/>
                 <div style={{color: this.props.dark ? 'white':'black',
                     fontSize: '.9rem',

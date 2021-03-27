@@ -1,0 +1,56 @@
+
+.personas_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 45vw;
+    margin-top: 22vh;
+
+}
+
+.header_container {
+    position: fixed;
+    width: 45vw;
+    z-index: 2;
+    display: grid;
+    justify-items: center;
+}
+
+.persona_fields_container {
+    display: grid;
+    justify-items: center;
+    width: 90%;
+
+    align-content: space-between;
+}
+
+.modal_container {
+    margin: 12.5vh auto auto;
+    width: 40vw;
+    border-radius: 8px;
+    height: 75vh;
+}
+
+.persona_container {
+    display: grid;
+    /*align-content: space-between;*/
+    width: 32%;
+    height: fit-content;
+    margin-bottom: 2vh;
+    transition: 0.3s;
+}
+.paper_container{
+    width: 45vw;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+.paper_container:hover,.persona_container:hover{
+    box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+}
+.persona_title{
+    display: grid;
+    justify-items: center;
+    align-content: space-between;
+    line-height: initial;
+    padding-bottom: 1vh;
+}

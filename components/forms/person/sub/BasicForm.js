@@ -7,6 +7,7 @@ import axios from 'axios';
 import Host from '../../../../config/Host';
 import Cookies from 'universal-cookie/lib';
 import {Skeleton} from '@material-ui/lab';
+import PropTypes from 'prop-types'
 
 const cookies = new Cookies()
 
@@ -90,8 +91,8 @@ export default class BasicForm extends React.Component {
         if (!this.state.loading)
             return (
                 <>
-                    <div className={styles.field_set_container}>
-                        <legend>
+                    <div className={styles.form_container} style={{borderBottom: (this.props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid')}}>
+                        <legend style={{width: '100%'}}>
                             <p style={{fontSize: '1.2rem', fontWeight: 450}}>Personal</p>
                         </legend>
                         <div className={styles.form_row}>
@@ -107,151 +108,134 @@ export default class BasicForm extends React.Component {
                                        name={'name'}
                                        required/>
                         </div>
-                        <div className={styles.form_row}>
 
-                            <TextField label={'Father name'} value={this.state.father} variant={'outlined'}
-                                       style={this.props.mediumContainer}
-                                       onChange={this.handleChange}
-                                       name={'father'}
-                                       required/>
-                            <TextField label={'Mother name'} value={this.state.mother} variant={'outlined'}
-                                       style={this.props.mediumContainer}
-                                       onChange={this.handleChange}
-                                       name={'mother'}
-                                       required/>
+                        <TextField label={'Father name'} value={this.state.father} variant={'outlined'}
+                                   style={this.props.mediumContainer}
+                                   onChange={this.handleChange}
+                                   name={'father'}
+                                   required/>
+                        <TextField label={'Mother name'} value={this.state.mother} variant={'outlined'}
+                                   style={this.props.mediumContainer}
+                                   onChange={this.handleChange}
+                                   name={'mother'}
+                                   required/>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                            <Grid container justify='space-around' style={{width: '49%', marginTop: '0vh', marginBottom: 'auto'}}>
+                                <KeyboardDatePicker
+                                    style={{
+                                        width: '100%',
+                                        margin: 'auto',
+                                        backgroundColor: (!this.props.dark ? '#f7f8fa' : '#272e38')
+                                    }}
+                                    inputVariant='outlined'
+                                    margin='normal'
+                                    id='birth-picker'
+                                    disabled={this.props.disabled}
+                                    label='Birth'
+                                    format='dd/MM/yyyy'
+                                    value={this.state.birth == null ? null : (new Date(this.state.birth)).toLocaleDateString()}
+                                    onChange={this.handleDateChange}
+                                    KeyboardButtonProps={{
+                                        'aria-label': 'change date',
+                                    }}
+                                />
+                            </Grid>
+                        </MuiPickersUtilsProvider>
+                        <FormControl variant='outlined' disabled={this.props.disabled}
+                                     style={{...this.props.selectStyle, ...{width: '49%'}}}>
+                            <InputLabel id='disabled-select'>Disabled person</InputLabel>
+                            <Select
+                                labelId='disabled-select'
+                                id='disabled-select'
+                                value={this.state.disabledPerson}
+                                onChange={this.handleChange}
+                                name={'disabledPerson'}
+                                label='Disabled person'
+                            >
+                                <MenuItem value={true}>yes</MenuItem>
+                                <MenuItem value={false}>no</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <FormControl variant='outlined' disabled={this.props.disabled}
+                                     style={this.props.selectStyle}>
+                            <InputLabel id='education-select'>Education</InputLabel>
+                            <Select
+                                labelId='education-select'
+                                id='education-select'
+                                value={this.state.education}
+                                onChange={this.handleChange}
+                                name={'education'}
+                                label='Education'
+                            >
+                                <MenuItem value={null}>None</MenuItem>
+                                <MenuItem value={'FUNDAMENTAL'}>Fundamental</MenuItem>
+                                <MenuItem value={'MEDIO'}>Medium</MenuItem>
+                                <MenuItem value={'MEDIO_COMPLETO'}>MediumCompleto</MenuItem>
+                                <MenuItem value={'SUPERIOR'}>Graduated</MenuItem>
+                                <MenuItem value={'POS-GRAD'}>Pos graduated</MenuItem>
+                                <MenuItem value={'MASTER'}>Master's degree</MenuItem>
+                                <MenuItem value={'DOCTOR'}>Doctorate degree</MenuItem>
 
-                        </div>
-                        <div className={styles.form_row}>
-                            <MuiPickersUtilsProvider utils={DateFnsUtils} >
-                                <Grid container justify='space-around' style={{width: '49%'}}>
-                                    <KeyboardDatePicker
-                                        style={{
-                                            width: '100%',
-                                            marginRight: 'auto',
-                                            marginBottom: 'auto',
-                                            marginTop: 'auto',
-                                            backgroundColor: (!this.props.dark ? '#f7f8fa' : '#272e38')
-                                        }}
-                                        inputVariant='outlined'
-                                        margin='normal'
-                                        id='birth-picker'
-                                        disabled={this.props.disabled}
-                                        label='Birth'
-                                        format='dd/MM/yyyy'
-                                        value={this.state.birth == null ? null : (new Date(this.state.birth)).toLocaleDateString()}
-                                        onChange={this.handleDateChange}
-                                        KeyboardButtonProps={{
-                                            'aria-label': 'change date',
-                                        }}
-                                    />
-                                </Grid>
-                            </MuiPickersUtilsProvider>
-                            <FormControl variant='outlined' disabled={this.props.disabled}
-                                         style={{...this.props.selectStyle, ...{width: '49%'}}}>
-                                <InputLabel id='disabled-select'>Disabled person</InputLabel>
-                                <Select
-                                    labelId='disabled-select'
-                                    id='disabled-select'
-                                    value={this.state.disabledPerson}
-                                    onChange={this.handleChange}
-                                    name={'disabledPerson'}
-                                    label='Disabled person'
-                                >
-                                    <MenuItem value={true}>yes</MenuItem>
-                                    <MenuItem value={false}>no</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </div>
-                        <div className={styles.form_row}>
-                            <FormControl variant='outlined' disabled={this.props.disabled}
-                                         style={this.props.selectStyle}>
-                                <InputLabel id='education-select'>Education</InputLabel>
-                                <Select
-                                    labelId='education-select'
-                                    id='education-select'
-                                    value={this.state.education}
-                                    onChange={this.handleChange}
-                                    name={'education'}
-                                    label='Education'
-                                >
-                                    <MenuItem value={null}>None</MenuItem>
-                                    <MenuItem value={'FUNDAMENTAL'}>Fundamental</MenuItem>
-                                    <MenuItem value={'MEDIO'}>Medium</MenuItem>
-                                    <MenuItem value={'MEDIO_COMPLETO'}>MediumCompleto</MenuItem>
-                                    <MenuItem value={'SUPERIOR'}>Graduated</MenuItem>
-                                    <MenuItem value={'POS-GRAD'}>Pos graduated</MenuItem>
-                                    <MenuItem value={'MASTER'}>Master's degree</MenuItem>
-                                    <MenuItem value={'DOCTOR'}>Doctorate degree</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <FormControl variant='outlined' disabled={this.props.disabled}
+                                     style={this.props.selectStyle}>
+                            <InputLabel id='gender-select'>Gender</InputLabel>
+                            <Select
+                                labelId='gender-select'
+                                id='gender-select'
+                                name={'gender'}
+                                value={this.state.gender}
+                                label='Gender'
+                                onChange={this.handleChange}
+                            >
+                                <MenuItem value={'m'}>Male</MenuItem>
+                                <MenuItem value={'f'}>Female</MenuItem>
+                                <MenuItem value={'n'}>Other</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <FormControl variant='outlined' disabled={this.props.disabled}
+                                     style={this.props.selectStyle}>
+                            <InputLabel id='marital-select'>Marital status</InputLabel>
+                            <Select
+                                labelId='marital-select'
+                                id='marital-select'
+                                value={this.state.marital}
+                                onChange={this.handleChange}
+                                name={'marital'}
+                                label='Marital status'
+                            >
+                                <MenuItem value={'SINGLE'}>Single</MenuItem>
+                                <MenuItem value={'DIVORCED'}>Divorced</MenuItem>
+                                <MenuItem value={'MARRIED'}>Married</MenuItem>
+                                <MenuItem value={'WIDOWED'}>Widowed</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <TextField disabled={this.props.disabled} label={'Corp Email'}
+                                   value={this.state.corporateEmail}
+                                   name={'corporateEmail'}
+                                   onChange={this.handleChange}
+                                   variant={'outlined'} style={this.props.smallContainer} required/>
+                        <TextField disabled={this.props.disabled} label={'Extension'}
+                                   name={'extension'}
+                                   onChange={this.handleChange}
+                                   value={this.state.extension}
+                                   variant={'outlined'} style={this.props.smallContainer} required/>
+                        <TextField disabled={this.props.disabled} label={'Registration'}
+                                   name={'registration'}
+                                   onChange={this.handleChange}
+                                   value={this.state.registration}
+                                   variant={'outlined'} style={this.props.smallContainer}/>
 
-                                </Select>
-                            </FormControl>
-                            <FormControl variant='outlined' disabled={this.props.disabled}
-                                         style={this.props.selectStyle}>
-                                <InputLabel id='gender-select'>Gender</InputLabel>
-                                <Select
-                                    labelId='gender-select'
-                                    id='gender-select'
-                                    name={'gender'}
-                                    value={this.state.gender}
-                                    label='Gender'
-                                    onChange={this.handleChange}
-                                >
-                                    <MenuItem value={'m'}>Male</MenuItem>
-                                    <MenuItem value={'f'}>Female</MenuItem>
-                                    <MenuItem value={'n'}>Other</MenuItem>
-                                </Select>
-                            </FormControl>
-                            <FormControl variant='outlined' disabled={this.props.disabled}
-                                         style={this.props.selectStyle}>
-                                <InputLabel id='marital-select'>Marital status</InputLabel>
-                                <Select
-                                    labelId='marital-select'
-                                    id='marital-select'
-                                    value={this.state.marital}
-                                    onChange={this.handleChange}
-                                    name={'marital'}
-                                    label='Marital status'
-                                >
-                                    <MenuItem value={'SINGLE'}>Single</MenuItem>
-                                    <MenuItem value={'DIVORCED'}>Divorced</MenuItem>
-                                    <MenuItem value={'MARRIED'}>Married</MenuItem>
-                                    <MenuItem value={'WIDOWED'}>Widowed</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </div>
-                    </div>
-                    <div className={styles.field_set_container}
-                         style={{borderBottom: (this.props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid')}}>
-                        <legend>
-                            <p style={{fontSize: '1.2rem', fontWeight: 450}}>Corporate basic information</p>
-                        </legend>
-                        <div className={styles.form_row}>
-                            <TextField disabled={this.props.disabled} label={'Corp Email'}
-                                       value={this.state.corporateEmail}
-                                       name={'corporateEmail'}
-                                       onChange={this.handleChange}
-                                       variant={'outlined'} style={this.props.smallContainer} required/>
-                            <TextField disabled={this.props.disabled} label={'Extension'}
-                                       name={'extension'}
-                                       onChange={this.handleChange}
-                                       value={this.state.extension}
-                                       variant={'outlined'} style={this.props.smallContainer} required/>
-                            <TextField disabled={this.props.disabled} label={'Registration'}
-                                       name={'registration'}
-                                       onChange={this.handleChange}
-                                       value={this.state.registration}
-                                       variant={'outlined'} style={this.props.smallContainer}/>
-                        </div>
-                        <div>
-                            <Button style={{width: '100%'}} disabled={!this.state.changed}
-                                    onClick={() => this.saveChanges()}>Save</Button>
-                        </div>
+                        <Button style={{width: '100%'}} disabled={!this.state.changed}
+                                onClick={() => this.saveChanges()}>Save</Button>
+
                     </div>
                 </>
             )
         else
             return (
-                <div className={styles.field_set_container}
+                <div className={styles.form_container}
                      style={{borderBottom: (this.props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid')}}>
                     <legend>
                         <p style={{fontSize: '1.2rem', fontWeight: 450}}>Personal</p>
@@ -286,4 +270,13 @@ export default class BasicForm extends React.Component {
                 </div>
             )
     }
+}
+
+BasicForm.propTypes = {
+    id: PropTypes.number,
+    dark: PropTypes.bool,
+    mediumContainer: PropTypes.object,
+    smallContainer: PropTypes.object,
+    selectStyle: PropTypes.object,
+    disabled: PropTypes.bool
 }

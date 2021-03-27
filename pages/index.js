@@ -1,30 +1,34 @@
 import Layout from "../components/layout/Layout";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import shared from "../styles/Shared.module.css";
-import styles from '../styles/Index.module.css'
+import styles from '../styles/index/Index.module.css'
 import PersonaComponent from "../components/PersonaComponent";
-import Head from "next/head";
-import {Button, createMuiTheme, IconButton, InputBase, Paper, ThemeProvider} from "@material-ui/core";
+import {createMuiTheme, IconButton, InputBase, Modal, Paper, ThemeProvider} from "@material-ui/core";
 import {searchFieldStyle} from "../styles/bar/BarMaterialStyles";
 import {SearchRounded} from "@material-ui/icons";
 import axios from "axios";
 import Host from "../config/Host";
 import {Skeleton} from "@material-ui/lab";
+import PersonProfile from "../components/profile/PersonProfile";
+import PropTypes from 'prop-types'
 import Cookies from "universal-cookie/lib";
 
+const id = parseInt((new Cookies()).get('id'))
+
 export default function Index() {
+
     const router = useRouter()
     const {locale} = router
     const [people, setPeople] = useState([])
     const [loading, setLoading] = useState(false)
-    const [dark, setDark] = useState(false)
+    const [canEdit, setCanEdit] = useState(false)
+
     useEffect(() => {
-        setDark((new Cookies()).get('theme') === '0')
+        setCanEdit(localStorage.getItem('profile') !== null && (JSON.parse(localStorage.getItem('profile')).is_administrator === true))
         fetchData().catch(error => console.log(error))
     }, [])
 
-    const fetchData = async() => {
+    const fetchData = async () => {
         setLoading(true)
         try {
             await axios({
@@ -41,64 +45,61 @@ export default function Index() {
         setLoading(false)
     }
 
-
-
     return (
-        <ThemeProvider theme={createMuiTheme({
-            palette: {
-                type: dark ? "dark" : "light"
-            }
-        })}>
-            <Head>
-                <title>Ramais</title>
-            </Head>
-            <Layout>
-                {() =>
-                    <div className={shared.content_container}
-                         style={{backgroundColor: dark ? '#303741' : 'white'}}>
-                        <div className={shared.header_container}
-                             style={{backgroundColor: dark ? '#303741' : 'white'}}>
+        <Layout>
+            {props =>
+                <ThemeProvider theme={createMuiTheme({
+                    palette: {
+                        type: props.dark ? "dark" : "light"
+                    }
+                })}>
 
-                            <div style={{margin: 'auto', width: '58vw'}}>
-                                <p style={{fontSize: '1.7rem', fontWeight: '550', textAlign: 'left'}}>Ramais</p>
-                                <p style={{fontSize: '.9rem', textAlign: 'left'}}>Info about Ramais</p>
-                            </div>
-                            <div className={styles.paper_container}>
-                                <Paper component="form" style={{
-                                    ...searchFieldStyle, ...{
-                                        backgroundColor: dark ? '#272e38' : '#f4f8fb',
-                                        boxShadow: 'rgba(0, 0, 0, 0.05) 0 1px 2px 0'
-                                    }
-                                }}>
-                                    <IconButton aria-label="search">
-                                        <SearchRounded style={{color: dark ? 'white' : null}}/>
-                                    </IconButton>
-                                    <InputBase
-                                        style={{width: '93%', color: (dark ? 'white' : null)}}
-                                        placeholder={'Search'}
-                                    />
-                                </Paper>
-                            </div>
+                    <div className={styles.header_container}
+                         style={{backgroundColor: props.dark ? '#303741' : 'white'}}>
+                        <props.getTitle pageName={'Ramais'} pageTitle={'Ramais'} pageInfo={'INFORMATION'}/>
+                        <div className={styles.paper_container}>
+                            <Paper component="form" style={{
+                                ...searchFieldStyle, ...{
+                                    backgroundColor: props.dark ? '#272e38' : '#f4f8fb',
+                                    boxShadow: 'rgba(0, 0, 0, 0.05) 0 1px 2px 0'
+                                }
+                            }}>
+                                <IconButton aria-label="search">
+                                    <SearchRounded style={{color: props.dark ? 'white' : null}}/>
+                                </IconButton>
+                                <InputBase
+                                    style={{width: '93%', color: (props.dark ? 'white' : null)}}
+                                    placeholder={'Search'}
+                                />
+                            </Paper>
                         </div>
-                        <div className={shared.unity_collaborators_container}>
-                            {people.length > 0 && !loading ? people.map(person =>
+                    </div>
+                    <div className={styles.personas_container}>
+                        {people.length > 0 && !loading ?
+                            people.map(person =>
                                 <PersonaComponent
                                     pic={person.pic}
                                     name={person.name}
                                     admin={person.is_administrator}
                                     email={person.corporate_email}
+                                    ownProfile={id === person.id}
+                                    canEdit={canEdit}
                                     phone={person.extension}
                                     id={person.id}
-                                    dark={dark}
+                                    dark={props.dark}
                                     birth={person.birth}
                                 />
-                            ):<Skeleton variant="rect" style={{borderRadius: '8px', width: '58vw', height: '11vh', backgroundColor: dark ? '#3b424c' : '#f4f8fb'}}/>}
-                        </div>
-
+                            )
+                            :
+                            <Skeleton variant="rect" style={{
+                                borderRadius: '8px',
+                                width: '58vw',
+                                height: '11vh',
+                                backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
+                            }}/>}
                     </div>
-                }
-
-            </Layout>
-        </ThemeProvider>
+                </ThemeProvider>
+            }
+        </Layout>
     )
 }

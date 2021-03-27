@@ -7,48 +7,8 @@
 
 .header_container{
     position: fixed;
-    width: 81vw;
-
-    left: 18vw;
+    width: 45vw;
     z-index: 2;
     display: grid;
     justify-items: center;
-
-}
-
-
-.content_container{
-
-    background-color: red;
-    width: 83vw;
-
-    display: grid;
-    align-items: flex-start;
-    justify-items: center;
-    align-content: space-between;
-    /*z-index: 5;*/
-}
-.unity_collaborators_container{
-    display: grid;
-    width: 58vw;
-    margin-top: 22vh;
-    justify-items: center;
-}
-.title_container{
-    margin-top: 2vh;
-    margin-bottom: 2vh;
-    grid-column: 1;
-    width: 75vw;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.options_container{
-    width: 92%;
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-    align-items: center;
-    margin: 2vh auto;
 }

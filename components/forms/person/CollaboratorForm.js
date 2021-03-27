@@ -22,6 +22,8 @@ import {
 import axios from "axios";
 import Host from "../../../config/Host";
 import Cookies from "universal-cookie/lib";
+import PropTypes from "prop-types";
+import ProfileForm from "./ProfileForm";
 
 const cookies = new Cookies()
 
@@ -187,4 +189,9 @@ export default function CollaboratorForm(props){
     return(
         null
     )
+}
+CollaboratorForm.propTypes = {
+    dark: PropTypes.bool,
+    disabled: PropTypes.bool,
+    id: PropTypes.number
 }

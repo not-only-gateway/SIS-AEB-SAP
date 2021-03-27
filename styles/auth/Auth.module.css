@@ -30,7 +30,7 @@
         align-items: center;
         width: 55vw;
     }
-    .forms_container{
+    .profile_container{
         width: 55vw;
         grid-row: 1;
         display: grid;

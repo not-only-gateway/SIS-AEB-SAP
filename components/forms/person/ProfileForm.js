@@ -1,6 +1,6 @@
 import styles from "../../../styles/form/Form.module.css";
-import React from "react";
-
+import React, {useEffect} from "react";
+import PropTypes from 'prop-types'
 import ContactForm from "./sub/ContactForm";
 import BasicForm from "./sub/BasicForm";
 import DocumentsForm from "./sub/DocumentsForm";
@@ -12,12 +12,13 @@ export default function ProfileForm(props) {
     const selectStyle = {
         width: '32%',
         backgroundColor: !props.dark ? '#f7f8fa' : '#272e38',
+        marginBottom: '2vh'
     }
-    const mediumContainer = {width: '22vw', backgroundColor: !props.dark ? '#f7f8fa' : '#272e38'}
-    const smallContainer = {width: '32%', backgroundColor: !props.dark ? '#f7f8fa' : '#272e38'}
+    const mediumContainer = {width: '49%', backgroundColor: !props.dark ? '#f7f8fa' : '#272e38', marginBottom: '2vh'}
+    const smallContainer = {width: '32%', backgroundColor: !props.dark ? '#f7f8fa' : '#272e38', marginBottom: '2vh'}
 
     return (
-        <div className={styles.forms_container}>
+        <div className={styles.profile_container}>
             <BasicForm id={props.id} mediumContainer={mediumContainer} smallContainer={smallContainer} selectStyle={selectStyle}
                        dark={props.dark} disabled={props.disabled}/>
             <ContactForm id={props.id} mediumContainer={mediumContainer} smallContainer={smallContainer} selectStyle={selectStyle}
@@ -31,4 +32,8 @@ export default function ProfileForm(props) {
 
 }
 
-
+ProfileForm.propTypes = {
+    dark: PropTypes.bool,
+    disabled: PropTypes.bool,
+    id: PropTypes.number
+}

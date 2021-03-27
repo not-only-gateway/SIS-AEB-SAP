@@ -118,22 +118,20 @@ export default class DocumentsForm extends React.Component {
     render() {
         if (!this.state.loading)
             return (
-                <div className={styles.field_set_container}
+                <div className={styles.form_container}
                      style={{borderBottom: (this.props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid')}}>
-                    <legend>
+                    <legend style={{width: '100%'}}>
                         <p style={{fontSize: '1.2rem', fontWeight: 450}}>Documents</p>
                     </legend>
-                    <div className={styles.form_row}>
 
                         <TextField disabled={this.props.disabled} label={'RG'} value={this.state.rg}
                                    variant={"outlined"}
                                    onChange={this.handleChange} name={'rg'}
                                    style={this.props.smallContainer} required/>
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                            <Grid container justify="space-around">
+                            <Grid container justify="space-around" style={{width: '32%', marginTop: '0vh', marginBottom: 'auto'}}>
                                 <KeyboardDatePicker
                                     style={{
-                                        width: '93%',
                                         margin: 'auto',
                                         backgroundColor: (!this.props.dark ? '#f7f8fa' : '#272e38')
                                     }}
@@ -156,8 +154,6 @@ export default class DocumentsForm extends React.Component {
                                    style={this.props.smallContainer}
                                    onChange={this.handleChange} name={'issuingBody'}
                                    required/>
-                    </div>
-                    <div className={styles.form_row}>
                         <TextField disabled={this.props.disabled} label={'CPF'} value={this.state.cpf}
                                    variant={"outlined"}
                                    onChange={this.handleChange} name={'cpf'}
@@ -169,17 +165,12 @@ export default class DocumentsForm extends React.Component {
                                    variant={"outlined"}
                                    onChange={this.handleChange} name={'pis'}
                                    style={this.props.smallContainer}/>
-                    </div>
-
-                    <div className={styles.form_row}>
                         <TextField disabled={this.props.disabled} label={'Bank'} value={this.state.bank}
                                    variant={"outlined"}
                                    style={this.props.mediumContainer} name={'bank'} onChange={this.handleChange}/>
                         <TextField disabled={this.props.disabled} label={'Agency'} value={this.state.agency}
                                    variant={"outlined"}
                                    style={this.props.mediumContainer} name={'agency'} onChange={this.handleChange}/>
-                    </div>
-                    <div className={styles.form_row}>
                         <TextField disabled={this.props.disabled} label={'Voter Registration'}
                                    value={this.state.voterRegistration} variant={"outlined"} name={'voterRegistration'}
                                    style={this.props.smallContainer} onChange={this.handleChange}/>
@@ -189,16 +180,13 @@ export default class DocumentsForm extends React.Component {
                         <TextField disabled={this.props.disabled} label={'Electoral section'}
                                    value={this.state.electoralSection} variant={"outlined"} name={'electoralSection'}
                                    style={this.props.smallContainer} onChange={this.handleChange}/>
-                    </div>
-                    <div>
                         <Button style={{width: '100%'}} disabled={!this.state.changed}
                                 onClick={() => this.saveChanges()}>Save</Button>
-                    </div>
                 </div>
             )
         else
             return (
-                <div className={styles.field_set_container}
+                <div className={styles.form_container}
                      style={{borderBottom: (this.props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid')}}>
                     <legend>
                         <p style={{fontSize: '1.2rem', fontWeight: 450}}>Documents</p>

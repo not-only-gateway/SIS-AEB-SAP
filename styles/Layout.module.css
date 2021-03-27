@@ -1,15 +1,24 @@
-.children_container{
+.page_container{
     z-index: 1;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0 2px 5px -1px, rgba(0, 0, 0, 0.3) 0 1px 3px -1px;
     border-bottom-left-radius: 8px;
     border-top-left-radius: 8px;
     position: relative;
     height: 100vh;
     width: 83%;
     margin-left: auto;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
-
+.children_container{
+    width: 45vw;
+    min-height: 100vh;
+    display: grid;
+    justify-items: center;
+    align-items: flex-start;
+    align-content: flex-start;
+    margin: auto;
+}
 .left{
     width: 18vw;
     height: 100vh;
@@ -24,34 +33,4 @@
     align-content: space-evenly;
 
 }
-.persona_container{
 
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-    align-items: center;
-    text-transform: none;
-
-    width: 58vw;
-    max-height: 11vh;
-    margin-top: 1vh;
-    border-radius: 8px;
-    transition: 0.15s;
-}
-.persona_fields_container{
-    display: flex;
-    align-items: center;
-}
-.persona_text_fields_container{
-    display: grid;
-    line-height: .0001vh;
-    text-align: right;
-}
-.modal_container{
-    margin: 12.5vh auto auto;
-    width: 40vw;
-    border-radius: 8px;
-    height: 75vh;
-
-
-}

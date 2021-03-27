@@ -9,12 +9,10 @@ export default class AddressForm extends React.Component {
 
     render() {
         return (
-            <div className={styles.field_set_container}
-                 style={{borderBottom: (this.props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid')}}>
-                <legend>
+            <div className={styles.form_container} style={{borderBottom: (this.props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid')}}>
+                <legend style={{width: '100%'}}>
                     <p style={{fontSize: '1.2rem', fontWeight: 450}}>Address</p>
                 </legend>
-                <div className={styles.form_row}>
                     <TextField disabled={this.props.disabled} label={'CEP'} value={null} variant={"outlined"}
                                style={this.props.smallContainer} required/>
                     <TextField disabled={this.props.disabled} label={'Address'} value={null} variant={"outlined"}
@@ -23,8 +21,6 @@ export default class AddressForm extends React.Component {
                                value={null} variant={"outlined"}
                                style={this.props.smallContainer}/>
 
-                </div>
-                <div className={styles.form_row}>
                     <TextField disabled={this.props.disabled} label={'Neighborhood'} value={null} variant={"outlined"}
                                style={this.props.smallContainer} required/>
                     <TextField disabled={this.props.disabled} label={'Street name'} value={null} variant={"outlined"}
@@ -32,7 +28,7 @@ export default class AddressForm extends React.Component {
                     <TextField disabled={this.props.disabled} label={'City (dropdown)'}
                                value={null} variant={"outlined"}
                                style={this.props.smallContainer}/>
-                </div>
+
             </div>
         )
     }

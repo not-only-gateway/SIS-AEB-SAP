@@ -9,5 +9,6 @@
 .settings_container{
     display: grid;
     align-content: space-between;
+    align-items: center;
     width: 45vw;
 }

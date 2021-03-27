@@ -88,33 +88,28 @@ export default class ContactForm extends React.Component{
     render() {
         if(!this.state.loading)
             return (
-                <div className={styles.field_set_container}
+                <div className={styles.form_container}
                      style={{borderBottom: (this.props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid')}}>
-                    <legend>
+                    <legend style={{width: '100%'}}>
                         <p style={{fontSize: '1.2rem', fontWeight: 450}}>Contact</p>
                     </legend>
 
-                    <div className={styles.form_row}>
-                        <TextField disabled={this.props.disabled} label={'Email'} value={this.state.email}
-                                   variant={"outlined"} style={this.props.mediumContainer} name='email' onChange={this.handleChange} required/>
-                        <TextField disabled={this.props.disabled} label={'Alt Email'} value={this.state.emailAlt}
-                                   variant={"outlined"} style={this.props.mediumContainer} name='emailAlt' onChange={this.handleChange}/>
-                    </div>
-                    <div className={styles.form_row}>
-                        <TextField disabled={this.props.disabled} label={'Phone'} value={this.state.phone}
-                                   variant={"outlined"} style={this.props.mediumContainer} name='phone' onChange={this.handleChange} required/>
-                        <TextField disabled={this.props.disabled} label={'Alt Phone'} value={this.state.phoneAlt}
-                                   variant={"outlined"} style={this.props.mediumContainer} name='phoneAlt' onChange={this.handleChange}/>
-                    </div>
-                    <div>
-                        <Button style={{width: '100%'}} disabled={!this.state.changed} onClick={() => this.saveChanges()}>Save</Button>
-                    </div>
+                    <TextField disabled={this.props.disabled} label={'Email'} value={this.state.email}
+                               variant={"outlined"} style={this.props.mediumContainer} name='email' onChange={this.handleChange} required/>
+                    <TextField disabled={this.props.disabled} label={'Alt Email'} value={this.state.emailAlt}
+                               variant={"outlined"} style={this.props.mediumContainer} name='emailAlt' onChange={this.handleChange}/>
+
+                    <TextField disabled={this.props.disabled} label={'Phone'} value={this.state.phone}
+                               variant={"outlined"} style={this.props.mediumContainer} name='phone' onChange={this.handleChange} required/>
+                    <TextField disabled={this.props.disabled} label={'Alt Phone'} value={this.state.phoneAlt}
+                               variant={"outlined"} style={this.props.mediumContainer} name='phoneAlt' onChange={this.handleChange}/>
+                    <Button style={{width: '100%'}} disabled={!this.state.changed} onClick={() => this.saveChanges()}>Save</Button>
                 </div>
 
             )
         else
             return (
-                <div className={styles.field_set_container}
+                <div className={styles.form_container}
                      style={{borderBottom: (this.props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid')}}>
                     <legend>
                         <p style={{fontSize: '1.2rem', fontWeight: 450}}>Contact</p>

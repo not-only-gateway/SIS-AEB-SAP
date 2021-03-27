@@ -39,3 +39,6 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+.simplified_profile_container:hover{
+    box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+}
