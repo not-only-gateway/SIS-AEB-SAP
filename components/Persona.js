@@ -35,7 +35,7 @@ export default class Persona extends React.Component {
     }
 
     renderContent() {
-        const borderBottom = {borderBottom: this.props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid'}
+        const borderBottom = {borderBottom: !this.props.dark ? '#e2e2e2 1px solid' : '#777777 1px solid'}
         const secondaryField = {
             fontSize: '.9rem',
             fontWeight: 400,
@@ -68,7 +68,8 @@ export default class Persona extends React.Component {
             height: '100%',
             width: '100%',
             textTransform: 'none',
-            borderRadius: '8px',
+            borderTopRightRadius: '8px',
+            borderTopLeftRadius: '8px',
 
         }
         const containerDarkStyle = {
@@ -77,7 +78,7 @@ export default class Persona extends React.Component {
         }
         const containerLightStyle = {
             borderRadius: '8px',
-            border: '#f4f8fb 3px solid'
+            border: !this.props.dark ? '#e2e2e2 1px solid' : '#777777 1px solid'
         }
 
         return (
@@ -97,9 +98,14 @@ export default class Persona extends React.Component {
                         </Button>
                     </>
                 }
-                <Button variant={'outlined'} style={{height: 'fit-content', borderRadius: '8px'}}>
-                    CTIC
-                </Button>
+                <div style={{width: '100%', borderTop: !this.props.dark ? '#e2e2e2 1px solid' : '#777777 1px solid'}}>
+                    <Button style={{
+                        height: 'fit-content', borderBottomRightRadius: '8px',
+                        borderBottomLeftRadius: '8px', width: '100%'
+                    }}>
+                        CTIC
+                    </Button>
+                </div>
             </div>
 
         )

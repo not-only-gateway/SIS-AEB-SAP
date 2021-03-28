@@ -8,8 +8,6 @@ import axios from "axios";
 import Host from "../../../../config/Host";
 import Cookies from "universal-cookie/lib";
 
-const cookies = new Cookies()
-
 export default class DocumentsForm extends React.Component {
     constructor(props) {
         super(props);
@@ -37,65 +35,43 @@ export default class DocumentsForm extends React.Component {
     }
 
     async fetchData() {
-        try {
-            await axios({
-                method: 'get',
-                url: Host() + 'person/documents',
-                headers: {'authorization': cookies.get('jwt')},
-                params: {
-                    id: this.props.id
-                }
-            }).then(res => {
-                this.setState({
-                    cpf: res.data.cpf,
-                    rg: res.data.rg,
-                    dispatchDate: res.data.dispatch_date,
-                    issuingBody: res.data.issuing_body,
-                    voterRegistration: res.data.voter_registration,
-                    electoralZone: res.data.electoral_zone,
-                    electoralSection: res.data.electoral_section,
-                    bank: res.data.bank,
-                    agency: res.data.agency,
-                    workCard: res.data.work_card,
-                    pis: res.data.pis,
-                })
-            }).catch(error => {
-                console.log(error)
+        const response = await this.props.fetchData('/documents')
+
+        if (response !== null)
+            this.setState({
+                cpf: response.cpf,
+                rg: response.rg,
+                dispatchDate: response.dispatch_date,
+                issuingBody: response.issuing_body,
+                voterRegistration: response.voter_registration,
+                electoralZone: response.electoral_zone,
+                electoralSection: response.electoral_section,
+                bank: response.bank,
+                agency: response.agency,
+                workCard: response.work_card,
+                pis: response.pis,
+                loading: false
             })
-        } catch (error) {
-            console.log(error)
-        }
-        this.setState({loading: false})
     }
 
     async saveChanges() {
-        try {
-            await axios({
-                method: 'patch',
-                url: Host() + 'person/documents',
-                headers: {'authorization': cookies.get('jwt')},
-                data: {
-                    id: this.props.id,
-                    cpf: this.state.cpf,
-                    rg: this.state.rg,
-                    dispatch_date: this.state.dispatchDate,
-                    issuing_body: this.state.issuingBody,
-                    voter_registration: this.state.voterRegistration,
-                    electoral_zone: this.state.electoralZone,
-                    electoral_section: this.state.electoralSection,
-                    bank: this.state.bank,
-                    agency: this.state.agency,
-                    work_card: this.state.workCard,
-                    pis: this.state.pis,
-                }
-            }).then(() => {
-                this.setState({changed: false})
-            }).catch(error => {
-                console.log(error)
-            })
-        } catch (error) {
-            console.log(error)
-        }
+        const response = await this.props.saveChanges(
+            {
+                id: this.props.id,
+                cpf: this.state.cpf,
+                rg: this.state.rg,
+                dispatch_date: this.state.dispatchDate,
+                issuing_body: this.state.issuingBody,
+                voter_registration: this.state.voterRegistration,
+                electoral_zone: this.state.electoralZone,
+                electoral_section: this.state.electoralSection,
+                bank: this.state.bank,
+                agency: this.state.agency,
+                work_card: this.state.workCard,
+                pis: this.state.pis,
+            }, '/documents')
+        if (response)
+            this.setState({changed: false})
     }
 
     handleChange(event) {
@@ -124,64 +100,65 @@ export default class DocumentsForm extends React.Component {
                         <p style={{fontSize: '1.2rem', fontWeight: 450}}>Documents</p>
                     </legend>
 
-                        <TextField disabled={this.props.disabled} label={'RG'} value={this.state.rg}
-                                   variant={"outlined"}
-                                   onChange={this.handleChange} name={'rg'}
-                                   style={this.props.smallContainer} required/>
-                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                            <Grid container justify="space-around" style={{width: '32%', marginTop: '0vh', marginBottom: 'auto'}}>
-                                <KeyboardDatePicker
-                                    style={{
-                                        margin: 'auto',
-                                        backgroundColor: (!this.props.dark ? '#f7f8fa' : '#272e38')
-                                    }}
-                                    inputVariant="outlined"
-                                    margin="normal"
-                                    id="dispatch-picker"
-                                    disabled={this.props.disabled}
-                                    label="Dispatch Date"
-                                    format="dd/MM/yyyy"
-                                    value={this.state.dispatchDate === null ? null : (new Date(this.state.dispatchDate)).toLocaleDateString()}
-                                    onChange={this.handleDateChange}
-                                    KeyboardButtonProps={{
-                                        'aria-label': 'change date',
-                                    }}
-                                />
-                            </Grid>
-                        </MuiPickersUtilsProvider>
-                        <TextField disabled={this.props.disabled} label={'Issuing body'} value={this.state.issuingBody}
-                                   variant={"outlined"}
-                                   style={this.props.smallContainer}
-                                   onChange={this.handleChange} name={'issuingBody'}
-                                   required/>
-                        <TextField disabled={this.props.disabled} label={'CPF'} value={this.state.cpf}
-                                   variant={"outlined"}
-                                   onChange={this.handleChange} name={'cpf'}
-                                   style={this.props.smallContainer} required/>
-                        <TextField disabled={this.props.disabled} label={'Work Card'} value={this.state.workCard}
-                                   onChange={this.handleChange} name={'workCard'}
-                                   variant={"outlined"} style={this.props.smallContainer}/>
-                        <TextField disabled={this.props.disabled} label={'pis / pasep'} value={this.state.pis}
-                                   variant={"outlined"}
-                                   onChange={this.handleChange} name={'pis'}
-                                   style={this.props.smallContainer}/>
-                        <TextField disabled={this.props.disabled} label={'Bank'} value={this.state.bank}
-                                   variant={"outlined"}
-                                   style={this.props.mediumContainer} name={'bank'} onChange={this.handleChange}/>
-                        <TextField disabled={this.props.disabled} label={'Agency'} value={this.state.agency}
-                                   variant={"outlined"}
-                                   style={this.props.mediumContainer} name={'agency'} onChange={this.handleChange}/>
-                        <TextField disabled={this.props.disabled} label={'Voter Registration'}
-                                   value={this.state.voterRegistration} variant={"outlined"} name={'voterRegistration'}
-                                   style={this.props.smallContainer} onChange={this.handleChange}/>
-                        <TextField disabled={this.props.disabled} label={'Electoral zone'}
-                                   value={this.state.electoralZone} variant={"outlined"} name={'electoralZone'}
-                                   style={this.props.smallContainer} onChange={this.handleChange}/>
-                        <TextField disabled={this.props.disabled} label={'Electoral section'}
-                                   value={this.state.electoralSection} variant={"outlined"} name={'electoralSection'}
-                                   style={this.props.smallContainer} onChange={this.handleChange}/>
-                        <Button style={{width: '100%'}} disabled={!this.state.changed}
-                                onClick={() => this.saveChanges()}>Save</Button>
+                    <TextField disabled={this.props.disabled} label={'RG'} value={this.state.rg}
+                               variant={"outlined"}
+                               onChange={this.handleChange} name={'rg'}
+                               style={this.props.smallContainer} required/>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <Grid container justify="space-around"
+                              style={{width: '32%', marginTop: '0vh', marginBottom: 'auto'}}>
+                            <KeyboardDatePicker
+                                style={{
+                                    margin: 'auto',
+                                    backgroundColor: (!this.props.dark ? '#f7f8fa' : '#272e38')
+                                }}
+                                inputVariant="outlined"
+                                margin="normal"
+                                id="dispatch-picker"
+                                disabled={this.props.disabled}
+                                label="Dispatch Date"
+                                format="dd/MM/yyyy"
+                                value={this.state.dispatchDate === null ? null : (new Date(this.state.dispatchDate)).toLocaleDateString()}
+                                onChange={this.handleDateChange}
+                                KeyboardButtonProps={{
+                                    'aria-label': 'change date',
+                                }}
+                            />
+                        </Grid>
+                    </MuiPickersUtilsProvider>
+                    <TextField disabled={this.props.disabled} label={'Issuing body'} value={this.state.issuingBody}
+                               variant={"outlined"}
+                               style={this.props.smallContainer}
+                               onChange={this.handleChange} name={'issuingBody'}
+                               required/>
+                    <TextField disabled={this.props.disabled} label={'CPF'} value={this.state.cpf}
+                               variant={"outlined"}
+                               onChange={this.handleChange} name={'cpf'}
+                               style={this.props.smallContainer} required/>
+                    <TextField disabled={this.props.disabled} label={'Work Card'} value={this.state.workCard}
+                               onChange={this.handleChange} name={'workCard'}
+                               variant={"outlined"} style={this.props.smallContainer}/>
+                    <TextField disabled={this.props.disabled} label={'pis / pasep'} value={this.state.pis}
+                               variant={"outlined"}
+                               onChange={this.handleChange} name={'pis'}
+                               style={this.props.smallContainer}/>
+                    <TextField disabled={this.props.disabled} label={'Bank'} value={this.state.bank}
+                               variant={"outlined"}
+                               style={this.props.mediumContainer} name={'bank'} onChange={this.handleChange}/>
+                    <TextField disabled={this.props.disabled} label={'Agency'} value={this.state.agency}
+                               variant={"outlined"}
+                               style={this.props.mediumContainer} name={'agency'} onChange={this.handleChange}/>
+                    <TextField disabled={this.props.disabled} label={'Voter Registration'}
+                               value={this.state.voterRegistration} variant={"outlined"} name={'voterRegistration'}
+                               style={this.props.smallContainer} onChange={this.handleChange}/>
+                    <TextField disabled={this.props.disabled} label={'Electoral zone'}
+                               value={this.state.electoralZone} variant={"outlined"} name={'electoralZone'}
+                               style={this.props.smallContainer} onChange={this.handleChange}/>
+                    <TextField disabled={this.props.disabled} label={'Electoral section'}
+                               value={this.state.electoralSection} variant={"outlined"} name={'electoralSection'}
+                               style={this.props.smallContainer} onChange={this.handleChange}/>
+                    <Button style={{width: '100%'}} disabled={!this.state.changed}
+                            onClick={() => this.saveChanges()}>Save</Button>
                 </div>
             )
         else

@@ -6,12 +6,10 @@ import Host from "../../../../config/Host";
 import Cookies from "universal-cookie/lib";
 import {Skeleton} from "@material-ui/lab";
 
-const cookies = new Cookies()
-
-export default class ContactForm extends React.Component{
+export default class ContactForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state={
+        this.state = {
             email: null,
             emailAlt: null,
             phone: null,
@@ -27,66 +25,44 @@ export default class ContactForm extends React.Component{
     }
 
     async fetchData() {
-        try {
-            await axios({
-                method: 'get',
-                url: Host() + 'person/contact',
-                headers: {'authorization': cookies.get('jwt')},
-                params: {
-                    id: this.props.id
-                }
-            }).then(res => {
-                this.setState({
-                    email: res.data.email,
-                    emailAlt: res.data.email_alt,
-                    phone: res.data.phone,
-                    phoneAlt: res.data.phone_alt
-                })
-            }).catch(error => {
-                console.log(error)
+        const response = await this.props.fetchData('/contact')
+
+        if (response !== null)
+            this.setState({
+                email: response.email,
+                emailAlt: response.email_alt,
+                phone: response.phone,
+                phoneAlt: response.phone_alt,
+                loading: false
             })
-        } catch (error) {
-            console.log(error)
-        }
-        this.setState({loading: false})
     }
 
-    async saveChanges(){
-        try {
-            await axios({
-                method: 'patch',
-                url: Host() + 'person/contact',
-                headers: {'authorization': cookies.get('jwt')},
-                data: {
-                    id: this.props.id,
-                    email: this.state.email,
-                    email_alt: this.state.emailAlt,
-                    phone: this.state.phone,
-                    phone_alt: this.state.phoneAlt
-                }
-            }).then(() => {
-                this.setState({changed: false})
-            }).catch(error => {
-                console.log(error)
-            })
-        } catch (error) {
-            console.log(error)
-        }
+    async saveChanges() {
+        const response = await this.props.saveChanges(
+            {
+                id: this.props.id,
+                email: this.state.email,
+                email_alt: this.state.emailAlt,
+                phone: this.state.phone,
+                phone_alt: this.state.phoneAlt
+            }, '/contact')
+        if (response)
+            this.setState({changed: false})
     }
 
-    handleChange(event){
+    handleChange(event) {
         this.setState({
             [event.target.name]: event.target.value,
 
         })
-        if(!this.state.changed)
+        if (!this.state.changed)
             this.setState({
                 changed: true
             })
     }
 
     render() {
-        if(!this.state.loading)
+        if (!this.state.loading)
             return (
                 <div className={styles.form_container}
                      style={{borderBottom: (this.props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid')}}>
@@ -95,15 +71,20 @@ export default class ContactForm extends React.Component{
                     </legend>
 
                     <TextField disabled={this.props.disabled} label={'Email'} value={this.state.email}
-                               variant={"outlined"} style={this.props.mediumContainer} name='email' onChange={this.handleChange} required/>
+                               variant={"outlined"} style={this.props.mediumContainer} name='email'
+                               onChange={this.handleChange} required/>
                     <TextField disabled={this.props.disabled} label={'Alt Email'} value={this.state.emailAlt}
-                               variant={"outlined"} style={this.props.mediumContainer} name='emailAlt' onChange={this.handleChange}/>
+                               variant={"outlined"} style={this.props.mediumContainer} name='emailAlt'
+                               onChange={this.handleChange}/>
 
                     <TextField disabled={this.props.disabled} label={'Phone'} value={this.state.phone}
-                               variant={"outlined"} style={this.props.mediumContainer} name='phone' onChange={this.handleChange} required/>
+                               variant={"outlined"} style={this.props.mediumContainer} name='phone'
+                               onChange={this.handleChange} required/>
                     <TextField disabled={this.props.disabled} label={'Alt Phone'} value={this.state.phoneAlt}
-                               variant={"outlined"} style={this.props.mediumContainer} name='phoneAlt' onChange={this.handleChange}/>
-                    <Button style={{width: '100%'}} disabled={!this.state.changed} onClick={() => this.saveChanges()}>Save</Button>
+                               variant={"outlined"} style={this.props.mediumContainer} name='phoneAlt'
+                               onChange={this.handleChange}/>
+                    <Button style={{width: '100%'}} disabled={!this.state.changed}
+                            onClick={() => this.saveChanges()}>Save</Button>
                 </div>
 
             )
@@ -114,9 +95,27 @@ export default class ContactForm extends React.Component{
                     <legend>
                         <p style={{fontSize: '1.2rem', fontWeight: 450}}>Contact</p>
                     </legend>
-                    <Skeleton variant="rect" style={{borderRadius: '8px', marginBottom: '2vh', width: '45vw', height: '6vh', backgroundColor: this.props.dark ? '#3b424c' : '#f4f8fb'}}/>
-                    <Skeleton variant="rect" style={{borderRadius: '8px', marginBottom: '2vh', width: '45vw', height: '6vh', backgroundColor: this.props.dark ? '#3b424c' : '#f4f8fb'}}/>
-                    <Skeleton variant="rect" style={{borderRadius: '8px', marginBottom: '2vh', width: '45vw', height: '6vh', backgroundColor: this.props.dark ? '#3b424c' : '#f4f8fb'}}/>
+                    <Skeleton variant="rect" style={{
+                        borderRadius: '8px',
+                        marginBottom: '2vh',
+                        width: '45vw',
+                        height: '6vh',
+                        backgroundColor: this.props.dark ? '#3b424c' : '#f4f8fb'
+                    }}/>
+                    <Skeleton variant="rect" style={{
+                        borderRadius: '8px',
+                        marginBottom: '2vh',
+                        width: '45vw',
+                        height: '6vh',
+                        backgroundColor: this.props.dark ? '#3b424c' : '#f4f8fb'
+                    }}/>
+                    <Skeleton variant="rect" style={{
+                        borderRadius: '8px',
+                        marginBottom: '2vh',
+                        width: '45vw',
+                        height: '6vh',
+                        backgroundColor: this.props.dark ? '#3b424c' : '#f4f8fb'
+                    }}/>
                 </div>
             )
     }

@@ -1,5 +1,5 @@
 import Layout from "../components/layout/Layout";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {useRouter} from "next/router";
 import styles from '../styles/index/Index.module.css'
 import Persona from "../components/Persona";
@@ -22,7 +22,9 @@ export default function Index() {
     const [people, setPeople] = useState([])
     const [loading, setLoading] = useState(false)
     const [canEdit, setCanEdit] = useState(false)
-
+    // const title = useMemo(() => {
+    //
+    // }, [self])
     useEffect(() => {
         setCanEdit(localStorage.getItem('profile') !== null && (JSON.parse(localStorage.getItem('profile')).is_administrator === true))
         fetchData().catch(error => console.log(error))
@@ -93,7 +95,7 @@ export default function Index() {
                             :
                             <Skeleton variant="rect" style={{
                                 borderRadius: '8px',
-                                width: '58vw',
+                                width: '45vw',
                                 height: '11vh',
                                 backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
                             }}/>}

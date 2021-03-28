@@ -3,13 +3,9 @@ import {Avatar, Button, FormControl, Grid, InputLabel, MenuItem, Select, TextFie
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import React from 'react';
-import axios from 'axios';
-import Host from '../../../../config/Host';
 import Cookies from 'universal-cookie/lib';
 import {Skeleton} from '@material-ui/lab';
 import PropTypes from 'prop-types'
-
-const cookies = new Cookies()
 
 export default class BasicForm extends React.Component {
     constructor(props) {
@@ -42,74 +38,51 @@ export default class BasicForm extends React.Component {
     }
 
     async fetchData() {
+        const response = await this.props.fetchData('')
 
-        try {
-            await axios({
-                method: 'get',
-                url: Host() + 'person',
-                headers: {'authorization': cookies.get('jwt')},
-                params: {
-                    id: this.props.id
-                }
-            }).then(res => {
-                this.setState({
-                    name: res.data.name,
-                    birth: res.data.birth,
-                    education: res.data.education,
-                    gender: res.data.gender,
-                    marital: res.data.marital_status,
-                    extension: res.data.extension,
-                    registration: res.data.registration,
-                    corporateEmail: res.data.corporate_email,
-                    father: res.data.father_name,
-                    mother: res.data.mother_name,
-                    disabledPerson: res.data.disabled_person,
-                    birthPlace: res.data.birth_place,
-                    pic: res.data.pic,
-                    nationality: res.data.nationality,
-                    admin: res.data.is_administrator
-                })
-            }).catch(error => {
-                console.log(error)
+        if (response !== null)
+            this.setState({
+                name: response.name,
+                birth: response.birth,
+                education: response.education,
+                gender: response.gender,
+                marital: response.marital_status,
+                extension: response.extension,
+                registration: response.registration,
+                corporateEmail: response.corporate_email,
+                father: response.father_name,
+                mother: response.mother_name,
+                disabledPerson: response.disabled_person,
+                birthPlace: response.birth_place,
+                pic: response.pic,
+                nationality: response.nationality,
+                admin: response.is_administrator,
+                loading: false
             })
-        } catch (error) {
-            console.log(error)
-        }
-        this.setState({loading: false})
     }
 
-    async saveChanges(){
-        try {
-            await axios({
-                method: 'patch',
-                url: Host() + 'person',
-                headers: {'authorization': cookies.get('jwt')},
-                data: {
-                    id: this.props.id,
-                    pic: this.state.pic,
-                    name: this.state.name,
-                    birth: this.state.birth,
-                    birth_place: this.state.birthPlace,
-                    education: this.state.education,
-                    gender: this.state.gender,
-                    marital_status: this.state.marital,
-                    extension: this.state.extension,
-                    registration:this.state.registration,
-                    corporate_email: this.state.corporateEmail,
-                    father_name: this.state.father,
-                    mother_name: this.state.mother,
-                    disabled_person: this.state.disabledPerson,
-                    nationality: this.state.nationality,
-                    is_administrator: this.state.admin
-                }
-            }).then(() => {
-                this.setState({changed: false})
-            }).catch(error => {
-                console.log(error)
-            })
-        } catch (error) {
-            console.log(error)
-        }
+    async saveChanges() {
+        const response = await this.props.saveChanges(
+            {
+                id: this.props.id,
+                pic: this.state.pic,
+                name: this.state.name,
+                birth: this.state.birth,
+                birth_place: this.state.birthPlace,
+                education: this.state.education,
+                gender: this.state.gender,
+                marital_status: this.state.marital,
+                extension: this.state.extension,
+                registration: this.state.registration,
+                corporate_email: this.state.corporateEmail,
+                father_name: this.state.father,
+                mother_name: this.state.mother,
+                disabled_person: this.state.disabledPerson,
+                nationality: this.state.nationality,
+                is_administrator: this.state.admin
+            }, '')
+        if (response)
+            this.setState({changed: false})
     }
 
     handleDateChange(event) {
@@ -133,7 +106,8 @@ export default class BasicForm extends React.Component {
         if (!this.state.loading)
             return (
                 <>
-                    <div className={styles.form_container} style={{borderBottom: (this.props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid')}}>
+                    <div className={styles.form_container}
+                         style={{borderBottom: (this.props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid')}}>
                         <legend style={{width: '100%'}}>
                             <p style={{fontSize: '1.2rem', fontWeight: 450}}>Personal</p>
                         </legend>
@@ -150,7 +124,14 @@ export default class BasicForm extends React.Component {
                                        name={'name'}
                                        required/>
                             <FormControl variant='outlined' disabled={this.props.disabled}
-                                         style={{...this.props.selectStyle, ...{width: '30%', margin: 'auto'}}}>
+                                         style={{
+                                             ...this.props.selectStyle, ...{
+                                                 width: '32%',
+                                                 marginLeft: 'auto',
+                                                 marginTop: 'auto',
+                                                 marginBottom: 'auto'
+                                             }
+                                         }}>
                                 <InputLabel id='disabled-select'>Administrator</InputLabel>
                                 <Select
                                     labelId='disabled-select'
@@ -188,7 +169,8 @@ export default class BasicForm extends React.Component {
                                    name={'nationality'}
                                    required/>
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                            <Grid container justify='space-around' style={{width: '49%', marginTop: '0vh', marginBottom: 'auto'}}>
+                            <Grid container justify='space-around'
+                                  style={{width: '49%', marginTop: '0vh', marginBottom: 'auto'}}>
                                 <KeyboardDatePicker
                                     style={{
                                         width: '100%',
