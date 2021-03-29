@@ -103,8 +103,8 @@ export default class CollaborationForm extends React.Component {
 
     }
 
-    handleChangeUnity(event) {
-        this.setState({unityID: event.target.value})
+    handleChangeUnity(id) {
+        this.setState({unityID: id})
         this.fetchSeniors().catch(error => console.log(error))
     }
 
@@ -130,11 +130,11 @@ export default class CollaborationForm extends React.Component {
                         labelId="unity-select"
                         id="unity-select"
                         value={this.state.unityID}
-                        onChange={this.handleChangeUnity}
+                        onChange={event => this.handleChangeUnity(event.target.value)}
                         label="Unity"
                     >
                         {this.state.unities.map(unity => (
-                            <MenuItem value={unity.id}>{unity.name}</MenuItem>
+                            <MenuItem value={unity.id}>{unity.acronym}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>
@@ -198,7 +198,7 @@ export default class CollaborationForm extends React.Component {
                             disabled={this.props.disabled}
                             label="Admission Date"
                             format="dd/MM/yyyy"
-                            value={new Date('2014-08-18T21:11:54')}
+                            value={this.state.admissionDate !== null ? new Date(this.state.admissionDate).toLocaleDateString() : null}
                             // onChange={handleDateChange}
                             KeyboardButtonProps={{
                                 'aria-label': 'change date',
@@ -222,7 +222,7 @@ export default class CollaborationForm extends React.Component {
                             disabled={this.props.disabled}
                             label="Official Publication"
                             format="dd/MM/yyyy"
-                            value={new Date('2014-08-18T21:11:54')}
+                            value={this.state.publicationDate !== null ? new Date(this.state.publicationDate).toLocaleDateString() : null}
                             // onChange={handleDateChange}
                             KeyboardButtonProps={{
                                 'aria-label': 'change date',
