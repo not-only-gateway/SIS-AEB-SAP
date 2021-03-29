@@ -32,9 +32,9 @@ export default class ContactForm extends React.Component {
                 email: response.email,
                 emailAlt: response.email_alt,
                 phone: response.phone,
-                phoneAlt: response.phone_alt,
-                loading: false
+                phoneAlt: response.phone_alt
             })
+        this.setState({loading: false})
     }
 
     async saveChanges() {
@@ -64,7 +64,7 @@ export default class ContactForm extends React.Component {
     render() {
         if (!this.state.loading)
             return (
-                <div className={styles.form_container}
+                <div className={styles.form_component_container}
                      style={{borderBottom: (this.props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid')}}>
                     <legend style={{width: '100%'}}>
                         <p style={{fontSize: '1.2rem', fontWeight: 450}}>Contact</p>
@@ -90,7 +90,7 @@ export default class ContactForm extends React.Component {
             )
         else
             return (
-                <div className={styles.form_container}
+                <div className={styles.form_component_container}
                      style={{borderBottom: (this.props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid')}}>
                     <legend>
                         <p style={{fontSize: '1.2rem', fontWeight: 450}}>Contact</p>

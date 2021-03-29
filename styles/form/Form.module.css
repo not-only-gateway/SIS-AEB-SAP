@@ -7,14 +7,30 @@
     margin-bottom: 2vh;
 }
 
-.form_container{
+.form_component_container{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-content: space-between;
 }
-.profile_container{
+.form_container{
     display: grid;
     justify-items: center;
     width: 45vw;
+}
+.simplified_collaboration_container{
+    width: 32%;
+    border-radius: 8px;
+    transition: .3s;
+}
+.simplified_collaboration_container:hover{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.form_modal_container{
+    margin-top: 15.5%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50vw;
+    border-radius: 8px;
+    height: 41vh;
 }

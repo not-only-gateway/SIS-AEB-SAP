@@ -56,9 +56,9 @@ export default class BasicForm extends React.Component {
                 birthPlace: response.birth_place,
                 pic: response.pic,
                 nationality: response.nationality,
-                admin: response.is_administrator,
-                loading: false
+                admin: response.is_administrator
             })
+        this.setState({loading: false})
     }
 
     async saveChanges() {
@@ -106,7 +106,7 @@ export default class BasicForm extends React.Component {
         if (!this.state.loading)
             return (
                 <>
-                    <div className={styles.form_container}
+                    <div className={styles.form_component_container}
                          style={{borderBottom: (this.props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid')}}>
                         <legend style={{width: '100%'}}>
                             <p style={{fontSize: '1.2rem', fontWeight: 450}}>Personal</p>
@@ -285,7 +285,7 @@ export default class BasicForm extends React.Component {
             )
         else
             return (
-                <div className={styles.form_container}
+                <div className={styles.form_component_container}
                      style={{borderBottom: (this.props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid')}}>
                     <legend>
                         <p style={{fontSize: '1.2rem', fontWeight: 450}}>Personal</p>

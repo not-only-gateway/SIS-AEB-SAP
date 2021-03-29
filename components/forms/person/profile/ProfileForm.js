@@ -1,12 +1,12 @@
-import styles from "../../../styles/form/Form.module.css";
+import styles from "../../../../styles/form/Form.module.css";
 import React, {useState} from "react";
 import PropTypes from 'prop-types'
-import ContactForm from "./sub/ContactForm";
-import BasicForm from "./sub/BasicForm";
-import DocumentsForm from "./sub/DocumentsForm";
-import AddressForm from "../shared/AddressForm";
+import ContactForm from "./ContactForm";
+import BasicForm from "./BasicForm";
+import DocumentsForm from "./DocumentsForm";
+import AddressForm from "../../shared/AddressForm";
 import axios from "axios";
-import Host from "../../../config/Host";
+import Host from "../../../../config/Host";
 import Cookies from "universal-cookie/lib";
 import {Button} from "@material-ui/core";
 
@@ -65,7 +65,7 @@ export default function ProfileForm(props) {
     }
 
     return (
-        <div className={styles.profile_container}>
+        <div className={styles.form_container}>
             <BasicForm id={props.id} mediumContainer={mediumContainer} smallContainer={smallContainer}
                        selectStyle={selectStyle}
                        saveChanges={saveChanges}

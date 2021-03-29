@@ -3,10 +3,10 @@ import Cookies from "universal-cookie/lib";
 import {createMuiTheme} from "@material-ui/core";
 import styles from '../styles/form/Form.module.css'
 
-import ProfileForm from "../components/forms/person/ProfileForm";
+import ProfileForm from "../components/forms/person/profile/ProfileForm";
 import Layout from "../components/layout/Layout";
 import {useRouter} from "next/router";
-import CollaboratorForm from "../components/forms/person/CollaboratorForm";
+import CollaboratorForm from "../components/forms/person/collaborator/CollaboratorForm";
 import {ThemeProvider} from "@material-ui/styles";
 
 export default function person() {
