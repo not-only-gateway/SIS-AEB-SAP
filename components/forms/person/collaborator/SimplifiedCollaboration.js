@@ -15,6 +15,7 @@ export default class SimplifiedCollaboration extends React.Component{
             <Modal open={this.state.modal} onClose={() => this.setState({modal: false})}>
                 <CollaborationForm collaborationID={this.props.collaborationID}
                                    dark={this.props.dark}
+                                   create={false}
                                    mediumContainer={this.props.mediumContainer}
                                    smallContainer={this.props.smallContainer}
                                    selectStyle={this.props.selectStyle}

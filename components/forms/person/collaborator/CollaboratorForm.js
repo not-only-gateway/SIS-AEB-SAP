@@ -51,7 +51,8 @@ export default function CollaboratorForm(props) {
             <Modal open={modal} onClose={() => setModal(false)}>
                 <div className={styles.form_modal_container}
                      style={{backgroundColor: !props.dark ? 'white' : '#303741'}}>
-                    <CollaborationForm collaborationID={null}
+                    <CollaborationForm id={props.id}
+                                       create={true}
                                        dark={props.dark}
                                        mediumContainer={mediumContainer}
                                        smallContainer={smallContainer}
@@ -73,7 +74,7 @@ export default function CollaboratorForm(props) {
                 <Button onClick={() => setModal(true)}><AddRounded/></Button>
             </div>
             {collaborations.map(collaboration => (
-                <SimplifiedCollaboration collaborationID={collaboration.id}
+                <SimplifiedCollaboration id={collaboration.collaborator.id}
                                          dark={props.dark}
                                          mediumContainer={mediumContainer}
                                          smallContainer={smallContainer}

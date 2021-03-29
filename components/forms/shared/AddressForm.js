@@ -4,7 +4,7 @@ import React from "react";
 import Cookies from "universal-cookie/lib";
 import {Skeleton} from "@material-ui/lab";
 
-const cookies = new Cookies()
+
 
 export default class AddressForm extends React.Component {
     constructor(props) {

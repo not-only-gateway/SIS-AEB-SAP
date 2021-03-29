@@ -5,96 +5,179 @@ import {Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField} from
 import React from "react";
 import axios from "axios";
 import Host from "../../../../config/Host";
+import Cookies from "universal-cookie/lib";
+
+const cookies = new Cookies()
 
 export default class CollaborationForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state={
-
+        this.state = {
+            unities: [],
+            roles: [],
+            linkages: [],
+            seniors: [],
+            seniorID: null,
+            publicationDate: null,
+            admissionDate: null,
+            legalDocument: null,
+            activeRole: true,
+            unityID: null,
+            roleID: null,
+            linkageID: null,
+            substitute: false,
+            origin: null
         }
     }
-    componentDidMount() {
 
+    componentDidMount() {
         this.fetchData().catch(error => console.log(error))
     }
-    async fetchData(){
+
+    async fetchData() {
         try {
+            if (!this.props.create)
+                await axios({
+                    method: 'get',
+                    url: Host() + 'collaborator',
+                    headers: {'authorization': cookies.get('jwt')},
+                    params: {
+                        id: this.props.id
+                    }
+                }).then(res => {
+                    this.setState({
+                        seniorID: res.data.senior !== null ? res.data.senior.id : null,
+                        roleID: res.data.role.id,
+                        linkageID: res.data.linkage.id,
+                        unityID: res.data.unity.id,
+                        substitute: res.data.is_substitute,
+                        admissionDate: res.data.admission_date,
+                        publicationDate: res.data.official_publication_date,
+                        legalDocument: res.data.legal_document,
+                        origin: res.data.origin,
+                        activeRole: res.data.is_active_on_role
+                    })
+                }).catch(error => {
+                    console.log(error)
+                })
+
             await axios({
                 method: 'get',
-                url: Host() + 'collaborator',
+                url: Host() + 'role',
                 headers: {'authorization': cookies.get('jwt')},
-                params: {
-                    id: this.props.collaborationID
-                }
             }).then(res => {
+                this.setState({
+                    roles: res.data
+                })
             }).catch(error => {
                 console.log(error)
             })
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    async saveChanges(){
-
-        try {
             await axios({
-                method: this.props.collaborationID === null ? 'post' : 'put',
-                // url: Host() + 'co'+path,
-                // headers: {'authorization': cookies.get('jwt')},
-                data: {
-
-                }
-            }).then(() => {
-
+                method: 'get',
+                url: Host() + 'linkage',
+                headers: {'authorization': cookies.get('jwt')},
+            }).then(res => {
+                this.setState({
+                    linkages: res.data
+                })
+            }).catch(error => {
+                console.log(error)
+            })
+            await axios({
+                method: 'get',
+                url: Host() + 'unities',
+                headers: {'authorization': cookies.get('jwt')},
+            }).then(res => {
+                this.setState({
+                    unities: res.data
+                })
             }).catch(error => {
                 console.log(error)
             })
         } catch (error) {
             console.log(error)
         }
+    }
+
+    async fetchSeniors() {
 
     }
+
+    handleChangeUnity(event) {
+        this.setState({unityID: event.target.value})
+        this.fetchSeniors().catch(error => console.log(error))
+    }
+
+    async saveChanges() {
+        try {
+
+            // if (this.props.id !== null)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     render() {
         return (
             <div className={styles.form_component_container} style={{width: '45vw', margin: 'auto', height: '100%'}}>
                 <legend style={{width: '100%'}}>
                     <p style={{fontSize: '1.2rem', fontWeight: 450}}>Collaboration</p>
                 </legend>
-                <FormControl variant="outlined" disabled={this.props.disabled} style={this.props.selectStyle}>
+                <FormControl variant="outlined" disabled={this.props.disabled}
+                             style={{...this.props.selectStyle, ...{width: '49%'}}}>
                     <InputLabel id="unity-select">Unity</InputLabel>
                     <Select
                         labelId="unity-select"
                         id="unity-select"
-                        value={false}
-                        // onChange={handleChange}
+                        value={this.state.unityID}
+                        onChange={this.handleChangeUnity}
                         label="Unity"
                     >
-                        <MenuItem value={true}>Yes</MenuItem>
-                        <MenuItem value={false}>No</MenuItem>
+                        {this.state.unities.map(unity => (
+                            <MenuItem value={unity.id}>{unity.name}</MenuItem>
+                        ))}
                     </Select>
                 </FormControl>
-                <FormControl variant="outlined" disabled={this.props.disabled} style={this.props.selectStyle}>
+                <FormControl variant="outlined" disabled={this.props.disabled}
+                             style={{...this.props.selectStyle, ...{width: '49%'}}}>
                     <InputLabel id="senior-select">Senior</InputLabel>
                     <Select
                         labelId="senior-select"
                         id="senior-select"
-                        value={false}
+                        value={this.state.seniorID}
+                        disabled={this.state.seniorID === null}
                         // onChange={handleChange}
                         label="Senior"
                     >
-                        <MenuItem value={true}>Yes</MenuItem>
-                        <MenuItem value={false}>No</MenuItem>
+                        {this.state.seniors.map(senior => (
+                            <MenuItem value={senior.id}>{senior.name}</MenuItem>
+                        ))}
                     </Select>
                 </FormControl>
-                <FormControl variant="outlined" disabled={this.props.disabled} style={this.props.selectStyle}>
-                    <InputLabel id="role-select">role</InputLabel>
+                <FormControl variant="outlined" disabled={this.props.disabled}
+                             style={{...this.props.selectStyle, ...{width: '49%'}}}>
+                    <InputLabel id="role-select">Role</InputLabel>
                     <Select
                         labelId="role-select"
                         id="role-select"
-                        value={false}
+                        value={this.state.roleID}
                         // onChange={handleChange}
                         label="role"
+                    >
+                        {this.state.roles.map(role => (
+                            <MenuItem value={role.id}>{role.description} - {role.level}</MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+                <FormControl variant="outlined" disabled={this.props.disabled}
+                             style={{...this.props.selectStyle, ...{width: '49%'}}}>
+                    <InputLabel id="active-role-select">Active on role</InputLabel>
+                    <Select
+                        labelId="active-role-select"
+                        id="active-role-select"
+                        value={this.state.activeRole}
+                        // onChange={handleChange}
+                        label="Active Role"
                     >
                         <MenuItem value={true}>Yes</MenuItem>
                         <MenuItem value={false}>No</MenuItem>
@@ -102,7 +185,7 @@ export default class CollaborationForm extends React.Component {
                 </FormControl>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <Grid container justify="space-around"
-                          style={{width: '49%',  marginBottom: '2vh'}}>
+                          style={{width: '100%', marginBottom: '2vh'}}>
                         <KeyboardDatePicker
                             style={{
                                 width: '100%',
@@ -125,7 +208,7 @@ export default class CollaborationForm extends React.Component {
                 </MuiPickersUtilsProvider>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <Grid container justify="space-around"
-                          style={{width: '49%', marginBottom: '2vh'}}>
+                          style={{width: '66%', marginBottom: '2vh'}}>
                         <KeyboardDatePicker
                             style={{
                                 width: '100%',
@@ -148,63 +231,6 @@ export default class CollaborationForm extends React.Component {
                     </Grid>
                 </MuiPickersUtilsProvider>
                 <FormControl variant="outlined" disabled={this.props.disabled} style={this.props.selectStyle}>
-                    <InputLabel id="role-select">Active on role</InputLabel>
-                    <Select
-                        labelId="role-select"
-                        id="role-select"
-                        value={false}
-                        // onChange={handleChange}
-                        label="Role"
-                    >
-                        <MenuItem value={true}>Yes</MenuItem>
-                        <MenuItem value={false}>No</MenuItem>
-                    </Select>
-                </FormControl>
-                <FormControl variant="outlined" disabled={this.props.disabled} style={this.props.selectStyle}>
-                    <InputLabel id="substitute-select">Substitute</InputLabel>
-                    <Select
-                        labelId="substitute-select"
-                        id="substitute-select"
-                        value={false}
-                        // onChange={handleChange}
-                        label='Substitute'
-                    >
-                        <MenuItem value={true}>Yes</MenuItem>
-                        <MenuItem value={false}>No</MenuItem>
-                    </Select>
-                </FormControl>
-                <FormControl variant="outlined" disabled={this.props.disabled} style={this.props.selectStyle}>
-                    <InputLabel id="active-select">Active on role</InputLabel>
-                    <Select
-                        labelId="active-select"
-                        id="active-select"
-                        value={false}
-                        // onChange={handleChange}
-                        label="Active on role"
-                    >
-                        <MenuItem value={true}>Yes</MenuItem>
-                        <MenuItem value={false}>No</MenuItem>
-                    </Select>
-                </FormControl>
-
-
-                <TextField disabled={this.props.disabled} label={'Legal Document'} value={this.props.name}
-                           variant={"outlined"}
-                           style={this.props.smallContainer}/>
-                <FormControl variant="outlined" disabled={this.props.disabled} style={this.props.selectStyle}>
-                    <InputLabel id="level-select">Level</InputLabel>
-                    <Select
-                        labelId="level-select"
-                        id="level-select"
-                        value={false}
-                        // onChange={handleChange}
-                        label="Level"
-                    >
-                        <MenuItem value={true}>Yes</MenuItem>
-                        <MenuItem value={false}>No</MenuItem>
-                    </Select>
-                </FormControl>
-                <FormControl variant="outlined" disabled={this.props.disabled} style={this.props.selectStyle}>
                     <InputLabel id="link-select">Linkage</InputLabel>
                     <Select
                         labelId="link-select"
@@ -217,6 +243,23 @@ export default class CollaborationForm extends React.Component {
                         <MenuItem value={false}>No</MenuItem>
                     </Select>
                 </FormControl>
+                <FormControl variant="outlined" disabled={this.props.disabled} style={{...this.props.selectStyle, ...{width: '49%'}}}>
+                    <InputLabel id="substitute-select">Substitute</InputLabel>
+                    <Select
+                        labelId="substitute-select"
+                        id="substitute-select"
+                        value={this.state.substitute}
+                        // onChange={handleChange}
+                        label='Substitute'
+                    >
+                        <MenuItem value={true}>Yes</MenuItem>
+                        <MenuItem value={false}>No</MenuItem>
+                    </Select>
+                </FormControl>
+                <TextField disabled={this.props.disabled} label={'Legal Document'} value={this.props.name}
+                           variant={"outlined"}
+                           style={this.props.mediumContainer}/>
+
                 <Button style={{width: '100%'}}>Save changes</Button>
             </div>
         )
