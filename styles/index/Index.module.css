@@ -33,7 +33,7 @@
 
 .persona_container {
     display: grid;
-    /*align-content: space-between;*/
+    overflow: hidden;
     width: 32%;
     height: fit-content;
     margin-bottom: 2vh;

@@ -38,31 +38,33 @@ export default class BasicForm extends React.Component {
     }
 
     async fetchData() {
-        const response = await this.props.fetchData('')
+        await this.props.fetchData('person',{id: this.props.id}).then(res => {
+            if (res !== null)
+                this.setState({
+                    name: res.name,
+                    birth: res.birth,
+                    education: res.education,
+                    gender: res.gender,
+                    marital: res.marital_status,
+                    extension: res.extension,
+                    registration: res.registration,
+                    corporateEmail: res.corporate_email,
+                    father: res.father_name,
+                    mother: res.mother_name,
+                    disabledPerson: res.disabled_person,
+                    birthPlace: res.birth_place,
+                    pic: res.pic,
+                    nationality: res.nationality,
+                    admin: res.is_administrator
+                })
+        })
 
-        if (response !== null)
-            this.setState({
-                name: response.name,
-                birth: response.birth,
-                education: response.education,
-                gender: response.gender,
-                marital: response.marital_status,
-                extension: response.extension,
-                registration: response.registration,
-                corporateEmail: response.corporate_email,
-                father: response.father_name,
-                mother: response.mother_name,
-                disabledPerson: response.disabled_person,
-                birthPlace: response.birth_place,
-                pic: response.pic,
-                nationality: response.nationality,
-                admin: response.is_administrator
-            })
         this.setState({loading: false})
     }
 
     async saveChanges() {
-        const response = await this.props.saveChanges(
+        await this.props.saveChanges(
+            'person',
             {
                 id: this.props.id,
                 pic: this.state.pic,
@@ -80,9 +82,10 @@ export default class BasicForm extends React.Component {
                 disabled_person: this.state.disabledPerson,
                 nationality: this.state.nationality,
                 is_administrator: this.state.admin
-            }, '')
-        if (response)
-            this.setState({changed: false})
+            },
+            'put'
+            ).then(res => res ? this.setState({changed: false}): console.log(res))
+
     }
 
     handleDateChange(event) {

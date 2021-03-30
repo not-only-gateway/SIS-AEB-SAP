@@ -25,29 +25,32 @@ export default class ContactForm extends React.Component {
     }
 
     async fetchData() {
-        const response = await this.props.fetchData('/contact')
+        await this.props.fetchData('person/contact',{id: this.props.id}).then(res => {
+            if (res !== null)
+                this.setState({
+                    email: res.email,
+                    emailAlt: res.email_alt,
+                    phone: res.phone,
+                    phoneAlt: res.phone_alt
+                })
+        })
 
-        if (response !== null)
-            this.setState({
-                email: response.email,
-                emailAlt: response.email_alt,
-                phone: response.phone,
-                phoneAlt: response.phone_alt
-            })
         this.setState({loading: false})
     }
 
     async saveChanges() {
-        const response = await this.props.saveChanges(
+        await this.props.saveChanges(
+            'person/contact',
             {
                 id: this.props.id,
                 email: this.state.email,
                 email_alt: this.state.emailAlt,
                 phone: this.state.phone,
                 phone_alt: this.state.phoneAlt
-            }, '/contact')
-        if (response)
-            this.setState({changed: false})
+            },
+            'put'
+        ).then(res => res ? this.setState({changed: false}): console.log(res))
+
     }
 
     handleChange(event) {

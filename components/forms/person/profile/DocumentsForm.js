@@ -35,27 +35,29 @@ export default class DocumentsForm extends React.Component {
     }
 
     async fetchData() {
-        const response = await this.props.fetchData('/documents')
+        await this.props.fetchData('person/documents', {id: this.props.id}).then(res => {
+            if (res !== null)
+                this.setState({
+                    cpf: res.cpf,
+                    rg: res.rg,
+                    dispatchDate: res.dispatch_date,
+                    issuingBody: res.issuing_body,
+                    voterRegistration: res.voter_registration,
+                    electoralZone: res.electoral_zone,
+                    electoralSection: res.electoral_section,
+                    bank: res.bank,
+                    agency: res.agency,
+                    workCard: res.work_card,
+                    pis: res.pis
+                })
+        })
 
-        if (response !== null)
-            this.setState({
-                cpf: response.cpf,
-                rg: response.rg,
-                dispatchDate: response.dispatch_date,
-                issuingBody: response.issuing_body,
-                voterRegistration: response.voter_registration,
-                electoralZone: response.electoral_zone,
-                electoralSection: response.electoral_section,
-                bank: response.bank,
-                agency: response.agency,
-                workCard: response.work_card,
-                pis: response.pis
-            })
         this.setState({loading: false})
     }
 
     async saveChanges() {
-        const response = await this.props.saveChanges(
+        await this.props.saveChanges(
+            'person/contact',
             {
                 id: this.props.id,
                 cpf: this.state.cpf,
@@ -69,9 +71,9 @@ export default class DocumentsForm extends React.Component {
                 agency: this.state.agency,
                 work_card: this.state.workCard,
                 pis: this.state.pis,
-            }, '/documents')
-        if (response)
-            this.setState({changed: false})
+            },
+            'put'
+        ).then(res => res ? this.setState({changed: false}) : console.log(res))
     }
 
     handleChange(event) {

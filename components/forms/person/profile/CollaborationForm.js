@@ -3,11 +3,6 @@ import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers"
 import DateFnsUtils from "@date-io/date-fns";
 import {Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
 import React from "react";
-import axios from "axios";
-import Host from "../../../../config/Host";
-import Cookies from "universal-cookie/lib";
-
-const cookies = new Cookies()
 
 export default class CollaborationForm extends React.Component {
     constructor(props) {
@@ -27,150 +22,125 @@ export default class CollaborationForm extends React.Component {
             linkageID: null,
             substitute: null,
             origin: null,
+            roleLevel: null,
             changed: false,
-            roleLevel: null
+            exists: false
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleDateChange = this.handleDateChange.bind(this)
         this.handleRoleChange = this.handleRoleChange.bind(this)
     }
 
-    componentDidMount() {
-        this.fetchData().catch(error => console.log(error))
-    }
-    handleRoleChange(event){
+
+    handleRoleChange(event) {
         this.setState({
             roleID: event.roleID,
             roleLevel: event.roleLevel
-        }, () => this.fetchSeniors(event.roleLevel).catch(error => console.log(error)))
-        if(!this.state.changed)
+        }, () =>
+            this.props.fetchData('seniors', {}).then(res =>
+                this.setState({
+                    seniors: res
+                })
+            )
+        )
+        if (!this.state.changed)
             this.setState({
                 changed: true
             })
 
     }
-    handleChange(event){
+
+    handleChange(event) {
         this.setState({
             [event.target.name]: event.target.value
         })
-        if(!this.state.changed)
+        if (!this.state.changed)
             this.setState({
                 changed: true
             })
     }
-    handleDateChange(name,event) {
+
+    handleDateChange(name, event) {
         this.setState({
             [name]: event.getTime()
         })
-        if(!this.state.changed)
+        if (!this.state.changed)
             this.setState({
                 changed: true
             })
     }
 
-
-    async fetchData() {
-        try {
-            if (!this.props.create)
-                await axios({
-                    method: 'get',
-                    url: Host() + 'collaborator',
-                    headers: {'authorization': cookies.get('jwt')},
-                    params: {
-                        id: this.props.id
-                    }
-                }).then(res => {
-                    this.setState({
-                        seniorID: res.data.senior !== null ? res.data.senior.id : null,
-                        roleID: res.data.role.id,
-                        linkageID: res.data.linkage.id,
-                        unityID: res.data.unity.id,
-                        substitute: res.data.is_substitute,
-                        admissionDate: res.data.admission_date,
-                        publicationDate: res.data.official_publication_date,
-                        legalDocument: res.data.legal_document,
-                        origin: res.data.origin,
-                        activeRole: res.data.is_active_on_role
-                    })
-                }).catch(error => {
-                    console.log(error)
-                })
-
-            await axios({
-                method: 'get',
-                url: Host() + 'role',
-                headers: {'authorization': cookies.get('jwt')},
-            }).then(res => {
+    componentDidMount() {
+        if (this.props.collaborationID !== null) {
+            this.props.fetchData('collaborator', {id: this.props.id}).then(res =>
                 this.setState({
-                    roles: res.data
+                    seniorID: res.senior !== null ? res.senior.id : null,
+                    roleID: res.role.id,
+                    linkageID: res.linkage.id,
+                    unityID: res.unity.id,
+                    substitute: res.is_substitute,
+                    admissionDate: res.admission_date,
+                    publicationDate: res.official_publication_date,
+                    legalDocument: res.legal_document,
+                    origin: res.origin,
+                    activeRole: res.is_active_on_role,
+                    exists: true
                 })
-            }).catch(error => {
-                console.log(error)
-            })
-            await axios({
-                method: 'get',
-                url: Host() + 'linkage',
-                headers: {'authorization': cookies.get('jwt')},
-            }).then(res => {
-                this.setState({
-                    linkages: res.data
-                })
-            }).catch(error => {
-                console.log(error)
-            })
-            await axios({
-                method: 'get',
-                url: Host() + 'unities',
-                headers: {'authorization': cookies.get('jwt')},
-            }).then(res => {
-                this.setState({
-                    unities: res.data
-                })
-            }).catch(error => {
-                console.log(error)
-            })
-        } catch (error) {
-            console.log(error)
+            )
         }
-    }
 
-    async fetchSeniors() {
-        try{
-            await axios({
-                method: 'get',
-                url: Host() + 'seniors',
-                headers: {'authorization': cookies.get('jwt')},
-                params: {
-                    level: this.state.roleLevel,
-                    unity_id: this.state.unityID
-                }
-            }).then(res => {
-                this.setState({
-                    seniors: res.data
-                })
-            }).catch(error => {
-                console.log(error)
+        this.props.fetchData('role', {}).then(res =>
+            this.setState({
+                roles: res
             })
-        }catch (error){
-            console.log(error)
-        }
+        )
+        this.props.fetchData('linkage', {}).then(res =>
+            this.setState({
+                linkages: res
+            })
+        )
+        this.props.fetchData('unities', {}).then(res =>
+            this.setState({
+                unities: res
+            })
+        )
+
     }
-
-
     async saveChanges() {
-        try {
-
-            // if (this.props.id !== null)
-        } catch (error) {
-            console.log(error)
-        }
+        await this.props.saveChanges(
+            'collaborator',
+            {
+                id: this.props.id,
+                senior_id: this.state.seniorID,
+                role_id: this.state.roleID,
+                linkage_id: this.state.linkageID,
+                unity_id: this.state.unityID,
+                is_substitute: this.state.substitute,
+                official_publication_date: this.state.publicationDate,
+                admission_date: this.state.admissionDate,
+                legal_document: this.state.legalDocument,
+                // level: this.state.role,
+                origin: this.state.origin,
+                is_active_on_role: this.state.activeRole,
+                work_shift_start: this.state.workStart,
+                work_shift_end: this.state.workEnd,
+                contract_expiration: this.state.contractExp,
+                // hierarchy_level: ,
+                additional_information: this.state.additionalInfo,
+            },
+            this.props.collaborationID === null ? 'post' : 'put'
+        ).then(res => res ? this.setState({changed: false}): console.log(res))
     }
 
     render() {
         return (
-            <div className={styles.form_component_container} style={{width: '45vw', margin: 'auto', height: '100%'}}>
+            <div className={styles.form_component_container} style={{width: '45vw', margin: 'auto', height: '49vh'}}>
                 <legend style={{width: '100%'}}>
-                    <p style={{fontSize: '1.2rem', fontWeight: 450}}>Collaboration</p>
+                    <p style={{
+                        fontSize: '1.2rem',
+                        fontWeight: 450,
+                        color: this.props.dark ? 'white' : 'black'
+                    }}>Collaboration</p>
                 </legend>
                 <FormControl variant="outlined" disabled={this.props.disabled}
                              style={{...this.props.selectStyle, ...{width: '49%'}}}>
@@ -212,13 +182,19 @@ export default class CollaborationForm extends React.Component {
                     <Select
                         labelId="role-select"
                         id="role-select"
-                        value={this.state.roleID !== null ? JSON.stringify({roleID: this.state.roleID, roleLevel: this.state.roleLevel}) : null}
+                        value={this.state.roleID !== null ? JSON.stringify({
+                            roleID: this.state.roleID,
+                            roleLevel: this.state.roleLevel
+                        }) : null}
                         // name={'roleID'}
                         onChange={event => this.handleRoleChange(JSON.parse(event.target.value))}
                         label="role"
                     >
                         {this.state.roles.map(role => (
-                            <MenuItem value={JSON.stringify({roleID: role.id, roleLevel: role.level})}>{role.denomination} - {role.is_effective ? 'Effective' : 'Not Effective'}</MenuItem>
+                            <MenuItem value={JSON.stringify({
+                                roleID: role.id,
+                                roleLevel: role.level
+                            })}>{role.denomination} - {role.is_effective ? 'Effective' : 'Not Effective'}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>
@@ -285,7 +261,9 @@ export default class CollaborationForm extends React.Component {
                         />
                     </Grid>
                 </MuiPickersUtilsProvider>
-                <FormControl variant="outlined" disabled={this.props.disabled || this.state.unityID === null || this.state.roleID === null} style={this.props.selectStyle}>
+                <FormControl variant="outlined"
+                             disabled={this.props.disabled || this.state.unityID === null || this.state.roleID === null}
+                             style={this.props.selectStyle}>
                     <InputLabel id="link-select">Linkage</InputLabel>
                     <Select
                         labelId="link-select"
@@ -300,7 +278,9 @@ export default class CollaborationForm extends React.Component {
                         ))}
                     </Select>
                 </FormControl>
-                <FormControl variant="outlined" disabled={this.props.disabled || this.state.unityID === null || this.state.roleID === null} style={{...this.props.selectStyle, ...{width: '49%'}}}>
+                <FormControl variant="outlined"
+                             disabled={this.props.disabled || this.state.unityID === null || this.state.roleID === null}
+                             style={{...this.props.selectStyle, ...{width: '49%'}}}>
                     <InputLabel id="substitute-select">Substitute</InputLabel>
                     <Select
                         labelId="substitute-select"
@@ -314,13 +294,15 @@ export default class CollaborationForm extends React.Component {
                         <MenuItem value={false}>No</MenuItem>
                     </Select>
                 </FormControl>
-                <TextField disabled={this.props.disabled || this.state.unityID === null} label={'Legal Document'} value={this.state.legalDocument}
+                <TextField disabled={this.props.disabled || this.state.unityID === null} label={'Legal Document'}
+                           value={this.state.legalDocument}
                            variant={"outlined"}
                            name={'legalDocument'}
                            onChange={this.handleChange}
                            style={this.props.mediumContainer}/>
 
-                <Button style={{width: '100%'}}>Save changes</Button>
+                <Button style={{width: '100%'}} onClick={() => this.saveChanges()} disabled={!this.state.changed}>Save
+                    changes</Button>
             </div>
         )
     }

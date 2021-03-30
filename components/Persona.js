@@ -74,11 +74,11 @@ export default class Persona extends React.Component {
         }
         const containerDarkStyle = {
             backgroundColor: '#3b424c',
-            borderRadius: '8px'
+            borderRadius: '8px',
         }
         const containerLightStyle = {
             borderRadius: '8px',
-            border: !this.props.dark ? '#e2e2e2 1px solid' : '#777777 1px solid'
+            border: '#e2e2e2 1px solid'
         }
 
         return (
