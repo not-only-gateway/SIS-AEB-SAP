@@ -16,7 +16,6 @@ export default class Persona extends React.Component {
         }
     }
 
-
     renderModal() {
 
         if (this.state.modalOpen) {
@@ -27,6 +26,8 @@ export default class Persona extends React.Component {
                         <PersonProfile
                             dark={this.props.dark}
                             id={this.props.id}
+                            profile={this.props.person.profile}
+                            collaboration={this.props.person.collaboration}
                         />
                     </div>
                 </Modal>
@@ -44,21 +45,21 @@ export default class Persona extends React.Component {
         return (
             <div className={styles.persona_fields_container}>
                 <div className={styles.persona_title} style={borderBottom}>
-                    <Avatar src={this.props.pic} alt={this.props.name}
+                    <Avatar src={this.props.person.profile.pic} alt={this.props.person.profile.name}
                             style={{height: '70px', width: '70px'}}/>
                     <p style={{
                         fontSize: '1rem',
                         fontWeight: 445,
                         color: (this.props.dark ? 'white' : 'black')
-                    }}>{this.props.name}</p>
-                    {((new Date(this.props.birth)).getDay() !== (new Date).getDay() && (new Date(this.props.birth)).getMonth() === (new Date).getMonth()) ?
+                    }}>{this.props.person.profile.name}</p>
+                    {((new Date(this.props.person.profile.birth)).getDay() !== (new Date).getDay() && (new Date(this.props.person.profile.birth)).getMonth() === (new Date).getMonth()) ?
                         <CakeRounded style={{color: '#f54269', fontSize: '1.8rem'}}/>
                         :
                         null
                     }
                 </div>
-                <p style={secondaryField}>{this.props.email}</p>
-                <p style={secondaryField}>{this.props.phone}</p> {/*last 4 digits*/}
+                <p style={secondaryField}>{this.props.person.profile.corporate_email}</p>
+                <p style={secondaryField}>{this.props.person.profile.extension}</p> {/*last 4 digits*/}
             </div>
         )
     }
@@ -82,11 +83,11 @@ export default class Persona extends React.Component {
         }
 
         return (
-            <div className={styles.persona_container} key={this.props.id}
+            <div className={styles.persona_container} key={this.props.person.profile.id}
                  style={this.props.dark ? containerDarkStyle : containerLightStyle}>
                 {this.renderModal()}
-                {this.props.canEdit || this.props.ownProfile ?
-                    <Link href={{pathname: '/person', query: {id: this.props.id}}}>
+                {this.props.canEdit ?
+                    <Link href={{pathname: '/person', query: {id: this.props.person.profile.id}}}>
                         <Button style={buttonStyle}>
                             {this.renderContent()}
                         </Button>
@@ -102,8 +103,11 @@ export default class Persona extends React.Component {
                     <Button style={{
                         height: 'fit-content', borderBottomRightRadius: '8px',
                         borderBottomLeftRadius: '8px', width: '100%'
-                    }}>
-                        CTIC
+                    }}
+                            disabled={true}
+                    >
+
+                        {this.props.person.collaboration.unity.acronym} - {this.props.person.collaboration.unity.name}
                     </Button>
                 </div>
             </div>

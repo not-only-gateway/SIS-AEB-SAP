@@ -17,7 +17,7 @@ export default function Collaborations(props) {
     const [modal, setModal] = useState(false)
     const [selected, setSelected] = useState(null)
 
-    function renderModal(collaborationID) {
+    function renderModal() {
         return (
             <Modal open={modal} onClose={() => {
                 setModal(false)
@@ -36,6 +36,7 @@ export default function Collaborations(props) {
                         selectStyle={props.selectStyle}
                         fetchData={props.fetchData}
                         saveChanges={props.saveChanges}
+                        setModal={setModal}
                     />
                 </div>
             </Modal>
@@ -43,12 +44,12 @@ export default function Collaborations(props) {
     }
 
     async function fetchData() {
-        let response = await props.fetchData('collaborations', {id: props.id}).catch(error => console.log(error))
-        if (response !== null) {
-            setCollaborations(response)
-            setLoading(false)
-        }
+        await props.fetchData('collaborations', {id: props.id}).then(res => {
+            if (res !== null)
+                setCollaborations(res)
 
+        })
+        setLoading(false)
     }
 
     useEffect(() => {
@@ -62,34 +63,35 @@ export default function Collaborations(props) {
             <legend style={{width: '100%'}}>
                 <p style={{fontSize: '1.2rem', fontWeight: 450}}>Collaborations</p>
             </legend>
-            {collaborations.map(collaboration => (
-                <Button onClick={() => {
-                    setModal(true)
-                    setSelected(collaboration.id)
-                }}>
-                    <div className={styles.collaboration_container} style={props.dark ? {
-                        backgroundColor: '#3b424c'
-                    } : {
-                        border: '#e2e2e2 1px solid'
-                    }}>
-                        psdads
-                        <Button>
-                            <DeleteForeverRounded/>
-                        </Button>
-                    </div>
-
-                </Button>
-            ))}
-
+            <div style={{overflowX: 'auto', overflowY: 'hidden', display: 'flex', justifyContent: 'flex-start', marginBottom: '2vh', maxWidth: '45vw'}}>
                 <div className={styles.collaboration_container} style={props.dark ? {
-                    backgroundColor: '#3b424c', justifyContent: 'center'
+                    backgroundColor: '#3b424c', justifyContent: 'center', minWidth: '7.5vw', maxWidth: '7.5vw'
                 } : {
-                    border: '#e2e2e2 1px solid', justifyContent: 'center', width: '16%'
+                    border: '#e2e2e2 1px solid', justifyContent: 'center', minWidth: '7.5vw', maxWidth: '7.5vw'
                 }}>
-                    <Button style={{width: '100%', height: '100%',borderRadius: '8px'}} onClick={() => setModal(true)}>
+                    <Button style={{width: '100%', height: '100%', borderRadius: '8px'}} onClick={() => setModal(true)}>
                         <AddRounded/>
                     </Button>
                 </div>
+
+                {collaborations.map(collaboration => (
+                        <div className={styles.collaboration_container} style={props.dark ? {
+                            backgroundColor: '#3b424c', justifyContent: 'center'
+                        } : {
+                            border: '#e2e2e2 1px solid', justifyContent: 'center'
+                        }}>
+                            <Button style={{width: '100%', height: '100%', borderRadius: '8px', display: 'block', lineHeight: '7px'}}
+                                    onClick={() => {
+                                        setModal(true)
+                                        setSelected(collaboration.id)
+                                    }}>
+                                <p style={{fontWeight: 450}}>{collaboration.unity.acronym} - {collaboration.unity.name}</p>
+                                <p style={{fontSize: '.8rem', fontWeight: 420, color: props.dark? '#e2e2e2' : '#777777'}}>{collaboration.role.denomination} - {collaboration.linkage.description}</p>
+                                {/*<p>{collaboration.unity.name}</p>*/}
+                            </Button>
+                        </div>
+                ))}
+            </div>
 
 
         </div>

@@ -20,22 +20,20 @@ export default function Index() {
     const router = useRouter()
     const {locale} = router
     const [people, setPeople] = useState([])
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [canEdit, setCanEdit] = useState(false)
-    // const title = useMemo(() => {
-    //
-    // }, [self])
+    const [search, setSearch] = useState(null)
     useEffect(() => {
-        setCanEdit(localStorage.getItem('profile') !== null && (JSON.parse(localStorage.getItem('profile')).is_administrator === true))
+        setCanEdit(localStorage.getItem('profile') !== null && JSON.parse(localStorage.getItem('profile')).admin)
+
         fetchData().catch(error => console.log(error))
     }, [])
 
-    const fetchData = async () => {
-        setLoading(true)
+    async function fetchData(){
         try {
             await axios({
                 method: 'get',
-                url: Host() + 'people'
+                url: Host() + 'collaborators'
             }).then(res => {
                 setPeople(res.data)
             }).catch(error => {
@@ -47,6 +45,25 @@ export default function Index() {
         setLoading(false)
     }
 
+    async function fetchSearch(){
+        setLoading(true)
+        try {
+            await axios({
+                method: 'get',
+                url: Host() + 'collaborators',
+                params: {
+                    input: search
+                }
+            }).then(res => {
+                setPeople(res.data)
+            }).catch(error => {
+                console.log(error)
+            })
+        } catch (error) {
+            console.log(error)
+        }
+        setLoading(false)
+    }
     return (
         <Layout>
             {props =>
@@ -66,31 +83,27 @@ export default function Index() {
                                     boxShadow: 'rgba(0, 0, 0, 0.05) 0 1px 2px 0'
                                 }
                             }}>
-                                <IconButton aria-label="search">
+                                <IconButton aria-label="search" onClick={() => fetchSearch()} disabled={search === null || search.length === 0}>
                                     <SearchRounded style={{color: props.dark ? 'white' : null}}/>
                                 </IconButton>
                                 <InputBase
                                     style={{width: '93%', color: (props.dark ? 'white' : null)}}
                                     placeholder={'Search'}
+                                    onChange={event => setSearch(event.target.value)}
                                 />
                             </Paper>
                         </div>
                     </div>
                     <div className={styles.personas_container}>
-                        {people.length > 0 && !loading ?
+                        {!loading ?
                             people.map(person =>
+
                                 <Persona
-                                    pic={person.pic}
-                                    name={person.name}
-                                    admin={person.is_administrator}
-                                    email={person.corporate_email}
-                                    ownProfile={id === person.id}
+                                    person={person}
                                     canEdit={canEdit}
-                                    phone={person.extension}
-                                    id={person.id}
                                     dark={props.dark}
-                                    birth={person.birth}
                                 />
+
                             )
                             :
                             <Skeleton variant="rect" style={{

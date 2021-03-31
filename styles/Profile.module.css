@@ -39,6 +39,12 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+.profile_modal_container{
+    display: grid;
+    width: 90%;
+    align-content: space-evenly;
+    margin: auto;
+}
 .simplified_profile_container:hover{
     box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
 }

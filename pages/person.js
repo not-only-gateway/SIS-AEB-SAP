@@ -17,7 +17,7 @@ const cookies = new Cookies()
 export default function person() {
 
     const router = useRouter()
-    const id = router.query.id
+    const [id, setId] = useState(undefined)
     const disabled = (new Cookies()).get('adm_token') !== undefined
     const [dark, setDark] = useState(false)
     const [mediumContainer, setMediumContainer] = useState({})
@@ -25,6 +25,7 @@ export default function person() {
     const [smallContainer, setSmallContainer] = useState({})
 
     useEffect(() => {
+
         setDark(cookies.get('theme') === '0')
         setMediumContainer({width: '49%', backgroundColor: !dark ? '#f7f8fa' : '#272e38', marginBottom: '2vh'})
         setSelectStyle({
@@ -33,6 +34,7 @@ export default function person() {
             marginBottom: '2vh'
         })
         setSmallContainer({width: '32%', backgroundColor: !dark ? '#f7f8fa' : '#272e38', marginBottom: '2vh'})
+        setId(router.query.id)
     }, [])
 
     async function fetchData(path, params) {
@@ -83,18 +85,22 @@ export default function person() {
                     }
                 })}>
                     <props.getTitle pageName={'Person'} pageTitle={'Person'} pageInfo={'INFORMATION'}/>
-                    <div>
-                        <Profile
-                            dark={dark}
-                            disabled={disabled}
-                            id={id}
-                            fetchData={fetchData}
-                            saveChanges={saveChanges}
-                            mediumContainer={mediumContainer}
-                            smallContainer={smallContainer}
-                            selectStyle={selectStyle}
-                        />
-                    </div>
+                    {id !== undefined ?
+                        <div>
+                            <Profile
+                                dark={dark}
+                                disabled={disabled}
+                                id={id}
+                                fetchData={fetchData}
+                                saveChanges={saveChanges}
+                                mediumContainer={mediumContainer}
+                                smallContainer={smallContainer}
+                                selectStyle={selectStyle}
+                            />
+                        </div>
+                    :
+                        null
+                    }
                 </ThemeProvider>
             }
         </Layout>

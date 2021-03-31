@@ -25,10 +25,10 @@
 }
 
 .modal_container {
-    margin: 12.5vh auto auto;
+    margin: 15vh auto auto;
     width: 40vw;
     border-radius: 8px;
-    height: 75vh;
+    height: 50vh;
 }
 
 .persona_container {
