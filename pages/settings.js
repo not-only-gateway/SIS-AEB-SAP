@@ -8,18 +8,20 @@ import {buttonStyle, iconStyle} from "../styles/bar/BarMaterialStyles";
 import Brightness7RoundedIcon from "@material-ui/icons/Brightness7Rounded";
 import Brightness3RoundedIcon from "@material-ui/icons/Brightness3Rounded";
 import {ThemeProvider} from "@material-ui/styles";
-import setCookiesLanguage from "../config/Language";
+import {getLanguage, setCookiesLanguage} from "../config/Language";
 
 export default function Settings() {
 
     const router = useRouter()
+    const [lang, setLang] = useState(null)
 
     const changeLang = (event) => {
-        const locale = event.target.value
-        setCookiesLanguage(locale)
-        router.push('/settings', '/settings', {locale}).catch(r => console.log(r))
+        const newLocale = event.target.value
+        const newLang = getLanguage(newLocale, router.pathname)
+        setCookiesLanguage(newLocale)
+        router.push('/signin', '/signin', {locale: newLocale}).catch(r => console.log(r))
+        setLang(newLang)
     }
-
     return (
 
             <Layout>

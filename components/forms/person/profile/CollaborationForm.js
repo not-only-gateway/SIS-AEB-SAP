@@ -33,7 +33,6 @@ export default class CollaborationForm extends React.Component {
             canBeActive: false
         }
         this.handleChange = this.handleChange.bind(this)
-        this.handleDateChange = this.handleDateChange.bind(this)
         this.handleRoleChange = this.handleRoleChange.bind(this)
     }
 
@@ -61,19 +60,9 @@ export default class CollaborationForm extends React.Component {
 
     }
 
-    handleChange(event) {
+    handleChange(value, name) {
         this.setState({
-            [event.target.name]: event.target.value
-        })
-        if (!this.state.changed)
-            this.setState({
-                changed: true
-            })
-    }
-
-    handleDateChange(name, event) {
-        this.setState({
-            [name]: event.getTime()
+            [name]: value
         })
         if (!this.state.changed)
             this.setState({
@@ -145,14 +134,14 @@ export default class CollaborationForm extends React.Component {
                 linkage_id: this.state.linkageID,
                 unity_id: this.state.unityID,
                 is_substitute: this.state.substitute,
-                official_publication_date: this.state.publicationDate,
-                admission_date: this.state.admissionDate,
+                official_publication_date: this.state.publicationDate.getTime(),
+                admission_date: this.state.admissionDate.getTime(),
                 legal_document: this.state.legalDocument,
                 origin: this.state.origin,
                 is_active_on_role: this.state.activeRole !== null ? this.state.activeRole : false,
                 work_shift_start: this.state.workStart,
                 work_shift_end: this.state.workEnd,
-                contract_expiration: this.state.contractExp,
+                contract_expiration: this.state.contractExp.getTime(),
                 additional_information: this.state.additionalInfo,
             },
             this.props.collaborationID === null ? 'post' : 'put'
@@ -187,8 +176,7 @@ export default class CollaborationForm extends React.Component {
                             labelId="unity-select"
                             id="unity-select"
                             value={this.state.unityID}
-                            name={'unityID'}
-                            onChange={this.handleChange}
+                            onChange={event => this.handleChange(event.target.value, 'unityID')}
                             label="Unity"
                         >
                             {this.state.unities.map(unity => (
@@ -206,8 +194,7 @@ export default class CollaborationForm extends React.Component {
                             id="senior-select"
                             value={this.state.seniorID}
                             disabled={this.state.seniorID === null}
-                            name={'seniorID'}
-                            onChange={this.handleChange}
+                            onChange={event => this.handleChange(event.target.value, 'seniorID')}
                             label="Senior"
                         >
                             {this.state.seniors.map(senior => (
@@ -226,7 +213,8 @@ export default class CollaborationForm extends React.Component {
                                 roleID: this.state.roleID,
                                 roleLevel: this.state.roleLevel
                             }) : null}
-                            // name={'roleID'}
+
+
                             onChange={event => this.handleRoleChange(JSON.parse(event.target.value))}
                             label="role"
                         >
@@ -246,8 +234,7 @@ export default class CollaborationForm extends React.Component {
                             labelId="active-role-select"
                             id="active-role-select"
                             value={this.state.activeRole}
-                            name={'activeRole'}
-                            onChange={this.handleChange}
+                            onChange={event => this.handleChange(event.target.value, 'activeRole')}
                             label="Active Role"
                         >
                             <MenuItem value={true}>Yes</MenuItem>
@@ -264,7 +251,7 @@ export default class CollaborationForm extends React.Component {
                             id="substitute-select"
                             value={this.state.substitute}
                             name={'substitute'}
-                            onChange={this.handleChange}
+                            onChange={event => this.handleChange(event.target.value, 'substitute')}
                             label='Substitute'
                         >
                             <MenuItem value={true}>Yes</MenuItem>
@@ -287,9 +274,9 @@ export default class CollaborationForm extends React.Component {
                                 disabled={this.props.disabled || this.state.unityID === null}
                                 label="Admission Date"
                                 format="dd/MM/yyyy"
-                                value={this.state.admissionDate !== null ? new Date(this.state.admissionDate).toLocaleDateString() : null}
+                                value={this.state.admissionDate }
                                 name={'admissionDate'}
-                                onChange={event => this.handleDateChange('admissionDate', event)}
+                                onChange={event => this.handleChange(event, 'admissionDate')}
                                 KeyboardButtonProps={{
                                     'aria-label': 'change date',
                                 }}
@@ -312,8 +299,8 @@ export default class CollaborationForm extends React.Component {
                                 disabled={this.props.disabled || this.state.unityID === null}
                                 label="Official Publication"
                                 format="dd/MM/yyyy"
-                                value={this.state.publicationDate !== null ? new Date(this.state.publicationDate).toLocaleDateString() : null}
-                                onChange={event => this.handleDateChange('publicationDate', event)}
+                                value={this.state.publicationDate}
+                                onChange={event => this.handleChange(event, 'publicationDate')}
                                 KeyboardButtonProps={{
                                     'aria-label': 'change date',
                                 }}
@@ -335,8 +322,8 @@ export default class CollaborationForm extends React.Component {
                                 disabled={this.props.disabled || this.state.unityID === null}
                                 label="Contract Expiration"
                                 format="dd/MM/yyyy"
-                                value={this.state.contractExp !== null ? new Date(this.state.contractExp).toLocaleDateString() : null}
-                                onChange={event => this.handleDateChange('contractExp', event)}
+                                value={this.state.contractExp }
+                                onChange={event => this.handleChange(event, 'contractExp')}
                                 KeyboardButtonProps={{
                                     'aria-label': 'change date',
                                 }}
@@ -352,7 +339,7 @@ export default class CollaborationForm extends React.Component {
                             id="link-select"
                             value={this.state.linkageID}
                             name={'linkageID'}
-                            onChange={this.handleChange}
+                            onChange={event => this.handleChange(event.target.value, 'linkageID')}
                             label="Linkage"
                         >
                             {this.state.linkages.map(link => (
@@ -363,8 +350,7 @@ export default class CollaborationForm extends React.Component {
                     <TextField disabled={this.props.disabled || this.state.unityID === null} label={'Legal Document'}
                                value={this.state.legalDocument}
                                variant={"outlined"}
-                               name={'legalDocument'}
-                               onChange={this.handleChange}
+                               onChange={event => this.handleChange(event.target.value, 'legalDocument')}
                                style={this.props.mediumContainer}/>
 
                     <form noValidate style={this.props.mediumContainer}>
@@ -375,9 +361,8 @@ export default class CollaborationForm extends React.Component {
                             label="Work shift start"
                             type="time"
                             disabled={this.props.disabled}
-                            value={this.state.workStart !== null ? this.state.workStart : '06:00'}
-                            name={'workStart'}
-                            onChange={this.handleChange}
+                            value={this.state.workStart}
+                            onChange={event => this.handleChange(event.target.value, 'workStart')}
                             inputProps={{
                                 step: 300, // 5 min
                             }}
@@ -391,9 +376,8 @@ export default class CollaborationForm extends React.Component {
                             label="Work shift end"
                             type="time"
                             disabled={this.props.disabled}
-                            value={this.state.workEnd !== null ? this.state.workEnd : '18:00'}
-                            name={'workEnd'}
-                            onChange={this.handleChange}
+                            value={this.state.workEnd}
+                            onChange={event => this.handleChange(event.target.value, 'workEnd')}
                             inputProps={{
                                 step: 300, // 5 min
                             }}
@@ -403,8 +387,7 @@ export default class CollaborationForm extends React.Component {
                                label={'Additional information'}
                                value={this.state.additionalInfo}
                                variant={"outlined"}
-                               name={'additionalInfo'}
-                               onChange={this.handleChange}
+                               onChange={event => this.handleChange(event.target.value, 'additionalInfo')}
                                style={{...this.props.mediumContainer, ...{width: '100%'}}}/>
 
                     <Button style={{width: '100%'}} onClick={() => this.saveChanges()} disabled={!this.state.changed}>Save

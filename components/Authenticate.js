@@ -9,9 +9,9 @@ import Brightness3RoundedIcon from '@material-ui/icons/Brightness3Rounded';
 import {setTheme} from "../config/Theme";
 import {ThemeProvider} from "@material-ui/styles";
 
-import en from "../locales/auth/en";
-import es from "../locales/auth/es";
-import pt from "../locales/auth/pt";
+import en from "../locales/signin/SignInEN";
+import es from "../locales/signin/SignInES";
+import pt from "../locales/signin/SignInPT";
 import {
     buttonStyle,
     iconStyle,

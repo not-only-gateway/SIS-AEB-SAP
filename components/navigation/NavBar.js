@@ -20,9 +20,9 @@ import {
     logoStyle,
     secondaryButtonStyle
 } from "../../styles/bar/BarMaterialStyles";
-import en from "../../locales/bar/en";
-import es from "../../locales/bar/es";
-import pt from "../../locales/bar/pt";
+import en from "../../locales/navigation/NavigationEN";
+import es from "../../locales/navigation/NavigationES";
+import pt from "../../locales/navigation/NavigationPT";
 import Link from 'next/link'
 import {getLogo} from "../../config/Theme";
 import SimplifiedProfile from "../profile/SimplifiedProfile";
