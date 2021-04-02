@@ -81,7 +81,7 @@ export default function BasicForm(props) {
         return (
             <>
                 <fieldset className={styles.form_component_container}
-                     style={{border: (props.dark ? '#262d37 2px solid' : '#e2e2e2 2px solid'), borderRadius: '8px'}}>
+                     style={{border: (props.dark ? '#262d37 2px solid' : '#e2e2e2 2px solid')}}>
                     <legend style={{paddingRight: '10px', paddingLeft: '10px'}}>
                         <p style={{fontSize: '1.2rem', fontWeight: 450}}>Personal</p>
                     </legend>

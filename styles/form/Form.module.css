@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 45vw;
     margin-bottom: 2vh;
 }
 
@@ -13,6 +13,7 @@
     justify-content: space-between;
     align-content: space-between;
     width: 45vw;
+    border-radius: 8px;
 }
 .form_container{
     display: grid;
@@ -20,22 +21,24 @@
     width: 45vw;
 }
 .collaboration_container{
-    min-width: 14.5vw;
-    max-width: 14.5vw;
+    width: fit-content;
     height: 7vh;
     border-radius: 8px;
     transition: .3s;
     display: flex;
     margin-right: 1.6vh;
+    margin-bottom: 2vh;
     justify-content: space-between;
     align-items: center;
 }
-
+.collaboration_container:hover{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
 .form_modal_container{
     margin-top: 12%;
     margin-left: auto;
     margin-right: auto;
     width: 50vw;
     border-radius: 8px;
-    height: 57vh;
+    height: 51vh;
 }

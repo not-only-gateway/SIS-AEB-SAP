@@ -57,13 +57,13 @@ export default function Collaborations(props) {
     }, [])
 
     return (
-        <div className={styles.form_component_container}
-             style={{borderBottom: (props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid'), width: '100%'}}>
+        <fieldset className={styles.form_component_container}
+             style={{border: (props.dark ? '#262d37 2px solid' : '#e2e2e2 2px solid')}}>
             {renderModal()}
-            <legend style={{width: '100%'}}>
+            <legend style={{paddingLeft: '10px', paddingRight: '10px'}}>
                 <p style={{fontSize: '1.2rem', fontWeight: 450}}>Collaborations</p>
             </legend>
-            <div style={{overflowX: 'auto', overflowY: 'hidden', display: 'flex', justifyContent: 'flex-start', marginBottom: '2vh', maxWidth: '45vw'}}>
+            <div className={styles.form_component_container} style={{justifyContent: 'initial'}}>
                 <div className={styles.collaboration_container} style={props.dark ? {
                     backgroundColor: '#3b424c', justifyContent: 'center', minWidth: '7.5vw', maxWidth: '7.5vw'
                 } : {
@@ -87,14 +87,13 @@ export default function Collaborations(props) {
                                     }}>
                                 <p style={{fontWeight: 450}}>{collaboration.unity.acronym} - {collaboration.unity.name}</p>
                                 <p style={{fontSize: '.8rem', fontWeight: 420, color: props.dark? '#e2e2e2' : '#777777'}}>{collaboration.role.denomination} - {collaboration.linkage.description}</p>
-                                {/*<p>{collaboration.unity.name}</p>*/}
                             </Button>
                         </div>
                 ))}
             </div>
 
 
-        </div>
+        </fieldset>
 
     )
 

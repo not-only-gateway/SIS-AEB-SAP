@@ -30,8 +30,9 @@ export default function CollaborationForm(props) {
     const [canBeActive, setCanBeActive] = useState(false)
 
     function handleRoleChange(event) {
-        setRoleID(event.roleID)
-        setRoleLevel(event.roleLevel)
+        const roleData = JSON.parse(event)
+        setRoleID(roleData.roleID)
+        setRoleLevel(roleData.roleLevel)
         props.fetchData('seniors', {}).then(res => {
             if (res !== null)
                 setSeniors(res)
@@ -118,10 +119,60 @@ export default function CollaborationForm(props) {
         })
     }
 
+    function mapToSelect(option) {
+        let response = []
+        switch (option) {
+            case 0: {
+                unities.map(unity => {
+                    response.push({
+                        key: unity.id,
+                        value: unity.acronym + ' - ' + unity.name
+                    })
+                })
+                break
+            } // UNITY
+            case 1: {
+                roles.map(role => {
+                    response.push({
+                        key: JSON.stringify({
+                            roleID: role.id,
+                            roleLevel: role.level
+                        }),
+                        value: role.denomination
+                    })
+                })
+                break
+            } // ROLE
+            case 2: {
+                linkages.map(link => {
+                    response.push({
+                        key: link.id,
+                        value: link.description
+                    })
+                })
+                break
+            } // LINKAGE
+            case 3: {
+                seniors.map(senior => {
+                    response.push({
+                        key: senior.id,
+                        value: senior.name
+                    })
+                })
+                break
+            } // SENIORS
+
+            default: {
+                break
+            }
+        }
+        return response
+    }
+
     if (!loading)
         return (
             <div className={styles.form_component_container}
-                 style={{width: '45vw', margin: 'auto', height: '49vh'}}>
+                 style={{margin: 'auto', height: '49vh'}}>
 
                 <legend style={{width: '100%'}}>
                     <p style={{
@@ -130,227 +181,66 @@ export default function CollaborationForm(props) {
                         color: props.dark ? 'white' : 'black'
                     }}>Collaboration</p>
                 </legend>
-                <InputLayout/>
-                {/*<FormControl variant="outlined" disabled={props.disabled}*/}
-                {/*             style={{...props.selectStyle, ...{width: '49%'}}}>*/}
-                {/*    <InputLabel id="unity-select">Unity</InputLabel>*/}
-                {/*    <Select*/}
-                {/*        labelId="unity-select"*/}
-                {/*        id="unity-select"*/}
-                {/*        value={unityID}*/}
-                {/*        onChange={event => handleChange(event.target.value, 'unityID')}*/}
-                {/*        label="Unity"*/}
-                {/*    >*/}
-                {/*        {unities.map(unity => (*/}
-                {/*            <MenuItem value={unity.id}>{unity.acronym}</MenuItem>*/}
-                {/*        ))}*/}
-                {/*    </Select>*/}
-                {/*</FormControl>*/}
+                <InputLayout inputName={'Unity'} dark={props.dark} handleChange={setUnityID} inputType={1}
+                             disabled={props.disabled} size={32} required={true} initialValue={unityID}
+                             selectFields={mapToSelect(0)} key={props.id} setChanged={setChanged}/>
 
-                {/*<FormControl variant="outlined" disabled={props.disabled || seniors.length === 0}*/}
-                {/*             style={{...props.selectStyle, ...{width: '49%'}}}>*/}
-                {/*    <InputLabel id="senior-select">Senior</InputLabel>*/}
-                {/*    <Select*/}
+                <InputLayout inputName={'Role'} dark={props.dark} handleChange={handleRoleChange} inputType={1}
+                             disabled={props.disabled} size={32} required={true}
+                             initialValue={JSON.stringify({roleID: roleID, roleLevel: roleLevel})}
+                             selectFields={mapToSelect(1)} key={props.id} setChanged={setChanged}/>
 
-                {/*        labelId="senior-select"*/}
-                {/*        id="senior-select"*/}
-                {/*        value={seniorID}*/}
-                {/*        disabled={seniorID === null}*/}
-                {/*        onChange={event => handleChange(event.target.value, 'seniorID')}*/}
-                {/*        label="Senior"*/}
-                {/*    >*/}
-                {/*        {seniors.map(senior => (*/}
-                {/*            <MenuItem value={senior.id}>{senior.name}</MenuItem>*/}
-                {/*        ))}*/}
-                {/*    </Select>*/}
-                {/*</FormControl>*/}
+                <InputLayout inputName={'Linkage'} dark={props.dark} handleChange={setLinkageID} inputType={1}
+                             disabled={props.disabled} size={32} required={true} initialValue={linkageID}
+                             selectFields={mapToSelect(2)} key={props.id} setChanged={setChanged}/>
 
-                {/*<FormControl variant="outlined" disabled={props.disabled || unityID === null}*/}
-                {/*             style={{...props.selectStyle, ...{width: '32%'}}}>*/}
-                {/*    <InputLabel id="role-select">Role</InputLabel>*/}
-                {/*    <Select*/}
-                {/*        labelId="role-select"*/}
-                {/*        id="role-select"*/}
-                {/*        value={roleID !== null ? JSON.stringify({*/}
-                {/*            roleID: roleID,*/}
-                {/*            roleLevel: roleLevel*/}
-                {/*        }) : null}*/}
+                <InputLayout inputName={'Active Role'} dark={props.dark} handleChange={setActiveRole} inputType={1}
+                             disabled={props.disabled || !canBeActive} size={32} required={canBeActive}
+                             initialValue={activeRole}
+                             selectFields={[{key: false, value: 'No'}, {key: true, value: 'Yes'}]} key={props.id}
+                             setChanged={setChanged}/>
 
+                <InputLayout inputName={'Substitute'} dark={props.dark} handleChange={setSubstitute} inputType={1}
+                             disabled={props.disabled} size={32} required={true} initialValue={substitute}
+                             selectFields={[{key: false, value: 'No'}, {key: true, value: 'Yes'}]} key={props.id}
+                             setChanged={setChanged}/>
 
-                {/*        onChange={event => handleRoleChange(JSON.parse(event.target.value))}*/}
-                {/*        label="role"*/}
-                {/*    >*/}
-                {/*        {roles.map(role => (*/}
-                {/*            <MenuItem value={JSON.stringify({*/}
-                {/*                roleID: role.id,*/}
-                {/*                roleLevel: role.level*/}
-                {/*            })}>{role.denomination}</MenuItem>*/}
-                {/*        ))}*/}
-                {/*    </Select>*/}
-                {/*</FormControl>*/}
+                <InputLayout inputName={'Senior'} dark={props.dark} handleChange={setSeniorID} inputType={1}
+                             disabled={props.disabled || seniors.length === 0} size={32} required={false}
+                             initialValue={seniorID}
+                             selectFields={mapToSelect(3)} key={props.id} setChanged={setChanged}/>
 
-                {/*<FormControl variant="outlined" disabled={props.disabled || unityID === null || !canBeActive}*/}
-                {/*             style={{...props.selectStyle, ...{width: '32%'}}}>*/}
-                {/*    <InputLabel id="active-role-select">Active on role</InputLabel>*/}
-                {/*    <Select*/}
-                {/*        labelId="active-role-select"*/}
-                {/*        id="active-role-select"*/}
-                {/*        value={activeRole}*/}
-                {/*        onChange={event => handleChange(event.target.value, 'activeRole')}*/}
-                {/*        label="Active Role"*/}
-                {/*    >*/}
-                {/*        <MenuItem value={true}>Yes</MenuItem>*/}
-                {/*        <MenuItem value={false}>No</MenuItem>*/}
-                {/*    </Select>*/}
-                {/*</FormControl>*/}
+                <InputLayout inputName={'Admission'} dark={props.dark} handleChange={setAdmissionDate} inputType={2}
+                             disabled={props.disabled} size={32} required={true} initialValue={admissionDate}
+                             key={props.id} setChanged={setChanged}/>
 
-                {/*<FormControl variant="outlined"*/}
-                {/*             disabled={props.disabled || unityID === null || roleID === null}*/}
-                {/*             style={{...props.selectStyle, ...{width: '32%'}}}>*/}
-                {/*    <InputLabel id="substitute-select">Substitute</InputLabel>*/}
-                {/*    <Select*/}
-                {/*        labelId="substitute-select"*/}
-                {/*        id="substitute-select"*/}
-                {/*        value={substitute}*/}
-                {/*        name={'substitute'}*/}
-                {/*        onChange={event => handleChange(event.target.value, 'substitute')}*/}
-                {/*        label='Substitute'*/}
-                {/*    >*/}
-                {/*        <MenuItem value={true}>Yes</MenuItem>*/}
-                {/*        <MenuItem value={false}>No</MenuItem>*/}
-                {/*    </Select>*/}
-                {/*</FormControl>*/}
+                <InputLayout inputName={'Official Publication'} dark={props.dark} handleChange={setPublicationDate}
+                             inputType={2}
+                             disabled={props.disabled} size={32} required={true} initialValue={publicationDate}
+                             key={props.id} setChanged={setChanged}/>
 
-                {/*<MuiPickersUtilsProvider utils={DateFnsUtils}>*/}
-                {/*    <Grid container justify="space-around"*/}
-                {/*          style={{width: '32%', marginBottom: '2vh'}}>*/}
-                {/*        <KeyboardDatePicker*/}
-                {/*            style={{*/}
-                {/*                width: '100%',*/}
-                {/*                margin: 'auto',*/}
-                {/*                backgroundColor: (!props.dark ? '#f7f8fa' : '#272e38'),*/}
-                {/*            }}*/}
-                {/*            inputVariant="outlined"*/}
-                {/*            margin="normal"*/}
-                {/*            id="admission-picker"*/}
-                {/*            disabled={props.disabled || unityID === null}*/}
-                {/*            label="Admission Date"*/}
-                {/*            format="dd/MM/yyyy"*/}
-                {/*            value={admissionDate }*/}
-                {/*            name={'admissionDate'}*/}
-                {/*            onChange={event => handleChange(event, 'admissionDate')}*/}
-                {/*            KeyboardButtonProps={{*/}
-                {/*                'aria-label': 'change date',*/}
-                {/*            }}*/}
-                {/*        />*/}
-                {/*    </Grid>*/}
-                {/*</MuiPickersUtilsProvider>*/}
-                {/*<MuiPickersUtilsProvider utils={DateFnsUtils}>*/}
-                {/*    <Grid container justify="space-around"*/}
-                {/*          style={{width: '32%', marginBottom: '2vh'}}>*/}
-                {/*        <KeyboardDatePicker*/}
-                {/*            style={{*/}
-                {/*                width: '100%',*/}
-                {/*                margin: 'auto',*/}
-                {/*                backgroundColor: (!props.dark ? '#f7f8fa' : '#272e38'),*/}
+                <InputLayout inputName={'Contract Expiration'} dark={props.dark} handleChange={setContractExp}
+                             inputType={2}
+                             disabled={props.disabled} size={32} required={false} initialValue={contractExp}
+                             key={props.id} setChanged={setChanged}/>
+                <InputLayout inputName={'Legal Document'} dark={props.dark} handleChange={setLegalDocument}
+                             inputType={0}
+                             disabled={props.disabled} size={32} required={true} initialValue={legalDocument}
+                             key={props.id} setChanged={setChanged}/>
 
-                {/*            }}*/}
-                {/*            inputVariant="outlined"*/}
-                {/*            margin="normal"*/}
-                {/*            id="publication-picker"*/}
-                {/*            disabled={props.disabled || unityID === null}*/}
-                {/*            label="Official Publication"*/}
-                {/*            format="dd/MM/yyyy"*/}
-                {/*            value={publicationDate}*/}
-                {/*            onChange={event => handleChange(event, 'publicationDate')}*/}
-                {/*            KeyboardButtonProps={{*/}
-                {/*                'aria-label': 'change date',*/}
-                {/*            }}*/}
-                {/*        />*/}
-                {/*    </Grid>*/}
-                {/*</MuiPickersUtilsProvider>*/}
-                {/*<MuiPickersUtilsProvider utils={DateFnsUtils}>*/}
-                {/*    <Grid container justify="space-around"*/}
-                {/*          style={{width: '32%', marginBottom: '2vh'}}>*/}
-                {/*        <KeyboardDatePicker*/}
-                {/*            style={{*/}
-                {/*                width: '100%',*/}
-                {/*                margin: 'auto',*/}
-                {/*                backgroundColor: (!props.dark ? '#f7f8fa' : '#272e38'),*/}
-                {/*            }}*/}
-                {/*            inputVariant="outlined"*/}
-                {/*            margin="normal"*/}
-                {/*            id="contract-picker"*/}
-                {/*            disabled={props.disabled || unityID === null}*/}
-                {/*            label="Contract Expiration"*/}
-                {/*            format="dd/MM/yyyy"*/}
-                {/*            value={contractExp }*/}
-                {/*            onChange={event => handleChange(event, 'contractExp')}*/}
-                {/*            KeyboardButtonProps={{*/}
-                {/*                'aria-label': 'change date',*/}
-                {/*            }}*/}
-                {/*        />*/}
-                {/*    </Grid>*/}
-                {/*</MuiPickersUtilsProvider>*/}
-                {/*<FormControl variant="outlined"*/}
-                {/*             disabled={props.disabled || unityID === null || roleID === null}*/}
-                {/*             style={{...props.selectStyle, ...{width: '49%'}}}>*/}
-                {/*    <InputLabel id="link-select">Linkage</InputLabel>*/}
-                {/*    <Select*/}
-                {/*        labelId="link-select"*/}
-                {/*        id="link-select"*/}
-                {/*        value={linkageID}*/}
-                {/*        name={'linkageID'}*/}
-                {/*        onChange={event => handleChange(event.target.value, 'linkageID')}*/}
-                {/*        label="Linkage"*/}
-                {/*    >*/}
-                {/*        {linkages.map(link => (*/}
-                {/*            <MenuItem value={link.id}>{link.description}</MenuItem>*/}
-                {/*        ))}*/}
-                {/*    </Select>*/}
-                {/*</FormControl>*/}
-                {/*<TextField disabled={props.disabled || unityID === null} label={'Legal Document'}*/}
-                {/*           value={legalDocument}*/}
-                {/*           variant={"outlined"}*/}
-                {/*           onChange={event => handleChange(event.target.value, 'legalDocument')}*/}
-                {/*           style={props.mediumContainer}/>*/}
+                <InputLayout inputName={'Work shift start'} dark={props.dark} handleChange={setWorkStart}
+                             inputType={3}
+                             disabled={props.disabled} size={32} required={false} initialValue={workStart}
+                             key={props.id} setChanged={setChanged}/>
 
-                {/*<form noValidate style={props.mediumContainer}>*/}
-                {/*    <TextField*/}
-                {/*        variant={'outlined'}*/}
-                {/*        style={{width: '100%'}}*/}
-                {/*        id="time"*/}
-                {/*        label="Work shift start"*/}
-                {/*        type="time"*/}
-                {/*        disabled={props.disabled}*/}
-                {/*        value={workStart}*/}
-                {/*        onChange={event => handleChange(event.target.value, 'workStart')}*/}
-                {/*        inputProps={{*/}
-                {/*            step: 300, // 5 min*/}
-                {/*        }}*/}
-                {/*    />*/}
-                {/*</form>*/}
-                {/*<form noValidate style={props.mediumContainer}>*/}
-                {/*    <TextField*/}
-                {/*        variant={'outlined'}*/}
-                {/*        style={{width: '100%'}}*/}
-                {/*        id="time"*/}
-                {/*        label="Work shift end"*/}
-                {/*        type="time"*/}
-                {/*        disabled={props.disabled}*/}
-                {/*        value={workEnd}*/}
-                {/*        onChange={event => handleChange(event.target.value, 'workEnd')}*/}
-                {/*        inputProps={{*/}
-                {/*            step: 300, // 5 min*/}
-                {/*        }}*/}
-                {/*    />*/}
-                {/*</form>*/}
-                {/*<TextField disabled={props.disabled || unityID === null}*/}
-                {/*           label={'Additional information'}*/}
-                {/*           value={additionalInfo}*/}
-                {/*           variant={"outlined"}*/}
-                {/*           onChange={event => handleChange(event.target.value, 'additionalInfo')}*/}
-                {/*           style={{...props.mediumContainer, ...{width: '100%'}}}/>*/}
+                <InputLayout inputName={'Work shift end'} dark={props.dark} handleChange={setWorkEnd}
+                             inputType={3}
+                             disabled={props.disabled} size={32} required={false} initialValue={workEnd}
+                             key={props.id} setChanged={setChanged}/>
+                <InputLayout inputName={'Additional information'} dark={props.dark} handleChange={setAdditionalInfo}
+                             inputType={0}
+                             disabled={props.disabled} size={100} required={false} initialValue={additionalInfo}
+                             key={props.id} setChanged={setChanged}/>
 
                 <Button style={{width: '100%'}} onClick={() => saveChanges()} disabled={!changed}>Save
                     changes</Button>

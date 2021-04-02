@@ -35,7 +35,7 @@ export default class DocumentsForm extends React.Component {
     }
 
     async fetchData() {
-        await this.props.fetchData('form/documents', {id: this.props.id}).then(res => {
+        await this.props.fetchData('person/documents', {id: this.props.id}).then(res => {
             if (res !== null)
                 this.setState({
                     cpf: res.cpf,
@@ -57,7 +57,7 @@ export default class DocumentsForm extends React.Component {
 
     async saveChanges() {
         await this.props.saveChanges(
-            'form/contact',
+            'person/contact',
             {
                 id: this.props.id,
                 cpf: this.state.cpf,

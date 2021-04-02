@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import Cookies from "universal-cookie/lib";
 import {createMuiTheme} from "@material-ui/core";
-import styles from '../styles/form/Form.module.css'
-
-import Profile from "../components/person/Profile";
 import Layout from "../components/shared/Layout";
 import {useRouter} from "next/router";
 import Collaborations from "../components/person/Collaborations";
@@ -11,6 +8,9 @@ import {ThemeProvider} from "@material-ui/styles";
 import axios from "axios";
 import Host from "../utils/Host";
 import BasicForm from "../components/person/BasicForm";
+import ContactForm from "../components/person/ContactForm";
+import AddressForm from "../components/shared/form/AddressForm";
+import DocumentsForm from "../components/person/DocumentsForm";
 
 const cookies = new Cookies()
 
@@ -87,16 +87,47 @@ export default function person() {
                     <props.getTitle pageName={'Person'} pageTitle={'Person'} pageInfo={'INFORMATION'}/>
                     {id !== undefined ?
                         <div>
-                            <Profile
+                            <BasicForm
+                                id={id}
+                                saveChanges={saveChanges}
+                                fetchData={fetchData}
+                                dark={dark}
+                                disabled={disabled}/>
+                            <Collaborations
+                                id={id}
+                                saveChanges={saveChanges}
+                                fetchData={fetchData}
                                 dark={dark}
                                 disabled={disabled}
+                            />
+                            <ContactForm
                                 id={id}
-                                fetchData={fetchData}
-                                saveChanges={saveChanges}
                                 mediumContainer={mediumContainer}
                                 smallContainer={smallContainer}
                                 selectStyle={selectStyle}
+                                saveChanges={saveChanges}
+                                fetchData={fetchData}
+                                dark={dark}
+                                disabled={disabled}
                             />
+                            <AddressForm
+                                id={id}
+                                mediumContainer={mediumContainer}
+                                smallContainer={smallContainer}
+                                selectStyle={selectStyle}
+                                saveChanges={saveChanges}
+                                fetchData={fetchData}
+                                dark={dark}
+                                disabled={disabled}/>
+                            <DocumentsForm
+                                id={id}
+                                mediumContainer={mediumContainer}
+                                smallContainer={smallContainer}
+                                selectStyle={selectStyle}
+                                saveChanges={saveChanges}
+                                fetchData={fetchData}
+                                dark={dark}
+                                disabled={disabled}/>
                         </div>
                     :
                         null

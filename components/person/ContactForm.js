@@ -25,7 +25,7 @@ export default class ContactForm extends React.Component {
     }
 
     async fetchData() {
-        await this.props.fetchData('form/contact',{id: this.props.id}).then(res => {
+        await this.props.fetchData('person/contact',{id: this.props.id}).then(res => {
             if (res !== null)
                 this.setState({
                     email: res.email,
@@ -40,7 +40,7 @@ export default class ContactForm extends React.Component {
 
     async saveChanges() {
         await this.props.saveChanges(
-            'form/contact',
+            'person/contact',
             {
                 id: this.props.id,
                 email: this.state.email,
