@@ -12,6 +12,7 @@
     flex-flow: row wrap;
     justify-content: space-between;
     align-content: space-between;
+    width: 45vw;
 }
 .form_container{
     display: grid;

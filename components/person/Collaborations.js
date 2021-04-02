@@ -1,8 +1,8 @@
-import styles from "../../../../styles/form/Form.module.css";
+import styles from "../../styles/form/Form.module.css";
 import {Button, Modal} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import Host from "../../../../config/Host";
+import Host from "../../utils/Host";
 import Cookies from "universal-cookie/lib";
 import PropTypes from "prop-types";
 import {AddRounded, DeleteForeverRounded, DeleteRounded} from "@material-ui/icons";

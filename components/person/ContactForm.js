@@ -1,8 +1,8 @@
-import styles from "../../../../styles/form/Form.module.css";
+import styles from "../../styles/form/Form.module.css";
 import {Button, TextField} from "@material-ui/core";
 import React from "react";
 import axios from "axios";
-import Host from "../../../../config/Host";
+import Host from "../../utils/Host";
 import Cookies from "universal-cookie/lib";
 import {Skeleton} from "@material-ui/lab";
 
@@ -25,7 +25,7 @@ export default class ContactForm extends React.Component {
     }
 
     async fetchData() {
-        await this.props.fetchData('person/contact',{id: this.props.id}).then(res => {
+        await this.props.fetchData('form/contact',{id: this.props.id}).then(res => {
             if (res !== null)
                 this.setState({
                     email: res.email,
@@ -40,7 +40,7 @@ export default class ContactForm extends React.Component {
 
     async saveChanges() {
         await this.props.saveChanges(
-            'person/contact',
+            'form/contact',
             {
                 id: this.props.id,
                 email: this.state.email,

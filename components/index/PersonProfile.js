@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import styles from '../../styles/Profile.module.css'
 import {Avatar, Button} from "@material-ui/core";
-import SimplifiedProfile from "./SimplifiedProfile";
-import axios from "axios";
-import Host from "../../config/Host";
 
 export default function PersonProfile(props){
 

@@ -1,9 +1,9 @@
-import styles from '../styles/index/Index.module.css'
+import styles from '../../styles/index/Index.module.css'
 import {Avatar, Button, Modal} from "@material-ui/core";
 import React from 'react'
 import {CakeRounded} from "@material-ui/icons";
 import Cookies from "universal-cookie/lib";
-import PersonProfile from "./profile/PersonProfile";
+import PersonProfile from "./PersonProfile";
 import Link from 'next/link'
 
 const cookies = new Cookies()
@@ -87,7 +87,7 @@ export default class Persona extends React.Component {
                  style={this.props.dark ? containerDarkStyle : containerLightStyle}>
                 {this.renderModal()}
                 {this.props.canEdit ?
-                    <Link href={{pathname: '/person', query: {id: this.props.person.profile.id}}}>
+                    <Link href={{pathname: '/form', query: {id: this.props.person.profile.id}}}>
                         <Button style={buttonStyle}>
                             {this.renderContent()}
                         </Button>

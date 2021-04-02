@@ -1,3 +1,6 @@
 export default {
-    settings: 'Settings'
+    settings: 'Settings',
+    theme: 'Theme',
+    language: 'Language',
+    information: 'Local adjustments'
 }

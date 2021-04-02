@@ -1,28 +1,38 @@
-import Layout from "../components/layout/Layout";
+import Layout from "../components/shared/Layout";
 import React, {useEffect, useMemo, useState} from "react";
 import {useRouter} from "next/router";
 import styles from '../styles/index/Index.module.css'
-import Persona from "../components/Persona";
+import Persona from "../components/index/Persona";
 import {createMuiTheme, IconButton, InputBase, Modal, Paper, ThemeProvider} from "@material-ui/core";
 import {searchFieldStyle} from "../styles/bar/BarMaterialStyles";
 import {SearchRounded} from "@material-ui/icons";
 import axios from "axios";
-import Host from "../config/Host";
+import Host from "../utils/Host";
 import {Skeleton} from "@material-ui/lab";
-import PersonProfile from "../components/profile/PersonProfile";
+import PersonProfile from "../components/index/PersonProfile";
 import PropTypes from 'prop-types'
 import Cookies from "universal-cookie/lib";
+import {getLanguage} from "../utils/Language";
 
 const id = parseInt((new Cookies()).get('id'))
 
 export default function Index() {
-
     const router = useRouter()
-    const {locale} = router
     const [people, setPeople] = useState([])
     const [loading, setLoading] = useState(true)
     const [canEdit, setCanEdit] = useState(false)
     const [search, setSearch] = useState(null)
+    // useEffect(() => {
+    //     const currentLocale = (new Cookies()).get('lang')
+    //
+    //     if(currentLocale !== undefined && currentLocale !== router.locale){
+    //         router.push('/settings', '/settings', {locale: currentLocale}).catch(r => console.log(r))
+    //         setLang(getLanguage(router.locale, router.pathname))
+    //     }
+    //     else
+    //         setLang(getLanguage(router.locale, router.pathname))
+    // }, [router.locale])
+
     useEffect(() => {
         setCanEdit(localStorage.getItem('profile') !== null && JSON.parse(localStorage.getItem('profile')).admin)
 

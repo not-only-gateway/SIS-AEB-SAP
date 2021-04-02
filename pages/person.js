@@ -3,14 +3,14 @@ import Cookies from "universal-cookie/lib";
 import {createMuiTheme} from "@material-ui/core";
 import styles from '../styles/form/Form.module.css'
 
-import Profile from "../components/forms/person/profile/Profile";
-import Layout from "../components/layout/Layout";
+import Profile from "../components/person/Profile";
+import Layout from "../components/shared/Layout";
 import {useRouter} from "next/router";
-import Collaborations from "../components/forms/person/profile/Collaborations";
+import Collaborations from "../components/person/Collaborations";
 import {ThemeProvider} from "@material-ui/styles";
 import axios from "axios";
-import Host from "../config/Host";
-import BasicForm from "../components/forms/person/profile/BasicForm";
+import Host from "../utils/Host";
+import BasicForm from "../components/person/BasicForm";
 
 const cookies = new Cookies()
 

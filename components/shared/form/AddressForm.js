@@ -29,7 +29,7 @@ export default class AddressForm extends React.Component {
     }
 
     async fetchData() {
-        const response = await this.props.fetchData('person/address', {id: this.props.id})
+        const response = await this.props.fetchData('form/address', {id: this.props.id})
 
         if (response !== null)
             this.setState({

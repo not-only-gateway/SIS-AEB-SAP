@@ -2,15 +2,15 @@ import localIpUrl from 'local-ip-url';
 import Cookies from 'universal-cookie/lib'
 import styles from '../styles/auth/Auth.module.css'
 import {createMuiTheme} from "@material-ui/core";
-import {setThemeCookie} from "../config/Theme";
+import {setThemeCookie} from "../utils/Theme";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import axios from "axios";
-import Host from '../config/Host'
-import ClearStorage from "../config/ClearStorage";
-import Authenticate from "../components/Authenticate";
+import Host from '../utils/Host'
+import ClearStorage from "../utils/ClearStorage";
+import Authenticate from "../components/signin/Authenticate";
 import Head from "next/head";
-import {getLanguage, setCookiesLanguage} from "../config/Language";
+import {getLanguage, setCookiesLanguage} from "../utils/Language";
 
 const cookies = new Cookies()
 export default function Signin() {

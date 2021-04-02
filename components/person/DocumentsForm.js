@@ -1,11 +1,11 @@
-import styles from "../../../../styles/form/Form.module.css";
+import styles from "../../styles/form/Form.module.css";
 import {Button, Grid, TextField} from "@material-ui/core";
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import React from "react";
 import {Skeleton} from "@material-ui/lab";
 import axios from "axios";
-import Host from "../../../../config/Host";
+import Host from "../../utils/Host";
 import Cookies from "universal-cookie/lib";
 
 export default class DocumentsForm extends React.Component {
@@ -35,7 +35,7 @@ export default class DocumentsForm extends React.Component {
     }
 
     async fetchData() {
-        await this.props.fetchData('person/documents', {id: this.props.id}).then(res => {
+        await this.props.fetchData('form/documents', {id: this.props.id}).then(res => {
             if (res !== null)
                 this.setState({
                     cpf: res.cpf,
@@ -57,7 +57,7 @@ export default class DocumentsForm extends React.Component {
 
     async saveChanges() {
         await this.props.saveChanges(
-            'person/contact',
+            'form/contact',
             {
                 id: this.props.id,
                 cpf: this.state.cpf,
