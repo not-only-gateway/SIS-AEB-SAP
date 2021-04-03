@@ -22,22 +22,21 @@ export default function Index() {
     const [loading, setLoading] = useState(true)
     const [canEdit, setCanEdit] = useState(false)
     const [search, setSearch] = useState(null)
-    // useEffect(() => {
-    //     const currentLocale = (new Cookies()).get('lang')
-    //
-    //     if(currentLocale !== undefined && currentLocale !== router.locale){
-    //         router.push('/settings', '/settings', {locale: currentLocale}).catch(r => console.log(r))
-    //         setLang(getLanguage(router.locale, router.pathname))
-    //     }
-    //     else
-    //         setLang(getLanguage(router.locale, router.pathname))
-    // }, [router.locale])
+    const [lang, setLang] = useState(null)
 
     useEffect(() => {
-        setCanEdit(localStorage.getItem('profile') !== null && JSON.parse(localStorage.getItem('profile')).admin)
+        if(people.length === 0){
+            setCanEdit(localStorage.getItem('profile') !== null && JSON.parse(localStorage.getItem('profile')).admin)
+            fetchData().catch(error => console.log(error))
+        }
 
-        fetchData().catch(error => console.log(error))
-    }, [])
+        if((new Cookies()).get('lang') !== undefined && (new Cookies()).get('lang') !== router.locale){
+            router.push('/', '/', {locale: (new Cookies()).get('lang')}).catch(r => console.log(r))
+            setLang(getLanguage(router.locale, router.pathname))
+        }
+        else
+            setLang(getLanguage(router.locale, router.pathname))
+    }, [router.locale])
 
     async function fetchData(){
         try {
@@ -74,57 +73,63 @@ export default function Index() {
         }
         setLoading(false)
     }
-    return (
-        <Layout>
-            {props =>
-                <ThemeProvider theme={createMuiTheme({
-                    palette: {
-                        type: props.dark ? "dark" : "light"
-                    }
-                })}>
 
-                    <div className={styles.header_container}
-                         style={{backgroundColor: props.dark ? '#303741' : 'white'}}>
-                        <props.getTitle pageName={'Ramais'} pageTitle={'Ramais'} pageInfo={'INFORMATION'}/>
-                        <div className={styles.paper_container}>
-                            <Paper component="form" style={{
-                                ...searchFieldStyle, ...{
-                                    backgroundColor: props.dark ? '#272e38' : '#f4f8fb',
-                                    boxShadow: 'rgba(0, 0, 0, 0.05) 0 1px 2px 0'
-                                }
-                            }}>
-                                <IconButton aria-label="search" onClick={() => fetchSearch()} disabled={search === null || search.length === 0}>
-                                    <SearchRounded style={{color: props.dark ? 'white' : null}}/>
-                                </IconButton>
-                                <InputBase
-                                    style={{width: '93%', color: (props.dark ? 'white' : null)}}
-                                    placeholder={'Search'}
-                                    onChange={event => setSearch(event.target.value)}
-                                />
-                            </Paper>
+    if(lang !== null)
+        return (
+            <Layout>
+                {props =>
+                    <ThemeProvider theme={createMuiTheme({
+                        palette: {
+                            type: props.dark ? "dark" : "light"
+                        }
+                    })}>
+
+                        <div className={styles.header_container}
+                             style={{backgroundColor: props.dark ? '#303741' : 'white'}}>
+                            <props.getTitle pageName={lang.extensions} pageTitle={lang.extensions} pageInfo={lang.information}/>
+                            <div className={styles.paper_container}>
+                                <Paper component="form" style={{
+                                    ...searchFieldStyle, ...{
+                                        backgroundColor: props.dark ? '#272e38' : '#f4f8fb',
+                                        boxShadow: 'rgba(0, 0, 0, 0.05) 0 1px 2px 0'
+                                    }
+                                }}>
+                                    <IconButton aria-label={lang.search} onClick={() => fetchSearch()} disabled={search === null || search.length === 0}>
+                                        <SearchRounded style={{color: props.dark ? 'white' : null}}/>
+                                    </IconButton>
+                                    <InputBase
+                                        style={{width: '93%', color: (props.dark ? 'white' : null)}}
+                                        placeholder={lang.search}
+                                        onChange={event => setSearch(event.target.value)}
+                                    />
+                                </Paper>
+                            </div>
                         </div>
-                    </div>
-                    <div className={styles.personas_container}>
-                        {!loading ?
-                            people.map(person =>
+                        <div className={styles.personas_container}>
+                            {!loading ?
+                                people.map(person =>
 
-                                <Persona
-                                    person={person}
-                                    canEdit={canEdit}
-                                    dark={props.dark}
-                                />
+                                    <Persona
+                                        person={person}
+                                        canEdit={canEdit}
+                                        dark={props.dark}
+                                    />
 
-                            )
-                            :
-                            <Skeleton variant="rect" style={{
-                                borderRadius: '8px',
-                                width: '45vw',
-                                height: '11vh',
-                                backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
-                            }}/>}
-                    </div>
-                </ThemeProvider>
-            }
-        </Layout>
-    )
+                                )
+                                :
+                                <Skeleton variant="rect" style={{
+                                    borderRadius: '8px',
+                                    width: '45vw',
+                                    height: '11vh',
+                                    backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
+                                }}/>}
+                        </div>
+                    </ThemeProvider>
+                }
+            </Layout>
+        )
+    else
+        return (<div>
+
+        </div>)
 }

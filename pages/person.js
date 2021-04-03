@@ -11,6 +11,7 @@ import BasicForm from "../components/person/BasicForm";
 import ContactForm from "../components/person/ContactForm";
 import AddressForm from "../components/shared/form/AddressForm";
 import DocumentsForm from "../components/person/DocumentsForm";
+import {getLanguage} from "../utils/Language";
 
 const cookies = new Cookies()
 
@@ -20,12 +21,22 @@ export default function person() {
     const [id, setId] = useState(undefined)
     const disabled = (new Cookies()).get('adm_token') !== undefined
     const [dark, setDark] = useState(false)
+    const [lang, setLang] = useState(null)
 
     useEffect(() => {
-
-        setDark(cookies.get('theme') === '0')
-        setId(router.query.id)
-    }, [])
+        if(cookies.get('theme') === '0' && dark === false){
+            setDark(cookies.get('theme') === '0')
+            fetchData().catch(error => console.log(error))
+        }
+        if(id === undefined)
+            setId(router.query.id)
+        if((new Cookies()).get('lang') !== undefined && (new Cookies()).get('lang') !== router.locale){
+            router.push('/settings', '/settings', {locale: (new Cookies()).get('lang')}).catch(r => console.log(r))
+            setLang(getLanguage(router.locale, router.pathname))
+        }
+        else
+            setLang(getLanguage(router.locale, router.pathname))
+    }, [router.locale])
 
     async function fetchData(path, params) {
         let response = null
@@ -66,57 +77,66 @@ export default function person() {
         return response
     }
 
-    return (
-        <Layout>
-            {props =>
-                <ThemeProvider theme={createMuiTheme({
-                    palette: {
-                        type: dark ? "dark" : "light"
-                    }
-                })}>
-                    <props.getTitle pageName={'Person'} pageTitle={'Person'} pageInfo={'INFORMATION'}/>
-                    {id !== undefined ?
-                        <div>
-                            <BasicForm
-                                id={id}
-                                saveChanges={saveChanges}
-                                fetchData={fetchData}
-                                dark={dark}
-                                disabled={disabled}/>
-                            <Collaborations
-                                id={id}
-                                saveChanges={saveChanges}
-                                fetchData={fetchData}
-                                dark={dark}
-                                disabled={disabled}
-                            />
-                            <ContactForm
-                                id={id}
-                                saveChanges={saveChanges}
-                                fetchData={fetchData}
-                                dark={dark}
-                                disabled={disabled}
-                            />
-                            <AddressForm
-                                id={id}
-                                saveChanges={saveChanges}
-                                fetchData={fetchData}
-                                dark={dark}
-                                disabled={disabled}/>
-                            <DocumentsForm
-                                id={id}
-                                saveChanges={saveChanges}
-                                fetchData={fetchData}
-                                dark={dark}
-                                disabled={disabled}/>
-                        </div>
-                        :
-                        null
-                    }
-                </ThemeProvider>
-            }
-        </Layout>
-
-
-    )
+    if(lang !== null)
+        return (
+            <Layout>
+                {props =>
+                    <ThemeProvider theme={createMuiTheme({
+                        palette: {
+                            type: dark ? "dark" : "light"
+                        }
+                    })}>
+                        <props.getTitle pageName={lang.main.profile} pageTitle={lang.main.profile} pageInfo={lang.main.information}/>
+                        {id !== undefined ?
+                            <div>
+                                <BasicForm
+                                    id={id}
+                                    saveChanges={saveChanges}
+                                    fetchData={fetchData}
+                                    dark={dark}
+                                    disabled={disabled}
+                                    lang={lang.basic}
+                                />
+                                <Collaborations
+                                    id={id}
+                                    saveChanges={saveChanges}
+                                    fetchData={fetchData}
+                                    dark={dark}
+                                    disabled={disabled}
+                                    locale={lang.collaborations}
+                                />
+                                <ContactForm
+                                    id={id}
+                                    saveChanges={saveChanges}
+                                    fetchData={fetchData}
+                                    dark={dark}
+                                    disabled={disabled}
+                                    // locale={lang.contact}
+                                />
+                                <AddressForm
+                                    id={id}
+                                    saveChanges={saveChanges}
+                                    fetchData={fetchData}
+                                    dark={dark}
+                                    disabled={disabled}
+                                    // locale={lang.basic}
+                                />
+                                <DocumentsForm
+                                    id={id}
+                                    saveChanges={saveChanges}
+                                    fetchData={fetchData}
+                                    dark={dark}
+                                    disabled={disabled}
+                                    // locale={lang.documents}
+                                />
+                            </div>
+                            :
+                            null
+                        }
+                    </ThemeProvider>
+                }
+            </Layout>
+        )
+    else
+        return <></>
 }
