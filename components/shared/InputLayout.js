@@ -10,7 +10,7 @@ export default function InputLayout(props) {
     switch (props.inputType) {
         case 0:  // TEXT FIELD
             return (
-                <div key={props.key + props.inputName} style={{width: props.size + '%', marginBottom: props.margin === false ? null : '2vh'}}>
+                <div key={props.key} style={{width: props.size + '%', marginBottom: props.margin === false ? null : '2vh'}}>
                     <TextField disabled={props.disabled} label={props.inputName} value={props.initialValue}
                                variant={"outlined"}
                                style={{backgroundColor: (!props.dark ? '#f7f8fa' : '#272e38'), width: '100%'}}
@@ -25,7 +25,7 @@ export default function InputLayout(props) {
             )
         case 1: // SELECT
             return (
-                <div key={props.key + props.inputName} style={{width: props.size + '%', marginBottom: props.margin === false  ? null : '2vh'}}>
+                <div key={ props.key } style={{width: props.size + '%', marginBottom: props.margin === false  ? null : '2vh'}}>
                     <FormControl variant="outlined" disabled={props.disabled}
                                  style={{backgroundColor: (!props.dark ? '#f7f8fa' : '#272e38'), width: '100%'}} required={props.required}
                                  error={props.required === true && (props.initialValue === null || props.initialValue.length === 0)}>
@@ -52,7 +52,7 @@ export default function InputLayout(props) {
             )
         case 2: // DATE SELECT
             return (
-                <div key={props.key + props.inputName} style={{width: props.size + '%', marginBottom: props.margin === false  ? null : '2vh'}}>
+                <div key={props.key} style={{width: props.size + '%', marginBottom: props.margin === false  ? null : '2vh'}}>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <Grid container justify="space-around"
                               style={{width: '100%'}}>
@@ -84,7 +84,7 @@ export default function InputLayout(props) {
             )
         case 3: // HOUR SELECT
             return (
-                <div key={props.key + props.inputName} style={{width: props.size + '%', marginBottom: props.margin === false  ? null : '2vh'}}>
+                <div key={props.key} style={{width: props.size + '%', marginBottom: props.margin === false  ? null : '2vh'}}>
                     <form noValidate style={{backgroundColor: !props.dark ? '#f7f8fa' : '#272e38', width: '100%'}}>
                         <TextField
                             required={props.required}
@@ -107,15 +107,7 @@ export default function InputLayout(props) {
                 </div>
             )
         default:
-            return (
-                <Skeleton variant='rect' style={{
-                    borderRadius: '8px',
-                    marginBottom: '2vh',
-                    width: '45vw',
-                    height: '6vh',
-                    backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
-                }}/>
-            )
+            return null
     }
 }
 

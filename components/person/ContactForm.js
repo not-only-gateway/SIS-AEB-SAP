@@ -1,125 +1,117 @@
 import styles from "../../styles/form/Form.module.css";
-import {Button, TextField} from "@material-ui/core";
-import React from "react";
-import axios from "axios";
-import Host from "../../utils/Host";
-import Cookies from "universal-cookie/lib";
+import {Button} from "@material-ui/core";
+import React, {useEffect, useState} from "react";
 import {Skeleton} from "@material-ui/lab";
+import PropTypes from "prop-types";
+import InputLayout from "../shared/InputLayout";
 
-export default class ContactForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: null,
-            emailAlt: null,
-            phone: null,
-            phoneAlt: null,
-            changed: false,
-            loading: true
-        }
-        this.handleChange = this.handleChange.bind(this)
-    }
+export default function ContactForm(props) {
 
-    componentDidMount() {
-        this.fetchData().catch(error => console.log(error))
-    }
 
-    async fetchData() {
-        await this.props.fetchData('person/contact',{id: this.props.id}).then(res => {
-            if (res !== null)
-                this.setState({
-                    email: res.email,
-                    emailAlt: res.email_alt,
-                    phone: res.phone,
-                    phoneAlt: res.phone_alt
-                })
+    const [email, setEmail] = useState(null)
+    const [emailAlt, setEmailAlt] = useState(null)
+    const [phone, setPhone] = useState(null)
+    const [phoneAlt, setPhoneAlt] = useState(null)
+    const [changed, setChanged] = useState(false)
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        fetchData().catch(error => console.log(error))
+    }, [])
+
+    async function fetchData() {
+        await props.fetchData('person/contact', {id: props.id}).then(res => {
+            if (res !== null) {
+                setEmail(res.email)
+                setEmailAlt(res.email_alt)
+                setPhone(res.phone)
+                setPhoneAlt(res.phone_alt)
+            }
+
         })
 
-        this.setState({loading: false})
+       setLoading(false)
     }
 
-    async saveChanges() {
-        await this.props.saveChanges(
+
+    async function saveChanges() {
+        await props.saveChanges(
             'person/contact',
             {
-                id: this.props.id,
-                email: this.state.email,
-                email_alt: this.state.emailAlt,
-                phone: this.state.phone,
-                phone_alt: this.state.phoneAlt
+                id: props.id,
+                email: email,
+                email_alt: emailAlt,
+                phone: phone,
+                phone_alt: phoneAlt
             },
             'put'
-        ).then(res => res ? this.setState({changed: false}): console.log(res))
+        ).then(res => res ? setChanged(false) : console.log(res))
 
     }
 
-    handleChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value,
+    if (!loading)
+        return (
+            <fieldset className={styles.form_component_container} style={{border: (props.dark ? 'none' : '#e2e2e2 1px solid'), backgroundColor: props.dark ? '#3b424c' : null}}>
+                <legend style={{paddingRight: '10px', paddingLeft: '10px'}}>
+                    <p style={{fontSize: '1.2rem', fontWeight: 450}}>Contact</p>
+                </legend>
+                <InputLayout inputName={'Email'} dark={props.dark} handleChange={setEmail}
+                             inputType={0} disabled={props.disabled} size={49} required={true}
+                             initialValue={email} key={"3-1"} setChanged={setChanged}/>
 
-        })
-        if (!this.state.changed)
-            this.setState({
-                changed: true
-            })
-    }
+                <InputLayout inputName={'Alternative Email'} dark={props.dark} handleChange={setEmailAlt}
+                             inputType={0} disabled={props.disabled} size={49} required={false}
+                             initialValue={emailAlt} key={"3-2"} setChanged={setChanged}/>
 
-    render() {
-        if (!this.state.loading)
-            return (
-                <div className={styles.form_component_container}
-                     style={{borderBottom: (this.props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid')}}>
-                    <legend style={{width: '100%'}}>
-                        <p style={{fontSize: '1.2rem', fontWeight: 450}}>Contact</p>
-                    </legend>
+                <InputLayout inputName={'Phone'} dark={props.dark} handleChange={setPhone}
+                             inputType={0} disabled={props.disabled} size={49} required={true}
+                             initialValue={phone} key={"3-3"} setChanged={setChanged}/>
 
-                    <TextField disabled={this.props.disabled} label={'Email'} value={this.state.email}
-                               variant={"outlined"} style={this.props.mediumContainer} name='email'
-                               onChange={this.handleChange} required/>
-                    <TextField disabled={this.props.disabled} label={'Alt Email'} value={this.state.emailAlt}
-                               variant={"outlined"} style={this.props.mediumContainer} name='emailAlt'
-                               onChange={this.handleChange}/>
+                <InputLayout inputName={'Alternative Phone'} dark={props.dark} handleChange={setPhoneAlt}
+                             inputType={0} disabled={props.disabled} size={49} required={false}
+                             initialValue={phoneAlt} key={"3-4"} setChanged={setChanged}/>
 
-                    <TextField disabled={this.props.disabled} label={'Phone'} value={this.state.phone}
-                               variant={"outlined"} style={this.props.mediumContainer} name='phone'
-                               onChange={this.handleChange} required/>
-                    <TextField disabled={this.props.disabled} label={'Alt Phone'} value={this.state.phoneAlt}
-                               variant={"outlined"} style={this.props.mediumContainer} name='phoneAlt'
-                               onChange={this.handleChange}/>
-                    <Button style={{width: '100%'}} disabled={!this.state.changed}
-                            onClick={() => this.saveChanges()}>Save</Button>
-                </div>
+                <Button style={{width: '45vw'}} disabled={!changed}
+                        onClick={() => saveChanges()}>Save</Button>
+            </fieldset>
 
-            )
-        else
-            return (
-                <div className={styles.form_component_container}
-                     style={{borderBottom: (this.props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid')}}>
-                    <legend>
-                        <p style={{fontSize: '1.2rem', fontWeight: 450}}>Contact</p>
-                    </legend>
-                    <Skeleton variant="rect" style={{
-                        borderRadius: '8px',
-                        marginBottom: '2vh',
-                        width: '45vw',
-                        height: '6vh',
-                        backgroundColor: this.props.dark ? '#3b424c' : '#f4f8fb'
-                    }}/>
-                    <Skeleton variant="rect" style={{
-                        borderRadius: '8px',
-                        marginBottom: '2vh',
-                        width: '45vw',
-                        height: '6vh',
-                        backgroundColor: this.props.dark ? '#3b424c' : '#f4f8fb'
-                    }}/>
-                    <Skeleton variant="rect" style={{
-                        borderRadius: '8px',
-                        marginBottom: '2vh',
-                        width: '45vw',
-                        height: '6vh',
-                        backgroundColor: this.props.dark ? '#3b424c' : '#f4f8fb'
-                    }}/>
-                </div>
-            )
-    }
+        )
+    else
+        return (
+            <fieldset className={styles.form_component_container}
+                 style={{border: (props.dark ? 'none' : '#e2e2e2 1px solid'), backgroundColor: props.dark ? '#3b424c' : null}}>
+                <legend>
+                    <p style={{fontSize: '1.2rem', fontWeight: 450}}>Contact</p>
+                </legend>
+                <Skeleton variant="rect" style={{
+                    borderRadius: '8px',
+                    marginBottom: '2vh',
+                    width: '45vw',
+                    height: '6vh',
+                    backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
+                }}/>
+                <Skeleton variant="rect" style={{
+                    borderRadius: '8px',
+                    marginBottom: '2vh',
+                    width: '45vw',
+                    height: '6vh',
+                    backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
+                }}/>
+                <Skeleton variant="rect" style={{
+                    borderRadius: '8px',
+                    marginBottom: '2vh',
+                    width: '45vw',
+                    height: '6vh',
+                    backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
+                }}/>
+            </fieldset>
+        )
+}
+
+ContactForm.propTypes = {
+    id: PropTypes.string,
+    dark: PropTypes.bool,
+    disabled: PropTypes.bool,
+    saveChanges: PropTypes.func,
+    fetchData: PropTypes.func,
 }

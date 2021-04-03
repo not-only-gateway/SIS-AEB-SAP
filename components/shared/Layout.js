@@ -29,7 +29,7 @@ export default function Layout({children}) {
 
     const getTitle = (props) => {
         return (
-            <div style={{marginBottom: '3vh'}}>
+            <div style={{marginBottom: '2vh'}}>
                 <Head>
                     <title>{props.pageName}</title>
                 </Head>

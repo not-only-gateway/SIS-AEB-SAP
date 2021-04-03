@@ -1,174 +1,136 @@
 import styles from "../../../styles/form/Form.module.css";
-import {Button, TextField} from "@material-ui/core";
-import React from "react";
-import Cookies from "universal-cookie/lib";
+import {Button} from "@material-ui/core";
+import React, {useEffect, useState} from "react";
 import {Skeleton} from "@material-ui/lab";
+import InputLayout from "../InputLayout";
 
 
+export default function AddressForm(props) {
 
-export default class AddressForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            loading: true,
-            changed: false,
-            zipCode: null,
-            address: null,
-            complement: null,
-            street: null,
-            state: null,
-            stateInitials: null,
-            neighborhood: null,
-            city: null,
-        }
-        this.handleChange = this.handleChange.bind(this)
-    }
+    const [loading, setLoading] = useState(true)
+    const [changed, setChanged] = useState(false)
+    const [zipCode, setZipCode] = useState(null)
+    const [address, setAddress] = useState(null)
+    const [complement, setComplement] = useState(null)
+    const [street, setStreet] = useState(null)
+    const [state, setState] = useState(null)
+    const [stateInitials, setStateInitials] = useState(null)
+    const [neighborhood, setNeighborhood] = useState(null)
+    const [city, setCity] = useState(null)
 
-    componentDidMount() {
-        this.fetchData().catch(error => console.log(error))
-    }
 
-    async fetchData() {
-        const response = await this.props.fetchData('form/address', {id: this.props.id})
+    useEffect(() => {
+        fetchData().catch(error => console.log(error))
+    }, [])
 
-        if (response !== null)
-            this.setState({
-                zipCode: response.zip_code,
-                address: response.address,
-                complement: response.complement,
-                street: response.street,
-                state: response.state,
-                stateInitials: response.state_initials,
-                neighborhood: response.neighborhood,
-                city: response.city
-            })
-        this.setState({loading: false})
-
-    }
-
-    async saveChanges() {
-        const response = await this.props.saveChanges(
-            {
-                id: this.props.id,
-                zip_code: this.state.zipCode,
-                address: this.state.address,
-                complement: this.state.complement,
-                street: this.state.street,
-                state: this.state.state,
-                state_initials: this.state.stateInitials,
-                neighborhood: this.state.neighborhood,
-                city: this.state.city,
-            }, '/address')
-        if (response)
-            this.setState({changed: false})
-    }
-
-    handleChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value
-
+    async function fetchData() {
+        await props.fetchData('person/address', {id: props.id}).then(res => {
+            if (res !== null) {
+                setZipCode(res.zip_code)
+                setAddress(res.address)
+                setComplement(res.complement)
+                setStreet(res.street)
+                setState(res.state)
+                setStateInitials(res.state_initials)
+                setNeighborhood(res.neighborhood)
+                setCity(res.city)
+            }
+            setLoading(false)
         })
-        if (!this.state.changed)
-            this.setState({
-                changed: true
-            })
+    }
+
+    async function saveChanges() {
+        await props.saveChanges(
+            'person/address',
+            {
+                id: props.id,
+                zip_code: zipCode,
+                address: address,
+                complement: complement,
+                street: street,
+                state: state,
+                state_initials: stateInitials,
+                neighborhood: neighborhood,
+                city: city,
+            },'put'
+            ).then(res => {
+            if (res)
+                setChanged(false)
+        })
+
     }
 
 
-    render() {
-        if (!this.state.loading)
-            return (
-                <div className={styles.form_component_container}
-                     style={{borderBottom: (this.props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid')}}>
-                    <legend style={{width: '100%'}}>
-                        <p style={{fontSize: '1.2rem', fontWeight: 450}}>Address</p>
-                    </legend>
-                    <TextField disabled={this.props.disabled} label={'Address'} value={this.state.address}
-                               variant={"outlined"}
-                               style={this.props.mediumContainer} required
-                               onChange={this.handleChange}
-                               name={'address'}
-                    />
-                    <TextField disabled={this.props.disabled} label={'Address Complement'}
-                               value={this.state.complement} variant={"outlined"}
-                               style={this.props.mediumContainer}
-                               onChange={this.handleChange}
-                               name={'complement'}
-                    />
-                    <TextField disabled={this.props.disabled} label={'Zip code'} value={this.state.zipCode}
-                               variant={"outlined"}
-                               style={this.props.smallContainer} required
-                               onChange={this.handleChange}
-                               name={'zipCode'}
-                    />
+    if (!loading)
+        return (
+            <fieldset className={styles.form_component_container}
+                      style={{border: (props.dark ? 'none' : '#e2e2e2 1px solid'), backgroundColor: props.dark ? '#3b424c' : null}}>
+                <legend style={{paddingRight: '10px', paddingLeft: '10px'}}>
+                    <p style={{fontSize: '1.2rem', fontWeight: 450}}>Address</p>
+                </legend>
+                <InputLayout inputName={'Address'} dark={props.dark} handleChange={setAddress} inputType={0}
+                             disabled={props.disabled} size={49} required={true} initialValue={address}
+                             key={"4-1"} setChanged={setChanged}/>
+                <InputLayout inputName={'Complement'} dark={props.dark} handleChange={setComplement} inputType={0}
+                             disabled={props.disabled} size={49} required={false} initialValue={complement}
+                             key={"4-2"} setChanged={setChanged}/>
 
-                    <TextField disabled={this.props.disabled} label={'Street name'} value={this.state.street}
-                               variant={"outlined"}
-                               style={this.props.smallContainer} required
-                               onChange={this.handleChange}
-                               name={'street'}
-                    />
-                    <TextField disabled={this.props.disabled} label={'Neighborhood'} value={this.state.neighborhood}
-                               variant={"outlined"}
-                               style={this.props.smallContainer} required
-                               onChange={this.handleChange}
-                               // error={this.state.neighborhood === null}
-                               name={'neighborhood'}
-                    />
+                <InputLayout inputName={'Zip Code'} dark={props.dark} handleChange={setZipCode} inputType={0}
+                             disabled={props.disabled} size={32} required={true} initialValue={zipCode}
+                             key={"4-3"} setChanged={setChanged}/>
+                <InputLayout inputName={'Street'} dark={props.dark} handleChange={setStreet} inputType={0}
+                             disabled={props.disabled} size={32} required={true} initialValue={street}
+                             key={"4-4"} setChanged={setChanged}/>
+                <InputLayout inputName={'Neighborhood'} dark={props.dark} handleChange={setNeighborhood} inputType={0}
+                             disabled={props.disabled} size={32} required={true} initialValue={neighborhood}
+                             key={"4-5"} setChanged={setChanged}/>
 
-                    <TextField disabled={this.props.disabled} label={'City'}
-                               value={this.state.city} variant={"outlined"}
-                               onChange={this.handleChange}
-                               name={'city'}
-                               style={this.props.smallContainer}/>
-                    <TextField disabled={this.props.disabled} label={'State'}
-                               value={this.state.state} variant={"outlined"}
-                               style={this.props.smallContainer}
-                               onChange={this.handleChange}
-                               name={'state'}
-                    />
-                    <TextField disabled={this.props.disabled} label={'State initials'}
-                               value={this.state.stateInitials} variant={"outlined"}
-                               style={this.props.smallContainer}
-                               // error={this.state.stateInitials !== null && this.state.stateInitials.length > 2}
-                               onChange={event => event.target.value.length <= 2 ? this.handleChange(event) : null}
-                               name={'stateInitials'}
-                    />
+                <InputLayout inputName={'City'} dark={props.dark} handleChange={setCity} inputType={0}
+                             disabled={props.disabled} size={32} required={true} initialValue={city}
+                             key={"4-6"} setChanged={setChanged}/>
+                <InputLayout inputName={'State'} dark={props.dark} handleChange={setState} inputType={0}
+                             disabled={props.disabled} size={32} required={true} initialValue={state}
+                             key={"4-7"} setChanged={setChanged}/>
+                <InputLayout inputName={'State Initials'} dark={props.dark} handleChange={setStateInitials}
+                             inputType={0}
+                             disabled={props.disabled} size={32} required={true} initialValue={stateInitials}
+                             key={"4-8"} setChanged={setChanged}/>
 
-
-                    <Button style={{width: '100%'}} disabled={!this.state.changed}
-                            onClick={() => this.saveChanges()}>Save</Button>
-                </div>
-            )
-        else
-            return (
-                <div className={styles.form_component_container}
-                     style={{borderBottom: (this.props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid')}}>
-                    <legend>
-                        <p style={{fontSize: '1.2rem', fontWeight: 450}}>Address</p>
-                    </legend>
-                    <Skeleton variant="rect" style={{
-                        borderRadius: '8px',
-                        marginBottom: '2vh',
-                        width: '45vw',
-                        height: '6vh',
-                        backgroundColor: this.props.dark ? '#3b424c' : '#f4f8fb'
-                    }}/>
-                    <Skeleton variant="rect" style={{
-                        borderRadius: '8px',
-                        marginBottom: '2vh',
-                        width: '45vw',
-                        height: '6vh',
-                        backgroundColor: this.props.dark ? '#3b424c' : '#f4f8fb'
-                    }}/>
-                    <Skeleton variant="rect" style={{
-                        borderRadius: '8px',
-                        marginBottom: '2vh',
-                        width: '45vw',
-                        height: '6vh',
-                        backgroundColor: this.props.dark ? '#3b424c' : '#f4f8fb'
-                    }}/>
-                </div>
-            )
-    }
+                <Button style={{width: '45vw'}} disabled={!changed}
+                        onClick={() => saveChanges()}>Save</Button>
+            </fieldset>
+        )
+    else
+        return (
+            <fieldset className={styles.form_component_container}
+                      style={{
+                          border: (props.dark ? 'none' : '#e2e2e2 1px solid'),
+                          backgroundColor: props.dark ? '#3b424c' : null
+                      }}>
+                <legend>
+                    <p style={{fontSize: '1.2rem', fontWeight: 450}}>Address</p>
+                </legend>
+                <Skeleton variant="rect" style={{
+                    borderRadius: '8px',
+                    marginBottom: '2vh',
+                    width: '45vw',
+                    height: '6vh',
+                    backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
+                }}/>
+                <Skeleton variant="rect" style={{
+                    borderRadius: '8px',
+                    marginBottom: '2vh',
+                    width: '45vw',
+                    height: '6vh',
+                    backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
+                }}/>
+                <Skeleton variant="rect" style={{
+                    borderRadius: '8px',
+                    marginBottom: '2vh',
+                    width: '45vw',
+                    height: '6vh',
+                    backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
+                }}/>
+            </fieldset>
+        )
 }

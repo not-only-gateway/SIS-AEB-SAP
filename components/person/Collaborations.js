@@ -58,16 +58,17 @@ export default function Collaborations(props) {
 
     return (
         <fieldset className={styles.form_component_container}
-             style={{border: (props.dark ? '#262d37 2px solid' : '#e2e2e2 2px solid')}}>
+                  style={{border: (props.dark ? 'none' : '#e2e2e2 1px solid'), backgroundColor: props.dark ? '#3b424c' : null}}>
             {renderModal()}
             <legend style={{paddingLeft: '10px', paddingRight: '10px'}}>
                 <p style={{fontSize: '1.2rem', fontWeight: 450}}>Collaborations</p>
             </legend>
             <div className={styles.form_component_container} style={{justifyContent: 'initial'}}>
-                <div className={styles.collaboration_container} style={props.dark ? {
-                    backgroundColor: '#3b424c', justifyContent: 'center', minWidth: '7.5vw', maxWidth: '7.5vw'
-                } : {
-                    border: '#e2e2e2 1px solid', justifyContent: 'center', minWidth: '7.5vw', maxWidth: '7.5vw'
+                <div className={styles.collaboration_container} style={{
+                    backgroundColor: props.dark ? '#484c55' : null,
+                    border: !props.dark ? '#e2e2e2 1px solid' : null,
+                    justifyContent: 'center',
+                    minWidth: '7.5vw', maxWidth: '7.5vw'
                 }}>
                     <Button style={{width: '100%', height: '100%', borderRadius: '8px'}} onClick={() => setModal(true)}>
                         <AddRounded/>
@@ -76,7 +77,7 @@ export default function Collaborations(props) {
 
                 {collaborations.map(collaboration => (
                         <div className={styles.collaboration_container} style={props.dark ? {
-                            backgroundColor: '#3b424c', justifyContent: 'center'
+                            backgroundColor: '#484c55', justifyContent: 'center'
                         } : {
                             border: '#e2e2e2 1px solid', justifyContent: 'center'
                         }}>
@@ -105,7 +106,4 @@ Collaborations.propTypes = {
     id: PropTypes.number,
     fetchData: PropTypes.func,
     saveChanges: PropTypes.func,
-    mediumContainer: PropTypes.object,
-    smallContainer: PropTypes.object,
-    selectStyle: PropTypes.object,
 }

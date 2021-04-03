@@ -2,196 +2,160 @@ import styles from "../../styles/form/Form.module.css";
 import {Button, Grid, TextField} from "@material-ui/core";
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Skeleton} from "@material-ui/lab";
-import axios from "axios";
-import Host from "../../utils/Host";
-import Cookies from "universal-cookie/lib";
+import PropTypes from "prop-types";
+import InputLayout from "../shared/InputLayout";
 
-export default class DocumentsForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            loading: true,
-            changed: false,
-            cpf: null,
-            rg: null,
-            dispatchDate: null,
-            issuingBody: null,
-            voterRegistration: null,
-            electoralZone: null,
-            electoralSection: null,
-            bank: null,
-            agency: null,
-            workCard: null,
-            pis: null
-        }
-        this.handleChange = this.handleChange.bind(this)
-        this.handleDateChange = this.handleDateChange.bind(this)
-    }
+export default function DocumentsForm(props) {
 
-    componentDidMount() {
-        this.fetchData().catch(error => console.log(error))
-    }
+    const [loading, setLoading] = useState(true)
+    const [changed, setChanged] = useState(false)
+    const [cpf, setCpf] = useState(null)
+    const [rg, setRg] = useState(null)
+    const [dispatchDate, setDispatchDate] = useState(null)
+    const [issuingBody, setIssuingBody] = useState(null)
+    const [voterRegistration, setVoterRegistration] = useState(null)
+    const [electoralZone, setElectoralZone] = useState(null)
+    const [electoralSection, setElectoralSection] = useState(null)
+    const [bank, setBank] = useState(null)
+    const [agency, setAgency] = useState(null)
+    const [workCard, setWorkCard] = useState(null)
+    const [pis, setPis] = useState(null)
 
-    async fetchData() {
-        await this.props.fetchData('person/documents', {id: this.props.id}).then(res => {
-            if (res !== null)
-                this.setState({
-                    cpf: res.cpf,
-                    rg: res.rg,
-                    dispatchDate: res.dispatch_date,
-                    issuingBody: res.issuing_body,
-                    voterRegistration: res.voter_registration,
-                    electoralZone: res.electoral_zone,
-                    electoralSection: res.electoral_section,
-                    bank: res.bank,
-                    agency: res.agency,
-                    workCard: res.work_card,
-                    pis: res.pis
-                })
+
+    useEffect(() => {
+        fetchData().catch(error => console.log(error))
+    }, [])
+
+    async function fetchData() {
+        await props.fetchData('person/documents', {id: props.id}).then(res => {
+            if (res !== null) {
+                setCpf(res.cpf)
+                setRg(res.rg)
+                setDispatchDate(res.dispatch_date)
+                setIssuingBody(res.issuing_body)
+                setVoterRegistration(res.voter_registration)
+                setElectoralSection(res.electoral_section)
+                setElectoralZone(res.electoral_zone)
+                setBank(res.bank)
+                setAgency(res.agency)
+                setWorkCard(res.work_card)
+                setPis(res.pis)
+            }
+
         })
-
-        this.setState({loading: false})
+        setLoading(false)
     }
 
-    async saveChanges() {
-        await this.props.saveChanges(
-            'person/contact',
+    async function saveChanges() {
+        await props.saveChanges(
+            'person/documents',
             {
-                id: this.props.id,
-                cpf: this.state.cpf,
-                rg: this.state.rg,
-                dispatch_date: this.state.dispatchDate,
-                issuing_body: this.state.issuingBody,
-                voter_registration: this.state.voterRegistration,
-                electoral_zone: this.state.electoralZone,
-                electoral_section: this.state.electoralSection,
-                bank: this.state.bank,
-                agency: this.state.agency,
-                work_card: this.state.workCard,
-                pis: this.state.pis,
+                id: props.id,
+                cpf: cpf,
+                rg: rg,
+                dispatch_date: dispatchDate.getDate(),
+                issuing_body: issuingBody,
+                voter_registration: voterRegistration,
+                electoral_zone: electoralZone,
+                electoral_section: electoralSection,
+                bank: bank,
+                agency: agency,
+                work_card: workCard,
+                pis: pis,
             },
             'put'
-        ).then(res => res ? this.setState({changed: false}) : console.log(res))
+        ).then(res => res ? setChanged(false) : console.log(res))
     }
 
-    handleChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value,
 
-        })
-        if (!this.state.changed)
-            this.setState({
-                changed: true
-            })
-    }
+    if (!loading)
+        return (
+            <fieldset className={styles.form_component_container}
+                      style={{border: (props.dark ? 'none' : '#e2e2e2 1px solid'), backgroundColor: props.dark ? '#3b424c' : null, marginBottom: '2vh'}}>
+                <legend style={{paddingRight: '10px', paddingLeft: '10px'}}>
+                    <p style={{fontSize: '1.2rem', fontWeight: 450}}>Documents</p>
+                </legend>
+                <InputLayout inputName={'CPF'} dark={props.dark} handleChange={setCpf} inputType={0}
+                             disabled={props.disabled} size={100} required={true} initialValue={cpf}
+                             key={"5-1"} setChanged={setChanged}/>
 
-    handleDateChange(event) {
-        this.setState({
-            dispatchDate: event.getTime()
-        })
-    }
+                <InputLayout inputName={'RG'} dark={props.dark} handleChange={setRg} inputType={0}
+                             disabled={props.disabled} size={32} required={true} initialValue={rg}
+                             key={"5-2"} setChanged={setChanged}/>
 
-    render() {
-        if (!this.state.loading)
-            return (
-                <div className={styles.form_component_container}
-                     style={{borderBottom: (this.props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid')}}>
-                    <legend style={{width: '100%'}}>
-                        <p style={{fontSize: '1.2rem', fontWeight: 450}}>Documents</p>
-                    </legend>
+                <InputLayout inputName={'Issuing body'} dark={props.dark} handleChange={setIssuingBody} inputType={0}
+                             disabled={props.disabled} size={32} required={true} initialValue={issuingBody}
+                             key={"5-3"} setChanged={setChanged}/>
+                <InputLayout inputName={'Dispatch Date'} dark={props.dark} handleChange={setDispatchDate} inputType={2}
+                             disabled={props.disabled} size={32} required={true} initialValue={dispatchDate}
+                             key={"5-4"} setChanged={setChanged}/>
 
-                    <TextField disabled={this.props.disabled} label={'RG'} value={this.state.rg}
-                               variant={"outlined"}
-                               onChange={this.handleChange} name={'rg'}
-                               style={this.props.smallContainer} required/>
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <Grid container justify="space-around"
-                              style={{width: '32%', marginTop: '0vh', marginBottom: 'auto'}}>
-                            <KeyboardDatePicker
-                                style={{
-                                    margin: 'auto',
-                                    backgroundColor: (!this.props.dark ? '#f7f8fa' : '#272e38')
-                                }}
-                                inputVariant="outlined"
-                                margin="normal"
-                                id="dispatch-picker"
-                                disabled={this.props.disabled}
-                                label="Dispatch Date"
-                                format="dd/MM/yyyy"
-                                value={this.state.dispatchDate === null ? null : (new Date(this.state.dispatchDate)).toLocaleDateString()}
-                                onChange={this.handleDateChange}
-                                KeyboardButtonProps={{
-                                    'aria-label': 'change date',
-                                }}
-                            />
-                        </Grid>
-                    </MuiPickersUtilsProvider>
-                    <TextField disabled={this.props.disabled} label={'Issuing body'} value={this.state.issuingBody}
-                               variant={"outlined"}
-                               style={this.props.smallContainer}
-                               onChange={this.handleChange} name={'issuingBody'}
-                               required/>
-                    <TextField disabled={this.props.disabled} label={'CPF'} value={this.state.cpf}
-                               variant={"outlined"}
-                               onChange={this.handleChange} name={'cpf'}
-                               style={this.props.smallContainer} required/>
-                    <TextField disabled={this.props.disabled} label={'Work Card'} value={this.state.workCard}
-                               onChange={this.handleChange} name={'workCard'}
-                               variant={"outlined"} style={this.props.smallContainer}/>
-                    <TextField disabled={this.props.disabled} label={'pis / pasep'} value={this.state.pis}
-                               variant={"outlined"}
-                               onChange={this.handleChange} name={'pis'}
-                               style={this.props.smallContainer}/>
-                    <TextField disabled={this.props.disabled} label={'Bank'} value={this.state.bank}
-                               variant={"outlined"}
-                               style={this.props.mediumContainer} name={'bank'} onChange={this.handleChange}/>
-                    <TextField disabled={this.props.disabled} label={'Agency'} value={this.state.agency}
-                               variant={"outlined"}
-                               style={this.props.mediumContainer} name={'agency'} onChange={this.handleChange}/>
-                    <TextField disabled={this.props.disabled} label={'Voter Registration'}
-                               value={this.state.voterRegistration} variant={"outlined"} name={'voterRegistration'}
-                               style={this.props.smallContainer} onChange={this.handleChange}/>
-                    <TextField disabled={this.props.disabled} label={'Electoral zone'}
-                               value={this.state.electoralZone} variant={"outlined"} name={'electoralZone'}
-                               style={this.props.smallContainer} onChange={this.handleChange}/>
-                    <TextField disabled={this.props.disabled} label={'Electoral section'}
-                               value={this.state.electoralSection} variant={"outlined"} name={'electoralSection'}
-                               style={this.props.smallContainer} onChange={this.handleChange}/>
-                    <Button style={{width: '100%'}} disabled={!this.state.changed}
-                            onClick={() => this.saveChanges()}>Save</Button>
-                </div>
-            )
-        else
-            return (
-                <div className={styles.form_component_container}
-                     style={{borderBottom: (this.props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid')}}>
-                    <legend>
-                        <p style={{fontSize: '1.2rem', fontWeight: 450}}>Documents</p>
-                    </legend>
-                    <Skeleton variant="rect" style={{
-                        borderRadius: '8px',
-                        marginBottom: '2vh',
-                        width: '45vw',
-                        height: '6vh',
-                        backgroundColor: this.props.dark ? '#3b424c' : '#f4f8fb'
-                    }}/>
-                    <Skeleton variant="rect" style={{
-                        borderRadius: '8px',
-                        marginBottom: '2vh',
-                        width: '45vw',
-                        height: '6vh',
-                        backgroundColor: this.props.dark ? '#3b424c' : '#f4f8fb'
-                    }}/>
-                    <Skeleton variant="rect" style={{
-                        borderRadius: '8px',
-                        marginBottom: '2vh',
-                        width: '45vw',
-                        height: '6vh',
-                        backgroundColor: this.props.dark ? '#3b424c' : '#f4f8fb'
-                    }}/>
-                </div>
-            )
-    }
+                <InputLayout inputName={'Work Card'} dark={props.dark} handleChange={setWorkCard} inputType={0}
+                             disabled={props.disabled} size={49} required={true} initialValue={workCard}
+                             key={"5-5"} setChanged={setChanged}/>
+
+                <InputLayout inputName={'PIS/PASEP'} dark={props.dark} handleChange={setPis} inputType={0}
+                             disabled={props.disabled} size={49} required={true} initialValue={pis}
+                             key={"5-6"} setChanged={setChanged}/>
+
+                <InputLayout inputName={'Bank'} dark={props.dark} handleChange={setBank} inputType={0}
+                             disabled={props.disabled} size={49} required={true} initialValue={bank}
+                             key={"5-7"} setChanged={setChanged}/>
+                <InputLayout inputName={'Agency'} dark={props.dark} handleChange={setAgency} inputType={0}
+                             disabled={props.disabled} size={49} required={true} initialValue={agency}
+                             key={"5-8"} setChanged={setChanged}/>
+                <InputLayout inputName={'Voter Registration'} dark={props.dark} handleChange={setVoterRegistration} inputType={0}
+                             disabled={props.disabled} size={32} required={true} initialValue={voterRegistration}
+                             key={"5-9"} setChanged={setChanged}/>
+                <InputLayout inputName={'Electoral Section'} dark={props.dark} handleChange={setElectoralSection} inputType={0}
+                             disabled={props.disabled} size={32} required={true} initialValue={electoralSection}
+                             key={"5-10"} setChanged={setChanged}/>
+                <InputLayout inputName={'Electoral Zone'} dark={props.dark} handleChange={setElectoralZone} inputType={0}
+                             disabled={props.disabled} size={32} required={true} initialValue={electoralZone}
+                             key={"5-11"} setChanged={setChanged}/>
+
+
+                <Button style={{width: '45vw'}} disabled={!changed}
+                        onClick={() => saveChanges()}>Save</Button>
+            </fieldset>
+        )
+    else
+        return (
+            <fieldset className={styles.form_component_container}
+                 style={{border: (props.dark ? null : '#e2e2e2 1px solid'), backgroundColor: props.dark ? '#3b424c' : null}}>
+                <legend>
+                    <p style={{fontSize: '1.2rem', fontWeight: 450}}>Documents</p>
+                </legend>
+                <Skeleton variant="rect" style={{
+                    borderRadius: '8px',
+                    marginBottom: '2vh',
+                    width: '45vw',
+                    height: '6vh',
+                    backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
+                }}/>
+                <Skeleton variant="rect" style={{
+                    borderRadius: '8px',
+                    marginBottom: '2vh',
+                    width: '45vw',
+                    height: '6vh',
+                    backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
+                }}/>
+                <Skeleton variant="rect" style={{
+                    borderRadius: '8px',
+                    marginBottom: '2vh',
+                    width: '45vw',
+                    height: '6vh',
+                    backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
+                }}/>
+            </fieldset>
+        )
+}
+DocumentsForm.propTypes = {
+    id: PropTypes.string,
+    dark: PropTypes.bool,
+    disabled: PropTypes.bool,
+    saveChanges: PropTypes.func,
+    fetchData: PropTypes.func,
 }

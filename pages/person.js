@@ -20,20 +20,10 @@ export default function person() {
     const [id, setId] = useState(undefined)
     const disabled = (new Cookies()).get('adm_token') !== undefined
     const [dark, setDark] = useState(false)
-    const [mediumContainer, setMediumContainer] = useState({})
-    const [selectStyle, setSelectStyle] = useState({})
-    const [smallContainer, setSmallContainer] = useState({})
 
     useEffect(() => {
 
         setDark(cookies.get('theme') === '0')
-        setMediumContainer({width: '49%', backgroundColor: !dark ? '#f7f8fa' : '#272e38', marginBottom: '2vh'})
-        setSelectStyle({
-            width: '32%',
-            backgroundColor: !dark ? '#f7f8fa' : '#272e38',
-            marginBottom: '2vh'
-        })
-        setSmallContainer({width: '32%', backgroundColor: !dark ? '#f7f8fa' : '#272e38', marginBottom: '2vh'})
         setId(router.query.id)
     }, [])
 
@@ -102,9 +92,6 @@ export default function person() {
                             />
                             <ContactForm
                                 id={id}
-                                mediumContainer={mediumContainer}
-                                smallContainer={smallContainer}
-                                selectStyle={selectStyle}
                                 saveChanges={saveChanges}
                                 fetchData={fetchData}
                                 dark={dark}
@@ -112,24 +99,18 @@ export default function person() {
                             />
                             <AddressForm
                                 id={id}
-                                mediumContainer={mediumContainer}
-                                smallContainer={smallContainer}
-                                selectStyle={selectStyle}
                                 saveChanges={saveChanges}
                                 fetchData={fetchData}
                                 dark={dark}
                                 disabled={disabled}/>
                             <DocumentsForm
                                 id={id}
-                                mediumContainer={mediumContainer}
-                                smallContainer={smallContainer}
-                                selectStyle={selectStyle}
                                 saveChanges={saveChanges}
                                 fetchData={fetchData}
                                 dark={dark}
                                 disabled={disabled}/>
                         </div>
-                    :
+                        :
                         null
                     }
                 </ThemeProvider>
