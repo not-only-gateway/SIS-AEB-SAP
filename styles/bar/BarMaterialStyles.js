@@ -19,7 +19,7 @@ export const searchFieldStyle = {
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    justifyContent:'flex-start',
+    justifyContent:'space-around',
     borderRadius:'8px',
 }
 

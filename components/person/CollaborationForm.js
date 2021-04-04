@@ -173,10 +173,10 @@ export default function CollaborationForm(props) {
 
     if (!loading)
         return (
-            <div className={styles.form_component_container}
-                 style={{margin: 'auto', height: '49vh'}}>
+            <fieldset className={styles.form_component_container}
+                 style={{margin: 'auto', height: '49vh', border: (props.dark ? 'none' : '#e2e2e2 1px solid')}}>
 
-                <legend style={{width: '100%'}}>
+                <legend style={{paddingLeft: '10px', paddingRight: '10px'}}>
                     <p style={{
                         fontSize: '1.2rem',
                         fontWeight: 450,
@@ -246,7 +246,7 @@ export default function CollaborationForm(props) {
 
                 <Button style={{width: '100%'}} onClick={() => saveChanges()} disabled={!changed}>Save
                     changes</Button>
-            </div>
+            </fieldset>
         )
     else
         return (

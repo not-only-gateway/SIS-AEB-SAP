@@ -36,7 +36,7 @@ export default function person() {
         }
         else
             setLang(getLanguage(router.locale, router.pathname))
-    }, [router.locale])
+    }, [router.locale, router.isReady])
 
     async function fetchData(path, params) {
         let response = null
@@ -77,7 +77,7 @@ export default function person() {
         return response
     }
 
-    if(lang !== null)
+    if(lang !== null && router.isReady)
         return (
             <Layout>
                 {props =>
