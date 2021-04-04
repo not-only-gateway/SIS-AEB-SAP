@@ -68,6 +68,7 @@ export default function CollaborationForm(props) {
                                 props.fetchData('collaborator/active/role', {id: props.userID}).then(res => setCanBeActive(res.can_be_active))
                             else
                                 setCanBeActive(true)
+
                         }
                     }
                 )
@@ -85,6 +86,7 @@ export default function CollaborationForm(props) {
             props.fetchData('unities', {}).then(res =>
                 setUnities(res)
             )
+
         },
         []
     )
@@ -100,14 +102,14 @@ export default function CollaborationForm(props) {
                 linkage_id: linkageID,
                 unity_id: unityID,
                 is_substitute: substitute,
-                official_publication_date: publicationDate.getTime(),
-                admission_date: admissionDate.getTime(),
+                official_publication_date:  typeof(publicationDate) !== "number" ? publicationDate.getTime() : publicationDate,
+                admission_date: typeof(admissionDate) !== "number" ? admissionDate.getTime() : admissionDate,
                 legal_document: legalDocument,
                 origin: origin,
                 is_active_on_role: activeRole !== null ? activeRole : false,
                 work_shift_start: workStart,
                 work_shift_end: workEnd,
-                contract_expiration: contractExp.getTime(),
+                contract_expiration: typeof(contractExp) !== "number" ? contractExp.getTime() : contractExp,
                 additional_information: additionalInfo,
             },
             props.collaborationID === null ? 'post' : 'put'

@@ -15,6 +15,7 @@
         border-radius: 8px;
         height: fit-content;
         margin-bottom: 2vh;
+        transition: .3s;
     }
 
     .top_bar_container{

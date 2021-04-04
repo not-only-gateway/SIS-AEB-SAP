@@ -1,8 +1,8 @@
 
 .personas_container {
-    display: flex;
+    display: inline-flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    gap: .9vw;
     width: 45vw;
     margin-top: 22vh;
 
@@ -20,7 +20,7 @@
     display: grid;
     justify-items: center;
     width: 90%;
-
+    line-height: normal;
     align-content: space-between;
 }
 
@@ -33,10 +33,13 @@
 
 .persona_container {
     display: grid;
+    justify-items: center;
+
     overflow: hidden;
-    width: 32%;
-    height: fit-content;
-    margin-bottom: 2vh;
+
+    width: 14.4vw;
+    height: 29vh;
+
     transition: 0.3s;
 }
 .paper_container{
@@ -52,6 +55,5 @@
     display: grid;
     justify-items: center;
     align-content: space-between;
-    line-height: initial;
-    padding-bottom: 1vh;
+    line-height: normal;
 }

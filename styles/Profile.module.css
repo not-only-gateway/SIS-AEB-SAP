@@ -38,6 +38,8 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+
+    transition: .3s;
 }
 .profile_modal_container{
     display: grid;
@@ -46,5 +48,5 @@
     margin: auto;
 }
 .simplified_profile_container:hover{
-    box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }

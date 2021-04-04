@@ -92,7 +92,7 @@ export default function DocumentsForm(props) {
                              disabled={props.disabled} size={32} required={true} initialValue={dispatchDate}
                              key={"5-4"} setChanged={setChanged}/>
 
-                <InputLayout inputName={'Work Card'} dark={props.dark} handleChange={setWorkCard} inputType={0}
+                <InputLayout inputName={'Work PersonCard'} dark={props.dark} handleChange={setWorkCard} inputType={0}
                              disabled={props.disabled} size={49} required={true} initialValue={workCard}
                              key={"5-5"} setChanged={setChanged}/>
 

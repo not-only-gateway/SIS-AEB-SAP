@@ -22,7 +22,7 @@ import {
 import PropTypes from 'prop-types'
 import React from 'react'
 
-export default function Authenticate(props) {
+export default function AuthenticateLayout(props) {
     const [visible, setVisible] = useState(false)
     const [password, setPassword] = useState(null)
     const [email, setEmail] = useState(null)
@@ -105,7 +105,7 @@ export default function Authenticate(props) {
     )
 }
 
-Authenticate.propTypes = {
+AuthenticateLayout.propTypes = {
     dark: PropTypes.bool,
     theme: PropTypes.object,
     changeTheme: PropTypes.func,

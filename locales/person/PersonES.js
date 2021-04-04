@@ -12,7 +12,7 @@ export const basic = {
     mother: 'Madre',
     birthPlace: 'Lugar de Nacimiento',
     nationality: 'Nacionalidad',
-    disabledPerson: 'Persona Discapacitada',
+    disabledPerson: 'PersonCard Discapacitada',
     birth: 'Nascimento',
     admin: 'Administrador(a)',
     gender: 'Género',

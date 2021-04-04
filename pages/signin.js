@@ -8,7 +8,7 @@ import {useRouter} from "next/router";
 import axios from "axios";
 import Host from '../utils/Host'
 import ClearStorage from "../utils/ClearStorage";
-import Authenticate from "../components/signin/Authenticate";
+import AuthenticateLayout from "../components/signin/AuthenticateLayout";
 import Head from "next/head";
 import {getLanguage, setCookiesLanguage} from "../utils/Language";
 
@@ -126,7 +126,7 @@ export default function Signin() {
                 </div>
                 <div className={styles.input_half_container}
                      style={{backgroundColor: !dark ? 'white' : '#303741', boxShadow: 'rgba(0, 0, 0, 0.05) 0 1px 2px 0'}}>
-                    <Authenticate
+                    <AuthenticateLayout
                         dark={dark}
                         theme={theme}
                         changeTheme={changeTheme}
