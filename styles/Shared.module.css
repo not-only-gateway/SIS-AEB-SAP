@@ -12,3 +12,9 @@
     display: grid;
     justify-items: center;
 }
+
+.row{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}

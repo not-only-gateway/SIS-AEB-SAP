@@ -12,7 +12,7 @@ import {
     RadioGroup
 } from "@material-ui/core";
 import {searchFieldStyle} from "../../styles/bar/BarMaterialStyles";
-import {HomeRounded, MenuRounded, SearchRounded} from "@material-ui/icons";
+import {BackspaceRounded, HomeRounded, MenuRounded, SearchRounded} from "@material-ui/icons";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Host from "../../utils/Host";
@@ -22,11 +22,12 @@ export default function SearchInputLayout(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [hovered, setHovered] = useState(false)
     async function fetchSearch(){
+        props.setData([])
         props.setLoading(true)
 
         await axios({
             method: 'get',
-            url: Host() + 'collaborators',
+            url: Host() + props.option,
             params: {
                 input: search
             }
@@ -40,14 +41,14 @@ export default function SearchInputLayout(props) {
     }
 
     async function fetchData() {
-        props.setLoading(true)
-
         props.setData([])
         try {
             await axios({
                 method: 'get',
                 url: Host() + props.option
             }).then(res => {
+                console.log("FETCHED DATA -> ")
+                console.log(res.data)
                 props.setData(res.data)
 
             }).catch(error => {
@@ -90,7 +91,11 @@ export default function SearchInputLayout(props) {
                       open={Boolean(anchorEl)}
                       onClose={handleClose}>
                     <FormControl component="fieldset" style={{paddingLeft: '10px'}}>
-                        <RadioGroup onChange={event => props.setOption(event.target.value)} value={props.option}>
+                        <RadioGroup onChange={event => {
+                            props.setData([])
+                            props.setLoading(true)
+                            props.setOption(event.target.value)
+                        }} value={props.option}>
                             {props.lang.filterChoice.map(choice =>{
                                 if(props.canEdit && choice.key === 'people')
                                     return <FormControlLabel value={choice.key} control={<Radio/>} label={choice.value}/>
@@ -103,6 +108,7 @@ export default function SearchInputLayout(props) {
                 <InputBase
                     style={{width: '85%', color: (props.dark ? 'white' : null), marginLeft: '10px'}}
                     placeholder={props.lang.search}
+                    value={search}
                     onKeyDown={key => {
                         if(key.key === 'Enter')
                             key.preventDefault()
@@ -115,11 +121,13 @@ export default function SearchInputLayout(props) {
                     <SearchRounded style={{color: props.dark ? 'white' : null}}/>
                 </IconButton>
                 <Divider orientation={'vertical'} style={{height: '70%'}}/>
-                <IconButton aria-label={props.lang.search} onClick={() => {
-                    props.setOption('collaborators')
+                <IconButton aria-label={props.lang.search} disabled={search === null || search.length === 0 } onClick={() => {
+                    props.setData([])
+                    props.setLoading(true)
+                    setSearch('')
                     fetchData().catch(error => console.log(error))
                 }}>
-                    <HomeRounded style={{color: props.dark ? 'white' : null}}/>
+                    <BackspaceRounded style={{color: props.dark ? 'white' : null}}/>
                 </IconButton>
             </Paper>
         </div>

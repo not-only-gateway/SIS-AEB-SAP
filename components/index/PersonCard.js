@@ -1,6 +1,6 @@
 import styles from '../../styles/index/Index.module.css'
 import {Avatar, Button, Modal} from "@material-ui/core";
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {CakeRounded, WarningRounded} from "@material-ui/icons";
 import Cookies from "universal-cookie/lib";
 import ModalProfileCard from "./ModalProfileCard";
@@ -13,6 +13,11 @@ export default function PersonCard(props) {
 
     const [modal, setModal] = useState(false)
     const [hovered, setHovered] = useState(false)
+    useEffect(() => {
+        console.log("props -> ")
+        console.log(props)
+
+    },[])
     function renderModal() {
 
         if (modal) {
@@ -37,11 +42,11 @@ export default function PersonCard(props) {
         const secondaryField = {
             fontSize: '.9rem',
             fontWeight: 400,
-            color: (props.dark ? '#e2e2e2' : '#111111')
+            color: (props.dark ? '#e2e2e2' : '#444444')
         }
         return (
             <div className={styles.persona_fields_container}>
-                <div className={styles.persona_title} style={borderBottom}>
+                <div className={styles.card_title} style={borderBottom}>
                     <Avatar src={props.profile.pic} alt={props.profile.name}
                             style={{height: '70px', width: '70px'}}/>
                     <p style={{
@@ -64,7 +69,7 @@ export default function PersonCard(props) {
     return (
 
         <div
-            className={styles.persona_container} key={props.profile.id}
+            className={styles.card_container} key={'user - ' + props.profile.id}
             onMouseLeave={() => setHovered(false)}
             onMouseEnter={() => setHovered(true)}
             style={{

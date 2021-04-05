@@ -1,9 +1,10 @@
 .setting_row_container{
-    margin: 2vh auto auto;
-    width: 45vw;
-    display: flex;
+    width: 14vw;
+    display: grid;
     justify-content: space-between;
-    align-content: center;
+    border-radius: 8px;
+    align-content: space-between;
+    min-height: 10vh;
 }
 
 .settings_container{
@@ -11,4 +12,12 @@
     align-content: space-between;
     align-items: center;
     width: 45vw;
+}
+.settings_components_container{
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: .9vw;
+    justify-content: flex-start;
+    width: 45vw;
+
 }

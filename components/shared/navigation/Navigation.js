@@ -9,7 +9,7 @@ import es from '../../../locales/navigation/NavigationES';
 import pt from '../../../locales/navigation/NavigationPT';
 import Link from 'next/link'
 import {getLogo} from '../../../utils/Theme';
-import ProfileCard from './ProfileCard';
+import SimpleProfileCard from '../SimpleProfileCard';
 import PropTypes from 'prop-types'
 
 const cookies = new Cookies()
@@ -132,7 +132,7 @@ export default function Navigation(props) {
                     (
                         <Link href={{pathname: '/person', locale: props.locale, query: {id: profile.id}}}>
                             <a>
-                                <ProfileCard name={profile.name} pic={profile.pic} dark={props.dark}/>
+                                <SimpleProfileCard name={profile.name} pic={profile.pic} dark={props.dark}/>
                             </a>
                         </Link>
                     )

@@ -43,36 +43,43 @@ export default function Settings() {
                             }
                         })}>
                             <props.getTitle pageName={lang.settings} pageTitle={lang.settings} pageInfo={lang.information}/>
-                            <div className={style.setting_row_container} style={{borderBottom : (props.dark ? '#262d37 3px solid':'#e2e2e2 3px solid')}}>
-                                <p>{lang.theme}</p>
-                                <Button style={{...{color: props.dark ? 'white' : '#111111'}}} onClick={() => props.changeTheme()} >
-                                    {!props.dark ? <Brightness7RoundedIcon  style={{...iconStyle, ...{color: !props.dark ? '#777777' : '#ededed'}}}/> : <Brightness3RoundedIcon style={{...iconStyle, ...{color: !props.dark ? '#777777' : '#ededed'}}}/>}
-                                </Button>
-                            </div>
-                            <div className={style.setting_row_container} style={{borderBottom : (props.dark ? '#262d37 3px solid':'#e2e2e2 3px solid')}}>
-                                <p>{lang.language}</p>
-                                <Select
-                                    labelId="select-id"
-                                    disableUnderline
-                                    style={{
-                                        textTransform: 'none',
-                                        fontSize: '.8rem',
-                                        color: props.dark ? 'white' : '#777777',
-                                        fontWeight: '450'
-                                    }}
-                                    value={props.locale}
-                                    onChange={event => changeLang(event)}
-                                >
-                                    <MenuItem key={"pt"} value="pt">
-                                        Português
-                                    </MenuItem>
-                                    <MenuItem key={"en"} value="en">
-                                        English
-                                    </MenuItem>
-                                    <MenuItem key={"es"} value="es">
-                                        Español
-                                    </MenuItem>
-                                </Select>
+                            <div className={style.settings_components_container}>
+                                <fieldset className={style.setting_row_container} style={{border : (!props.dark ? '#e2e2e2 1px solid': null)}}>
+                                    <legend>{lang.theme}</legend>
+                                    <div style={{display: 'flex'}}>
+                                        <p>{props.dark ? 'Dark' : 'Light'}</p>
+                                        <Button style={{...{color: props.dark ? 'white' : '#111111'}}} onClick={() => props.changeTheme()} >
+                                            {!props.dark ? <Brightness7RoundedIcon  style={{...iconStyle, ...{color: !props.dark ? '#777777' : '#ededed'}}}/> : <Brightness3RoundedIcon style={{...iconStyle, ...{color: !props.dark ? '#777777' : '#ededed'}}}/>}
+                                        </Button>
+                                    </div>
+
+                                </fieldset>
+                                <fieldset className={style.setting_row_container} style={{border : (!props.dark ? '#e2e2e2 1px solid': null)}}>
+                                    <legend>{lang.language}</legend>
+                                    <Select
+                                        labelId="select-id"
+                                        disableUnderline
+                                        style={{
+                                            textTransform: 'none',
+                                            fontSize: '.8rem',
+                                            color: props.dark ? 'white' : '#777777',
+                                            fontWeight: '450'
+                                        }}
+                                        value={props.locale}
+                                        onChange={event => changeLang(event)}
+                                    >
+                                        <MenuItem key={"pt"} value="pt">
+                                            Português
+                                        </MenuItem>
+                                        <MenuItem key={"en"} value="en">
+                                            English
+                                        </MenuItem>
+                                        <MenuItem key={"es"} value="es">
+                                            Español
+                                        </MenuItem>
+                                    </Select>
+                                </fieldset>
+
                             </div>
 
                         </ThemeProvider>

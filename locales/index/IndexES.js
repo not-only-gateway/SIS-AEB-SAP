@@ -9,5 +9,6 @@ export default {
         {value: 'Unidades', key: 'unities'},
         {value: 'Colaboradores(as) activos(as)', key: 'collaborators'}
     ],
-    inactive: 'Colaborador(a) inactivo(a)'
+    inactive: 'Colaborador(a) inactivo(a)',
+    nothingFound: 'Nada Encontrado'
 }

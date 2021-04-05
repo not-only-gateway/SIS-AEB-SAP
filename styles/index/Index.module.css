@@ -31,7 +31,7 @@
     height: 50vh;
 }
 
-.persona_container {
+.card_container {
     display: grid;
     justify-items: center;
 
@@ -47,7 +47,7 @@
     transition: 0.2s;
 }
 
-.persona_title{
+.card_title{
     display: grid;
     justify-items: center;
     align-content: space-between;
