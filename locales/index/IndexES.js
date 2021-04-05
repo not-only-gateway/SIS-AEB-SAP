@@ -8,5 +8,6 @@ export default {
         {value: 'Todos(as) los(as) colaboradoras(es)', key: 'people'},
         {value: 'Unidades', key: 'unities'},
         {value: 'Colaboradores(as) activos(as)', key: 'collaborators'}
-    ]
+    ],
+    inactive: 'Colaborador(a) inactivo(a)'
 }

@@ -8,5 +8,6 @@ export default {
         {value: 'Todos os Colaboradores', key: 'people'},
         {value: 'Unidades', key: 'unities'},
         {value: 'Colaboradores Ativos', key: 'collaborators'}
-    ]
+    ],
+    inactive: 'Colaborador inativo'
 }

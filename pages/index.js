@@ -73,14 +73,22 @@ export default function Index() {
                         </div>
                         <div className={styles.personas_container}>
                             {!loading ?
-                                data.map(person =>
-                                    <PersonCard
-                                        profile={person.profile}
-                                        collaboration={person.collaboration}
-                                        canEdit={canEdit}
-                                        dark={props.dark}
-                                    />
-                                )
+                                option !== 'unities' ? data.map(person =>
+                                        <PersonCard
+                                            profile={person.profile}
+                                            collaboration={person.collaboration}
+                                            canEdit={canEdit}
+                                            dark={props.dark}
+                                            inactiveLocale={lang.inactive}
+                                        />
+                                    )
+                                :
+                                    data.map(unity =>
+                                        <div>
+                                            kasdjakd
+                                        </div>
+                                    )
+
                                 :
                                 <Skeleton variant="rect" style={{
                                     borderRadius: '8px',

@@ -1,37 +1,39 @@
 import PropTypes from 'prop-types'
 import {Skeleton} from "@material-ui/lab";
-import React from "react";
-import {FormControl, Grid, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
+import React, {useState} from "react";
+import {FormControl, Grid, InputLabel, MenuItem, Select, TextField, withStyles} from "@material-ui/core";
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 
 export default function InputLayout(props) {
 
     switch (props.inputType) {
-        case 0:  // TEXT FIELD
+        case 0:  {
             return (
-                <div key={props.key} style={{width: props.size + '%', marginBottom: props.margin === false ? null : '2vh'}}>
+                <div key={props.key} style={{width: props.size + '%', marginBottom: props.margin === false ? null : '2vh', borderRadius: '8px', backgroundColor: (!props.dark ? '#f7f8fa' : '#272e38')}}
+                     >
                     <TextField disabled={props.disabled} label={props.inputName} value={props.initialValue}
-                               variant={"outlined"}
-                               style={{backgroundColor: (!props.dark ? '#f7f8fa' : '#272e38'), width: '100%'}}
-                               onChange={event => {
-                                   props.handleChange(event.target.value)
-                                   props.setChanged(true)
-                               }}
-                               required={props.required}
-                               error={props.required === true && (props.initialValue === null || props.initialValue.length === 0)}
+                                     variant={"outlined"}
+                                     style={{width: '100%', backgroundColor: 'transparent'}}
+                                     onChange={event => {
+                                         props.handleChange(event.target.value)
+                                         props.setChanged(true)
+                                     }}
+                                     required={props.required}
+                                     error={props.required === true && (props.initialValue === null || props.initialValue.length === 0)}
                     />
                 </div>
             )
-        case 1: // SELECT
+        }
+
+        case 1:{
             return (
-                <div key={ props.key } style={{width: props.size + '%', marginBottom: props.margin === false  ? null : '2vh'}}>
+                <div key={ props.key } style={{width: props.size + '%', marginBottom: props.margin === false  ? null : '2vh', borderRadius: '8px', backgroundColor: (!props.dark ? '#f7f8fa' : '#272e38')}}  >
                     <FormControl variant="outlined" disabled={props.disabled}
-                                 style={{backgroundColor: (!props.dark ? '#f7f8fa' : '#272e38'), width: '100%'}} required={props.required}
-                                 error={props.required === true && (props.initialValue === null || props.initialValue.length === 0)}>
+                                  style={{backgroundColor: 'transparent',width: '100%'}} required={props.required}
+                                  error={props.required === true && (props.initialValue === null || props.initialValue.length === 0)}>
                         <InputLabel id={props.inputName.replace(' ', '')}>{props.inputName}</InputLabel>
                         <Select
-
                             labelId={props.inputName.replace(' ', '')}
                             id={props.inputName.replace(' ', '')}
                             value={props.initialValue}
@@ -50,17 +52,20 @@ export default function InputLayout(props) {
                     </FormControl>
                 </div>
             )
-        case 2: // DATE SELECT
+        }
+
+        case 2: {
+
             return (
-                <div key={props.key} style={{width: props.size + '%', marginBottom: props.margin === false  ? null : '2vh'}}>
+                <div key={props.key} style={{width: props.size + '%', marginBottom: props.margin === false  ? null : '2vh', borderRadius: '8px', backgroundColor: (!props.dark ? '#f7f8fa' : '#272e38')}}  >
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <Grid container justify="space-around"
-                              style={{width: '100%'}}>
+                                          style={{width: '100%'}}>
                             <KeyboardDatePicker
                                 style={{
                                     width: '100%',
                                     margin: 'auto',
-                                    backgroundColor: (!props.dark ? '#f7f8fa' : '#272e38'),
+                                    backgroundColor: 'transparent'
                                 }}
                                 required={props.required}
                                 inputVariant="outlined"
@@ -82,9 +87,10 @@ export default function InputLayout(props) {
                     </MuiPickersUtilsProvider>
                 </div>
             )
-        case 3: // HOUR SELECT
+        }
+        case 3: {
             return (
-                <div key={props.key} style={{width: props.size + '%', marginBottom: props.margin === false  ? null : '2vh'}}>
+                <div key={props.key} style={{width: props.size + '%', marginBottom: props.margin === false  ? null : '2vh'}}  >
                     <form noValidate style={{backgroundColor: !props.dark ? '#f7f8fa' : '#272e38', width: '100%'}}>
                         <TextField
                             required={props.required}
@@ -106,6 +112,8 @@ export default function InputLayout(props) {
                     </form>
                 </div>
             )
+        }
+
         default:
             return null
     }

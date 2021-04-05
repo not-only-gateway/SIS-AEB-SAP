@@ -20,7 +20,7 @@ import Host from "../../utils/Host";
 export default function SearchInputLayout(props) {
     const [search, setSearch] = useState(null)
     const [anchorEl, setAnchorEl] = React.useState(null);
-
+    const [hovered, setHovered] = useState(false)
     async function fetchSearch(){
         props.setLoading(true)
 
@@ -48,7 +48,6 @@ export default function SearchInputLayout(props) {
                 method: 'get',
                 url: Host() + props.option
             }).then(res => {
-                console.log(res.data)
                 props.setData(res.data)
 
             }).catch(error => {
@@ -74,10 +73,13 @@ export default function SearchInputLayout(props) {
 
     return (
         <div className={styles.paper_container}>
-            <Paper component="form" style={{
+            <Paper component="form"
+                   onMouseEnter={() => setHovered(true)}
+                   onMouseLeave={() => setHovered(false)}
+                   style={{
                 ...searchFieldStyle, ...{
                     backgroundColor: props.dark ? '#272e38' : '#f4f8fb',
-                    boxShadow: 'rgba(0, 0, 0, 0.05) 0 1px 2px 0'
+                    boxShadow: !props.dark ? (hovered ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'none') :  'none',
                 }
             }}>
                 <IconButton aria-controls="menu" aria-haspopup="true" onClick={handleClick}>
@@ -132,5 +134,5 @@ SearchInputLayout.propTypes = {
     setOption: PropTypes.func,
     lang: PropTypes.object,
     setData: PropTypes.func,
-    canEdit: PropTypes.bool
+    canEdit: PropTypes.bool,
 }

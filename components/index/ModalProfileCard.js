@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import styles from '../../styles/Profile.module.css'
 import {Avatar, Button} from "@material-ui/core";
 
-export default function ProfileCard(props){
+export default function ModalProfileCard(props){
 
     return(
         <div className={styles.profile_modal_container}>
