@@ -15,6 +15,10 @@ import * as PersonEN from '../locales/person/PersonEN'
 import * as PersonES from '../locales/person/PersonES'
 import * as PersonPT from '../locales/person/PersonPT'
 
+import ActivityEN from "../locales/activity/ActivityEN";
+import ActivityES from "../locales/activity/ActivityES";
+import ActivityPT from "../locales/activity/ActivityPT";
+
 const cookies = new Cookies()
 
 export function setCookiesLanguage(lang) {
@@ -43,6 +47,10 @@ export function getLanguage (locale, page){
                     response = SettingsEN
                     break
                 }
+                case '/activity': {
+                    response = ActivityEN
+                    break
+                }
                 default:
                     break
             }
@@ -64,6 +72,10 @@ export function getLanguage (locale, page){
                 }
                 case '/settings': {
                     response = SettingsES
+                    break
+                }
+                case '/activity': {
+                    response = ActivityES
                     break
                 }
                 default:
@@ -88,6 +100,10 @@ export function getLanguage (locale, page){
                 }
                 case '/settings': {
                     response = SettingsPT
+                    break
+                }
+                case '/activity': {
+                    response = ActivityPT
                     break
                 }
                 default:

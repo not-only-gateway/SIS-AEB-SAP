@@ -102,12 +102,21 @@ export default function Navigation(props) {
                                 </Button>
                             </Link>
                         </div>
-                        <div className={styles.button_container}
-                             style={{borderRight: props.path === '/activity' ? '#39adf6 3px solid' : null}}>
-                            <Link href={{pathname: '/activity', locale: props.locale}}>
-                                <Button style={{...buttonStyle, ...{color: props.dark ? 'white' : '#111111'}}}>
+
+                        <div className={styles.button_container} style={{backgroundColor: props.path === '/activity' ? (props.dark ? '#303741' : 'white') : null}}>
+                            <Link href={{pathname: '/activity', locale: props.locale}} >
+                                <Button
+                                    style={{...buttonStyle, ...{color: props.path === '/activity' ? '#39adf6' : (props.dark ? 'white' : '#111111')}}}>
+
                                     <HistoryRounded
-                                        style={{...iconStyle, ...{color: !props.dark ? '#777777' : '#ededed'}}}/> {lang.activity}
+                                        style={
+                                            {
+                                                ...iconStyle,
+                                                ...{
+                                                    color: props.path === '/activity' ? '#39adf6' : (!props.dark ? '#777777' : '#ededed')
+                                                }
+                                            }
+                                        }/> {lang.activity}
                                 </Button>
                             </Link>
                         </div>

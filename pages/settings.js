@@ -87,7 +87,5 @@ export default function Settings() {
                 </Layout>
         )
     else
-        return(<div>
-
-        </div>)
+        return <></>
 }

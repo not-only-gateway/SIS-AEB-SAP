@@ -64,9 +64,9 @@ export default function CollaborationForm(props) {
                             setContractExp(res.contract_expiration)
                             setAdditionalInfo(res.additional_information)
                             setLoading(false)
-                            if (res.is_active_on_role === false)
-                                props.fetchData('collaborator/active/role', {id: props.userID}).then(res => setCanBeActive(res.can_be_active))
-                            else
+                            // if (res.is_active_on_role === false)
+                            //     props.fetchData('collaborator/active/role', {id: props.userID}).then(res => setCanBeActive(res.can_be_active))
+                            // else
                                 setCanBeActive(true)
 
                         }
@@ -74,7 +74,7 @@ export default function CollaborationForm(props) {
                 )
             } else {
                 setLoading(false)
-                props.fetchData('collaborator/active/role', {id: props.userID}).then(res => setCanBeActive(res.can_be_active))
+                // props.fetchData('collaborator/active/role', {id: props.userID}).then(res => setCanBeActive(res.can_be_active))
             }
 
             props.fetchData('role', {}).then(res =>
@@ -175,16 +175,8 @@ export default function CollaborationForm(props) {
 
     if (!loading)
         return (
-            <fieldset className={styles.form_component_container}
-                 style={{margin: 'auto', height: '49vh', border: (props.dark ? 'none' : '#e2e2e2 1px solid')}}>
-
-                <legend style={{paddingLeft: '10px', paddingRight: '10px'}}>
-                    <p style={{
-                        fontSize: '1.2rem',
-                        fontWeight: 450,
-                        color: props.dark ? 'white' : 'black'
-                    }}>Collaboration</p>
-                </legend>
+            <div className={styles.form_component_container}
+                 style={{margin: 'auto',width: '40vw', height: '45vh'}}>
                 <InputLayout inputName={'Unity'} dark={props.dark} handleChange={setUnityID} inputType={1}
                              disabled={props.disabled} size={32} required={true} initialValue={unityID}
                              selectFields={mapToSelect(0)} key={'2-1'} setChanged={setChanged}/>
@@ -248,7 +240,7 @@ export default function CollaborationForm(props) {
 
                 <Button style={{width: '100%'}} onClick={() => saveChanges()} disabled={!changed}>Save
                     changes</Button>
-            </fieldset>
+            </div>
         )
     else
         return (

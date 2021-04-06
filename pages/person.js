@@ -40,40 +40,33 @@ export default function person() {
 
     async function fetchData(path, params) {
         let response = null
-        try {
-            await axios({
-                method: 'get',
-                url: Host() + path,
-                headers: {'authorization': cookies.get('jwt')},
-                params: params
-            }).then(res => {
-                response = res.data
-            }).catch(error => {
-                console.log(error)
-            })
-        } catch (error) {
+        await axios({
+            method: 'get',
+            url: Host() + path,
+            headers: {'authorization': cookies.get('jwt')},
+            params: params
+        }).then(res => {
+            response = res.data
+        }).catch(error => {
             console.log(error)
-        }
+        })
 
         return response
     }
 
     async function saveChanges(path, params, method) {
         let response = false
-        try {
-            await axios({
-                method: method,
-                url: Host() + path,
-                headers: {'authorization': cookies.get('jwt')},
-                data: params
-            }).then(() => {
-                response = true
-            }).catch(error => {
-                console.log(error)
-            })
-        } catch (error) {
+
+        await axios({
+            method: method,
+            url: Host() + path,
+            headers: {'authorization': cookies.get('jwt')},
+            data: params
+        }).then(() => {
+            response = true
+        }).catch(error => {
             console.log(error)
-        }
+        })
         return response
     }
 

@@ -5,12 +5,13 @@
     margin: auto auto 1vh;
 }
 
-.header_container{
+.header_container {
     position: fixed;
     width: 45vw;
     z-index: 2;
     display: grid;
     justify-items: center;
+    padding-bottom: 2vh;
 }
 
 .row{

@@ -11,7 +11,7 @@ import Cookies from "universal-cookie/lib";
 import {getLanguage} from "../utils/Language";
 import SearchInputLayout from "../components/index/SearchInputLayout";
 import UnityCard from "../components/index/UnityCard";
-
+import shared from '../styles/Shared.module.css'
 export default function Index() {
 
     const router = useRouter()
@@ -64,7 +64,7 @@ export default function Index() {
                         }
                     })}>
 
-                        <div className={styles.header_container}
+                        <div className={shared.header_container}
                              style={{backgroundColor: props.dark ? '#303741' : 'white'}}>
                             <props.getTitle pageName={lang.extensions} pageTitle={lang.extensions}
                                             pageInfo={getPageInfo()}/>

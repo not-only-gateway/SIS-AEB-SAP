@@ -8,13 +8,7 @@
 
 }
 
-.header_container {
-    position: fixed;
-    width: 45vw;
-    z-index: 2;
-    display: grid;
-    justify-items: center;
-}
+
 
 .persona_fields_container {
     display: grid;
