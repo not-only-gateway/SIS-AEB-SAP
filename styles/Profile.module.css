@@ -50,3 +50,9 @@
 .simplified_profile_container:hover{
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
+
+.accordion_container{
+    display: grid;
+    gap: 2vh;
+    margin-bottom: 50vh;
+}

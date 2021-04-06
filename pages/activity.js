@@ -140,7 +140,7 @@ export default function Activity() {
                                             <p style={{
                                                 color: getMethodColor(activity.method) !== null ? getMethodColor(activity.method) : null
                                             }}>{activity.method}</p>
-                                            <p style={{marginRight: '10px', marginLeft: '10px'}}>{activity.method.indexOf('?') > -1 ? activity.path.substring(0, activity.path.indexOf('?')) : activity.path}</p>
+                                            <p style={{marginRight: '10px', marginLeft: '10px'}}>{activity.method.indexOf('?') > -1 ? activity.path.substr(0, activity.path.indexOf('?')) : activity.path}</p>
                                             <p>{(new Date(activity.time_of_creation)).toDateString()}</p>
                                         </div>
                                     }

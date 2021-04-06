@@ -63,11 +63,7 @@ export default function AddressForm(props) {
 
     if (!loading)
         return (
-            <fieldset className={styles.form_component_container}
-                      style={{border: (props.dark ? 'none' : '#e2e2e2 1px solid'), backgroundColor: props.dark ? '#3b424c' : null}}>
-                <legend style={{paddingRight: '10px', paddingLeft: '10px'}}>
-                    <p style={{fontSize: '1.2rem', fontWeight: 450}}>Address</p>
-                </legend>
+            <div className={styles.form_component_container}>
                 <InputLayout inputName={'Address'} dark={props.dark} handleChange={setAddress} inputType={0}
                              disabled={props.disabled} size={49} required={true} initialValue={address}
                              key={"4-1"} setChanged={setChanged}/>
@@ -98,7 +94,7 @@ export default function AddressForm(props) {
 
                 <Button style={{width: '45vw'}} disabled={!changed}
                         onClick={() => saveChanges()}>Save</Button>
-            </fieldset>
+            </div>
         )
     else
         return (

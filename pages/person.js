@@ -12,6 +12,8 @@ import ContactForm from "../components/person/ContactForm";
 import AddressForm from "../components/shared/form/AddressForm";
 import DocumentsForm from "../components/person/DocumentsForm";
 import {getLanguage} from "../utils/Language";
+import AccordionLayout from "../components/shared/AccordionLayout";
+import styles from '../styles/Profile.module.css'
 
 const cookies = new Cookies()
 
@@ -81,7 +83,8 @@ export default function person() {
                     })}>
                         <props.getTitle pageName={lang.main.profile} pageTitle={lang.main.profile} pageInfo={lang.main.information}/>
                         {id !== undefined ?
-                            <div>
+                            <div className={styles.accordion_container}>
+
                                 <BasicForm
                                     id={id}
                                     saveChanges={saveChanges}
@@ -90,38 +93,84 @@ export default function person() {
                                     disabled={disabled}
                                     lang={lang.basic}
                                 />
-                                <Collaborations
-                                    id={id}
-                                    saveChanges={saveChanges}
-                                    fetchData={fetchData}
-                                    dark={dark}
-                                    disabled={disabled}
-                                    locale={lang.collaborations}
+                                <AccordionLayout
+                                    content={
+                                        <Collaborations
+                                            id={id}
+                                            saveChanges={saveChanges}
+                                            fetchData={fetchData}
+                                            dark={dark}
+                                            disabled={disabled}
+                                            locale={lang.collaborations}
+                                        />
+                                    }
+                                    summary={
+
+                                        <p>Collaborations</p>
+                                    }
+                                    closedSize={45}
+                                    openSize={45}
+                                    border={null}
                                 />
-                                <ContactForm
-                                    id={id}
-                                    saveChanges={saveChanges}
-                                    fetchData={fetchData}
-                                    dark={dark}
-                                    disabled={disabled}
-                                    // locale={lang.contact}
+
+                                <AccordionLayout
+                                    content={
+                                        <ContactForm
+                                            id={id}
+                                            saveChanges={saveChanges}
+                                            fetchData={fetchData}
+                                            dark={dark}
+                                            disabled={disabled}
+                                            // locale={lang.contact}
+                                        />
+                                    }
+                                    summary={
+
+                                        <p>Contact</p>
+                                    }
+                                    closedSize={45}
+                                    openSize={45}
+                                    border={null}
                                 />
-                                <AddressForm
-                                    id={id}
-                                    saveChanges={saveChanges}
-                                    fetchData={fetchData}
-                                    dark={dark}
-                                    disabled={disabled}
-                                    // locale={lang.basic}
+                                <AccordionLayout
+                                    content={
+                                        <AddressForm
+                                            id={id}
+                                            saveChanges={saveChanges}
+                                            fetchData={fetchData}
+                                            dark={dark}
+                                            disabled={disabled}
+                                            // locale={lang.basic}
+                                        />
+                                    }
+                                    summary={
+
+                                        <p>Address</p>
+                                    }
+                                    closedSize={45}
+                                    openSize={45}
+                                    border={null}
                                 />
-                                <DocumentsForm
-                                    id={id}
-                                    saveChanges={saveChanges}
-                                    fetchData={fetchData}
-                                    dark={dark}
-                                    disabled={disabled}
-                                    // locale={lang.documents}
+                                <AccordionLayout
+                                    content={
+                                        <DocumentsForm
+                                            id={id}
+                                            saveChanges={saveChanges}
+                                            fetchData={fetchData}
+                                            dark={dark}
+                                            disabled={disabled}
+                                            // locale={lang.documents}
+                                        />
+                                    }
+                                    summary={
+                                        <p>Documents</p>
+                                    }
+                                    closedSize={45}
+                                    openSize={45}
+                                    border={null}
+                                    // disabled={}
                                 />
+
                             </div>
                             :
                             null

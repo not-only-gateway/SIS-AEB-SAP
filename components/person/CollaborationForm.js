@@ -175,8 +175,7 @@ export default function CollaborationForm(props) {
 
     if (!loading)
         return (
-            <div className={styles.form_component_container}
-                 style={{margin: 'auto',width: '40vw', height: '45vh'}}>
+            <div className={styles.form_component_container}  style={{width: '38vw'}}>
                 <InputLayout inputName={'Unity'} dark={props.dark} handleChange={setUnityID} inputType={1}
                              disabled={props.disabled} size={32} required={true} initialValue={unityID}
                              selectFields={mapToSelect(0)} key={'2-1'} setChanged={setChanged}/>

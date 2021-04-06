@@ -51,10 +51,7 @@ export default function ContactForm(props) {
 
     if (!loading)
         return (
-            <fieldset className={styles.form_component_container} style={{border: (props.dark ? 'none' : '#e2e2e2 1px solid'), backgroundColor: props.dark ? '#3b424c' : null}}>
-                <legend style={{paddingRight: '10px', paddingLeft: '10px'}}>
-                    <p style={{fontSize: '1.2rem', fontWeight: 450}}>Contact</p>
-                </legend>
+            <div className={styles.form_component_container}>
                 <InputLayout inputName={'Email'} dark={props.dark} handleChange={setEmail}
                              inputType={0} disabled={props.disabled} size={49} required={true}
                              initialValue={email} key={"3-1"} setChanged={setChanged}/>
@@ -73,7 +70,7 @@ export default function ContactForm(props) {
 
                 <Button style={{width: '45vw'}} disabled={!changed}
                         onClick={() => saveChanges()}>Save</Button>
-            </fieldset>
+            </div>
 
         )
     else
