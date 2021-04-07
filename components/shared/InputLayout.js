@@ -17,7 +17,8 @@ export default function InputLayout(props) {
                                      style={{width: '100%', backgroundColor: 'transparent'}}
                                      onChange={event => {
                                          props.handleChange(event.target.value)
-                                         props.setChanged(true)
+                                         if( props.setChanged !== undefined)
+                                             props.setChanged(true)
                                      }}
                                      required={props.required}
                                      error={props.required === true && (props.initialValue === null || props.initialValue.length === 0)}
@@ -31,16 +32,18 @@ export default function InputLayout(props) {
                 <div key={ props.key } style={{width: props.size + '%', marginBottom: props.margin === false  ? null : '2vh', borderRadius: '8px', backgroundColor: (!props.dark ? '#f7f8fa' : '#272e38')}}  >
                     <FormControl variant="outlined" disabled={props.disabled}
                                   style={{backgroundColor: 'transparent',width: '100%'}} required={props.required}
-                                  error={props.required === true && (props.initialValue === null || props.initialValue.length === 0)}>
+                                  error={props.required && (props.initialValue === null || props.initialValue.length === 0)}>
                         <InputLabel id={props.inputName.replace(' ', '')}>{props.inputName}</InputLabel>
                         <Select
+
                             labelId={props.inputName.replace(' ', '')}
                             id={props.inputName.replace(' ', '')}
                             value={props.initialValue}
                             disabled={props.disabled}
                             onChange={event => {
                                 props.handleChange(event.target.value)
-                                props.setChanged(true)
+                                if( props.setChanged !== undefined)
+                                    props.setChanged(true)
                             }}
                             label={props.inputName}
 
@@ -77,7 +80,8 @@ export default function InputLayout(props) {
                                 value={props.initialValue}
                                 onChange={event => {
                                     props.handleChange(event)
-                                    props.setChanged(true)
+                                    if( props.setChanged !== undefined)
+                                        props.setChanged(true)
                                 }}
                                 KeyboardButtonProps={{
                                     'aria-label': 'change date',
@@ -103,7 +107,8 @@ export default function InputLayout(props) {
                             value={props.initialValue}
                             onChange={event => {
                                 props.handleChange(event.target.value)
-                                props.setChanged(true)
+                                if( props.setChanged !== undefined)
+                                    props.setChanged(true)
                             }}
                             inputProps={{
                                 step: 300, // 5 min

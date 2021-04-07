@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import {Button} from "@material-ui/core";
+import {Button, Divider} from "@material-ui/core";
 import {ArrowDownwardRounded, ArrowUpwardRounded} from "@material-ui/icons";
 import React, {useState} from "react";
 
@@ -12,15 +12,18 @@ export default function AccordionLayout(props) {
             border: props.border === undefined || props.border === null? (!props.dark ? '#e2e2e2 1px solid' : null) : props.border,
             transition: '.2s'
         }}>
-            <Button onClick={() => setOpen(!open)}
-                    style={{textTransform: 'none', display: 'flex', width: '100%', justifyContent: 'space-between'}}>
+            <Button onClick={() => setOpen(!open)} disabled={props.disabled} style={{textTransform: 'none', display: 'flex', width: '100%', justifyContent: 'space-between'}}>
                 {props.summary}
                 {open ? <ArrowUpwardRounded/> : <ArrowDownwardRounded/>}
             </Button>
+
             {open ?
-                <div style={{marginTop: '2vh'}}>
-                    {props.content}
-                </div>
+                <>
+                    <Divider orientation={'horizontal'}/>
+                    <div style={{marginTop: '2vh'}}>
+                        {props.content}
+                    </div>
+                </>
                 :
                 null
             }
@@ -34,5 +37,6 @@ AccordionLayout.propTypes = {
     content: PropTypes.element,
     closedSize: PropTypes.number,
     openSize: PropTypes.number,
-    border: PropTypes.any
+    border: PropTypes.any,
+    disabled: PropTypes.bool
 }

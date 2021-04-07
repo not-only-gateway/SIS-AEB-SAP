@@ -4,7 +4,8 @@
     <command value="run" />
     <scripts />
     <arguments value="dev" />
-    <node-interpreter value="project" />
+    <node-interpreter value="node" />
+    <package-manager value="npm" />
     <envs />
     <method v="2" />
   </configuration>

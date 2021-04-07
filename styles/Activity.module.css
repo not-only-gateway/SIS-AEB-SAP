@@ -17,3 +17,15 @@
     padding-bottom: 10px;
     padding-top: 10px;
 }
+.info_container{
+    display: grid;
+    gap: 2vh;
+    width: 98%;
+    margin: auto;
+}
+.info_row{
+    display: flex;
+    /*justify-content: space-between;*/
+    align-items: center;
+    width: 75%;
+}

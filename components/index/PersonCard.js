@@ -80,31 +80,17 @@ export default function PersonCard(props) {
             }}
         >
             {renderModal()}
-            {props.canEdit ?
-                <Link href={{pathname: '/person', query: {id: props.profile.id}}}>
-                    <Button style={{
-                        height: '25vh',
-                        width: '100%',
-                        textTransform: 'none',
-                        borderTopRightRadius: '8px',
-                        borderTopLeftRadius: '8px',
-                    }}>
-                        {renderContent()}
-                    </Button>
-                </Link>
-                :
-                < >
-                    <Button onClick={() => setModal(true)} style={{
-                        height: '25vh',
-                        width: '100%',
-                        textTransform: 'none',
-                        borderTopRightRadius: '8px',
-                        borderTopLeftRadius: '8px',
-                    }}>
-                        {renderContent()}
-                    </Button>
-                </>
-            }
+            <Link href={{pathname: '/person', query: {id: props.profile.id}}}>
+                <Button style={{
+                    height: '25vh',
+                    width: '100%',
+                    textTransform: 'none',
+                    borderTopRightRadius: '8px',
+                    borderTopLeftRadius: '8px',
+                }}>
+                    {renderContent()}
+                </Button>
+            </Link>
             {props.collaboration !== null ?
 
                 <Button style={{

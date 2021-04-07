@@ -66,7 +66,11 @@ export default function Signin() {
                 data: {
                     email: email,
                     password: password,
-                    ip: localIpUrl('public')
+                    ip: localIpUrl('public'),
+                    platform: navigator.platform,
+                    browser_version:navigator.appVersion,
+                    browser_engine: navigator.product,
+                    user_agent: navigator.userAgent
                 }
             }).then(res => {
                 cookies.set('jwt', res.data.jwt, {expires: (res.data.jwt_exp - Date.now())})

@@ -134,7 +134,31 @@ export default function Activity() {
                         <div className={styles.activities_container}>
                             {data.length > 0 ? data.map(activity => (
                                 <AccordionLayout
-                                    content={null}
+                                    content={
+                                        <div className={styles.info_container}>
+                                            <div className={styles.info_row}>
+                                                <p style={{fontWeight: 450}}>Platform</p>
+                                                <Divider orientation={'horizontal'} style={{width: '2vw',  marginLeft: '10px', marginRight: '10px'}}/>
+                                                <p style={{fontSize: '.9rem', fontWeight: 420,color: props.dark ? 'white' : '#555555'}}>{activity.access_log.platform}</p>
+                                            </div>
+                                            <div className={styles.info_row}>
+                                                <p style={{fontWeight: 450}}>Browser</p>
+                                                <Divider orientation={'horizontal'} style={{width: '2vw',  marginLeft: '10px', marginRight: '10px'}}/>
+                                                <p style={{fontSize: '.9rem', fontWeight: 420,color: props.dark ? 'white' : '#555555'}}>{activity.access_log.browser_version}</p>
+                                            </div>
+
+                                            <div className={styles.info_row}>
+                                                <p style={{fontWeight: 450}}>Browser Engine</p>
+                                                <Divider orientation={'horizontal'} style={{width: '2vw',  marginLeft: '10px', marginRight: '10px'}}/>
+                                                <p style={{fontSize: '.9rem', fontWeight: 420,color: props.dark ? 'white' : '#555555'}}>{activity.access_log.browser_engine}</p>
+                                            </div>
+                                            <div className={styles.info_row}>
+                                                <p style={{fontWeight: 450}}>User Agent</p>
+                                                <Divider orientation={'horizontal'} style={{width: '2vw',  marginLeft: '10px', marginRight: '10px'}}/>
+                                                <p style={{fontSize: '.9rem', fontWeight: 420,color: props.dark ? 'white' : '#555555'}}>{activity.access_log.browser_user_agent}</p>
+                                            </div>
+                                        </div>
+                                    }
                                     summary={
                                         <div style={{display: 'flex'}}>
                                             <p style={{

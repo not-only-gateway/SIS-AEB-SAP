@@ -14,10 +14,17 @@
     width: 45vw;
 }
 .settings_components_container{
-    display: inline-flex;
-    flex-wrap: wrap;
-    gap: .9vw;
-    justify-content: flex-start;
+    display: flex;
+    /*gap: 2vh;*/
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
     width: 45vw;
+
+}
+.theme_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
 }

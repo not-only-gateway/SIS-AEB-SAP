@@ -10,24 +10,24 @@ export default function BasicForm(props) {
 
     const [loading, setLoading] = useState(true)
     const [changed, setChanged] = useState(false)
-    const [name, setName] = useState(null)
-    const [birth, setBirth] = useState(null)
-    const [education, setEducation] = useState(null)
-    const [gender, setGender] = useState(null)
-    const [marital, setMarital] = useState(null)
-    const [extension, setExtension] = useState(null)
-    const [registration, setRegistration] = useState(null)
-    const [corporateEmail, setCorporateEmail] = useState(null)
-    const [mother, setMother] = useState(null)
-    const [father, setFather] = useState(null)
+    const [name, setName] = useState('')
+    const [birth, setBirth] = useState('')
+    const [education, setEducation] = useState('')
+    const [gender, setGender] = useState('')
+    const [marital, setMarital] = useState('')
+    const [extension, setExtension] = useState('')
+    const [registration, setRegistration] = useState('')
+    const [corporateEmail, setCorporateEmail] = useState('')
+    const [mother, setMother] = useState('')
+    const [father, setFather] = useState('null')
     const [disabledPerson, setDisabledPerson] = useState(null)
-    const [birthPlace, setBirthPlace] = useState(null)
-    const [pic, setPic] = useState(null)
-    const [nationality, setNationality] = useState(null)
+    const [birthPlace, setBirthPlace] = useState('')
+    const [pic, setPic] = useState('')
+    const [nationality, setNationality] = useState('')
     const [admin, setAdmin] = useState(null)
 
-
     useEffect(() => {
+
         fetchData().catch(error => console.log(error))
     }, [])
 
@@ -79,10 +79,29 @@ export default function BasicForm(props) {
         ).then(res => res ? setChanged(false) : console.log(res))
     }
 
+    function disabled() {
+        console.log('running')
+        return (
+            name.length === 0 ||
+            father.length === 0 ||
+            mother.length === 0 ||
+            nationality.length === 0 ||
+            birthPlace.length === 0 ||
+            birth.length === 0 ||
+            disabledPerson === null ||
+            education.length === 0 ||
+            gender.length === 0 ||
+            marital.length === 0 ||
+            corporateEmail.length === 0 ||
+            extension.length === 0 ||
+            changed === false
+        )
+    }
+
     if (!loading)
         return (
             <div className={styles.form_component_container} style={{
-                border: (props.dark ? 'none' : '#e2e2e2 1px solid'),
+                border: props.disabled ? null : (props.dark ? 'none' : '#e2e2e2 1px solid'),
                 backgroundColor: props.dark ? '#3b424c' : null,
                 width: '45vw'
             }}>
@@ -95,7 +114,7 @@ export default function BasicForm(props) {
                                  disabled={props.disabled} size={50} required={true} initialValue={name}
                                  key={"1-1"} margin={false} setChanged={setChanged}/>
                 </div>
-                <div className={styles.form_component_container} style={{width: '43vw'}}>
+                <div className={styles.form_component_container} style={{width: props.disabled ? '45vw' : '43vw'}}>
 
                     <InputLayout inputName={props.lang.corporateEmail} dark={props.dark}
                                  handleChange={setCorporateEmail}
@@ -138,27 +157,27 @@ export default function BasicForm(props) {
                             <div className={styles.form_component_container} style={{width: '38vw'}}>
                                 <InputLayout inputName={props.lang.father} dark={props.dark} handleChange={setFather}
                                              inputType={0}
-                                             disabled={props.disabled} size={49} required={true} initialValue={father}
+                                             disabled={props.disabled} size={32} required={true} initialValue={father}
                                              key={"1-3"} setChanged={setChanged}/>
                                 <InputLayout inputName={props.lang.mother} dark={props.dark} handleChange={setMother}
                                              inputType={0}
-                                             disabled={props.disabled} size={49} required={true} initialValue={mother}
+                                             disabled={props.disabled} size={32} required={true} initialValue={mother}
                                              key={"1-4"} setChanged={setChanged}/>
                                 <InputLayout inputName={props.lang.birthPlace} dark={props.dark}
                                              handleChange={setBirthPlace} inputType={0}
-                                             disabled={props.disabled} size={49} required={true}
+                                             disabled={props.disabled} size={32} required={true}
                                              initialValue={birthPlace}
                                              key={"1-5"} setChanged={setChanged}/>
                                 <InputLayout inputName={props.lang.education} dark={props.dark}
                                              handleChange={setEducation}
                                              inputType={1}
-                                             disabled={props.disabled} size={32} required={true}
+                                             disabled={props.disabled} size={49} required={true}
                                              initialValue={education}
                                              selectFields={props.lang.educationChoice}
                                              key={"1-9"} setChanged={setChanged}/>
                                 <InputLayout inputName={props.lang.marital} dark={props.dark} handleChange={setMarital}
                                              inputType={1}
-                                             disabled={props.disabled} size={32} required={true} initialValue={marital}
+                                             disabled={props.disabled} size={49} required={true} initialValue={marital}
                                              selectFields={props.lang.maritalChoice}
                                              key={"1-11"} setChanged={setChanged}/>
 
@@ -168,31 +187,22 @@ export default function BasicForm(props) {
 
                             <p>More</p>
                         }
-                        closedSize={43}
-                        openSize={43}
+                        disabled={props.disabled}
+                        closedSize={props.disabled ? 45 : 43}
+                        openSize={props.disabled ? 45 : 43}
                         border={null}
                     />
                 </div>
 
-
-                <Button style={{width: '100%'}}
-                        disabled={
-                            (name === null || name.length === 0) ||
-                            admin === null ||
-                            (father === null || father.length === 0) ||
-                            (mother === null || mother.length === 0) ||
-                            (nationality === null || nationality.length === 0) ||
-                            (birthPlace === null || birthPlace.length === 0) ||
-                            (birth === null || birth.length === 0) ||
-                            disabledPerson === null ||
-                            education === null ||
-                            gender === null ||
-                            marital === null ||
-                            (corporateEmail === null || corporateEmail.length === 0) ||
-                            (extension === null || extension.length === 0) ||
-                            changed === false
-                        }
-                        onClick={() => saveChanges()}>Save</Button>
+                {props.disabled ? null :
+                    <Button style={{
+                        width: '43vw', margin: '2vh auto',
+                        backgroundColor: disabled() ? null : '#39adf6',
+                        color: disabled() ? null : 'white'
+                    }} variant={'contained'} disableElevation
+                            disabled={disabled()}
+                            onClick={() => saveChanges()}>Save</Button>
+                }
             </div>
         )
     else

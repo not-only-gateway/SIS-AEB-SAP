@@ -108,6 +108,7 @@ export default function person() {
 
                                         <p>Collaborations</p>
                                     }
+                                    disabled={disabled}
                                     closedSize={45}
                                     openSize={45}
                                     border={null}
@@ -130,6 +131,7 @@ export default function person() {
                                     }
                                     closedSize={45}
                                     openSize={45}
+                                    disabled={disabled}
                                     border={null}
                                 />
                                 <AccordionLayout
@@ -149,6 +151,7 @@ export default function person() {
                                     }
                                     closedSize={45}
                                     openSize={45}
+                                    disabled={disabled}
                                     border={null}
                                 />
                                 <AccordionLayout
@@ -167,6 +170,7 @@ export default function person() {
                                     }
                                     closedSize={45}
                                     openSize={45}
+                                    disabled={disabled}
                                     border={null}
                                     // disabled={}
                                 />
