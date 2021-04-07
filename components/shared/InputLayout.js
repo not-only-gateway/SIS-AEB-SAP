@@ -10,11 +10,11 @@ export default function InputLayout(props) {
     switch (props.inputType) {
         case 0:  {
             return (
-                <div key={props.key} style={{width: props.size + '%', marginBottom: props.margin === false ? null : '2vh', borderRadius: '8px', backgroundColor: (!props.dark ? '#f7f8fa' : '#272e38')}}
+                <div key={props.key} style={{width: props.size + '%', marginBottom: props.margin === false ? null : '2vh'}}
                      >
                     <TextField disabled={props.disabled} label={props.inputName} value={props.initialValue}
                                      variant={"outlined"}
-                                     style={{width: '100%', backgroundColor: 'transparent'}}
+                                     style={{width: '100%', backgroundColor: (!props.dark ? '#f7f8fa' : '#272e38')}}
                                      onChange={event => {
                                          props.handleChange(event.target.value)
                                          if( props.setChanged !== undefined)
@@ -29,9 +29,9 @@ export default function InputLayout(props) {
 
         case 1:{
             return (
-                <div key={ props.key } style={{width: props.size + '%', marginBottom: props.margin === false  ? null : '2vh', borderRadius: '8px', backgroundColor: (!props.dark ? '#f7f8fa' : '#272e38')}}  >
+                <div key={ props.key } style={{width: props.size + '%', marginBottom: props.margin === false  ? null : '2vh'}}  >
                     <FormControl variant="outlined" disabled={props.disabled}
-                                  style={{backgroundColor: 'transparent',width: '100%'}} required={props.required}
+                                  style={{backgroundColor: (!props.dark ? '#f7f8fa' : '#272e38'),width: '100%'}} required={props.required}
                                   error={props.required && (props.initialValue === null || props.initialValue.length === 0)}>
                         <InputLabel id={props.inputName.replace(' ', '')}>{props.inputName}</InputLabel>
                         <Select
@@ -60,7 +60,7 @@ export default function InputLayout(props) {
         case 2: {
 
             return (
-                <div key={props.key} style={{width: props.size + '%', marginBottom: props.margin === false  ? null : '2vh', borderRadius: '8px', backgroundColor: (!props.dark ? '#f7f8fa' : '#272e38')}}  >
+                <div key={props.key} style={{width: props.size + '%', marginBottom: props.margin === false  ? null : '2vh'}}  >
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <Grid container justify="space-around"
                                           style={{width: '100%'}}>
@@ -68,7 +68,7 @@ export default function InputLayout(props) {
                                 style={{
                                     width: '100%',
                                     margin: 'auto',
-                                    backgroundColor: 'transparent'
+                                    backgroundColor: (!props.dark ? '#f7f8fa' : '#272e38')
                                 }}
                                 required={props.required}
                                 inputVariant="outlined"

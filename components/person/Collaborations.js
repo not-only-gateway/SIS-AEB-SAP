@@ -16,6 +16,7 @@ export default function Collaborations(props) {
     const [modal, setModal] = useState(false)
     const [selected, setSelected] = useState(null)
 
+
     function renderModal() {
         return (
             <Modal open={modal} onClose={() => {
@@ -86,6 +87,7 @@ export default function Collaborations(props) {
                         <p>New Collaboration</p>
                     </div>
                 }
+                disabled={props.disabled}
                 openSize={40}
                 closedSize={14.4}
             />
@@ -118,6 +120,7 @@ export default function Collaborations(props) {
                           }}>{collaboration.role.denomination} - {collaboration.linkage.description}</p>
                       </div>
                     }
+                    disabled={props.disabled}
                     openSize={40}
                     closedSize={14.4}
                 />

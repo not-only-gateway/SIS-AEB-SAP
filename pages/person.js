@@ -108,7 +108,6 @@ export default function person() {
 
                                         <p>Collaborations</p>
                                     }
-                                    disabled={disabled}
                                     closedSize={45}
                                     openSize={45}
                                     border={null}

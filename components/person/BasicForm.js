@@ -80,7 +80,6 @@ export default function BasicForm(props) {
     }
 
     function disabled() {
-        console.log('running')
         return (
             name.length === 0 ||
             father.length === 0 ||
@@ -207,39 +206,7 @@ export default function BasicForm(props) {
         )
     else
         return (
-            <div className={styles.form_component_container}
-                 style={{borderBottom: (props.dark ? '#262d37 3px solid' : '#f4f8fb 3px solid')}}>
-                <legend>
-                    <p style={{fontSize: '1.2rem', fontWeight: 450}}>{props.lang.personal}</p>
-                </legend>
-                <div className={styles.form_row}>
-                    <Skeleton variant='circle' style={{
-                        width: '125px',
-                        height: '125px',
-                        backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
-                    }}/>
-                    <Skeleton variant='rect' style={{
-                        borderRadius: '8px',
-                        width: '82%',
-                        height: '6vh',
-                        backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
-                    }}/>
-                </div>
-                <Skeleton variant='rect' style={{
-                    borderRadius: '8px',
-                    marginBottom: '2vh',
-                    width: '45vw',
-                    height: '6vh',
-                    backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
-                }}/>
-                <Skeleton variant='rect' style={{
-                    borderRadius: '8px',
-                    marginBottom: '2vh',
-                    width: '45vw',
-                    height: '6vh',
-                    backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
-                }}/>
-            </div>
+            null
         )
 
 }

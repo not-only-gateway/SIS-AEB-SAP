@@ -49,7 +49,7 @@ export default function Layout({children}) {
 
     return (
         <div style={{color: dark ? 'white' : 'black'}}>
-            <div className={styles.page_container} style={{backgroundColor: !dark ? 'white' : '#303741'}}>
+            <div className={styles.page_container} style={{backgroundColor: !dark ? 'white' : '#303741'}} id={'scrollableDiv'}>
                 <div className={styles.children_container}>
                     {router.pathname === '/settings' ?
                         children({dark, changeTheme, getTitle, locale})

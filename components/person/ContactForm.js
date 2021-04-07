@@ -8,12 +8,19 @@ import InputLayout from "../shared/InputLayout";
 export default function ContactForm(props) {
 
 
-    const [email, setEmail] = useState(null)
+    const [email, setEmail] = useState('')
     const [emailAlt, setEmailAlt] = useState(null)
-    const [phone, setPhone] = useState(null)
+    const [phone, setPhone] = useState('')
     const [phoneAlt, setPhoneAlt] = useState(null)
     const [changed, setChanged] = useState(false)
-    const [loading, setLoading] = useState(true)
+
+    function disabled() {
+        return (
+            email.length === 0 ||
+            phone.length === 0 ||
+            changed === false
+        )
+    }
 
     useEffect(() => {
         fetchData().catch(error => console.log(error))
@@ -29,8 +36,6 @@ export default function ContactForm(props) {
             }
 
         })
-
-       setLoading(false)
     }
 
 
@@ -49,60 +54,33 @@ export default function ContactForm(props) {
 
     }
 
-    if (!loading)
-        return (
-            <div className={styles.form_component_container}>
-                <InputLayout inputName={'Email'} dark={props.dark} handleChange={setEmail}
-                             inputType={0} disabled={props.disabled} size={49} required={true}
-                             initialValue={email} key={"3-1"} setChanged={setChanged}/>
+    return (
+        <div className={styles.form_component_container}>
+            <InputLayout inputName={'Email'} dark={props.dark} handleChange={setEmail}
+                         inputType={0} disabled={props.disabled} size={49} required={true}
+                         initialValue={email} key={"3-1"} setChanged={setChanged}/>
 
-                <InputLayout inputName={'Alternative Email'} dark={props.dark} handleChange={setEmailAlt}
-                             inputType={0} disabled={props.disabled} size={49} required={false}
-                             initialValue={emailAlt} key={"3-2"} setChanged={setChanged}/>
+            <InputLayout inputName={'Alternative Email'} dark={props.dark} handleChange={setEmailAlt}
+                         inputType={0} disabled={props.disabled} size={49} required={false}
+                         initialValue={emailAlt} key={"3-2"} setChanged={setChanged}/>
 
-                <InputLayout inputName={'Phone'} dark={props.dark} handleChange={setPhone}
-                             inputType={0} disabled={props.disabled} size={49} required={true}
-                             initialValue={phone} key={"3-3"} setChanged={setChanged}/>
+            <InputLayout inputName={'Phone'} dark={props.dark} handleChange={setPhone}
+                         inputType={0} disabled={props.disabled} size={49} required={true}
+                         initialValue={phone} key={"3-3"} setChanged={setChanged}/>
 
-                <InputLayout inputName={'Alternative Phone'} dark={props.dark} handleChange={setPhoneAlt}
-                             inputType={0} disabled={props.disabled} size={49} required={false}
-                             initialValue={phoneAlt} key={"3-4"} setChanged={setChanged}/>
+            <InputLayout inputName={'Alternative Phone'} dark={props.dark} handleChange={setPhoneAlt}
+                         inputType={0} disabled={props.disabled} size={49} required={false}
+                         initialValue={phoneAlt} key={"3-4"} setChanged={setChanged}/>
 
-                <Button style={{width: '45vw'}} disabled={!changed}
-                        onClick={() => saveChanges()}>Save</Button>
-            </div>
-
-        )
-    else
-        return (
-            <fieldset className={styles.form_component_container}
-                 style={{border: (props.dark ? 'none' : '#e2e2e2 1px solid'), backgroundColor: props.dark ? '#3b424c' : null}}>
-                <legend>
-                    <p style={{fontSize: '1.2rem', fontWeight: 450}}>Contact</p>
-                </legend>
-                <Skeleton variant="rect" style={{
-                    borderRadius: '8px',
-                    marginBottom: '2vh',
-                    width: '45vw',
-                    height: '6vh',
-                    backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
-                }}/>
-                <Skeleton variant="rect" style={{
-                    borderRadius: '8px',
-                    marginBottom: '2vh',
-                    width: '45vw',
-                    height: '6vh',
-                    backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
-                }}/>
-                <Skeleton variant="rect" style={{
-                    borderRadius: '8px',
-                    marginBottom: '2vh',
-                    width: '45vw',
-                    height: '6vh',
-                    backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
-                }}/>
-            </fieldset>
-        )
+            <Button style={{
+                width: '43vw', margin: '2vh auto',
+                backgroundColor: disabled() ? null : '#39adf6',
+                color: disabled() ? null : 'white'
+            }} variant={'contained'} disableElevation
+                    disabled={disabled()}
+                    onClick={() => saveChanges()}>Save</Button>
+        </div>
+    )
 }
 
 ContactForm.propTypes = {

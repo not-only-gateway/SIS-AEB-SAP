@@ -3,6 +3,12 @@
     display: inline-flex;
     flex-wrap: wrap;
     gap: .9vw;
+    margin-bottom: 2vh;
+}
+.infinite_scroll_container{
+    width: 100%;
+    display: grid;
+    gap: .9vw;
     margin-top: 24vh;
     margin-bottom: 2vh;
 }

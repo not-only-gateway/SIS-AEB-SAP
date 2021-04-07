@@ -12,9 +12,9 @@ export default function CollaborationForm(props) {
     const [linkages, setLinkages] = useState([])
     const [seniorID, setSeniorID] = useState(null)
     const [seniors, setSeniors] = useState([])
-    const [publicationDate, setPublicationDate] = useState(null)
-    const [admissionDate, setAdmissionDate] = useState(null)
-    const [legalDocument, setLegalDocument] = useState(null)
+    const [publicationDate, setPublicationDate] = useState('')
+    const [admissionDate, setAdmissionDate] = useState('')
+    const [legalDocument, setLegalDocument] = useState('')
     const [activeRole, setActiveRole] = useState(null)
     const [unityID, setUnityID] = useState(null)
     const [roleID, setRoleID] = useState(null)
@@ -30,6 +30,21 @@ export default function CollaborationForm(props) {
     const [additionalInfo, setAdditionalInfo] = useState(null)
     const [loading, setLoading] = useState(true)
     const [canBeActive, setCanBeActive] = useState(false)
+
+    function disabled() {
+        return (
+            unityID === null ||
+            roleID === null ||
+            publicationDate.length === 0 ||
+            admissionDate.length === 0 ||
+            legalDocument.length === 0 ||
+            linkageID === null ||
+            substitute === null ||
+            activeRole === null ||
+            (seniors.length > 0 && seniorID === null) ||
+            changed === false
+        )
+    }
 
     function handleRoleChange(event) {
         const roleData = JSON.parse(event)
@@ -237,8 +252,13 @@ export default function CollaborationForm(props) {
                              disabled={props.disabled} size={100} required={false} initialValue={additionalInfo}
                              key={'2-13'} setChanged={setChanged}/>
 
-                <Button style={{width: '100%'}} onClick={() => saveChanges()} disabled={!changed}>Save
-                    changes</Button>
+                <Button style={{
+                    width: '43vw', margin: '2vh auto',
+                    backgroundColor: disabled() ? null : '#39adf6',
+                    color: disabled() ? null : 'white'
+                }} variant={'contained'} disableElevation
+                        disabled={disabled()}
+                        onClick={() => saveChanges()}>Save</Button>
             </div>
         )
     else

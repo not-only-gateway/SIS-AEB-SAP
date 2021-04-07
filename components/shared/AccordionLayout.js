@@ -10,7 +10,8 @@ export default function AccordionLayout(props) {
             width: open ? props.openSize + 'vw' : props.closedSize + 'vw',
             borderRadius: '8px',
             border: props.border === undefined || props.border === null? (!props.dark ? '#e2e2e2 1px solid' : null) : props.border,
-            transition: '.2s'
+            transition: '.2s',
+            boxShadow: open ? (!props.dark ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'initial') : null
         }}>
             <Button onClick={() => setOpen(!open)} disabled={props.disabled} style={{textTransform: 'none', display: 'flex', width: '100%', justifyContent: 'space-between'}}>
                 {props.summary}

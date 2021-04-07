@@ -9,15 +9,25 @@ export default function AddressForm(props) {
 
     const [loading, setLoading] = useState(true)
     const [changed, setChanged] = useState(false)
-    const [zipCode, setZipCode] = useState(null)
-    const [address, setAddress] = useState(null)
+    const [zipCode, setZipCode] = useState('')
+    const [address, setAddress] = useState('')
     const [complement, setComplement] = useState(null)
     const [street, setStreet] = useState(null)
-    const [state, setState] = useState(null)
-    const [stateInitials, setStateInitials] = useState(null)
+    const [state, setState] = useState('')
+    const [stateInitials, setStateInitials] = useState('')
     const [neighborhood, setNeighborhood] = useState(null)
-    const [city, setCity] = useState(null)
+    const [city, setCity] = useState('')
 
+    function disabled() {
+        return (
+            zipCode.length === 0 ||
+            address.length === 0 ||
+            city.length === 0 ||
+            state.length === 0 ||
+            stateInitials.length === 0 ||
+            changed === false
+        )
+    }
 
     useEffect(() => {
         fetchData().catch(error => console.log(error))
@@ -52,8 +62,8 @@ export default function AddressForm(props) {
                 state_initials: stateInitials,
                 neighborhood: neighborhood,
                 city: city,
-            },'put'
-            ).then(res => {
+            }, 'put'
+        ).then(res => {
             if (res)
                 setChanged(false)
         })
@@ -75,10 +85,10 @@ export default function AddressForm(props) {
                              disabled={props.disabled} size={32} required={true} initialValue={zipCode}
                              key={"4-3"} setChanged={setChanged}/>
                 <InputLayout inputName={'Street'} dark={props.dark} handleChange={setStreet} inputType={0}
-                             disabled={props.disabled} size={32} required={true} initialValue={street}
+                             disabled={props.disabled} size={32} required={false} initialValue={street}
                              key={"4-4"} setChanged={setChanged}/>
                 <InputLayout inputName={'Neighborhood'} dark={props.dark} handleChange={setNeighborhood} inputType={0}
-                             disabled={props.disabled} size={32} required={true} initialValue={neighborhood}
+                             disabled={props.disabled} size={32} required={false} initialValue={neighborhood}
                              key={"4-5"} setChanged={setChanged}/>
 
                 <InputLayout inputName={'City'} dark={props.dark} handleChange={setCity} inputType={0}
@@ -92,41 +102,20 @@ export default function AddressForm(props) {
                              disabled={props.disabled} size={32} required={true} initialValue={stateInitials}
                              key={"4-8"} setChanged={setChanged}/>
 
-                <Button style={{width: '45vw'}} disabled={!changed}
-                        onClick={() => saveChanges()}>Save</Button>
+
+                {props.disabled ? null :
+                    <Button style={{
+                        width: '43vw', margin: '2vh auto',
+                        backgroundColor: disabled() ? null : '#39adf6',
+                        color: disabled() ? null : 'white'
+                    }} variant={'contained'} disableElevation
+                            disabled={disabled()}
+                            onClick={() => saveChanges()}>Save</Button>
+                }
             </div>
         )
     else
         return (
-            <fieldset className={styles.form_component_container}
-                      style={{
-                          border: (props.dark ? 'none' : '#e2e2e2 1px solid'),
-                          backgroundColor: props.dark ? '#3b424c' : null
-                      }}>
-                <legend>
-                    <p style={{fontSize: '1.2rem', fontWeight: 450}}>Address</p>
-                </legend>
-                <Skeleton variant="rect" style={{
-                    borderRadius: '8px',
-                    marginBottom: '2vh',
-                    width: '45vw',
-                    height: '6vh',
-                    backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
-                }}/>
-                <Skeleton variant="rect" style={{
-                    borderRadius: '8px',
-                    marginBottom: '2vh',
-                    width: '45vw',
-                    height: '6vh',
-                    backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
-                }}/>
-                <Skeleton variant="rect" style={{
-                    borderRadius: '8px',
-                    marginBottom: '2vh',
-                    width: '45vw',
-                    height: '6vh',
-                    backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
-                }}/>
-            </fieldset>
+            null
         )
 }

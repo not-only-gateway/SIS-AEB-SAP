@@ -11,6 +11,9 @@ import localIpUrl from "local-ip-url";
 import {Button, Divider} from "@material-ui/core";
 import shared from '../styles/Shared.module.css'
 import InputLayout from "../components/shared/InputLayout";
+import ActivityComponent from "../components/activity/Activity";
+import InfiniteScroll from "react-infinite-scroll-component";
+import {Skeleton} from "@material-ui/lab";
 
 export default function Activity() {
 
@@ -22,9 +25,12 @@ export default function Activity() {
     const [method, setMethod] = useState(null)
     const [thisMachine, setThisMachine] = useState(false)
     const [path, setPath] = useState(null)
+    const [maxID, setMaxID] = useState(null)
+    const [lastFetchSize, setLastFetchSize] = useState(null)
 
     async function fetchData() {
-        setChanged(false)
+        console.log('FETCHING')
+
         await axios({
             method: 'get',
             url: Host() + 'activity',
@@ -33,10 +39,31 @@ export default function Activity() {
                 start_date: startDate !== null ? startDate.getTime() : null,
                 ip: thisMachine ? localIpUrl('public') : null,
                 method: method,
-                path: path
+                path: path,
+                max_id: maxID
             }
         }).then(res => {
-            setData(res.data)
+            console.log(res.data)
+            if(!changed){
+                if(data.length > 0){
+                    const newData = [...data, ...res.data]
+                    setData(newData)
+                }
+
+                else
+                    setData(res.data)
+
+                if(res.data.length > 0)
+                    setMaxID(res.data[res.data.length-1].id)
+                setLastFetchSize(res.data.length)
+            }
+            else{
+                setChanged(false)
+                setData(res.data)
+            }
+
+            console.log(maxID)
+
         }).catch(error => {
             console.log(error)
         })
@@ -93,19 +120,19 @@ export default function Activity() {
                             <props.getTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.info1}/>
                             <div className={styles.options_container}
                                  style={{border: props.dark ? null : '#e2e2e2 1px solid'}}>
-                                <InputLayout inputName={'Search Path'} dark={props.dark} handleChange={setPath}
+                                <InputLayout inputName={lang.search} dark={props.dark} handleChange={setPath}
                                              inputType={0}
                                              disabled={props.disabled} size={21} initialValue={path}
                                              key={"path"} setChanged={setChanged} margin={false}
                                 />
                                 <Divider orientation={'vertical'}/>
-                                <InputLayout inputName={'Start date'} dark={props.dark} handleChange={setStartDate}
+                                <InputLayout inputName={lang.startDate} dark={props.dark} handleChange={setStartDate}
                                              inputType={2}
                                              disabled={props.disabled} size={21} initialValue={startDate}
                                              key={"start-date"} setChanged={setChanged} margin={false}
                                 />
                                 <Divider orientation={'vertical'}/>
-                                <InputLayout inputName={'Method'} dark={props.dark} handleChange={setMethod}
+                                <InputLayout inputName={lang.method} dark={props.dark} handleChange={setMethod}
                                              inputType={1} selectFields={[
                                     {value: 'GET', key: 'GET'},
                                     {value: 'POST', key: 'POST'},
@@ -117,7 +144,7 @@ export default function Activity() {
                                              key={"method-select"} setChanged={setChanged} margin={false}
                                 />
                                 <Divider orientation={'vertical'}/>
-                                <InputLayout inputName={'This machine'} dark={props.dark} handleChange={setThisMachine}
+                                <InputLayout inputName={lang.machine} dark={props.dark} handleChange={setThisMachine}
                                              inputType={1} selectFields={[
                                     {value: 'Yes', key: true},
                                     {value: 'No', key: false}
@@ -131,48 +158,35 @@ export default function Activity() {
                             </div>
                         </div>
 
-                        <div className={styles.activities_container}>
-                            {data.length > 0 ? data.map(activity => (
-                                <AccordionLayout
-                                    content={
-                                        <div className={styles.info_container}>
-                                            <div className={styles.info_row}>
-                                                <p style={{fontWeight: 450}}>Platform</p>
-                                                <Divider orientation={'horizontal'} style={{width: '2vw',  marginLeft: '10px', marginRight: '10px'}}/>
-                                                <p style={{fontSize: '.9rem', fontWeight: 420,color: props.dark ? 'white' : '#555555'}}>{activity.access_log.platform}</p>
-                                            </div>
-                                            <div className={styles.info_row}>
-                                                <p style={{fontWeight: 450}}>Browser</p>
-                                                <Divider orientation={'horizontal'} style={{width: '2vw',  marginLeft: '10px', marginRight: '10px'}}/>
-                                                <p style={{fontSize: '.9rem', fontWeight: 420,color: props.dark ? 'white' : '#555555'}}>{activity.access_log.browser_version}</p>
-                                            </div>
-
-                                            <div className={styles.info_row}>
-                                                <p style={{fontWeight: 450}}>Browser Engine</p>
-                                                <Divider orientation={'horizontal'} style={{width: '2vw',  marginLeft: '10px', marginRight: '10px'}}/>
-                                                <p style={{fontSize: '.9rem', fontWeight: 420,color: props.dark ? 'white' : '#555555'}}>{activity.access_log.browser_engine}</p>
-                                            </div>
-                                            <div className={styles.info_row}>
-                                                <p style={{fontWeight: 450}}>User Agent</p>
-                                                <Divider orientation={'horizontal'} style={{width: '2vw',  marginLeft: '10px', marginRight: '10px'}}/>
-                                                <p style={{fontSize: '.9rem', fontWeight: 420,color: props.dark ? 'white' : '#555555'}}>{activity.access_log.browser_user_agent}</p>
-                                            </div>
+                        <div className={styles.infinite_scroll_container}>
+                            {data.length > 0 ?
+                                <InfiniteScroll
+                                    dataLength={data.length} //This is important field to render the next data
+                                    next={() => fetchData()}
+                                    hasMore={lastFetchSize === 20 && data[data.length-1].id > 0}
+                                    inverse={false}
+                                    scrollableTarget="scrollableDiv"
+                                    loader={<Skeleton variant={'rect'} width={'100%'} style={{borderRadius: '8px'}} height={'7vh'}/>}
+                                    endMessage={
+                                        <div style={{
+                                            width: '90%',
+                                            margin: 'auto',
+                                            borderRadius: '8px',
+                                            border: !props.dark ? '#e2e2e2 1px solid' : null,
+                                            backgroundColor: props.dark ? '#3b424c' : null
+                                        }}>
+                                            <p style={{textAlign: 'center', fontWeight: 445}}>{lang.end}</p>
                                         </div>
                                     }
-                                    summary={
-                                        <div style={{display: 'flex'}}>
-                                            <p style={{
-                                                color: getMethodColor(activity.method) !== null ? getMethodColor(activity.method) : null
-                                            }}>{activity.method}</p>
-                                            <p style={{marginRight: '10px', marginLeft: '10px'}}>{activity.method.indexOf('?') > -1 ? activity.path.substr(0, activity.path.indexOf('?')) : activity.path}</p>
-                                            <p>{(new Date(activity.time_of_creation)).toDateString()}</p>
-                                        </div>
-                                    }
-                                    closedSize={22}
-                                    openSize={45}
-                                    border={getMethodColor(activity.method) !== null ? getMethodColor(activity.method) + ' 2px solid' : null}
-                                />
-                            )):
+                                >
+                                    <div className={styles.activities_container}>
+                                    {data.map(activity => (
+                                        <ActivityComponent lang={lang} dark={props.dark} activity={activity}
+                                                           getColor={getMethodColor}/>
+                                    ))}
+                                    </div>
+                                </InfiniteScroll>
+                                :
                                 <div style={{
                                     width: '90%',
                                     margin: 'auto',
@@ -183,7 +197,6 @@ export default function Activity() {
                                     <p style={{textAlign: 'center', fontWeight: 445}}>{lang.nothingFound}</p>
                                 </div>
                             }
-
                         </div>
                     </>
                 }

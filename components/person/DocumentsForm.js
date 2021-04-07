@@ -11,18 +11,32 @@ export default function DocumentsForm(props) {
 
     const [loading, setLoading] = useState(true)
     const [changed, setChanged] = useState(false)
-    const [cpf, setCpf] = useState(null)
-    const [rg, setRg] = useState(null)
-    const [dispatchDate, setDispatchDate] = useState(null)
-    const [issuingBody, setIssuingBody] = useState(null)
-    const [voterRegistration, setVoterRegistration] = useState(null)
-    const [electoralZone, setElectoralZone] = useState(null)
-    const [electoralSection, setElectoralSection] = useState(null)
+    const [cpf, setCpf] = useState('')
+    const [rg, setRg] = useState('')
+    const [dispatchDate, setDispatchDate] = useState('')
+    const [issuingBody, setIssuingBody] = useState('')
+    const [voterRegistration, setVoterRegistration] = useState('')
+    const [electoralZone, setElectoralZone] = useState('')
+    const [electoralSection, setElectoralSection] = useState('')
     const [bank, setBank] = useState(null)
     const [agency, setAgency] = useState(null)
-    const [workCard, setWorkCard] = useState(null)
-    const [pis, setPis] = useState(null)
+    const [workCard, setWorkCard] = useState('')
+    const [pis, setPis] = useState('')
 
+    function disabled() {
+        return (
+            cpf.length === 0 ||
+            dispatchDate.length === 0 ||
+            rg.length === 0 ||
+            issuingBody.length === 0 ||
+            voterRegistration.length === 0 ||
+            electoralZone.length === 0 ||
+            workCard.length === 0 ||
+            electoralSection.length === 0 ||
+            pis.length === 0 ||
+            changed === false
+        )
+    }
 
     useEffect(() => {
         fetchData().catch(error => console.log(error))
@@ -97,30 +111,44 @@ export default function DocumentsForm(props) {
                              key={"5-6"} setChanged={setChanged}/>
 
                 <InputLayout inputName={'Bank'} dark={props.dark} handleChange={setBank} inputType={0}
-                             disabled={props.disabled} size={49} required={true} initialValue={bank}
+                             disabled={props.disabled} size={49} required={false} initialValue={bank}
                              key={"5-7"} setChanged={setChanged}/>
                 <InputLayout inputName={'Agency'} dark={props.dark} handleChange={setAgency} inputType={0}
-                             disabled={props.disabled} size={49} required={true} initialValue={agency}
+                             disabled={props.disabled} size={49} required={false} initialValue={agency}
                              key={"5-8"} setChanged={setChanged}/>
-                <InputLayout inputName={'Voter Registration'} dark={props.dark} handleChange={setVoterRegistration} inputType={0}
+                <InputLayout inputName={'Voter Registration'} dark={props.dark} handleChange={setVoterRegistration}
+                             inputType={0}
                              disabled={props.disabled} size={32} required={true} initialValue={voterRegistration}
                              key={"5-9"} setChanged={setChanged}/>
-                <InputLayout inputName={'Electoral Section'} dark={props.dark} handleChange={setElectoralSection} inputType={0}
+                <InputLayout inputName={'Electoral Section'} dark={props.dark} handleChange={setElectoralSection}
+                             inputType={0}
                              disabled={props.disabled} size={32} required={true} initialValue={electoralSection}
                              key={"5-10"} setChanged={setChanged}/>
-                <InputLayout inputName={'Electoral Zone'} dark={props.dark} handleChange={setElectoralZone} inputType={0}
+                <InputLayout inputName={'Electoral Zone'} dark={props.dark} handleChange={setElectoralZone}
+                             inputType={0}
                              disabled={props.disabled} size={32} required={true} initialValue={electoralZone}
                              key={"5-11"} setChanged={setChanged}/>
 
 
-                <Button style={{width: '45vw'}} disabled={!changed}
+                <Button style={{
+                    width: '43vw', margin: '2vh auto',
+                    backgroundColor: disabled() ? null : '#39adf6',
+                    color: disabled() ? null : 'white'
+                }}
+                        variant={'contained'}
+                        disableElevation
+                        disabled={disabled()}
                         onClick={() => saveChanges()}>Save</Button>
+
             </div>
         )
     else
         return (
             <fieldset className={styles.form_component_container}
-                 style={{border: (props.dark ? null : '#e2e2e2 1px solid'), backgroundColor: props.dark ? '#3b424c' : null}}>
+                      style={{
+                          border: (props.dark ? null : '#e2e2e2 1px solid'),
+                          backgroundColor: props.dark ? '#3b424c' : null
+                      }}>
                 <legend>
                     <p style={{fontSize: '1.2rem', fontWeight: 450}}>Documents</p>
                 </legend>
