@@ -14,6 +14,8 @@ import InputLayout from "../components/shared/InputLayout";
 import ActivityComponent from "../components/activity/Activity";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {Skeleton} from "@material-ui/lab";
+import makeRequest from "../utils/Request";
+import PropTypes from "prop-types";
 
 export default function Activity() {
 
@@ -27,45 +29,39 @@ export default function Activity() {
     const [path, setPath] = useState(null)
     const [maxID, setMaxID] = useState(null)
     const [lastFetchSize, setLastFetchSize] = useState(null)
+    const [error, setError] = useState(false)
+    const [errorMessage, setErrorMessage] = useState(null)
 
     async function fetchData() {
-        console.log('FETCHING')
-
-        await axios({
-            method: 'get',
-            url: Host() + 'activity',
-            headers: {'authorization': (new Cookies()).get('jwt')},
-            params: {
+        await makeRequest({
+            package: {
                 start_date: startDate !== null ? startDate.getTime() : null,
                 ip: thisMachine ? localIpUrl('public') : null,
                 method: method,
                 path: path,
                 max_id: maxID
-            }
-        }).then(res => {
-            console.log(res.data)
-            if(!changed){
-                if(data.length > 0){
-                    const newData = [...data, ...res.data]
-                    setData(newData)
-                }
-
-                else
-                    setData(res.data)
-
-                if(res.data.length > 0)
-                    setMaxID(res.data[res.data.length-1].id)
-                setLastFetchSize(res.data.length)
+            },
+            method: 'get',
+            url: 'activity',
+            host: Host()
+        }).then(response => {
+            if (response.error){
+                setError(true)
+                setErrorMessage(response.errorMessage)
             }
             else{
-                setChanged(false)
-                setData(res.data)
+                console.log(response.data)
+                if(!changed){
+                    setData([...data, ...response.data])
+                    if(response.data.length > 0)
+                        setMaxID(response.data[response.data.length-1].id)
+                    setLastFetchSize(response.data.length)
+                }
+                else{
+                    setChanged(false)
+                    setData(response.data)
+                }
             }
-
-            console.log(maxID)
-
-        }).catch(error => {
-            console.log(error)
         })
     }
 

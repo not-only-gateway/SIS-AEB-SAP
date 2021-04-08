@@ -9,7 +9,7 @@ import Host from "../utils/Host";
 import {Skeleton} from "@material-ui/lab";
 import Cookies from "universal-cookie/lib";
 import {getLanguage} from "../utils/Language";
-import SearchInputLayout from "../components/index/SearchInputLayout";
+import IndexComponent from "../components/index/IndexComponent";
 import UnityCard from "../components/index/UnityCard";
 import shared from '../styles/Shared.module.css'
 export default function Index() {
@@ -69,9 +69,9 @@ export default function Index() {
                             <props.getTitle pageName={lang.extensions} pageTitle={lang.extensions}
                                             pageInfo={getPageInfo()}/>
 
-                            <SearchInputLayout dark={props.dark} setData={setData} setOption={setOption}
-                                               option={option} lang={lang} setLoading={setLoading}
-                                               canEdit={canEdit}
+                            <IndexComponent dark={props.dark} setData={setData} setOption={setOption}
+                                            option={option} lang={lang} setLoading={setLoading}
+                                            canEdit={canEdit}
                             />
                         </div>
                         <div className={styles.personas_container}>

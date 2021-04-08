@@ -16,25 +16,32 @@ import {BackspaceRounded, HomeRounded, MenuRounded, SearchRounded} from "@materi
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Host from "../../utils/Host";
+import makeRequest from "../../utils/Request";
+import localIpUrl from "local-ip-url";
 
-export default function SearchInputLayout(props) {
+export default function IndexComponent(props) {
     const [search, setSearch] = useState(null)
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [hovered, setHovered] = useState(false)
-    async function fetchSearch(){
-        props.setData([])
-        props.setLoading(true)
 
-        await axios({
-            method: 'get',
-            url: Host() + props.option,
-            params: {
+    async function fetchSearch(){
+        props.setLoading(true)
+        props.setData([])
+        await makeRequest({
+            package: {
                 input: search
+            },
+            method: 'get',
+            url: props.option,
+            host: Host()
+        }).then(response => {
+            if (response.error){
+                // setError(true)
+                // setErrorMessage(response.errorMessage)
+                console.log('Error')
             }
-        }).then(res => {
-            props.setData(res.data)
-        }).catch(error => {
-            console.log(error)
+            else
+                props.setData(response.data)
         })
 
         props.setLoading(false)
@@ -42,21 +49,20 @@ export default function SearchInputLayout(props) {
 
     async function fetchData() {
         props.setData([])
-        try {
-            await axios({
-                method: 'get',
-                url: Host() + props.option
-            }).then(res => {
-                console.log("FETCHED DATA -> ")
-                console.log(res.data)
-                props.setData(res.data)
-
-            }).catch(error => {
-                console.log(error)
-            })
-        } catch (error) {
-            console.log(error)
-        }
+        await makeRequest({
+            package: null,
+            method: 'get',
+            url: props.option,
+            host: Host()
+        }).then(response => {
+            if (response.error){
+                // setError(true)
+                // setErrorMessage(response.errorMessage)
+                console.log('Error')
+            }
+            else
+                props.setData(response.data)
+        })
         props.setLoading(false)
     }
 
@@ -134,7 +140,7 @@ export default function SearchInputLayout(props) {
     )
 }
 
-SearchInputLayout.propTypes = {
+IndexComponent.propTypes = {
     dark: PropTypes.bool,
     option: PropTypes.string,
     setValue: PropTypes.func,
