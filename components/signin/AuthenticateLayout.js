@@ -23,10 +23,10 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 export default function AuthenticateLayout(props) {
-    const [visible, setVisible] = useState(false)
-    const [password, setPassword] = useState(null)
-    const [email, setEmail] = useState(null)
 
+    function disabledAuthenticate(){
+        return (props.password === '' || props.password.length < 8 || props.email === '')
+    }
     return (
         <>
             <div className={styles.forms_container}>
@@ -41,28 +41,28 @@ export default function AuthenticateLayout(props) {
                         <InputBase
                             placeholder={"Email"}
                             style={{...inputStyle, ...{color: props.dark ? 'white' : 'black'}}}
-                            onChange={event => setEmail(event.target.value)}
+                            onChange={event => props.setEmail(event.target.value)}
                         />
                     </Paper>
 
                     <Paper component="form" style={{...paperStyle, ...{backgroundColor: !props.dark ? '#f7f8fa' : '#272e38'}}} >
                         <InputBase
                             placeholder={props.lang.password}
-                            type={visible ? 'text':'password'}
+                            type={props.visible ? 'text':'password'}
                             style={{...inputStyle, ...{color: props.dark ? 'white' : 'black'}}}
-                            onChange={event => setPassword(event.target.value)}
+                            onChange={event => props.setPassword(event.target.value)}
                         />
-                        <IconButton aria-label="password" style={{...iconStyle, ...{color: props.dark ? 'white' : '#777777'}}} onClick={() => setVisible(!visible)}>
-                            {visible ? <VisibilityRounded/> : <VisibilityOffRounded/>}
+                        <IconButton aria-label="password" style={{...iconStyle, ...{color: props.dark ? 'white' : '#777777'}}} onClick={() => props.setVisible(!props.visible)}>
+                            {props.visible ? <VisibilityRounded/> : <VisibilityOffRounded/>}
                         </IconButton>
                     </Paper>
 
                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
                         <Button variant={"outlined"} style={{...buttonStyle,
-                            ...{backgroundColor: (password === null || password === '' ||password.length < 8 || email === null || email === '') ? (props.dark ? '#272e38' : '#f7f8fa') : '#39adf6',
-                                color: (password === null || password === '' || password.length < 8 || email === null || email === '') ? (props.dark ? 'white' : '#777777') : 'white'}}}
-                                disabled={password === null || password === '' || password.length < 8 || email === null || email === ''}
-                                onClick={() => props.authenticate(email, password)}
+                            ...{backgroundColor: disabledAuthenticate() ? (props.dark ? '#272e38' : '#f7f8fa') : '#39adf6',
+                                color: disabledAuthenticate() ? (props.dark ? 'white' : '#777777') : 'white'}}}
+                                disabled={disabledAuthenticate()}
+                                onClick={() => props.authenticate(props.email, props.password)}
                         >
                             {props.lang.signin}
                         </Button>
@@ -74,30 +74,29 @@ export default function AuthenticateLayout(props) {
                         </Button>
                         <Button style={{...secondaryButtonStyle, ...{color: props.dark ? 'white' : '#777777'}}}>{props.lang.help}</Button>
                         <Button style={{...secondaryButtonStyle, ...{color: props.dark ? 'white' : '#777777'}}}>{props.lang.about}</Button>
-                        <ThemeProvider theme={props.theme}>
-                            <Select
-                                labelId="select-id"
-                                disableUnderline
-                                style={{
-                                    textTransform: 'none',
-                                    fontSize: '.8rem',
-                                    color: props.dark ? 'white' : '#777777',
-                                    fontWeight: '450'
-                                }}
-                                value={props.locale}
-                                onChange={event => props.changeLang(event)}
-                            >
-                                <MenuItem key={"pt"} value="pt">
-                                    Português
-                                </MenuItem>
-                                <MenuItem key={"en"} value="en">
-                                    English
-                                </MenuItem>
-                                <MenuItem key={"es"} value="es">
-                                    Español
-                                </MenuItem>
-                            </Select>
-                        </ThemeProvider>
+                        <Select
+                            labelId="select-id"
+                            disableUnderline
+                            style={{
+                                textTransform: 'none',
+                                fontSize: '.8rem',
+                                color: props.dark ? 'white' : '#777777',
+                                fontWeight: '450'
+                            }}
+                            value={props.locale}
+                            onChange={event => props.changeLang(event)}
+                        >
+                            <MenuItem key={"pt"} value="pt">
+                                Português
+                            </MenuItem>
+                            <MenuItem key={"en"} value="en">
+                                English
+                            </MenuItem>
+                            <MenuItem key={"es"} value="es">
+                                Español
+                            </MenuItem>
+                        </Select>
+
                     </div>
                 </div>
             </div>
@@ -107,10 +106,17 @@ export default function AuthenticateLayout(props) {
 
 AuthenticateLayout.propTypes = {
     dark: PropTypes.bool,
-    theme: PropTypes.object,
     changeTheme: PropTypes.func,
     changeLang: PropTypes.func,
     lang: PropTypes.object,
     locale: PropTypes.string,
-    authenticate: PropTypes.func
+    authenticate: PropTypes.func,
+    setEmail: PropTypes.func,
+    email: PropTypes.string,
+    password: PropTypes.string,
+    setPassword: PropTypes.func,
+    visible: PropTypes.bool,
+    setVisible: PropTypes.func
 }
+
+
