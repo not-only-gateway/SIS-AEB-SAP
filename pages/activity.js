@@ -16,6 +16,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import {Skeleton} from "@material-ui/lab";
 import makeRequest from "../utils/Request";
 import PropTypes from "prop-types";
+import ActivityFilterComponent from "../components/activity/ActivityFilter";
 
 export default function Activity() {
 
@@ -45,21 +46,15 @@ export default function Activity() {
             url: 'activity',
             host: Host()
         }).then(response => {
-            if (response.error){
+            if (response.error) {
                 setError(true)
                 setErrorMessage(response.errorMessage)
-            }
-            else{
-                console.log(response.data)
-                if(!changed){
+            } else {
+                if (!changed) {
                     setData([...data, ...response.data])
-                    if(response.data.length > 0)
-                        setMaxID(response.data[response.data.length-1].id)
+                    if (response.data.length > 0)
+                        setMaxID(response.data[response.data.length - 1].id)
                     setLastFetchSize(response.data.length)
-                }
-                else{
-                    setChanged(false)
-                    setData(response.data)
                 }
             }
         })
@@ -94,7 +89,7 @@ export default function Activity() {
 
     useEffect(() => {
 
-        if(data.length === 0)
+        if (data.length === 0)
             fetchData().catch(error => console.log(error))
 
         const currentLocale = (new Cookies()).get('lang')
@@ -114,55 +109,23 @@ export default function Activity() {
                         <div className={shared.header_container}
                              style={{backgroundColor: props.dark ? '#303741' : 'white'}}>
                             <props.getTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.info1}/>
-                            <div className={styles.options_container}
-                                 style={{border: props.dark ? null : '#e2e2e2 1px solid'}}>
-                                <InputLayout inputName={lang.search} dark={props.dark} handleChange={setPath}
-                                             inputType={0}
-                                             disabled={props.disabled} size={21} initialValue={path}
-                                             key={"path"} setChanged={setChanged} margin={false}
-                                />
-                                <Divider orientation={'vertical'}/>
-                                <InputLayout inputName={lang.startDate} dark={props.dark} handleChange={setStartDate}
-                                             inputType={2}
-                                             disabled={props.disabled} size={21} initialValue={startDate}
-                                             key={"start-date"} setChanged={setChanged} margin={false}
-                                />
-                                <Divider orientation={'vertical'}/>
-                                <InputLayout inputName={lang.method} dark={props.dark} handleChange={setMethod}
-                                             inputType={1} selectFields={[
-                                    {value: 'GET', key: 'GET'},
-                                    {value: 'POST', key: 'POST'},
-                                    {value: 'PUT', key: 'PUT'},
-                                    {value: 'DELETE', key: 'DELETE'},
-                                    {value: 'Any', key: null}
-                                ]}
-                                             disabled={props.disabled} size={15} initialValue={method}
-                                             key={"method-select"} setChanged={setChanged} margin={false}
-                                />
-                                <Divider orientation={'vertical'}/>
-                                <InputLayout inputName={lang.machine} dark={props.dark} handleChange={setThisMachine}
-                                             inputType={1} selectFields={[
-                                    {value: 'Yes', key: true},
-                                    {value: 'No', key: false}
-                                ]}
-                                             disabled={props.disabled} size={15} initialValue={thisMachine}
-                                             key={"machine-select"} setChanged={setChanged} margin={false}
-                                />
-                                <Button disabled={!changed} onClick={() => fetchData()}>
-                                    filter
-                                </Button>
-                            </div>
+                            <ActivityFilterComponent lang={lang} path={path}
+                                                     dark={props.dark} changed={changed}
+                                                     setChanged={setChanged} setPath={setPath}
+                                                     setMethod={setMethod} setStartDate={setStartDate}
+                                                     setThisMachine={setThisMachine} method={method}
+                                                     thisMachine={thisMachine} fetchData={fetchData}/>
                         </div>
-
                         <div className={styles.infinite_scroll_container}>
                             {data.length > 0 ?
                                 <InfiniteScroll
                                     dataLength={data.length} //This is important field to render the next data
                                     next={() => fetchData()}
-                                    hasMore={lastFetchSize === 20 && data[data.length-1].id > 0}
+                                    hasMore={lastFetchSize === 20 && data[data.length - 1].id > 0}
                                     inverse={false}
                                     scrollableTarget="scrollableDiv"
-                                    loader={<Skeleton variant={'rect'} width={'100%'} style={{borderRadius: '8px'}} height={'7vh'}/>}
+                                    loader={<Skeleton variant={'rect'} width={'100%'} style={{borderRadius: '8px'}}
+                                                      height={'7vh'}/>}
                                     endMessage={
                                         <div style={{
                                             width: '90%',
@@ -176,10 +139,10 @@ export default function Activity() {
                                     }
                                 >
                                     <div className={styles.activities_container}>
-                                    {data.map(activity => (
-                                        <ActivityComponent lang={lang} dark={props.dark} activity={activity}
-                                                           getColor={getMethodColor}/>
-                                    ))}
+                                        {data.map(activity => (
+                                            <ActivityComponent lang={lang} dark={props.dark} activity={activity}
+                                                               getColor={getMethodColor}/>
+                                        ))}
                                     </div>
                                 </InfiniteScroll>
                                 :
