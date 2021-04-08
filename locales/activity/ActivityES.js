@@ -7,12 +7,14 @@ export default {
     nothingFound: 'Nada Encontrado',
     search: 'Búsqueda URL',
     startDate: 'Desde',
-    method: 'Método',
+    method: 'Método Http',
     machine: 'Esta maquina',
     filter: 'Filtrar',
     platform: 'Plataforma',
     browser: 'Navegador',
     engine: 'Motor del navegador',
     userAgent: 'Agente de usuario',
-    end: 'Has llegado al fondo.'
+    end: 'Has llegado al fondo.',
+    date: 'Fecha',
+    ip: 'Dirección Ip de la máquina'
 }

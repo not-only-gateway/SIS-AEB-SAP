@@ -73,8 +73,8 @@ export default function Signin() {
                     user_agent: navigator.userAgent
                 }
             }).then(res => {
-                cookies.set('jwt', res.data.jwt, {expires: (res.data.jwt_exp - Date.now())})
-                cookies.set('id', res.data.id, {expires: (res.data.jwt_exp - Date.now())})
+                cookies.set('jwt', res.data.jwt, {expires: new Date(res.data.exp)})
+                cookies.set('id', res.data.id, {expires: new Date(res.data.exp)})
 
                 localStorage.setItem('profile', JSON.stringify(res.data.profile))
 

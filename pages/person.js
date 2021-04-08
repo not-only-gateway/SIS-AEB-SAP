@@ -7,7 +7,7 @@ import Collaborations from "../components/person/Collaborations";
 import {ThemeProvider} from "@material-ui/styles";
 import axios from "axios";
 import Host from "../utils/Host";
-import BasicForm from "../components/person/BasicForm";
+import BaseForm from "../components/person/BaseForm";
 import ContactForm from "../components/person/ContactForm";
 import AddressForm from "../components/shared/form/AddressForm";
 import DocumentsForm from "../components/person/DocumentsForm";
@@ -45,7 +45,7 @@ export default function person() {
         await axios({
             method: 'get',
             url: Host() + path,
-            headers: {'authorization': cookies.get('jwt')},
+            headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
             params: params
         }).then(res => {
             response = res.data
@@ -85,7 +85,7 @@ export default function person() {
                         {id !== undefined ?
                             <div className={styles.accordion_container}>
 
-                                <BasicForm
+                                <BaseForm
                                     id={id}
                                     saveChanges={saveChanges}
                                     fetchData={fetchData}

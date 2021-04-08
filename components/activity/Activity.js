@@ -20,6 +20,47 @@ export default function ActivityComponent(props) {
                         }}>{props.activity.access_log.platform}</p>
                     </div>
                     <div className={styles.info_row}>
+                        <p style={{fontWeight: 450}}>{props.lang.date}</p>
+                        <Divider orientation={'horizontal'}
+                                 style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                        <p style={{
+                            fontSize: '.9rem',
+                            fontWeight: 420,
+                            color: props.dark ? 'white' : '#555555'
+                        }}>{new Date(props.activity.time_of_creation).toLocaleString()}</p>
+                    </div>
+                    <div className={styles.info_row}>
+                        <p style={{fontWeight: 450}}>{props.lang.method}</p>
+                        <Divider orientation={'horizontal'}
+                                 style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                        <p style={{
+                            fontSize: '.9rem',
+                            fontWeight: 420,
+                            color: props.getColor(props.activity.method)
+                        }}>{props.activity.method}</p>
+                    </div>
+
+                    <div className={styles.info_row}>
+                        <p style={{fontWeight: 450}}>URL</p>
+                        <Divider orientation={'horizontal'}
+                                 style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                        <p style={{
+                            fontSize: '.9rem',
+                            fontWeight: 420,
+                            color: props.dark ? 'white' : '#555555'
+                        }}>{props.activity.path}</p>
+                    </div>
+                    <div className={styles.info_row}>
+                        <p style={{fontWeight: 450}}>{props.lang.ip}</p>
+                        <Divider orientation={'horizontal'}
+                                 style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                        <p style={{
+                            fontSize: '.9rem',
+                            fontWeight: 420,
+                            color: props.dark ? 'white' : '#555555'
+                        }}>{props.activity.access_log.ip_address}</p>
+                    </div>
+                    <div className={styles.info_row}>
                         <p style={{fontWeight: 450}}>{props.lang.browser}</p>
                         <Divider orientation={'horizontal'}
                                  style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
@@ -50,6 +91,8 @@ export default function ActivityComponent(props) {
                             color: props.dark ? 'white' : '#555555'
                         }}>{props.activity.access_log.browser_user_agent}</p>
                     </div>
+
+
                 </div>
             }
             summary={

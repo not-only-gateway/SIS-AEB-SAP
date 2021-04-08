@@ -44,10 +44,10 @@ export default function ContactForm(props) {
             'person/contact',
             {
                 id: props.id,
-                email: email,
-                email_alt: emailAlt,
-                phone: phone,
-                phone_alt: phoneAlt
+                email: email.toLowerCase(),
+                email_alt: emailAlt?.toLowerCase(),
+                phone: phone?.replace(' ', ''),
+                phone_alt:  phoneAlt?.toLowerCase()
             },
             'put'
         ).then(res => res ? setChanged(false) : console.log(res))

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import InputLayout from "../shared/InputLayout";
 import AccordionLayout from "../shared/AccordionLayout";
 
-export default function BasicForm(props) {
+export default function BaseForm(props) {
 
     const [loading, setLoading] = useState(true)
     const [changed, setChanged] = useState(false)
@@ -27,7 +27,6 @@ export default function BasicForm(props) {
     const [admin, setAdmin] = useState(null)
 
     useEffect(() => {
-
         fetchData().catch(error => console.log(error))
     }, [])
 
@@ -53,26 +52,29 @@ export default function BasicForm(props) {
         })
         setLoading(false)
     }
-
+    function capitalizeFirstLetter(string) {
+        if (string !== null)
+            return string.replace(/^./, string[0].toUpperCase());
+    }
     async function saveChanges() {
         props.saveChanges(
             'person',
             {
                 id: props.id,
                 pic: pic,
-                name: name,
+                name: capitalizeFirstLetter(name),
                 birth: birth,
-                birth_place: birthPlace,
+                birth_place: birthPlace?.toUpperCase(),
                 education: education,
                 gender: gender,
                 marital_status: marital,
                 extension: extension,
                 registration: registration,
-                corporate_email: corporateEmail,
-                father_name: father,
-                mother_name: mother,
+                corporate_email: corporateEmail?.toLocaleLowerCase(),
+                father_name: capitalizeFirstLetter(father),
+                mother_name: capitalizeFirstLetter(mother),
                 disabled_person: disabledPerson,
-                nationality: nationality,
+                nationality:  nationality?.toUpperCase(),
                 is_administrator: admin
             },
             'put'
@@ -211,7 +213,7 @@ export default function BasicForm(props) {
 
 }
 
-BasicForm.propTypes = {
+BaseForm.propTypes = {
     lang: PropTypes.object,
     id: PropTypes.string,
     dark: PropTypes.bool,

@@ -262,18 +262,7 @@ export default function CollaborationForm(props) {
             </div>
         )
     else
-        return (
-            <div className={styles.form_component_container}
-                 style={{width: '45vw', margin: 'auto', height: '49vh'}}>
-                <legend style={{width: '100%'}}>
-                    <p style={{
-                        fontSize: '1.2rem',
-                        fontWeight: 450,
-                        color: props.dark ? 'white' : 'black'
-                    }}>Collaboration</p>
-                </legend>
-            </div>
-        )
+        return null
 
 }
 CollaborationForm.propTypes = {
