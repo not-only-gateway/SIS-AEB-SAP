@@ -5,7 +5,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import React, {useEffect, useState} from "react";
 import {Skeleton} from "@material-ui/lab";
 import PropTypes from "prop-types";
-import InputLayout from "../shared/InputLayout";
+import InputLayout from "../shared/layout/InputLayout";
 
 export default function DocumentsForm(props) {
 
@@ -86,7 +86,13 @@ export default function DocumentsForm(props) {
 
     if (!loading)
         return (
+
             <div className={styles.form_component_container}>
+                {props.getTitle({
+                    pageName: null,
+                    pageTitle: 'Documents',
+                    pageInfo: 'Basic form'
+                })}
                 <InputLayout inputName={'CPF'} dark={props.dark} handleChange={setCpf} inputType={0}
                              disabled={props.disabled} size={100} required={true} initialValue={cpf}
                              key={"5-1"} setChanged={setChanged}/>
@@ -143,38 +149,7 @@ export default function DocumentsForm(props) {
             </div>
         )
     else
-        return (
-            <fieldset className={styles.form_component_container}
-                      style={{
-                          border: (props.dark ? null : '#e2e2e2 1px solid'),
-                          backgroundColor: props.dark ? '#3b424c' : null
-                      }}>
-                <legend>
-                    <p style={{fontSize: '1.2rem', fontWeight: 450}}>Documents</p>
-                </legend>
-                <Skeleton variant="rect" style={{
-                    borderRadius: '8px',
-                    marginBottom: '2vh',
-                    width: '45vw',
-                    height: '6vh',
-                    backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
-                }}/>
-                <Skeleton variant="rect" style={{
-                    borderRadius: '8px',
-                    marginBottom: '2vh',
-                    width: '45vw',
-                    height: '6vh',
-                    backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
-                }}/>
-                <Skeleton variant="rect" style={{
-                    borderRadius: '8px',
-                    marginBottom: '2vh',
-                    width: '45vw',
-                    height: '6vh',
-                    backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
-                }}/>
-            </fieldset>
-        )
+        return null
 }
 DocumentsForm.propTypes = {
     id: PropTypes.string,
@@ -182,4 +157,5 @@ DocumentsForm.propTypes = {
     disabled: PropTypes.bool,
     saveChanges: PropTypes.func,
     fetchData: PropTypes.func,
+    getTitle: PropTypes.func
 }

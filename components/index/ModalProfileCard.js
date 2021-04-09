@@ -23,7 +23,7 @@ export default function ModalProfileCard(props){
 
             <div className={styles.profile_info_row} style={{borderBottom : (props.dark ? '#262d37 3px solid':'#f4f8fb 3px solid')}}>
                 <p style={{fontSize: '1rem', fontWeight: 450, color: props.dark ? 'white': 'black'}}>Name</p>
-                <p style={{fontSize: '.9rem' ,color: props.dark ? 'white': 'black'}}>{props.collaboration.unity.acronym} - {props.collaboration.unity.name}</p>
+                <p style={{fontSize: '.9rem' ,color: props.dark ? 'white': 'black'}}>{props.collaboration.unit.acronym} - {props.collaboration.unit.name}</p>
             </div>
             <div className={styles.profile_info_row} style={{borderBottom : (props.dark ? '#262d37 3px solid':'#f4f8fb 3px solid')}}>
                 <p style={{fontSize: '1rem', fontWeight: 450, color: props.dark ? 'white': 'black'}}>Role</p>

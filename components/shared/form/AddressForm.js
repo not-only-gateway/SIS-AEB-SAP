@@ -2,7 +2,7 @@ import styles from "../../../styles/form/Form.module.css";
 import {Button} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import {Skeleton} from "@material-ui/lab";
-import InputLayout from "../InputLayout";
+import InputLayout from "../layout/InputLayout";
 
 
 export default function AddressForm(props) {
@@ -74,6 +74,11 @@ export default function AddressForm(props) {
     if (!loading)
         return (
             <div className={styles.form_component_container}>
+                {props.getTitle({
+                    pageName: null,
+                    pageTitle: 'Basic',
+                    pageInfo: 'Basic form'
+                })}
                 <InputLayout inputName={'Address'} dark={props.dark} handleChange={setAddress} inputType={0}
                              disabled={props.disabled} size={49} required={true} initialValue={address}
                              key={"4-1"} setChanged={setChanged}/>
@@ -115,7 +120,6 @@ export default function AddressForm(props) {
             </div>
         )
     else
-        return (
-            null
-        )
+        return null
 }
+

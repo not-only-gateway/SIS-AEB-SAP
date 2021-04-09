@@ -1,10 +1,10 @@
 
 .form_row{
-    display: grid;
-    justify-items: center;
-    gap: 2vh;
-    width: 45vw;
-    margin-bottom: 7vh;
+    display: flex;
+    justify-content: space-between;
+    width: 40vw;
+    align-items: center;
+    margin-bottom: 2vh;
 }
 .collaborations_container{
     display: inline-flex;
@@ -22,6 +22,7 @@
     border-radius: 8px;
     width: 40vw;
     margin: auto;
+
 }
 .form_container{
     display: grid;

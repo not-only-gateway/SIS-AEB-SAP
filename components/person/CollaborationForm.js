@@ -1,13 +1,13 @@
 import styles from "../../styles/form/Form.module.css";
 import {Button} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
-import InputLayout from "../shared/InputLayout";
+import InputLayout from "../shared/layout/InputLayout";
 import PropTypes from "prop-types";
 import ContactForm from "./ContactForm";
 
 export default function CollaborationForm(props) {
 
-    const [unities, setUnities] = useState([])
+    const [units, setUnits] = useState([])
     const [roles, setRoles] = useState([])
     const [linkages, setLinkages] = useState([])
     const [seniorID, setSeniorID] = useState(null)
@@ -16,7 +16,7 @@ export default function CollaborationForm(props) {
     const [admissionDate, setAdmissionDate] = useState('')
     const [legalDocument, setLegalDocument] = useState('')
     const [activeRole, setActiveRole] = useState(null)
-    const [unityID, setUnityID] = useState(null)
+    const [unitID, setUnitID] = useState(null)
     const [roleID, setRoleID] = useState(null)
     const [linkageID, setLinkageID] = useState(null)
     const [substitute, setSubstitute] = useState(null)
@@ -33,7 +33,7 @@ export default function CollaborationForm(props) {
 
     function disabled() {
         return (
-            unityID === null ||
+            unitID === null ||
             roleID === null ||
             publicationDate.length === 0 ||
             admissionDate.length === 0 ||
@@ -66,7 +66,7 @@ export default function CollaborationForm(props) {
                             setRoleID(res.role.id)
                             setRoleLevel(res.role.level)
                             setLinkageID(res.linkage.id)
-                            setUnityID(res.unity.id)
+                            setUnitID(res.unit.id)
                             setSubstitute(res.is_substitute)
                             setAdmissionDate(res.admission_date)
                             setPublicationDate(res.official_publication_date)
@@ -98,8 +98,8 @@ export default function CollaborationForm(props) {
             props.fetchData('linkage', {}).then(res =>
                 setLinkages(res)
             )
-            props.fetchData('unities', {}).then(res =>
-                setUnities(res)
+            props.fetchData('units', {}).then(res =>
+                setUnits(res)
             )
 
         },
@@ -115,7 +115,7 @@ export default function CollaborationForm(props) {
                 senior_id: seniorID,
                 role_id: roleID,
                 linkage_id: linkageID,
-                unity_id: unityID,
+                unit_id: unitID,
                 is_substitute: substitute,
                 official_publication_date:  typeof(publicationDate) !== "number" ? publicationDate.getTime() : publicationDate,
                 admission_date: typeof(admissionDate) !== "number" ? admissionDate.getTime() : admissionDate,
@@ -142,14 +142,14 @@ export default function CollaborationForm(props) {
         let response = []
         switch (option) {
             case 0: {
-                unities.map(unity => {
+                units.map(unit => {
                     response.push({
-                        key: unity.id,
-                        value: unity.acronym + ' - ' + unity.name
+                        key: unit.id,
+                        value: unit.acronym + ' - ' + unit.name
                     })
                 })
                 break
-            } // UNITY
+            } // unit
             case 1: {
                 roles.map(role => {
                     response.push({
@@ -191,8 +191,8 @@ export default function CollaborationForm(props) {
     if (!loading)
         return (
             <div className={styles.form_component_container}  style={{width: '38vw'}}>
-                <InputLayout inputName={'Unity'} dark={props.dark} handleChange={setUnityID} inputType={1}
-                             disabled={props.disabled} size={32} required={true} initialValue={unityID}
+                <InputLayout inputName={'unit'} dark={props.dark} handleChange={setUnitID} inputType={1}
+                             disabled={props.disabled} size={32} required={true} initialValue={unitID}
                              selectFields={mapToSelect(0)} key={'2-1'} setChanged={setChanged}/>
 
                 <InputLayout inputName={'Role'} dark={props.dark} handleChange={handleRoleChange} inputType={1}

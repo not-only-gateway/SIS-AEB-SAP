@@ -3,7 +3,7 @@ import {Button} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import {Skeleton} from "@material-ui/lab";
 import PropTypes from "prop-types";
-import InputLayout from "../shared/InputLayout";
+import InputLayout from "../shared/layout/InputLayout";
 
 export default function ContactForm(props) {
 
@@ -56,6 +56,11 @@ export default function ContactForm(props) {
 
     return (
         <div className={styles.form_component_container}>
+            {props.getTitle({
+                pageName: null,
+                pageTitle: 'Collaborations',
+                pageInfo: 'Basic form'
+            })}
             <InputLayout inputName={'Email'} dark={props.dark} handleChange={setEmail}
                          inputType={0} disabled={props.disabled} size={49} required={true}
                          initialValue={email} key={"3-1"} setChanged={setChanged}/>
@@ -89,4 +94,5 @@ ContactForm.propTypes = {
     disabled: PropTypes.bool,
     saveChanges: PropTypes.func,
     fetchData: PropTypes.func,
+    getTitle: PropTypes.func
 }

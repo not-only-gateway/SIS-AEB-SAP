@@ -12,7 +12,7 @@ import AuthenticationLayout from "../components/signin/AuthenticateLayout";
 import Head from "next/head";
 import {getLanguage, setCookiesLanguage} from "../utils/Language";
 import Dexie from "dexie";
-import {setProfile, startDatabase} from "../utils/IndexedDB";
+import {setCollaboration, setProfile, startDatabase} from "../utils/IndexedDB";
 
 const cookies = new Cookies()
 export default function Signin() {
@@ -21,25 +21,23 @@ export default function Signin() {
     const router = useRouter()
     const [lang, setLang] = useState(null)
     const [visible, setVisible] = useState(false)
-    const [password, setPassword] = useState(null)
-    const [email, setEmail] = useState(null)
-    const [db, setDb] = useState(null)
+    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('')
 
     useEffect(() => {
-        setLang(getLanguage(router.locale, router.pathname))
 
-        if(db === null)
-            startDatabase().then(response => setDb(response))
+
+
+        setLang(getLanguage(router.locale, router.pathname))
 
         setDark(cookies.get('theme') === '0')
 
         if (cookies.get('jwt') !== undefined)
             signout().catch(error => console.log(error))
 
-
         if (router.locale !== cookies.get('lang') && cookies.get('lang') !== undefined)
             router.push('/signin', '/signin', {locale: cookies.get('lang')}).catch(error => console.log(error))
-    }, [router.locale, db])
+    }, [router.locale])
 
     const signout = async () => {
         try {
@@ -73,17 +71,28 @@ export default function Signin() {
                     user_agent: navigator.userAgent
                 }
             }).then(async function(res){
+                startDatabase().catch(error => console.log(error))
                 cookies.set('jwt', res.data.jwt, {expires: new Date(res.data.exp)})
                 cookies.set('id', res.data.id, {expires: new Date(res.data.exp)})
 
-                await setProfile({
+                console.log(res.data)
+
+                setProfile({
                     id: res.data.profile.id,
                     corporateEmail: res.data.profile.corporate_email,
-                    name: res.data.profile.data.profile.name,
+                    name: res.data.profile.name,
                     birth: res.data.profile.birth,
                     pic: res.data.profile.pic
-                }).then(() => router.push('/', '/', {locale: router.locale}))
+                }).then(async function(){
+                    if(res.data.collaboration !== undefined && res.data.collaboration !== null)
+                        await setCollaboration({
+                            id: res.data.collaboration.id,
+                            unityAcronym: res.data.collaboration.unity.acronym,
+                            unityID: res.data.collaboration.unity.id
+                        }).catch(error => console.log(error))
 
+                    router.push('/', '/', {locale: router.locale}).catch(error => console.log(error))
+                    }).catch(error => console.log(error))
             }).catch(error => {
                 console.log(error)
             })
@@ -106,17 +115,16 @@ export default function Signin() {
     }
 
     if (lang !== null)
-
         return (
             <div className={styles.auth_container} style={{
                 backgroundColor: '#39adf6',
                 color: dark ? 'white' : '#111111'
             }}>
-                <ThemeProvider theme={useState(createMuiTheme({
+                <ThemeProvider theme={createMuiTheme({
                     palette: {
-                        type: "light"
+                        type: dark ? 'dark' : "light"
                     }
-                }))}>
+                })}>
                     <Head>
                         <title>{lang.signin}</title>
                     </Head>

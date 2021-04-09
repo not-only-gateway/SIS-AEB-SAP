@@ -1,4 +1,4 @@
-import Layout from "../components/shared/Layout";
+import Layout from "../components/shared/layout/Layout";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import styles from '../styles/index/Index.module.css'
@@ -10,7 +10,7 @@ import {Skeleton} from "@material-ui/lab";
 import Cookies from "universal-cookie/lib";
 import {getLanguage} from "../utils/Language";
 import IndexComponent from "../components/index/IndexComponent";
-import UnityCard from "../components/index/UnityCard";
+import UnityCard from "../components/index/UnitCard";
 import shared from '../styles/Shared.module.css'
 export default function Index() {
 

@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react'
-import styles from '../../styles/Profile.module.css'
+import styles from '../../../styles/Profile.module.css'
 import {Avatar} from "@material-ui/core";
 import PropTypes from 'prop-types'
 
-export default function SimpleProfileCard(props) {
+export default function SimpleProfileCardLayout(props) {
     return (
         <div className={styles.simplified_profile_container}
              style={{backgroundColor: props.dark ? '#303741' : 'white'}}>
@@ -20,7 +20,7 @@ export default function SimpleProfileCard(props) {
     )
 }
 
-SimpleProfileCard.propTypes={
+SimpleProfileCardLayout.propTypes={
     dark: PropTypes.bool,
     pic: PropTypes.string,
     name: PropTypes.string

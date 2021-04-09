@@ -9,5 +9,6 @@ export default {
     activity: 'Account activity',
     supervisor: 'Log in as administrator',
     supervisorExit: 'Remove administrator access',
-    supervisorRevalidate: 'Validate administrator access'
+    supervisorRevalidate: 'Validate administrator access',
+    management: 'Management'
 }

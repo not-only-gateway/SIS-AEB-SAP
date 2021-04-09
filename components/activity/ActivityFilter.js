@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import shared from "../../styles/Shared.module.css";
 import styles from "../../styles/Activity.module.css";
-import InputLayout from "../shared/InputLayout";
+import InputLayout from "../shared/layout/InputLayout";
 import {Button, Divider} from "@material-ui/core";
 import React from "react";
 
@@ -43,7 +43,7 @@ export default function ActivityFilterComponent(props){
                 />
                 <Button disabled={!props.changed} onClick={() => {
                     props.setChanged(false)
-                    props.fetchData()
+                    props.fetchData(1)
                 }}>
                     filter
                 </Button>

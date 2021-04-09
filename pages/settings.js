@@ -1,4 +1,4 @@
-import Layout from "../components/shared/Layout";
+import Layout from "../components/shared/layout/Layout";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import shared from "../styles/Shared.module.css";
@@ -20,8 +20,8 @@ import Brightness3RoundedIcon from "@material-ui/icons/Brightness3Rounded";
 import {ThemeProvider} from "@material-ui/styles";
 import {getLanguage, setCookiesLanguage} from "../utils/Language";
 import Cookies from "universal-cookie/lib";
-import InputLayout from "../components/shared/InputLayout";
-import AccordionLayout from "../components/shared/AccordionLayout";
+import InputLayout from "../components/shared/layout/InputLayout";
+import AccordionLayout from "../components/shared/layout/AccordionLayout";
 
 export default function Settings() {
 
@@ -81,8 +81,8 @@ export default function Settings() {
                                 summary={
                                     <legend>{lang.language}</legend>
                                 }
-                                closedSize={21.5}
-                                openSize={21.5}
+                                closedSize={22}
+                                openSize={22}
                             />
 
 
@@ -108,10 +108,24 @@ export default function Settings() {
                                 summary={
                                     <legend>{lang.theme}</legend>
                                 }
-                                closedSize={22.5}
-                                openSize={22.5}
+                                closedSize={22}
+                                openSize={22}
                             />
 
+                            {(new Cookies()).get('jwt') !== undefined ?
+                                <AccordionLayout
+                                    content={
+                                        null
+                                    }
+                                    summary={
+                                        <legend>Role</legend>
+                                    }
+                                    closedSize={22}
+                                    openSize={22}
+                                />
+                                :
+                                null
+                            }
                         </div>
 
                     </ThemeProvider>

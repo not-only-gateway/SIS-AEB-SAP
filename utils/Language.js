@@ -19,6 +19,10 @@ import ActivityEN from "../locales/activity/ActivityEN";
 import ActivityES from "../locales/activity/ActivityES";
 import ActivityPT from "../locales/activity/ActivityPT";
 
+import ManagementEN from "../locales/management/ManagementEN";
+import ManagementPT from "../locales/management/ManagementPT";
+import ManagementES from "../locales/management/ManagementES";
+
 const cookies = new Cookies()
 
 export function setCookiesLanguage(lang) {
@@ -51,6 +55,10 @@ export function getLanguage (locale, page){
                     response = ActivityEN
                     break
                 }
+                case '/management': {
+                    response = ManagementEN
+                    break
+                }
                 default:
                     break
             }
@@ -76,6 +84,10 @@ export function getLanguage (locale, page){
                 }
                 case '/activity': {
                     response = ActivityES
+                    break
+                }
+                case '/management': {
+                    response = ManagementEs
                     break
                 }
                 default:
@@ -104,6 +116,10 @@ export function getLanguage (locale, page){
                 }
                 case '/activity': {
                     response = ActivityPT
+                    break
+                }
+                case '/management': {
+                    response = ManagementPT
                     break
                 }
                 default:

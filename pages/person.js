@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import Cookies from "universal-cookie/lib";
 import {createMuiTheme} from "@material-ui/core";
-import Layout from "../components/shared/Layout";
+import Layout from "../components/shared/layout/Layout";
 import {useRouter} from "next/router";
 import Collaborations from "../components/person/Collaborations";
 import {ThemeProvider} from "@material-ui/styles";
@@ -12,8 +12,10 @@ import ContactForm from "../components/person/ContactForm";
 import AddressForm from "../components/shared/form/AddressForm";
 import DocumentsForm from "../components/person/DocumentsForm";
 import {getLanguage} from "../utils/Language";
-import AccordionLayout from "../components/shared/AccordionLayout";
+import AccordionLayout from "../components/shared/layout/AccordionLayout";
 import styles from '../styles/Profile.module.css'
+import TabLayout from "../components/shared/layout/TabLayout";
+import Head from "next/head";
 
 const cookies = new Cookies()
 
@@ -26,17 +28,15 @@ export default function person() {
     const [lang, setLang] = useState(null)
 
     useEffect(() => {
-        if(cookies.get('theme') === '0' && dark === false){
+        if (cookies.get('theme') === '0' && dark === false)
             setDark(cookies.get('theme') === '0')
-            fetchData().catch(error => console.log(error))
-        }
-        if(id === undefined)
+
+        if (id === undefined)
             setId(router.query.id)
-        if((new Cookies()).get('lang') !== undefined && (new Cookies()).get('lang') !== router.locale){
-            router.push('/settings', '/settings', {locale: (new Cookies()).get('lang')}).catch(r => console.log(r))
+        if ((new Cookies()).get('lang') !== undefined && (new Cookies()).get('lang') !== router.locale) {
+            router.push('/person', '/person', {locale: (new Cookies()).get('lang')}).catch(r => console.log(r))
             setLang(getLanguage(router.locale, router.pathname))
-        }
-        else
+        } else
             setLang(getLanguage(router.locale, router.pathname))
     }, [router.locale, router.isReady])
 
@@ -71,8 +71,17 @@ export default function person() {
         })
         return response
     }
-
-    if(lang !== null && router.isReady)
+    const getTitle = (props) => {
+        return (
+            <div style={{marginBottom: '2vh'}}>
+                <div style={{margin: 'auto', width: '45vw'}}>
+                    <p style={{fontSize: '1.3rem', fontWeight: '550', textAlign: 'left'}}>{props.pageTitle}</p>
+                    <p style={{fontSize: '.75rem', textAlign: 'left'}}>{props.pageInfo}</p>
+                </div>
+            </div>
+        )
+    }
+    if (lang !== null && router.isReady)
         return (
             <Layout>
                 {props =>
@@ -85,95 +94,106 @@ export default function person() {
                         {id !== undefined ?
                             <div className={styles.accordion_container}>
 
-                                <BaseForm
-                                    id={id}
-                                    saveChanges={saveChanges}
-                                    fetchData={fetchData}
+                                <TabLayout
                                     dark={dark}
-                                    disabled={disabled}
-                                    lang={lang.basic}
-                                />
-                                <AccordionLayout
-                                    content={
-                                        <Collaborations
-                                            id={id}
-                                            saveChanges={saveChanges}
-                                            fetchData={fetchData}
-                                            dark={dark}
-                                            disabled={disabled}
-                                            locale={lang.collaborations}
-                                        />
-                                    }
-                                    summary={
+                                    width={45}
+                                    height={60}
+                                    tabs={[
+                                        {
+                                            buttonKey: 1,
+                                            value: (
+                                                <BaseForm
+                                                    id={id}
+                                                    getTitle={getTitle}
+                                                    saveChanges={saveChanges}
+                                                    fetchData={fetchData}
+                                                    dark={dark}
+                                                    disabled={disabled}
+                                                    lang={lang.basic}
+                                                />
+                                            )
+                                        },
+                                        {
+                                            buttonKey: 2,
+                                            value: (
+                                                <DocumentsForm
+                                                    id={id}
+                                                    getTitle={getTitle}
+                                                    saveChanges={saveChanges}
+                                                    fetchData={fetchData}
+                                                    dark={dark}
+                                                    disabled={disabled}
+                                                    // locale={lang.documents}
+                                                />
+                                            )
+                                        },
+                                        {
+                                            buttonKey: 3,
+                                            value: (
+                                                <ContactForm
+                                                    id={id}
+                                                    getTitle={getTitle}
+                                                    saveChanges={saveChanges}
+                                                    fetchData={fetchData}
+                                                    dark={dark}
+                                                    disabled={disabled}
+                                                    // locale={lang.contact}
+                                                />
+                                            )
+                                        },
+                                        {
+                                            buttonKey: 4,
+                                            value: (
+                                                <AddressForm
+                                                    id={id}
+                                                    getTitle={getTitle}
+                                                    saveChanges={saveChanges}
+                                                    fetchData={fetchData}
+                                                    dark={dark}
+                                                    disabled={disabled}
+                                                    // locale={lang.basic}
+                                                />
+                                            )
+                                        },
+                                        {
+                                            buttonKey: 5,
+                                            value: (
+                                                <Collaborations
+                                                    id={id}
+                                                    getTitle={getTitle}
+                                                    saveChanges={saveChanges}
+                                                    fetchData={fetchData}
+                                                    dark={dark}
+                                                    disabled={disabled}
+                                                    locale={lang.collaborations}
+                                                />
+                                            )
 
-                                        <p>Collaborations</p>
-                                    }
-                                    closedSize={45}
-                                    openSize={45}
-                                    border={null}
+                                        }
+                                    ]}
+                                    buttons={[
+                                        {
+                                            key: 1,
+                                            value: 'Basic'
+                                        },
+                                        {
+                                            key: 2,
+                                            value: 'documents'
+                                        },
+                                        {
+                                            key: 3,
+                                            value: 'contact'
+                                        },
+                                        {
+                                            key: 4,
+                                            value: 'address'
+                                        },
+                                        {
+                                            key: 5,
+                                            value: 'collaborations'
+                                        }
+                                    ]}
                                 />
-
-                                <AccordionLayout
-                                    content={
-                                        <ContactForm
-                                            id={id}
-                                            saveChanges={saveChanges}
-                                            fetchData={fetchData}
-                                            dark={dark}
-                                            disabled={disabled}
-                                            // locale={lang.contact}
-                                        />
-                                    }
-                                    summary={
-
-                                        <p>Contact</p>
-                                    }
-                                    closedSize={45}
-                                    openSize={45}
-                                    disabled={disabled}
-                                    border={null}
-                                />
-                                <AccordionLayout
-                                    content={
-                                        <AddressForm
-                                            id={id}
-                                            saveChanges={saveChanges}
-                                            fetchData={fetchData}
-                                            dark={dark}
-                                            disabled={disabled}
-                                            // locale={lang.basic}
-                                        />
-                                    }
-                                    summary={
-
-                                        <p>Address</p>
-                                    }
-                                    closedSize={45}
-                                    openSize={45}
-                                    disabled={disabled}
-                                    border={null}
-                                />
-                                <AccordionLayout
-                                    content={
-                                        <DocumentsForm
-                                            id={id}
-                                            saveChanges={saveChanges}
-                                            fetchData={fetchData}
-                                            dark={dark}
-                                            disabled={disabled}
-                                            // locale={lang.documents}
-                                        />
-                                    }
-                                    summary={
-                                        <p>Documents</p>
-                                    }
-                                    closedSize={45}
-                                    openSize={45}
-                                    disabled={disabled}
-                                    border={null}
-                                    // disabled={}
-                                />
-
                             </div>
                             :
                             null

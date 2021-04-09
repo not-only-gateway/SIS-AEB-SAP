@@ -3,8 +3,8 @@ import {Avatar, Button} from '@material-ui/core';
 import React, {useEffect, useState} from 'react';
 import {Skeleton} from '@material-ui/lab';
 import PropTypes from 'prop-types'
-import InputLayout from "../shared/InputLayout";
-import AccordionLayout from "../shared/AccordionLayout";
+import InputLayout from "../shared/layout/InputLayout";
+import AccordionLayout from "../shared/layout/AccordionLayout";
 
 export default function BaseForm(props) {
 
@@ -101,21 +101,21 @@ export default function BaseForm(props) {
 
     if (!loading)
         return (
-            <div className={styles.form_component_container} style={{
-                border: props.disabled ? null : (props.dark ? 'none' : '#e2e2e2 1px solid'),
-                backgroundColor: props.dark ? '#3b424c' : null,
-                width: '45vw'
-            }}>
-
+            <div className={styles.form_component_container} >
+                {props.getTitle({
+                    pageName: null,
+                    pageTitle: 'Basic',
+                    pageInfo: 'Basic form'
+                })}
                 <div className={styles.form_row}>
-                    <Button>
-                        <Avatar src={pic} style={{width: '125px', height: '125px'}}/>
+                    <Button disabled={props.disabled}>
+                        <Avatar src={pic} style={{width: '100px', height: '100px'}}/>
                     </Button>
                     <InputLayout inputName={props.lang.name} dark={props.dark} handleChange={setName} inputType={0}
-                                 disabled={props.disabled} size={50} required={true} initialValue={name}
-                                 key={"1-1"} margin={false} setChanged={setChanged}/>
+                                 disabled={props.disabled} size={85} required={true} initialValue={name}
+                                 key={"1-1"} setChanged={setChanged} margin={false}/>
                 </div>
-                <div className={styles.form_component_container} style={{width: props.disabled ? '45vw' : '43vw'}}>
+                <div className={styles.form_component_container} style={{width:'45vw'}}>
 
                     <InputLayout inputName={props.lang.corporateEmail} dark={props.dark}
                                  handleChange={setCorporateEmail}
@@ -189,8 +189,8 @@ export default function BaseForm(props) {
                             <p>More</p>
                         }
                         disabled={props.disabled}
-                        closedSize={props.disabled ? 45 : 43}
-                        openSize={props.disabled ? 45 : 43}
+                        closedSize={40}
+                        openSize={40}
                         border={null}
                     />
                 </div>
@@ -207,9 +207,7 @@ export default function BaseForm(props) {
             </div>
         )
     else
-        return (
-            null
-        )
+        return null
 
 }
 
@@ -220,4 +218,5 @@ BaseForm.propTypes = {
     disabled: PropTypes.bool,
     saveChanges: PropTypes.func,
     fetchData: PropTypes.func,
+    getTitle: PropTypes.func
 }

@@ -1,5 +1,5 @@
 import Dexie from "dexie";
-import PropTypes from 'prop-types'
+import PropTypes, {func} from 'prop-types'
 
 export async function startDatabase() {
     const userDB = new Dexie('user');
@@ -7,26 +7,13 @@ export async function startDatabase() {
     let response = null
 
     userDB.version(1).stores({
-        profile: 'id, corporateEmail, name, birth, pic',
-        collaboration: 'id, unityAcronym, unityID, roleDenomination, roleID',
-        accessLevel: 'id, ' +
-            'canUpdatePerson, ' +
-            'canViewCollaboratorRoles, ' +
-            'canUpdateCollaboration, ' +
-            'canCreateCollaboration, ' +
-            'canUpdateUnity, ' +
-            'canUpdateLocation, ' +
-            'canUpdateContact, ' +
-            'canUpdateDocuments, ' +
-            'canViewLocation, ' +
-            'canViewContact, ' +
-            'canViewDocuments, ' +
-            'canViewActivityLog'
+        profile: '++,id, corporateEmail, name, birth, pic',
+        collaboration: '++,id, unityAcronym, unityID',
     })
 
     await userDB.open().then(() => {
         response = userDB
-    }).catch (error => {
+    }).catch(error => {
         console.error(error);
     })
 
@@ -35,27 +22,20 @@ export async function startDatabase() {
 
 export async function setProfile(props) {
     const userDB = new Dexie('user');
-    if(!userDB.isOpen())
-        userDB.open().then(async function (){
-            await userDB.profile.add({
+    userDB.open().then(() => {
+        const profile = userDB.table('profile')
+        if (profile)
+            profile.add({
                 id: props.id,
                 corporateEmail: props.corporateEmail,
                 name: props.name,
                 birth: props.birth,
                 pic: props.pic
-            })
-        }).catch(error => console.log(error))
-    else
-        await userDB.profile.add({
-            id: props.id,
-            corporateEmail: props.corporateEmail,
-            name: props.name,
-            birth: props.birth,
-            pic: props.pic
-        })
+            }).catch(error => console.log(error))
+    }).catch(error => console.log(error))
 }
 
-setProfile.propTypes={
+setProfile.propTypes = {
     id: PropTypes.number,
     corporateEmail: PropTypes.string,
     name: PropTypes.string,
@@ -63,28 +43,50 @@ setProfile.propTypes={
     pic: PropTypes.any
 }
 
-export async function setCollaboration(props) {
-    const userDB = new Dexie('user');
-    if(!userDB.isOpen())
-        userDB.open().then(async function (){
-            await userDB.profile.add({
+export async function readProfile() {
+    const userDB = new Dexie('user')
+    return userDB.open().then(async function (){
+        const profile = userDB.table('profile')
 
-            })
-        }).catch(error => console.log(error))
-    else
-        await userDB.profile.add({
-            id: props.id,
-            unityAcronym: props.unityAcronym,
-            unityID: props.unityID,
-            roleDenomination: props.roleDenomination,
-            roleID: props.roleID,
-        })
+        if(profile)
+            return profile.get(1)
+        else return null
+    })
+
 }
 
-setCollaboration.propTypes={
+export async function setCollaboration(props) {
+    const userDB = new Dexie('user');
+    userDB.open().then(() => {
+        const collaboration = userDB.table('collaboration')
+        if (collaboration)
+            collaboration.add({
+                id: props.id,
+                unityAcronym: props.unityAcronym,
+                unityID: props.unityID,
+            }).catch(error => console.log(error))
+    }).catch(error => console.log(error))
+}
+
+setCollaboration.propTypes = {
     id: PropTypes.number,
     unityAcronym: PropTypes.string,
     unityID: PropTypes.number,
-    roleDenomination: PropTypes.string,
-    roleID: PropTypes.number,
+}
+
+export async function readCollaboration() {
+    let response = null
+
+    const userDB = new Dexie('user');
+
+    userDB.open().then(async function () {
+        const collaboration = userDB.table('collaboration')
+        if (collaboration) {
+            const query = await collaboration.get(1)
+            if (query !== undefined && query !== null)
+                response = query
+        }
+    }).catch(error => console.log(error))
+
+    return response
 }

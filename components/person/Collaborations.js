@@ -5,7 +5,7 @@ import Cookies from "universal-cookie/lib";
 import PropTypes from "prop-types";
 import {AddRounded, ExpandMoreRounded} from "@material-ui/icons";
 import CollaborationForm from "./CollaborationForm";
-import AccordionLayout from "../shared/AccordionLayout";
+import AccordionLayout from "../shared/layout/AccordionLayout";
 
 const cookies = new Cookies()
 
@@ -13,35 +13,6 @@ export default function Collaborations(props) {
 
     const [collaborations, setCollaborations] = useState([])
     const [loading, setLoading] = useState(true)
-    const [modal, setModal] = useState(false)
-    const [selected, setSelected] = useState(null)
-
-
-    function renderModal() {
-        return (
-            <Modal open={modal} onClose={() => {
-                setModal(false)
-                setSelected(null)
-            }}>
-                <div className={styles.form_modal_container}
-                     style={{backgroundColor: !props.dark ? 'white' : '#303741'}}>
-
-                    <CollaborationForm
-                        collaborationID={selected}
-                        userID={props.id}
-                        create={true}
-                        dark={props.dark}
-                        mediumContainer={props.mediumContainer}
-                        smallContainer={props.smallContainer}
-                        selectStyle={props.selectStyle}
-                        fetchData={props.fetchData}
-                        saveChanges={props.saveChanges}
-                        setModal={setModal}
-                    />
-                </div>
-            </Modal>
-        )
-    }
 
     async function fetchData() {
         await props.fetchData('collaborations', {id: props.id}).then(res => {
@@ -57,16 +28,18 @@ export default function Collaborations(props) {
 
     if(!loading)
         return (
-            <div className={styles.collaborations_container} style={{marginBottom: '2vh'}}>
-
+            <div className={styles.collaborations_container} style={{marginBottom: '2vh', marginLeft: '.9vw'}}>
+                {props.getTitle({
+                    pageName: null,
+                    pageTitle: 'Collaborations',
+                    pageInfo: 'Basic form'
+                })}
                 {props.disabled ?
                     null:
                     <AccordionLayout
                         content={
                             <div style={{backgroundColor: !props.dark ? 'white' : '#303741'}}>
-
                                 <CollaborationForm
-                                    collaborationID={selected}
                                     userID={props.id}
                                     create={true}
                                     dark={props.dark}
@@ -75,7 +48,6 @@ export default function Collaborations(props) {
                                     selectStyle={props.selectStyle}
                                     fetchData={props.fetchData}
                                     saveChanges={props.saveChanges}
-                                    setModal={setModal}
                                 />
                             </div>
                         }
@@ -100,7 +72,7 @@ export default function Collaborations(props) {
                             <div style={{backgroundColor: !props.dark ? 'white' : '#303741'}}>
 
                                 <CollaborationForm
-                                    collaborationID={selected}
+                                    collaborationID={collaboration.id}
                                     userID={props.id}
                                     create={true}
                                     dark={props.dark}
@@ -109,13 +81,12 @@ export default function Collaborations(props) {
                                     selectStyle={props.selectStyle}
                                     fetchData={props.fetchData}
                                     saveChanges={props.saveChanges}
-                                    setModal={setModal}
                                 />
                             </div>
                         }
                         summary={
                           <div>
-                              <p style={{fontWeight: 450}}>{collaboration.unity.acronym} - {collaboration.unity.name}</p>
+                              <p style={{fontWeight: 450}}>{collaboration.unit.acronym} - {collaboration.unit.name}</p>
                               <p style={{
                                   fontSize: '.8rem',
                                   fontWeight: 420,
@@ -142,4 +113,5 @@ Collaborations.propTypes = {
     id: PropTypes.number,
     fetchData: PropTypes.func,
     saveChanges: PropTypes.func,
+    getTitle: PropTypes.func
 }

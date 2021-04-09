@@ -1,7 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import {Button} from '@material-ui/core';
 import Cookies from 'universal-cookie/lib';
-import {ExitToAppRounded, GroupRounded, HistoryRounded, SettingsRounded} from '@material-ui/icons';
+import {
+    ExitToAppRounded, ExtensionRounded,
+    GroupRounded,
+    HistoryRounded,
+    SettingsRounded,
+    SupervisorAccount,
+    SupervisorAccountRounded
+} from '@material-ui/icons';
 import styles from '../../../styles/bar/Bar.module.css'
 import {buttonStyle, iconStyle, logoStyle, secondaryButtonStyle} from '../../../styles/bar/BarMaterialStyles';
 import en from '../../../locales/navigation/NavigationEN';
@@ -9,8 +16,9 @@ import es from '../../../locales/navigation/NavigationES';
 import pt from '../../../locales/navigation/NavigationPT';
 import Link from 'next/link'
 import {getLogo} from '../../../utils/Theme';
-import SimpleProfileCard from '../SimpleProfileCard';
+import SimpleProfileCardLayout from '../layout/SimpleProfileCardLayout';
 import PropTypes from 'prop-types'
+import {readProfile} from "../../../utils/IndexedDB";
 
 const cookies = new Cookies()
 
@@ -21,12 +29,8 @@ export default function Navigation(props) {
 
     useEffect(() => {
         setLanguage(props.locale)
-        if (profile === null) {
-            const localProfile = localStorage.getItem('profile') !== null ? JSON.parse(localStorage.getItem('profile')) : null
-            if (localProfile !== null)
-                setProfile(localProfile)
-
-        }
+        if (profile === null)
+            readProfile().then(res => setProfile(res))
     }, [props.locale])
 
     function setLanguage(locale) {
@@ -58,19 +62,24 @@ export default function Navigation(props) {
 
 
             <div style={{gridRow: 2, display: 'grid', justifyContent: 'flex-start', alignContent: 'center'}}>
+                <div className={styles.button_container} style={{backgroundColor: props.path === '/management' ? (props.dark ? '#303741' : 'white') : null}}>
+                    <Link href={{pathname: '/management', locale: props.locale}}>
+                        <Button
+                            style={{...buttonStyle, ...{color: props.path === '/management' ? '#39adf6' : (props.dark ? 'white' : '#111111')}}}>
+                            <SupervisorAccountRounded style={{...iconStyle, ...{color: props.path === '/management' ? '#39adf6' : (!props.dark ? '#777777' : '#ededed')}}}/>
+                            {lang.management}
+                        </Button>
+                    </Link>
+                </div>
+
                 <div className={styles.button_container}
                      style={{backgroundColor: props.path === '/' ? (props.dark ? '#303741' : 'white') : null}}>
+
                     <Link href={{pathname: '/', locale: props.locale}}>
-                        <Button style={{...buttonStyle,...{color: props.path === '/' ? '#39adf6' : (props.dark ? 'white' : '#111111')}}}>
-                            <GroupRounded
-                                style={
-                                    {
-                                        ...iconStyle,
-                                        ...{
-                                            color: props.path === '/' ? '#39adf6' : (!props.dark ? '#777777' : '#ededed')
-                                        }
-                                    }
-                                }/> {lang.extensions}
+                        <Button
+                            style={{...buttonStyle, ...{color: props.path === '/' ? '#39adf6' : (props.dark ? 'white' : '#111111')}}}>
+                            <ExtensionRounded style={{...iconStyle, ...{color: props.path === '/' ? '#39adf6' : (!props.dark ? '#777777' : '#ededed')}}}/>
+                            {lang.extensions}
                         </Button>
                     </Link>
                 </div>
@@ -79,18 +88,15 @@ export default function Navigation(props) {
                     <Link href={{pathname: '/settings', locale: props.locale}}>
                         <Button
                             style={{...buttonStyle, ...{color: props.path === '/settings' ? '#39adf6' : (props.dark ? 'white' : '#111111')}}}>
-                            <SettingsRounded
-                                style={
-                                    {
-                                        ...iconStyle,
-                                        ...{
-                                            color: props.path === '/settings' ? '#39adf6' : (!props.dark ? '#777777' : '#ededed')
-                                        }
-                                    }
-                                }/> {lang.settings}
+                            <SettingsRounded style={{...iconStyle, ...{color: props.path === '/settings' ? '#39adf6' : (!props.dark ? '#777777' : '#ededed')}}}/>
+                            {lang.settings}
                         </Button>
                     </Link>
                 </div>
+
+
+
+
 
                 {cookies.get('jwt') !== undefined ?
                     <>
@@ -103,23 +109,6 @@ export default function Navigation(props) {
                             </Link>
                         </div>
 
-                        <div className={styles.button_container} style={{backgroundColor: props.path === '/activity' ? (props.dark ? '#303741' : 'white') : null}}>
-                            <Link href={{pathname: '/activity', locale: props.locale}} >
-                                <Button
-                                    style={{...buttonStyle, ...{color: props.path === '/activity' ? '#39adf6' : (props.dark ? 'white' : '#111111')}}}>
-
-                                    <HistoryRounded
-                                        style={
-                                            {
-                                                ...iconStyle,
-                                                ...{
-                                                    color: props.path === '/activity' ? '#39adf6' : (!props.dark ? '#777777' : '#ededed')
-                                                }
-                                            }
-                                        }/> {lang.activity}
-                                </Button>
-                            </Link>
-                        </div>
                     </>
                     :
                     null
@@ -135,13 +124,12 @@ export default function Navigation(props) {
                                 textTransform: 'none'
                             }}>{lang.signin}</Button>
                         </Link>
-
                     </>
                     :
                     (
                         <Link href={{pathname: '/person', locale: props.locale, query: {id: profile.id}}}>
                             <a>
-                                <SimpleProfileCard name={profile.name} pic={profile.pic} dark={props.dark}/>
+                                <SimpleProfileCardLayout name={profile.name} pic={profile.pic} dark={props.dark}/>
                             </a>
                         </Link>
                     )

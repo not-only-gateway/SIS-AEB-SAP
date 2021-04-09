@@ -11,31 +11,9 @@ const cookies = new Cookies()
 
 export default function PersonCard(props) {
 
-    const [modal, setModal] = useState(false)
     const [hovered, setHovered] = useState(false)
-    useEffect(() => {
-        console.log("props -> ")
-        console.log(props)
 
-    },[])
-    function renderModal() {
 
-        if (modal) {
-            return (
-                <Modal open={modal} onClose={() => setModal(false)}>
-                    <div className={styles.modal_container}
-                         style={{backgroundColor: !props.dark ? 'white' : '#303741'}}>
-                        <ModalProfileCard
-                            dark={props.dark}
-                            id={props.id}
-                            profile={props.profile}
-                            collaboration={props.collaboration}
-                        />
-                    </div>
-                </Modal>
-            )
-        }
-    }
 
     function renderContent() {
         const borderBottom = {borderBottom: !props.dark ? '#e2e2e2 1px solid' : '#777777 1px solid'}
@@ -100,7 +78,7 @@ export default function PersonCard(props) {
                 }} disabled={true}
                 >
 
-                    {props.collaboration.unity.acronym} - {props.collaboration.unity.name}
+                    {props.collaboration.unit.acronym} - {props.collaboration.unit.name}
                 </Button>
                 :
                 <div className={styles.inactive_container}>

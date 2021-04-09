@@ -6,9 +6,9 @@ import Cookies from "universal-cookie/lib";
 import ModalProfileCard from "./ModalProfileCard";
 import Link from 'next/link'
 import PropTypes from 'prop-types'
-import SimpleProfileCard from "../shared/SimpleProfileCard";
+import SimpleProfileCardLayout from "../shared/layout/SimpleProfileCardLayout";
 import shared from '../../styles/Shared.module.css'
-export default function UnityCard(props) {
+export default function UnitCard(props) {
 
     const [hovered, setHovered] = useState(false)
 
@@ -26,8 +26,8 @@ export default function UnityCard(props) {
                         fontSize: '1.2rem',
                         fontWeight: 450,
                         color: (props.dark ? 'white' : 'black')
-                    }}>{props.unity.acronym}</p>
-                    <p style={secondaryField}>{props.unity.name}</p>
+                    }}>{props.unit.acronym}</p>
+                    <p style={secondaryField}>{props.unit.name}</p>
                 </div>
                 <fieldset style={{borderRadius: '8px', width: '100%', lineHeight: '1px'}}>
                     <legend>
@@ -39,12 +39,12 @@ export default function UnityCard(props) {
                     </div>
                     <div className={shared.row}>
                         <p>Mission: </p>
-                        <p style={secondaryField}>{props.unity.mission}</p>
+                        <p style={secondaryField}>{props.unit.mission}</p>
                     </div>
                     {props.collaborators > 0 ?
                         <div className={shared.row}>
-                            <p>Collab: {props.unity.highest_collaborator}</p>
-                            <SimpleProfileCard dark={props.dark} pic={props.unity.highest_collaborator.pic} name={props.unity.highest_collaborator.name}/>
+                            <p>Collab: {props.unit.highest_collaborator}</p>
+                            <SimpleProfileCardLayout dark={props.dark} pic={props.unit.highest_collaborator.pic} name={props.unit.highest_collaborator.name}/>
                         </div>
                         :
                         null
@@ -57,7 +57,7 @@ export default function UnityCard(props) {
 
     return (
         <div
-            className={styles.card_container} key={'unity - ' + props.unity.id}
+            className={styles.card_container} key={'unit - ' + props.unit.id}
             onMouseLeave={() => setHovered(false)}
             onMouseEnter={() => setHovered(true)}
             style={{
@@ -68,9 +68,9 @@ export default function UnityCard(props) {
             }}
         >
             {props.canEdit ?
-                <Link href={{pathname: '/unity', query: {id: props.unity.id}}}>
+                <Link href={{pathname: '/unit', query: {id: props.unit.id}}}>
                     <Button style={{
-                        height: props.unity.parent_community !== undefined ? '25vh' : '29vh',
+                        height: props.unit.parent_communit !== undefined ? '25vh' : '29vh',
                         width: '100%',
                         textTransform: 'none',
                         borderTopRightRadius: '8px',
@@ -81,7 +81,7 @@ export default function UnityCard(props) {
                 </Link>
                 :
                 <div style={{
-                    height: props.unity.parent_community !== undefined ? '25vh' : '29vh',
+                    height: props.unit.parent_communit !== undefined ? '25vh' : '29vh',
                     width: '100%',
                     textTransform: 'none',
                     borderTopRightRadius: '8px',
@@ -90,7 +90,7 @@ export default function UnityCard(props) {
                     {renderContent()}
                 </div>
             }
-            {props.unity.parent_community !== undefined ?
+            {props.unit.parent_communit !== undefined ?
 
                 <Button style={{
                     borderTop: !props.dark ? '#e2e2e2 1px solid' : '#777777 1px solid',
@@ -98,7 +98,7 @@ export default function UnityCard(props) {
                     borderBottomLeftRadius: '8px', width: '100%'
                 }} disabled={!props.canEdit}
                 >
-                    {props.unity.parent_community.acronym} - {props.unity.parent_community.name}
+                    {props.unit.parent_communit.acronym} - {props.unit.parent_communit.name}
                 </Button>
                 :
                 null
@@ -109,9 +109,9 @@ export default function UnityCard(props) {
 
     )
 }
-UnityCard.proptypes = {
+unitCard.proptypes = {
     dark: PropTypes.bool,
-    unity: PropTypes.object,
+    unit: PropTypes.object,
     highestCollaborator: PropTypes.object,
     collaborators: PropTypes.number,
     canEdit: PropTypes.bool

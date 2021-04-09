@@ -1,0 +1,7 @@
+.options_container{
+    width: 45vw;
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: .9vw;
+
+}

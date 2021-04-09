@@ -14,8 +14,9 @@
     width: 45vw;
 }
 .settings_components_container{
-    display: flex;
-    /*gap: 2vh;*/
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: .9vw;
     justify-content: space-between;
     align-items: center;
     align-content: center;

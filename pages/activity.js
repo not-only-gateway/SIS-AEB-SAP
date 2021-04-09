@@ -1,16 +1,16 @@
-import Layout from "../components/shared/Layout";
+import Layout from "../components/shared/layout/Layout";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {getLanguage} from "../utils/Language";
 import Cookies from "universal-cookie/lib";
-import AccordionLayout from "../components/shared/AccordionLayout";
+import AccordionLayout from "../components/shared/layout/AccordionLayout";
 import styles from '../styles/Activity.module.css'
 import axios from "axios";
 import Host from "../utils/Host";
 import localIpUrl from "local-ip-url";
 import {Button, Divider} from "@material-ui/core";
 import shared from '../styles/Shared.module.css'
-import InputLayout from "../components/shared/InputLayout";
+import InputLayout from "../components/shared/layout/InputLayout";
 import ActivityComponent from "../components/activity/Activity";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {Skeleton} from "@material-ui/lab";
@@ -33,29 +33,43 @@ export default function Activity() {
     const [error, setError] = useState(false)
     const [errorMessage, setErrorMessage] = useState(null)
 
-    async function fetchData() {
+    async function fetchData(type) {
         await makeRequest({
             package: {
                 start_date: startDate !== null ? startDate.getTime() : null,
                 ip: thisMachine ? localIpUrl('public') : null,
                 method: method,
                 path: path,
-                max_id: maxID
+                max_id: type === 1 ? null : maxID
             },
             method: 'get',
             url: 'activity',
             host: Host()
         }).then(response => {
+
             if (response.error) {
                 setError(true)
                 setErrorMessage(response.errorMessage)
             } else {
-                if (!changed) {
-                    setData([...data, ...response.data])
-                    if (response.data.length > 0)
-                        setMaxID(response.data[response.data.length - 1].id)
-                    setLastFetchSize(response.data.length)
-                }
+               switch (type){
+                   case 0: {
+                       setData([...data, ...response.data])
+                       if (response.data.length > 0)
+                           setMaxID(response.data[response.data.length - 1].id)
+                       setLastFetchSize(response.data.length)
+                       break
+                   }
+                   case 1:{
+
+                       setData(response.data)
+                       if (response.data.length > 0)
+                           setMaxID(response.data[response.data.length - 1].id)
+                       setLastFetchSize(response.data.length)
+                       break
+                   }
+                   default: console.log(type)
+               }
+
             }
         })
     }
@@ -88,9 +102,7 @@ export default function Activity() {
     }
 
     useEffect(() => {
-
-        if (data.length === 0)
-            fetchData().catch(error => console.log(error))
+        fetchData(1).catch(error => console.log(error))
 
         const currentLocale = (new Cookies()).get('lang')
 
@@ -109,7 +121,7 @@ export default function Activity() {
                         <div className={shared.header_container}
                              style={{backgroundColor: props.dark ? '#303741' : 'white'}}>
                             <props.getTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.info1}/>
-                            <ActivityFilterComponent lang={lang} path={path}
+                            <ActivityFilterComponent lang={lang} path={path} startDate={startDate}
                                                      dark={props.dark} changed={changed}
                                                      setChanged={setChanged} setPath={setPath}
                                                      setMethod={setMethod} setStartDate={setStartDate}
@@ -120,7 +132,7 @@ export default function Activity() {
                             {data.length > 0 ?
                                 <InfiniteScroll
                                     dataLength={data.length} //This is important field to render the next data
-                                    next={() => fetchData()}
+                                    next={() => fetchData(0)}
                                     hasMore={lastFetchSize === 20 && data[data.length - 1].id > 0}
                                     inverse={false}
                                     scrollableTarget="scrollableDiv"

@@ -1,4 +1,4 @@
-import AccordionLayout from "../shared/AccordionLayout";
+import AccordionLayout from "../shared/layout/AccordionLayout";
 import styles from "../../styles/Activity.module.css";
 import {Divider} from "@material-ui/core";
 import React from "react";
@@ -9,6 +9,16 @@ export default function ActivityComponent(props) {
         <AccordionLayout
             content={
                 <div className={styles.info_container} key={'activity - ' + props.activity.id}>
+                    <div className={styles.info_row}>
+                        <p style={{fontWeight: 450}}>ID</p>
+                        <Divider orientation={'horizontal'}
+                                 style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                        <p style={{
+                            fontSize: '.9rem',
+                            fontWeight: 420,
+                            color: props.dark ? 'white' : '#555555'
+                        }}>{props.activity.id}</p>
+                    </div>
                     <div className={styles.info_row}>
                         <p style={{fontWeight: 450}}>{props.lang.platform}</p>
                         <Divider orientation={'horizontal'}
