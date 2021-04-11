@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import {Button, Divider} from "@material-ui/core";
 import {useState} from "react";
-import styles from '../../../styles/TabLayout.module.css'
+import styles from '../../../styles/components/tabs/TabLayout.module.css'
 
 export default function TabLayout(props) {
     const [open, setOpen] = useState(1)
@@ -26,7 +26,7 @@ export default function TabLayout(props) {
 
                 {props.buttons.map((button, index) => (
                     <>
-                        <Button style={{
+                        <Button disabled={button.disabled} style={{
                             borderRadius: '0px',
                             width: (100 / props.buttons.length) + '%',
                             borderRight: props.buttons.length === index + 1 ? null : (props.dark ? '' : '#e2e2e2 1px solid')

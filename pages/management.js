@@ -7,12 +7,7 @@ import {ThemeProvider} from "@material-ui/styles";
 
 import Link from "next/link";
 
-import {
-    AssignmentIndRounded,
-    CheckRounded,
-    HistoryRounded,
-    PersonRounded, ViewModuleRounded
-} from "@material-ui/icons";
+import {AssignmentIndRounded, CheckRounded, HistoryRounded, PersonRounded, ViewModuleRounded} from "@material-ui/icons";
 import AccordionLayout from "../components/shared/layout/AccordionLayout";
 import CollaboratorComponent from "../components/management/Collaborator";
 import {buttonStyle, iconStyle} from "../styles/components/navigation/BarMaterialStyles";

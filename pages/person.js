@@ -5,17 +5,14 @@ import Layout from "../components/shared/layout/Layout";
 import {useRouter} from "next/router";
 import Collaborations from "../components/person/Collaborations";
 import {ThemeProvider} from "@material-ui/styles";
-import axios from "axios";
-import Host from "../utils/shared/Host";
 import BaseForm from "../components/person/BaseForm";
 import ContactForm from "../components/person/ContactForm";
 import AddressForm from "../components/shared/form/AddressForm";
 import DocumentsForm from "../components/person/DocumentsForm";
 import {getLanguage} from "../utils/shared/Language";
-import AccordionLayout from "../components/shared/layout/AccordionLayout";
 import styles from '../styles/pages/person/Person.module.css'
 import TabLayout from "../components/shared/layout/TabLayout";
-import Head from "next/head";
+import {readAccessProfile} from "../utils/shared/IndexedDB";
 
 const cookies = new Cookies()
 
@@ -26,7 +23,7 @@ export default function person() {
     const disabled = (new Cookies()).get('adm_token') !== undefined
     const [dark, setDark] = useState(false)
     const [lang, setLang] = useState(null)
-
+    const [accessProfile, setAccessProfile] = useState(null)
     useEffect(() => {
         if (cookies.get('theme') === '0' && dark === false)
             setDark(cookies.get('theme') === '0')
@@ -38,6 +35,10 @@ export default function person() {
             setLang(getLanguage(router.locale, router.pathname))
         } else
             setLang(getLanguage(router.locale, router.pathname))
+
+        if(accessProfile === null)
+            readAccessProfile().then(res => setAccessProfile(res))
+
     }, [router.locale, router.isReady])
 
 
@@ -77,7 +78,8 @@ export default function person() {
                                                     id={id}
                                                     getTitle={getTitle}
                                                     dark={dark}
-                                                    disabled={disabled}
+                                                    visible={accessProfile !== null ? accessProfile.canUpdatePerson: false}
+                                                    editable={accessProfile !== null ? accessProfile.canUpdatePerson: false}
                                                     lang={lang.basic}
                                                 />
                                             )
@@ -89,7 +91,8 @@ export default function person() {
                                                     id={id}
                                                     getTitle={getTitle}
                                                     dark={dark}
-                                                    disabled={disabled}
+                                                    visible={accessProfile !== null ? accessProfile.canViewDocuments: false}
+                                                    editable={accessProfile !== null ? accessProfile.canUpdateDocuments: false}
                                                     // locale={lang.documents}
                                                 />
                                             )
@@ -101,7 +104,8 @@ export default function person() {
                                                     id={id}
                                                     getTitle={getTitle}
                                                     dark={dark}
-                                                    disabled={disabled}
+                                                    visible={accessProfile !== null ? accessProfile.canViewContact: false}
+                                                    editable={accessProfile !== null ? accessProfile.canUpdateContact: false}
                                                     // locale={lang.contact}
                                                 />
                                             )
@@ -113,7 +117,8 @@ export default function person() {
                                                     id={id}
                                                     getTitle={getTitle}
                                                     dark={dark}
-                                                    disabled={disabled}
+                                                    visible={accessProfile !== null ? accessProfile.canViewLocation: false}
+                                                    editable={accessProfile !== null ? accessProfile.canUpdateLocation: false}
                                                     // locale={lang.basic}
                                                 />
                                             )
@@ -125,7 +130,8 @@ export default function person() {
                                                     id={id}
                                                     getTitle={getTitle}
                                                     dark={dark}
-                                                    disabled={disabled}
+                                                    visible={accessProfile !== null ? accessProfile.canViewCollaboration: false}
+                                                    editable={accessProfile !== null ? accessProfile.canUpdateCollaboration: false}
                                                     locale={lang.collaborations}
                                                 />
                                             )
@@ -134,22 +140,27 @@ export default function person() {
                                     ]}
                                     buttons={[
                                         {
+                                            disabled: false,
                                             key: 1,
                                             value: 'Basic'
                                         },
                                         {
+                                            disabled: accessProfile !== null ? accessProfile.canViewDocuments: true,
                                             key: 2,
                                             value: 'documents'
                                         },
                                         {
+                                            disabled: accessProfile !== null ? accessProfile.canViewContact: true,
                                             key: 3,
                                             value: 'contact'
                                         },
                                         {
+                                            disabled: accessProfile !== null ? accessProfile.canViewLocation: true,
                                             key: 4,
                                             value: 'address'
                                         },
                                         {
+                                            disabled: accessProfile !== null ? accessProfile.canViewCollaboration: true,
                                             key: 5,
                                             value: 'collaborations'
                                         }

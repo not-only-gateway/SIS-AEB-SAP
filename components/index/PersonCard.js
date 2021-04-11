@@ -1,6 +1,6 @@
 import styles from '../../styles/pages/index/Index.module.css'
-import {Avatar, Button, Modal} from "@material-ui/core";
-import React, {useEffect, useState} from 'react'
+import {Avatar, Button} from "@material-ui/core";
+import React, {useState} from 'react'
 import {CakeRounded, WarningRounded} from "@material-ui/icons";
 import Cookies from "universal-cookie/lib";
 

@@ -1,11 +1,9 @@
 import styles from "../../styles/components/form/Form.module.css";
-import {Button, Grid, TextField} from "@material-ui/core";
-import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
+import {Button} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
-import {Skeleton} from "@material-ui/lab";
 import PropTypes from "prop-types";
 import InputLayout from "../shared/layout/InputLayout";
+import saveComponentChanges from "../../utils/person/SaveChanges";
 
 export default function DocumentsForm(props) {
 
@@ -63,9 +61,9 @@ export default function DocumentsForm(props) {
     }
 
     async function saveChanges() {
-        await props.saveChanges(
-            'person/documents',
-            {
+        await saveComponentChanges({
+            path: 'person/documents',
+            params: {
                 id: props.id,
                 cpf: cpf,
                 rg: rg,
@@ -79,8 +77,8 @@ export default function DocumentsForm(props) {
                 work_card: workCard,
                 pis: pis,
             },
-            'put'
-        ).then(res => res ? setChanged(false) : console.log(res))
+            method: 'put'
+        }).then(res => res ? setChanged(false) : console.log(res))
     }
 
 
@@ -94,45 +92,45 @@ export default function DocumentsForm(props) {
                     pageInfo: 'Basic form'
                 })}
                 <InputLayout inputName={'CPF'} dark={props.dark} handleChange={setCpf} inputType={0}
-                             disabled={props.disabled} size={100} required={true} initialValue={cpf}
+                             disabled={!props.editable} size={100} required={true} initialValue={cpf}
                              key={"5-1"} setChanged={setChanged}/>
 
                 <InputLayout inputName={'RG'} dark={props.dark} handleChange={setRg} inputType={0}
-                             disabled={props.disabled} size={32} required={true} initialValue={rg}
+                             disabled={!props.editable} size={32} required={true} initialValue={rg}
                              key={"5-2"} setChanged={setChanged}/>
 
                 <InputLayout inputName={'Issuing body'} dark={props.dark} handleChange={setIssuingBody} inputType={0}
-                             disabled={props.disabled} size={32} required={true} initialValue={issuingBody}
+                             disabled={!props.editable} size={32} required={true} initialValue={issuingBody}
                              key={"5-3"} setChanged={setChanged}/>
                 <InputLayout inputName={'Dispatch Date'} dark={props.dark} handleChange={setDispatchDate} inputType={2}
-                             disabled={props.disabled} size={32} required={true} initialValue={dispatchDate}
+                             disabled={!props.editable} size={32} required={true} initialValue={dispatchDate}
                              key={"5-4"} setChanged={setChanged}/>
 
                 <InputLayout inputName={'Work PersonCard'} dark={props.dark} handleChange={setWorkCard} inputType={0}
-                             disabled={props.disabled} size={49} required={true} initialValue={workCard}
+                             disabled={!props.editable} size={49} required={true} initialValue={workCard}
                              key={"5-5"} setChanged={setChanged}/>
 
                 <InputLayout inputName={'PIS/PASEP'} dark={props.dark} handleChange={setPis} inputType={0}
-                             disabled={props.disabled} size={49} required={true} initialValue={pis}
+                             disabled={!props.editable} size={49} required={true} initialValue={pis}
                              key={"5-6"} setChanged={setChanged}/>
 
                 <InputLayout inputName={'Bank'} dark={props.dark} handleChange={setBank} inputType={0}
-                             disabled={props.disabled} size={49} required={false} initialValue={bank}
+                             disabled={!props.editable} size={49} required={false} initialValue={bank}
                              key={"5-7"} setChanged={setChanged}/>
                 <InputLayout inputName={'Agency'} dark={props.dark} handleChange={setAgency} inputType={0}
-                             disabled={props.disabled} size={49} required={false} initialValue={agency}
+                             disabled={!props.editable} size={49} required={false} initialValue={agency}
                              key={"5-8"} setChanged={setChanged}/>
                 <InputLayout inputName={'Voter Registration'} dark={props.dark} handleChange={setVoterRegistration}
                              inputType={0}
-                             disabled={props.disabled} size={32} required={true} initialValue={voterRegistration}
+                             disabled={!props.editable} size={32} required={true} initialValue={voterRegistration}
                              key={"5-9"} setChanged={setChanged}/>
                 <InputLayout inputName={'Electoral Section'} dark={props.dark} handleChange={setElectoralSection}
                              inputType={0}
-                             disabled={props.disabled} size={32} required={true} initialValue={electoralSection}
+                             disabled={!props.editable} size={32} required={true} initialValue={electoralSection}
                              key={"5-10"} setChanged={setChanged}/>
                 <InputLayout inputName={'Electoral Zone'} dark={props.dark} handleChange={setElectoralZone}
                              inputType={0}
-                             disabled={props.disabled} size={32} required={true} initialValue={electoralZone}
+                             disabled={!props.editable} size={32} required={true} initialValue={electoralZone}
                              key={"5-11"} setChanged={setChanged}/>
 
 
@@ -154,8 +152,7 @@ export default function DocumentsForm(props) {
 DocumentsForm.propTypes = {
     id: PropTypes.string,
     dark: PropTypes.bool,
-    disabled: PropTypes.bool,
-    saveChanges: PropTypes.func,
-    fetchData: PropTypes.func,
+    visible: PropTypes.bool,
+    editable: PropTypes.bool,
     getTitle: PropTypes.func
 }

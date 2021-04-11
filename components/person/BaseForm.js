@@ -1,10 +1,11 @@
 import styles from '../../styles/components/form/Form.module.css';
 import {Avatar, Button} from '@material-ui/core';
 import React, {useEffect, useState} from 'react';
-import {Skeleton} from '@material-ui/lab';
 import PropTypes from 'prop-types'
 import InputLayout from "../shared/layout/InputLayout";
 import AccordionLayout from "../shared/layout/AccordionLayout";
+import fetchComponentData from "../../utils/person/FetchData";
+import saveComponentChanges from "../../utils/person/SaveChanges";
 
 export default function BaseForm(props) {
 
@@ -31,7 +32,9 @@ export default function BaseForm(props) {
     }, [])
 
     async function fetchData() {
-        await props.fetchData('person', {id: props.id}).then(res => {
+        await fetchComponentData(
+            {path: 'person', params: {id: props.id}}
+        ).then(res => {
             if (res !== null) {
                 setName(res.name)
                 setBirth(res.birth)
@@ -57,11 +60,11 @@ export default function BaseForm(props) {
             return string.replace(/^./, string[0].toUpperCase());
     }
     async function saveChanges() {
-        props.saveChanges(
-            'person',
-            {
+        saveComponentChanges({
+            path: 'person',
+            params: {
                 id: props.id,
-                pic: pic,
+                    pic: pic,
                 name: capitalizeFirstLetter(name),
                 birth: birth,
                 birth_place: birthPlace?.toUpperCase(),
@@ -77,8 +80,8 @@ export default function BaseForm(props) {
                 nationality:  nationality?.toUpperCase(),
                 is_administrator: admin
             },
-            'put'
-        ).then(res => res ? setChanged(false) : console.log(res))
+            method: 'put'
+            }).then(res => res ? setChanged(false) : console.log(res))
     }
 
     function disabled() {
@@ -108,47 +111,47 @@ export default function BaseForm(props) {
                     pageInfo: 'Basic form'
                 })}
                 <div className={styles.form_row}>
-                    <Button disabled={props.disabled}>
+                    <Button disabled={!props.editable}>
                         <Avatar src={pic} style={{width: '100px', height: '100px'}}/>
                     </Button>
                     <InputLayout inputName={props.lang.name} dark={props.dark} handleChange={setName} inputType={0}
-                                 disabled={props.disabled} size={85} required={true} initialValue={name}
+                                 disabled={!props.editable} size={85} required={true} initialValue={name}
                                  key={"1-1"} setChanged={setChanged} margin={false}/>
                 </div>
                 <div className={styles.form_component_container} style={{width:'45vw'}}>
 
                     <InputLayout inputName={props.lang.corporateEmail} dark={props.dark}
                                  handleChange={setCorporateEmail}
-                                 inputType={0} disabled={props.disabled} size={66} required={true}
+                                 inputType={0} disabled={!props.editable} size={66} required={true}
                                  initialValue={corporateEmail} key={"1-12"} setChanged={setChanged}/>
                     <InputLayout inputName={props.lang.extension} dark={props.dark} handleChange={setExtension}
-                                 inputType={0} disabled={props.disabled} size={32} required={true}
+                                 inputType={0} disabled={!props.editable} size={32} required={true}
                                  initialValue={extension} key={"1-13"} setChanged={setChanged}/>
                     <InputLayout inputName={props.lang.registration} dark={props.dark} handleChange={setRegistration}
-                                 inputType={0} disabled={props.disabled} size={32} required={false}
+                                 inputType={0} disabled={!props.editable} size={32} required={false}
                                  initialValue={registration} key={"1-14"} setChanged={setChanged}/>
                     <InputLayout inputName={props.lang.admin} dark={props.dark} handleChange={setAdmin} inputType={1}
-                                 disabled={props.disabled} size={32} required={true} initialValue={admin}
+                                 disabled={!props.editable} size={32} required={true} initialValue={admin}
                                  selectFields={props.lang.choice}
                                  key={"1-2"} setChanged={setChanged}/>
                     <InputLayout inputName={props.lang.nationality} dark={props.dark} handleChange={setNationality}
                                  inputType={0}
-                                 disabled={props.disabled} size={32} required={true} initialValue={nationality}
+                                 disabled={!props.editable} size={32} required={true} initialValue={nationality}
                                  key={"1-6"} setChanged={setChanged}/>
 
                     <InputLayout inputName={props.lang.birth} dark={props.dark} handleChange={setBirth} inputType={2}
-                                 disabled={props.disabled} size={32} required={true} initialValue={birth}
+                                 disabled={!props.editable} size={32} required={true} initialValue={birth}
                                  key={"1-7"} setChanged={setChanged}/>
 
                     <InputLayout inputName={props.lang.disabledPerson} dark={props.dark}
                                  handleChange={setDisabledPerson}
                                  inputType={1}
-                                 disabled={props.disabled} size={32} required={true} initialValue={disabledPerson}
+                                 disabled={!props.editable} size={32} required={true} initialValue={disabledPerson}
                                  selectFields={props.lang.choice}
                                  key={"1-8"} setChanged={setChanged}/>
 
                     <InputLayout inputName={props.lang.gender} dark={props.dark} handleChange={setGender} inputType={1}
-                                 disabled={props.disabled} size={32} required={true} initialValue={gender}
+                                 disabled={!props.editable} size={32} required={true} initialValue={gender}
                                  selectFields={props.lang.genderChoice}
                                  key={"1-10"} setChanged={setChanged}/>
                 </div>
@@ -158,27 +161,27 @@ export default function BaseForm(props) {
                             <div className={styles.form_component_container} style={{width: '38vw'}}>
                                 <InputLayout inputName={props.lang.father} dark={props.dark} handleChange={setFather}
                                              inputType={0}
-                                             disabled={props.disabled} size={32} required={true} initialValue={father}
+                                             disabled={!props.editable} size={32} required={true} initialValue={father}
                                              key={"1-3"} setChanged={setChanged}/>
                                 <InputLayout inputName={props.lang.mother} dark={props.dark} handleChange={setMother}
                                              inputType={0}
-                                             disabled={props.disabled} size={32} required={true} initialValue={mother}
+                                             disabled={!props.editable} size={32} required={true} initialValue={mother}
                                              key={"1-4"} setChanged={setChanged}/>
                                 <InputLayout inputName={props.lang.birthPlace} dark={props.dark}
                                              handleChange={setBirthPlace} inputType={0}
-                                             disabled={props.disabled} size={32} required={true}
+                                             disabled={!props.editable} size={32} required={true}
                                              initialValue={birthPlace}
                                              key={"1-5"} setChanged={setChanged}/>
                                 <InputLayout inputName={props.lang.education} dark={props.dark}
                                              handleChange={setEducation}
                                              inputType={1}
-                                             disabled={props.disabled} size={49} required={true}
+                                             disabled={!props.editable} size={49} required={true}
                                              initialValue={education}
                                              selectFields={props.lang.educationChoice}
                                              key={"1-9"} setChanged={setChanged}/>
                                 <InputLayout inputName={props.lang.marital} dark={props.dark} handleChange={setMarital}
                                              inputType={1}
-                                             disabled={props.disabled} size={49} required={true} initialValue={marital}
+                                             disabled={!props.editable} size={49} required={true} initialValue={marital}
                                              selectFields={props.lang.maritalChoice}
                                              key={"1-11"} setChanged={setChanged}/>
 
@@ -188,7 +191,7 @@ export default function BaseForm(props) {
 
                             <p>More</p>
                         }
-                        disabled={props.disabled}
+                        disabled={!props.visible}
                         closedSize={40}
                         openSize={40}
                         border={null}
@@ -215,8 +218,7 @@ BaseForm.propTypes = {
     lang: PropTypes.object,
     id: PropTypes.string,
     dark: PropTypes.bool,
-    disabled: PropTypes.bool,
-    saveChanges: PropTypes.func,
-    fetchData: PropTypes.func,
+    visible: PropTypes.bool,
+    editable: PropTypes.bool,
     getTitle: PropTypes.func
 }

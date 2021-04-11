@@ -1,27 +1,17 @@
 import Layout from "../components/shared/layout/Layout";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import shared from "../styles/shared/Shared.module.css";
 import style from '../styles/pages/settings/Settings.module.css'
-import {
-    Button,
-    createMuiTheme,
-    FormControl,
-    FormControlLabel,
-    Menu,
-    MenuItem, Paper, Radio,
-    RadioGroup,
-    Select,
-    Snackbar
-} from "@material-ui/core";
-import {buttonStyle, iconStyle} from "../styles/components/navigation/BarMaterialStyles";
+import {createMuiTheme, FormControl, FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
+import {iconStyle} from "../styles/components/navigation/BarMaterialStyles";
 import Brightness7RoundedIcon from "@material-ui/icons/Brightness7Rounded";
 import Brightness3RoundedIcon from "@material-ui/icons/Brightness3Rounded";
 import {ThemeProvider} from "@material-ui/styles";
-import {getLanguage, setCookiesLanguage} from "../utils/shared/Language";
+import {getLanguage} from "../utils/shared/Language";
 import Cookies from "universal-cookie/lib";
-import InputLayout from "../components/shared/layout/InputLayout";
 import AccordionLayout from "../components/shared/layout/AccordionLayout";
+import changeTheme from "../utils/shared/ChangeTheme";
+import changeLanguage from "../utils/shared/ChangeLanguage";
 
 export default function Settings() {
 
@@ -46,12 +36,6 @@ export default function Settings() {
             setLang(getLanguage(router.locale, router.pathname))
     }, [router.locale])
 
-    const changeLang = (event) => {
-        const newLocale = event
-        setCookiesLanguage(newLocale)
-        router.push('/settings', '/settings', {locale: newLocale}).catch(r => console.log(r))
-        setLang(getLanguage(router.locale, router.pathname))
-    }
     if (lang !== null)
         return (
             <Layout>
@@ -66,7 +50,12 @@ export default function Settings() {
                             <AccordionLayout
                                 content={
                                     <FormControl component="fieldset" style={{paddingLeft: '10px'}}>
-                                        <RadioGroup onChange={event => changeLang(event.target.value)}
+                                        <RadioGroup onChange={event => changeLanguage({
+                                            event: event,
+                                            router: router,
+                                            path: '/settings',
+                                            setLang: setLang
+                                        })}
                                                     value={props.locale}>
                                             {[{value: 'Português', key: 'pt'}, {
                                                 value: 'English',
@@ -89,7 +78,10 @@ export default function Settings() {
                             <AccordionLayout
                                 content={
                                     <FormControl component="fieldset" style={{paddingLeft: '10px'}}>
-                                        <RadioGroup onChange={() => props.changeTheme()} value={props.dark}>
+                                        <RadioGroup onChange={() => changeTheme({
+                                            changeTheme: props.setDark,
+                                            currentTheme: props.dark
+                                        })} value={props.dark}>
                                            <FormControlLabel value={false} control={<Radio/>} label={
                                              <div className={style.theme_container}>
                                                  <p>Light</p>

@@ -1,5 +1,5 @@
 import Dexie from "dexie";
-import PropTypes, {func} from 'prop-types'
+import PropTypes from 'prop-types'
 
 export async function startDatabase() {
     const userDB = new Dexie('user');
@@ -9,6 +9,35 @@ export async function startDatabase() {
     userDB.version(1).stores({
         profile: '++,id, corporateEmail, name, birth, pic',
         collaboration: '++,id, unityAcronym, unityID',
+        accessProfile: '++, ' +
+            'id,' +
+            ' denomination,' +
+            ' canCreatePerson,' +
+            ' canUpdatePerson,' +
+            ' canDeletePerson,' +
+            ' canCreateRole,' +
+            ' canUpdateRole,' +
+            ' canViewRole,' +
+            ' canDeleteRole,' +
+            ' canCreateAccessProfile,' +
+            ' canUpdateAccessProfile,' +
+            ' canDeleteAccessProfile ,' +
+            ' canViewAccessLog,' +
+            ' canViewActivityLog, ' +
+            'canCreateUnit, canUpdateUnit,' +
+            ' canDeleteUnit, ' +
+            'canCreateCollaboration,' +
+            ' canUpdateCollaboration,' +
+            ' canViewCollaboration, ' +
+            'canDeleteCollaboration,' +
+            'canUpdateLocation,' +
+            ' canViewLocation, ' +
+            'canUpdateDocument,' +
+            ' canViewDocuments,' +
+            ' canUpdateContact,' +
+            ' canViewContact'
+
+
     })
 
     await userDB.open().then(() => {
@@ -45,14 +74,13 @@ setProfile.propTypes = {
 
 export async function readProfile() {
     const userDB = new Dexie('user')
-    return userDB.open().then(async function (){
+    return userDB.open().then(async function () {
         const profile = userDB.table('profile')
 
-        if(profile)
+        if (profile)
             return profile.get(1)
         else return null
     })
-
 }
 
 export async function setCollaboration(props) {
@@ -89,4 +117,82 @@ export async function readCollaboration() {
     }).catch(error => console.log(error))
 
     return response
+}
+
+export async function setAccessProfile(props) {
+    const userDB = new Dexie('user');
+    userDB.open().then(() => {
+        const access = userDB.table('accessProfile')
+        if (access)
+            access.add({
+                id: props.id,
+                denomination: props.denomination,
+                canCreatePerson: props.canCreatePerson,
+                canUpdatePerson: props.canUpdatePerson,
+                canDeletePerson: props.canDeletePerson,
+                canCreateRole: props.canCreateRole,
+                canUpdateRole: props.canUpdateRole,
+                canViewRole: props.canViewRole,
+                canDeleteRole: props.canDeleteRole,
+                canCreateAccessProfile:props.canCreateAccessProfile,
+                canUpdateAccessProfile: props.canUpdateAccessProfile,
+                canDeleteAccessProfile: props.canDeleteAccessProfile,
+                canViewAccessLog: props.canViewAccessLog,
+                canViewActivityLog: props.canViewActivityLog,
+                canCreateUnit: props.canCreateUnit,
+                canUpdateUnit: props.canUpdateUnit,
+                canDeleteUnit: props.canDeleteUnit,
+                canCreateCollaboration: props.canCreateCollaboration,
+                canUpdateCollaboration: props.canUpdateCollaboration,
+                canViewCollaboration: props.canViewCollaboration,
+                canDeleteCollaboration: props.canDeleteCollaboration,
+                canUpdateLocation: props.canUpdateLocation,
+                canViewLocation: props.canViewLocation,
+                canUpdateDocuments: props.canUpdateDocuments,
+                canViewDocuments: props.canViewDocuments,
+                canUpdateContact: props.canUpdateContact,
+                canViewContact: props.canViewContact
+            }).catch(error => console.log(error))
+    }).catch(error => console.log(error))
+}
+
+setAccessProfile.propTypes = {
+    id: PropTypes.number,
+    denomination: PropTypes.string,
+    canCreatePerson: PropTypes.bool,
+    canUpdatePerson: PropTypes.bool,
+    canDeletePerson: PropTypes.bool,
+    canCreateRole: PropTypes.bool,
+    canUpdateRole: PropTypes.bool,
+    canViewRole: PropTypes.bool,
+    canDeleteRole: PropTypes.bool,
+    canCreateAccessProfile: PropTypes.bool,
+    canUpdateAccessProfile: PropTypes.bool,
+    canDeleteAccessProfile: PropTypes.bool ,
+    canViewAccessLog: PropTypes.bool,
+    canViewActivityLog: PropTypes.bool,
+    canCreateUnit: PropTypes.bool,
+    canUpdateUnit: PropTypes.bool,
+    canDeleteUnit: PropTypes.bool,
+    canCreateCollaboration: PropTypes.bool,
+    canUpdateCollaboration: PropTypes.bool,
+    canViewCollaboration: PropTypes.bool,
+    canDeleteCollaboration: PropTypes.bool,
+    canUpdateLocation: PropTypes.bool,
+    canViewLocation: PropTypes.bool,
+    canUpdateDocuments: PropTypes.bool,
+    canViewDocuments: PropTypes.bool,
+    canUpdateContact: PropTypes.bool,
+    canViewContact: PropTypes.bool
+}
+
+export async function readAccessProfile() {
+    const userDB = new Dexie('user')
+    return userDB.open().then(async function () {
+        const access = userDB.table('accessProfile')
+
+        if (access)
+            return access.get(1)
+        else return null
+    })
 }

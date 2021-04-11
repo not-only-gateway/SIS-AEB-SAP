@@ -4,8 +4,6 @@ import {useRouter} from "next/router";
 import styles from '../styles/pages/index/Index.module.css'
 import PersonCard from "../components/index/PersonCard";
 import {createMuiTheme, ThemeProvider} from "@material-ui/core";
-import axios from "axios";
-import Host from "../utils/shared/Host";
 import {Skeleton} from "@material-ui/lab";
 import Cookies from "universal-cookie/lib";
 import {getLanguage} from "../utils/shared/Language";
@@ -13,7 +11,6 @@ import IndexComponent from "../components/index/IndexComponent";
 import UnityCard from "../components/index/UnitCard";
 import shared from '../styles/shared/Shared.module.css'
 import getPageInfo from "../utils/index/GetPageInfo";
-import PropTypes from "prop-types";
 
 export default function Index() {
 

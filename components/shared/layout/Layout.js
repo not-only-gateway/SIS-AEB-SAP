@@ -54,7 +54,7 @@ export default function Layout({children}) {
                  id={'scrollableDiv'}>
                 <div className={styles.children_container}>
                     {router.pathname === '/settings' ?
-                        children({dark, changeTheme, getTitle, locale})
+                        children({dark, setDark, getTitle, locale})
                         :
                         children({dark, getTitle})
                     }

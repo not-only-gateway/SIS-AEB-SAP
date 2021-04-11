@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import shared from "../../styles/shared/Shared.module.css";
 import styles from "../../styles/pages/activity/Activity.module.css";
 import InputLayout from "../shared/layout/InputLayout";
 import {Button, Divider} from "@material-ui/core";

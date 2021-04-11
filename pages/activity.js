@@ -3,19 +3,11 @@ import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {getLanguage} from "../utils/shared/Language";
 import Cookies from "universal-cookie/lib";
-import AccordionLayout from "../components/shared/layout/AccordionLayout";
 import styles from '../styles/pages/activity/Activity.module.css'
-import axios from "axios";
-import Host from "../utils/shared/Host";
-import localIpUrl from "local-ip-url";
-import {Button, Divider} from "@material-ui/core";
 import shared from '../styles/shared/Shared.module.css'
-import InputLayout from "../components/shared/layout/InputLayout";
 import ActivityComponent from "../components/activity/Activity";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {Skeleton} from "@material-ui/lab";
-import makeRequest from "../utils/shared/Request";
-import PropTypes from "prop-types";
 import ActivityFilterComponent from "../components/activity/ActivityFilter";
 import fetchActivityData from "../utils/activity/FetchData";
 

@@ -1,9 +1,10 @@
 import styles from "../../styles/components/form/Form.module.css";
 import {Button} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
-import {Skeleton} from "@material-ui/lab";
 import PropTypes from "prop-types";
 import InputLayout from "../shared/layout/InputLayout";
+import fetchComponentData from "../../utils/person/FetchData";
+import saveComponentChanges from "../../utils/person/SaveChanges";
 
 export default function ContactForm(props) {
 
@@ -27,7 +28,7 @@ export default function ContactForm(props) {
     }, [])
 
     async function fetchData() {
-        await props.fetchData('person/contact', {id: props.id}).then(res => {
+        await fetchComponentData({path: 'person/contact', params: {id: props.id}}).then(res => {
             if (res !== null) {
                 setEmail(res.email)
                 setEmailAlt(res.email_alt)
@@ -40,17 +41,17 @@ export default function ContactForm(props) {
 
 
     async function saveChanges() {
-        await props.saveChanges(
-            'person/contact',
-            {
+        await saveComponentChanges({
+            path: 'person/contact',
+            params: {
                 id: props.id,
                 email: email.toLowerCase(),
                 email_alt: emailAlt?.toLowerCase(),
                 phone: phone?.replace(' ', ''),
-                phone_alt:  phoneAlt?.toLowerCase()
+                phone_alt: phoneAlt?.toLowerCase()
             },
-            'put'
-        ).then(res => res ? setChanged(false) : console.log(res))
+            method: 'put'
+        }).then(res => res ? setChanged(false) : console.log(res))
 
     }
 
@@ -62,19 +63,19 @@ export default function ContactForm(props) {
                 pageInfo: 'Basic form'
             })}
             <InputLayout inputName={'Email'} dark={props.dark} handleChange={setEmail}
-                         inputType={0} disabled={props.disabled} size={49} required={true}
+                         inputType={0} disabled={!props.editable} size={49} required={true}
                          initialValue={email} key={"3-1"} setChanged={setChanged}/>
 
             <InputLayout inputName={'Alternative Email'} dark={props.dark} handleChange={setEmailAlt}
-                         inputType={0} disabled={props.disabled} size={49} required={false}
+                         inputType={0} disabled={!props.editable} size={49} required={false}
                          initialValue={emailAlt} key={"3-2"} setChanged={setChanged}/>
 
             <InputLayout inputName={'Phone'} dark={props.dark} handleChange={setPhone}
-                         inputType={0} disabled={props.disabled} size={49} required={true}
+                         inputType={0} disabled={!props.editable} size={49} required={true}
                          initialValue={phone} key={"3-3"} setChanged={setChanged}/>
 
             <InputLayout inputName={'Alternative Phone'} dark={props.dark} handleChange={setPhoneAlt}
-                         inputType={0} disabled={props.disabled} size={49} required={false}
+                         inputType={0} disabled={!props.editable} size={49} required={false}
                          initialValue={phoneAlt} key={"3-4"} setChanged={setChanged}/>
 
             <Button style={{
@@ -91,8 +92,7 @@ export default function ContactForm(props) {
 ContactForm.propTypes = {
     id: PropTypes.string,
     dark: PropTypes.bool,
-    disabled: PropTypes.bool,
-    saveChanges: PropTypes.func,
-    fetchData: PropTypes.func,
+    visible: PropTypes.bool,
+    editable: PropTypes.bool,
     getTitle: PropTypes.func
 }

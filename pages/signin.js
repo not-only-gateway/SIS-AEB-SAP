@@ -1,18 +1,12 @@
-import localIpUrl from 'local-ip-url';
 import Cookies from 'universal-cookie/lib'
 import styles from '../styles/pages/auththentication/Auth.module.css'
 import {createMuiTheme, ThemeProvider} from "@material-ui/core";
-import {setThemeCookie} from "../utils/shared/Theme";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import axios from "axios";
-import Host from '../utils/shared/Host'
-import ClearStorage from "../utils/authentication/ClearStorage";
 import AuthenticationLayout from "../components/signin/AuthenticateLayout";
 import Head from "next/head";
-import {getLanguage, setCookiesLanguage} from "../utils/shared/Language";
-import Dexie from "dexie";
-import {setCollaboration, setProfile, startDatabase} from "../utils/shared/IndexedDB";
+import {getLanguage} from "../utils/shared/Language";
+import signOut from "../utils/authentication/SignOut";
 
 const cookies = new Cookies()
 export default function Signin() {
@@ -25,94 +19,16 @@ export default function Signin() {
     const [email, setEmail] = useState('')
 
     useEffect(() => {
-
-
-
         setLang(getLanguage(router.locale, router.pathname))
 
         setDark(cookies.get('theme') === '0')
 
         if (cookies.get('jwt') !== undefined)
-            signout().catch(error => console.log(error))
+            signOut().catch(error => console.log(error))
 
         if (router.locale !== cookies.get('lang') && cookies.get('lang') !== undefined)
             router.push('/signin', '/signin', {locale: cookies.get('lang')}).catch(error => console.log(error))
     }, [router.locale])
-
-    const signout = async () => {
-        try {
-            await axios({
-                method: 'delete',
-                url: Host() + 'auth',
-                headers: {'authorization': cookies.get('jwt')}
-            }).then(() => {
-
-                ClearStorage().catch(e => console.log(e))
-            }).catch(error => {
-                console.log(error)
-            })
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    const authenticate = async (email, password) => {
-        try {
-            await axios({
-                method: 'post',
-                url: Host() + 'auth',
-                data: {
-                    email: email,
-                    password: password,
-                    ip: localIpUrl('public'),
-                    platform: navigator.platform,
-                    browser_version: navigator.appVersion,
-                    browser_engine: navigator.product,
-                    user_agent: navigator.userAgent
-                }
-            }).then(async function(res){
-                startDatabase().catch(error => console.log(error))
-                cookies.set('jwt', res.data.jwt, {expires: new Date(res.data.exp)})
-                cookies.set('id', res.data.id, {expires: new Date(res.data.exp)})
-
-                console.log(res.data)
-
-                setProfile({
-                    id: res.data.profile.id,
-                    corporateEmail: res.data.profile.corporate_email,
-                    name: res.data.profile.name,
-                    birth: res.data.profile.birth,
-                    pic: res.data.profile.pic
-                }).then(async function(){
-                    if(res.data.collaboration !== undefined && res.data.collaboration !== null)
-                        await setCollaboration({
-                            id: res.data.collaboration.id,
-                            unityAcronym: res.data.collaboration.unity.acronym,
-                            unityID: res.data.collaboration.unity.id
-                        }).catch(error => console.log(error))
-
-                    router.push('/', '/', {locale: router.locale}).catch(error => console.log(error))
-                    }).catch(error => console.log(error))
-            }).catch(error => {
-                console.log(error)
-            })
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    const changeTheme = () => {
-        setDark(!dark)
-        setThemeCookie()
-    }
-
-    const changeLang = (event) => {
-        const newLocale = event.target.value
-        const newLang = getLanguage(newLocale, router.pathname)
-        setCookiesLanguage(newLocale)
-        router.push('/signin', '/signin', {locale: newLocale}).catch(r => console.log(r))
-        setLang(newLang)
-    }
 
     if (lang !== null)
         return (
@@ -151,13 +67,13 @@ export default function Signin() {
                             email={email}
                             password={password}
                             setPassword={setPassword}
-                            changeTheme={changeTheme}
-                            changeLang={changeLang}
                             lang={lang}
                             locale={router.locale}
-                            authenticate={authenticate}
                             setVisible={setVisible}
                             visible={visible}
+                            router={router}
+                            setDark={setDark}
+                            setLang={setLang}
                         />
                     </div>
                 </ThemeProvider>

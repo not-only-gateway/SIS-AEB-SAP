@@ -1,16 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import {Button} from '@material-ui/core';
 import Cookies from 'universal-cookie/lib';
-import {
-    ExitToAppRounded, ExtensionRounded,
-    GroupRounded,
-    HistoryRounded,
-    SettingsRounded,
-    SupervisorAccount,
-    SupervisorAccountRounded
-} from '@material-ui/icons';
+import {ExitToAppRounded, ExtensionRounded, SettingsRounded, SupervisorAccountRounded} from '@material-ui/icons';
 import styles from '../../../styles/components/navigation/Bar.module.css'
-import {buttonStyle, iconStyle, logoStyle, secondaryButtonStyle} from '../../../styles/components/navigation/BarMaterialStyles';
+import {
+    buttonStyle,
+    iconStyle,
+    logoStyle,
+    secondaryButtonStyle
+} from '../../../styles/components/navigation/BarMaterialStyles';
 import en from '../../../locales/navigation/NavigationEN';
 import es from '../../../locales/navigation/NavigationES';
 import pt from '../../../locales/navigation/NavigationPT';
@@ -18,7 +16,8 @@ import Link from 'next/link'
 import {getLogo} from '../../../utils/shared/Theme';
 import SimpleProfileCardLayout from '../layout/SimpleProfileCardLayout';
 import PropTypes from 'prop-types'
-import {readProfile} from "../../../utils/IndexedDB";
+import {readProfile} from "../../../utils/shared/IndexedDB";
+
 
 const cookies = new Cookies()
 

@@ -1,14 +1,11 @@
 import styles from "../../styles/components/form/Form.module.css";
-import {Accordion, AccordionDetails, AccordionSummary, Modal} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import Cookies from "universal-cookie/lib";
 import PropTypes from "prop-types";
-import {AddRounded, ExpandMoreRounded} from "@material-ui/icons";
+import {AddRounded} from "@material-ui/icons";
 import CollaborationForm from "./CollaborationForm";
 import AccordionLayout from "../shared/layout/AccordionLayout";
-import {fetchPersonData} from "../../utils/person/Data";
-
-const cookies = new Cookies()
+import fetchComponentData from "../../utils/person/FetchData";
 
 export default function Collaborations(props) {
 
@@ -16,7 +13,7 @@ export default function Collaborations(props) {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        fetchPersonData({
+        fetchComponentData({
             path: 'collaborations',
             params: {id: props.id}
         }).then(res => {
@@ -59,7 +56,7 @@ export default function Collaborations(props) {
                                 <p>New Collaboration</p>
                             </div>
                         }
-                        disabled={props.disabled}
+                        disabled={props.visible}
                         openSize={40}
                         closedSize={12.66667}
                     />
@@ -90,7 +87,7 @@ export default function Collaborations(props) {
                               }}>{collaboration.role.denomination} - {collaboration.linkage.description}</p>
                           </div>
                         }
-                        disabled={props.disabled}
+                        disabled={props.visible}
                         openSize={40}
                         closedSize={12.66667}
                     />
@@ -105,7 +102,8 @@ export default function Collaborations(props) {
 
 Collaborations.propTypes = {
     dark: PropTypes.bool,
-    disabled: PropTypes.bool,
+    visible: PropTypes.bool,
+    editable: PropTypes.bool,
     id: PropTypes.number,
     getTitle: PropTypes.func
 }
