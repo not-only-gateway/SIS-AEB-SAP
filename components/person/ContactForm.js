@@ -28,7 +28,7 @@ export default function ContactForm(props) {
     }, [])
 
     async function fetchData() {
-        await fetchComponentData({path: 'person/contact', params: {id: props.id}}).then(res => {
+        await fetchComponentData({path: 'contact/'+props.id, params: {}}).then(res => {
             if (res !== null) {
                 setEmail(res.email)
                 setEmailAlt(res.email_alt)
@@ -42,7 +42,7 @@ export default function ContactForm(props) {
 
     async function saveChanges() {
         await saveComponentChanges({
-            path: 'person/contact',
+            path: 'contact/'+props.id,
             params: {
                 id: props.id,
                 email: email.toLowerCase(),

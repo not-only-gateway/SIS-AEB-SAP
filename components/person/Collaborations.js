@@ -56,12 +56,12 @@ export default function Collaborations(props) {
                                 <p>New Collaboration</p>
                             </div>
                         }
-                        disabled={props.visible}
+                        disabled={!props.editable}
                         openSize={40}
                         closedSize={12.66667}
                     />
                 }
-                {collaborations.map(collaboration => (
+                {props.editable ? collaborations.map(collaboration => (
                     <AccordionLayout
                         content={
                             <div style={{backgroundColor: !props.dark ? 'white' : '#303741'}}>
@@ -87,12 +87,14 @@ export default function Collaborations(props) {
                               }}>{collaboration.role.denomination} - {collaboration.linkage.description}</p>
                           </div>
                         }
-                        disabled={props.visible}
+                        disabled={false}
                         openSize={40}
                         closedSize={12.66667}
                     />
 
-                ))}
+                )):
+                null
+                }
             </div>
 
         )

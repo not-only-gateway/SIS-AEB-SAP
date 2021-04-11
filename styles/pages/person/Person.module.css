@@ -13,3 +13,19 @@
     display: grid;
     gap: 2vh;
 }
+
+.simplified_profile_container{
+    border-radius: 8px;
+    width: 13vw;
+
+    height: 6vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    transition: .3s;
+}

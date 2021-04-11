@@ -145,22 +145,22 @@ export default function person() {
                                             value: 'Basic'
                                         },
                                         {
-                                            disabled: accessProfile !== null ? accessProfile.canViewDocuments: true,
+                                            disabled: accessProfile !== null ? !accessProfile.canViewDocuments: true,
                                             key: 2,
                                             value: 'documents'
                                         },
                                         {
-                                            disabled: accessProfile !== null ? accessProfile.canViewContact: true,
+                                            disabled: accessProfile !== null ? !accessProfile.canViewContact: true,
                                             key: 3,
                                             value: 'contact'
                                         },
                                         {
-                                            disabled: accessProfile !== null ? accessProfile.canViewLocation: true,
+                                            disabled: accessProfile !== null ? !accessProfile.canViewLocation: true,
                                             key: 4,
                                             value: 'address'
                                         },
                                         {
-                                            disabled: accessProfile !== null ? accessProfile.canViewCollaboration: true,
+                                            disabled: accessProfile !== null ? !accessProfile.canViewCollaboration: true,
                                             key: 5,
                                             value: 'collaborations'
                                         }

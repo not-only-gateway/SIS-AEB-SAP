@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import InputLayout from "../shared/layout/InputLayout";
 import saveComponentChanges from "../../utils/person/SaveChanges";
+import fetchComponentData from "../../utils/person/FetchData";
 
 export default function DocumentsForm(props) {
 
@@ -41,7 +42,7 @@ export default function DocumentsForm(props) {
     }, [])
 
     async function fetchData() {
-        await props.fetchData('person/documents', {id: props.id}).then(res => {
+        await fetchComponentData({path: 'documents/' + props.id, params: {}}).then(res => {
             if (res !== null) {
                 setCpf(res.cpf)
                 setRg(res.rg)
@@ -62,9 +63,8 @@ export default function DocumentsForm(props) {
 
     async function saveChanges() {
         await saveComponentChanges({
-            path: 'person/documents',
+            path: 'documents/' + props.id,
             params: {
-                id: props.id,
                 cpf: cpf,
                 rg: rg,
                 dispatch_date: dispatchDate.getDate(),

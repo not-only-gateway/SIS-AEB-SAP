@@ -8,7 +8,7 @@ export async function startDatabase() {
 
     userDB.version(1).stores({
         profile: '++,id, corporateEmail, name, birth, pic',
-        collaboration: '++,id, unityAcronym, unityID',
+        collaboration: '++,id, unitAcronym, unitID',
         accessProfile: '++, ' +
             'id,' +
             ' denomination,' +
@@ -90,16 +90,16 @@ export async function setCollaboration(props) {
         if (collaboration)
             collaboration.add({
                 id: props.id,
-                unityAcronym: props.unityAcronym,
-                unityID: props.unityID,
+                unitAcronym: props.unitAcronym,
+                unitID: props.unitID,
             }).catch(error => console.log(error))
     }).catch(error => console.log(error))
 }
 
 setCollaboration.propTypes = {
     id: PropTypes.number,
-    unityAcronym: PropTypes.string,
-    unityID: PropTypes.number,
+    unitAcronym: PropTypes.string,
+    unitID: PropTypes.number,
 }
 
 export async function readCollaboration() {

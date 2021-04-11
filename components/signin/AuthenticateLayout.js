@@ -136,7 +136,7 @@ AuthenticateLayout.propTypes = {
     setPassword: PropTypes.func,
     visible: PropTypes.bool,
     setVisible: PropTypes.func,
-    router: PropTypes.func,
+    router: PropTypes.object,
     setDark: PropTypes.func,
     setLang: PropTypes.func
 }

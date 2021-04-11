@@ -1,19 +1,15 @@
 import styles from '../../styles/pages/index/Index.module.css'
 import {Avatar, Button} from "@material-ui/core";
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {CakeRounded, WarningRounded} from "@material-ui/icons";
-import Cookies from "universal-cookie/lib";
-
 import Link from 'next/link'
 import PropTypes from 'prop-types'
+import {router} from "next/client";
 
-const cookies = new Cookies()
 
 export default function PersonCard(props) {
 
     const [hovered, setHovered] = useState(false)
-
-
 
     function renderContent() {
         const borderBottom = {borderBottom: !props.dark ? '#e2e2e2 1px solid' : '#777777 1px solid'}
@@ -57,7 +53,6 @@ export default function PersonCard(props) {
                 borderRadius: '8px'
             }}
         >
-            {renderModal()}
             <Link href={{pathname: '/person', query: {id: props.profile.id}}}>
                 <Button style={{
                     height: '25vh',
@@ -70,16 +65,16 @@ export default function PersonCard(props) {
                 </Button>
             </Link>
             {props.collaboration !== null ?
-
-                <Button style={{
-                    borderTop: !props.dark ? '#e2e2e2 1px solid' : '#777777 1px solid',
-                    borderBottomRightRadius: '8px',
-                    borderBottomLeftRadius: '8px', width: '100%'
-                }} disabled={true}
-                >
-
-                    {props.collaboration.unit.acronym} - {props.collaboration.unit.name}
-                </Button>
+                <Link href={{pathname: '/unit', query: {id: props.unit.id}}}>
+                    <Button style={{
+                        borderTop: !props.dark ? '#e2e2e2 1px solid' : '#777777 1px solid',
+                        borderBottomRightRadius: '8px',
+                        borderBottomLeftRadius: '8px', width: '100%'
+                    }}
+                    >
+                        {props.unit.acronym} - {props.unit.name}
+                    </Button>
+                </Link>
                 :
                 <div className={styles.inactive_container}>
                     <WarningRounded style={{color:(!props.dark ? '#555555' : '#ededed')}}/>
@@ -91,7 +86,8 @@ export default function PersonCard(props) {
 
     )
 }
-PersonCard.proptypes = {
+
+PersonCard.proptypes={
     dark: PropTypes.bool,
     profile: PropTypes.object,
     collaboration: PropTypes.object,

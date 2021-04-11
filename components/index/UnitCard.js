@@ -107,7 +107,7 @@ export default function UnitCard(props) {
 
     )
 }
-unitCard.proptypes = {
+UnitCard.proptypes = {
     dark: PropTypes.bool,
     unit: PropTypes.object,
     highestCollaborator: PropTypes.object,

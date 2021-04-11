@@ -10,9 +10,9 @@ export default async function signIn(props) {
     try {
         await axios({
             method: 'post',
-            url: Host() + 'auth',
+            url: Host() + 'access_log',
             data: {
-                email: props.email,
+                corporate_email: props.email,
                 password: props.password,
                 ip: localIpUrl('public'),
                 platform: navigator.platform,
@@ -37,8 +37,8 @@ export default async function signIn(props) {
                 if (res.data.collaboration !== undefined && res.data.collaboration !== null){
                     await setCollaboration({
                         id: res.data.collaboration.id,
-                        unityAcronym: res.data.collaboration.unity.acronym,
-                        unityID: res.data.collaboration.unity.id
+                        unitAcronym: res.data.unit.acronym,
+                        unitID: res.data.unit.id
                     }).catch(error => console.log(error))
                     await setAccessProfile({
                         id: res.data.access_profile.id,

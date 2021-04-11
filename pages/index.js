@@ -60,10 +60,11 @@ export default function Index() {
                         <div className={styles.personas_container}>
                             {!loading ?
                                 data.length > 0 ?
-                                    option !== 'unities' ? data.map(person =>
+                                    option !== 'unities' ? data.map(collaborator =>
                                             <PersonCard
-                                                profile={person.profile}
-                                                collaboration={person.collaboration}
+                                                profile={collaborator.profile}
+                                                collaboration={collaborator.collaboration}
+                                                unit={collaborator.unit}
                                                 canEdit={canEdit}
                                                 dark={props.dark}
                                                 inactiveLocale={lang.inactive}

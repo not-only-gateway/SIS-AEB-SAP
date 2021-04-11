@@ -20,7 +20,7 @@ export default function InputLayout(props) {
                                              props.setChanged(true)
                                      }}
                                      required={props.required}
-                                     error={props.required === true && (props.initialValue === null || props.initialValue.length === 0)}
+                                     error={props.required === true && (props.initialValue === null || props.initialValue === undefined || props.initialValue.length === 0)}
                     />
                 </div>
             )
@@ -31,7 +31,7 @@ export default function InputLayout(props) {
                 <div key={ props.key } style={{width: props.size + '%', marginBottom: props.margin === false  ? null : '2vh'}}  >
                     <FormControl variant="outlined" disabled={props.disabled}
                                   style={{backgroundColor: (!props.dark ? '#f7f8fa' : '#272e38'),width: '100%'}} required={props.required}
-                                  error={props.required && (props.initialValue === null || props.initialValue.length === 0)}>
+                                 error={props.required === true && (props.initialValue === null || props.initialValue === undefined || props.initialValue.length === 0)}>
                         <InputLabel id={props.inputName.replace(' ', '')}>{props.inputName}</InputLabel>
                         <Select
 
@@ -75,6 +75,7 @@ export default function InputLayout(props) {
                                 id={props.inputName.replace(' ', '')}
                                 disabled={props.disabled}
                                 label={props.inputName}
+                                error={props.required === true && (props.initialValue === null || props.initialValue === undefined || props.initialValue.length === 0)}
                                 format="dd/MM/yyyy"
                                 value={props.initialValue}
                                 onChange={event => {
@@ -103,6 +104,7 @@ export default function InputLayout(props) {
                             label={props.inputName}
                             type="time"
                             disabled={props.disabled}
+                            error={props.required === true && (props.initialValue === null || props.initialValue === undefined || props.initialValue.length === 0)}
                             value={props.initialValue}
                             onChange={event => {
                                 props.handleChange(event.target.value)

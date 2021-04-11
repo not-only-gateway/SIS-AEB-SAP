@@ -11,21 +11,20 @@ export default function BaseForm(props) {
 
     const [loading, setLoading] = useState(true)
     const [changed, setChanged] = useState(false)
-    const [name, setName] = useState('')
-    const [birth, setBirth] = useState('')
-    const [education, setEducation] = useState('')
-    const [gender, setGender] = useState('')
-    const [marital, setMarital] = useState('')
-    const [extension, setExtension] = useState('')
-    const [registration, setRegistration] = useState('')
-    const [corporateEmail, setCorporateEmail] = useState('')
-    const [mother, setMother] = useState('')
-    const [father, setFather] = useState('null')
+    const [name, setName] = useState(null)
+    const [birth, setBirth] = useState(null)
+    const [education, setEducation] = useState(null)
+    const [gender, setGender] = useState(null)
+    const [marital, setMarital] = useState(null)
+    const [extension, setExtension] = useState(null)
+    const [registration, setRegistration] = useState(null)
+    const [corporateEmail, setCorporateEmail] = useState(null)
+    const [mother, setMother] = useState(null)
+    const [father, setFather] = useState(null)
     const [disabledPerson, setDisabledPerson] = useState(null)
-    const [birthPlace, setBirthPlace] = useState('')
-    const [pic, setPic] = useState('')
-    const [nationality, setNationality] = useState('')
-    const [admin, setAdmin] = useState(null)
+    const [birthPlace, setBirthPlace] = useState(null)
+    const [pic, setPic] = useState(null)
+    const [nationality, setNationality] = useState(null)
 
     useEffect(() => {
         fetchData().catch(error => console.log(error))
@@ -33,7 +32,7 @@ export default function BaseForm(props) {
 
     async function fetchData() {
         await fetchComponentData(
-            {path: 'person', params: {id: props.id}}
+            {path: 'person/' + props.id, params: {}}
         ).then(res => {
             if (res !== null) {
                 setName(res.name)
@@ -50,21 +49,22 @@ export default function BaseForm(props) {
                 setBirthPlace(res.birth_place)
                 setPic(res.pic)
                 setNationality(res.nationality)
-                setAdmin(res.is_administrator)
             }
         })
         setLoading(false)
     }
+
     function capitalizeFirstLetter(string) {
         if (string !== null)
             return string.replace(/^./, string[0].toUpperCase());
     }
+
     async function saveChanges() {
-        saveComponentChanges({
-            path: 'person',
+        await saveComponentChanges({
+            path: 'person/' + props.id,
             params: {
                 id: props.id,
-                    pic: pic,
+                pic: pic,
                 name: capitalizeFirstLetter(name),
                 birth: birth,
                 birth_place: birthPlace?.toUpperCase(),
@@ -77,34 +77,33 @@ export default function BaseForm(props) {
                 father_name: capitalizeFirstLetter(father),
                 mother_name: capitalizeFirstLetter(mother),
                 disabled_person: disabledPerson,
-                nationality:  nationality?.toUpperCase(),
-                is_administrator: admin
+                nationality: nationality?.toUpperCase(),
             },
             method: 'put'
-            }).then(res => res ? setChanged(false) : console.log(res))
+        }).then(res => res ? setChanged(false) : console.log(res))
     }
 
     function disabled() {
         return (
-            name.length === 0 ||
-            father.length === 0 ||
-            mother.length === 0 ||
-            nationality.length === 0 ||
-            birthPlace.length === 0 ||
-            birth.length === 0 ||
+            name === null ||
+            father === null ||
+            mother === null ||
+            nationality === null ||
+            birthPlace === null ||
+            birth === null ||
             disabledPerson === null ||
-            education.length === 0 ||
-            gender.length === 0 ||
-            marital.length === 0 ||
-            corporateEmail.length === 0 ||
-            extension.length === 0 ||
+            education === null ||
+            gender === null ||
+            marital === null ||
+            corporateEmail === null ||
+            extension === null ||
             changed === false
         )
     }
 
     if (!loading)
         return (
-            <div className={styles.form_component_container} >
+            <div className={styles.form_component_container}>
                 {props.getTitle({
                     pageName: null,
                     pageTitle: 'Basic',
@@ -118,7 +117,7 @@ export default function BaseForm(props) {
                                  disabled={!props.editable} size={85} required={true} initialValue={name}
                                  key={"1-1"} setChanged={setChanged} margin={false}/>
                 </div>
-                <div className={styles.form_component_container} style={{width:'45vw'}}>
+                <div className={styles.form_component_container} style={{width: '45vw'}}>
 
                     <InputLayout inputName={props.lang.corporateEmail} dark={props.dark}
                                  handleChange={setCorporateEmail}
@@ -130,10 +129,6 @@ export default function BaseForm(props) {
                     <InputLayout inputName={props.lang.registration} dark={props.dark} handleChange={setRegistration}
                                  inputType={0} disabled={!props.editable} size={32} required={false}
                                  initialValue={registration} key={"1-14"} setChanged={setChanged}/>
-                    <InputLayout inputName={props.lang.admin} dark={props.dark} handleChange={setAdmin} inputType={1}
-                                 disabled={!props.editable} size={32} required={true} initialValue={admin}
-                                 selectFields={props.lang.choice}
-                                 key={"1-2"} setChanged={setChanged}/>
                     <InputLayout inputName={props.lang.nationality} dark={props.dark} handleChange={setNationality}
                                  inputType={0}
                                  disabled={!props.editable} size={32} required={true} initialValue={nationality}
@@ -146,12 +141,12 @@ export default function BaseForm(props) {
                     <InputLayout inputName={props.lang.disabledPerson} dark={props.dark}
                                  handleChange={setDisabledPerson}
                                  inputType={1}
-                                 disabled={!props.editable} size={32} required={true} initialValue={disabledPerson}
+                                 disabled={!props.editable} size={49} required={true} initialValue={disabledPerson}
                                  selectFields={props.lang.choice}
                                  key={"1-8"} setChanged={setChanged}/>
 
                     <InputLayout inputName={props.lang.gender} dark={props.dark} handleChange={setGender} inputType={1}
-                                 disabled={!props.editable} size={32} required={true} initialValue={gender}
+                                 disabled={!props.editable} size={49} required={true} initialValue={gender}
                                  selectFields={props.lang.genderChoice}
                                  key={"1-10"} setChanged={setChanged}/>
                 </div>

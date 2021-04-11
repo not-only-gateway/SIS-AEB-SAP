@@ -16,6 +16,8 @@ import {BackspaceRounded, MenuRounded, SearchRounded} from "@material-ui/icons";
 import React, {useEffect, useState} from "react";
 import Host from "../../utils/shared/Host";
 import makeRequest from "../../utils/shared/Request";
+import axios from "axios";
+import Cookies from "universal-cookie/lib";
 
 export default function IndexComponent(props) {
     const [search, setSearch] = useState(null)
@@ -47,20 +49,19 @@ export default function IndexComponent(props) {
 
     async function fetchData() {
         props.setData([])
-        await makeRequest({
-            package: null,
+
+        await axios({
             method: 'get',
-            url: props.option,
-            host: Host()
-        }).then(response => {
-            if (response.error){
-                // setError(true)
-                // setErrorMessage(response.errorMessage)
-                console.log('Error')
-            }
-            else
-                props.setData(response.data)
+            url: Host() + props.option,
+            headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
+            params: props.params
+        }).then(res => {
+            console.log(res)
+            props.setData(res.data)
+        }).catch(error => {
+            console.log(error)
         })
+
         props.setLoading(false)
     }
 

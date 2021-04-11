@@ -7,7 +7,7 @@ export default async function signOut() {
     try {
         await axios({
             method: 'delete',
-            url: Host() + 'auth',
+            url: Host() + 'access_log',
             headers: {'authorization': (new Cookies()).get('jwt')}
         }).then(() => {
             ClearStorage().catch(e => console.log(e))
