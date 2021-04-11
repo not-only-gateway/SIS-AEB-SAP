@@ -1,0 +1,15 @@
+
+.title_container{
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    align-content: space-between;
+
+    margin: 2vh auto;
+    width: 50%;
+}
+
+.content_container{
+    display: grid;
+    gap: 2vh;
+}

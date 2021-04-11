@@ -1,12 +1,14 @@
-import styles from "../../styles/form/Form.module.css";
+import styles from "../../styles/components/form/Form.module.css";
 import {Button} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import InputLayout from "../shared/layout/InputLayout";
 import PropTypes from "prop-types";
 import ContactForm from "./ContactForm";
+import {fetchPersonData} from "../../utils/person/Data";
 
 export default function CollaborationForm(props) {
 
+    const [unitID, setUnitID] = useState(null)
     const [units, setUnits] = useState([])
     const [roles, setRoles] = useState([])
     const [linkages, setLinkages] = useState([])
@@ -16,7 +18,6 @@ export default function CollaborationForm(props) {
     const [admissionDate, setAdmissionDate] = useState('')
     const [legalDocument, setLegalDocument] = useState('')
     const [activeRole, setActiveRole] = useState(null)
-    const [unitID, setUnitID] = useState(null)
     const [roleID, setRoleID] = useState(null)
     const [linkageID, setLinkageID] = useState(null)
     const [substitute, setSubstitute] = useState(null)
@@ -60,7 +61,10 @@ export default function CollaborationForm(props) {
 
     useEffect(() => {
             if (props.collaborationID !== null) {
-                props.fetchData('collaborator', {collaboration_id: props.collaborationID}).then(res => {
+                fetchPersonData({
+                    path: 'collaborator',
+                    params: {collaboration_id: props.collaborationID}
+                }).then(res => {
                         if (res !== null) {
                             setSeniorID(res.senior !== null ? res.senior.id : null)
                             setRoleID(res.role.id)
@@ -191,7 +195,7 @@ export default function CollaborationForm(props) {
     if (!loading)
         return (
             <div className={styles.form_component_container}  style={{width: '38vw'}}>
-                <InputLayout inputName={'unit'} dark={props.dark} handleChange={setUnitID} inputType={1}
+                <InputLayout inputName={'Unit'} dark={props.dark} handleChange={setUnitID} inputType={1}
                              disabled={props.disabled} size={32} required={true} initialValue={unitID}
                              selectFields={mapToSelect(0)} key={'2-1'} setChanged={setChanged}/>
 

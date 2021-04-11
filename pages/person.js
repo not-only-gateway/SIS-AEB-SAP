@@ -6,14 +6,14 @@ import {useRouter} from "next/router";
 import Collaborations from "../components/person/Collaborations";
 import {ThemeProvider} from "@material-ui/styles";
 import axios from "axios";
-import Host from "../utils/Host";
+import Host from "../utils/shared/Host";
 import BaseForm from "../components/person/BaseForm";
 import ContactForm from "../components/person/ContactForm";
 import AddressForm from "../components/shared/form/AddressForm";
 import DocumentsForm from "../components/person/DocumentsForm";
-import {getLanguage} from "../utils/Language";
+import {getLanguage} from "../utils/shared/Language";
 import AccordionLayout from "../components/shared/layout/AccordionLayout";
-import styles from '../styles/Profile.module.css'
+import styles from '../styles/pages/person/Person.module.css'
 import TabLayout from "../components/shared/layout/TabLayout";
 import Head from "next/head";
 
@@ -40,37 +40,7 @@ export default function person() {
             setLang(getLanguage(router.locale, router.pathname))
     }, [router.locale, router.isReady])
 
-    async function fetchData(path, params) {
-        let response = null
-        await axios({
-            method: 'get',
-            url: Host() + path,
-            headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
-            params: params
-        }).then(res => {
-            response = res.data
-        }).catch(error => {
-            console.log(error)
-        })
 
-        return response
-    }
-
-    async function saveChanges(path, params, method) {
-        let response = false
-
-        await axios({
-            method: method,
-            url: Host() + path,
-            headers: {'authorization': cookies.get('jwt')},
-            data: params
-        }).then(() => {
-            response = true
-        }).catch(error => {
-            console.log(error)
-        })
-        return response
-    }
     const getTitle = (props) => {
         return (
             <div style={{marginBottom: '2vh'}}>
@@ -81,6 +51,7 @@ export default function person() {
             </div>
         )
     }
+
     if (lang !== null && router.isReady)
         return (
             <Layout>
@@ -92,7 +63,7 @@ export default function person() {
                     })}>
                         <props.getTitle pageName={lang.main.profile} pageTitle={lang.main.profile} pageInfo={lang.main.information}/>
                         {id !== undefined ?
-                            <div className={styles.accordion_container}>
+                            <div className={styles.content_container}>
 
                                 <TabLayout
                                     dark={dark}
@@ -105,8 +76,6 @@ export default function person() {
                                                 <BaseForm
                                                     id={id}
                                                     getTitle={getTitle}
-                                                    saveChanges={saveChanges}
-                                                    fetchData={fetchData}
                                                     dark={dark}
                                                     disabled={disabled}
                                                     lang={lang.basic}
@@ -119,8 +88,6 @@ export default function person() {
                                                 <DocumentsForm
                                                     id={id}
                                                     getTitle={getTitle}
-                                                    saveChanges={saveChanges}
-                                                    fetchData={fetchData}
                                                     dark={dark}
                                                     disabled={disabled}
                                                     // locale={lang.documents}
@@ -133,8 +100,6 @@ export default function person() {
                                                 <ContactForm
                                                     id={id}
                                                     getTitle={getTitle}
-                                                    saveChanges={saveChanges}
-                                                    fetchData={fetchData}
                                                     dark={dark}
                                                     disabled={disabled}
                                                     // locale={lang.contact}
@@ -147,8 +112,6 @@ export default function person() {
                                                 <AddressForm
                                                     id={id}
                                                     getTitle={getTitle}
-                                                    saveChanges={saveChanges}
-                                                    fetchData={fetchData}
                                                     dark={dark}
                                                     disabled={disabled}
                                                     // locale={lang.basic}
@@ -161,8 +124,6 @@ export default function person() {
                                                 <Collaborations
                                                     id={id}
                                                     getTitle={getTitle}
-                                                    saveChanges={saveChanges}
-                                                    fetchData={fetchData}
                                                     dark={dark}
                                                     disabled={disabled}
                                                     locale={lang.collaborations}

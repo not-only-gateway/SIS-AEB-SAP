@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
-import shared from "../../styles/Shared.module.css";
-import styles from "../../styles/Activity.module.css";
+import shared from "../../styles/shared/Shared.module.css";
+import styles from "../../styles/pages/activity/Activity.module.css";
 import InputLayout from "../shared/layout/InputLayout";
 import {Button, Divider} from "@material-ui/core";
 import React from "react";
+import fetchActivityData from "../../utils/activity/FetchData";
 
 export default function ActivityFilterComponent(props){
     return(
@@ -43,7 +44,22 @@ export default function ActivityFilterComponent(props){
                 />
                 <Button disabled={!props.changed} onClick={() => {
                     props.setChanged(false)
-                    props.fetchData(1)
+                    fetchActivityData({
+                        type: 1,
+                        setLastFetchedSize: props.lastFetchSize,
+                        setData: props.setResponseData,
+                        data: props.data,
+                        setMaxID: props.setMaxID,
+                        maxID: props.maxID,
+                        setError: props.setError,
+                        setErrorMessage: props.setErrorMessage,
+                        thisMachine: props.thisMachine,
+                        startDate: props.startDate,
+                        method: props.method,
+                        path: props.path,
+                        setLastFetchSize: props.setLastFetchSize
+                    }).catch(error => console.log(error))
+
                 }}>
                     filter
                 </Button>
@@ -56,14 +72,16 @@ ActivityFilterComponent.propTypes={
     changed: PropTypes.bool,
     dark: PropTypes.bool,
     lang: PropTypes.object,
-    fetchData: PropTypes.func,
     setChanged: PropTypes.func,
     thisMachine: PropTypes.bool,
     setThisMachine: PropTypes.bool,
     method: PropTypes.string,
     setMethod: PropTypes.func,
     setStartDate: PropTypes.func,
+    setResponseData: PropTypes.func,
+    lastFetchSize: PropTypes.any,
     startDate: PropTypes.string,
     path: PropTypes.string,
-    setPath: PropTypes.func
+    setPath: PropTypes.func,
+    setLastFetchSize: PropTypes.func
 }

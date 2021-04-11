@@ -1,17 +1,20 @@
 import Layout from "../components/shared/layout/Layout";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import styles from '../styles/index/Index.module.css'
+import styles from '../styles/pages/index/Index.module.css'
 import PersonCard from "../components/index/PersonCard";
 import {createMuiTheme, ThemeProvider} from "@material-ui/core";
 import axios from "axios";
-import Host from "../utils/Host";
+import Host from "../utils/shared/Host";
 import {Skeleton} from "@material-ui/lab";
 import Cookies from "universal-cookie/lib";
-import {getLanguage} from "../utils/Language";
+import {getLanguage} from "../utils/shared/Language";
 import IndexComponent from "../components/index/IndexComponent";
 import UnityCard from "../components/index/UnitCard";
-import shared from '../styles/Shared.module.css'
+import shared from '../styles/shared/Shared.module.css'
+import getPageInfo from "../utils/index/GetPageInfo";
+import PropTypes from "prop-types";
+
 export default function Index() {
 
     const router = useRouter()
@@ -32,28 +35,6 @@ export default function Index() {
             setLang(getLanguage(router.locale, router.pathname))
     }, [router.locale])
 
-    const getPageInfo = () => {
-        let response = null
-        switch (option) {
-            case 'collaborators': {
-
-                response = lang.info1
-                break
-            }
-            case 'unities': {
-                response = lang.info2
-                break
-            }
-            case 'people': {
-                response = lang.info3
-                break
-            }
-            default:
-                break
-        }
-        return response
-    }
-
     if (lang !== null)
         return (
             <Layout>
@@ -67,7 +48,12 @@ export default function Index() {
                         <div className={shared.header_container}
                              style={{backgroundColor: props.dark ? '#303741' : 'white'}}>
                             <props.getTitle pageName={lang.extensions} pageTitle={lang.extensions}
-                                            pageInfo={getPageInfo()}/>
+                                            pageInfo={getPageInfo({
+                                                info1: lang.info1,
+                                                info2: lang.info2,
+                                                info3: lang.info3,
+                                                option: option
+                                            })}/>
 
                             <IndexComponent dark={props.dark} setData={setData} setOption={setOption}
                                             option={option} lang={lang} setLoading={setLoading}
@@ -91,7 +77,6 @@ export default function Index() {
                                             <UnityCard dark={props.dark}
                                                        unity={unity.unity}
                                                        collaborators={unity.collaborators}
-                                                       highestCollaborator={unity.highest_collaborator}
                                                        canEdit={canEdit}/>
                                         )
                                     :

@@ -1,22 +1,23 @@
 import Layout from "../components/shared/layout/Layout";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import {getLanguage} from "../utils/Language";
+import {getLanguage} from "../utils/shared/Language";
 import Cookies from "universal-cookie/lib";
 import AccordionLayout from "../components/shared/layout/AccordionLayout";
-import styles from '../styles/Activity.module.css'
+import styles from '../styles/pages/activity/Activity.module.css'
 import axios from "axios";
-import Host from "../utils/Host";
+import Host from "../utils/shared/Host";
 import localIpUrl from "local-ip-url";
 import {Button, Divider} from "@material-ui/core";
-import shared from '../styles/Shared.module.css'
+import shared from '../styles/shared/Shared.module.css'
 import InputLayout from "../components/shared/layout/InputLayout";
 import ActivityComponent from "../components/activity/Activity";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {Skeleton} from "@material-ui/lab";
-import makeRequest from "../utils/Request";
+import makeRequest from "../utils/shared/Request";
 import PropTypes from "prop-types";
 import ActivityFilterComponent from "../components/activity/ActivityFilter";
+import fetchActivityData from "../utils/activity/FetchData";
 
 export default function Activity() {
 
@@ -33,76 +34,21 @@ export default function Activity() {
     const [error, setError] = useState(false)
     const [errorMessage, setErrorMessage] = useState(null)
 
-    async function fetchData(type) {
-        await makeRequest({
-            package: {
-                start_date: startDate !== null ? startDate.getTime() : null,
-                ip: thisMachine ? localIpUrl('public') : null,
-                method: method,
-                path: path,
-                max_id: type === 1 ? null : maxID
-            },
-            method: 'get',
-            url: 'activity',
-            host: Host()
-        }).then(response => {
-
-            if (response.error) {
-                setError(true)
-                setErrorMessage(response.errorMessage)
-            } else {
-               switch (type){
-                   case 0: {
-                       setData([...data, ...response.data])
-                       if (response.data.length > 0)
-                           setMaxID(response.data[response.data.length - 1].id)
-                       setLastFetchSize(response.data.length)
-                       break
-                   }
-                   case 1:{
-
-                       setData(response.data)
-                       if (response.data.length > 0)
-                           setMaxID(response.data[response.data.length - 1].id)
-                       setLastFetchSize(response.data.length)
-                       break
-                   }
-                   default: console.log(type)
-               }
-
-            }
-        })
-    }
-
-    function getMethodColor(method) {
-        let response = null
-
-        switch (method) {
-            case 'GET': {
-                response = '#249a44'
-                break
-            }
-            case 'POST': {
-                response = '#f2ac04'
-                break
-            }
-            case 'PUT': {
-                response = '#0c74da'
-                break
-            }
-            case 'DELETE': {
-                response = '#e62214'
-                break
-            }
-            default:
-                break
-        }
-
-        return response
-    }
-
     useEffect(() => {
-        fetchData(1).catch(error => console.log(error))
+        fetchActivityData({
+            type: 1,
+            setLastFetchedSize: lastFetchSize,
+            setData: setData,
+            data: data,
+            setMaxID: setMaxID,
+            maxID: maxID,
+            setError: setError,
+            setErrorMessage: setErrorMessage,
+            thisMachine: thisMachine,
+            startDate: startDate,
+            method: method,
+            path: path
+        }).catch(error => console.log(error))
 
         const currentLocale = (new Cookies()).get('lang')
 
@@ -126,13 +72,29 @@ export default function Activity() {
                                                      setChanged={setChanged} setPath={setPath}
                                                      setMethod={setMethod} setStartDate={setStartDate}
                                                      setThisMachine={setThisMachine} method={method}
-                                                     thisMachine={thisMachine} fetchData={fetchData}/>
+                                                     thisMachine={thisMachine} setResponseData={setData}
+                                                     setLastFetchSize={setLastFetchSize}
+                                                     lastFetchSize={lastFetchSize}/>
                         </div>
                         <div className={styles.infinite_scroll_container}>
                             {data.length > 0 ?
                                 <InfiniteScroll
                                     dataLength={data.length} //This is important field to render the next data
-                                    next={() => fetchData(0)}
+                                    next={() => fetchActivityData({
+                                        type: 0,
+                                        setLastFetchedSize: lastFetchSize,
+                                        setData: setData,
+                                        data: data,
+                                        setMaxID: setMaxID,
+                                        maxID: maxID,
+                                        setError: setError,
+                                        setErrorMessage: setErrorMessage,
+                                        thisMachine: thisMachine,
+                                        startDate: startDate,
+                                        method: method,
+                                        path: path
+                                    }).catch(error => console.log(error))
+                                    }
                                     hasMore={lastFetchSize === 20 && data[data.length - 1].id > 0}
                                     inverse={false}
                                     scrollableTarget="scrollableDiv"
@@ -153,7 +115,7 @@ export default function Activity() {
                                     <div className={styles.activities_container}>
                                         {data.map(activity => (
                                             <ActivityComponent lang={lang} dark={props.dark} activity={activity}
-                                                               getColor={getMethodColor}/>
+                                            />
                                         ))}
                                     </div>
                                 </InfiniteScroll>

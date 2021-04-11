@@ -9,13 +9,13 @@ import {
     SupervisorAccount,
     SupervisorAccountRounded
 } from '@material-ui/icons';
-import styles from '../../../styles/bar/Bar.module.css'
-import {buttonStyle, iconStyle, logoStyle, secondaryButtonStyle} from '../../../styles/bar/BarMaterialStyles';
+import styles from '../../../styles/components/navigation/Bar.module.css'
+import {buttonStyle, iconStyle, logoStyle, secondaryButtonStyle} from '../../../styles/components/navigation/BarMaterialStyles';
 import en from '../../../locales/navigation/NavigationEN';
 import es from '../../../locales/navigation/NavigationES';
 import pt from '../../../locales/navigation/NavigationPT';
 import Link from 'next/link'
-import {getLogo} from '../../../utils/Theme';
+import {getLogo} from '../../../utils/shared/Theme';
 import SimpleProfileCardLayout from '../layout/SimpleProfileCardLayout';
 import PropTypes from 'prop-types'
 import {readProfile} from "../../../utils/IndexedDB";

@@ -1,10 +1,12 @@
 import AccordionLayout from "../shared/layout/AccordionLayout";
-import styles from "../../styles/Activity.module.css";
+import styles from "../../styles/pages/activity/Activity.module.css";
 import {Divider} from "@material-ui/core";
 import React from "react";
 import PropTypes from 'prop-types'
+import getMethodColor from "../../utils/activity/GetMethodColor";
 
 export default function ActivityComponent(props) {
+    const color = getMethodColor(props.activity.method)
     return (
         <AccordionLayout
             content={
@@ -46,7 +48,7 @@ export default function ActivityComponent(props) {
                         <p style={{
                             fontSize: '.9rem',
                             fontWeight: 420,
-                            color: props.getColor(props.activity.method)
+                            color: color
                         }}>{props.activity.method}</p>
                     </div>
 
@@ -109,7 +111,7 @@ export default function ActivityComponent(props) {
                 <div style={{display: 'flex'}}>
                     <p style={{
                         fontWeight: 500,
-                        color: props.getColor(props.activity.method) !== null ? props.getColor(props.activity.method) : null
+                        color: color
                     }}>{props.activity.method}</p>
                     <p style={{
                         marginRight: '10px',
@@ -121,14 +123,13 @@ export default function ActivityComponent(props) {
             }
             closedSize={22}
             openSize={45}
-            border={props.getColor(props.activity.method) !== null ? props.getColor(props.activity.method) + ' 2px solid' : null}
+            border={color !== null ? color + ' 2px solid' : null}
         />
     )
 }
 
 ActivityComponent.propTypes={
     dark: PropTypes.bool,
-    getColor: PropTypes.func,
     lang: PropTypes.object,
     activity: PropTypes.object
 }

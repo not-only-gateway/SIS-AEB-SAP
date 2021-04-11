@@ -1,12 +1,12 @@
 import Head from 'next/head'
 import Cookies from 'universal-cookie/lib'
-import styles from '../../styles/auth/Auth.module.css'
+import styles from '../../styles/pages/auththentication/Auth.module.css'
 import {Button, IconButton, InputBase, MenuItem, Paper, Select, TextField} from "@material-ui/core";
 import {VisibilityOffRounded, VisibilityRounded} from "@material-ui/icons";
 import {useEffect, useState} from "react";
 import Brightness7RoundedIcon from '@material-ui/icons/Brightness7Rounded';
 import Brightness3RoundedIcon from '@material-ui/icons/Brightness3Rounded';
-import {setTheme} from "../../utils/Theme";
+import {setTheme} from "../../utils/shared/Theme";
 import {ThemeProvider} from "@material-ui/styles";
 
 import en from "../../locales/signin/SignInEN";
@@ -18,7 +18,7 @@ import {
     inputStyle,
     paperStyle,
     secondaryButtonStyle
-} from "../../styles/auth/AuthMaterialStyles";
+} from "../../styles/pages/auththentication/AuthMaterialStyles";
 import PropTypes from 'prop-types'
 import React from 'react'
 

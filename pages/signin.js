@@ -1,18 +1,18 @@
 import localIpUrl from 'local-ip-url';
 import Cookies from 'universal-cookie/lib'
-import styles from '../styles/auth/Auth.module.css'
+import styles from '../styles/pages/auththentication/Auth.module.css'
 import {createMuiTheme, ThemeProvider} from "@material-ui/core";
-import {setThemeCookie} from "../utils/Theme";
+import {setThemeCookie} from "../utils/shared/Theme";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import axios from "axios";
-import Host from '../utils/Host'
-import ClearStorage from "../utils/ClearStorage";
+import Host from '../utils/shared/Host'
+import ClearStorage from "../utils/authentication/ClearStorage";
 import AuthenticationLayout from "../components/signin/AuthenticateLayout";
 import Head from "next/head";
-import {getLanguage, setCookiesLanguage} from "../utils/Language";
+import {getLanguage, setCookiesLanguage} from "../utils/shared/Language";
 import Dexie from "dexie";
-import {setCollaboration, setProfile, startDatabase} from "../utils/IndexedDB";
+import {setCollaboration, setProfile, startDatabase} from "../utils/shared/IndexedDB";
 
 const cookies = new Cookies()
 export default function Signin() {

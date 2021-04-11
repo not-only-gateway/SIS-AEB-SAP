@@ -1,8 +1,8 @@
 import Layout from "../components/shared/layout/Layout";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import shared from "../styles/Shared.module.css";
-import style from '../styles/Settings.module.css'
+import shared from "../styles/shared/Shared.module.css";
+import style from '../styles/pages/settings/Settings.module.css'
 import {
     Button,
     createMuiTheme,
@@ -14,11 +14,11 @@ import {
     Select,
     Snackbar
 } from "@material-ui/core";
-import {buttonStyle, iconStyle} from "../styles/bar/BarMaterialStyles";
+import {buttonStyle, iconStyle} from "../styles/components/navigation/BarMaterialStyles";
 import Brightness7RoundedIcon from "@material-ui/icons/Brightness7Rounded";
 import Brightness3RoundedIcon from "@material-ui/icons/Brightness3Rounded";
 import {ThemeProvider} from "@material-ui/styles";
-import {getLanguage, setCookiesLanguage} from "../utils/Language";
+import {getLanguage, setCookiesLanguage} from "../utils/shared/Language";
 import Cookies from "universal-cookie/lib";
 import InputLayout from "../components/shared/layout/InputLayout";
 import AccordionLayout from "../components/shared/layout/AccordionLayout";

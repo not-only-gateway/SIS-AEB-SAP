@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import styles from "../../styles/index/Index.module.css";
+import styles from "../../styles/pages/index/Index.module.css";
 import {
     Divider,
     FormControl,
@@ -11,12 +11,12 @@ import {
     Radio,
     RadioGroup
 } from "@material-ui/core";
-import {searchFieldStyle} from "../../styles/bar/BarMaterialStyles";
+import {searchFieldStyle} from "../../styles/components/navigation/BarMaterialStyles";
 import {BackspaceRounded, HomeRounded, MenuRounded, SearchRounded} from "@material-ui/icons";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import Host from "../../utils/Host";
-import makeRequest from "../../utils/Request";
+import Host from "../../utils/shared/Host";
+import makeRequest from "../../utils/shared/Request";
 import localIpUrl from "local-ip-url";
 
 export default function IndexComponent(props) {

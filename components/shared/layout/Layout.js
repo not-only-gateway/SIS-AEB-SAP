@@ -1,9 +1,9 @@
-import styles from '../../../styles/Layout.module.css'
+import styles from '../../../styles/components/layout/Layout.module.css'
 import Cookies from 'universal-cookie/lib'
 import Navigation from "../navigation/Navigation";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import {setThemeCookie} from "../../../utils/Theme";
+import {setThemeCookie} from "../../../utils/shared/Theme";
 import Head from "next/head";
 import PropTypes from 'prop-types'
 

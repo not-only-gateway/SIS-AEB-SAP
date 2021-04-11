@@ -1,9 +1,9 @@
-import styles from '../../styles/index/Index.module.css'
+import styles from '../../styles/pages/index/Index.module.css'
 import {Avatar, Button, Modal} from "@material-ui/core";
 import React, {useEffect, useState} from 'react'
 import {CakeRounded, WarningRounded} from "@material-ui/icons";
 import Cookies from "universal-cookie/lib";
-import ModalProfileCard from "./ModalProfileCard";
+
 import Link from 'next/link'
 import PropTypes from 'prop-types'
 

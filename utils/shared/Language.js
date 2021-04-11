@@ -1,27 +1,27 @@
 import Cookies from "universal-cookie/lib";
-import SignInEN from '../locales/signin/SignInEN'
-import SignInES from '../locales/signin/SignInES'
-import SignInPT from '../locales/signin/SignInPT'
+import SignInEN from '../../locales/signin/SignInEN'
+import SignInES from '../../locales/signin/SignInES'
+import SignInPT from '../../locales/signin/SignInPT'
 
-import SettingsEN from '../locales/settings/SettingsEN'
-import SettingsES from '../locales/settings/SettingsES'
-import SettingsPT from '../locales/settings/SettingsPT'
+import SettingsEN from '../../locales/settings/SettingsEN'
+import SettingsES from '../../locales/settings/SettingsES'
+import SettingsPT from '../../locales/settings/SettingsPT'
 
-import IndexEN from "../locales/index/IndexEN";
-import IndexES from "../locales/index/IndexES";
-import IndexPT from "../locales/index/IndexPT";
+import IndexEN from "../../locales/index/IndexEN";
+import IndexES from "../../locales/index/IndexES";
+import IndexPT from "../../locales/index/IndexPT";
 
-import * as PersonEN from '../locales/person/PersonEN'
-import * as PersonES from '../locales/person/PersonES'
-import * as PersonPT from '../locales/person/PersonPT'
+import * as PersonEN from '../../locales/person/PersonEN'
+import * as PersonES from '../../locales/person/PersonES'
+import * as PersonPT from '../../locales/person/PersonPT'
 
-import ActivityEN from "../locales/activity/ActivityEN";
-import ActivityES from "../locales/activity/ActivityES";
-import ActivityPT from "../locales/activity/ActivityPT";
+import ActivityEN from "../../locales/activity/ActivityEN";
+import ActivityES from "../../locales/activity/ActivityES";
+import ActivityPT from "../../locales/activity/ActivityPT";
 
-import ManagementEN from "../locales/management/ManagementEN";
-import ManagementPT from "../locales/management/ManagementPT";
-import ManagementES from "../locales/management/ManagementES";
+import ManagementEN from "../../locales/management/ManagementEN";
+import ManagementPT from "../../locales/management/ManagementPT";
+import ManagementES from "../../locales/management/ManagementES";
 
 const cookies = new Cookies()
 

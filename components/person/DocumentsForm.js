@@ -1,4 +1,4 @@
-import styles from "../../styles/form/Form.module.css";
+import styles from "../../styles/components/form/Form.module.css";
 import {Button, Grid, TextField} from "@material-ui/core";
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";

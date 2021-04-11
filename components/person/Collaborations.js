@@ -1,4 +1,4 @@
-import styles from "../../styles/form/Form.module.css";
+import styles from "../../styles/components/form/Form.module.css";
 import {Accordion, AccordionDetails, AccordionSummary, Modal} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import Cookies from "universal-cookie/lib";
@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import {AddRounded, ExpandMoreRounded} from "@material-ui/icons";
 import CollaborationForm from "./CollaborationForm";
 import AccordionLayout from "../shared/layout/AccordionLayout";
+import {fetchPersonData} from "../../utils/person/Data";
 
 const cookies = new Cookies()
 
@@ -14,16 +15,15 @@ export default function Collaborations(props) {
     const [collaborations, setCollaborations] = useState([])
     const [loading, setLoading] = useState(true)
 
-    async function fetchData() {
-        await props.fetchData('collaborations', {id: props.id}).then(res => {
+    useEffect(() => {
+        fetchPersonData({
+            path: 'collaborations',
+            params: {id: props.id}
+        }).then(res => {
             if (res !== null)
                 setCollaborations(res)
         })
         setLoading(false)
-    }
-
-    useEffect(() => {
-        fetchData().catch(r => console.log(r))
     }, [])
 
     if(!loading)
@@ -46,8 +46,6 @@ export default function Collaborations(props) {
                                     mediumContainer={props.mediumContainer}
                                     smallContainer={props.smallContainer}
                                     selectStyle={props.selectStyle}
-                                    fetchData={props.fetchData}
-                                    saveChanges={props.saveChanges}
                                 />
                             </div>
                         }
@@ -79,8 +77,6 @@ export default function Collaborations(props) {
                                     mediumContainer={props.mediumContainer}
                                     smallContainer={props.smallContainer}
                                     selectStyle={props.selectStyle}
-                                    fetchData={props.fetchData}
-                                    saveChanges={props.saveChanges}
                                 />
                             </div>
                         }
@@ -111,7 +107,5 @@ Collaborations.propTypes = {
     dark: PropTypes.bool,
     disabled: PropTypes.bool,
     id: PropTypes.number,
-    fetchData: PropTypes.func,
-    saveChanges: PropTypes.func,
     getTitle: PropTypes.func
 }

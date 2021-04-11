@@ -4,10 +4,9 @@ import {Button, createMuiTheme} from "@material-ui/core";
 import Layout from "../components/shared/layout/Layout";
 import {useRouter} from "next/router";
 import {ThemeProvider} from "@material-ui/styles";
-import {getLanguage} from "../utils/Language";
-import styles from "../styles/Management.module.css";
+
 import Link from "next/link";
-import {iconStyle} from "../styles/bar/BarMaterialStyles";
+
 import {
     AssignmentIndRounded,
     CheckRounded,
@@ -16,21 +15,15 @@ import {
 } from "@material-ui/icons";
 import AccordionLayout from "../components/shared/layout/AccordionLayout";
 import CollaboratorComponent from "../components/management/Collaborator";
-
-const cookies = new Cookies()
+import {buttonStyle, iconStyle} from "../styles/components/navigation/BarMaterialStyles";
+import {getLanguage} from "../utils/shared/Language";
+import styles from '../styles/pages/management/Management.module.css'
 
 export default function management() {
 
     const router = useRouter()
     const [lang, setLang] = useState(null)
-    const buttonStyle = {
-        display: 'flex',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        width: '14.29vw',
-        height: 'fit-content',
-        textTransform: 'none'
-    }
+
     useEffect(() => {
         if ((new Cookies()).get('lang') !== undefined && (new Cookies()).get('lang') !== router.locale) {
             router.push('/management', '/management', {locale: (new Cookies()).get('lang')}).catch(r => console.log(r))
