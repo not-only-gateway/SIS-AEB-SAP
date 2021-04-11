@@ -16,7 +16,7 @@ import Link from 'next/link'
 import {getLogo} from '../../../utils/shared/Theme';
 import SimpleProfileCardLayout from '../layout/SimpleProfileCardLayout';
 import PropTypes from 'prop-types'
-import {readProfile} from "../../../utils/shared/IndexedDB";
+import {readAccessProfile, readProfile} from "../../../utils/shared/IndexedDB";
 
 
 const cookies = new Cookies()
@@ -25,11 +25,15 @@ export default function Navigation(props) {
 
     const [lang, setLang] = useState(en)
     const [profile, setProfile] = useState(null)
+    const [accessProfile, setAccessProfile] = useState(null)
 
     useEffect(() => {
         setLanguage(props.locale)
         if (profile === null)
             readProfile().then(res => setProfile(res))
+        if (accessProfile === null)
+            readAccessProfile().then(res => setAccessProfile(res))
+
     }, [props.locale])
 
     function setLanguage(locale) {
@@ -61,15 +65,18 @@ export default function Navigation(props) {
 
 
             <div style={{gridRow: 2, display: 'grid', justifyContent: 'flex-start', alignContent: 'center'}}>
-                <div className={styles.button_container} style={{backgroundColor: props.path === '/management' ? (props.dark ? '#303741' : 'white') : null}}>
-                    <Link href={{pathname: '/management', locale: props.locale}}>
-                        <Button
-                            style={{...buttonStyle, ...{color: props.path === '/management' ? '#39adf6' : (props.dark ? 'white' : '#111111')}}}>
-                            <SupervisorAccountRounded style={{...iconStyle, ...{color: props.path === '/management' ? '#39adf6' : (!props.dark ? '#777777' : '#ededed')}}}/>
-                            {lang.management}
-                        </Button>
-                    </Link>
-                </div>
+                {accessProfile.canViewActivityLog ?
+                    <div className={styles.button_container}
+                         style={{backgroundColor: props.path === '/management' ? (props.dark ? '#303741' : 'white') : null}}>
+                        <Link href={{pathname: '/management', locale: props.locale}}>
+                            <Button
+                                style={{...buttonStyle, ...{color: props.path === '/management' ? '#39adf6' : (props.dark ? 'white' : '#111111')}}}>
+                                <SupervisorAccountRounded
+                                    style={{...iconStyle, ...{color: props.path === '/management' ? '#39adf6' : (!props.dark ? '#777777' : '#ededed')}}}/>
+                                {lang.management}
+                            </Button>
+                        </Link>
+                    </div> : null}
 
                 <div className={styles.button_container}
                      style={{backgroundColor: props.path === '/' ? (props.dark ? '#303741' : 'white') : null}}>
@@ -77,7 +84,8 @@ export default function Navigation(props) {
                     <Link href={{pathname: '/', locale: props.locale}}>
                         <Button
                             style={{...buttonStyle, ...{color: props.path === '/' ? '#39adf6' : (props.dark ? 'white' : '#111111')}}}>
-                            <ExtensionRounded style={{...iconStyle, ...{color: props.path === '/' ? '#39adf6' : (!props.dark ? '#777777' : '#ededed')}}}/>
+                            <ExtensionRounded
+                                style={{...iconStyle, ...{color: props.path === '/' ? '#39adf6' : (!props.dark ? '#777777' : '#ededed')}}}/>
                             {lang.extensions}
                         </Button>
                     </Link>
@@ -87,14 +95,12 @@ export default function Navigation(props) {
                     <Link href={{pathname: '/settings', locale: props.locale}}>
                         <Button
                             style={{...buttonStyle, ...{color: props.path === '/settings' ? '#39adf6' : (props.dark ? 'white' : '#111111')}}}>
-                            <SettingsRounded style={{...iconStyle, ...{color: props.path === '/settings' ? '#39adf6' : (!props.dark ? '#777777' : '#ededed')}}}/>
+                            <SettingsRounded
+                                style={{...iconStyle, ...{color: props.path === '/settings' ? '#39adf6' : (!props.dark ? '#777777' : '#ededed')}}}/>
                             {lang.settings}
                         </Button>
                     </Link>
                 </div>
-
-
-
 
 
                 {cookies.get('jwt') !== undefined ?

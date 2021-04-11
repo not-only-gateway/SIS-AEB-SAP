@@ -20,10 +20,10 @@ export default function person() {
 
     const router = useRouter()
     const [id, setId] = useState(undefined)
-    const disabled = (new Cookies()).get('adm_token') !== undefined
     const [dark, setDark] = useState(false)
     const [lang, setLang] = useState(null)
     const [accessProfile, setAccessProfile] = useState(null)
+
     useEffect(() => {
         if (cookies.get('theme') === '0' && dark === false)
             setDark(cookies.get('theme') === '0')
@@ -36,7 +36,7 @@ export default function person() {
         } else
             setLang(getLanguage(router.locale, router.pathname))
 
-        if(accessProfile === null)
+        if (accessProfile === null)
             readAccessProfile().then(res => setAccessProfile(res))
 
     }, [router.locale, router.isReady])
@@ -62,7 +62,8 @@ export default function person() {
                             type: dark ? "dark" : "light"
                         }
                     })}>
-                        <props.getTitle pageName={lang.main.profile} pageTitle={lang.main.profile} pageInfo={lang.main.information}/>
+                        <props.getTitle pageName={lang.main.profile} pageTitle={lang.main.profile}
+                                        pageInfo={lang.main.information}/>
                         {id !== undefined ?
                             <div className={styles.content_container}>
 
@@ -78,8 +79,8 @@ export default function person() {
                                                     id={id}
                                                     getTitle={getTitle}
                                                     dark={dark}
-                                                    visible={accessProfile !== null ? accessProfile.canUpdatePerson: false}
-                                                    editable={accessProfile !== null ? accessProfile.canUpdatePerson: false}
+                                                    visible={accessProfile !== null ? accessProfile.canUpdatePerson : false}
+                                                    editable={accessProfile !== null ? accessProfile.canUpdatePerson : false}
                                                     lang={lang.basic}
                                                 />
                                             )
@@ -91,8 +92,8 @@ export default function person() {
                                                     id={id}
                                                     getTitle={getTitle}
                                                     dark={dark}
-                                                    visible={accessProfile !== null ? accessProfile.canViewDocuments: false}
-                                                    editable={accessProfile !== null ? accessProfile.canUpdateDocuments: false}
+                                                    visible={accessProfile !== null ? accessProfile.canViewDocuments : false}
+                                                    editable={accessProfile !== null ? accessProfile.canUpdateDocuments : false}
                                                     // locale={lang.documents}
                                                 />
                                             )
@@ -104,8 +105,8 @@ export default function person() {
                                                     id={id}
                                                     getTitle={getTitle}
                                                     dark={dark}
-                                                    visible={accessProfile !== null ? accessProfile.canViewContact: false}
-                                                    editable={accessProfile !== null ? accessProfile.canUpdateContact: false}
+                                                    visible={accessProfile !== null ? accessProfile.canViewContact : false}
+                                                    editable={accessProfile !== null ? accessProfile.canUpdateContact : false}
                                                     // locale={lang.contact}
                                                 />
                                             )
@@ -117,8 +118,8 @@ export default function person() {
                                                     id={id}
                                                     getTitle={getTitle}
                                                     dark={dark}
-                                                    visible={accessProfile !== null ? accessProfile.canViewLocation: false}
-                                                    editable={accessProfile !== null ? accessProfile.canUpdateLocation: false}
+                                                    visible={accessProfile !== null ? accessProfile.canViewLocation : false}
+                                                    editable={accessProfile !== null ? accessProfile.canUpdateLocation : false}
                                                     // locale={lang.basic}
                                                 />
                                             )
@@ -130,8 +131,8 @@ export default function person() {
                                                     id={id}
                                                     getTitle={getTitle}
                                                     dark={dark}
-                                                    visible={accessProfile !== null ? accessProfile.canViewCollaboration: false}
-                                                    editable={accessProfile !== null ? accessProfile.canUpdateCollaboration: false}
+                                                    visible={accessProfile !== null ? accessProfile.canViewCollaboration : false}
+                                                    editable={accessProfile !== null ? accessProfile.canUpdateCollaboration : false}
                                                     locale={lang.collaborations}
                                                 />
                                             )
@@ -145,22 +146,22 @@ export default function person() {
                                             value: 'Basic'
                                         },
                                         {
-                                            disabled: accessProfile !== null ? !accessProfile.canViewDocuments: true,
+                                            disabled: accessProfile !== null ? !accessProfile.canViewDocuments : true,
                                             key: 2,
                                             value: 'documents'
                                         },
                                         {
-                                            disabled: accessProfile !== null ? !accessProfile.canViewContact: true,
+                                            disabled: accessProfile !== null ? !accessProfile.canViewContact : true,
                                             key: 3,
                                             value: 'contact'
                                         },
                                         {
-                                            disabled: accessProfile !== null ? !accessProfile.canViewLocation: true,
+                                            disabled: accessProfile !== null ? !accessProfile.canViewLocation : true,
                                             key: 4,
                                             value: 'address'
                                         },
                                         {
-                                            disabled: accessProfile !== null ? !accessProfile.canViewCollaboration: true,
+                                            disabled: accessProfile !== null ? !accessProfile.canViewCollaboration : true,
                                             key: 5,
                                             value: 'collaborations'
                                         }

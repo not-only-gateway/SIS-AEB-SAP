@@ -24,11 +24,7 @@ export default function ContactForm(props) {
     }
 
     useEffect(() => {
-        fetchData().catch(error => console.log(error))
-    }, [])
-
-    async function fetchData() {
-        await fetchComponentData({path: 'contact/'+props.id, params: {}}).then(res => {
+        fetchComponentData({path: 'contact/'+props.id, params: {}}).then(res => {
             if (res !== null) {
                 setEmail(res.email)
                 setEmailAlt(res.email_alt)
@@ -37,8 +33,7 @@ export default function ContactForm(props) {
             }
 
         })
-    }
-
+    }, [])
 
     async function saveChanges() {
         await saveComponentChanges({

@@ -38,11 +38,7 @@ export default function DocumentsForm(props) {
     }
 
     useEffect(() => {
-        fetchData().catch(error => console.log(error))
-    }, [])
-
-    async function fetchData() {
-        await fetchComponentData({path: 'documents/' + props.id, params: {}}).then(res => {
+        fetchComponentData({path: 'documents/' + props.id, params: {}}).then(res => {
             if (res !== null) {
                 setCpf(res.cpf)
                 setRg(res.rg)
@@ -56,10 +52,10 @@ export default function DocumentsForm(props) {
                 setWorkCard(res.work_card)
                 setPis(res.pis)
             }
+            setLoading(false)
+        }).catch(() => setLoading(false))
 
-        })
-        setLoading(false)
-    }
+    }, [])
 
     async function saveChanges() {
         await saveComponentChanges({

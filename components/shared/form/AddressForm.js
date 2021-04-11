@@ -31,11 +31,7 @@ export default function AddressForm(props) {
     }
 
     useEffect(() => {
-        fetchData().catch(error => console.log(error))
-    }, [])
-
-    async function fetchData() {
-        await fetchComponentData({path: 'address/'+props.id, params: {}}).then(res => {
+        fetchComponentData({path: 'address/'+props.id, params: {}}).then(res => {
             if (res !== null) {
                 setZipCode(res.zip_code)
                 setAddress(res.address)
@@ -48,7 +44,7 @@ export default function AddressForm(props) {
             }
             setLoading(false)
         })
-    }
+    }, [])
 
     async function saveChanges() {
         await saveComponentChanges(

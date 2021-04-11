@@ -27,11 +27,7 @@ export default function BaseForm(props) {
     const [nationality, setNationality] = useState(null)
 
     useEffect(() => {
-        fetchData().catch(error => console.log(error))
-    }, [])
-
-    async function fetchData() {
-        await fetchComponentData(
+        fetchComponentData(
             {path: 'person/' + props.id, params: {}}
         ).then(res => {
             if (res !== null) {
@@ -52,7 +48,8 @@ export default function BaseForm(props) {
             }
         })
         setLoading(false)
-    }
+    }, [])
+
 
     function capitalizeFirstLetter(string) {
         if (string !== null)
