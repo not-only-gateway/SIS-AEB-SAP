@@ -22,11 +22,7 @@ export default function management() {
     const [accessProfile, setAccessProfile] = useState(null)
 
     useEffect(() => {
-        if ((new Cookies()).get('lang') !== undefined && (new Cookies()).get('lang') !== router.locale) {
-            router.push('/management', '/management', {locale: (new Cookies()).get('lang')}).catch(r => console.log(r))
-            setLang(getLanguage(router.locale, router.pathname))
-        } else
-            setLang(getLanguage(router.locale, router.pathname))
+        setLang(getLanguage(router.locale, router.pathname))
 
         if (accessProfile === null)
             readAccessProfile().then(res => setAccessProfile(res))

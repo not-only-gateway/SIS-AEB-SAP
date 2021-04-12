@@ -20,21 +20,12 @@ export default function person() {
 
     const router = useRouter()
     const [id, setId] = useState(undefined)
-    const [dark, setDark] = useState(false)
     const [lang, setLang] = useState(null)
     const [accessProfile, setAccessProfile] = useState(null)
 
     useEffect(() => {
-        if (cookies.get('theme') === '0' && dark === false)
-            setDark(cookies.get('theme') === '0')
-
-        if (id === undefined)
-            setId(router.query.id)
-        if ((new Cookies()).get('lang') !== undefined && (new Cookies()).get('lang') !== router.locale) {
-            router.push('/person', '/person', {locale: (new Cookies()).get('lang')}).catch(r => console.log(r))
-            setLang(getLanguage(router.locale, router.pathname))
-        } else
-            setLang(getLanguage(router.locale, router.pathname))
+        setId(router.query.id)
+        setLang(getLanguage(router.locale, router.pathname))
 
         if (accessProfile === null)
             readAccessProfile().then(res => setAccessProfile(res))
@@ -59,7 +50,7 @@ export default function person() {
                 {props =>
                     <ThemeProvider theme={createMuiTheme({
                         palette: {
-                            type: dark ? "dark" : "light"
+                            type: props.dark ? "dark" : "light"
                         }
                     })}>
                         <props.getTitle pageName={lang.main.profile} pageTitle={lang.main.profile}
@@ -68,7 +59,7 @@ export default function person() {
                             <div className={styles.content_container}>
 
                                 <TabLayout
-                                    dark={dark}
+                                    dark={props.dark}
                                     width={45}
                                     height={60}
                                     tabs={[
@@ -78,7 +69,7 @@ export default function person() {
                                                 <BaseForm
                                                     id={id}
                                                     getTitle={getTitle}
-                                                    dark={dark}
+                                                    dark={props.dark}
                                                     visible={accessProfile !== null ? accessProfile.canUpdatePerson : false}
                                                     editable={accessProfile !== null ? accessProfile.canUpdatePerson : false}
                                                     lang={lang.basic}
@@ -91,7 +82,7 @@ export default function person() {
                                                 <DocumentsForm
                                                     id={id}
                                                     getTitle={getTitle}
-                                                    dark={dark}
+                                                    dark={props.dark}
                                                     visible={accessProfile !== null ? accessProfile.canViewDocuments : false}
                                                     editable={accessProfile !== null ? accessProfile.canUpdateDocuments : false}
                                                     // locale={lang.documents}
@@ -104,7 +95,7 @@ export default function person() {
                                                 <ContactForm
                                                     id={id}
                                                     getTitle={getTitle}
-                                                    dark={dark}
+                                                    dark={props.dark}
                                                     visible={accessProfile !== null ? accessProfile.canViewContact : false}
                                                     editable={accessProfile !== null ? accessProfile.canUpdateContact : false}
                                                     // locale={lang.contact}
@@ -117,7 +108,7 @@ export default function person() {
                                                 <AddressForm
                                                     id={id}
                                                     getTitle={getTitle}
-                                                    dark={dark}
+                                                    dark={props.dark}
                                                     visible={accessProfile !== null ? accessProfile.canViewLocation : false}
                                                     editable={accessProfile !== null ? accessProfile.canUpdateLocation : false}
                                                     // locale={lang.basic}
@@ -130,7 +121,7 @@ export default function person() {
                                                 <Collaborations
                                                     id={id}
                                                     getTitle={getTitle}
-                                                    dark={dark}
+                                                    dark={props.dark}
                                                     visible={accessProfile !== null ? accessProfile.canViewCollaboration : false}
                                                     editable={accessProfile !== null ? accessProfile.canUpdateCollaboration : false}
                                                     locale={lang.collaborations}

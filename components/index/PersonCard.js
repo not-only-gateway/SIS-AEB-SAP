@@ -69,10 +69,11 @@ export default function PersonCard(props) {
                     <Button style={{
                         borderTop: !props.dark ? '#e2e2e2 1px solid' : '#777777 1px solid',
                         borderBottomRightRadius: '8px',
-                        borderBottomLeftRadius: '8px', width: '100%'
+                        borderBottomLeftRadius: '8px', width: '100%',
+                        fontWeight: 500,
                     }}
                     >
-                        {props.unit.acronym} - {props.unit.name}
+                        {props.unit.acronym}
                     </Button>
                 </Link>
                 :

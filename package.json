@@ -13,17 +13,13 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "axios": "^0.21.1",
-    "date-fns": "^2.19.0",
+    "date-fns": "^2.20.2",
     "dexie": "^3.0.3",
-    "i18next": "^19.9.0",
-    "i18next-browser-languagedetector": "^6.0.1",
-    "i18next-http-backend": "^1.1.1",
     "local-ip-url": "^1.0.3",
     "next": "10.0.7",
     "prop-types": "^15.7.2",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "react-i18next": "^11.8.8",
     "react-infinite-scroll-component": "^6.0.0"
   },
   "devDependencies": {

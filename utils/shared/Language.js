@@ -21,6 +21,7 @@ import ActivityPT from "../../locales/activity/ActivityPT";
 
 import ManagementEN from "../../locales/management/ManagementEN";
 import ManagementPT from "../../locales/management/ManagementPT";
+import ManagementES from "../../locales/management/ManagementES";
 
 const cookies = new Cookies()
 
@@ -86,7 +87,7 @@ export function getLanguage (locale, page){
                     break
                 }
                 case '/management': {
-                    response = ManagementEs
+                    response = ManagementES
                     break
                 }
                 default:

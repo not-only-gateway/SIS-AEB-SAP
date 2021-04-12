@@ -7,13 +7,13 @@ import {iconStyle} from "../styles/components/navigation/BarMaterialStyles";
 import Brightness7RoundedIcon from "@material-ui/icons/Brightness7Rounded";
 import Brightness3RoundedIcon from "@material-ui/icons/Brightness3Rounded";
 import {ThemeProvider} from "@material-ui/styles";
-import {getLanguage} from "../utils/shared/Language";
+import {getLanguage, setCookiesLanguage} from "../utils/shared/Language";
 import Cookies from "universal-cookie/lib";
 import AccordionLayout from "../components/shared/layout/AccordionLayout";
-import changeTheme from "../utils/shared/ChangeTheme";
-import changeLanguage from "../utils/shared/ChangeLanguage";
 import fetchSettingsData from "../utils/settings/FetchData";
 import {readCollaboration} from "../utils/shared/IndexedDB";
+import {setThemeCookie} from "../utils/shared/Theme";
+import {route} from "next/dist/next-server/server/router";
 
 export default function Settings() {
 
@@ -21,18 +21,26 @@ export default function Settings() {
     const [lang, setLang] = useState(null)
     const [collaborations, setCollaborations] = useState([])
     const [currentCollaboration, setCurrentCollaboration] = useState({})
+
     useEffect(() => {
-        const currentLocale = (new Cookies()).get('lang')
+        console.log(location.pathname)
         readCollaboration().then(res => setCurrentCollaboration(res))
         if ((new Cookies()).get('jwt') !== undefined)
             fetchSettingsData().then(res => setCollaborations(res))
+        setLang(getLanguage(router.locale, router.pathname))
+    }, [router.locale, router.isReady])
 
-        if (currentLocale !== undefined && currentLocale !== router.locale) {
-            router.push('/settings', '/settings', {locale: currentLocale}).catch(r => console.log(r))
-            setLang(getLanguage(router.locale, router.pathname))
-        } else
-            setLang(getLanguage(router.locale, router.pathname))
-    }, [router.locale])
+
+    function changeLanguage(event){
+        console.log(event.target.value)
+        const newLocale = event.target.value
+        const newLang = getLanguage(newLocale, '/settings')
+        setCookiesLanguage(newLocale)
+
+        router.push('/settings', '/settings', {locale: newLocale})
+
+        setLang(newLang)
+    }
 
     if (lang !== null)
         return (
@@ -48,12 +56,7 @@ export default function Settings() {
                             <AccordionLayout
                                 content={
                                     <FormControl component="fieldset" style={{paddingLeft: '10px'}}>
-                                        <RadioGroup onChange={event => changeLanguage({
-                                            event: event,
-                                            router: router,
-                                            path: '/settings',
-                                            setLang: setLang
-                                        })}
+                                        <RadioGroup onChange={changeLanguage}
                                                     value={props.locale}>
                                             {[{value: 'Português', key: 'pt'}, {
                                                 value: 'English',
@@ -77,10 +80,7 @@ export default function Settings() {
                             <AccordionLayout
                                 content={
                                     <FormControl component="fieldset" style={{paddingLeft: '10px'}}>
-                                        <RadioGroup onChange={() => changeTheme({
-                                            setTheme: props.setDark,
-                                            currentTheme: props.dark
-                                        })} value={props.dark}>
+                                        <RadioGroup onChange={() => props.changeTheme()} value={props.dark}>
                                            <FormControlLabel value={false} control={<Radio/>} label={
                                              <div className={style.theme_container}>
                                                  <p>Light</p>

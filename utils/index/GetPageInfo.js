@@ -7,7 +7,7 @@ export default function getPageInfo (props){
             response = props.info1
             break
         }
-        case 'unities': {
+        case 'units': {
             response = props.info2
             break
         }

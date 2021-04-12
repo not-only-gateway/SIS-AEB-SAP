@@ -35,12 +35,7 @@ export default function IndexComponent(props) {
             url: props.option,
             host: Host()
         }).then(response => {
-            if (response.error) {
-                // setError(true)
-                // setErrorMessage(response.errorMessage)
-                console.log('Error')
-            } else
-                props.setData(response.data)
+            props.setData(response.data)
         })
 
         props.setLoading(false)
@@ -55,7 +50,6 @@ export default function IndexComponent(props) {
             headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
             params: props.params
         }).then(res => {
-            console.log(res)
             props.setData(res.data)
         }).catch(error => {
             console.log(error)

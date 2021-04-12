@@ -69,7 +69,7 @@ export default async function signIn(props) {
                         canViewContact: res.data.access_profile.can_view_contact
                     }).catch(error => console.log(error))
                 }
-                props.router.push('/', '/', {locale: props.locale}).catch(error => console.log(error))
+
             }).catch(error => console.log(error))
         }).catch(error => {
             console.log(error)
@@ -81,6 +81,5 @@ export default async function signIn(props) {
 signIn.propTypes = {
     email: PropTypes.string,
     password: PropTypes.string,
-    router: PropTypes.func,
     locale: PropTypes.string
 }

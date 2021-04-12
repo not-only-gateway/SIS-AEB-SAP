@@ -20,7 +20,9 @@ export default function Layout({children}) {
 
         if (locale !== cookies.get('lang') && cookies.get('lang') !== undefined)
             router.push(router.pathname, router.pathname, {locale: cookies.get('lang')}).catch(error => console.log(error))
-    }, [])
+        if(router.isReady)
+        router.push(router.pathname, router.pathname, {locale: router.locale}).catch(error => console.log(error))
+    }, [router.isReady, router.locale])
 
     const changeTheme = () => {
         setDark(!dark)
@@ -54,14 +56,14 @@ export default function Layout({children}) {
                  id={'scrollableDiv'}>
                 <div className={styles.children_container}>
                     {router.pathname === '/settings' ?
-                        children({dark, setDark, getTitle, locale})
+                        children({dark, changeTheme, getTitle, locale})
                         :
                         children({dark, getTitle})
                     }
                 </div>
             </div>
             <div style={{backgroundColor: !dark ? '#f4f8fb' : '#262d37'}} className={styles.left}>
-                <Navigation dark={dark} locale={locale} path={router.pathname}/>
+                <Navigation dark={dark} locale={router.locale} path={router.pathname}/>
             </div>
         </div>
     )

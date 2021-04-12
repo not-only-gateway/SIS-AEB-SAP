@@ -1,7 +1,7 @@
 import axios from "axios";
 import Host from "../shared/Host";
-import ClearStorage from "./ClearStorage";
 import Cookies from "universal-cookie/lib";
+import ClearStorage from "./ClearStorage";
 
 export default async function signOut() {
     try {

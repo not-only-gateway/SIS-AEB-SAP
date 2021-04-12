@@ -16,16 +16,12 @@ import {
     secondaryButtonStyle
 } from "../../styles/pages/auththentication/AuthMaterialStyles";
 import PropTypes from 'prop-types'
-import signIn from "../../utils/authentication/SignIn";
-import changeTheme from "../../utils/shared/ChangeTheme";
-import changeLanguage from "../../utils/shared/ChangeLanguage";
 
 export default function AuthenticateLayout(props) {
 
     function disabledAuthenticate() {
         return (props.password === '' || props.password.length < 8 || props.email === '')
     }
-
     return (
         <div className={styles.forms_container}>
 
@@ -67,12 +63,9 @@ export default function AuthenticateLayout(props) {
                         }
                     }}
                             disabled={disabledAuthenticate()}
-                            onClick={() => signIn({
-                                email: props.email,
-                                password: props.password,
-                                router: props.router,
-                                locale: props.locale
-                            })}
+                            onClick={() =>
+                                props.authenticate()
+                            }
                     >
                         {props.lang.signin}
                     </Button>
@@ -80,10 +73,7 @@ export default function AuthenticateLayout(props) {
                         style={{...secondaryButtonStyle, ...{color: props.dark ? 'white' : '#777777'}}}>{props.lang.forgotPassword}</Button>
                 </div>
                 <div className={styles.footer_container}>
-                    <Button style={{height: 'fit-content'}} onClick={() => changeTheme({
-                        currentTheme: props.dark,
-                        setTheme: props.setDark
-                    })}>
+                    <Button style={{height: 'fit-content'}} onClick={() => props.changeTheme()}>
                         {!props.dark ? <Brightness7RoundedIcon style={{...iconStyle, ...{color: '#777777'}}}/> :
                             <Brightness3RoundedIcon style={{...iconStyle, ...{color: 'white'}}}/>}
                     </Button>
@@ -101,12 +91,9 @@ export default function AuthenticateLayout(props) {
                             fontWeight: '450'
                         }}
                         value={props.locale}
-                        onChange={event => changeLanguage({
-                            event: event,
-                            setLang: props.setLang,
-                            router: props.router,
-                            path: '/signin'
-                        })}
+                        onChange={event =>
+                            props.changeLang(event)
+                        }
                     >
                         <MenuItem key={"pt"} value="pt">
                             Português
@@ -128,7 +115,6 @@ export default function AuthenticateLayout(props) {
 AuthenticateLayout.propTypes = {
     dark: PropTypes.bool,
     lang: PropTypes.object,
-    locale: PropTypes.string,
     authenticate: PropTypes.func,
     setEmail: PropTypes.func,
     email: PropTypes.string,
@@ -136,9 +122,11 @@ AuthenticateLayout.propTypes = {
     setPassword: PropTypes.func,
     visible: PropTypes.bool,
     setVisible: PropTypes.func,
-    router: PropTypes.object,
     setDark: PropTypes.func,
-    setLang: PropTypes.func
+    setLang: PropTypes.func,
+    changeLang: PropTypes.func,
+    locale: PropTypes.string,
+    changeTheme: PropTypes.func
 }
 
 

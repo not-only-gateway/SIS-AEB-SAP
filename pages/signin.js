@@ -3,10 +3,12 @@ import styles from '../styles/pages/auththentication/Auth.module.css'
 import {createMuiTheme, ThemeProvider} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import AuthenticationLayout from "../components/signin/AuthenticateLayout";
+import AuthenticationLayout from "../components/authentication/AuthenticateLayout";
 import Head from "next/head";
-import {getLanguage} from "../utils/shared/Language";
+import {getLanguage, setCookiesLanguage} from "../utils/shared/Language";
+import {setThemeCookie} from "../utils/shared/Theme";
 import signOut from "../utils/authentication/SignOut";
+import signIn from "../utils/authentication/SignIn";
 
 const cookies = new Cookies()
 export default function Signin() {
@@ -23,13 +25,32 @@ export default function Signin() {
 
         setDark(cookies.get('theme') === '0')
 
-        if (cookies.get('jwt') !== undefined)
-            signOut().catch(error => console.log(error))
+        if (router.isReady && (new Cookies()).get('lang') !== undefined && (new Cookies()).get('lang') !== router.locale) {
+            router.push('/signin', '/signin', {locale: (new Cookies()).get('lang')}).catch(r => console.log(r))
+            setLang(getLanguage(router.locale, router.pathname))
+        } else
+            setLang(getLanguage(router.locale, router.pathname))
+    }, [router.locale, router.isReady])
 
-        if (router.locale !== cookies.get('lang') && cookies.get('lang') !== undefined)
-            router.push('/signin', '/signin', {locale: cookies.get('lang')}).catch(error => console.log(error))
-    }, [router.locale])
+    async function authenticate(){
+        await signIn({
+            email: email,
+            password: password,
+            locale: router.locale
+        }).then(() => router.push('/', '/', {locale: router.locale}))
+    }
 
+    function changeLang(event){
+        setCookiesLanguage(event.target.value)
+        const newLang = getLanguage(event.target.value, '/signin')
+        setLang(newLang)
+        router.push('/signin', '/signin', {locale: event.target.value})
+    }
+
+    function changeTheme(){
+        setDark(!dark)
+        setThemeCookie()
+    }
     if (lang !== null)
         return (
             <div className={styles.auth_container} style={{
@@ -71,14 +92,16 @@ export default function Signin() {
                             locale={router.locale}
                             setVisible={setVisible}
                             visible={visible}
-                            router={router}
                             setDark={setDark}
+                            authenticate={authenticate}
                             setLang={setLang}
+                            changeLang={changeLang}
+                            changeTheme={changeTheme}
                         />
                     </div>
                 </ThemeProvider>
             </div>
         )
     else
-        return <></>
+        return <>cafe</>
 }
