@@ -22,14 +22,14 @@ export default function Activity() {
     const [thisMachine, setThisMachine] = useState(false)
     const [path, setPath] = useState(null)
     const [maxID, setMaxID] = useState(null)
-    const [lastFetchSize, setLastFetchSize] = useState(null)
+    const [lastFetchedSize, setLastFetchedSize] = useState(null)
     const [error, setError] = useState(false)
     const [errorMessage, setErrorMessage] = useState(null)
 
     useEffect(() => {
         fetchActivityData({
             type: 1,
-            setLastFetchedSize: lastFetchSize,
+            setLastFetchedSize: setLastFetchedSize,
             setData: setData,
             data: data,
             setMaxID: setMaxID,
@@ -65,8 +65,8 @@ export default function Activity() {
                                                      setMethod={setMethod} setStartDate={setStartDate}
                                                      setThisMachine={setThisMachine} method={method}
                                                      thisMachine={thisMachine} setResponseData={setData}
-                                                     setLastFetchSize={setLastFetchSize}
-                                                     lastFetchSize={lastFetchSize}/>
+                                                     setLastFetchedSize={setLastFetchedSize}
+                                                     setMaxID={setMaxID}/>
                         </div>
                         <div className={styles.infinite_scroll_container}>
                             {data.length > 0 ?
@@ -74,7 +74,7 @@ export default function Activity() {
                                     dataLength={data.length} //This is important field to render the next data
                                     next={() => fetchActivityData({
                                         type: 0,
-                                        setLastFetchedSize: lastFetchSize,
+                                        setLastFetchedSize: lastFetchedSize,
                                         setData: setData,
                                         data: data,
                                         setMaxID: setMaxID,
@@ -87,7 +87,7 @@ export default function Activity() {
                                         path: path
                                     }).catch(error => console.log(error))
                                     }
-                                    hasMore={lastFetchSize === 20 && data[data.length - 1].id > 0}
+                                    hasMore={lastFetchedSize === 20 && data[data.length - 1].activity.id > 1}
                                     inverse={false}
                                     scrollableTarget="scrollableDiv"
                                     loader={<Skeleton variant={'rect'} width={'100%'} style={{borderRadius: '8px'}}
@@ -105,10 +105,12 @@ export default function Activity() {
                                     }
                                 >
                                     <div className={styles.activities_container}>
-                                        {data.map(activity => (
-                                            <ActivityComponent lang={lang} dark={props.dark} activity={activity}
-                                            />
-                                        ))}
+                                        {data.map(data => (
+                                                <ActivityComponent lang={lang} dark={props.dark} activity={data.activity}
+                                                                   accessLog={data.access_log}
+                                                />
+                                            )
+                                        )}
                                     </div>
                                 </InfiniteScroll>
                                 :

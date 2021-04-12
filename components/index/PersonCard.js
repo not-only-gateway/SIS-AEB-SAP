@@ -64,7 +64,7 @@ export default function PersonCard(props) {
                     {renderContent()}
                 </Button>
             </Link>
-            {props.collaboration !== null ?
+            {props.unit !== undefined ?
                 <Link href={{pathname: '/unit', query: {id: props.unit.id}}}>
                     <Button style={{
                         borderTop: !props.dark ? '#e2e2e2 1px solid' : '#777777 1px solid',

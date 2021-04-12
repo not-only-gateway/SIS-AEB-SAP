@@ -47,7 +47,7 @@ export default function management() {
                             pageInfo: lang.info
                         })}
                         <div className={styles.options_container}>
-                            {accessProfile.canViewActivityLog ?
+                            {accessProfile !== null && accessProfile.canViewActivityLog ?
                                 <div style={{
                                     backgroundColor: props.dark ? '#303741' : null,
                                     border: props.dark ? null : '#e2e2e2 1px solid',
@@ -62,7 +62,7 @@ export default function management() {
                                 </div>:
                                 null
                             }
-                            {accessProfile.canCreateRole ?
+                            {accessProfile !== null && accessProfile.canCreateRole ?
                                 <div style={{
                                     backgroundColor: props.dark ? '#303741' : null,
                                     border: props.dark ? null : '#e2e2e2 1px solid',
@@ -76,7 +76,7 @@ export default function management() {
                                 :
                                 null
                             }
-                            {accessProfile.canCreateUnit ?
+                            {accessProfile !== null && accessProfile.canCreateUnit ?
                                 <div style={{
                                     backgroundColor: props.dark ? '#303741' : null,
                                     border: props.dark ? null : '#e2e2e2 1px solid',
@@ -92,7 +92,7 @@ export default function management() {
                             }
 
 
-                            {accessProfile.canCreatePerson ?
+                            {accessProfile !== null && accessProfile.canCreatePerson ?
                                 <AccordionLayout
                                     content={
                                         <CollaboratorComponent dark={props.dark}/>
@@ -109,7 +109,7 @@ export default function management() {
                                 :
                                 null
                             }
-                            {accessProfile.canCreateAccessProfile ?
+                            {accessProfile !== null && accessProfile.canCreateAccessProfile ?
                                 <AccordionLayout
                                     content={
                                         null

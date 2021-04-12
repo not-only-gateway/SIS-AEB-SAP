@@ -5,41 +5,42 @@ import InputLayout from "../shared/layout/InputLayout";
 import PropTypes from "prop-types";
 import saveComponentChanges from "../../utils/person/SaveChanges";
 import fetchComponentData from "../../utils/person/FetchData";
+import {router} from "next/client";
 
 export default function CollaborationForm(props) {
 
     const [unitID, setUnitID] = useState(null)
     const [units, setUnits] = useState([])
-    const [roles, setRoles] = useState([])
-    const [linkages, setLinkages] = useState([])
+    const [effectiveRoles, setEffectiveRoles] = useState([])
+    const [commissionedRoles, setCommissionedRoles] = useState([])
+    const [effectiveRoleID, setEffectiveRoleID] = useState(null)
+    const [commissionedRoleID, setCommissionedRoleID] = useState(null)
+
     const [seniorID, setSeniorID] = useState(null)
     const [seniors, setSeniors] = useState([])
     const [publicationDate, setPublicationDate] = useState('')
     const [admissionDate, setAdmissionDate] = useState('')
     const [legalDocument, setLegalDocument] = useState('')
     const [activeRole, setActiveRole] = useState(null)
-    const [roleID, setRoleID] = useState(null)
-    const [linkageID, setLinkageID] = useState(null)
     const [substitute, setSubstitute] = useState(null)
     const [origin, setOrigin] = useState(null)
-    const [roleLevel, setRoleLevel] = useState(null)
     const [changed, setChanged] = useState(false)
-    const [exists, setExists] = useState(false)
     const [workStart, setWorkStart] = useState(null)
     const [workEnd, setWorkEnd] = useState(null)
     const [contractExp, setContractExp] = useState(null)
     const [additionalInfo, setAdditionalInfo] = useState(null)
     const [loading, setLoading] = useState(true)
-    const [canBeActive, setCanBeActive] = useState(false)
+    const [mainCollaboration, setMainCollaboration] = useState(false)
+    const [canBeMain, setCanBeMain] = useState(false)
+    const [accessProfiles, setAccessProfiles] = useState([])
+    const [accessProfileID, setAccessProfileID] = useState(null)
 
     function disabled() {
         return (
             unitID === null ||
-            roleID === null ||
             publicationDate.length === 0 ||
             admissionDate.length === 0 ||
             legalDocument.length === 0 ||
-            linkageID === null ||
             substitute === null ||
             activeRole === null ||
             (seniors.length > 0 && seniorID === null) ||
@@ -47,96 +48,126 @@ export default function CollaborationForm(props) {
         )
     }
 
-    function handleRoleChange(event) {
-        const roleData = JSON.parse(event)
-        setRoleID(roleData.roleID)
-        setRoleLevel(roleData.roleLevel)
-        fetchComponentData({path: 'seniors', params: {}}).then(res => {
-            if (res !== null)
-                setSeniors(res)
-            else
-                setSeniors([])
-        })
-    }
-
     useEffect(() => {
             if (props.collaborationID !== null) {
                 fetchComponentData({
-                    path: 'collaborator',
-                    params: {collaboration_id: props.collaborationID}
+                    path: 'collaboration/' + props.collaborationID,
+                    params: {}
                 }).then(res => {
                         if (res !== null) {
                             setSeniorID(res.senior !== null ? res.senior.id : null)
-                            setRoleID(res.role.id)
-                            setRoleLevel(res.role.level)
-                            setLinkageID(res.linkage.id)
+                            setEffectiveRoleID(res.effective_role !== null ? res.effective_role.id : null)
+                            setCommissionedRoleID(res.commissioned_role !== null ? res.commissioned_role.id : null)
                             setUnitID(res.unit.id)
-                            setSubstitute(res.is_substitute)
-                            setAdmissionDate(res.admission_date)
-                            setPublicationDate(res.official_publication_date)
-                            setLegalDocument(res.legal_document)
-                            setOrigin(res.origin)
-                            setActiveRole(res.is_active_on_role)
-                            setExists(true)
-                            setWorkStart(res.work_shift_start)
-                            setWorkEnd(res.work_shift_end)
-                            setContractExp(res.contract_expiration)
-                            setAdditionalInfo(res.additional_information)
-                            setLoading(false)
-                            // if (res.is_active_on_role === false)
-                            //     props.fetchData('collaborator/active/role', {id: props.userID}).then(res => setCanBeActive(res.can_be_active))
-                            // else
-                            setCanBeActive(true)
+                            setSubstitute(res.collaboration.is_substitute)
+                            setAdmissionDate(res.collaboration.admission_date)
+                            setPublicationDate(res.collaboration.official_publication_date)
+                            setLegalDocument(res.collaboration.legal_document)
+                            setOrigin(res.collaboration.origin)
+                            setActiveRole(res.collaboration.is_active_on_role)
+                            setWorkStart(res.collaboration.work_shift_start)
+                            setWorkEnd(res.collaboration.work_shift_end)
+                            setContractExp(res.collaboration.contract_expiration)
+                            setAdditionalInfo(res.collaboration.additional_information)
+                            setMainCollaboration(res.collaboration.main_collaboration)
+                            setAccessProfileID(res.access_profile.id)
 
+                            fetchComponentData({
+                                path: 'main/collaboration/' + props.userID,
+                                params: {}
+                            }).then(res => {
+                                    if (res !== null)
+                                        setCanBeMain(res)
+                                }
+                            )
+
+                            fetchComponentData({path: 'seniors/' + res.unit.id + '/' + props.userID, params: {}}).then(res => {
+                                if (res !== null)
+                                    setSeniors(res)
+                            })
+                            fetchComponentData({path: 'roles/effective', params: {}}).then(res => {
+                                setEffectiveRoles(res)
+                            })
+
+                            fetchComponentData({path: 'roles/commissioned', params: {}}).then(res => {
+                                if (res !== null)
+                                    setCommissionedRoles(res)
+                            })
+
+                            fetchComponentData({path: 'units', params: {}}).then(res => {
+                                if (res !== null)
+                                    setUnits(res)
+                            })
+                            fetchComponentData({path: 'accesses', params: {}}).then(res => {
+                                if (res !== null)
+                                    setAccessProfiles(res)
+                            })
+
+                            setLoading(false)
                         }
+                        console.log(res)
                     }
                 )
             } else {
+                fetchComponentData({
+                    path: 'main/collaboration/' + props.userID,
+                    params: {}
+                }).then(res => {
+                        if (res !== null)
+                            setMainCollaboration(res)
+                    }
+                )
+
+                fetchComponentData({path: 'roles/effective', params: {}}).then(res => {
+                    if (res !== null)
+                        setEffectiveRoles(res)
+                })
+
+                fetchComponentData({path: 'roles/commissioned', params: {}}).then(res => {
+                    if (res !== null)
+                        setCommissionedRoles(res)
+                })
+
+                fetchComponentData({path: 'units', params: {}}).then(res => {
+                    if (res !== null)
+                        setUnits(res)
+                })
+                fetchComponentData({path: 'accesses', params: {}}).then(res => {
+                    if (res !== null)
+                        setAccessProfiles(res)
+                })
+
                 setLoading(false)
-                // props.fetchData('collaborator/active/role', {id: props.userID}).then(res => setCanBeActive(res.can_be_active))
             }
-
-            fetchComponentData({path: 'role', params: {} }).then(res =>
-                setRoles(res)
-            )
-            fetchComponentData({path: 'linkage', params: {}}).then(res =>
-                setLinkages(res)
-            )
-            fetchComponentData({path: 'units', params: {}}).then(res =>
-                setUnits(res)
-            )
-
         },
         []
     )
 
     async function saveChanges() {
         await saveComponentChanges({
-            path: 'collaborator',
+            path: props.collaborationID !== null ? 'collaboration/' + props.collaborationID : 'collaboration',
             params: {
-                id: props.userID,
-                collaboration_id: props.collaborationID,
-                senior_id: seniorID,
-                role_id: roleID,
-                linkage_id: linkageID,
-                unit_id: unitID,
+                person: props.userID,
+                senior: seniorID,
+                effective_role: effectiveRoleID,
+                commissioned_role: commissionedRoleID,
+                unit: unitID,
                 is_substitute: substitute,
-                official_publication_date: typeof (publicationDate) !== "number" ? publicationDate.getTime() : publicationDate,
-                admission_date: typeof (admissionDate) !== "number" ? admissionDate.getTime() : admissionDate,
+                official_publication_date: typeof (publicationDate) === "number" ? publicationDate : publicationDate.getTime(),
+                admission_date: typeof (admissionDate) === "number" ? admissionDate : admissionDate.getTime(),
                 legal_document: legalDocument,
                 origin: origin,
                 is_active_on_role: activeRole !== null ? activeRole : false,
                 work_shift_start: workStart,
                 work_shift_end: workEnd,
-                contract_expiration: typeof (contractExp) !== "number" ? contractExp.getTime() : contractExp,
+                contract_expiration: typeof (contractExp) === "number" ? contractExp : contractExp.getTime(),
                 additional_information: additionalInfo,
+                main_collaboration: canBeMain ? mainCollaboration : false
             },
             method: props.collaborationID === null ? 'post' : 'put'
         }).then(res => {
             if (res)
                 setChanged(false)
-            else
-                console.log(res)
         })
     }
 
@@ -144,45 +175,51 @@ export default function CollaborationForm(props) {
         let response = []
         switch (option) {
             case 0: {
-                units.map(unit => {
+
+                units.map(data => {
                     response.push({
-                        key: unit.id,
-                        value: unit.acronym + ' - ' + unit.name
+                        key: data.unit.id,
+                        value: data.unit.acronym
                     })
                 })
                 break
             } // unit
             case 1: {
-                roles.map(role => {
+                effectiveRoles.map(data => {
                     response.push({
-                        key: JSON.stringify({
-                            roleID: role.id,
-                            roleLevel: role.level
-                        }),
-                        value: role.denomination
+                        key: data.role.id,
+                        value: data.role.denomination + ' - ' + data.linkage.denomination
                     })
                 })
                 break
-            } // ROLE
+            } // effective
             case 2: {
-                linkages.map(link => {
+                commissionedRoles.map(data => {
                     response.push({
-                        key: link.id,
-                        value: link.description
+                        key: data.role.id,
+                        value: data.role.das ? 'DAS - ' : 'FCPE - ' + data.role.denomination + ' - ' + data.linkage.denomination
                     })
                 })
                 break
-            } // LINKAGE
+            } // commissioned
             case 3: {
                 seniors.map(senior => {
                     response.push({
                         key: senior.id,
-                        value: senior.name
+                        value: senior.person.name
                     })
                 })
                 break
             } // SENIORS
-
+            case 4: {
+                accessProfiles.map(data => {
+                    response.push({
+                        key: data.id,
+                        value: data.denomination
+                    })
+                })
+                break
+            }
             default: {
                 break
             }
@@ -192,67 +229,80 @@ export default function CollaborationForm(props) {
 
     if (!loading)
         return (
-            <div className={styles.form_component_container} style={{width: '38vw'}}>
+            <div className={styles.form_component_container} style={{width: '93%'}}>
                 <InputLayout inputName={'Unit'} dark={props.dark} handleChange={setUnitID} inputType={1}
                              disabled={!props.editable} size={32} required={true} initialValue={unitID}
                              selectFields={mapToSelect(0)} key={'2-1'} setChanged={setChanged}/>
 
-                <InputLayout inputName={'Role'} dark={props.dark} handleChange={handleRoleChange} inputType={1}
-                             disabled={!props.editable} size={32} required={true}
-                             initialValue={JSON.stringify({roleID: roleID, roleLevel: roleLevel})}
-                             selectFields={mapToSelect(1)} key={'2-2'} setChanged={setChanged}/>
-
-                <InputLayout inputName={'Linkage'} dark={props.dark} handleChange={setLinkageID} inputType={1}
-                             disabled={!props.editable} size={32} required={true} initialValue={linkageID}
-                             selectFields={mapToSelect(2)} key={'2-3'} setChanged={setChanged}/>
 
                 <InputLayout inputName={'Active Role'} dark={props.dark} handleChange={setActiveRole} inputType={1}
-                             disabled={!props.editable || !canBeActive} size={32} required={canBeActive}
+                             disabled={!props.editable} size={32} required={true}
                              initialValue={activeRole}
-                             selectFields={[{key: false, value: 'No'}, {key: true, value: 'Yes'}]} key={'2-4'}
+                             selectFields={[{key: false, value: 'No'}, {key: true, value: 'Yes'}]} key={'2-2'}
                              setChanged={setChanged}/>
+                <InputLayout inputName={'Main Collaboration'} dark={props.dark} handleChange={setMainCollaboration}
+                             inputType={1}
+                             disabled={!props.editable || !canBeMain} size={32} required={true}
+                             initialValue={mainCollaboration}
+                             selectFields={[{key: false, value: 'No'}, {key: true, value: 'Yes'}]} key={'2-3'}
+                             setChanged={setChanged}/>
+                <InputLayout inputName={'Effective Role' || commissionedRoles.length === 0} dark={props.dark}
+                             handleChange={setEffectiveRoleID}
+                             inputType={1}
+                             disabled={!props.editable} size={49} required={false}
+                             initialValue={effectiveRoleID}
+                             selectFields={mapToSelect(1)} key={'2-4'} setChanged={setChanged}/>
 
+                <InputLayout inputName={'Commissioned Role'} dark={props.dark} handleChange={setCommissionedRoleID}
+                             inputType={1}
+                             disabled={!props.editable || commissionedRoles.length === 0} size={49} required={false}
+                             initialValue={commissionedRoleID}
+                             selectFields={mapToSelect(2)} key={'2-5'} setChanged={setChanged}/>
                 <InputLayout inputName={'Substitute'} dark={props.dark} handleChange={setSubstitute} inputType={1}
                              disabled={!props.editable} size={32} required={true} initialValue={substitute}
-                             selectFields={[{key: false, value: 'No'}, {key: true, value: 'Yes'}]} key={'2-5'}
+                             selectFields={[{key: false, value: 'No'}, {key: true, value: 'Yes'}]} key={'2-6'}
                              setChanged={setChanged}/>
 
                 <InputLayout inputName={'Senior'} dark={props.dark} handleChange={setSeniorID} inputType={1}
                              disabled={!props.editable || seniors.length === 0} size={32} required={false}
                              initialValue={seniorID}
-                             selectFields={mapToSelect(3)} key={'2-6'} setChanged={setChanged}/>
+                             selectFields={mapToSelect(3)} key={'2-7'} setChanged={setChanged}/>
 
                 <InputLayout inputName={'Admission'} dark={props.dark} handleChange={setAdmissionDate} inputType={2}
                              disabled={!props.editable} size={32} required={true} initialValue={admissionDate}
-                             key={'2-7'} setChanged={setChanged}/>
+                             key={'2-8'} setChanged={setChanged}/>
 
                 <InputLayout inputName={'Official Publication'} dark={props.dark} handleChange={setPublicationDate}
                              inputType={2}
                              disabled={!props.editable} size={32} required={true} initialValue={publicationDate}
-                             key={'2-8'} setChanged={setChanged}/>
+                             key={'2-9'} setChanged={setChanged}/>
 
                 <InputLayout inputName={'Contract Expiration'} dark={props.dark} handleChange={setContractExp}
                              inputType={2}
                              disabled={!props.editable} size={32} required={false} initialValue={contractExp}
-                             key={'2-9'} setChanged={setChanged}/>
+                             key={'2-10'} setChanged={setChanged}/>
                 <InputLayout inputName={'Legal Document'} dark={props.dark} handleChange={setLegalDocument}
                              inputType={0}
                              disabled={!props.editable} size={32} required={true} initialValue={legalDocument}
-                             key={'2-10'} setChanged={setChanged}/>
+                             key={'2-11'} setChanged={setChanged}/>
 
                 <InputLayout inputName={'Work shift start'} dark={props.dark} handleChange={setWorkStart}
                              inputType={3}
-                             disabled={!props.editable} size={32} required={false} initialValue={workStart}
-                             key={'2-11'} setChanged={setChanged}/>
+                             disabled={!props.editable} size={49} required={false} initialValue={workStart}
+                             key={'2-12'} setChanged={setChanged}/>
 
                 <InputLayout inputName={'Work shift end'} dark={props.dark} handleChange={setWorkEnd}
                              inputType={3}
-                             disabled={!props.editable} size={32} required={false} initialValue={workEnd}
-                             key={'2-12'} setChanged={setChanged}/>
+                             disabled={!props.editable} size={49} required={false} initialValue={workEnd}
+                             key={'2-13'} setChanged={setChanged}/>
+                <InputLayout inputName={'Access Profile'} dark={props.dark} handleChange={setAdditionalInfo}
+                             inputType={2} selectFields={mapToSelect(4)}
+                             disabled={!props.editable} size={49} required={false} initialValue={additionalInfo}
+                             key={'2-15'} setChanged={setChanged}/>
                 <InputLayout inputName={'Additional information'} dark={props.dark} handleChange={setAdditionalInfo}
                              inputType={0}
-                             disabled={!props.editable} size={100} required={false} initialValue={additionalInfo}
-                             key={'2-13'} setChanged={setChanged}/>
+                             disabled={!props.editable} size={49} required={false} initialValue={additionalInfo}
+                             key={'2-15'} setChanged={setChanged}/>
 
                 <Button style={{
                     width: '43vw', margin: '2vh auto',

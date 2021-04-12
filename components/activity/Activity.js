@@ -1,12 +1,18 @@
 import AccordionLayout from "../shared/layout/AccordionLayout";
 import styles from "../../styles/pages/activity/Activity.module.css";
 import {Divider} from "@material-ui/core";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import getMethodColor from "../../utils/activity/GetMethodColor";
 
 export default function ActivityComponent(props) {
-    const color = getMethodColor(props.activity.method)
+    const [color, setColor] = useState(null)
+
+    useEffect(() => {
+        setColor(getMethodColor(props.activity.request_method))
+
+    }, [props.activity.request_method])
+
     return (
         <AccordionLayout
             content={
@@ -22,6 +28,32 @@ export default function ActivityComponent(props) {
                         }}>{props.activity.id}</p>
                     </div>
                     <div className={styles.info_row}>
+                        <p style={{fontWeight: 450}}>Full path</p>
+                        <Divider orientation={'horizontal'}
+                                 style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                        <p style={{
+                            fontSize: '.9rem',
+                            fontWeight: 420,
+                            color: props.dark ? 'white' : '#555555'
+                        }}>{props.activity.path}</p>
+                    </div>
+
+                    <div className={styles.info_row}>
+                        <p style={{fontWeight: 450}}>Package</p>
+                        <Divider orientation={'horizontal'}
+                                 style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                        <div style={{
+                            fontSize: '.9rem',
+                            fontWeight: 420,
+                            color: props.dark ? 'white' : '#555555',
+                            borderRadius: '8px',
+                            border: props.dark ? 'none' : '#e2e2e2 1px solid'
+                        }}>
+                            <pre >{JSON.stringify(JSON.parse(props.activity.data_package), null, 2)}</pre>
+                        </div>
+                    </div>
+
+                    <div className={styles.info_row}>
                         <p style={{fontWeight: 450}}>{props.lang.platform}</p>
                         <Divider orientation={'horizontal'}
                                  style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
@@ -29,7 +61,7 @@ export default function ActivityComponent(props) {
                             fontSize: '.9rem',
                             fontWeight: 420,
                             color: props.dark ? 'white' : '#555555'
-                        }}>{props.activity.access_log.platform}</p>
+                        }}>{props.accessLog.platform}</p>
                     </div>
                     <div className={styles.info_row}>
                         <p style={{fontWeight: 450}}>{props.lang.date}</p>
@@ -49,7 +81,7 @@ export default function ActivityComponent(props) {
                             fontSize: '.9rem',
                             fontWeight: 420,
                             color: color
-                        }}>{props.activity.method}</p>
+                        }}>{props.activity.request_method}</p>
                     </div>
 
                     <div className={styles.info_row}>
@@ -70,7 +102,7 @@ export default function ActivityComponent(props) {
                             fontSize: '.9rem',
                             fontWeight: 420,
                             color: props.dark ? 'white' : '#555555'
-                        }}>{props.activity.access_log.ip_address}</p>
+                        }}>{props.accessLog.ip_address}</p>
                     </div>
                     <div className={styles.info_row}>
                         <p style={{fontWeight: 450}}>{props.lang.browser}</p>
@@ -80,7 +112,7 @@ export default function ActivityComponent(props) {
                             fontSize: '.9rem',
                             fontWeight: 420,
                             color: props.dark ? 'white' : '#555555'
-                        }}>{props.activity.access_log.browser_version}</p>
+                        }}>{props.accessLog.browser_version}</p>
                     </div>
 
                     <div className={styles.info_row}>
@@ -91,7 +123,7 @@ export default function ActivityComponent(props) {
                             fontSize: '.9rem',
                             fontWeight: 420,
                             color: props.dark ? 'white' : '#555555'
-                        }}>{props.activity.access_log.browser_engine}</p>
+                        }}>{props.accessLog.browser_engine}</p>
                     </div>
                     <div className={styles.info_row}>
                         <p style={{fontWeight: 450}}>{props.lang.userAgent}</p>
@@ -101,7 +133,7 @@ export default function ActivityComponent(props) {
                             fontSize: '.9rem',
                             fontWeight: 420,
                             color: props.dark ? 'white' : '#555555'
-                        }}>{props.activity.access_log.browser_user_agent}</p>
+                        }}>{props.accessLog.browser_user_agent}</p>
                     </div>
 
 
@@ -112,7 +144,7 @@ export default function ActivityComponent(props) {
                     <p style={{
                         fontWeight: 500,
                         color: color
-                    }}>{props.activity.method}</p>
+                    }}>{props.activity.request_method}</p>
                     <p style={{
                         marginRight: '10px',
                         marginLeft: '10px'
@@ -121,6 +153,7 @@ export default function ActivityComponent(props) {
                     <p>{(new Date(props.activity.time_of_creation)).toDateString()}</p>
                 </div>
             }
+            key={props.activity.id}
             closedSize={22}
             openSize={45}
             border={color !== null ? color + ' 2px solid' : null}
@@ -128,8 +161,9 @@ export default function ActivityComponent(props) {
     )
 }
 
-ActivityComponent.propTypes={
+ActivityComponent.propTypes = {
     dark: PropTypes.bool,
     lang: PropTypes.object,
-    activity: PropTypes.object
+    activity: PropTypes.object,
+    accessLog: PropTypes.object
 }

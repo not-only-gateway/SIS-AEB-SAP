@@ -17,14 +17,11 @@ export default function Index() {
     const router = useRouter()
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
-    const [canEdit, setCanEdit] = useState(undefined)
     const [lang, setLang] = useState(null)
     const [option, setOption] = useState('collaborators')
 
     useEffect(() => {
-        if (canEdit === undefined)
-            setCanEdit(localStorage.getItem('profile') !== null && JSON.parse(localStorage.getItem('profile')).admin)
-
+        console.log('here')
         if ((new Cookies()).get('lang') !== undefined && (new Cookies()).get('lang') !== router.locale) {
             router.push('/', '/', {locale: (new Cookies()).get('lang')}).catch(r => console.log(r))
             setLang(getLanguage(router.locale, router.pathname))
@@ -54,28 +51,25 @@ export default function Index() {
 
                             <IndexComponent dark={props.dark} setData={setData} setOption={setOption}
                                             option={option} lang={lang} setLoading={setLoading}
-                                            canEdit={canEdit}
                             />
                         </div>
                         <div className={styles.personas_container}>
                             {!loading ?
                                 data.length > 0 ?
-                                    option !== 'unities' ? data.map(collaborator =>
+                                    option !== 'units' ? data.map(collaborator =>
                                             <PersonCard
                                                 profile={collaborator.profile}
                                                 collaboration={collaborator.collaboration}
                                                 unit={collaborator.unit}
-                                                canEdit={canEdit}
                                                 dark={props.dark}
                                                 inactiveLocale={lang.inactive}
                                             />
                                         )
                                         :
-                                        data.map(unity =>
+                                        data.map(unit =>
                                             <UnityCard dark={props.dark}
-                                                       unity={unity.unity}
-                                                       collaborators={unity.collaborators}
-                                                       canEdit={canEdit}/>
+                                                       unit={unit.unit}
+                                                       collaborators={unit.collaborators}/>
                                         )
                                     :
                                     <div style={{

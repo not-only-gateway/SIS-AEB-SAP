@@ -56,7 +56,6 @@ export default function Navigation(props) {
         }
     }
 
-
     return (
         <div className={styles.nav_bar_container}>
             <div style={{gridRow: 1, alignItems: 'flex-start'}}>
@@ -65,7 +64,7 @@ export default function Navigation(props) {
 
 
             <div style={{gridRow: 2, display: 'grid', justifyContent: 'flex-start', alignContent: 'center'}}>
-                {accessProfile.canViewActivityLog ?
+                {accessProfile !== null && accessProfile.canViewActivityLog ?
                     <div className={styles.button_container}
                          style={{backgroundColor: props.path === '/management' ? (props.dark ? '#303741' : 'white') : null}}>
                         <Link href={{pathname: '/management', locale: props.locale}}>

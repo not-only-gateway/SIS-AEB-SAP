@@ -9,7 +9,7 @@ import shared from '../../styles/shared/Shared.module.css'
 export default function UnitCard(props) {
 
     const [hovered, setHovered] = useState(false)
-
+    console.log(props)
     function renderContent() {
         const borderBottom = {borderBottom: !props.dark ? '#e2e2e2 1px solid' : '#777777 1px solid'}
         const secondaryField = {
@@ -39,14 +39,14 @@ export default function UnitCard(props) {
                         <p>Mission: </p>
                         <p style={secondaryField}>{props.unit.mission}</p>
                     </div>
-                    {props.collaborators > 0 ?
-                        <div className={shared.row}>
-                            <p>Collab: {props.unit.highest_collaborator}</p>
-                            <SimpleProfileCardLayout dark={props.dark} pic={props.unit.highest_collaborator.pic} name={props.unit.highest_collaborator.name}/>
-                        </div>
-                        :
-                        null
-                    }
+                    {/*{props.collaborators > 0 ?*/}
+                    {/*    <div className={shared.row}>*/}
+                    {/*        <p>Collab: {props.unit.highest_collaborator}</p>*/}
+                    {/*        <SimpleProfileCardLayout dark={props.dark} pic={props.unit.highest_collaborator.pic} name={props.unit.highest_collaborator.name}/>*/}
+                    {/*    </div>*/}
+                    {/*    :*/}
+                    {/*    null*/}
+                    {/*}*/}
 
                 </fieldset>
             </div>
@@ -65,30 +65,20 @@ export default function UnitCard(props) {
                 borderRadius: '8px'
             }}
         >
-            {props.canEdit ?
-                <Link href={{pathname: '/unit', query: {id: props.unit.id}}}>
-                    <Button style={{
-                        height: props.unit.parent_communit !== undefined ? '25vh' : '29vh',
-                        width: '100%',
-                        textTransform: 'none',
-                        borderTopRightRadius: '8px',
-                        borderTopLeftRadius: '8px',
-                    }}>
-                        {renderContent()}
-                    </Button>
-                </Link>
-                :
-                <div style={{
-                    height: props.unit.parent_communit !== undefined ? '25vh' : '29vh',
+
+            <Link href={{pathname: '/unit', query: {id: props.unit.id}}}>
+                <Button style={{
+                    height: '29vh',
                     width: '100%',
                     textTransform: 'none',
                     borderTopRightRadius: '8px',
                     borderTopLeftRadius: '8px',
                 }}>
                     {renderContent()}
-                </div>
-            }
-            {props.unit.parent_communit !== undefined ?
+                </Button>
+            </Link>
+
+            {props.unit.parent_unit !== null ?
 
                 <Button style={{
                     borderTop: !props.dark ? '#e2e2e2 1px solid' : '#777777 1px solid',
@@ -96,7 +86,7 @@ export default function UnitCard(props) {
                     borderBottomLeftRadius: '8px', width: '100%'
                 }} disabled={!props.canEdit}
                 >
-                    {props.unit.parent_communit.acronym} - {props.unit.parent_communit.name}
+                    {props.unit.parent_unit.acronym} - {props.unit.parent_unit.name}
                 </Button>
                 :
                 null
@@ -112,5 +102,4 @@ UnitCard.proptypes = {
     unit: PropTypes.object,
     highestCollaborator: PropTypes.object,
     collaborators: PropTypes.number,
-    canEdit: PropTypes.bool
 }

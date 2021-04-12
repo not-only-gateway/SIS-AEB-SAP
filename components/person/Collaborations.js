@@ -14,8 +14,8 @@ export default function Collaborations(props) {
 
     useEffect(() => {
         fetchComponentData({
-            path: 'collaborations',
-            params: {id: props.id}
+            path: 'collaborations/all/' + props.id,
+            params: {}
         }).then(res => {
             if (res !== null)
                 setCollaborations(res)
@@ -23,7 +23,7 @@ export default function Collaborations(props) {
         setLoading(false)
     }, [])
 
-    if(!loading)
+    if (!loading)
         return (
             <div className={styles.collaborations_container} style={{marginBottom: '2vh', marginLeft: '.9vw'}}>
                 {props.getTitle({
@@ -32,7 +32,7 @@ export default function Collaborations(props) {
                     pageInfo: 'Basic form'
                 })}
                 {props.disabled ?
-                    null:
+                    null :
                     <AccordionLayout
                         content={
                             <div style={{backgroundColor: !props.dark ? 'white' : '#303741'}}>
@@ -40,9 +40,6 @@ export default function Collaborations(props) {
                                     userID={props.id}
                                     create={true}
                                     dark={props.dark}
-                                    mediumContainer={props.mediumContainer}
-                                    smallContainer={props.smallContainer}
-                                    selectStyle={props.selectStyle}
                                 />
                             </div>
                         }
@@ -56,44 +53,49 @@ export default function Collaborations(props) {
                                 <p>New Collaboration</p>
                             </div>
                         }
+                        key={'create collaboration'}
                         disabled={!props.editable}
                         openSize={40}
                         closedSize={12.66667}
                     />
                 }
                 {props.editable ? collaborations.map(collaboration => (
-                    <AccordionLayout
-                        content={
-                            <div style={{backgroundColor: !props.dark ? 'white' : '#303741'}}>
+                        <AccordionLayout
+                            content={
+                                <div style={{backgroundColor: !props.dark ? 'white' : '#303741'}}>
 
-                                <CollaborationForm
-                                    collaborationID={collaboration.id}
-                                    userID={props.id}
-                                    create={true}
-                                    dark={props.dark}
-                                    mediumContainer={props.mediumContainer}
-                                    smallContainer={props.smallContainer}
-                                    selectStyle={props.selectStyle}
-                                />
-                            </div>
-                        }
-                        summary={
-                          <div>
-                              <p style={{fontWeight: 450}}>{collaboration.unit.acronym} - {collaboration.unit.name}</p>
-                              <p style={{
-                                  fontSize: '.8rem',
-                                  fontWeight: 420,
-                                  color: props.dark ? '#e2e2e2' : '#777777'
-                              }}>{collaboration.role.denomination} - {collaboration.linkage.description}</p>
-                          </div>
-                        }
-                        disabled={false}
-                        openSize={40}
-                        closedSize={12.66667}
-                    />
+                                    <CollaborationForm
+                                        collaborationID={collaboration.collaboration.id}
+                                        userID={props.id}
+                                        create={true}
+                                        dark={props.dark}
+                                        visible={props.editable}
+                                        editable={props.editable}
 
-                )):
-                null
+                                    />
+                                </div>
+                            }
+                            summary={
+                                <div>
+                                    <p style={{fontWeight: 450}}>{collaboration.unit.acronym}</p>
+                                    <p style={{
+                                        fontSize: '.8rem',
+                                        fontWeight: 420,
+                                        color: props.dark ? '#e2e2e2' : '#777777'
+                                    }}>{collaboration.effective_role !== null ?
+                                        (collaboration.effective_role.denomination +
+                                            (collaboration.commissioned_role !== null ? ' - ' + collaboration.commissioned_role.denomination : ''))
+                                        : null}</p>
+                                </div>
+                            }
+                            key={collaboration.collaboration.id}
+                            disabled={false}
+                            openSize={43}
+                            closedSize={12.66667}
+                        />
+
+                    )) :
+                    null
                 }
             </div>
 
@@ -102,7 +104,7 @@ export default function Collaborations(props) {
         return null
 }
 
-Collaborations.propTypes = {
+Collaborations.propTypes={
     dark: PropTypes.bool,
     visible: PropTypes.bool,
     editable: PropTypes.bool,

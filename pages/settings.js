@@ -12,22 +12,20 @@ import Cookies from "universal-cookie/lib";
 import AccordionLayout from "../components/shared/layout/AccordionLayout";
 import changeTheme from "../utils/shared/ChangeTheme";
 import changeLanguage from "../utils/shared/ChangeLanguage";
+import fetchSettingsData from "../utils/settings/FetchData";
+import {readCollaboration} from "../utils/shared/IndexedDB";
 
 export default function Settings() {
 
     const router = useRouter()
     const [lang, setLang] = useState(null)
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
+    const [collaborations, setCollaborations] = useState([])
+    const [currentCollaboration, setCurrentCollaboration] = useState({})
     useEffect(() => {
         const currentLocale = (new Cookies()).get('lang')
+        readCollaboration().then(res => setCurrentCollaboration(res))
+        if ((new Cookies()).get('jwt') !== undefined)
+            fetchSettingsData().then(res => setCollaborations(res))
 
         if (currentLocale !== undefined && currentLocale !== router.locale) {
             router.push('/settings', '/settings', {locale: currentLocale}).catch(r => console.log(r))
@@ -70,6 +68,7 @@ export default function Settings() {
                                 summary={
                                     <legend>{lang.language}</legend>
                                 }
+                                key={'language - settings'}
                                 closedSize={22}
                                 openSize={22}
                             />
@@ -79,7 +78,7 @@ export default function Settings() {
                                 content={
                                     <FormControl component="fieldset" style={{paddingLeft: '10px'}}>
                                         <RadioGroup onChange={() => changeTheme({
-                                            changeTheme: props.setDark,
+                                            setTheme: props.setDark,
                                             currentTheme: props.dark
                                         })} value={props.dark}>
                                            <FormControlLabel value={false} control={<Radio/>} label={
@@ -100,6 +99,7 @@ export default function Settings() {
                                 summary={
                                     <legend>{lang.theme}</legend>
                                 }
+                                key={'theme - settings'}
                                 closedSize={22}
                                 openSize={22}
                             />
@@ -107,11 +107,19 @@ export default function Settings() {
                             {(new Cookies()).get('jwt') !== undefined ?
                                 <AccordionLayout
                                     content={
-                                        null
+                                        <FormControl component="fieldset" style={{paddingLeft: '10px'}}>
+                                            <RadioGroup value={currentCollaboration.id}>
+                                                {collaborations.map(collaboration => {
+                                                    console.log(collaboration)
+                                                    return <FormControlLabel value={collaboration.collaboration.id} control={<Radio/>} label={collaboration.unit.acronym}/>
+                                                })}
+                                            </RadioGroup>
+                                        </FormControl>
                                     }
                                     summary={
-                                        <legend>Role</legend>
+                                        <legend>Collaboration</legend>
                                     }
+                                    key={'collaboration - settings'}
                                     closedSize={22}
                                     openSize={22}
                                 />

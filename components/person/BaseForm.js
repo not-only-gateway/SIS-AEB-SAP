@@ -46,8 +46,9 @@ export default function BaseForm(props) {
                 setPic(res.pic)
                 setNationality(res.nationality)
             }
+            setLoading(false)
         })
-        setLoading(false)
+
     }, [])
 
 

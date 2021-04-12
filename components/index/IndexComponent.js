@@ -24,7 +24,7 @@ export default function IndexComponent(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [hovered, setHovered] = useState(false)
 
-    async function fetchSearch(){
+    async function fetchSearch() {
         props.setLoading(true)
         props.setData([])
         await makeRequest({
@@ -35,12 +35,11 @@ export default function IndexComponent(props) {
             url: props.option,
             host: Host()
         }).then(response => {
-            if (response.error){
+            if (response.error) {
                 // setError(true)
                 // setErrorMessage(response.errorMessage)
                 console.log('Error')
-            }
-            else
+            } else
                 props.setData(response.data)
         })
 
@@ -83,11 +82,11 @@ export default function IndexComponent(props) {
                    onMouseEnter={() => setHovered(true)}
                    onMouseLeave={() => setHovered(false)}
                    style={{
-                ...searchFieldStyle, ...{
-                    backgroundColor: props.dark ? '#272e38' : '#f4f8fb',
-                    boxShadow: !props.dark ? (hovered ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'none') :  'none',
-                }
-            }}>
+                       ...searchFieldStyle, ...{
+                           backgroundColor: props.dark ? '#272e38' : '#f4f8fb',
+                           boxShadow: !props.dark ? (hovered ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'none') : 'none',
+                       }
+                   }}>
                 <IconButton aria-controls="menu" aria-haspopup="true" onClick={handleClick}>
                     <MenuRounded style={{color: props.dark ? 'white' : null}}/>
                 </IconButton>
@@ -101,12 +100,10 @@ export default function IndexComponent(props) {
                             props.setLoading(true)
                             props.setOption(event.target.value)
                         }} value={props.option}>
-                            {props.lang.filterChoice.map(choice =>{
-                                if(props.canEdit && choice.key === 'people')
-                                    return <FormControlLabel value={choice.key} control={<Radio/>} label={choice.value}/>
-                                else if(choice.key !== 'people')
-                                    return <FormControlLabel value={choice.key} control={<Radio/>} label={choice.value}/>
-                                })}
+                            {props.lang.filterChoice.map(choice => (
+                                <FormControlLabel value={choice.key} control={<Radio/>} label={choice.value}/>
+                                ))}
+
                         </RadioGroup>
                     </FormControl>
                 </Menu>
@@ -115,7 +112,7 @@ export default function IndexComponent(props) {
                     placeholder={props.lang.search}
                     value={search}
                     onKeyDown={key => {
-                        if(key.key === 'Enter')
+                        if (key.key === 'Enter')
                             key.preventDefault()
                     }}
                     onChange={event => setSearch(event.target.value)}
@@ -126,12 +123,13 @@ export default function IndexComponent(props) {
                     <SearchRounded style={{color: props.dark ? 'white' : null}}/>
                 </IconButton>
                 <Divider orientation={'vertical'} style={{height: '70%'}}/>
-                <IconButton aria-label={props.lang.search} disabled={search === null || search.length === 0 } onClick={() => {
-                    props.setData([])
-                    props.setLoading(true)
-                    setSearch('')
-                    fetchData().catch(error => console.log(error))
-                }}>
+                <IconButton aria-label={props.lang.search} disabled={search === null || search.length === 0}
+                            onClick={() => {
+                                props.setData([])
+                                props.setLoading(true)
+                                setSearch('')
+                                fetchData().catch(error => console.log(error))
+                            }}>
                     <BackspaceRounded style={{color: props.dark ? 'white' : null}}/>
                 </IconButton>
             </Paper>

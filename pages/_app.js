@@ -3,7 +3,7 @@ import Cookies from "universal-cookie/lib";
 
 const cookies = new Cookies()
 
-export default function TogetherApp({ Component, pageProps}){
+export default function SISAEB({ Component, pageProps}){
     return (
         <Component {...pageProps}/>
     )

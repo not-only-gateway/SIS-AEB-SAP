@@ -23,7 +23,6 @@ export default async function signIn(props) {
         }).then(async function (res) {
             startDatabase().catch(error => console.log(error))
             cookies.set('jwt', res.data.jwt, {expires: new Date(res.data.exp)})
-            cookies.set('id', res.data.id, {expires: new Date(res.data.exp)})
 
             console.log(res.data)
 

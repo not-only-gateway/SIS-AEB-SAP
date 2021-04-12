@@ -1,6 +1,5 @@
 export default function getMethodColor(method) {
     let response = null
-
     switch (method) {
         case 'GET': {
             response = '#249a44'

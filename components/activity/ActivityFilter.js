@@ -45,7 +45,7 @@ export default function ActivityFilterComponent(props){
                     props.setChanged(false)
                     fetchActivityData({
                         type: 1,
-                        setLastFetchedSize: props.lastFetchSize,
+                        setLastFetchedSize: props.setLastFetchedSize,
                         setData: props.setResponseData,
                         data: props.data,
                         setMaxID: props.setMaxID,
@@ -56,7 +56,6 @@ export default function ActivityFilterComponent(props){
                         startDate: props.startDate,
                         method: props.method,
                         path: props.path,
-                        setLastFetchSize: props.setLastFetchSize
                     }).catch(error => console.log(error))
 
                 }}>
@@ -78,9 +77,9 @@ ActivityFilterComponent.propTypes={
     setMethod: PropTypes.func,
     setStartDate: PropTypes.func,
     setResponseData: PropTypes.func,
-    lastFetchSize: PropTypes.any,
+    setLastFetchedSize: PropTypes.func,
+    setMaxID: PropTypes.func,
     startDate: PropTypes.string,
     path: PropTypes.string,
     setPath: PropTypes.func,
-    setLastFetchSize: PropTypes.func
 }

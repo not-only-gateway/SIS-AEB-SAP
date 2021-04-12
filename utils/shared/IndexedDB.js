@@ -103,20 +103,14 @@ setCollaboration.propTypes = {
 }
 
 export async function readCollaboration() {
-    let response = null
-
-    const userDB = new Dexie('user');
-
-    userDB.open().then(async function () {
+    const userDB = new Dexie('user')
+    return userDB.open().then(async function () {
         const collaboration = userDB.table('collaboration')
-        if (collaboration) {
-            const query = await collaboration.get(1)
-            if (query !== undefined && query !== null)
-                response = query
-        }
-    }).catch(error => console.log(error))
 
-    return response
+        if (collaboration)
+            return collaboration.get(1)
+        else return null
+    })
 }
 
 export async function setAccessProfile(props) {

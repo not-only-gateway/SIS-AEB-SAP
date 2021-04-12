@@ -13,7 +13,7 @@ export default function AccordionLayout(props) {
             transition: '.2s',
             boxShadow: open ? (!props.dark ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'initial') : null,
             height: "fit-content"
-        }}>
+        }} key={'accordion - '+props.key}>
             <Button onClick={() => setOpen(!open)} disabled={props.disabled} style={{textTransform: 'none', display: 'flex', width: '100%', justifyContent: 'space-between'}}>
                 {props.summary}
                 {open ? <ArrowUpwardRounded/> : <ArrowDownwardRounded/>}
@@ -40,5 +40,6 @@ AccordionLayout.propTypes = {
     closedSize: PropTypes.number,
     openSize: PropTypes.number,
     border: PropTypes.any,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    key: PropTypes.number
 }

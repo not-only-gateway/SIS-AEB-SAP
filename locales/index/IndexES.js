@@ -6,7 +6,7 @@ export default {
     info1: 'Colaboradores(as) activos(as)',
     filterChoice: [
         {value: 'Todos(as) los(as) colaboradoras(es)', key: 'people'},
-        {value: 'Unidades', key: 'unities'},
+        {value: 'Unidades', key: 'units'},
         {value: 'Colaboradores(as) activos(as)', key: 'collaborators'}
     ],
     inactive: 'Colaborador(a) inactivo(a)',
