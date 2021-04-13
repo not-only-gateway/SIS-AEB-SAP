@@ -19,3 +19,13 @@
     justify-content: space-between;
     align-content: center;
 }
+.accordionTitle{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: .9rem;
+    /*max-width: 72%;*/
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden
+}

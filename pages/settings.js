@@ -2,7 +2,7 @@ import Layout from "../components/shared/layout/Layout";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import style from '../styles/pages/settings/Settings.module.css'
-import {createMuiTheme, FormControl, FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
+import {createMuiTheme, Divider, FormControl, FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
 import {iconStyle} from "../styles/components/navigation/BarMaterialStyles";
 import Brightness7RoundedIcon from "@material-ui/icons/Brightness7Rounded";
 import Brightness3RoundedIcon from "@material-ui/icons/Brightness3Rounded";
@@ -12,15 +12,14 @@ import Cookies from "universal-cookie/lib";
 import AccordionLayout from "../components/shared/layout/AccordionLayout";
 import fetchSettingsData from "../utils/settings/FetchData";
 import {readCollaboration} from "../utils/shared/IndexedDB";
-import {setThemeCookie} from "../utils/shared/Theme";
-import {route} from "next/dist/next-server/server/router";
+import shared from '../styles/shared/Shared.module.css'
 
 export default function Settings() {
 
     const router = useRouter()
     const [lang, setLang] = useState(null)
     const [collaborations, setCollaborations] = useState([])
-    const [currentCollaboration, setCurrentCollaboration] = useState({})
+    const [currentCollaboration, setCurrentCollaboration] = useState(null)
 
     useEffect(() => {
         console.log(location.pathname)
@@ -69,7 +68,11 @@ export default function Settings() {
                                     </FormControl>
                                 }
                                 summary={
-                                    <legend>{lang.language}</legend>
+                                    <div className={shared.accordionTitle}>
+                                        <p >{lang.language}</p>
+                                        <Divider style={{width: '10px', marginLeft: '10px', marginRight: '10px'}} orientation={'horizontal'}/>
+                                        <p>{props.locale === 'pt' ? 'Português' : props.locale === 'es' ? 'Español' : 'English'}</p>
+                                    </div>
                                 }
                                 key={'language - settings'}
                                 closedSize={22}
@@ -97,14 +100,18 @@ export default function Settings() {
                                     </FormControl>
                                     }
                                 summary={
-                                    <legend>{lang.theme}</legend>
+                                    <div className={shared.accordionTitle}>
+                                        <p >{lang.theme}</p>
+                                        <Divider style={{width: '10px', marginLeft: '10px', marginRight: '10px'}} orientation={'horizontal'}/>
+                                        <p>{props.dark ? 'Dark' : 'Light'}</p>
+                                    </div>
                                 }
                                 key={'theme - settings'}
                                 closedSize={22}
                                 openSize={22}
                             />
 
-                            {(new Cookies()).get('jwt') !== undefined ?
+                            {(new Cookies()).get('jwt') !== undefined && currentCollaboration !== null?
                                 <AccordionLayout
                                     content={
                                         <FormControl component="fieldset" style={{paddingLeft: '10px'}}>
@@ -117,7 +124,11 @@ export default function Settings() {
                                         </FormControl>
                                     }
                                     summary={
-                                        <legend>Collaboration</legend>
+                                        <div className={shared.accordionTitle}>
+                                            <p >Collaboration</p>
+                                            <Divider style={{width: '10px', marginLeft: '10px', marginRight: '10px'}} orientation={'horizontal'}/>
+                                            <p>{currentCollaboration.unitAcronym}</p>
+                                        </div>
                                     }
                                     key={'collaboration - settings'}
                                     closedSize={22}

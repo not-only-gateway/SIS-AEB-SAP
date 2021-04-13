@@ -1,11 +1,9 @@
 import styles from '../../styles/pages/index/Index.module.css'
 import {Avatar, Button} from "@material-ui/core";
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {CakeRounded, WarningRounded} from "@material-ui/icons";
 import Link from 'next/link'
 import PropTypes from 'prop-types'
-import {router} from "next/client";
-
 
 export default function PersonCard(props) {
 

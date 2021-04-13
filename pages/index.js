@@ -10,7 +10,6 @@ import IndexComponent from "../components/index/IndexComponent";
 import UnityCard from "../components/index/UnitCard";
 import shared from '../styles/shared/Shared.module.css'
 import getPageInfo from "../utils/index/GetPageInfo";
-import PropTypes from "prop-types";
 
 export default function Index() {
 

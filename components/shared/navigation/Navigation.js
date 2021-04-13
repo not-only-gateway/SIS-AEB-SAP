@@ -62,7 +62,6 @@ export default function Navigation(props) {
                 <img style={logoStyle} src={getLogo(props.dark)} alt={'aeb'}/>
             </div>
 
-
             <div style={{gridRow: 2, display: 'grid', justifyContent: 'flex-start', alignContent: 'center'}}>
                 {accessProfile !== null && accessProfile.canViewActivityLog ?
                     <div className={styles.button_container}
@@ -105,7 +104,7 @@ export default function Navigation(props) {
                 {cookies.get('jwt') !== undefined ?
                     <>
                         <div className={styles.button_container}>
-                            <Link href={{pathname: '/authentication', locale: props.locale}}>
+                            <Link href={{pathname: '/signin', locale: props.locale}}>
                                 <Button style={{...buttonStyle, ...{color: props.dark ? 'white' : '#111111'}}}>
                                     <ExitToAppRounded
                                         style={{...iconStyle, ...{color: !props.dark ? '#777777' : '#ededed'}}}/> {lang.signout}
@@ -121,7 +120,7 @@ export default function Navigation(props) {
             <div className={styles.bar_profile_container} style={{gridRow: 3}}>
                 {profile === null ?
                     <>
-                        <Link href={{pathname: '/authentication', locale: props.locale}}>
+                        <Link href={{pathname: '/signin', locale: props.locale}}>
                             <Button style={{
                                 color: (props.dark ? 'white' : 'black'),
                                 marginRight: '10px',

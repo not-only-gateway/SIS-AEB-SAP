@@ -2,7 +2,6 @@ import makeRequest from "../shared/Request";
 import localIpUrl from "local-ip-url";
 import Host from "../shared/Host";
 import PropTypes from 'prop-types'
-import {useEffect} from "react";
 
 export default async function fetchActivityData(props) {
 

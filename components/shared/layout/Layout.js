@@ -20,8 +20,6 @@ export default function Layout({children}) {
 
         if (locale !== cookies.get('lang') && cookies.get('lang') !== undefined)
             router.push(router.pathname, router.pathname, {locale: cookies.get('lang')}).catch(error => console.log(error))
-        if(router.isReady)
-        router.push(router.pathname, router.pathname, {locale: router.locale}).catch(error => console.log(error))
     }, [router.isReady, router.locale])
 
     const changeTheme = () => {

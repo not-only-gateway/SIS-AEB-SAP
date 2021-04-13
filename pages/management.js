@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import Cookies from "universal-cookie/lib";
 import {Button, createMuiTheme} from "@material-ui/core";
 import Layout from "../components/shared/layout/Layout";
 import {useRouter} from "next/router";
@@ -14,6 +13,7 @@ import {buttonStyle, iconStyle} from "../styles/components/navigation/BarMateria
 import {getLanguage} from "../utils/shared/Language";
 import styles from '../styles/pages/management/Management.module.css'
 import {readAccessProfile} from "../utils/shared/IndexedDB";
+import BaseForm from "../components/shared/form/BaseForm";
 
 export default function management() {
 
@@ -47,7 +47,8 @@ export default function management() {
                                 <div style={{
                                     backgroundColor: props.dark ? '#303741' : null,
                                     border: props.dark ? null : '#e2e2e2 1px solid',
-                                    borderRadius: '8px'
+                                    borderRadius: '8px',
+                                    width: '49%'
                                 }}>
                                     <Link href={{pathname: '/activity', locale: props.locale}}>
                                         <Button style={buttonStyle}>
@@ -62,7 +63,8 @@ export default function management() {
                                 <div style={{
                                     backgroundColor: props.dark ? '#303741' : null,
                                     border: props.dark ? null : '#e2e2e2 1px solid',
-                                    borderRadius: '8px'
+                                    borderRadius: '8px',
+                                    width: '49%'
                                 }}>
                                     <Button style={buttonStyle}>
                                         <AssignmentIndRounded style={{fontSize: '1.5rem'}}/>
@@ -76,7 +78,8 @@ export default function management() {
                                 <div style={{
                                     backgroundColor: props.dark ? '#303741' : null,
                                     border: props.dark ? null : '#e2e2e2 1px solid',
-                                    borderRadius: '8px'
+                                    borderRadius: '8px',
+                                    width: '49%'
                                 }}>
                                     <Button style={buttonStyle}>
                                         <ViewModuleRounded style={{fontSize: '1.5rem'}}/>
@@ -91,7 +94,13 @@ export default function management() {
                             {accessProfile !== null && accessProfile.canCreatePerson ?
                                 <AccordionLayout
                                     content={
-                                        <CollaboratorComponent dark={props.dark}/>
+                                        <BaseForm
+                                            locale={router.locale}
+                                            dark={props.dark}
+                                            visible={accessProfile.canCreatePerson}
+                                            editable={accessProfile.canCreatePerson}
+                                            create={true}
+                                        />
                                     }
                                     summary={
                                         <>

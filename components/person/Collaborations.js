@@ -1,11 +1,12 @@
 import styles from "../../styles/components/form/Form.module.css";
 import React, {useEffect, useState} from "react";
-import Cookies from "universal-cookie/lib";
 import PropTypes from "prop-types";
 import {AddRounded} from "@material-ui/icons";
 import CollaborationForm from "./CollaborationForm";
 import AccordionLayout from "../shared/layout/AccordionLayout";
 import fetchComponentData from "../../utils/person/FetchData";
+import shared from '../../styles/shared/Shared.module.css'
+import {Divider} from "@material-ui/core";
 
 export default function Collaborations(props) {
 
@@ -76,8 +77,9 @@ export default function Collaborations(props) {
                                 </div>
                             }
                             summary={
-                                <div>
+                                <div className={shared.accordionTitle}>
                                     <p style={{fontWeight: 450}}>{collaboration.unit.acronym}</p>
+                                    <Divider style={{width: '10px', marginRight: '10px', marginLeft: '10px'}}/>
                                     <p style={{
                                         fontSize: '.8rem',
                                         fontWeight: 420,
@@ -104,7 +106,7 @@ export default function Collaborations(props) {
         return null
 }
 
-Collaborations.propTypes={
+Collaborations.propTypes = {
     dark: PropTypes.bool,
     visible: PropTypes.bool,
     editable: PropTypes.bool,

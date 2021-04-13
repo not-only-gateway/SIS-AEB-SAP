@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import Cookies from "universal-cookie/lib";
 import {createMuiTheme} from "@material-ui/core";
 import Layout from "../components/shared/layout/Layout";
 import {useRouter} from "next/router";
 import Collaborations from "../components/person/Collaborations";
 import {ThemeProvider} from "@material-ui/styles";
-import BaseForm from "../components/person/BaseForm";
+import BaseForm from "../components/shared/form/BaseForm";
 import ContactForm from "../components/person/ContactForm";
 import AddressForm from "../components/shared/form/AddressForm";
 import DocumentsForm from "../components/person/DocumentsForm";
@@ -14,7 +13,6 @@ import styles from '../styles/pages/person/Person.module.css'
 import TabLayout from "../components/shared/layout/TabLayout";
 import {readAccessProfile} from "../utils/shared/IndexedDB";
 
-const cookies = new Cookies()
 
 export default function person() {
 
@@ -24,7 +22,9 @@ export default function person() {
     const [accessProfile, setAccessProfile] = useState(null)
 
     useEffect(() => {
-        setId(router.query.id)
+        if(router.isReady)
+            setId(router.query.id)
+
         setLang(getLanguage(router.locale, router.pathname))
 
         if (accessProfile === null)
@@ -72,7 +72,8 @@ export default function person() {
                                                     dark={props.dark}
                                                     visible={accessProfile !== null ? accessProfile.canUpdatePerson : false}
                                                     editable={accessProfile !== null ? accessProfile.canUpdatePerson : false}
-                                                    lang={lang.basic}
+                                                    create={false}
+                                                    locale={router.locale}
                                                 />
                                             )
                                         },

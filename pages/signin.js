@@ -7,7 +7,6 @@ import AuthenticationLayout from "../components/authentication/AuthenticateLayou
 import Head from "next/head";
 import {getLanguage, setCookiesLanguage} from "../utils/shared/Language";
 import {setThemeCookie} from "../utils/shared/Theme";
-import signOut from "../utils/authentication/SignOut";
 import signIn from "../utils/authentication/SignIn";
 
 const cookies = new Cookies()

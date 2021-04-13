@@ -5,7 +5,6 @@ import InputLayout from "../shared/layout/InputLayout";
 import PropTypes from "prop-types";
 import saveComponentChanges from "../../utils/person/SaveChanges";
 import fetchComponentData from "../../utils/person/FetchData";
-import {router} from "next/client";
 
 export default function CollaborationForm(props) {
 

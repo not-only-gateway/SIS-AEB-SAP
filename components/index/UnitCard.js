@@ -3,7 +3,6 @@ import {Button} from "@material-ui/core";
 import React, {useState} from 'react'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
-import SimpleProfileCardLayout from "../shared/layout/SimpleProfileCardLayout";
 import shared from '../../styles/shared/Shared.module.css'
 
 export default function UnitCard(props) {
