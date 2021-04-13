@@ -1,4 +1,5 @@
 export default {
     title: 'Estrutura',
-    information: 'Estrutura interna de unidades e colaboradores'
+    information: 'Estrutura interna de unidades e colaboradores',
+    units: 'Unidades'
 }

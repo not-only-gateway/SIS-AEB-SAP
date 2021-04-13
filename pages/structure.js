@@ -10,6 +10,7 @@ import axios from "axios";
 import Host from "../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import UnitLayout from "../components/structure/UnitLayout";
+import AccordionLayout from "../components/shared/layout/AccordionLayout";
 
 
 export default function Structure() {
@@ -31,9 +32,10 @@ export default function Structure() {
         })
     }, [])
 
-    function redirect(id){
+    function redirect(id) {
         router.push('/unit', '/unit', {locale: router.locale, query: id})
     }
+
     if (lang !== null)
         return (
             <Layout>
@@ -45,16 +47,32 @@ export default function Structure() {
                     })}>
                         <props.getTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.information}/>
                         <div className={styles.tree_container}>
-                            {topUnits.map((unit, index) => {
-                                if(index === 0)
-                                    return (
-                                        <ul className={styles.tree} style={{border: !props.dark ? '#e2e2e2 1px solid' : 'none', backgroundColor: props.dark ? '#3b424c': 'none', borderRadius: '8px'}}>
-                                            <UnitLayout redirect={redirect} dark={props.dark} unit={unit}/>
-                                        </ul>
-                                    )
-                                else return null
-                            })}
+                            <AccordionLayout
+                                content={topUnits.map((unit, index) => {
+                                    if (index === 0)
+                                        return (
+                                            <ul className={styles.tree} style={{
+                                                border: !props.dark ? '#e2e2e2 1px solid' : 'none',
+                                                backgroundColor: props.dark ? '#3b424c' : 'none',
+                                                borderRadius: '8px',
+                                                margin: 'auto'
+                                            }}>
+                                                <UnitLayout redirect={redirect} dark={props.dark} unit={unit}/>
+                                            </ul>
+                                        )
+                                    else return null
+                                })}
+                                summary={
+                                    <div>
+                                        <p>{lang.units}</p>
+                                    </div>
+                                }
+                                dark={props.dark}
+                                closedSize={45}
+                                openSize={75}
+                            />
                         </div>
+
                     </ThemeProvider>
                 }
             </Layout>
