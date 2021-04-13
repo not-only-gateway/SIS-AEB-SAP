@@ -18,7 +18,7 @@ export default function UnitCard(props) {
         }
         return (
             <div className={styles.persona_fields_container}>
-                <div className={styles.card_title} style={borderBottom}>
+                <div className={shared.card_title} style={borderBottom}>
                     <p style={{
                         fontSize: '1.2rem',
                         fontWeight: 450,

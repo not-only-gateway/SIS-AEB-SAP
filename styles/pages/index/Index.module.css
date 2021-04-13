@@ -39,12 +39,6 @@
     transition: 0.2s;
 }
 
-.card_title{
-    display: grid;
-    justify-items: center;
-    align-content: space-between;
-    line-height: normal;
-}
 .inactive_container{
     display: flex;
     justify-content: space-evenly;

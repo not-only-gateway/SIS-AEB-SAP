@@ -11,9 +11,9 @@ export default function AccordionLayout(props) {
             borderRadius: '8px',
             border: (props.border === undefined || props.border === null) ? (open ? '#39adf6 2px solid' : (!props.dark ? '#e2e2e2 1px solid' : null)) : props.border,
             transition: '.3s',
-            boxShadow: open ? (!props.dark ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'initial') : null,
+            boxShadow: open ? (!props.dark ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'initial') : props.dark ? 'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px' : null,
             height: "fit-content",
-            backgroundColor: props.dark ? '#3b424c' : null
+            backgroundColor: props.dark ? props.background !== undefined ? '#484c55' : '#3b424c' : null
 
         }} key={'accordion - ' + props.key}>
             <Button onClick={() => setOpen(!open)} disabled={props.disabled}
@@ -51,5 +51,6 @@ AccordionLayout.propTypes={
     openSize: PropTypes.number,
     border: PropTypes.any,
     disabled: PropTypes.bool,
-    key: PropTypes.number
+    key: PropTypes.number,
+    background: PropTypes.any
 }

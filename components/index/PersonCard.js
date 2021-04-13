@@ -4,6 +4,7 @@ import React, {useState} from 'react'
 import {CakeRounded, WarningRounded} from "@material-ui/icons";
 import Link from 'next/link'
 import PropTypes from 'prop-types'
+import shared from "../../styles/shared/Shared.module.css";
 
 export default function PersonCard(props) {
 
@@ -18,7 +19,7 @@ export default function PersonCard(props) {
         }
         return (
             <div className={styles.persona_fields_container}>
-                <div className={styles.card_title} style={borderBottom}>
+                <div className={shared.card_title} style={borderBottom}>
                     <Avatar src={props.profile.pic} alt={props.profile.name}
                             style={{height: '70px', width: '70px'}}/>
                     <p style={{

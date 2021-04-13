@@ -36,13 +36,12 @@ export default function Collaborations(props) {
                     null :
                     <AccordionLayout
                         content={
-                            <div style={{backgroundColor: !props.dark ? 'white' : '#303741'}}>
+
                                 <CollaborationForm
                                     userID={props.id}
                                     create={true}
                                     dark={props.dark}
                                 />
-                            </div>
                         }
                         summary={
                             <div style={{
@@ -57,13 +56,14 @@ export default function Collaborations(props) {
                         key={'create collaboration'}
                         disabled={!props.editable}
                         openSize={40}
+                        dark={props.dark}
                         closedSize={12.66667}
+                        background={'#484c55'}
                     />
                 }
                 {props.editable ? collaborations.map(collaboration => (
                         <AccordionLayout
                             content={
-                                <div style={{backgroundColor: !props.dark ? 'white' : '#303741'}}>
 
                                     <CollaborationForm
                                         collaborationID={collaboration.collaboration.id}
@@ -74,7 +74,6 @@ export default function Collaborations(props) {
                                         editable={props.editable}
 
                                     />
-                                </div>
                             }
                             summary={
                                 <div className={shared.accordionTitle}>
@@ -94,6 +93,8 @@ export default function Collaborations(props) {
                             disabled={false}
                             openSize={43}
                             closedSize={12.66667}
+                            dark={props.dark}
+                            background={'#484c55'}
                         />
 
                     )) :

@@ -223,6 +223,8 @@ export default function BaseForm(props) {
                                 closedSize={40}
                                 openSize={40}
                                 border={null}
+                                dark={props.dark}
+                                background={'#484c55'}
                             />
                         </div> :
                         moreFields()

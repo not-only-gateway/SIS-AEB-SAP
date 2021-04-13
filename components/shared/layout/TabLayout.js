@@ -33,7 +33,7 @@ export default function TabLayout(props) {
                             width: (100 / props.buttons.length) + '%',
                             borderRight: props.buttons.length === index? 'none' : (props.dark ? '' : '#e2e2e2 1px solid'),
                             backgroundColor: open === button.key ? '#39adf6' : null,
-                            color: open === button.key ? 'white' : 'initial',
+                            color: open === button.key ? 'white' : props.dark ? 'white' : 'black',
                             textTransform: 'capitalize'
                         }} onClick={() => setOpen(button.key)}>{button.value}</Button>
                     </>

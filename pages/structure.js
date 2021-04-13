@@ -1,25 +1,39 @@
 import Layout from "../components/shared/layout/Layout";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import styles from '../styles/pages/index/Index.module.css'
+import styles from '../styles/Structure.module.css'
 import PersonCard from "../components/index/PersonCard";
 import {createMuiTheme, ThemeProvider} from "@material-ui/core";
 import {Skeleton} from "@material-ui/lab";
 import {getLanguage} from "../utils/shared/Language";
-import IndexComponent from "../components/index/IndexComponent";
-import UnityCard from "../components/index/UnitCard";
-import shared from '../styles/shared/Shared.module.css'
-import getPageInfo from "../utils/index/GetPageInfo";
+import axios from "axios";
+import Host from "../utils/shared/Host";
+import Cookies from "universal-cookie/lib";
+import UnitLayout from "../components/structure/UnitLayout";
+
 
 export default function Structure() {
 
     const router = useRouter()
     const [lang, setLang] = useState(null)
+    const [topUnits, setTopUnits] = useState([])
 
     useEffect(() => {
         setLang(getLanguage(router.locale, '/structure'))
+        axios({
+            method: 'get',
+            url: Host() + 'top/units',
+            headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
+        }).then(res => {
+            setTopUnits(res.data)
+        }).catch(error => {
+            console.log(error)
+        })
     }, [])
 
+    function redirect(id){
+        router.push('/unit', '/unit', {locale: router.locale, query: id})
+    }
     if (lang !== null)
         return (
             <Layout>
@@ -30,8 +44,16 @@ export default function Structure() {
                         }
                     })}>
                         <props.getTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.information}/>
-                        <div>
-                          cafe
+                        <div className={styles.tree_container}>
+                            {topUnits.map((unit, index) => {
+                                if(index === 0)
+                                    return (
+                                        <ul className={styles.tree} style={{border: !props.dark ? '#e2e2e2 1px solid' : 'none', backgroundColor: props.dark ? '#3b424c': 'none', borderRadius: '8px'}}>
+                                            <UnitLayout redirect={redirect} dark={props.dark} unit={unit}/>
+                                        </ul>
+                                    )
+                                else return null
+                            })}
                         </div>
                     </ThemeProvider>
                 }
