@@ -27,7 +27,8 @@ const cookies = new Cookies()
 
 export function setCookiesLanguage(lang) {
     cookies.remove('lang', {path: '/'})
-    cookies.set('lang', lang, {path: '/'})
+    const currentExpiration = cookies.get('epx')
+    cookies.set('lang', lang, {path: '/', expires: currentExpiration !== undefined ? new Date(currentExpiration) : new Date((new Date()).getTime() * 1000 * 60 * 60 *24 * 7)})
 }
 
 export function getLanguage (locale, page){

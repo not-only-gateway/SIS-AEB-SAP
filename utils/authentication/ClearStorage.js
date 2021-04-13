@@ -8,5 +8,5 @@ export default async function ClearStorage() {
     cookies.remove('theme', {path: '/'})
     cookies.remove('jwt', {path: '/'})
     cookies.remove('lang', {path: '/'})
-
+    cookies.remove('exp', {path: '/'})
 }

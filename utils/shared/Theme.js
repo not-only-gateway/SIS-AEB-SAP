@@ -4,20 +4,20 @@ const cookies = new Cookies()
 
 
 export function setThemeCookie() {
-
+    const currentExpiration = cookies.get('epx')
     switch (cookies.get('theme')) {
         case '0': {
             cookies.remove('theme')
-            cookies.set('theme', 1, {path: '/'})
+            cookies.set('theme', 1, {path: '/', expires: new Date((new Date()).getTime() * 1000 * 60 * 60 *24 * 7)})
             break
         }
         case '1': {
             cookies.remove('theme')
-            cookies.set('theme', 0, {path: '/'})
+            cookies.set('theme', 0, {path: '/', expires: new Date((new Date()).getTime() * 1000 * 60 * 60 *24 * 7)})
             break
         }
         default: {
-            cookies.set('theme', 0, {path: '/'})
+            cookies.set('theme', 0, {path: '/', expires: new Date((new Date()).getTime() * 1000 * 60 * 60 *24 * 7)})
             break
         }
     }
