@@ -1,12 +1,19 @@
 import React, {useEffect, useState} from 'react'
-import {Button, createMuiTheme} from "@material-ui/core";
+import {Button, createMuiTheme, Divider} from "@material-ui/core";
 import Layout from "../components/shared/layout/Layout";
 import {useRouter} from "next/router";
 import {ThemeProvider} from "@material-ui/styles";
 
 import Link from "next/link";
 
-import {AssignmentIndRounded, CheckRounded, HistoryRounded, PersonRounded, ViewModuleRounded} from "@material-ui/icons";
+import {
+    AssignmentIndRounded,
+    CheckRounded,
+    HistoryRounded,
+    ListRounded,
+    PersonRounded,
+    ViewModuleRounded
+} from "@material-ui/icons";
 import AccordionLayout from "../components/shared/layout/AccordionLayout";
 import CollaboratorComponent from "../components/management/Collaborator";
 import {buttonStyle, iconStyle} from "../styles/components/navigation/BarMaterialStyles";
@@ -14,6 +21,7 @@ import {getLanguage} from "../utils/shared/Language";
 import styles from '../styles/pages/management/Management.module.css'
 import {readAccessProfile} from "../utils/shared/IndexedDB";
 import BaseForm from "../components/shared/form/BaseForm";
+import shared from "../styles/shared/Shared.module.css";
 
 export default function management() {
 
@@ -42,51 +50,92 @@ export default function management() {
                             pageTitle: lang.title,
                             pageInfo: lang.info
                         })}
+
                         <div className={styles.options_container}>
-                            {accessProfile !== null && accessProfile.canViewActivityLog ?
-                                <div style={{
-                                    backgroundColor: props.dark ? '#303741' : null,
-                                    border: props.dark ? null : '#e2e2e2 1px solid',
-                                    borderRadius: '8px',
-                                    width: '49%'
-                                }}>
-                                    <Link href={{pathname: '/activity', locale: props.locale}}>
-                                        <Button style={buttonStyle}>
-                                            <HistoryRounded style={iconStyle}/>
-                                            {lang.activity}
-                                        </Button>
-                                    </Link>
-                                </div>:
+                            {accessProfile !== null && accessProfile.canCreateRole ?
+                                <AccordionLayout
+                                    content={
+                                        null
+                                    }
+                                    summary={
+                                        <div className={shared.accordionTitle}>
+                                            <AssignmentIndRounded style={{fontSize: '1.7rem'}}/>
+                                            <p style={{marginLeft: '20px'}}>{lang.role}</p>
+                                        </div>
+                                    }
+                                    closedSize={22}
+                                    openSize={45}
+                                    dark={props.dark}
+                                    disabled={false}
+                                    border={null}
+                                />
+                                :
                                 null
                             }
-                            {accessProfile !== null && accessProfile.canCreateRole ?
+                            {accessProfile !== null && accessProfile.canViewActivityLog ?
                                 <div style={{
-                                    backgroundColor: props.dark ? '#303741' : null,
+                                    backgroundColor: props.dark ? '#3b424c' : null,
                                     border: props.dark ? null : '#e2e2e2 1px solid',
                                     borderRadius: '8px',
-                                    width: '49%'
+                                    width: '22vw'
                                 }}>
-                                    <Button style={buttonStyle}>
-                                        <AssignmentIndRounded style={{fontSize: '1.5rem'}}/>
-                                        {lang.role}
-                                    </Button>
-                                </div>
-                                :
+                                    <Link href={{pathname: '/activity', locale: props.locale}}>
+                                        <Button style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            display: 'flex',
+                                            justifyContent: 'flex-start',
+                                            alignItems: 'center',
+                                            textTransform: 'none'
+                                        }}>
+                                            <HistoryRounded style={{fontSize: '1.7rem'}}/>
+                                            <p style={{marginLeft: '20px'}}>{lang.activity}</p>
+                                        </Button>
+                                    </Link>
+                                </div> :
                                 null
                             }
                             {accessProfile !== null && accessProfile.canCreateUnit ?
+                                <AccordionLayout
+                                    content={
+                                        null
+                                    }
+                                    summary={
+                                        <div className={shared.accordionTitle}>
+                                            <ViewModuleRounded style={{fontSize: '1.7rem'}}/>
+                                            <p style={{marginLeft: '20px'}}>{lang.unit}</p>
+                                        </div>
+                                    }
+                                    closedSize={22}
+                                    openSize={45}
+                                    dark={props.dark}
+                                    disabled={false}
+                                    border={null}
+                                />
+                                :
+                                null
+                            }
+                            {accessProfile !== null && accessProfile.canUpdateRole ?
                                 <div style={{
-                                    backgroundColor: props.dark ? '#303741' : null,
+                                    backgroundColor: props.dark ? '#3b424c' : null,
                                     border: props.dark ? null : '#e2e2e2 1px solid',
                                     borderRadius: '8px',
-                                    width: '49%'
+                                    width: '22vw'
                                 }}>
-                                    <Button style={buttonStyle}>
-                                        <ViewModuleRounded style={{fontSize: '1.5rem'}}/>
-                                        {lang.unit}
-                                    </Button>
-                                </div>
-                                :
+                                    <Link href={{pathname: '/roles', locale: props.locale}}>
+                                        <Button style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            display: 'flex',
+                                            justifyContent: 'flex-start',
+                                            alignItems: 'center',
+                                            textTransform: 'none'
+                                        }}>
+                                            <ListRounded style={{fontSize: '1.7rem'}}/>
+                                            <p style={{marginLeft: '20px'}}>List Roles</p>
+                                        </Button>
+                                    </Link>
+                                </div> :
                                 null
                             }
 
@@ -103,15 +152,41 @@ export default function management() {
                                         />
                                     }
                                     summary={
-                                        <>
-                                            <PersonRounded style={{fontSize: '1.5rem'}}/>
-                                            {lang.user}
-                                        </>
+                                        <div className={shared.accordionTitle}>
+                                            <PersonRounded style={{fontSize: '1.7rem'}}/>
+                                            <p style={{marginLeft: '20px'}}>{lang.user}</p>
+                                        </div>
                                     }
                                     closedSize={22}
                                     openSize={45}
+                                    dark={props.dark}
+                                    disabled={false}
+                                    border={null}
                                 />
                                 :
+                                null
+                            }
+                            {accessProfile !== null && accessProfile.canUpdateAccessProfile ?
+                                <div style={{
+                                    backgroundColor: props.dark ? '#3b424c' : null,
+                                    border: props.dark ? null : '#e2e2e2 1px solid',
+                                    borderRadius: '8px',
+                                    width: '22vw'
+                                }}>
+                                    <Link href={{pathname: '/roles', locale: props.locale}}>
+                                        <Button style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            display: 'flex',
+                                            justifyContent: 'flex-start',
+                                            alignItems: 'center',
+                                            textTransform: 'none'
+                                        }}>
+                                            <ListRounded style={{fontSize: '1.7rem'}}/>
+                                            <p style={{marginLeft: '20px'}}>List Access Profiles</p>
+                                        </Button>
+                                    </Link>
+                                </div> :
                                 null
                             }
                             {accessProfile !== null && accessProfile.canCreateAccessProfile ?
@@ -120,13 +195,16 @@ export default function management() {
                                         null
                                     }
                                     summary={
-                                        <>
-                                            <CheckRounded style={{fontSize: '1.5rem'}}/>
-                                            {lang.access}
-                                        </>
+                                        <div className={shared.accordionTitle}>
+                                            <CheckRounded style={{fontSize: '1.7rem'}}/>
+                                            <p style={{marginLeft: '20px'}}>{lang.access}</p>
+                                        </div>
                                     }
-                                    closedSize={22.09}
+                                    closedSize={22}
                                     openSize={45}
+                                    dark={props.dark}
+                                    disabled={false}
+                                    border={null}
                                 />
                                 :
                                 null

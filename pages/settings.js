@@ -77,6 +77,9 @@ export default function Settings() {
                                 key={'language - settings'}
                                 closedSize={22}
                                 openSize={22}
+                                dark={props.dark}
+                                disabled={false}
+                                border={null}
                             />
 
 
@@ -109,6 +112,9 @@ export default function Settings() {
                                 key={'theme - settings'}
                                 closedSize={22}
                                 openSize={22}
+                                dark={props.dark}
+                                disabled={false}
+                                border={null}
                             />
 
                             {(new Cookies()).get('jwt') !== undefined && currentCollaboration !== null?
@@ -133,6 +139,9 @@ export default function Settings() {
                                     key={'collaboration - settings'}
                                     closedSize={22}
                                     openSize={22}
+                                    dark={props.dark}
+                                    disabled={false}
+                                    border={null}
                                 />
                                 :
                                 null

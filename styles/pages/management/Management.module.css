@@ -3,4 +3,5 @@
     display: inline-flex;
     flex-wrap: wrap;
     gap: .9vw;
+    margin-bottom: 2vh;
 }

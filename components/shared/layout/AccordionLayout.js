@@ -9,10 +9,12 @@ export default function AccordionLayout(props) {
         <div style={{
             width: open ? props.openSize + 'vw' : props.closedSize + 'vw',
             borderRadius: '8px',
-            border: props.border === undefined || props.border === null ? open ? '#39adf6 2px solid' : (!props.dark ? '#e2e2e2 1px solid' : null) : props.border,
-            transition: '.2s',
+            border: (props.border === undefined || props.border === null) ? (open ? '#39adf6 2px solid' : (!props.dark ? '#e2e2e2 1px solid' : null)) : props.border,
+            transition: '.3s',
             boxShadow: open ? (!props.dark ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'initial') : null,
             height: "fit-content",
+            backgroundColor: props.dark ? '#3b424c' : null
+
         }} key={'accordion - ' + props.key}>
             <Button onClick={() => setOpen(!open)} disabled={props.disabled}
                     style={{
@@ -21,7 +23,7 @@ export default function AccordionLayout(props) {
                         width: '100%',
                         justifyContent: 'space-between',
                         color: props.dark ? 'white' : 'black',
-
+                        border: 'none',
                     }}>
                 {props.summary}
                 {open ? <ArrowUpwardRounded/> : <ArrowDownwardRounded/>}

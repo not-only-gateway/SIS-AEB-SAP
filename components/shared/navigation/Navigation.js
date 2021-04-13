@@ -1,7 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import {Button} from '@material-ui/core';
 import Cookies from 'universal-cookie/lib';
-import {ExitToAppRounded, ExtensionRounded, SettingsRounded, SupervisorAccountRounded} from '@material-ui/icons';
+import {
+    AccountTreeRounded,
+    ExitToAppRounded,
+    ExtensionRounded,
+    SettingsRounded,
+    SupervisorAccountRounded
+} from '@material-ui/icons';
 import styles from '../../../styles/components/navigation/Bar.module.css'
 import {
     buttonStyle,
@@ -85,6 +91,17 @@ export default function Navigation(props) {
                             <ExtensionRounded
                                 style={{...iconStyle, ...{color: props.path === '/' ? '#39adf6' : (!props.dark ? '#777777' : '#ededed')}}}/>
                             {lang.extensions}
+                        </Button>
+                    </Link>
+                </div>
+                <div className={styles.button_container}
+                     style={{backgroundColor: props.path === '/structure' ? (props.dark ? '#303741' : 'white') : null}}>
+                    <Link href={{pathname: '/structure', locale: props.locale}}>
+                        <Button
+                            style={{...buttonStyle, ...{color: props.path === '/structure' ? '#39adf6' : (props.dark ? 'white' : '#111111')}}}>
+                            <AccountTreeRounded
+                                style={{...iconStyle, ...{color: props.path === '/structure' ? '#39adf6' : (!props.dark ? '#777777' : '#ededed')}}}/>
+                            {lang.structure}
                         </Button>
                     </Link>
                 </div>

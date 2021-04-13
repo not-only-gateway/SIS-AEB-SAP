@@ -22,13 +22,16 @@ import ActivityPT from "../../locales/activity/ActivityPT";
 import ManagementEN from "../../locales/management/ManagementEN";
 import ManagementPT from "../../locales/management/ManagementPT";
 import ManagementES from "../../locales/management/ManagementES";
+import StructureEN from "../../locales/structure/StructureEN";
+import StructureES from "../../locales/structure/StructureES";
+import StructurePT from "../../locales/structure/StructurePT";
 
 const cookies = new Cookies()
 
 export function setCookiesLanguage(lang) {
     cookies.remove('lang', {path: '/'})
-    const currentExpiration = cookies.get('epx')
-    cookies.set('lang', lang, {path: '/', expires: currentExpiration !== undefined ? new Date(currentExpiration) : new Date((new Date()).getTime() * 1000 * 60 * 60 *24 * 7)})
+    const currentExpiration = cookies.get('exp')
+    cookies.set('lang', lang, {path: '/', expires:  currentExpiration !== undefined ? new Date(parseInt(currentExpiration)) : new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)})
 }
 
 export function getLanguage (locale, page){
@@ -58,6 +61,10 @@ export function getLanguage (locale, page){
                 }
                 case '/management': {
                     response = ManagementEN
+                    break
+                }
+                case '/structure': {
+                    response = StructureEN
                     break
                 }
                 default:
@@ -91,6 +98,10 @@ export function getLanguage (locale, page){
                     response = ManagementES
                     break
                 }
+                case '/structure': {
+                    response = StructureES
+                    break
+                }
                 default:
                     break
             }
@@ -121,6 +132,10 @@ export function getLanguage (locale, page){
                 }
                 case '/management': {
                     response = ManagementPT
+                    break
+                }
+                case '/structure': {
+                    response = StructurePT
                     break
                 }
                 default:
