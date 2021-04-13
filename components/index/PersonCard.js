@@ -47,7 +47,7 @@ export default function PersonCard(props) {
             onMouseEnter={() => setHovered(true)}
             style={{
                 backgroundColor: props.dark ? '#3b424c' : null,
-                boxShadow: !hovered ? null : (!props.dark ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'initial'),
+                boxShadow:  props.dark ? 'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px': !hovered ? "none" : (!props.dark ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'initial'),
                 border: !props.dark ? '#e2e2e2 1px solid' : null,
                 borderRadius: '8px'
             }}

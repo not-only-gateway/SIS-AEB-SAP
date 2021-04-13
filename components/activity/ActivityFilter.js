@@ -8,7 +8,7 @@ import fetchActivityData from "../../utils/activity/FetchData";
 export default function ActivityFilterComponent(props){
     return(
             <div className={styles.options_container}
-                 style={{border: props.dark ? null : '#e2e2e2 1px solid'}}>
+                 style={{border: props.dark ? null : '#e2e2e2 1px solid', backgroundColor: props.dark ? '#3b424c' : null}}>
                 <InputLayout inputName={props.lang.search} dark={props.dark} handleChange={props.setPath}
                              inputType={0}
                              disabled={props.disabled} size={21} initialValue={props.path}

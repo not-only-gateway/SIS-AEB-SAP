@@ -78,7 +78,7 @@ export default function IndexComponent(props) {
                    style={{
                        ...searchFieldStyle, ...{
                            backgroundColor: props.dark ? '#272e38' : '#f4f8fb',
-                           boxShadow: !props.dark ? (hovered ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'none') : 'none',
+                           boxShadow:  props.dark ? 'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px': !hovered ? "none" : (!props.dark ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'initial'),
                        }
                    }}>
                 <IconButton aria-controls="menu" aria-haspopup="true" onClick={handleClick}>

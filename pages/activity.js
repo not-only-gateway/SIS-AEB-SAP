@@ -10,6 +10,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import {Skeleton} from "@material-ui/lab";
 import ActivityFilterComponent from "../components/activity/ActivityFilter";
 import fetchActivityData from "../utils/activity/FetchData";
+import {ThemeProvider} from "@material-ui/styles";
+import {createMuiTheme} from "@material-ui/core";
 
 export default function Activity() {
 
@@ -55,7 +57,11 @@ export default function Activity() {
         return (
             <Layout>
                 {props =>
-                    <>
+                    <ThemeProvider theme={createMuiTheme({
+                        palette: {
+                            type: props.dark ? "dark" : "light"
+                        }
+                    })}>
                         <div className={shared.header_container}
                              style={{backgroundColor: props.dark ? '#303741' : 'white'}}>
                             <props.getTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.info1}/>
@@ -125,7 +131,7 @@ export default function Activity() {
                                 </div>
                             }
                         </div>
-                    </>
+                    </ThemeProvider>
                 }
             </Layout>
         )

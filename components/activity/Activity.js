@@ -156,6 +156,7 @@ export default function ActivityComponent(props) {
             key={props.activity.id}
             closedSize={22}
             openSize={45}
+            dark={props.dark}
             border={color !== null ? color + ' 2px solid' : null}
         />
     )
