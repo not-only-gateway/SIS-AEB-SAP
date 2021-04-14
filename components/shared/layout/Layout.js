@@ -1,4 +1,4 @@
-import styles from '../../../styles/components/layout/Layout.module.css'
+import styles from '../../../styles/shared/Layout.module.css'
 import Cookies from 'universal-cookie/lib'
 import Navigation from "../navigation/Navigation";
 import React, {useEffect, useState} from "react";
@@ -6,6 +6,8 @@ import {useRouter} from "next/router";
 import {setThemeCookie} from "../../../utils/shared/Theme";
 import Head from "next/head";
 import PropTypes from 'prop-types'
+import {getPrimaryBackground, getPrimaryColor, getSecondaryBackground} from "../../../styles/shared/MainStyles";
+import mainStyles from '../../../styles/shared/Main.module.css'
 
 const cookies = new Cookies()
 
@@ -35,8 +37,14 @@ export default function Layout({children}) {
                         <title>{props.pageName}</title>
                     </Head> : null}
                 <div style={{margin: 'auto', width: '45vw'}}>
-                    <p style={{fontSize: '1.7rem', fontWeight: '550', textAlign: 'left'}}>{props.pageTitle}</p>
-                    <p style={{fontSize: '.85rem', textAlign: 'left'}}>{props.pageInfo}</p>
+                    <p style={{
+                        ...{
+                            fontSize: '1.7rem',
+                            fontWeight: '550',
+                            textAlign: 'left'
+                        }, ...getPrimaryColor({dark: dark})
+                    }}>{props.pageTitle}</p>
+                    <p className={mainStyles.secondaryParagraph} style={getPrimaryColor({dark: dark})}>{props.pageInfo}</p>
                 </div>
             </div>
         )
@@ -49,8 +57,8 @@ export default function Layout({children}) {
     }
 
     return (
-        <div style={{color: dark ? 'white' : 'black'}}>
-            <div className={styles.page_container} style={{backgroundColor: !dark ? 'white' : '#303741'}}
+        <>
+            <div className={styles.page_container} style={getSecondaryBackground({dark: dark})}
                  id={'scrollableDiv'}>
                 <div className={styles.children_container}>
                     {router.pathname === '/settings' ?
@@ -60,9 +68,9 @@ export default function Layout({children}) {
                     }
                 </div>
             </div>
-            <div style={{backgroundColor: !dark ? '#f4f8fb' : '#262d37'}} className={styles.left}>
+            <div style={getPrimaryBackground({dark: dark})} className={styles.left}>
                 <Navigation dark={dark} locale={router.locale} path={router.pathname}/>
             </div>
-        </div>
+        </>
     )
 }

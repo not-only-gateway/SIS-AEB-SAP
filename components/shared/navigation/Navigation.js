@@ -8,13 +8,13 @@ import {
     SettingsRounded,
     SupervisorAccountRounded
 } from '@material-ui/icons';
-import styles from '../../../styles/components/navigation/Bar.module.css'
+import styles from '../../../styles/shared/Bar.module.css'
 import {
     buttonStyle,
     iconStyle,
     logoStyle,
     secondaryButtonStyle
-} from '../../../styles/components/navigation/BarMaterialStyles';
+} from '../../../styles/shared/BarMaterialStyles';
 import en from '../../../locales/navigation/NavigationEN';
 import es from '../../../locales/navigation/NavigationES';
 import pt from '../../../locales/navigation/NavigationPT';
@@ -23,7 +23,8 @@ import {getLogo} from '../../../utils/shared/Theme';
 import SimpleProfileCardLayout from '../layout/SimpleProfileCardLayout';
 import PropTypes from 'prop-types'
 import {readAccessProfile, readProfile} from "../../../utils/shared/IndexedDB";
-
+import mainStyles from '../../../styles/shared/Main.module.css'
+import {getPrimaryColor} from "../../../styles/shared/MainStyles";
 
 const cookies = new Cookies()
 
@@ -144,10 +145,12 @@ export default function Navigation(props) {
                         <>
                             <Link href={{pathname: '/signin', locale: props.locale}}>
                                 <Button style={{
-                                    color: (props.dark ? 'white' : 'black'),
-                                    marginRight: '10px',
-                                    textTransform: 'none'
-                                }}>{lang.signin}</Button>
+                                    ...{
+                                        marginRight: '10px'
+                                    },
+                                    ...getPrimaryColor({dark: props.dark})
+                                }}
+                                >{lang.signin}</Button>
                             </Link>
                         </>
                         :
@@ -160,10 +163,10 @@ export default function Navigation(props) {
                         )
                     }
                     <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
+                        <Button className={mainStyles.tertiaryParagraph}
+                                style={{...secondaryButtonStyle, ...getPrimaryColor({dark: props.dark})}}>{lang.help}</Button>
                         <Button
-                            style={{...secondaryButtonStyle, ...{color: props.dark ? 'white' : 'black'}}}>{lang.help}</Button>
-                        <Button
-                            style={{...secondaryButtonStyle, ...{color: props.dark ? 'white' : 'black'}}}>{lang.about}</Button>
+                            style={{...secondaryButtonStyle, ...getPrimaryColor({dark: props.dark})}}>{lang.about}</Button>
                     </div>
                 </div>
             </div>

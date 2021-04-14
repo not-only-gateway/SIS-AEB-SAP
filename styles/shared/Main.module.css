@@ -1,0 +1,34 @@
+.primaryParagraph{
+    font-size: 1rem;
+    font-weight: 450;
+}
+.secondaryParagraph{
+    font-size: .9rem;
+    font-weight: 425;
+}
+.tertiaryParagraph{
+    font-size: .8rem;
+    font-weight: 400;
+}
+.smallMargin{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.displayAsLine{
+    display: flex;
+    align-items: center;
+}
+.mediumMargin{
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+.smallPadding{
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.normalBorder{
+    border-radius: 8px;
+}
+.baseWidth{
+    width: 45vw;
+}

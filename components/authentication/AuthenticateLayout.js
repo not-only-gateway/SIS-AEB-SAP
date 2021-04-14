@@ -1,4 +1,4 @@
-import styles from '../../styles/pages/auththentication/Auth.module.css'
+import styles from '../../styles/auththentication/Auth.module.css'
 import {Button, IconButton, InputBase, MenuItem, Paper, Select} from "@material-ui/core";
 import {VisibilityOffRounded, VisibilityRounded} from "@material-ui/icons";
 import React from "react";
@@ -14,8 +14,9 @@ import {
     inputStyle,
     paperStyle,
     secondaryButtonStyle
-} from "../../styles/pages/auththentication/AuthMaterialStyles";
+} from "../../styles/auththentication/AuthMaterialStyles";
 import PropTypes from 'prop-types'
+import {getSecondaryColor} from "../../styles/shared/MainStyles";
 
 export default function AuthenticateLayout(props) {
 
@@ -48,7 +49,7 @@ export default function AuthenticateLayout(props) {
                         onChange={event => props.setPassword(event.target.value)}
                     />
                     <IconButton aria-label="password"
-                                style={{...iconStyle, ...{color: props.dark ? 'white' : '#777777'}}}
+                                style={{...iconStyle, ...getSecondaryColor({dark: props.dark})}}
                                 onClick={() => props.setVisible(!props.visible)}>
                         {props.visible ? <VisibilityRounded/> : <VisibilityOffRounded/>}
                     </IconButton>
@@ -70,7 +71,7 @@ export default function AuthenticateLayout(props) {
                         {props.lang.signin}
                     </Button>
                     <Button
-                        style={{...secondaryButtonStyle, ...{color: props.dark ? 'white' : '#777777'}}}>{props.lang.forgotPassword}</Button>
+                        style={{...secondaryButtonStyle, ...getSecondaryColor({dark: props.dark})}}>{props.lang.forgotPassword}</Button>
                 </div>
                 <div className={styles.footer_container}>
                     <Button style={{height: 'fit-content'}} onClick={() => props.changeTheme()}>
@@ -78,16 +79,15 @@ export default function AuthenticateLayout(props) {
                             <Brightness3RoundedIcon style={{...iconStyle, ...{color: 'white'}}}/>}
                     </Button>
                     <Button
-                        style={{...secondaryButtonStyle, ...{color: props.dark ? 'white' : '#777777'}}}>{props.lang.help}</Button>
+                        style={{...secondaryButtonStyle(), ...getSecondaryColor({dark: props.dark})}}>{props.lang.help}</Button>
                     <Button
-                        style={{...secondaryButtonStyle, ...{color: props.dark ? 'white' : '#777777'}}}>{props.lang.about}</Button>
+                        style={{...secondaryButtonStyle(), ...getSecondaryColor({dark: props.dark})}}>{props.lang.about}</Button>
                     <Select
                         labelId="select-id"
                         disableUnderline
                         style={{
                             textTransform: 'none',
                             fontSize: '.8rem',
-                            color: props.dark ? 'white' : '#777777',
                             fontWeight: '450'
                         }}
                         value={props.locale}

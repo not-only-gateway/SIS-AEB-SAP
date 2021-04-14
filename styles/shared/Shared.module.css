@@ -6,12 +6,13 @@
 }
 
 .header_container {
-    position: fixed;
+    position: sticky;
+    top: 0;
     width: 45vw;
     z-index: 2;
     display: grid;
     justify-items: center;
-    padding-bottom: 2vh;
+    margin-bottom: 4vh;
 }
 
 .card_title{
@@ -37,6 +38,13 @@
 }
 
 .pop_up_animation{
+    border-radius: 8px;
+    transition: .3s;
+    height: fit-content;
+    animation-duration: .2s;
+    animation-name: pop_in;
+}
+.accordion_container{
     border-radius: 8px;
     transition: .3s;
     height: fit-content;

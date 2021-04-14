@@ -1,5 +1,5 @@
 export default {
-    title: 'Gerenciamento',
+    title: 'Gerênciamento',
     info: 'info',
     activity: 'Atividade da conta',
     unit: 'Criar unidade',

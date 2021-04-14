@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../../../styles/pages/person/Person.module.css'
+import styles from '../../../styles/person/Person.module.css'
 import {Avatar} from "@material-ui/core";
 import PropTypes from 'prop-types'
 

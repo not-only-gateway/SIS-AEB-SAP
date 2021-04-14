@@ -1,9 +1,11 @@
 import AccordionLayout from "../shared/layout/AccordionLayout";
-import styles from "../../styles/pages/activity/Activity.module.css";
+import styles from "../../styles/activity/Activity.module.css";
 import {Divider} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import getMethodColor from "../../utils/activity/GetMethodColor";
+import mainStyles from '../../styles/shared/Main.module.css'
+import {getPrimaryColor, getSecondaryColor, getTertiaryColor} from "../../styles/shared/MainStyles";
 
 export default function ActivityComponent(props) {
     const [color, setColor] = useState(null)
@@ -18,143 +20,97 @@ export default function ActivityComponent(props) {
             content={
                 <div className={styles.info_container} key={'activity - ' + props.activity.id}>
                     <div className={styles.info_row}>
-                        <p style={{fontWeight: 450}}>ID</p>
+                        <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: props.dark})}>ID</p>
                         <Divider orientation={'horizontal'}
                                  style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
-                        <p style={{
-                            fontSize: '.9rem',
-                            fontWeight: 420,
-                            color: props.dark ? 'white' : '#555555'
-                        }}>{props.activity.id}</p>
+                        <p  className={mainStyles.secondaryParagraph} style={getTertiaryColor({dark: props.dark})}>{props.activity.id}</p>
                     </div>
                     <div className={styles.info_row}>
-                        <p style={{fontWeight: 450}}>Full path</p>
+                        <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: props.dark})}>Full path</p>
                         <Divider orientation={'horizontal'}
                                  style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
-                        <p style={{
-                            fontSize: '.9rem',
-                            fontWeight: 420,
-                            color: props.dark ? 'white' : '#555555'
-                        }}>{props.activity.path}</p>
+                        <p className={mainStyles.secondaryParagraph}
+                           style={getTertiaryColor({dark: props.dark})}>{props.activity.path}</p>
                     </div>
 
                     <div className={styles.info_row}>
-                        <p style={{fontWeight: 450}}>Package</p>
+                        <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: props.dark})}>Package</p>
                         <Divider orientation={'horizontal'}
                                  style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
                         <div style={{
-                            fontSize: '.9rem',
-                            fontWeight: 420,
-                            color: props.dark ? 'white' : '#555555',
                             borderRadius: '8px',
                             border: props.dark ? 'none' : '#e2e2e2 1px solid'
                         }}>
-                            <pre >{JSON.stringify(JSON.parse(props.activity.data_package), null, 2)}</pre>
+                            <pre className={mainStyles.secondaryParagraph}
+                                 style={getTertiaryColor({dark: props.dark})}>{JSON.stringify(JSON.parse(props.activity.data_package), null, 2)}</pre>
                         </div>
                     </div>
 
                     <div className={styles.info_row}>
-                        <p style={{fontWeight: 450}}>{props.lang.platform}</p>
-                        <Divider orientation={'horizontal'}
-                                 style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
-                        <p style={{
-                            fontSize: '.9rem',
-                            fontWeight: 420,
-                            color: props.dark ? 'white' : '#555555'
-                        }}>{props.accessLog.platform}</p>
+                        <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: props.dark})}>{props.lang.platform}</p>
+                        <Divider orientation={'horizontal'} style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                        <p className={mainStyles.secondaryParagraph}
+                           style={getTertiaryColor({dark: props.dark})}>{props.accessLog.platform}</p>
                     </div>
                     <div className={styles.info_row}>
-                        <p style={{fontWeight: 450}}>{props.lang.date}</p>
-                        <Divider orientation={'horizontal'}
-                                 style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
-                        <p style={{
-                            fontSize: '.9rem',
-                            fontWeight: 420,
-                            color: props.dark ? 'white' : '#555555'
-                        }}>{new Date(props.activity.time_of_creation).toLocaleString()}</p>
+                        <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: props.dark})}>{props.lang.date}</p>
+                        <Divider orientation={'horizontal'} style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                        <p className={mainStyles.secondaryParagraph}
+                           style={getTertiaryColor({dark: props.dark})}>{new Date(props.activity.time_of_creation).toLocaleString()}</p>
                     </div>
                     <div className={styles.info_row}>
-                        <p style={{fontWeight: 450}}>{props.lang.method}</p>
-                        <Divider orientation={'horizontal'}
-                                 style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
-                        <p style={{
-                            fontSize: '.9rem',
-                            fontWeight: 420,
-                            color: color
-                        }}>{props.activity.request_method}</p>
+                        <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: props.dark})}>{props.lang.method}</p>
+                        <Divider orientation={'horizontal'} style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                        <p className={mainStyles.secondaryParagraph}
+                           style={getTertiaryColor({dark: props.dark})}>{props.activity.request_method}</p>
                     </div>
 
                     <div className={styles.info_row}>
-                        <p style={{fontWeight: 450}}>URL</p>
-                        <Divider orientation={'horizontal'}
-                                 style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
-                        <p style={{
-                            fontSize: '.9rem',
-                            fontWeight: 420,
-                            color: props.dark ? 'white' : '#555555'
-                        }}>{props.activity.path}</p>
+                        <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: props.dark})}>URL</p>
+                        <Divider orientation={'horizontal'} style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                        <p className={mainStyles.secondaryParagraph}
+                           style={getTertiaryColor({dark: props.dark})}>{props.activity.path}</p>
                     </div>
                     <div className={styles.info_row}>
-                        <p style={{fontWeight: 450}}>{props.lang.ip}</p>
-                        <Divider orientation={'horizontal'}
-                                 style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
-                        <p style={{
-                            fontSize: '.9rem',
-                            fontWeight: 420,
-                            color: props.dark ? 'white' : '#555555'
-                        }}>{props.accessLog.ip_address}</p>
+                        <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: props.dark})}>{props.lang.ip}</p>
+                        <Divider orientation={'horizontal'} style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                        <p className={mainStyles.secondaryParagraph}
+                           style={getTertiaryColor({dark: props.dark})}>{props.accessLog.ip_address}</p>
                     </div>
                     <div className={styles.info_row}>
-                        <p style={{fontWeight: 450}}>{props.lang.browser}</p>
-                        <Divider orientation={'horizontal'}
-                                 style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
-                        <p style={{
-                            fontSize: '.9rem',
-                            fontWeight: 420,
-                            color: props.dark ? 'white' : '#555555'
-                        }}>{props.accessLog.browser_version}</p>
+                        <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: props.dark})}>{props.lang.browser}</p>
+                        <Divider orientation={'horizontal'} style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                        <p className={mainStyles.secondaryParagraph}
+                           style={getTertiaryColor({dark: props.dark})}>{props.accessLog.browser_version}</p>
                     </div>
 
                     <div className={styles.info_row}>
-                        <p style={{fontWeight: 450}}>{props.lang.engine}</p>
-                        <Divider orientation={'horizontal'}
-                                 style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
-                        <p style={{
-                            fontSize: '.9rem',
-                            fontWeight: 420,
-                            color: props.dark ? 'white' : '#555555'
-                        }}>{props.accessLog.browser_engine}</p>
+                        <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: props.dark})}>{props.lang.engine}</p>
+                        <Divider orientation={'horizontal'} style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                        <p className={mainStyles.secondaryParagraph}
+                           style={getTertiaryColor({dark: props.dark})}>{props.accessLog.browser_engine}</p>
                     </div>
                     <div className={styles.info_row}>
-                        <p style={{fontWeight: 450}}>{props.lang.userAgent}</p>
-                        <Divider orientation={'horizontal'}
-                                 style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
-                        <p style={{
-                            fontSize: '.9rem',
-                            fontWeight: 420,
-                            color: props.dark ? 'white' : '#555555'
-                        }}>{props.accessLog.browser_user_agent}</p>
+                        <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: props.dark})}>{props.lang.userAgent}</p>
+                        <Divider orientation={'horizontal'} style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                        <p className={mainStyles.secondaryParagraph}
+                           style={getTertiaryColor({dark: props.dark})}>{props.accessLog.browser_user_agent}</p>
                     </div>
-
-
                 </div>
             }
             summary={
-                <div style={{display: 'flex'}}>
-                    <p style={{
-                        fontWeight: 500,
+                <div className={mainStyles.displayAsLine}>
+                    <p className={mainStyles.primaryParagraph} style={{
                         color: color
                     }}>{props.activity.request_method}</p>
-                    <p style={{
-                        marginRight: '10px',
-                        marginLeft: '10px'
-                    }}>{props.activity.path.indexOf('?') > -1 ? props.activity.path.substr(0, props.activity.path.indexOf('?')) : props.activity.path}</p>
+                    <p className={[mainStyles.secondaryParagraph, mainStyles.smallMargin].join(' ')}
+                       style={getTertiaryColor({dark: props.dark})}>{props.activity.path.indexOf('?') > -1 ? props.activity.path.substr(0, props.activity.path.indexOf('?')) : props.activity.path}</p>
                     <Divider orientation={'horizontal'}/>
-                    <p>{(new Date(props.activity.time_of_creation)).toDateString()}</p>
+                    <p className={mainStyles.tertiaryParagraph} style={getTertiaryColor({dark: props.dark})}>{(new Date(props.activity.time_of_creation)).toDateString()}</p>
                 </div>
             }
             key={props.activity.id}
-            closedSize={22}
+            closedSize={45}
             openSize={45}
             dark={props.dark}
             border={color !== null ? color + ' 2px solid' : null}

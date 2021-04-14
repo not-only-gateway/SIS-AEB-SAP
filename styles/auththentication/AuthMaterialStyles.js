@@ -1,7 +1,9 @@
-export const secondaryButtonStyle = {
-    textTransform: 'none',
-    fontSize: '.8rem',
-    height: 'fit-content'
+export const secondaryButtonStyle = () => {
+    return {
+        textTransform: 'none',
+        fontSize: '.8rem',
+        height: 'fit-content'
+    }
 }
 export const buttonStyle = {
     border: '0px',
@@ -23,19 +25,19 @@ export const deactivatedButtonStyle = {
 }
 
 export const paperStyle = {
-    display:'flex',
+    display: 'flex',
     width: '100%',
     boxShadow: 'none',
     height: 'fit-content',
-    borderRadius:'8px'
+    borderRadius: '8px'
 }
 
 export const passwordPaperStyle = {
-    display:'flex',
+    display: 'flex',
     width: '100%',
     boxShadow: 'none',
     height: 'fit-content',
-    borderRadius:'8px',
+    borderRadius: '8px',
 }
 
-export const inputStyle = {minHeight: '6vh', width: '90%', marginLeft:'1vw'}
+export const inputStyle = {minHeight: '6vh', width: '90%', marginLeft: '1vw'}

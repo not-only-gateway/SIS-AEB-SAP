@@ -9,7 +9,6 @@
     width: 100%;
     display: grid;
     gap: .9vw;
-    margin-top: 24vh;
     margin-bottom: 2vh;
 }
 .options_container{
@@ -28,6 +27,8 @@
     gap: 2vh;
     width: 98%;
     margin: auto;
+    height: 50vh;
+    overflow-y: auto;
 }
 .info_row{
     display: flex;

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
-import styles from '../../styles/components/form/Form.module.css'
+import styles from '../../styles/person/Form.module.css'
 import InputLayout from "../shared/layout/InputLayout";
 import {Button} from "@material-ui/core";
 

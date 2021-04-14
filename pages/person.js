@@ -9,7 +9,7 @@ import ContactForm from "../components/person/ContactForm";
 import AddressForm from "../components/shared/form/AddressForm";
 import DocumentsForm from "../components/person/DocumentsForm";
 import {getLanguage} from "../utils/shared/Language";
-import styles from '../styles/pages/person/Person.module.css'
+import styles from '../styles/person/Person.module.css'
 import TabLayout from "../components/shared/layout/TabLayout";
 import {readAccessProfile} from "../utils/shared/IndexedDB";
 

@@ -16,9 +16,9 @@ import {
 } from "@material-ui/icons";
 import AccordionLayout from "../components/shared/layout/AccordionLayout";
 import CollaboratorComponent from "../components/management/Collaborator";
-import {buttonStyle, iconStyle} from "../styles/components/navigation/BarMaterialStyles";
+import {buttonStyle, iconStyle} from "../styles/shared/BarMaterialStyles";
 import {getLanguage} from "../utils/shared/Language";
-import styles from '../styles/pages/management/Management.module.css'
+import styles from '../styles/management/Management.module.css'
 import {readAccessProfile} from "../utils/shared/IndexedDB";
 import BaseForm from "../components/person/BaseForm";
 import shared from "../styles/shared/Shared.module.css";
@@ -63,7 +63,7 @@ export default function management() {
                                             <p style={{marginLeft: '20px'}}>{lang.role}</p>
                                         </div>
                                     }
-                                    closedSize={22}
+                                    closedSize={45}
                                     openSize={45}
                                     dark={props.dark}
                                     disabled={false}
@@ -77,7 +77,7 @@ export default function management() {
                                     backgroundColor: props.dark ? '#3b424c' : null,
                                     border: props.dark ? null : '#e2e2e2 1px solid',
                                     borderRadius: '8px',
-                                    width: '22vw'
+                                    width: '45vw'
                                 }}>
                                     <Link href={{pathname: '/activity', locale: props.locale}}>
                                         <Button style={{
@@ -106,7 +106,7 @@ export default function management() {
                                             <p style={{marginLeft: '20px'}}>{lang.unit}</p>
                                         </div>
                                     }
-                                    closedSize={22}
+                                    closedSize={45}
                                     openSize={45}
                                     dark={props.dark}
                                     disabled={false}
@@ -120,7 +120,7 @@ export default function management() {
                                     backgroundColor: props.dark ? '#3b424c' : null,
                                     border: props.dark ? null : '#e2e2e2 1px solid',
                                     borderRadius: '8px',
-                                    width: '22vw'
+                                    width: '45vw'
                                 }}>
                                     <Link href={{pathname: '/roles', locale: props.locale}}>
                                         <Button style={{
@@ -145,7 +145,7 @@ export default function management() {
                                     backgroundColor: props.dark ? '#3b424c' : null,
                                     border: props.dark ? null : '#e2e2e2 1px solid',
                                     borderRadius: '8px',
-                                    width: '22vw'
+                                    width: '45vw'
                                 }}>
                                     <Link href={{pathname: '/person', locale: props.locale, query: {create: true}}}>
                                         <Button style={{
@@ -171,7 +171,7 @@ export default function management() {
                                     backgroundColor: props.dark ? '#3b424c' : null,
                                     border: props.dark ? null : '#e2e2e2 1px solid',
                                     borderRadius: '8px',
-                                    width: '22vw'
+                                    width: '45vw'
                                 }}>
                                     <Link href={{pathname: '/roles', locale: props.locale}}>
                                         <Button style={{
@@ -200,7 +200,7 @@ export default function management() {
                                             <p style={{marginLeft: '20px'}}>{lang.access}</p>
                                         </div>
                                     }
-                                    closedSize={22}
+                                    closedSize={45}
                                     openSize={45}
                                     dark={props.dark}
                                     disabled={false}

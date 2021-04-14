@@ -1,9 +1,9 @@
 import Layout from "../components/shared/layout/Layout";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import style from '../styles/pages/settings/Settings.module.css'
+import style from '../styles/settings/Settings.module.css'
 import {createMuiTheme, Divider, FormControl, FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
-import {iconStyle} from "../styles/components/navigation/BarMaterialStyles";
+import {iconStyle} from "../styles/shared/BarMaterialStyles";
 import Brightness7RoundedIcon from "@material-ui/icons/Brightness7Rounded";
 import Brightness3RoundedIcon from "@material-ui/icons/Brightness3Rounded";
 import {ThemeProvider} from "@material-ui/styles";

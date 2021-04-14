@@ -1,7 +1,7 @@
 import Layout from "../components/shared/layout/Layout";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import styles from '../styles/pages/index/Index.module.css'
+import styles from '../styles/index/Index.module.css'
 import PersonCard from "../components/index/PersonCard";
 import {createMuiTheme, ThemeProvider} from "@material-ui/core";
 import {Skeleton} from "@material-ui/lab";
@@ -11,7 +11,8 @@ import shared from '../styles/shared/Shared.module.css'
 import getPageInfo from "../utils/index/GetPageInfo";
 import InfiniteScroll from "react-infinite-scroll-component";
 import fetchIndexData from "../utils/index/FetchData";
-
+import {getBorder, getSecondaryBackground, getSecondaryColor, getTertiaryBackground} from "../styles/shared/MainStyles";
+import mainStyles from '../styles/shared/Main.module.css'
 
 export default function Index() {
 
@@ -59,7 +60,7 @@ export default function Index() {
                     })}>
 
                         <div className={shared.header_container}
-                             style={{backgroundColor: props.dark ? '#303741' : 'white'}}>
+                             style={getSecondaryBackground({dark: props.dark})}>
                             <props.getTitle pageName={lang.extensions} pageTitle={lang.extensions}
                                             pageInfo={getPageInfo({
                                                 info1: lang.info1,
@@ -86,17 +87,11 @@ export default function Index() {
                                     loader={<Skeleton variant={'rect'} width={'100%'} style={{borderRadius: '8px'}}
                                                       height={'7vh'}/>}
                                     endMessage={
-                                        <div style={{
-                                            width: '45vw',
-                                            marginTop: '2vh',
-                                            marginBottom: '2vh',
-                                            borderRadius: '8px',
-                                            border: !props.dark ? '#e2e2e2 1px solid' : null,
-                                            backgroundColor: props.dark ? '#3b424c' : null,
-                                            paddingTop: '10px',
-                                            paddingBottom: '10px'
-                                        }}>
-                                            <p style={{textAlign: 'center', fontWeight: 445}}>{lang.end}</p>
+                                        <div
+                                            className={[mainStyles.mediumMargin, mainStyles.normalBorder, mainStyles.smallPadding, mainStyles.baseWidth].join(' ')}
+                                            style={{...getTertiaryBackground({dark: props.dark}), ...getBorder({dark: props.dark})}}>
+                                            <p className={mainStyles.secondaryParagraph}
+                                               style={{...{textAlign: 'center'}, ...getSecondaryColor({dark: props.dark})}}>{lang.end}</p>
                                         </div>
                                     }
                                 >
@@ -115,13 +110,15 @@ export default function Index() {
                                 </InfiniteScroll>
                                 :
                                 <div className={styles.personas_container}>
-                                    <div style={{
-                                        width: '90%',
-                                        margin: 'auto',
-                                        borderRadius: '8px',
-                                        border: !props.dark ? '#e2e2e2 1px solid' : null,
-                                        backgroundColor: props.dark ? '#3b424c' : null
-                                    }}>
+                                    <div
+                                        className={[mainStyles.mediumMargin, mainStyles.normalBorder, mainStyles.smallPadding].join(' ')}
+                                        style={{
+                                            ...getTertiaryBackground({dark: props.dark}),
+                                            ...getBorder({dark: props.dark}), ...{
+                                                width: '90%',
+                                                margin: 'auto',
+                                            }
+                                        }}>
                                         <p style={{textAlign: 'center', fontWeight: 445}}>{lang.nothingFound}</p>
                                     </div>
                                 </div>

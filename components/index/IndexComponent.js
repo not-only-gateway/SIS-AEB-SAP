@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import styles from "../../styles/pages/index/Index.module.css";
+import styles from "../../styles/index/Index.module.css";
 import {
     Divider,
     FormControl,
@@ -11,7 +11,7 @@ import {
     Radio,
     RadioGroup
 } from "@material-ui/core";
-import {searchFieldStyle} from "../../styles/components/navigation/BarMaterialStyles";
+import {searchFieldStyle} from "../../styles/shared/BarMaterialStyles";
 import {BackspaceRounded, MenuRounded, SearchRounded} from "@material-ui/icons";
 import React, {useEffect, useState} from "react";
 

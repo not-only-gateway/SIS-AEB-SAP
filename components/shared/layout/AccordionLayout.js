@@ -14,7 +14,7 @@ export default function AccordionLayout(props) {
             boxShadow: open ? (!props.dark ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'initial') : props.dark ? 'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px' : null,
             backgroundColor: props.dark ? props.background !== undefined ? '#484c55' : '#3b424c' : null
 
-        }} className={shared.pop_up_animation} key={'accordion-' + props.key}>
+        }} className={shared.accordion_container} key={'accordion-' + props.key}>
             <Button onClick={() => setOpen(!open)} disabled={props.disabled}
                     style={{
                         textTransform: 'none',
@@ -27,7 +27,6 @@ export default function AccordionLayout(props) {
                 {props.summary}
                 {open ? <ArrowUpwardRounded/> : <ArrowDownwardRounded/>}
             </Button>
-
             {open ?
                 <>
                     <Divider orientation={'horizontal'}/>

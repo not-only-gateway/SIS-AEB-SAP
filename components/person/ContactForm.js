@@ -1,4 +1,4 @@
-import styles from "../../styles/components/form/Form.module.css";
+import styles from "../../styles/person/Form.module.css";
 import {Button} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";

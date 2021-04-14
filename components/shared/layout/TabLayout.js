@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import {Button, Divider} from "@material-ui/core";
 import {useEffect, useState} from "react";
-import styles from '../../../styles/components/layout/Layout.module.css'
+import styles from '../../../styles/shared/Layout.module.css'
 
 export default function TabLayout(props) {
     const [open, setOpen] = useState(1)

@@ -1,5 +1,5 @@
 import Cookies from 'universal-cookie/lib'
-import styles from '../styles/pages/auththentication/Auth.module.css'
+import styles from '../styles/auththentication/Auth.module.css'
 import {createMuiTheme, ThemeProvider} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
