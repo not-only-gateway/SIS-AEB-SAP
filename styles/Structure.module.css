@@ -1,13 +1,42 @@
+.subject_person_container{
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    width: 100px;
+    align-content: space-between;
+    height: fit-content;
+}
+.small_card_container {
+    animation-duration: .3s;
+    animation-name: pop_in;
+    transition: .3s;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 2vh;
+    display: grid;
+    align-items: center;
+}
+
+@keyframes pop_in {
+    from {
+        transform: scale(.2);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
 
 .tree_container {
     margin-left: -20vw;
-    margin-top: 13.5vh;
+    margin-bottom: 2vh;
     width: 85vw;
-    position: absolute;
+    position: relative;
     height: fit-content;
     display: flex;
     justify-content: center;
 }
+
 
 .tree,
 .tree ul,
@@ -29,7 +58,7 @@
 }
 
 .tree ul {
-    width: 15vw;
+    width: fit-content;
 }
 
 .tree li {

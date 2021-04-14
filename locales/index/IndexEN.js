@@ -6,9 +6,9 @@ export default {
     info3: 'All Collaborators',
     filterChoice: [
         {value: 'All Collaborators', key: 'people'},
-        {value: 'Units', key: 'units'},
         {value: 'Active Collaborators', key: 'collaborators'}
     ],
     inactive: 'Inactive collaborator',
-    nothingFound:'Nothing Found'
+    nothingFound:'Nothing Found',
+    end: 'You\'ve reached the bottom.',
 }

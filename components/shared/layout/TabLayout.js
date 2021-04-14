@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import {Button, Divider} from "@material-ui/core";
-import {useState} from "react";
-import styles from '../../../styles/components/tabs/TabLayout.module.css'
+import {useEffect, useState} from "react";
+import styles from '../../../styles/components/layout/Layout.module.css'
 
 export default function TabLayout(props) {
     const [open, setOpen] = useState(1)
@@ -22,7 +22,7 @@ export default function TabLayout(props) {
             height: 'fit-content',
             borderRadius: '8px'
         }}>
-            <div className={styles.buttons_container} style={{width: props.width + 'vw'}}>
+            <div className={styles.tab_buttons_container} style={{width: props.width + 'vw'}}>
 
                 {props.buttons.map((button, index) => (
                     <>
@@ -43,7 +43,6 @@ export default function TabLayout(props) {
             {props.tabs.map(tab => (
                 renderTabContent(tab)
             ))}
-
         </div>
     )
 }
@@ -54,5 +53,5 @@ TabLayout.proptypes =
     dark:PropTypes.bool,
     height:PropTypes.number,
     width:PropTypes.number,
-    highLight: PropTypes.bool
+    highLight: PropTypes.bool,
 }

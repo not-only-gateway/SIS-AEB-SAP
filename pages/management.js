@@ -20,7 +20,7 @@ import {buttonStyle, iconStyle} from "../styles/components/navigation/BarMateria
 import {getLanguage} from "../utils/shared/Language";
 import styles from '../styles/pages/management/Management.module.css'
 import {readAccessProfile} from "../utils/shared/IndexedDB";
-import BaseForm from "../components/shared/form/BaseForm";
+import BaseForm from "../components/person/BaseForm";
 import shared from "../styles/shared/Shared.module.css";
 
 export default function management() {
@@ -141,28 +141,28 @@ export default function management() {
 
 
                             {accessProfile !== null && accessProfile.canCreatePerson ?
-                                <AccordionLayout
-                                    content={
-                                        <BaseForm
-                                            locale={router.locale}
-                                            dark={props.dark}
-                                            visible={accessProfile.canCreatePerson}
-                                            editable={accessProfile.canCreatePerson}
-                                            create={true}
-                                        />
-                                    }
-                                    summary={
-                                        <div className={shared.accordionTitle}>
+                                <div style={{
+                                    backgroundColor: props.dark ? '#3b424c' : null,
+                                    border: props.dark ? null : '#e2e2e2 1px solid',
+                                    borderRadius: '8px',
+                                    width: '22vw'
+                                }}>
+                                    <Link href={{pathname: '/person', locale: props.locale, query: {create: true}}}>
+                                        <Button style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            display: 'flex',
+                                            justifyContent: 'flex-start',
+                                            alignItems: 'center',
+                                            textTransform: 'none'
+                                        }}>
+
                                             <PersonRounded style={{fontSize: '1.7rem'}}/>
                                             <p style={{marginLeft: '20px'}}>{lang.user}</p>
-                                        </div>
-                                    }
-                                    closedSize={22}
-                                    openSize={45}
-                                    dark={props.dark}
-                                    disabled={false}
-                                    border={null}
-                                />
+
+                                        </Button>
+                                    </Link>
+                                </div>
                                 :
                                 null
                             }

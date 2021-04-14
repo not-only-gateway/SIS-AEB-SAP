@@ -9,7 +9,7 @@ import {getLanguage} from "../utils/shared/Language";
 import axios from "axios";
 import Host from "../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import UnitLayout from "../components/structure/UnitLayout";
+import SubjectLayout from "../components/structure/SubjectLayout";
 import AccordionLayout from "../components/shared/layout/AccordionLayout";
 
 
@@ -18,6 +18,7 @@ export default function Structure() {
     const router = useRouter()
     const [lang, setLang] = useState(null)
     const [topUnits, setTopUnits] = useState([])
+    const [topCollaborators, setTopCollaborators] = useState([])
 
     useEffect(() => {
         setLang(getLanguage(router.locale, '/structure'))
@@ -30,11 +31,16 @@ export default function Structure() {
         }).catch(error => {
             console.log(error)
         })
+        axios({
+            method: 'get',
+            url: Host() + 'top/collaborators',
+            headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
+        }).then(res => {
+            setTopCollaborators(res.data)
+        }).catch(error => {
+            console.log(error)
+        })
     }, [])
-
-    function redirect(id) {
-        router.push('/unit', '/unit', {locale: router.locale, query: id})
-    }
 
     if (lang !== null)
         return (
@@ -45,19 +51,21 @@ export default function Structure() {
                             type: props.dark ? "dark" : "light"
                         }
                     })}>
-                        <props.getTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.information}/>
+                        <div style={{position: 'relative', marginRight: 'auto'}}>
+                            <props.getTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.information}/>
+                        </div>
                         <div className={styles.tree_container}>
                             <AccordionLayout
                                 content={topUnits.map((unit, index) => {
                                     if (index === 0)
                                         return (
                                             <ul className={styles.tree} style={{
-                                                border: !props.dark ? '#e2e2e2 1px solid' : 'none',
                                                 backgroundColor: props.dark ? '#3b424c' : 'none',
                                                 borderRadius: '8px',
                                                 margin: 'auto'
                                             }}>
-                                                <UnitLayout redirect={redirect} dark={props.dark} unit={unit}/>
+                                                <SubjectLayout dark={props.dark} subject={unit}
+                                                               type={'unit'}/>
                                             </ul>
                                         )
                                     else return null
@@ -69,10 +77,37 @@ export default function Structure() {
                                 }
                                 dark={props.dark}
                                 closedSize={45}
-                                openSize={75}
+                                openSize={null}
                             />
-                        </div>
 
+                        </div>
+                        <div className={styles.tree_container}>
+                            <AccordionLayout
+                                content={topCollaborators.map((collaborator, index) => {
+                                    if (index === 0)
+                                        return (
+                                            <ul className={styles.tree} style={{
+                                                backgroundColor: props.dark ? '#3b424c' : 'none',
+                                                borderRadius: '8px',
+                                                margin: 'auto'
+                                            }}>
+                                                <SubjectLayout dark={props.dark}
+                                                               subject={collaborator} type={'collaborator'}/>
+                                            </ul>
+                                        )
+                                    else return null
+                                })}
+                                summary={
+                                    <div>
+                                        <p>{lang.collaborators}</p>
+                                    </div>
+                                }
+                                dark={props.dark}
+                                closedSize={45}
+                                openSize={null}
+                            />
+
+                        </div>
                     </ThemeProvider>
                 }
             </Layout>

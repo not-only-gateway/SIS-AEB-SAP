@@ -1,16 +1,16 @@
-import styles from '../../../styles/components/form/Form.module.css';
+import styles from '../../styles/components/form/Form.module.css';
 import {Avatar, Button} from '@material-ui/core';
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types'
-import InputLayout from "../layout/InputLayout";
-import AccordionLayout from "../layout/AccordionLayout";
-import fetchComponentData from "../../../utils/person/FetchData";
+import InputLayout from "../shared/layout/InputLayout";
+import AccordionLayout from "../shared/layout/AccordionLayout";
+import fetchComponentData from "../../utils/person/FetchData";
 import axios from "axios";
-import Host from "../../../utils/shared/Host";
+import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import BaseFormEN from "../../../locales/shared/BaseFormEN";
-import BaseFormES from "../../../locales/shared/BaseFormES";
-import BaseFormPT from "../../../locales/shared/BaseFormPT";
+import BaseFormEN from "../../locales/shared/BaseFormEN";
+import BaseFormES from "../../locales/shared/BaseFormES";
+import BaseFormPT from "../../locales/shared/BaseFormPT";
 
 export default function BaseForm(props) {
 
@@ -76,20 +76,20 @@ export default function BaseForm(props) {
 
 
     function capitalizeFirstLetter(string) {
-        if (string !== null)
+        if (string !== null && string[0] !== undefined)
             return string.replace(/^./, string[0].toUpperCase());
     }
 
     async function saveChanges() {
         await axios({
             method: props.create === true ? 'post' : 'put',
-            url: Host() + props.path,
+            url:  props.create ? Host() +'person' :  Host() +'person/'+props.id,
             headers: {'authorization': (new Cookies()).get('jwt')},
             data: {
-                id: props.id,
+                id: props.id !== undefined ? props.id : null,
                 pic: pic,
                 name: capitalizeFirstLetter(name),
-                birth: birth,
+                birth: birth.getTime(),
                 birth_place: birthPlace?.toUpperCase(),
                 education: education,
                 gender: gender,
@@ -100,10 +100,27 @@ export default function BaseForm(props) {
                 father_name: capitalizeFirstLetter(father),
                 mother_name: capitalizeFirstLetter(mother),
                 disabled_person: disabledPerson,
-                nationality: nationality?.toUpperCase(),
+                nationality: nationality?.toUpperCase()
             }
-        }).then(() => {
-            setChanged(false)
+        }).then(async function() {
+            console.log('here')
+            if (!props.create)
+                setChanged(false)
+            else{
+                await axios({
+                    method: "get",
+                    url: Host() + 'corporate_email/person',
+                    headers: {'authorization': (new Cookies()).get('jwt')},
+                    params: {
+                        corporate_email: corporateEmail.toLocaleLowerCase()
+                    }
+                }).then(res => {
+                    console.log(res.data)
+                    props.redirect(res.data)
+                }).catch(error => {
+                    console.log(error)
+                })
+            }
         }).catch(error => {
             console.log(error)
         })
@@ -112,8 +129,6 @@ export default function BaseForm(props) {
     function disabled() {
         return (
             name === null ||
-            father === null ||
-            mother === null ||
             nationality === null ||
             birthPlace === null ||
             birth === null ||
@@ -132,11 +147,11 @@ export default function BaseForm(props) {
             <>
                 <InputLayout inputName={lang.father} dark={props.dark} handleChange={setFather}
                              inputType={0}
-                             disabled={!props.editable} size={32} required={true} initialValue={father}
+                             disabled={!props.editable} size={32} required={false} initialValue={father}
                              key={"1-3"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.mother} dark={props.dark} handleChange={setMother}
                              inputType={0}
-                             disabled={!props.editable} size={32} required={true} initialValue={mother}
+                             disabled={!props.editable} size={32} required={false} initialValue={mother}
                              key={"1-4"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.birthPlace} dark={props.dark}
                              handleChange={setBirthPlace} inputType={0}
@@ -161,7 +176,7 @@ export default function BaseForm(props) {
 
     if (!loading && lang !== null)
         return (
-            <div className={styles.form_component_container}>
+            <div className={styles.form_component_container} style={{marginTop: props.create ? '2vh' : null}}>
                 {!props.create ? props.getTitle({
                     pageName: null,
                     pageTitle: 'Basic',
@@ -172,7 +187,7 @@ export default function BaseForm(props) {
                         <Avatar src={pic} style={{width: '100px', height: '100px'}}/>
                     </Button>
                     <InputLayout inputName={lang.name} dark={props.dark} handleChange={setName} inputType={0}
-                                 disabled={!props.editable} size={85} required={true} initialValue={name}
+                                 disabled={!props.editable} size={80} required={true} initialValue={name}
                                  key={"1-1"} setChanged={setChanged} margin={false}/>
                 </div>
                 <div className={styles.form_component_container}
@@ -238,7 +253,7 @@ export default function BaseForm(props) {
                         color: disabled() ? null : 'white'
                     }} variant={'contained'} disableElevation
                             disabled={disabled()}
-                            onClick={() => saveChanges()}>Save</Button>
+                            onClick={() => saveChanges()}>{props.create ? 'Create' : 'Save'}</Button>
                 }
             </div>
         )
@@ -247,12 +262,14 @@ export default function BaseForm(props) {
 
 }
 
-BaseForm.propTypes = {
+BaseForm.propTypes={
     id: PropTypes.string,
     dark: PropTypes.bool,
     create: PropTypes.bool,
     visible: PropTypes.bool,
     editable: PropTypes.bool,
     getTitle: PropTypes.func,
-    locale: PropTypes.string
+    locale: PropTypes.string,
+    setID: PropTypes.func,
+    redirect: PropTypes.func
 }

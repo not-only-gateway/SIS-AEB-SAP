@@ -2,20 +2,19 @@ import PropTypes from 'prop-types'
 import {Button, Divider} from "@material-ui/core";
 import {ArrowDownwardRounded, ArrowUpwardRounded} from "@material-ui/icons";
 import React, {useState} from "react";
+import shared from '../../../styles/shared/Shared.module.css'
 
 export default function AccordionLayout(props) {
     const [open, setOpen] = useState(false)
     return (
         <div style={{
-            width: open ? props.openSize + 'vw' : props.closedSize + 'vw',
-            borderRadius: '8px',
+            width: open ? (props.openSize !== null ? props.openSize + 'vw' : 'fit-content') : props.closedSize + 'vw',
+            minWidth: props.openSize === null ? '45vw' : props.closedSize,
             border: (props.border === undefined || props.border === null) ? (open ? '#39adf6 2px solid' : (!props.dark ? '#e2e2e2 1px solid' : null)) : props.border,
-            transition: '.3s',
             boxShadow: open ? (!props.dark ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'initial') : props.dark ? 'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px' : null,
-            height: "fit-content",
             backgroundColor: props.dark ? props.background !== undefined ? '#484c55' : '#3b424c' : null
 
-        }} key={'accordion - ' + props.key}>
+        }} className={shared.pop_up_animation} key={'accordion-' + props.key}>
             <Button onClick={() => setOpen(!open)} disabled={props.disabled}
                     style={{
                         textTransform: 'none',

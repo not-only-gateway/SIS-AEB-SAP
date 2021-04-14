@@ -34,3 +34,15 @@
 
 }
 
+.tab_buttons_container{
+    display: flex;
+    align-items: center;
+    height: fit-content;
+}
+
+.stepper_container{
+    display: flex;
+    align-items: center;
+    height: fit-content;
+    justify-content: space-between;
+}

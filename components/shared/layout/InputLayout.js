@@ -12,13 +12,14 @@ import {
 } from "@material-ui/core";
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import shared from '../../../styles/shared/Shared.module.css'
 
 export default function InputLayout(props) {
 
     switch (props.inputType) {
         case 0: {
             return (
-                <div key={props.key}
+                <div key={props.key} className={shared.pop_up_animation}
                      style={{width: props.size + '%', marginBottom: props.margin === false ? null : '2vh'}}
                 >
                     <TextField disabled={props.disabled} label={props.inputName} value={props.initialValue}

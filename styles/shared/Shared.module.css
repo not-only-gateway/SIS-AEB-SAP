@@ -35,3 +35,21 @@
     text-overflow: ellipsis;
     overflow: hidden
 }
+
+.pop_up_animation{
+    border-radius: 8px;
+    transition: .3s;
+    height: fit-content;
+    animation-duration: .2s;
+    animation-name: pop_in;
+}
+
+@keyframes pop_in {
+    from {
+        transform: scale(.2);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}

@@ -6,9 +6,9 @@ export default {
     info1: 'Colaboradores Ativos',
     filterChoice: [
         {value: 'Todos os Colaboradores', key: 'people'},
-        {value: 'Unidades', key: 'units'},
         {value: 'Colaboradores Ativos', key: 'collaborators'}
     ],
     inactive: 'Colaborador inativo',
-    nothingFound: 'Nada encontrado'
+    nothingFound: 'Nada encontrado',
+    end: 'Você chegou ao final.',
 }

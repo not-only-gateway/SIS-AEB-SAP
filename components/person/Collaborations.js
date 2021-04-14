@@ -14,6 +14,10 @@ export default function Collaborations(props) {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
+        fetchData()
+    }, [])
+    async function fetchData(){
+        setLoading(true)
         fetchComponentData({
             path: 'collaborations/all/' + props.id,
             params: {}
@@ -22,8 +26,7 @@ export default function Collaborations(props) {
                 setCollaborations(res)
         })
         setLoading(false)
-    }, [])
-
+    }
     if (!loading)
         return (
             <div className={styles.collaborations_container} style={{marginBottom: '2vh', marginLeft: '.9vw'}}>
@@ -32,16 +35,18 @@ export default function Collaborations(props) {
                     pageTitle: 'Collaborations',
                     pageInfo: 'Basic form'
                 })}
-                {props.disabled ?
+                {!props.editable ?
                     null :
                     <AccordionLayout
                         content={
-
-                                <CollaborationForm
-                                    userID={props.id}
-                                    create={true}
-                                    dark={props.dark}
-                                />
+                            <CollaborationForm
+                                userID={props.id}
+                                create={true}
+                                dark={props.dark}
+                                editable={props.editable}
+                                visible={props.visible}
+                                fetchData={fetchData}
+                            />
                         }
                         summary={
                             <div style={{
@@ -55,7 +60,7 @@ export default function Collaborations(props) {
                         }
                         key={'create collaboration'}
                         disabled={!props.editable}
-                        openSize={40}
+                        openSize={43}
                         dark={props.dark}
                         closedSize={12.66667}
                         background={'#484c55'}
@@ -65,15 +70,14 @@ export default function Collaborations(props) {
                         <AccordionLayout
                             content={
 
-                                    <CollaborationForm
-                                        collaborationID={collaboration.collaboration.id}
-                                        userID={props.id}
-                                        create={true}
-                                        dark={props.dark}
-                                        visible={props.editable}
-                                        editable={props.editable}
-
-                                    />
+                                <CollaborationForm
+                                    collaborationID={collaboration.collaboration.id}
+                                    userID={props.id}
+                                    create={true}
+                                    dark={props.dark}
+                                    visible={props.editable}
+                                    editable={props.editable}
+                                />
                             }
                             summary={
                                 <div className={shared.accordionTitle}>
