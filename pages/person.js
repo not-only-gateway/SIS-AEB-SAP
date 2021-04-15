@@ -38,18 +38,6 @@ export default function person() {
 
     }, [router.locale, router.isReady])
 
-
-    const getTitle = (props) => {
-        return (
-            <div style={{marginBottom: '2vh'}}>
-                <div style={{margin: 'auto', width: '45vw'}}>
-                    <p style={{fontSize: '1.3rem', fontWeight: '550', textAlign: 'left'}}>{props.pageTitle}</p>
-                    <p style={{fontSize: '.75rem', textAlign: 'left'}}>{props.pageInfo}</p>
-                </div>
-            </div>
-        )
-    }
-
     function redirect(new_id) {
         console.log("new_id -> ")
         console.log(new_id)
@@ -75,7 +63,7 @@ export default function person() {
                         <props.getTitle pageName={lang.main.profile} pageTitle={lang.main.profile}
                                         pageInfo={lang.main.information}/>
                         {id !== undefined || create !== undefined ?
-                            <div className={styles.content_container}>
+                            <div>
 
                                 <TabLayout
                                     dark={props.dark}
@@ -88,7 +76,6 @@ export default function person() {
                                             value: (
                                                 <BaseForm
                                                     id={id}
-                                                    getTitle={getTitle}
                                                     dark={props.dark}
                                                     visible={accessProfile !== null ? accessProfile.canUpdatePerson : false}
                                                     editable={accessProfile !== null ? accessProfile.canUpdatePerson : false}
@@ -103,8 +90,8 @@ export default function person() {
                                             value: (
                                                 <DocumentsForm
                                                     id={id}
-                                                    getTitle={getTitle}
                                                     dark={props.dark}
+                                                    locale={router.locale}
                                                     visible={id !== undefined && accessProfile !== null ? accessProfile.canViewDocuments : false}
                                                     editable={id !== undefined && accessProfile !== null ? accessProfile.canUpdateDocuments : false}
                                                 />
@@ -115,8 +102,8 @@ export default function person() {
                                             value: (
                                                 <ContactForm
                                                     id={id}
-                                                    getTitle={getTitle}
                                                     dark={props.dark}
+                                                    locale={router.locale}
                                                     visible={id !== undefined && accessProfile !== null ? accessProfile.canViewContact : false}
                                                     editable={id !== undefined && accessProfile !== null ? accessProfile.canUpdateContact : false}
                                                 />
@@ -127,8 +114,8 @@ export default function person() {
                                             value: (
                                                 <AddressForm
                                                     id={id}
-                                                    getTitle={getTitle}
                                                     dark={props.dark}
+                                                    locale={router.locale}
                                                     visible={id !== undefined && accessProfile !== null ? accessProfile.canViewLocation : false}
                                                     editable={id !== undefined && accessProfile !== null ? accessProfile.canUpdateLocation : false}
                                                 />
@@ -140,11 +127,10 @@ export default function person() {
                                             value: (
                                                 <Collaborations
                                                     id={id}
-                                                    getTitle={getTitle}
                                                     dark={props.dark}
                                                     visible={id !== undefined && accessProfile !== null ? accessProfile.canViewCollaboration : false}
                                                     editable={id !== undefined && accessProfile !== null ? accessProfile.canUpdateCollaboration : false}
-                                                    locale={lang.collaborations}
+                                                    locale={router.locale}
                                                 />
                                             )
 

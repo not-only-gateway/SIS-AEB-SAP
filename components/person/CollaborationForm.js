@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import saveComponentChanges from "../../utils/person/SaveChanges";
 import fetchComponentData from "../../utils/person/FetchData";
 import mapToSelect from "../../utils/person/MapToSelect";
+import mainStyles from '../../styles/shared/Main.module.css'
 
 export default function CollaborationForm(props) {
 
@@ -42,7 +43,6 @@ export default function CollaborationForm(props) {
             legalDocument.length === 0 ||
             substitute === null ||
             activeRole === null ||
-            (seniors.length > 0 && seniorID === null) ||
             changed === false || accessProfileID === null
         )
     }
@@ -80,6 +80,7 @@ export default function CollaborationForm(props) {
                     }
                 )
             }
+
             fetchComponentData({
                 path: 'main/collaboration/' + props.userID,
                 params: {}
@@ -100,15 +101,17 @@ export default function CollaborationForm(props) {
             })
 
             fetchComponentData({path: 'units', params: {}}).then(res => {
-                if (res !== null)
+                if (res !== null) {
                     setUnits(res)
+                    setLoading(false)
+                }
+
+
             })
             fetchComponentData({path: 'accesses', params: {}}).then(res => {
                 if (res !== null)
                     setAccessProfiles(res)
             })
-
-            setLoading(false)
         },
         []
     )
@@ -145,7 +148,15 @@ export default function CollaborationForm(props) {
         })
     }
 
-
+    async function deleteCollaboration() {
+        await saveComponentChanges({
+            path: 'collaboration/' + props.collaborationID,
+            params: {},
+            method: 'delete'
+        }).then(() => {
+            props.fetchData()
+        })
+    }
 
     async function setUnit(id) {
         setUnitID(id)
@@ -157,88 +168,106 @@ export default function CollaborationForm(props) {
 
     if (!loading)
         return (
-            <div className={styles.form_component_container} style={{width: '93%'}}>
+            <div
+                className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth, mainStyles.justifyCenter].join(' ')}>
                 <InputLayout inputName={'Unit'} dark={props.dark} handleChange={setUnit} inputType={1}
-                             disabled={!props.editable} size={32} required={true} initialValue={unitID}
+                             disabled={!props.editable} size={30} required={true} initialValue={unitID}
                              selectFields={mapToSelect({option: 0, units: units})} key={'2-1'} setChanged={setChanged}/>
 
 
                 <InputLayout inputName={'Active Role'} dark={props.dark} handleChange={setActiveRole} inputType={1}
-                             disabled={!props.editable} size={32} required={true}
+                             disabled={!props.editable} size={30} required={true}
                              initialValue={activeRole}
                              selectFields={[{key: false, value: 'No'}, {key: true, value: 'Yes'}]} key={'2-2'}
                              setChanged={setChanged}/>
                 <InputLayout inputName={'Main Collaboration'} dark={props.dark} handleChange={setMainCollaboration}
                              inputType={1}
-                             disabled={!props.editable || !canBeMain} size={32} required={true}
+                             disabled={!props.editable ||
+                             (!canBeMain && !mainCollaboration && (props.collaborationID === undefined || props.collaborationID === null)) ||
+                             (!canBeMain && (props.collaborationID === undefined || props.collaborationID === null))
+                             } size={30} required={true}
                              initialValue={mainCollaboration}
                              selectFields={[{key: false, value: 'No'}, {key: true, value: 'Yes'}]} key={'2-3'}
                              setChanged={setChanged}/>
                 <InputLayout inputName={'Effective Role' || commissionedRoles.length === 0} dark={props.dark}
                              handleChange={setEffectiveRoleID}
                              inputType={1}
-                             disabled={!props.editable} size={49} required={false}
+                             disabled={!props.editable} size={46} required={false}
                              initialValue={effectiveRoleID}
-                             selectFields={mapToSelect({option: 1, effectiveRoles: effectiveRoles})} key={'2-4'} setChanged={setChanged}/>
+                             selectFields={mapToSelect({option: 1, effectiveRoles: effectiveRoles})} key={'2-4'}
+                             setChanged={setChanged}/>
 
                 <InputLayout inputName={'Commissioned Role'} dark={props.dark} handleChange={setCommissionedRoleID}
                              inputType={1}
-                             disabled={!props.editable || commissionedRoles.length === 0} size={49} required={false}
+                             disabled={!props.editable || commissionedRoles.length === 0} size={46} required={false}
                              initialValue={commissionedRoleID}
-                             selectFields={mapToSelect({option: 2, commissionedRoles: commissionedRoles})} key={'2-5'} setChanged={setChanged}/>
+                             selectFields={mapToSelect({option: 2, commissionedRoles: commissionedRoles})} key={'2-5'}
+                             setChanged={setChanged}/>
                 <InputLayout inputName={'Substitute'} dark={props.dark} handleChange={setSubstitute} inputType={1}
-                             disabled={!props.editable} size={32} required={true} initialValue={substitute}
+                             disabled={!props.editable} size={30} required={true} initialValue={substitute}
                              selectFields={[{key: false, value: 'No'}, {key: true, value: 'Yes'}]} key={'2-6'}
                              setChanged={setChanged}/>
 
                 <InputLayout inputName={'Senior'} dark={props.dark} handleChange={setSeniorID} inputType={1}
-                             disabled={!props.editable || seniors.length === 0} size={32} required={false}
+                             disabled={!props.editable || seniors.length === 0} size={30} required={false}
                              initialValue={seniorID}
-                             selectFields={mapToSelect({option: 3, seniors: seniors})} key={'2-7'} setChanged={setChanged}/>
+                             selectFields={mapToSelect({option: 3, seniors: seniors})} key={'2-7'}
+                             setChanged={setChanged}/>
 
                 <InputLayout inputName={'Admission'} dark={props.dark} handleChange={setAdmissionDate} inputType={2}
-                             disabled={!props.editable} size={32} required={true} initialValue={admissionDate}
+                             disabled={!props.editable} size={30} required={true} initialValue={admissionDate}
                              key={'2-8'} setChanged={setChanged}/>
 
                 <InputLayout inputName={'Official Publication'} dark={props.dark} handleChange={setPublicationDate}
                              inputType={2}
-                             disabled={!props.editable} size={32} required={true} initialValue={publicationDate}
+                             disabled={!props.editable} size={30} required={true} initialValue={publicationDate}
                              key={'2-9'} setChanged={setChanged}/>
 
                 <InputLayout inputName={'Contract Expiration'} dark={props.dark} handleChange={setContractExp}
                              inputType={2}
-                             disabled={!props.editable} size={32} required={false} initialValue={contractExp}
+                             disabled={!props.editable} size={30} required={false} initialValue={contractExp}
                              key={'2-10'} setChanged={setChanged}/>
                 <InputLayout inputName={'Legal Document'} dark={props.dark} handleChange={setLegalDocument}
                              inputType={0}
-                             disabled={!props.editable} size={32} required={true} initialValue={legalDocument}
+                             disabled={!props.editable} size={30} required={true} initialValue={legalDocument}
                              key={'2-11'} setChanged={setChanged}/>
 
                 <InputLayout inputName={'Work shift start'} dark={props.dark} handleChange={setWorkStart}
                              inputType={3}
-                             disabled={!props.editable} size={49} required={false} initialValue={workStart}
+                             disabled={!props.editable} size={46} required={false} initialValue={workStart}
                              key={'2-12'} setChanged={setChanged}/>
 
                 <InputLayout inputName={'Work shift end'} dark={props.dark} handleChange={setWorkEnd}
                              inputType={3}
-                             disabled={!props.editable} size={49} required={false} initialValue={workEnd}
+                             disabled={!props.editable} size={46} required={false} initialValue={workEnd}
                              key={'2-13'} setChanged={setChanged}/>
                 <InputLayout inputName={'Access Profile'} dark={props.dark} handleChange={setAccessProfileID}
                              inputType={1} selectFields={mapToSelect({option: 4, accessProfiles: accessProfiles})}
-                             disabled={!props.editable} size={49} required={true} initialValue={accessProfileID}
+                             disabled={!props.editable} size={46} required={true} initialValue={accessProfileID}
                              key={'2-15'} setChanged={setChanged}/>
                 <InputLayout inputName={'Additional information'} dark={props.dark} handleChange={setAdditionalInfo}
                              inputType={0}
-                             disabled={!props.editable} size={49} required={false} initialValue={additionalInfo}
+                             disabled={!props.editable} size={46} required={false} initialValue={additionalInfo}
                              key={'2-15'} setChanged={setChanged}/>
 
+
                 <Button style={{
-                    width: '43vw', margin: '2vh auto',
+                    width: props.collaborationID !== undefined && props.collaborationID !== null ? '46%' : '94%',
+                    marginBottom: '.8vw',
                     backgroundColor: disabled() ? null : '#39adf6',
                     color: disabled() ? null : 'white'
                 }} variant={'contained'} disableElevation
                         disabled={disabled()}
                         onClick={() => saveChanges()}>Save</Button>
+                {props.collaborationID !== undefined && props.collaborationID !== null ?
+                    <Button style={{
+                        width: '46%', marginBottom: '.8vw',
+                        backgroundColor: '#f54269',
+                        color: 'white'
+                    }} variant={'contained'} onClick={() => deleteCollaboration()} disableElevation>Delete</Button>
+                    :
+                    null
+                }
             </div>
         )
     else

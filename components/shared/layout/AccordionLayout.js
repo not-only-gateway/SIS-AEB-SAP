@@ -25,7 +25,7 @@ export default function AccordionLayout(props) {
                         border: 'none',
                     }}>
                 {props.summary}
-                {open ? <ArrowUpwardRounded/> : <ArrowDownwardRounded/>}
+                 <ArrowDownwardRounded style={{transform: open ? 'rotate(180deg)' : null, transition: '300ms'}}/>
             </Button>
             {open ?
                 <>

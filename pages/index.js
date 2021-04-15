@@ -90,7 +90,7 @@ export default function Index() {
                                         <div
                                             className={[mainStyles.mediumMargin, mainStyles.normalBorder, mainStyles.smallPadding, mainStyles.baseWidth].join(' ')}
                                             style={{...getTertiaryBackground({dark: props.dark}), ...getBorder({dark: props.dark})}}>
-                                            <p className={mainStyles.secondaryParagraph}
+                                            <p className={mainStyles.primaryParagraph}
                                                style={{...{textAlign: 'center'}, ...getSecondaryColor({dark: props.dark})}}>{lang.end}</p>
                                         </div>
                                     }

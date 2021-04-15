@@ -7,6 +7,8 @@ import AccordionLayout from "../shared/layout/AccordionLayout";
 import fetchComponentData from "../../utils/person/FetchData";
 import shared from '../../styles/shared/Shared.module.css'
 import {Divider} from "@material-ui/core";
+import getTitle from "../../utils/person/GetTitle";
+import mainStyles from '../../styles/shared/Main.module.css'
 
 export default function Collaborations(props) {
 
@@ -29,11 +31,11 @@ export default function Collaborations(props) {
     }
     if (!loading)
         return (
-            <div className={styles.collaborations_container} style={{marginBottom: '2vh', marginLeft: '.9vw'}}>
-                {props.getTitle({
-                    pageName: null,
+            <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth].join(' ')} style={{marginBottom: '2vh',}}>
+                {getTitle({
                     pageTitle: 'Collaborations',
-                    pageInfo: 'Basic form'
+                    pageInfo: 'Basic form',
+                    dark: props.dark
                 })}
                 {!props.editable ?
                     null :
@@ -58,11 +60,11 @@ export default function Collaborations(props) {
                                 <p>New Collaboration</p>
                             </div>
                         }
-                        key={'create collaboration'}
+                        key={'create collaborations'}
                         disabled={!props.editable}
                         openSize={43}
                         dark={props.dark}
-                        closedSize={12.66667}
+                        closedSize={43}
                         background={'#484c55'}
                     />
                 }
@@ -74,6 +76,7 @@ export default function Collaborations(props) {
                                     collaborationID={collaboration.collaboration.id}
                                     userID={props.id}
                                     create={true}
+                                    fetchData={fetchData}
                                     dark={props.dark}
                                     visible={props.editable}
                                     editable={props.editable}
@@ -96,7 +99,7 @@ export default function Collaborations(props) {
                             key={collaboration.collaboration.id}
                             disabled={false}
                             openSize={43}
-                            closedSize={12.66667}
+                            closedSize={43}
                             dark={props.dark}
                             background={'#484c55'}
                         />
@@ -111,10 +114,10 @@ export default function Collaborations(props) {
         return null
 }
 
-Collaborations.propTypes = {
+Collaborations.propTypes={
     dark: PropTypes.bool,
     visible: PropTypes.bool,
     editable: PropTypes.bool,
     id: PropTypes.number,
-    getTitle: PropTypes.func
+    locale: PropTypes.string
 }

@@ -6,7 +6,12 @@ import {useRouter} from "next/router";
 import {setThemeCookie} from "../../../utils/shared/Theme";
 import Head from "next/head";
 import PropTypes from 'prop-types'
-import {getPrimaryBackground, getPrimaryColor, getSecondaryBackground} from "../../../styles/shared/MainStyles";
+import {
+    getPrimaryBackground,
+    getPrimaryColor,
+    getSecondaryBackground,
+    getSecondaryColor, getTertiaryColor
+} from "../../../styles/shared/MainStyles";
 import mainStyles from '../../../styles/shared/Main.module.css'
 
 const cookies = new Cookies()
@@ -37,14 +42,8 @@ export default function Layout({children}) {
                         <title>{props.pageName}</title>
                     </Head> : null}
                 <div style={{margin: 'auto', width: '45vw'}}>
-                    <p style={{
-                        ...{
-                            fontSize: '1.7rem',
-                            fontWeight: '550',
-                            textAlign: 'left'
-                        }, ...getPrimaryColor({dark: dark})
-                    }}>{props.pageTitle}</p>
-                    <p className={mainStyles.secondaryParagraph} style={getPrimaryColor({dark: dark})}>{props.pageInfo}</p>
+                    <p style={getPrimaryColor({dark: dark})} className={mainStyles.primaryHeader}>{props.pageTitle}</p>
+                    <p className={mainStyles.secondaryParagraph} style={getTertiaryColor({dark: dark})}>{props.pageInfo}</p>
                 </div>
             </div>
         )

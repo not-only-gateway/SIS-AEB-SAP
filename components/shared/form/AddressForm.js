@@ -5,6 +5,7 @@ import InputLayout from "../layout/InputLayout";
 import PropTypes from 'prop-types'
 import fetchComponentData from "../../../utils/person/FetchData";
 import saveComponentChanges from "../../../utils/person/SaveChanges";
+import getTitle from "../../../utils/person/GetTitle";
 
 export default function AddressForm(props) {
 
@@ -71,10 +72,10 @@ export default function AddressForm(props) {
     if (!loading)
         return (
             <div className={styles.form_component_container}>
-                {props.getTitle({
-                    pageName: null,
+                {getTitle({
                     pageTitle: 'Basic',
-                    pageInfo: 'Basic form'
+                    pageInfo: 'Basic form',
+                    dark: props.dark
                 })}
                 <InputLayout inputName={'Address'} dark={props.dark} handleChange={setAddress} inputType={0}
                              disabled={!props.editable} size={49} required={true} initialValue={address}
@@ -106,7 +107,7 @@ export default function AddressForm(props) {
 
 
                 <Button style={{
-                    width: '43vw', margin: '2vh auto',
+                    width: '43vw',  margin: 'auto auto .8vw',
                     backgroundColor: disabled() ? null : '#39adf6',
                     color: disabled() ? null : 'white'
                 }} variant={'contained'} disableElevation
@@ -121,7 +122,6 @@ export default function AddressForm(props) {
 
 AddressForm.propTypes={
     id: PropTypes.number,
-    getTitle: PropTypes.func,
     dark: PropTypes.bool,
     visible: PropTypes.bool,
     editable: PropTypes.bool

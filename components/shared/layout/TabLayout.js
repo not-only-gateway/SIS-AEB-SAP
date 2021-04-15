@@ -8,7 +8,7 @@ export default function TabLayout(props) {
 
     function renderTabContent(tab) {
         return (
-            <div>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
                 {tab.buttonKey === open ? tab.value : null}
             </div>
         )
@@ -20,7 +20,7 @@ export default function TabLayout(props) {
             backgroundColor: props.highLight === false ? null : (props.dark ? '#3b424c' : null),
             width: props.width + 'vw',
             height: 'fit-content',
-            borderRadius: '8px'
+            borderRadius: '8px',
         }}>
             <div className={styles.tab_buttons_container} style={{width: props.width + 'vw'}}>
 

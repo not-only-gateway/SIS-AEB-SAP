@@ -9,10 +9,6 @@
     width: 50%;
 }
 
-.content_container{
-    display: grid;
-    gap: 2vh;
-}
 
 .simplified_profile_container{
     border-radius: 8px;

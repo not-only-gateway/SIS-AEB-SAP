@@ -5,6 +5,9 @@ import PropTypes from "prop-types";
 import InputLayout from "../shared/layout/InputLayout";
 import fetchComponentData from "../../utils/person/FetchData";
 import saveComponentChanges from "../../utils/person/SaveChanges";
+import getTitle from "../../utils/person/GetTitle";
+import mainStyles from '../../styles/shared/Main.module.css'
+import getComponentLanguage from "../../utils/person/GetLanguage";
 
 export default function ContactForm(props) {
 
@@ -14,6 +17,8 @@ export default function ContactForm(props) {
     const [phone, setPhone] = useState('')
     const [phoneAlt, setPhoneAlt] = useState(null)
     const [changed, setChanged] = useState(false)
+    const [loading, setLoading] = useState(true)
+    const [lang, setLang] = useState(null)
 
     function disabled() {
         return (
@@ -24,20 +29,21 @@ export default function ContactForm(props) {
     }
 
     useEffect(() => {
-        fetchComponentData({path: 'contact/'+props.id, params: {}}).then(res => {
+        fetchComponentData({path: 'contact/' + props.id, params: {}}).then(res => {
             if (res !== null) {
                 setEmail(res.email)
                 setEmailAlt(res.email_alt)
                 setPhone(res.phone)
                 setPhoneAlt(res.phone_alt)
             }
-
+            setLoading(false)
         })
+        setLang(getComponentLanguage({locale: props.locale, component: 'contact'}))
     }, [])
 
     async function saveChanges() {
         await saveComponentChanges({
-            path: 'contact/'+props.id,
+            path: 'contact/' + props.id,
             params: {
                 id: props.id,
                 email: email.toLowerCase(),
@@ -47,41 +53,43 @@ export default function ContactForm(props) {
             },
             method: 'put'
         }).then(res => res ? setChanged(false) : console.log(res))
-
     }
 
-    return (
-        <div className={styles.form_component_container}>
-            {props.getTitle({
-                pageName: null,
-                pageTitle: 'Collaborations',
-                pageInfo: 'Basic form'
-            })}
-            <InputLayout inputName={'Email'} dark={props.dark} handleChange={setEmail}
-                         inputType={0} disabled={!props.editable} size={49} required={true}
-                         initialValue={email} key={"3-1"} setChanged={setChanged}/>
+    if (!loading && lang !== null)
+        return (
+            <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth].join(' ')}>
+                {getTitle({
+                    pageTitle: lang.title,
+                    pageInfo: lang.info,
+                    dark: props.dark
+                })}
+                <InputLayout inputName={lang.email} dark={props.dark} handleChange={setEmail}
+                             inputType={0} disabled={!props.editable} size={49} required={true}
+                             initialValue={email} key={"3-1"} setChanged={setChanged}/>
 
-            <InputLayout inputName={'Alternative Email'} dark={props.dark} handleChange={setEmailAlt}
-                         inputType={0} disabled={!props.editable} size={49} required={false}
-                         initialValue={emailAlt} key={"3-2"} setChanged={setChanged}/>
+                <InputLayout inputName={lang.altEmail} dark={props.dark} handleChange={setEmailAlt}
+                             inputType={0} disabled={!props.editable} size={49} required={false}
+                             initialValue={emailAlt} key={"3-2"} setChanged={setChanged}/>
 
-            <InputLayout inputName={'Phone'} dark={props.dark} handleChange={setPhone}
-                         inputType={0} disabled={!props.editable} size={49} required={true}
-                         initialValue={phone} key={"3-3"} setChanged={setChanged}/>
+                <InputLayout inputName={lang.phone} dark={props.dark} handleChange={setPhone}
+                             inputType={0} disabled={!props.editable} size={49} required={true}
+                             initialValue={phone} key={"3-3"} setChanged={setChanged}/>
 
-            <InputLayout inputName={'Alternative Phone'} dark={props.dark} handleChange={setPhoneAlt}
-                         inputType={0} disabled={!props.editable} size={49} required={false}
-                         initialValue={phoneAlt} key={"3-4"} setChanged={setChanged}/>
+                <InputLayout inputName={lang.altPhone} dark={props.dark} handleChange={setPhoneAlt}
+                             inputType={0} disabled={!props.editable} size={49} required={false}
+                             initialValue={phoneAlt} key={"3-4"} setChanged={setChanged}/>
 
-            <Button style={{
-                width: '43vw', margin: '2vh auto',
-                backgroundColor: disabled() ? null : '#39adf6',
-                color: disabled() ? null : 'white'
-            }} variant={'contained'} disableElevation
-                    disabled={disabled()}
-                    onClick={() => saveChanges()}>Save</Button>
-        </div>
-    )
+                <Button style={{
+                    width: '43vw', margin: 'auto auto .8vw',
+                    backgroundColor: disabled() ? null : '#39adf6',
+                    color: disabled() ? null : 'white'
+                }} variant={'contained'} disableElevation
+                        disabled={disabled()}
+                        onClick={() => saveChanges()}>{lang.save}</Button>
+            </div>
+        )
+    else
+        return null
 }
 
 ContactForm.propTypes = {
@@ -89,5 +97,5 @@ ContactForm.propTypes = {
     dark: PropTypes.bool,
     visible: PropTypes.bool,
     editable: PropTypes.bool,
-    getTitle: PropTypes.func
+    locale: PropTypes.string
 }

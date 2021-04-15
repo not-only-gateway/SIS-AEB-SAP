@@ -7,6 +7,8 @@ import shared from '../../styles/shared/Shared.module.css'
 import styles from '../../styles/Structure.module.css'
 import Link from 'next/link'
 import {Avatar, createMuiTheme, ThemeProvider} from "@material-ui/core";
+import mainStyles from '../../styles/shared/Main.module.css'
+import {getPrimaryColor, getSecondaryColor, getTertiaryColor} from "../../styles/shared/MainStyles";
 
 export default function SubjectLayout(props) {
     const [dependents, setDependents] = useState([])
@@ -40,38 +42,27 @@ export default function SubjectLayout(props) {
                     query: {id: props.subject.id}
                 }}>
             <span onMouseEnter={() => setHovered(true)}
-                  onMouseLeave={() => setHovered(false)} style={{
-                border: props.dark ? (hovered ? '#39adf6 2px solid' : "transparent 2px solid") : (hovered ? '#39adf6 2px solid' : '#e2e2e2 2px solid'),
-                boxShadow: hovered ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : !props.dark ? 'none' : 'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px',
-                backgroundColor: props.dark ? '#484c55' : 'none',
-            }} className={styles.small_card_container}>
+                  onMouseLeave={() => setHovered(false)}
+                  style={{
+                      border: props.dark ? (hovered ? '#39adf6 2px solid' : "transparent 2px solid") : (hovered ? '#39adf6 2px solid' : '#e2e2e2 2px solid'),
+                      boxShadow: hovered ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : !props.dark ? 'none' : 'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px',
+                      backgroundColor: props.dark ? '#484c55' : 'none',
+                  }} className={styles.small_card_container}>
                 {props.type !== 'unit' ?
                     <div className={styles.subject_person_container}>
 
                         <Avatar src={props.subject.pic}/>
 
-                        <p style={{
-                            fontWeight: 450,
-                            color: (props.dark ? 'white' : 'black')
-                        }}>
+                        <p className={mainStyles.primaryParagraph} style={getSecondaryColor({dark: props.dark})}>
                             {props.subject.name.replace(/([a-z]+) .* ([a-z]+)/i, "$1 $2")}
                         </p>
-                        <p style={{
-                            lineHeight: '0px',
-                            fontSize: '.8rem',
-                            fontWeight: 400,
-                            color: (props.dark ? 'white' : 'black')
-                        }}>
+                        <p className={mainStyles.tertiaryParagraph} style={{...getTertiaryColor({dark: props.dark}), ...{lineHeight: '0'}}}>
                             {props.subject.unit_acronym}
                         </p>
-
                     </div>
                     :
                     <>
-                        <p style={{
-                            fontWeight: 450,
-                            color: (props.dark ? 'white' : 'black')
-                        }}>
+                        <p className={mainStyles.primaryParagraph} style={getSecondaryColor({dark: props.dark})}>
                             {props.subject.acronym}
                         </p>
                     </>

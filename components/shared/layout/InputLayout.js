@@ -20,7 +20,7 @@ export default function InputLayout(props) {
         case 0: {
             return (
                 <div key={props.key} className={shared.pop_up_animation}
-                     style={{width: props.size + '%', marginBottom: props.margin === false ? null : '2vh'}}
+                     style={{width: props.size + '%'}}
                 >
                     <TextField disabled={props.disabled} label={props.inputName} value={props.initialValue}
                                variant={"outlined"}
@@ -43,8 +43,8 @@ export default function InputLayout(props) {
 
         case 1: {
             return (
-                <div key={props.key}
-                     style={{width: props.size + '%', marginBottom: props.margin === false ? null : '2vh'}}>
+                <div key={props.key} className={shared.pop_up_animation}
+                     style={{width: props.size + '%'}}>
                     <FormControl variant="outlined" disabled={props.disabled}
                                  style={{
                                      backgroundColor: (!props.dark ? '#f7f8fa' : '#272e38'),
@@ -80,7 +80,7 @@ export default function InputLayout(props) {
 
             return (
                 <div key={props.key}
-                     style={{width: props.size + '%', marginBottom: props.margin === false ? null : '2vh'}}>
+                     style={{width: props.size + '%'}}>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <Grid container justify="space-around"
                               style={{width: '100%'}}>
@@ -116,7 +116,7 @@ export default function InputLayout(props) {
         case 3: {
             return (
                 <div key={props.key}
-                     style={{width: props.size + '%', marginBottom: props.margin === false ? null : '2vh'}}>
+                     style={{width: props.size + '%'}}>
                     <form noValidate style={{
                         backgroundColor: !props.dark ? '#f7f8fa' : '#272e38',
                         width: '100%',

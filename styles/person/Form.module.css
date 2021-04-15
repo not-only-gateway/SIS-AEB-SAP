@@ -6,22 +6,21 @@
     align-items: center;
     margin-bottom: 2vh;
 }
-.collaborations_container{
+/*.collaborations_container{*/
+/*    display: inline-flex;*/
+/*    flex-flow: row wrap;*/
+/*    justify-items: center;*/
+/*    gap: .9vw;*/
+/*    border-radius: 8px;*/
+/*    width: 38vw;*/
+/*}*/
+.form_component_container{
     display: inline-flex;
     flex-flow: row wrap;
-    gap: .9vw;
-    border-radius: 8px;
-    width: 40vw;
-
-}
-.form_component_container{
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
+    gap: .8vw;
     align-content: space-between;
     border-radius: 8px;
     width: 40vw;
-    margin: auto;
 }
 .form_container{
     display: grid;

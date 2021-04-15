@@ -8,9 +8,12 @@ import fetchComponentData from "../../utils/person/FetchData";
 import axios from "axios";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import BaseFormEN from "../../locales/shared/BaseFormEN";
-import BaseFormES from "../../locales/shared/BaseFormES";
-import BaseFormPT from "../../locales/shared/BaseFormPT";
+import BaseFormEN from "../../locales/person/base/BaseFormEN";
+import BaseFormES from "../../locales/person/base/BaseFormES";
+import BaseFormPT from "../../locales/person/base/BaseFormPT";
+import getTitle from "../../utils/person/GetTitle";
+import mainStyles from '../../styles/shared/Main.module.css'
+import getComponentLanguage from "../../utils/person/GetLanguage";
 
 export default function BaseForm(props) {
 
@@ -58,20 +61,7 @@ export default function BaseForm(props) {
         else
             setLoading(false)
 
-        switch (props.locale){
-            case 'pt': {
-                setLang(BaseFormPT)
-                break
-            }
-            case 'es': {
-                setLang(BaseFormES)
-                break
-            }
-            default:{
-                setLang(BaseFormEN)
-                break
-            }
-        }
+        setLang(getComponentLanguage({locale: props.locale, component: 'base'}))
     }, [])
 
 
@@ -83,7 +73,7 @@ export default function BaseForm(props) {
     async function saveChanges() {
         await axios({
             method: props.create === true ? 'post' : 'put',
-            url:  props.create ? Host() +'person' :  Host() +'person/'+props.id,
+            url: props.create ? Host() + 'person' : Host() + 'person/' + props.id,
             headers: {'authorization': (new Cookies()).get('jwt')},
             data: {
                 id: props.id !== undefined ? props.id : null,
@@ -102,11 +92,11 @@ export default function BaseForm(props) {
                 disabled_person: disabledPerson,
                 nationality: nationality?.toUpperCase()
             }
-        }).then(async function() {
+        }).then(async function () {
             console.log('here')
             if (!props.create)
                 setChanged(false)
-            else{
+            else {
                 await axios({
                     method: "get",
                     url: Host() + 'corporate_email/person',
@@ -144,44 +134,47 @@ export default function BaseForm(props) {
 
     function moreFields() {
         return (
-            <>
+            <div
+                className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth, mainStyles.justifyCenter].join(' ')}
+                style={{marginBottom: '2vh'}}>
                 <InputLayout inputName={lang.father} dark={props.dark} handleChange={setFather}
                              inputType={0}
-                             disabled={!props.editable} size={32} required={false} initialValue={father}
+                             disabled={!props.editable} size={30} required={false} initialValue={father}
                              key={"1-3"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.mother} dark={props.dark} handleChange={setMother}
                              inputType={0}
-                             disabled={!props.editable} size={32} required={false} initialValue={mother}
+                             disabled={!props.editable} size={30} required={false} initialValue={mother}
                              key={"1-4"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.birthPlace} dark={props.dark}
                              handleChange={setBirthPlace} inputType={0}
-                             disabled={!props.editable} size={32} required={true}
+                             disabled={!props.editable} size={30} required={true}
                              initialValue={birthPlace}
                              key={"1-5"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.education} dark={props.dark}
                              handleChange={setEducation}
                              inputType={1}
-                             disabled={!props.editable} size={49} required={true}
+                             disabled={!props.editable} size={46} required={true}
                              initialValue={education}
                              selectFields={lang.educationChoice}
                              key={"1-9"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.marital} dark={props.dark} handleChange={setMarital}
                              inputType={1}
-                             disabled={!props.editable} size={49} required={true} initialValue={marital}
+                             disabled={!props.editable} size={46} required={true} initialValue={marital}
                              selectFields={lang.maritalChoice}
                              key={"1-11"} setChanged={setChanged}/>
-            </>
+            </div>
         )
     }
 
     if (!loading && lang !== null)
         return (
-            <div className={styles.form_component_container} style={{marginTop: props.create ? '2vh' : null}}>
-                {!props.create ? props.getTitle({
-                    pageName: null,
-                    pageTitle: 'Basic',
-                    pageInfo: 'Basic form'
-                }): null}
+            <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth].join(' ')}
+                 style={{marginTop: props.create ? '2vh' : null}}>
+                {!props.create ? getTitle({
+                    pageTitle: lang.title,
+                    pageInfo: lang.info,
+                    dark: props.dark
+                }) : null}
                 <div className={styles.form_row}>
                     <Button disabled={!props.editable}>
                         <Avatar src={pic} style={{width: '100px', height: '100px'}}/>
@@ -190,8 +183,8 @@ export default function BaseForm(props) {
                                  disabled={!props.editable} size={80} required={true} initialValue={name}
                                  key={"1-1"} setChanged={setChanged} margin={false}/>
                 </div>
-                <div className={styles.form_component_container}
-                     style={{width: '45vw', marginBottom: props.editable ? null : '2vh'}}>
+                <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth].join(' ')}
+                     style={{marginBottom: props.editable ? null : '2vh'}}>
 
                     <InputLayout inputName={lang.corporateEmail} dark={props.dark}
                                  handleChange={setCorporateEmail}
@@ -223,16 +216,15 @@ export default function BaseForm(props) {
                                  disabled={!props.editable} size={49} required={true} initialValue={gender}
                                  selectFields={lang.genderChoice}
                                  key={"1-10"} setChanged={setChanged}/>
-                    {props.create === false ? <div style={{margin: 'auto'}}>
+                    {props.create === false ?
+                        <div>
                             <AccordionLayout
                                 content={
-                                    <div className={styles.form_component_container} style={{width: '38vw'}}>
-                                        {moreFields()}
-                                    </div>
+                                    moreFields()
                                 }
                                 summary={
 
-                                    <p>More</p>
+                                    <p>{lang.more}</p>
                                 }
                                 disabled={!props.visible}
                                 closedSize={40}
@@ -248,12 +240,12 @@ export default function BaseForm(props) {
 
                 {!props.editable ? null :
                     <Button style={{
-                        width: '43vw', margin: '2vh auto',
+                        width: '43vw', margin: 'auto auto .8vw',
                         backgroundColor: disabled() ? null : '#39adf6',
                         color: disabled() ? null : 'white'
                     }} variant={'contained'} disableElevation
                             disabled={disabled()}
-                            onClick={() => saveChanges()}>{props.create ? 'Create' : 'Save'}</Button>
+                            onClick={() => saveChanges()}>{props.create ? lang.create : lang.save}</Button>
                 }
             </div>
         )
@@ -262,7 +254,7 @@ export default function BaseForm(props) {
 
 }
 
-BaseForm.propTypes={
+BaseForm.propTypes = {
     id: PropTypes.string,
     dark: PropTypes.bool,
     create: PropTypes.bool,

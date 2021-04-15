@@ -13,6 +13,7 @@ import AccordionLayout from "../components/shared/layout/AccordionLayout";
 import fetchSettingsData from "../utils/settings/FetchData";
 import {readCollaboration} from "../utils/shared/IndexedDB";
 import shared from '../styles/shared/Shared.module.css'
+import {getSecondaryColor} from "../styles/shared/MainStyles";
 
 export default function Settings() {
 
@@ -54,7 +55,7 @@ export default function Settings() {
                         <div className={style.settings_components_container}>
                             <AccordionLayout
                                 content={
-                                    <FormControl component="fieldset" style={{paddingLeft: '10px'}}>
+                                    <FormControl component="fieldset" style={{...{paddingLeft: '10px'}, ...getSecondaryColor({dark: props.dark})}}>
                                         <RadioGroup onChange={changeLanguage}
                                                     value={props.locale}>
                                             {[{value: 'Português', key: 'pt'}, {
@@ -85,7 +86,7 @@ export default function Settings() {
 
                             <AccordionLayout
                                 content={
-                                    <FormControl component="fieldset" style={{paddingLeft: '10px'}}>
+                                    <FormControl component="fieldset" style={{...{paddingLeft: '10px'}, ...getSecondaryColor({dark: props.dark})}}>
                                         <RadioGroup onChange={() => props.changeTheme()} value={props.dark}>
                                            <FormControlLabel value={false} control={<Radio/>} label={
                                              <div className={style.theme_container}>
@@ -120,8 +121,8 @@ export default function Settings() {
                             {(new Cookies()).get('jwt') !== undefined && currentCollaboration !== null?
                                 <AccordionLayout
                                     content={
-                                        <FormControl component="fieldset" style={{paddingLeft: '10px'}}>
-                                            <RadioGroup value={currentCollaboration.id}>
+                                        <FormControl component="fieldset" style={{...{paddingLeft: '10px'}, ...getSecondaryColor({dark: props.dark})}}>
+                                            <RadioGroup value={currentCollaboration.id} >
                                                 {collaborations.map(collaboration => {
                                                     console.log(collaboration)
                                                     return <FormControlLabel value={collaboration.collaboration.id} control={<Radio/>} label={collaboration.unit.acronym}/>
@@ -136,7 +137,7 @@ export default function Settings() {
                                             <p>{currentCollaboration.unitAcronym}</p>
                                         </div>
                                     }
-                                    key={'collaboration - settings'}
+                                    key={'collaborations - settings'}
                                     closedSize={22}
                                     openSize={22}
                                     dark={props.dark}

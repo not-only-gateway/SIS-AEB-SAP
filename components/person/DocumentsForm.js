@@ -5,6 +5,9 @@ import PropTypes from "prop-types";
 import InputLayout from "../shared/layout/InputLayout";
 import saveComponentChanges from "../../utils/person/SaveChanges";
 import fetchComponentData from "../../utils/person/FetchData";
+import getTitle from "../../utils/person/GetTitle";
+import mainStyles from '../../styles/shared/Main.module.css'
+import getComponentLanguage from "../../utils/person/GetLanguage";
 
 export default function DocumentsForm(props) {
 
@@ -21,7 +24,7 @@ export default function DocumentsForm(props) {
     const [agency, setAgency] = useState(null)
     const [workCard, setWorkCard] = useState('')
     const [pis, setPis] = useState('')
-
+    const [lang, setLang] = useState(null)
     function disabled() {
         return (
             cpf.length === 0 ||
@@ -54,7 +57,7 @@ export default function DocumentsForm(props) {
             }
             setLoading(false)
         }).catch(() => setLoading(false))
-
+        setLang(getComponentLanguage({locale: props.locale, component: 'documents'}))
     }, [])
 
     async function saveChanges() {
@@ -78,14 +81,14 @@ export default function DocumentsForm(props) {
     }
 
 
-    if (!loading)
+    if (!loading && lang !== null)
         return (
-
-            <div className={styles.form_component_container}>
-                {props.getTitle({
+            <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth].join(' ')}>
+                {getTitle({
                     pageName: null,
-                    pageTitle: 'Documents',
-                    pageInfo: 'Basic form'
+                    pageTitle: lang.title,
+                    pageInfo: lang.info,
+                    dark: props.dark
                 })}
                 <InputLayout inputName={'CPF'} dark={props.dark} handleChange={setCpf} inputType={0}
                              disabled={!props.editable} size={100} required={true} initialValue={cpf}
@@ -95,14 +98,14 @@ export default function DocumentsForm(props) {
                              disabled={!props.editable} size={32} required={true} initialValue={rg}
                              key={"5-2"} setChanged={setChanged}/>
 
-                <InputLayout inputName={'Issuing body'} dark={props.dark} handleChange={setIssuingBody} inputType={0}
+                <InputLayout inputName={lang.issuing} dark={props.dark} handleChange={setIssuingBody} inputType={0}
                              disabled={!props.editable} size={32} required={true} initialValue={issuingBody}
                              key={"5-3"} setChanged={setChanged}/>
-                <InputLayout inputName={'Dispatch Date'} dark={props.dark} handleChange={setDispatchDate} inputType={2}
+                <InputLayout inputName={lang.dispatch} dark={props.dark} handleChange={setDispatchDate} inputType={2}
                              disabled={!props.editable} size={32} required={true} initialValue={dispatchDate}
                              key={"5-4"} setChanged={setChanged}/>
 
-                <InputLayout inputName={'Work PersonCard'} dark={props.dark} handleChange={setWorkCard} inputType={0}
+                <InputLayout inputName={lang.work} dark={props.dark} handleChange={setWorkCard} inputType={0}
                              disabled={!props.editable} size={49} required={true} initialValue={workCard}
                              key={"5-5"} setChanged={setChanged}/>
 
@@ -110,35 +113,35 @@ export default function DocumentsForm(props) {
                              disabled={!props.editable} size={49} required={true} initialValue={pis}
                              key={"5-6"} setChanged={setChanged}/>
 
-                <InputLayout inputName={'Bank'} dark={props.dark} handleChange={setBank} inputType={0}
+                <InputLayout inputName={lang.bank} dark={props.dark} handleChange={setBank} inputType={0}
                              disabled={!props.editable} size={49} required={false} initialValue={bank}
                              key={"5-7"} setChanged={setChanged}/>
-                <InputLayout inputName={'Agency'} dark={props.dark} handleChange={setAgency} inputType={0}
+                <InputLayout inputName={lang.agency} dark={props.dark} handleChange={setAgency} inputType={0}
                              disabled={!props.editable} size={49} required={false} initialValue={agency}
                              key={"5-8"} setChanged={setChanged}/>
-                <InputLayout inputName={'Voter Registration'} dark={props.dark} handleChange={setVoterRegistration}
+                <InputLayout inputName={lang.voter} dark={props.dark} handleChange={setVoterRegistration}
                              inputType={0}
                              disabled={!props.editable} size={32} required={true} initialValue={voterRegistration}
                              key={"5-9"} setChanged={setChanged}/>
-                <InputLayout inputName={'Electoral Section'} dark={props.dark} handleChange={setElectoralSection}
+                <InputLayout inputName={lang.section} dark={props.dark} handleChange={setElectoralSection}
                              inputType={0}
                              disabled={!props.editable} size={32} required={true} initialValue={electoralSection}
                              key={"5-10"} setChanged={setChanged}/>
-                <InputLayout inputName={'Electoral Zone'} dark={props.dark} handleChange={setElectoralZone}
+                <InputLayout inputName={lang.zone} dark={props.dark} handleChange={setElectoralZone}
                              inputType={0}
                              disabled={!props.editable} size={32} required={true} initialValue={electoralZone}
                              key={"5-11"} setChanged={setChanged}/>
 
 
                 <Button style={{
-                    width: '43vw', margin: '2vh auto',
+                    width: '43vw',  margin: 'auto auto .8vw',
                     backgroundColor: disabled() ? null : '#39adf6',
                     color: disabled() ? null : 'white'
                 }}
                         variant={'contained'}
                         disableElevation
                         disabled={disabled()}
-                        onClick={() => saveChanges()}>Save</Button>
+                        onClick={() => saveChanges()}>{lang.saveButton}</Button>
 
             </div>
         )
@@ -150,5 +153,5 @@ DocumentsForm.propTypes = {
     dark: PropTypes.bool,
     visible: PropTypes.bool,
     editable: PropTypes.bool,
-    getTitle: PropTypes.func
+    locale: PropTypes.string
 }
