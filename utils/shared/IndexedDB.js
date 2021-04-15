@@ -78,12 +78,18 @@ export async function readProfile() {
         return userDB.open().then(async function () {
             const profile = userDB.table('profile')
 
-            if (profile)
-                return profile.get(1)
+            if (profile){
+                const query = await profile.toArray()
+                if (query.length > 0)
+                    return query[0]
+                else
+                    return null
+            }
+
             else return null
         })
     }
-    else return null
+    return null
 }
 
 export async function setCollaboration(props) {
@@ -115,12 +121,17 @@ export async function readCollaboration() {
         return userDB.open().then(async function () {
             const collaboration = userDB.table('collaboration')
 
-            if (collaboration)
-                return collaboration.get(1)
+            if (collaboration) {
+                const query = await collaboration.toArray()
+                if (query.length > 0)
+                    return query[0]
+                else
+                    return null
+            }
             else return null
         })
     }
-    else return null
+    return null
 }
 
 export async function setAccessProfile(props) {
@@ -198,10 +209,15 @@ export async function readAccessProfile() {
         return userDB.open().then(async function () {
             const access = userDB.table('accessProfile')
 
-            if (access)
-                return access.get(1)
+            if (access){
+                const query = await access.toArray()
+                if (query.length > 0)
+                    return query[0]
+                else
+                    return null
+            }
             else return null
         })
     }
-    else return null
+    return null
 }

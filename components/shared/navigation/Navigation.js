@@ -157,7 +157,7 @@ export default function Navigation(props) {
                         (
                             <Link href={{pathname: '/person', locale: props.locale, query: {id: profile.id}}}>
                                 <a>
-                                    <SimpleProfileCardLayout name={profile.name} pic={profile.pic} dark={props.dark}/>
+                                    <SimpleProfileCardLayout name={profile.name} image={profile.pic} dark={props.dark}/>
                                 </a>
                             </Link>
                         )

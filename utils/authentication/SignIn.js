@@ -31,7 +31,7 @@ export default async function signIn(props) {
                 corporateEmail: res.data.profile.corporate_email,
                 name: res.data.profile.name,
                 birth: res.data.profile.birth,
-                pic: res.data.profile.pic
+                pic: res.data.profile.image
             }).then(async function () {
                 if (res.data.collaboration !== undefined && res.data.collaboration !== null){
                     await setCollaboration({

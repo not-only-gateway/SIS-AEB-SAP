@@ -8,12 +8,11 @@ import fetchComponentData from "../../utils/person/FetchData";
 import axios from "axios";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import BaseFormEN from "../../locales/person/base/BaseFormEN";
-import BaseFormES from "../../locales/person/base/BaseFormES";
-import BaseFormPT from "../../locales/person/base/BaseFormPT";
 import getTitle from "../../utils/person/GetTitle";
 import mainStyles from '../../styles/shared/Main.module.css'
 import getComponentLanguage from "../../utils/person/GetLanguage";
+import {DeleteForever, DeleteForeverRounded} from "@material-ui/icons";
+import ImageHost from "../../utils/shared/ImageHost";
 
 export default function BaseForm(props) {
 
@@ -40,6 +39,8 @@ export default function BaseForm(props) {
             fetchComponentData(
                 {path: 'person/' + props.id, params: {}}
             ).then(res => {
+                console.log(res)
+
                 if (res !== null) {
                     setName(res.name)
                     setBirth(res.birth)
@@ -53,7 +54,8 @@ export default function BaseForm(props) {
                     setMother(res.mother_name)
                     setDisabledPerson(res.disabled_person)
                     setBirthPlace(res.birth_place)
-                    setPic(res.pic)
+                    if (res.image !== null)
+                        setPic({imageData: ImageHost()+res.image})
                     setNationality(res.nationality)
                 }
                 setLoading(false)
@@ -71,29 +73,29 @@ export default function BaseForm(props) {
     }
 
     async function saveChanges() {
+        let formData = new FormData()
+        if(pic !== null && pic.image !== undefined)
+            formData.append('image', pic.image[0])
+
+        formData.append('name', name.toString())
+        formData.append('birth', (typeof birth === 'string' ? birth.getTime() : birth).toString())
+        formData.append('birth_place', birthPlace?.toUpperCase())
+        formData.append('education', education.toString())
+        formData.append('gender', gender.toString())
+        formData.append('marital_status', marital.toString())
+        formData.append('registration', registration.toString())
+        formData.append('extension', extension.toString())
+        formData.append('corporate_email', corporateEmail?.toLocaleLowerCase())
+        formData.append('father_name', capitalizeFirstLetter(father))
+        formData.append('mother_name', capitalizeFirstLetter(mother))
+        formData.append('disabled_person', disabledPerson.toString())
+        formData.append('nationality', nationality?.toUpperCase())
         await axios({
             method: props.create === true ? 'post' : 'put',
             url: props.create ? Host() + 'person' : Host() + 'person/' + props.id,
-            headers: {'authorization': (new Cookies()).get('jwt')},
-            data: {
-                id: props.id !== undefined ? props.id : null,
-                pic: pic,
-                name: capitalizeFirstLetter(name),
-                birth: birth.getTime(),
-                birth_place: birthPlace?.toUpperCase(),
-                education: education,
-                gender: gender,
-                marital_status: marital,
-                extension: extension,
-                registration: registration,
-                corporate_email: corporateEmail?.toLocaleLowerCase(),
-                father_name: capitalizeFirstLetter(father),
-                mother_name: capitalizeFirstLetter(mother),
-                disabled_person: disabledPerson,
-                nationality: nationality?.toUpperCase()
-            }
+            headers: {'authorization': (new Cookies()).get('jwt'), 'content-type': 'multipart/form-data'},
+            data: formData
         }).then(async function () {
-            console.log('here')
             if (!props.create)
                 setChanged(false)
             else {
@@ -130,6 +132,22 @@ export default function BaseForm(props) {
             extension === null ||
             changed === false
         )
+    }
+
+    function getFile(event) {
+        let reader = new FileReader()
+
+        if(event.target.files.length > 0) {
+            reader.readAsDataURL(event.target.files[0])
+            reader.onload= () => {
+                setPic({
+                    image: event.target.files,
+                    imageData: reader.result
+                })
+            }
+
+            setChanged(true)
+        }
     }
 
     function moreFields() {
@@ -175,12 +193,20 @@ export default function BaseForm(props) {
                     pageInfo: lang.info,
                     dark: props.dark
                 }) : null}
-                <div className={styles.form_row}>
-                    <Button disabled={!props.editable}>
-                        <Avatar src={pic} style={{width: '100px', height: '100px'}}/>
-                    </Button>
+                <div className={[mainStyles.displayAsLine, mainStyles.mediumWidth].join(' ')}>
+                    {!props.editable || pic !== null ? null :
+                        <input id='profile-image-input' type={'file'} accept={'image/*'} onChange={getFile}
+                               style={{display: 'none'}}/>}
+                    <label htmlFor={'profile-image-input'}>
+                        <Button disabled={!props.editable || pic !== null} component={'span'}>
+                            <Avatar src={pic !== null ? pic.imageData : null} style={{width: '100px', height: '100px'}}/>
+                        </Button>
+                    </label>
+                    {!props.editable ? null : pic !== null ?
+                        <Button onClick={() => setPic(null)}><DeleteForeverRounded/></Button> : null}
                     <InputLayout inputName={lang.name} dark={props.dark} handleChange={setName} inputType={0}
-                                 disabled={!props.editable} size={80} required={true} initialValue={name}
+                                 disabled={!props.editable} size={pic !== null ? 73 : 79} required={true}
+                                 initialValue={name}
                                  key={"1-1"} setChanged={setChanged} margin={false}/>
                 </div>
                 <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth].join(' ')}

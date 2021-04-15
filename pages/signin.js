@@ -8,6 +8,8 @@ import Head from "next/head";
 import {getLanguage, setCookiesLanguage} from "../utils/shared/Language";
 import {setThemeCookie} from "../utils/shared/Theme";
 import signIn from "../utils/authentication/SignIn";
+import signOut from "../utils/authentication/SignOut";
+import ClearStorage from "../utils/authentication/ClearStorage";
 
 const cookies = new Cookies()
 export default function Signin() {
@@ -20,6 +22,13 @@ export default function Signin() {
     const [email, setEmail] = useState('')
 
     useEffect(() => {
+        if((new Cookies()).get('jwt') !== undefined)
+            signOut().then(res => {
+                if (res)
+                    ClearStorage()
+                else
+                    router.push('/', '/', {locale: router.locale})
+            })
         setLang(getLanguage(router.locale, router.pathname))
 
         setDark(cookies.get('theme') === '0')
@@ -29,6 +38,8 @@ export default function Signin() {
             setLang(getLanguage(router.locale, router.pathname))
         } else
             setLang(getLanguage(router.locale, router.pathname))
+
+
     }, [router.locale, router.isReady])
 
     async function authenticate(){

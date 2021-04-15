@@ -5,6 +5,7 @@ import {CakeRounded, WarningRounded} from "@material-ui/icons";
 import Link from 'next/link'
 import PropTypes from 'prop-types'
 import shared from "../../styles/shared/Shared.module.css";
+import ImageHost from "../../utils/shared/ImageHost";
 
 export default function PersonCard(props) {
 
@@ -12,7 +13,7 @@ export default function PersonCard(props) {
     return (
         <div
             className={styles.card_container}
-            key={'user-' + props.profile.id}
+            key={'user-' + props.profile.corporate_email}
             onMouseLeave={() => setHovered(false)}
             onMouseEnter={() => setHovered(true)}
             style={{
@@ -22,7 +23,7 @@ export default function PersonCard(props) {
                 borderRadius: '8px'
             }}
         >
-            <Link href={{pathname: '/person', query: {id: props.profile.id}}}>
+            <Link href={{pathname: '/person', query: {id: props.profile.id}}} >
                 <Button style={{
                     height: '25vh',
                     width: '100%',
@@ -32,7 +33,7 @@ export default function PersonCard(props) {
                 }}>
                     <div className={styles.persona_fields_container}>
                         <div className={shared.card_title} style={{borderBottom: !props.dark ? '#e2e2e2 1px solid' : '#777777 1px solid'}}>
-                            <Avatar src={props.profile.pic} alt={props.profile.name}
+                            <Avatar src={props.profile.image !== undefined ? ImageHost()+props.profile.image : null} alt={props.profile.name}
                                     style={{height: '70px', width: '70px'}}/>
                             <p style={{
                                 fontSize: '1rem',

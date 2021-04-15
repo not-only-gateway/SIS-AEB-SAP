@@ -23,10 +23,5 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 
-    border: transparent 2px solid;
-
     transition: .3s;
-}
-.simplified_profile_container:hover{
-    border: #39adf6 2px solid;
 }

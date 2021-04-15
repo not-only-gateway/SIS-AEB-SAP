@@ -23,10 +23,13 @@ export default function Settings() {
     const [currentCollaboration, setCurrentCollaboration] = useState(null)
 
     useEffect(() => {
-        console.log(location.pathname)
-        readCollaboration().then(res => setCurrentCollaboration(res))
-        if ((new Cookies()).get('jwt') !== undefined)
-            fetchSettingsData().then(res => setCollaborations(res))
+
+        readCollaboration().then(res => {
+            setCurrentCollaboration(res)
+            if (res !== null)
+                fetchSettingsData().then(res => setCollaborations(res))
+        })
+
         setLang(getLanguage(router.locale, router.pathname))
     }, [router.locale, router.isReady])
 
