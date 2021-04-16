@@ -51,8 +51,8 @@ export function getBoxShadow(props) {
 
 export function getIconStyle(props) {
     return {
-        marginRight: '1vw',
-        marginLeft: '1vw',
+        marginRight: '10px',
+        marginLeft: '10px',
         fontSize: '1.6rem',
         color: props.highlight ? '#39adf6' : !props.dark ? '#777777' : '#ededed'
     }

@@ -81,4 +81,12 @@
     padding-right: 10px;
 }
 /*SPACING*/
-
+/*.beforeDot::before{*/
+/*    content: '\A';*/
+/*    border-radius: 50%;*/
+/*    height: 6px;*/
+/*    width: 6px;*/
+/*    display:inline-block;*/
+/*    margin-left: 5px;*/
+/*    margin-right: 5px;*/
+/*}*/

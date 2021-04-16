@@ -72,7 +72,7 @@ export default function Navigation(props) {
                 <div style={{gridRow: 2, display: 'grid', justifyContent: 'flex-start', alignContent: 'center'}}>
                     {accessProfile !== null && accessProfile.canViewActivityLog ?
                         <div className={styles.button_container}
-                             style={{...props.path === '/menu' ? getSecondaryBackground({dark: props.dark}) : null, ...getBoxShadow({dark: props.dark})}}>
+                             style={{...props.path === '/menu' ? getSecondaryBackground({dark: props.dark}) : null, ...props.path === '/menu' ? getBoxShadow({dark: props.dark}) : null}}>
                             <Link href={{pathname: '/menu', locale: props.locale}}>
                                 <Button
                                     style={{...buttonStyle, ...{color: props.path === '/menu' ? '#39adf6' : (props.dark ? 'white' : '#111111')}}}>
@@ -84,7 +84,7 @@ export default function Navigation(props) {
                         </div> : null}
 
                     <div className={styles.button_container}
-                         style={{...props.path === '/' ? getSecondaryBackground({dark: props.dark}) : null, ...getBoxShadow({dark: props.dark})}}>
+                         style={{...props.path === '/' ? getSecondaryBackground({dark: props.dark}) : null, ...props.path === '/' ? getBoxShadow({dark: props.dark}) : null}}>
 
                         <Link href={{pathname: '/', locale: props.locale}}>
                             <Button
@@ -107,7 +107,7 @@ export default function Navigation(props) {
                         </Link>
                     </div>
                     <div className={styles.button_container}
-                         style={{...props.path === '/settings' ? getSecondaryBackground({dark: props.dark}) : null, ...getBoxShadow({dark: props.dark})}}>
+                         style={{...props.path === '/settings' ? getSecondaryBackground({dark: props.dark}) : null, ...props.path === '/settings' ? getBoxShadow({dark: props.dark}) : null}}>
                         <Link href={{pathname: '/settings', locale: props.locale}}>
                             <Button
                                 style={{...buttonStyle, ...{color: props.path === '/settings' ? '#39adf6' : (props.dark ? 'white' : '#111111')}}}>

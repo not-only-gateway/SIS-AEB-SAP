@@ -12,7 +12,6 @@ export default function ActivityComponent(props) {
 
     useEffect(() => {
         setColor(getMethodColor(props.activity.request_method))
-
     }, [props.activity.request_method])
 
     return (
@@ -53,7 +52,7 @@ export default function ActivityComponent(props) {
                         <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: props.dark})}>{props.lang.date}</p>
                         <Divider orientation={'horizontal'} style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
                         <p className={mainStyles.tertiaryParagraph}
-                           style={getTertiaryColor({dark: props.dark})}>{new Date(props.activity.time_of_creation).toLocaleString()}</p>
+                           style={getTertiaryColor({dark: props.dark})}>{new Date(props.activity.time_of_creation).toString()}</p>
                     </div>
                     <div className={styles.info_row}>
                         <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: props.dark})}>{props.lang.method}</p>

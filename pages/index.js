@@ -108,6 +108,7 @@ export default function Index() {
                                                 profile={collaborator.profile}
                                                 collaboration={collaborator.collaboration}
                                                 unit={collaborator.unit}
+                                                lastActivity={collaborator.last_activity}
                                                 dark={props.dark}
                                                 inactiveLocale={lang.inactive}
                                             />
@@ -116,18 +117,14 @@ export default function Index() {
                                     </div>
                                 </InfiniteScroll>
                                 :
-                                <div className={styles.personas_container}>
-                                    <div
-                                        className={[mainStyles.mediumMargin, mainStyles.normalBorder, mainStyles.smallPaddingVertical].join(' ')}
-                                        style={{
-                                            ...getTertiaryBackground({dark: props.dark}),
-                                            ...getBorder({dark: props.dark}), ...{
-                                                width: '90%',
-                                                margin: 'auto',
-                                            }
-                                        }}>
-                                        <p style={{textAlign: 'center', fontWeight: 445}}>{lang.nothingFound}</p>
-                                    </div>
+                                <div
+                                    className={[mainStyles.baseWidth, mainStyles.normalBorder, mainStyles.displayInlineCenter].join(' ')}
+                                    style={{
+                                        ...getTertiaryBackground({dark: props.dark}),
+                                        ...getBoxShadow({dark: props.dark}),
+                                        ...getBorder({dark: props.dark})
+                                    }}>
+                                    <p className={mainStyles.secondaryParagraph} style={getTertiaryColor({dark: props.dark})}>{lang.nothingFound}</p>
                                 </div>
 
                             :

@@ -13,6 +13,7 @@ import {
     getTertiaryColor
 } from "../../../styles/shared/MainStyles";
 import mainStyles from '../../../styles/shared/Main.module.css'
+import {useMediaQuery} from "@material-ui/core";
 
 const cookies = new Cookies()
 
@@ -21,6 +22,7 @@ export default function Layout({children}) {
     const [dark, setDark] = useState(false)
     const router = useRouter()
     const {locale} = router
+    // const isMobile = useMediaQuery({query: '(max-width: 1000px)'})
 
     useEffect(() => {
         setDark(cookies.get('theme') === '0')
