@@ -1,29 +1,33 @@
 import styles from '../../styles/index/Index.module.css'
-import {Avatar, Button} from "@material-ui/core";
-import React, {useEffect, useState} from 'react'
+import {Avatar, Button, Divider} from "@material-ui/core";
+import React, {useState} from 'react'
 import {CakeRounded, WarningRounded} from "@material-ui/icons";
 import Link from 'next/link'
 import PropTypes from 'prop-types'
 import shared from "../../styles/shared/Shared.module.css";
 import ImageHost from "../../utils/shared/ImageHost";
+import {getBorder, getBoxShadow, getTertiaryBackground, getTertiaryColor} from "../../styles/shared/MainStyles";
+import mainStyles from '../../styles/shared/Main.module.css'
 
 export default function PersonCard(props) {
 
     const [hovered, setHovered] = useState(false)
     return (
         <div
-            className={styles.card_container}
+            className={[styles.card_container, mainStyles.normalBorder].join(' ')}
             key={'user-' + props.profile.corporate_email}
             onMouseLeave={() => setHovered(false)}
             onMouseEnter={() => setHovered(true)}
             style={{
-                backgroundColor: props.dark ? '#3b424c' : null,
-                boxShadow:  props.dark ? 'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px': !hovered ? "none" : (!props.dark ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'initial'),
-                border: !props.dark ? '#e2e2e2 1px solid' : null,
-                borderRadius: '8px'
+                ...getTertiaryBackground({dark: props.dark}),
+                ...getBoxShadow({
+                    dark: props.dark,
+                    hovered: hovered
+                }),
+                ...getBorder({dark: props.dark, hovered: hovered})
             }}
         >
-            <Link href={{pathname: '/person', query: {id: props.profile.id}}} >
+            <Link href={{pathname: '/person', query: {id: props.profile.id}}}>
                 <Button style={{
                     height: '25vh',
                     width: '100%',
@@ -32,9 +36,9 @@ export default function PersonCard(props) {
                     borderTopLeftRadius: '8px',
                 }}>
                     <div className={styles.persona_fields_container}>
-                        <div className={shared.card_title} style={{borderBottom: !props.dark ? '#e2e2e2 1px solid' : '#777777 1px solid'}}>
-                            <Avatar src={props.profile.image !== undefined ? ImageHost()+props.profile.image : null} alt={props.profile.name}
-                                    style={{height: '70px', width: '70px'}}/>
+                        <div className={shared.card_title}>
+                            <Avatar src={props.profile.image !== undefined ? ImageHost() + props.profile.image : null}
+                                    style={{...{height: '80px', width: '80px'}, ...getBoxShadow({dark: props.dark})}}/>
                             <p style={{
                                 fontSize: '1rem',
                                 fontWeight: 445,
@@ -46,26 +50,30 @@ export default function PersonCard(props) {
                                 null
                             }
                         </div>
-                        <p style={ {
+                        <Divider orientation={'horizontal'} style={{width: '100%'}}/>
+                        <p style={{
                             fontSize: '.9rem',
                             fontWeight: 400,
                             color: (props.dark ? '#e2e2e2' : '#444444')
                         }}>{props.profile.corporate_email}</p>
-                        <p style={ {
+                        <p style={{
                             fontSize: '.9rem',
                             fontWeight: 400,
                             color: (props.dark ? '#e2e2e2' : '#444444')
                         }}>{props.profile.extension}</p> {/*last 4 digits*/}
                     </div>
+
                 </Button>
             </Link>
-            {props.unit !== undefined && props.unit !== null?
+            <Divider orientation={'horizontal'} style={{width: '100%'}}/>
+            {props.unit !== undefined && props.unit !== null ?
                 <Link href={{pathname: '/unit', query: {id: props.unit.id}}}>
                     <Button style={{
-                        borderTop: !props.dark ? '#e2e2e2 1px solid' : '#777777 1px solid',
-                        borderBottomRightRadius: '8px',
-                        borderBottomLeftRadius: '8px', width: '100%',
-                        fontWeight: 500,
+                        ...{
+                            borderBottomRightRadius: '8px',
+                            borderBottomLeftRadius: '8px', width: '100%',
+                        },
+                        ...getTertiaryColor({dark: props.dark})
                     }}
                     >
                         {props.unit.acronym}
@@ -73,7 +81,7 @@ export default function PersonCard(props) {
                 </Link>
                 :
                 <div className={styles.inactive_container}>
-                    <WarningRounded style={{color:(!props.dark ? '#555555' : '#ededed')}}/>
+                    <WarningRounded style={{color: (!props.dark ? '#555555' : '#ededed')}}/>
                     <p>{props.inactiveLocale}</p>
                 </div>
             }
@@ -83,7 +91,7 @@ export default function PersonCard(props) {
     )
 }
 
-PersonCard.proptypes={
+PersonCard.proptypes = {
     dark: PropTypes.bool,
     profile: PropTypes.object,
     collaboration: PropTypes.object,

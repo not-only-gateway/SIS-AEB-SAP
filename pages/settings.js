@@ -3,7 +3,6 @@ import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import style from '../styles/settings/Settings.module.css'
 import {createMuiTheme, Divider, FormControl, FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
-import {iconStyle} from "../styles/shared/BarMaterialStyles";
 import Brightness7RoundedIcon from "@material-ui/icons/Brightness7Rounded";
 import Brightness3RoundedIcon from "@material-ui/icons/Brightness3Rounded";
 import {ThemeProvider} from "@material-ui/styles";
@@ -13,7 +12,8 @@ import AccordionLayout from "../components/shared/layout/AccordionLayout";
 import fetchSettingsData from "../utils/settings/FetchData";
 import {readCollaboration} from "../utils/shared/IndexedDB";
 import shared from '../styles/shared/Shared.module.css'
-import {getSecondaryColor} from "../styles/shared/MainStyles";
+import {getIconStyle, getSecondaryColor} from "../styles/shared/MainStyles";
+import mainStyles from '../styles/shared/Main.module.css'
 
 export default function Settings() {
 
@@ -55,7 +55,7 @@ export default function Settings() {
                         }
                     })}>
                         <props.getTitle pageName={lang.settings} pageTitle={lang.settings} pageInfo={lang.information}/>
-                        <div className={style.settings_components_container}>
+                        <div className={[mainStyles.baseWidth, mainStyles.displayWarp].join(' ')}>
                             <AccordionLayout
                                 content={
                                     <FormControl component="fieldset" style={{...{paddingLeft: '10px'}, ...getSecondaryColor({dark: props.dark})}}>
@@ -94,13 +94,13 @@ export default function Settings() {
                                            <FormControlLabel value={false} control={<Radio/>} label={
                                              <div className={style.theme_container}>
                                                  <p>Light</p>
-                                                 <Brightness7RoundedIcon style={{...iconStyle, ...{color: !props.dark ? '#777777' : '#ededed'}}}/>
+                                                 <Brightness7RoundedIcon style={getIconStyle({dark: props.dark})}/>
                                              </div>
                                            }/>
                                             <FormControlLabel value={true} control={<Radio/>} label={
                                                 <div className={style.theme_container}>
                                                     <p>Dark</p>
-                                                    <Brightness3RoundedIcon style={{...iconStyle, ...{color: !props.dark ? '#777777' : '#ededed'}}}/>
+                                                    <Brightness3RoundedIcon style={getIconStyle({dark: props.dark})}/>
                                                 </div>
                                             }/>
                                         </RadioGroup>

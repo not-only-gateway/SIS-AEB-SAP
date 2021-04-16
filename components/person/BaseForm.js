@@ -1,4 +1,3 @@
-import styles from '../../styles/person/Form.module.css';
 import {Avatar, Button} from '@material-ui/core';
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types'
@@ -11,8 +10,9 @@ import Cookies from "universal-cookie/lib";
 import getTitle from "../../utils/person/GetTitle";
 import mainStyles from '../../styles/shared/Main.module.css'
 import getComponentLanguage from "../../utils/person/GetLanguage";
-import {DeleteForever, DeleteForeverRounded} from "@material-ui/icons";
+import {DeleteForeverRounded} from "@material-ui/icons";
 import ImageHost from "../../utils/shared/ImageHost";
+import {getIconStyle} from "../../styles/shared/MainStyles";
 
 export default function BaseForm(props) {
 
@@ -39,21 +39,26 @@ export default function BaseForm(props) {
             fetchComponentData(
                 {path: 'person/' + props.id, params: {}}
             ).then(res => {
-                console.log(res)
-
                 if (res !== null) {
                     setName(res.name)
                     setBirth(res.birth)
-                    setEducation(res.education)
+
                     setGender(res.gender)
-                    setMarital(res.marital_status)
+
                     setExtension(res.extension)
                     setRegistration(res.registration)
                     setCorporateEmail(res.corporate_email)
-                    setFather(res.father_name)
-                    setMother(res.mother_name)
+
                     setDisabledPerson(res.disabled_person)
-                    setBirthPlace(res.birth_place)
+
+                    if(props.editable){
+                        setEducation(res.education)
+                        setMarital(res.marital_status)
+                        setFather(res.father_name)
+                        setMother(res.mother_name)
+                        setBirthPlace(res.birth_place)
+                    }
+
                     if (res.image !== null)
                         setPic({imageData: ImageHost()+res.image})
                     setNationality(res.nationality)
@@ -78,7 +83,7 @@ export default function BaseForm(props) {
             formData.append('image', pic.image[0])
 
         formData.append('name', name.toString())
-        formData.append('birth', (typeof birth === 'string' ? birth.getTime() : birth).toString())
+        formData.append('birth', (typeof birth === 'object' ? birth.getTime() : birth))
         formData.append('birth_place', birthPlace?.toUpperCase())
         formData.append('education', education.toString())
         formData.append('gender', gender.toString())
@@ -153,31 +158,31 @@ export default function BaseForm(props) {
     function moreFields() {
         return (
             <div
-                className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth, mainStyles.justifyCenter].join(' ')}
+                className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth, mainStyles.displayInlineCenter].join(' ')}
                 style={{marginBottom: '2vh'}}>
                 <InputLayout inputName={lang.father} dark={props.dark} handleChange={setFather}
                              inputType={0}
-                             disabled={!props.editable} size={30} required={false} initialValue={father}
+                             disabled={!props.editable} size={props.create ? 32: 30} required={false} initialValue={father}
                              key={"1-3"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.mother} dark={props.dark} handleChange={setMother}
                              inputType={0}
-                             disabled={!props.editable} size={30} required={false} initialValue={mother}
+                             disabled={!props.editable} size={props.create ? 32: 30} required={false} initialValue={mother}
                              key={"1-4"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.birthPlace} dark={props.dark}
                              handleChange={setBirthPlace} inputType={0}
-                             disabled={!props.editable} size={30} required={true}
+                             disabled={!props.editable} size={props.create ? 32: 30} required={true}
                              initialValue={birthPlace}
                              key={"1-5"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.education} dark={props.dark}
                              handleChange={setEducation}
                              inputType={1}
-                             disabled={!props.editable} size={46} required={true}
+                             disabled={!props.editable} size={props.create ? 49: 46} required={true}
                              initialValue={education}
                              selectFields={lang.educationChoice}
                              key={"1-9"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.marital} dark={props.dark} handleChange={setMarital}
                              inputType={1}
-                             disabled={!props.editable} size={46} required={true} initialValue={marital}
+                             disabled={!props.editable} size={props.create ? 49: 46} required={true} initialValue={marital}
                              selectFields={lang.maritalChoice}
                              key={"1-11"} setChanged={setChanged}/>
             </div>
@@ -193,19 +198,19 @@ export default function BaseForm(props) {
                     pageInfo: lang.info,
                     dark: props.dark
                 }) : null}
-                <div className={[mainStyles.displayAsLine, mainStyles.mediumWidth].join(' ')}>
+                <div className={[mainStyles.displayInlineSpaced, mainStyles.mediumWidth].join(' ')}>
                     {!props.editable || pic !== null ? null :
                         <input id='profile-image-input' type={'file'} accept={'image/*'} onChange={getFile}
                                style={{display: 'none'}}/>}
                     <label htmlFor={'profile-image-input'}>
                         <Button disabled={!props.editable || pic !== null} component={'span'}>
-                            <Avatar src={pic !== null ? pic.imageData : null} style={{width: '100px', height: '100px'}}/>
+                            <Avatar src={pic !== null ? pic.imageData : null} style={{width: '120px', height: '120px'}}/>
                         </Button>
                     </label>
                     {!props.editable ? null : pic !== null ?
-                        <Button onClick={() => setPic(null)}><DeleteForeverRounded/></Button> : null}
+                        <Button onClick={() => setPic(null)}><DeleteForeverRounded style={getIconStyle({dark: props.dark})}/></Button> : null}
                     <InputLayout inputName={lang.name} dark={props.dark} handleChange={setName} inputType={0}
-                                 disabled={!props.editable} size={pic !== null ? 73 : 79} required={true}
+                                 disabled={!props.editable} size={pic !== null ? 70 : 79} required={true}
                                  initialValue={name}
                                  key={"1-1"} setChanged={setChanged} margin={false}/>
                 </div>

@@ -9,7 +9,6 @@ import ContactForm from "../components/person/ContactForm";
 import AddressForm from "../components/shared/form/AddressForm";
 import DocumentsForm from "../components/person/DocumentsForm";
 import {getLanguage} from "../utils/shared/Language";
-import styles from '../styles/person/Person.module.css'
 import TabLayout from "../components/shared/layout/TabLayout";
 import {readAccessProfile} from "../utils/shared/IndexedDB";
 
@@ -22,11 +21,8 @@ export default function person() {
 
     const [lang, setLang] = useState(null)
     const [accessProfile, setAccessProfile] = useState(null)
-    const [currentTab, setCurrentTab] = useState(null)
-
     useEffect(() => {
-        if (router.isReady) {
-            console.log(router.query)
+        if (router.isReady && router.query.id !== id) {
             setId(router.query.id)
             setCreate(router.query.create)
         }
@@ -36,11 +32,9 @@ export default function person() {
         if (accessProfile === null)
             readAccessProfile().then(res => setAccessProfile(res))
 
-    }, [router.locale, router.isReady])
+    }, [router.locale, router.isReady, router.query])
 
     function redirect(new_id) {
-        console.log("new_id -> ")
-        console.log(new_id)
         router.push('/person', '/person', {
             locale: router.locale,
             query: {
@@ -51,7 +45,7 @@ export default function person() {
         setId(new_id)
     }
 
-    if (lang !== null && router.isReady)
+    if (lang !== null && router.isReady && router.query.id === id)
         return (
             <Layout>
                 {props =>

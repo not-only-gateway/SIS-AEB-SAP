@@ -1,4 +1,3 @@
-import styles from "../../styles/person/Form.module.css";
 import {Button} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
@@ -22,8 +21,8 @@ export default function ContactForm(props) {
 
     function disabled() {
         return (
-            email.length === 0 ||
-            phone.length === 0 ||
+            email === null || email === undefined || email.length === 0 ||
+            phone === null || phone === undefined || phone.length === 0 ||
             changed === false
         )
     }
@@ -45,7 +44,7 @@ export default function ContactForm(props) {
         await saveComponentChanges({
             path: 'contact/' + props.id,
             params: {
-                id: props.id,
+                person: props.id,
                 email: email.toLowerCase(),
                 email_alt: emailAlt?.toLowerCase(),
                 phone: phone?.replace(' ', ''),

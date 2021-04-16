@@ -1,0 +1,10 @@
+.simplifiedProfileContainer{
+    max-width: 15vw;
+    max-height: 7vh;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    transition: .3s;
+}

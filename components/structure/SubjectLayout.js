@@ -8,7 +8,7 @@ import styles from '../../styles/Structure.module.css'
 import Link from 'next/link'
 import {Avatar, createMuiTheme, ThemeProvider} from "@material-ui/core";
 import mainStyles from '../../styles/shared/Main.module.css'
-import {getPrimaryColor, getSecondaryColor, getTertiaryColor} from "../../styles/shared/MainStyles";
+import {getSecondaryColor, getTertiaryColor} from "../../styles/shared/MainStyles";
 
 export default function SubjectLayout(props) {
     const [dependents, setDependents] = useState([])

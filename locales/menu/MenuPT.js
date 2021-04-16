@@ -1,6 +1,6 @@
 export default {
-    title: 'Gerênciamento',
-    info: 'info',
+    title: 'Menu de ação',
+    info: 'Lista de todas as ações possíveis com o seu perfil de acesso',
     activity: 'Atividade da conta',
     unit: 'Criar unidade',
     role: 'Criar cargo',

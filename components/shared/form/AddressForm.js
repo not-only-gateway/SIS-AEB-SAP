@@ -49,18 +49,19 @@ export default function AddressForm(props) {
 
     async function saveChanges() {
         await saveComponentChanges(
-            'person/address',
             {
-                id: props.id,
-                zip_code: zipCode,
-                address: address,
-                complement: complement,
-                street: street,
-                state: state,
-                state_initials: stateInitials,
-                neighborhood: neighborhood,
-                city: city,
-            }, 'put'
+                path: 'address/'+props.id,
+                params: {
+                    zip_code: zipCode,
+                    address: address,
+                    complement: complement,
+                    street: street,
+                    state: state,
+                    state_initials: stateInitials,
+                    neighborhood: neighborhood,
+                    city: city,
+                }, method: 'put'
+            }
         ).then(res => {
             if (res)
                 setChanged(false)

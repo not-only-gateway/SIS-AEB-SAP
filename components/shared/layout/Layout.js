@@ -10,7 +10,7 @@ import {
     getPrimaryBackground,
     getPrimaryColor,
     getSecondaryBackground,
-    getSecondaryColor, getTertiaryColor
+    getTertiaryColor
 } from "../../../styles/shared/MainStyles";
 import mainStyles from '../../../styles/shared/Main.module.css'
 

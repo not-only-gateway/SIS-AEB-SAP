@@ -14,6 +14,7 @@ import {
 import {searchFieldStyle} from "../../styles/shared/BarMaterialStyles";
 import {BackspaceRounded, MenuRounded, SearchRounded} from "@material-ui/icons";
 import React, {useEffect, useState} from "react";
+import {getBorder, getBoxShadow, getTertiaryBackground} from "../../styles/shared/MainStyles";
 
 
 export default function IndexComponent(props) {
@@ -32,11 +33,12 @@ export default function IndexComponent(props) {
             <Paper component="form"
                    onMouseEnter={() => setHovered(true)}
                    onMouseLeave={() => setHovered(false)}
+                   elevation={false}
                    style={{
-                       ...searchFieldStyle, ...{
-                           backgroundColor: props.dark ? '#272e38' : '#f4f8fb',
-                           boxShadow: props.dark ? 'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px' : !hovered ? "none" : (!props.dark ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'initial'),
-                       }
+                       ...getTertiaryBackground({dark: props.dark}),
+                       ...getBoxShadow({dark: props.dark}),
+                       ...getBorder({dark: props.dark, hovered: hovered}),
+                       ...searchFieldStyle,
                    }}>
                 <IconButton aria-controls="menu" aria-haspopup="true"
                             onClick={event => setAnchorEl(event.currentTarget)}>
@@ -58,7 +60,7 @@ export default function IndexComponent(props) {
                     </FormControl>
                 </Menu>
                 <InputBase
-                    style={{width: '85%', color: (props.dark ? 'white' : null), marginLeft: '10px'}}
+                    style={{width: '85%', marginLeft: '10px'}}
                     placeholder={props.lang.search}
                     value={props.searchInput}
                     onKeyDown={key => {
@@ -70,7 +72,7 @@ export default function IndexComponent(props) {
                 <IconButton aria-label={props.lang.search} onClick={() => props.fetchData(1, true)}
 
                             disabled={props.searchInput === null || props.searchInput.length === 0}>
-                    <SearchRounded style={{color: props.dark ? 'white' : null}}/>
+                    <SearchRounded />
                 </IconButton>
                 <Divider orientation={'vertical'} style={{height: '70%'}}/>
                 <IconButton aria-label={props.lang.search}
@@ -78,9 +80,9 @@ export default function IndexComponent(props) {
                             onClick={() => {
                                 props.setSearchInput('')
                                 props.setMaxID(null)
-                                props.fetchData(1, true)
+                                props.fetchData(1, true, false)
                             }}>
-                    <BackspaceRounded style={{color: props.dark ? 'white' : null}}/>
+                    <BackspaceRounded/>
                 </IconButton>
             </Paper>
         </div>

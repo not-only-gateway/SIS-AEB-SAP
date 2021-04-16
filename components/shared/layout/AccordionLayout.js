@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import {Button, Divider} from "@material-ui/core";
-import {ArrowDownwardRounded, ArrowUpwardRounded} from "@material-ui/icons";
+import {ArrowDownwardRounded} from "@material-ui/icons";
 import React, {useState} from "react";
 import shared from '../../../styles/shared/Shared.module.css'
 

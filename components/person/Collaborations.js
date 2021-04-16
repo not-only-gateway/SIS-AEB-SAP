@@ -1,4 +1,3 @@
-import styles from "../../styles/person/Form.module.css";
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {AddRounded} from "@material-ui/icons";

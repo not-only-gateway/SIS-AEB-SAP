@@ -1,4 +1,3 @@
-import styles from "../../styles/person/Form.module.css";
 import {Button} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import InputLayout from "../shared/layout/InputLayout";
@@ -29,7 +28,6 @@ export default function CollaborationForm(props) {
     const [workEnd, setWorkEnd] = useState(null)
     const [contractExp, setContractExp] = useState(null)
     const [additionalInfo, setAdditionalInfo] = useState(null)
-    const [loading, setLoading] = useState(true)
     const [mainCollaboration, setMainCollaboration] = useState(false)
     const [canBeMain, setCanBeMain] = useState(false)
     const [accessProfiles, setAccessProfiles] = useState([])
@@ -103,7 +101,6 @@ export default function CollaborationForm(props) {
             fetchComponentData({path: 'units', params: {}}).then(res => {
                 if (res !== null) {
                     setUnits(res)
-                    setLoading(false)
                 }
 
 
@@ -165,11 +162,13 @@ export default function CollaborationForm(props) {
                 setSeniors(res)
         })
     }
-
-    if (!loading)
+    function canLoad(){
+        return (props.collaborationID !== undefined && props.collaborationID !== null && unitID !== null && activeRole !== null && substitute !== null && accessProfileID !== null) || (props.collaborationID === undefined && units.length > 0)
+    }
+    if (canLoad())
         return (
             <div
-                className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth, mainStyles.justifyCenter].join(' ')}>
+                className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth, mainStyles.displayInlineCenter].join(' ')}>
                 <InputLayout inputName={'Unit'} dark={props.dark} handleChange={setUnit} inputType={1}
                              disabled={!props.editable} size={30} required={true} initialValue={unitID}
                              selectFields={mapToSelect({option: 0, units: units})} key={'2-1'} setChanged={setChanged}/>

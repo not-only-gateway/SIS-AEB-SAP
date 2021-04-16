@@ -21,13 +21,16 @@ export default async function fetchIndexData(props) {
                 props.setLastFetchedSize(res.data.length)
                 break
             }
-            default: {
+            case 1: {
+                console.log(props.type)
                 props.setResponse(res.data)
                 if (res.data.length > 0)
                     props.setMaxID(props.option !== 'units' ? res.data[res.data.length - 1].profile.id : res.data[res.data.length - 1].unit.id)
                 props.setLastFetchedSize(res.data.length)
                 break
             }
+            default:
+                break
         }
     }).catch(error => {
         console.log(error)
@@ -43,5 +46,5 @@ fetchIndexData.propTypes = {
     option: PropTypes.string,
     setLastFetchedSize: PropTypes.func,
     setMaxID: PropTypes.func,
-    type: PropTypes.bool
+    type: PropTypes.number
 }

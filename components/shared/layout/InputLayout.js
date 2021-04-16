@@ -1,18 +1,10 @@
 import PropTypes from 'prop-types'
 import React from "react";
-import {
-    createMuiTheme,
-    FormControl,
-    Grid,
-    InputLabel,
-    MenuItem,
-    Select,
-    TextField,
-    ThemeProvider
-} from "@material-ui/core";
+import {FormControl, Grid, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import shared from '../../../styles/shared/Shared.module.css'
+import {getSecondaryBackground} from "../../../styles/shared/MainStyles";
 
 export default function InputLayout(props) {
 
@@ -24,11 +16,10 @@ export default function InputLayout(props) {
                 >
                     <TextField disabled={props.disabled} label={props.inputName} value={props.initialValue}
                                variant={"outlined"}
-                               style={{
+                               style={{...{
                                    width: '100%',
-                                   backgroundColor: (!props.dark ? '#f7f8fa' : '#272e38'),
                                    borderRadius: '8px'
-                               }}
+                               }, ...getSecondaryBackground({dark: props.dark})}}
                                onChange={event => {
                                    props.handleChange(event.target.value)
                                    if (props.setChanged !== undefined)
@@ -46,11 +37,10 @@ export default function InputLayout(props) {
                 <div key={props.key} className={shared.pop_up_animation}
                      style={{width: props.size + '%'}}>
                     <FormControl variant="outlined" disabled={props.disabled}
-                                 style={{
-                                     backgroundColor: (!props.dark ? '#f7f8fa' : '#272e38'),
+                                 style={{...{
                                      width: '100%',
                                      borderRadius: '8px'
-                                 }} required={props.required}
+                                 },...getSecondaryBackground({dark: props.dark})}} required={props.required}
                                  error={props.required === true && (props.initialValue === null || props.initialValue === undefined || props.initialValue.length === 0)}>
                         <InputLabel id={props.inputName.replace(' ', '')}>{props.inputName}</InputLabel>
                         <Select
@@ -85,11 +75,11 @@ export default function InputLayout(props) {
                         <Grid container justify="space-around"
                               style={{width: '100%'}}>
                             <KeyboardDatePicker
-                                style={{
+                                style={{...{
                                     width: '100%',
                                     margin: 'auto',
-                                    backgroundColor: (!props.dark ? '#f7f8fa' : '#272e38'), borderRadius: '8px'
-                                }}
+                                    borderRadius: '8px'
+                                }, ...getSecondaryBackground({dark: props.dark})}}
                                 required={props.required}
                                 inputVariant="outlined"
                                 margin="normal"
@@ -117,12 +107,10 @@ export default function InputLayout(props) {
             return (
                 <div key={props.key}
                      style={{width: props.size + '%'}}>
-                    <form noValidate style={{
-                        backgroundColor: !props.dark ? '#f7f8fa' : '#272e38',
-                        width: '100%',
-                        borderRadius: '8px',
-
-                    }}>
+                    <form noValidate style={{...{
+                            width: '100%',
+                            borderRadius: '8px'
+                        },...getSecondaryBackground({dark: props.dark})}}>
                         <TextField
                             required={props.required}
                             variant={'outlined'}

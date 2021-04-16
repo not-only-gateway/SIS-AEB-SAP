@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types'
 import mainStyles from '../../styles/shared/Main.module.css'
-import {getPrimaryColor, getSecondaryColor, getTertiaryColor} from "../../styles/shared/MainStyles";
+import {getPrimaryColor, getTertiaryColor} from "../../styles/shared/MainStyles";
 
 export default function getTitle(props) {
     return (

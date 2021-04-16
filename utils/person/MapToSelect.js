@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+
 export default function mapToSelect(props) {
     let response = []
     switch (props.option) {

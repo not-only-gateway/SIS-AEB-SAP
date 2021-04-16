@@ -19,9 +19,10 @@ import ActivityEN from "../../locales/activity/ActivityEN";
 import ActivityES from "../../locales/activity/ActivityES";
 import ActivityPT from "../../locales/activity/ActivityPT";
 
-import ManagementEN from "../../locales/management/ManagementEN";
-import ManagementPT from "../../locales/management/ManagementPT";
-import ManagementES from "../../locales/management/ManagementES";
+import MenuEN from "../../locales/menu/MenuEN";
+import MenuPT from "../../locales/menu/MenuPT";
+import MenuES from "../../locales/menu/MenuES";
+
 import StructureEN from "../../locales/structure/StructureEN";
 import StructureES from "../../locales/structure/StructureES";
 import StructurePT from "../../locales/structure/StructurePT";
@@ -59,8 +60,8 @@ export function getLanguage (locale, page){
                     response = ActivityEN
                     break
                 }
-                case '/management': {
-                    response = ManagementEN
+                case '/menu': {
+                    response = MenuEN
                     break
                 }
                 case '/structure': {
@@ -94,8 +95,8 @@ export function getLanguage (locale, page){
                     response = ActivityES
                     break
                 }
-                case '/management': {
-                    response = ManagementES
+                case '/menu': {
+                    response = MenuES
                     break
                 }
                 case '/structure': {
@@ -130,8 +131,8 @@ export function getLanguage (locale, page){
                     response = ActivityPT
                     break
                 }
-                case '/management': {
-                    response = ManagementPT
+                case '/menu': {
+                    response = MenuPT
                     break
                 }
                 case '/structure': {

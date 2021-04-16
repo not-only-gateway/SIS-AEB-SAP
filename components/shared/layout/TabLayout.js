@@ -1,27 +1,26 @@
 import PropTypes from 'prop-types'
 import {Button, Divider} from "@material-ui/core";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import styles from '../../../styles/shared/Layout.module.css'
+import {getBorder} from "../../../styles/shared/MainStyles";
+import mainStyles from '../../../styles/shared/Main.module.css'
 
 export default function TabLayout(props) {
     const [open, setOpen] = useState(1)
 
     function renderTabContent(tab) {
         return (
-            <div style={{display: 'flex', justifyContent: 'center'}}>
+            <div className={mainStyles.displayInlineCenter}>
                 {tab.buttonKey === open ? tab.value : null}
             </div>
         )
     }
 
     return (
-        <div style={{
-            border: props.highLight === false ? null : (!props.dark ? '#e2e2e2 1px solid' : null),
-            backgroundColor: props.highLight === false ? null : (props.dark ? '#3b424c' : null),
-            width: props.width + 'vw',
-            height: 'fit-content',
-            borderRadius: '8px',
-        }}>
+        <div className={mainStyles.normalBorder} style={{...{
+                width: props.width + 'vw',
+                height: 'fit-content',
+            }, ...getBorder({dark: props.dark})}}>
             <div className={styles.tab_buttons_container} style={{width: props.width + 'vw'}}>
 
                 {props.buttons.map((button, index) => (
@@ -33,9 +32,10 @@ export default function TabLayout(props) {
                             width: (100 / props.buttons.length) + '%',
                             borderRight: props.buttons.length === index? 'none' : (props.dark ? '' : '#e2e2e2 1px solid'),
                             backgroundColor: open === button.key ? '#39adf6' : null,
-                            color: open === button.key ? 'white' : props.dark ? 'white' : 'black',
+                            color: open === button.key ? 'white' : null,
                             textTransform: 'capitalize'
                         }} onClick={() => setOpen(button.key)}>{button.value}</Button>
+
                     </>
                 ))}
             </div>
@@ -53,5 +53,4 @@ TabLayout.proptypes =
     dark:PropTypes.bool,
     height:PropTypes.number,
     width:PropTypes.number,
-    highLight: PropTypes.bool,
 }

@@ -10,6 +10,6 @@ export default {
     supervisor: 'Entrar como administrador',
     supervisorExit: 'Remover acesso de administrador',
     supervisorRevalidate: 'Validar acesso de administrador',
-    management: 'Gerênciamento',
+    menu: 'Menu de ação',
     structure: 'Estrutura'
 }

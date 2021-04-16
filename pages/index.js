@@ -11,7 +11,13 @@ import shared from '../styles/shared/Shared.module.css'
 import getPageInfo from "../utils/index/GetPageInfo";
 import InfiniteScroll from "react-infinite-scroll-component";
 import fetchIndexData from "../utils/index/FetchData";
-import {getBorder, getSecondaryBackground, getSecondaryColor, getTertiaryBackground} from "../styles/shared/MainStyles";
+import {
+    getBorder,
+    getBoxShadow,
+    getSecondaryBackground,
+    getTertiaryBackground,
+    getTertiaryColor
+} from "../styles/shared/MainStyles";
 import mainStyles from '../styles/shared/Main.module.css'
 
 export default function Index() {
@@ -33,11 +39,12 @@ export default function Index() {
             fetchData().catch(error => console.log(error))
     }, [router.locale])
 
-    async function fetchData(type, start) {
+    async function fetchData(type, start, search) {
+
         await fetchIndexData({
             setResponse: setData,
             params: {
-                input: searchInput.length === 0 ? null : searchInput,
+                input: search === false ? null :  searchInput.length === 0 ? null : searchInput,
                 max_id: start ? null : maxID
             },
             setLoading: setLoading,
@@ -88,10 +95,10 @@ export default function Index() {
                                                       height={'7vh'}/>}
                                     endMessage={
                                         <div
-                                            className={[mainStyles.mediumMargin, mainStyles.normalBorder, mainStyles.smallPadding, mainStyles.baseWidth].join(' ')}
-                                            style={{...getTertiaryBackground({dark: props.dark}), ...getBorder({dark: props.dark})}}>
-                                            <p className={mainStyles.primaryParagraph}
-                                               style={{...{textAlign: 'center'}, ...getSecondaryColor({dark: props.dark})}}>{lang.end}</p>
+                                            className={[mainStyles.mediumMargin, mainStyles.normalBorder, mainStyles.smallPaddingVertical, mainStyles.baseWidth].join(' ')}
+                                            style={{...getTertiaryBackground({dark: props.dark}), ...getBorder({dark: props.dark}), ...getBoxShadow({dark: props.dark})}}>
+                                            <p className={mainStyles.secondaryParagraph}
+                                               style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: props.dark})}}>{lang.end}</p>
                                         </div>
                                     }
                                 >
@@ -111,7 +118,7 @@ export default function Index() {
                                 :
                                 <div className={styles.personas_container}>
                                     <div
-                                        className={[mainStyles.mediumMargin, mainStyles.normalBorder, mainStyles.smallPadding].join(' ')}
+                                        className={[mainStyles.mediumMargin, mainStyles.normalBorder, mainStyles.smallPaddingVertical].join(' ')}
                                         style={{
                                             ...getTertiaryBackground({dark: props.dark}),
                                             ...getBorder({dark: props.dark}), ...{
@@ -126,10 +133,12 @@ export default function Index() {
                             :
                             <div className={styles.personas_container}>
                                 <Skeleton variant="rect" style={{
-                                    borderRadius: '8px',
-                                    width: '45vw',
-                                    height: '11vh',
-                                    backgroundColor: props.dark ? '#3b424c' : '#f4f8fb'
+                                    ...{
+                                        borderRadius: '8px',
+                                        width: '45vw',
+                                        height: '11vh',
+                                    },
+                                    ...getTertiaryBackground({dark: props.dark})
                                 }}/>
                             </div>
                         }

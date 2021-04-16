@@ -12,7 +12,14 @@ import ActivityFilterComponent from "../components/activity/ActivityFilter";
 import fetchActivityData from "../utils/activity/FetchData";
 import {ThemeProvider} from "@material-ui/styles";
 import {createMuiTheme} from "@material-ui/core";
-import {getSecondaryBackground} from "../styles/shared/MainStyles";
+import {
+    getBorder,
+    getBoxShadow,
+    getSecondaryBackground,
+    getTertiaryBackground,
+    getTertiaryColor
+} from "../styles/shared/MainStyles";
+import mainStyles from "../styles/shared/Main.module.css";
 
 export default function Activity() {
 
@@ -101,16 +108,11 @@ export default function Activity() {
                                     loader={<Skeleton variant={'rect'} width={'100%'} style={{borderRadius: '8px'}}
                                                       height={'7vh'}/>}
                                     endMessage={
-                                        <div style={{
-                                            width: '90%',
-                                            margin: 'auto',
-                                            borderRadius: '8px',
-                                            border: !props.dark ? '#e2e2e2 1px solid' : null,
-                                            backgroundColor: props.dark ? '#3b424c' : null,
-                                            paddingBottom: '10px',
-                                            paddingTop: '10px'
-                                        }}>
-                                            <p style={{textAlign: 'center', fontWeight: 445}}>{lang.end}</p>
+                                        <div
+                                            className={[mainStyles.mediumMargin, mainStyles.normalBorder, mainStyles.smallPaddingVertical, mainStyles.baseWidth].join(' ')}
+                                            style={{...getTertiaryBackground({dark: props.dark}), ...getBorder({dark: props.dark}), ...getBoxShadow({dark: props.dark})}}>
+                                            <p className={mainStyles.secondaryParagraph}
+                                               style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: props.dark})}}>{lang.end}</p>
                                         </div>
                                     }
                                 >
@@ -124,14 +126,14 @@ export default function Activity() {
                                     </div>
                                 </InfiniteScroll>
                                 :
-                                <div style={{
-                                    width: '90%',
-                                    margin: 'auto',
-                                    borderRadius: '8px',
-                                    border: !props.dark ? '#e2e2e2 1px solid' : null,
-                                    backgroundColor: props.dark ? '#3b424c' : null
-                                }}>
-                                    <p style={{textAlign: 'center', fontWeight: 445}}>{lang.nothingFound}</p>
+                                <div
+                                    className={[mainStyles.baseWidth, mainStyles.normalBorder, mainStyles.displayInlineCenter].join(' ')}
+                                    style={{
+                                        ...getTertiaryBackground({dark: props.dark}),
+                                        ...getBoxShadow({dark: props.dark}),
+                                        ...getBorder({dark: props.dark})
+                                    }}>
+                                    <p className={mainStyles.secondaryParagraph} style={getTertiaryColor({dark: props.dark})}>{lang.nothingFound}</p>
                                 </div>
                             }
                         </div>

@@ -8,11 +8,6 @@ export const buttonStyle = {
     fontWeight:'440',
     textAlign: 'left'
 }
-export const iconStyle = {
-    marginRight:'1vw',
-    marginLeft:'1vw',
-    fontSize: '1.6rem'
-}
 export const searchFieldStyle = {
     height:'6vh',
     boxShadow: 'none',

@@ -2,9 +2,7 @@ import Layout from "../components/shared/layout/Layout";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import styles from '../styles/Structure.module.css'
-import PersonCard from "../components/index/PersonCard";
 import {createMuiTheme, ThemeProvider} from "@material-ui/core";
-import {Skeleton} from "@material-ui/lab";
 import {getLanguage} from "../utils/shared/Language";
 import axios from "axios";
 import Host from "../utils/shared/Host";

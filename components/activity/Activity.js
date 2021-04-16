@@ -5,7 +5,7 @@ import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import getMethodColor from "../../utils/activity/GetMethodColor";
 import mainStyles from '../../styles/shared/Main.module.css'
-import {getBorder, getPrimaryColor, getSecondaryColor, getTertiaryColor} from "../../styles/shared/MainStyles";
+import {getBorder, getPrimaryColor, getTertiaryColor} from "../../styles/shared/MainStyles";
 
 export default function ActivityComponent(props) {
     const [color, setColor] = useState(null)
@@ -96,7 +96,7 @@ export default function ActivityComponent(props) {
                 </div>
             }
             summary={
-                <div className={mainStyles.displayAsLine}>
+                <div className={mainStyles.displayInlineSpaced}>
                     <p className={mainStyles.primaryParagraph} style={{
                         color: color
                     }}>{props.activity.request_method}</p>
