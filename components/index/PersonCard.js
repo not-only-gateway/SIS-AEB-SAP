@@ -16,19 +16,15 @@ import {
 import mainStyles from '../../styles/shared/Main.module.css'
 import AvatarLayout from "./AvatarLayout";
 
-const localDate = Date.now()
-const localMonth = (new Date).getMonth()
-const localDay = (new Date).getDay()
+const currentDate = new Date()
 
 export default function PersonCard(props) {
 
     const [hovered, setHovered] = useState(false)
 
-    const isBirth = ((new Date(props.profile.birth)).getDay() !== localDay && (new Date(props.profile.birth)).getMonth() === localMonth)
-
     return (
         <div
-            className={[styles.cardContainer,mainStyles.normalBorder].join(' ')}
+            className={[styles.cardContainer, mainStyles.normalBorder].join(' ')}
             key={props.profile.id}
             onMouseLeave={() => setHovered(false)}
             onMouseEnter={() => setHovered(true)}
@@ -49,18 +45,23 @@ export default function PersonCard(props) {
                     borderTopRightRadius: '8px',
                     borderTopLeftRadius: '8px',
                 }}>
-                    <div className={mainStyles.displayInlineSpaced} style={{width: '18vw', margin: 'auto', lineHeight: '10px'}}>
-                        <AvatarLayout dark={props.dark} lastActivity={props.lastActivity} image={props.profile.image} key={props.profile.id}/>
-                        <div>
-                        <p className={mainStyles.primaryParagraph} style={{textAlign: 'right', color: '#39adf6', fontWeight: 500, textTransform: 'capitalize'}}>{props.profile.name}</p>
-                        { isBirth ?
-                            <CakeRounded style={{color: '#f54269', fontSize: '1.8rem'}}/>
-                            :
-                            null
-                        }
-
-                        <p className={mainStyles.secondaryParagraph} style={{...getTertiaryColor({dark: props.dark}), ...{textAlign: 'right'}}}>{props.profile.corporate_email}</p>
-                        <p className={mainStyles.secondaryParagraph} style={{...getTertiaryColor({dark: props.dark}), ...{textAlign: 'right'}}}>{props.profile.extension}</p>
+                    <div className={mainStyles.displayInlineSpaced}
+                         style={{width: '18vw', margin: 'auto', lineHeight: '10px'}}>
+                        <AvatarLayout dark={props.dark}
+                                      cakeDay={((new Date(props.profile.birth)).getDay() === currentDate.getDay() && (new Date(props.profile.birth)).getMonth() === currentDate.getMonth())}
+                                      image={props.profile.image}
+                                      key={props.profile.id}/>
+                        <div style={{overflow: 'hidden'}}>
+                            <p className={mainStyles.primaryParagraph} style={{
+                                textAlign: 'right',
+                                color: '#39adf6',
+                                fontWeight: 500,
+                                textTransform: 'capitalize'
+                            }}>{props.profile.name}</p>
+                            <p className={mainStyles.secondaryParagraph}
+                               style={{...getTertiaryColor({dark: props.dark}), ...{textAlign: 'right'}}}>{props.profile.corporate_email}</p>
+                            <p className={mainStyles.secondaryParagraph}
+                               style={{...getTertiaryColor({dark: props.dark}), ...{textAlign: 'right'}}}>{props.profile.extension}</p>
                         </div>
                     </div>
 
@@ -82,9 +83,11 @@ export default function PersonCard(props) {
                     </Button>
                 </Link>
                 :
-                <div className={mainStyles.displayInlineCenter} style={{backgroundColor: "rgba(236, 78, 43, 0.2)", width: '100%'}}>
+                <div className={mainStyles.displayInlineCenter}
+                     style={{backgroundColor: "rgba(236, 78, 43, 0.2)", width: '100%'}}>
                     <WarningRounded style={getIconStyle({dark: props.dark})}/>
-                    <p className={mainStyles.tertiaryParagraph} style={getTertiaryColor({dark: props.dark})}>{props.inactiveLocale}</p>
+                    <p className={mainStyles.tertiaryParagraph}
+                       style={getTertiaryColor({dark: props.dark})}>{props.inactiveLocale}</p>
                 </div>
             }
 

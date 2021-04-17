@@ -43,6 +43,11 @@
     align-items: center;
     justify-content: flex-start;
 }
+.displayInlineEnd{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
 .displayInlineSpaced{
     display: flex;
     align-items: center;
@@ -81,12 +86,16 @@
     padding-right: 10px;
 }
 /*SPACING*/
-/*.beforeDot::before{*/
-/*    content: '\A';*/
-/*    border-radius: 50%;*/
-/*    height: 6px;*/
-/*    width: 6px;*/
-/*    display:inline-block;*/
-/*    margin-left: 5px;*/
-/*    margin-right: 5px;*/
-/*}*/
+.popInAnimation{
+    animation-duration: .3s;
+    animation-name: pop_in;
+}
+@keyframes popIn {
+    from {
+        transform: scale(.2);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}

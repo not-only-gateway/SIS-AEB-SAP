@@ -38,6 +38,11 @@ export function getTertiaryBackground(props) {
         backgroundColor: props.dark ? '#3b424c' : null
     }
 }
+export function getQuaternaryBackground(props) {
+    return {
+        backgroundColor: props.dark ? '#484c55' : null
+    }
+}
 
 export function getBorder(props) {
     return {
@@ -64,6 +69,7 @@ const props = {
 getPrimaryColor.propTypes = props
 getSecondaryColor.propTypes = props
 getTertiaryColor.propTypes = props
+getQuaternaryBackground.propTypes = props
 getIconStyle.propTypes = {dark: PropTypes.bool, highlight: PropTypes.bool}
 getBorder.propTypes = {dark: PropTypes.bool, hovered: PropTypes.bool}
 getBoxShadow.propTypes = {dark: PropTypes.bool, hovered: PropTypes.bool}
