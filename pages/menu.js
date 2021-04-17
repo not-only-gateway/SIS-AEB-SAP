@@ -25,6 +25,7 @@ export default function menu() {
     const router = useRouter()
     const [lang, setLang] = useState(null)
     const [accessProfile, setAccessProfile] = useState(null)
+    const [option, setOption] = useState(null)
 
     useEffect(() => {
         setLang(getLanguage(router.locale, router.pathname))
@@ -50,30 +51,6 @@ export default function menu() {
 
                         <div className={[mainStyles.baseWidth, mainStyles.displayWarp, mainStyles.smallMargin].join(' ')}>
 
-                            {accessProfile !== null && accessProfile.canViewActivityLog ?
-                                <div style={{
-                                    backgroundColor: props.dark ? '#3b424c' : null,
-                                    border: props.dark ? null : '#e2e2e2 1px solid',
-                                    borderRadius: '8px',
-                                    width: '22.05vw'
-                                }}>
-                                    <Link href={{pathname: '/activity', locale: props.locale}}>
-                                        <Button style={{
-                                            width: '100%',
-                                            height: '100%',
-                                            display: 'flex',
-                                            justifyContent: 'flex-start',
-                                            alignItems: 'center',
-                                            textTransform: 'none'
-                                        }}>
-
-                                            <HistoryRounded  style={getIconStyle({dark: props.dark})}/>
-                                            <p className={mainStyles.secondaryParagraph} style={getSecondaryColor({dark: props.dark})}>{lang.activity}</p>
-                                        </Button>
-                                    </Link>
-                                </div> :
-                                null
-                            }
                             {accessProfile !== null && accessProfile.canCreatePerson ?
                                 <div style={{
                                     backgroundColor: props.dark ? '#3b424c' : null,

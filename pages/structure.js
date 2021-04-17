@@ -2,14 +2,17 @@ import Layout from "../components/shared/layout/Layout";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import styles from '../styles/Structure.module.css'
-import {createMuiTheme, ThemeProvider} from "@material-ui/core";
+import {createMuiTheme, Divider, ThemeProvider} from "@material-ui/core";
 import {getLanguage} from "../utils/shared/Language";
 import axios from "axios";
 import Host from "../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import SubjectLayout from "../components/structure/SubjectLayout";
 import AccordionLayout from "../components/shared/layout/AccordionLayout";
-
+import mainStyles from '../styles/shared/Main.module.css'
+import shared from "../styles/shared/Shared.module.css";
+import {getIconStyle, getTertiaryColor} from "../styles/shared/MainStyles";
+import {ExtensionRounded, GroupRounded, ViewQuiltRounded} from "@material-ui/icons";
 
 export default function Structure() {
 
@@ -20,6 +23,7 @@ export default function Structure() {
 
     useEffect(() => {
         setLang(getLanguage(router.locale, '/structure'))
+
         axios({
             method: 'get',
             url: Host() + 'top/units',
@@ -29,6 +33,7 @@ export default function Structure() {
         }).catch(error => {
             console.log(error)
         })
+
         axios({
             method: 'get',
             url: Host() + 'top/collaborators',
@@ -69,8 +74,10 @@ export default function Structure() {
                                     else return null
                                 })}
                                 summary={
-                                    <div>
-                                        <p>{lang.units}</p>
+                                    <div className={shared.accordionTitle}>
+                                        <ViewQuiltRounded style={getIconStyle({dark: props.dark})}/>
+                                        <Divider style={{width: '10px', marginRight: '10px'}} orientation={'horizontal'}/>
+                                        <p className={mainStyles.secondaryParagraph}>{lang.units}</p>
                                     </div>
                                 }
                                 dark={props.dark}
@@ -96,8 +103,10 @@ export default function Structure() {
                                     else return null
                                 })}
                                 summary={
-                                    <div>
-                                        <p>{lang.collaborators}</p>
+                                    <div className={shared.accordionTitle}>
+                                        <ExtensionRounded style={getIconStyle({dark: props.dark})}/>
+                                        <Divider style={{width: '10px', marginRight: '10px'}} orientation={'horizontal'}/>
+                                        <p className={mainStyles.secondaryParagraph}>{lang.collaborators}</p>
                                     </div>
                                 }
                                 dark={props.dark}

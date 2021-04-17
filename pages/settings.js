@@ -2,7 +2,7 @@ import Layout from "../components/shared/layout/Layout";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import style from '../styles/settings/Settings.module.css'
-import {createMuiTheme, Divider, FormControl, FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
+import {Button, createMuiTheme, Divider, FormControl, FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
 import Brightness7RoundedIcon from "@material-ui/icons/Brightness7Rounded";
 import Brightness3RoundedIcon from "@material-ui/icons/Brightness3Rounded";
 import {ThemeProvider} from "@material-ui/styles";
@@ -10,10 +10,12 @@ import {getLanguage, setCookiesLanguage} from "../utils/shared/Language";
 import Cookies from "universal-cookie/lib";
 import AccordionLayout from "../components/shared/layout/AccordionLayout";
 import fetchSettingsData from "../utils/settings/FetchData";
-import {readCollaboration} from "../utils/shared/IndexedDB";
+import {readAccessProfile, readCollaboration} from "../utils/shared/IndexedDB";
 import shared from '../styles/shared/Shared.module.css'
-import {getIconStyle, getSecondaryColor} from "../styles/shared/MainStyles";
+import {getIconStyle, getSecondaryColor, getTertiaryColor} from "../styles/shared/MainStyles";
 import mainStyles from '../styles/shared/Main.module.css'
+import Link from "next/link";
+import {HistoryRounded} from "@material-ui/icons";
 
 export default function Settings() {
 
@@ -21,6 +23,7 @@ export default function Settings() {
     const [lang, setLang] = useState(null)
     const [collaborations, setCollaborations] = useState([])
     const [currentCollaboration, setCurrentCollaboration] = useState(null)
+    const [accessProfile, setAccessProfile] = useState(null)
 
     useEffect(() => {
 
@@ -29,7 +32,8 @@ export default function Settings() {
             if (res !== null)
                 fetchSettingsData().then(res => setCollaborations(res))
         })
-
+        if (accessProfile === null)
+            readAccessProfile().then(res => setAccessProfile(res))
         setLang(getLanguage(router.locale, router.pathname))
     }, [router.locale, router.isReady])
 
@@ -73,9 +77,9 @@ export default function Settings() {
                                 }
                                 summary={
                                     <div className={shared.accordionTitle}>
-                                        <p >{lang.language}</p>
+                                        <p className={mainStyles.secondaryParagraph}>{lang.language}</p>
                                         <Divider style={{width: '10px', marginLeft: '10px', marginRight: '10px'}} orientation={'horizontal'}/>
-                                        <p>{props.locale === 'pt' ? 'Português' : props.locale === 'es' ? 'Español' : 'English'}</p>
+                                        <p className={mainStyles.tertiaryParagraph} style={getTertiaryColor({dark: props.dark})}>{props.locale === 'pt' ? 'Português' : props.locale === 'es' ? 'Español' : 'English'}</p>
                                     </div>
                                 }
                                 key={'language - settings'}
@@ -108,9 +112,9 @@ export default function Settings() {
                                     }
                                 summary={
                                     <div className={shared.accordionTitle}>
-                                        <p >{lang.theme}</p>
+                                        <p className={mainStyles.secondaryParagraph}>{lang.theme}</p>
                                         <Divider style={{width: '10px', marginLeft: '10px', marginRight: '10px'}} orientation={'horizontal'}/>
-                                        <p>{props.dark ? 'Dark' : 'Light'}</p>
+                                        <p className={mainStyles.tertiaryParagraph} style={getTertiaryColor({dark: props.dark})}>{props.dark ? 'Dark' : 'Light'}</p>
                                     </div>
                                 }
                                 key={'theme - settings'}
@@ -135,9 +139,9 @@ export default function Settings() {
                                     }
                                     summary={
                                         <div className={shared.accordionTitle}>
-                                            <p >Collaboration</p>
+                                            <p className={mainStyles.secondaryParagraph}>Collaboration</p>
                                             <Divider style={{width: '10px', marginLeft: '10px', marginRight: '10px'}} orientation={'horizontal'}/>
-                                            <p>{currentCollaboration.unitAcronym}</p>
+                                            <p className={mainStyles.tertiaryParagraph} style={getTertiaryColor({dark: props.dark})}>{currentCollaboration.unitAcronym}</p>
                                         </div>
                                     }
                                     key={'collaborations - settings'}
@@ -148,6 +152,30 @@ export default function Settings() {
                                     border={null}
                                 />
                                 :
+                                null
+                            }
+                            {accessProfile !== null && accessProfile.canViewActivityLog ?
+                                <div style={{
+                                    backgroundColor: props.dark ? '#3b424c' : null,
+                                    border:props.dark ? null : '#e2e2e2 1px solid',
+                                    borderRadius: '8px',
+                                    width: '22.05vw'
+                                }}>
+                                    <Link href={{pathname: '/activity', locale: props.locale}}>
+                                        <Button style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            display: 'flex',
+                                            justifyContent: 'flex-start',
+                                            alignItems: 'center',
+                                            textTransform: 'none'
+                                        }}>
+
+                                            <HistoryRounded  style={getIconStyle({dark: props.dark})}/>
+                                            <p className={mainStyles.secondaryParagraph} style={getSecondaryColor({dark: props.dark})}>{lang.activity}</p>
+                                        </Button>
+                                    </Link>
+                                </div> :
                                 null
                             }
                         </div>

@@ -30,6 +30,7 @@ export default function Index() {
     const [lastFetchedSize, setLastFetchedSize] = useState(null)
     const [maxID, setMaxID] = useState(null)
     const [searchInput, setSearchInput] = useState('')
+    const [accessProfile, setAccessProfile] = useState(null)
 
     useEffect(() => {
         console.log(router.locale)
@@ -88,7 +89,7 @@ export default function Index() {
                                 <InfiniteScroll
                                     dataLength={data.length}
                                     next={() => fetchData(0)}
-                                    hasMore={lastFetchedSize === 20}
+                                    hasMore={lastFetchedSize === 15}
                                     inverse={false}
                                     scrollableTarget="scrollableDiv"
                                     loader={<Skeleton variant={'rect'} width={'100%'} style={{borderRadius: '8px'}}
@@ -103,6 +104,7 @@ export default function Index() {
                                     }
                                 >
                                     <div className={styles.personas_container}>
+                                        {accessProfile}
                                         {data.map(collaborator =>
                                             <PersonCard
                                                 profile={collaborator.profile}

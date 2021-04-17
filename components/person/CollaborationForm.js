@@ -105,7 +105,7 @@ export default function CollaborationForm(props) {
 
 
             })
-            fetchComponentData({path: 'accesses', params: {}}).then(res => {
+            fetchComponentData({path: 'access_profiles', params: {}}).then(res => {
                 if (res !== null)
                     setAccessProfiles(res)
             })
