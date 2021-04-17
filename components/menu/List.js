@@ -6,8 +6,6 @@ import Cookies from "universal-cookie/lib";
 import {Skeleton} from "@material-ui/lab";
 import mainStyles from "../../styles/shared/Main.module.css";
 import {getBorder, getBoxShadow, getTertiaryBackground, getTertiaryColor} from "../../styles/shared/MainStyles";
-import styles from "../../styles/index/Index.module.css";
-import PersonCard from "../index/PersonCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function ListComponent(props) {

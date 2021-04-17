@@ -10,9 +10,9 @@ import {Avatar, createMuiTheme, ThemeProvider} from "@material-ui/core";
 import mainStyles from '../../styles/shared/Main.module.css'
 import {
     getBorder,
-    getBoxShadow, getQuaternaryBackground,
+    getBoxShadow,
+    getQuaternaryBackground,
     getSecondaryColor,
-    getTertiaryBackground,
     getTertiaryColor
 } from "../../styles/shared/MainStyles";
 

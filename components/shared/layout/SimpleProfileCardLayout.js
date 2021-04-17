@@ -22,14 +22,9 @@ export default function SimpleProfileCardLayout(props) {
                  ...getBoxShadow({dark: props.dark, hovered: hovered}),
                  ...getBorder({dark: props.dark, hovered: hovered})
              }}>
-            <Avatar src={ImageHost() + props.image} style={{...{width: '50px', height: '50px'}, ...getBoxShadow({dark: props.dark})}}/>
+
             <div style={{width: '75%', marginLeft: '10px'}}>
-                <div className={[mainStyles.overflowEllipsis, mainStyles.secondaryParagraph].join(' ')} style={getSecondaryColor({dark: props.dark})}>
-                    {props.name}
-                </div>
-                <div className={[mainStyles.overflowEllipsis, mainStyles.tertiaryParagraph].join(' ')} style={getTertiaryColor({dark: props.dark})}>
-                    {props.email}
-                </div>
+
             </div>
         </div>
     )
@@ -39,5 +34,6 @@ SimpleProfileCardLayout.propTypes = {
     dark: PropTypes.bool,
     image: PropTypes.string,
     name: PropTypes.string,
-    email: PropTypes.string
+    email: PropTypes.string,
+    reduced: PropTypes.bool
 }

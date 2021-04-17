@@ -23,19 +23,20 @@ export function getTertiaryColor(props) {
 
 export function getPrimaryBackground(props) {
     return {
-        backgroundColor: props.dark ? '#262d37' : '#f4f8fb'
+        backgroundColor: props.dark ? '#303741' : 'white'
+
     }
 }
 
 export function getSecondaryBackground(props) {
     return {
-        backgroundColor: props.dark ? '#303741' : 'white'
+        backgroundColor: props.dark ? '#262d37' : '#fbfbfb'
     }
 }
 
 export function getTertiaryBackground(props) {
     return {
-        backgroundColor: props.dark ? '#3b424c' : null
+        backgroundColor: props.dark ? '#3b424c' : '#f2f2f2'
     }
 }
 export function getQuaternaryBackground(props) {

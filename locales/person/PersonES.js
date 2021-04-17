@@ -1,8 +1,8 @@
 import React from "react";
 
 export const main = {
-    profile: 'Perfil',
-    information: 'Registro de colaborador',
+    title: 'Perfil',
+    info: 'Registro de colaborador',
 }
 
 export const collaborations = {

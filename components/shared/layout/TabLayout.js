@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import {Button, Divider} from "@material-ui/core";
 import {useState} from "react";
 import styles from '../../../styles/shared/Layout.module.css'
-import {getBorder} from "../../../styles/shared/MainStyles";
+import {getBorder, getPrimaryBackground} from "../../../styles/shared/MainStyles";
 import mainStyles from '../../../styles/shared/Main.module.css'
 
 export default function TabLayout(props) {
@@ -20,7 +20,10 @@ export default function TabLayout(props) {
         <div className={mainStyles.normalBorder} style={{...{
                 width: props.width + 'vw',
                 height: 'fit-content',
-            }, ...getBorder({dark: props.dark})}}>
+            },
+            ...getBorder({dark: props.dark}),
+            ...getPrimaryBackground({dark: props.dark})
+        }}>
             <div className={styles.tab_buttons_container} style={{width: props.width + 'vw'}}>
 
                 {props.buttons.map((button, index) => (

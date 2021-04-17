@@ -68,14 +68,14 @@
 /*DISPLAY*/
 
 /*SPACING*/
-.smallMargin{
+.marginHorizontal{
     margin-left: 10px;
     margin-right: 10px;
 }
 
-.mediumMargin{
-    margin-top: 2vh;
-    margin-bottom: 2vh;
+.marginVertical{
+    margin-top: 1.5vh;
+    margin-bottom: 1.5vh;
 }
 .smallPaddingVertical{
     padding-bottom: 10px;

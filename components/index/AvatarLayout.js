@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types'
 import {Avatar} from "@material-ui/core";
 import ImageHost from "../../utils/shared/ImageHost";
-import {getBorder, getBoxShadow, getPrimaryColor, getSecondaryBackground} from "../../styles/shared/MainStyles";
+import {getBorder, getBoxShadow, getSecondaryBackground} from "../../styles/shared/MainStyles";
 import React from "react";
 import mainStyles from '../../styles/shared/Main.module.css'
-import styles from '../../styles/index/Index.module.css'
 import {CakeRounded} from "@material-ui/icons";
 
 export default function AvatarLayout(props) {

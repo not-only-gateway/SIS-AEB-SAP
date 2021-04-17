@@ -12,7 +12,7 @@
     z-index: 2;
     display: grid;
     justify-items: center;
-    margin-bottom: 4vh;
+    margin-bottom: .9vw;
 }
 
 .card_title{

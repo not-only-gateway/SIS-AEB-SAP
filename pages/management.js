@@ -1,4 +1,4 @@
-import Layout from "../components/shared/layout/Layout";
+import Layout from "../components/layout/Layout";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {createMuiTheme} from "@material-ui/core";

@@ -1,6 +1,6 @@
 export const main = {
-    profile: 'Profile',
-    information: 'Collaborator Registration',
+    title: 'Profile',
+    info: 'Collaborator Registration',
 }
 
 export const collaborations = {

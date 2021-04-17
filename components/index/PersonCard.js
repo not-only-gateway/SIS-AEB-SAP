@@ -1,15 +1,13 @@
 import styles from '../../styles/index/Index.module.css'
-import {Avatar, Button, Divider} from "@material-ui/core";
+import {Button, Divider} from "@material-ui/core";
 import React, {useState} from 'react'
-import {CakeRounded, WarningRounded} from "@material-ui/icons";
+import {WarningRounded} from "@material-ui/icons";
 import Link from 'next/link'
 import PropTypes from 'prop-types'
-import shared from "../../styles/shared/Shared.module.css";
-import ImageHost from "../../utils/shared/ImageHost";
 import {
     getBorder,
     getBoxShadow,
-    getIconStyle, getPrimaryColor, getSecondaryColor,
+    getIconStyle, getPrimaryBackground,
     getTertiaryBackground,
     getTertiaryColor
 } from "../../styles/shared/MainStyles";
@@ -29,7 +27,7 @@ export default function PersonCard(props) {
             onMouseLeave={() => setHovered(false)}
             onMouseEnter={() => setHovered(true)}
             style={{
-                ...getTertiaryBackground({dark: props.dark}),
+                ...getPrimaryBackground({dark: props.dark}),
                 ...getBoxShadow({
                     dark: props.dark,
                     hovered: hovered

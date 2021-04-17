@@ -1,12 +1,9 @@
 .page_container{
     z-index: 1;
-    box-shadow: rgba(50, 50, 93, 0.25) 0 2px 5px -1px, rgba(0, 0, 0, 0.3) 0 1px 3px -1px;
-    border-bottom-left-radius: 8px;
-    border-top-left-radius: 8px;
     position: relative;
     height: 100vh;
-    width: 83%;
-    margin-left: auto;
+
+    /*margin-left: auto;*/
     overflow-y: auto;
     overflow-x: hidden;
 }

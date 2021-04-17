@@ -1,21 +1,20 @@
 
 @media (orientation: landscape){
-    .nav_bar_container{
+    .navigationContent{
         display: grid;
-        grid-template-rows:  33.333vh 33.333vh 33.333vh;
+        /*grid-template-rows:  33.333vh 33.333vh 33.333vh;*/
+        gap: 2vh;
         justify-items: center;
-
-        position: fixed;
+        align-items: flex-start;
         height: 100vh;
-        width: 17vw;
 
     }
-    .button_container{
-        width: 16vw;
-        border-radius: 8px;
-        height: fit-content;
-        margin-bottom: 2vh;
-        transition: .3s;
+    .navigationContainer{
+        position: fixed;
+        transform: translateX(0%);
+        top: 0;
+        z-index: 0;
+        overflow: hidden;
     }
 
     .top_bar_container{
@@ -29,10 +28,7 @@
     }
 
     .bar_profile_container{
-        display: grid;
-        align-items: flex-end;
-        align-content: flex-end;
-        justify-content: space-between;
+
 
     }
 }

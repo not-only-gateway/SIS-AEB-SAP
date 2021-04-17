@@ -14,7 +14,7 @@ import {
 import {searchFieldStyle} from "../../styles/shared/BarMaterialStyles";
 import {BackspaceRounded, MenuRounded, SearchRounded} from "@material-ui/icons";
 import React, {useEffect, useState} from "react";
-import {getBorder, getBoxShadow, getTertiaryBackground} from "../../styles/shared/MainStyles";
+import {getBorder, getBoxShadow, getPrimaryBackground, getTertiaryBackground} from "../../styles/shared/MainStyles";
 
 
 export default function IndexComponent(props) {
@@ -35,7 +35,7 @@ export default function IndexComponent(props) {
                    onMouseLeave={() => setHovered(false)}
                    elevation={false}
                    style={{
-                       ...getTertiaryBackground({dark: props.dark}),
+                       ...getPrimaryBackground({dark: props.dark}),
                        ...getBoxShadow({dark: props.dark}),
                        ...getBorder({dark: props.dark, hovered: hovered}),
                        ...searchFieldStyle,

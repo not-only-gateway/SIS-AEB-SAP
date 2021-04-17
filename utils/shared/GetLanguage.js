@@ -15,6 +15,10 @@ import BaseFormEN from '../../locales/person/base/BaseFormEN'
 import BaseFormES from '../../locales/person/base/BaseFormES'
 import BaseFormPT from '../../locales/person/base/BaseFormPT'
 
+import NavigationEN from "../../locales/navigation/NavigationEN";
+import NavigationES from "../../locales/navigation/NavigationES";
+import NavigationPT from "../../locales/navigation/NavigationPT";
+
 export default function getComponentLanguage(props) {
     let response = null
     switch (props.component) {
@@ -81,6 +85,23 @@ export default function getComponentLanguage(props) {
                 }
                 default: {
                     response = BaseFormPT
+                    break
+                }
+            }
+            break
+        }
+        case 'navigation': {
+            switch (props.locale) {
+                case 'en': {
+                    response = NavigationEN
+                    break
+                }
+                case 'es': {
+                    response = NavigationES
+                    break
+                }
+                default: {
+                    response = NavigationPT
                     break
                 }
             }

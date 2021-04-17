@@ -99,7 +99,7 @@ export default function ActivityComponent(props) {
                     <p className={mainStyles.primaryParagraph} style={{
                         color: color
                     }}>{props.activity.request_method}</p>
-                    <p className={[mainStyles.tertiaryParagraph, mainStyles.smallMargin].join(' ')}
+                    <p className={[mainStyles.tertiaryParagraph, mainStyles.marginHorizontal].join(' ')}
                        style={getTertiaryColor({dark: props.dark})}>{props.activity.path.indexOf('?') > -1 ? props.activity.path.substr(0, props.activity.path.indexOf('?')) : props.activity.path}</p>
                     <Divider orientation={'horizontal'}/>
                     <p className={mainStyles.tertiaryParagraph} style={getTertiaryColor({dark: props.dark})}>{(new Date(props.activity.time_of_creation)).toDateString()}</p>

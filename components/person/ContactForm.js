@@ -6,7 +6,7 @@ import fetchComponentData from "../../utils/person/FetchData";
 import saveComponentChanges from "../../utils/person/SaveChanges";
 import getTitle from "../../utils/person/GetTitle";
 import mainStyles from '../../styles/shared/Main.module.css'
-import getComponentLanguage from "../../utils/person/GetLanguage";
+import getComponentLanguage from "../../utils/shared/GetLanguage";
 
 export default function ContactForm(props) {
 

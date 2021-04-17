@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import {createMuiTheme} from "@material-ui/core";
-import Layout from "../components/shared/layout/Layout";
 import {useRouter} from "next/router";
 import Collaborations from "../components/person/Collaborations";
 import {ThemeProvider} from "@material-ui/styles";
@@ -11,6 +10,12 @@ import DocumentsForm from "../components/person/DocumentsForm";
 import {getLanguage} from "../utils/shared/Language";
 import TabLayout from "../components/shared/layout/TabLayout";
 import {readAccessProfile} from "../utils/shared/IndexedDB";
+import Cookies from "universal-cookie/lib";
+import shared from "../styles/shared/Shared.module.css";
+import {getSecondaryBackground} from "../styles/shared/MainStyles";
+import GetPageTitle from "../utils/shared/GetPageTitle";
+import getPageInfo from "../utils/index/GetPageInfo";
+import IndexComponent from "../components/index/IndexComponent";
 
 
 export default function person() {
@@ -21,7 +26,10 @@ export default function person() {
 
     const [lang, setLang] = useState(null)
     const [accessProfile, setAccessProfile] = useState(null)
+    const [dark, setDark] = useState(false)
+
     useEffect(() => {
+        setDark((new Cookies()).get('theme') === 0)
         if (router.isReady && router.query.id !== id) {
             setId(router.query.id)
             setCreate(router.query.create)
@@ -47,124 +55,124 @@ export default function person() {
 
     if (lang !== null && router.isReady && router.query.id === id)
         return (
-            <Layout>
-                {props =>
-                    <ThemeProvider theme={createMuiTheme({
-                        palette: {
-                            type: props.dark ? "dark" : "light"
-                        }
-                    })}>
-                        <props.getTitle pageName={lang.main.profile} pageTitle={lang.main.profile}
-                                        pageInfo={lang.main.information}/>
-                        {id !== undefined || create !== undefined ?
-                            <div>
-
-                                <TabLayout
-                                    dark={props.dark}
-                                    width={45}
-                                    height={60}
-
-                                    tabs={[
-                                        {
-                                            buttonKey: 1,
-                                            value: (
-                                                <BaseForm
-                                                    id={id}
-                                                    dark={props.dark}
-                                                    visible={accessProfile !== null ? accessProfile.canUpdatePerson : false}
-                                                    editable={accessProfile !== null ? accessProfile.canUpdatePerson : false}
-                                                    locale={router.locale}
-                                                    redirect={redirect}
-                                                    create={accessProfile !== null ? accessProfile.canCreatePerson && create !== undefined : false}
-                                                />
-                                            )
-                                        },
-                                        {
-                                            buttonKey: 2,
-                                            value: (
-                                                <DocumentsForm
-                                                    id={id}
-                                                    dark={props.dark}
-                                                    locale={router.locale}
-                                                    visible={id !== undefined && accessProfile !== null ? accessProfile.canViewDocuments : false}
-                                                    editable={id !== undefined && accessProfile !== null ? accessProfile.canUpdateDocuments : false}
-                                                />
-                                            )
-                                        },
-                                        {
-                                            buttonKey: 3,
-                                            value: (
-                                                <ContactForm
-                                                    id={id}
-                                                    dark={props.dark}
-                                                    locale={router.locale}
-                                                    visible={id !== undefined && accessProfile !== null ? accessProfile.canViewContact : false}
-                                                    editable={id !== undefined && accessProfile !== null ? accessProfile.canUpdateContact : false}
-                                                />
-                                            )
-                                        },
-                                        {
-                                            buttonKey: 4,
-                                            value: (
-                                                <AddressForm
-                                                    id={id}
-                                                    dark={props.dark}
-                                                    locale={router.locale}
-                                                    visible={id !== undefined && accessProfile !== null ? accessProfile.canViewLocation : false}
-                                                    editable={id !== undefined && accessProfile !== null ? accessProfile.canUpdateLocation : false}
-                                                />
-
-                                            )
-                                        },
-                                        {
-                                            buttonKey: 5,
-                                            value: (
-                                                <Collaborations
-                                                    id={id}
-                                                    dark={props.dark}
-                                                    visible={id !== undefined && accessProfile !== null ? accessProfile.canViewCollaboration : false}
-                                                    editable={id !== undefined && accessProfile !== null ? accessProfile.canUpdateCollaboration : false}
-                                                    locale={router.locale}
-                                                />
-                                            )
-
-                                        }
-                                    ]}
-                                    buttons={[
-                                        {
-                                            disabled: false,
-                                            key: 1,
-                                            value: 'Basic'
-                                        },
-                                        {
-                                            disabled: id !== undefined && accessProfile !== null ? !accessProfile.canViewDocuments : true,
-                                            key: 2,
-                                            value: 'documents'
-                                        },
-                                        {
-                                            disabled: id !== undefined && accessProfile !== null ? !accessProfile.canViewContact : true,
-                                            key: 3,
-                                            value: 'contact'
-                                        },
-                                        {
-                                            disabled: id !== undefined && accessProfile !== null ? !accessProfile.canViewLocation : true,
-                                            key: 4,
-                                            value: 'address'
-                                        },
-                                        {
-                                            disabled: id !== undefined && accessProfile !== null ? !accessProfile.canViewCollaboration : true,
-                                            key: 5,
-                                            value: 'collaborations'
-                                        }
-                                    ]}
-                                />
-                            </div>
-                            :
-                            null
-                        }
-                    </ThemeProvider>
+            <ThemeProvider theme={createMuiTheme({
+                palette: {
+                    type: dark ? "dark" : "light"
                 }
-            </Layout>
+            })}>
+                <GetPageTitle pageName={lang.main.title} pageTitle={lang.main.title}
+                              pageInfo={lang.main.info} dark={dark}/>
+                {id !== undefined || create !== undefined ?
+                    <div>
+                        {/*<div className={shared.header_container}*/}
+                        {/*     style={getSecondaryBackground({dark: dark})}>*/}
+
+
+
+                        <TabLayout
+                            dark={dark}
+                            width={45}
+                            height={60}
+
+                            tabs={[
+                                {
+                                    buttonKey: 1,
+                                    value: (
+                                        <BaseForm
+                                            id={id}
+                                            dark={dark}
+                                            visible={accessProfile !== null ? accessProfile.canUpdatePerson : false}
+                                            editable={accessProfile !== null ? accessProfile.canUpdatePerson : false}
+                                            locale={router.locale}
+                                            redirect={redirect}
+                                            create={accessProfile !== null ? accessProfile.canCreatePerson && create !== undefined : false}
+                                        />
+                                    )
+                                },
+                                {
+                                    buttonKey: 2,
+                                    value: (
+                                        <DocumentsForm
+                                            id={id}
+                                            dark={dark}
+                                            locale={router.locale}
+                                            visible={id !== undefined && accessProfile !== null ? accessProfile.canViewDocuments : false}
+                                            editable={id !== undefined && accessProfile !== null ? accessProfile.canUpdateDocuments : false}
+                                        />
+                                    )
+                                },
+                                {
+                                    buttonKey: 3,
+                                    value: (
+                                        <ContactForm
+                                            id={id}
+                                            dark={dark}
+                                            locale={router.locale}
+                                            visible={id !== undefined && accessProfile !== null ? accessProfile.canViewContact : false}
+                                            editable={id !== undefined && accessProfile !== null ? accessProfile.canUpdateContact : false}
+                                        />
+                                    )
+                                },
+                                {
+                                    buttonKey: 4,
+                                    value: (
+                                        <AddressForm
+                                            id={id}
+                                            dark={dark}
+                                            locale={router.locale}
+                                            visible={id !== undefined && accessProfile !== null ? accessProfile.canViewLocation : false}
+                                            editable={id !== undefined && accessProfile !== null ? accessProfile.canUpdateLocation : false}
+                                        />
+
+                                    )
+                                },
+                                {
+                                    buttonKey: 5,
+                                    value: (
+                                        <Collaborations
+                                            id={id}
+                                            dark={dark}
+                                            visible={id !== undefined && accessProfile !== null ? accessProfile.canViewCollaboration : false}
+                                            editable={id !== undefined && accessProfile !== null ? accessProfile.canUpdateCollaboration : false}
+                                            locale={router.locale}
+                                        />
+                                    )
+
+                                }
+                            ]}
+                            buttons={[
+                                {
+                                    disabled: false,
+                                    key: 1,
+                                    value: 'Basic'
+                                },
+                                {
+                                    disabled: id !== undefined && accessProfile !== null ? !accessProfile.canViewDocuments : true,
+                                    key: 2,
+                                    value: 'documents'
+                                },
+                                {
+                                    disabled: id !== undefined && accessProfile !== null ? !accessProfile.canViewContact : true,
+                                    key: 3,
+                                    value: 'contact'
+                                },
+                                {
+                                    disabled: id !== undefined && accessProfile !== null ? !accessProfile.canViewLocation : true,
+                                    key: 4,
+                                    value: 'address'
+                                },
+                                {
+                                    disabled: id !== undefined && accessProfile !== null ? !accessProfile.canViewCollaboration : true,
+                                    key: 5,
+                                    value: 'collaborations'
+                                }
+                            ]}
+                        />
+                    </div>
+                    :
+                    null
+                }
+            </ThemeProvider>
         )
     else
         return <></>

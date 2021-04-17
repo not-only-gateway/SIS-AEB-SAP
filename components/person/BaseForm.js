@@ -9,7 +9,7 @@ import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import getTitle from "../../utils/person/GetTitle";
 import mainStyles from '../../styles/shared/Main.module.css'
-import getComponentLanguage from "../../utils/person/GetLanguage";
+import getComponentLanguage from "../../utils/shared/GetLanguage";
 import {DeleteForeverRounded} from "@material-ui/icons";
 import ImageHost from "../../utils/shared/ImageHost";
 import {getIconStyle} from "../../styles/shared/MainStyles";
