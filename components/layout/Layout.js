@@ -27,16 +27,22 @@ export default function Layout({children}) {
         setThemeCookie()
     }
 
-
-    return (
-        <div style={getSecondaryBackground({dark: dark})}>
-            <div className={styles.page_container}
-                 id={'scrollableDiv'} style={{width: reduced ? '96vw' : '85vw', transform: reduced ? 'translateX(4vw)' :'translateX(15vw)' }}>
-                <div className={styles.children_container}>
-                    {children}
+    if (router.pathname !== '/signin')
+        return (
+            <div style={getSecondaryBackground({dark: dark})}>
+                <div className={styles.page_container}
+                     id={'scrollableDiv'} style={{width: reduced ? '96vw' : '85vw', transform: reduced ? 'translateX(4vw)' :'translateX(15vw)' }}>
+                    <div className={styles.children_container}>
+                        {children}
+                    </div>
                 </div>
+                <Navigation dark={dark} locale={router.locale} path={router.pathname} reduced={reduced} setReduced={setReduced}/>
             </div>
-            <Navigation dark={dark} locale={router.locale} path={router.pathname} reduced={reduced} setReduced={setReduced}/>
-        </div>
-    )
+        )
+    else
+        return (
+            <>
+                {children}
+            </>
+        )
 }

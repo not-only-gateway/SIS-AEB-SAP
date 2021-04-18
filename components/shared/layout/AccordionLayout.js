@@ -14,6 +14,7 @@ export default function AccordionLayout(props) {
     const [open, setOpen] = useState(false)
     return (
         <div style={{
+            ...props.background ? getPrimaryBackground({dark: props.dark}) : null,
             ...{
                 width: open ? (props.openSize !== null ? props.openSize + 'vw' : 'fit-content') : props.closedSize + 'vw',
                 minWidth: props.openSize === null ? '45vw' : props.closedSize,
@@ -62,5 +63,5 @@ AccordionLayout.propTypes = {
     border: PropTypes.any,
     disabled: PropTypes.bool,
     key: PropTypes.number,
-    background: PropTypes.any
+    background: PropTypes.bool
 }

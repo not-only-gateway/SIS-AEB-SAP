@@ -89,8 +89,8 @@
 
 .tree code:before,
 .tree span:before {
-    height: .4rem;
-    top: -.55em;
+    height: .45rem;
+    top: -.50em;
 }
 
 .tree > li {

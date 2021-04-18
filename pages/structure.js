@@ -10,7 +10,7 @@ import SubjectLayout from "../components/structure/SubjectLayout";
 import AccordionLayout from "../components/shared/layout/AccordionLayout";
 import mainStyles from '../styles/shared/Main.module.css'
 import shared from "../styles/shared/Shared.module.css";
-import {getIconStyle} from "../styles/shared/MainStyles";
+import {getIconStyle, getPrimaryBackground} from "../styles/shared/MainStyles";
 import {ExtensionRounded, ViewQuiltRounded} from "@material-ui/icons";
 import GetPageTitle from "../utils/shared/GetPageTitle";
 
@@ -52,7 +52,9 @@ export default function Structure() {
                     type: dark ? "dark" : "light"
                 }
             })}>
+
                 <GetPageTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.information} dark={dark}/>
+
                 <div className={styles.tree_container}>
                     <AccordionLayout
                         content={topUnits.map((unit, index) => {
@@ -76,6 +78,7 @@ export default function Structure() {
                                 <p className={mainStyles.secondaryParagraph}>{lang.units}</p>
                             </div>
                         }
+                        background={true}
                         dark={dark}
                         closedSize={45}
                         openSize={null}
@@ -105,6 +108,7 @@ export default function Structure() {
                                 <p className={mainStyles.secondaryParagraph}>{lang.collaborators}</p>
                             </div>
                         }
+                        background={true}
                         dark={dark}
                         closedSize={45}
                         openSize={null}
