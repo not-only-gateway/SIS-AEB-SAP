@@ -17,7 +17,7 @@ export default function NavigationButtonLayout(props) {
              style={{
                  ...{
                      borderRadius: '0px 8px 8px 0px ',
-                     borderLeft: props.highlight ? '#39adf6 3px solid' : 'transparent 2px solid'
+                     borderLeft: props.highlight ? 'black 3px solid' : 'transparent 3px solid'
                  },
                  ...props.highlight ? getTertiaryBackground({dark: props.dark}) : null,
                  ...props.highlight ? getBoxShadow({dark: props.dark}) : null
@@ -66,5 +66,4 @@ NavigationButtonLayout.propTypes = {
     reduced: PropTypes.bool,
     setToggle: PropTypes.func,
     initialValue: PropTypes.bool,
-
 }

@@ -60,10 +60,16 @@
     width: 45vw;
 }
 .mediumWidth{
-    width: 40vw;
+    width: 43vw;
 }
 .smallWidth{
     width: 38vw;
+}
+.displayColumnSpaced{
+    display: grid;
+    /*justify-content: center;*/
+    align-items: center;
+    align-content: space-between;
 }
 /*DISPLAY*/
 

@@ -17,14 +17,3 @@ export const searchFieldStyle = {
     justifyContent:'space-around',
     borderRadius:'8px',
 }
-
-export const secondaryButtonStyle = {
-    textTransform: 'none',
-    fontSize: '.85rem',
-
-    height: 'fit-content',
-    fontWeight: '400'
-}
-export const logoStyle = {
-    width: '7vw',
-}

@@ -15,7 +15,7 @@ import {searchFieldStyle} from "../../styles/shared/BarMaterialStyles";
 import {BackspaceRounded, MenuRounded, SearchRounded} from "@material-ui/icons";
 import React, {useEffect, useState} from "react";
 import {getBorder, getBoxShadow, getPrimaryBackground, getTertiaryBackground} from "../../styles/shared/MainStyles";
-
+import mainStyles from '../../styles/shared/Main.module.css'
 
 export default function IndexComponent(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -29,15 +29,13 @@ export default function IndexComponent(props) {
     }, [props.option])
 
     return (
-        <div className={styles.paper_container} key={'index-filter-component'}>
+        <div className={[mainStyles.baseWidth, mainStyles.normalBorder].join(' ')} key={'index-filter-component'}>
             <Paper component="form"
                    onMouseEnter={() => setHovered(true)}
                    onMouseLeave={() => setHovered(false)}
                    elevation={false}
                    style={{
                        ...getPrimaryBackground({dark: props.dark}),
-                       ...getBoxShadow({dark: props.dark}),
-                       ...getBorder({dark: props.dark, hovered: hovered}),
                        ...searchFieldStyle,
                    }}>
                 <IconButton aria-controls="menu" aria-haspopup="true"

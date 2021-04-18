@@ -16,6 +16,7 @@ import PropTypes from 'prop-types'
 import {readAccessProfile, readProfile} from "../../utils/shared/IndexedDB";
 import mainStyles from '../../styles/shared/Main.module.css'
 import {
+    getBorder,
     getBoxShadow,
     getIconStyle,
     getPrimaryBackground,
@@ -24,8 +25,6 @@ import {
 } from "../../styles/shared/MainStyles";
 import NavigationButtonLayout from "./NavigationButtonLayout";
 import getComponentLanguage from "../../utils/shared/GetLanguage";
-import Link from 'next/link'
-import SimpleProfileCardLayout from "../shared/layout/SimpleProfileCardLayout";
 import ImageHost from "../../utils/shared/ImageHost";
 
 const cookies = new Cookies()
@@ -57,7 +56,8 @@ export default function Navigation(props) {
                      borderRadius: '0px 8px 8px 0px'
                  },
                  ...getPrimaryBackground({dark: props.dark}),
-                 ...props.dark ? getBoxShadow({dark: props.dark}) : {boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px'}
+                 // ...getBoxShadow({dark: props.dark}),
+                 ...getBorder({dark: props.dark})
              }}>
             <div className={mainStyles.displayInlineSpaced} style={{width: props.reduced ? 'fit-content' : '87%'}}>
                 {props.reduced ? null :
@@ -66,11 +66,11 @@ export default function Navigation(props) {
                 <NavigationButtonLayout
                     dark={props.dark} linkPath={null}
                     highlight={!props.reduced} locale={props.locale}
-                    label={'Testing'} reduced={props.reduced}
+                    reduced={props.reduced}
                     setToggle={props.setReduced}
                     initialValue={props.reduced}
                     icon={<ArrowForwardRounded style={{
-                        ...getIconStyle({dark: props.dark}), ...{
+                        ...getIconStyle({dark: props.dark, highlight: !props.reduced}), ...{
                             transition: '.3s',
                             transform: !props.reduced ? 'rotate(180deg)' : null
                         }
@@ -84,7 +84,7 @@ export default function Navigation(props) {
                         highlight={props.path === '/menu'} locale={props.locale}
                         label={lang.menu} reduced={props.reduced}
                         icon={<SupervisorAccountRounded
-                            style={getIconStyle({dark: props.dark})}/>}
+                            style={getIconStyle({dark: props.dark, highlight: props.path === '/menu'})}/>}
                     />
                     : null}
                 <Divider orientation={'horizontal'} style={{width: '100%'}}/>
@@ -93,7 +93,7 @@ export default function Navigation(props) {
                     highlight={props.path === '/'} locale={props.locale}
                     label={lang.extensions} reduced={props.reduced}
                     icon={<ExtensionRounded
-                        style={getIconStyle({dark: props.dark})}/>}
+                        style={getIconStyle({dark: props.dark, highlight: props.path === '/'})}/>}
                 />
 
                 <NavigationButtonLayout
@@ -101,7 +101,7 @@ export default function Navigation(props) {
                     highlight={props.path === '/structure'} locale={props.locale}
                     label={lang.structure} reduced={props.reduced}
                     icon={<AccountTreeRounded
-                        style={getIconStyle({dark: props.dark})}/>}
+                        style={getIconStyle({dark: props.dark, highlight: props.path === '/structure'})}/>}
                 />
                 <Divider orientation={'horizontal'} style={{width: '100%'}}/>
                 <NavigationButtonLayout

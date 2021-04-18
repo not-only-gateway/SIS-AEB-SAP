@@ -23,14 +23,19 @@ export function getTertiaryColor(props) {
 
 export function getPrimaryBackground(props) {
     return {
-        backgroundColor: props.dark ? '#303741' : 'white'
+        backgroundColor: props.dark ? '#303741' : 'white',
+        boxShadow: props.dark ? null : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px'
+            // 'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px'
+        // 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px'
+        // 'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px'
+            // 'rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px'
 
     }
 }
 
 export function getSecondaryBackground(props) {
     return {
-        backgroundColor: props.dark ? '#262d37' : '#fbfbfb'
+        backgroundColor: props.dark ? '#262d37' : '#f5f6f8'
     }
 }
 
@@ -47,7 +52,7 @@ export function getQuaternaryBackground(props) {
 
 export function getBorder(props) {
     return {
-        border: props.hovered === true ? '#39adf6 1px solid' : !props.dark ? '#e2e2e2 1px solid' : 'transparent 1px solid'
+        borderLeft: !props.dark ?' black 2px solid ': 'transparent 1px solid'
     }
 }
 
@@ -60,7 +65,7 @@ export function getIconStyle(props) {
         marginRight: '10px',
         marginLeft: '10px',
         fontSize: '1.6rem',
-        color: props.highlight ? '#39adf6' : !props.dark ? '#777777' : '#ededed'
+        color: props.highlight ? props.dark ? 'black' : '' : !props.dark ? '#777777' : '#ededed'
     }
 }
 

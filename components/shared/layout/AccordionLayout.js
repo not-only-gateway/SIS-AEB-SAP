@@ -4,7 +4,7 @@ import {ArrowDownwardRounded} from "@material-ui/icons";
 import React, {useState} from "react";
 import shared from '../../../styles/shared/Shared.module.css'
 import {
-    getBorder,
+    getBorder, getBoxShadow,
     getPrimaryBackground,
     getSecondaryBackground,
     getTertiaryBackground
@@ -17,12 +17,10 @@ export default function AccordionLayout(props) {
             ...{
                 width: open ? (props.openSize !== null ? props.openSize + 'vw' : 'fit-content') : props.closedSize + 'vw',
                 minWidth: props.openSize === null ? '45vw' : props.closedSize,
-                // border: (props.border === undefined || props.border === null) ? (open ? '#39adf6 2px solid' : (!props.dark ? '#e2e2e2 1px solid' : null)) : props.border,
-                // boxShadow: open ? (!props.dark ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'initial') : props.dark ? 'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px' : null,
                 transition: '.3s'
             },
-            ...getPrimaryBackground({dark: props.dark}),
-            ...getBorder({dark: props.dark})
+            ...(props.border === undefined || props.border === null) ?  getBorder({dark: props.dark}) : {borderLeft: props.border},
+            ...props.dark ? (open ? getBoxShadow({dark: props.dark}) : null) : (open ? {boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px'} : null)
         }} className={shared.accordion_container} key={'accordion-' + props.key}>
             <Button onClick={() => setOpen(!open)} disabled={props.disabled}
                     style={{

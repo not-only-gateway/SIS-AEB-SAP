@@ -7,6 +7,7 @@ import saveComponentChanges from "../../utils/person/SaveChanges";
 import getTitle from "../../utils/person/GetTitle";
 import mainStyles from '../../styles/shared/Main.module.css'
 import getComponentLanguage from "../../utils/shared/GetLanguage";
+import {getPrimaryBackground} from "../../styles/shared/MainStyles";
 
 export default function ContactForm(props) {
 
@@ -56,35 +57,38 @@ export default function ContactForm(props) {
 
     if (!loading && lang !== null)
         return (
-            <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth].join(' ')}>
-                {getTitle({
-                    pageTitle: lang.title,
-                    pageInfo: lang.info,
-                    dark: props.dark
-                })}
-                <InputLayout inputName={lang.email} dark={props.dark} handleChange={setEmail}
-                             inputType={0} disabled={!props.editable} size={49} required={true}
-                             initialValue={email} key={"3-1"} setChanged={setChanged}/>
+            <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.baseWidth].join(' ')} style={{
+                ...getPrimaryBackground({dark: props.dark}), ...{
+                    transform: 'translateY(3vh)',
+                    justifyContent: 'center'
+                }
+            }}>
+                <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth].join(' ')}
+                     style={{marginTop: '2vh'}}>
+                    <InputLayout inputName={lang.email} dark={props.dark} handleChange={setEmail}
+                                 inputType={0} disabled={!props.editable} size={49} required={true}
+                                 initialValue={email} key={"3-1"} setChanged={setChanged}/>
 
-                <InputLayout inputName={lang.altEmail} dark={props.dark} handleChange={setEmailAlt}
-                             inputType={0} disabled={!props.editable} size={49} required={false}
-                             initialValue={emailAlt} key={"3-2"} setChanged={setChanged}/>
+                    <InputLayout inputName={lang.altEmail} dark={props.dark} handleChange={setEmailAlt}
+                                 inputType={0} disabled={!props.editable} size={49} required={false}
+                                 initialValue={emailAlt} key={"3-2"} setChanged={setChanged}/>
 
-                <InputLayout inputName={lang.phone} dark={props.dark} handleChange={setPhone}
-                             inputType={0} disabled={!props.editable} size={49} required={true}
-                             initialValue={phone} key={"3-3"} setChanged={setChanged}/>
+                    <InputLayout inputName={lang.phone} dark={props.dark} handleChange={setPhone}
+                                 inputType={0} disabled={!props.editable} size={49} required={true}
+                                 initialValue={phone} key={"3-3"} setChanged={setChanged}/>
 
-                <InputLayout inputName={lang.altPhone} dark={props.dark} handleChange={setPhoneAlt}
-                             inputType={0} disabled={!props.editable} size={49} required={false}
-                             initialValue={phoneAlt} key={"3-4"} setChanged={setChanged}/>
+                    <InputLayout inputName={lang.altPhone} dark={props.dark} handleChange={setPhoneAlt}
+                                 inputType={0} disabled={!props.editable} size={49} required={false}
+                                 initialValue={phoneAlt} key={"3-4"} setChanged={setChanged}/>
 
-                <Button style={{
-                    width: '43vw', margin: 'auto auto .8vw',
-                    backgroundColor: disabled() ? null : '#39adf6',
-                    color: disabled() ? null : 'white'
-                }} variant={'contained'} disableElevation
-                        disabled={disabled()}
-                        onClick={() => saveChanges()}>{lang.save}</Button>
+                    <Button style={{
+                        width: '43vw', margin: 'auto auto .8vw',
+                        backgroundColor: disabled() ? null : '#39adf6',
+                        color: disabled() ? null : 'white'
+                    }} variant={'contained'} disableElevation
+                            disabled={disabled()}
+                            onClick={() => saveChanges()}>{lang.save}</Button>
+                </div>
             </div>
         )
     else

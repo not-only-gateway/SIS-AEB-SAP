@@ -6,6 +6,8 @@ import PropTypes from 'prop-types'
 import fetchComponentData from "../../../utils/person/FetchData";
 import saveComponentChanges from "../../../utils/person/SaveChanges";
 import getTitle from "../../../utils/person/GetTitle";
+import mainStyles from "../../../styles/shared/Main.module.css";
+import {getPrimaryBackground} from "../../../styles/shared/MainStyles";
 
 export default function AddressForm(props) {
 
@@ -32,7 +34,7 @@ export default function AddressForm(props) {
     }
 
     useEffect(() => {
-        fetchComponentData({path: 'address/'+props.id, params: {}}).then(res => {
+        fetchComponentData({path: 'address/' + props.id, params: {}}).then(res => {
             if (res !== null) {
                 setZipCode(res.zip_code)
                 setAddress(res.address)
@@ -50,7 +52,7 @@ export default function AddressForm(props) {
     async function saveChanges() {
         await saveComponentChanges(
             {
-                path: 'address/'+props.id,
+                path: 'address/' + props.id,
                 params: {
                     zip_code: zipCode,
                     address: address,
@@ -72,56 +74,60 @@ export default function AddressForm(props) {
 
     if (!loading)
         return (
-            <div className={styles.form_component_container}>
-                {getTitle({
-                    pageTitle: 'Basic',
-                    pageInfo: 'Basic form',
-                    dark: props.dark
-                })}
-                <InputLayout inputName={'Address'} dark={props.dark} handleChange={setAddress} inputType={0}
-                             disabled={!props.editable} size={49} required={true} initialValue={address}
-                             key={"4-1"} setChanged={setChanged}/>
-                <InputLayout inputName={'Complement'} dark={props.dark} handleChange={setComplement} inputType={0}
-                             disabled={!props.editable} size={49} required={false} initialValue={complement}
-                             key={"4-2"} setChanged={setChanged}/>
+            <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.baseWidth].join(' ')} style={{
+                ...getPrimaryBackground({dark: props.dark}), ...{
+                    transform: 'translateY(3vh)',
+                    justifyContent: 'center'
+                }
+            }}>
+                <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth].join(' ')}
+                     style={{marginTop: '2vh'}}>
 
-                <InputLayout inputName={'Zip Code'} dark={props.dark} handleChange={setZipCode} inputType={0}
-                             disabled={!props.editable} size={32} required={true} initialValue={zipCode}
-                             key={"4-3"} setChanged={setChanged}/>
-                <InputLayout inputName={'Street'} dark={props.dark} handleChange={setStreet} inputType={0}
-                             disabled={!props.editable} size={32} required={false} initialValue={street}
-                             key={"4-4"} setChanged={setChanged}/>
-                <InputLayout inputName={'Neighborhood'} dark={props.dark} handleChange={setNeighborhood} inputType={0}
-                             disabled={!props.editable} size={32} required={false} initialValue={neighborhood}
-                             key={"4-5"} setChanged={setChanged}/>
+                    <InputLayout inputName={'Address'} dark={props.dark} handleChange={setAddress} inputType={0}
+                                 disabled={!props.editable} size={49} required={true} initialValue={address}
+                                 key={"4-1"} setChanged={setChanged}/>
+                    <InputLayout inputName={'Complement'} dark={props.dark} handleChange={setComplement} inputType={0}
+                                 disabled={!props.editable} size={49} required={false} initialValue={complement}
+                                 key={"4-2"} setChanged={setChanged}/>
 
-                <InputLayout inputName={'City'} dark={props.dark} handleChange={setCity} inputType={0}
-                             disabled={!props.editable} size={32} required={true} initialValue={city}
-                             key={"4-6"} setChanged={setChanged}/>
-                <InputLayout inputName={'State'} dark={props.dark} handleChange={setState} inputType={0}
-                             disabled={!props.editable} size={32} required={true} initialValue={state}
-                             key={"4-7"} setChanged={setChanged}/>
-                <InputLayout inputName={'State Initials'} dark={props.dark} handleChange={setStateInitials}
-                             inputType={0}
-                             disabled={!props.editable} size={32} required={true} initialValue={stateInitials}
-                             key={"4-8"} setChanged={setChanged}/>
+                    <InputLayout inputName={'Zip Code'} dark={props.dark} handleChange={setZipCode} inputType={0}
+                                 disabled={!props.editable} size={32} required={true} initialValue={zipCode}
+                                 key={"4-3"} setChanged={setChanged}/>
+                    <InputLayout inputName={'Street'} dark={props.dark} handleChange={setStreet} inputType={0}
+                                 disabled={!props.editable} size={32} required={false} initialValue={street}
+                                 key={"4-4"} setChanged={setChanged}/>
+                    <InputLayout inputName={'Neighborhood'} dark={props.dark} handleChange={setNeighborhood}
+                                 inputType={0}
+                                 disabled={!props.editable} size={32} required={false} initialValue={neighborhood}
+                                 key={"4-5"} setChanged={setChanged}/>
+
+                    <InputLayout inputName={'City'} dark={props.dark} handleChange={setCity} inputType={0}
+                                 disabled={!props.editable} size={32} required={true} initialValue={city}
+                                 key={"4-6"} setChanged={setChanged}/>
+                    <InputLayout inputName={'State'} dark={props.dark} handleChange={setState} inputType={0}
+                                 disabled={!props.editable} size={32} required={true} initialValue={state}
+                                 key={"4-7"} setChanged={setChanged}/>
+                    <InputLayout inputName={'State Initials'} dark={props.dark} handleChange={setStateInitials}
+                                 inputType={0}
+                                 disabled={!props.editable} size={32} required={true} initialValue={stateInitials}
+                                 key={"4-8"} setChanged={setChanged}/>
 
 
-                <Button style={{
-                    width: '43vw',  margin: 'auto auto .8vw',
-                    backgroundColor: disabled() ? null : '#39adf6',
-                    color: disabled() ? null : 'white'
-                }} variant={'contained'} disableElevation
-                        disabled={disabled()}
-                        onClick={() => saveChanges()}>Save</Button>
-
+                    <Button style={{
+                        width: '43vw', margin: 'auto auto .8vw',
+                        backgroundColor: disabled() ? null : '#39adf6',
+                        color: disabled() ? null : 'white'
+                    }} variant={'contained'} disableElevation
+                            disabled={disabled()}
+                            onClick={() => saveChanges()}>Save</Button>
+                </div>
             </div>
         )
     else
         return null
 }
 
-AddressForm.propTypes={
+AddressForm.propTypes = {
     id: PropTypes.number,
     dark: PropTypes.bool,
     visible: PropTypes.bool,

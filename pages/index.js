@@ -70,12 +70,12 @@ export default function Index() {
                 <div className={shared.header_container}
                      style={getSecondaryBackground({dark: dark})}>
                     <GetPageTitle pageName={lang.extensions} pageTitle={lang.extensions}
-                                    pageInfo={getPageInfo({
-                                        info1: lang.info1,
-                                        info2: lang.info2,
-                                        info3: lang.info3,
-                                        option: option
-                                    })} dark={dark}/>
+                                  pageInfo={getPageInfo({
+                                      info1: lang.info1,
+                                      info2: lang.info2,
+                                      info3: lang.info3,
+                                      option: option
+                                  })} dark={dark}/>
 
                     <IndexComponent dark={dark} setData={setData} setOption={setOption}
                                     option={option} lang={lang} setLoading={setLoading} fetchData={fetchData}
@@ -97,14 +97,13 @@ export default function Index() {
                             endMessage={
                                 <div
                                     className={[mainStyles.marginVertical, mainStyles.normalBorder, mainStyles.smallPaddingVertical, mainStyles.baseWidth].join(' ')}
-                                    style={{...getPrimaryBackground({dark: dark}), ...getBorder({dark: dark}), ...getBoxShadow({dark: dark})}}>
+                                    style={{...getPrimaryBackground({dark: dark}), ...{transform: 'translateY(.9vw)'},}}>
                                     <p className={mainStyles.secondaryParagraph}
                                        style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.end}</p>
                                 </div>
                             }
                         >
                             <div className={styles.personas_container}>
-                                {accessProfile}
                                 {data.map(collaborator =>
                                     <PersonCard
                                         profile={collaborator.profile}
@@ -114,17 +113,17 @@ export default function Index() {
                                         dark={dark}
                                         inactiveLocale={lang.inactive}
                                     />
-                                )
-                                }
+                                )}
+
                             </div>
                         </InfiniteScroll>
                         :
                         <div
                             className={[mainStyles.baseWidth, mainStyles.normalBorder, mainStyles.displayInlineCenter].join(' ')}
                             style={{
+                                ...{transform: 'translateY(.9vw)'},
                                 ...getTertiaryBackground({dark: dark}),
-                                ...getBoxShadow({dark: dark}),
-                                ...getBorder({dark: dark})
+                                ...getBoxShadow({dark: dark})
                             }}>
                             <p className={mainStyles.secondaryParagraph}
                                style={getTertiaryColor({dark: dark})}>{lang.nothingFound}</p>

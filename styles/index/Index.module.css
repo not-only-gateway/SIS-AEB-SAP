@@ -1,5 +1,6 @@
 
 .personas_container {
+    transform: translateY(.9vw);
     display: inline-flex;
     flex-wrap: wrap;
     gap: .9vw;
@@ -7,19 +8,13 @@
 }
 
 .cardContainer {
-    display: grid;
-    justify-content: space-between;
-
     overflow: hidden;
-    width: 22.05vw;
-    height: calc(15vh + 1px);
-    border: transparent 3px solid;
-    transition: 0.3s;
+    width: 10.575vw;
+    height: 30vh;
+    transition: 0.2s;
+    /*border-left: transparent 2px solid;*/
     animation-duration: .2s;
     animation-name: pop_in;
-}
-.cardContainer:hover{
-    border: #39adf6 3px solid;
 }
 @keyframes pop_in {
     from {
@@ -29,9 +24,4 @@
     to {
         transform: scale(1);
     }
-}
-.paper_container{
-    width: calc(45vw + 2px);
-    border-radius: 8px;
-    transition: 0.2s;
 }

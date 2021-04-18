@@ -12,7 +12,6 @@
     z-index: 2;
     display: grid;
     justify-items: center;
-    margin-bottom: .9vw;
 }
 
 .card_title{
@@ -45,8 +44,8 @@
     animation-name: pop_in;
 }
 .accordion_container{
-    border-radius: 8px;
     transition: .3s;
+    border-radius: 0 8px 8px 0;
     height: fit-content;
     animation-duration: .2s;
     animation-name: pop_in;

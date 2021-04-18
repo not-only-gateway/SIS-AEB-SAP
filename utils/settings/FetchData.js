@@ -3,7 +3,7 @@ import Host from "../shared/Host";
 import Cookies from "universal-cookie/lib";
 
 export default async function fetchSettingsData(){
-    let response = null
+    let response = []
     await axios({
         method: 'get',
         url: Host() + 'collaborations/active',

@@ -20,7 +20,6 @@
     gap: .8vw;
     align-content: space-between;
     border-radius: 8px;
-    width: 40vw;
 }
 .form_container{
     display: grid;

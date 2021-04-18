@@ -12,7 +12,8 @@ import mainStyles from '../../styles/shared/Main.module.css'
 import getComponentLanguage from "../../utils/shared/GetLanguage";
 import {DeleteForeverRounded} from "@material-ui/icons";
 import ImageHost from "../../utils/shared/ImageHost";
-import {getIconStyle} from "../../styles/shared/MainStyles";
+import {getIconStyle, getPrimaryBackground} from "../../styles/shared/MainStyles";
+import AvatarLayout from "../shared/AvatarLayout";
 
 export default function BaseForm(props) {
 
@@ -51,7 +52,7 @@ export default function BaseForm(props) {
 
                     setDisabledPerson(res.disabled_person)
 
-                    if(props.editable){
+                    if (props.editable) {
                         setEducation(res.education)
                         setMarital(res.marital_status)
                         setFather(res.father_name)
@@ -60,7 +61,7 @@ export default function BaseForm(props) {
                     }
 
                     if (res.image !== null)
-                        setPic({imageData: ImageHost()+res.image})
+                        setPic({imageData: ImageHost() + res.image})
                     setNationality(res.nationality)
                 }
                 setLoading(false)
@@ -79,7 +80,7 @@ export default function BaseForm(props) {
 
     async function saveChanges() {
         let formData = new FormData()
-        if(pic !== null && pic.image !== undefined)
+        if (pic !== null && pic.image !== undefined)
             formData.append('image', pic.image[0])
 
         formData.append('name', name.toString())
@@ -142,9 +143,9 @@ export default function BaseForm(props) {
     function getFile(event) {
         let reader = new FileReader()
 
-        if(event.target.files.length > 0) {
+        if (event.target.files.length > 0) {
             reader.readAsDataURL(event.target.files[0])
-            reader.onload= () => {
+            reader.onload = () => {
                 setPic({
                     image: event.target.files,
                     imageData: reader.result
@@ -162,27 +163,30 @@ export default function BaseForm(props) {
                 style={{marginBottom: '2vh'}}>
                 <InputLayout inputName={lang.father} dark={props.dark} handleChange={setFather}
                              inputType={0}
-                             disabled={!props.editable} size={props.create ? 32: 30} required={false} initialValue={father}
+                             disabled={!props.editable} size={props.create ? 32 : 30} required={false}
+                             initialValue={father}
                              key={"1-3"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.mother} dark={props.dark} handleChange={setMother}
                              inputType={0}
-                             disabled={!props.editable} size={props.create ? 32: 30} required={false} initialValue={mother}
+                             disabled={!props.editable} size={props.create ? 32 : 30} required={false}
+                             initialValue={mother}
                              key={"1-4"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.birthPlace} dark={props.dark}
                              handleChange={setBirthPlace} inputType={0}
-                             disabled={!props.editable} size={props.create ? 32: 30} required={true}
+                             disabled={!props.editable} size={props.create ? 32 : 30} required={true}
                              initialValue={birthPlace}
                              key={"1-5"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.education} dark={props.dark}
                              handleChange={setEducation}
                              inputType={1}
-                             disabled={!props.editable} size={props.create ? 49: 46} required={true}
+                             disabled={!props.editable} size={props.create ? 49 : 46} required={true}
                              initialValue={education}
                              selectFields={lang.educationChoice}
                              key={"1-9"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.marital} dark={props.dark} handleChange={setMarital}
                              inputType={1}
-                             disabled={!props.editable} size={props.create ? 49: 46} required={true} initialValue={marital}
+                             disabled={!props.editable} size={props.create ? 49 : 46} required={true}
+                             initialValue={marital}
                              selectFields={lang.maritalChoice}
                              key={"1-11"} setChanged={setChanged}/>
             </div>
@@ -191,31 +195,29 @@ export default function BaseForm(props) {
 
     if (!loading && lang !== null)
         return (
-            <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth].join(' ')}
-                 style={{marginTop: props.create ? '2vh' : null}}>
-                {!props.create ? getTitle({
-                    pageTitle: lang.title,
-                    pageInfo: lang.info,
-                    dark: props.dark
-                }) : null}
-                <div className={[mainStyles.displayInlineSpaced, mainStyles.mediumWidth].join(' ')}>
+            <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.baseWidth].join(' ')}
+                 style={{...getPrimaryBackground({dark: props.dark}),...{transform: 'translateY(3vh)', justifyContent: 'center'}}}>
+                <div className={[mainStyles.displayInlineSpaced, mainStyles.mediumWidth, mainStyles.normalBorder].join(' ')} style={{marginTop: '2vh'}}>
                     {!props.editable || pic !== null ? null :
                         <input id='profile-image-input' type={'file'} accept={'image/*'} onChange={getFile}
                                style={{display: 'none'}}/>}
                     <label htmlFor={'profile-image-input'}>
-                        <Button disabled={!props.editable || pic !== null} component={'span'}>
-                            <Avatar src={pic !== null ? pic.imageData : null} style={{width: '120px', height: '120px'}}/>
+                        <Button disabled={!props.editable || pic !== null} component={'span'} style={{padding: '0'}}>
+                            <AvatarLayout dark={props.dark} cakeDay={false} key={props.id} image={pic !== null ? pic.imageData : null}/>
+                            {/*<Avatar src={pic !== null ? pic.imageData : null}*/}
+                            {/*        style={{width: '120px', height: '120px'}}/>*/}
                         </Button>
                     </label>
                     {!props.editable ? null : pic !== null ?
-                        <Button onClick={() => setPic(null)}><DeleteForeverRounded style={getIconStyle({dark: props.dark})}/></Button> : null}
+                        <Button onClick={() => setPic(null)}><DeleteForeverRounded
+                            style={getIconStyle({dark: props.dark})}/></Button> : null}
                     <InputLayout inputName={lang.name} dark={props.dark} handleChange={setName} inputType={0}
                                  disabled={!props.editable} size={pic !== null ? 70 : 79} required={true}
                                  initialValue={name}
                                  key={"1-1"} setChanged={setChanged} margin={false}/>
                 </div>
                 <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth].join(' ')}
-                     style={{marginBottom: props.editable ? null : '2vh'}}>
+                     style={{...{marginBottom: props.editable ? null : '2vh'}}}>
 
                     <InputLayout inputName={lang.corporateEmail} dark={props.dark}
                                  handleChange={setCorporateEmail}
@@ -258,8 +260,8 @@ export default function BaseForm(props) {
                                     <p>{lang.more}</p>
                                 }
                                 disabled={!props.visible}
-                                closedSize={40}
-                                openSize={40}
+                                closedSize={43}
+                                openSize={43}
                                 border={null}
                                 dark={props.dark}
                                 background={'#484c55'}
