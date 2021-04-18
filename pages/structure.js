@@ -52,9 +52,7 @@ export default function Structure() {
                     type: dark ? "dark" : "light"
                 }
             })}>
-                <div style={{position: 'relative', marginRight: 'auto'}}>
-                    <GetPageTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.information} dark={dark}/>
-                </div>
+                <GetPageTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.information} dark={dark}/>
                 <div className={styles.tree_container}>
                     <AccordionLayout
                         content={topUnits.map((unit, index) => {

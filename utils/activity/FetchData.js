@@ -4,10 +4,10 @@ import Host from "../shared/Host";
 import PropTypes from 'prop-types'
 
 export default async function fetchActivityData(props) {
-
+    console.log(props.method)
     await makeRequest({
         package: {
-            start_date: props.startDate !== null ? props.startDate.getTime() : null,
+            start_date: props.startDate !== null  && props.startDate !== undefined? props.startDate.getTime() : null,
             ip: props.thisMachine ? localIpUrl('public') : null,
             method: props.method,
             path: props.path,
@@ -30,14 +30,15 @@ export default async function fetchActivityData(props) {
                     props.setLastFetchedSize(response.data.length)
                     break
                 }
-                default: {
-                    console.log('case default')
+                case 1: {
                     props.setData(response.data)
                     if (response.data.length > 0)
                         props.setMaxID(response.data[response.data.length - 1].id)
                     props.setLastFetchedSize(response.data.length)
                     break
                 }
+                default:
+                    break
             }
 
         }

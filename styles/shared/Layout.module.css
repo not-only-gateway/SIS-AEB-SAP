@@ -8,13 +8,8 @@
     overflow-x: hidden;
 }
 .children_container{
-    width: 45vw;
-    min-height: 100vh;
     display: grid;
-    overflow: hidden;
     justify-items: center;
-    align-items: flex-start;
-    align-content: flex-start;
     margin: auto;
 }
 .left{

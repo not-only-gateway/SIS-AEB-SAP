@@ -36,7 +36,7 @@ export default function ActivityComponent(props) {
                         <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: props.dark})}>Package</p>
                         <Divider orientation={'horizontal'}
                                  style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
-                        <div className={mainStyles.normalBorder} style={getBorder({dark: props.dark})}>
+                        <div className={mainStyles.normalBorder} >
                             <pre className={mainStyles.primaryParagraph}
                                  style={getTertiaryColor({dark: props.dark})}>{JSON.stringify(JSON.parse(props.activity.data_package), null, 2)}</pre>
                         </div>
@@ -106,8 +106,8 @@ export default function ActivityComponent(props) {
                 </div>
             }
             key={props.activity.id}
-            closedSize={45}
-            openSize={45}
+            closedSize={43}
+            openSize={43}
             dark={props.dark}
             border={color !== null ? color + ' 2px solid' : null}
         />

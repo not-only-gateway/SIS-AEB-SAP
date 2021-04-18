@@ -21,7 +21,7 @@ export default function InputLayout(props) {
                                    borderRadius: '8px'
                                }, ...getSecondaryBackground({dark: props.dark})}}
                                onChange={event => {
-                                   props.handleChange(event.target.value)
+                                   props.handleChange({name: props.name, value: event.target.value})
                                    if (props.setChanged !== undefined)
                                        props.setChanged(true)
                                }}
@@ -50,7 +50,7 @@ export default function InputLayout(props) {
                             value={props.initialValue}
                             disabled={props.disabled}
                             onChange={event => {
-                                props.handleChange(event.target.value)
+                                props.handleChange({name: props.name, value: event.target.value})
                                 if (props.setChanged !== undefined)
                                     props.setChanged(true)
                             }}
@@ -90,7 +90,7 @@ export default function InputLayout(props) {
                                 format="dd/MM/yyyy"
                                 value={props.initialValue}
                                 onChange={event => {
-                                    props.handleChange(event)
+                                    props.handleChange({name: props.name, value: event})
                                     if (props.setChanged !== undefined)
                                         props.setChanged(true)
                                 }}
@@ -122,7 +122,7 @@ export default function InputLayout(props) {
                             error={props.required === true && (props.initialValue === null || props.initialValue === undefined || props.initialValue.length === 0)}
                             value={props.initialValue}
                             onChange={event => {
-                                props.handleChange(event.target.value)
+                                props.handleChange({name: props.name, value: event.target.value})
                                 if (props.setChanged !== undefined)
                                     props.setChanged(true)
                             }}
@@ -152,5 +152,6 @@ InputLayout.propTypes = {
     inputName: PropTypes.string,
     key: PropTypes.number,
     margin: PropTypes.bool,
+    name: PropTypes.string,
     setChanged: PropTypes.func
 }

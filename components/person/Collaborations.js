@@ -35,13 +35,16 @@ export default function Collaborations(props) {
         return (
             <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.baseWidth].join(' ')} style={{
                 ...getPrimaryBackground({dark: props.dark}), ...{
-                    transform: 'translateY(3vh)',
-                    justifyContent: 'center'
+                    transform: props.editionMode ? 'translateY(3vh)' : null
                 }
             }}>
+                {props.editionMode ? null : getTitle({
+                        pageTitle: 'Collaborations',
+                        pageInfo: 'Info',
+                        dark: props.dark})}
                 <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth].join(' ')}
-                     style={{marginTop: '2vh', marginBottom: '2vh'}}>
-                    {!props.editable ?
+                     style={{margin: '2vh auto 2vh'}}>
+                    {!props.editionMode ?
                         null :
                         <AccordionLayout
                             content={
@@ -49,8 +52,8 @@ export default function Collaborations(props) {
                                     userID={props.id}
                                     create={true}
                                     dark={props.dark}
-                                    editable={props.editable}
-                                    visible={props.visible}
+                                    editable={props.editionMode}
+                                    visible={props.editionMode}
                                     fetchData={fetchData}
                                 />
                             }
@@ -65,14 +68,14 @@ export default function Collaborations(props) {
                                 </div>
                             }
                             key={'create collaborations'}
-                            disabled={!props.editable}
+                            disabled={!props.editionMode}
                             openSize={45}
                             dark={props.dark}
                             closedSize={45}
                             background={'#484c55'}
                         />
                     }
-                    {props.editable ? collaborations.map(collaboration => (
+                    {collaborations.map(collaboration => (
                             <AccordionLayout
                                 content={
 
@@ -82,8 +85,8 @@ export default function Collaborations(props) {
                                         create={true}
                                         fetchData={fetchData}
                                         dark={props.dark}
-                                        visible={props.editable}
-                                        editable={props.editable}
+                                        visible={props.editionMode}
+                                        editable={props.editionMode}
                                     />
                                 }
                                 summary={
@@ -108,8 +111,7 @@ export default function Collaborations(props) {
                                 background={'#484c55'}
                             />
 
-                        )) :
-                        null
+                        ))
                     }
                 </div>
             </div>
@@ -121,8 +123,7 @@ export default function Collaborations(props) {
 
 Collaborations.propTypes = {
     dark: PropTypes.bool,
-    visible: PropTypes.bool,
-    editable: PropTypes.bool,
+    editionMode: PropTypes.bool,
     id: PropTypes.number,
     locale: PropTypes.string
 }

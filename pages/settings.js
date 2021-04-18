@@ -14,7 +14,7 @@ import shared from '../styles/shared/Shared.module.css'
 import {
     getBorder,
     getIconStyle,
-    getPrimaryBackground,
+    getPrimaryBackground, getPrimaryColor,
     getSecondaryBackground,
     getSecondaryColor,
     getTertiaryColor
@@ -186,9 +186,14 @@ export default function Settings() {
                             null
                         }
                         {accessProfile !== null && accessProfile.canViewActivityLog ?
-                            <div style={{...getBorder({dark: dark}),...{
-                                width: '21.1vw'
-                            }}}>
+                            <div style={{
+                                width: '21.1vw',
+                                borderLeft: 'black 2px solid',
+                                borderRight: '#f5f6f8 2px solid',
+                                borderTop: '#f5f6f8 2px solid',
+                                borderBottom: '#f5f6f8 2px solid',
+                                borderRadius: '0px 8px 8px  0px'
+                            }}>
                                 <Link href={{pathname: '/activity', locale: router.locale}}>
                                     <Button style={{
                                         width: '100%',
@@ -199,7 +204,7 @@ export default function Settings() {
                                         textTransform: 'none'
                                     }}>
 
-                                        <HistoryRounded style={getIconStyle({dark: dark})}/>
+                                        <HistoryRounded style={{...getIconStyle({dark: dark}), ...getPrimaryColor({dark: dark})}}/>
                                         <p className={mainStyles.secondaryParagraph}
                                            style={getSecondaryColor({dark: dark})}>{lang.activity}</p>
                                     </Button>

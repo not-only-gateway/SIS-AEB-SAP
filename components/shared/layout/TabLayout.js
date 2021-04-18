@@ -17,9 +17,10 @@ export default function TabLayout(props) {
     }
 
     return (
-        <div className={mainStyles.normalBorder} style={{...{
+        <div style={{...{
                 width: props.width + 'vw',
                 height: 'fit-content',
+                minHeight: props.height + 'vh'
             }
         }}>
             <div className={mainStyles.displayInlineStart} style={{width: props.width + 'vw'}}>

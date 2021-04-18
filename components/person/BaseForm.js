@@ -17,58 +17,12 @@ import AvatarLayout from "../shared/AvatarLayout";
 
 export default function BaseForm(props) {
 
-    const [loading, setLoading] = useState(true)
+
     const [changed, setChanged] = useState(false)
-    const [name, setName] = useState(null)
-    const [birth, setBirth] = useState(null)
-    const [education, setEducation] = useState(null)
-    const [gender, setGender] = useState(null)
-    const [marital, setMarital] = useState(null)
-    const [extension, setExtension] = useState(null)
-    const [registration, setRegistration] = useState(null)
-    const [corporateEmail, setCorporateEmail] = useState(null)
-    const [mother, setMother] = useState(null)
-    const [father, setFather] = useState(null)
-    const [disabledPerson, setDisabledPerson] = useState(null)
-    const [birthPlace, setBirthPlace] = useState(null)
-    const [pic, setPic] = useState(null)
-    const [nationality, setNationality] = useState(null)
+    const [image, setImage] = useState(null)
     const [lang, setLang] = useState(null)
 
     useEffect(() => {
-        if (!props.create)
-            fetchComponentData(
-                {path: 'person/' + props.id, params: {}}
-            ).then(res => {
-                if (res !== null) {
-                    setName(res.name)
-                    setBirth(res.birth)
-
-                    setGender(res.gender)
-
-                    setExtension(res.extension)
-                    setRegistration(res.registration)
-                    setCorporateEmail(res.corporate_email)
-
-                    setDisabledPerson(res.disabled_person)
-
-                    if (props.editable) {
-                        setEducation(res.education)
-                        setMarital(res.marital_status)
-                        setFather(res.father_name)
-                        setMother(res.mother_name)
-                        setBirthPlace(res.birth_place)
-                    }
-
-                    if (res.image !== null)
-                        setPic({imageData: ImageHost() + res.image})
-                    setNationality(res.nationality)
-                }
-                setLoading(false)
-            })
-        else
-            setLoading(false)
-
         setLang(getComponentLanguage({locale: props.locale, component: 'base'}))
     }, [])
 
@@ -80,8 +34,8 @@ export default function BaseForm(props) {
 
     async function saveChanges() {
         let formData = new FormData()
-        if (pic !== null && pic.image !== undefined)
-            formData.append('image', pic.image[0])
+        if (props.profile.image !== null && image.image !== undefined)
+            formData.append('image', image.image[0])
 
         formData.append('name', name.toString())
         formData.append('birth', (typeof birth === 'object' ? birth.getTime() : birth))
@@ -126,16 +80,16 @@ export default function BaseForm(props) {
 
     function disabled() {
         return (
-            name === null ||
-            nationality === null ||
-            birthPlace === null ||
-            birth === null ||
-            disabledPerson === null ||
-            education === null ||
-            gender === null ||
-            marital === null ||
-            corporateEmail === null ||
-            extension === null ||
+            props.profile.name === null ||
+            props.profile.nationality === null ||
+            props.profile.birth_place === null ||
+            props.profile.birth === null ||
+            props.profile.disabled_person === null ||
+            props.profile.education === null ||
+            props.profile.gender === null ||
+            props.profile.marital_status === null ||
+            props.profile.corporate_email === null ||
+            props.profile.extension === null ||
             changed === false
         )
     }
@@ -146,12 +100,9 @@ export default function BaseForm(props) {
         if (event.target.files.length > 0) {
             reader.readAsDataURL(event.target.files[0])
             reader.onload = () => {
-                setPic({
-                    image: event.target.files,
-                    imageData: reader.result
-                })
+                setImage(reader.result)
+                props.handleChange({name: 'image', value: event.target.files})
             }
-
             setChanged(true)
         }
     }
@@ -161,92 +112,105 @@ export default function BaseForm(props) {
             <div
                 className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth, mainStyles.displayInlineCenter].join(' ')}
                 style={{marginBottom: '2vh'}}>
-                <InputLayout inputName={lang.father} dark={props.dark} handleChange={setFather}
-                             inputType={0}
+                <InputLayout inputName={lang.father} dark={props.dark} handleChange={props.handleChange}
+                             inputType={0} name={'father_name'}
                              disabled={!props.editable} size={props.create ? 32 : 30} required={false}
-                             initialValue={father}
+                             initialValue={props.profile.father_name}
                              key={"1-3"} setChanged={setChanged}/>
-                <InputLayout inputName={lang.mother} dark={props.dark} handleChange={setMother}
-                             inputType={0}
+                <InputLayout inputName={lang.mother} dark={props.dark} handleChange={props.handleChange}
+                             inputType={0} name={'mother_name'}
                              disabled={!props.editable} size={props.create ? 32 : 30} required={false}
-                             initialValue={mother}
+                             initialValue={props.profile.mother_name}
                              key={"1-4"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.birthPlace} dark={props.dark}
-                             handleChange={setBirthPlace} inputType={0}
+                             handleChange={props.handleChange} inputType={0}
                              disabled={!props.editable} size={props.create ? 32 : 30} required={true}
-                             initialValue={birthPlace}
+                             initialValue={props.profile.birth_place} name={'birth_place'}
                              key={"1-5"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.education} dark={props.dark}
-                             handleChange={setEducation}
-                             inputType={1}
+                             handleChange={props.handleChange}
+                             inputType={1} name={'education'}
                              disabled={!props.editable} size={props.create ? 49 : 46} required={true}
-                             initialValue={education}
+                             initialValue={props.profile.education}
                              selectFields={lang.educationChoice}
                              key={"1-9"} setChanged={setChanged}/>
-                <InputLayout inputName={lang.marital} dark={props.dark} handleChange={setMarital}
-                             inputType={1}
+                <InputLayout inputName={lang.marital} dark={props.dark} handleChange={props.handleChange}
+                             inputType={1} name={'marital_status'}
                              disabled={!props.editable} size={props.create ? 49 : 46} required={true}
-                             initialValue={marital}
+                             initialValue={props.profile.marital_status}
                              selectFields={lang.maritalChoice}
                              key={"1-11"} setChanged={setChanged}/>
             </div>
         )
     }
 
-    if (!loading && lang !== null)
+    if (lang !== null)
         return (
             <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.baseWidth].join(' ')}
-                 style={{...getPrimaryBackground({dark: props.dark}),...{transform: 'translateY(3vh)', justifyContent: 'center'}}}>
-                <div className={[mainStyles.displayInlineSpaced, mainStyles.mediumWidth, mainStyles.normalBorder].join(' ')} style={{marginTop: '2vh'}}>
-                    {!props.editable || pic !== null ? null :
+                 style={{
+                     ...getPrimaryBackground({dark: props.dark}), ...{
+                         transform: 'translateY(3vh)',
+                         justifyContent: 'center'
+                     }
+                 }}>
+                <div
+                    className={[mainStyles.displayInlineSpaced, mainStyles.mediumWidth, mainStyles.normalBorder].join(' ')}
+                    style={{marginTop: '2vh'}}>
+                    {!props.editable || image !== null ? null :
                         <input id='profile-image-input' type={'file'} accept={'image/*'} onChange={getFile}
                                style={{display: 'none'}}/>}
                     <label htmlFor={'profile-image-input'}>
-                        <Button disabled={!props.editable || pic !== null} component={'span'} style={{padding: '0'}}>
-                            <AvatarLayout dark={props.dark} cakeDay={false} key={props.id} image={pic !== null ? pic.imageData : null}/>
-                            {/*<Avatar src={pic !== null ? pic.imageData : null}*/}
-                            {/*        style={{width: '120px', height: '120px'}}/>*/}
+                        <Button disabled={!props.editable || props.profile.image !== null} component={'span'}
+                                style={{padding: '0', width: '50%'}}>
+                            <AvatarLayout dark={props.dark} cakeDay={false} key={props.id}
+                                          image={props.profile.image !== null ? props.profile.image : image}/>
                         </Button>
                     </label>
-                    {!props.editable ? null : pic !== null ?
-                        <Button onClick={() => setPic(null)}><DeleteForeverRounded
+                    {!props.editable ? null : image !== null ?
+                        <Button onClick={() => props.handleChange({name: 'image', value: null})}><DeleteForeverRounded
                             style={getIconStyle({dark: props.dark})}/></Button> : null}
-                    <InputLayout inputName={lang.name} dark={props.dark} handleChange={setName} inputType={0}
-                                 disabled={!props.editable} size={pic !== null ? 70 : 79} required={true}
-                                 initialValue={name}
+                    <InputLayout inputName={lang.name} dark={props.dark} handleChange={props.handleChange} inputType={0}
+                                 disabled={!props.editable} size={79} required={true}
+                                 initialValue={props.profile.name} name={'name'}
                                  key={"1-1"} setChanged={setChanged} margin={false}/>
                 </div>
                 <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth].join(' ')}
                      style={{...{marginBottom: props.editable ? null : '2vh'}}}>
 
                     <InputLayout inputName={lang.corporateEmail} dark={props.dark}
-                                 handleChange={setCorporateEmail}
+                                 handleChange={props.handleChange} name={'corporate_email'}
                                  inputType={0} disabled={!props.editable} size={66} required={true}
-                                 initialValue={corporateEmail} key={"1-12"} setChanged={setChanged}/>
-                    <InputLayout inputName={lang.extension} dark={props.dark} handleChange={setExtension}
-                                 inputType={0} disabled={!props.editable} size={32} required={true}
-                                 initialValue={extension} key={"1-13"} setChanged={setChanged}/>
-                    <InputLayout inputName={lang.registration} dark={props.dark} handleChange={setRegistration}
+                                 initialValue={props.profile.corporate_email} key={"1-12"} setChanged={setChanged}/>
+                    <InputLayout inputName={lang.extension} dark={props.dark} handleChange={props.handleChange}
+                                 inputType={0} disabled={!props.editable} size={32} required={true} name={'extension'}
+                                 initialValue={props.profile.extension} key={"1-13"} setChanged={setChanged}/>
+                    <InputLayout inputName={lang.registration} dark={props.dark} handleChange={props.handleChange}
                                  inputType={0} disabled={!props.editable} size={32} required={false}
-                                 initialValue={registration} key={"1-14"} setChanged={setChanged}/>
-                    <InputLayout inputName={lang.nationality} dark={props.dark} handleChange={setNationality}
-                                 inputType={0}
-                                 disabled={!props.editable} size={32} required={true} initialValue={nationality}
+                                 name={'registration'}
+                                 initialValue={props.profile.registration} key={"1-14"} setChanged={setChanged}/>
+                    <InputLayout inputName={lang.nationality} dark={props.dark} handleChange={props.handleChange}
+                                 inputType={0} name={'nationality'}
+                                 disabled={!props.editable} size={32} required={true}
+                                 initialValue={props.profile.nationality}
                                  key={"1-6"} setChanged={setChanged}/>
 
-                    <InputLayout inputName={lang.birth} dark={props.dark} handleChange={setBirth} inputType={2}
-                                 disabled={!props.editable} size={32} required={true} initialValue={birth}
+                    <InputLayout inputName={lang.birth} dark={props.dark} handleChange={props.handleChange}
+                                 inputType={2} name={'birth'}
+                                 disabled={!props.editable} size={32} required={true} initialValue={props.profile.birth}
                                  key={"1-7"} setChanged={setChanged}/>
 
                     <InputLayout inputName={lang.disabledPerson} dark={props.dark}
-                                 handleChange={setDisabledPerson}
-                                 inputType={1}
-                                 disabled={!props.editable} size={49} required={true} initialValue={disabledPerson}
+                                 handleChange={props.handleChange}
+                                 inputType={1} name={'disabled_person'}
+                                 disabled={!props.editable} size={49} required={true}
+                                 initialValue={props.profile.disabled_person}
                                  selectFields={lang.choice}
                                  key={"1-8"} setChanged={setChanged}/>
 
-                    <InputLayout inputName={lang.gender} dark={props.dark} handleChange={setGender} inputType={1}
-                                 disabled={!props.editable} size={49} required={true} initialValue={gender}
+                    <InputLayout inputName={lang.gender} dark={props.dark} handleChange={props.handleChange}
+                                 inputType={1} name={'gender'}
+                                 disabled={!props.editable} size={49} required={true}
+                                 initialValue={props.profile.gender}
                                  selectFields={lang.genderChoice}
                                  key={"1-10"} setChanged={setChanged}/>
                     {props.create === false ?
@@ -296,5 +260,7 @@ BaseForm.propTypes = {
     getTitle: PropTypes.func,
     locale: PropTypes.string,
     setID: PropTypes.func,
-    redirect: PropTypes.func
+    redirect: PropTypes.func,
+    profile: PropTypes.object,
+    handleChange: PropTypes.func
 }

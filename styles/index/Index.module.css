@@ -4,15 +4,14 @@
     display: inline-flex;
     flex-wrap: wrap;
     gap: .9vw;
+    overflow: hidden;
     width: 45vw;
 }
 
 .cardContainer {
     overflow: hidden;
     width: 10.575vw;
-    height: 30vh;
     transition: 0.2s;
-    /*border-left: transparent 2px solid;*/
     animation-duration: .2s;
     animation-name: pop_in;
 }

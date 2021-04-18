@@ -29,7 +29,7 @@ export default function CollaborationForm(props) {
     const [contractExp, setContractExp] = useState(null)
     const [additionalInfo, setAdditionalInfo] = useState(null)
     const [mainCollaboration, setMainCollaboration] = useState(false)
-    const [canBeMain, setCanBeMain] = useState(false)
+    const [canBeMain, setCanBeMain] = useState(true)
     const [accessProfiles, setAccessProfiles] = useState([])
     const [accessProfileID, setAccessProfileID] = useState(null)
 
@@ -84,8 +84,8 @@ export default function CollaborationForm(props) {
                 params: {}
             }).then(res => {
                     if (res !== null) {
-                        setCanBeMain(res)
-                        setMainCollaboration(!res)
+                        setCanBeMain(false)
+                        setMainCollaboration(false)
                     }
                 }
             )

@@ -12,7 +12,7 @@ export default function AvatarLayout(props) {
         <div key={props.key}>
             <Avatar src={props.image !== undefined ? ImageHost() + props.image : null}
                     style={{
-                        ...{height: '100px', width: '100%', borderRadius: ' 8px ', margin: 'auto'},
+                        ...{height: '100px', width:  '100%', borderRadius: ' 8px ', margin: 'auto'},
                         ...getBoxShadow({dark: props.dark})
                     }}/>
             {props.cakeDay === true ?
@@ -22,7 +22,6 @@ export default function AvatarLayout(props) {
                 :
                 null
             }
-
         </div>
     )
 }
@@ -31,5 +30,5 @@ AvatarLayout.propTypes={
     dark: PropTypes.bool,
     image: PropTypes.string,
     cakeDay: PropTypes.bool,
-    key: PropTypes.number
+    key: PropTypes.number,
 }

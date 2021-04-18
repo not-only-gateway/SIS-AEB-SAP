@@ -5,7 +5,7 @@ import {getPrimaryColor, getTertiaryColor} from "../../styles/shared/MainStyles"
 
 export default function getTitle(props) {
     return (
-        <div className={mainStyles.baseWidth} style={{marginBottom: '2vh'}}>
+        <div style={{marginLeft: '2vh'}}>
             <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: props.dark})}>{props.pageTitle}</p>
             <p className={mainStyles.tertiaryParagraph} style={getTertiaryColor({dark: props.dark})}>{props.pageInfo}</p>
         </div>

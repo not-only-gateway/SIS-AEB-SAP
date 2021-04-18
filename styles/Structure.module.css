@@ -9,8 +9,7 @@
 
 
 .tree_container {
-    margin-left: -20vw;
-    margin-bottom: 2vh;
+    margin: auto auto 2vh;
     width: 85vw;
     position: relative;
     height: fit-content;

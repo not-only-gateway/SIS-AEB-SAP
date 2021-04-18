@@ -97,7 +97,7 @@ export default function Index() {
                             endMessage={
                                 <div
                                     className={[mainStyles.marginVertical, mainStyles.normalBorder, mainStyles.smallPaddingVertical, mainStyles.baseWidth].join(' ')}
-                                    style={{...getPrimaryBackground({dark: dark}), ...{transform: 'translateY(.9vw)'},}}>
+                                    style={{...getPrimaryBackground({dark: dark}), ...{transform: 'translateY(.9vw)', marginBottom:'1.8vw'},}}>
                                     <p className={mainStyles.secondaryParagraph}
                                        style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.end}</p>
                                 </div>
@@ -111,19 +111,18 @@ export default function Index() {
                                         unit={collaborator.unit}
                                         lastActivity={collaborator.last_activity}
                                         dark={dark}
+                                        asProfile={false}
                                         inactiveLocale={lang.inactive}
                                     />
                                 )}
-
                             </div>
                         </InfiniteScroll>
                         :
+
                         <div
                             className={[mainStyles.baseWidth, mainStyles.normalBorder, mainStyles.displayInlineCenter].join(' ')}
                             style={{
-                                ...{transform: 'translateY(.9vw)'},
-                                ...getTertiaryBackground({dark: dark}),
-                                ...getBoxShadow({dark: dark})
+                                ...getPrimaryBackground({dark: dark}),
                             }}>
                             <p className={mainStyles.secondaryParagraph}
                                style={getTertiaryColor({dark: dark})}>{lang.nothingFound}</p>

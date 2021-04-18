@@ -19,9 +19,14 @@ export default function AccordionLayout(props) {
                 minWidth: props.openSize === null ? '45vw' : props.closedSize,
                 transition: '.3s'
             },
-            ...(props.border === undefined || props.border === null) ?  getBorder({dark: props.dark}) : {borderLeft: props.border},
-            ...props.dark ? (open ? getBoxShadow({dark: props.dark}) : null) : (open ? {boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px'} : null)
-        }} className={shared.accordion_container} key={'accordion-' + props.key}>
+            ...{
+                borderLeft: (props.border === undefined || props.border === null) ? 'black 2px solid': props.border,
+                borderRight:'#f5f6f8 2px solid',
+                borderTop:  '#f5f6f8 2px solid',
+                borderBottom: '#f5f6f8 2px solid',
+            },
+            ...props.dark && open ? getBoxShadow({dark: props.dark}) : null
+        }} className={shared.accordion_container} key={props.key}>
             <Button onClick={() => setOpen(!open)} disabled={props.disabled}
                     style={{
                         textTransform: 'none',
