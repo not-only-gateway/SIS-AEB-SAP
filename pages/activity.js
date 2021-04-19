@@ -13,8 +13,8 @@ import {ThemeProvider} from "@material-ui/styles";
 import {createMuiTheme} from "@material-ui/core";
 import {
     getBorder,
-    getBoxShadow, getPrimaryBackground,
-    getSecondaryBackground,
+    getBoxShadow, getSecondaryBackground,
+    getPrimaryBackground,
     getTertiaryBackground,
     getTertiaryColor
 } from "../styles/shared/MainStyles";
@@ -80,7 +80,7 @@ export default function Activity() {
                 }
             })}>
                 <div className={shared.header_container}
-                     style={getSecondaryBackground({dark: dark})}>
+                     style={getPrimaryBackground({dark: dark})}>
                     <GetPageTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.info1} dark={dark}/>
 
                     <ActivityFilterComponent lang={lang} filters={filters} handleChange={handleChange}
@@ -94,7 +94,7 @@ export default function Activity() {
                 {/*<div className={styles.infinite_scroll_container}>*/}
                 <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.baseWidth].join(' ')}
                      style={{
-                         ...getPrimaryBackground({dark: dark}), ...{
+                         ...getSecondaryBackground({dark: dark}), ...{
                              transform: 'translateY(3vh)',
                              justifyContent: 'center'
                          }
@@ -151,7 +151,7 @@ export default function Activity() {
                         <div
                             className={[mainStyles.baseWidth, mainStyles.normalBorder, mainStyles.displayInlineCenter].join(' ')}
                             style={{
-                                ...getPrimaryBackground({dark: dark}),
+                                ...getSecondaryBackground({dark: dark}),
                             }}>
                             <p className={mainStyles.secondaryParagraph}
                                style={getTertiaryColor({dark: dark})}>{lang.nothingFound}</p>

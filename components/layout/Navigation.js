@@ -5,7 +5,7 @@ import {
     AccountTreeRounded,
     ArrowForwardRounded,
     ExitToAppRounded,
-    ExtensionRounded,
+    ExtensionRounded, MenuOpenRounded,
     SettingsRounded,
     SupervisorAccountRounded
 } from '@material-ui/icons';
@@ -19,7 +19,7 @@ import {
     getBorder,
     getBoxShadow,
     getIconStyle,
-    getPrimaryBackground,
+    getSecondaryBackground,
     getSecondaryColor,
     getTertiaryColor
 } from "../../styles/shared/MainStyles";
@@ -56,7 +56,7 @@ export default function Navigation(props) {
                      borderRadius: '0px 8px 8px 0px',
 	             padding: props.reduced ? '0px 5px 0px 5px ' : null
                  },
-                 ...getPrimaryBackground({dark: props.dark}),
+                 ...getSecondaryBackground({dark: props.dark}),
                  // ...getBoxShadow({dark: props.dark}),
                  ...getBorder({dark: props.dark})
              }}>
@@ -66,14 +66,14 @@ export default function Navigation(props) {
                 }
                 <NavigationButtonLayout
                     dark={props.dark} linkPath={null}
-                    highlight={!props.reduced} locale={props.locale}
+                    highlight={false} locale={props.locale}
                     reduced={props.reduced}
                     setToggle={props.setReduced}
                     initialValue={props.reduced}
-                    icon={<ArrowForwardRounded style={{
+                    icon={<MenuOpenRounded style={{
                         ...getIconStyle({dark: props.dark, highlight: !props.reduced}), ...{
                             transition: '.3s',
-                            transform: !props.reduced ? 'rotate(180deg)' : null,
+                            transform: props.reduced ? 'rotate(180deg)' : null,
                             margin: 'auto'
                         }
                     }}/>}
@@ -135,11 +135,11 @@ export default function Navigation(props) {
                         highlight={true} locale={props.locale}
                         label={
                             <>
-                                <div className={[mainStyles.overflowEllipsis, mainStyles.secondaryParagraph].join(' ')}
+                                <div className={[mainStyles.overflowEllipsis, mainStyles.secondaryParagraph, mainStyles.displayInlineStart].join(' ')}
                                      style={getSecondaryColor({dark: props.dark})}>
                                     {profile.name}
                                 </div>
-                                <div className={[mainStyles.overflowEllipsis, mainStyles.tertiaryParagraph].join(' ')}
+                                <div className={[mainStyles.overflowEllipsis, mainStyles.tertiaryParagraph, mainStyles.displayInlineStart].join(' ')}
                                      style={getTertiaryColor({dark: props.dark})}>
                                     {profile.corporateEmail}
                                 </div>

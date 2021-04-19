@@ -10,8 +10,8 @@ import {Avatar, createMuiTheme, ThemeProvider} from "@material-ui/core";
 import mainStyles from '../../styles/shared/Main.module.css'
 import {
     getBorder,
-    getBoxShadow, getPrimaryBackground,
-    getQuaternaryBackground, getSecondaryBackground,
+    getBoxShadow, getSecondaryBackground,
+    getQuaternaryBackground, getPrimaryBackground,
     getSecondaryColor,
     getTertiaryColor
 } from "../../styles/shared/MainStyles";
@@ -50,7 +50,7 @@ export default function SubjectLayout(props) {
             <span onMouseEnter={() => setHovered(true)}
                   onMouseLeave={() => setHovered(false)}
                   style={{
-                      ...getSecondaryBackground({dark: props.dark}),
+                      ...getPrimaryBackground({dark: props.dark}),
                       ...getBoxShadow({dark: props.dark}),
                       ...{
                           cursor: 'pointer',

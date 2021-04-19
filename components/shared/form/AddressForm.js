@@ -7,7 +7,7 @@ import fetchComponentData from "../../../utils/person/FetchData";
 import saveComponentChanges from "../../../utils/person/SaveChanges";
 import getTitle from "../../../utils/person/GetTitle";
 import mainStyles from "../../../styles/shared/Main.module.css";
-import {getPrimaryBackground} from "../../../styles/shared/MainStyles";
+import {getSecondaryBackground} from "../../../styles/shared/MainStyles";
 
 export default function AddressForm(props) {
 
@@ -75,7 +75,7 @@ export default function AddressForm(props) {
     if (!loading)
         return (
             <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.baseWidth].join(' ')} style={{
-                ...getPrimaryBackground({dark: props.dark}), ...{
+                ...getSecondaryBackground({dark: props.dark}), ...{
                     transform: 'translateY(3vh)',
                     justifyContent: 'center'
                 }
@@ -114,7 +114,7 @@ export default function AddressForm(props) {
 
 
                     <Button style={{
-                        width: '43vw', margin: 'auto auto .8vw',
+                        width: '43vw', margin: '5vh auto .8vw',
                         backgroundColor: disabled() ? null : '#39adf6',
                         color: disabled() ? null : 'white'
                     }} variant={'contained'} disableElevation

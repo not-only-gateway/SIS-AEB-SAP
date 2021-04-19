@@ -12,7 +12,7 @@ import mainStyles from '../../styles/shared/Main.module.css'
 import getComponentLanguage from "../../utils/shared/GetLanguage";
 import {DeleteForeverRounded} from "@material-ui/icons";
 import ImageHost from "../../utils/shared/ImageHost";
-import {getIconStyle, getPrimaryBackground} from "../../styles/shared/MainStyles";
+import {getIconStyle, getSecondaryBackground} from "../../styles/shared/MainStyles";
 import AvatarLayout from "../shared/AvatarLayout";
 
 export default function BaseForm(props) {
@@ -112,7 +112,7 @@ export default function BaseForm(props) {
         return (
             <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.baseWidth].join(' ')}
                  style={{
-                     ...getPrimaryBackground({dark: props.dark}), ...{
+                     ...getSecondaryBackground({dark: props.dark}), ...{
                          transform: 'translateY(3vh)',
                          justifyContent: 'center'
                      }
@@ -209,7 +209,7 @@ export default function BaseForm(props) {
 
                 {!props.editable ? null :
                     <Button style={{
-                        width: '43vw', margin: 'auto auto .8vw',
+                        width: '43vw', margin: '5vh auto .8vw',
                         backgroundColor: disabled() ? null : '#39adf6',
                         color: disabled() ? null : 'white'
                     }} variant={'contained'} disableElevation

@@ -13,6 +13,8 @@ export default function CollaborationForm(props) {
     const [units, setUnits] = useState([])
     const [effectiveRoles, setEffectiveRoles] = useState([])
     const [commissionedRoles, setCommissionedRoles] = useState([])
+    const [accessProfiles, setAccessProfiles] = useState([])
+
     const [effectiveRoleID, setEffectiveRoleID] = useState(null)
     const [commissionedRoleID, setCommissionedRoleID] = useState(null)
     const [seniorID, setSeniorID] = useState(null)
@@ -30,7 +32,7 @@ export default function CollaborationForm(props) {
     const [additionalInfo, setAdditionalInfo] = useState(null)
     const [mainCollaboration, setMainCollaboration] = useState(false)
     const [canBeMain, setCanBeMain] = useState(true)
-    const [accessProfiles, setAccessProfiles] = useState([])
+
     const [accessProfileID, setAccessProfileID] = useState(null)
 
     function disabled() {

@@ -4,10 +4,11 @@ import Link from 'next/link'
 import PropTypes from 'prop-types'
 import mainStyles from '../../styles/shared/Main.module.css'
 import {
+    getBorder,
     getBoxShadow,
-    getPrimaryBackground,
-    getPrimaryColor,
     getSecondaryBackground,
+    getPrimaryColor,
+    getPrimaryBackground,
     getSecondaryColor, getTertiaryBackground
 } from "../../styles/shared/MainStyles";
 
@@ -18,8 +19,8 @@ export default function NavigationButtonLayout(props) {
              style={{
                  ...{
                      borderRadius: '0px 8px 8px 0px ',
-                     borderLeft: props.highlight ? 'black 3px solid' : 'transparent 3px solid'
                  },
+                 ...getBorder({highlight: props.highlight}),
                  ...props.highlight ? getTertiaryBackground({dark: props.dark}) : null,
                  ...props.highlight ? getBoxShadow({dark: props.dark}) : null
              }}>

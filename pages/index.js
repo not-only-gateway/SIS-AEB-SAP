@@ -12,8 +12,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import fetchIndexData from "../utils/index/FetchData";
 import {
     getBorder,
-    getBoxShadow, getPrimaryBackground,
-    getSecondaryBackground,
+    getBoxShadow, getSecondaryBackground,
+    getPrimaryBackground,
     getTertiaryBackground,
     getTertiaryColor
 } from "../styles/shared/MainStyles";
@@ -68,7 +68,7 @@ export default function Index() {
             })}>
 
                 <div className={shared.header_container}
-                     style={getSecondaryBackground({dark: dark})}>
+                     style={getPrimaryBackground({dark: dark})}>
                     <GetPageTitle pageName={lang.extensions} pageTitle={lang.extensions}
                                   pageInfo={getPageInfo({
                                       info1: lang.info1,
@@ -97,7 +97,7 @@ export default function Index() {
                             endMessage={
                                 <div
                                     className={[mainStyles.marginVertical, mainStyles.normalBorder, mainStyles.smallPaddingVertical, mainStyles.baseWidth].join(' ')}
-                                    style={{...getPrimaryBackground({dark: dark}), ...{transform: 'translateY(.9vw)', marginBottom:'1.8vw'},}}>
+                                    style={{...getSecondaryBackground({dark: dark}), ...{transform: 'translateY(.9vw)', marginBottom:'1.8vw'},}}>
                                     <p className={mainStyles.secondaryParagraph}
                                        style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.end}</p>
                                 </div>
@@ -122,7 +122,7 @@ export default function Index() {
                         <div
                             className={[mainStyles.baseWidth, mainStyles.normalBorder, mainStyles.displayInlineCenter].join(' ')}
                             style={{
-                                ...getPrimaryBackground({dark: dark}),
+                                ...getSecondaryBackground({dark: dark}),
                             }}>
                             <p className={mainStyles.secondaryParagraph}
                                style={getTertiaryColor({dark: dark})}>{lang.nothingFound}</p>
@@ -136,7 +136,7 @@ export default function Index() {
                                 width: '45vw',
                                 height: '11vh',
                             },
-                            ...getPrimaryBackground({dark: dark})
+                            ...getSecondaryBackground({dark: dark})
                         }}/>
                     </div>
                 }

@@ -5,8 +5,8 @@ import React, {useState} from "react";
 import shared from '../../../styles/shared/Shared.module.css'
 import {
     getBorder, getBoxShadow,
-    getPrimaryBackground,
     getSecondaryBackground,
+    getPrimaryBackground,
     getTertiaryBackground
 } from "../../../styles/shared/MainStyles";
 
@@ -14,19 +14,19 @@ export default function AccordionLayout(props) {
     const [open, setOpen] = useState(false)
     return (
         <div style={{
-            ...props.background ? getPrimaryBackground({dark: props.dark}) : null,
             ...{
                 width: open ? (props.openSize !== null ? props.openSize + 'vw' : 'fit-content') : props.closedSize + 'vw',
                 minWidth: props.openSize === null ? '45vw' : props.closedSize,
-                transition: '.3s'
+                border: open ? null : !props.dark ? '#e5e6e8 1px solid' : 'initial',
+                borderRadius: open ? '0 8px 8px 0' : '8px'
             },
-            ...{
-                borderLeft: (props.border === undefined || props.border === null) ? 'black 2px solid': props.border,
-                borderRight:'#f5f6f8 2px solid',
-                borderTop:  '#f5f6f8 2px solid',
-                borderBottom: '#f5f6f8 2px solid',
-            },
-            ...props.dark && open ? getBoxShadow({dark: props.dark}) : null
+            ...open ? {
+                borderRight: '#e5e6e8 1px solid',
+                borderTop: '#e5e6e8 1px solid',
+                borderBottom: '#e5e6e8 1px solid'
+            }: null,
+            ...props.dark && open ? getBoxShadow({dark: props.dark}) : null,
+            ...open ? getBorder({dark: props.dark, highlight: true}) : null
         }} className={shared.accordion_container} key={props.key}>
             <Button onClick={() => setOpen(!open)} disabled={props.disabled}
                     style={{
@@ -35,16 +35,15 @@ export default function AccordionLayout(props) {
                         width: '100%',
                         justifyContent: 'space-between',
                         color: props.dark ? 'white' : 'black',
-                        border: 'none',
+                        borderRadius: open ? '0 8px 8px 0' : null
                     }}>
                 {props.summary}
-                {props.disabled ? null : 
-                <ArrowDownwardRounded style={{transform: open ? 'rotate(180deg)' : null, transition: '300ms'}}/>
+                {props.disabled ? null :
+                    <ArrowDownwardRounded style={{transform: open ? 'rotate(180deg)' : null, transition: '300ms'}}/>
                 }
             </Button>
             {open ?
                 <>
-                    <Divider orientation={'horizontal'}/>
                     <div style={{marginTop: '2vh'}}>
                         {props.content}
                     </div>
@@ -65,5 +64,5 @@ AccordionLayout.propTypes = {
     border: PropTypes.any,
     disabled: PropTypes.bool,
     key: PropTypes.number,
-    background: PropTypes.bool
+    background: PropTypes.string
 }

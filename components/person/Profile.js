@@ -14,7 +14,7 @@ import PropTypes from 'prop-types'
 import {
     getBorder,
     getBoxShadow,
-    getIconStyle, getPrimaryBackground, getPrimaryColor,
+    getIconStyle, getSecondaryBackground, getPrimaryColor,
     getTertiaryBackground,
     getTertiaryColor
 } from "../../styles/shared/MainStyles";
@@ -32,10 +32,10 @@ export default function ProfileComponent(props) {
             className={[mainStyles.displayColumnSpaced].join(' ')}
             key={props.profile.id}
             style={{
-                ...getPrimaryBackground({dark: props.dark}),
+                ...getSecondaryBackground({dark: props.dark}),
                 ...{
                     borderRadius: '8px',
-                    height: '60vh',
+                    height: '55vh',
                     position: 'sticky',
                     top: '0',
                     width: '14vw',
@@ -111,7 +111,7 @@ export default function ProfileComponent(props) {
             </div>
             {props.editable ?
                 <Button style={{
-                    ...getPrimaryBackground({dark: props.dark}),
+                    ...getSecondaryBackground({dark: props.dark}),
                     ...getTertiaryColor({dark: props.dark}),
                     ...{
                         borderRadius: '8px',

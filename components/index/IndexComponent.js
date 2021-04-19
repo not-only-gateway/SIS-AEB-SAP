@@ -14,7 +14,7 @@ import {
 import {searchFieldStyle} from "../../styles/shared/BarMaterialStyles";
 import {BackspaceRounded, MenuRounded, SearchRounded} from "@material-ui/icons";
 import React, {useEffect, useState} from "react";
-import {getBorder, getBoxShadow, getPrimaryBackground, getTertiaryBackground} from "../../styles/shared/MainStyles";
+import {getBorder, getBoxShadow, getSecondaryBackground, getTertiaryBackground} from "../../styles/shared/MainStyles";
 import mainStyles from '../../styles/shared/Main.module.css'
 
 export default function IndexComponent(props) {
@@ -35,7 +35,7 @@ export default function IndexComponent(props) {
                    onMouseLeave={() => setHovered(false)}
                    elevation={false}
                    style={{
-                       ...getPrimaryBackground({dark: props.dark}),
+                       ...getSecondaryBackground({dark: props.dark}),
                        ...searchFieldStyle,
                    }}>
                 <IconButton aria-controls="menu" aria-haspopup="true"

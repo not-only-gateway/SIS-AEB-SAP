@@ -1,13 +1,13 @@
 import styles from '../../styles/index/Index.module.css'
 import {Button, Divider} from "@material-ui/core";
 import React, {useState} from 'react'
-import {WarningRounded} from "@material-ui/icons";
+import {EmailRounded, PhoneRounded, WarningRounded} from "@material-ui/icons";
 import Link from 'next/link'
 import PropTypes from 'prop-types'
 import {
     getBorder,
     getBoxShadow,
-    getIconStyle, getPrimaryBackground, getPrimaryColor,
+    getIconStyle, getSecondaryBackground, getPrimaryColor,
     getTertiaryBackground,
     getTertiaryColor
 } from "../../styles/shared/MainStyles";
@@ -25,18 +25,17 @@ export default function PersonCard(props) {
             className={[styles.cardContainer, mainStyles.displayColumnSpaced].join(' ')}
             key={props.profile.id}
             style={{
-                ...getPrimaryBackground({dark: props.dark}),
+                ...getSecondaryBackground({dark: props.dark}),
                 // ...hovered ? getBorder({dark: props.dark}) : null,
                 ...{borderRadius: '8px'}
             }}>
-
             <Link href={{pathname: '/person', query: {id: props.profile.id}}}>
                 <Button
                     style={{
-                        height: '100%',
+                        height: 'calc(23vh + 5px)',
                         textTransform: 'none',
                         width: '100%',
-                        margin: 'auto',
+
                         borderRadius: '8px',
                         overflow: 'hidden'
                     }}
@@ -49,13 +48,21 @@ export default function PersonCard(props) {
                                       key={props.profile.id}/>
 
 
-                        <div style={{transform: 'translateY(2%) translateX(2%)',}}>
+                        <div style={{transform: 'translateY(2%) translateX(2%)', lineHeight: '5px'}}>
+
                             <p className={mainStyles.primaryParagraph}
                                style={{...getPrimaryColor({dark: props.dark}), ...{textAlign: 'left'}}}>{props.profile.name}</p>
-                            <p className={mainStyles.tertiaryParagraph}
-                               style={{...getTertiaryColor({dark: props.dark}), ...{textAlign: 'left'}}}>{props.profile.corporate_email}</p>
-                            <p className={mainStyles.tertiaryParagraph}
-                               style={{...getTertiaryColor({dark: props.dark}), ...{textAlign: 'left'}}}>{props.profile.extension}</p>
+                            <div className={mainStyles.displayInlineStart}>
+                                <EmailRounded style={getIconStyle({dark: props.dark})}/>
+                                <p className={mainStyles.tertiaryParagraph}
+                                   style={{...getTertiaryColor({dark: props.dark}), ...{textAlign: 'left', transform: 'translateX(5px)'}}}>{props.profile.corporate_email}</p>
+                            </div>
+                            <div className={mainStyles.displayInlineStart}>
+                                <PhoneRounded style={getIconStyle({dark: props.dark})}/>
+                                <p className={mainStyles.tertiaryParagraph}
+                                   style={{...getTertiaryColor({dark: props.dark}), ...{textAlign: 'left', transform: 'translateX(5px)'}}}>{props.profile.extension}</p>
+                            </div>
+
                         </div>
                     </div>
                 </Button>
@@ -63,7 +70,7 @@ export default function PersonCard(props) {
             {props.unit !== undefined && props.unit !== null ?
                 <Link href={{pathname: '/unit', query: {id: props.unit.id}}}>
                     <Button style={{
-                        ...getPrimaryBackground({dark: props.dark}),
+                        ...getSecondaryBackground({dark: props.dark}),
                         ...getTertiaryColor({dark: props.dark}),
                         ...{
                             borderRadius: '8px',
@@ -80,7 +87,7 @@ export default function PersonCard(props) {
                 </Link>
                 :
                 <div style={{
-                    ...getPrimaryBackground({dark: props.dark}),
+                    ...getSecondaryBackground({dark: props.dark}),
                     ...getTertiaryColor({dark: props.dark}),
                     ...{
                         borderRadius: '8px',

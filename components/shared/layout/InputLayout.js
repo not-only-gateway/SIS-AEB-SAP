@@ -4,7 +4,7 @@ import {FormControl, Grid, InputLabel, MenuItem, Select, TextField} from "@mater
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import shared from '../../../styles/shared/Shared.module.css'
-import {getSecondaryBackground} from "../../../styles/shared/MainStyles";
+import {getPrimaryBackground} from "../../../styles/shared/MainStyles";
 
 export default function InputLayout(props) {
 
@@ -19,7 +19,7 @@ export default function InputLayout(props) {
                                style={{...{
                                    width: '100%',
                                    borderRadius: '8px'
-                               }, ...getSecondaryBackground({dark: props.dark})}}
+                               }, ...getPrimaryBackground({dark: props.dark})}}
                                onChange={event => {
                                    props.handleChange({name: props.name, value: event.target.value})
                                    if (props.setChanged !== undefined)
@@ -40,7 +40,7 @@ export default function InputLayout(props) {
                                  style={{...{
                                      width: '100%',
                                      borderRadius: '8px'
-                                 },...getSecondaryBackground({dark: props.dark})}} required={props.required}
+                                 },...getPrimaryBackground({dark: props.dark})}} required={props.required}
                                  error={props.required === true && (props.initialValue === null || props.initialValue === undefined || props.initialValue.length === 0)}>
                         <InputLabel id={props.inputName.replace(' ', '')}>{props.inputName}</InputLabel>
                         <Select
@@ -79,7 +79,7 @@ export default function InputLayout(props) {
                                     width: '100%',
                                     margin: 'auto',
                                     borderRadius: '8px'
-                                }, ...getSecondaryBackground({dark: props.dark})}}
+                                }, ...getPrimaryBackground({dark: props.dark})}}
                                 required={props.required}
                                 inputVariant="outlined"
                                 margin="normal"
@@ -110,7 +110,7 @@ export default function InputLayout(props) {
                     <form noValidate style={{...{
                             width: '100%',
                             borderRadius: '8px'
-                        },...getSecondaryBackground({dark: props.dark})}}>
+                        },...getPrimaryBackground({dark: props.dark})}}>
                         <TextField
                             required={props.required}
                             variant={'outlined'}

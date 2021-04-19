@@ -4,7 +4,7 @@ import Navigation from "./Navigation";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {setThemeCookie} from "../../utils/shared/Theme";
-import {getSecondaryBackground} from "../../styles/shared/MainStyles";
+import {getPrimaryBackground} from "../../styles/shared/MainStyles";
 
 const cookies = new Cookies()
 
@@ -29,7 +29,7 @@ export default function Layout({children}) {
 
     if (router.pathname !== '/signin')
         return (
-            <div style={getSecondaryBackground({dark: dark})}>
+            <div style={getPrimaryBackground({dark: dark})}>
                 <div className={styles.page_container}
                      id={'scrollableDiv'} style={{width: reduced ? '96vw' : '85vw', transform: reduced ? 'translateX(4vw)' :'translateX(15vw)' }}>
                     <div className={styles.children_container}>

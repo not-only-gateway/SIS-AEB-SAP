@@ -14,8 +14,8 @@ import shared from '../styles/shared/Shared.module.css'
 import {
     getBorder,
     getIconStyle,
-    getPrimaryBackground, getPrimaryColor,
-    getSecondaryBackground,
+    getSecondaryBackground, getPrimaryColor,
+    getPrimaryBackground,
     getSecondaryColor,
     getTertiaryColor
 } from "../styles/shared/MainStyles";
@@ -73,7 +73,7 @@ export default function Settings() {
 
                 <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.baseWidth].join(' ')}
                      style={{
-                         ...getPrimaryBackground({dark: dark}), ...{
+                         ...getSecondaryBackground({dark: dark}), ...{
                              justifyContent: 'center'
                          }
                      }}>
@@ -188,11 +188,8 @@ export default function Settings() {
                         {accessProfile !== null && accessProfile.canViewActivityLog ?
                             <div style={{
                                 width: '21.1vw',
-                                borderLeft: 'black 2px solid',
-                                borderRight: '#f5f6f8 2px solid',
-                                borderTop: '#f5f6f8 2px solid',
-                                borderBottom: '#f5f6f8 2px solid',
-                                borderRadius: '0px 8px 8px  0px'
+                                border: !dark ? '#e5e6e8 1px solid' : 'initial',
+                                borderRadius: '8px'
                             }}>
                                 <Link href={{pathname: '/activity', locale: router.locale}}>
                                     <Button style={{

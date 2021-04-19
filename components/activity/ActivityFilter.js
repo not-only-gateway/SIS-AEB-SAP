@@ -7,7 +7,7 @@ import fetchActivityData from "../../utils/activity/FetchData";
 import {
     getBorder,
     getBoxShadow,
-    getPrimaryBackground,
+    getSecondaryBackground,
     getSecondaryColor,
     getTertiaryBackground
 } from "../../styles/shared/MainStyles";
@@ -16,7 +16,7 @@ export default function ActivityFilterComponent(props) {
     return (
         <div className={styles.options_container}
              style={{
-                 ...getPrimaryBackground({dark: props.dark}),
+                 ...getSecondaryBackground({dark: props.dark}),
                  ...getSecondaryColor({dark: props.dark})
              }}>
             <InputLayout inputName={props.lang.search} dark={props.dark} handleChange={props.handleChange}

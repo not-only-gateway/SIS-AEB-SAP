@@ -13,9 +13,9 @@ import {readAccessProfile} from "../utils/shared/IndexedDB";
 import Cookies from "universal-cookie/lib";
 import shared from "../styles/shared/Shared.module.css";
 import {
-    getPrimaryBackground,
-    getPrimaryColor,
     getSecondaryBackground,
+    getPrimaryColor,
+    getPrimaryBackground,
     getTertiaryColor
 } from "../styles/shared/MainStyles";
 import styles from '../styles/person/Form.module.css'
@@ -131,7 +131,6 @@ export default function person() {
                                         <TabLayout
                                             dark={dark}
                                             width={45}
-                                            height={60}
 
                                             tabs={[
                                                 {

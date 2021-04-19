@@ -8,7 +8,7 @@ import shared from '../../styles/shared/Shared.module.css'
 import {Divider} from "@material-ui/core";
 import getTitle from "../../utils/person/GetTitle";
 import mainStyles from '../../styles/shared/Main.module.css'
-import {getPrimaryBackground} from "../../styles/shared/MainStyles";
+import {getSecondaryBackground} from "../../styles/shared/MainStyles";
 
 export default function Collaborations(props) {
 
@@ -34,7 +34,7 @@ export default function Collaborations(props) {
     if (!loading)
         return (
             <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.baseWidth].join(' ')} style={{
-                ...getPrimaryBackground({dark: props.dark}), ...{
+                ...getSecondaryBackground({dark: props.dark}), ...{
                     transform: props.editionMode ? 'translateY(3vh)' : null
                 }
             }}>
@@ -72,7 +72,6 @@ export default function Collaborations(props) {
                             openSize={45}
                             dark={props.dark}
                             closedSize={45}
-                            background={'#484c55'}
                         />
                     }
                     {collaborations.map(collaboration => (

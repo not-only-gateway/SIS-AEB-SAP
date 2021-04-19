@@ -10,7 +10,8 @@
 
 .cardContainer {
     overflow: hidden;
-    width: 13.4vw;
+    width: 14.4vw;
+    height: 29vh;
     transition: 0.2s;
     animation-duration: .2s;
     animation-name: pop_in;
