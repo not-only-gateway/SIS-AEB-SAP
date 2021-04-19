@@ -85,7 +85,6 @@ export default function Collaborations(props) {
                                         create={true}
                                         fetchData={fetchData}
                                         dark={props.dark}
-                                        visible={props.editionMode}
                                         editable={props.editionMode}
                                     />
                                 }
@@ -104,7 +103,7 @@ export default function Collaborations(props) {
                                     </div>
                                 }
                                 key={collaboration.collaboration.id}
-                                disabled={false}
+                                disabled={!props.editionMode}
                                 openSize={45}
                                 closedSize={45}
                                 dark={props.dark}

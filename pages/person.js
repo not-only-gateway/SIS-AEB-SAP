@@ -36,14 +36,18 @@ export default function person() {
     const [accessProfile, setAccessProfile] = useState(null)
     const [dark, setDark] = useState(false)
     const [loading, setLoading] = useState(true)
-    const [profile, setProfile] = useState({})
+    const [profile, setProfile] = useState({
+    })
+    const [role, setRole] = useState({})
     const [collaboration, setCollaboration] = useState({})
     const [unit, setUnit] = useState({})
     const [editMode, setEditMode] = useState(false)
-    function handleChange(props) {
-        profile[props.name] = props.value
+        function handleChange(props) {
+        setProfile(prevState => ({
+            ...prevState,
+            [props.name]: props.value
+        }))
     }
-
     useEffect(() => {
         setDark((new Cookies()).get('theme') === 0)
         if (router.isReady && router.query.id !== id) {
@@ -55,11 +59,14 @@ export default function person() {
                 ).then(res => {
                     console.log('res')
                     console.log(res)
+                    
                     if (res !== null) {
                         setProfile(res.profile)
                         setCollaboration(res.collaboration)
                         setUnit(res.unit)
+                        setRole(res.role)
                     }
+                    console.log(res.role)
 
                     if (accessProfile === null || (!accessProfile.canUpdatePerson)) {
                         delete profile.education
@@ -92,7 +99,7 @@ export default function person() {
         setId(new_id)
     }
 
-    if (lang !== null && router.isReady && router.query.id === id)
+    if (lang !== null && router.isReady && router.query.id === id && !loading && profile !== null)
         return (
             <ThemeProvider theme={createMuiTheme({
                 palette: {
@@ -102,7 +109,7 @@ export default function person() {
                 {/*<GetPageTitle pageName={lang.main.title} pageTitle={lang.main.title}*/}
                 {/*              pageInfo={lang.main.info} dark={dark}/>*/}
                 {id !== undefined ?
-                    <div className={mainStyles.displayColumnSpaced} style={{width: '60vw',}}>
+                    <div className={mainStyles.displayColumnSpaced} style={{width: '60.5vw',}}>
                         {create !== 'true' ?
                             <>
                                 <div style={{
@@ -117,6 +124,7 @@ export default function person() {
                                         dark={dark}
                                         setEditMode={setEditMode}
                                         editMode={editMode}
+                                        role={role}
                                         editable={accessProfile !== null && accessProfile.canUpdatePerson}
                                         inactiveLocale={lang.inactive}/>
                                     {editMode && accessProfile !== null?

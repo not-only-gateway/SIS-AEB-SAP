@@ -107,42 +107,6 @@ export default function BaseForm(props) {
         }
     }
 
-    function moreFields() {
-        return (
-            <div
-                className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth, mainStyles.displayInlineCenter].join(' ')}
-                style={{marginBottom: '2vh'}}>
-                <InputLayout inputName={lang.father} dark={props.dark} handleChange={props.handleChange}
-                             inputType={0} name={'father_name'}
-                             disabled={!props.editable} size={props.create ? 32 : 30} required={false}
-                             initialValue={props.profile.father_name}
-                             key={"1-3"} setChanged={setChanged}/>
-                <InputLayout inputName={lang.mother} dark={props.dark} handleChange={props.handleChange}
-                             inputType={0} name={'mother_name'}
-                             disabled={!props.editable} size={props.create ? 32 : 30} required={false}
-                             initialValue={props.profile.mother_name}
-                             key={"1-4"} setChanged={setChanged}/>
-                <InputLayout inputName={lang.birthPlace} dark={props.dark}
-                             handleChange={props.handleChange} inputType={0}
-                             disabled={!props.editable} size={props.create ? 32 : 30} required={true}
-                             initialValue={props.profile.birth_place} name={'birth_place'}
-                             key={"1-5"} setChanged={setChanged}/>
-                <InputLayout inputName={lang.education} dark={props.dark}
-                             handleChange={props.handleChange}
-                             inputType={1} name={'education'}
-                             disabled={!props.editable} size={props.create ? 49 : 46} required={true}
-                             initialValue={props.profile.education}
-                             selectFields={lang.educationChoice}
-                             key={"1-9"} setChanged={setChanged}/>
-                <InputLayout inputName={lang.marital} dark={props.dark} handleChange={props.handleChange}
-                             inputType={1} name={'marital_status'}
-                             disabled={!props.editable} size={props.create ? 49 : 46} required={true}
-                             initialValue={props.profile.marital_status}
-                             selectFields={lang.maritalChoice}
-                             key={"1-11"} setChanged={setChanged}/>
-            </div>
-        )
-    }
 
     if (lang !== null)
         return (
@@ -213,26 +177,34 @@ export default function BaseForm(props) {
                                  initialValue={props.profile.gender}
                                  selectFields={lang.genderChoice}
                                  key={"1-10"} setChanged={setChanged}/>
-                    {props.create === false ?
-                        <div>
-                            <AccordionLayout
-                                content={
-                                    moreFields()
-                                }
-                                summary={
-
-                                    <p>{lang.more}</p>
-                                }
-                                disabled={!props.visible}
-                                closedSize={43}
-                                openSize={43}
-                                border={null}
-                                dark={props.dark}
-                                background={'#484c55'}
-                            />
-                        </div> :
-                        moreFields()
-                    }
+                    <InputLayout inputName={lang.father} dark={props.dark} handleChange={props.handleChange}
+                             inputType={0} name={'father_name'}
+                             disabled={!props.editable} size={32} required={false}
+                             initialValue={props.profile.father_name}
+                             key={"1-3"} setChanged={setChanged}/>
+                <InputLayout inputName={lang.mother} dark={props.dark} handleChange={props.handleChange}
+                             inputType={0} name={'mother_name'}
+                             disabled={!props.editable} size={32} required={false}
+                             initialValue={props.profile.mother_name}
+                             key={"1-4"} setChanged={setChanged}/>
+                <InputLayout inputName={lang.birthPlace} dark={props.dark}
+                             handleChange={props.handleChange} inputType={0}
+                             disabled={!props.editable} size={32} required={true}
+                             initialValue={props.profile.birth_place} name={'birth_place'}
+                             key={"1-5"} setChanged={setChanged}/>
+                <InputLayout inputName={lang.education} dark={props.dark}
+                             handleChange={props.handleChange}
+                             inputType={1} name={'education'}
+                             disabled={!props.editable} size={49} required={true}
+                             initialValue={props.profile.education}
+                             selectFields={lang.educationChoice}
+                             key={"1-9"} setChanged={setChanged}/>
+                <InputLayout inputName={lang.marital} dark={props.dark} handleChange={props.handleChange}
+                             inputType={1} name={'marital_status'}
+                             disabled={!props.editable} size={49} required={true}
+                             initialValue={props.profile.marital_status}
+                             selectFields={lang.maritalChoice}
+                             key={"1-11"} setChanged={setChanged}/>
                 </div>
 
                 {!props.editable ? null :

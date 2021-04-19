@@ -55,11 +55,12 @@ export default function Structure() {
 
                 <GetPageTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.information} dark={dark}/>
 
-                <div className={styles.tree_container}>
+                <div className={mainStyles.displayColumnSpaced} style={{width: 'fit-content', height: 'fit-content', padding: '.9vw', backgroundColor: 'white', borderRadius: '8px', gap: '.9vw'}}>
                     <AccordionLayout
                         content={topUnits.map((unit, index) => {
                             if (index === 0)
                                 return (
+                                <div className={styles.tree_container}>
                                     <ul className={styles.tree} style={{
                                         backgroundColor: dark ? '#3b424c' : 'none',
                                         borderRadius: '8px',
@@ -68,6 +69,7 @@ export default function Structure() {
                                         <SubjectLayout dark={dark} subject={unit}
                                                        type={'unit'}/>
                                     </ul>
+                                     </div>
                                 )
                             else return null
                         })}
@@ -78,18 +80,19 @@ export default function Structure() {
                                 <p className={mainStyles.secondaryParagraph}>{lang.units}</p>
                             </div>
                         }
-                        background={true}
+             
                         dark={dark}
                         closedSize={45}
-                        openSize={null}
+                        openSize={60}
                     />
 
-                </div>
-                <div className={styles.tree_container}>
+               
+          
                     <AccordionLayout
                         content={topCollaborators.map((collaborator, index) => {
                             if (index === 0)
                                 return (
+                                <div className={styles.tree_container}>
                                     <ul className={styles.tree} style={{
                                         backgroundColor: dark ? '#3b424c' : 'none',
                                         borderRadius: '8px',
@@ -98,6 +101,7 @@ export default function Structure() {
                                         <SubjectLayout dark={dark}
                                                        subject={collaborator} type={'collaborator'}/>
                                     </ul>
+                                    </div>
                                 )
                             else return null
                         })}
@@ -108,13 +112,13 @@ export default function Structure() {
                                 <p className={mainStyles.secondaryParagraph}>{lang.collaborators}</p>
                             </div>
                         }
-                        background={true}
+                    
                         dark={dark}
                         closedSize={45}
-                        openSize={null}
+                        openSize={60}
                     />
+                    </div>
 
-                </div>
             </ThemeProvider>
         )
     else

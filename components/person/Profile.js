@@ -22,9 +22,11 @@ import mainStyles from '../../styles/shared/Main.module.css'
 import AvatarLayout from "../shared/AvatarLayout";
 import ImageHost from "../../utils/shared/ImageHost";
 import shared from "../../styles/shared/Shared.module.css";
+import ViewQuiltRoundedIcon from '@material-ui/icons/ViewQuiltRounded';
+import CakeRoundedIcon from '@material-ui/icons/CakeRounded';
 
 export default function ProfileComponent(props) {
-
+	const birth = new Date(props.profile.birth)
     return (
         <div
             className={[mainStyles.displayColumnSpaced].join(' ')}
@@ -33,14 +35,14 @@ export default function ProfileComponent(props) {
                 ...getPrimaryBackground({dark: props.dark}),
                 ...{
                     borderRadius: '8px',
-                    height: '45vh',
+                    height: '60vh',
                     position: 'sticky',
                     top: '0',
                     width: '14vw',
                     padding: '.5vw'
                 }
             }}>
-
+		 
             <div className={mainStyles.displayColumnSpaced} style={{justifyContent: 'center', justifyItems: 'center'}}>
                 <Avatar src={ImageHost() + props.profile.image}
                         style={{height: '100px', width: '100px', margin: 'auto'}}/>
@@ -52,9 +54,16 @@ export default function ProfileComponent(props) {
                 </div>
             </div>
             <div style={{overflow: 'hidden'}}>
-
+ <div className={mainStyles.displayInlineSpaced}>
+                    <CakeRoundedIcon style={getIconStyle({dark: props.dark})}/>
+                    <p className={mainStyles.tertiaryParagraph} style={{
+                        ...getTertiaryColor({dark: props.dark}), ...{
+                            textAlign: "right"
+                        }
+                    }}>{birth.toDateString().substr(3, birth.toDateString().length -7)}</p>
+                </div>
                 <div className={mainStyles.displayInlineSpaced}>
-                    <EmailRounded style={getIconStyle({dark: props.dark})}/>
+                    <EmailRounded style={{...getIconStyle({dark: props.dark})}}/>
                     <p className={mainStyles.tertiaryParagraph} style={{
                         ...getTertiaryColor({dark: props.dark}), ...{
                             textAlign: "right"
@@ -69,14 +78,28 @@ export default function ProfileComponent(props) {
                         }
                     }}>{props.profile.extension}</p>
                 </div>
+
                 <div className={mainStyles.displayInlineSpaced}>
-                    <WorkRounded style={getIconStyle({dark: props.dark})}/>
+                    <ViewQuiltRoundedIcon style={getIconStyle({dark: props.dark})}/>
                     <p className={mainStyles.tertiaryParagraph} style={{
                         ...getTertiaryColor({dark: props.dark}), ...{
                             textAlign: "right"
                         }
                     }}>{props.unit.acronym}</p>
                 </div>
+                {props.role !== undefined ? 
+                 <div className={mainStyles.displayInlineSpaced}>
+                    <WorkRounded style={getIconStyle({dark: props.dark})}/>
+                    <p className={mainStyles.tertiaryParagraph} style={{
+                        ...getTertiaryColor({dark: props.dark}), ...{
+                            textAlign: "right"
+                        }
+                    }}>{props.role.denomination}</p>
+                </div>
+                : 
+                null
+                }
+              
                 <div className={mainStyles.displayInlineSpaced}>
                     <CalendarTodayRounded style={getIconStyle({dark: props.dark})}/>
                     <p className={mainStyles.tertiaryParagraph} style={{
@@ -112,6 +135,7 @@ ProfileComponent.proptypes = {
     dark: PropTypes.bool,
     profile: PropTypes.object,
     collaboration: PropTypes.object,
+    role: PropTypes.object,
     inactiveLocale: PropTypes.string,
     lastActivity: PropTypes.number,
     editable: PropTypes.bool,

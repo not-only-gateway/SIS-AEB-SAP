@@ -10,7 +10,9 @@
 
 .tree_container {
     margin: auto auto 2vh;
-    width: 85vw;
+    width: 60;
+    overflow: auto;
+    zoom: .5;
     position: relative;
     height: fit-content;
     display: flex;

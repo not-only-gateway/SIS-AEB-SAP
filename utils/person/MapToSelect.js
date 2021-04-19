@@ -4,11 +4,11 @@ export default function mapToSelect(props) {
     let response = []
     switch (props.option) {
         case 0: {
-
             props.units.map(data => {
+            	console.log(data)
                 response.push({
-                    key: data.unit.id,
-                    value: data.unit.acronym
+                    key: data.id,
+                    value: data.acronym
                 })
             })
             break

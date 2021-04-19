@@ -12,6 +12,7 @@ import {
 } from "../../styles/shared/MainStyles";
 
 export default function NavigationButtonLayout(props) {
+
     return (
         <div className={mainStyles.marginVertical}
              style={{
@@ -30,17 +31,25 @@ export default function NavigationButtonLayout(props) {
                 }}>
                     <Button style={{
                         height: '6vh',
-                        width: props.reduced ? '3.5vw' : '13vw',
+                        width: props.reduced ? null : '13vw',
                         textTransform: 'none',
                         transition: '.3s'
                     }}>
-                        <div className={props.reduced ? mainStyles.displayInlineCenter : mainStyles.displayInlineStart}
+                        <div className={ mainStyles.displayInlineStart}
                              style={{
                                  width: '100%'
                              }}>
                             {props.icon}
+                            {typeof(props.label) === 'string' ?
                             <p className={[mainStyles.secondaryParagraph, mainStyles.overflowEllipsis].join(' ')}
-                               style={{...{transition: '.3s'}, ...getSecondaryColor({dark: props.dark})}}> {!props.reduced ? props.label : null}</p>
+                               style={{...{transition: '.3s', transform: 'translateX(10px)'}, ...getSecondaryColor({dark: props.dark})}}> {!props.reduced ? props.label : null}</p>
+                               :
+                               <div className={[mainStyles.secondaryParagraph, mainStyles.overflowEllipsis].join(' ')}
+                               style={{...{transition: '.3s'}, ...getSecondaryColor({dark: props.dark})}}>
+                                {!props.reduced ? props.label : null}
+                               </div>
+                            }
+                            
 
                         </div>
                     </Button>
@@ -62,7 +71,7 @@ NavigationButtonLayout.propTypes = {
     linkQuery: PropTypes.object,
     icon: PropTypes.element,
     locale: PropTypes.string,
-    label: PropTypes.string,
+    label: PropTypes.any,
     reduced: PropTypes.bool,
     setToggle: PropTypes.func,
     initialValue: PropTypes.bool,
