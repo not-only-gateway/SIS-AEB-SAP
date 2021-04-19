@@ -3,5 +3,6 @@ export default {
     theme: 'Theme',
     language: 'Language',
     information: 'Local adjustments',
-    activity: 'Account activity'
+    activity: 'Account activity',
+    collaboration: 'Collaboration'
 }

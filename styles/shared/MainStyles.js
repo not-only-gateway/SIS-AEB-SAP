@@ -23,8 +23,8 @@ export function getTertiaryColor(props) {
 
 export function getSecondaryBackground(props) {
     return {
-        backgroundColor: props.dark ? '#303741' : 'white',
-        boxShadow: props.dark ? null : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px'
+        // boxShadow: props.dark ? null : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
+        border: '#e2e2e2 1px solid'
             // 'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px'
         // 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px'
         // 'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px'
@@ -35,7 +35,7 @@ export function getSecondaryBackground(props) {
 
 export function getPrimaryBackground(props) {
     return {
-        backgroundColor: props.dark ? '#262d37' : '#f5f6f8',
+        backgroundColor: props.dark ? '#262d37' : 'white',
         boxShadow: props.dark ? null : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px'
     }
 }
@@ -67,7 +67,7 @@ export function getIconStyle(props) {
 
         marginRight: '10px',
         fontSize: '1.5rem',
-        color: props.highlight ? props.dark ?'#1ea1f1' : '#46b2f3' : !props.dark ? '#777777' : '#ededed'
+        color: props.highlight ? props.dark ?'#1ea1f1' : '#46b2f3' : '#777777'
     }
 }
 

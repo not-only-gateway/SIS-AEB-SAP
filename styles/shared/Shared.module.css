@@ -8,7 +8,6 @@
 .header_container {
     position: sticky;
     top: 0;
-    width: 45vw;
     z-index: 2;
     display: grid;
     justify-items: center;

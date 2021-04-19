@@ -77,8 +77,8 @@ export default function Settings() {
                              justifyContent: 'center'
                          }
                      }}>
-                    <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth].join(' ')}
-                         style={{marginTop: '2vh', marginBottom: '2vh'}}>
+                    <div className={[mainStyles.normalBorder, mainStyles.displayWarp].join(' ')}
+                         style={{marginTop: '2vh', marginBottom: '2vh', width: '60vw'}}>
 
                         <AccordionLayout
                             content={
@@ -106,8 +106,8 @@ export default function Settings() {
                                 </div>
                             }
                             key={'language - settings'}
-                            closedSize={21.1}
-                            openSize={21}
+                            closedSize={29.6}
+                            openSize={29.6}
                             dark={dark}
                             disabled={false}
                             border={null}
@@ -144,10 +144,10 @@ export default function Settings() {
                                 </div>
                             }
                             key={'theme - settings'}
-                            closedSize={21.1}
-                            openSize={21.1}
+                            closedSize={29.6}
+                            openSize={29.6}
                             dark={dark}
-                            disabled={false}
+                            disabled={true}
                             border={null}
                         />
 
@@ -168,7 +168,7 @@ export default function Settings() {
                                 }
                                 summary={
                                     <div className={shared.accordionTitle}>
-                                        <p className={mainStyles.secondaryParagraph}>Collaboration</p>
+                                        <p className={mainStyles.secondaryParagraph}>{lang.collaboration}</p>
                                         <Divider style={{width: '10px', marginLeft: '10px', marginRight: '10px'}}
                                                  orientation={'horizontal'}/>
                                         <p className={mainStyles.tertiaryParagraph}
@@ -176,8 +176,8 @@ export default function Settings() {
                                     </div>
                                 }
                                 key={'collaborations - settings'}
-                                closedSize={21.1}
-                                openSize={21.1}
+                                closedSize={29.6}
+                                openSize={29.6}
                                 dark={dark}
                                 disabled={false}
                                 border={null}
@@ -187,7 +187,7 @@ export default function Settings() {
                         }
                         {accessProfile !== null && accessProfile.canViewActivityLog ?
                             <div style={{
-                                width: '21.1vw',
+                                width: '29.6vw',
                                 border: !dark ? '#e5e6e8 1px solid' : 'initial',
                                 borderRadius: '8px'
                             }}>

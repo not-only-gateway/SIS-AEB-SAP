@@ -5,12 +5,11 @@
     flex-wrap: wrap;
     gap: .9vw;
     overflow: hidden;
-    width: 45vw;
 }
 
 .cardContainer {
     overflow: hidden;
-    width: 14.4vw;
+    width: 11.88vw;
     height: 29vh;
     transition: 0.2s;
     animation-duration: .2s;

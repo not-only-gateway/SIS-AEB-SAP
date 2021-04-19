@@ -75,6 +75,7 @@ export default function PersonCard(props) {
                         ...{
                             borderRadius: '8px',
                             width: '90%',
+                            height: '35px',
                             margin: '10px auto 10px',
                             backgroundColor: 'black',
                             color: 'white'
@@ -95,7 +96,7 @@ export default function PersonCard(props) {
                         margin: '10px auto 10px',
                         backgroundColor: 'rgba(236, 78, 43, 0.2)',
                         color: 'white',
-                        height: 'fit-content'
+                        height: '35px'
                     }
                 }} className={[mainStyles.secondaryParagraph, mainStyles.displayInlineSpaced].join(' ')}>
                     <WarningRounded style={{

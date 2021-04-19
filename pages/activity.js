@@ -20,6 +20,7 @@ import {
 } from "../styles/shared/MainStyles";
 import mainStyles from "../styles/shared/Main.module.css";
 import GetPageTitle from "../utils/shared/GetPageTitle";
+import ActivityList from "../components/activity/ActivityList";
 
 export default function Activity() {
 
@@ -74,93 +75,77 @@ export default function Activity() {
 
     if (lang !== null)
         return (
-            <ThemeProvider theme={createMuiTheme({
-                palette: {
-                    type: dark ? "dark" : "light"
+            <div className={styles.pageContainer}>
+                <ActivityList title={
+                    <GetPageTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.info1}
+                                  dark={dark}/>
                 }
-            })}>
-                <div className={shared.header_container}
-                     style={getPrimaryBackground({dark: dark})}>
-                    <GetPageTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.info1} dark={dark}/>
+                              content={
+                                  data.length > 0 ?
+                                      <InfiniteScroll
+                                          dataLength={data.length}
+                                          next={() => fetchActivityData({
+                                              type: 0,
+                                              setLastFetchedSize: lastFetchedSize,
+                                              setData: setData,
+                                              data: data,
+                                              setMaxID: setMaxID,
+                                              maxID: maxID,
+                                              setError: setError,
+                                              setErrorMessage: setErrorMessage,
+                                              thisMachine: thisMachine,
+                                              startDate: filters.date,
+                                              method: filters.method,
+                                              path: filters.path
+                                          }).catch(error => console.log(error))
+                                          }
+                                          hasMore={lastFetchedSize === 20 && data[data.length - 1].activity.id > 1}
+                                          inverse={false}
+                                          scrollableTarget="scrollableDiv"
+                                          loader={<Skeleton variant={'rect'} width={'100%'}
+                                                            style={{borderRadius: '8px'}}
+                                                            height={'7vh'}/>}
+                                          endMessage={
+                                              <div
 
-                    <ActivityFilterComponent lang={lang} filters={filters} handleChange={handleChange}
-                                             dark={dark} changed={changed}
-                                             setChanged={setChanged}
-                                             setThisMachine={setThisMachine}
-                                             thisMachine={thisMachine} setResponseData={setData}
-                                             setLastFetchedSize={setLastFetchedSize}
-                                             setMaxID={setMaxID}/>
-                </div>
-                {/*<div className={styles.infinite_scroll_container}>*/}
-                <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.baseWidth].join(' ')}
-                     style={{
-                         ...getSecondaryBackground({dark: dark}), ...{
-                             transform: 'translateY(3vh)',
-                             justifyContent: 'center'
-                         }
-                     }}>
+                                                  style={{...{transform: 'translateY(.9vw)', marginBottom: '1.8vw'},}}>
+                                                  <p className={mainStyles.secondaryParagraph}
+                                                     style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.end}</p>
+                                              </div>
+                                          }
+                                      >
+                                          <div className={styles.activities_container}>
+                                              {data.map(data => (
+                                                      <ActivityComponent lang={lang} dark={dark} activity={data.activity}
+                                                                         accessLog={data.access_log}
+                                                      />
+                                                  )
+                                              )}
+                                          </div>
+                                      </InfiniteScroll>
+
+                                      :
+
+                                      <div
+                                          className={[mainStyles.baseWidth, mainStyles.normalBorder, mainStyles.displayInlineCenter].join(' ')}
+                                          style={{
+                                              ...getSecondaryBackground({dark: dark}),
+                                          }}>
+                                          <p className={mainStyles.secondaryParagraph}
+                                             style={getTertiaryColor({dark: dark})}>{lang.nothingFound}</p>
+                                      </div>
+                              }
+                />
+                <ActivityFilterComponent lang={lang} filters={filters} handleChange={handleChange}
+                                         dark={dark} changed={changed}
+                                         setChanged={setChanged}
+                                         setThisMachine={setThisMachine}
+                                         thisMachine={thisMachine} setResponseData={setData}
+                                         setLastFetchedSize={setLastFetchedSize}
+                                         setMaxID={setMaxID}/>
 
 
-                    {data.length > 0 ?
-                        <div
-                            className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth].join(' ')}
-                            style={{marginTop: '2vh'}}>
-                            <InfiniteScroll
-                                dataLength={data.length}
-                                next={() => fetchActivityData({
-                                    type: 0,
-                                    setLastFetchedSize: lastFetchedSize,
-                                    setData: setData,
-                                    data: data,
-                                    setMaxID: setMaxID,
-                                    maxID: maxID,
-                                    setError: setError,
-                                    setErrorMessage: setErrorMessage,
-                                    thisMachine: thisMachine,
-                                    startDate:  filters.date ,
-                                    method: filters.method,
-                                    path: filters.path
-                                }).catch(error => console.log(error))
-                                }
-                                hasMore={lastFetchedSize === 20 && data[data.length - 1].activity.id > 1}
-                                inverse={false}
-                                scrollableTarget="scrollableDiv"
-                                loader={<Skeleton variant={'rect'} width={'100%'} style={{borderRadius: '8px'}}
-                                                  height={'7vh'}/>}
-                                endMessage={
-                                    <div
-
-                                        style={{...{transform: 'translateY(.9vw)', marginBottom:'1.8vw'},}}>
-                                        <p className={mainStyles.secondaryParagraph}
-                                           style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.end}</p>
-                                    </div>
-                                }
-                            >
-                                <div className={styles.activities_container}>
-                                    {data.map(data => (
-                                            <ActivityComponent lang={lang} dark={dark} activity={data.activity}
-                                                               accessLog={data.access_log}
-                                            />
-                                        )
-                                    )}
-                                </div>
-                            </InfiniteScroll>
-                        </div>
-                        :
-
-                        <div
-                            className={[mainStyles.baseWidth, mainStyles.normalBorder, mainStyles.displayInlineCenter].join(' ')}
-                            style={{
-                                ...getSecondaryBackground({dark: dark}),
-                            }}>
-                            <p className={mainStyles.secondaryParagraph}
-                               style={getTertiaryColor({dark: dark})}>{lang.nothingFound}</p>
-                        </div>
-                    }
-
-                </div>
-
-            </ThemeProvider>
+            </div>
         )
     else
         return <></>

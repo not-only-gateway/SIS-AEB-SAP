@@ -24,6 +24,7 @@ import mainStyles from '../styles/shared/Main.module.css'
 import ImageHost from "../utils/shared/ImageHost";
 import PersonCard from "../components/index/PersonCard";
 import ProfileComponent from "../components/person/Profile";
+import Head from "next/head";
 
 
 export default function person() {
@@ -109,9 +110,12 @@ export default function person() {
                 {/*<GetPageTitle pageName={lang.main.title} pageTitle={lang.main.title}*/}
                 {/*              pageInfo={lang.main.info} dark={dark}/>*/}
                 {id !== undefined ?
-                    <div className={mainStyles.displayColumnSpaced} style={{width: '60.5vw',}}>
+                    <div className={mainStyles.displayColumnSpaced} style={{width: '80vw',}}>
                         {create !== 'true' ?
                             <>
+                                <Head>
+                                    <title>{profile.name}</title>
+                                </Head>
                                 <div style={{
                                     transform: 'translateY(10vh) translateX(0)', display: 'flex',
                                     alignItems: 'flex-start',
@@ -130,7 +134,7 @@ export default function person() {
                                     {editMode && accessProfile !== null?
                                         <TabLayout
                                             dark={dark}
-                                            width={45}
+                                            width={63}
 
                                             tabs={[
                                                 {

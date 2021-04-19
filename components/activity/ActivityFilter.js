@@ -1,33 +1,29 @@
 import PropTypes from 'prop-types'
 import styles from "../../styles/activity/Activity.module.css";
 import InputLayout from "../shared/layout/InputLayout";
-import {Button, Checkbox, Divider, FormControlLabel} from "@material-ui/core";
+import {Button, Checkbox, createMuiTheme, Divider, FormControlLabel, ThemeProvider} from "@material-ui/core";
 import React from "react";
 import fetchActivityData from "../../utils/activity/FetchData";
-import {
-    getBorder,
-    getBoxShadow,
-    getSecondaryBackground,
-    getSecondaryColor,
-    getTertiaryBackground
-} from "../../styles/shared/MainStyles";
+import mainStyles from '../../styles/shared/Main.module.css'
 
 export default function ActivityFilterComponent(props) {
     return (
-        <div className={styles.options_container}
-             style={{
-                 ...getSecondaryBackground({dark: props.dark}),
-                 ...getSecondaryColor({dark: props.dark})
-             }}>
+        <ThemeProvider theme={createMuiTheme({
+            palette: {
+                type: "light"
+            }
+        })}>
+        <div className={styles.optionsContainer}>
+            <p style={{textAlign: 'left', fontWeight: '500', fontSize:'1.1rem'}}>Search</p>
             <InputLayout inputName={props.lang.search} dark={props.dark} handleChange={props.handleChange}
                          inputType={0} name={'path'}
-                         disabled={props.disabled} size={21} initialValue={props.filters.path}
+                         disabled={props.disabled} size={90} initialValue={props.filters.path}
                          key={"path"} setChanged={props.setChanged} margin={false}
             />
             <Divider orientation={'vertical'}/>
             <InputLayout inputName={props.lang.startDate} dark={props.dark} handleChange={props.handleChange}
                          inputType={2} name={'date'}
-                         disabled={props.disabled} size={21} initialValue={props.filters.date}
+                         disabled={props.disabled} size={90} initialValue={props.filters.date}
                          key={"start-date"} setChanged={props.setChanged} margin={false}
             />
             <Divider orientation={'vertical'}/>
@@ -40,7 +36,7 @@ export default function ActivityFilterComponent(props) {
                              {value: 'DELETE', key: 'DELETE'},
                              {value: 'Any', key: null}
                          ]}
-                         disabled={props.disabled} size={15} initialValue={props.filters.method}
+                         disabled={props.disabled} size={90} initialValue={props.filters.method}
                          key={"method-select"} setChanged={props.setChanged} margin={false}
             />
             <Divider orientation={'vertical'}/>
@@ -59,29 +55,65 @@ export default function ActivityFilterComponent(props) {
                 }
                 label={props.lang.machine}
             />
-            <Divider orientation={'vertical'}/>
-            <Button disabled={!props.changed} onClick={() => {
-                props.setChanged(false)
-                fetchActivityData({
-                    type: 1,
-                    setLastFetchedSize: props.setLastFetchedSize,
-                    setData: props.setResponseData,
-                    data: props.data,
-                    setMaxID: props.setMaxID,
-                    maxID: props.maxID,
-                    setError: props.setError,
-                    setErrorMessage: props.setErrorMessage,
-                    thisMachine: props.thisMachine,
-                    startDate: props.filters.date,
-                    method: props.filters.method,
-                    path: props.filters.path,
-                }).catch(error => console.log(error))
+            <div className={mainStyles.displayInlineSpaced} style={{width: '100%'}}>
+                <Button disabled={!props.changed} variant={'contained'} color={'primary'} onClick={() => {
+                    props.setChanged(false)
+                    fetchActivityData({
+                        type: 1,
+                        setLastFetchedSize: props.setLastFetchedSize,
+                        setData: props.setResponseData,
+                        data: props.data,
+                        setMaxID: props.setMaxID,
+                        maxID: props.maxID,
+                        setError: props.setError,
+                        setErrorMessage: props.setErrorMessage,
+                        thisMachine: props.thisMachine,
+                        startDate: props.filters.date,
+                        method: props.filters.method,
+                        path: props.filters.path,
+                    }).catch(error => console.log(error))
 
-            }}>
-                filter
-            </Button>
+                }}>
+                    filter
+                </Button>
+                <Button disabled={!props.changed} variant={'contained'} color={'secondary'} onClick={() => {
+                    props.setChanged(false)
+                    props.setMaxID(null)
+                    props.setLastFetchedSize(null)
+                    props.setThisMachine(false)
+                    props.handleChange({
+                        name: 'method',
+                        value: null
+                    })
+                    props.handleChange({
+                        name: 'path',
+                        value: ''
+                    })
+                    props.handleChange({
+                        name: 'date',
+                        value: null
+                    })
+                    fetchActivityData({
+                        type: 1,
+                        setLastFetchedSize: props.setLastFetchedSize,
+                        setData: props.setResponseData,
+                        data: props.data,
+                        setMaxID: props.setMaxID,
+                        maxID: props.maxID,
+                        setError: props.setError,
+                        setErrorMessage: props.setErrorMessage,
+                        thisMachine: props.thisMachine,
+                        startDate: props.filters.date,
+                        method: props.filters.method,
+                        path: props.filters.path,
+                    }).catch(error => console.log(error))
+
+                }}>
+                    Clear
+                </Button>
+            </div>
         </div>
-
+        </ThemeProvider>
     )
 }
 

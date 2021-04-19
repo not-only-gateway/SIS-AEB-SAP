@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button} from '@material-ui/core';
+import {Button, createMuiTheme, ThemeProvider} from '@material-ui/core';
 import Link from 'next/link'
 import PropTypes from 'prop-types'
 import mainStyles from '../../styles/shared/Main.module.css'
@@ -18,48 +18,67 @@ export default function NavigationButtonLayout(props) {
         <div className={mainStyles.marginVertical}
              style={{
                  ...{
-                     borderRadius: '0px 8px 8px 0px ',
+                     borderRadius: '8px',
+                     backgroundColor: props.highlight ? '#0095ff' : null
                  },
-                 ...getBorder({highlight: props.highlight}),
-                 ...props.highlight ? getTertiaryBackground({dark: props.dark}) : null,
                  ...props.highlight ? getBoxShadow({dark: props.dark}) : null
              }}>
             {props.linkPath !== null ?
-                <Link href={{
-                    pathname: props.linkPath,
-                    locale: props.locale,
-                    query: props.linkQuery !== undefined ? props.linkQuery : null
-                }}>
-                    <Button style={{
-                        height: '6vh',
-                        width: props.reduced ? null : '13vw',
-                        textTransform: 'none',
-                        transition: '.3s'
+                <ThemeProvider theme={createMuiTheme({
+                    palette: {
+                        type: "dark"
+                    }
+                })}>
+                    <Link href={{
+                        pathname: props.linkPath,
+                        locale: props.locale,
+                        query: props.linkQuery !== undefined ? props.linkQuery : null
                     }}>
-                        <div className={ mainStyles.displayInlineStart}
-                             style={{
-                                 width: '100%'
-                             }}>
-                            {props.icon}
-                            {typeof(props.label) === 'string' ?
-                            <p className={[mainStyles.secondaryParagraph, mainStyles.overflowEllipsis].join(' ')}
-                               style={{...{transition: '.3s', transform: 'translateX(10px)'}, ...getSecondaryColor({dark: props.dark})}}> {!props.reduced ? props.label : null}</p>
-                               :
-                               <div className={[mainStyles.secondaryParagraph, mainStyles.overflowEllipsis].join(' ')}
-                               style={{...{transition: '.3s'}, ...getSecondaryColor({dark: props.dark})}}>
-                                {!props.reduced ? props.label : null}
-                               </div>
-                            }
-                            
 
-                        </div>
-                    </Button>
-                </Link>
+                        <Button style={{
+                            height: '6vh',
+                            width: props.reduced ? null : '13vw',
+                            textTransform: 'none',
+                            transition: '.3s'
+                        }}>
+                            <div className={mainStyles.displayInlineStart}
+                                 style={{
+                                     width: '100%'
+                                 }}>
+                                {props.icon}
+                                {/*{typeof(props.label) === 'string' ?*/}
+                                {/*<p className={[mainStyles.secondaryParagraph, mainStyles.overflowEllipsis].join(' ')}*/}
+                                {/*   style={{...{transition: '.3s', transform: 'translateX(10px)', color: props.highlight? '#e5e6e8' : props.dark ? 'white' : 'black'}, ...getSecondaryColor({dark: props.dark})}}> {!props.reduced ? props.label : null}</p>*/}
+                                {/*   :*/}
+                                {/*   <div className={[mainStyles.secondaryParagraph, mainStyles.overflowEllipsis].join(' ')}*/}
+                                {/*   style={{...{transition: '.3s'}, ...getSecondaryColor({dark: props.dark})}}>*/}
+                                {/*    {!props.reduced ? props.label : null}*/}
+                                {/*   </div>*/}
+                                {/*}*/}
+
+                                <p style={{
+                                    transition: '.3s',
+                                    transform: 'translateX(10px)',
+                                    color: 'white',
+                                    fontSize: '.95rem',
+                                    fontWeight: props.highlight ? '545' : '450'
+                                }}> {!props.reduced ? props.label : null}</p>
+                            </div>
+                        </Button>
+
+                    </Link>
+                </ThemeProvider>
                 :
-                <Button style={{height: '6vh', width: '3.5vw', textTransform: 'none'}}
-                        onClick={() => props.setToggle(!props.initialValue)}>
-                    {props.icon}
-                </Button>
+                <ThemeProvider theme={createMuiTheme({
+                    palette: {
+                        type: "dark"
+                    }
+                })}>
+                    <Button style={{height: '6vh', width: '3.5vw', textTransform: 'none'}}
+                            onClick={() => props.setToggle(!props.initialValue)}>
+                        {props.icon}
+                    </Button>
+                </ThemeProvider>
             }
         </div>
     )
@@ -75,5 +94,5 @@ NavigationButtonLayout.propTypes = {
     label: PropTypes.any,
     reduced: PropTypes.bool,
     setToggle: PropTypes.func,
-    initialValue: PropTypes.bool,
+    initialValue: PropTypes.bool
 }

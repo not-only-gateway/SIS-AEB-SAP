@@ -2,12 +2,9 @@
 @media (orientation: landscape){
     .navigationContent{
         display: grid;
-        /*grid-template-rows:  33.333vh 33.333vh 33.333vh;*/
-        gap: 2vh;
-        justify-items: center;
-        align-items: flex-start;
+        justify-content: center;
+        align-content: space-evenly;
         height: 100vh;
-
     }
     .navigationContainer{
         position: fixed;

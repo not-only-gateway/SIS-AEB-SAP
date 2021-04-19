@@ -11,5 +11,6 @@ export default {
     supervisorExit: 'Remover acesso de administrador',
     supervisorRevalidate: 'Validar acesso de administrador',
     menu: 'Menu de ação',
-    structure: 'Estrutura'
+    structure: 'Estrutura',
+    profile: 'Perfil'
 }

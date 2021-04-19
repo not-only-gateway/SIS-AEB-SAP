@@ -38,7 +38,7 @@ export default function ProfileComponent(props) {
                     height: '55vh',
                     position: 'sticky',
                     top: '0',
-                    width: '14vw',
+                    width: '15vw',
                     padding: '.5vw'
                 }
             }}>

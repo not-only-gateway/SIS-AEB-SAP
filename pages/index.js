@@ -103,7 +103,29 @@ export default function Index() {
                                 </div>
                             }
                         >
-                            <div className={styles.personas_container}>
+                            <div className={[styles.personas_container, mainStyles.baseWidth].join(' ')}>
+                                {data.map(collaborator =>
+                                    <PersonCard
+                                        profile={collaborator.profile}
+                                        collaboration={collaborator.collaboration}
+                                        unit={collaborator.unit}
+                                        lastActivity={collaborator.last_activity}
+                                        dark={dark}
+                                        asProfile={false}
+                                        inactiveLocale={lang.inactive}
+                                    />
+                                )}
+                                {data.map(collaborator =>
+                                    <PersonCard
+                                        profile={collaborator.profile}
+                                        collaboration={collaborator.collaboration}
+                                        unit={collaborator.unit}
+                                        lastActivity={collaborator.last_activity}
+                                        dark={dark}
+                                        asProfile={false}
+                                        inactiveLocale={lang.inactive}
+                                    />
+                                )}
                                 {data.map(collaborator =>
                                     <PersonCard
                                         profile={collaborator.profile}
