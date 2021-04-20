@@ -7,6 +7,8 @@ export default {
     nothingFound: 'Nothing Found',
     search: 'Search URL',
     startDate: 'Since',
+    endDate: 'Until',
+
     method: 'HTTP Method',
     machine: 'This machine',
     filter: 'Filter',
@@ -15,6 +17,7 @@ export default {
     engine: 'Browser engine',
     userAgent: 'User Agent',
     end: 'You\'ve reached the bottom.',
-    date: 'Date',
-    ip: 'Machine IP address'
+
+    ip: 'Machine IP address',
+    filters: 'Filters'
 }

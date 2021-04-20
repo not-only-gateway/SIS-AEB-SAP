@@ -23,52 +23,74 @@ export default function ActivityFilterComponent(props) {
             }
         })}>
             <div className={shared.filterContainer}>
-
+                <div style={{
+                    height: '5vh',
+                    display: 'flex',
+                    alignItems: 'center',
+                    textTransform: 'uppercase'
+                }}>{props.lang.filters}</div>
                 <InputLayout inputName={props.lang.search} dark={props.dark} handleChange={props.handleChange}
                              inputType={0} name={'path'}
                              disabled={props.disabled} size={90} initialValue={props.filters.path}
                              key={"path"} setChanged={props.setChanged} margin={false}
                 />
 
-                <Divider orientation={'vertical'}/>
                 <InputLayout inputName={props.lang.startDate} dark={props.dark} handleChange={props.handleChange}
-                             inputType={2} name={'date'}
-                             disabled={props.disabled} size={90} initialValue={props.filters.date}
+                             inputType={2} name={'startDate'}
+                             disabled={props.disabled} size={90} initialValue={props.filters.startDate}
                              key={"start-date"} setChanged={props.setChanged} margin={false}
                 />
-                <Divider orientation={'vertical'}/>
+                <InputLayout inputName={props.lang.endDate} dark={props.dark} handleChange={props.handleChange}
+                             inputType={2} name={'endDate'}
+                             disabled={props.disabled} size={90} initialValue={props.filters.endDate}
+                             key={"end-date"} setChanged={props.setChanged} margin={false}
+                />
                 <FormControl component="fieldset">
                     <FormLabel component="legend">{props.lang.method}</FormLabel>
                     <FormGroup>
                         <FormControlLabel
                             control={<Checkbox checked={props.filters.method === 'GET'}
-                                               onChange={() => props.handleChange({name: 'method', value: 'GET'})}/>}
+                                               onChange={() => {
+                                                   props.handleChange({name: 'method', value: 'GET'})
+                                                   props.setChanged(true)
+                                               }}/>}
                             label="GET"
                         />
                         <FormControlLabel
                             control={<Checkbox checked={props.filters.method === 'PATCH'}
-                                               onChange={() => props.handleChange({name: 'method', value: 'PATCH'})}/>}
+                                               onChange={() => {
+                                                   props.handleChange({name: 'method', value: 'PATCH'})
+                                                   props.setChanged(true)
+                                               }}/>}
                             label="PATCH"
                         />
                         <FormControlLabel
                             control={<Checkbox checked={props.filters.method === 'PUT'}
-                                               onChange={() => props.handleChange({name: 'method', value: 'PUT'})}/>}
+                                               onChange={() => {
+                                                   props.handleChange({name: 'method', value: 'PUT'})
+                                                   props.setChanged(true)
+                                               }}/>}
                             label="PUT"
                         />
                         <FormControlLabel
                             control={<Checkbox checked={props.filters.method === 'POST'}
-                                               onChange={() => props.handleChange({name: 'method', value: 'POST'})}/>}
+                                               onChange={() => {
+                                                   props.handleChange({name: 'method', value: 'POST'})
+                                                   props.setChanged(true)
+                                               }}/>}
                             label="POST"
                         />
                         <FormControlLabel
                             control={<Checkbox checked={props.filters.method === 'DELETE'}
-                                               onChange={() => props.handleChange({name: 'method', value: 'DELETE'})}/>}
+                                               onChange={() => {
+                                                   props.handleChange({name: 'method', value: 'DELETE'})
+                                                   props.setChanged(true)
+                                               }}/>}
                             label="DELETE"
                         />
                     </FormGroup>
                 </FormControl>
 
-                <Divider orientation={'vertical'}/>
                 <FormControl component="fieldset">
                     <FormLabel component="legend">{props.lang.machine}</FormLabel>
                     <FormGroup>
@@ -103,10 +125,9 @@ export default function ActivityFilterComponent(props) {
                             label={'NO'}
                         />
                     </FormGroup>
-
                 </FormControl>
 
-                <div className={mainStyles.displayInlineSpaced} style={{width: '100%'}}>
+                <div className={mainStyles.displayInlineSpaced} style={{width: '93%'}}>
                     <Button disabled={!props.changed} variant={'contained'} color={'primary'} onClick={() => {
                         props.setChanged(false)
                         fetchActivityData({
@@ -141,7 +162,11 @@ export default function ActivityFilterComponent(props) {
                             value: ''
                         })
                         props.handleChange({
-                            name: 'date',
+                            name: 'startDate',
+                            value: null
+                        })
+                        props.handleChange({
+                            name: 'endDate',
                             value: null
                         })
                         fetchActivityData({

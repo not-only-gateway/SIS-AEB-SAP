@@ -17,7 +17,7 @@ export default function AvatarLayout(props) {
             })}>
             <Avatar src={props.image !== undefined ? ImageHost() + props.image : null}
                     style={{
-                        ...{height: '125px', width:  '100%', borderRadius: ' 8px '},
+                        ...{height: '75px', width:  '75px'},
                         ...getBoxShadow({dark: props.dark})
                     }}/>
             </ThemeProvider>

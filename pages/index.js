@@ -60,16 +60,18 @@ export default function Index() {
         }).catch(error => console.log(error))
     }
 
+    function redirect(id){
+        router.push({
+            pathname: '/person',
+            query: {id: id}
+        })
+    }
     if (lang !== null)
         return (
 
-            <ThemeProvider theme={createMuiTheme({
-                palette: {
-                    type: "light"
-                }
-            })}>
-                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
-                    <ListLayout content={!loading ?
+            <ListLayout
+                content={
+                    !loading ?
                         data.length > 0 ?
                             <InfiniteScroll
                                 dataLength={data.length}
@@ -80,21 +82,15 @@ export default function Index() {
                                 loader={<Skeleton variant={'rect'} width={'100%'} style={{borderRadius: '8px'}}
                                                   height={'7vh'}/>}
                                 endMessage={
-                                    <div
-                                        className={[mainStyles.marginVertical, mainStyles.normalBorder, mainStyles.smallPaddingVertical].join(' ')}
-                                        style={{
-                                            ...getSecondaryBackground({dark: dark}), ...{
-                                                transform: 'translateY(.9vw)',
-                                                marginBottom: '1.8vw',
-                                                width: '45vw'
-                                            },
-                                        }}>
+                                    <div style={{
+                                        ...{marginBottom: '15px'}
+                                    }}>
                                         <p className={mainStyles.secondaryParagraph}
                                            style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.end}</p>
                                     </div>
                                 }
                             >
-                                <div className={[styles.personasContainer, mainStyles.baseWidth].join(' ')}>
+                                <div>
                                     {data.map(collaborator =>
                                         <PersonCard
                                             profile={collaborator.profile}
@@ -104,19 +100,18 @@ export default function Index() {
                                             dark={dark}
                                             asProfile={false}
                                             inactiveLocale={lang.inactive}
+                                            redirect={redirect}
                                         />
                                     )}
                                 </div>
                             </InfiniteScroll>
                             :
 
-                            <div
-                                className={[mainStyles.baseWidth, mainStyles.normalBorder, mainStyles.displayInlineCenter].join(' ')}
-                                style={{
-                                    ...getSecondaryBackground({dark: dark}),
-                                }}>
+                            <div className={mainStyles.displayInlineCenter} style={{
+                                ...{marginBottom: '15px', width: '50vw'}
+                            }}>
                                 <p className={mainStyles.secondaryParagraph}
-                                   style={getTertiaryColor({dark: dark})}>{lang.nothingFound}</p>
+                                   style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.nothingFound}</p>
                             </div>
 
                         :
@@ -130,24 +125,31 @@ export default function Index() {
                                 ...getSecondaryBackground({dark: dark})
                             }}/>
                         </div>
-                    } title={
-                        <GetPageTitle pageName={lang.extensions} pageTitle={lang.extensions}
-                                      pageInfo={getPageInfo({
-                                          info1: lang.info1,
-                                          info2: lang.info2,
-                                          info3: lang.info3,
-                                          option: option
-                                      })} dark={dark}/>
-                    }/>
+                }
+                title={
+                    <GetPageTitle
+                        pageName={lang.extensions} pageTitle={lang.extensions}
+                    />
+                }
 
-
+                filterComponent={
                     <IndexComponent dark={dark} setData={setData} setOption={setOption}
                                     option={option} lang={lang} setLoading={setLoading} fetchData={fetchData}
                                     searchInput={searchInput} setSearchInput={setSearchInput}
                                     setMaxID={setMaxID}
                     />
-                </div>
-            </ThemeProvider>
+
+                }
+                width={48}
+                columns={[
+                    // {label: null, size: 7, divider: false},
+                    {label: 'Name', size: 20},
+                    {label: 'Email', size: 25},
+                    {label: 'Extension', size: 10},
+                    {label: 'Status', size: 10},
+                    {label: 'Unit', size: 10},
+                ]}
+            />
         )
     else
         return <></>

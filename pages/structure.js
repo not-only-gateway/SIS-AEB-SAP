@@ -64,7 +64,7 @@ export default function Structure() {
                 }
             })}>
 
-                <GetPageTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.information} dark={dark}/>
+
 
                 <div className={[mainStyles.displayColumnSpaced, mainStyles.baseWidth].join(' ')} style={{
                     width: 'fit-content',
@@ -72,6 +72,7 @@ export default function Structure() {
                     borderRadius: '8px',
                     gap: '.9vw'
                 }}>
+                    <GetPageTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.information} dark={dark}/>
                     <AccordionLayout
                         content={topUnits.map((unit, index) => (
                             <>

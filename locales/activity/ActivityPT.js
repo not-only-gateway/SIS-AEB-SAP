@@ -7,6 +7,7 @@ export default {
     nothingFound: 'Nada encontrado',
     search: 'Pesquisar URL',
     startDate: 'Desde',
+    endDate: 'Até',
     method: 'Método HTTP',
     machine: 'Essa máquina',
     filter: 'Filtrar',
@@ -16,5 +17,6 @@ export default {
     userAgent: 'Agente de usuário',
     end: 'Você chegou ao final.',
     date: 'Data',
-    ip: 'Endereço de Ip da máquina'
+    ip: 'Endereço de Ip da máquina',
+    filters: 'Filtros'
 }

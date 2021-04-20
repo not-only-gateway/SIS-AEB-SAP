@@ -1,6 +1,6 @@
 .activities_container{
     display: grid;
-    gap: .9vw;
+    align-items: flex-start;
 }
 .infinite_scroll_container{
     width: 100%;
@@ -9,15 +9,8 @@
     margin-bottom: 2vh;
 }
 
-.pageContainer{
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
-    width: 80vw;
-    margin-left: auto;
 
-}
-.info_container{
+.informationContainer{
     display: grid;
     gap: 2vh;
     width: 98%;

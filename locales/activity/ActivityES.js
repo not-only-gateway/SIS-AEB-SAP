@@ -7,6 +7,7 @@ export default {
     nothingFound: 'Nada Encontrado',
     search: 'Búsqueda URL',
     startDate: 'Desde',
+    endDate: 'Hasta que',
     method: 'Método HTTP',
     machine: 'Esta maquina',
     filter: 'Filtrar',
@@ -15,6 +16,7 @@ export default {
     engine: 'Motor del navegador',
     userAgent: 'Agente de usuario',
     end: 'Has llegado al fondo.',
-    date: 'Fecha',
-    ip: 'Dirección Ip de la máquina'
+
+    ip: 'Dirección Ip de la máquina',
+    filters: 'Filtros'
 }

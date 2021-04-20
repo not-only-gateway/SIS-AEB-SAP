@@ -6,12 +6,12 @@ import PropTypes from "prop-types";
 
 export default function GetPageTitle(props){
     return (
-        <div style={{marginBottom: '2vh'}}>
+        <div>
             {props.pageName !== undefined ?
                 <Head>
                     <title>{props.pageName}</title>
                 </Head> : null}
-            <div className={mainStyles.baseWidth} style={{margin: 'auto'}}>
+            <div>
                 <p style={getPrimaryColor({dark: props.dark})} className={mainStyles.primaryHeader}>{props.pageTitle}</p>
                 <p className={mainStyles.secondaryParagraph} style={getTertiaryColor({dark: props.dark})}>{props.pageInfo}</p>
             </div>

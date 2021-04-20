@@ -30,7 +30,8 @@ export default function Activity() {
     const [filters, setFilters] = useState({
         method: null,
         path: '',
-        date: undefined
+        startDate: null,
+        endDate: null
     })
     const [changed, setChanged] = useState(false)
     const [thisMachine, setThisMachine] = useState(false)
@@ -75,77 +76,83 @@ export default function Activity() {
 
     if (lang !== null)
         return (
-            <div className={styles.pageContainer}>
-                <ListLayout title={
-                    <GetPageTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.info1}
+            <ListLayout
+                columns={[
+                    {label: 'ID', size: 10},
+                    {label: lang.method, size: 10},
+                    {label: 'Path', size: 10},
+                    {label: 'CREATION', size: 10},
+                ]}
+                title={
+                    <GetPageTitle pageName={lang.title} pageTitle={lang.title}
                                   dark={dark}/>
                 }
-                            content={
-                                  data.length > 0 ?
-                                      <InfiniteScroll
-                                          dataLength={data.length}
-                                          next={() => fetchActivityData({
-                                              type: 0,
-                                              setLastFetchedSize: lastFetchedSize,
-                                              setData: setData,
-                                              data: data,
-                                              setMaxID: setMaxID,
-                                              maxID: maxID,
-                                              setError: setError,
-                                              setErrorMessage: setErrorMessage,
-                                              thisMachine: thisMachine,
-                                              startDate: filters.date,
-                                              method: filters.method,
-                                              path: filters.path
-                                          }).catch(error => console.log(error))
-                                          }
-                                          hasMore={lastFetchedSize === 20 && data[data.length - 1].activity.id > 1}
-                                          inverse={false}
-                                          scrollableTarget="scrollableDiv"
-                                          loader={<Skeleton variant={'rect'} width={'100%'}
-                                                            style={{borderRadius: '8px'}}
-                                                            height={'7vh'}/>}
-                                          endMessage={
-                                              <div
+                content={
+                    data.length > 0 ?
+                        <InfiniteScroll
+                            dataLength={data.length}
+                            next={() => fetchActivityData({
+                                type: 0,
+                                setLastFetchedSize: lastFetchedSize,
+                                setData: setData,
+                                data: data,
+                                setMaxID: setMaxID,
+                                maxID: maxID,
+                                setError: setError,
+                                setErrorMessage: setErrorMessage,
+                                thisMachine: thisMachine,
+                                startDate: filters.date,
+                                method: filters.method,
+                                path: filters.path
+                            }).catch(error => console.log(error))
+                            }
+                            hasMore={lastFetchedSize === 20 && data[data.length - 1].id > 1}
+                            inverse={false}
+                            scrollableTarget="scrollableDiv"
+                            loader={<Skeleton variant={'rect'} width={'100%'}
+                                              style={{borderRadius: '8px'}}
+                                              height={'7vh'}/>}
+                            endMessage={
+                                <div style={{
+                                    ...{marginBottom: '15px'}
+                                }}>
+                                    <p className={mainStyles.secondaryParagraph}
+                                       style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.end}</p>
+                                </div>
+                            }
+                        >
+                            <div className={styles.activities_container}>
+                                {data.map(data => (
+                                        <ActivityComponent lang={lang} dark={dark} activity={data.activity}
+                                                           accessLog={data.access_log}
+                                        />
+                                    )
+                                )}
+                            </div>
 
-                                                  style={{...{transform: 'translateY(.9vw)', marginBottom: '1.8vw'},}}>
-                                                  <p className={mainStyles.secondaryParagraph}
-                                                     style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.end}</p>
-                                              </div>
-                                          }
-                                      >
-                                          <div className={styles.activities_container}>
-                                              {data.map(data => (
-                                                      <ActivityComponent lang={lang} dark={dark} activity={data.activity}
-                                                                         accessLog={data.access_log}
-                                                      />
-                                                  )
-                                              )}
-                                          </div>
-                                      </InfiniteScroll>
+                        </InfiniteScroll>
 
-                                      :
+                        :
 
-                                      <div
-                                          className={[mainStyles.baseWidth, mainStyles.normalBorder, mainStyles.displayInlineCenter].join(' ')}
-                                          style={{
-                                              ...getSecondaryBackground({dark: dark}),
-                                          }}>
-                                          <p className={mainStyles.secondaryParagraph}
-                                             style={getTertiaryColor({dark: dark})}>{lang.nothingFound}</p>
-                                      </div>
-                              }
-                />
-                <ActivityFilterComponent lang={lang} filters={filters} handleChange={handleChange}
-                                         dark={dark} changed={changed}
-                                         setChanged={setChanged}
-                                         setThisMachine={setThisMachine}
-                                         thisMachine={thisMachine} setResponseData={setData}
-                                         setLastFetchedSize={setLastFetchedSize}
-                                         setMaxID={setMaxID}/>
+                        <div className={mainStyles.displayInlineCenter} style={{
+                            ...{marginBottom: '15px', width: '50vw'}
+                        }}>
+                            <p className={mainStyles.secondaryParagraph}
+                               style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.nothingFound}</p>
+                        </div>
+                }
+                filterComponent={
+                    <ActivityFilterComponent lang={lang} filters={filters} handleChange={handleChange}
+                                             dark={dark} changed={changed}
+                                             setChanged={setChanged}
+                                             setThisMachine={setThisMachine}
+                                             thisMachine={thisMachine} setResponseData={setData}
+                                             setLastFetchedSize={setLastFetchedSize}
+                                             setMaxID={setMaxID}/>
 
-
-            </div>
+                }
+                width={45}
+            />
         )
     else
         return <></>

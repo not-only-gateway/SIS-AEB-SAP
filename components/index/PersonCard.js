@@ -13,104 +13,76 @@ import {
 } from "../../styles/shared/MainStyles";
 import mainStyles from '../../styles/shared/Main.module.css'
 import AvatarLayout from "../shared/AvatarLayout";
+import AccordionLayout from "../shared/layout/AccordionLayout";
 
 const currentDate = new Date()
 
 export default function PersonCard(props) {
-
-    const [hovered, setHovered] = useState(false)
-
+    const active = props.unit !== undefined && props.unit !== null
     return (
-        <div
-            className={[styles.cardContainer, mainStyles.displayColumnSpaced].join(' ')}
-            key={props.profile.id}
-            style={{
-                ...getSecondaryBackground({dark: props.dark}),
-                // ...hovered ? getBorder({dark: props.dark}) : null,
-                ...{borderRadius: '8px'}
-            }}>
-            <Link href={{pathname: '/person', query: {id: props.profile.id}}}>
-                <Button
-                    style={{
-                        height: 'calc(23vh + 5px)',
-                        textTransform: 'none',
-                        width: '100%',
-
-                        borderRadius: '8px',
-                        overflow: 'hidden'
-                    }}
-                    onMouseLeave={() => setHovered(false)}
-                    onMouseEnter={() => setHovered(true)}>
-                    <div>
-                        <AvatarLayout dark={props.dark}
-                                      cakeDay={((new Date(props.profile.birth)).getDay() === currentDate.getDay() && (new Date(props.profile.birth)).getMonth() === currentDate.getMonth())}
-                                      image={props.profile.image}
-                                      key={props.profile.id}/>
-
-
-                        <div style={{transform: 'translateY(2%) translateX(2%)', lineHeight: '5px'}}>
-
-                            <p className={mainStyles.primaryParagraph}
-                               style={{...getPrimaryColor({dark: props.dark}), ...{textAlign: 'left'}}}>{props.profile.name}</p>
-                            <div className={mainStyles.displayInlineStart}>
-                                <EmailRounded style={getIconStyle({dark: props.dark})}/>
-                                <p className={mainStyles.tertiaryParagraph}
-                                   style={{...getTertiaryColor({dark: props.dark}), ...{textAlign: 'left', transform: 'translateX(5px)'}}}>{props.profile.corporate_email}</p>
-                            </div>
-                            <div className={mainStyles.displayInlineStart}>
-                                <PhoneRounded style={getIconStyle({dark: props.dark})}/>
-                                <p className={mainStyles.tertiaryParagraph}
-                                   style={{...getTertiaryColor({dark: props.dark}), ...{textAlign: 'left', transform: 'translateX(5px)'}}}>{props.profile.extension}</p>
-                            </div>
-
-                        </div>
+        <div onClick={() => props.redirect(props.profile.id)}>
+        <AccordionLayout
+            summary={
+                <div className={mainStyles.displayInlineSpaced}
+                     style={{width: '48vw', padding: '15px 0px 15px 0px'}}>
+                    <div
+                        className={[mainStyles.tertiaryParagraph, mainStyles.displayInlineStart].join(' ')}
+                        style={{
+                            ...getTertiaryColor({dark: props.dark}),
+                            ...{width: '7vw', transform: 'translateX(3px)'}
+                        }}>
+                        <AvatarLayout dark={false} key={props.profile.id} image={props.profile.image}
+                                      cakeDay={((new Date(props.profile.birth)).getDay() === currentDate.getDay() && (new Date(props.profile.birth)).getMonth() === currentDate.getMonth())}/>
                     </div>
-                </Button>
-            </Link>
-            {props.unit !== undefined && props.unit !== null ?
-                <Link href={{pathname: '/unit', query: {id: props.unit.id}}}>
-                    <Button style={{
-                        ...getSecondaryBackground({dark: props.dark}),
-                        ...getTertiaryColor({dark: props.dark}),
-                        ...{
-                            borderRadius: '8px',
-                            width: '90%',
-                            height: '35px',
-                            margin: '10px auto 10px',
-                            backgroundColor: 'black',
-                            color: 'white'
-                        }
-                    }} className={mainStyles.secondaryParagraph}
-                    >
+                    <div className={[mainStyles.secondaryParagraph, mainStyles.displayInlineStart].join(' ')}
+                         style={{width: '13vw', transform: 'translateX(3px)'}}>
+                        {props.profile.name}
+                    </div>
 
-                        {props.unit.acronym}
-                    </Button>
-                </Link>
-                :
-                <div style={{
-                    ...getSecondaryBackground({dark: props.dark}),
-                    ...getTertiaryColor({dark: props.dark}),
-                    ...{
-                        borderRadius: '8px',
-                        width: '90%',
-                        margin: '10px auto 10px',
-                        backgroundColor: 'rgba(236, 78, 43, 0.2)',
-                        color: 'white',
-                        height: '35px'
-                    }
-                }} className={[mainStyles.secondaryParagraph, mainStyles.displayInlineSpaced].join(' ')}>
-                    <WarningRounded style={{
-                        transform: 'translateX(10px)',
-                        fontSize: '1.6rem',
-                        color: props.highlight ? props.dark ? 'black' : '' : !props.dark ? '#777777' : '#ededed'
-                    }}/>
-                    <p className={mainStyles.tertiaryParagraph}
-                       style={{...{transform: 'translateX(-10px)'}, ...getTertiaryColor({dark: props.dark})}}>{props.inactiveLocale}</p>
+                    <div className={[mainStyles.tertiaryParagraph, mainStyles.displayInlineStart].join(' ')}
+                         style={{
+                             ...getTertiaryColor({dark: props.dark}),
+                             ...{width: '25vw', transform: 'translateX(3px)'}
+                         }}>
+                        {props.profile.corporate_email}
+                    </div>
+                    <div className={[mainStyles.tertiaryParagraph, mainStyles.displayInlineStart].join(' ')}
+                         style={{
+                             ...getTertiaryColor({dark: props.dark}),
+                             ...{width: '10vw', transform: 'translateX(3px)'}
+                         }}>
+                        {props.profile.extension}
+                    </div>
+                    <div className={[mainStyles.tertiaryParagraph, mainStyles.displayInlineStart].join(' ')}
+                         style={{
+                             width: '10vw', transform: 'translateX(3px)', color: 'white'
+                         }}>
+                        <div style={{
+                            width: "fit-content",
+                            height: '100%',
+                            padding: '0px 10px 0px 10px',
+                            borderRadius: '5px',
+                            backgroundColor: active ? '#4ad862' : '#f54269'
+                        }}>
+                            {active ? 'Active' : 'Inactive'}
+                        </div>
+
+                    </div>
+                    <div className={[mainStyles.tertiaryParagraph, mainStyles.displayInlineStart].join(' ')}
+                         style={{
+                             ...getTertiaryColor({dark: props.dark}),
+                             ...{width: '10vw', transform: 'translateX(3px)'}
+                         }}>
+                        {props.unit === undefined || props.unit === null ? null : props.unit.acronym}
+                    </div>
                 </div>
             }
-
+            content={null}
+            asRow={true} disabled={false} key={props.profile.id} dark={false}
+            background={undefined} openSize={undefined} closedSize={53}
+            asButton={true} onClick={props.redirect}
+        />
         </div>
-
     )
 }
 
@@ -120,5 +92,6 @@ PersonCard.proptypes = {
     collaboration: PropTypes.object,
     id: PropTypes.string,
     inactiveLocale: PropTypes.string,
-    lastActivity: PropTypes.number
+    lastActivity: PropTypes.number,
+    redirect: PropTypes.func
 }

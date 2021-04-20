@@ -6,9 +6,19 @@
 .listTitle{
     position: sticky;
     top: 0;
-    width: 45vw;
+    width: 50vw;
     z-index: 2;
-    padding-bottom: 2vh;
+
+    display: grid;
+    justify-items: flex-start;
+    align-content: space-between;
+
+}
+.listColumns{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 5vh;
 }
 .listContent{
     position: relative;
@@ -18,12 +28,19 @@
     gap: .9vw;
     justify-items: flex-start;
 }
+.pageContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 80vw;
+    margin-left: auto;
 
+}
 .filterContainer{
     display: grid;
     justify-items: flex-start;
     align-content: space-between;
-    align-items: center;
+    /*gap: ;*/
     width: 25vw;
     overflow: hidden;
     position: sticky;
@@ -31,8 +48,14 @@
     top: 0;
     z-index: 5;
     padding-left: 2vw;
-    padding-top: 12.5vh;
-    padding-bottom: 5vh;
+    padding-top: 10vh;
+    padding-bottom: .9vw;
+}
+
+.listColumnContent{
+    display: grid;
+    gap: .9vw;
+    justify-items: center;
 }
 
 .button_container{
@@ -41,6 +64,7 @@
     height: fit-content;
     margin: auto auto 1vh;
 }
+
 
 .header_container {
     position: sticky;
