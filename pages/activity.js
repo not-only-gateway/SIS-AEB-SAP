@@ -20,7 +20,7 @@ import {
 } from "../styles/shared/MainStyles";
 import mainStyles from "../styles/shared/Main.module.css";
 import GetPageTitle from "../utils/shared/GetPageTitle";
-import ActivityList from "../components/activity/ActivityList";
+import ListLayout from "../components/layout/ListLayout";
 
 export default function Activity() {
 
@@ -76,11 +76,11 @@ export default function Activity() {
     if (lang !== null)
         return (
             <div className={styles.pageContainer}>
-                <ActivityList title={
+                <ListLayout title={
                     <GetPageTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.info1}
                                   dark={dark}/>
                 }
-                              content={
+                            content={
                                   data.length > 0 ?
                                       <InfiniteScroll
                                           dataLength={data.length}

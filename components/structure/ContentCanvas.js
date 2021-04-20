@@ -16,7 +16,8 @@ export default function ContentCanvas(props) {
                     backgroundColor: props.dark ? '#3b424c' : 'none',
                     borderRadius: '8px',
                     margin: 'auto',
-                    zoom: zoom
+                    zoom: zoom,
+                '-moz-transform': 'scale('+zoom+')'
                 }}>
                     <SubjectLayout dark={props.dark} subject={props.subject}
                                    type={props.type}/>
@@ -29,7 +30,7 @@ export default function ContentCanvas(props) {
                             borderRadius: '8px',
                             height: '50px',
                             width: '50px',
-                            backgroundColor: !props.dark ? '#46b2f3 ' : '#1ea1f1'
+                            backgroundColor: zoom === 2 ? null : !props.dark ? '#46b2f3 ' : '#1ea1f1'
                         }}
                         variant={'contained'}
                         color={'primary'}>

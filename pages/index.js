@@ -20,6 +20,7 @@ import {
 import mainStyles from '../styles/shared/Main.module.css'
 import Cookies from "universal-cookie/lib";
 import GetPageTitle from "../utils/shared/GetPageTitle";
+import ListLayout from "../components/layout/ListLayout";
 
 export default function Index() {
 
@@ -61,21 +62,84 @@ export default function Index() {
 
     if (lang !== null)
         return (
+
             <ThemeProvider theme={createMuiTheme({
                 palette: {
                     type: "light"
                 }
             })}>
+                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
+                    <ListLayout content={!loading ?
+                        data.length > 0 ?
+                            <InfiniteScroll
+                                dataLength={data.length}
+                                next={() => fetchData(0)}
+                                hasMore={lastFetchedSize === 15}
+                                inverse={false}
+                                scrollableTarget="scrollableDiv"
+                                loader={<Skeleton variant={'rect'} width={'100%'} style={{borderRadius: '8px'}}
+                                                  height={'7vh'}/>}
+                                endMessage={
+                                    <div
+                                        className={[mainStyles.marginVertical, mainStyles.normalBorder, mainStyles.smallPaddingVertical].join(' ')}
+                                        style={{
+                                            ...getSecondaryBackground({dark: dark}), ...{
+                                                transform: 'translateY(.9vw)',
+                                                marginBottom: '1.8vw',
+                                                width: '45vw'
+                                            },
+                                        }}>
+                                        <p className={mainStyles.secondaryParagraph}
+                                           style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.end}</p>
+                                    </div>
+                                }
+                            >
+                                <div className={[styles.personasContainer, mainStyles.baseWidth].join(' ')}>
+                                    {data.map(collaborator =>
+                                        <PersonCard
+                                            profile={collaborator.profile}
+                                            collaboration={collaborator.collaboration}
+                                            unit={collaborator.unit}
+                                            lastActivity={collaborator.last_activity}
+                                            dark={dark}
+                                            asProfile={false}
+                                            inactiveLocale={lang.inactive}
+                                        />
+                                    )}
+                                </div>
+                            </InfiniteScroll>
+                            :
 
-                <div className={shared.header_container}
-                     style={getPrimaryBackground({dark: dark})}>
-                    <GetPageTitle pageName={lang.extensions} pageTitle={lang.extensions}
-                                  pageInfo={getPageInfo({
-                                      info1: lang.info1,
-                                      info2: lang.info2,
-                                      info3: lang.info3,
-                                      option: option
-                                  })} dark={dark}/>
+                            <div
+                                className={[mainStyles.baseWidth, mainStyles.normalBorder, mainStyles.displayInlineCenter].join(' ')}
+                                style={{
+                                    ...getSecondaryBackground({dark: dark}),
+                                }}>
+                                <p className={mainStyles.secondaryParagraph}
+                                   style={getTertiaryColor({dark: dark})}>{lang.nothingFound}</p>
+                            </div>
+
+                        :
+                        <div className={styles.personasContainer}>
+                            <Skeleton variant="rect" style={{
+                                ...{
+                                    borderRadius: '8px',
+                                    width: '45vw',
+                                    height: '11vh',
+                                },
+                                ...getSecondaryBackground({dark: dark})
+                            }}/>
+                        </div>
+                    } title={
+                        <GetPageTitle pageName={lang.extensions} pageTitle={lang.extensions}
+                                      pageInfo={getPageInfo({
+                                          info1: lang.info1,
+                                          info2: lang.info2,
+                                          info3: lang.info3,
+                                          option: option
+                                      })} dark={dark}/>
+                    }/>
+
 
                     <IndexComponent dark={dark} setData={setData} setOption={setOption}
                                     option={option} lang={lang} setLoading={setLoading} fetchData={fetchData}
@@ -83,63 +147,6 @@ export default function Index() {
                                     setMaxID={setMaxID}
                     />
                 </div>
-
-                {!loading ?
-                    data.length > 0 ?
-                        <InfiniteScroll
-                            dataLength={data.length}
-                            next={() => fetchData(0)}
-                            hasMore={lastFetchedSize === 15}
-                            inverse={false}
-                            scrollableTarget="scrollableDiv"
-                            loader={<Skeleton variant={'rect'} width={'100%'} style={{borderRadius: '8px'}}
-                                              height={'7vh'}/>}
-                            endMessage={
-                                <div
-                                    className={[mainStyles.marginVertical, mainStyles.normalBorder, mainStyles.smallPaddingVertical, mainStyles.baseWidth].join(' ')}
-                                    style={{...getSecondaryBackground({dark: dark}), ...{transform: 'translateY(.9vw)', marginBottom:'1.8vw'},}}>
-                                    <p className={mainStyles.secondaryParagraph}
-                                       style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.end}</p>
-                                </div>
-                            }
-                        >
-                            <div className={[styles.personas_container, mainStyles.baseWidth].join(' ')}>
-                                {data.map(collaborator =>
-                                    <PersonCard
-                                        profile={collaborator.profile}
-                                        collaboration={collaborator.collaboration}
-                                        unit={collaborator.unit}
-                                        lastActivity={collaborator.last_activity}
-                                        dark={dark}
-                                        asProfile={false}
-                                        inactiveLocale={lang.inactive}
-                                    />
-                                )}
-                            </div>
-                        </InfiniteScroll>
-                        :
-
-                        <div
-                            className={[mainStyles.baseWidth, mainStyles.normalBorder, mainStyles.displayInlineCenter].join(' ')}
-                            style={{
-                                ...getSecondaryBackground({dark: dark}),
-                            }}>
-                            <p className={mainStyles.secondaryParagraph}
-                               style={getTertiaryColor({dark: dark})}>{lang.nothingFound}</p>
-                        </div>
-
-                    :
-                    <div className={styles.personas_container}>
-                        <Skeleton variant="rect" style={{
-                            ...{
-                                borderRadius: '8px',
-                                width: '45vw',
-                                height: '11vh',
-                            },
-                            ...getSecondaryBackground({dark: dark})
-                        }}/>
-                    </div>
-                }
             </ThemeProvider>
         )
     else

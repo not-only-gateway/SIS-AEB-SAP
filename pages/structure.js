@@ -69,8 +69,6 @@ export default function Structure() {
                 <div className={[mainStyles.displayColumnSpaced, mainStyles.baseWidth].join(' ')} style={{
                     width: 'fit-content',
                     height: 'fit-content',
-                    padding: '.9vw',
-                    backgroundColor: 'white',
                     borderRadius: '8px',
                     gap: '.9vw'
                 }}>

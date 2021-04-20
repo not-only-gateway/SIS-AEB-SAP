@@ -13,6 +13,7 @@ import {
 import React from "react";
 import fetchActivityData from "../../utils/activity/FetchData";
 import mainStyles from '../../styles/shared/Main.module.css'
+import shared from '../../styles/shared/Shared.module.css'
 
 export default function ActivityFilterComponent(props) {
     return (
@@ -21,7 +22,7 @@ export default function ActivityFilterComponent(props) {
                 type: "light"
             }
         })}>
-            <div className={styles.optionsContainer}>
+            <div className={shared.filterContainer}>
 
                 <InputLayout inputName={props.lang.search} dark={props.dark} handleChange={props.handleChange}
                              inputType={0} name={'path'}

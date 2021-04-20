@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": false,
   "scripts": {
-    "dev": "node ssr-server.js",
+    "dev": "next dev",
     "build": "next build",
-    "start": "NODE_ENV=production node ssr-server.js"
+    "start": "next start"
   },
   "dependencies": {
     "@date-io/date-fns": "^1.3.13",

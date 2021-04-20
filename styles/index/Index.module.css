@@ -1,5 +1,5 @@
 
-.personas_container {
+.personasContainer {
     transform: translateY(.9vw);
     display: inline-flex;
     flex-wrap: wrap;

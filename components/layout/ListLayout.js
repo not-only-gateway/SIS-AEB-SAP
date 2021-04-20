@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
-import styles from '../../styles/activity/Activity.module.css'
+import styles from '../../styles/shared/Shared.module.css'
 import mainStyles from "../../styles/shared/Main.module.css";
 
-export default function ActivityList(props){
+export default function ListLayout(props){
     return(
         <div className={styles.listContainer}>
             <div className={styles.listTitle} style={{backgroundColor: 'white'}}>
@@ -14,7 +14,7 @@ export default function ActivityList(props){
         </div>
     )
 }
-ActivityList.propTypes={
+ListLayout.propTypes={
     title: PropTypes.object,
     content: PropTypes.object
 }

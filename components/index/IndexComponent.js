@@ -9,13 +9,14 @@ import {
     Menu,
     Paper,
     Radio,
-    RadioGroup
+    RadioGroup, ThemeProvider
 } from "@material-ui/core";
 import {searchFieldStyle} from "../../styles/shared/BarMaterialStyles";
 import {BackspaceRounded, MenuRounded, SearchRounded} from "@material-ui/icons";
 import React, {useEffect, useState} from "react";
 import {getBorder, getBoxShadow, getSecondaryBackground, getTertiaryBackground} from "../../styles/shared/MainStyles";
 import mainStyles from '../../styles/shared/Main.module.css'
+import shared from "../../styles/shared/Shared.module.css";
 
 export default function IndexComponent(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -29,7 +30,7 @@ export default function IndexComponent(props) {
     }, [props.option])
 
     return (
-        <div className={[mainStyles.baseWidth, mainStyles.normalBorder].join(' ')} key={'index-filter-component'}>
+        <div className={shared.filterContainer} key={'index-filter-component'}>
             <Paper component="form"
                    onMouseEnter={() => setHovered(true)}
                    onMouseLeave={() => setHovered(false)}
@@ -70,7 +71,7 @@ export default function IndexComponent(props) {
                 <IconButton aria-label={props.lang.search} onClick={() => props.fetchData(1, true)}
 
                             disabled={props.searchInput === null || props.searchInput.length === 0}>
-                    <SearchRounded />
+                    <SearchRounded/>
                 </IconButton>
                 <Divider orientation={'vertical'} style={{height: '70%'}}/>
                 <IconButton aria-label={props.lang.search}
@@ -87,14 +88,31 @@ export default function IndexComponent(props) {
     )
 }
 
-IndexComponent.propTypes = {
+IndexComponent.propTypes =
+{
     dark: PropTypes.bool,
-    option: PropTypes.string,
-    setOption: PropTypes.func,
-    lang: PropTypes.object,
-    setData: PropTypes.func,
-    setSearchInput: PropTypes.func,
-    searchInput: PropTypes.string,
-    fetchData: PropTypes.func,
-    setMaxID: PropTypes.func
+        option
+:
+    PropTypes.string,
+        setOption
+:
+    PropTypes.func,
+        lang
+:
+    PropTypes.object,
+        setData
+:
+    PropTypes.func,
+        setSearchInput
+:
+    PropTypes.func,
+        searchInput
+:
+    PropTypes.string,
+        fetchData
+:
+    PropTypes.func,
+        setMaxID
+:
+    PropTypes.func
 }

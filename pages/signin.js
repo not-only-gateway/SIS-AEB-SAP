@@ -3,7 +3,7 @@ import styles from '../styles/auththentication/Auth.module.css'
 import {createMuiTheme, ThemeProvider} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import AuthenticationLayout from "../components/authentication/AuthenticateLayout";
+import AuthenticationLayout from "../components/layout/AuthenticateLayout";
 import Head from "next/head";
 import {getLanguage, setCookiesLanguage} from "../utils/shared/Language";
 import {setThemeCookie} from "../utils/shared/Theme";
