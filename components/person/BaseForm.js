@@ -1,4 +1,4 @@
-import {Avatar, Button} from '@material-ui/core';
+import {Avatar, Button, createMuiTheme, ThemeProvider} from '@material-ui/core';
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types'
 import InputLayout from "../shared/layout/InputLayout";
@@ -14,6 +14,7 @@ import {DeleteForeverRounded} from "@material-ui/icons";
 import ImageHost from "../../utils/shared/ImageHost";
 import {getIconStyle, getSecondaryBackground} from "../../styles/shared/MainStyles";
 import AvatarLayout from "../shared/AvatarLayout";
+import fetchActivityData from "../../utils/activity/FetchData";
 
 export default function BaseForm(props) {
 
@@ -178,43 +179,65 @@ export default function BaseForm(props) {
                                  selectFields={lang.genderChoice}
                                  key={"1-10"} setChanged={setChanged}/>
                     <InputLayout inputName={lang.father} dark={props.dark} handleChange={props.handleChange}
-                             inputType={0} name={'father_name'}
-                             disabled={!props.editable} size={32} required={false}
-                             initialValue={props.profile.father_name}
-                             key={"1-3"} setChanged={setChanged}/>
-                <InputLayout inputName={lang.mother} dark={props.dark} handleChange={props.handleChange}
-                             inputType={0} name={'mother_name'}
-                             disabled={!props.editable} size={32} required={false}
-                             initialValue={props.profile.mother_name}
-                             key={"1-4"} setChanged={setChanged}/>
-                <InputLayout inputName={lang.birthPlace} dark={props.dark}
-                             handleChange={props.handleChange} inputType={0}
-                             disabled={!props.editable} size={32} required={true}
-                             initialValue={props.profile.birth_place} name={'birth_place'}
-                             key={"1-5"} setChanged={setChanged}/>
-                <InputLayout inputName={lang.education} dark={props.dark}
-                             handleChange={props.handleChange}
-                             inputType={1} name={'education'}
-                             disabled={!props.editable} size={49} required={true}
-                             initialValue={props.profile.education}
-                             selectFields={lang.educationChoice}
-                             key={"1-9"} setChanged={setChanged}/>
-                <InputLayout inputName={lang.marital} dark={props.dark} handleChange={props.handleChange}
-                             inputType={1} name={'marital_status'}
-                             disabled={!props.editable} size={49} required={true}
-                             initialValue={props.profile.marital_status}
-                             selectFields={lang.maritalChoice}
-                             key={"1-11"} setChanged={setChanged}/>
+                                 inputType={0} name={'father_name'}
+                                 disabled={!props.editable} size={32} required={false}
+                                 initialValue={props.profile.father_name}
+                                 key={"1-3"} setChanged={setChanged}/>
+                    <InputLayout inputName={lang.mother} dark={props.dark} handleChange={props.handleChange}
+                                 inputType={0} name={'mother_name'}
+                                 disabled={!props.editable} size={32} required={false}
+                                 initialValue={props.profile.mother_name}
+                                 key={"1-4"} setChanged={setChanged}/>
+                    <InputLayout inputName={lang.birthPlace} dark={props.dark}
+                                 handleChange={props.handleChange} inputType={0}
+                                 disabled={!props.editable} size={32} required={true}
+                                 initialValue={props.profile.birth_place} name={'birth_place'}
+                                 key={"1-5"} setChanged={setChanged}/>
+                    <InputLayout inputName={lang.education} dark={props.dark}
+                                 handleChange={props.handleChange}
+                                 inputType={1} name={'education'}
+                                 disabled={!props.editable} size={49} required={true}
+                                 initialValue={props.profile.education}
+                                 selectFields={lang.educationChoice}
+                                 key={"1-9"} setChanged={setChanged}/>
+                    <InputLayout inputName={lang.marital} dark={props.dark} handleChange={props.handleChange}
+                                 inputType={1} name={'marital_status'}
+                                 disabled={!props.editable} size={49} required={true}
+                                 initialValue={props.profile.marital_status}
+                                 selectFields={lang.maritalChoice}
+                                 key={"1-11"} setChanged={setChanged}/>
                 </div>
 
                 {!props.editable ? null :
-                    <Button style={{
-                        width: '43vw', margin: '5vh auto .8vw',
-                        backgroundColor: disabled() ? null : '#39adf6',
-                        color: disabled() ? null : 'white'
-                    }} variant={'contained'} disableElevation
-                            disabled={disabled()}
-                            onClick={() => saveChanges()}>{props.create ? lang.create : lang.save}</Button>
+                    <ThemeProvider theme={createMuiTheme({
+                        palette: {
+                            type: "light"
+                        }
+                    })}>
+                        <Button style={{
+                            width: '43vw', margin: '5vh auto .8vw',
+                            backgroundColor: disabled() ? null : '#39adf6',
+                        }} disabled={disabled()} variant={'contained'} color={'primary'} onClick={() => {
+                            props.setChanged(false)
+                            fetchActivityData({
+                                type: 1,
+                                setLastFetchedSize: props.setLastFetchedSize,
+                                setData: props.setResponseData,
+                                data: props.data,
+                                setMaxID: props.setMaxID,
+                                maxID: props.maxID,
+                                setError: props.setError,
+                                setErrorMessage: props.setErrorMessage,
+                                thisMachine: props.thisMachine,
+                                startDate: props.filters.date,
+                                method: props.filters.method,
+                                path: props.filters.path,
+                            }).catch(error => console.log(error))
+
+                        }}>
+                            {props.create ? lang.create : lang.save}
+                        </Button>
+                    </ThemeProvider>
                 }
             </div>
         )

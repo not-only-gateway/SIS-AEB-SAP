@@ -19,7 +19,7 @@ export default function TabLayout(props) {
     return (
         <div style={{
             ...{
-                width: props.width + 'vw',
+                width: props.width + 'vw'
             }
         }}>
             <div className={mainStyles.displayInlineStart} style={{width: props.width + 'vw'}}>

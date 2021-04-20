@@ -50,7 +50,7 @@ export default function SubjectLayout(props) {
             <span onMouseEnter={() => setHovered(true)}
                   onMouseLeave={() => setHovered(false)}
                   style={{
-                      ...getPrimaryBackground({dark: props.dark}),
+                      ...getSecondaryBackground({dark: props.dark}),
                       ...getBoxShadow({dark: props.dark}),
                       ...{
                           cursor: 'pointer',

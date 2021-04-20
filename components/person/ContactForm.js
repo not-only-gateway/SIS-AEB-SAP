@@ -1,4 +1,4 @@
-import {Button} from "@material-ui/core";
+import {Button, createMuiTheme, ThemeProvider} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import InputLayout from "../shared/layout/InputLayout";
@@ -80,14 +80,19 @@ export default function ContactForm(props) {
                     <InputLayout inputName={lang.altPhone} dark={props.dark} handleChange={setPhoneAlt}
                                  inputType={0} disabled={!props.editable} size={49} required={false}
                                  initialValue={phoneAlt} key={"3-4"} setChanged={setChanged}/>
-
+                    <ThemeProvider theme={createMuiTheme({
+                        palette: {
+                            type: "light"
+                        }
+                    })}>
                     <Button style={{
                         width: '43vw',margin: '5vh auto .8vw',
                         backgroundColor: disabled() ? null : '#39adf6',
-                        color: disabled() ? null : 'white'
-                    }} variant={'contained'} disableElevation
+
+                    }} variant={'contained'} color={'primary'}
                             disabled={disabled()}
                             onClick={() => saveChanges()}>{lang.save}</Button>
+                    </ThemeProvider>
                 </div>
             </div>
         )

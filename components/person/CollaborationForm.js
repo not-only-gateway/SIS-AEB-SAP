@@ -170,7 +170,7 @@ export default function CollaborationForm(props) {
     if (canLoad())
         return (
             <div
-                className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth, mainStyles.displayInlineCenter].join(' ')}>
+                className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth, mainStyles.displayInlineCenter].join(' ')} >
                 <InputLayout inputName={'Unit'} dark={props.dark} handleChange={setUnit} inputType={1}
                              disabled={!props.editable} size={30} required={true} initialValue={unitID} key={'2-1-'+ (props.collaborationID !== undefined ?props.collaborationID : 'create') }
                              selectFields={mapToSelect({option: 0, units: units})} setChanged={setChanged}/>
@@ -257,7 +257,7 @@ export default function CollaborationForm(props) {
                     marginBottom: '.8vw',
                     backgroundColor: disabled() ? null : '#39adf6',
                     color: disabled() ? null : 'white'
-                }} variant={'contained'} disableElevation
+                }} variant={'contained'}
                         disabled={disabled()}
                         onClick={() => saveChanges()}>Save</Button>
                 {props.collaborationID !== undefined && props.collaborationID !== null ?
@@ -265,7 +265,7 @@ export default function CollaborationForm(props) {
                         width: '46%', marginBottom: '.8vw',
                         backgroundColor: '#f54269',
                         color: 'white'
-                    }} variant={'contained'} onClick={() => deleteCollaboration()} disableElevation>Delete</Button>
+                    }} variant={'contained'} onClick={() => deleteCollaboration()}>Delete</Button>
                     :
                     null
                 }

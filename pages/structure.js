@@ -66,7 +66,7 @@ export default function Structure() {
 
                 <GetPageTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.information} dark={dark}/>
 
-                <div className={mainStyles.displayColumnSpaced} style={{
+                <div className={[mainStyles.displayColumnSpaced, mainStyles.baseWidth].join(' ')} style={{
                     width: 'fit-content',
                     height: 'fit-content',
                     padding: '.9vw',
@@ -91,8 +91,8 @@ export default function Structure() {
                         }
 
                         dark={dark}
-                        closedSize={43}
-                        openSize={43}
+                        closedSize={63}
+                        openSize={63}
                     />
 
 
@@ -115,8 +115,8 @@ export default function Structure() {
                         }
 
                         dark={dark}
-                        closedSize={43}
-                        openSize={43}
+                        closedSize={63}
+                        openSize={63}
                     />
                 </div>
 

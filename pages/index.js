@@ -115,28 +115,6 @@ export default function Index() {
                                         inactiveLocale={lang.inactive}
                                     />
                                 )}
-                                {data.map(collaborator =>
-                                    <PersonCard
-                                        profile={collaborator.profile}
-                                        collaboration={collaborator.collaboration}
-                                        unit={collaborator.unit}
-                                        lastActivity={collaborator.last_activity}
-                                        dark={dark}
-                                        asProfile={false}
-                                        inactiveLocale={lang.inactive}
-                                    />
-                                )}
-                                {data.map(collaborator =>
-                                    <PersonCard
-                                        profile={collaborator.profile}
-                                        collaboration={collaborator.collaboration}
-                                        unit={collaborator.unit}
-                                        lastActivity={collaborator.last_activity}
-                                        dark={dark}
-                                        asProfile={false}
-                                        inactiveLocale={lang.inactive}
-                                    />
-                                )}
                             </div>
                         </InfiniteScroll>
                         :

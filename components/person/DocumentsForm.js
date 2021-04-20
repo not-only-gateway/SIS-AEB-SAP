@@ -1,4 +1,4 @@
-import {Button} from "@material-ui/core";
+import {Button, createMuiTheme, ThemeProvider} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import InputLayout from "../shared/layout/InputLayout";
@@ -134,16 +134,20 @@ export default function DocumentsForm(props) {
                                  disabled={!props.editable} size={32} required={true} initialValue={electoralZone}
                                  key={"5-11"} setChanged={setChanged}/>
 
-
+                    <ThemeProvider theme={createMuiTheme({
+                        palette: {
+                            type: "light"
+                        }
+                    })}>
                     <Button style={{
                         width: '43vw', margin: '5vh auto .8vw',
                         backgroundColor: disabled() ? null : '#39adf6',
-                        color: disabled() ? null : 'white'
                     }}
                             variant={'contained'}
-                            disableElevation
+                            color={'primary'}
                             disabled={disabled()}
                             onClick={() => saveChanges()}>{lang.saveButton}</Button>
+                    </ThemeProvider>
                 </div>
             </div>
         )

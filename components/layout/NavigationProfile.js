@@ -6,6 +6,7 @@ import ImageHost from "../../utils/shared/ImageHost";
 import React, {useState} from "react";
 import Link from "next/link";
 import Cookies from "universal-cookie/lib";
+import fetchActivityData from "../../utils/activity/FetchData";
 
 export default function NavigationProfile(props) {
     const [open, setOpen] = useState(false)
@@ -30,14 +31,16 @@ export default function NavigationProfile(props) {
                                 <Button style={{
                                     textTransform: 'none',
                                     justifyContent: 'flex-start',
-                                    height: '5vh'
+                                    height: '5vh',
+                                    color: 'white'
                                 }}>{props.locale.profile}</Button>
                             </Link>
                             <Link href={{pathname: 'signin'}}>
                                 <Button style={{
                                     textTransform: 'none',
                                     justifyContent: 'flex-start',
-                                    height: '5vh'
+                                    height: '5vh',
+                                    color: 'white'
                                 }}>{props.locale.signout}</Button>
                             </Link>
                             <Divider style={{marginBottom: '10px'}} orientation={"horizontal"}/>
@@ -45,6 +48,7 @@ export default function NavigationProfile(props) {
                         :
                         null
                     }
+
                     <Button style={{
                         height: '6.5vh',
                         width: props.reduced ? null : '13vw',

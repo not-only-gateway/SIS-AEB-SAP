@@ -1,5 +1,5 @@
 import styles from "../../../styles/person/Form.module.css";
-import {Button} from "@material-ui/core";
+import {Button, createMuiTheme, ThemeProvider} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import InputLayout from "../layout/InputLayout";
 import PropTypes from 'prop-types'
@@ -112,14 +112,18 @@ export default function AddressForm(props) {
                                  disabled={!props.editable} size={32} required={true} initialValue={stateInitials}
                                  key={"4-8"} setChanged={setChanged}/>
 
-
-                    <Button style={{
-                        width: '43vw', margin: '5vh auto .8vw',
-                        backgroundColor: disabled() ? null : '#39adf6',
-                        color: disabled() ? null : 'white'
-                    }} variant={'contained'} disableElevation
-                            disabled={disabled()}
-                            onClick={() => saveChanges()}>Save</Button>
+                    <ThemeProvider theme={createMuiTheme({
+                        palette: {
+                            type: "light"
+                        }
+                    })}>
+                        <Button style={{
+                            width: '43vw', margin: '5vh auto .8vw',
+                            backgroundColor: disabled() ? null : '#39adf6',
+                        }} variant={'contained'}
+                                disabled={disabled()}
+                                onClick={() => saveChanges()}>Save</Button>
+                    </ThemeProvider>
                 </div>
             </div>
         )

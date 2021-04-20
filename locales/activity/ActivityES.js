@@ -7,7 +7,7 @@ export default {
     nothingFound: 'Nada Encontrado',
     search: 'Búsqueda URL',
     startDate: 'Desde',
-    method: 'Método Http',
+    method: 'Método HTTP',
     machine: 'Esta maquina',
     filter: 'Filtrar',
     platform: 'Plataforma',
