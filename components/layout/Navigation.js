@@ -52,9 +52,8 @@ export default function Navigation(props) {
         <div className={[styles.navigationContent, styles.navigationContainer].join(' ')}
              style={{
                  ...{
-                     width: props.reduced ? 'fit-content' : '14%',
+                     width: props.reduced ? '4vw' : '14vw',
                      transition: '.3s',
-                     borderRadius: '0px 5px 5px 0px',
                      paddingRight: props.reduced ? ' 5px  ' : null,
                      paddingLeft: props.reduced ? '5px' : null,
                      backgroundColor: 'black',
@@ -134,7 +133,7 @@ export default function Navigation(props) {
                 />
 
             </div>
-            <NavigationProfile dark={props.dark} profile={profile} reduced={props.reduced} locale={{profile: lang.profile, signout: lang.signout}}/>
+            <NavigationProfile dark={props.dark} profile={profile} reduced={props.reduced} locale={{profile: lang.profile, signout: lang.signout, signin: lang.signin}}/>
         </div>
     )
 }

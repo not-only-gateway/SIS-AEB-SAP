@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import {Avatar} from "@material-ui/core";
+import {Avatar, createMuiTheme, ThemeProvider} from "@material-ui/core";
 import ImageHost from "../../utils/shared/ImageHost";
 import {getBorder, getBoxShadow, getPrimaryBackground} from "../../styles/shared/MainStyles";
 import React from "react";
@@ -10,11 +10,17 @@ export default function AvatarLayout(props) {
 
     return (
         <div key={props.key}>
+            <ThemeProvider theme={createMuiTheme({
+                palette: {
+                    type: "light"
+                }
+            })}>
             <Avatar src={props.image !== undefined ? ImageHost() + props.image : null}
                     style={{
                         ...{height: '125px', width:  '100%', borderRadius: ' 8px '},
                         ...getBoxShadow({dark: props.dark})
                     }}/>
+            </ThemeProvider>
             {props.cakeDay === true ?
                 <div className={mainStyles.displayInlineCenter} style={{...{width: '32px', height: '32px', position: 'absolute', top: '28%', left:'5.5%', borderRadius: '16px'}, ...getPrimaryBackground({dark: props.dark})}}>
                     <CakeRounded style={{color: '#f54269', fontSize: '1.4rem'}}/>

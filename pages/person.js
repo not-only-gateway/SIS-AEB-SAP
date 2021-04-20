@@ -100,7 +100,7 @@ export default function person() {
         setId(new_id)
     }
 
-    if (lang !== null && router.isReady && router.query.id === id && !loading && profile !== null)
+    if (lang !== null && router.isReady && router.query.id === id && !loading && profile !== null && profile !== undefined)
         return (
             <ThemeProvider theme={createMuiTheme({
                 palette: {

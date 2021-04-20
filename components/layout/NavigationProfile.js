@@ -7,6 +7,7 @@ import React, {useState} from "react";
 import Link from "next/link";
 import Cookies from "universal-cookie/lib";
 import fetchActivityData from "../../utils/activity/FetchData";
+import {ExitToApp, ExitToAppRounded} from "@material-ui/icons";
 
 export default function NavigationProfile(props) {
     const [open, setOpen] = useState(false)
@@ -86,9 +87,34 @@ export default function NavigationProfile(props) {
             </ThemeProvider>
         )
     else return (
-        <div>
-            Sign in
-        </div>
+        <ThemeProvider theme={createMuiTheme({
+            palette: {
+                type: "dark"
+            }
+        })}>
+            <div className={mainStyles.displayColumnSpaced} style={{
+                position: 'absolute',
+                bottom: '5px',
+                justifyItems: 'center',
+                width: '100%',
+                borderRadius: '8px',
+            }}>
+                <Link href={{pathname: 'signin'}}>
+                    <Button style={{
+                        height: '6.5vh',
+                        width: props.reduced ? null : '13vw',
+                        textTransform: 'none',
+                        borderRadius: open ? '0px 0px 5px 5px' : '5px',
+                        backgroundColor: '#262626',
+                        color: 'white',
+
+                    }}>
+                        <ExitToAppRounded style={{transform: 'rotate(180deg)', marginRight: '10px'}}/>
+                        {props.reduced ? null : props.locale.signin}
+                    </Button>
+                </Link>
+            </div>
+        </ThemeProvider>
     )
 }
 NavigationProfile.propTypes = {

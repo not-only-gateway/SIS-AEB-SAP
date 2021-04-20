@@ -60,8 +60,7 @@ export default function NavigationButtonLayout(props) {
                                     transition: '.3s',
                                     transform: 'translateX(10px)',
                                     color: 'white',
-                                    fontSize: '.95rem',
-                                    fontWeight: props.highlight ? '545' : '450'
+                                    fontSize: '.95rem'
                                 }}> {!props.reduced ? props.label : null}</p>
                             </div>
                         </Button>

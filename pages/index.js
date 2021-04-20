@@ -63,7 +63,7 @@ export default function Index() {
         return (
             <ThemeProvider theme={createMuiTheme({
                 palette: {
-                    type: dark ? "dark" : "light"
+                    type: "light"
                 }
             })}>
 
