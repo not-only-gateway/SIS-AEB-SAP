@@ -32,7 +32,6 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    width: 80vw;
     margin-left: auto;
 
 }
@@ -41,7 +40,7 @@
     justify-items: flex-start;
     align-content: space-between;
     /*gap: ;*/
-    width: 25vw;
+    width: 27%;
     overflow: hidden;
     position: sticky;
     height: 100vh;
@@ -102,7 +101,4 @@
     height: fit-content;
     animation-duration: .2s;
     animation-name: pop_in;
-}
-.accordion_container{
-    height: fit-content;
 }

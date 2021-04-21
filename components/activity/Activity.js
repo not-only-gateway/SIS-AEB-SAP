@@ -143,10 +143,11 @@ export default function ActivityComponent(props) {
                 </div>
             }
             key={props.activity.id}
-            closedSize={50}
-            openSize={50}
+            closedSize={55}
+            openSize={55}
             dark={props.dark}
             asRow={true}
+            animationDelay={props.index * 100}
         />
     )
 }
@@ -155,5 +156,6 @@ ActivityComponent.propTypes = {
     dark: PropTypes.bool,
     lang: PropTypes.object,
     activity: PropTypes.object,
-    accessLog: PropTypes.object
+    accessLog: PropTypes.object,
+    index: PropTypes.number
 }

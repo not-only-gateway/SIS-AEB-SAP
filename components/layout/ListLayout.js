@@ -5,14 +5,14 @@ import {Divider} from "@material-ui/core";
 
 export default function ListLayout(props) {
     return (
-        <div className={styles.pageContainer}>
+        <div className={styles.pageContainer} style={{width: props.width+'%'}}>
             <div className={styles.listContainer} style={{transform: 'translateX(-8px)'}}>
                 <div className={styles.listTitle}
-                     style={{backgroundColor: 'white', height: '15vh', borderBottom: '#e5e6e8 1px solid'}}>
-                    <div style={{height: '5vh'}}>
+                     style={{backgroundColor: 'white',  width: '100%',height: '15vh', borderBottom: '#e5e6e8 1px solid'}}>
+                    <div style={{height: '5vh', marginRight: 'auto'}}>
                         {props.title}
                     </div>
-                    <div className={mainStyles.displayInlineSpaced} style={{width: props.width + 'vw', height: 'fit-content'}}>
+                    <div className={mainStyles.displayInlineSpaced} style={{height: 'fit-content', width: props.columnWidth + 'vw'}}>
                         {props.columns.map(column => (
                             <div className={styles.listColumns} style={{width: column.size + 'vw'}}>
 
@@ -37,5 +37,7 @@ ListLayout.propTypes = {
     title: PropTypes.object,
     content: PropTypes.object,
     columns: PropTypes.object,
-    filterComponent: PropTypes.func
+    filterComponent: PropTypes.func,
+    width: PropTypes.number,
+    columnWidth: PropTypes.number
 }

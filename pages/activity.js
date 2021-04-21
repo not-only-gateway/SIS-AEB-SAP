@@ -121,10 +121,10 @@ export default function Activity() {
                                 </div>
                             }
                         >
-                            <div className={styles.activities_container}>
-                                {data.map(data => (
+                            <div className={styles.activitiesContainer}>
+                                {data.map((data, index) => (
                                         <ActivityComponent lang={lang} dark={dark} activity={data.activity}
-                                                           accessLog={data.access_log}
+                                                           accessLog={data.access_log} index={index}
                                         />
                                     )
                                 )}
@@ -151,7 +151,8 @@ export default function Activity() {
                                              setMaxID={setMaxID}/>
 
                 }
-                width={45}
+                width={88}
+                columnWidth={45}
             />
         )
     else

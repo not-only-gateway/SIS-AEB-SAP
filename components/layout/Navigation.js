@@ -27,6 +27,7 @@ import NavigationButtonLayout from "./NavigationButtonLayout";
 import getComponentLanguage from "../../utils/shared/GetLanguage";
 import ImageHost from "../../utils/shared/ImageHost";
 import NavigationProfile from "./NavigationProfile";
+import animations from '../../styles/shared/Animations.module.css'
 
 const cookies = new Cookies()
 
@@ -49,11 +50,11 @@ export default function Navigation(props) {
 
     return (
 
-        <div className={[styles.navigationContent, styles.navigationContainer].join(' ')}
+        <div className={[styles.navigationContent, styles.navigationContainer, animations.slideInAnimation].join(' ')}
              style={{
                  ...{
                      width: props.reduced ? '4vw' : '14vw',
-                     transition: '.3s',
+                     transition: '250ms ease-in-out',
                      paddingRight: props.reduced ? ' 5px  ' : null,
                      paddingLeft: props.reduced ? '5px' : null,
                      backgroundColor: 'black',
@@ -77,7 +78,7 @@ export default function Navigation(props) {
                     initialValue={props.reduced}
                     icon={<MenuOpenRounded style={{
                         ...{
-                            transition: '.3s',
+                            transition: '150ms ease-in-out',
                             transform: props.reduced ? 'rotate(180deg)' : null,
                             color: 'white',
                         }

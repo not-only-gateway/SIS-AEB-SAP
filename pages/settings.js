@@ -24,7 +24,7 @@ import Link from "next/link";
 import {HistoryRounded} from "@material-ui/icons";
 import GetPageTitle from "../utils/shared/GetPageTitle";
 import getPageInfo from "../utils/index/GetPageInfo";
-import IndexComponent from "../components/index/IndexComponent";
+import animations from "../styles/shared/Animations.module.css";
 
 export default function Settings() {
 
@@ -67,12 +67,15 @@ export default function Settings() {
                     type: dark ? "dark" : "light"
                 }
             })}>
-                <GetPageTitle pageName={lang.settings} pageTitle={lang.settings} pageInfo={lang.information}
-                              dark={dark}/>
 
+                <div style={{width: '63vw'}}>
+                    <GetPageTitle pageName={lang.settings} pageTitle={lang.settings} pageInfo={lang.information}
+                                  dark={dark}/>
+
+                </div>
 
                 <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.baseWidth].join(' ')}
-                     style={{marginTop: '2vh'}}>
+                     style={{transform: 'translateY(2vh)'}}>
 
                     <AccordionLayout
                         content={
@@ -102,6 +105,7 @@ export default function Settings() {
                         key={'language - settings'}
                         closedSize={31.1}
                         openSize={31.1}
+                        animationDelay={100}
                         dark={dark}
                         disabled={false}
                         border={null}
@@ -140,6 +144,7 @@ export default function Settings() {
                         key={'theme - settings'}
                         closedSize={31.1}
                         openSize={31.1}
+                        animationDelay={200}
                         dark={dark}
                         disabled={true}
                         border={null}
@@ -173,6 +178,7 @@ export default function Settings() {
                             closedSize={31.1}
                             openSize={31.1}
                             dark={dark}
+                            animationDelay={300}
                             disabled={false}
                             border={null}
                         />
@@ -183,8 +189,10 @@ export default function Settings() {
                         <div style={{
                             width: '31.1vw',
                             border: !dark ? '#e5e6e8 1px solid' : 'initial',
-                            borderRadius: '8px'
-                        }}>
+                            borderRadius: '8px',
+                            opacity: 0,
+                            animationDelay: '400ms'
+                        }} className={animations.slideUpAnimation}>
                             <Link href={{pathname: '/activity', locale: router.locale}}>
                                 <Button style={{
                                     width: '100%',

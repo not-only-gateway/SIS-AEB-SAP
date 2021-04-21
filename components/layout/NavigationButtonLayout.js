@@ -11,6 +11,7 @@ import {
     getPrimaryBackground,
     getSecondaryColor, getTertiaryBackground
 } from "../../styles/shared/MainStyles";
+import animations from '../../styles/shared/Animations.module.css'
 
 export default function NavigationButtonLayout(props) {
 
@@ -93,5 +94,6 @@ NavigationButtonLayout.propTypes = {
     label: PropTypes.any,
     reduced: PropTypes.bool,
     setToggle: PropTypes.func,
-    initialValue: PropTypes.bool
+    initialValue: PropTypes.bool,
+    animated: PropTypes.bool
 }

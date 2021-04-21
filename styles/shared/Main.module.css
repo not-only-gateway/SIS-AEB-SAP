@@ -92,16 +92,3 @@
     padding-right: 10px;
 }
 /*SPACING*/
-.popInAnimation{
-    animation-duration: .3s;
-    animation-name: pop_in;
-}
-@keyframes popIn {
-    from {
-        transform: scale(.2);
-    }
-
-    to {
-        transform: scale(1);
-    }
-}

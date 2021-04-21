@@ -1,4 +1,4 @@
-.activities_container{
+.activitiesContainer{
     display: grid;
     align-items: flex-start;
 }
@@ -13,7 +13,7 @@
 .informationContainer{
     display: grid;
     gap: 2vh;
-    width: 98%;
+    width: 48vw;
     margin: auto;
     height: 50vh;
     overflow-y: auto;

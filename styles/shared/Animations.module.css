@@ -1,0 +1,42 @@
+
+.popInAnimation{
+    animation-duration: .3s;
+    animation-name: popIn;
+}
+.slideInAnimation{
+    animation: slideIn ease-in-out 150ms;
+}
+.slideUpAnimation{
+    animation: slideUp ease-in-out 250ms forwards;
+}
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50%);
+    }
+    to {
+        opacity: 100%;
+        transform: translateY(0%);
+    }
+
+}
+@keyframes slideIn {
+    0% {
+        /*opacity: 0;*/
+        transform: translateX(-75%);
+    }
+
+    to {
+        /*opacity: 100%;*/
+        transform: translateY(0%);
+    }
+}
+@keyframes popIn {
+    from {
+        transform: scale(.2);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}

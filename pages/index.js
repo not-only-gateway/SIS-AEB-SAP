@@ -60,12 +60,13 @@ export default function Index() {
         }).catch(error => console.log(error))
     }
 
-    function redirect(id){
+    function redirect(id) {
         router.push({
             pathname: '/person',
             query: {id: id}
         })
     }
+
     if (lang !== null)
         return (
 
@@ -90,20 +91,19 @@ export default function Index() {
                                     </div>
                                 }
                             >
-                                <div>
-                                    {data.map(collaborator =>
-                                        <PersonCard
-                                            profile={collaborator.profile}
-                                            collaboration={collaborator.collaboration}
-                                            unit={collaborator.unit}
-                                            lastActivity={collaborator.last_activity}
-                                            dark={dark}
-                                            asProfile={false}
-                                            inactiveLocale={lang.inactive}
-                                            redirect={redirect}
-                                        />
-                                    )}
-                                </div>
+                                {data.map((collaborator, index) =>
+                                    <PersonCard
+                                        profile={collaborator.profile}
+                                        collaboration={collaborator.collaboration}
+                                        unit={collaborator.unit}
+                                        lastActivity={collaborator.last_activity}
+                                        dark={dark}
+                                        index={index}
+                                        asProfile={false}
+                                        inactiveLocale={lang.inactive}
+                                        redirect={redirect}
+                                    />
+                                )}
                             </InfiniteScroll>
                             :
 
@@ -111,19 +111,15 @@ export default function Index() {
                                 ...{marginBottom: '15px', width: '50vw'}
                             }}>
                                 <p className={mainStyles.secondaryParagraph}
-                                   style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.nothingFound}</p>
+                                   style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>Loading</p>
                             </div>
 
                         :
-                        <div className={styles.personasContainer}>
-                            <Skeleton variant="rect" style={{
-                                ...{
-                                    borderRadius: '8px',
-                                    width: '45vw',
-                                    height: '11vh',
-                                },
-                                ...getSecondaryBackground({dark: dark})
-                            }}/>
+                        <div className={mainStyles.displayInlineCenter} style={{
+                            ...{marginBottom: '15px', width: '50vw'}
+                        }}>
+                            <p className={mainStyles.secondaryParagraph}
+                               style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.nothingFound}</p>
                         </div>
                 }
                 title={
@@ -140,11 +136,12 @@ export default function Index() {
                     />
 
                 }
-                width={48}
+                width={88}
+                columnWidth={50}
                 columns={[
                     // {label: null, size: 7, divider: false},
                     {label: 'Name', size: 20},
-                    {label: 'Email', size: 25},
+                    {label: 'Email', size: 28},
                     {label: 'Extension', size: 10},
                     {label: 'Status', size: 10},
                     {label: 'Unit', size: 10},
