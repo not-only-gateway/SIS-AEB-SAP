@@ -19,7 +19,8 @@ export default function AccordionLayout(props) {
                 width: open ? (props.openSize !== null ? props.openSize + 'vw' : 'fit-content') : props.closedSize + 'vw',
                 minWidth: props.openSize === null ? '45vw' : props.closedSize,
                 border: open || props.asRow ? null : !props.dark ? '#e5e6e8 1px solid' : 'initial',
-                borderRadius: open ? '0 8px 8px 0' : props.asRow ? null : '8px'
+                borderRadius: open ? '0 8px 8px 0' : props.asRow ? null : '8px',
+                transition: '.2s'
             },
             ...open || props.asRow ? {
                 borderRight: props.asRow ? null : '#e5e6e8 1px solid',

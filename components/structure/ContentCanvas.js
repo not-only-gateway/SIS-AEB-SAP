@@ -17,6 +17,7 @@ export default function ContentCanvas(props) {
                     borderRadius: '8px',
                     margin: 'auto',
                     zoom: zoom,
+                    transition: '.2s',
                 '-moz-transform': 'scale('+zoom+')'
                 }}>
                     <SubjectLayout dark={props.dark} subject={props.subject}

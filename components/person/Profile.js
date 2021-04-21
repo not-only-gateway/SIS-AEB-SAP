@@ -26,105 +26,45 @@ import ViewQuiltRoundedIcon from '@material-ui/icons/ViewQuiltRounded';
 import CakeRoundedIcon from '@material-ui/icons/CakeRounded';
 
 export default function ProfileComponent(props) {
-	const birth = new Date(props.profile.birth)
+
     return (
         <div
-            className={[mainStyles.displayColumnSpaced].join(' ')}
+            className={[mainStyles.displayInlineSpaced].join(' ')}
             key={props.profile.id}
             style={{
-                ...getSecondaryBackground({dark: props.dark}),
-                ...{
-                    borderRadius: '8px',
-                    height: '55vh',
+                    height: '11vh',
                     position: 'sticky',
                     top: '0',
-                    width: '15vw',
-                    padding: '.5vw'
-                }
+                    width: '100%',
+                    padding: '0px 0px 4vh 0px',
+                    borderBottom: '#e5e6e8 1px solid'
             }}>
-		 
-            <div className={mainStyles.displayColumnSpaced} style={{justifyContent: 'center', justifyItems: 'center'}}>
+
+            <div className={mainStyles.displayInlineSpaced} style={{justifyContent: 'center', justifyItems: 'center'}}>
                 <Avatar src={ImageHost() + props.profile.image}
                         style={{height: '100px', width: '100px', margin: 'auto'}}/>
 
 
-                <div style={{transform: 'translateY(2%) translateX(2%)',}}>
-                    <p className={mainStyles.primaryParagraph}
-                       style={{...getPrimaryColor({dark: props.dark}), ...{textAlign: 'center'}}}>{props.profile.name}</p>
+                <div style={{transform: 'translateX(20px)',}}>
+                    <h4
+                        style={{...getPrimaryColor({dark: props.dark}), ...{textAlign: 'left'}}}>{props.profile.name}</h4>
+                    <p className={mainStyles.secondaryParagraph}
+                       style={{...getPrimaryColor({dark: props.dark}), ...{textAlign: 'left'}}}>{props.profile.corporate_email}</p>
                 </div>
             </div>
-            <div style={{overflow: 'hidden'}}>
- <div className={mainStyles.displayInlineSpaced}>
-                    <CakeRoundedIcon style={getIconStyle({dark: props.dark})}/>
-                    <p className={mainStyles.tertiaryParagraph} style={{
-                        ...getTertiaryColor({dark: props.dark}), ...{
-                            textAlign: "right"
-                        }
-                    }}>{birth.toDateString().substr(3, birth.toDateString().length -7)}</p>
-                </div>
-                <div className={mainStyles.displayInlineSpaced}>
-                    <EmailRounded style={{...getIconStyle({dark: props.dark})}}/>
-                    <p className={mainStyles.tertiaryParagraph} style={{
-                        ...getTertiaryColor({dark: props.dark}), ...{
-                            textAlign: "right"
-                        }
-                    }}>{props.profile.corporate_email}</p>
-                </div>
-                <div className={mainStyles.displayInlineSpaced}>
-                    <PhoneRounded style={getIconStyle({dark: props.dark})}/>
-                    <p className={mainStyles.tertiaryParagraph} style={{
-                        ...getTertiaryColor({dark: props.dark}), ...{
-                            textAlign: "right"
-                        }
-                    }}>{props.profile.extension}</p>
-                </div>
 
-                <div className={mainStyles.displayInlineSpaced}>
-                    <ViewQuiltRoundedIcon style={getIconStyle({dark: props.dark})}/>
-                    <p className={mainStyles.tertiaryParagraph} style={{
-                        ...getTertiaryColor({dark: props.dark}), ...{
-                            textAlign: "right"
-                        }
-                    }}>{props.unit.acronym}</p>
-                </div>
-                {props.role !== undefined ? 
-                 <div className={mainStyles.displayInlineSpaced}>
-                    <WorkRounded style={getIconStyle({dark: props.dark})}/>
-                    <p className={mainStyles.tertiaryParagraph} style={{
-                        ...getTertiaryColor({dark: props.dark}), ...{
-                            textAlign: "right"
-                        }
-                    }}>{props.role.denomination}</p>
-                </div>
-                : 
-                null
-                }
-              
-                <div className={mainStyles.displayInlineSpaced}>
-                    <CalendarTodayRounded style={getIconStyle({dark: props.dark})}/>
-                    <p className={mainStyles.tertiaryParagraph} style={{
-                        ...getTertiaryColor({dark: props.dark}), ...{
-                            textAlign: "right"
-                        }
-                    }}>{new Date(props.collaboration.admission_date).toLocaleDateString()}</p>
-                </div>
-            </div>
             {props.editable ?
                 <Button style={{
-                    ...getSecondaryBackground({dark: props.dark}),
-                    ...getTertiaryColor({dark: props.dark}),
-                    ...{
-                        borderRadius: '8px',
-                        width: '90%',
-                        margin: '10px auto 10px',
-                        backgroundColor: 'black',
-                        color: 'white'
-                    }
-                }} className={mainStyles.secondaryParagraph} onClick={() => props.setEditMode(!props.editMode)}>
+                    width: '15%',
+                    backgroundColor: 'black',
+                    color: 'white',
+                    textTransform: 'none'
+                }} onClick={() => props.setEditMode(!props.editMode)} variant={'contained'}>
                     {props.editMode ? 'Visualize' : 'Edit'}
                 </Button>
                 :
-                null}
+                null
+            }
 
         </div>
 
@@ -134,8 +74,7 @@ export default function ProfileComponent(props) {
 ProfileComponent.proptypes = {
     dark: PropTypes.bool,
     profile: PropTypes.object,
-    collaboration: PropTypes.object,
-    role: PropTypes.object,
+
     inactiveLocale: PropTypes.string,
     lastActivity: PropTypes.number,
     editable: PropTypes.bool,
