@@ -51,6 +51,7 @@ export default function Collaborations(props) {
                                 editable={props.editionMode}
                                 visible={props.editionMode}
                                 fetchData={fetchData}
+                                index={0}
                             />
                         }
                         summary={
@@ -70,7 +71,7 @@ export default function Collaborations(props) {
                         closedSize={68}
                     />
                 }
-                {collaborations.map(collaboration => (
+                {collaborations.map((collaboration, index) => (
                     <AccordionLayout
                         content={
 
@@ -81,6 +82,7 @@ export default function Collaborations(props) {
                                 fetchData={fetchData}
                                 dark={props.dark}
                                 editable={props.editionMode}
+                                index={index+1}
                             />
                         }
                         summary={

@@ -1,42 +1,16 @@
+.modalContainer{
+    display: flex;
+    align-items: stretch;
+    width: 75vw;
+    padding: 1vw;
+    border-radius: 8px;
+}
+.modalFormContainer{
+    justify-self: stretch;
+    align-self: stretch;
 
-.form_row{
-    display: flex;
-    justify-content: space-between;
-    width: 40vw;
-    align-items: center;
-    margin-bottom: 2vh;
-}
-/*.collaborations_container{*/
-/*    display: inline-flex;*/
-/*    flex-flow: row wrap;*/
-/*    justify-items: center;*/
-/*    gap: .9vw;*/
-/*    border-radius: 8px;*/
-/*    width: 38vw;*/
-/*}*/
-.form_component_container{
-    display: inline-flex;
-    flex-flow: row wrap;
-    gap: .8vw;
-    align-content: space-between;
-    border-radius: 8px;
-}
-.form_container{
     display: grid;
+    padding-right: 1vw;
     justify-items: center;
-    width: 45vw;
-}
-.collaboration_container{
-    width: fit-content;
-    height: 7vh;
-    border-radius: 8px;
-    transition: .3s;
-    display: flex;
-    margin-right: 1.6vh;
-    margin-bottom: 2vh;
-    justify-content: space-between;
-    align-items: center;
-}
-.collaboration_container:hover{
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    align-content: space-around;
 }

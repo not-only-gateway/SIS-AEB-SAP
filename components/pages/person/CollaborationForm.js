@@ -6,17 +6,18 @@ import saveComponentChanges from "../../../utils/person/SaveChanges";
 import fetchComponentData from "../../../utils/person/FetchData";
 import mapToSelect from "../../../utils/person/MapToSelect";
 import mainStyles from '../../../styles/shared/Main.module.css'
+import SelectorLayout from "./Selector";
 
 export default function CollaborationForm(props) {
 
-    const [unitID, setUnitID] = useState(null)
+    const [selectedUnit, setSelectedUnit] = useState(null)
     const [units, setUnits] = useState([])
     const [effectiveRoles, setEffectiveRoles] = useState([])
     const [commissionedRoles, setCommissionedRoles] = useState([])
     const [accessProfiles, setAccessProfiles] = useState([])
 
-    const [effectiveRoleID, setEffectiveRoleID] = useState(null)
-    const [commissionedRoleID, setCommissionedRoleID] = useState(null)
+    const [selectedEffectiveRole, setSelectedEffectiveRole] = useState(null)
+    const [selectedCommissionedRole, setSelectedCommissionedRole] = useState(null)
     const [seniorID, setSeniorID] = useState(null)
     const [seniors, setSeniors] = useState([])
     const [publicationDate, setPublicationDate] = useState('')
@@ -37,7 +38,7 @@ export default function CollaborationForm(props) {
 
     function disabled() {
         return (
-            unitID === null ||
+            selectedUnit === null ||
             (publicationDate !== undefined && publicationDate.length === 0) ||
             (admissionDate !== undefined && admissionDate.length === 0) ||
             legalDocument.length === 0 ||
@@ -55,9 +56,12 @@ export default function CollaborationForm(props) {
                 }).then(res => {
                         if (res !== null) {
                             setSeniorID(res.senior !== null ? res.senior.id : null)
-                            setEffectiveRoleID(res.effective_role !== null ? res.effective_role.id : null)
-                            setCommissionedRoleID(res.commissioned_role !== null ? res.commissioned_role.id : null)
-                            setUnitID(res.unit.id)
+                            setSelectedEffectiveRole(res.effective_role !== null ? {
+                                key: res.effective_role.id,
+                                value: res.effective_role.denomination
+                            } : null)
+                            setSelectedCommissionedRole(res.commissioned_role !== null ? res.commissioned_role.id : null)
+                            setSelectedUnit({key: res.unit.id, value: res.unit.acronym})
                             setSubstitute(res.collaboration.is_substitute)
                             setAdmissionDate(res.collaboration.admission_date)
                             setPublicationDate(res.collaboration.official_publication_date)
@@ -104,7 +108,7 @@ export default function CollaborationForm(props) {
                 if (res !== null) {
                     setUnits(res)
                 }
-			console.log(res)
+                console.log(res)
 
             })
             fetchComponentData({path: 'access_profiles', params: {}}).then(res => {
@@ -121,9 +125,9 @@ export default function CollaborationForm(props) {
             params: {
                 person: props.userID,
                 senior: seniorID,
-                effective_role: effectiveRoleID,
-                commissioned_role: commissionedRoleID,
-                unit: unitID,
+                effective_role: selectedEffectiveRole,
+                commissioned_role: selectedCommissionedRole,
+                unit: selectedUnit.key,
                 is_substitute: substitute,
                 official_publication_date: typeof (publicationDate) === "number" ? publicationDate : publicationDate.getTime(),
                 admission_date: typeof (admissionDate) === "number" ? admissionDate : admissionDate.getTime(),
@@ -157,103 +161,120 @@ export default function CollaborationForm(props) {
         })
     }
 
-    async function setUnit(id) {
-        setUnitID(id)
-        fetchComponentData({path: 'seniors/' + id + '/' + props.userID, params: {}}).then(res => {
-            if (res !== null)
-                setSeniors(res)
-        })
+    async function setUnit(data) {
+        console.log(data)
+        if(data !== undefined) {
+            setSelectedUnit({key: data.key, value: data.value})
+            fetchComponentData({path: 'seniors/' + data.key + '/' + props.userID, params: {}}).then(res => {
+                if (res !== null)
+                    setSeniors(res)
+            })
+        }
+        else {
+            setSelectedUnit(undefined)
+            setSeniors([])
+        }
     }
-    function canLoad(){
-        return (props.collaborationID !== undefined && props.collaborationID !== null && unitID !== null && activeRole !== null && substitute !== null && accessProfileID !== null) || (props.collaborationID === undefined && units.length > 0)
+
+    function canLoad() {
+        return (props.collaborationID !== undefined && props.collaborationID !== null && units.length > 0  && accessProfiles.length > 0) || (props.collaborationID === undefined && units.length > 0)
     }
+
     if (canLoad())
         return (
             <div
-                className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth, mainStyles.displayInlineCenter].join(' ')} >
-                <InputLayout inputName={'Unit'} dark={props.dark} handleChange={setUnit} inputType={1}
-                             disabled={!props.editable} size={30} required={true} initialValue={unitID} key={'2-1-'+ (props.collaborationID !== undefined ?props.collaborationID : 'create') }
-                             selectFields={mapToSelect({option: 0, units: units})} setChanged={setChanged}/>
+                className={[mainStyles.displayWarp, mainStyles.displayInlineCenter].join(' ')}>
+                <SelectorLayout required={true} selected={selectedUnit} handleChange={setUnit} label={'Unit'}
+                                data={mapToSelect({option: 0, units: units})} width={32}
+                                key={'2-1-'+props.index}
+                />
 
 
                 <InputLayout inputName={'Active Role'} dark={props.dark} handleChange={setActiveRole} inputType={1}
-                             disabled={!props.editable} size={30} required={true}
+                             disabled={!props.editable} size={32} required={true}
                              initialValue={activeRole}
-                             selectFields={[{key: false, value: 'No'}, {key: true, value: 'Yes'}]} key={'2-2-'+ (props.collaborationID !== undefined ?props.collaborationID : 'create') }
+                             selectFields={[{key: false, value: 'No'}, {key: true, value: 'Yes'}]}
+                             key={'2-2-'+props.index}
                              setChanged={setChanged}/>
                 <InputLayout inputName={'Main Collaboration'} dark={props.dark} handleChange={setMainCollaboration}
                              inputType={1}
                              disabled={!props.editable ||
                              (!canBeMain && !mainCollaboration && (props.collaborationID === undefined || props.collaborationID === null)) ||
                              (!canBeMain && (props.collaborationID === undefined || props.collaborationID === null))
-                             } size={30} required={true}
+                             } size={32} required={true}
                              initialValue={mainCollaboration}
-                             selectFields={[{key: false, value: 'No'}, {key: true, value: 'Yes'}]} key={'2-3-'+ (props.collaborationID !== undefined ?props.collaborationID : 'create') }
-                             setChanged={setChanged}/>
-                <InputLayout inputName={'Effective Role' || commissionedRoles.length === 0} dark={props.dark}
-                             handleChange={setEffectiveRoleID}
-                             inputType={1}
-                             disabled={!props.editable} size={46} required={false}
-                             initialValue={effectiveRoleID}
-                             selectFields={mapToSelect({option: 1, effectiveRoles: effectiveRoles})} key={'2-4-'+ (props.collaborationID !== undefined ?props.collaborationID : 'create') }
+                             selectFields={[{key: false, value: 'No'}, {key: true, value: 'Yes'}]}
+                             key={'2-3-'+props.index}
                              setChanged={setChanged}/>
 
-                <InputLayout inputName={'Commissioned Role'} dark={props.dark} handleChange={setCommissionedRoleID}
-                             inputType={1}
-                             disabled={!props.editable || commissionedRoles.length === 0} size={46} required={false}
-                             initialValue={commissionedRoleID}
-                             selectFields={mapToSelect({option: 2, commissionedRoles: commissionedRoles})} key={'2-5-'+ (props.collaborationID !== undefined ?props.collaborationID : 'create') }
-                             setChanged={setChanged}/>
+                <SelectorLayout required={false} selected={selectedEffectiveRole} handleChange={setSelectedEffectiveRole}
+                                label={'Effective Role'} key={'2-4-'+props.index}
+                                data={mapToSelect({option: 1, effectiveRoles: effectiveRoles})} width={48.5}/>
+
+                <SelectorLayout required={false} selected={selectedCommissionedRole} handleChange={setSelectedEffectiveRole}
+                                label={'Commissioned Role'} key={'2-5-'+props.index}
+                                data={mapToSelect({option: 2, commissionedRoles: commissionedRoles})} width={48.5}/>
+
                 <InputLayout inputName={'Substitute'} dark={props.dark} handleChange={setSubstitute} inputType={1}
-                             disabled={!props.editable} size={30} required={true} initialValue={substitute}
-                             selectFields={[{key: false, value: 'No'}, {key: true, value: 'Yes'}]} key={'2-6-'+ (props.collaborationID !== undefined ?props.collaborationID : 'create') }
+                             disabled={!props.editable} size={32} required={true} initialValue={substitute}
+                             selectFields={[{key: false, value: 'No'}, {key: true, value: 'Yes'}]}
+                             key={'2-6-' + props.index}
                              setChanged={setChanged}/>
 
                 <InputLayout inputName={'Senior'} dark={props.dark} handleChange={setSeniorID} inputType={1}
-                             disabled={!props.editable || seniors.length === 0} size={30} required={false}
+                             disabled={!props.editable || seniors.length === 0} size={32} required={false}
                              initialValue={seniorID}
-                             selectFields={mapToSelect({option: 3, seniors: seniors})} key={'2-7-'+ (props.collaborationID !== undefined ?props.collaborationID : 'create') }
+                             selectFields={mapToSelect({option: 3, seniors: seniors})}
+                             key={'2-7-' + props.index}
                              setChanged={setChanged}/>
 
                 <InputLayout inputName={'Admission'} dark={props.dark} handleChange={setAdmissionDate} inputType={2}
-                             disabled={!props.editable} size={30} required={true} initialValue={admissionDate}
-                             key={'2-8-'+ (props.collaborationID !== undefined ?props.collaborationID : 'create') } setChanged={setChanged}/>
+                             disabled={!props.editable} size={32} required={true} initialValue={admissionDate}
+                             key={'2-8-' + props.index}
+                             setChanged={setChanged}/>
 
                 <InputLayout inputName={'Official Publication'} dark={props.dark} handleChange={setPublicationDate}
                              inputType={2}
-                             disabled={!props.editable} size={30} required={true} initialValue={publicationDate}
-                             key={'2-9-'+ (props.collaborationID !== undefined ?props.collaborationID : 'create') } setChanged={setChanged}/>
+                             disabled={!props.editable} size={32} required={true} initialValue={publicationDate}
+                             key={'2-9-' + props.index}
+                             setChanged={setChanged}/>
 
                 <InputLayout inputName={'Contract Expiration'} dark={props.dark} handleChange={setContractExp}
                              inputType={2}
-                             disabled={!props.editable} size={30} required={false} initialValue={contractExp}
-                             key={'2-10-'+ (props.collaborationID !== undefined ?props.collaborationID : 'create') } setChanged={setChanged}/>
+                             disabled={!props.editable} size={32} required={false} initialValue={contractExp}
+                             key={'2-10-' + props.index}
+                             setChanged={setChanged}/>
                 <InputLayout inputName={'Legal Document'} dark={props.dark} handleChange={setLegalDocument}
                              inputType={0}
-                             disabled={!props.editable} size={30} required={true} initialValue={legalDocument}
-                             key={'2-11-'+ (props.collaborationID !== undefined ?props.collaborationID : 'create') } setChanged={setChanged}/>
+                             disabled={!props.editable} size={32} required={true} initialValue={legalDocument}
+                             key={'2-11-' + props.index}
+                             setChanged={setChanged}/>
 
                 <InputLayout inputName={'Work shift start'} dark={props.dark} handleChange={setWorkStart}
                              inputType={3}
-                             disabled={!props.editable} size={46} required={false} initialValue={workStart}
-                             key={'2-12-'+ (props.collaborationID !== undefined ?props.collaborationID : 'create') } setChanged={setChanged}/>
+                             disabled={!props.editable} size={48.5} required={false} initialValue={workStart}
+                             key={'2-12-' + props.index}
+                             setChanged={setChanged}/>
 
                 <InputLayout inputName={'Work shift end'} dark={props.dark} handleChange={setWorkEnd}
                              inputType={3}
-                             disabled={!props.editable} size={46} required={false} initialValue={workEnd}
-                             key={'2-13-'+ (props.collaborationID !== undefined ?props.collaborationID : 'create') } setChanged={setChanged}/>
+                             disabled={!props.editable} size={48.5} required={false} initialValue={workEnd}
+                             key={'2-13-' + props.index}
+                             setChanged={setChanged}/>
                 <InputLayout inputName={'Access Profile'} dark={props.dark} handleChange={setAccessProfileID}
                              inputType={1} selectFields={mapToSelect({option: 4, accessProfiles: accessProfiles})}
-                             disabled={!props.editable} size={46} required={true} initialValue={accessProfileID}
-                             key={'2-14-'+ (props.collaborationID !== undefined ?props.collaborationID : 'create') } setChanged={setChanged}/>
+                             disabled={!props.editable} size={48.5} required={true} initialValue={accessProfileID}
+                             key={'2-14-' + props.index}
+                             setChanged={setChanged}/>
                 <InputLayout inputName={'Additional information'} dark={props.dark} handleChange={setAdditionalInfo}
                              inputType={0}
-                             disabled={!props.editable} size={46} required={false} initialValue={additionalInfo}
-                             key={'2-15-'+ (props.collaborationID !== undefined ?props.collaborationID : 'create') } setChanged={setChanged}/>
+                             disabled={!props.editable} size={48.5} required={false} initialValue={additionalInfo}
+                             key={'2-15-' + props.index}
+                             setChanged={setChanged}/>
 
 
                 <Button style={{
-                    width: props.collaborationID !== undefined && props.collaborationID !== null ? '46%' : '94%',
+                    width: props.collaborationID !== undefined && props.collaborationID !== null ? '48.5%' : '94%',
                     marginBottom: '.8vw',
                     backgroundColor: disabled() ? null : '#39adf6',
                     color: disabled() ? null : 'white'
@@ -262,7 +283,7 @@ export default function CollaborationForm(props) {
                         onClick={() => saveChanges()}>Save</Button>
                 {props.collaborationID !== undefined && props.collaborationID !== null ?
                     <Button style={{
-                        width: '46%', marginBottom: '.8vw',
+                        width: '48.5%', marginBottom: '.8vw',
                         backgroundColor: '#f54269',
                         color: 'white'
                     }} variant={'contained'} onClick={() => deleteCollaboration()}>Delete</Button>
@@ -281,5 +302,6 @@ CollaborationForm.propTypes = {
     dark: PropTypes.bool,
     visible: PropTypes.bool,
     editable: PropTypes.bool,
-    fetchData: PropTypes.func
+    fetchData: PropTypes.func,
+    index: PropTypes.number
 }
