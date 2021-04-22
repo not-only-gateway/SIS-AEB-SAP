@@ -1,7 +1,9 @@
 .listContainer{
     width: 45vw;
     display: grid;
-    justify-content: flex-start;
+    justify-content: center;
+    justify-items: center;
+
 }
 .listTitle{
     position: sticky;
@@ -26,14 +28,14 @@
     width: fit-content;
     display: grid;
     gap: .9vw;
-    justify-items: flex-start;
+
 }
 .pageContainer{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-start;
-    margin-left: auto;
-
+    width: 100%;
+    /*background-color: red;*/
 }
 .filterContainer{
     display: grid;
@@ -46,10 +48,10 @@
     height: 100vh;
     top: 0;
     z-index: 5;
-    padding-left: 2vw;
     padding-top: 10vh;
     padding-bottom: .9vw;
 }
+
 
 .listColumnContent{
     display: grid;

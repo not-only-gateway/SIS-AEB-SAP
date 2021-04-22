@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import styles from '../styles/index/Index.module.css'
 import PersonCard from "../components/index/PersonCard";
-import {createMuiTheme, ThemeProvider} from "@material-ui/core";
+import {Button, createMuiTheme, ThemeProvider} from "@material-ui/core";
 import {Skeleton} from "@material-ui/lab";
 import {getLanguage} from "../utils/shared/Language";
 import IndexComponent from "../components/index/IndexComponent";
@@ -40,7 +40,7 @@ export default function Index() {
 
         setLang(getLanguage(router.locale, '/'))
         if (data.length === 0)
-            fetchData().catch(error => console.log(error))
+            fetchData(1, true, false).catch(error => console.log(error))
     }, [router.locale])
 
     async function fetchData(type, start, search) {
@@ -67,6 +67,70 @@ export default function Index() {
         })
     }
 
+    function sortByExtension(descending) {
+        let newData = data
+        setData([])
+        newData = newData.sort((a, b) => descending ? (b.profile.id - a.profile.id) : (a.profile.id - b.profile.id));
+
+        setData([...newData])
+    }
+
+    function sortByName(descending) {
+        let newData = data
+        setData([])
+        newData = newData.sort(function(a, b){
+            if(!descending){
+                if(a.profile.name < b.profile.name) { return -1; }
+                if(a.profile.name > b.profile.name) { return 1; }
+                return 0;
+            }
+            else{
+                if(a.profile.name > b.profile.name) { return -1; }
+                if(a.profile.name < b.profile.name) { return 1; }
+                return 0;
+            }
+        })
+        setData([...newData])
+    }
+
+    function sortByEmail(descending) {
+        let newData = data
+        setData([])
+        newData = newData.sort(function(a, b){
+            if(!descending){
+                if(a.profile.corporate_email < b.profile.corporate_email) { return -1; }
+                if(a.profile.corporate_email > b.profile.corporate_email) { return 1; }
+                return 0;
+            }
+            else{
+                if(a.profile.corporate_email > b.profile.corporate_email) { return -1; }
+                if(a.profile.corporate_email < b.profile.corporate_email) { return 1; }
+                return 0;
+            }
+        })
+
+        setData([...newData])
+    }
+
+    function sortByUnit(descending) {
+        let newData = data
+        setData([])
+        newData = newData.sort(function(a, b){
+            if(descending){
+                if(a.unit.acronym < b.unit.acronym) { return -1; }
+                if(a.unit.acronym > b.unit.acronym) { return 1; }
+                return 0;
+            }
+            else{
+                if(a.unit.acronym > b.unit.acronym) { return -1; }
+                if(a.unit.acronym < b.unit.acronym) { return 1; }
+                return 0;
+            }
+        })
+
+        setData([...newData])
+    }
+
     if (lang !== null)
         return (
 
@@ -84,25 +148,28 @@ export default function Index() {
                                                   height={'7vh'}/>}
                                 endMessage={
                                     <div style={{
-                                        ...{marginBottom: '15px'}
+                                        width: '100%'
                                     }}>
                                         <p className={mainStyles.secondaryParagraph}
                                            style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.end}</p>
                                     </div>
                                 }
                             >
+
                                 {data.map((collaborator, index) =>
-                                    <PersonCard
-                                        profile={collaborator.profile}
-                                        collaboration={collaborator.collaboration}
-                                        unit={collaborator.unit}
-                                        lastActivity={collaborator.last_activity}
-                                        dark={dark}
-                                        index={index}
-                                        asProfile={false}
-                                        inactiveLocale={lang.inactive}
-                                        redirect={redirect}
-                                    />
+                                    <div key={collaborator.profile.id} onClick={() => redirect(collaborator.profile.id)} style={{padding: 0}}>
+                                        <PersonCard
+                                            profile={collaborator.profile}
+                                            collaboration={collaborator.collaboration}
+                                            unit={collaborator.unit}
+                                            lastActivity={collaborator.last_activity}
+                                            dark={dark}
+                                            index={index}
+                                            asProfile={false}
+                                            inactiveLocale={lang.inactive}
+                                            redirect={redirect}
+                                        />
+                                    </div>
                                 )}
                             </InfiniteScroll>
                             :
@@ -111,7 +178,7 @@ export default function Index() {
                                 ...{marginBottom: '15px', width: '50vw'}
                             }}>
                                 <p className={mainStyles.secondaryParagraph}
-                                   style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>Loading</p>
+                                   style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.nothingFound}</p>
                             </div>
 
                         :
@@ -119,7 +186,7 @@ export default function Index() {
                             ...{marginBottom: '15px', width: '50vw'}
                         }}>
                             <p className={mainStyles.secondaryParagraph}
-                               style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.nothingFound}</p>
+                               style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>Loading</p>
                         </div>
                 }
                 title={
@@ -132,19 +199,19 @@ export default function Index() {
                     <IndexComponent dark={dark} setData={setData} setOption={setOption}
                                     option={option} lang={lang} setLoading={setLoading} fetchData={fetchData}
                                     searchInput={searchInput} setSearchInput={setSearchInput}
-                                    setMaxID={setMaxID}
+                                    setMaxID={setMaxID} width={55}
                     />
 
                 }
-                width={88}
-                columnWidth={50}
+                filterVerticalOrientation={false}
+                width={55}
+                columnWidth={55}
                 columns={[
-                    // {label: null, size: 7, divider: false},
-                    {label: 'Name', size: 20},
-                    {label: 'Email', size: 28},
-                    {label: 'Extension', size: 10},
-                    {label: 'Status', size: 10},
-                    {label: 'Unit', size: 10},
+                    {label: 'Name', size: 19.5, sorter: sortByName},
+                    {label: 'Email', size: 15, sorter: sortByEmail},
+                    {label: 'Extension', size: 9.5, sorter: sortByExtension},
+                    {label: 'Status', size: 6},
+                    {label: 'Unit', size: 5, sorter: sortByUnit},
                 ]}
             />
         )

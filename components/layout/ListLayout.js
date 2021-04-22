@@ -1,26 +1,36 @@
 import PropTypes from 'prop-types'
 import styles from '../../styles/shared/Shared.module.css'
 import mainStyles from "../../styles/shared/Main.module.css";
-import {Divider} from "@material-ui/core";
+import {Button, Divider} from "@material-ui/core";
+import {ArrowDownwardRounded, ArrowDropDown, ArrowDropDownRounded} from "@material-ui/icons";
+import ListColumnButton from "./ListColumnButton";
 
 export default function ListLayout(props) {
     return (
-        <div className={styles.pageContainer} style={{width: props.width+'%'}}>
-            <div className={styles.listContainer} style={{transform: 'translateX(-8px)'}}>
+        <div className={styles.pageContainer}>
+            <div className={styles.listContainer} style={{width: props.width + '%'}}>
                 <div className={styles.listTitle}
-                     style={{backgroundColor: 'white',  width: '100%',height: '15vh', borderBottom: '#e5e6e8 1px solid'}}>
+                     style={{
+                         backgroundColor: 'white',
+                         width: '100%',
+                         height: props.filterVerticalOrientation ?'15vh' : '20vh',
+                         borderBottom: '#e5e6e8 1px solid'
+                     }}>
                     <div style={{height: '5vh', marginRight: 'auto'}}>
                         {props.title}
                     </div>
-                    <div className={mainStyles.displayInlineSpaced} style={{height: 'fit-content', width: props.columnWidth + 'vw'}}>
-                        {props.columns.map(column => (
-                            <div className={styles.listColumns} style={{width: column.size + 'vw'}}>
+                    {props.filterVerticalOrientation ?
+                        null :
+                        props.filterComponent
+                    }
 
-                                {/*{column.divider === false ? null :*/}
-                                {/*    <Divider orientation={"vertical"} style={{height: '100%', width: '1px', marginRight: '2px'}}/>*/}
-                                {/*}*/}
-                                {column.label}
+                    <div className={mainStyles.displayInlineSpaced}
+                         style={{height: '5vh', width: props.columnWidth + 'vw'}}>
+                        {props.columns.map((column, index) => (
+                            <div key={'column-'+index+'-list-container'}>
+                                <ListColumnButton disabled={column.disabled} size={column.size} label={column.label} index={index} sorter={column.sorter}/>
                             </div>
+
                         ))}
                     </div>
                 </div>
@@ -29,15 +39,16 @@ export default function ListLayout(props) {
                     {props.content}
                 </div>
             </div>
-            {props.filterComponent}
+            {props.filterVerticalOrientation ? props.filterComponent : null}
         </div>
     )
 }
 ListLayout.propTypes = {
     title: PropTypes.object,
     content: PropTypes.object,
-    columns: PropTypes.object,
-    filterComponent: PropTypes.func,
+    columns: PropTypes.array,
+    filterComponent: PropTypes.object,
+    filterVerticalOrientation: PropTypes.bool,
     width: PropTypes.number,
     columnWidth: PropTypes.number
 }

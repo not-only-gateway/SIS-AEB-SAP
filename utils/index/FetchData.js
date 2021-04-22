@@ -12,8 +12,10 @@ export default async function fetchIndexData(props) {
         headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
         params: props.params
     }).then(res => {
-        console.log(res.data)
+        console.log(res)
         switch (props.type){
+
+
             case 0: {
                 props.setResponse([...props.data, ...res.data])
                 if (res.data.length > 0)
@@ -22,7 +24,6 @@ export default async function fetchIndexData(props) {
                 break
             }
             case 1: {
-                console.log(props.type)
                 props.setResponse(res.data)
                 if (res.data.length > 0)
                     props.setMaxID(res.data[res.data.length - 1].profile.id)

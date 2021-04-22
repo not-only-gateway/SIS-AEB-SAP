@@ -15,14 +15,21 @@ export default function AvatarLayout(props) {
                     type: "light"
                 }
             })}>
-            <Avatar src={props.image !== undefined ? ImageHost() + props.image : null}
-                    style={{
-                        ...{height: '75px', width:  '75px'},
-                        ...getBoxShadow({dark: props.dark})
-                    }}/>
+                <Avatar src={props.image !== undefined ? ImageHost() + props.image : null}
+                        style={{
+                            ...{height: '70px', width: '70px'},
+                            ...getBoxShadow({dark: props.dark})
+                        }}/>
             </ThemeProvider>
             {props.cakeDay === true ?
-                <div className={mainStyles.displayInlineCenter} style={{...{width: '32px', height: '32px', position: 'absolute', top: '28%', left:'5.5%', borderRadius: '16px'}, ...getPrimaryBackground({dark: props.dark})}}>
+                <div className={mainStyles.displayInlineCenter} style={{
+                    width: '32px',
+                    height: '32px',
+                    position: 'absolute',
+                    bottom: '2%',
+                    left: '0%',
+                    borderRadius: '16px'
+                }}>
                     <CakeRounded style={{color: '#f54269', fontSize: '1.4rem'}}/>
                 </div>
                 :
@@ -32,7 +39,7 @@ export default function AvatarLayout(props) {
     )
 }
 
-AvatarLayout.propTypes={
+AvatarLayout.propTypes = {
     dark: PropTypes.bool,
     image: PropTypes.string,
     cakeDay: PropTypes.bool,

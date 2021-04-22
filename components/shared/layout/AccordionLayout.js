@@ -44,9 +44,9 @@ export default function AccordionLayout(props) {
 
                     }}>
                 {props.summary}
-                {props.disabled ? null :
+                {props.disabled || props.asButton ? null :
                     <ArrowDownwardRounded style={{
-                        transform: open ? 'rotate(180deg)' : props.asButton ? 'rotate(-90deg)' : null,
+                        transform: open ? 'rotate(180deg)' : null,
                         transition: '300ms'
                     }}/>
                 }

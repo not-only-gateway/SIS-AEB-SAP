@@ -151,6 +151,7 @@ export default function Activity() {
                                              setMaxID={setMaxID}/>
 
                 }
+                filterVerticalOrientation={true}
                 width={88}
                 columnWidth={45}
             />
