@@ -3,24 +3,15 @@ import {useRouter} from "next/router";
 import {getLanguage} from "../utils/shared/Language";
 import Cookies from "universal-cookie/lib";
 import styles from '../styles/activity/Activity.module.css'
-import shared from '../styles/shared/Shared.module.css'
-import ActivityComponent from "../components/activity/Activity";
+import ActivityComponent from "../components/pages/activity/Activity";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {Skeleton} from "@material-ui/lab";
-import ActivityFilterComponent from "../components/activity/ActivityFilter";
+import ActivityFilterComponent from "../components/pages/activity/ActivityFilter";
 import fetchActivityData from "../utils/activity/FetchData";
-import {ThemeProvider} from "@material-ui/styles";
-import {createMuiTheme} from "@material-ui/core";
-import {
-    getBorder,
-    getBoxShadow, getSecondaryBackground,
-    getPrimaryBackground,
-    getTertiaryBackground,
-    getTertiaryColor
-} from "../styles/shared/MainStyles";
+import {getTertiaryColor} from "../styles/shared/MainStyles";
 import mainStyles from "../styles/shared/Main.module.css";
 import GetPageTitle from "../utils/shared/GetPageTitle";
-import ListLayout from "../components/layout/ListLayout";
+import ListLayout from "../components/list/ListLayout";
 
 export default function Activity() {
 

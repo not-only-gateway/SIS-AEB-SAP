@@ -1,5 +1,4 @@
 export default {
-    name: 'Name',
     signin: 'Sign in',
     signinWelcomeText: 'Welcome back!',
     password: 'Password',

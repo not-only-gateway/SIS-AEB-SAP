@@ -9,6 +9,20 @@
 .slideUpAnimation{
     animation: slideUp ease-in-out 250ms forwards;
 }
+.fadeIn{
+    animation: fadeIn ease-in 300ms forwards;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        zoom: .2;
+    }
+    to {
+        opacity: 100%;
+        zoom: 1;
+    }
+
+}
 @keyframes slideUp {
     from {
         opacity: 0;

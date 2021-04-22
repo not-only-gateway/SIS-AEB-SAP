@@ -1,26 +1,16 @@
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import styles from '../styles/index/Index.module.css'
-import PersonCard from "../components/index/PersonCard";
-import {Button, createMuiTheme, ThemeProvider} from "@material-ui/core";
+import PersonCard from "../components/pages/index/PersonCard";
 import {Skeleton} from "@material-ui/lab";
 import {getLanguage} from "../utils/shared/Language";
-import IndexComponent from "../components/index/IndexComponent";
-import shared from '../styles/shared/Shared.module.css'
-import getPageInfo from "../utils/index/GetPageInfo";
+import IndexComponent from "../components/pages/index/IndexComponent";
 import InfiniteScroll from "react-infinite-scroll-component";
 import fetchIndexData from "../utils/index/FetchData";
-import {
-    getBorder,
-    getBoxShadow, getSecondaryBackground,
-    getPrimaryBackground,
-    getTertiaryBackground,
-    getTertiaryColor
-} from "../styles/shared/MainStyles";
+import {getTertiaryColor} from "../styles/shared/MainStyles";
 import mainStyles from '../styles/shared/Main.module.css'
 import Cookies from "universal-cookie/lib";
 import GetPageTitle from "../utils/shared/GetPageTitle";
-import ListLayout from "../components/layout/ListLayout";
+import ListLayout from "../components/list/ListLayout";
 
 export default function Index() {
 
@@ -210,7 +200,7 @@ export default function Index() {
                     {label: 'Name', size: 19.5, sorter: sortByName},
                     {label: 'Email', size: 15, sorter: sortByEmail},
                     {label: 'Extension', size: 9.5, sorter: sortByExtension},
-                    {label: 'Status', size: 6},
+                    {label: 'Status', size: 6, sorter: undefined},
                     {label: 'Unit', size: 5, sorter: sortByUnit},
                 ]}
             />

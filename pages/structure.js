@@ -1,27 +1,17 @@
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import styles from '../styles/Structure.module.css'
-import {Button, createMuiTheme, Divider, ThemeProvider} from "@material-ui/core";
+import {createMuiTheme, Divider, ThemeProvider} from "@material-ui/core";
 import {getLanguage} from "../utils/shared/Language";
 import axios from "axios";
 import Host from "../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import SubjectLayout from "../components/structure/SubjectLayout";
-import AccordionLayout from "../components/shared/layout/AccordionLayout";
+import AccordionLayout from "../components/layout/AccordionLayout";
 import mainStyles from '../styles/shared/Main.module.css'
 import shared from "../styles/shared/Shared.module.css";
-import {getBorder, getIconStyle, getSecondaryBackground, getTertiaryBackground} from "../styles/shared/MainStyles";
-import {
-    AddRounded,
-    ExtensionRounded,
-    Filter9Plus,
-    PlusOneRounded,
-    RemoveRounded,
-    ViewQuiltRounded
-} from "@material-ui/icons";
+import {getIconStyle} from "../styles/shared/MainStyles";
+import {ExtensionRounded, ViewQuiltRounded} from "@material-ui/icons";
 import GetPageTitle from "../utils/shared/GetPageTitle";
-import contentCanvas from "../components/structure/ContentCanvas";
-import ContentCanvas from "../components/structure/ContentCanvas";
+import ContentCanvas from "../components/pages/structure/ContentCanvas";
 
 export default function Structure() {
 

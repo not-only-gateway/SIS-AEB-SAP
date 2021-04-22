@@ -16,7 +16,7 @@ export default {
     engine: 'Motor do navegador',
     userAgent: 'Agente de usuário',
     end: 'Você chegou ao final.',
-    date: 'Data',
+    created: 'Criado em',
     ip: 'Endereço de Ip da máquina',
     filters: 'Filtros'
 }

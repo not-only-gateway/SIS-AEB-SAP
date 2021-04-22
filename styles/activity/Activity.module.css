@@ -13,9 +13,9 @@
 .informationContainer{
     display: grid;
     gap: 2vh;
-    width: 48vw;
     margin: auto;
-    height: 50vh;
+    max-height: 50vh;
+    padding-left: 10px;
     overflow-y: auto;
 }
 .info_row{

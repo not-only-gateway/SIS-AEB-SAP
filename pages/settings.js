@@ -7,23 +7,15 @@ import Brightness3RoundedIcon from "@material-ui/icons/Brightness3Rounded";
 import {ThemeProvider} from "@material-ui/styles";
 import {getLanguage, setCookiesLanguage} from "../utils/shared/Language";
 import Cookies from "universal-cookie/lib";
-import AccordionLayout from "../components/shared/layout/AccordionLayout";
+import AccordionLayout from "../components/layout/AccordionLayout";
 import fetchSettingsData from "../utils/settings/FetchData";
 import {readAccessProfile, readCollaboration} from "../utils/shared/IndexedDB";
 import shared from '../styles/shared/Shared.module.css'
-import {
-    getBorder,
-    getIconStyle,
-    getSecondaryBackground, getPrimaryColor,
-    getPrimaryBackground,
-    getSecondaryColor,
-    getTertiaryColor
-} from "../styles/shared/MainStyles";
+import {getIconStyle, getPrimaryColor, getSecondaryColor, getTertiaryColor} from "../styles/shared/MainStyles";
 import mainStyles from '../styles/shared/Main.module.css'
 import Link from "next/link";
 import {HistoryRounded} from "@material-ui/icons";
 import GetPageTitle from "../utils/shared/GetPageTitle";
-import getPageInfo from "../utils/index/GetPageInfo";
 import animations from "../styles/shared/Animations.module.css";
 
 export default function Settings() {

@@ -1,5 +1,5 @@
 import Head from "next/head";
-import {getPrimaryColor, getTertiaryColor} from "../../styles/shared/MainStyles";
+import {getTertiaryColor} from "../../styles/shared/MainStyles";
 import mainStyles from "../../styles/shared/Main.module.css";
 import React from "react";
 import PropTypes from "prop-types";

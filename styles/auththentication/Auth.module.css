@@ -1,29 +1,27 @@
 @media (orientation: landscape) {
-    .auth_container{
-        display: grid;
-        grid-template-columns: 30vw 70vw;
-        height: 100vh;
-        width: 100vw;
-        overflow: hidden;
-    }
-    .input_half_container{
+    .signInContainer{
         position: fixed;
-        right: 0;
-        height: 100vh;
-        width: 70vw;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 450px;
+        height: 500px;
+        border-radius: 8px;
+        display: grid;
+        align-content: space-around;
 
-        display: grid;
-        gap: 2vh;
-        justify-content: center;
-        border-bottom-left-radius: 8px;
-        border-top-left-radius: 8px;
+        justify-items: center;
+        padding: 1.5vw;
+
+        border: #e2e2e2 1px solid;
     }
-    .forms_container{
-        width: 32vw;
-        display: grid;
-        align-content: space-evenly;
+    .pageContainer{
+        width: 100vw;
+        height: 100vh;
+        background-color: white;
     }
     .footer_container{
+
         border-top: #777777 2px solid;
         display: flex;
         align-items: center;

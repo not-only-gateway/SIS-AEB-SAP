@@ -16,7 +16,7 @@ export default {
     engine: 'Motor del navegador',
     userAgent: 'Agente de usuario',
     end: 'Has llegado al fondo.',
-
+    created: 'Creado en',
     ip: 'Dirección Ip de la máquina',
     filters: 'Filtros'
 }

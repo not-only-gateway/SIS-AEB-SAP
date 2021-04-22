@@ -17,7 +17,7 @@ export default {
     engine: 'Browser engine',
     userAgent: 'User Agent',
     end: 'You\'ve reached the bottom.',
-
+    created: 'Created on',
     ip: 'Machine IP address',
     filters: 'Filters'
 }
