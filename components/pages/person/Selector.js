@@ -52,21 +52,24 @@ export default function SelectorLayout(props) {
                                 <div style={{
                                     border: '#e2e2e2 1px solid',
                                     borderRadius: '8px',
-                                    width: '50%',
-                                    padding: '10px 0px 10px 0px'
+                                    width: 'auto',
+                                    padding: '10px'
                                 }} className={mainStyles.displayInlineCenter}>
                                     {props.selected.value}
                                 </div>
-                                <Button onClick={() => {
-                                    setValid(false)
-                                    props.handleChange(undefined)
-                                }} style={{
-                                    textTransform: 'none',
-                                    justifyItems: 'center',
-                                    width: '100%', backgroundColor: !valid ? null : '#f54269',
-                                    color: !valid ? null : 'white'
+                                {props.required ? null :
+                                    <Button onClick={() => {
+                                        setValid(false)
+                                        props.setChanged(true)
+                                        props.handleChange(undefined)
+                                    }} style={{
+                                        textTransform: 'none',
+                                        justifyItems: 'center',
+                                        width: '100%', backgroundColor: !valid ? null : '#f54269',
+                                        color: !valid ? null : 'white'
 
-                                }}>Remove</Button>
+                                    }}>Remove</Button>
+                                }
                             </div>
                             :
                             null}
@@ -86,7 +89,10 @@ export default function SelectorLayout(props) {
                                         width: 'fit-content', height: '5vh',
                                         backgroundColor: valid && data.key === props.selected.key ? '#0095ff' : null,
                                         color: valid && data.key === props.selected.key ? 'white' : null
-                                    }} onClick={() => props.handleChange(data)}>
+                                    }} onClick={() => {
+                                        props.setChanged(true)
+                                        props.handleChange(data)
+                                    }}>
                                         {data.value}
                                     </Button>
                                 )
@@ -144,5 +150,6 @@ SelectorLayout.propTypes = {
     label: PropTypes.string,
     width: PropTypes.number,
     required: PropTypes.bool,
-    key: PropTypes.any
+    key: PropTypes.any,
+    setChanged: PropTypes.func
 }

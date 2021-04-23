@@ -34,7 +34,7 @@ export default function CollaborationForm(props) {
     const [mainCollaboration, setMainCollaboration] = useState(false)
     const [canBeMain, setCanBeMain] = useState(true)
 
-    const [accessProfileID, setAccessProfileID] = useState(null)
+    const [selectedAccessProfile, setSelectedAccessProfile] = useState(null)
 
     function disabled() {
         return (
@@ -44,7 +44,7 @@ export default function CollaborationForm(props) {
             legalDocument.length === 0 ||
             substitute === null ||
             activeRole === null ||
-            changed === false || accessProfileID === null
+            changed === false || selectedAccessProfile === null
         )
     }
 
@@ -73,7 +73,7 @@ export default function CollaborationForm(props) {
                             setContractExp(res.collaboration.contract_expiration)
                             setAdditionalInfo(res.collaboration.additional_information)
                             setMainCollaboration(res.collaboration.main_collaboration)
-                            setAccessProfileID(res.access_profile.id)
+                            setSelectedAccessProfile({key: res.access_profile.id, value: res.access_profile.denomination})
 
                             fetchComponentData({path: 'seniors/' + res.unit.id + '/' + props.userID, params: {}}).then(res => {
                                 if (res !== null)
@@ -139,7 +139,7 @@ export default function CollaborationForm(props) {
                 contract_expiration: contractExp !== null && contractExp !== undefined && contractExp.length > 0 ? typeof (contractExp) === "number" ? contractExp : contractExp.getTime() : null,
                 additional_information: additionalInfo,
                 main_collaboration: canBeMain ? mainCollaboration : false,
-                access_level_profile: accessProfileID
+                access_level_profile: selectedAccessProfile
             },
             method: props.collaborationID !== null && props.collaborationID !== undefined ? 'put' : 'post'
         }).then(res => {
@@ -163,21 +163,20 @@ export default function CollaborationForm(props) {
 
     async function setUnit(data) {
         console.log(data)
-        if(data !== undefined) {
+        if (data !== undefined) {
             setSelectedUnit({key: data.key, value: data.value})
             fetchComponentData({path: 'seniors/' + data.key + '/' + props.userID, params: {}}).then(res => {
                 if (res !== null)
                     setSeniors(res)
             })
-        }
-        else {
+        } else {
             setSelectedUnit(undefined)
             setSeniors([])
         }
     }
 
     function canLoad() {
-        return (props.collaborationID !== undefined && props.collaborationID !== null && units.length > 0  && accessProfiles.length > 0) || (props.collaborationID === undefined && units.length > 0)
+        return (props.collaborationID !== undefined && props.collaborationID !== null && units.length > 0 && accessProfiles.length > 0) || (props.collaborationID === undefined && units.length > 0)
     }
 
     if (canLoad())
@@ -185,16 +184,34 @@ export default function CollaborationForm(props) {
             <div
                 className={[mainStyles.displayWarp, mainStyles.displayInlineCenter].join(' ')}>
                 <SelectorLayout required={true} selected={selectedUnit} handleChange={setUnit} label={'Unit'}
-                                data={mapToSelect({option: 0, units: units})} width={32}
-                                key={'2-1-'+props.index}
+                                data={mapToSelect({option: 0, units: units})} width={23.6}
+                                key={'2-1-' + props.index} setChanged={setChanged}
                 />
 
+                <SelectorLayout required={false} selected={selectedEffectiveRole}
+                                handleChange={setSelectedEffectiveRole} setChanged={setChanged}
+                                label={'Effective Role'} key={'2-4-' + props.index}
+                                data={mapToSelect({option: 1, effectiveRoles: effectiveRoles})} width={23.6}/>
 
+                <SelectorLayout required={false} selected={selectedCommissionedRole}
+                                handleChange={setSelectedEffectiveRole} setChanged={setChanged}
+                                label={'Commissioned Role'} key={'2-5-' + props.index}
+                                data={mapToSelect({option: 2, commissionedRoles: commissionedRoles})} width={23.6}/>
+                <SelectorLayout required={true} selected={selectedAccessProfile}
+                                handleChange={setSelectedAccessProfile} setChanged={setChanged}
+                                label={'Access Profile'} key={'2-14-' + props.index}
+                                data={mapToSelect({option: 4, accessProfiles: accessProfiles})} width={23.6}/>
+
+                <InputLayout inputName={'Additional information'} dark={props.dark} handleChange={setAdditionalInfo}
+                             inputType={0}
+                             disabled={!props.editable} size={32} required={false} initialValue={additionalInfo}
+                             key={'2-15-' + props.index}
+                             setChanged={setChanged}/>
                 <InputLayout inputName={'Active Role'} dark={props.dark} handleChange={setActiveRole} inputType={1}
                              disabled={!props.editable} size={32} required={true}
                              initialValue={activeRole}
                              selectFields={[{key: false, value: 'No'}, {key: true, value: 'Yes'}]}
-                             key={'2-2-'+props.index}
+                             key={'2-2-' + props.index}
                              setChanged={setChanged}/>
                 <InputLayout inputName={'Main Collaboration'} dark={props.dark} handleChange={setMainCollaboration}
                              inputType={1}
@@ -204,16 +221,8 @@ export default function CollaborationForm(props) {
                              } size={32} required={true}
                              initialValue={mainCollaboration}
                              selectFields={[{key: false, value: 'No'}, {key: true, value: 'Yes'}]}
-                             key={'2-3-'+props.index}
+                             key={'2-3-' + props.index}
                              setChanged={setChanged}/>
-
-                <SelectorLayout required={false} selected={selectedEffectiveRole} handleChange={setSelectedEffectiveRole}
-                                label={'Effective Role'} key={'2-4-'+props.index}
-                                data={mapToSelect({option: 1, effectiveRoles: effectiveRoles})} width={48.5}/>
-
-                <SelectorLayout required={false} selected={selectedCommissionedRole} handleChange={setSelectedEffectiveRole}
-                                label={'Commissioned Role'} key={'2-5-'+props.index}
-                                data={mapToSelect({option: 2, commissionedRoles: commissionedRoles})} width={48.5}/>
 
                 <InputLayout inputName={'Substitute'} dark={props.dark} handleChange={setSubstitute} inputType={1}
                              disabled={!props.editable} size={32} required={true} initialValue={substitute}
@@ -261,22 +270,15 @@ export default function CollaborationForm(props) {
                              disabled={!props.editable} size={48.5} required={false} initialValue={workEnd}
                              key={'2-13-' + props.index}
                              setChanged={setChanged}/>
-                <InputLayout inputName={'Access Profile'} dark={props.dark} handleChange={setAccessProfileID}
-                             inputType={1} selectFields={mapToSelect({option: 4, accessProfiles: accessProfiles})}
-                             disabled={!props.editable} size={48.5} required={true} initialValue={accessProfileID}
-                             key={'2-14-' + props.index}
-                             setChanged={setChanged}/>
-                <InputLayout inputName={'Additional information'} dark={props.dark} handleChange={setAdditionalInfo}
-                             inputType={0}
-                             disabled={!props.editable} size={48.5} required={false} initialValue={additionalInfo}
-                             key={'2-15-' + props.index}
-                             setChanged={setChanged}/>
+
+
+
 
 
                 <Button style={{
                     width: props.collaborationID !== undefined && props.collaborationID !== null ? '48.5%' : '94%',
                     marginBottom: '.8vw',
-                    backgroundColor: disabled() ? null : '#39adf6',
+                    backgroundColor: disabled() ? null : '#0095ff',
                     color: disabled() ? null : 'white'
                 }} variant={'contained'}
                         disabled={disabled()}

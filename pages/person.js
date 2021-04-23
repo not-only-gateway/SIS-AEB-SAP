@@ -35,6 +35,7 @@ export default function person() {
     const [editMode, setEditMode] = useState(false)
 
     function handleChange(props) {
+
         setProfile(prevState => ({
             ...prevState,
             [props.name]: props.value
@@ -50,8 +51,6 @@ export default function person() {
                 fetchComponentData(
                     {path: 'main/collaboration/' + router.query.id, params: {}}
                 ).then(res => {
-                    console.log('res')
-                    console.log(res)
 
                     if (res !== null) {
                         setProfile(res.profile)
@@ -59,7 +58,6 @@ export default function person() {
                         setUnit(res.unit)
                         setRole(res.role)
                     }
-                    console.log(res.role)
 
                     if (accessProfile === null || (!accessProfile.canUpdatePerson)) {
                         delete profile.education

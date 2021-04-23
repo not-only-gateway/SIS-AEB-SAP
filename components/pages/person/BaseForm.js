@@ -1,4 +1,4 @@
-import {Button, createMuiTheme, ThemeProvider} from '@material-ui/core';
+import {Avatar, Button, createMuiTheme, ThemeProvider} from '@material-ui/core';
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types'
 import InputLayout from "../../layout/InputLayout";
@@ -11,6 +11,11 @@ import {DeleteForeverRounded} from "@material-ui/icons";
 import {getIconStyle, getSecondaryBackground} from "../../../styles/shared/MainStyles";
 import AvatarLayout from "../index/AvatarLayout";
 import fetchActivityData from "../../../utils/activity/FetchData";
+import SelectorLayout from "./Selector";
+import mapToSelect from "../../../utils/person/MapToSelect";
+import CountryOptions from "../../../utils/person/CountryOptions";
+import StateOptions from "../../../utils/person/StateSelector";
+import ImageHost from "../../../utils/shared/ImageHost";
 
 export default function BaseForm(props) {
 
@@ -29,24 +34,34 @@ export default function BaseForm(props) {
             return string.replace(/^./, string[0].toUpperCase());
     }
 
+    function handleNationalityChange(event) {
+
+        props.handleChange({name: 'nationality', value: event !== undefined ? event.value : null})
+    }
+
+    function handleBirthPlaceChange(event) {
+        props.handleChange({name: 'birth_place', value: event !== undefined ? event.value : null})
+    }
+
     async function saveChanges() {
         let formData = new FormData()
-        if (props.profile.image !== null && image.image !== undefined)
+
+        if (typeof(props.profile.image) === 'object')
             formData.append('image', image.image[0])
 
-        formData.append('name', name.toString())
-        formData.append('birth', (typeof birth === 'object' ? birth.getTime() : birth))
-        formData.append('birth_place', birthPlace?.toUpperCase())
-        formData.append('education', education.toString())
-        formData.append('gender', gender.toString())
-        formData.append('marital_status', marital.toString())
-        formData.append('registration', registration.toString())
-        formData.append('extension', extension.toString())
-        formData.append('corporate_email', corporateEmail?.toLocaleLowerCase())
-        formData.append('father_name', capitalizeFirstLetter(father))
-        formData.append('mother_name', capitalizeFirstLetter(mother))
-        formData.append('disabled_person', disabledPerson.toString())
-        formData.append('nationality', nationality?.toUpperCase())
+        formData.append('name', props.profile.name.toString())
+        formData.append('birth', (typeof props.profile.birth !== 'number' ? new Date(FormatStringData(props.profile.birth)).getTime() : props.profile.birth))
+        formData.append('birth_place', props.profile.birth_place?.toUpperCase())
+        formData.append('education', props.profile.education.toString())
+        formData.append('gender', props.profile.gender.toString())
+        formData.append('marital_status', props.profile.marital_status.toString())
+        formData.append('registration', props.profile.registration.toString())
+        formData.append('extension', props.profile.extension.toString())
+        formData.append('corporate_email', props.profile.corporate_email?.toLocaleLowerCase())
+        formData.append('father_name', capitalizeFirstLetter(props.profile.father_name))
+        formData.append('mother_name', capitalizeFirstLetter(props.profile.mother_name))
+        formData.append('disabled_person', props.profile.disabled_person.toString())
+        formData.append('nationality', props.profile.nationality?.toUpperCase())
         await axios({
             method: props.create === true ? 'post' : 'put',
             url: props.create ? Host() + 'person' : Host() + 'person/' + props.id,
@@ -61,7 +76,7 @@ export default function BaseForm(props) {
                     url: Host() + 'corporate_email/person',
                     headers: {'authorization': (new Cookies()).get('jwt')},
                     params: {
-                        corporate_email: corporateEmail.toLocaleLowerCase()
+                        corporate_email: props.profile.corporate_email.toLocaleLowerCase()
                     }
                 }).then(res => {
                     console.log(res.data)
@@ -107,133 +122,112 @@ export default function BaseForm(props) {
 
     if (lang !== null)
         return (
-            <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.baseWidth].join(' ')}
-                 style={{
-                     ...getSecondaryBackground({dark: props.dark}), ...{
-                         transform: 'translateY(3vh)',
-                         justifyContent: 'center'
-                     }
-                 }}>
-                <div
-                    className={[mainStyles.displayInlineSpaced, mainStyles.mediumWidth, mainStyles.normalBorder].join(' ')}
-                    style={{marginTop: '2vh'}}>
-                    {!props.editable || image !== null ? null :
-                        <input id='profile-image-input' type={'file'} accept={'image/*'} onChange={getFile}
-                               style={{display: 'none'}}/>}
-                    <label htmlFor={'profile-image-input'}>
-                        <Button disabled={!props.editable || props.profile.image !== null} component={'span'}
-                                style={{padding: '0', width: '50%'}}>
-                            <AvatarLayout dark={props.dark} cakeDay={false} key={props.id}
-                                          image={props.profile.image !== null ? props.profile.image : image}/>
+            <div className={mainStyles.displayWarp} style={{alignItems: 'center'}}>
+
+                <div style={{width: '23.6%', border: '#e2e2e2 1px solid', borderRadius: '8px'}}
+                     className={mainStyles.displayInlineSpaced}>
+                    <Avatar
+                        src={props.profile.image === undefined || props.profile.image === null || image !== null ? image : ImageHost() + props.profile.image}
+                        variant={'rounded'}
+                        style={{width: '100px', height: '100px'}}/>
+
+                    <div style={{transform: 'translateX(5px)', height: '100px'}}
+                         className={mainStyles.displayColumnSpaced}>
+                        <input id='profile-image-input' type={'file'} accept={'image/*'} onChange={getFile}/>
+                        <Button variant={"contained"} style={{
+                            backgroundColor: props.profile.image !== undefined || true || image !== null ? '#f54269' : 'initial',
+                            color: props.profile.image !== undefined || true || image !== null ? 'white' : 'initial',
+                            width: 'fit-content'
+                        }}
+                                disabled={props.profile.image !== undefined || true || image !== null}>
+                            Remove
                         </Button>
-                    </label>
-                    {!props.editable ? null : image !== null ?
-                        <Button onClick={() => props.handleChange({name: 'image', value: null})}><DeleteForeverRounded
-                            style={getIconStyle({dark: props.dark})}/></Button> : null}
-                    <InputLayout inputName={lang.name} dark={props.dark} handleChange={props.handleChange} inputType={0}
-                                 disabled={!props.editable} size={79} required={true}
-                                 initialValue={props.profile.name} name={'name'}
-                                 key={"1-1"} setChanged={setChanged} margin={false}/>
+                    </div>
                 </div>
-                <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth].join(' ')}
-                     style={{...{marginBottom: props.editable ? null : '2vh'}}}>
+                <InputLayout inputName={lang.name} dark={props.dark} handleChange={props.handleChange} inputType={0}
+                             disabled={!props.editable} size={23.6} required={true}
+                             initialValue={props.profile.name} name={'name'}
+                             key={"1-1"} setChanged={setChanged} margin={false}/>
 
-                    <InputLayout inputName={lang.corporateEmail} dark={props.dark}
-                                 handleChange={props.handleChange} name={'corporate_email'}
-                                 inputType={0} disabled={!props.editable} size={66} required={true}
-                                 initialValue={props.profile.corporate_email} key={"1-12"} setChanged={setChanged}/>
-                    <InputLayout inputName={lang.extension} dark={props.dark} handleChange={props.handleChange}
-                                 inputType={0} disabled={!props.editable} size={32} required={true} name={'extension'}
-                                 initialValue={props.profile.extension} key={"1-13"} setChanged={setChanged}/>
-                    <InputLayout inputName={lang.registration} dark={props.dark} handleChange={props.handleChange}
-                                 inputType={0} disabled={!props.editable} size={32} required={false}
-                                 name={'registration'}
-                                 initialValue={props.profile.registration} key={"1-14"} setChanged={setChanged}/>
-                    <InputLayout inputName={lang.nationality} dark={props.dark} handleChange={props.handleChange}
-                                 inputType={0} name={'nationality'}
-                                 disabled={!props.editable} size={32} required={true}
-                                 initialValue={props.profile.nationality}
-                                 key={"1-6"} setChanged={setChanged}/>
 
-                    <InputLayout inputName={lang.birth} dark={props.dark} handleChange={props.handleChange}
-                                 inputType={2} name={'birth'}
-                                 disabled={!props.editable} size={32} required={true} initialValue={props.profile.birth}
-                                 key={"1-7"} setChanged={setChanged}/>
+                <InputLayout inputName={lang.corporateEmail} dark={props.dark}
+                             handleChange={props.handleChange} name={'corporate_email'}
+                             inputType={0} disabled={!props.editable} size={23.6} required={true}
+                             initialValue={props.profile.corporate_email} key={"1-12"} setChanged={setChanged}/>
+                <InputLayout inputName={lang.extension} dark={props.dark} handleChange={props.handleChange}
+                             inputType={0} disabled={!props.editable} size={23.6} required={true} name={'extension'}
+                             initialValue={props.profile.extension} key={"1-13"} setChanged={setChanged}/>
+                <InputLayout inputName={lang.registration} dark={props.dark} handleChange={props.handleChange}
+                             inputType={0} disabled={!props.editable} size={48.5} required={false}
+                             name={'registration'}
+                             initialValue={props.profile.registration} key={"1-14"} setChanged={setChanged}/>
 
-                    <InputLayout inputName={lang.disabledPerson} dark={props.dark}
-                                 handleChange={props.handleChange}
-                                 inputType={1} name={'disabled_person'}
-                                 disabled={!props.editable} size={49} required={true}
-                                 initialValue={props.profile.disabled_person}
-                                 selectFields={lang.choice}
-                                 key={"1-8"} setChanged={setChanged}/>
 
-                    <InputLayout inputName={lang.gender} dark={props.dark} handleChange={props.handleChange}
-                                 inputType={1} name={'gender'}
-                                 disabled={!props.editable} size={49} required={true}
-                                 initialValue={props.profile.gender}
-                                 selectFields={lang.genderChoice}
-                                 key={"1-10"} setChanged={setChanged}/>
-                    <InputLayout inputName={lang.father} dark={props.dark} handleChange={props.handleChange}
-                                 inputType={0} name={'father_name'}
-                                 disabled={!props.editable} size={32} required={false}
-                                 initialValue={props.profile.father_name}
-                                 key={"1-3"} setChanged={setChanged}/>
-                    <InputLayout inputName={lang.mother} dark={props.dark} handleChange={props.handleChange}
-                                 inputType={0} name={'mother_name'}
-                                 disabled={!props.editable} size={32} required={false}
-                                 initialValue={props.profile.mother_name}
-                                 key={"1-4"} setChanged={setChanged}/>
-                    <InputLayout inputName={lang.birthPlace} dark={props.dark}
-                                 handleChange={props.handleChange} inputType={0}
-                                 disabled={!props.editable} size={32} required={true}
-                                 initialValue={props.profile.birth_place} name={'birth_place'}
-                                 key={"1-5"} setChanged={setChanged}/>
-                    <InputLayout inputName={lang.education} dark={props.dark}
-                                 handleChange={props.handleChange}
-                                 inputType={1} name={'education'}
-                                 disabled={!props.editable} size={49} required={true}
-                                 initialValue={props.profile.education}
-                                 selectFields={lang.educationChoice}
-                                 key={"1-9"} setChanged={setChanged}/>
-                    <InputLayout inputName={lang.marital} dark={props.dark} handleChange={props.handleChange}
-                                 inputType={1} name={'marital_status'}
-                                 disabled={!props.editable} size={49} required={true}
-                                 initialValue={props.profile.marital_status}
-                                 selectFields={lang.maritalChoice}
-                                 key={"1-11"} setChanged={setChanged}/>
-                </div>
+                <InputLayout inputName={lang.birth} dark={props.dark} handleChange={props.handleChange}
+                             inputType={2} name={'birth'}
+                             disabled={!props.editable} size={48.5} required={true} initialValue={props.profile.birth}
+                             key={"1-7"} setChanged={setChanged}/>
+
+                <InputLayout inputName={lang.disabledPerson} dark={props.dark}
+                             handleChange={props.handleChange}
+                             inputType={1} name={'disabled_person'}
+                             disabled={!props.editable} size={23.6} required={true}
+                             initialValue={props.profile.disabled_person}
+                             selectFields={lang.choice}
+                             key={"1-8"} setChanged={setChanged}/>
+
+                <InputLayout inputName={lang.gender} dark={props.dark} handleChange={props.handleChange}
+                             inputType={1} name={'gender'}
+                             disabled={!props.editable} size={23.6} required={true}
+                             initialValue={props.profile.gender}
+                             selectFields={lang.genderChoice}
+                             key={"1-10"} setChanged={setChanged}/>
+
+                <InputLayout inputName={lang.education} dark={props.dark}
+                             handleChange={props.handleChange}
+                             inputType={1} name={'education'}
+                             disabled={!props.editable} size={23.6} required={true}
+                             initialValue={props.profile.education}
+                             selectFields={lang.educationChoice}
+                             key={"1-9"} setChanged={setChanged}/>
+                <InputLayout inputName={lang.marital} dark={props.dark} handleChange={props.handleChange}
+                             inputType={1} name={'marital_status'}
+                             disabled={!props.editable} size={23.6} required={true}
+                             initialValue={props.profile.marital_status}
+                             selectFields={lang.maritalChoice}
+                             key={"1-11"} setChanged={setChanged}/>
+
+                <InputLayout inputName={lang.father} dark={props.dark} handleChange={props.handleChange}
+                             inputType={0} name={'father_name'}
+                             disabled={!props.editable} size={48.5} required={false}
+                             initialValue={props.profile.father_name}
+                             key={"1-3"} setChanged={setChanged}/>
+                <InputLayout inputName={lang.mother} dark={props.dark} handleChange={props.handleChange}
+                             inputType={0} name={'mother_name'}
+                             disabled={!props.editable} size={48.5} required={false}
+                             initialValue={props.profile.mother_name}
+                             key={"1-4"} setChanged={setChanged}/>
+
+
+                <SelectorLayout required={true}
+                                selected={{key: props.profile.birth_place, value: props.profile.birth_place}}
+                                handleChange={handleBirthPlaceChange}
+                                label={lang.birthPlace} key={'1-5-'} setChanged={setChanged}
+                                data={StateOptions} width={48.5}/>
+                <SelectorLayout required={true}
+                                selected={{key: props.profile.nationality, value: props.profile.nationality}}
+                                handleChange={handleNationalityChange} setChanged={setChanged}
+                                label={lang.nationality} key={'1-6-'}
+                                data={CountryOptions} width={48.5}/>
 
                 {!props.editable ? null :
-                    <ThemeProvider theme={createMuiTheme({
-                        palette: {
-                            type: "light"
-                        }
-                    })}>
-                        <Button style={{
-                            width: '43vw', margin: '5vh auto .8vw',
-                            backgroundColor: disabled() ? null : '#39adf6',
-                        }} disabled={disabled()} variant={'contained'} color={'primary'} onClick={() => {
-                            props.setChanged(false)
-                            fetchActivityData({
-                                type: 1,
-                                setLastFetchedSize: props.setLastFetchedSize,
-                                setData: props.setResponseData,
-                                data: props.data,
-                                setMaxID: props.setMaxID,
-                                maxID: props.maxID,
-                                setError: props.setError,
-                                setErrorMessage: props.setErrorMessage,
-                                thisMachine: props.thisMachine,
-                                startDate: props.filters.date,
-                                method: props.filters.method,
-                                path: props.filters.path,
-                            }).catch(error => console.log(error))
-
-                        }}>
-                            {props.create ? lang.create : lang.save}
-                        </Button>
-                    </ThemeProvider>
+                    <Button style={{
+                        width: '98%', transform: 'translateY(50px)',
+                        backgroundColor: disabled() ? null : '#0095ff',
+                        color: disabled() ? null : 'white'
+                    }} disabled={disabled()} variant={'contained'} onClick={() => saveChanges()}>
+                        {props.create ? lang.create : lang.save}
+                    </Button>
                 }
             </div>
         )

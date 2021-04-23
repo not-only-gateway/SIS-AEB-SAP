@@ -10,32 +10,52 @@ import {getSecondaryBackground} from "../../../styles/shared/MainStyles";
 
 export default function DocumentsForm(props) {
 
+
+    // const [cpf, setCpf] = useState('')
+    // const [rg, setRg] = useState('')
+    // const [dispatchDate, setDispatchDate] = useState('')
+    // const [issuingBody, setIssuingBody] = useState('')
+    // const [voterRegistration, setVoterRegistration] = useState('')
+    // const [electoralZone, setElectoralZone] = useState('')
+    // const [electoralSection, setElectoralSection] = useState('')
+    // const [bank, setBank] = useState(null)
+    // const [agency, setAgency] = useState(null)
+    // const [workCard, setWorkCard] = useState('')
+    // const [pis, setPis] = useState('')
+    //
+    const [documents, setDocuments] = useState({
+        cpf: '',
+        rg: null,
+        dispatchDate: '',
+        issuingBody: '',
+        voterRegistration: '',
+        electoralZone: '',
+        electoralSection: '',
+        bank: '',
+        agency: '',
+        workCard: '',
+        pis: '',
+    })
+    const [lang, setLang] = useState(null)
     const [loading, setLoading] = useState(true)
     const [changed, setChanged] = useState(false)
-    const [cpf, setCpf] = useState('')
-    const [rg, setRg] = useState('')
-    const [dispatchDate, setDispatchDate] = useState('')
-    const [issuingBody, setIssuingBody] = useState('')
-    const [voterRegistration, setVoterRegistration] = useState('')
-    const [electoralZone, setElectoralZone] = useState('')
-    const [electoralSection, setElectoralSection] = useState('')
-    const [bank, setBank] = useState(null)
-    const [agency, setAgency] = useState(null)
-    const [workCard, setWorkCard] = useState('')
-    const [pis, setPis] = useState('')
-    const [lang, setLang] = useState(null)
-
+    function handleChange(props) {
+        setDocuments(prevState => ({
+            ...prevState,
+            [props.name]:  props.value
+        }))
+    }
     function disabled() {
         return (
-            cpf.length === 0 ||
-            dispatchDate.length === 0 ||
-            rg.length === 0 ||
-            issuingBody.length === 0 ||
-            voterRegistration.length === 0 ||
-            electoralZone.length === 0 ||
-            workCard.length === 0 ||
-            electoralSection.length === 0 ||
-            pis.length === 0 ||
+            documents.cpf.length === 0 ||
+            documents.dispatchDate.length === 0 ||
+            documents.rg.length === 0 ||
+            documents.issuingBody.length === 0 ||
+            documents.voterRegistration.length === 0 ||
+            documents.electoralZone.length === 0 ||
+            documents.workCard.length === 0 ||
+            documents.electoralSection.length === 0 ||
+            documents.pis.length === 0 ||
             changed === false
         )
     }
@@ -43,17 +63,17 @@ export default function DocumentsForm(props) {
     useEffect(() => {
         fetchComponentData({path: 'documents/' + props.id, params: {}}).then(res => {
             if (res !== null) {
-                setCpf(res.cpf)
-                setRg(res.rg)
-                setDispatchDate(res.dispatch_date)
-                setIssuingBody(res.issuing_body)
-                setVoterRegistration(res.voter_registration)
-                setElectoralSection(res.electoral_section)
-                setElectoralZone(res.electoral_zone)
-                setBank(res.bank)
-                setAgency(res.agency)
-                setWorkCard(res.work_card)
-                setPis(res.pis)
+                handleChange({name: 'cpf', value: res.cpf})
+                handleChange({name: 'rg', value: res.rg})
+                handleChange({name: 'dispatchDate', value: res.dispatch_date})
+                handleChange({name: 'issuingBody', value: res.issuing_body})
+                handleChange({name: 'voterRegistration', value: res.voter_registration})
+                handleChange({name: 'electoralZone', value: res.electoral_zone})
+                handleChange({name: 'electoralSection', value: res.electoral_section})
+                handleChange({name: 'bank', value: res.bank})
+                handleChange({name: 'agency', value: res.agency})
+                handleChange({name: 'workCard', value: res.work_card})
+                handleChange({name: 'pis', value: res.pis})
             }
             setLoading(false)
         }).catch(() => setLoading(false))
@@ -64,17 +84,17 @@ export default function DocumentsForm(props) {
         await saveComponentChanges({
             path: 'documents/' + props.id,
             params: {
-                cpf: cpf,
-                rg: rg,
-                dispatch_date: dispatchDate.getDate(),
-                issuing_body: issuingBody,
-                voter_registration: voterRegistration,
-                electoral_zone: electoralZone,
-                electoral_section: electoralSection,
-                bank: bank,
-                agency: agency,
-                work_card: workCard,
-                pis: pis,
+                cpf: documents.cpf,
+                rg: documents.rg,
+                dispatch_date: typeof(documents.dispatchDate) !== "number" ? new Date(documents.dispatchDate).getTime() : documents.dispatchDate,
+                issuing_body: documents.issuingBody,
+                voter_registration: documents.voterRegistration,
+                electoral_zone: documents.electoralZone,
+                electoral_section: documents.electoralSection,
+                bank: documents.bank,
+                agency: documents.agency,
+                work_card: documents.workCard,
+                pis: documents.pis,
             },
             method: 'put'
         }).then(res => res ? setChanged(false) : console.log(res))
@@ -83,77 +103,65 @@ export default function DocumentsForm(props) {
 
     if (!loading && lang !== null)
         return (
-            <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.baseWidth].join(' ')} style={{
-                ...getSecondaryBackground({dark: props.dark}), ...{
-                    transform: 'translateY(3vh)',
-                    justifyContent: 'center'
-                }
-            }}>
-                <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth].join(' ')} style={{marginTop: '2vh'}}>
-                    <InputLayout inputName={'CPF'} dark={props.dark} handleChange={setCpf} inputType={0}
-                                 disabled={!props.editable} size={100} required={true} initialValue={cpf}
-                                 key={"5-1"} setChanged={setChanged}/>
+            <div className={mainStyles.displayWarp} style={{justifyContent: 'center'}}>
+                <InputLayout inputName={'CPF'} dark={props.dark} handleChange={handleChange} inputType={0} name={'cpf'}
+                             disabled={!props.editable} size={98} required={true} initialValue={documents.cpf}
+                             key={"5-1"} setChanged={setChanged}/>
 
-                    <InputLayout inputName={'RG'} dark={props.dark} handleChange={setRg} inputType={0}
-                                 disabled={!props.editable} size={32} required={true} initialValue={rg}
-                                 key={"5-2"} setChanged={setChanged}/>
+                <InputLayout inputName={'RG'} dark={props.dark} handleChange={handleChange} inputType={0} name={'rg'}
+                             disabled={!props.editable} size={32} required={true} initialValue={documents.rg}
+                             key={"5-2"} setChanged={setChanged}/>
 
-                    <InputLayout inputName={lang.issuing} dark={props.dark} handleChange={setIssuingBody} inputType={0}
-                                 disabled={!props.editable} size={32} required={true} initialValue={issuingBody}
-                                 key={"5-3"} setChanged={setChanged}/>
-                    <InputLayout inputName={lang.dispatch} dark={props.dark} handleChange={setDispatchDate}
-                                 inputType={2}
-                                 disabled={!props.editable} size={32} required={true} initialValue={dispatchDate}
-                                 key={"5-4"} setChanged={setChanged}/>
+                <InputLayout inputName={lang.issuing} dark={props.dark} handleChange={handleChange} inputType={0} name={'issuingBody'}
+                             disabled={!props.editable} size={32} required={true} initialValue={documents.issuingBody}
+                             key={"5-3"} setChanged={setChanged}/>
+                <InputLayout inputName={lang.dispatch} dark={props.dark} handleChange={handleChange}
+                             inputType={2} name={'dispatchDate'}
+                             disabled={!props.editable} size={32} required={true} initialValue={documents.dispatchDate}
+                             key={"5-4"} setChanged={setChanged}/>
 
-                    <InputLayout inputName={lang.work} dark={props.dark} handleChange={setWorkCard} inputType={0}
-                                 disabled={!props.editable} size={49} required={true} initialValue={workCard}
-                                 key={"5-5"} setChanged={setChanged}/>
+                <InputLayout inputName={lang.work} dark={props.dark} handleChange={handleChange} inputType={0} name={'workCard'}
+                             disabled={!props.editable} size={48.5} required={true} initialValue={documents.workCard}
+                             key={"5-5"} setChanged={setChanged}/>
 
-                    <InputLayout inputName={'PIS/PASEP'} dark={props.dark} handleChange={setPis} inputType={0}
-                                 disabled={!props.editable} size={49} required={true} initialValue={pis}
-                                 key={"5-6"} setChanged={setChanged}/>
+                <InputLayout inputName={'PIS/PASEP'} dark={props.dark} handleChange={handleChange} inputType={0} name={'pis'}
+                             disabled={!props.editable} size={48.5} required={true} initialValue={documents.pis}
+                             key={"5-6"} setChanged={setChanged}/>
 
-                    <InputLayout inputName={lang.bank} dark={props.dark} handleChange={setBank} inputType={0}
-                                 disabled={!props.editable} size={49} required={false} initialValue={bank}
-                                 key={"5-7"} setChanged={setChanged}/>
-                    <InputLayout inputName={lang.agency} dark={props.dark} handleChange={setAgency} inputType={0}
-                                 disabled={!props.editable} size={49} required={false} initialValue={agency}
-                                 key={"5-8"} setChanged={setChanged}/>
-                    <InputLayout inputName={lang.voter} dark={props.dark} handleChange={setVoterRegistration}
-                                 inputType={0}
-                                 disabled={!props.editable} size={32} required={true} initialValue={voterRegistration}
-                                 key={"5-9"} setChanged={setChanged}/>
-                    <InputLayout inputName={lang.section} dark={props.dark} handleChange={setElectoralSection}
-                                 inputType={0}
-                                 disabled={!props.editable} size={32} required={true} initialValue={electoralSection}
-                                 key={"5-10"} setChanged={setChanged}/>
-                    <InputLayout inputName={lang.zone} dark={props.dark} handleChange={setElectoralZone}
-                                 inputType={0}
-                                 disabled={!props.editable} size={32} required={true} initialValue={electoralZone}
-                                 key={"5-11"} setChanged={setChanged}/>
+                <InputLayout inputName={lang.bank} dark={props.dark} handleChange={handleChange} inputType={0} name={'bank'}
+                             disabled={!props.editable} size={48.5} required={false} initialValue={documents.bank}
+                             key={"5-7"} setChanged={setChanged}/>
+                <InputLayout inputName={lang.agency} dark={props.dark} handleChange={handleChange} inputType={0} name={'agency'}
+                             disabled={!props.editable} size={48.5} required={false} initialValue={documents.agency}
+                             key={"5-8"} setChanged={setChanged}/>
+                <InputLayout inputName={lang.voter} dark={props.dark} handleChange={handleChange}
+                             inputType={0} name={'voterRegistration'}
+                             disabled={!props.editable} size={32} required={true} initialValue={documents.voterRegistration}
+                             key={"5-9"} setChanged={setChanged}/>
+                <InputLayout inputName={lang.section} dark={props.dark} handleChange={handleChange}
+                             inputType={0} name={'electoralSection'}
+                             disabled={!props.editable} size={32} required={true} initialValue={documents.electoralSection}
+                             key={"5-10"} setChanged={setChanged}/>
+                <InputLayout inputName={lang.zone} dark={props.dark} handleChange={handleChange}
+                             inputType={0} name={'electoralZone'}
+                             disabled={!props.editable} size={32} required={true} initialValue={documents.electoralZone}
+                             key={"5-11"} setChanged={setChanged}/>
 
-                    <ThemeProvider theme={createMuiTheme({
-                        palette: {
-                            type: "light"
-                        }
-                    })}>
-                    <Button style={{
-                        width: '43vw', margin: '5vh auto .8vw',
-                        backgroundColor: disabled() ? null : '#39adf6',
-                    }}
-                            variant={'contained'}
-                            color={'primary'}
-                            disabled={disabled()}
-                            onClick={() => saveChanges()}>{lang.saveButton}</Button>
-                    </ThemeProvider>
-                </div>
+                <Button style={{
+                    width: '98%',transform: 'translateY(50px)',
+                    backgroundColor: disabled() ? null : '#39adf6',
+                }}
+                        variant={'contained'}
+                        color={'primary'}
+                        disabled={disabled()}
+                        onClick={() => saveChanges()}>{lang.saveButton}</Button>
+
             </div>
         )
     else
         return null
 }
-DocumentsForm.propTypes = {
+DocumentsForm.propTypes ={
     id: PropTypes.string,
     dark: PropTypes.bool,
     visible: PropTypes.bool,
