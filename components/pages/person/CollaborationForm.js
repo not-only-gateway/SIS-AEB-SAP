@@ -10,16 +10,21 @@ import SelectorLayout from "./Selector";
 
 export default function CollaborationForm(props) {
 
-    const [selectedUnit, setSelectedUnit] = useState(null)
     const [units, setUnits] = useState([])
-    const [effectiveRoles, setEffectiveRoles] = useState([])
-    const [commissionedRoles, setCommissionedRoles] = useState([])
-    const [accessProfiles, setAccessProfiles] = useState([])
+    const [selectedUnit, setSelectedUnit] = useState(null)
 
+    const [effectiveRoles, setEffectiveRoles] = useState([])
     const [selectedEffectiveRole, setSelectedEffectiveRole] = useState(null)
+
+    const [commissionedRoles, setCommissionedRoles] = useState([])
     const [selectedCommissionedRole, setSelectedCommissionedRole] = useState(null)
-    const [seniorID, setSeniorID] = useState(null)
+
+    const [accessProfiles, setAccessProfiles] = useState([])
+    const [selectedAccessProfile, setSelectedAccessProfile] = useState(null)
+
     const [seniors, setSeniors] = useState([])
+    const [selectedSenior, setSelectedSenior] = useState(null)
+
     const [publicationDate, setPublicationDate] = useState('')
     const [admissionDate, setAdmissionDate] = useState('')
     const [legalDocument, setLegalDocument] = useState('')
@@ -34,7 +39,27 @@ export default function CollaborationForm(props) {
     const [mainCollaboration, setMainCollaboration] = useState(false)
     const [canBeMain, setCanBeMain] = useState(true)
 
-    const [selectedAccessProfile, setSelectedAccessProfile] = useState(null)
+    const [collaboration, setCollaboration] = useState({
+        publicationDate: undefined,
+        admissionDate: undefined,
+        legalDocument: undefined,
+        activeRole: undefined,
+        substitute: undefined,
+        origin: undefined,
+        workStart: undefined,
+        workEnd: undefined,
+        contractExp: undefined,
+        additionalInfo: undefined,
+        mainCollaboration: undefined,
+        canBeMain: undefined
+    })
+
+    function handleChange(props) {
+        setCollaboration(prevState => ({
+            ...prevState,
+            [props.name]: props.value
+        }))
+    }
 
     function disabled() {
         return (
@@ -55,13 +80,14 @@ export default function CollaborationForm(props) {
                     params: {}
                 }).then(res => {
                         if (res !== null) {
-                            setSeniorID(res.senior !== null ? res.senior.id : null)
+                            setSelectedSenior(res.senior !== null ? {key: res.senior.id, value: res.senior.name}: undefined)
                             setSelectedEffectiveRole(res.effective_role !== null ? {
                                 key: res.effective_role.id,
                                 value: res.effective_role.denomination
                             } : null)
                             setSelectedCommissionedRole(res.commissioned_role !== null ? res.commissioned_role.id : null)
                             setSelectedUnit({key: res.unit.id, value: res.unit.acronym})
+
                             setSubstitute(res.collaboration.is_substitute)
                             setAdmissionDate(res.collaboration.admission_date)
                             setPublicationDate(res.collaboration.official_publication_date)
@@ -124,7 +150,7 @@ export default function CollaborationForm(props) {
             path: props.collaborationID !== null && props.collaborationID !== undefined ? 'collaboration/' + props.collaborationID : 'collaboration',
             params: {
                 person: props.userID,
-                senior: seniorID,
+                senior: selectedSenior,
                 effective_role: selectedEffectiveRole,
                 commissioned_role: selectedCommissionedRole,
                 unit: selectedUnit.key,
@@ -184,23 +210,28 @@ export default function CollaborationForm(props) {
             <div
                 className={[mainStyles.displayWarp, mainStyles.displayInlineCenter].join(' ')}>
                 <SelectorLayout required={true} selected={selectedUnit} handleChange={setUnit} label={'Unit'}
-                                data={mapToSelect({option: 0, units: units})} width={23.6}
+                                data={mapToSelect({option: 0, units: units})} width={32}
                                 key={'2-1-' + props.index} setChanged={setChanged}
                 />
 
                 <SelectorLayout required={false} selected={selectedEffectiveRole}
                                 handleChange={setSelectedEffectiveRole} setChanged={setChanged}
                                 label={'Effective Role'} key={'2-4-' + props.index}
-                                data={mapToSelect({option: 1, effectiveRoles: effectiveRoles})} width={23.6}/>
+                                data={mapToSelect({option: 1, effectiveRoles: effectiveRoles})} width={32}/>
 
                 <SelectorLayout required={false} selected={selectedCommissionedRole}
                                 handleChange={setSelectedEffectiveRole} setChanged={setChanged}
                                 label={'Commissioned Role'} key={'2-5-' + props.index}
-                                data={mapToSelect({option: 2, commissionedRoles: commissionedRoles})} width={23.6}/>
+                                data={mapToSelect({option: 2, commissionedRoles: commissionedRoles})} width={32}/>
                 <SelectorLayout required={true} selected={selectedAccessProfile}
                                 handleChange={setSelectedAccessProfile} setChanged={setChanged}
                                 label={'Access Profile'} key={'2-14-' + props.index}
-                                data={mapToSelect({option: 4, accessProfiles: accessProfiles})} width={23.6}/>
+                                data={mapToSelect({option: 4, accessProfiles: accessProfiles})} width={48.5}/>
+
+                <SelectorLayout required={true} selected={selectedSenior}
+                                handleChange={setSelectedSenior} setChanged={setChanged}
+                                label={'Senior'} key={'2-7-' + props.index}
+                                data={mapToSelect({option: 3, seniors: seniors})} width={48.5}/>
 
                 <InputLayout inputName={'Additional information'} dark={props.dark} handleChange={setAdditionalInfo}
                              inputType={0}
@@ -230,12 +261,7 @@ export default function CollaborationForm(props) {
                              key={'2-6-' + props.index}
                              setChanged={setChanged}/>
 
-                <InputLayout inputName={'Senior'} dark={props.dark} handleChange={setSeniorID} inputType={1}
-                             disabled={!props.editable || seniors.length === 0} size={32} required={false}
-                             initialValue={seniorID}
-                             selectFields={mapToSelect({option: 3, seniors: seniors})}
-                             key={'2-7-' + props.index}
-                             setChanged={setChanged}/>
+
 
                 <InputLayout inputName={'Admission'} dark={props.dark} handleChange={setAdmissionDate} inputType={2}
                              disabled={!props.editable} size={32} required={true} initialValue={admissionDate}
@@ -270,9 +296,6 @@ export default function CollaborationForm(props) {
                              disabled={!props.editable} size={48.5} required={false} initialValue={workEnd}
                              key={'2-13-' + props.index}
                              setChanged={setChanged}/>
-
-
-
 
 
                 <Button style={{

@@ -37,17 +37,13 @@ export default function AddressForm(props) {
     }
 
     async function handleChange(props) {
-        console.log(props.value.length)
         switch (true){
-            case props.name === 'zipCode' && address.zipCode.length === 7 : {
-                await fetchCep()
-                break
-            }
-            case props.name === 'zipCode' && props.value.length <= 7: {
+            case props.name === 'zipCode' && props.value.length === 8 && changed: {
                 setAddress(prevState => ({
                     ...prevState,
                     [props.name]: props.value
                 }))
+                await fetchCep(props.value)
                 break
             }
             default: {
@@ -60,12 +56,17 @@ export default function AddressForm(props) {
 
         }
     }
-    async function fetchCep(){
+    async function fetchCep(cep){
         await axios({
             method: 'get',
-            url: 'http://viacep.com.br/ws/'+address.zipCode+'/json/',
+            url: 'http://viacep.com.br/ws/'+cep+'/json/',
         }).then(res => {
-            console.log(res)
+            handleChange({name: 'neighborhood', value: res.data.bairro})
+            handleChange({name: 'stateInitials', value: res.data.uf})
+            handleChange({name: 'state', value: res.data.localidade})
+            handleChange({name: 'address', value: res.data.logradouro})
+            handleChange({name: 'complement', value: res.data.complemento})
+
         }).catch(error => {
             console.log(error)
         })
@@ -76,11 +77,11 @@ export default function AddressForm(props) {
             if (res !== null) {
                 handleChange({name: 'zipCode', value: res.zip_code})
                 handleChange({name: 'address', value: res.address})
-                handleChange({name: 'complement', value: res.complement})
+                handleChange({name: 'complement', value: res.complement !== null ? res.complement : ''})
                 handleChange({name: 'street', value: res.street})
-                handleChange({name: 'state', value: res.state})
+                handleChange({name: 'state', value: res.state !== null ? res.state : ''})
                 handleChange({name: 'stateInitials', value: res.state_initials})
-                handleChange({name: 'neighborhood', value: res.neighborhood})
+                handleChange({name: 'neighborhood', value: res.neighborhood !== null ? res.neighborhood : ''})
                 handleChange({name: 'city', value: res.city})
             }
             setLoading(false)
@@ -94,11 +95,11 @@ export default function AddressForm(props) {
                 params: {
                     zip_code: address.zipCode,
                     address: address.address,
-                    complement: address.complement,
-                    street: address.street,
+                    complement: address.complement.length > 0 ? address.complement : null,
+                    street: address.street.length > 0 ? address.street : null,
                     state: address.state,
                     state_initials: address.stateInitials,
-                    neighborhood: address.neighborhood,
+                    neighborhood: address.neighborhood.length > 0 ? address.neighborhood : null,
                     city: address.city,
                 }, method: 'put'
             }
@@ -115,7 +116,7 @@ export default function AddressForm(props) {
             <div className={mainStyles.displayWarp} style={{justifyContent: 'center'}}>
 
                 <InputLayout inputName={'Zip Code'} dark={props.dark} handleChange={handleChange} inputType={0}
-                             name={'zipCode'}
+                             name={'zipCode'} maxLength={8} numeric={true}
                              disabled={!props.editable} size={98} required={true} initialValue={address.zipCode}
                              key={"4-3"} setChanged={setChanged}/>
                 <InputLayout inputName={'Address'} dark={props.dark} handleChange={handleChange} inputType={0}
@@ -137,7 +138,7 @@ export default function AddressForm(props) {
                              name={'state'}
                              key={"4-7"} setChanged={setChanged}/>
                 <InputLayout inputName={'State Initials'} dark={props.dark} handleChange={handleChange}
-                             inputType={0} name={'stateInitials'}
+                             inputType={0} name={'stateInitials'}  maxLength={2} uppercase={true}
                              disabled={!props.editable || address.zipCode.length < 8} size={32} required={true}
                              initialValue={address.stateInitials}
                              key={"4-8"} setChanged={setChanged}/>

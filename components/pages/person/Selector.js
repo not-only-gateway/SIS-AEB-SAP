@@ -27,28 +27,23 @@ export default function SelectorLayout(props) {
             <Modal open={modal} onClose={() => setModal(false)}
                    style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                 <div className={styles.modalContainer}
-                     style={{backgroundColor: 'white', height: '50vh'}}>
-                    <div style={{
-                        width: '32%',
-                        alignSelf: 'stretch',
-                        borderRight: '#e2e2e2 1px solid',
-                        display: 'block'
-                    }}>
-                        <div className={styles.modalFormContainer}
-                             style={{
-                                 borderBottom: valid ? '#e2e2e2 1px solid' : null,
-                                 height: '50%',
-                                 transform: valid ? null : 'translateY(50%)'
-                             }}>
-                            <spam style={{fontSize: '1.4rem', fontWeight: 450}}>Search</spam>
-                            <InputLayout inputName={'Search'} dark={props.dark}
-                                         handleChange={handleChange} name={undefined}
-                                         inputType={0} disabled={false} size={100} required={false}
-                                         initialValue={search} key={"search"} setChanged={undefined}/>
-                        </div>
+                     style={{backgroundColor: 'white'}}>
+
+                    <div className={styles.modalFormContainer}
+                         style={{
+                             borderBottom: valid ? '#e2e2e2 1px solid' : null
+                         }}>
+                        <spam style={{fontSize: '1.4rem', fontWeight: 450}}>Search</spam>
+                        <InputLayout inputName={'Search'} dark={props.dark}
+                                     handleChange={handleChange} name={undefined}
+                                     inputType={0} disabled={false} size={100} required={false}
+                                     initialValue={search} key={"search"} setChanged={undefined}/>
+
                         {valid ?
-                            <div className={styles.modalFormContainer} style={{height: '50%'}}>
-                                <spam style={{fontSize: '1.4rem', fontWeight: 450}}>Selected</spam>
+                            <div className={mainStyles.displayInlineStart} style={{width: '100%'}}>
+                                <p className={mainStyles.secondaryParagraph}>Selected</p>
+                                <Divider orientation={"horizontal"}
+                                         style={{width: '10px', margin: '0px 10px  0px 10px'}}/>
                                 <div style={{
                                     border: '#e2e2e2 1px solid',
                                     borderRadius: '8px',
@@ -65,21 +60,25 @@ export default function SelectorLayout(props) {
                                     }} style={{
                                         textTransform: 'none',
                                         justifyItems: 'center',
-                                        width: '100%', backgroundColor: !valid ? null : '#f54269',
+                                        marginLeft: 'auto',
+                                        width: '49%', backgroundColor: !valid ? null : '#f54269',
                                         color: !valid ? null : 'white'
 
-                                    }}>Remove</Button>
+                                    }}>
+                                        Remove
+                                    </Button>
                                 }
                             </div>
                             :
                             null}
                     </div>
+
                     <div className={mainStyles.displayWarp} style={{
-                        paddingLeft: '1vw',
-                        width: '68%',
                         overflowY: 'auto',
-                        maxHeight: '50vh',
-                        paddingBottom: '1vh'
+                        marginBottom: 'auto',
+                        gridRow: 2,
+                        maxHeight: '100%',
+                        paddingBottom: '10px'
                     }}>
                         {props.data.map(data => {
                             if (search.length > 0 && (data.value.toLowerCase()).match(search.toLowerCase())) {
@@ -96,7 +95,7 @@ export default function SelectorLayout(props) {
                                         {data.value}
                                     </Button>
                                 )
-                            } else if(search.length > 0)
+                            } else if (search.length > 0)
                                 return null
                             else
                                 return (
@@ -129,8 +128,9 @@ export default function SelectorLayout(props) {
                 <FormLabel style={{transform: 'translateY(-5px)'}}>{props.label}</FormLabel>
                 <Button onClick={() => setModal(true)} style={{
                     textTransform: 'none',
-                    backgroundColor: '#0095ff',
-                    color: 'white',
+                    backgroundColor: 'transparent',
+                    border: '#d0d0d0 1px solid',
+                    color: '#262626',
                     padding: 0,
                     height: '100%',
                 }} variant={'contained'} disableElevation={true}>

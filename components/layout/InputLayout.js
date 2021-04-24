@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import PropTypes, {number} from 'prop-types'
 import React from "react";
 import {FormControl, FormLabel, Grid, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
@@ -17,8 +17,15 @@ export default function InputLayout(props) {
                                    style={{
                                        width: '100%',
                                    }}
+                                   type={props.numeric ? 'number' : 'text'}
                                    onChange={event => {
-                                       props.handleChange({name: props.name, value: event.target.value})
+                                       const data = props.uppercase ? event.target.value.toUpperCase() : event.target.value
+                                       if (props.maxLength !== undefined) {
+                                           const value = (data).slice(0, props.maxLength)
+                                           props.handleChange({name: props.name, value: value})
+                                       } else
+                                           props.handleChange({name: props.name, value: data})
+
                                        if (props.setChanged !== undefined)
                                            props.setChanged(true)
                                    }}
@@ -147,5 +154,8 @@ InputLayout.propTypes = {
     margin: PropTypes.bool,
     name: PropTypes.string,
     setChanged: PropTypes.func,
-    type: PropTypes.string
+    type: PropTypes.string,
+    maxLength: PropTypes.number,
+    numeric: PropTypes.bool,
+    uppercase: PropTypes.bool,
 }

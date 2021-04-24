@@ -94,11 +94,11 @@ export default function DocumentsForm(props) {
         return (
             <div className={mainStyles.displayWarp} style={{justifyContent: 'center'}}>
                 <InputLayout inputName={'CPF'} dark={props.dark} handleChange={handleChange} inputType={0} name={'cpf'}
-                             disabled={!props.editable} size={98} required={true} initialValue={documents.cpf}
+                             disabled={!props.editable} size={98} required={true} initialValue={documents.cpf} numeric={true} maxLength={11}
                              key={"5-1"} setChanged={setChanged}/>
 
                 <InputLayout inputName={'RG'} dark={props.dark} handleChange={handleChange} inputType={0} name={'rg'}
-                             disabled={!props.editable} size={32} required={true} initialValue={documents.rg}
+                             disabled={!props.editable} size={32} required={true} initialValue={documents.rg} numeric={true} maxLength={8}
                              key={"5-2"} setChanged={setChanged}/>
 
                 <InputLayout inputName={lang.issuing} dark={props.dark} handleChange={handleChange} inputType={0} name={'issuingBody'}
@@ -120,7 +120,8 @@ export default function DocumentsForm(props) {
 
                 <InputLayout inputName={lang.bank} dark={props.dark} handleChange={handleChange} inputType={0} name={'bank'}
                              disabled={!props.editable} size={48.5} required={false} initialValue={documents.bank}
-                             key={"5-7"} setChanged={setChanged}/>
+                             key={"5-7"} setChanged={setChanged}
+                />
                 <InputLayout inputName={lang.agency} dark={props.dark} handleChange={handleChange} inputType={0} name={'agency'}
                              disabled={!props.editable} size={48.5} required={false} initialValue={documents.agency}
                              key={"5-8"} setChanged={setChanged}/>
@@ -138,7 +139,7 @@ export default function DocumentsForm(props) {
                              key={"5-11"} setChanged={setChanged}/>
 
                 <Button style={{
-                    width: '98%',transform: 'translateY(50px)',
+                    width: '98%', marginTop: '50px',
                     backgroundColor: disabled() ? null : '#39adf6',
                 }}
                         variant={'contained'}

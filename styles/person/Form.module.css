@@ -1,16 +1,17 @@
 .modalContainer{
-    display: flex;
-    align-items: stretch;
-    width: 75vw;
+    display: grid;
+    gap: 10px;
+    width: 30vw;
+    height: 75%;
+
     padding: 1vw;
     border-radius: 8px;
+    grid-template-rows: 25% 1fr;
 }
 .modalFormContainer{
-    justify-self: stretch;
-    align-self: stretch;
+    grid-row: 1;
 
     display: grid;
-    padding-right: 1vw;
     justify-items: center;
     align-content: space-around;
 }

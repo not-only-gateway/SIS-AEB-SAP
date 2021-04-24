@@ -77,15 +77,15 @@ export default function ContactForm(props) {
                              initialValue={contact.emailAlt} key={"3-2"} setChanged={setChanged}/>
 
                 <InputLayout inputName={lang.phone} dark={props.dark} handleChange={handleChange} name={'phone'}
-                             inputType={0} disabled={!props.editable} size={48.5} required={true}
+                             inputType={0} disabled={!props.editable} size={48.5} required={true} numeric={true}
                              initialValue={contact.phone} key={"3-3"} setChanged={setChanged}/>
 
                 <InputLayout inputName={lang.altPhone} dark={props.dark} handleChange={handleChange} name={'phoneAlt'}
-                             inputType={0} disabled={!props.editable} size={48.5} required={false}
+                             inputType={0} disabled={!props.editable} size={48.5} required={false} numeric={true}
                              initialValue={contact.phoneAlt} key={"3-4"} setChanged={setChanged}/>
 
                 <Button style={{
-                    width: '98%', transform: 'translateY(50px)',
+                    width: '98%', marginTop: '50px',
                     backgroundColor: disabled() ? null : '#39adf6',
 
                 }} variant={'contained'} color={'primary'}
