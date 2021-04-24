@@ -40,8 +40,8 @@ export default function ContactForm(props) {
         fetchComponentData({path: 'contact/' + props.id, params: {}}).then(res => {
             console.log(res)
             if (res !== null) {
-                handleChange({name: 'email', value: res.personal_email})
-                handleChange({name: 'phone', value: res.personal_phone})
+                handleChange({name: 'email', value: res.personal_email !== null ? res.personal_email : ''})
+                handleChange({name: 'phone', value:res.personal_phone !== null ? res.personal_phone : ''})
                 handleChange({name: 'emailAlt', value: res.personal_email_alt !== null && res.personal_email_alt !== undefined ? res.personal_email_alt : ''})
                 handleChange({name: 'phoneAlt', value: res.personal_phone_alt !== null && res.personal_phone_alt !== undefined ? res.personal_phone_alt : ''})
             }
@@ -57,9 +57,9 @@ export default function ContactForm(props) {
             params: {
                 person: props.id,
                 personal_email: contact.email.toLowerCase(),
-                personal_email_alt: contact.emailAlt?.toLowerCase(),
+                personal_email_alt: contact.emailAlt.length > 0 ? contact.emailAlt?.toLowerCase() : null,
                 personal_phone: contact.phone.replace(' ', ''),
-                personal_phone_alt: contact.phoneAlt?.toLowerCase()
+                personal_phone_alt:contact.phoneAlt.length > 0 ? contact.phoneAlt?.toLowerCase() : null
             },
             method: 'put'
         }).then(res => res ? setChanged(false) : console.log(res))

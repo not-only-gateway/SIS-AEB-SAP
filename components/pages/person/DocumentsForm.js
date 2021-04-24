@@ -1,6 +1,6 @@
 import {Button, createMuiTheme, ThemeProvider} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
-import PropTypes from "prop-types";
+import PropTypes, {func} from "prop-types";
 import InputLayout from "../../layout/InputLayout";
 import saveComponentChanges from "../../../utils/person/SaveChanges";
 import fetchComponentData from "../../../utils/person/FetchData";
@@ -10,23 +10,10 @@ import {getSecondaryBackground} from "../../../styles/shared/MainStyles";
 
 export default function DocumentsForm(props) {
 
-
-    // const [cpf, setCpf] = useState('')
-    // const [rg, setRg] = useState('')
-    // const [dispatchDate, setDispatchDate] = useState('')
-    // const [issuingBody, setIssuingBody] = useState('')
-    // const [voterRegistration, setVoterRegistration] = useState('')
-    // const [electoralZone, setElectoralZone] = useState('')
-    // const [electoralSection, setElectoralSection] = useState('')
-    // const [bank, setBank] = useState(null)
-    // const [agency, setAgency] = useState(null)
-    // const [workCard, setWorkCard] = useState('')
-    // const [pis, setPis] = useState('')
-    //
     const [documents, setDocuments] = useState({
         cpf: '',
-        rg: null,
-        dispatchDate: '',
+        rg: '',
+        dispatchDate: undefined,
         issuingBody: '',
         voterRegistration: '',
         electoralZone: '',
@@ -39,12 +26,14 @@ export default function DocumentsForm(props) {
     const [lang, setLang] = useState(null)
     const [loading, setLoading] = useState(true)
     const [changed, setChanged] = useState(false)
+
     function handleChange(props) {
         setDocuments(prevState => ({
             ...prevState,
             [props.name]:  props.value
         }))
     }
+
     function disabled() {
         return (
             documents.cpf.length === 0 ||
@@ -115,6 +104,7 @@ export default function DocumentsForm(props) {
                 <InputLayout inputName={lang.issuing} dark={props.dark} handleChange={handleChange} inputType={0} name={'issuingBody'}
                              disabled={!props.editable} size={32} required={true} initialValue={documents.issuingBody}
                              key={"5-3"} setChanged={setChanged}/>
+
                 <InputLayout inputName={lang.dispatch} dark={props.dark} handleChange={handleChange}
                              inputType={2} name={'dispatchDate'}
                              disabled={!props.editable} size={32} required={true} initialValue={documents.dispatchDate}

@@ -21,7 +21,11 @@ export default function BaseForm(props) {
 
 
     const [changed, setChanged] = useState(false)
-    const [image, setImage] = useState(null)
+    const [image, setImage] = useState({
+        file: null,
+        imageSrc: ImageHost() + props.profile.image,
+        removed: false
+    })
     const [lang, setLang] = useState(null)
 
     useEffect(() => {
@@ -46,11 +50,12 @@ export default function BaseForm(props) {
     async function saveChanges() {
         let formData = new FormData()
 
-        if (typeof(props.profile.image) === 'object')
-            formData.append('image', image.image[0])
-
+        if (image.file !== null)
+            formData.append('image', image.file[0])
+        else if (image.removed)
+            formData.append('removed_image', 'true')
         formData.append('name', props.profile.name.toString())
-        formData.append('birth', (typeof props.profile.birth !== 'number' ? new Date(FormatStringData(props.profile.birth)).getTime() : props.profile.birth))
+        formData.append('birth', (typeof props.profile.birth !== 'number' ? new Date(props.profile.birth).getTime() : props.profile.birth))
         formData.append('birth_place', props.profile.birth_place?.toUpperCase())
         formData.append('education', props.profile.education.toString())
         formData.append('gender', props.profile.gender.toString())
@@ -112,8 +117,10 @@ export default function BaseForm(props) {
         if (event.target.files.length > 0) {
             reader.readAsDataURL(event.target.files[0])
             reader.onload = () => {
-                setImage(reader.result)
-                props.handleChange({name: 'image', value: event.target.files})
+                setImage({
+                    imageSrc: reader.result,
+                    file: event.target.files
+                })
             }
             setChanged(true)
         }
@@ -127,7 +134,7 @@ export default function BaseForm(props) {
                 <div style={{width: '23.6%', border: '#e2e2e2 1px solid', borderRadius: '8px'}}
                      className={mainStyles.displayInlineSpaced}>
                     <Avatar
-                        src={props.profile.image === undefined || props.profile.image === null || image !== null ? image : ImageHost() + props.profile.image}
+                        src={image.imageSrc}
                         variant={'rounded'}
                         style={{width: '100px', height: '100px'}}/>
 
@@ -135,11 +142,12 @@ export default function BaseForm(props) {
                          className={mainStyles.displayColumnSpaced}>
                         <input id='profile-image-input' type={'file'} accept={'image/*'} onChange={getFile}/>
                         <Button variant={"contained"} style={{
-                            backgroundColor: props.profile.image !== undefined || true || image !== null ? '#f54269' : 'initial',
-                            color: props.profile.image !== undefined || true || image !== null ? 'white' : 'initial',
+                            backgroundColor: props.profile.image !== undefined || image.file !== null ? '#f54269' : 'initial',
+                            color: props.profile.image !== undefined || image.file !== null ? 'white' : 'initial',
                             width: 'fit-content'
                         }}
-                                disabled={props.profile.image !== undefined || true || image !== null}>
+                                onClick={() => setImage({file: null, imageSrc: null, removed: true})}
+                                disabled={props.profile.image === undefined || props.profile.image === null}>
                             Remove
                         </Button>
                     </div>

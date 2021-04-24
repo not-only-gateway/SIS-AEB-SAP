@@ -6,42 +6,82 @@ import fetchComponentData from "../../utils/person/FetchData";
 import saveComponentChanges from "../../utils/person/SaveChanges";
 import mainStyles from "../../styles/shared/Main.module.css";
 import {getSecondaryBackground} from "../../styles/shared/MainStyles";
+import axios from "axios";
+import Host from "../../utils/shared/Host";
+import Cookies from "universal-cookie/lib";
 
 export default function AddressForm(props) {
 
     const [loading, setLoading] = useState(true)
     const [changed, setChanged] = useState(false)
-    const [zipCode, setZipCode] = useState('')
-    const [address, setAddress] = useState('')
-    const [complement, setComplement] = useState(null)
-    const [street, setStreet] = useState(null)
-    const [state, setState] = useState('')
-    const [stateInitials, setStateInitials] = useState('')
-    const [neighborhood, setNeighborhood] = useState(null)
-    const [city, setCity] = useState('')
+    const [address, setAddress] = useState({
+        zipCode: '',
+        address: '',
+        complement: '',
+        street: '',
+        state: '',
+        stateInitials: '',
+        neighborhood: '',
+        city: ''
+    })
 
     function disabled() {
         return (
-            zipCode.length === 0 ||
-            address.length === 0 ||
-            city.length === 0 ||
-            state.length === 0 ||
-            stateInitials.length === 0 ||
+            address.zipCode.length === 0 ||
+            address.address.length === 0 ||
+            address.city.length === 0 ||
+            address.state.length === 0 ||
+            address.stateInitials.length === 0 ||
             changed === false
         )
+    }
+
+    async function handleChange(props) {
+        console.log(props.value.length)
+        switch (true){
+            case props.name === 'zipCode' && address.zipCode.length === 7 : {
+                await fetchCep()
+                break
+            }
+            case props.name === 'zipCode' && props.value.length <= 7: {
+                setAddress(prevState => ({
+                    ...prevState,
+                    [props.name]: props.value
+                }))
+                break
+            }
+            default: {
+                setAddress(prevState => ({
+                    ...prevState,
+                    [props.name]: props.value
+                }))
+                break
+            }
+
+        }
+    }
+    async function fetchCep(){
+        await axios({
+            method: 'get',
+            url: 'http://viacep.com.br/ws/'+address.zipCode+'/json/',
+        }).then(res => {
+            console.log(res)
+        }).catch(error => {
+            console.log(error)
+        })
     }
 
     useEffect(() => {
         fetchComponentData({path: 'address/' + props.id, params: {}}).then(res => {
             if (res !== null) {
-                setZipCode(res.zip_code)
-                setAddress(res.address)
-                setComplement(res.complement)
-                setStreet(res.street)
-                setState(res.state)
-                setStateInitials(res.state_initials)
-                setNeighborhood(res.neighborhood)
-                setCity(res.city)
+                handleChange({name: 'zipCode', value: res.zip_code})
+                handleChange({name: 'address', value: res.address})
+                handleChange({name: 'complement', value: res.complement})
+                handleChange({name: 'street', value: res.street})
+                handleChange({name: 'state', value: res.state})
+                handleChange({name: 'stateInitials', value: res.state_initials})
+                handleChange({name: 'neighborhood', value: res.neighborhood})
+                handleChange({name: 'city', value: res.city})
             }
             setLoading(false)
         })
@@ -52,14 +92,14 @@ export default function AddressForm(props) {
             {
                 path: 'address/' + props.id,
                 params: {
-                    zip_code: zipCode,
-                    address: address,
-                    complement: complement,
-                    street: street,
-                    state: state,
-                    state_initials: stateInitials,
-                    neighborhood: neighborhood,
-                    city: city,
+                    zip_code: address.zipCode,
+                    address: address.address,
+                    complement: address.complement,
+                    street: address.street,
+                    state: address.state,
+                    state_initials: address.stateInitials,
+                    neighborhood: address.neighborhood,
+                    city: address.city,
                 }, method: 'put'
             }
         ).then(res => {
@@ -72,57 +112,53 @@ export default function AddressForm(props) {
 
     if (!loading)
         return (
-            <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.baseWidth].join(' ')} style={{
-                ...getSecondaryBackground({dark: props.dark}), ...{
-                    transform: 'translateY(3vh)',
-                    justifyContent: 'center'
-                }
-            }}>
-                <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.mediumWidth].join(' ')}
-                     style={{marginTop: '2vh'}}>
+            <div className={mainStyles.displayWarp} style={{justifyContent: 'center'}}>
 
-                    <InputLayout inputName={'Address'} dark={props.dark} handleChange={setAddress} inputType={0}
-                                 disabled={!props.editable} size={49} required={true} initialValue={address}
-                                 key={"4-1"} setChanged={setChanged}/>
-                    <InputLayout inputName={'Complement'} dark={props.dark} handleChange={setComplement} inputType={0}
-                                 disabled={!props.editable} size={49} required={false} initialValue={complement}
-                                 key={"4-2"} setChanged={setChanged}/>
+                <InputLayout inputName={'Zip Code'} dark={props.dark} handleChange={handleChange} inputType={0}
+                             name={'zipCode'}
+                             disabled={!props.editable} size={98} required={true} initialValue={address.zipCode}
+                             key={"4-3"} setChanged={setChanged}/>
+                <InputLayout inputName={'Address'} dark={props.dark} handleChange={handleChange} inputType={0}
+                             name={'address'}
+                             disabled={!props.editable || address.zipCode.length < 8} size={48.5} required={true} initialValue={address.address}
+                             key={"4-1"} setChanged={setChanged}/>
+                <InputLayout inputName={'Complement'} dark={props.dark} handleChange={handleChange} inputType={0}
+                             name={'complement'}
+                             disabled={!props.editable || address.zipCode.length < 8} size={48.5} required={false} initialValue={address.complement}
+                             key={"4-2"} setChanged={setChanged}/>
 
-                    <InputLayout inputName={'Zip Code'} dark={props.dark} handleChange={setZipCode} inputType={0}
-                                 disabled={!props.editable} size={32} required={true} initialValue={zipCode}
-                                 key={"4-3"} setChanged={setChanged}/>
-                    <InputLayout inputName={'Street'} dark={props.dark} handleChange={setStreet} inputType={0}
-                                 disabled={!props.editable} size={32} required={false} initialValue={street}
-                                 key={"4-4"} setChanged={setChanged}/>
-                    <InputLayout inputName={'Neighborhood'} dark={props.dark} handleChange={setNeighborhood}
-                                 inputType={0}
-                                 disabled={!props.editable} size={32} required={false} initialValue={neighborhood}
-                                 key={"4-5"} setChanged={setChanged}/>
 
-                    <InputLayout inputName={'City'} dark={props.dark} handleChange={setCity} inputType={0}
-                                 disabled={!props.editable} size={32} required={true} initialValue={city}
-                                 key={"4-6"} setChanged={setChanged}/>
-                    <InputLayout inputName={'State'} dark={props.dark} handleChange={setState} inputType={0}
-                                 disabled={!props.editable} size={32} required={true} initialValue={state}
-                                 key={"4-7"} setChanged={setChanged}/>
-                    <InputLayout inputName={'State Initials'} dark={props.dark} handleChange={setStateInitials}
-                                 inputType={0}
-                                 disabled={!props.editable} size={32} required={true} initialValue={stateInitials}
-                                 key={"4-8"} setChanged={setChanged}/>
+                <InputLayout inputName={'City'} dark={props.dark} handleChange={handleChange} inputType={0}
+                             disabled={!props.editable || address.zipCode.length < 8} size={32} required={true} initialValue={address.city}
+                             name={'city'}
+                             key={"4-6"} setChanged={setChanged}/>
+                <InputLayout inputName={'State'} dark={props.dark} handleChange={handleChange} inputType={0}
+                             disabled={!props.editable || address.zipCode.length < 8} size={32} required={true} initialValue={address.state}
+                             name={'state'}
+                             key={"4-7"} setChanged={setChanged}/>
+                <InputLayout inputName={'State Initials'} dark={props.dark} handleChange={handleChange}
+                             inputType={0} name={'stateInitials'}
+                             disabled={!props.editable || address.zipCode.length < 8} size={32} required={true}
+                             initialValue={address.stateInitials}
+                             key={"4-8"} setChanged={setChanged}/>
 
-                    <ThemeProvider theme={createMuiTheme({
-                        palette: {
-                            type: "light"
-                        }
-                    })}>
-                        <Button style={{
-                            width: '43vw', margin: '5vh auto .8vw',
-                            backgroundColor: disabled() ? null : '#39adf6',
-                        }} variant={'contained'}
-                                disabled={disabled()}
-                                onClick={() => saveChanges()}>Save</Button>
-                    </ThemeProvider>
-                </div>
+                <InputLayout inputName={'Street'} dark={props.dark} handleChange={handleChange} inputType={0}
+                             name={'street'}
+                             disabled={!props.editable || address.zipCode.length < 8} size={48.5} required={false} initialValue={address.street}
+                             key={"4-4"} setChanged={setChanged}/>
+                <InputLayout inputName={'Neighborhood'} dark={props.dark} handleChange={handleChange}
+                             inputType={0} name={'neighborhood'}
+                             disabled={!props.editable || address.zipCode.length < 8} size={48.5} required={false}
+                             initialValue={address.neighborhood}
+                             key={"4-5"} setChanged={setChanged}/>
+
+                <Button style={{
+                    width: '98%', transform: 'translateY(50px)',
+                    backgroundColor: disabled() ? null : '#39adf6',
+                    color: disabled() ? null : 'white'
+                }} variant={'contained'}
+                        disabled={disabled()}
+                        onClick={() => saveChanges()}>Save</Button>
             </div>
         )
     else

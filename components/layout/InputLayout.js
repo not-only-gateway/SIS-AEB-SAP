@@ -60,61 +60,42 @@ export default function InputLayout(props) {
         }
 
         case 2: {
-
             return (
-                <div key={props.key} style={{width: props.size + '%'}}>
-                    <FormControl component="fieldset" style={{width: '100%'}}>
-                        <TextField
-                            id={props.key}
-                            label={props.inputName}
-                            type="date"
-                            value={typeof(props.initialValue) === 'number' ? new Date(props.initialValue) : props.initialValue}
-                            variant={"outlined"}
-                            onChange={event => {
-                                props.handleChange({name: props.name, value: event.target.value})
-                                if (props.setChanged !== undefined)
-                                    props.setChanged(true)
-                            }}
 
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                        />
 
-                        {/*<MuiPickersUtilsProvider utils={DateFnsUtils} >*/}
-                        {/*    <Grid container justify="space-around"*/}
-                        {/*          style={{width: '100%'}}>*/}
-                        {/*        <KeyboardDatePicker*/}
-                        {/*            style={{*/}
-                        {/*                ...{*/}
-                        {/*                    width: '100%',*/}
-                        {/*                    margin: 'auto',*/}
-                        {/*                    borderRadius: '8px'*/}
-                        {/*                }, ...getPrimaryBackground({dark: props.dark})*/}
-                        {/*            }}*/}
-                        {/*            required={props.required}*/}
-                        {/*            inputVariant="outlined"*/}
-                        {/*            margin="normal"*/}
-                        {/*            label={props.inputName}*/}
-                        {/*            id={props.inputName.replace(' ', '')}*/}
-                        {/*            disabled={props.disabled}*/}
-                        {/*            placeholder={props.inputName}*/}
-                        {/*            error={props.required === true && (props.initialValue === null || props.initialValue === undefined || props.initialValue.length === 0)}*/}
-                        {/*            format="dd/MM/yyyy"*/}
-                        {/*            value={props.initialValue}*/}
-                        {/*            onChange={event => {*/}
-                        {/*                props.handleChange({name: props.name, value: event})*/}
-                        {/*                if (props.setChanged !== undefined)*/}
-                        {/*                    props.setChanged(true)*/}
-                        {/*            }}*/}
-                        {/*            KeyboardButtonProps={{*/}
-                        {/*                'aria-label': 'change date',*/}
-                        {/*            }}*/}
-                        {/*        />*/}
-                        {/*    </Grid>*/}
-                        {/*</MuiPickersUtilsProvider>*/}
-                    </FormControl>
+                <div key={props.key}
+                     style={{width: props.size + '%'}}>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <Grid container justify="space-around"
+                              style={{width: '100%'}}>
+                            <KeyboardDatePicker
+                                style={{
+                                    width: '100%',
+                                    margin: 'auto',
+                                    borderRadius: '8px'
+                                }}
+                                required={props.required}
+                                inputVariant="outlined"
+                                margin="normal"
+                                id={props.inputName.replace(' ', '')}
+                                disabled={props.disabled}
+                                label={props.inputName}
+                                error={props.required === true && (props.initialValue === null || props.initialValue === undefined || props.initialValue.length === 0)}
+                                format="dd/MM/yyyy"
+                                value={props.initialValue}
+                                onChange={event => {
+                                    props.handleChange({name: props.name, value: event})
+                                    if (props.setChanged !== undefined)
+                                        props.setChanged(true)
+                                }}
+                                KeyboardButtonProps={{
+                                    'aria-label': 'change date',
+                                }}
+                            />
+                        </Grid>
+                    </MuiPickersUtilsProvider>
                 </div>
+
             )
         }
         case 3: {
