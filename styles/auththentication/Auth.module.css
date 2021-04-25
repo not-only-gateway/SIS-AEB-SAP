@@ -6,19 +6,19 @@
         transform: translate(-50%, -50%);
         width: 450px;
         height: 500px;
-        border-radius: 8px;
+        border-radius: 16px;
         display: grid;
         align-content: space-around;
 
         justify-items: center;
         padding: 1.5vw;
 
-        border: #e2e2e2 1px solid;
+        background-color: white;
     }
     .pageContainer{
         width: 100vw;
         height: 100vh;
-        background-color: white;
+        background-color: #e7e7e7;
     }
     .footer_container{
 

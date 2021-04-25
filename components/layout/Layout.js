@@ -23,15 +23,14 @@ export default function Layout({children}) {
 
     if (router.pathname !== '/signin')
         return (
-            <div style={getPrimaryBackground({dark: dark})}>
+            <div>
                 <div className={styles.page_container}
                      id={'scrollableDiv'} style={{
-                    width: reduced ? '96vw' : '85vw',
-                    transform: reduced ? 'translateX(4vw)' : 'translateX(15vw)'
+                    width: reduced ? '96%' : '85%',
+                    marginLeft: 'auto',
+                    transition: '250ms ease-in-out'
                 }}>
-                    <div className={styles.children_container}>
-                        {children}
-                    </div>
+                    {children}
                 </div>
                 <Navigation dark={dark} locale={router.locale} path={router.pathname} reduced={reduced}
                             setReduced={setReduced}/>

@@ -33,68 +33,50 @@ export default function Navigation(props) {
 
     return (
 
-        <div className={[styles.navigationContent, styles.navigationContainer, animations.slideInAnimation].join(' ')}
+        <div className={[styles.navigationContainer, animations.slideInAnimation].join(' ')}
              style={{
-                 ...{
-                     width: props.reduced ? '4vw' : '14vw',
-                     transition: '250ms ease-in-out',
-                     paddingRight: props.reduced ? ' 5px  ' : null,
-                     paddingLeft: props.reduced ? '5px' : null,
-                     backgroundColor: 'black',
-                     color: 'white',
-                     boxShadow: 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px'
-
-                 },
-                 ...getBorder({dark: props.dark})
+                 width: props.reduced ? '75px' : '260px',
+                 transition: '250ms ease-in-out',
+                 backgroundColor: 'black',
+                 color: 'white',
+                 boxShadow: 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px'
              }}>
-            <div className={props.reduced ? mainStyles.displayInlineCenter : mainStyles.displayInlineSpaced}
-                 style={{
-                     height: 'fit-content',
-                     position: 'absolute',
-                     width: props.reduced ? '100%' : 'calc(100% - 10px)',
-                     top: '-5px'
-                 }}>
-                {props.reduced ? null :
+
+            <div className={props.reduced ? mainStyles.displayInlineCenter : mainStyles.displayInlineSpaced} style={{height: '33.333%',alignItems: 'flex-start', paddingTop: '4px'}}>
+                <div>
+                    {props.reduced ? null :
                         <img className={animations.fadeIn}
-                            style={{color: 'white', width: '7vw', transform: 'translateX(-1.5vw)'}}
-                               src={'/SIMPLE.png'}/>
-                }
-                <NavigationButtonLayout
-                    dark={props.dark} linkPath={null}
-                    highlight={false} locale={props.locale}
-                    reduced={props.reduced}
-                    setToggle={props.setReduced}
-                    initialValue={props.reduced}
-                    icon={<MenuOpenRounded style={{
-                        ...{
-                            transition: '150ms ease-in-out',
-                            transform: props.reduced ? 'rotate(180deg)' : null,
-                            color: 'white',
-                        }
-                    }}/>}
-                />
+                             style={{color: 'white', width: '100px', transform: 'translateX(-20px)'}}
+                             src={'/SIMPLE.png'} alt={'logo'}/>
+                    }
+                </div>
+                <div style={{width: '65px',transform: props.reduced ? null : 'translateX(-5px)', maxHeight: '65px'}} className={mainStyles.displayInlineCenter}>
+                    <NavigationButtonLayout
+                        dark={props.dark} linkPath={null}
+                        highlight={false} locale={props.locale}
+                        reduced={props.reduced}
+                        setToggle={props.setReduced}
+                        initialValue={props.reduced}
+                        icon={<MenuOpenRounded style={{
+                            ...{
+                                transition: '150ms ease-in-out',
+                                transform: props.reduced ? 'rotate(180deg)' : null,
+                                color: 'white',
+                            }
+                        }}/>}
+                    />
+                </div>
             </div>
+
             <div style={{
                 display: 'grid',
                 alignContent: 'flex-start',
                 alignItems: 'flex-start',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                height: '33.333%'
             }}>
-                {/*{accessProfile !== null && accessProfile.canViewActivityLog ?*/}
-                {/*    <NavigationButtonLayout*/}
-                {/*        dark={props.dark} linkPath={'/menu'}*/}
-                {/*        highlight={props.path === '/menu'} locale={props.locale}*/}
-                {/*        label={lang.menu} reduced={props.reduced}*/}
-                {/*        icon={<SupervisorAccountRounded*/}
-                {/*            style={{*/}
-                {/*                ...{color: props.path === '/' ? 'white' : props.dark ? 'white' : 'black'},*/}
-                {/*                ...props.reduced ? {margin: 'auto'} : null*/}
-                {/*            }}/>}*/}
-                {/*    />*/}
-                {/*    : null}*/}
-                {/*<Divider orientation={'horizontal'} style={{width: '100%'}}/>*/}
                 <NavigationButtonLayout
-                    dark={props.dark} linkPath={'/'} background={'262626'}
+                    dark={props.dark} linkPath={'/'}
                     highlight={props.path === '/'} locale={props.locale}
                     label={lang.extensions} reduced={props.reduced}
                     icon={
@@ -128,8 +110,10 @@ export default function Navigation(props) {
                 />
 
             </div>
-            <NavigationProfile dark={props.dark} profile={profile} reduced={props.reduced}
-                               locale={{profile: lang.profile, signout: lang.signout, signin: lang.signin}}/>
+            <div className={mainStyles.displayInlineCenter} style={{height: '33.333%', alignItems: 'flex-end', paddingBottom: '4px'}}>
+                <NavigationProfile dark={props.dark} profile={profile} reduced={props.reduced}
+                                   locale={{profile: lang.profile, signout: lang.signout, signin: lang.signin}}/>
+            </div>
         </div>
     )
 }

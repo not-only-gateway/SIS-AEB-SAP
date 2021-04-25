@@ -12,7 +12,9 @@ export default function NavigationButtonLayout(props) {
              style={{
                  ...{
                      borderRadius: '8px',
-                     backgroundColor: props.highlight ? '#0095ff' : null
+                     backgroundColor: props.highlight ? '#0095ff' : null,
+                     width: props.reduced ? '65px' : '250px',
+                     height: '65px'
                  },
                  ...props.highlight ? getBoxShadow({dark: props.dark}) : null
              }}>
@@ -29,9 +31,10 @@ export default function NavigationButtonLayout(props) {
                     }}>
 
                         <Button style={{
-                            height: '6vh',
-                            width: props.reduced ? null : '13vw',
+                            width: props.reduced ? '65px' : '250px',
+                            height: '65px',
                             textTransform: 'none',
+                            borderRadius: '8px',
                             transition: '.3s'
                         }}>
                             <div className={mainStyles.displayInlineStart}
@@ -39,16 +42,6 @@ export default function NavigationButtonLayout(props) {
                                      width: '100%'
                                  }}>
                                 {props.icon}
-                                {/*{typeof(props.label) === 'string' ?*/}
-                                {/*<p className={[mainStyles.secondaryParagraph, mainStyles.overflowEllipsis].join(' ')}*/}
-                                {/*   style={{...{transition: '.3s', transform: 'translateX(10px)', color: props.highlight? '#e5e6e8' : props.dark ? 'white' : 'black'}, ...getSecondaryColor({dark: props.dark})}}> {!props.reduced ? props.label : null}</p>*/}
-                                {/*   :*/}
-                                {/*   <div className={[mainStyles.secondaryParagraph, mainStyles.overflowEllipsis].join(' ')}*/}
-                                {/*   style={{...{transition: '.3s'}, ...getSecondaryColor({dark: props.dark})}}>*/}
-                                {/*    {!props.reduced ? props.label : null}*/}
-                                {/*   </div>*/}
-                                {/*}*/}
-
                                 <p style={{
                                     transition: '.3s',
                                     transform: 'translateX(10px)',
@@ -61,12 +54,16 @@ export default function NavigationButtonLayout(props) {
                     </Link>
                 </ThemeProvider>
                 :
+
                 <ThemeProvider theme={createMuiTheme({
                     palette: {
                         type: "dark"
                     }
                 })}>
-                    <Button style={{height: '6vh', width: '3.5vw', textTransform: 'none'}}
+                    <Button style={{
+                        width: '65px',
+                        height: '65px', textTransform: 'none'
+                    }}
                             onClick={() => props.setToggle(!props.initialValue)}>
                         {props.icon}
                     </Button>

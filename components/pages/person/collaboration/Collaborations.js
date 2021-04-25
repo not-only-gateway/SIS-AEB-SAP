@@ -104,7 +104,7 @@ export default function Collaborations(props) {
         return null
 }
 
-Collaborations.propTypes = {
+Collaborations.propTypes ={
     dark: PropTypes.bool,
     editionMode: PropTypes.bool,
     id: PropTypes.string,

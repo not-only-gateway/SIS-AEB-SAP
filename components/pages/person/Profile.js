@@ -17,8 +17,6 @@ export default function ProfileComponent(props) {
                     top: '0',
                     width: '100%',
                     padding: '0px 0px 4vh 0px',
-
-
             }}>
 
             <div className={mainStyles.displayInlineSpaced} style={{justifyContent: 'center', justifyItems: 'center'}}>

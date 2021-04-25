@@ -55,8 +55,8 @@ export default function NavigationProfile(props) {
                     }
 
                     <Button style={{
-                        height: '6.5vh',
-                        width: props.reduced ? null : '13vw',
+                        width: props.reduced ? '65px' : '250px',
+                        height: '65px',
                         textTransform: 'none',
                         borderRadius: open ? '0px 0px 5px 5px' : '5px',
                         backgroundColor: '#262626'
@@ -96,28 +96,20 @@ export default function NavigationProfile(props) {
                 type: "dark"
             }
         })}>
-            <div className={mainStyles.displayColumnSpaced} style={{
-                position: 'absolute',
-                bottom: '5px',
-                justifyItems: 'center',
-                width: '100%',
-                borderRadius: '8px',
-            }}>
-                <Link href={{pathname: 'signin'}}>
-                    <Button style={{
-                        height: '6.5vh',
-                        width: props.reduced ? null : '13vw',
-                        textTransform: 'none',
-                        borderRadius: open ? '0px 0px 5px 5px' : '5px',
-                        backgroundColor: '#262626',
-                        color: 'white',
-
-                    }}>
-                        <ExitToAppRounded style={{transform: 'rotate(180deg)'}}/>
-                        {props.reduced ? null : props.locale.signin}
-                    </Button>
-                </Link>
-            </div>
+            <Link href={{pathname: 'signin'}}>
+                <Button style={{
+                    width: props.reduced ? '65px' : '250px',
+                    height: '65px',
+                    textTransform: 'none',
+                    borderRadius: '8px',
+                    backgroundColor: '#262626',
+                    color: 'white',
+                }}>
+                    <ExitToAppRounded style={{transform: 'rotate(180deg)'}}/>
+                    {props.reduced ? null :
+                        <p style={{marginLeft: '10px'}}>{props.locale.signin}</p>}
+                </Button>
+            </Link>
         </ThemeProvider>
     )
 }

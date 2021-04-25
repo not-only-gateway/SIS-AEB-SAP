@@ -48,68 +48,65 @@ export default function Structure() {
 
     if (lang !== null)
         return (
-            <ThemeProvider theme={createMuiTheme({
-                palette: {
-                    type: dark ? "dark" : "light"
-                }
-            })}>
+            <div className={mainStyles.displayInlineCenter}>
+                <div style={{width: '63vw'}}>
+
+                    <div className={[mainStyles.displayColumnSpaced, mainStyles.baseWidth].join(' ')} style={{
+                        width: 'fit-content',
+                        height: 'fit-content',
+                        borderRadius: '8px',
+                        gap: '.9vw'
+                    }}>
+                        <GetPageTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.information}
+                                      dark={dark}/>
+                        <AccordionLayout
+                            content={topUnits.map((unit, index) => (
+                                <>
+                                    {index === 0 ?
+                                        <ContentCanvas dark={dark} type={'unit'} subject={unit}/> : null}
+                                </>
+                            ))
+                            }
+                            summary={
+                                <div className={shared.accordionTitle}>
+                                    <ViewQuiltRounded style={getIconStyle({dark: dark})}/>
+                                    <Divider style={{width: '10px', marginRight: '10px'}} orientation={'horizontal'}/>
+                                    <p className={mainStyles.secondaryParagraph}>{lang.units}</p>
+                                </div>
+                            }
+
+                            dark={dark}
+                            closedSize={63}
+                            openSize={63}
+                        />
 
 
+                        <AccordionLayout
+                            content={topCollaborators.map((collaborator, index) => (
+                                <>
+                                    {index === 0 ?
+                                        <ContentCanvas dark={dark} type={'collaborator'} subject={collaborator}/>
+                                        :
+                                        null
+                                    }
+                                </>
+                            ))}
+                            summary={
+                                <div className={shared.accordionTitle}>
+                                    <ExtensionRounded style={getIconStyle({dark: dark})}/>
+                                    <Divider style={{width: '10px', marginRight: '10px'}} orientation={'horizontal'}/>
+                                    <p className={mainStyles.secondaryParagraph}>{lang.collaborators}</p>
+                                </div>
+                            }
 
-                <div className={[mainStyles.displayColumnSpaced, mainStyles.baseWidth].join(' ')} style={{
-                    width: 'fit-content',
-                    height: 'fit-content',
-                    borderRadius: '8px',
-                    gap: '.9vw'
-                }}>
-                    <GetPageTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.information} dark={dark}/>
-                    <AccordionLayout
-                        content={topUnits.map((unit, index) => (
-                            <>
-                                {index === 0 ?
-                                    <ContentCanvas dark={dark} type={'unit'} subject={unit}/> : null}
-                            </>
-                        ))
-                        }
-                        summary={
-                            <div className={shared.accordionTitle}>
-                                <ViewQuiltRounded style={getIconStyle({dark: dark})}/>
-                                <Divider style={{width: '10px', marginRight: '10px'}} orientation={'horizontal'}/>
-                                <p className={mainStyles.secondaryParagraph}>{lang.units}</p>
-                            </div>
-                        }
+                            dark={dark}
+                            closedSize={63}
+                            openSize={63}
+                        />
+                    </div>
 
-                        dark={dark}
-                        closedSize={63}
-                        openSize={63}
-                    />
-
-
-                    <AccordionLayout
-                        content={topCollaborators.map((collaborator, index) => (
-                            <>
-                                {index === 0 ?
-                                    <ContentCanvas dark={dark} type={'collaborator'} subject={collaborator}/>
-                                    :
-                                    null
-                                }
-                            </>
-                        ))}
-                        summary={
-                            <div className={shared.accordionTitle}>
-                                <ExtensionRounded style={getIconStyle({dark: dark})}/>
-                                <Divider style={{width: '10px', marginRight: '10px'}} orientation={'horizontal'}/>
-                                <p className={mainStyles.secondaryParagraph}>{lang.collaborators}</p>
-                            </div>
-                        }
-
-                        dark={dark}
-                        closedSize={63}
-                        openSize={63}
-                    />
                 </div>
-
-            </ThemeProvider>
+            </div>
         )
     else
         return <></>

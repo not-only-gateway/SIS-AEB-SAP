@@ -69,90 +69,74 @@ export default function Signin() {
         }).then(() => router.push('/', '/', {locale: router.locale}))
     }
 
-    // function changeLang(event){
-    //     setCookiesLanguage(event.target.value)
-    //     const newLang = getLanguage(event.target.value, '/signin')
-    //     setLang(newLang)
-    //     router.push('/signin', '/signin', {locale: event.target.value})
-    // }
-
-    // function changeTheme(){
-    //     setDark(!dark)
-    //     setThemeCookie()
-    // }
     if (lang !== null)
         return (
             <div className={styles.pageContainer}>
-                <ThemeProvider theme={createMuiTheme({
-                    palette: {
-                        type: dark ? 'dark' : "light"
-                    }
-                })}>
-                    <Head>
-                        <title>{lang.signin}</title>
-                    </Head>
+                <Head>
+                    <title>{lang.signin}</title>
+                </Head>
 
-                    <div className={styles.signInContainer}>
+                <div className={styles.signInContainer}>
+                    <div style={{
+                        display: 'grid',
+                        justifyItems: 'center',
+                        height: 'fit-content',
+                        gap: '10px',
+                    }}>
+                        <img src={'./newnew.png'} style={{width: '50%'}}/>
                         <div style={{
                             display: 'grid',
                             justifyItems: 'center',
-                            height: 'fit-content',
-                            gap: '10px',
+                            gap: '5px',
+
                         }}>
-                            <img src={'./newnew.png'} style={{width: '50%'}}/>
-                            <div style={{
-                                display: 'grid',
-                                justifyItems: 'center',
-                                gap: '5px',
-
-                            }}>
-                                <span style={{fontSize: '1.5rem'}}>{lang.signin}</span>
-                                <span className={mainStyles.tertiaryParagraph}
-                                      style={getTertiaryColor({dark: false})}>{lang.signinWelcomeText}</span>
-                            </div>
+                            <span style={{fontSize: '1.5rem'}}>{lang.signin}</span>
+                            <span className={mainStyles.tertiaryParagraph}
+                                  style={getTertiaryColor({dark: false})}>{lang.signinWelcomeText}</span>
                         </div>
-                        <InputLayout inputName={'Email'} dark={false}
-                                     handleChange={handleChange} name={'email'}
-                                     inputType={0} disabled={false} size={100} required={false}
-                                     initialValue={email} key={"1-1"} setChanged={undefined}/>
-                        <div style={{width: '100%'}}>
-
-                            <FormControl variant="outlined" style={{width: '100%'}}>
-                                <InputLabel htmlFor="password">{lang.password}</InputLabel>
-                                <OutlinedInput
-
-                                    id="password"
-                                    type={visible ? 'text' : 'password'}
-                                    value={password}
-                                    onChange={event => handleChange({name: 'password', value: event.target.value})}
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={() => setVisible(!visible)}
-
-                                                edge="end"
-                                            >
-                                                {visible ? <VisibilityRounded/> : <VisibilityOffRounded/>}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                    labelWidth={70}
-                                />
-                            </FormControl>
-
-
-                            <Button disabled style={{textTransform: 'none'}}>
-                                {lang.forgotPassword}
-                            </Button>
-                        </div>
-                        <Button variant={'contained'} onClick={authenticate} disabled={email.length < 12 || password < 8} style={{
-                            textTransform: 'none',
-                            backgroundColor: email.length < 12 || password < 8 ? null : '#0095ff',
-                            color: email.length < 12 || password < 8 ? null : 'white'
-                        }}>{lang.signin}</Button>
                     </div>
-                </ThemeProvider>
+                    <InputLayout inputName={'Email'} dark={false}
+                                 handleChange={handleChange} name={'email'}
+                                 inputType={0} disabled={false} size={100} required={false}
+                                 initialValue={email} key={"1-1"} setChanged={undefined}/>
+                    <div style={{width: '100%'}}>
+
+                        <FormControl variant="outlined" style={{width: '100%'}}>
+                            <InputLabel htmlFor="password">{lang.password}</InputLabel>
+                            <OutlinedInput
+
+                                id="password"
+                                type={visible ? 'text' : 'password'}
+                                value={password}
+                                onChange={event => handleChange({name: 'password', value: event.target.value})}
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={() => setVisible(!visible)}
+
+                                            edge="end"
+                                        >
+                                            {visible ? <VisibilityRounded/> : <VisibilityOffRounded/>}
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                                labelWidth={70}
+                            />
+                        </FormControl>
+
+
+                        <Button disabled style={{textTransform: 'none'}}>
+                            {lang.forgotPassword}
+                        </Button>
+                    </div>
+                    <Button variant={'contained'} onClick={authenticate} disabled={email.length < 12 || password < 8}
+                            style={{
+                                textTransform: 'none',
+                                backgroundColor: email.length < 12 || password < 8 ? null : '#0095ff',
+                                color: email.length < 12 || password < 8 ? null : 'white'
+                            }}>{lang.signin}</Button>
+                </div>
             </div>
         )
     else
