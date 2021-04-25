@@ -5,14 +5,13 @@ import {ArrowDropDownRounded} from "@material-ui/icons";
 import {useState} from "react";
 
 export default function ListColumnButton(props){
-    const [filtered, setFiltered] = useState(false)
+    const [sorted, setSorted] = useState(false)
     return(
         <div key={'column'+props.index+'-button-container'} className={styles.listColumns}
              style={{width: props.size + 'vw'}}>
-            <Button disabled={props.disabled || props.sorter === undefined} onClick={() =>{
-                setFiltered(!filtered)
-                if (props.sorter !== undefined)
-                  props.sorter(!filtered)
+            <Button disabled={(props.currentSorter !== undefined && props.currentSorter !== props.sorterKey) || props.sorterKey === undefined} onClick={() =>{
+                setSorted(!sorted)
+                props.handleSorterChange(props.sorterKey)
             }} style={{
                 padding: '0 10px 0 0 ',
                 color: 'black',
@@ -20,10 +19,10 @@ export default function ListColumnButton(props){
                 width: props.size + 'vw',
                 height: '100%',
                 justifyContent: 'space-between'
-            }} >
+            }}>
                 {props.label}
-                {props.disabled === true || props.sorter === undefined? null :
-                    <ArrowDropDownRounded style={{transform: filtered ? 'rotate(180deg)' : null, transition: '300ms', fontSize: '1.7rem'}}/>
+                {(props.currentSorter !== undefined && props.currentSorter !== props.sorterKey) || props.sorterKey === undefined ? null :
+                    <ArrowDropDownRounded style={{transform: sorted ? 'rotate(180deg)' : null, transition: '300ms', fontSize: '1.7rem'}}/>
                 }
 
             </Button>
@@ -31,9 +30,10 @@ export default function ListColumnButton(props){
     )
 }
 ListColumnButton.propTypes={
-    sorter: PropTypes.func,
+    sorterKey: PropTypes.string,
     label: PropTypes.string,
-    disabled: PropTypes.bool,
     size: PropTypes.number,
-    index: PropTypes.number
+    index: PropTypes.number,
+    currentSorter: PropTypes.string,
+    handleSorterChange: PropTypes.func
 }

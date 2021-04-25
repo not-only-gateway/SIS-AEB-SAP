@@ -1,15 +1,6 @@
 import PropTypes from 'prop-types'
 import InputLayout from "../../layout/InputLayout";
-import {
-    Button,
-    Checkbox,
-    createMuiTheme,
-    FormControl,
-    FormControlLabel,
-    FormGroup,
-    FormLabel,
-    ThemeProvider
-} from "@material-ui/core";
+import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel} from "@material-ui/core";
 import React from "react";
 import fetchActivityData from "../../../utils/activity/FetchData";
 import mainStyles from '../../../styles/shared/Main.module.css'
@@ -34,18 +25,18 @@ export default function ActivityFilterComponent(props) {
                 <InputLayout inputName={props.lang.startDate} dark={props.dark} handleChange={props.handleChange}
                              inputType={2} name={'startDate'}
                              disabled={props.disabled} size={90} initialValue={props.filters.startDate}
-                             key={"start-date"} setChanged={props.setChanged} margin={false}
+                             key={"start-date-selector"} setChanged={props.setChanged} margin={false}
                 />
                 <InputLayout inputName={props.lang.endDate} dark={props.dark} handleChange={props.handleChange}
                              inputType={2} name={'endDate'}
                              disabled={props.disabled} size={90} initialValue={props.filters.endDate}
-                             key={"end-date"} setChanged={props.setChanged} margin={false}
+                             key={"end-date-selector"} setChanged={props.setChanged} margin={false}
                 />
                 <FormControl component="fieldset">
                     <FormLabel component="legend">{props.lang.method}</FormLabel>
-                    <FormGroup>
+                    <FormGroup >
                         <FormControlLabel
-                            control={<Checkbox checked={props.filters.method === 'GET'}
+                            control={<Checkbox key={'get'} checked={props.filters.method === 'GET'}
                                                onChange={() => {
                                                    props.handleChange({name: 'method', value: 'GET'})
                                                    props.setChanged(true)
@@ -53,7 +44,7 @@ export default function ActivityFilterComponent(props) {
                             label="GET"
                         />
                         <FormControlLabel
-                            control={<Checkbox checked={props.filters.method === 'PATCH'}
+                            control={<Checkbox key={'patch'} checked={props.filters.method === 'PATCH'}
                                                onChange={() => {
                                                    props.handleChange({name: 'method', value: 'PATCH'})
                                                    props.setChanged(true)
@@ -61,7 +52,7 @@ export default function ActivityFilterComponent(props) {
                             label="PATCH"
                         />
                         <FormControlLabel
-                            control={<Checkbox checked={props.filters.method === 'PUT'}
+                            control={<Checkbox key={'put'} checked={props.filters.method === 'PUT'}
                                                onChange={() => {
                                                    props.handleChange({name: 'method', value: 'PUT'})
                                                    props.setChanged(true)
@@ -69,7 +60,7 @@ export default function ActivityFilterComponent(props) {
                             label="PUT"
                         />
                         <FormControlLabel
-                            control={<Checkbox checked={props.filters.method === 'POST'}
+                            control={<Checkbox key={'post'} checked={props.filters.method === 'POST'}
                                                onChange={() => {
                                                    props.handleChange({name: 'method', value: 'POST'})
                                                    props.setChanged(true)
@@ -77,7 +68,7 @@ export default function ActivityFilterComponent(props) {
                             label="POST"
                         />
                         <FormControlLabel
-                            control={<Checkbox checked={props.filters.method === 'DELETE'}
+                            control={<Checkbox key={'delete'} checked={props.filters.method === 'DELETE'}
                                                onChange={() => {
                                                    props.handleChange({name: 'method', value: 'DELETE'})
                                                    props.setChanged(true)
@@ -92,7 +83,7 @@ export default function ActivityFilterComponent(props) {
                     <FormGroup>
                         <FormControlLabel
                             control={
-                                <Checkbox
+                                <Checkbox key={'true-checkbox'}
                                     checked={props.thisMachine}
                                     onChange={() => {
                                         props.setThisMachine(!props.thisMachine)
@@ -107,7 +98,7 @@ export default function ActivityFilterComponent(props) {
                         />
                         <FormControlLabel
                             control={
-                                <Checkbox
+                                <Checkbox key={'false-checkbox'}
                                     checked={!props.thisMachine}
                                     onChange={() => {
                                         props.setThisMachine(!props.thisMachine)
@@ -158,7 +149,7 @@ ActivityFilterComponent.propTypes = {
     lang: PropTypes.object,
     setChanged: PropTypes.func,
     thisMachine: PropTypes.bool,
-    setThisMachine: PropTypes.bool,
+    setThisMachine: PropTypes.func,
     method: PropTypes.string,
 
     setResponseData: PropTypes.func,

@@ -1,14 +1,11 @@
-import {Button, createMuiTheme, ThemeProvider} from "@material-ui/core";
+import {Button} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import InputLayout from "../layout/InputLayout";
 import PropTypes from 'prop-types'
 import fetchComponentData from "../../utils/person/FetchData";
 import saveComponentChanges from "../../utils/person/SaveChanges";
 import mainStyles from "../../styles/shared/Main.module.css";
-import {getSecondaryBackground} from "../../styles/shared/MainStyles";
 import axios from "axios";
-import Host from "../../utils/shared/Host";
-import Cookies from "universal-cookie/lib";
 
 export default function AddressForm(props) {
 

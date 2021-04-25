@@ -20,7 +20,6 @@ export default function Navigation(props) {
     const [lang, setLang] = useState(en)
     const [profile, setProfile] = useState(null)
     const [accessProfile, setAccessProfile] = useState(null)
-    // const logo = require(logo)
 
     useEffect(() => {
         setLang(getComponentLanguage({locale: props.locale, component: 'navigation'}))

@@ -2,8 +2,6 @@ import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {getLanguage} from "../utils/shared/Language";
 import Cookies from "universal-cookie/lib";
-import styles from '../styles/activity/Activity.module.css'
-import ActivityComponent from "../components/pages/activity/Activity";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {Skeleton} from "@material-ui/lab";
 import ActivityFilterComponent from "../components/pages/activity/ActivityFilter";
@@ -12,6 +10,7 @@ import {getTertiaryColor} from "../styles/shared/MainStyles";
 import mainStyles from "../styles/shared/Main.module.css";
 import GetPageTitle from "../utils/shared/GetPageTitle";
 import ListLayout from "../components/list/ListLayout";
+import ActivityListRenderer from "../components/pages/activity/ListRederer";
 
 export default function Activity() {
 
@@ -31,12 +30,21 @@ export default function Activity() {
     const [error, setError] = useState(false)
     const [errorMessage, setErrorMessage] = useState(null)
     const [dark, setDark] = useState(false)
+    const [pagesFetched, setPagesFetched] = useState(0)
+    const [sorterMethod, setSorterMethod] = useState(undefined)
 
     function handleChange(props) {
         setFilters(prevState => ({
             ...prevState,
             [props.name]: props.value
         }))
+    }
+
+    function handleSorterChange(event){
+        if(event === sorterMethod)
+            setSorterMethod(undefined)
+        else
+            setSorterMethod(event)
     }
 
     useEffect(() => {
@@ -53,7 +61,9 @@ export default function Activity() {
             thisMachine: thisMachine,
             startDate: filters.date,
             method: filters.method,
-            path: filters.path
+            path: filters.path,
+            setPagesFetched: setPagesFetched,
+            pagesFetched: pagesFetched
         }).catch(error => console.log(error))
 
         const currentLocale = (new Cookies()).get('lang')
@@ -69,10 +79,10 @@ export default function Activity() {
         return (
             <ListLayout
                 columns={[
-                    {label: 'ID', size: 10},
-                    {label: lang.method, size: 10},
-                    {label: 'Path', size: 10},
-                    {label: 'CREATION', size: 10},
+                    {label: 'ID', size: 10, key: 'id'},
+                    {label: lang.method, size: 10, key: undefined},
+                    {label: 'Path', size: 10, key: undefined},
+                    {label: 'CREATION', size: 10, key: 'creation'},
                 ]}
                 title={
                     <GetPageTitle pageName={lang.title} pageTitle={lang.title}
@@ -84,7 +94,7 @@ export default function Activity() {
                             dataLength={data.length}
                             next={() => fetchActivityData({
                                 type: 0,
-                                setLastFetchedSize: lastFetchedSize,
+                                setLastFetchedSize: setLastFetchedSize,
                                 setData: setData,
                                 data: data,
                                 setMaxID: setMaxID,
@@ -94,10 +104,11 @@ export default function Activity() {
                                 thisMachine: thisMachine,
                                 startDate: filters.date,
                                 method: filters.method,
-                                path: filters.path
-                            }).catch(error => console.log(error))
-                            }
-                            hasMore={lastFetchedSize === 20 && data[data.length - 1].id > 1}
+                                path: filters.path,
+                                setPagesFetched: setPagesFetched,
+                                pagesFetched: pagesFetched
+                            }).catch(error => console.log(error))}
+                            hasMore={lastFetchedSize === 20 && data[data.length - 1].access_log.id > 1}
                             inverse={false}
                             scrollableTarget="scrollableDiv"
                             loader={<Skeleton variant={'rect'} width={'100%'}
@@ -112,14 +123,7 @@ export default function Activity() {
                                 </div>
                             }
                         >
-                            <div className={styles.activitiesContainer}>
-                                {data.map((data, index) => (
-                                        <ActivityComponent lang={lang} dark={dark} activity={data.activity}
-                                                           accessLog={data.access_log} index={index}
-                                        />
-                                    )
-                                )}
-                            </div>
+                            <ActivityListRenderer data={data} sorterMethod={sorterMethod} pagesFetched={pagesFetched} lang={lang}/>
 
                         </InfiniteScroll>
 
@@ -145,6 +149,8 @@ export default function Activity() {
                 filterVerticalOrientation={true}
                 width={88}
                 columnWidth={45}
+                handleSorterChange={handleSorterChange}
+                currentSorter={sorterMethod}
             />
         )
     else

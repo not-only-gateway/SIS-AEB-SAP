@@ -5,7 +5,6 @@ import {getIconStyle, getTertiaryColor} from "../../../styles/shared/MainStyles"
 import CakeRoundedIcon from "@material-ui/icons/CakeRounded";
 import {CalendarTodayRounded, EmailRounded, PhoneRounded, WorkRounded} from "@material-ui/icons";
 import ViewQuiltRoundedIcon from "@material-ui/icons/ViewQuiltRounded";
-import SelectorLayout from "./Selector";
 
 
 export default function OverviewComponent(props) {

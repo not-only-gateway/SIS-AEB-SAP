@@ -1,47 +1,45 @@
-import makeRequest from "../shared/Request";
 import localIpUrl from "local-ip-url";
 import Host from "../shared/Host";
 import PropTypes from 'prop-types'
+import axios from "axios";
+import Cookies from "universal-cookie/lib";
 
 export default async function fetchActivityData(props) {
-    console.log(props.method)
-    await makeRequest({
-        package: {
+    console.log(props)
+    await axios({
+        method: 'get',
+        url: Host() + 'activity',
+        headers: {'authorization': (new Cookies()).get('jwt')},
+        params: {
             start_date: props.startDate !== null  && props.startDate !== undefined? props.startDate.getTime() : null,
             ip: props.thisMachine ? localIpUrl('public') : null,
             method: props.method,
             path: props.path,
             max_id: props.type === 1 ? null : props.maxID
-        },
-        method: 'get',
-        url: 'activity',
-        host: Host()
-    }).then(response => {
-        console.log(props.type)
-        if (response.error) {
-            props.setError(true)
-            props.setErrorMessage(response.errorMessage)
-        } else {
+        }
+    }).then(res => {
             switch (props.type){
                 case 0: {
-                    props.setData([...props.data, ...response.data])
-                    if (response.data.length > 0)
-                        props.setMaxID(response.data[response.data.length - 1].activity.id)
-                    props.setLastFetchedSize(response.data.length)
+                    props.setPagesFetched(props.pagesFetched + 1)
+                    props.setData([...props.data, ...res.data])
+                    if (res.data.length > 0)
+                        props.setMaxID(res.data[res.data.length - 1].activity.id)
+                    props.setLastFetchedSize(res.data.length)
                     break
                 }
                 case 1: {
-                    props.setData(response.data)
-                    if (response.data.length > 0)
-                        props.setMaxID(response.data[response.data.length - 1].id)
-                    props.setLastFetchedSize(response.data.length)
+                    props.setPagesFetched(1)
+                    props.setData(res.data)
+                    if (res.data.length > 0)
+                        props.setMaxID(res.data[res.data.length - 1].activity.id)
+                    props.setLastFetchedSize(res.data.length)
                     break
                 }
                 default:
                     break
             }
-
-        }
+    }).catch(error => {
+        console.log(error)
     })
 }
 
@@ -57,5 +55,7 @@ fetchActivityData.propTypes={
     thisMachine: PropTypes.bool,
     startDate: PropTypes.string,
     method: PropTypes.any,
-    path: PropTypes.any
+    path: PropTypes.any,
+    setPagesFetched: PropTypes.func,
+    pagesFetched: PropTypes.number
 }

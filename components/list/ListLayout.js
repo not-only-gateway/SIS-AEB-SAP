@@ -11,7 +11,7 @@ export default function ListLayout(props) {
                      style={{
                          backgroundColor: 'white',
                          width: '100%',
-                         height: props.filterVerticalOrientation ?'15vh' : '20vh',
+                         height: props.filterVerticalOrientation ? '15vh' : '20vh',
                          borderBottom: '#e5e6e8 1px solid'
                      }}>
                     <div style={{height: '5vh', marginRight: 'auto'}}>
@@ -25,8 +25,10 @@ export default function ListLayout(props) {
                     <div className={mainStyles.displayInlineSpaced}
                          style={{height: '5vh', width: props.columnWidth + 'vw'}}>
                         {props.columns.map((column, index) => (
-                            <div key={'column-'+index+'-list-container'}>
-                                <ListColumnButton disabled={column.disabled} size={column.size} label={column.label} index={index} sorter={column.sorter}/>
+                            <div key={'column-' + index + '-list-container'}>
+                                <ListColumnButton size={column.size} label={column.label}
+                                                  index={index} sorterKey={column.key} currentSorter={props.currentSorter}
+                                                  handleSorterChange={props.handleSorterChange}/>
                             </div>
 
                         ))}
@@ -48,5 +50,7 @@ ListLayout.propTypes = {
     filterComponent: PropTypes.object,
     filterVerticalOrientation: PropTypes.bool,
     width: PropTypes.number,
-    columnWidth: PropTypes.number
+    columnWidth: PropTypes.number,
+    currentSorter: PropTypes.string,
+    handleSorterChange: PropTypes.func
 }

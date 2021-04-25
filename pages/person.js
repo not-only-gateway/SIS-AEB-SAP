@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react'
-import {createMuiTheme} from "@material-ui/core";
 import {useRouter} from "next/router";
 import Collaborations from "../components/pages/person/Collaborations";
-import {ThemeProvider} from "@material-ui/styles";
 import BaseForm from "../components/pages/person/BaseForm";
 import ContactForm from "../components/pages/person/ContactForm";
 import AddressForm from "../components/shared/AddressForm";

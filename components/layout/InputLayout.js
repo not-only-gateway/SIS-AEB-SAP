@@ -1,9 +1,8 @@
-import PropTypes, {number} from 'prop-types'
+import PropTypes from 'prop-types'
 import React from "react";
 import {FormControl, FormLabel, Grid, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import {getPrimaryBackground} from "../../styles/shared/MainStyles";
 
 export default function InputLayout(props) {
 

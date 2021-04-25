@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import {Avatar, createMuiTheme, ThemeProvider} from "@material-ui/core";
+import {Avatar} from "@material-ui/core";
 import ImageHost from "../../../utils/shared/ImageHost";
 import {getBoxShadow} from "../../../styles/shared/MainStyles";
 import React from "react";

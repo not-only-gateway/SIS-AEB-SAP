@@ -1,4 +1,4 @@
-import {Button, createMuiTheme, ThemeProvider} from "@material-ui/core";
+import {Button} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import InputLayout from "../../layout/InputLayout";
@@ -6,7 +6,6 @@ import fetchComponentData from "../../../utils/person/FetchData";
 import saveComponentChanges from "../../../utils/person/SaveChanges";
 import mainStyles from '../../../styles/shared/Main.module.css'
 import getComponentLanguage from "../../../utils/shared/GetLanguage";
-import {getSecondaryBackground} from "../../../styles/shared/MainStyles";
 
 export default function ContactForm(props) {
 

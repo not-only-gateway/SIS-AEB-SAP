@@ -6,9 +6,6 @@ import AccordionLayout from "../../layout/AccordionLayout";
 import fetchComponentData from "../../../utils/person/FetchData";
 import shared from '../../../styles/shared/Shared.module.css'
 import {Divider} from "@material-ui/core";
-import getTitle from "../../../utils/person/GetTitle";
-import mainStyles from '../../../styles/shared/Main.module.css'
-import {getSecondaryBackground} from "../../../styles/shared/MainStyles";
 
 export default function Collaborations(props) {
 

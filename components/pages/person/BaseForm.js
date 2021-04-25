@@ -1,4 +1,4 @@
-import {Avatar, Button, createMuiTheme, ThemeProvider} from '@material-ui/core';
+import {Avatar, Button} from '@material-ui/core';
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types'
 import InputLayout from "../../layout/InputLayout";
@@ -7,12 +7,7 @@ import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import mainStyles from '../../../styles/shared/Main.module.css'
 import getComponentLanguage from "../../../utils/shared/GetLanguage";
-import {DeleteForeverRounded} from "@material-ui/icons";
-import {getIconStyle, getSecondaryBackground} from "../../../styles/shared/MainStyles";
-import AvatarLayout from "../index/AvatarLayout";
-import fetchActivityData from "../../../utils/activity/FetchData";
 import SelectorLayout from "./Selector";
-import mapToSelect from "../../../utils/person/MapToSelect";
 import CountryOptions from "../../../utils/person/CountryOptions";
 import StateOptions from "../../../utils/person/StateSelector";
 import ImageHost from "../../../utils/shared/ImageHost";

@@ -1,10 +1,7 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import mainStyles from '../../../styles/shared/Main.module.css'
-import {getIconStyle, getTertiaryColor} from "../../../styles/shared/MainStyles";
-import CakeRoundedIcon from "@material-ui/icons/CakeRounded";
-import {AddRounded, CalendarTodayRounded, EmailRounded, PhoneRounded, WorkRounded} from "@material-ui/icons";
-import ViewQuiltRoundedIcon from "@material-ui/icons/ViewQuiltRounded";
+import {AddRounded} from "@material-ui/icons";
 import {Button, Divider, FormControl, FormLabel, Modal} from "@material-ui/core";
 import styles from '../../../styles/person/Form.module.css'
 import InputLayout from "../../layout/InputLayout";

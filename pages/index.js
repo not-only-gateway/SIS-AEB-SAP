@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import PersonCard from "../components/pages/index/PersonCard";
 import {Skeleton} from "@material-ui/lab";
 import {getLanguage} from "../utils/shared/Language";
 import IndexComponent from "../components/pages/index/IndexComponent";
@@ -8,9 +7,9 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import fetchIndexData from "../utils/index/FetchData";
 import {getTertiaryColor} from "../styles/shared/MainStyles";
 import mainStyles from '../styles/shared/Main.module.css'
-import Cookies from "universal-cookie/lib";
 import GetPageTitle from "../utils/shared/GetPageTitle";
 import ListLayout from "../components/list/ListLayout";
+import IndexListRenderer from "../components/pages/index/IndexListRenderer";
 
 export default function Index() {
 
@@ -22,12 +21,10 @@ export default function Index() {
     const [lastFetchedSize, setLastFetchedSize] = useState(null)
     const [maxID, setMaxID] = useState(null)
     const [searchInput, setSearchInput] = useState('')
-    const [accessProfile, setAccessProfile] = useState(null)
     const [dark, setDark] = useState(false)
+    const [sorterMethod, setSorterMethod] = useState(undefined)
 
     useEffect(() => {
-        setDark((new Cookies()).get('theme') === 0)
-
         setLang(getLanguage(router.locale, '/'))
         if (data.length === 0)
             fetchData(1, true, false).catch(error => console.log(error))
@@ -56,69 +53,11 @@ export default function Index() {
             query: {id: id}
         })
     }
-
-    function sortByExtension(descending) {
-        let newData = data
-        setData([])
-        newData = newData.sort((a, b) => descending ? (b.profile.id - a.profile.id) : (a.profile.id - b.profile.id));
-
-        setData([...newData])
-    }
-
-    function sortByName(descending) {
-        let newData = data
-        setData([])
-        newData = newData.sort(function(a, b){
-            if(!descending){
-                if(a.profile.name < b.profile.name) { return -1; }
-                if(a.profile.name > b.profile.name) { return 1; }
-                return 0;
-            }
-            else{
-                if(a.profile.name > b.profile.name) { return -1; }
-                if(a.profile.name < b.profile.name) { return 1; }
-                return 0;
-            }
-        })
-        setData([...newData])
-    }
-
-    function sortByEmail(descending) {
-        let newData = data
-        setData([])
-        newData = newData.sort(function(a, b){
-            if(!descending){
-                if(a.profile.corporate_email < b.profile.corporate_email) { return -1; }
-                if(a.profile.corporate_email > b.profile.corporate_email) { return 1; }
-                return 0;
-            }
-            else{
-                if(a.profile.corporate_email > b.profile.corporate_email) { return -1; }
-                if(a.profile.corporate_email < b.profile.corporate_email) { return 1; }
-                return 0;
-            }
-        })
-
-        setData([...newData])
-    }
-
-    function sortByUnit(descending) {
-        let newData = data
-        setData([])
-        newData = newData.sort(function(a, b){
-            if(descending){
-                if(a.unit.acronym < b.unit.acronym) { return -1; }
-                if(a.unit.acronym > b.unit.acronym) { return 1; }
-                return 0;
-            }
-            else{
-                if(a.unit.acronym > b.unit.acronym) { return -1; }
-                if(a.unit.acronym < b.unit.acronym) { return 1; }
-                return 0;
-            }
-        })
-
-        setData([...newData])
+    function handleSorterChange(event){
+        if(event === sorterMethod)
+            setSorterMethod(undefined)
+        else
+            setSorterMethod(event)
     }
 
     if (lang !== null)
@@ -145,22 +84,7 @@ export default function Index() {
                                     </div>
                                 }
                             >
-
-                                {data.map((collaborator, index) =>
-                                    <div key={collaborator.profile.id} onClick={() => redirect(collaborator.profile.id)} style={{padding: 0}}>
-                                        <PersonCard
-                                            profile={collaborator.profile}
-                                            collaboration={collaborator.collaboration}
-                                            unit={collaborator.unit}
-                                            lastActivity={collaborator.last_activity}
-                                            dark={dark}
-                                            index={index}
-                                            asProfile={false}
-                                            inactiveLocale={lang.inactive}
-                                            redirect={redirect}
-                                        />
-                                    </div>
-                                )}
+                                <IndexListRenderer sorterMethod={sorterMethod} data={data} redirect={redirect} inactiveLocale={lang.inactive}/>
                             </InfiniteScroll>
                             :
 
@@ -196,13 +120,15 @@ export default function Index() {
                 filterVerticalOrientation={false}
                 width={55}
                 columnWidth={55}
+                handleSorterChange={handleSorterChange}
                 columns={[
-                    {label: 'Name', size: 19.5, sorter: sortByName},
-                    {label: 'Email', size: 15, sorter: sortByEmail},
-                    {label: 'Extension', size: 9.5, sorter: sortByExtension},
-                    {label: 'Status', size: 6, sorter: undefined},
-                    {label: 'Unit', size: 5, sorter: sortByUnit},
+                    {label: 'Name', size: 19.5, key: 'name'},
+                    {label: 'Email', size: 15, key: undefined},
+                    {label: 'Extension', size: 9.5, key: 'extension'},
+                    {label: 'Status', size: 6, key: undefined},
+                    {label: 'Unit', size: 5, key: undefined},
                 ]}
+                currentSorter={sorterMethod}
             />
         )
     else

@@ -9,7 +9,7 @@ import {getPrimaryColor, getTertiaryColor} from "../../../styles/shared/MainStyl
 
 export default function ActivityComponent(props) {
     const [color, setColor] = useState(null)
-
+    console.log('pages -> ' + props.pagesFetched)
     useEffect(() => {
         setColor(getMethodColor(props.activity.request_method))
     }, [props.activity.request_method])
@@ -142,12 +142,12 @@ export default function ActivityComponent(props) {
                     </div>
                 </div>
             }
-            key={props.activity.id}
+            // key={props.activity.id}
             closedSize={55}
             openSize={55}
             dark={props.dark}
             asRow={true}
-            animationDelay={props.index * 100}
+            animationDelay={props.pagesFetched <= 1 ? props.index * 100 : 0}
         />
     )
 }
@@ -157,5 +157,6 @@ ActivityComponent.propTypes = {
     lang: PropTypes.object,
     activity: PropTypes.object,
     accessLog: PropTypes.object,
-    index: PropTypes.number
+    index: PropTypes.number,
+    pagesFetched: PropTypes.number
 }
