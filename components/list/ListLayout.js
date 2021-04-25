@@ -9,10 +9,10 @@ export default function ListLayout(props) {
             <div className={styles.listContainer} style={{width: props.width + '%'}}>
                 <div className={styles.listTitle}
                      style={{
-                         backgroundColor: 'white',
+                         backgroundColor: '#f8f7fc',
                          width: '100%',
                          height: props.filterVerticalOrientation ? '15vh' : '20vh',
-                         borderBottom: '#e5e6e8 1px solid'
+                         borderBottom: '#262626 1px solid'
                      }}>
                     <div style={{height: '5vh', marginRight: 'auto'}}>
                         {props.title}
@@ -23,7 +23,7 @@ export default function ListLayout(props) {
                     }
 
                     <div className={mainStyles.rowContainer}
-                         style={{height: '5vh'}}>
+                         style={{height: '5vh', paddingLeft: '5px', paddingRight: '5px'}}>
                         {props.columns.map((column, index) => (
                             <div key={'column-' + index + '-list-container'}        >
                                 <ListColumnButton size={column.size} label={column.label}

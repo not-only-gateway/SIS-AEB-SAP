@@ -7,34 +7,29 @@ import animations from '../../styles/shared/Animations.module.css'
 
 export default function AccordionLayout(props) {
     const [open, setOpen] = useState(false)
+    const [hovered, setHovered] = useState(false)
     return (
         <div style={{
             ...{
+                backgroundColor: 'white',
                 width: open ? (props.openSize !== null ? props.openSize + 'vw' : 'fit-content') : props.closedSize + 'vw',
-                border: open || props.asRow ? null : !props.dark ? '#e2e2e2 1px solid' : 'initial',
-                borderRadius: open ? '0 8px 8px 0' : props.asRow ? null : '8px',
-                height: 'fit-content',
+                borderRadius: open ? '0 8px 8px 0' : '8px',
                 opacity: '0',
-                padding: props.asButton === true ? 0 : null,
-                animationDelay: props.animationDelay !== undefined ?  props.animationDelay + 'ms' : null
+                animationDelay: props.animationDelay !== undefined ? props.animationDelay + 'ms' : null,
+                boxShadow: hovered ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
+                transition: "300ms"
             },
-            ...open || props.asRow ? {
-                borderRight: props.asRow ? null : '#e2e2e2 1px solid',
-                borderTop: props.asRow ? null : '#e2e2e2 1px solid',
-                borderBottom: '#e2e2e2 1px solid'
-            } : null,
-            ...props.dark && open ? getBoxShadow({dark: props.dark}) : null,
             ...open ? getBorder({dark: props.dark, highlight: true}) : null
-        }} className={animations.slideUpAnimation} key={props.key}>
+        }} className={animations.slideUpAnimation} key={props.key + '-accordion'} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
             <Button onClick={props.asButton !== true ? () => setOpen(!open) : null} disabled={props.disabled}
                     style={{
-                        padding: props.asRow ? '0' : null,
+                        padding: '5px',
                         textTransform: 'none',
                         display: 'flex',
                         width: '100%',
                         justifyContent: 'space-between',
                         color: props.dark ? 'white' : 'black',
-                        borderRadius: open ? '0 8px 8px 0' : null,
+                        borderRadius: open ? '0 8px 8px 0' : '8px',
                         position: 'relative'
                     }}>
                 {props.summary}
@@ -43,16 +38,15 @@ export default function AccordionLayout(props) {
                         transform: open ? 'rotate(180deg)' : null,
                         transition: '300ms',
                         position: 'absolute',
-                        right: 0,
+                        right: '5px',
 
                     }}/>
                 }
             </Button>
             {open ?
 
-                <div style={{ transition: '2s ease-in-out'}}>
-                    {props.content}
-                </div>
+                props.content
+
                 :
                 null
             }

@@ -22,7 +22,7 @@ export default function ActivityListRenderer(props) {
     }
 
     return(
-        <div className={styles.activitiesContainer}>
+        <div style={{display: 'grid', gap: '10px', marginTop: '10px'}}>
             {(sorter()).map((data, index) => (
                     <div key={data.activity.id+'-container-'+index}>
                         <ActivityComponent lang={props.lang} dark={false} activity={data.activity}

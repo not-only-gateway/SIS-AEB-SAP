@@ -29,19 +29,23 @@ export default function IndexListRenderer(props) {
         return response
     }
 
-    return (sorter()).map((collaborator, index) =>
-        <div key={collaborator.profile.id} onClick={() => props.redirect(collaborator.profile.id)} style={{padding: 0}}>
-            <PersonCard
-                profile={collaborator.profile}
-                collaboration={collaborator.collaboration}
-                unit={collaborator.unit}
-                lastActivity={collaborator.last_activity}
-                dark={false}
-                index={index}
-                asProfile={false}
-                inactiveLocale={props.inactiveLocale}
-                redirect={props.redirect}
-            />
+    return (
+        <div style={{display: 'grid', gap: '10px', marginTop: '10px'}}>
+            {(sorter()).map((collaborator, index) =>
+                <div key={collaborator.profile.id} onClick={() => props.redirect(collaborator.profile.id)} style={{padding: 0}}>
+                    <PersonCard
+                        profile={collaborator.profile}
+                        collaboration={collaborator.collaboration}
+                        unit={collaborator.unit}
+                        lastActivity={collaborator.last_activity}
+                        dark={false}
+                        index={index}
+                        asProfile={false}
+                        inactiveLocale={props.inactiveLocale}
+                        redirect={props.redirect}
+                    />
+                </div>
+            )}
         </div>
     )
 }
