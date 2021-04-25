@@ -4,7 +4,7 @@
     width: 30vw;
     height: 75%;
 
-    padding: 1vw;
+    padding: 50px;
     border-radius: 8px;
     grid-template-rows: 25% 1fr;
 }
@@ -14,4 +14,15 @@
     display: grid;
     justify-items: center;
     align-content: space-around;
+}
+.overviewContainer{
+    border-radius: 8px;
+    border: #e2e2e2 1px solid;
+    padding: 10px;
+    display: grid;
+    justify-items: center;
+    align-content: space-between;
+    justify-content: center;
+    height: auto;
+    width: 23.6%;
 }

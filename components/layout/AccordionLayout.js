@@ -34,14 +34,17 @@ export default function AccordionLayout(props) {
                         width: '100%',
                         justifyContent: 'space-between',
                         color: props.dark ? 'white' : 'black',
-                        borderRadius: open ? '0 8px 8px 0' : null
-
+                        borderRadius: open ? '0 8px 8px 0' : null,
+                        position: 'relative'
                     }}>
                 {props.summary}
                 {props.disabled || props.asButton ? null :
                     <ArrowDownwardRounded style={{
                         transform: open ? 'rotate(180deg)' : null,
-                        transition: '300ms'
+                        transition: '300ms',
+                        position: 'absolute',
+                        right: 0,
+
                     }}/>
                 }
             </Button>

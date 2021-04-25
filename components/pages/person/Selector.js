@@ -60,7 +60,6 @@ export default function SelectorLayout(props) {
                                         marginLeft: 'auto',
                                         width: '49%', backgroundColor: !valid ? null : '#f54269',
                                         color: !valid ? null : 'white'
-
                                     }}>
                                         Remove
                                     </Button>
@@ -79,7 +78,6 @@ export default function SelectorLayout(props) {
                     }}>
                         {props.data.map(data => {
                             if (search.length > 0 && (data.value.toLowerCase()).match(search.toLowerCase())) {
-                                console.log('first')
                                 return (
                                     <Button key={data.key} variant={'contained'} style={{
                                         width: 'fit-content', height: '5vh',
@@ -101,7 +99,6 @@ export default function SelectorLayout(props) {
                                         backgroundColor: valid && data.key === props.selected.key ? '#0095ff' : null,
                                         color: valid && data.key === props.selected.key ? 'white' : null
                                     }} onClick={() => {
-                                        console.log(data)
                                         props.handleChange(data)
                                     }}>
                                         {data.value}

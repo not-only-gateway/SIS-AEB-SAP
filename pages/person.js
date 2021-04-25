@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
-import Collaborations from "../components/pages/person/Collaborations";
+import Collaborations from "../components/pages/person/collaboration/Collaborations";
 import BaseForm from "../components/pages/person/BaseForm";
 import ContactForm from "../components/pages/person/ContactForm";
 import AddressForm from "../components/shared/AddressForm";
@@ -27,10 +27,13 @@ export default function person() {
     const [dark, setDark] = useState(false)
     const [loading, setLoading] = useState(true)
     const [profile, setProfile] = useState({})
-    const [role, setRole] = useState({})
+    const [effectiveRole, setEffectiveRole] = useState({})
     const [collaboration, setCollaboration] = useState({})
     const [unit, setUnit] = useState({})
     const [editMode, setEditMode] = useState(false)
+    const [senior, setSenior] = useState(null)
+    const [commissionedRole, setCommissionedRole] = useState(null)
+
 
     function handleChange(props) {
 
@@ -47,14 +50,15 @@ export default function person() {
             setCreate(router.query.create)
             if (router.query.create !== 'true')
                 fetchComponentData(
-                    {path: 'main/collaboration/' + router.query.id, params: {}}
+                    {path: 'person/' + router.query.id, params: {}}
                 ).then(res => {
-
                     if (res !== null) {
                         setProfile(res.profile)
                         setCollaboration(res.collaboration)
                         setUnit(res.unit)
-                        setRole(res.role)
+                        setEffectiveRole(res.effective_role)
+                        setCommissionedRole(res.commissioned_role)
+                        setSenior(res.senior)
                     }
 
                     if (accessProfile === null || (!accessProfile.canUpdatePerson)) {
@@ -127,7 +131,9 @@ export default function person() {
                                                         profile={profile}
                                                         collaboration={collaboration}
                                                         unit={unit}
-                                                        role={role}
+                                                        commissionedRole={commissionedRole}
+                                                        effectiveRole={effectiveRole}
+                                                        senior={senior}
                                                     />
                                                 )
                                             },

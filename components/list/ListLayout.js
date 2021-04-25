@@ -22,10 +22,10 @@ export default function ListLayout(props) {
                         props.filterComponent
                     }
 
-                    <div className={mainStyles.displayInlineSpaced}
-                         style={{height: '5vh', width: props.columnWidth + 'vw'}}>
+                    <div className={mainStyles.rowContainer}
+                         style={{height: '5vh'}}>
                         {props.columns.map((column, index) => (
-                            <div key={'column-' + index + '-list-container'}>
+                            <div key={'column-' + index + '-list-container'}        >
                                 <ListColumnButton size={column.size} label={column.label}
                                                   index={index} sorterKey={column.key} currentSorter={props.currentSorter}
                                                   handleSorterChange={props.handleSorterChange}/>

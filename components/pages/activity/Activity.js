@@ -26,8 +26,7 @@ export default function ActivityComponent(props) {
                            style={getTertiaryColor({dark: props.dark})}>{props.activity.id}</p>
                     </div>
                     <div className={styles.info_row}>
-                        <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: props.dark})}>Full
-                            path</p>
+                        <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: props.dark})}>Full path</p>
                         <Divider orientation={'horizontal'}
                                  style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
                         <p className={mainStyles.tertiaryParagraph}
@@ -113,31 +112,22 @@ export default function ActivityComponent(props) {
                 </div>
             }
             summary={
-                <div className={mainStyles.displayInlineSpaced} style={{width: '45vw', padding: '15px 0px 15px 0px'}}>
+                <div className={mainStyles.rowContainer}>
                     <div
                         className={[mainStyles.tertiaryParagraph, mainStyles.displayInlineStart].join(' ')}
-                        style={{
-                            ...getTertiaryColor({dark: props.dark}),
-                                ...{width: '10vw'}
-                        }}>
+                        style={getTertiaryColor({dark: props.dark})}>
                         {props.activity.id}
                     </div>
                     <div className={[mainStyles.secondaryParagraph, mainStyles.displayInlineStart].join(' ')}
-                        style={{width: '10vw', color: color}}>
+                        style={{color: color}}>
                         {props.activity.request_method}
                     </div>
                     <div className={[mainStyles.tertiaryParagraph, mainStyles.displayInlineStart].join(' ')}
-                         style={{
-                             ...getTertiaryColor({dark: props.dark}),
-                             ...{width: '10vw'}
-                         }}>
+                         style={getTertiaryColor({dark: props.dark})}>
                         {props.activity.path.indexOf('?') > -1 ? props.activity.path.substr(0, props.activity.path.indexOf('?')) : props.activity.path}
                     </div>
                     <div className={[mainStyles.tertiaryParagraph, mainStyles.displayInlineStart].join(' ')}
-                         style={{
-                             ...getTertiaryColor({dark: props.dark}),
-                             ...{width: '10vw'}
-                         }}>
+                         style={getTertiaryColor({dark: props.dark})}>
                         {(new Date(props.activity.time_of_creation)).toDateString()}
                     </div>
                 </div>

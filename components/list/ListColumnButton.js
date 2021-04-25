@@ -7,8 +7,7 @@ import {useState} from "react";
 export default function ListColumnButton(props){
     const [sorted, setSorted] = useState(false)
     return(
-        <div key={'column'+props.index+'-button-container'} className={styles.listColumns}
-             style={{width: props.size + 'vw'}}>
+        <div key={'column'+props.index+'-button-container'} className={styles.listColumns}>
             <Button disabled={(props.currentSorter !== undefined && props.currentSorter !== props.sorterKey) || props.sorterKey === undefined} onClick={() =>{
                 setSorted(!sorted)
                 props.handleSorterChange(props.sorterKey)
@@ -16,8 +15,7 @@ export default function ListColumnButton(props){
                 padding: '0 10px 0 0 ',
                 color: 'black',
                 textTransform: 'none',
-                width: props.size + 'vw',
-                height: '100%',
+                height: 'auto',
                 justifyContent: 'space-between'
             }}>
                 {props.label}

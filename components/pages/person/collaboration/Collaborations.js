@@ -2,11 +2,12 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {AddRounded} from "@material-ui/icons";
 import CollaborationForm from "./CollaborationForm";
-import AccordionLayout from "../../layout/AccordionLayout";
-import fetchComponentData from "../../../utils/person/FetchData";
-import shared from '../../../styles/shared/Shared.module.css'
+import AccordionLayout from "../../../layout/AccordionLayout";
+import fetchComponentData from "../../../../utils/person/FetchData";
+import shared from '../../../../styles/shared/Shared.module.css'
 import {Divider} from "@material-ui/core";
-
+import CollaborationSummary from "./CollaborationSummary";
+import mainStyles from '../../../../styles/shared/Main.module.css'
 export default function Collaborations(props) {
 
     const [collaborations, setCollaborations] = useState([])
@@ -52,12 +53,9 @@ export default function Collaborations(props) {
                             />
                         }
                         summary={
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-between'
-                            }}>
+                            <div className={mainStyles.rowContainer} style={{width: 'fit-content'}}>
                                 <AddRounded/>
+                                <Divider orientation={'horizontal'} style={{width: '10px', marginRight: '10px', marginLeft: '10px', color: '#262626'}}/>
                                 <p>New Collaboration</p>
                             </div>
                         }
@@ -79,22 +77,15 @@ export default function Collaborations(props) {
                                 fetchData={fetchData}
                                 dark={props.dark}
                                 editable={props.editionMode}
-                                index={index+1}
+                                index={index + 1}
                             />
                         }
                         summary={
-                            <div className={shared.accordionTitle}>
-                                <p style={{fontWeight: 450}}>{collaboration.unit.acronym}</p>
-                                <Divider style={{width: '10px', marginRight: '10px', marginLeft: '10px'}}/>
-                                <p style={{
-                                    fontSize: '.8rem',
-                                    fontWeight: 420,
-                                    color: props.dark ? '#e2e2e2' : '#777777'
-                                }}>{collaboration.effective_role !== null ?
-                                    (collaboration.effective_role.denomination +
-                                        (collaboration.commissioned_role !== null ? ' - ' + collaboration.commissioned_role.denomination : ''))
-                                    : null}</p>
-                            </div>
+                            <CollaborationSummary
+                                commissionedRole={collaboration.commissioned_role !== null ? collaboration.commissioned_role.denomination : null}
+                                substitute={collaboration.collaboration.is_substitute} activeRole={collaboration.collaboration.is_active_on_role} mainCollaboration={collaboration.collaboration.main_collaboration}
+                                effectiveRole={collaboration.effective_role !== null ? collaboration.effective_role.denomination : null} additionalRoleInfo={collaboration.collaboration.additional_info}
+                                unit={collaboration.unit.acronym}/>
                         }
                         key={collaboration.collaboration.id}
                         disabled={!props.editionMode}
@@ -116,6 +107,6 @@ export default function Collaborations(props) {
 Collaborations.propTypes = {
     dark: PropTypes.bool,
     editionMode: PropTypes.bool,
-    id: PropTypes.number,
+    id: PropTypes.string,
     locale: PropTypes.string
 }

@@ -92,3 +92,13 @@
     padding-right: 10px;
 }
 /*SPACING*/
+
+.rowContainer{
+    display: flex;
+    width: 100%;
+    padding: 10px 0 10px 0;
+    align-items: center;
+}
+.rowContainer > * {
+    width: 100%;
+}

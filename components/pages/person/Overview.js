@@ -5,30 +5,30 @@ import {getIconStyle, getTertiaryColor} from "../../../styles/shared/MainStyles"
 import CakeRoundedIcon from "@material-ui/icons/CakeRounded";
 import {CalendarTodayRounded, EmailRounded, PhoneRounded, WorkRounded} from "@material-ui/icons";
 import ViewQuiltRoundedIcon from "@material-ui/icons/ViewQuiltRounded";
-
+import styles from '../../../styles/person/Form.module.css'
 
 export default function OverviewComponent(props) {
     const birth = new Date(props.profile.birth)
     return (
-        <div style={{width: '100%', display: 'grid', justifyItems:'flex-start', paddingLeft:'1vw'}}>
-            <div className={mainStyles.displayInlineSpaced}>
-                <CakeRoundedIcon style={getIconStyle({dark: props.dark})}/>
+        <div className={mainStyles.displayWarp} style={{justifyContent: 'flex-start', width: '98%'}}>
+            <div className={styles.overviewContainer}>
+                <CakeRoundedIcon/>
                 <p className={mainStyles.tertiaryParagraph} style={{
                     ...getTertiaryColor({dark: props.dark}), ...{
                         textAlign: "right"
                     }
                 }}>{birth.toDateString().substr(3, birth.toDateString().length - 7)}</p>
             </div>
-            <div className={mainStyles.displayInlineSpaced}>
-                <EmailRounded style={{...getIconStyle({dark: props.dark})}}/>
+            <div className={styles.overviewContainer}>
+                <EmailRounded />
                 <p className={mainStyles.tertiaryParagraph} style={{
                     ...getTertiaryColor({dark: props.dark}), ...{
                         textAlign: "right"
                     }
                 }}>{props.profile.corporate_email}</p>
             </div>
-            <div className={mainStyles.displayInlineSpaced}>
-                <PhoneRounded style={getIconStyle({dark: props.dark})}/>
+            <div className={styles.overviewContainer}>
+                <PhoneRounded/>
                 <p className={mainStyles.tertiaryParagraph} style={{
                     ...getTertiaryColor({dark: props.dark}), ...{
                         textAlign: "right"
@@ -36,17 +36,17 @@ export default function OverviewComponent(props) {
                 }}>{props.profile.extension}</p>
             </div>
 
-            <div className={mainStyles.displayInlineSpaced}>
-                <ViewQuiltRoundedIcon style={getIconStyle({dark: props.dark})}/>
+            <div className={styles.overviewContainer}>
+                <ViewQuiltRoundedIcon/>
                 <p className={mainStyles.tertiaryParagraph} style={{
                     ...getTertiaryColor({dark: props.dark}), ...{
                         textAlign: "right"
                     }
-                }}>{props.unit.acronym}</p>
+                }}>{props.unit !== null ? props.unit.acronym : 'none'}</p>
             </div>
             {props.role !== undefined ?
-                <div className={mainStyles.displayInlineSpaced}>
-                    <WorkRounded style={getIconStyle({dark: props.dark})}/>
+                <div className={styles.overviewContainer}>
+                    <WorkRounded/>
                     <p className={mainStyles.tertiaryParagraph} style={{
                         ...getTertiaryColor({dark: props.dark}), ...{
                             textAlign: "right"
@@ -57,13 +57,13 @@ export default function OverviewComponent(props) {
                 null
             }
 
-            <div className={mainStyles.displayInlineSpaced}>
-                <CalendarTodayRounded style={getIconStyle({dark: props.dark})}/>
+            <div className={styles.overviewContainer}>
+                <CalendarTodayRounded/>
                 <p className={mainStyles.tertiaryParagraph} style={{
                     ...getTertiaryColor({dark: props.dark}), ...{
                         textAlign: "right"
                     }
-                }}>{new Date(props.collaboration.admission_date).toLocaleDateString()}</p>
+                }}>{props.collaboration !== null ? new Date(props.collaboration.admission_date).toLocaleDateString() : 'None'}</p>
             </div>
         </div>
     )
@@ -72,7 +72,9 @@ export default function OverviewComponent(props) {
 OverviewComponent.propTypes = {
     profile: PropTypes.object,
     unit: PropTypes.object,
-    role: PropTypes.object,
+    effectiveRole: PropTypes.object,
+    commissionedRole: PropTypes.object,
+    senior: PropTypes.object,
     collaboration: PropTypes.object,
     dark: PropTypes.bool,
 }
