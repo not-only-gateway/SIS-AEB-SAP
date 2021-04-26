@@ -7,7 +7,7 @@ import Brightness3RoundedIcon from "@material-ui/icons/Brightness3Rounded";
 import {ThemeProvider} from "@material-ui/styles";
 import {getLanguage, setCookiesLanguage} from "../utils/shared/Language";
 import Cookies from "universal-cookie/lib";
-import AccordionLayout from "../components/layout/AccordionLayout";
+import Accordion from "../components/layout/Accordion";
 import fetchSettingsData from "../utils/settings/FetchData";
 import {readAccessProfile, readCollaboration} from "../utils/shared/IndexedDB";
 import shared from '../styles/shared/Shared.module.css'
@@ -66,7 +66,7 @@ export default function Settings() {
                     <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.baseWidth].join(' ')}
                          style={{transform: 'translateY(2vh)'}}>
 
-                        <AccordionLayout
+                        <Accordion
                             content={
                                 <FormControl component="fieldset"
                                              style={{...{paddingLeft: '10px'}, ...getSecondaryColor({dark: dark})}}>
@@ -101,7 +101,7 @@ export default function Settings() {
                         />
 
 
-                        <AccordionLayout
+                        <Accordion
                             content={
                                 <FormControl component="fieldset"
                                              style={{...{paddingLeft: '10px'}, ...getSecondaryColor({dark: dark})}}>
@@ -140,7 +140,7 @@ export default function Settings() {
                         />
 
                         {(new Cookies()).get('jwt') !== undefined && currentCollaboration !== null ?
-                            <AccordionLayout
+                            <Accordion
                                 content={
                                     <FormControl component="fieldset"
                                                  style={{...{paddingLeft: '10px'}, ...getSecondaryColor({dark: dark})}}>

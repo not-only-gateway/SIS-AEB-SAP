@@ -1,10 +1,10 @@
 import '../styles/globals.css'
-import Layout from "../components/layout/Layout";
+import PageLayout from "../components/layout/PageLayout";
 
 export default function SisAeb({ Component, pageProps}){
     return (
-        <Layout>
+        <PageLayout>
             <Component {...pageProps}/>
-        </Layout>
+        </PageLayout>
     )
 }

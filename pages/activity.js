@@ -4,15 +4,14 @@ import {getLanguage} from "../utils/shared/Language";
 import Cookies from "universal-cookie/lib";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {Skeleton} from "@material-ui/lab";
-import ActivityFilterComponent from "../components/pages/activity/ActivityFilter";
+import ActivityFilterComponent from "../components/modules/filters/ActivityFilters";
 import fetchActivityData from "../utils/activity/FetchData";
 import {getTertiaryColor} from "../styles/shared/MainStyles";
 import mainStyles from "../styles/shared/Main.module.css";
 import GetPageTitle from "../utils/shared/GetPageTitle";
-import ListLayout from "../components/list/ListLayout";
-import ActivityListRenderer from "../components/pages/activity/ListRederer";
-import PropTypes from "prop-types";
+import ListLayout from "../components/layout/list/ListLayout";
 import Head from "next/head";
+import ActivityList from "../components/templates/ActivityList";
 
 export default function Activity() {
 
@@ -128,7 +127,7 @@ export default function Activity() {
                                 </div>
                             }
                         >
-                            <ActivityListRenderer data={data} sorterMethod={sorterMethod} pagesFetched={pagesFetched}
+                            <ActivityList data={data} sorterMethod={sorterMethod} pagesFetched={pagesFetched}
                                                   lang={lang}/>
 
                         </InfiniteScroll>

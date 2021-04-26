@@ -1,19 +1,19 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
-import Collaborations from "../components/pages/person/collaboration/Collaborations";
-import BaseForm from "../components/pages/person/BaseForm";
-import ContactForm from "../components/pages/person/ContactForm";
-import AddressForm from "../components/shared/AddressForm";
-import DocumentsForm from "../components/pages/person/DocumentsForm";
+import Collaborations from "../components/elements/collaborations/Collaborations";
+import BaseForm from "../components/modules/forms/BaseForm";
+import ContactForm from "../components/modules/forms/ContactForm";
+import AddressForm from "../components/modules/forms/AddressForm";
+import DocumentsForm from "../components/modules/forms/DocumentsForm";
 import {getLanguage} from "../utils/shared/Language";
-import TabLayout from "../components/layout/TabLayout";
+import Tabs from "../components/layout/Tabs";
 import {readAccessProfile} from "../utils/shared/IndexedDB";
 import Cookies from "universal-cookie/lib";
 import fetchComponentData from "../utils/person/FetchData";
 import mainStyles from '../styles/shared/Main.module.css'
-import ProfileComponent from "../components/pages/person/Profile";
+import Profile from "../components/elements/profile/Profile";
 import Head from "next/head";
-import OverviewComponent from "../components/pages/person/Overview";
+import OverviewComponent from "../components/elements/profile/ProfileOverview";
 
 
 export default function person() {
@@ -117,7 +117,7 @@ export default function person() {
                                             width: '100%',
                                             // backgroundColor: 'red'
                                         }}>
-                                            <ProfileComponent
+                                            <Profile
                                                 profile={profile}
                                                 dark={dark}
                                                 setEditMode={setEditMode}
@@ -126,7 +126,7 @@ export default function person() {
                                                 editable={accessProfile !== null && accessProfile.canUpdatePerson}
                                                 inactiveLocale={lang.inactive}/>
                                         </div>
-                                        <TabLayout
+                                        <Tabs
                                             dark={dark}
                                             width={70}
 

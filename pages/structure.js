@@ -5,13 +5,13 @@ import {getLanguage} from "../utils/shared/Language";
 import axios from "axios";
 import Host from "../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import AccordionLayout from "../components/layout/AccordionLayout";
+import Accordion from "../components/layout/Accordion";
 import mainStyles from '../styles/shared/Main.module.css'
 import shared from "../styles/shared/Shared.module.css";
 import {getIconStyle} from "../styles/shared/MainStyles";
 import {ExtensionRounded, ViewQuiltRounded} from "@material-ui/icons";
 import GetPageTitle from "../utils/shared/GetPageTitle";
-import ContentCanvas from "../components/pages/structure/ContentCanvas";
+import Canvas from "../components/layout/Canvas";
 
 export default function Structure() {
 
@@ -59,11 +59,11 @@ export default function Structure() {
                     }}>
                         <GetPageTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.information}
                                       dark={dark}/>
-                        <AccordionLayout
+                        <Accordion
                             content={topUnits.map((unit, index) => (
                                 <>
                                     {index === 0 ?
-                                        <ContentCanvas dark={dark} type={'unit'} subject={unit}/> : null}
+                                        <Canvas dark={dark} type={'unit'} subject={unit}/> : null}
                                 </>
                             ))
                             }
@@ -81,11 +81,11 @@ export default function Structure() {
                         />
 
 
-                        <AccordionLayout
+                        <Accordion
                             content={topCollaborators.map((collaborator, index) => (
                                 <>
                                     {index === 0 ?
-                                        <ContentCanvas dark={dark} type={'collaborator'} subject={collaborator}/>
+                                        <Canvas dark={dark} type={'collaborator'} subject={collaborator}/>
                                         :
                                         null
                                     }

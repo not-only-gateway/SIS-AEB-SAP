@@ -18,7 +18,7 @@ import signIn from "../utils/authentication/SignIn";
 import signOut from "../utils/authentication/SignOut";
 import ClearStorage from "../utils/authentication/ClearStorage";
 import mainStyles from '../styles/shared/Main.module.css'
-import InputLayout from "../components/layout/InputLayout";
+import InputLayout from "../components/modules/InputLayout";
 import {VisibilityOffRounded, VisibilityRounded} from "@material-ui/icons";
 import {getTertiaryColor} from "../styles/shared/MainStyles";
 

@@ -1,4 +1,4 @@
-import Layout from "../components/layout/Layout";
+import PageLayout from "../components/layout/PageLayout";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {createMuiTheme} from "@material-ui/core";
@@ -27,7 +27,7 @@ export default function Management() {
 
     if (lang !== null)
         return (
-            <Layout>
+            <PageLayout>
                 {props =>
                     <ThemeProvider theme={createMuiTheme({
                         palette: {
@@ -39,7 +39,7 @@ export default function Management() {
 
                     </ThemeProvider>
                 }
-            </Layout>
+            </PageLayout>
         )
     else
         return <></>

@@ -2,16 +2,15 @@ import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {Skeleton} from "@material-ui/lab";
 import {getLanguage} from "../utils/shared/Language";
-import IndexSimpleSearch from "../components/pages/index/IndexSimpleSearch";
 import InfiniteScroll from "react-infinite-scroll-component";
 import fetchIndexData from "../utils/index/FetchData";
 import {getTertiaryColor} from "../styles/shared/MainStyles";
 import mainStyles from '../styles/shared/Main.module.css'
-import GetPageTitle from "../utils/shared/GetPageTitle";
-import ListLayout from "../components/list/ListLayout";
-import IndexListRenderer from "../components/pages/index/IndexListRenderer";
-import IndexFilterComponent from "../components/pages/index/IndexFilterComponent";
 import Head from "next/head";
+import ListLayout from "../components/layout/list/ListLayout";
+import ExtensionsSearch from "../components/elements/ExtensionsSearch";
+import ExtensionsList from "../components/templates/ExtensionsList";
+import ExtensionsFilters from "../components/modules/filters/ExtensionsFilters";
 
 export default function Index() {
 
@@ -96,7 +95,7 @@ export default function Index() {
                                         </div>
                                     }
                                 >
-                                    <IndexListRenderer sorterMethod={sorterMethod} data={data} redirect={redirect}
+                                    <ExtensionsList sorterMethod={sorterMethod} data={data} redirect={redirect}
                                                        inactiveLocale={lang.inactive}/>
                                 </InfiniteScroll>
                                 :
@@ -121,7 +120,7 @@ export default function Index() {
                     }
 
                     basicSearchComponent={
-                        <IndexSimpleSearch
+                        <ExtensionsSearch
                             dark={dark} setData={setData} setOption={setOption}
                             option={option} lang={lang} setLoading={setLoading} fetchData={fetchData}
                             searchInput={searchInput} setSearchInput={handleInputChange}
@@ -141,7 +140,7 @@ export default function Index() {
                     ]}
                     currentSorter={sorterMethod}
                     filterComponent={
-                        <IndexFilterComponent
+                        <ExtensionsFilters
                             dark={dark} setData={setData} setOption={setOption}
                             option={option} lang={lang} setLoading={setLoading} fetchData={fetchData}
                             searchInput={searchInput} setSearchInput={handleInputChange}
