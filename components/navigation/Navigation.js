@@ -13,8 +13,6 @@ import getComponentLanguage from "../../utils/shared/GetLanguage";
 import NavigationProfile from "./NavigationProfile";
 import animations from '../../styles/shared/Animations.module.css'
 
-const cookies = new Cookies()
-
 export default function Navigation(props) {
 
     const [lang, setLang] = useState(en)
@@ -39,7 +37,7 @@ export default function Navigation(props) {
                  transition: '250ms ease-in-out',
                  backgroundColor: 'black',
                  color: 'white',
-                 boxShadow: 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px'
+                 boxShadow: 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px'
              }}>
 
             <div className={props.reduced ? mainStyles.displayInlineCenter : mainStyles.displayInlineSpaced} style={{height: '33.333%',alignItems: 'flex-start', paddingTop: '4px'}}>

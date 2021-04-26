@@ -16,16 +16,15 @@ export default function AccordionLayout(props) {
     // const [hovered, setHovered] = useState(false)
     return (
         <div style={{
-            ...{
+                borderLeft: open || props.highlight ? '#0095ff 2px solid' : null,
                 backgroundColor: 'white',
                 width: open ? (props.openSize !== null ? props.openSize + 'vw' : 'fit-content') : props.closedSize + 'vw',
-                borderRadius: open ? '0 8px 8px 0' : '8px',
+                borderRadius: open || props.highlight ? '0 8px 8px 0' : '8px',
                 opacity: '0',
                 animationDelay: props.animationDelay !== undefined ? props.animationDelay + 'ms' : null,
-                boxShadow: open ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
-                maxHeight: !open && !props.asRow ? '65px' : null
-            },
-            ...open ? getBorder({dark: props.dark, highlight: true}) : null
+                boxShadow: open  ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : props.highlight ? 'rgba(0, 0, 0, 0.05) 0px 0px 0px 1px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
+                minHeight: open ? null : '65px'
+
         }} className={animations.slideUpAnimation} key={props.key + '-accordion'} >
             <Button onClick={props.asButton !== true ? () => setOpen(!open) : null} disabled={props.disabled}
                     style={{
@@ -37,7 +36,7 @@ export default function AccordionLayout(props) {
                         color: props.dark ? 'white' : 'black',
                         borderRadius: open ? '0 8px 8px 0' : '8px',
                         position: 'relative',
-                        height: props.asRow ? '100%' : '65px'
+                        minHeight: '65px'
                     }}>
                 {props.summary}
                 {props.disabled || props.asButton ? null :
@@ -72,7 +71,7 @@ AccordionLayout.propTypes = {
     asRow: PropTypes.any,
     disabled: PropTypes.bool,
     key: PropTypes.number,
-    background: PropTypes.string,
+    highlight: PropTypes.bool,
     asButton: PropTypes.bool,
     animationDelay: PropTypes.number
 }

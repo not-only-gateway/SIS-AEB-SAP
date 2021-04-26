@@ -12,6 +12,7 @@ import GetPageTitle from "../utils/shared/GetPageTitle";
 import ListLayout from "../components/list/ListLayout";
 import ActivityListRenderer from "../components/pages/activity/ListRederer";
 import PropTypes from "prop-types";
+import Head from "next/head";
 
 export default function Activity() {
 
@@ -78,6 +79,10 @@ export default function Activity() {
 
     if (lang !== null)
         return (
+            <>
+            <Head>
+                <title>{lang.title}</title>
+            </Head>
             <ListLayout
                 columns={[
                     {label: 'ID', key: 'id'},
@@ -154,6 +159,7 @@ export default function Activity() {
                 handleSorterChange={handleSorterChange}
                 currentSorter={sorterMethod}
             />
+            </>
         )
     else
         return <></>

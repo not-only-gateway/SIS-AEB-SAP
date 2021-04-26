@@ -15,7 +15,6 @@ export default function TabLayout(props) {
         let response = null
         let i;
         for (i = 0; i <= array.length; i++) {
-            console.log(array[i])
             if (array[i] !== null) {
                 response = i
                 break
@@ -33,7 +32,9 @@ export default function TabLayout(props) {
                 borderRadius: '8px',
                 padding: '20px',
                 position: "absolute",
-                zIndex: 0
+                zIndex: 0,
+                boxShadow: 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
+                width: '100%'
             }}
                  key={tab.buttonKey + '-content'}>
                 {tab.value}
@@ -50,8 +51,7 @@ export default function TabLayout(props) {
                 style={{
                     width: props.width + 'vw',
                     display: 'flex',
-                    gap: '10px',
-
+                    gap: '15px',
                 }}>
 
                 {props.buttons.map((button) => {
@@ -60,14 +60,14 @@ export default function TabLayout(props) {
                                 <Button disabled={button.disabled} key={button.key} style={{
                                     borderRadius: open === button.key ? '5px 5px 0 0' : null,
                                     borderBottom: open === button.key ? '#0095ff 2px solid' : 'transparent 2px solid',
-                                    backgroundColor: open === button.key ? 'white' : 'transparent',
+
                                     transition: '.2s',
                                     height: 'auto',
                                     width: '100%',
 
                                     textTransform: 'capitalize'
 
-                                }} variant={"contained"} disableElevation={open !== button.key}
+                                }}
                                         onClick={() => setOpen(button.key)}>
                                     {button.value}
                                 </Button>

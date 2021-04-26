@@ -63,6 +63,7 @@ export default function Collaborations(props) {
                         disabled={!props.editionMode}
                         openSize={68}
                         dark={props.dark}
+                        highlight={true}
                         closedSize={68}
                     />
                 }
@@ -92,7 +93,7 @@ export default function Collaborations(props) {
                         openSize={68}
                         closedSize={68}
                         dark={props.dark}
-                        background={'#484c55'}
+                        highlight={true}
                     />
 
                 ))

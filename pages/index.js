@@ -11,6 +11,7 @@ import GetPageTitle from "../utils/shared/GetPageTitle";
 import ListLayout from "../components/list/ListLayout";
 import IndexListRenderer from "../components/pages/index/IndexListRenderer";
 import IndexFilterComponent from "../components/pages/index/IndexFilterComponent";
+import Head from "next/head";
 
 export default function Index() {
 
@@ -50,7 +51,7 @@ export default function Index() {
 
     function handleInputChange(event) {
         if (event.length === 0)
-            fetchData(0, true, false)
+            fetchData(1, true, false)
         setSearchInput(event)
     }
 
@@ -70,81 +71,85 @@ export default function Index() {
 
     if (lang !== null)
         return (
+            <>
+                <Head>
+                    <title>{lang.extensions}</title>
+                </Head>
+                <ListLayout
+                    content={
+                        !loading ?
+                            data.length > 0 ?
+                                <InfiniteScroll
+                                    dataLength={data.length}
+                                    next={() => fetchData(0)}
+                                    hasMore={lastFetchedSize === 15}
+                                    inverse={false}
+                                    scrollableTarget="scrollableDiv"
+                                    loader={<Skeleton variant={'rect'} width={'100%'} style={{borderRadius: '8px'}}
+                                                      height={'7vh'}/>}
+                                    endMessage={
+                                        <div style={{
+                                            width: '100%'
+                                        }}>
+                                            <p className={mainStyles.secondaryParagraph}
+                                               style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.end}</p>
+                                        </div>
+                                    }
+                                >
+                                    <IndexListRenderer sorterMethod={sorterMethod} data={data} redirect={redirect}
+                                                       inactiveLocale={lang.inactive}/>
+                                </InfiniteScroll>
+                                :
 
-            <ListLayout
-                content={
-                    !loading ?
-                        data.length > 0 ?
-                            <InfiniteScroll
-                                dataLength={data.length}
-                                next={() => fetchData(0)}
-                                hasMore={lastFetchedSize === 15}
-                                inverse={false}
-                                scrollableTarget="scrollableDiv"
-                                loader={<Skeleton variant={'rect'} width={'100%'} style={{borderRadius: '8px'}}
-                                                  height={'7vh'}/>}
-                                endMessage={
-                                    <div style={{
-                                        width: '100%'
-                                    }}>
-                                        <p className={mainStyles.secondaryParagraph}
-                                           style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.end}</p>
-                                    </div>
-                                }
-                            >
-                                <IndexListRenderer sorterMethod={sorterMethod} data={data} redirect={redirect}
-                                                   inactiveLocale={lang.inactive}/>
-                            </InfiniteScroll>
+                                <div className={mainStyles.displayInlineCenter} style={{
+                                    ...{marginBottom: '15px', width: '50vw'}
+                                }}>
+                                    <p className={mainStyles.secondaryParagraph}
+                                       style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.nothingFound}</p>
+                                </div>
+
                             :
-
                             <div className={mainStyles.displayInlineCenter} style={{
                                 ...{marginBottom: '15px', width: '50vw'}
                             }}>
                                 <p className={mainStyles.secondaryParagraph}
-                                   style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.nothingFound}</p>
+                                   style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>Loading</p>
                             </div>
+                    }
+                    title={
+                        lang.extensions
+                    }
 
-                        :
-                        <div className={mainStyles.displayInlineCenter} style={{
-                            ...{marginBottom: '15px', width: '50vw'}
-                        }}>
-                            <p className={mainStyles.secondaryParagraph}
-                               style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>Loading</p>
-                        </div>
-                }
-                title={
-                    lang.extensions
-                }
+                    basicSearchComponent={
+                        <IndexSimpleSearch
+                            dark={dark} setData={setData} setOption={setOption}
+                            option={option} lang={lang} setLoading={setLoading} fetchData={fetchData}
+                            searchInput={searchInput} setSearchInput={handleInputChange}
+                            setMaxID={setMaxID} width={55}
+                        />
 
-                basicSearchComponent={
-                    <IndexSimpleSearch
-                        dark={dark} setData={setData} setOption={setOption}
-                        option={option} lang={lang} setLoading={setLoading} fetchData={fetchData}
-                        searchInput={searchInput} setSearchInput={handleInputChange}
-                        setMaxID={setMaxID} width={55}
-                    />
-
-                }
-                width={65}
-                columnWidth={55}
-                handleSorterChange={handleSorterChange}
-                columns={[
-                    {label: 'Name', key: 'name'},
-                    {label: 'Email', key: undefined},
-                    {label: 'Extension', key: 'extension'},
-                    {label: 'Status', key: undefined},
-                    {label: 'Unit', key: undefined},
-                ]}
-                currentSorter={sorterMethod}
-                filterComponent={
-                    <IndexFilterComponent
-                        dark={dark} setData={setData} setOption={setOption}
-                        option={option} lang={lang} setLoading={setLoading} fetchData={fetchData}
-                        searchInput={searchInput} setSearchInput={handleInputChange}
-                        setMaxID={setMaxID} width={55}
-                    />
-                }
-            />
+                    }
+                    width={65}
+                    columnWidth={55}
+                    handleSorterChange={handleSorterChange}
+                    columns={[
+                        {label: 'Name', key: 'name'},
+                        {label: 'Email', key: undefined},
+                        {label: 'Extension', key: 'extension'},
+                        {label: 'Status', key: undefined},
+                        {label: 'Unit', key: undefined},
+                    ]}
+                    currentSorter={sorterMethod}
+                    filterComponent={
+                        <IndexFilterComponent
+                            dark={dark} setData={setData} setOption={setOption}
+                            option={option} lang={lang} setLoading={setLoading} fetchData={fetchData}
+                            searchInput={searchInput} setSearchInput={handleInputChange}
+                            setMaxID={setMaxID} width={55}
+                        />
+                    }
+                />
+            </>
         )
     else
         return <></>

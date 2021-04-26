@@ -66,7 +66,7 @@ export default function ContactForm(props) {
 
     if (!loading && lang !== null)
         return (
-            <div className={mainStyles.displayWarp} style={{justifyContent: 'center'}}>
+            <div className={mainStyles.displayWarp} style={{justifyContent: 'center', width: '100%'}}>
                 <InputLayout inputName={lang.email} dark={props.dark} handleChange={handleChange} name={'email'}
                              inputType={0} disabled={!props.editable} size={'calc(50% - 8px)'} required={true}
                              initialValue={contact.email} key={"3-1"} setChanged={setChanged}/>

@@ -26,7 +26,7 @@ export default function ListLayout(props) {
             <div className={styles.listContainer} style={{width: props.width + '%'}}>
                 <div className={styles.listTitle}
                      style={{
-                         backgroundColor: '#e7e7e7',
+                         backgroundColor: '#f5f6f8',
                          width: '100%',
                          height: 'auto',
                      }}>

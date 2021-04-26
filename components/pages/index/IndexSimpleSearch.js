@@ -30,7 +30,8 @@ export default function IndexSimpleSearch(props) {
 
     return (
 
-        <div key={'index-simple-filter-component'} className={mainStyles.displayInlineSpaced} style={{height: '55px', gap: '10px'}}>
+        <div key={'index-simple-filter-component'} className={mainStyles.displayInlineSpaced}
+             style={{height: '55px', gap: '10px'}}>
 
             <Paper component="form"
 
@@ -38,33 +39,13 @@ export default function IndexSimpleSearch(props) {
                        display: 'flex',
                        justifyContent: 'space-around',
                        alignItems: 'center',
-                       boxShadow: focused ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
+                       boxShadow: focused ? 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
                        width: '100%',
                        borderRadius: '8px',
                        height: '100%'
                    }}>
 
-                {/*<IconButton aria-controls="menu" aria-haspopup="true"*/}
-                {/*            onClick={event => setAnchorEl(event.currentTarget)}>*/}
-                {/*    <MenuRounded style={{color: props.dark ? 'white' : null}}/>*/}
-                {/*</IconButton>*/}
-                {/*<Menu id="menu" anchorEl={anchorEl}*/}
-                {/*      keepMounted*/}
-                {/*      open={Boolean(anchorEl)}*/}
-                {/*      onClose={() => setAnchorEl(null)}>*/}
-                {/*    <FormControl component="fieldset" style={{paddingLeft: '10px'}}>*/}
-                {/*        <RadioGroup onChange={event =>*/}
-                {/*            props.setOption(event.target.value)*/}
-                {/*        } value={props.option}>*/}
-                {/*            {props.lang.filterChoice.map((choice, index) => (*/}
-                {/*                <div key={'choice-' + index}>*/}
-                {/*                    <FormControlLabel value={choice.key} control={<Radio/>} label={choice.value}/>*/}
-                {/*                </div>*/}
-                {/*            ))}*/}
 
-                {/*        </RadioGroup>*/}
-                {/*    </FormControl>*/}
-                {/*</Menu>*/}
                 <InputBase
                     style={{width: '98%'}}
                     placeholder={props.lang.search}
@@ -77,18 +58,15 @@ export default function IndexSimpleSearch(props) {
                     }}
                     onChange={event => props.setSearchInput(event.target.value)}
                 />
-                {/*<Divider orientation={'vertical'} style={{height: '70%'}}/>*/}
-                {/*<IconButton aria-label={props.lang.search}*/}
-                {/*            disabled={props.searchInput === null || props.searchInput.length === 0}*/}
-                {/*            onClick={() => {*/}
-                {/*                props.setSearchInput('')*/}
-                {/*                props.setMaxID(null)*/}
-                {/*                props.fetchData(1, true, false)*/}
-                {/*            }}>*/}
-                {/*    <BackspaceRounded/>*/}
-                {/*</IconButton>*/}
             </Paper>
-            <Button onClick={() => props.fetchData(1, true)} style={{width: '55px', color:props.searchInput.length === 0 ? null : 'white' ,backgroundColor: props.searchInput.length === 0 ? null : 'black', borderRadius: '8px', height: '100%'}} disabled={props.searchInput.length === 0}>
+            <Button onClick={() => props.fetchData(1, true)} style={{
+                width: '55px',
+                color: props.searchInput.length === 0 ? null : 'white',
+                backgroundColor: props.searchInput.length === 0 ? null : 'black',
+                boxShadow:  props.searchInput.length === 0 ? null : 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px',
+                borderRadius: '8px',
+                height: '100%'
+            }} disabled={props.searchInput.length === 0}>
                 <SearchRounded/>
             </Button>
         </div>
