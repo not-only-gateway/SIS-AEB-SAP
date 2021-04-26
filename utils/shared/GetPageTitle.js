@@ -6,19 +6,19 @@ import PropTypes from "prop-types";
 
 export default function GetPageTitle(props){
     return (
-        <div>
+        <div style={{padding: '15px 0px 5px 0px '}}>
             {props.pageName !== undefined ?
                 <Head>
                     <title>{props.pageName}</title>
                 </Head> : null}
-            <div>
-                <p style={{color: 'black'}} className={mainStyles.primaryHeader}>{props.pageTitle}</p>
-                <p className={mainStyles.secondaryParagraph} style={getTertiaryColor({dark: props.dark})}>{props.pageInfo}</p>
+            <div >
+                <div style={{color: 'black'}} className={mainStyles.primaryHeader}>{props.pageTitle}</div>
+                <div className={mainStyles.secondaryParagraph} style={getTertiaryColor({dark: props.dark})}>{props.pageInfo}</div>
             </div>
         </div>
     )
 }
-GetPageTitle.propTypes ={
+GetPageTitle.propTypes={
     pageTitle: PropTypes.string,
     pageName: PropTypes.string,
     pageInfo: PropTypes.string,

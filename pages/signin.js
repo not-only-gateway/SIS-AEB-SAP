@@ -97,7 +97,7 @@ export default function Signin() {
                     </div>
                     <InputLayout inputName={'Email'} dark={false}
                                  handleChange={handleChange} name={'email'}
-                                 inputType={0} disabled={false} size={100} required={false}
+                                 inputType={0} disabled={false} size={'100%'} required={false}
                                  initialValue={email} key={"1-1"} setChanged={undefined}/>
                     <div style={{width: '100%'}}>
 

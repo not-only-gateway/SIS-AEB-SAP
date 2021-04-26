@@ -1,26 +1,29 @@
 @media (orientation: landscape) {
-    .signInContainer{
+    .signInContainer {
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         width: 450px;
         height: 500px;
-        border-radius: 16px;
+        border-radius: 8px;
         display: grid;
         align-content: space-around;
 
         justify-items: center;
         padding: 1.5vw;
 
+        box-shadow: rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px;
         background-color: white;
     }
-    .pageContainer{
+
+    .pageContainer {
         width: 100vw;
         height: 100vh;
         background-color: #e7e7e7;
     }
-    .footer_container{
+
+    .footer_container {
 
         border-top: #777777 2px solid;
         display: flex;
@@ -28,12 +31,14 @@
         align-content: center;
         justify-content: space-evenly;
     }
-    .form_fields_container{
+
+    .form_fields_container {
         display: grid;
         height: 40vh;
         align-content: space-between;
     }
-    .art_half_container{
+
+    .art_half_container {
         grid-column: 1;
         display: grid;
         margin: auto;

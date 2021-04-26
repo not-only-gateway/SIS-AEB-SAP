@@ -15,7 +15,7 @@ app.prepare()
 
         server.listen(80, '192.168.0.211',(err) => {
             if (err) throw err
-            console.log('> Ready on http://192.168.0.211:3000')
+            console.log('> Ready')
         })
     })
     .catch((ex) => {

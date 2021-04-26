@@ -12,10 +12,11 @@ export default function ListColumnButton(props){
                 setSorted(!sorted)
                 props.handleSorterChange(props.sorterKey)
             }} style={{
-                padding: '0 10px 0 0 ',
+                padding: 0,
                 color: 'black',
                 textTransform: 'none',
-                height: 'auto',
+                height: '100%',
+                width: '100%',
                 justifyContent: 'space-between'
             }}>
                 {props.label}

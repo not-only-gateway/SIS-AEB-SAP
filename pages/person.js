@@ -99,7 +99,7 @@ export default function person() {
 
 
                     {id !== undefined ?
-                        <div className={mainStyles.displayColumnSpaced} style={{width: '70vw',}}>
+                        <div className={mainStyles.displayColumnSpaced} style={{width: '70vw'}}>
                             {create !== 'true' ?
                                 <>
                                     <Head>
@@ -108,16 +108,24 @@ export default function person() {
                                     <div style={{
                                         transform: 'translateY(5vh) translateX(0)', display: 'grid',
                                         alignItems: 'flex-start',
-                                        justifyItems: 'center'
-                                    }}>
-                                        <ProfileComponent
-                                            profile={profile}
-                                            dark={dark}
-                                            setEditMode={setEditMode}
-                                            editMode={editMode}
+                                        justifyItems: 'center',
 
-                                            editable={accessProfile !== null && accessProfile.canUpdatePerson}
-                                            inactiveLocale={lang.inactive}/>
+                                    }}>
+                                        <div style={{
+                                            position: 'sticky',
+                                            top: 0,
+                                            width: '100%',
+                                            // backgroundColor: 'red'
+                                        }}>
+                                            <ProfileComponent
+                                                profile={profile}
+                                                dark={dark}
+                                                setEditMode={setEditMode}
+                                                editMode={editMode}
+
+                                                editable={accessProfile !== null && accessProfile.canUpdatePerson}
+                                                inactiveLocale={lang.inactive}/>
+                                        </div>
                                         <TabLayout
                                             dark={dark}
                                             width={70}

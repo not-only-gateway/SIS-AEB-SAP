@@ -13,7 +13,7 @@ export default function PersonCard(props) {
         <AccordionLayout
             summary={
 
-                <div className={mainStyles.rowContainer}>
+                <div className={mainStyles.rowContainer}  style={{height: '80px'}}>
                     <div
                         className={[mainStyles.displayInlineStart, mainStyles.overflowEllipsis].join(' ')}
                     >

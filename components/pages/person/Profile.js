@@ -12,11 +12,8 @@ export default function ProfileComponent(props) {
             className={[mainStyles.displayInlineSpaced].join(' ')}
             key={props.profile.id}
             style={{
-                    height: '11vh',
-                    position: 'sticky',
-                    top: '0',
-                    width: '100%',
-                    padding: '0px 0px 4vh 0px',
+                    height: 'auto',
+                    padding: ' 10px 0  10px 0 ',
             }}>
 
             <div className={mainStyles.displayInlineSpaced} style={{justifyContent: 'center', justifyItems: 'center'}}>

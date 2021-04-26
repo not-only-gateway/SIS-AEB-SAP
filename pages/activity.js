@@ -40,8 +40,8 @@ export default function Activity() {
         }))
     }
 
-    function handleSorterChange(event){
-        if(event === sorterMethod)
+    function handleSorterChange(event) {
+        if (event === sorterMethod)
             setSorterMethod(undefined)
         else
             setSorterMethod(event)
@@ -79,14 +79,13 @@ export default function Activity() {
         return (
             <ListLayout
                 columns={[
-                    {label: 'ID', size: 10, key: 'id'},
-                    {label: lang.method, size: 10, key: undefined},
-                    {label: 'Path', size: 10, key: undefined},
-                    {label: 'CREATION', size: 10, key: 'creation'},
+                    {label: 'ID', key: 'id'},
+                    {label: lang.method, key: undefined},
+                    {label: 'Path', key: undefined},
+                    {label: 'CREATION', key: 'creation'},
                 ]}
                 title={
-                    <GetPageTitle pageName={lang.title} pageTitle={lang.title}
-                                  dark={dark}/>
+                    lang.title
                 }
                 content={
                     data.length > 0 ?
@@ -123,7 +122,8 @@ export default function Activity() {
                                 </div>
                             }
                         >
-                            <ActivityListRenderer data={data} sorterMethod={sorterMethod} pagesFetched={pagesFetched} lang={lang}/>
+                            <ActivityListRenderer data={data} sorterMethod={sorterMethod} pagesFetched={pagesFetched}
+                                                  lang={lang}/>
 
                         </InfiniteScroll>
 
@@ -146,7 +146,6 @@ export default function Activity() {
                                              setMaxID={setMaxID}/>
 
                 }
-                filterVerticalOrientation={true}
                 width={88}
                 columnWidth={45}
                 handleSorterChange={handleSorterChange}

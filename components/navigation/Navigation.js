@@ -33,7 +33,7 @@ export default function Navigation(props) {
 
     return (
 
-        <div className={[styles.navigationContainer, animations.slideInAnimation].join(' ')}
+        <div className={[styles.navigationContainer, animations.slideInLeftAnimation].join(' ')}
              style={{
                  width: props.reduced ? '75px' : '260px',
                  transition: '250ms ease-in-out',

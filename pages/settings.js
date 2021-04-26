@@ -92,8 +92,8 @@ export default function Settings() {
                                 </div>
                             }
                             key={'language - settings'}
-                            closedSize={31.1}
-                            openSize={31.1}
+                            closedSize={31}
+                            openSize={31}
                             animationDelay={100}
                             dark={dark}
                             disabled={false}
@@ -131,8 +131,8 @@ export default function Settings() {
                                 </div>
                             }
                             key={'theme - settings'}
-                            closedSize={31.1}
-                            openSize={31.1}
+                            closedSize={31}
+                            openSize={31}
                             animationDelay={200}
                             dark={dark}
                             disabled={true}
@@ -164,8 +164,8 @@ export default function Settings() {
                                     </div>
                                 }
                                 key={'collaborations - settings'}
-                                closedSize={31.1}
-                                openSize={31.1}
+                                closedSize={31}
+                                openSize={31}
                                 dark={dark}
                                 animationDelay={300}
                                 disabled={false}
@@ -176,7 +176,7 @@ export default function Settings() {
                         }
                         {accessProfile !== null && accessProfile.canViewActivityLog ?
                             <div style={{
-                                width: '31.1vw',
+                                width: '31vw',
                                 border: !dark ? '#e5e6e8 1px solid' : 'initial',
                                 borderRadius: '8px',
                                 opacity: 0,
@@ -184,8 +184,9 @@ export default function Settings() {
                             }} className={animations.slideUpAnimation}>
                                 <Link href={{pathname: '/activity', locale: router.locale}}>
                                     <Button style={{
+                                        backgroundColor: 'white',
                                         width: '100%',
-                                        height: '100%',
+                                        height: '65px',
                                         display: 'flex',
                                         justifyContent: 'flex-start',
                                         alignItems: 'center',

@@ -2,32 +2,51 @@ import PropTypes from 'prop-types'
 import styles from '../../styles/shared/Shared.module.css'
 import mainStyles from "../../styles/shared/Main.module.css";
 import ListColumnButton from "./ListColumnButton";
+import {useState} from "react";
+import {Button, Modal} from "@material-ui/core";
+import {FilterList, FilterListRounded, FilterRounded} from "@material-ui/icons";
+import animations from '../../styles/shared/Animations.module.css'
 
 export default function ListLayout(props) {
+    const [modal, setModal] = useState(false)
+
+    function renderModal() {
+        return (
+            <Modal open={modal} onClose={() => setModal(false)}>
+                <div className={[styles.listFilterModal, animations.slideInRightAnimation].join(' ')}>
+                    {props.filterComponent}
+                </div>
+
+            </Modal>
+        )
+    }
+
     return (
         <div className={styles.pageContainer}>
             <div className={styles.listContainer} style={{width: props.width + '%'}}>
                 <div className={styles.listTitle}
                      style={{
-                         backgroundColor: '#f5f5f5',
+                         backgroundColor: '#e7e7e7',
                          width: '100%',
-                         height: props.filterVerticalOrientation ? '15vh' : '20vh',
-                         borderBottom: '#262626 1px solid'
+                         height: 'auto',
                      }}>
-                    <div style={{height: '5vh', marginRight: 'auto'}}>
-                        {props.title}
+                    <div className={mainStyles.displayInlineSpaced} style={{height: '55px'}}>
+                        <div className={mainStyles.primaryHeader}>
+                            {props.title}
+                        </div>
+                        <Button onClick={() => setModal(true)}>
+                            <FilterListRounded/>
+                        </Button>
                     </div>
-                    {props.filterVerticalOrientation ?
-                        null :
-                        props.filterComponent
-                    }
+                    {props.basicSearchComponent}
 
-                    <div className={mainStyles.rowContainer}
-                         style={{height: '5vh', paddingLeft: '5px', paddingRight: '5px'}}>
+
+                    <div className={mainStyles.rowContainer}>
                         {props.columns.map((column, index) => (
-                            <div key={'column-' + index + '-list-container'}        >
+                            <div key={'column-' + index + '-list-container'}>
                                 <ListColumnButton size={column.size} label={column.label}
-                                                  index={index} sorterKey={column.key} currentSorter={props.currentSorter}
+                                                  index={index} sorterKey={column.key}
+                                                  currentSorter={props.currentSorter}
                                                   handleSorterChange={props.handleSorterChange}/>
                             </div>
 
@@ -39,7 +58,7 @@ export default function ListLayout(props) {
                     {props.content}
                 </div>
             </div>
-            {props.filterVerticalOrientation ? props.filterComponent : null}
+            {renderModal()}
         </div>
     )
 }
@@ -48,7 +67,7 @@ ListLayout.propTypes = {
     content: PropTypes.object,
     columns: PropTypes.array,
     filterComponent: PropTypes.object,
-    filterVerticalOrientation: PropTypes.bool,
+    basicSearchComponent: PropTypes.object,
     width: PropTypes.number,
     columnWidth: PropTypes.number,
     currentSorter: PropTypes.string,

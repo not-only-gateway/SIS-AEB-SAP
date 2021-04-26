@@ -3,14 +3,28 @@
     animation-duration: .3s;
     animation-name: popIn;
 }
-.slideInAnimation{
-    animation: slideIn ease-in-out 150ms;
+.slideInLeftAnimation{
+    animation: slideInLeft ease-in-out 150ms;
 }
 .slideUpAnimation{
     animation: slideUp ease-in-out 250ms forwards;
 }
 .fadeIn{
     animation: fadeIn ease-in 300ms forwards;
+}
+.slideInRightAnimation{
+    animation: slideInRight ease-in-out 300ms;
+}
+@keyframes slideInRight {
+    0% {
+        /*opacity: 0;*/
+        transform: translateX(100%);
+    }
+
+    to {
+        /*opacity: 100%;*/
+        transform: translateX(0%);
+    }
 }
 @keyframes fadeIn {
     from {
@@ -34,7 +48,7 @@
     }
 
 }
-@keyframes slideIn {
+@keyframes slideInLeft {
     0% {
         /*opacity: 0;*/
         transform: translateX(-75%);

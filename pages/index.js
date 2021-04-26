@@ -46,7 +46,11 @@ export default function Index() {
             type: type
         }).catch(error => console.log(error))
     }
-
+    function handleInputChange(event){
+        if(event.length === 0)
+            fetchData(0, true, false)
+        setSearchInput(event)
+    }
     function redirect(id) {
         router.push({
             pathname: '/person',
@@ -104,29 +108,26 @@ export default function Index() {
                         </div>
                 }
                 title={
-                    <GetPageTitle
-                        pageName={lang.extensions} pageTitle={lang.extensions}
-                    />
+                    lang.extensions
                 }
 
-                filterComponent={
+                basicSearchComponent={
                     <IndexComponent dark={dark} setData={setData} setOption={setOption}
                                     option={option} lang={lang} setLoading={setLoading} fetchData={fetchData}
-                                    searchInput={searchInput} setSearchInput={setSearchInput}
+                                    searchInput={searchInput} setSearchInput={handleInputChange}
                                     setMaxID={setMaxID} width={55}
                     />
 
                 }
-                filterVerticalOrientation={false}
-                width={55}
+                width={65}
                 columnWidth={55}
                 handleSorterChange={handleSorterChange}
                 columns={[
-                    {label: 'Name', size: 19.5, key: 'name'},
-                    {label: 'Email', size: 15, key: undefined},
-                    {label: 'Extension', size: 9.5, key: 'extension'},
-                    {label: 'Status', size: 6, key: undefined},
-                    {label: 'Unit', size: 5, key: undefined},
+                    {label: 'Name', key: 'name'},
+                    {label: 'Email', key: undefined},
+                    {label: 'Extension', key: 'extension'},
+                    {label: 'Status', key: undefined},
+                    {label: 'Unit', key: undefined},
                 ]}
                 currentSorter={sorterMethod}
             />

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import {
+    Button,
     Divider,
     FormControl,
     FormControlLabel,
@@ -18,7 +19,7 @@ import mainStyles from '../../../styles/shared/Main.module.css'
 
 export default function IndexComponent(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [hovered, setHovered] = useState(false)
+    const [focused, setFocused] = useState(false)
 
     useEffect(() => {
         props.setSearchInput('')
@@ -29,69 +30,67 @@ export default function IndexComponent(props) {
 
     return (
 
-        <div className={mainStyles.displayInlineSpaced} key={'index-filter-component'} style={{
-            height: '5vh',
-            display: 'flex',
-            width: props.width + 'vw',
-            alignItems: 'center',
-            textTransform: 'uppercase'
-        }}>
+        <div key={'index-filter-component'} className={mainStyles.displayInlineSpaced} style={{height: '55px', gap: '10px'}}>
 
             <Paper component="form"
-                   onMouseEnter={() => setHovered(true)}
-                   onMouseLeave={() => setHovered(false)}
+
                    style={{
-                       ...getSecondaryBackground({dark: props.dark}),
-                       ...searchFieldStyle,
+                       display: 'flex',
+                       justifyContent: 'space-around',
+                       alignItems: 'center',
+                       boxShadow: focused ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
+                       width: '100%',
+                       borderRadius: '8px',
+                       height: '100%'
                    }}>
 
-                <IconButton aria-controls="menu" aria-haspopup="true"
-                            onClick={event => setAnchorEl(event.currentTarget)}>
-                    <MenuRounded style={{color: props.dark ? 'white' : null}}/>
-                </IconButton>
-                <Menu id="menu" anchorEl={anchorEl}
-                      keepMounted
-                      open={Boolean(anchorEl)}
-                      onClose={() => setAnchorEl(null)}>
-                    <FormControl component="fieldset" style={{paddingLeft: '10px'}}>
-                        <RadioGroup onChange={event =>
-                            props.setOption(event.target.value)
-                        } value={props.option}>
-                            {props.lang.filterChoice.map((choice, index) => (
-                                <div key={'choice-' + index}>
-                                    <FormControlLabel value={choice.key} control={<Radio/>} label={choice.value}/>
-                                </div>
-                            ))}
+                {/*<IconButton aria-controls="menu" aria-haspopup="true"*/}
+                {/*            onClick={event => setAnchorEl(event.currentTarget)}>*/}
+                {/*    <MenuRounded style={{color: props.dark ? 'white' : null}}/>*/}
+                {/*</IconButton>*/}
+                {/*<Menu id="menu" anchorEl={anchorEl}*/}
+                {/*      keepMounted*/}
+                {/*      open={Boolean(anchorEl)}*/}
+                {/*      onClose={() => setAnchorEl(null)}>*/}
+                {/*    <FormControl component="fieldset" style={{paddingLeft: '10px'}}>*/}
+                {/*        <RadioGroup onChange={event =>*/}
+                {/*            props.setOption(event.target.value)*/}
+                {/*        } value={props.option}>*/}
+                {/*            {props.lang.filterChoice.map((choice, index) => (*/}
+                {/*                <div key={'choice-' + index}>*/}
+                {/*                    <FormControlLabel value={choice.key} control={<Radio/>} label={choice.value}/>*/}
+                {/*                </div>*/}
+                {/*            ))}*/}
 
-                        </RadioGroup>
-                    </FormControl>
-                </Menu>
+                {/*        </RadioGroup>*/}
+                {/*    </FormControl>*/}
+                {/*</Menu>*/}
                 <InputBase
-                    style={{width: '85%', marginLeft: '10px'}}
+                    style={{width: '98%'}}
                     placeholder={props.lang.search}
                     value={props.searchInput}
+                    onFocus={() => setFocused(true)}
+                    onBlur={() => setFocused(false)}
                     onKeyDown={key => {
                         if (key.key === 'Enter')
                             key.preventDefault()
                     }}
                     onChange={event => props.setSearchInput(event.target.value)}
                 />
-                <IconButton aria-label={props.lang.search} onClick={() => props.fetchData(1, true)}
-
-                            disabled={props.searchInput === null || props.searchInput.length === 0}>
-                    <SearchRounded/>
-                </IconButton>
-                <Divider orientation={'vertical'} style={{height: '70%'}}/>
-                <IconButton aria-label={props.lang.search}
-                            disabled={props.searchInput === null || props.searchInput.length === 0}
-                            onClick={() => {
-                                props.setSearchInput('')
-                                props.setMaxID(null)
-                                props.fetchData(1, true, false)
-                            }}>
-                    <BackspaceRounded/>
-                </IconButton>
+                {/*<Divider orientation={'vertical'} style={{height: '70%'}}/>*/}
+                {/*<IconButton aria-label={props.lang.search}*/}
+                {/*            disabled={props.searchInput === null || props.searchInput.length === 0}*/}
+                {/*            onClick={() => {*/}
+                {/*                props.setSearchInput('')*/}
+                {/*                props.setMaxID(null)*/}
+                {/*                props.fetchData(1, true, false)*/}
+                {/*            }}>*/}
+                {/*    <BackspaceRounded/>*/}
+                {/*</IconButton>*/}
             </Paper>
+            <Button onClick={() => props.fetchData(1, true)} style={{width: '55px', color:props.searchInput.length === 0 ? null : 'white' ,backgroundColor: props.searchInput.length === 0 ? null : 'black', borderRadius: '8px', height: '100%'}} disabled={props.searchInput.length === 0}>
+                <SearchRounded/>
+            </Button>
         </div>
     )
 }

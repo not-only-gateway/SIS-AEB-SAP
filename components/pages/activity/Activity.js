@@ -17,7 +17,7 @@ export default function ActivityComponent(props) {
     return (
         <AccordionLayout
             content={
-                <div className={styles.informationContainer} key={'activity - ' + props.activity.id}>
+                <div className={styles.informationContainer} key={'activity - ' + props.activity.id} >
                     <div className={styles.info_row}>
                         <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: props.dark})}>ID</p>
                         <Divider orientation={'horizontal'}

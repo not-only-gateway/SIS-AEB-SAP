@@ -27,7 +27,14 @@ export default function TabLayout(props) {
 
     function renderTabContent(tab) {
         return (
-            <div className={mainStyles.displayInlineCenter} style={{transform: 'translateY(2vh)', backgroundColor: 'white', borderRadius: '8px', padding: '20px'}}
+            <div className={mainStyles.displayInlineCenter} style={{
+                transform: 'translateY(10px)',
+                backgroundColor: 'white',
+                borderRadius: '8px',
+                padding: '20px',
+                position: "absolute",
+                zIndex: 0
+            }}
                  key={tab.buttonKey + '-content'}>
                 {tab.value}
             </div>
@@ -37,30 +44,31 @@ export default function TabLayout(props) {
     return (
         <div style={{
             width: props.width + 'vw',
-            marginTop: '2vh'
+            marginTop: '2vh',
         }}>
-            <div className={mainStyles.displayInlineStart}
-                 style={{
-                     width: props.width + 'vw',
-                 }}>
+            <div
+                style={{
+                    width: props.width + 'vw',
+                    display: 'flex',
+                    gap: '10px',
+
+                }}>
 
                 {props.buttons.map((button) => {
                         if (button !== null)
                             return (
                                 <Button disabled={button.disabled} key={button.key} style={{
-                                    ...{
-                                        borderRadius: open === button.key ? '8px 8px 0px   0px ' : null,
-                                        borderBottom: open === button.key ? '#0095ff 3px solid' : 'transparent 3px solid',
-                                        backgroundColor:  open === button.key ? 'white' : null,
-                                            width: 'fit-content',
-                                        boxShadow: open === button.key ? 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset' : null,
-                                        transition: '.2s',
-                                        height: '50px',
-                                        marginRight: '2vw',
-                                        textTransform: 'capitalize'
-                                    },
-                                    ...open === button.key ? {color: (props.dark ? '#1ea1f1 2px solid' : '#46b2f3 2px solid')} : getPrimaryColor({dark: props.dark})
-                                }} onClick={() => setOpen(button.key)}>
+                                    borderRadius: open === button.key ? '5px 5px 0 0' : null,
+                                    borderBottom: open === button.key ? '#0095ff 2px solid' : 'transparent 2px solid',
+                                    backgroundColor: open === button.key ? 'white' : 'transparent',
+                                    transition: '.2s',
+                                    height: 'auto',
+                                    width: '100%',
+
+                                    textTransform: 'capitalize'
+
+                                }} variant={"contained"} disableElevation={open !== button.key}
+                                        onClick={() => setOpen(button.key)}>
                                     {button.value}
                                 </Button>
                             )
@@ -80,7 +88,7 @@ export default function TabLayout(props) {
         </div>
     )
 }
-TabLayout.proptypes= {
+TabLayout.proptypes = {
     buttons: PropTypes.object,
     tabs: PropTypes.object,
     dark: PropTypes.bool,

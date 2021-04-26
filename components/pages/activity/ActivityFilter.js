@@ -10,26 +10,21 @@ export default function ActivityFilterComponent(props) {
     return (
 
             <div className={shared.filterContainer}>
-                <div style={{
-                    height: '5vh',
-                    display: 'flex',
-                    alignItems: 'center',
-                    textTransform: 'uppercase'
-                }}>{props.lang.filters}</div>
+                <p style={{marginRight: "auto", fontSize: '1.2rem'}}>{props.lang.filters}</p>
                 <InputLayout inputName={props.lang.search} dark={props.dark} handleChange={props.handleChange}
                              inputType={0} name={'path'}
-                             disabled={props.disabled} size={100} initialValue={props.filters.path}
+                             disabled={props.disabled} size={'100%'} initialValue={props.filters.path}
                              key={"path"} setChanged={props.setChanged} margin={false}
                 />
 
                 <InputLayout inputName={props.lang.startDate} dark={props.dark} handleChange={props.handleChange}
                              inputType={2} name={'startDate'}
-                             disabled={props.disabled} size={100} initialValue={props.filters.startDate}
+                             disabled={props.disabled} size={'100%'} initialValue={props.filters.startDate}
                              key={"start-date-selector"} setChanged={props.setChanged} margin={false}
                 />
                 <InputLayout inputName={props.lang.endDate} dark={props.dark} handleChange={props.handleChange}
                              inputType={2} name={'endDate'}
-                             disabled={props.disabled} size={100} initialValue={props.filters.endDate}
+                             disabled={props.disabled} size={'100%'} initialValue={props.filters.endDate}
                              key={"end-date-selector"} setChanged={props.setChanged} margin={false}
                 />
                 <FormControl component="fieldset" style={{marginRight: 'auto'}}>
@@ -114,7 +109,7 @@ export default function ActivityFilterComponent(props) {
                     </FormGroup>
                 </FormControl>
 
-                <div className={mainStyles.displayInlineSpaced} style={{width: '90%', marginTop: '5vh'}}>
+                <div className={mainStyles.displayInlineSpaced} style={{width: '100%'}}>
                     <Button disabled={!props.changed} variant={'contained'} style={{width: '100%',
                         backgroundColor: !props.changed ? null : '#0095ff',
                         color: !props.changed ? null : 'white'
@@ -136,7 +131,7 @@ export default function ActivityFilterComponent(props) {
                         }).catch(error => console.log(error))
 
                     }}>
-                        filter
+                        Apply
                     </Button>
                 </div>
             </div>
