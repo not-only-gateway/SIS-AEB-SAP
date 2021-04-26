@@ -9,7 +9,7 @@ import {getPrimaryColor, getTertiaryColor} from "../../../styles/shared/MainStyl
 
 export default function ActivityComponent(props) {
     const [color, setColor] = useState(null)
-    console.log('pages -> ' + props.pagesFetched)
+
     useEffect(() => {
         setColor(getMethodColor(props.activity.request_method))
     }, [props.activity.request_method])

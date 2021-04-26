@@ -25,7 +25,7 @@ export default function ActivityListRenderer(props) {
         <div style={{display: 'grid', gap: '10px', marginTop: '10px'}}>
             {(sorter()).map((data, index) => (
                     <div key={data.activity.id+'-container-'+index}>
-                        <ActivityComponent lang={props.lang} dark={false} activity={data.activity}
+                        <ActivityComponent lang={props.lang} dark={false} activity={data.activity} setPagesFetched={props.setPagesFetched}
                                            accessLog={data.access_log} index={index} pagesFetched={props.pagesFetched}
                         />
                     </div>
@@ -38,5 +38,5 @@ ActivityListRenderer.propTypes = {
     data: PropTypes.array,
     sorterMethod: PropTypes.string,
     pagesFetched: PropTypes.number,
-    lang: PropTypes.object
+    lang: PropTypes.object,
 }

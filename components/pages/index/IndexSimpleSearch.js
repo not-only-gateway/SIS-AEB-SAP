@@ -17,7 +17,7 @@ import React, {useEffect, useState} from "react";
 import {getSecondaryBackground} from "../../../styles/shared/MainStyles";
 import mainStyles from '../../../styles/shared/Main.module.css'
 
-export default function IndexComponent(props) {
+export default function IndexSimpleSearch(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [focused, setFocused] = useState(false)
 
@@ -30,7 +30,7 @@ export default function IndexComponent(props) {
 
     return (
 
-        <div key={'index-filter-component'} className={mainStyles.displayInlineSpaced} style={{height: '55px', gap: '10px'}}>
+        <div key={'index-simple-filter-component'} className={mainStyles.displayInlineSpaced} style={{height: '55px', gap: '10px'}}>
 
             <Paper component="form"
 
@@ -95,7 +95,7 @@ export default function IndexComponent(props) {
     )
 }
 
-IndexComponent.propTypes = {
+IndexSimpleSearch.propTypes = {
     width: PropTypes.number,
     dark: PropTypes.bool,
     option: PropTypes.string,

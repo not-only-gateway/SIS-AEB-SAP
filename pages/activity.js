@@ -11,6 +11,7 @@ import mainStyles from "../styles/shared/Main.module.css";
 import GetPageTitle from "../utils/shared/GetPageTitle";
 import ListLayout from "../components/list/ListLayout";
 import ActivityListRenderer from "../components/pages/activity/ListRederer";
+import PropTypes from "prop-types";
 
 export default function Activity() {
 
@@ -143,7 +144,9 @@ export default function Activity() {
                                              setThisMachine={setThisMachine}
                                              thisMachine={thisMachine} setResponseData={setData}
                                              setLastFetchedSize={setLastFetchedSize}
-                                             setMaxID={setMaxID}/>
+                                             setMaxID={setMaxID} setPagesFetched={setPagesFetched}
+
+                    />
 
                 }
                 width={88}

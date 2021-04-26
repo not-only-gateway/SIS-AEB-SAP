@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {Skeleton} from "@material-ui/lab";
 import {getLanguage} from "../utils/shared/Language";
-import IndexComponent from "../components/pages/index/IndexComponent";
+import IndexSimpleSearch from "../components/pages/index/IndexSimpleSearch";
 import InfiniteScroll from "react-infinite-scroll-component";
 import fetchIndexData from "../utils/index/FetchData";
 import {getTertiaryColor} from "../styles/shared/MainStyles";
@@ -10,6 +10,7 @@ import mainStyles from '../styles/shared/Main.module.css'
 import GetPageTitle from "../utils/shared/GetPageTitle";
 import ListLayout from "../components/list/ListLayout";
 import IndexListRenderer from "../components/pages/index/IndexListRenderer";
+import IndexFilterComponent from "../components/pages/index/IndexFilterComponent";
 
 export default function Index() {
 
@@ -46,19 +47,22 @@ export default function Index() {
             type: type
         }).catch(error => console.log(error))
     }
-    function handleInputChange(event){
-        if(event.length === 0)
+
+    function handleInputChange(event) {
+        if (event.length === 0)
             fetchData(0, true, false)
         setSearchInput(event)
     }
+
     function redirect(id) {
         router.push({
             pathname: '/person',
             query: {id: id}
         })
     }
-    function handleSorterChange(event){
-        if(event === sorterMethod)
+
+    function handleSorterChange(event) {
+        if (event === sorterMethod)
             setSorterMethod(undefined)
         else
             setSorterMethod(event)
@@ -88,7 +92,8 @@ export default function Index() {
                                     </div>
                                 }
                             >
-                                <IndexListRenderer sorterMethod={sorterMethod} data={data} redirect={redirect} inactiveLocale={lang.inactive}/>
+                                <IndexListRenderer sorterMethod={sorterMethod} data={data} redirect={redirect}
+                                                   inactiveLocale={lang.inactive}/>
                             </InfiniteScroll>
                             :
 
@@ -112,10 +117,11 @@ export default function Index() {
                 }
 
                 basicSearchComponent={
-                    <IndexComponent dark={dark} setData={setData} setOption={setOption}
-                                    option={option} lang={lang} setLoading={setLoading} fetchData={fetchData}
-                                    searchInput={searchInput} setSearchInput={handleInputChange}
-                                    setMaxID={setMaxID} width={55}
+                    <IndexSimpleSearch
+                        dark={dark} setData={setData} setOption={setOption}
+                        option={option} lang={lang} setLoading={setLoading} fetchData={fetchData}
+                        searchInput={searchInput} setSearchInput={handleInputChange}
+                        setMaxID={setMaxID} width={55}
                     />
 
                 }
@@ -130,6 +136,14 @@ export default function Index() {
                     {label: 'Unit', key: undefined},
                 ]}
                 currentSorter={sorterMethod}
+                filterComponent={
+                    <IndexFilterComponent
+                        dark={dark} setData={setData} setOption={setOption}
+                        option={option} lang={lang} setLoading={setLoading} fetchData={fetchData}
+                        searchInput={searchInput} setSearchInput={handleInputChange}
+                        setMaxID={setMaxID} width={55}
+                    />
+                }
             />
         )
     else

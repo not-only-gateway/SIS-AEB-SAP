@@ -70,6 +70,14 @@ export default function ActivityFilterComponent(props) {
                                                }}/>}
                             label="DELETE"
                         />
+                        <FormControlLabel
+                            control={<Checkbox key={'all'} checked={props.filters.method === null}
+                                               onChange={() => {
+                                                   props.handleChange({name: 'method', value: null})
+                                                   props.setChanged(true)
+                                               }}/>}
+                            label="ALL"
+                        />
                     </FormGroup>
                 </FormControl>
 
@@ -128,6 +136,7 @@ export default function ActivityFilterComponent(props) {
                             startDate: props.filters.date,
                             method: props.filters.method,
                             path: props.filters.path,
+                            setPagesFetched: props.setPagesFetched
                         }).catch(error => console.log(error))
 
                     }}>
@@ -152,5 +161,8 @@ ActivityFilterComponent.propTypes = {
     setMaxID: PropTypes.func,
     startDate: PropTypes.string,
     filters: PropTypes.object,
-    handleChange: PropTypes.func
+    handleChange: PropTypes.func,
+
+    pagesFetched: PropTypes.number,
+    setPagesFetched: PropTypes.func
 }
