@@ -22,6 +22,8 @@ export default function AddressForm(props) {
         city: ''
     })
 
+    const [validZipCode, setValidZipCode] = useState(false)
+
     function disabled() {
         return (
             address.zipCode.length === 0 ||
@@ -63,9 +65,10 @@ export default function AddressForm(props) {
             handleChange({name: 'state', value: res.data.localidade})
             handleChange({name: 'address', value: res.data.logradouro})
             handleChange({name: 'complement', value: res.data.complemento})
-
+            setValidZipCode(true)
         }).catch(error => {
             console.log(error)
+            setValidZipCode(false)
         })
     }
 
@@ -80,6 +83,7 @@ export default function AddressForm(props) {
                 handleChange({name: 'stateInitials', value: res.state_initials})
                 handleChange({name: 'neighborhood', value: res.neighborhood !== null ? res.neighborhood : ''})
                 handleChange({name: 'city', value: res.city})
+                setValidZipCode(true)
             }
             setLoading(false)
         })
@@ -114,44 +118,44 @@ export default function AddressForm(props) {
 
                 <InputLayout inputName={'Zip Code'} dark={props.dark} handleChange={handleChange} inputType={0}
                              name={'zipCode'} maxLength={8} numeric={true}
-                             disabled={!props.editable} size={98} required={true} initialValue={address.zipCode}
+                             disabled={!props.editable} size={'100%'} required={true} initialValue={address.zipCode}
                              key={"4-3"} setChanged={setChanged}/>
                 <InputLayout inputName={'Address'} dark={props.dark} handleChange={handleChange} inputType={0}
                              name={'address'}
-                             disabled={!props.editable || address.zipCode.length < 8} size={48.5} required={true} initialValue={address.address}
+                             disabled={!props.editable || address.zipCode.length < 8 || !validZipCode} size={'calc(50% - 8px)'} required={true} initialValue={address.address}
                              key={"4-1"} setChanged={setChanged}/>
                 <InputLayout inputName={'Complement'} dark={props.dark} handleChange={handleChange} inputType={0}
                              name={'complement'}
-                             disabled={!props.editable || address.zipCode.length < 8} size={48.5} required={false} initialValue={address.complement}
+                             disabled={!props.editable || address.zipCode.length < 8 || !validZipCode} size={'calc(50% - 8px)'} required={false} initialValue={address.complement}
                              key={"4-2"} setChanged={setChanged}/>
 
 
                 <InputLayout inputName={'City'} dark={props.dark} handleChange={handleChange} inputType={0}
-                             disabled={!props.editable || address.zipCode.length < 8} size={32} required={true} initialValue={address.city}
+                             disabled={!props.editable || address.zipCode.length < 8 || !validZipCode} size={'calc(33.333% - 10.666px'} required={true} initialValue={address.city}
                              name={'city'}
                              key={"4-6"} setChanged={setChanged}/>
                 <InputLayout inputName={'State'} dark={props.dark} handleChange={handleChange} inputType={0}
-                             disabled={!props.editable || address.zipCode.length < 8} size={32} required={true} initialValue={address.state}
+                             disabled={!props.editable || address.zipCode.length < 8 || !validZipCode} size={'calc(33.333% - 10.666px'} required={true} initialValue={address.state}
                              name={'state'}
                              key={"4-7"} setChanged={setChanged}/>
                 <InputLayout inputName={'State Initials'} dark={props.dark} handleChange={handleChange}
                              inputType={0} name={'stateInitials'}  maxLength={2} uppercase={true}
-                             disabled={!props.editable || address.zipCode.length < 8} size={32} required={true}
+                             disabled={!props.editable || address.zipCode.length < 8 || !validZipCode} size={'calc(33.333% - 10.666px'} required={true}
                              initialValue={address.stateInitials}
                              key={"4-8"} setChanged={setChanged}/>
 
                 <InputLayout inputName={'Street'} dark={props.dark} handleChange={handleChange} inputType={0}
                              name={'street'}
-                             disabled={!props.editable || address.zipCode.length < 8} size={48.5} required={false} initialValue={address.street}
+                             disabled={!props.editable || address.zipCode.length < 8 || !validZipCode} size={'calc(50% - 8px)'} required={false} initialValue={address.street}
                              key={"4-4"} setChanged={setChanged}/>
                 <InputLayout inputName={'Neighborhood'} dark={props.dark} handleChange={handleChange}
                              inputType={0} name={'neighborhood'}
-                             disabled={!props.editable || address.zipCode.length < 8} size={48.5} required={false}
+                             disabled={!props.editable || address.zipCode.length < 8 || !validZipCode} size={'calc(50% - 8px)'} required={false}
                              initialValue={address.neighborhood}
                              key={"4-5"} setChanged={setChanged}/>
 
                 <Button style={{
-                    width: '98%', transform: 'translateY(50px)',
+                    width: '100%',
                     backgroundColor: disabled() ? null : '#39adf6',
                     color: disabled() ? null : 'white'
                 }} variant={'contained'}

@@ -115,7 +115,7 @@ export default function SelectorLayout(props) {
         <>
             {renderModal()}
             <FormControl key={props.key} required={props.required} style={{
-                width: props.width + '%',
+                width: props.width,
                 height: '7vh',
                 marginTop: 'auto'
             }}>

@@ -27,8 +27,9 @@ export default function TabLayout(props) {
 
     function renderTabContent(tab) {
         return (
-            <div className={mainStyles.displayInlineCenter} style={{transform: 'translateY(2vh)'}} key={tab.buttonKey + '-content'}>
-                {tab.buttonKey === open ? tab.value : null}
+            <div className={mainStyles.displayInlineCenter} style={{transform: 'translateY(2vh)', backgroundColor: 'white', borderRadius: '8px', padding: '20px'}}
+                 key={tab.buttonKey + '-content'}>
+                {tab.value}
             </div>
         )
     }
@@ -38,18 +39,23 @@ export default function TabLayout(props) {
             width: props.width + 'vw',
             marginTop: '2vh'
         }}>
-            <div className={mainStyles.displayInlineStart} style={{width: props.width + 'vw',
-                borderBottom: '#e2e2e2 1px solid'}}>
+            <div className={mainStyles.displayInlineStart}
+                 style={{
+                     width: props.width + 'vw',
+                 }}>
 
                 {props.buttons.map((button) => {
                         if (button !== null)
                             return (
                                 <Button disabled={button.disabled} key={button.key} style={{
                                     ...{
-                                        borderRadius: '0px',
+                                        borderRadius: open === button.key ? '8px 8px 0px   0px ' : null,
                                         borderBottom: open === button.key ? '#0095ff 3px solid' : 'transparent 3px solid',
-                                        width: 'fit-content',
+                                        backgroundColor:  open === button.key ? 'white' : null,
+                                            width: 'fit-content',
+                                        boxShadow: open === button.key ? 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset' : null,
                                         transition: '.2s',
+                                        height: '50px',
                                         marginRight: '2vw',
                                         textTransform: 'capitalize'
                                     },
@@ -64,7 +70,7 @@ export default function TabLayout(props) {
                 )}
             </div>
             {props.tabs.map(tab => {
-                if (tab !== null)
+                if (tab !== null && tab.buttonKey === open)
                     return (
                         renderTabContent(tab)
                     )
@@ -74,7 +80,7 @@ export default function TabLayout(props) {
         </div>
     )
 }
-TabLayout.proptypes = {
+TabLayout.proptypes= {
     buttons: PropTypes.object,
     tabs: PropTypes.object,
     dark: PropTypes.bool,

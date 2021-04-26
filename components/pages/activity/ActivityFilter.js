@@ -9,7 +9,7 @@ import shared from '../../../styles/shared/Shared.module.css'
 export default function ActivityFilterComponent(props) {
     return (
 
-            <div className={shared.filterContainer} style={{height: '100vh'}}>
+            <div className={shared.filterContainer}>
                 <div style={{
                     height: '5vh',
                     display: 'flex',
@@ -18,21 +18,21 @@ export default function ActivityFilterComponent(props) {
                 }}>{props.lang.filters}</div>
                 <InputLayout inputName={props.lang.search} dark={props.dark} handleChange={props.handleChange}
                              inputType={0} name={'path'}
-                             disabled={props.disabled} size={90} initialValue={props.filters.path}
+                             disabled={props.disabled} size={100} initialValue={props.filters.path}
                              key={"path"} setChanged={props.setChanged} margin={false}
                 />
 
                 <InputLayout inputName={props.lang.startDate} dark={props.dark} handleChange={props.handleChange}
                              inputType={2} name={'startDate'}
-                             disabled={props.disabled} size={90} initialValue={props.filters.startDate}
+                             disabled={props.disabled} size={100} initialValue={props.filters.startDate}
                              key={"start-date-selector"} setChanged={props.setChanged} margin={false}
                 />
                 <InputLayout inputName={props.lang.endDate} dark={props.dark} handleChange={props.handleChange}
                              inputType={2} name={'endDate'}
-                             disabled={props.disabled} size={90} initialValue={props.filters.endDate}
+                             disabled={props.disabled} size={100} initialValue={props.filters.endDate}
                              key={"end-date-selector"} setChanged={props.setChanged} margin={false}
                 />
-                <FormControl component="fieldset">
+                <FormControl component="fieldset" style={{marginRight: 'auto'}}>
                     <FormLabel component="legend">{props.lang.method}</FormLabel>
                     <FormGroup >
                         <FormControlLabel
@@ -78,7 +78,7 @@ export default function ActivityFilterComponent(props) {
                     </FormGroup>
                 </FormControl>
 
-                <FormControl component="fieldset">
+                <FormControl component="fieldset" style={{marginRight: 'auto'}}>
                     <FormLabel component="legend">{props.lang.machine}</FormLabel>
                     <FormGroup>
                         <FormControlLabel

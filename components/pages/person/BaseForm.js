@@ -126,7 +126,7 @@ export default function BaseForm(props) {
         return (
             <div className={mainStyles.displayWarp} style={{justifyContent: 'center'}}>
 
-                <div style={{width: '23.6%', border: '#e2e2e2 1px solid', borderRadius: '8px'}}
+                <div style={{width: 'calc(25% - 12px)', border: '#e2e2e2 1px solid', borderRadius: '8px'}}
                      className={mainStyles.displayInlineSpaced}>
                     <Avatar
                         src={image.imageSrc}
@@ -148,40 +148,40 @@ export default function BaseForm(props) {
                     </div>
                 </div>
                 <InputLayout inputName={lang.name} dark={props.dark} handleChange={props.handleChange} inputType={0}
-                             disabled={!props.editable} size={23.6} required={true}
+                             disabled={!props.editable} size={'calc(25% - 12px)'} required={true}
                              initialValue={props.profile.name} name={'name'}
                              key={"1-1"} setChanged={setChanged} margin={false}/>
 
 
                 <InputLayout inputName={lang.corporateEmail} dark={props.dark}
                              handleChange={props.handleChange} name={'corporate_email'}
-                             inputType={0} disabled={!props.editable} size={23.6} required={true}
+                             inputType={0} disabled={!props.editable} size={'calc(25% - 12px)'} required={true}
                              initialValue={props.profile.corporate_email} key={"1-12"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.extension} dark={props.dark} handleChange={props.handleChange} numeric={true} maxLength={4}
-                             inputType={0} disabled={!props.editable} size={23.6} required={true} name={'extension'}
+                             inputType={0} disabled={!props.editable} size={'calc(25% - 12px)'} required={true} name={'extension'}
                              initialValue={props.profile.extension} key={"1-13"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.registration} dark={props.dark} handleChange={props.handleChange}
-                             inputType={0} disabled={!props.editable} size={48.3} required={false}
+                             inputType={0} disabled={!props.editable} size={'calc(50% - 8px)'} required={false}
                              name={'registration'}
                              initialValue={props.profile.registration} key={"1-14"} setChanged={setChanged}/>
 
 
                 <InputLayout inputName={lang.birth} dark={props.dark} handleChange={props.handleChange}
                              inputType={2} name={'birth'}
-                             disabled={!props.editable} size={48.3} required={true} initialValue={props.profile.birth}
+                             disabled={!props.editable} size={'calc(50% - 8px)'} required={true} initialValue={props.profile.birth}
                              key={"1-7"} setChanged={setChanged}/>
 
                 <InputLayout inputName={lang.disabledPerson} dark={props.dark}
                              handleChange={props.handleChange}
                              inputType={1} name={'disabled_person'}
-                             disabled={!props.editable} size={23.6} required={true}
+                             disabled={!props.editable} size={'calc(25% - 12px)'} required={true}
                              initialValue={props.profile.disabled_person}
                              selectFields={lang.choice}
                              key={"1-8"} setChanged={setChanged}/>
 
                 <InputLayout inputName={lang.gender} dark={props.dark} handleChange={props.handleChange}
                              inputType={1} name={'gender'}
-                             disabled={!props.editable} size={23.6} required={true}
+                             disabled={!props.editable} size={'calc(25% - 12px)'} required={true}
                              initialValue={props.profile.gender}
                              selectFields={lang.genderChoice}
                              key={"1-10"} setChanged={setChanged}/>
@@ -189,25 +189,25 @@ export default function BaseForm(props) {
                 <InputLayout inputName={lang.education} dark={props.dark}
                              handleChange={props.handleChange}
                              inputType={1} name={'education'}
-                             disabled={!props.editable} size={23.6} required={true}
+                             disabled={!props.editable} size={'calc(25% - 12px)'} required={true}
                              initialValue={props.profile.education}
                              selectFields={lang.educationChoice}
                              key={"1-9"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.marital} dark={props.dark} handleChange={props.handleChange}
                              inputType={1} name={'marital_status'}
-                             disabled={!props.editable} size={23.6} required={true}
+                             disabled={!props.editable} size={'calc(25% - 12px)'} required={true}
                              initialValue={props.profile.marital_status}
                              selectFields={lang.maritalChoice}
                              key={"1-11"} setChanged={setChanged}/>
 
                 <InputLayout inputName={lang.father} dark={props.dark} handleChange={props.handleChange}
                              inputType={0} name={'father_name'}
-                             disabled={!props.editable} size={48.3} required={false}
+                             disabled={!props.editable} size={'calc(50% - 8px)'} required={false}
                              initialValue={props.profile.father_name}
                              key={"1-3"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.mother} dark={props.dark} handleChange={props.handleChange}
                              inputType={0} name={'mother_name'}
-                             disabled={!props.editable} size={48.3} required={false}
+                             disabled={!props.editable} size={'calc(50% - 8px)'} required={false}
                              initialValue={props.profile.mother_name}
                              key={"1-4"} setChanged={setChanged}/>
 
@@ -216,16 +216,16 @@ export default function BaseForm(props) {
                                 selected={{key: props.profile.birth_place, value: props.profile.birth_place}}
                                 handleChange={handleBirthPlaceChange}
                                 label={lang.birthPlace} key={'1-5-'} setChanged={setChanged}
-                                data={StateOptions} width={48.3}/>
+                                data={StateOptions} width={'calc(50% - 8px)'}/>
                 <SelectorLayout required={true}
                                 selected={{key: props.profile.nationality, value: props.profile.nationality}}
                                 handleChange={handleNationalityChange} setChanged={setChanged}
                                 label={lang.nationality} key={'1-6-'}
-                                data={CountryOptions} width={48.3}/>
+                                data={CountryOptions} width={'calc(50% - 8px)'}/>
 
                 {!props.editable ? null :
                     <Button style={{
-                        width: '98%', marginTop: '50px',
+                        width: '100%', marginTop: '50px',
                         backgroundColor: disabled() ? null : '#0095ff',
                         color: disabled() ? null : 'white'
                     }} disabled={disabled()} variant={'contained'} onClick={() => saveChanges()}>

@@ -93,52 +93,52 @@ export default function DocumentsForm(props) {
         return (
             <div className={mainStyles.displayWarp} style={{justifyContent: 'center'}}>
                 <InputLayout inputName={'CPF'} dark={props.dark} handleChange={handleChange} inputType={0} name={'cpf'}
-                             disabled={!props.editable} size={98} required={true} initialValue={documents.cpf} numeric={true} maxLength={11}
+                             disabled={!props.editable} size={'calc(25% - 12px)'} required={true} initialValue={documents.cpf} numeric={true} maxLength={11}
                              key={"5-1"} setChanged={setChanged}/>
 
                 <InputLayout inputName={'RG'} dark={props.dark} handleChange={handleChange} inputType={0} name={'rg'}
-                             disabled={!props.editable} size={32} required={true} initialValue={documents.rg} numeric={true} maxLength={8}
+                             disabled={!props.editable} size={'calc(25% - 12px)'} required={true} initialValue={documents.rg} numeric={true} maxLength={8}
                              key={"5-2"} setChanged={setChanged}/>
 
                 <InputLayout inputName={lang.issuing} dark={props.dark} handleChange={handleChange} inputType={0} name={'issuingBody'}
-                             disabled={!props.editable} size={32} required={true} initialValue={documents.issuingBody}
+                             disabled={!props.editable} size={'calc(25% - 12px)'} required={true} initialValue={documents.issuingBody}
                              key={"5-3"} setChanged={setChanged}/>
 
                 <InputLayout inputName={lang.dispatch} dark={props.dark} handleChange={handleChange}
                              inputType={2} name={'dispatchDate'}
-                             disabled={!props.editable} size={32} required={true} initialValue={documents.dispatchDate}
+                             disabled={!props.editable} size={'calc(25% - 12px)'} required={true} initialValue={documents.dispatchDate}
                              key={"5-4"} setChanged={setChanged}/>
 
                 <InputLayout inputName={lang.work} dark={props.dark} handleChange={handleChange} inputType={0} name={'workCard'}
-                             disabled={!props.editable} size={48.5} required={true} initialValue={documents.workCard}
+                             disabled={!props.editable} size={'calc(50% - 8px)'} required={true} initialValue={documents.workCard}
                              key={"5-5"} setChanged={setChanged}/>
 
                 <InputLayout inputName={'PIS/PASEP'} dark={props.dark} handleChange={handleChange} inputType={0} name={'pis'}
-                             disabled={!props.editable} size={48.5} required={true} initialValue={documents.pis}
+                             disabled={!props.editable} size={'calc(50% - 8px)'} required={true} initialValue={documents.pis}
                              key={"5-6"} setChanged={setChanged}/>
 
                 <InputLayout inputName={lang.bank} dark={props.dark} handleChange={handleChange} inputType={0} name={'bank'}
-                             disabled={!props.editable} size={48.5} required={false} initialValue={documents.bank}
+                             disabled={!props.editable} size={'calc(50% - 8px)'} required={false} initialValue={documents.bank}
                              key={"5-7"} setChanged={setChanged}
                 />
                 <InputLayout inputName={lang.agency} dark={props.dark} handleChange={handleChange} inputType={0} name={'agency'}
-                             disabled={!props.editable} size={48.5} required={false} initialValue={documents.agency}
+                             disabled={!props.editable} size={'calc(50% - 8px)'} required={false} initialValue={documents.agency}
                              key={"5-8"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.voter} dark={props.dark} handleChange={handleChange}
                              inputType={0} name={'voterRegistration'}
-                             disabled={!props.editable} size={32} required={true} initialValue={documents.voterRegistration}
+                             disabled={!props.editable} size={'calc(33.333% - 10.6666px)'} required={true} initialValue={documents.voterRegistration}
                              key={"5-9"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.section} dark={props.dark} handleChange={handleChange}
                              inputType={0} name={'electoralSection'}
-                             disabled={!props.editable} size={32} required={true} initialValue={documents.electoralSection}
+                             disabled={!props.editable} size={'calc(33.333% - 10.6666px)'} required={true} initialValue={documents.electoralSection}
                              key={"5-10"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.zone} dark={props.dark} handleChange={handleChange}
                              inputType={0} name={'electoralZone'}
-                             disabled={!props.editable} size={32} required={true} initialValue={documents.electoralZone}
+                             disabled={!props.editable} size={'calc(33.333% - 10.6666px)'} required={true} initialValue={documents.electoralZone}
                              key={"5-11"} setChanged={setChanged}/>
 
                 <Button style={{
-                    width: '98%', marginTop: '50px',
+                    width: '100%', marginTop: '50px',
                     backgroundColor: disabled() ? null : '#39adf6',
                 }}
                         variant={'contained'}

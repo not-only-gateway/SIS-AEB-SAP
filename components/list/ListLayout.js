@@ -9,7 +9,7 @@ export default function ListLayout(props) {
             <div className={styles.listContainer} style={{width: props.width + '%'}}>
                 <div className={styles.listTitle}
                      style={{
-                         backgroundColor: '#f8f7fc',
+                         backgroundColor: '#f5f5f5',
                          width: '100%',
                          height: props.filterVerticalOrientation ? '15vh' : '20vh',
                          borderBottom: '#262626 1px solid'

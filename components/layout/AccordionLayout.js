@@ -7,7 +7,7 @@ import animations from '../../styles/shared/Animations.module.css'
 
 export default function AccordionLayout(props) {
     const [open, setOpen] = useState(false)
-    const [hovered, setHovered] = useState(false)
+    // const [hovered, setHovered] = useState(false)
     return (
         <div style={{
             ...{
@@ -16,11 +16,11 @@ export default function AccordionLayout(props) {
                 borderRadius: open ? '0 8px 8px 0' : '8px',
                 opacity: '0',
                 animationDelay: props.animationDelay !== undefined ? props.animationDelay + 'ms' : null,
-                boxShadow: hovered ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
-                transition: "300ms"
+                boxShadow: open ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
+                height: 'fit-content'
             },
             ...open ? getBorder({dark: props.dark, highlight: true}) : null
-        }} className={animations.slideUpAnimation} key={props.key + '-accordion'} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
+        }} className={animations.slideUpAnimation} key={props.key + '-accordion'} >
             <Button onClick={props.asButton !== true ? () => setOpen(!open) : null} disabled={props.disabled}
                     style={{
                         padding: '5px',
@@ -45,7 +45,9 @@ export default function AccordionLayout(props) {
             </Button>
             {open ?
 
-                props.content
+                <div style={{padding: '15px'}}>
+                    {props.content}
+                </div>
 
                 :
                 null

@@ -9,7 +9,7 @@ export default function InputLayout(props) {
     switch (props.inputType) {
         case 0: {
             return (
-                <div key={props.key} style={{width: props.size + '%'}}>
+                <div key={props.key} style={{width: props.size}}>
                     <FormControl component="fieldset" style={{width: '100%'}}>
                         <TextField disabled={props.disabled} value={props.initialValue} label={props.inputName}
                                    variant={"outlined"}
@@ -38,7 +38,7 @@ export default function InputLayout(props) {
 
         case 1: {
             return (
-                <div key={props.key} style={{width: props.size + '%'}}>
+                <div key={props.key} style={{width: props.size}}>
                     <FormControl variant="outlined" disabled={props.disabled}
                                  style={{width: '100%'}} required={props.required}
                                  error={props.required === true && (props.initialValue === null || props.initialValue === undefined || props.initialValue.length === 0)}>
@@ -70,7 +70,7 @@ export default function InputLayout(props) {
 
 
                 <div key={props.key}
-                     style={{width: props.size + '%'}}>
+                     style={{width: props.size}}>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <Grid container justify="space-around"
                               style={{width: '100%'}}>
@@ -106,7 +106,7 @@ export default function InputLayout(props) {
         }
         case 3: {
             return (
-                <div key={props.key} style={{width: props.size + '%'}}>
+                <div key={props.key} style={{width: props.size}}>
                     <FormControl component="fieldset" style={{width: '100%'}}>
                         <FormLabel style={{marginBottom: '5px'}} component="legend">{props.inputName}</FormLabel>
                         <TextField

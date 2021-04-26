@@ -39,17 +39,19 @@
 }
 .filterContainer{
     display: grid;
-    justify-items: flex-start;
+    justify-items: center;
     align-content: space-between;
-    /*gap: ;*/
     width: 27%;
+    padding:0 25px 25px 25px;
     overflow: hidden;
     position: sticky;
-    height: 100vh;
     top: 0;
     z-index: 5;
-    padding-top: 10vh;
-    padding-bottom: .9vw;
+    background-color: white;
+
+    border-radius: 8px;
+    margin-top: 10vh;
+    height: 90vh;
 }
 
 
