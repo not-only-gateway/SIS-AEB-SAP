@@ -45,7 +45,7 @@ export default function ExtensionsList(props) {
                                 <div
                                     className={[mainStyles.displayInlineStart, mainStyles.overflowEllipsis].join(' ')}
                                 >
-                                    <ProfilePersona dark={false} key={collaborator.profile.id} image={collaborator.profile.image}
+                                    <ProfilePersona dark={false} key={collaborator.profile.id} image={collaborator.profile.image} size={'70px'} variant={'circle'}
                                                   cakeDay={((new Date(collaborator.profile.birth)).getDay() === currentDate.getDay() && (new Date(collaborator.profile.birth)).getMonth() === currentDate.getMonth())}/>
                                     <p className={mainStyles.secondaryParagraph}
                                        style={{marginLeft: '5px', textTransform: 'capitalize'}}>{collaborator.profile.name}</p>

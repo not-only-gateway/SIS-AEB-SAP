@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import styles from "../../../styles/shared/Shared.module.css";
+import styles from "../../styles/shared/Shared.module.css";
 import {Button} from "@material-ui/core";
 import {ArrowDropDownRounded} from "@material-ui/icons";
 import {useState} from "react";

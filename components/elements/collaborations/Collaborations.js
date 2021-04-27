@@ -8,6 +8,7 @@ import shared from '../../../styles/shared/Shared.module.css'
 import {Divider} from "@material-ui/core";
 import CollaborationSummary from "./CollaborationSummary";
 import mainStyles from '../../../styles/shared/Main.module.css'
+
 export default function Collaborations(props) {
 
     const [collaborations, setCollaborations] = useState([])
@@ -55,7 +56,12 @@ export default function Collaborations(props) {
                         summary={
                             <div className={mainStyles.rowContainer} style={{width: 'fit-content'}}>
                                 <AddRounded/>
-                                <Divider orientation={'horizontal'} style={{width: '10px', marginRight: '10px', marginLeft: '10px', color: '#262626'}}/>
+                                <Divider orientation={'horizontal'} style={{
+                                    width: '10px',
+                                    marginRight: '10px',
+                                    marginLeft: '10px',
+                                    color: '#262626'
+                                }}/>
                                 <p>New Collaboration</p>
                             </div>
                         }
@@ -84,8 +90,11 @@ export default function Collaborations(props) {
                         summary={
                             <CollaborationSummary
                                 commissionedRole={collaboration.commissioned_role !== null ? collaboration.commissioned_role.denomination : null}
-                                substitute={collaboration.collaboration.is_substitute} activeRole={collaboration.collaboration.is_active_on_role} mainCollaboration={collaboration.collaboration.main_collaboration}
-                                effectiveRole={collaboration.effective_role !== null ? collaboration.effective_role.denomination : null} additionalRoleInfo={collaboration.collaboration.additional_info}
+                                substitute={collaboration.collaboration.is_substitute}
+                                activeRole={collaboration.collaboration.is_active_on_role}
+                                mainCollaboration={collaboration.collaboration.main_collaboration}
+                                effectiveRole={collaboration.effective_role !== null ? collaboration.effective_role.denomination : null}
+                                additionalRoleInfo={collaboration.collaboration.additional_info}
                                 unit={collaboration.unit.acronym}/>
                         }
                         key={collaboration.collaboration.id}
@@ -105,7 +114,7 @@ export default function Collaborations(props) {
         return null
 }
 
-Collaborations.propTypes ={
+Collaborations.propTypes = {
     dark: PropTypes.bool,
     editionMode: PropTypes.bool,
     id: PropTypes.string,

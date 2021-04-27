@@ -10,11 +10,11 @@ export default function ProfilePersona(props) {
 
     return (
         <div key={props.key}>
-             <Avatar src={props.image !== undefined ? ImageHost() + props.image : null}
-                        style={{
-                            ...{height: '70px', width: '70px'},
-                            ...getBoxShadow({dark: props.dark})
-                        }}/>
+            <Avatar src={props.image !== undefined ? ImageHost() + props.image : null}
+                    style={{
+                        height: props.size, width: props.size,
+                        boxShadow: 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px'
+                    }} variant={props.variant}/>
             {props.cakeDay === true ?
                 <div className={mainStyles.displayInlineCenter} style={{
                     width: '32px',
@@ -38,4 +38,6 @@ ProfilePersona.propTypes = {
     image: PropTypes.string,
     cakeDay: PropTypes.bool,
     key: PropTypes.number,
+    size: PropTypes.string,
+    variant: PropTypes.string
 }

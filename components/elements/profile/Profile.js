@@ -4,29 +4,19 @@ import PropTypes from 'prop-types'
 import {getPrimaryColor} from "../../../styles/shared/MainStyles";
 import mainStyles from '../../../styles/shared/Main.module.css'
 import ImageHost from "../../../utils/shared/ImageHost";
+import ProfilePersona from "./ProfilePersona";
 
 export default function Profile(props) {
+    const currentDate = new Date()
     return (
         <div
-            className={[mainStyles.displayInlineSpaced].join(' ')}
-            key={props.profile.id}
-            style={{
-                height: 'auto',
-                padding: ' 10px',
-                backgroundColor: 'white',
-                borderRadius: '8px',
-                boxShadow: 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
-            }}>
+            className={mainStyles.displayInlineSpaced}
+            key={props.profile.id} style={{width: '100%'}}>
 
-            <div className={mainStyles.displayInlineSpaced} style={{justifyContent: 'center', justifyItems: 'center'}}>
-                <Avatar src={ImageHost() + props.profile.image} color={'light'}
-                        style={{
-                            height: '100px',
-                            width: '100px',
-                            margin: 'auto',
-                            boxShadow: 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px'
-                        }}/>
-
+            <div className={mainStyles.displayInlineSpaced}>
+                <ProfilePersona size={'200px'} key={props.profile.id} dark={false}
+                                cakeDay={((new Date(props.profile.birth)).getDay() === currentDate.getDay() && (new Date(props.profile.birth)).getMonth() === currentDate.getMonth())}
+                                image={props.profile.image} variant={'rounded'}/>
 
                 <div style={{transform: 'translateX(20px)',}}>
                     <h4

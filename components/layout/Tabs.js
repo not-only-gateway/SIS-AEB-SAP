@@ -34,7 +34,7 @@ export default function Tabs(props) {
                 position: "absolute",
                 zIndex: 0,
                 boxShadow: 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
-                width: '100%'
+                width: props.width + 'vw',
             }}
                  key={tab.buttonKey + '-content'}>
                 {tab.value}

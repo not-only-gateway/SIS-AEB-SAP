@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import styles from '../../../styles/shared/Shared.module.css'
 import mainStyles from "../../../styles/shared/Main.module.css";
-import ListColumnButton from "./ListColumnButton";
+import ListColumnButton from "../../elements/ListColumnButton";
 import {useState} from "react";
 import {Button, Modal} from "@material-ui/core";
 import {FilterList, FilterListRounded, FilterRounded} from "@material-ui/icons";
