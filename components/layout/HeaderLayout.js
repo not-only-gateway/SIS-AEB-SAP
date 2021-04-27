@@ -44,9 +44,14 @@ export default function HeaderLayout(props) {
 
                 <div className={mainStyles.displayInlineSpaced} style={{width: '75%'}}>
                     {typeof(props.title) === 'string' ?
-                        <p className={mainStyles.primaryHeader}>
-                            {props.title}
-                        </p>
+                        <div>
+                            <p className={mainStyles.primaryHeader}>
+                                {props.title}
+                            </p>
+                            <p className={mainStyles.tertiaryParagraph} style={{color: '#777777'}}>
+                                {props.information}
+                            </p>
+                        </div>
                     :
                         props.title
                     }
@@ -81,5 +86,6 @@ HeaderLayout.propTypes ={
     searchComponent: PropTypes.object,
     filterComponent: PropTypes.object,
     availableTabs: PropTypes.object,
-    pageTitle: PropTypes.string
+    pageTitle: PropTypes.string,
+    information: PropTypes.string
 }

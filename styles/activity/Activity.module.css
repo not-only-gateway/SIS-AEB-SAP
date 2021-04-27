@@ -14,7 +14,7 @@
     display: grid;
     gap: 2vh;
     margin: auto;
-    max-height: 50vh;
+    max-height: 500px;
     padding-left: 10px;
     overflow-y: auto;
 }

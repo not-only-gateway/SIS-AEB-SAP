@@ -10,44 +10,45 @@ import {
 import React, {useState} from "react";
 import {getBorder, getBoxShadow} from "../../styles/shared/MainStyles";
 import animations from '../../styles/shared/Animations.module.css'
+import mainStyles from "../../styles/shared/Main.module.css";
 
 export default function Accordion(props) {
     const [open, setOpen] = useState(false)
     return (
         <div style={{
-            borderBottom: props.asRow ? 'hsla(210, 11%, 78%, 0.5)  .7px solid' : null,
-            borderLeft: open || props.highlight ? '#0095ff 2px solid' : null,
-            border: 'hsla(210, 11%, 78%, 0.5)  .7px solid',
+            borderTop: props.asRow ? null : 'hsla(210, 11%, 78%, 0.5)  .7px solid',
+            borderLeft: !open ? (props.asRow ? null : 'hsla(210, 11%, 78%, 0.5)  .7px solid') : '#0095ff 2px solid',
+            borderRight: props.asRow ? null : 'hsla(210, 11%, 78%, 0.5)  .7px solid',
+            borderBottom: props.asRow ? null : 'hsla(210, 11%, 78%, 0.5)  .7px solid',
             width: open ? (props.openSize !== null ? props.openSize + '%' : 'fit-content') : props.closedSize + '%',
             borderRadius: open || props.highlight ? '0 8px 8px 0' : props.asRow ? null : '8px',
             opacity: '0',
             animationDelay: props.animationDelay !== undefined ? props.animationDelay + 'ms' : null,
-            boxShadow: props.elevation === false ? null : open ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : props.highlight ? 'rgba(0, 0, 0, 0.05) 0px 0px 0px 1px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
-            maxHeight: open ? null : '65px'
+            boxShadow: props.elevation === false ? null : (open ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px'),
+            height: 'fit-content'
 
         }} className={animations.slideUpAnimation} key={props.key + '-accordion'}>
             <Button onClick={props.asButton !== true ? () => setOpen(!open) : null} disabled={props.disabled}
                     style={{
-                        padding: props.asRow ? 0 : '5px',
                         textTransform: 'none',
-                        display: 'flex',
+
                         width: '100%',
-                        justifyContent: 'space-between',
-                        color: props.dark ? 'white' : 'black',
+
+                        color: 'black',
                         borderRadius: open ? '0 8px 8px 0' : props.asRow ? '0px' : '8px',
                         position: 'relative',
-                        minHeight: '65px'
+                        minHeight: '65px',
                     }}>
-                {props.summary}
-                {props.disabled || props.asButton ? null :
-                    <ArrowForwardIosRounded style={{
-                        transform: open ? 'rotate(270deg)' : 'rotate(90deg)',
-                        transition: '300ms',
-                        position: 'absolute',
-                        right: '5px',
+                <div className={mainStyles.rowContainer}>
+                    {props.summary}
 
-                    }}/>
-                }
+                    {props.disabled || props.asButton ? null :
+                        <ArrowForwardIosRounded style={{
+                            transform: open ? 'rotate(270deg)' : 'rotate(90deg)',
+                            transition: '300ms',
+                        }}/>
+                    }
+                </div>
             </Button>
             {open ?
 

@@ -9,9 +9,13 @@ import fetchActivityData from "../utils/activity/FetchData";
 import {getTertiaryColor} from "../styles/shared/MainStyles";
 import mainStyles from "../styles/shared/Main.module.css";
 import GetPageTitle from "../utils/shared/GetPageTitle";
-import ListLayout from "../components/layout/list/ListLayout";
 import Head from "next/head";
 import ActivityList from "../components/templates/ActivityList";
+import HeaderLayout from "../components/layout/HeaderLayout";
+import ExtensionsFilters from "../components/modules/filters/ExtensionsFilters";
+import ExtensionsSearch from "../components/elements/ExtensionsSearch";
+import ExtensionsList from "../components/templates/ExtensionsList";
+import ActivitySearch from "../components/elements/ActivitySearch";
 
 export default function Activity() {
 
@@ -20,10 +24,10 @@ export default function Activity() {
     const [data, setData] = useState([])
     const [filters, setFilters] = useState({
         method: null,
-        path: '',
         startDate: null,
         endDate: null
     })
+    const [searchInput, setSearchInput] = useState('')
     const [changed, setChanged] = useState(false)
     const [thisMachine, setThisMachine] = useState(false)
     const [maxID, setMaxID] = useState(null)
@@ -32,7 +36,6 @@ export default function Activity() {
     const [errorMessage, setErrorMessage] = useState(null)
     const [dark, setDark] = useState(false)
     const [pagesFetched, setPagesFetched] = useState(0)
-    const [sorterMethod, setSorterMethod] = useState(undefined)
 
     function handleChange(props) {
         setFilters(prevState => ({
@@ -41,17 +44,9 @@ export default function Activity() {
         }))
     }
 
-    function handleSorterChange(event) {
-        if (event === sorterMethod)
-            setSorterMethod(undefined)
-        else
-            setSorterMethod(event)
-    }
-
-    useEffect(() => {
-        setDark((new Cookies()).get('theme') === 0)
+    function fetch(type) {
         fetchActivityData({
-            type: 1,
+            type: type,
             setLastFetchedSize: setLastFetchedSize,
             setData: setData,
             data: data,
@@ -62,10 +57,17 @@ export default function Activity() {
             thisMachine: thisMachine,
             startDate: filters.date,
             method: filters.method,
-            path: filters.path,
+            path: searchInput.length > 0 ? searchInput : null,
             setPagesFetched: setPagesFetched,
             pagesFetched: pagesFetched
         }).catch(error => console.log(error))
+    }
+
+    useEffect(() => {
+        if (data.length === 0)
+            fetch(0)
+        setDark((new Cookies()).get('theme') === 0)
+
 
         const currentLocale = (new Cookies()).get('lang')
 
@@ -75,63 +77,59 @@ export default function Activity() {
         } else
             setLang(getLanguage(router.locale, router.pathname))
     }, [router.locale])
-
+    function handleInputChange(event) {
+        if (event.length === 0)
+            fetch(1)
+        setSearchInput(event)
+    }
     if (lang !== null)
         return (
             <>
-            <Head>
-                <title>{lang.title}</title>
-            </Head>
-            <ListLayout
-                columns={[
-                    {label: 'ID', key: 'id'},
-                    {label: lang.method, key: undefined},
-                    {label: 'Path', key: undefined},
-                    {label: 'CREATION', key: 'creation'},
-                ]}
-                title={
-                    lang.title
-                }
-                content={
-                    data.length > 0 ?
-                        <InfiniteScroll
-                            dataLength={data.length}
-                            next={() => fetchActivityData({
-                                type: 0,
-                                setLastFetchedSize: setLastFetchedSize,
-                                setData: setData,
-                                data: data,
-                                setMaxID: setMaxID,
-                                maxID: maxID,
-                                setError: setError,
-                                setErrorMessage: setErrorMessage,
-                                thisMachine: thisMachine,
-                                startDate: filters.date,
-                                method: filters.method,
-                                path: filters.path,
-                                setPagesFetched: setPagesFetched,
-                                pagesFetched: pagesFetched
-                            }).catch(error => console.log(error))}
-                            hasMore={lastFetchedSize === 20 && data[data.length - 1].access_log.id > 1}
-                            inverse={false}
-                            scrollableTarget="scrollableDiv"
-                            loader={<Skeleton variant={'rect'} width={'100%'}
-                                              style={{borderRadius: '8px'}}
-                                              height={'7vh'}/>}
-                            endMessage={
-                                <div style={{
-                                    ...{marginBottom: '15px'}
-                                }}>
-                                    <p className={mainStyles.secondaryParagraph}
-                                       style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.end}</p>
-                                </div>
-                            }
-                        >
-                            <ActivityList data={data} sorterMethod={sorterMethod} pagesFetched={pagesFetched}
-                                                  lang={lang}/>
+                <HeaderLayout tab={undefined}
+                              filterComponent={
+                                  <ActivityFilterComponent
+                                      lang={lang} filters={filters} handleChange={handleChange}
+                                      dark={dark} changed={changed}
+                                      setChanged={setChanged}
+                                      setThisMachine={setThisMachine}
+                                      thisMachine={thisMachine} setResponseData={setData}
+                                      setLastFetchedSize={setLastFetchedSize}
+                                      setMaxID={setMaxID} setPagesFetched={setPagesFetched}
 
-                        </InfiniteScroll>
+                                  />
+                              }
+                              pageTitle={lang.title}
+                              title={lang.title}
+                              information={lang.information}
+                              searchComponent={<ActivitySearch fetchData={fetch} setSearchInput={handleInputChange}
+                                                               searchInput={searchInput} lang={lang.search}/>}
+                />
+                <div className={mainStyles.displayInlineCenter} style={{width: '100%'}}>
+                    {data.length > 0 ?
+                        <div style={{width: '75%'}}>
+                            <InfiniteScroll
+                                dataLength={data.length}
+                                next={() => fetch(0)}
+                                hasMore={lastFetchedSize === 20 && data[data.length - 1].access_log.id > 1}
+                                inverse={false}
+                                scrollableTarget="scrollableDiv"
+                                loader={<Skeleton variant={'rect'} width={'100%'}
+                                                  style={{borderRadius: '8px'}}
+                                                  height={'7vh'}/>}
+                                endMessage={
+                                    <div style={{
+                                        ...{marginBottom: '15px'}
+                                    }}>
+                                        <p className={mainStyles.secondaryParagraph}
+                                           style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.end}</p>
+                                    </div>
+                                }
+                            >
+                                <ActivityList data={data} pagesFetched={pagesFetched}
+                                              lang={lang}/>
 
+                            </InfiniteScroll>
+                        </div>
                         :
 
                         <div className={mainStyles.displayInlineCenter} style={{
@@ -139,25 +137,8 @@ export default function Activity() {
                         }}>
                             <p className={mainStyles.secondaryParagraph}
                                style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.nothingFound}</p>
-                        </div>
-                }
-                filterComponent={
-                    <ActivityFilterComponent lang={lang} filters={filters} handleChange={handleChange}
-                                             dark={dark} changed={changed}
-                                             setChanged={setChanged}
-                                             setThisMachine={setThisMachine}
-                                             thisMachine={thisMachine} setResponseData={setData}
-                                             setLastFetchedSize={setLastFetchedSize}
-                                             setMaxID={setMaxID} setPagesFetched={setPagesFetched}
-
-                    />
-
-                }
-                width={88}
-                columnWidth={45}
-                handleSorterChange={handleSorterChange}
-                currentSorter={sorterMethod}
-            />
+                        </div>}
+                </div>
             </>
         )
     else

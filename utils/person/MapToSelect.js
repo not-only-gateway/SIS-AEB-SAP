@@ -17,7 +17,7 @@ export default function mapToSelect(props) {
             props.effectiveRoles.map(data => {
                 response.push({
                     key: data.role.id,
-                    value: data.role.denomination + ' - ' + data.linkage.denomination
+                    value: data.role.denomination
                 })
             })
             break
@@ -42,6 +42,15 @@ export default function mapToSelect(props) {
         } // SENIORS
         case 4: {
             props.accessProfiles.map(data => {
+                response.push({
+                    key: data.id,
+                    value: data.denomination
+                })
+            })
+            break
+        }
+        case 5: {
+            props.linkages.map(data => {
                 response.push({
                     key: data.id,
                     value: data.denomination

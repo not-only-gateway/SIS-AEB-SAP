@@ -28,42 +28,44 @@ export default function Selector(props) {
 
                     <div className={styles.modalFormContainer}
                          style={{
-                             borderBottom: valid ? '#e2e2e2 1px solid' : null
+                             borderBottom: '#e2e2e2 1px solid'
                          }}>
-                        <spam style={{fontSize: '1.4rem', fontWeight: 450}}>Search</spam>
+                        <spam style={{fontSize: '1.3rem'}}>Search</spam>
                         <InputLayout inputName={'Search'} dark={props.dark}
                                      handleChange={handleChange} name={undefined}
-                                     inputType={0} disabled={false} size={100} required={false}
+                                     inputType={0} disabled={false} size={'100%'} required={false}
                                      initialValue={search} key={"search"} setChanged={undefined}/>
 
                         {valid ?
-                            <div className={mainStyles.displayInlineStart} style={{width: '100%'}}>
-                                <p className={mainStyles.secondaryParagraph}>Selected</p>
-                                <Divider orientation={"horizontal"}
-                                         style={{width: '10px', margin: '0px 10px  0px 10px'}}/>
+                            <div className={mainStyles.rowContainer} style={{width: '100%'}}>
+
                                 <div style={{
                                     border: '#e2e2e2 1px solid',
                                     borderRadius: '8px',
-                                    width: 'auto',
-                                    padding: '10px'
+                                    padding: '10px',
+                                    minWidth: 'calc(50% - 8px)'
                                 }} className={mainStyles.displayInlineCenter}>
                                     {props.selected.value}
                                 </div>
-                                {props.required ? null :
-                                    <Button onClick={() => {
-                                        setValid(false)
-                                        props.setChanged(true)
-                                        props.handleChange(undefined)
-                                    }} style={{
-                                        textTransform: 'none',
-                                        justifyItems: 'center',
-                                        marginLeft: 'auto',
-                                        width: '49%', backgroundColor: !valid ? null : '#f54269',
-                                        color: !valid ? null : 'white'
-                                    }}>
-                                        Remove
-                                    </Button>
-                                }
+
+                                <div>
+                                    {props.required ? null :
+                                        <Button onClick={() => {
+                                            setValid(false)
+                                            props.setChanged(true)
+                                            props.handleChange(undefined)
+                                        }} style={{
+                                            textTransform: 'none',
+                                            justifyItems: 'center',
+                                            marginLeft: 'auto',
+                                            width: '49%', backgroundColor: !valid ? null : '#f54269',
+                                            color: !valid ? null : 'white'
+                                        }}>
+                                            Remove
+                                        </Button>
+
+                                    }
+                                </div>
                             </div>
                             :
                             null}
@@ -74,13 +76,13 @@ export default function Selector(props) {
                         marginBottom: 'auto',
                         gridRow: 2,
                         maxHeight: '100%',
-                        paddingBottom: '10px'
+                        paddingBottom: '10px',
                     }}>
                         {props.data.map(data => {
                             if (search.length > 0 && (data.value.toLowerCase()).match(search.toLowerCase())) {
                                 return (
                                     <Button key={data.key} variant={'contained'} style={{
-                                        width: 'fit-content', height: '5vh',
+                                        width: 'calc(50% - 8px)',
                                         backgroundColor: valid && data.key === props.selected.key ? '#0095ff' : null,
                                         color: valid && data.key === props.selected.key ? 'white' : null
                                     }} onClick={() => {
@@ -95,10 +97,11 @@ export default function Selector(props) {
                             else
                                 return (
                                     <Button key={data.key} variant={'contained'} style={{
-                                        width: 'fit-content', height: '5vh',
+                                        width: 'calc(50% - 8px)',
                                         backgroundColor: valid && data.key === props.selected.key ? '#0095ff' : null,
                                         color: valid && data.key === props.selected.key ? 'white' : null
                                     }} onClick={() => {
+                                        props.setChanged(true)
                                         props.handleChange(data)
                                     }}>
                                         {data.value}

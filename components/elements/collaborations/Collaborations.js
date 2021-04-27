@@ -68,8 +68,7 @@ export default function Collaborations(props) {
                         key={'create collaborations'}
                         disabled={!props.editionMode}
                         openSize={100}
-                        dark={props.dark}
-                        highlight={true}
+                        dark={false}
                         closedSize={100}
                     />
                 }
@@ -101,8 +100,7 @@ export default function Collaborations(props) {
                         disabled={!props.editionMode}
                         openSize={100}
                         closedSize={100}
-                        dark={props.dark}
-                        highlight={true}
+                        dark={false}
                     />
 
                 ))

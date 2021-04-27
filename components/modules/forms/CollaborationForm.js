@@ -22,8 +22,12 @@ export default function CollaborationForm(props) {
     const [accessProfiles, setAccessProfiles] = useState([])
     const [selectedAccessProfile, setSelectedAccessProfile] = useState(null)
 
+    const [linkages, setLinkages] = useState([])
+    const [selectedLinkage, setSelectedLinkage] = useState(null)
+
     const [seniors, setSeniors] = useState([])
     const [selectedSenior, setSelectedSenior] = useState(null)
+
     const [changed, setChanged] = useState(false)
 
     const [collaboration, setCollaboration] = useState({
@@ -57,6 +61,7 @@ export default function CollaborationForm(props) {
             (collaboration.legalDocument === undefined || collaboration.legalDocument.length === 0) ||
             collaboration.substitute === null ||
             collaboration.activeRole === null ||
+            setSelectedLinkage === null ||
             changed === false ||
             selectedAccessProfile === null
         )
@@ -77,7 +82,7 @@ export default function CollaborationForm(props) {
                             setSelectedCommissionedRole(res.commissioned_role !== null ? res.commissioned_role.id : null)
                             setSelectedUnit({key: res.unit.id, value: res.unit.acronym})
                             setSelectedAccessProfile({key: res.access_profile.id, value: res.access_profile.denomination})
-
+                            setSelectedLinkage({key: res.linkage.id, value: res.linkage.denomination})
                             handleChange({name: 'substitute', value: res.collaboration.is_substitute})
                             handleChange({name: 'admissionDate', value: res.collaboration.admission_date})
                             handleChange({name: 'publicationDate', value: res.collaboration.official_publication_date})
@@ -106,11 +111,11 @@ export default function CollaborationForm(props) {
             }).then(res => {
                     if (res !== null) {
                         handleChange({name: 'canBeMain', value: false})
-                        if(props.collaborationID === undefined || props.collaborationID === null)
+                        if (props.collaborationID === undefined || props.collaborationID === null)
                             handleChange({name: 'mainCollaboration', value: false})
                     } else {
                         handleChange({name: 'canBeMain', value: true})
-                        if(props.collaborationID === undefined || props.collaborationID === null)
+                        if (props.collaborationID === undefined || props.collaborationID === null)
                             handleChange({name: 'mainCollaboration', value: undefined})
                     }
                 }
@@ -132,6 +137,10 @@ export default function CollaborationForm(props) {
             fetchComponentData({path: 'access_profiles', params: {}}).then(res => {
                 if (res !== null)
                     setAccessProfiles(res)
+            })
+            fetchComponentData({path: 'linkage', params: {}}).then(res => {
+                if (res !== null)
+                    setLinkages(res)
             })
         },
         []
@@ -157,7 +166,8 @@ export default function CollaborationForm(props) {
                 contract_expiration: collaboration.contractExp !== undefined && collaboration.contractExp !== null ? (typeof (collaboration.contractExp) === "number" ? collaboration.contractExp : collaboration.contractExp.getTime()) : null,
                 additional_information: collaboration.additionalInfo,
                 main_collaboration: collaboration.canBeMain ? collaboration.mainCollaboration : false,
-                access_level_profile: selectedAccessProfile !== null && selectedAccessProfile !== undefined ? selectedAccessProfile.key : null
+                access_level_profile: selectedAccessProfile !== null && selectedAccessProfile !== undefined ? selectedAccessProfile.key : null,
+                linkage: selectedLinkage !== null ? selectedLinkage.key : null
             },
             method: props.collaborationID !== null && props.collaborationID !== undefined ? 'put' : 'post'
         }).then(res => {
@@ -224,7 +234,8 @@ export default function CollaborationForm(props) {
                 <Selector required={false} selected={selectedCommissionedRole}
                           handleChange={setSelectedEffectiveRole} setChanged={setChanged}
                           label={'Commissioned Role'} key={'2-5-' + props.index}
-                          data={mapToSelect({option: 2, commissionedRoles: commissionedRoles})} width={'calc(25% - 12px)'}/>
+                          data={mapToSelect({option: 2, commissionedRoles: commissionedRoles})}
+                          width={'calc(25% - 12px)'}/>
                 <div style={{marginTop: 'auto', width: 'calc(25% - 12px)'}}>
                     <InputLayout inputName={'Additional Role information'} dark={props.dark} handleChange={handleChange}
                                  inputType={0} name={'additionalInfo'}
@@ -234,11 +245,16 @@ export default function CollaborationForm(props) {
                                  setChanged={setChanged}/>
                 </div>
 
+                <Selector required={true} selected={selectedLinkage}
+                          handleChange={setSelectedLinkage} setChanged={setChanged}
+                          label={'Linkage'} key={'linkage-' + props.index}
+                          data={mapToSelect({option: 5, linkages: linkages})}
+                          width={'calc(25% - 12px)'}/>
 
                 <Selector required={true} selected={selectedAccessProfile}
                           handleChange={setSelectedAccessProfile} setChanged={setChanged}
                           label={'Access Profile'} key={'2-14-' + props.index}
-                          data={mapToSelect({option: 4, accessProfiles: accessProfiles})} width={'calc(50% - 8px)'}/>
+                          data={mapToSelect({option: 4, accessProfiles: accessProfiles})} width={'calc(25% - 12px)'}/>
 
                 <Selector required={true} selected={selectedSenior}
                           handleChange={setSelectedSenior} setChanged={setChanged}

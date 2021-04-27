@@ -18,12 +18,24 @@ export default function Profile(props) {
                                 cakeDay={((new Date(props.profile.birth)).getDay() === currentDate.getDay() && (new Date(props.profile.birth)).getMonth() === currentDate.getMonth())}
                                 image={props.profile.image} variant={'rounded'}/>
 
-                <div className={mainStyles.displayColumnSpaced} style={{height: '70px', marginLeft: '10px'}}>
-                    <div
-                        style={{...getPrimaryColor({dark: props.dark}), ...{textAlign: 'left', fontSize: '1.5rem'}}}>{props.profile.name}</div>
-                    <div
-                       style={{...getPrimaryColor({dark: props.dark}), ...{textAlign: 'left'}}}>{props.profile.corporate_email}</div>
+                <div style={{marginLeft: '10px', height: 'auto'}}>
+                    <p style={{
+                        fontSize: '1.5rem',
+                        'fontWeight': 540
+                    }}>
+                        {props.profile.name}
+                    </p>
+                    <p className={mainStyles.tertiaryParagraph} style={{color: '#777777'}}>
+                        {props.profile.corporate_email}
+                    </p>
                 </div>
+
+                {/*<div className={mainStyles.displayColumnSpaced} style={{height: '70px', marginLeft: '10px'}}>*/}
+                {/*    <div*/}
+                {/*        style={{...getPrimaryColor({dark: props.dark}), ...{textAlign: 'left', fontSize: '1.5rem'}}}>{props.profile.name}</div>*/}
+                {/*    <div*/}
+                {/*       style={{...getPrimaryColor({dark: props.dark}), ...{textAlign: 'left'}}}>{props.profile.corporate_email}</div>*/}
+                {/*</div>*/}
             </div>
 
             {props.editable ?

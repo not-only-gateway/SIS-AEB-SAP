@@ -12,6 +12,9 @@ import {getIconStyle} from "../styles/shared/MainStyles";
 import {ExtensionRounded, ViewQuiltRounded} from "@material-ui/icons";
 import GetPageTitle from "../utils/shared/GetPageTitle";
 import Canvas from "../components/layout/Canvas";
+import HeaderLayout from "../components/layout/HeaderLayout";
+import ExtensionsFilters from "../components/modules/filters/ExtensionsFilters";
+import ExtensionsSearch from "../components/elements/ExtensionsSearch";
 
 export default function Structure() {
 
@@ -48,17 +51,20 @@ export default function Structure() {
 
     if (lang !== null)
         return (
-            <div className={mainStyles.displayInlineCenter}>
-                <div style={{width: '63vw'}}>
-
-                    <div className={[mainStyles.displayColumnSpaced, mainStyles.baseWidth].join(' ')} style={{
-                        width: 'fit-content',
+            <>
+                <HeaderLayout tab={undefined} filterComponent={undefined} pageTitle={lang.title} title={lang.title}
+                              information={lang.information}
+                              searchComponent={undefined}
+                />
+                <div className={mainStyles.displayInlineCenter} style={{width: '100%'}}>
+                    <div style={{
+                        width: '75%',
                         height: 'fit-content',
                         borderRadius: '8px',
-                        gap: '.9vw'
+                        display: 'grid',
+                        gap: '16px',
+                        marginTop: '16px'
                     }}>
-                        <GetPageTitle pageName={lang.title} pageTitle={lang.title} pageInfo={lang.information}
-                                      dark={dark}/>
                         <Accordion
                             content={topUnits.map((unit, index) => (
                                 <>
@@ -76,8 +82,8 @@ export default function Structure() {
                             }
 
                             dark={dark}
-                            closedSize={63}
-                            openSize={63}
+                            closedSize={100}
+                            openSize={100}
                         />
 
 
@@ -100,13 +106,12 @@ export default function Structure() {
                             }
 
                             dark={dark}
-                            closedSize={63}
-                            openSize={63}
+                            closedSize={100}
+                            openSize={100}
                         />
                     </div>
-
                 </div>
-            </div>
+            </>
         )
     else
         return <></>

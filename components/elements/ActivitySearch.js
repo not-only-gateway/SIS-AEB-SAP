@@ -16,20 +16,15 @@ import {BackspaceRounded, MenuRounded, SearchRounded} from "@material-ui/icons";
 import React, {useEffect, useState} from "react";
 import {getSecondaryBackground} from "../../styles/shared/MainStyles";
 import mainStyles from '../../styles/shared/Main.module.css'
+import InputLayout from "../modules/InputLayout";
 
-export default function ExtensionsSearch(props) {
+export default function ActivitySearch(props) {
     const [focused, setFocused] = useState(false)
 
-    useEffect(() => {
-        props.setSearchInput('')
-        props.setMaxID(null)
-        props.setData([])
-        props.fetchData(1, true)
-    }, [props.option])
 
     return (
 
-        <div key={'index-simple-filter-component'} className={mainStyles.displayInlineSpaced}
+        <div key={'activity-simple-filter-component'} className={mainStyles.displayInlineSpaced}
              style={{height: '55px', gap: '10px', width: '100%'}}>
 
             <Paper component="form"
@@ -58,11 +53,13 @@ export default function ExtensionsSearch(props) {
                     onChange={event => props.setSearchInput(event.target.value)}
                 />
             </Paper>
-            <Button onClick={() => props.fetchData(1, true)} style={{
+
+
+            <Button onClick={() => props.fetchData(1)} style={{
                 width: '55px',
                 color: props.searchInput.length === 0 ? '#777777' : 'white',
                 backgroundColor: props.searchInput.length === 0 ? null : 'black',
-                boxShadow:  props.searchInput.length === 0 ? null : 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px',
+                boxShadow: props.searchInput.length === 0 ? null : 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px',
                 borderRadius: '8px',
                 height: '100%'
             }} disabled={props.searchInput.length === 0}>
@@ -72,15 +69,9 @@ export default function ExtensionsSearch(props) {
     )
 }
 
-ExtensionsSearch.propTypes = {
-    width: PropTypes.number,
-    dark: PropTypes.bool,
-    option: PropTypes.string,
-    setOption: PropTypes.func,
-    lang: PropTypes.object,
-    setData: PropTypes.func,
+ActivitySearch.propTypes = {
     setSearchInput: PropTypes.func,
     searchInput: PropTypes.string,
     fetchData: PropTypes.func,
-    setMaxID: PropTypes.func
+    lang: PropTypes.string
 }

@@ -1,36 +1,148 @@
 import PropTypes from 'prop-types'
 import React from "react";
-import ActivityComponent from "../elements/Activity";
+import styles from "../../styles/activity/Activity.module.css";
+import mainStyles from "../../styles/shared/Main.module.css";
+import {getPrimaryColor, getTertiaryColor} from "../../styles/shared/MainStyles";
+import {Divider} from "@material-ui/core";
+import Accordion from "../layout/Accordion";
+import getMethodColor from "../../utils/activity/GetMethodColor";
 
 export default function ActivityList(props) {
-    function sorter() {
-        let response = [...props.data]
-        switch (props.sorterMethod) {
-            case 'id': {
-                response.sort((a, b) => (a.activity.id - b.activity.id))
-                break
-            }
-            case 'creation': {
-                response.sort((a, b) => (a.activity.time_of_creation - b.activity.time_of_creation))
-                break
-            }
-            default:
-                break
-        }
-        return response
-    }
+
 
     return (
-        <div style={{display: 'grid', gap: '10px', marginTop: '10px'}}>
-            {(sorter()).map((data, index) => (
-                    <div key={data.activity.id + '-container-' + index}>
-                        <ActivityComponent
-                            lang={props.lang} dark={false} activity={data.activity}
-                            setPagesFetched={props.setPagesFetched}
-                            accessLog={data.access_log} index={index} pagesFetched={props.pagesFetched}
-                        />
-                    </div>
-                )
+        <div style={{
+            display: 'grid',
+            marginTop: '10px',
+            borderTop: 'hsla(210, 11%, 78%, 0.5)  .7px solid'
+        }}>
+            {(props.data).map((data, index) =>
+                <div key={data.activity.id} style={{borderBottom: 'hsla(210, 11%, 78%, 0.5)  .7px solid'}}>
+                    <Accordion
+                        elevation={false}
+                        content={
+                            <div className={styles.informationContainer} key={'activity - ' + data.activity.id}  >
+                                <div className={styles.info_row}>
+                                    <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: false})}>ID</p>
+                                    <Divider orientation={'horizontal'}
+                                             style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                                    <p className={mainStyles.tertiaryParagraph}
+                                       style={getTertiaryColor({dark: false})}>{data.activity.id}</p>
+                                </div>
+                                <div className={styles.info_row}>
+                                    <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: false})}>Full path</p>
+                                    <Divider orientation={'horizontal'}
+                                             style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                                    <p className={mainStyles.tertiaryParagraph}
+                                       style={getTertiaryColor({dark: false})}>{data.activity.path}</p>
+                                </div>
+
+                                <div className={styles.info_row}>
+                                    <p className={mainStyles.primaryParagraph}
+                                       style={getPrimaryColor({dark: false})}>Package</p>
+                                    <Divider orientation={'horizontal'}
+                                             style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                                    <div className={mainStyles.normalBorder}>
+                            <pre className={mainStyles.primaryParagraph}
+                                 style={getTertiaryColor({dark: false})}>{JSON.stringify(JSON.parse(data.activity.data_package), null, 2)}</pre>
+                                    </div>
+                                </div>
+
+                                <div className={styles.info_row}>
+                                    <p className={mainStyles.primaryParagraph}
+                                       style={getPrimaryColor({dark: false})}>{props.lang.platform}</p>
+                                    <Divider orientation={'horizontal'}
+                                             style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                                    <p className={mainStyles.tertiaryParagraph}
+                                       style={getTertiaryColor({dark: false})}>{data.access_log.platform}</p>
+                                </div>
+                                <div className={styles.info_row}>
+                                    <p className={mainStyles.primaryParagraph}
+                                       style={getPrimaryColor({dark: false})}>{props.lang.created}</p>
+                                    <Divider orientation={'horizontal'}
+                                             style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                                    <p className={mainStyles.tertiaryParagraph}
+                                       style={getTertiaryColor({dark: false})}>{new Date(data.activity.time_of_creation).toString()}</p>
+                                </div>
+                                <div className={styles.info_row}>
+                                    <p className={mainStyles.primaryParagraph}
+                                       style={getPrimaryColor({dark: false})}>{props.lang.method}</p>
+                                    <Divider orientation={'horizontal'}
+                                             style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                                    <p className={mainStyles.tertiaryParagraph}
+                                       style={getTertiaryColor({dark: false})}>{data.activity.request_method}</p>
+                                </div>
+
+                                <div className={styles.info_row}>
+                                    <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: false})}>URL</p>
+                                    <Divider orientation={'horizontal'}
+                                             style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                                    <p className={mainStyles.tertiaryParagraph}
+                                       style={getTertiaryColor({dark:false})}>{data.activity.path}</p>
+                                </div>
+                                <div className={styles.info_row}>
+                                    <p className={mainStyles.primaryParagraph}
+                                       style={getPrimaryColor({dark:false})}>{props.lang.ip}</p>
+                                    <Divider orientation={'horizontal'}
+                                             style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                                    <p className={mainStyles.tertiaryParagraph}
+                                       style={getTertiaryColor({dark: false})}>{data.access_log.ip_address}</p>
+                                </div>
+                                <div className={styles.info_row}>
+                                    <p className={mainStyles.primaryParagraph}
+                                       style={getPrimaryColor({dark: false})}>{props.lang.browser}</p>
+                                    <Divider orientation={'horizontal'}
+                                             style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                                    <p className={mainStyles.tertiaryParagraph}
+                                       style={getTertiaryColor({dark: false})}>{data.access_log.browser_version}</p>
+                                </div>
+
+                                <div className={styles.info_row}>
+                                    <p className={mainStyles.primaryParagraph}
+                                       style={getPrimaryColor({dark: false})}>{props.lang.engine}</p>
+                                    <Divider orientation={'horizontal'}
+                                             style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                                    <p className={mainStyles.tertiaryParagraph}
+                                       style={getTertiaryColor({dark: false})}>{data.access_log.browser_engine}</p>
+                                </div>
+                                <div className={styles.info_row}>
+                                    <p className={mainStyles.primaryParagraph}
+                                       style={getPrimaryColor({dark: false})}>{props.lang.userAgent}</p>
+                                    <Divider orientation={'horizontal'}
+                                             style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
+                                    <p className={mainStyles.tertiaryParagraph}
+                                       style={getTertiaryColor({dark: false})}>{data.access_log.browser_user_agent}</p>
+                                </div>
+                            </div>
+                        }
+                        summary={
+                            <>
+                                <div
+                                    className={[mainStyles.tertiaryParagraph, mainStyles.displayInlineStart].join(' ')}
+                                    style={getTertiaryColor({dark: false})}>
+                                    {data.activity.id}
+                                </div>
+                                <div className={[mainStyles.secondaryParagraph, mainStyles.displayInlineStart].join(' ')}
+                                     style={{color: getMethodColor(data.activity.request_method)}}>
+                                    {data.activity.request_method}
+                                </div>
+                                <div className={[mainStyles.tertiaryParagraph, mainStyles.displayInlineStart].join(' ')}
+                                     style={getTertiaryColor({dark: false})}>
+                                    {data.activity.path.indexOf('?') > -1 ? data.activity.path.substr(0, data.activity.path.indexOf('?')) : data.activity.path}
+                                </div>
+                                <div className={[mainStyles.tertiaryParagraph, mainStyles.displayInlineStart].join(' ')}
+                                     style={getTertiaryColor({dark: false})}>
+                                    {(new Date(data.activity.time_of_creation)).toDateString()}
+                                </div>
+                            </>
+                        }
+                        closedSize={100}
+                        openSize={100}
+                        dark={false}
+                        asRow={true}
+                        animationDelay={props.pagesFetched <= 1 ? index * 100 : 0}
+                    />
+                </div>
             )}
         </div>
     )

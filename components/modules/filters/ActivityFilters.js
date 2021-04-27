@@ -11,11 +11,6 @@ export default function ActivityFilterComponent(props) {
 
             <div className={shared.filterContainer}>
                 <p style={{marginRight: "auto", fontSize: '1.2rem'}}>{props.lang.filters}</p>
-                <InputLayout inputName={props.lang.search} dark={props.dark} handleChange={props.handleChange}
-                             inputType={0} name={'path'}
-                             disabled={props.disabled} size={'100%'} initialValue={props.filters.path}
-                             key={"path"} setChanged={props.setChanged} margin={false}
-                />
 
                 <InputLayout inputName={props.lang.startDate} dark={props.dark} handleChange={props.handleChange}
                              inputType={2} name={'startDate'}

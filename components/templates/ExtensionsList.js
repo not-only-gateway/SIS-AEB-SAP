@@ -11,7 +11,7 @@ export default function ExtensionsList(props) {
     return (
         <div style={{display: 'grid', marginTop: '10px', width: '100%', borderTop: 'hsla(210, 11%, 78%, 0.5)  .7px solid'}}>
             {(props.data).map((collaborator, index) =>
-                <div key={collaborator.profile.id} onClick={() => props.redirect(collaborator.profile.id)} style={{padding: 0}}>
+                <div key={collaborator.profile.id} onClick={() => props.redirect(collaborator.profile.id)} style={{borderBottom: 'hsla(210, 11%, 78%, 0.5)  .7px solid'}}>
                     <Accordion
                         elevation={false}
                         summary={

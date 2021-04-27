@@ -77,7 +77,7 @@ export default function Index() {
                 } pageTitle={lang.extensions} title={lang.extensions} searchComponent={
                     <ExtensionsSearch
                         dark={dark} setData={setData} setOption={setOption}
-                        option={option} lang={lang} setLoading={setLoading} fetchData={fetchData}
+                        option={option} lang={lang.search} setLoading={setLoading} fetchData={fetchData}
                         searchInput={searchInput} setSearchInput={handleInputChange}
                         setMaxID={setMaxID} width={100}
                     />

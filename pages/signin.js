@@ -34,14 +34,10 @@ export default function Signin() {
 
     useEffect(() => {
         if ((new Cookies()).get('jwt') !== undefined)
-            signOut().then(res => {
-                if (res)
-                    ClearStorage()
-                else
-                    router.push('/', '/', {locale: router.locale})
+            signOut().then(() => {
+                ClearStorage()
             })
-        else
-            ClearStorage()
+
         setLang(getLanguage(router.locale, router.pathname))
 
         setDark(cookies.get('theme') === '0')
