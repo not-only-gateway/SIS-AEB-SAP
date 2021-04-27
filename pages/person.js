@@ -35,6 +35,7 @@ export default function person() {
     const [senior, setSenior] = useState(null)
     const [commissionedRole, setCommissionedRole] = useState(null)
     const [openTab, setOpenTab] = useState(0)
+    const [linkage, setLinkage] = useState(null)
 
     function handleChange(props) {
 
@@ -60,6 +61,7 @@ export default function person() {
                         setEffectiveRole(res.effective_role)
                         setCommissionedRole(res.commissioned_role)
                         setSenior(res.senior)
+                        setLinkage(res.linkage)
                     }
 
                     if (accessProfile === null || (!accessProfile.canUpdatePerson)) {
@@ -164,6 +166,7 @@ export default function person() {
                                                 commissionedRole={commissionedRole}
                                                 effectiveRole={effectiveRole}
                                                 senior={senior}
+                                                linkage={linkage}
                                             />
                                         )
                                     },

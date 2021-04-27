@@ -1,7 +1,6 @@
 
 .popInAnimation{
-    animation-duration: .3s;
-    animation-name: popIn;
+    animation: fadeIn ease-in 300ms forwards;
 }
 .slideInLeftAnimation{
     animation: slideInLeft ease-in-out 150ms;

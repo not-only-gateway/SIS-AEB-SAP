@@ -6,29 +6,33 @@ import CakeRoundedIcon from "@material-ui/icons/CakeRounded";
 import {CalendarTodayRounded, EmailRounded, PhoneRounded, WorkRounded} from "@material-ui/icons";
 import ViewQuiltRoundedIcon from "@material-ui/icons/ViewQuiltRounded";
 import styles from '../../../styles/person/Form.module.css'
+import animations from '../../../styles/shared/Animations.module.css'
 
 export default function OverviewComponent(props) {
     const birth = new Date(props.profile.birth)
     return (
-        <div className={mainStyles.displayWarp} style={{justifyContent: 'flex-start', width: '98%'}}>
-            <div className={styles.overviewContainer}>
-                <CakeRoundedIcon/>
+        <div className={mainStyles.displayWarp} style={{width: '100%'}}>
+            <div className={[styles.overviewContainer, animations.popInAnimation].join(' ')}
+                 style={{animationDelay: '100ms', animationDirection: 'forwards'}}>
+                <CakeRoundedIcon style={getIconStyle({dark: false})}/>
                 <p className={mainStyles.tertiaryParagraph} style={{
                     ...getTertiaryColor({dark: props.dark}), ...{
                         textAlign: "right"
                     }
                 }}>{birth.toDateString().substr(3, birth.toDateString().length - 7)}</p>
             </div>
-            <div className={styles.overviewContainer}>
-                <EmailRounded />
+            <div className={[styles.overviewContainer, animations.popInAnimation].join(' ')}
+                 style={{animationDelay: '200ms'}}>
+                <EmailRounded style={getIconStyle({dark: false})}/>
                 <p className={mainStyles.tertiaryParagraph} style={{
                     ...getTertiaryColor({dark: props.dark}), ...{
                         textAlign: "right"
                     }
                 }}>{props.profile.corporate_email}</p>
             </div>
-            <div className={styles.overviewContainer}>
-                <PhoneRounded/>
+            <div className={[styles.overviewContainer, animations.popInAnimation].join(' ')}
+                 style={{animationDelay: '300ms'}}>
+                <PhoneRounded style={getIconStyle({dark: false})}/>
                 <p className={mainStyles.tertiaryParagraph} style={{
                     ...getTertiaryColor({dark: props.dark}), ...{
                         textAlign: "right"
@@ -36,35 +40,65 @@ export default function OverviewComponent(props) {
                 }}>{props.profile.extension}</p>
             </div>
 
-            <div className={styles.overviewContainer}>
-                <ViewQuiltRoundedIcon/>
+            <div className={[styles.overviewContainer, animations.popInAnimation].join(' ')}
+                 style={{animationDelay: '400ms'}}>
+                <ViewQuiltRoundedIcon style={getIconStyle({dark: false})}/>
                 <p className={mainStyles.tertiaryParagraph} style={{
                     ...getTertiaryColor({dark: props.dark}), ...{
                         textAlign: "right"
                     }
                 }}>{props.unit !== null ? props.unit.acronym : 'none'}</p>
             </div>
-            {props.role !== undefined ?
-                <div className={styles.overviewContainer}>
-                    <WorkRounded/>
+            {props.effectiveRole !== undefined && props.effectiveRole !== null?
+                <div className={[styles.overviewContainer, animations.popInAnimation].join(' ')}
+                     style={{animationDelay: '500ms'}}>
+                    <WorkRounded style={getIconStyle({dark: false})}/>
                     <p className={mainStyles.tertiaryParagraph} style={{
                         ...getTertiaryColor({dark: props.dark}), ...{
                             textAlign: "right"
                         }
-                    }}>{props.role.denomination}</p>
+                    }}>{props.effectiveRole.denomination}</p>
                 </div>
                 :
                 null
             }
-
-            <div className={styles.overviewContainer}>
-                <CalendarTodayRounded/>
-                <p className={mainStyles.tertiaryParagraph} style={{
-                    ...getTertiaryColor({dark: props.dark}), ...{
-                        textAlign: "right"
-                    }
-                }}>{props.collaboration !== null ? new Date(props.collaboration.admission_date).toLocaleDateString() : 'None'}</p>
-            </div>
+            {props.commissionedRole !== undefined && props.commissionedRole !== null?
+                <div className={[styles.overviewContainer, animations.popInAnimation].join(' ')}
+                     style={{animationDelay: '500ms'}}>
+                    <WorkRounded style={getIconStyle({dark: false})}/>
+                    <p className={mainStyles.tertiaryParagraph} style={{
+                        ...getTertiaryColor({dark: props.dark}), ...{
+                            textAlign: "right"
+                        }
+                    }}>{props.commissionedRole.denomination}</p>
+                </div>
+                :
+                null
+            }
+            {props.collaboration !== null ?
+                <div className={[styles.overviewContainer, animations.popInAnimation].join(' ')}
+                     style={{animationDelay: '600ms'}}>
+                    <CalendarTodayRounded style={getIconStyle({dark: false})}/>
+                    <p className={mainStyles.tertiaryParagraph} style={{
+                        ...getTertiaryColor({dark: props.dark}), ...{
+                            textAlign: "right"
+                        }
+                    }}>{new Date(props.collaboration.admission_date).toLocaleDateString()}</p>
+                </div>
+                : null
+            }
+            {props.linkage !== null && props.linkage !== undefined?
+                <div className={[styles.overviewContainer, animations.popInAnimation].join(' ')}
+                     style={{animationDelay: '600ms'}}>
+                    <CalendarTodayRounded style={getIconStyle({dark: false})}/>
+                    <p className={mainStyles.tertiaryParagraph} style={{
+                        ...getTertiaryColor({dark: props.dark}), ...{
+                            textAlign: "right"
+                        }
+                    }}>{props.linkage.denomination}</p>
+                </div>
+                : null
+            }
         </div>
     )
 }
@@ -76,5 +110,5 @@ OverviewComponent.propTypes = {
     commissionedRole: PropTypes.object,
     senior: PropTypes.object,
     collaboration: PropTypes.object,
-    dark: PropTypes.bool,
+    linkage: PropTypes.object
 }
