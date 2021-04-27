@@ -15,15 +15,15 @@ export default function Accordion(props) {
     const [open, setOpen] = useState(false)
     return (
         <div style={{
-            borderTop: props.asRow ? '#c0c6cc 1px solid' : null,
-            borderBottom: props.asRow ? '#c0c6cc 1px solid' : null,
+            borderBottom: props.asRow ? 'hsla(210, 11%, 78%, 0.5)  .7px solid' : null,
             borderLeft: open || props.highlight ? '#0095ff 2px solid' : null,
+            border: 'hsla(210, 11%, 78%, 0.5)  .7px solid',
             width: open ? (props.openSize !== null ? props.openSize + '%' : 'fit-content') : props.closedSize + '%',
             borderRadius: open || props.highlight ? '0 8px 8px 0' : props.asRow ? null : '8px',
             opacity: '0',
             animationDelay: props.animationDelay !== undefined ? props.animationDelay + 'ms' : null,
-            boxShadow: open ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : props.highlight ? 'rgba(0, 0, 0, 0.05) 0px 0px 0px 1px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
-            minHeight: open ? null : '65px'
+            boxShadow: props.elevation === false ? null : open ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : props.highlight ? 'rgba(0, 0, 0, 0.05) 0px 0px 0px 1px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
+            maxHeight: open ? null : '65px'
 
         }} className={animations.slideUpAnimation} key={props.key + '-accordion'}>
             <Button onClick={props.asButton !== true ? () => setOpen(!open) : null} disabled={props.disabled}
@@ -34,7 +34,7 @@ export default function Accordion(props) {
                         width: '100%',
                         justifyContent: 'space-between',
                         color: props.dark ? 'white' : 'black',
-                        borderRadius: open ? '0 8px 8px 0' : '8px',
+                        borderRadius: open ? '0 8px 8px 0' : props.asRow ? '0px' : '8px',
                         position: 'relative',
                         minHeight: '65px'
                     }}>

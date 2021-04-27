@@ -17,6 +17,9 @@ import Link from "next/link";
 import {HistoryRounded} from "@material-ui/icons";
 import GetPageTitle from "../utils/shared/GetPageTitle";
 import animations from "../styles/shared/Animations.module.css";
+import HeaderLayout from "../components/layout/HeaderLayout";
+import ExtensionsFilters from "../components/modules/filters/ExtensionsFilters";
+import ExtensionsSearch from "../components/elements/ExtensionsSearch";
 
 export default function Settings() {
 
@@ -54,8 +57,16 @@ export default function Settings() {
 
     if (lang !== null)
         return (
-            <div className={mainStyles.displayInlineCenter}>
-                <div style={{width: '63vw'}}>
+            <>
+                <HeaderLayout tab={
+                    undefined
+                } filterComponent={
+                    undefined
+                } pageTitle={lang.extensions} title={lang.extensions} searchComponent={
+                   undefined
+                }
+                />
+                <div className={mainStyles.displayInlineCenter}>
 
 
                         <GetPageTitle pageName={lang.settings} pageTitle={lang.settings} pageInfo={lang.information}
@@ -63,149 +74,149 @@ export default function Settings() {
 
 
 
-                    <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.baseWidth].join(' ')}
-                         style={{transform: 'translateY(2vh)'}}>
+                        <div className={[mainStyles.normalBorder, mainStyles.displayWarp, mainStyles.baseWidth].join(' ')}
+                             style={{transform: 'translateY(2vh)'}}>
 
-                        <Accordion
-                            content={
-                                <FormControl component="fieldset"
-                                             style={{...{paddingLeft: '10px'}, ...getSecondaryColor({dark: dark})}}>
-                                    <RadioGroup onChange={changeLanguage}
-                                                value={router.locale}>
-                                        {[{value: 'Português', key: 'pt'}, {
-                                            value: 'English',
-                                            key: 'en'
-                                        }, {value: 'Español', key: 'es'}].map(choice => {
-                                            return <FormControlLabel value={choice.key} control={<Radio/>}
-                                                                     label={choice.value}/>
-                                        })}
-                                    </RadioGroup>
-                                </FormControl>
-                            }
-                            summary={
-                                <div className={shared.accordionTitle}>
-                                    <p className={mainStyles.secondaryParagraph}>{lang.language}</p>
-                                    <Divider style={{width: '10px', marginLeft: '10px', marginRight: '10px'}}
-                                             orientation={'horizontal'}/>
-                                    <p className={mainStyles.tertiaryParagraph}
-                                       style={getTertiaryColor({dark: dark})}>{router.locale === 'pt' ? 'Português' : router.locale === 'es' ? 'Español' : 'English'}</p>
-                                </div>
-                            }
-                            key={'language - settings'}
-                            closedSize={31}
-                            openSize={31}
-                            animationDelay={100}
-                            dark={dark}
-                            disabled={false}
-                            border={null}
-                        />
-
-
-                        <Accordion
-                            content={
-                                <FormControl component="fieldset"
-                                             style={{...{paddingLeft: '10px'}, ...getSecondaryColor({dark: dark})}}>
-                                    <RadioGroup onChange={() => props.changeTheme()} value={dark}>
-                                        <FormControlLabel value={false} control={<Radio/>} label={
-                                            <div className={style.theme_container}>
-                                                <p>Light</p>
-                                                <Brightness7RoundedIcon style={getIconStyle({dark: dark})}/>
-                                            </div>
-                                        }/>
-                                        <FormControlLabel value={true} control={<Radio/>} label={
-                                            <div className={style.theme_container}>
-                                                <p>Dark</p>
-                                                <Brightness3RoundedIcon style={getIconStyle({dark: dark})}/>
-                                            </div>
-                                        }/>
-                                    </RadioGroup>
-                                </FormControl>
-                            }
-                            summary={
-                                <div className={shared.accordionTitle}>
-                                    <p className={mainStyles.secondaryParagraph}>{lang.theme}</p>
-                                    <Divider style={{width: '10px', marginLeft: '10px', marginRight: '10px'}}
-                                             orientation={'horizontal'}/>
-                                    <p className={mainStyles.tertiaryParagraph}
-                                       style={getTertiaryColor({dark: dark})}>{dark ? 'Dark' : 'Light'}</p>
-                                </div>
-                            }
-                            key={'theme - settings'}
-                            closedSize={31}
-                            openSize={31}
-                            animationDelay={200}
-                            dark={dark}
-                            disabled={true}
-                            border={null}
-                        />
-
-                        {(new Cookies()).get('jwt') !== undefined && currentCollaboration !== null ?
                             <Accordion
                                 content={
                                     <FormControl component="fieldset"
                                                  style={{...{paddingLeft: '10px'}, ...getSecondaryColor({dark: dark})}}>
-                                        <RadioGroup value={currentCollaboration.id}>
-                                            {collaborations.map(collaboration => {
-                                                console.log(collaboration)
-                                                return <FormControlLabel value={collaboration.collaboration.id}
-                                                                         control={<Radio/>}
-                                                                         label={collaboration.unit.acronym}/>
+                                        <RadioGroup onChange={changeLanguage}
+                                                    value={router.locale}>
+                                            {[{value: 'Português', key: 'pt'}, {
+                                                value: 'English',
+                                                key: 'en'
+                                            }, {value: 'Español', key: 'es'}].map(choice => {
+                                                return <FormControlLabel value={choice.key} control={<Radio/>}
+                                                                         label={choice.value}/>
                                             })}
                                         </RadioGroup>
                                     </FormControl>
                                 }
                                 summary={
                                     <div className={shared.accordionTitle}>
-                                        <p className={mainStyles.secondaryParagraph}>{lang.collaboration}</p>
+                                        <p className={mainStyles.secondaryParagraph}>{lang.language}</p>
                                         <Divider style={{width: '10px', marginLeft: '10px', marginRight: '10px'}}
                                                  orientation={'horizontal'}/>
                                         <p className={mainStyles.tertiaryParagraph}
-                                           style={getTertiaryColor({dark: dark})}>{currentCollaboration.unitAcronym}</p>
+                                           style={getTertiaryColor({dark: dark})}>{router.locale === 'pt' ? 'Português' : router.locale === 'es' ? 'Español' : 'English'}</p>
                                     </div>
                                 }
-                                key={'collaborations - settings'}
+                                key={'language - settings'}
                                 closedSize={31}
                                 openSize={31}
+                                animationDelay={100}
                                 dark={dark}
-                                animationDelay={300}
                                 disabled={false}
                                 border={null}
                             />
-                            :
-                            null
-                        }
-                        {accessProfile !== null && accessProfile.canViewActivityLog ?
-                            <div style={{
-                                width: '31vw',
-                                border: !dark ? '#e5e6e8 1px solid' : 'initial',
-                                borderRadius: '8px',
-                                opacity: 0,
-                                animationDelay: '400ms'
-                            }} className={animations.slideUpAnimation}>
-                                <Link href={{pathname: '/activity', locale: router.locale}}>
-                                    <Button style={{
-                                        backgroundColor: 'white',
-                                        width: '100%',
-                                        height: '65px',
-                                        display: 'flex',
-                                        justifyContent: 'flex-start',
-                                        alignItems: 'center',
-                                        textTransform: 'none'
-                                    }}>
 
-                                        <HistoryRounded
-                                            style={{...getIconStyle({dark: dark}), ...getPrimaryColor({dark: dark})}}/>
-                                        <p className={mainStyles.secondaryParagraph}
-                                           style={getSecondaryColor({dark: dark})}>{lang.activity}</p>
-                                    </Button>
-                                </Link>
-                            </div> :
-                            null
-                        }
-                    </div>
 
+                            <Accordion
+                                content={
+                                    <FormControl component="fieldset"
+                                                 style={{...{paddingLeft: '10px'}, ...getSecondaryColor({dark: dark})}}>
+                                        <RadioGroup onChange={() => props.changeTheme()} value={dark}>
+                                            <FormControlLabel value={false} control={<Radio/>} label={
+                                                <div className={style.theme_container}>
+                                                    <p>Light</p>
+                                                    <Brightness7RoundedIcon style={getIconStyle({dark: dark})}/>
+                                                </div>
+                                            }/>
+                                            <FormControlLabel value={true} control={<Radio/>} label={
+                                                <div className={style.theme_container}>
+                                                    <p>Dark</p>
+                                                    <Brightness3RoundedIcon style={getIconStyle({dark: dark})}/>
+                                                </div>
+                                            }/>
+                                        </RadioGroup>
+                                    </FormControl>
+                                }
+                                summary={
+                                    <div className={shared.accordionTitle}>
+                                        <p className={mainStyles.secondaryParagraph}>{lang.theme}</p>
+                                        <Divider style={{width: '10px', marginLeft: '10px', marginRight: '10px'}}
+                                                 orientation={'horizontal'}/>
+                                        <p className={mainStyles.tertiaryParagraph}
+                                           style={getTertiaryColor({dark: dark})}>{dark ? 'Dark' : 'Light'}</p>
+                                    </div>
+                                }
+                                key={'theme - settings'}
+                                closedSize={31}
+                                openSize={31}
+                                animationDelay={200}
+                                dark={dark}
+                                disabled={true}
+                                border={null}
+                            />
+
+                            {(new Cookies()).get('jwt') !== undefined && currentCollaboration !== null ?
+                                <Accordion
+                                    content={
+                                        <FormControl component="fieldset"
+                                                     style={{...{paddingLeft: '10px'}, ...getSecondaryColor({dark: dark})}}>
+                                            <RadioGroup value={currentCollaboration.id}>
+                                                {collaborations.map(collaboration => {
+                                                    console.log(collaboration)
+                                                    return <FormControlLabel value={collaboration.collaboration.id}
+                                                                             control={<Radio/>}
+                                                                             label={collaboration.unit.acronym}/>
+                                                })}
+                                            </RadioGroup>
+                                        </FormControl>
+                                    }
+                                    summary={
+                                        <div className={shared.accordionTitle}>
+                                            <p className={mainStyles.secondaryParagraph}>{lang.collaboration}</p>
+                                            <Divider style={{width: '10px', marginLeft: '10px', marginRight: '10px'}}
+                                                     orientation={'horizontal'}/>
+                                            <p className={mainStyles.tertiaryParagraph}
+                                               style={getTertiaryColor({dark: dark})}>{currentCollaboration.unitAcronym}</p>
+                                        </div>
+                                    }
+                                    key={'collaborations - settings'}
+                                    closedSize={31}
+                                    openSize={31}
+                                    dark={dark}
+                                    animationDelay={300}
+                                    disabled={false}
+                                    border={null}
+                                />
+                                :
+                                null
+                            }
+                            {accessProfile !== null && accessProfile.canViewActivityLog ?
+                                <div style={{
+                                    width: '31vw',
+                                    border: !dark ? '#e5e6e8 1px solid' : 'initial',
+                                    borderRadius: '8px',
+                                    opacity: 0,
+                                    animationDelay: '400ms'
+                                }} className={animations.slideUpAnimation}>
+                                    <Link href={{pathname: '/activity', locale: router.locale}}>
+                                        <Button style={{
+                                            backgroundColor: 'white',
+                                            width: '100%',
+                                            height: '65px',
+                                            display: 'flex',
+                                            justifyContent: 'flex-start',
+                                            alignItems: 'center',
+                                            textTransform: 'none'
+                                        }}>
+
+                                            <HistoryRounded
+                                                style={{...getIconStyle({dark: dark}), ...getPrimaryColor({dark: dark})}}/>
+                                            <p className={mainStyles.secondaryParagraph}
+                                               style={getSecondaryColor({dark: dark})}>{lang.activity}</p>
+                                        </Button>
+                                    </Link>
+                                </div> :
+                                null
+                            }
+                        </div>
                 </div>
-            </div>
+            </>
+
         )
     else
         return <></>

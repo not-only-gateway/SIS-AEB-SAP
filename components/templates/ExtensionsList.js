@@ -9,16 +9,17 @@ export default function ExtensionsList(props) {
     const currentDate = new Date()
 
     return (
-        <div style={{display: 'grid', marginTop: '10px', width: '100%'}}>
+        <div style={{display: 'grid', marginTop: '10px', width: '100%', borderTop: 'hsla(210, 11%, 78%, 0.5)  .7px solid'}}>
             {(props.data).map((collaborator, index) =>
                 <div key={collaborator.profile.id} onClick={() => props.redirect(collaborator.profile.id)} style={{padding: 0}}>
                     <Accordion
+                        elevation={false}
                         summary={
                             <div className={mainStyles.rowContainer}  style={{height: '90px'}}>
                                 <div
                                     className={[mainStyles.displayInlineStart, mainStyles.overflowEllipsis].join(' ')}
                                 >
-                                    <ProfilePersona dark={false} key={collaborator.profile.id} image={collaborator.profile.image} size={'70px'} variant={'circle'}
+                                    <ProfilePersona dark={false} key={collaborator.profile.id} image={collaborator.profile.image} size={'70px'} variant={'circle'} elevation={false}
                                                     cakeDay={((new Date(collaborator.profile.birth)).getDay() === currentDate.getDay() && (new Date(collaborator.profile.birth)).getMonth() === currentDate.getMonth())}/>
                                     <p className={mainStyles.secondaryParagraph}
                                        style={{marginLeft: '5px', textTransform: 'capitalize'}}>{collaborator.profile.name}</p>
@@ -58,7 +59,6 @@ export default function ExtensionsList(props) {
                     />
                 </div>
             )}
-
         </div>
     )
 }

@@ -13,7 +13,7 @@ export default function ProfilePersona(props) {
             <Avatar src={props.image !== undefined ? ImageHost() + props.image : null}
                     style={{
                         height: props.size, width: props.size,
-                        boxShadow: 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px',
+                        boxShadow: props.elevation === false ? null : 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px',
                         borderRadius: props.variant === 'rounded' ? '8px' : null
                     }} variant={props.variant}/>
             {props.cakeDay === true ?
@@ -40,5 +40,6 @@ ProfilePersona.propTypes = {
     cakeDay: PropTypes.bool,
     key: PropTypes.number,
     size: PropTypes.string,
-    variant: PropTypes.string
+    variant: PropTypes.string,
+    elevation: PropTypes.bool
 }
