@@ -23,10 +23,10 @@ export default function PageLayout({children}) {
 
     if (router.pathname !== '/signin')
         return (
-            <div style={{backgroundColor: '#f5f6f8'}}>
+            <div>
                 <div className={styles.page_container}
                      id={'scrollableDiv'} style={{
-                    width: reduced ? '96%' : '85%',
+                    width: reduced ? 'calc(100% - 75px)' : 'calc(100% - 260px)',
                     marginLeft: 'auto',
                     transition: '250ms ease-in-out'
                 }}>

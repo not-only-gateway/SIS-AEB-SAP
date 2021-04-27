@@ -7,13 +7,15 @@ import fetchComponentData from "../utils/person/FetchData";
 import mainStyles from '../styles/shared/Main.module.css'
 import Head from "next/head";
 import Profile from "../components/elements/profile/Profile";
-import Tabs from "../components/layout/Tabs";
+import Tabs from "../components/layout/TabsComponent.js";
 import OverviewComponent from "../components/elements/profile/ProfileOverview";
 import BaseForm from "../components/modules/forms/BaseForm";
 import DocumentsForm from "../components/modules/forms/DocumentsForm";
 import ContactForm from "../components/modules/forms/ContactForm";
 import AddressForm from "../components/modules/forms/AddressForm";
 import Collaborations from "../components/elements/collaborations/Collaborations";
+import HeaderLayout from "../components/layout/HeaderLayout";
+import TabContent from "../components/elements/TabContent";
 
 export default function person() {
 
@@ -32,7 +34,7 @@ export default function person() {
     const [editMode, setEditMode] = useState(false)
     const [senior, setSenior] = useState(null)
     const [commissionedRole, setCommissionedRole] = useState(null)
-
+    const [openTab, setOpenTab] = useState(0)
 
     function handleChange(props) {
 
@@ -93,24 +95,63 @@ export default function person() {
 
     if (lang !== null && router.isReady && router.query.id === id && !loading && profile !== null && profile !== undefined)
         return (
-            <div className={mainStyles.displayInlineCenter}>
+            <>
+
                 {id !== undefined ?
-                    <div className={mainStyles.displayColumnSpaced} style={{width: '70vw', marginTop: '20px'}}>
-                        <>
-                            <Head>
-                                <title>{profile.name}</title>
-                            </Head>
-                            <Profile
-                                profile={profile}
-                                dark={dark}
-                                setEditMode={setEditMode}
-                                editMode={editMode}
-                                editable={accessProfile !== null && accessProfile.canUpdatePerson}
-                                inactiveLocale={lang.inactive}
-                            />
-                            <Tabs
-                                dark={dark}
-                                width={70}
+                    <>
+                        <HeaderLayout
+                            availableTabs={{
+                                tabs: [
+                                    {
+                                        disabled: false,
+                                        key: 0,
+                                        value: 'Overview'
+                                    },
+                                    editMode && accessProfile !== null ? {
+                                        disabled: false,
+                                        key: 1,
+                                        value: 'Basic'
+                                    } : null,
+                                    editMode && accessProfile !== null ? {
+                                        disabled: !accessProfile.canViewDocuments,
+                                        key: 2,
+                                        value: 'Documents'
+                                    } : null,
+                                    editMode && accessProfile !== null ? {
+                                        disabled: !accessProfile.canViewContact,
+                                        key: 3,
+                                        value: 'Contact'
+                                    } : null,
+                                    editMode && accessProfile !== null ? {
+                                        disabled: !accessProfile.canViewLocation,
+                                        key: 4,
+                                        value: 'Address'
+                                    } : null,
+                                    accessProfile !== null && accessProfile.canViewCollaboration ?{
+                                        disabled: false,
+                                        key: 5,
+                                        value: 'Collaborations'
+                                    } : null
+                                ]
+
+                                ,
+                                setOpenTab: setOpenTab,
+                                openTab: openTab
+                            }}
+                            filterComponent={undefined}
+                            title={
+                                <Profile profile={profile} dark={false} setEditMode={setEditMode} editMode={editMode}
+                                         editable={accessProfile !== null && accessProfile.canUpdatePerson}
+                                         inactiveLocale={lang.inactive}
+                                />
+                            }
+                            pageTitle={profile.name}
+                            searchComponent={undefined}
+                        />
+                        <div className={mainStyles.displayInlineCenter} style={{width: '100%'}}>
+                            <div style={{width: '75%'}}>
+                            <TabContent
+                                openTab={openTab}
                                 tabs={[
                                     {
                                         buttonKey: 0,
@@ -192,48 +233,15 @@ export default function person() {
                                             />
                                         )
                                     }
-                                ]}
-
-                                buttons={[
-                                    !editMode ? {
-                                        disabled: false,
-                                        key: 0,
-                                        value: 'Overview'
-                                    } : null,
-                                    editMode && accessProfile !== null ? {
-                                        disabled: false,
-                                        key: 1,
-                                        value: 'Basic'
-                                    } : null,
-                                    editMode && accessProfile !== null ? {
-                                        disabled: !accessProfile.canViewDocuments,
-                                        key: 2,
-                                        value: 'Documents'
-                                    } : null,
-                                    editMode && accessProfile !== null ? {
-                                        disabled: !accessProfile.canViewContact,
-                                        key: 3,
-                                        value: 'Contact'
-                                    } : null,
-                                    editMode && accessProfile !== null ? {
-                                        disabled: !accessProfile.canViewLocation,
-                                        key: 4,
-                                        value: 'Address'
-                                    } : null,
-                                    {
-                                        disabled: false,
-                                        key: 5,
-                                        value: 'Collaborations'
-                                    }
-                                ]}
-                            />
-
-                        </>
-                    </div>
+                                ]}/>
+                            </div>
+                        </div>
+                    </>
                     :
                     null
                 }
-            </div>
+            </>
+
         )
     else
         return <></>

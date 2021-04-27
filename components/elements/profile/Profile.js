@@ -11,18 +11,18 @@ export default function Profile(props) {
     return (
         <div
             className={mainStyles.displayInlineSpaced}
-            key={props.profile.id} style={{width: '100%'}}>
+            key={props.profile.id} style={{width: '100%', marginTop: '10px'}}>
 
             <div className={mainStyles.displayInlineSpaced}>
-                <ProfilePersona size={'200px'} key={props.profile.id} dark={false}
+                <ProfilePersona size={'140px'} key={props.profile.id} dark={false}
                                 cakeDay={((new Date(props.profile.birth)).getDay() === currentDate.getDay() && (new Date(props.profile.birth)).getMonth() === currentDate.getMonth())}
                                 image={props.profile.image} variant={'rounded'}/>
 
-                <div style={{transform: 'translateX(20px)',}}>
-                    <h4
-                        style={{...getPrimaryColor({dark: props.dark}), ...{textAlign: 'left'}}}>{props.profile.name}</h4>
-                    <p className={mainStyles.secondaryParagraph}
-                       style={{...getPrimaryColor({dark: props.dark}), ...{textAlign: 'left'}}}>{props.profile.corporate_email}</p>
+                <div className={mainStyles.displayColumnSpaced} style={{height: '70px', marginLeft: '10px'}}>
+                    <div
+                        style={{...getPrimaryColor({dark: props.dark}), ...{textAlign: 'left', fontSize: '1.5rem'}}}>{props.profile.name}</div>
+                    <div
+                       style={{...getPrimaryColor({dark: props.dark}), ...{textAlign: 'left'}}}>{props.profile.corporate_email}</div>
                 </div>
             </div>
 

@@ -40,6 +40,8 @@ export default function Signin() {
                 else
                     router.push('/', '/', {locale: router.locale})
             })
+        else
+            ClearStorage()
         setLang(getLanguage(router.locale, router.pathname))
 
         setDark(cookies.get('theme') === '0')

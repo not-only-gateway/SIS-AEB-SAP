@@ -3,15 +3,15 @@
 
     .navigationContainer{
         position: fixed;
-        left: 3px;
-        top: 3px;
+        left: 0;
+        top: 0;
         z-index: 0;
         overflow: hidden;
-        height: calc(100vh - 6px);
+        height: 100vh;
 
         display: block;
         justify-items: center;
-        border-radius: 5px;
+        border-radius:  0  5px  5px 0;
     }
     .navigationContainer > * {
         width: 100%;

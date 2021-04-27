@@ -54,7 +54,7 @@ export default function Collaborations(props) {
                             />
                         }
                         summary={
-                            <div className={mainStyles.rowContainer} style={{width: 'fit-content'}}>
+                            <div className={mainStyles.displayInlineStart} style={{width: 'fit-content'}}>
                                 <AddRounded/>
                                 <Divider orientation={'horizontal'} style={{
                                     width: '10px',
@@ -67,10 +67,10 @@ export default function Collaborations(props) {
                         }
                         key={'create collaborations'}
                         disabled={!props.editionMode}
-                        openSize={68}
+                        openSize={100}
                         dark={props.dark}
                         highlight={true}
-                        closedSize={68}
+                        closedSize={100}
                     />
                 }
                 {collaborations.map((collaboration, index) => (
@@ -99,8 +99,8 @@ export default function Collaborations(props) {
                         }
                         key={collaboration.collaboration.id}
                         disabled={!props.editionMode}
-                        openSize={68}
-                        closedSize={68}
+                        openSize={100}
+                        closedSize={100}
                         dark={props.dark}
                         highlight={true}
                     />

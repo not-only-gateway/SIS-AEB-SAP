@@ -8,6 +8,7 @@ import Link from "next/link";
 import Cookies from "universal-cookie/lib";
 import {ExitToAppRounded} from "@material-ui/icons";
 import animations from '../../../styles/shared/Animations.module.css'
+import ProfilePersona from "../profile/ProfilePersona";
 
 export default function NavigationProfile(props) {
     const [open, setOpen] = useState(false)
@@ -28,7 +29,7 @@ export default function NavigationProfile(props) {
                     {open && !props.reduced ?
                         <div style={{
                             backgroundColor: '#262626',
-                            width: '13vw',
+                            width: '250px',
                             borderRadius: '5px 5px 0px 0px',
                             opacity: 0
                         }} className={[mainStyles.displayColumnSpaced, animations.slideUpAnimation].join(' ')}>
@@ -59,24 +60,21 @@ export default function NavigationProfile(props) {
                         height: '65px',
                         textTransform: 'none',
                         borderRadius: open ? '0px 0px 5px 5px' : '5px',
-                        backgroundColor: '#262626'
+                        backgroundColor: '#262626',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        overflow: 'hidden'
                     }} disabled={props.reduced} onClick={() => setOpen(!open)}>
                         <>
-                            <Avatar src={ImageHost() + props.profile.pic} style={{
-                                ...{
-                                    width: '50px',
-                                    height: '50px',
-                                    marginRight: props.reduced ? null : '5px'
-                                }, ...getBoxShadow({dark: props.dark})
-                            }}/>
+                            <ProfilePersona cakeDay={false} variant={'circular'} key={'nav-bar-profile'} size={'50px'} image={props.profile.pic}/>
                             {props.reduced ?
                                 null
                                 :
                                 <div>
                                     <div
                                         className={[mainStyles.overflowEllipsis, mainStyles.displayInlineStart].join(' ')}
-                                        style={{color: 'white', fontWeight: '550'}}>
-                                        {props.profile.name}
+                                        style={{color: 'white', fontWeight: '500'}}>
+                                        {props.profile.name.split(' ')[0] +' '+ props.profile.name.split(' ').splice(-1).join(' ')}
                                     </div>
                                     <div
                                         className={[mainStyles.overflowEllipsis, mainStyles.tertiaryParagraph, mainStyles.displayInlineStart].join(' ')}

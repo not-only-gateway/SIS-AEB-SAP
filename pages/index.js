@@ -6,11 +6,10 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import fetchIndexData from "../utils/index/FetchData";
 import {getTertiaryColor} from "../styles/shared/MainStyles";
 import mainStyles from '../styles/shared/Main.module.css'
-import Head from "next/head";
-import ListLayout from "../components/layout/list/ListLayout";
 import ExtensionsSearch from "../components/elements/ExtensionsSearch";
 import ExtensionsList from "../components/templates/ExtensionsList";
 import ExtensionsFilters from "../components/modules/filters/ExtensionsFilters";
+import HeaderLayout from "../components/layout/HeaderLayout";
 
 export default function Index() {
 
@@ -61,93 +60,71 @@ export default function Index() {
         })
     }
 
-    function handleSorterChange(event) {
-        if (event === sorterMethod)
-            setSorterMethod(undefined)
-        else
-            setSorterMethod(event)
-    }
 
     if (lang !== null)
         return (
             <>
-                <Head>
-                    <title>{lang.extensions}</title>
-                </Head>
-                <ListLayout
-                    content={
-                        !loading ?
-                            data.length > 0 ?
-                                <InfiniteScroll
-                                    dataLength={data.length}
-                                    next={() => fetchData(0)}
-                                    hasMore={lastFetchedSize === 15}
-                                    inverse={false}
-                                    scrollableTarget="scrollableDiv"
-                                    loader={<Skeleton variant={'rect'} width={'100%'} style={{borderRadius: '8px'}}
-                                                      height={'7vh'}/>}
-                                    endMessage={
-                                        <div style={{
-                                            width: '100%'
-                                        }}>
-                                            <p className={mainStyles.secondaryParagraph}
-                                               style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.end}</p>
-                                        </div>
-                                    }
-                                >
-                                    <ExtensionsList sorterMethod={sorterMethod} data={data} redirect={redirect}
-                                                       inactiveLocale={lang.inactive}/>
-                                </InfiniteScroll>
-                                :
 
-                                <div className={mainStyles.displayInlineCenter} style={{
-                                    ...{marginBottom: '15px', width: '50vw'}
-                                }}>
-                                    <p className={mainStyles.secondaryParagraph}
-                                       style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.nothingFound}</p>
-                                </div>
-
+                <HeaderLayout tab={
+                    undefined
+                } filterComponent={
+                    <ExtensionsFilters
+                        dark={dark} setData={setData} setOption={setOption}
+                        option={option} lang={lang} setLoading={setLoading} fetchData={fetchData}
+                        searchInput={searchInput} setSearchInput={handleInputChange}
+                        setMaxID={setMaxID}
+                    />
+                } pageTitle={lang.extensions} title={lang.extensions} searchComponent={
+                    <ExtensionsSearch
+                        dark={dark} setData={setData} setOption={setOption}
+                        option={option} lang={lang} setLoading={setLoading} fetchData={fetchData}
+                        searchInput={searchInput} setSearchInput={handleInputChange}
+                        setMaxID={setMaxID} width={100}
+                    />
+                }
+                />
+                <div className={mainStyles.displayInlineCenter} style={{width: '100%'}}>
+                    {!loading ?
+                        data.length > 0 ?
+                            <div style={{width: '75%'}}>
+                            <InfiniteScroll
+                                dataLength={data.length}
+                                next={() => fetchData(0)}
+                                hasMore={lastFetchedSize === 15}
+                                inverse={false}
+                                scrollableTarget="scrollableDiv"
+                                loader={<Skeleton variant={'rect'} width={'100%'} style={{borderRadius: '8px'}}
+                                                  height={'7vh'}/>}
+                                endMessage={
+                                    <div style={{
+                                        width: '100%'
+                                    }}>
+                                        <p className={mainStyles.secondaryParagraph}
+                                           style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.end}</p>
+                                    </div>
+                                }
+                            >
+                                <ExtensionsList sorterMethod={sorterMethod} data={data} redirect={redirect}
+                                                inactiveLocale={lang.inactive}/>
+                            </InfiniteScroll>
+                            </div>
                             :
+
                             <div className={mainStyles.displayInlineCenter} style={{
                                 ...{marginBottom: '15px', width: '50vw'}
                             }}>
                                 <p className={mainStyles.secondaryParagraph}
-                                   style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>Loading</p>
+                                   style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.nothingFound}</p>
                             </div>
-                    }
-                    title={
-                        lang.extensions
-                    }
 
-                    basicSearchComponent={
-                        <ExtensionsSearch
-                            dark={dark} setData={setData} setOption={setOption}
-                            option={option} lang={lang} setLoading={setLoading} fetchData={fetchData}
-                            searchInput={searchInput} setSearchInput={handleInputChange}
-                            setMaxID={setMaxID} width={55}
-                        />
-
-                    }
-                    width={65}
-                    columnWidth={55}
-                    handleSorterChange={handleSorterChange}
-                    columns={[
-                        {label: 'Name', key: 'name'},
-                        {label: 'Email', key: undefined},
-                        {label: 'Extension', key: 'extension'},
-                        {label: 'Status', key: undefined},
-                        {label: 'Unit', key: undefined},
-                    ]}
-                    currentSorter={sorterMethod}
-                    filterComponent={
-                        <ExtensionsFilters
-                            dark={dark} setData={setData} setOption={setOption}
-                            option={option} lang={lang} setLoading={setLoading} fetchData={fetchData}
-                            searchInput={searchInput} setSearchInput={handleInputChange}
-                            setMaxID={setMaxID} width={55}
-                        />
-                    }
-                />
+                        :
+                        <div className={mainStyles.displayInlineCenter} style={{
+                            ...{marginBottom: '15px', width: '50vw'}
+                        }}>
+                            <p className={mainStyles.secondaryParagraph}
+                               style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>Loading</p>
+                        </div>}
+                </div>
             </>
         )
     else

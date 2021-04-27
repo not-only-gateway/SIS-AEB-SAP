@@ -95,10 +95,11 @@
 
 .rowContainer{
     display: flex;
+    justify-content: space-between;
     width: 100%;
     align-items: center;
 }
-.rowContainer > * {
-    width: 100%;
-    padding: 5px;
-}
+/*.rowContainer > * {*/
+/*    width: 100%;*/
+/*    padding: 5px;*/
+/*}*/
