@@ -7,7 +7,6 @@ import ImageHost from "../../../utils/shared/ImageHost";
 import ProfilePersona from "./ProfilePersona";
 
 export default function Profile(props) {
-    const currentDate = new Date()
     return (
         <div
             className={mainStyles.displayInlineSpaced}
@@ -15,7 +14,7 @@ export default function Profile(props) {
 
             <div className={mainStyles.displayInlineSpaced}>
                 <ProfilePersona size={'140px'} key={props.profile.id} dark={false}
-                                cakeDay={((new Date(props.profile.birth)).getDay() === currentDate.getDay() && (new Date(props.profile.birth)).getMonth() === currentDate.getMonth())}
+                                cakeDay={false}
                                 image={props.profile.image} variant={'rounded'}/>
 
                 <div style={{marginLeft: '10px', height: 'auto'}}>
@@ -29,13 +28,6 @@ export default function Profile(props) {
                         {props.profile.corporate_email}
                     </p>
                 </div>
-
-                {/*<div className={mainStyles.displayColumnSpaced} style={{height: '70px', marginLeft: '10px'}}>*/}
-                {/*    <div*/}
-                {/*        style={{...getPrimaryColor({dark: props.dark}), ...{textAlign: 'left', fontSize: '1.5rem'}}}>{props.profile.name}</div>*/}
-                {/*    <div*/}
-                {/*       style={{...getPrimaryColor({dark: props.dark}), ...{textAlign: 'left'}}}>{props.profile.corporate_email}</div>*/}
-                {/*</div>*/}
             </div>
 
             {props.editable ?

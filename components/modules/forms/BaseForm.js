@@ -11,6 +11,7 @@ import Selector from "../Selector";
 import CountryOptions from "../../../utils/person/CountryOptions";
 import StateOptions from "../../../utils/person/StateSelector";
 import ImageHost from "../../../utils/shared/ImageHost";
+import ImageSelector from "../ImageSelector";
 
 export default function BaseForm(props) {
 
@@ -18,7 +19,7 @@ export default function BaseForm(props) {
     const [changed, setChanged] = useState(false)
     const [image, setImage] = useState({
         file: null,
-        imageSrc: ImageHost() + props.profile.image,
+        imageSrc: props.profile.image,
         removed: false
     })
     const [lang, setLang] = useState(null)
@@ -45,9 +46,9 @@ export default function BaseForm(props) {
     async function saveChanges() {
         let formData = new FormData()
 
-        if (image.file !== null)
+        if (image.file !== null) {
             formData.append('image', image.file[0])
-        else if (image.removed)
+        } else if (image.removed)
             formData.append('removed_image', 'true')
         formData.append('name', props.profile.name.toString())
         formData.append('birth', (typeof props.profile.birth !== 'number' ? new Date(props.profile.birth).getTime() : props.profile.birth))
@@ -88,6 +89,7 @@ export default function BaseForm(props) {
         }).catch(error => {
             console.log(error)
         })
+
     }
 
     function disabled() {
@@ -95,7 +97,7 @@ export default function BaseForm(props) {
             props.profile.name === null ||
             props.profile.nationality === null ||
             props.profile.birth_place === null ||
-            props.profile.birth === null ||
+            props.profile.birth === undefined ||
             props.profile.disabled_person === null ||
             props.profile.education === null ||
             props.profile.gender === null ||
@@ -109,7 +111,7 @@ export default function BaseForm(props) {
     function getFile(event) {
         let reader = new FileReader()
 
-        if (event.target.files.length > 0) {
+        if (event !== null && event.target.files.length > 0) {
             reader.readAsDataURL(event.target.files[0])
             reader.onload = () => {
                 setImage({
@@ -118,35 +120,20 @@ export default function BaseForm(props) {
                 })
             }
             setChanged(true)
+        } else {
+            setImage({file: null, imageSrc: null, removed: true})
+            props.handleChange({name: 'image', value: null})
         }
+
     }
 
 
     if (lang !== null)
         return (
             <div className={mainStyles.displayWarp} style={{justifyContent: 'center'}}>
-
-                <div style={{width: 'calc(25% - 12px)', border: '#e2e2e2 1px solid', borderRadius: '8px'}}
-                     className={mainStyles.displayInlineSpaced}>
-                    <Avatar
-                        src={image.imageSrc}
-                        variant={'rounded'}
-                        style={{width: '100px', height: '100px'}}/>
-
-                    <div style={{transform: 'translateX(5px)', height: '100px'}}
-                         className={mainStyles.displayColumnSpaced}>
-                        <input id='profile-image-input' type={'file'} accept={'image/*'} onChange={getFile}/>
-                        <Button variant={"contained"} style={{
-                            backgroundColor: props.profile.image !== undefined || image.file !== null ? '#f54269' : 'initial',
-                            color: props.profile.image !== undefined || image.file !== null ? 'white' : 'initial',
-                            width: 'fit-content'
-                        }}
-                                onClick={() => setImage({file: null, imageSrc: null, removed: true})}
-                                disabled={props.profile.image === undefined || props.profile.image === null}>
-                            Remove
-                        </Button>
-                    </div>
-                </div>
+                <ImageSelector initialImage={props.profile.image === null ? image.imageSrc : props.profile.image}
+                               size={'100px'} setImage={getFile} label={'Profile Image'}
+                               base64={props.profile.image === null} setChanged={setChanged}/>
                 <InputLayout inputName={lang.name} dark={props.dark} handleChange={props.handleChange} inputType={0}
                              disabled={!props.editable} size={'calc(25% - 12px)'} required={true}
                              initialValue={props.profile.name} name={'name'}
@@ -157,8 +144,10 @@ export default function BaseForm(props) {
                              handleChange={props.handleChange} name={'corporate_email'}
                              inputType={0} disabled={!props.editable} size={'calc(25% - 12px)'} required={true}
                              initialValue={props.profile.corporate_email} key={"1-12"} setChanged={setChanged}/>
-                <InputLayout inputName={lang.extension} dark={props.dark} handleChange={props.handleChange} numeric={true} maxLength={4}
-                             inputType={0} disabled={!props.editable} size={'calc(25% - 12px)'} required={true} name={'extension'}
+                <InputLayout inputName={lang.extension} dark={props.dark} handleChange={props.handleChange}
+                             numeric={true} maxLength={4}
+                             inputType={0} disabled={!props.editable} size={'calc(25% - 12px)'} required={true}
+                             name={'extension'}
                              initialValue={props.profile.extension} key={"1-13"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.registration} dark={props.dark} handleChange={props.handleChange}
                              inputType={0} disabled={!props.editable} size={'calc(50% - 8px)'} required={false}
@@ -168,7 +157,8 @@ export default function BaseForm(props) {
 
                 <InputLayout inputName={lang.birth} dark={props.dark} handleChange={props.handleChange}
                              inputType={2} name={'birth'}
-                             disabled={!props.editable} size={'calc(50% - 8px)'} required={true} initialValue={props.profile.birth}
+                             disabled={!props.editable} size={'calc(50% - 8px)'} required={true}
+                             initialValue={props.profile.birth}
                              key={"1-7"} setChanged={setChanged}/>
 
                 <InputLayout inputName={lang.disabledPerson} dark={props.dark}

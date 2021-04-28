@@ -18,7 +18,10 @@ export default function InputLayout(props) {
                                    }}
                                    type={props.numeric ? 'number' : 'text'}
                                    onChange={event => {
-                                       const data = props.uppercase ? event.target.value.toUpperCase() : event.target.value
+                                       let data = event.target.value
+                                       if (props.uppercase)
+                                           data = event.target.value.toUpperCase()
+
                                        if (props.maxLength !== undefined) {
                                            const value = (data).slice(0, props.maxLength)
                                            props.handleChange({name: props.name, value: value})

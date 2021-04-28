@@ -15,6 +15,6 @@ export default {
     userAgent: 'Agente de usuário',
     end: 'Você chegou ao final.',
     created: 'Criado em',
-    ip: 'Endereço de Ip da máquina',
+    ip: 'Endereço de IP (v4)',
     filters: 'Filtros'
 }

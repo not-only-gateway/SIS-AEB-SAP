@@ -14,6 +14,6 @@ export default {
     userAgent: 'Agente de usuario',
     end: 'Has llegado al fondo.',
     created: 'Creado en',
-    ip: 'Dirección Ip de la máquina',
+    ip: 'Dirección IP (v4)',
     filters: 'Filtros'
 }

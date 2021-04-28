@@ -46,11 +46,8 @@ export default function person() {
     }
 
     useEffect(() => {
-        setDark((new Cookies()).get('theme') === 0)
-        if (router.isReady && router.query.id !== id) {
-            setId(router.query.id)
-            setCreate(router.query.create)
-            if (router.query.create !== 'true')
+            if (router.isReady && router.query.id !== id) {
+                setId(router.query.id)
                 fetchComponentData(
                     {path: 'person/' + router.query.id, params: {}}
                 ).then(res => {
@@ -74,176 +71,162 @@ export default function person() {
 
                     setLoading(false)
                 })
-        }
-
-
-        setLang(getLanguage(router.locale, router.pathname))
-
-        if (accessProfile === null)
-            readAccessProfile().then(res => setAccessProfile(res))
-
-    }, [router.locale, router.isReady, router.query])
-
-    function redirect(new_id) {
-        router.push('/person', '/person', {
-            locale: router.locale,
-            query: {
-                id: new_id
             }
-        })
-        setCreate(undefined)
-        setId(new_id)
-    }
 
-    if (lang !== null && router.isReady && router.query.id === id && !loading && profile !== null && profile !== undefined)
+
+            setLang(getLanguage(router.locale, router.pathname))
+
+            if (accessProfile === null)
+                readAccessProfile().then(res => setAccessProfile(res))
+
+        }
+        ,
+        [router.locale, router.isReady, router.query]
+    )
+
+
+    if (lang !== null && id !== undefined && !loading && profile !== null && profile !== undefined)
         return (
             <>
+                <HeaderLayout
+                    availableTabs={{
+                        tabs: [
+                            {
+                                disabled: false,
+                                key: 0,
+                                value: 'Overview'
+                            },
+                            (editMode || create) && accessProfile !== null ? {
+                                disabled: false,
+                                key: 1,
+                                value: create ? 'Create' : 'Basic'
+                            } : null,
+                            editMode && accessProfile !== null ? {
+                                disabled: !accessProfile.canViewDocuments,
+                                key: 2,
+                                value: 'Documents'
+                            } : null,
+                            editMode && accessProfile !== null ? {
+                                disabled: !accessProfile.canViewContact,
+                                key: 3,
+                                value: 'Contact'
+                            } : null,
+                            editMode && accessProfile !== null ? {
+                                disabled: !accessProfile.canViewLocation,
+                                key: 4,
+                                value: 'Address'
+                            } : null,
+                            (accessProfile !== null && accessProfile.canViewCollaboration) ? {
+                                disabled: false,
+                                key: 5,
+                                value: 'Collaborations'
+                            } : null
+                        ]
 
-                {id !== undefined ?
-                    <>
-                        <HeaderLayout
-                            availableTabs={{
-                                tabs: [
+                        ,
+                        setOpenTab: setOpenTab,
+                        openTab: openTab
+                    }}
+                    filterComponent={undefined}
+                    title={
+                            <Profile profile={profile} dark={false} setEditMode={setEditMode} editMode={editMode}
+                                     editable={accessProfile !== null && accessProfile.canUpdatePerson}
+                                     inactiveLocale={lang.inactive}
+                            />
+                    }
+                    pageTitle={profile.name}
+                    information={null}
+                    searchComponent={undefined}
+                />
+                <div className={mainStyles.displayInlineCenter} style={{width: '100%'}}>
+                    <div style={{width: '75%'}}>
+                        <TabContent
+                            openTab={openTab}
+                            tabs={[
+                                {
+                                    buttonKey: 0,
+                                    value: (
+                                        <OverviewComponent
+                                            dark={false}
+                                            profile={profile}
+                                            collaboration={collaboration}
+                                            unit={unit}
+                                            commissionedRole={commissionedRole}
+                                            effectiveRole={effectiveRole}
+                                            senior={senior}
+                                            linkage={linkage}
+                                        />
+                                    )
+                                },
+                                (editMode || create) && accessProfile !== null ?
                                     {
-                                        disabled: false,
-                                        key: 0,
-                                        value: 'Overview'
-                                    },
-                                    editMode && accessProfile !== null ? {
-                                        disabled: false,
-                                        key: 1,
-                                        value: 'Basic'
-                                    } : null,
-                                    editMode && accessProfile !== null ? {
-                                        disabled: !accessProfile.canViewDocuments,
-                                        key: 2,
-                                        value: 'Documents'
-                                    } : null,
-                                    editMode && accessProfile !== null ? {
-                                        disabled: !accessProfile.canViewContact,
-                                        key: 3,
-                                        value: 'Contact'
-                                    } : null,
-                                    editMode && accessProfile !== null ? {
-                                        disabled: !accessProfile.canViewLocation,
-                                        key: 4,
-                                        value: 'Address'
-                                    } : null,
-                                    accessProfile !== null && accessProfile.canViewCollaboration ?{
-                                        disabled: false,
-                                        key: 5,
-                                        value: 'Collaborations'
-                                    } : null
-                                ]
-
-                                ,
-                                setOpenTab: setOpenTab,
-                                openTab: openTab
-                            }}
-                            filterComponent={undefined}
-                            title={
-                                <Profile profile={profile} dark={false} setEditMode={setEditMode} editMode={editMode}
-                                         editable={accessProfile !== null && accessProfile.canUpdatePerson}
-                                         inactiveLocale={lang.inactive}
-                                />
-                            }
-                            pageTitle={profile.name}
-                            searchComponent={undefined}
-                        />
-                        <div className={mainStyles.displayInlineCenter} style={{width: '100%'}}>
-                            <div style={{width: '75%'}}>
-                            <TabContent
-                                openTab={openTab}
-                                tabs={[
-                                    {
-                                        buttonKey: 0,
+                                        buttonKey: 1,
                                         value: (
-                                            <OverviewComponent
-                                                dark={false}
+                                            <BaseForm
+                                                id={id}
+                                                dark={dark}
                                                 profile={profile}
-                                                collaboration={collaboration}
-                                                unit={unit}
-                                                commissionedRole={commissionedRole}
-                                                effectiveRole={effectiveRole}
-                                                senior={senior}
-                                                linkage={linkage}
-                                            />
-                                        )
-                                    },
-                                    editMode && accessProfile !== null ?
-                                        {
-                                            buttonKey: 1,
-                                            value: (
-                                                <BaseForm
-                                                    id={id}
-                                                    dark={dark}
-                                                    profile={profile}
-                                                    handleChange={handleChange}
-                                                    visible={accessProfile.canUpdatePerson}
-                                                    editable={accessProfile.canUpdatePerson}
-                                                    locale={router.locale}
-                                                    redirect={redirect}
-                                                    create={accessProfile.canCreatePerson && create !== undefined}
-                                                />
-                                            )
-                                        } : null,
-                                    editMode && accessProfile !== null ? {
-                                        buttonKey: 2,
-                                        value: (
-                                            <DocumentsForm
-                                                id={id}
-                                                dark={dark}
+                                                handleChange={handleChange}
+                                                visible={accessProfile.canUpdatePerson}
+                                                editable={accessProfile.canUpdatePerson}
                                                 locale={router.locale}
-                                                visible={accessProfile.canViewDocuments}
-                                                editable={accessProfile.canUpdateDocuments}
                                             />
                                         )
                                     } : null,
-                                    editMode && accessProfile !== null ? {
-                                        buttonKey: 3,
-                                        value: (
-                                            <ContactForm
-                                                id={id}
-                                                dark={dark}
-                                                locale={router.locale}
-                                                visible={accessProfile.canViewContact}
-                                                editable={accessProfile.canUpdateContact}
-                                            />
-                                        )
-                                    } : null,
-                                    editMode && accessProfile !== null ? {
-                                        buttonKey: 4,
-                                        value: (
-                                            <AddressForm
-                                                id={id}
-                                                dark={dark}
-                                                locale={router.locale}
-                                                visible={accessProfile.canViewLocation}
-                                                editable={accessProfile.canUpdateLocation}
-                                            />
+                                editMode && accessProfile !== null ? {
+                                    buttonKey: 2,
+                                    value: (
+                                        <DocumentsForm
+                                            id={id}
+                                            dark={dark}
+                                            locale={router.locale}
+                                            visible={accessProfile.canViewDocuments}
+                                            editable={accessProfile.canUpdateDocuments}
+                                        />
+                                    )
+                                } : null,
+                                editMode && accessProfile !== null ? {
+                                    buttonKey: 3,
+                                    value: (
+                                        <ContactForm
+                                            id={id}
+                                            dark={dark}
+                                            locale={router.locale}
+                                            visible={accessProfile.canViewContact}
+                                            editable={accessProfile.canUpdateContact}
+                                        />
+                                    )
+                                } : null,
+                                editMode && accessProfile !== null ? {
+                                    buttonKey: 4,
+                                    value: (
+                                        <AddressForm
+                                            id={id}
+                                            dark={dark}
+                                            locale={router.locale}
+                                            visible={accessProfile.canViewLocation}
+                                            editable={accessProfile.canUpdateLocation}
+                                        />
 
-                                        )
-                                    } : null,
+                                    )
+                                } : null,
 
-                                    {
-                                        buttonKey: 5,
-                                        value: (
-                                            <Collaborations
-                                                id={id}
-                                                dark={dark}
-                                                editionMode={editMode && accessProfile !== null && accessProfile.canUpdateCollaboration}
-                                                locale={router.locale}
-                                            />
-                                        )
-                                    }
-                                ]}/>
-                            </div>
-                        </div>
-                    </>
-                    :
-                    null
-                }
+                                {
+                                    buttonKey: 5,
+                                    value: (
+                                        <Collaborations
+                                            id={id}
+                                            dark={dark}
+                                            editionMode={editMode && accessProfile !== null && accessProfile.canUpdateCollaboration}
+                                            locale={router.locale}
+                                        />
+                                    )
+                                }
+                            ]}/>
+                    </div>
+                </div>
             </>
+
 
         )
     else

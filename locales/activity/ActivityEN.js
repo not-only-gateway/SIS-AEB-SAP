@@ -18,6 +18,6 @@ export default {
     userAgent: 'User Agent',
     end: 'You\'ve reached the bottom.',
     created: 'Created on',
-    ip: 'Machine IP address',
+    ip: 'Machine IP address (v4)',
     filters: 'Filters'
 }

@@ -116,7 +116,7 @@ export default function ActivityList(props) {
                             </div>
                         }
                         summary={
-                            <>
+                            <div className={[mainStyles.rowContainer, mainStyles.maxWidth].join(' ')} style={{width: '75%'}}>
                                 <div
                                     className={[mainStyles.tertiaryParagraph, mainStyles.displayInlineStart].join(' ')}
                                     style={getTertiaryColor({dark: false})}>
@@ -134,7 +134,7 @@ export default function ActivityList(props) {
                                      style={getTertiaryColor({dark: false})}>
                                     {(new Date(data.activity.time_of_creation)).toDateString()}
                                 </div>
-                            </>
+                            </div>
                         }
                         closedSize={100}
                         openSize={100}

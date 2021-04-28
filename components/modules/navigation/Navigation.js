@@ -1,7 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import {Divider} from '@material-ui/core';
 import Cookies from 'universal-cookie/lib';
-import {AccountTreeRounded, ExtensionRounded, MenuOpenRounded, SettingsRounded} from '@material-ui/icons';
+import {
+    AccountTreeRounded, AddRounded,
+    ExtensionRounded,
+    MenuOpenRounded,
+    SettingsRounded,
+    SupervisorAccountRounded
+} from '@material-ui/icons';
 import styles from '../../../styles/shared/Bar.module.css'
 import en from '../../../locales/navigation/NavigationEN';
 import PropTypes from 'prop-types'
@@ -12,6 +18,7 @@ import NavigationButton from "../../elements/navigation/NavigationButton";
 import getComponentLanguage from "../../../utils/shared/GetLanguage";
 import NavigationProfile from "../../elements/navigation/NavigationProfile";
 import animations from '../../../styles/shared/Animations.module.css'
+import NavigationDropDownButton from "../../elements/navigation/NavigationDropDownButton";
 
 export default function Navigation(props) {
 
@@ -73,6 +80,7 @@ export default function Navigation(props) {
                 justifyContent: 'center',
                 height: '33.333%'
             }}>
+
                 <NavigationButton
                     dark={props.dark} linkPath={'/'}
                     highlight={props.path === '/'} locale={props.locale}
@@ -95,7 +103,6 @@ export default function Navigation(props) {
                             ...props.reduced ? {margin: 'auto'} : null
                         }}/>}
                 />
-                <Divider orientation={'horizontal'} style={{width: '100%'}}/>
                 <NavigationButton
                     dark={props.dark} linkPath={'/settings'}
                     highlight={props.path === '/settings'} locale={props.locale}
@@ -106,7 +113,35 @@ export default function Navigation(props) {
                             ...props.reduced ? {margin: 'auto'} : null
                         }}/>}
                 />
+                {accessProfile !== null && (accessProfile.canCreatePerson || accessProfile.canCreateRole || accessProfile.canCreateAccessProfile) ?
+                    <NavigationDropDownButton
+                        locale={props.locale}
+                        label={lang.more}
+                        reduced={props.reduced}
+                        setReduced={props.setReduced}
+                        key={'more-options'}
+                        options={[
+                            {
+                                label: lang.createPerson,
+                                path: '/create'
+                            },
+                            {
+                                label: lang.createAccessProfile,
+                                path: '',
+                            }
+                        ]}
+                        icon={
+                            <AddRounded
+                                style={{
+                                    ...{color: 'white'},
+                                    ...props.reduced ? {margin: 'auto'} : null
+                                }}/>
+                        }
+                    />
+                    :
+                    null
 
+                }
             </div>
             <div className={mainStyles.displayInlineCenter} style={{height: '33.333%', alignItems: 'flex-end', paddingBottom: '4px'}}>
                 <NavigationProfile dark={props.dark} profile={profile} reduced={props.reduced}

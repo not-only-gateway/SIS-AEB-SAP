@@ -4,9 +4,11 @@ import localIpUrl from "local-ip-url";
 import {setAccessProfile, setCollaboration, setProfile, startDatabase} from "../shared/IndexedDB";
 import PropTypes from 'prop-types'
 import Cookies from "universal-cookie/lib";
+import publicIp from "public-ip";
 
 const cookies = new Cookies()
 export default async function signIn(props) {
+    let ip = await publicIp.v4()
     try {
         await axios({
             method: 'post',
@@ -14,7 +16,7 @@ export default async function signIn(props) {
             data: {
                 corporate_email: props.email,
                 password: props.password,
-                ip: localIpUrl('public'),
+                ip: ip,
                 platform: navigator.platform,
                 browser_version: navigator.appVersion,
                 browser_engine: navigator.product,

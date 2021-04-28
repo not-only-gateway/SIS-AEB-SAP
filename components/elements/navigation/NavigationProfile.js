@@ -64,9 +64,9 @@ export default function NavigationProfile(props) {
                         display: 'flex',
                         justifyContent: 'space-between',
                         overflow: 'hidden'
-                    }} disabled={props.reduced} onClick={() => setOpen(!open)}>
+                    }} disabled={props.reduced} onClick={() => setOpen(!open)} >
                         <>
-                            <ProfilePersona cakeDay={false} variant={'circular'} key={'nav-bar-profile'} size={'50px'} image={props.profile.pic}/>
+                            <ProfilePersona base64={false} cakeDay={false} variant={'circular'} key={'nav-bar-profile'} size={'50px'} image={props.profile.pic}/>
                             {props.reduced ?
                                 null
                                 :

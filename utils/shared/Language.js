@@ -11,9 +11,9 @@ import IndexEN from "../../locales/index/IndexEN";
 import IndexES from "../../locales/index/IndexES";
 import IndexPT from "../../locales/index/IndexPT";
 
-import * as PersonEN from '../../locales/person/PersonEN'
-import * as PersonES from '../../locales/person/PersonES'
-import * as PersonPT from '../../locales/person/PersonPT'
+import PersonEN from '../../locales/person/PersonEN'
+import PersonES from '../../locales/person/PersonES'
+import PersonPT from '../../locales/person/PersonPT'
 
 import ActivityEN from "../../locales/activity/ActivityEN";
 import ActivityES from "../../locales/activity/ActivityES";
@@ -27,19 +27,26 @@ import StructureEN from "../../locales/structure/StructureEN";
 import StructureES from "../../locales/structure/StructureES";
 import StructurePT from "../../locales/structure/StructurePT";
 
+import CreateEN from "../../locales/create/CreateEN";
+import CreateES from "../../locales/create/CreateES";
+import CreatePT from "../../locales/create/CreatePT";
+
 const cookies = new Cookies()
 
 export function setCookiesLanguage(lang) {
     cookies.remove('lang', {path: '/'})
     const currentExpiration = cookies.get('exp')
-    cookies.set('lang', lang, {path: '/', expires:  currentExpiration !== undefined ? new Date(parseInt(currentExpiration)) : new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)})
+    cookies.set('lang', lang, {
+        path: '/',
+        expires: currentExpiration !== undefined ? new Date(parseInt(currentExpiration)) : new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)
+    })
 }
 
-export function getLanguage (locale, page){
+export function getLanguage(locale, page) {
     let response = null
     switch (locale) {
         case 'en': {
-            switch(page){
+            switch (page) {
                 case '/signin': {
                     response = SignInEN
                     break
@@ -68,13 +75,18 @@ export function getLanguage (locale, page){
                     response = StructureEN
                     break
                 }
+                case '/create' : {
+                    response = CreateEN
+                    break
+                }
+
                 default:
                     break
             }
             break
         }
         case 'es': {
-            switch(page){
+            switch (page) {
                 case '/signin': {
                     response = SignInES
                     break
@@ -103,6 +115,10 @@ export function getLanguage (locale, page){
                     response = StructureES
                     break
                 }
+                case '/create' : {
+                    response = CreateES
+                    break
+                }
                 default:
                     break
             }
@@ -110,7 +126,7 @@ export function getLanguage (locale, page){
             break
         }
         case 'pt': {
-            switch(page){
+            switch (page) {
                 case '/signin': {
                     response = SignInPT
                     break
@@ -137,6 +153,10 @@ export function getLanguage (locale, page){
                 }
                 case '/structure': {
                     response = StructurePT
+                    break
+                }
+                case '/create' : {
+                    response = CreatePT
                     break
                 }
                 default:

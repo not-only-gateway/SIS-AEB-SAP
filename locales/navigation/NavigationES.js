@@ -12,5 +12,10 @@ export default {
     supervisorRevalidate: 'Validar el acceso de administrador',
     menu: 'Menú de acción',
     structure: 'Estructura',
-    profile: 'Perfil'
+    profile: 'Perfil',
+    more: 'Mais',
+    createPerson: 'Create Member',
+    createRole: 'Create Role',
+    createAccessProfile: 'Create Access Profile',
+    createLinkage: 'Create Linkage'
 }
