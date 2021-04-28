@@ -1,35 +1,32 @@
 import Cookies from "universal-cookie/lib";
-import SignInEN from '../../locales/signin/SignInEN'
-import SignInES from '../../locales/signin/SignInES'
-import SignInPT from '../../locales/signin/SignInPT'
+import SignInEN from '../../pages/locales/signin/SignInEN'
+import SignInES from '../../pages/locales/signin/SignInES'
+import SignInPT from '../../pages/locales/signin/SignInPT'
 
-import SettingsEN from '../../locales/settings/SettingsEN'
-import SettingsES from '../../locales/settings/SettingsES'
-import SettingsPT from '../../locales/settings/SettingsPT'
+import SettingsEN from '../../pages/locales/settings/SettingsEN'
+import SettingsES from '../../pages/locales/settings/SettingsES'
+import SettingsPT from '../../pages/locales/settings/SettingsPT'
 
-import IndexEN from "../../locales/index/IndexEN";
-import IndexES from "../../locales/index/IndexES";
-import IndexPT from "../../locales/index/IndexPT";
+import IndexEN from "../../pages/locales/index/IndexEN";
+import IndexES from "../../pages/locales/index/IndexES";
+import IndexPT from "../../pages/locales/index/IndexPT";
 
-import PersonEN from '../../locales/person/PersonEN'
-import PersonES from '../../locales/person/PersonES'
-import PersonPT from '../../locales/person/PersonPT'
+import PersonEN from '../../pages/locales/person/PersonEN'
+import PersonES from '../../pages/locales/person/PersonES'
+import PersonPT from '../../pages/locales/person/PersonPT'
 
-import ActivityEN from "../../locales/activity/ActivityEN";
-import ActivityES from "../../locales/activity/ActivityES";
-import ActivityPT from "../../locales/activity/ActivityPT";
+import ActivityEN from "../../pages/locales/activity/ActivityEN";
+import ActivityES from "../../pages/locales/activity/ActivityES";
+import ActivityPT from "../../pages/locales/activity/ActivityPT";
 
-import MenuEN from "../../locales/menu/MenuEN";
-import MenuPT from "../../locales/menu/MenuPT";
-import MenuES from "../../locales/menu/MenuES";
 
-import StructureEN from "../../locales/structure/StructureEN";
-import StructureES from "../../locales/structure/StructureES";
-import StructurePT from "../../locales/structure/StructurePT";
+import StructureEN from "../../pages/locales/structure/StructureEN";
+import StructureES from "../../pages/locales/structure/StructureES";
+import StructurePT from "../../pages/locales/structure/StructurePT";
 
-import CreateEN from "../../locales/create/CreateEN";
-import CreateES from "../../locales/create/CreateES";
-import CreatePT from "../../locales/create/CreatePT";
+import CreateEN from "../../pages/locales/create/CreateEN";
+import CreateES from "../../pages/locales/create/CreateES";
+import CreatePT from "../../pages/locales/create/CreatePT";
 
 const cookies = new Cookies()
 
@@ -67,10 +64,7 @@ export function getLanguage(locale, page) {
                     response = ActivityEN
                     break
                 }
-                case '/menu': {
-                    response = MenuEN
-                    break
-                }
+
                 case '/structure': {
                     response = StructureEN
                     break
@@ -107,10 +101,7 @@ export function getLanguage(locale, page) {
                     response = ActivityES
                     break
                 }
-                case '/menu': {
-                    response = MenuES
-                    break
-                }
+
                 case '/structure': {
                     response = StructureES
                     break
@@ -145,10 +136,6 @@ export function getLanguage(locale, page) {
                 }
                 case '/activity': {
                     response = ActivityPT
-                    break
-                }
-                case '/menu': {
-                    response = MenuPT
                     break
                 }
                 case '/structure': {

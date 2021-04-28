@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import {getLanguage} from "../utils/shared/Language";
+import {getLanguage} from "../utils/shared/PageLanguage";
 import Cookies from "universal-cookie/lib";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {Skeleton} from "@material-ui/lab";

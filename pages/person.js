@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
-import {getLanguage} from "../utils/shared/Language";
+import {getLanguage} from "../utils/shared/PageLanguage";
 import {readAccessProfile} from "../utils/shared/IndexedDB";
 import Cookies from "universal-cookie/lib";
 import fetchComponentData from "../utils/person/FetchData";
@@ -16,16 +16,16 @@ import AddressForm from "../components/modules/forms/AddressForm";
 import Collaborations from "../components/elements/collaborations/Collaborations";
 import HeaderLayout from "../components/layout/HeaderLayout";
 import TabContent from "../components/elements/TabContent";
+import Authenticate from "../components/modules/Authenticate";
 
 export default function person() {
 
     const router = useRouter()
     const [id, setId] = useState(undefined)
-    const [create, setCreate] = useState(undefined)
 
     const [lang, setLang] = useState(null)
     const [accessProfile, setAccessProfile] = useState(null)
-    const [dark, setDark] = useState(false)
+
     const [loading, setLoading] = useState(true)
     const [profile, setProfile] = useState({})
     const [effectiveRole, setEffectiveRole] = useState({})
@@ -36,6 +36,7 @@ export default function person() {
     const [commissionedRole, setCommissionedRole] = useState(null)
     const [openTab, setOpenTab] = useState(0)
     const [linkage, setLinkage] = useState(null)
+    const [valid, setValid] = useState(false)
 
     function handleChange(props) {
 
@@ -88,6 +89,14 @@ export default function person() {
     if (lang !== null && id !== undefined && !loading && profile !== null && profile !== undefined)
         return (
             <>
+                <Authenticate
+                    valid={(valid || !editMode) || (new Cookies()).get('authorization_token') !== undefined}
+                    setValid={setValid}
+                    redirect={() => {
+                        setEditMode(false)
+                    }}
+                    locale={router.locale}
+                />
                 <HeaderLayout
                     availableTabs={{
                         tabs: [
@@ -96,10 +105,10 @@ export default function person() {
                                 key: 0,
                                 value: 'Overview'
                             },
-                            (editMode || create) && accessProfile !== null ? {
+                            (editMode) && accessProfile !== null ? {
                                 disabled: false,
                                 key: 1,
-                                value: create ? 'Create' : 'Basic'
+                                value: 'Basic'
                             } : null,
                             editMode && accessProfile !== null ? {
                                 disabled: !accessProfile.canViewDocuments,
@@ -129,10 +138,20 @@ export default function person() {
                     }}
                     filterComponent={undefined}
                     title={
-                            <Profile profile={profile} dark={false} setEditMode={setEditMode} editMode={editMode}
-                                     editable={accessProfile !== null && accessProfile.canUpdatePerson}
-                                     inactiveLocale={lang.inactive}
-                            />
+                        <Profile profile={profile} dark={false} setEditMode={event => {
+                            setEditMode(event)
+                            fetchComponentData(
+                                {path: 'person/' + router.query.id, params: {}}
+                            ).then(res => {
+                                console.log(res)
+                                if (res !== null)
+                                    setProfile(res.profile)
+                            })
+                            setOpenTab(0)
+                        }} editMode={editMode}
+                                 editable={accessProfile !== null && accessProfile.canUpdatePerson}
+                                 inactiveLocale={lang.inactive}
+                        />
                     }
                     pageTitle={profile.name}
                     information={null}
@@ -158,13 +177,13 @@ export default function person() {
                                         />
                                     )
                                 },
-                                (editMode || create) && accessProfile !== null ?
+                                (editMode) && accessProfile !== null ?
                                     {
                                         buttonKey: 1,
                                         value: (
                                             <BaseForm
                                                 id={id}
-                                                dark={dark}
+                                                dark={false}
                                                 profile={profile}
                                                 handleChange={handleChange}
                                                 visible={accessProfile.canUpdatePerson}
@@ -178,7 +197,7 @@ export default function person() {
                                     value: (
                                         <DocumentsForm
                                             id={id}
-                                            dark={dark}
+                                            dark={false}
                                             locale={router.locale}
                                             visible={accessProfile.canViewDocuments}
                                             editable={accessProfile.canUpdateDocuments}
@@ -190,7 +209,7 @@ export default function person() {
                                     value: (
                                         <ContactForm
                                             id={id}
-                                            dark={dark}
+                                            dark={false}
                                             locale={router.locale}
                                             visible={accessProfile.canViewContact}
                                             editable={accessProfile.canUpdateContact}
@@ -202,7 +221,7 @@ export default function person() {
                                     value: (
                                         <AddressForm
                                             id={id}
-                                            dark={dark}
+                                            dark={false}
                                             locale={router.locale}
                                             visible={accessProfile.canViewLocation}
                                             editable={accessProfile.canUpdateLocation}
@@ -216,7 +235,7 @@ export default function person() {
                                     value: (
                                         <Collaborations
                                             id={id}
-                                            dark={dark}
+                                            dark={false}
                                             editionMode={editMode && accessProfile !== null && accessProfile.canUpdateCollaboration}
                                             locale={router.locale}
                                         />

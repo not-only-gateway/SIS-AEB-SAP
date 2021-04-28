@@ -5,12 +5,14 @@ import Cookies from "universal-cookie/lib";
 
 export default async function saveComponentChanges(props){
     let response = false
+    let data = props.params;
+    Object.assign(data, {authorization_token: (new Cookies()).get('authorization_token')})
 
     await axios({
         method: props.method,
         url: Host() + props.path,
         headers: {'authorization': (new Cookies()).get('jwt')},
-        data: props.params
+        data: data
     }).then(() => {
         response = true
     }).catch(error => {

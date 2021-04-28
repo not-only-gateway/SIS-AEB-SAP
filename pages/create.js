@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
-import {getLanguage} from "../utils/shared/Language";
+import {getLanguage} from "../utils/shared/PageLanguage";
 import {readAccessProfile} from "../utils/shared/IndexedDB";
 import Cookies from "universal-cookie/lib";
 import fetchComponentData from "../utils/person/FetchData";
@@ -16,16 +16,15 @@ import AddressForm from "../components/modules/forms/AddressForm";
 import Collaborations from "../components/elements/collaborations/Collaborations";
 import HeaderLayout from "../components/layout/HeaderLayout";
 import TabContent from "../components/elements/TabContent";
+import Authenticate from "../components/modules/Authenticate";
 
 export default function create() {
 
     const router = useRouter()
-
-
     const [lang, setLang] = useState(null)
     const [accessProfile, setAccessProfile] = useState(null)
     const [profile, setProfile] = useState({})
-    const [openTab, setOpenTab] = useState(0)
+    const [valid, setValid] = useState(false)
 
     function handleChange(props) {
         setProfile(prevState => ({
@@ -46,14 +45,15 @@ export default function create() {
         setLang(getLanguage(router.locale, router.pathname))
     }, [router.locale, router.isReady, router.query])
 
-    function redirect(new_id) {
-        alert(new_id)
-        router.push('/person?id='+new_id, '/person?id='+new_id, {shallow: true})
+    function redirectProfile(new_id) {
+        router.push('/person?id=' + new_id, '/person?id=' + new_id, {shallow: true, locale: router.locale})
     }
 
     if (lang !== null && accessProfile !== null)
         return (
             <>
+                <Authenticate valid={valid} setValid={setValid}
+                              redirect={() => router.push('/', '/', {locale: router.locale})} locale={router.locale}/>
                 <HeaderLayout
                     availableTabs={undefined}
                     filterComponent={undefined}
@@ -74,7 +74,7 @@ export default function create() {
                             visible={accessProfile.canUpdatePerson}
                             editable={accessProfile.canUpdatePerson}
                             locale={router.locale}
-                            redirect={redirect}
+                            redirect={redirectProfile}
                             create={true}
                         />
                     </div>

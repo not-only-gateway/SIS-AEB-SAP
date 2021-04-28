@@ -6,12 +6,13 @@ import axios from "axios";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import mainStyles from '../../../styles/shared/Main.module.css'
-import getComponentLanguage from "../../../utils/shared/GetLanguage";
+import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import Selector from "../Selector";
 import CountryOptions from "../../../utils/person/CountryOptions";
 import StateOptions from "../../../utils/person/StateSelector";
 import ImageHost from "../../../utils/shared/ImageHost";
 import ImageSelector from "../ImageSelector";
+import fetchComponentData from "../../../utils/person/FetchData";
 
 export default function BaseForm(props) {
 
@@ -63,6 +64,9 @@ export default function BaseForm(props) {
         formData.append('mother_name', capitalizeFirstLetter(props.profile.mother_name))
         formData.append('disabled_person', props.profile.disabled_person.toString())
         formData.append('nationality', props.profile.nationality?.toUpperCase())
+
+        formData.append('authorization_token', (new Cookies()).get('authorization_token'))
+
         await axios({
             method: props.create === true ? 'post' : 'put',
             url: props.create ? Host() + 'person' : Host() + 'person/' + props.id,

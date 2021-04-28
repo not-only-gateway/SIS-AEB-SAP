@@ -5,7 +5,7 @@ import InputLayout from "../InputLayout";
 import saveComponentChanges from "../../../utils/person/SaveChanges";
 import fetchComponentData from "../../../utils/person/FetchData";
 import mainStyles from '../../../styles/shared/Main.module.css'
-import getComponentLanguage from "../../../utils/shared/GetLanguage";
+import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 
 export default function DocumentsForm(props) {
 

@@ -5,11 +5,14 @@ import Cookies from "universal-cookie/lib";
 
 export default async function fetchComponentData(props){
     let response = null
+    let params = props.params;
+    Object.assign(params, {authorization_token: (new Cookies()).get('authorization_token')})
+
     await axios({
         method: 'get',
         url: Host() + props.path,
         headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
-        params: props.params
+        params: params
     }).then(res => {
         response = res.data
     }).catch(error => {

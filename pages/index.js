@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {Skeleton} from "@material-ui/lab";
-import {getLanguage} from "../utils/shared/Language";
+import {getLanguage} from "../utils/shared/PageLanguage";
 import InfiniteScroll from "react-infinite-scroll-component";
 import fetchIndexData from "../utils/index/FetchData";
 import {getTertiaryColor} from "../styles/shared/MainStyles";

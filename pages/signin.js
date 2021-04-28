@@ -13,7 +13,7 @@ import {
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import Head from "next/head";
-import {getLanguage} from "../utils/shared/Language";
+import {getLanguage} from "../utils/shared/PageLanguage";
 import signIn from "../utils/authentication/SignIn";
 import signOut from "../utils/authentication/SignOut";
 import ClearStorage from "../utils/authentication/ClearStorage";
@@ -21,7 +21,7 @@ import mainStyles from '../styles/shared/Main.module.css'
 import InputLayout from "../components/modules/InputLayout";
 import {VisibilityOffRounded, VisibilityRounded} from "@material-ui/icons";
 import {getTertiaryColor} from "../styles/shared/MainStyles";
-
+import shared from '../styles/shared/Shared.module.css'
 const cookies = new Cookies()
 export default function Signin() {
 
@@ -74,7 +74,7 @@ export default function Signin() {
                     <title>{lang.signin}</title>
                 </Head>
 
-                <div className={styles.signInContainer}>
+                <div className={shared.signInContainer}>
                     <div style={{
                         display: 'grid',
                         justifyItems: 'center',
@@ -122,7 +122,6 @@ export default function Signin() {
                                 labelWidth={70}
                             />
                         </FormControl>
-
 
                         <Button disabled style={{textTransform: 'none'}}>
                             {lang.forgotPassword}

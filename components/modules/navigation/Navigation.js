@@ -9,13 +9,13 @@ import {
     SupervisorAccountRounded
 } from '@material-ui/icons';
 import styles from '../../../styles/shared/Bar.module.css'
-import en from '../../../locales/navigation/NavigationEN';
+import en from '../../locales/navigation/NavigationEN';
 import PropTypes from 'prop-types'
 import {readAccessProfile, readProfile} from "../../../utils/shared/IndexedDB";
 import mainStyles from '../../../styles/shared/Main.module.css'
 import {getBorder} from "../../../styles/shared/MainStyles";
 import NavigationButton from "../../elements/navigation/NavigationButton";
-import getComponentLanguage from "../../../utils/shared/GetLanguage";
+import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import NavigationProfile from "../../elements/navigation/NavigationProfile";
 import animations from '../../../styles/shared/Animations.module.css'
 import NavigationDropDownButton from "../../elements/navigation/NavigationDropDownButton";

@@ -12,7 +12,7 @@ export default async function signIn(props) {
     try {
         await axios({
             method: 'post',
-            url: Host() + 'access_log',
+            url: Host() + 'authentication',
             data: {
                 corporate_email: props.email,
                 password: props.password,

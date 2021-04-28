@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {createMuiTheme, Divider, ThemeProvider} from "@material-ui/core";
-import {getLanguage} from "../utils/shared/Language";
+import {getLanguage} from "../utils/shared/PageLanguage";
 import axios from "axios";
 import Host from "../utils/shared/Host";
 import Cookies from "universal-cookie/lib";

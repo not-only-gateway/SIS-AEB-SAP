@@ -5,7 +5,7 @@ import {Button, createMuiTheme, Divider, FormControl, FormControlLabel, Radio, R
 import Brightness7RoundedIcon from "@material-ui/icons/Brightness7Rounded";
 import Brightness3RoundedIcon from "@material-ui/icons/Brightness3Rounded";
 import {ThemeProvider} from "@material-ui/styles";
-import {getLanguage, setCookiesLanguage} from "../utils/shared/Language";
+import {getLanguage, setCookiesLanguage} from "../utils/shared/PageLanguage";
 import Cookies from "universal-cookie/lib";
 import Accordion from "../components/layout/Accordion";
 import fetchSettingsData from "../utils/settings/FetchData";
