@@ -10,7 +10,7 @@ export default async function FetchFilterData(props){
     let commissioned = []
     let seniors = []
 
-    if(props.selectedUnit !== null)
+    if(props.selectedUnit !== undefined)
         await axios({
             method: 'get',
             url: Host() + 'senior/'+props.selectedUnit,

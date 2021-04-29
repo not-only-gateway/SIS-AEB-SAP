@@ -48,7 +48,7 @@ export default function AccessProfileForm(props) {
     async function saveChanges() {
 
         await saveComponentChanges({
-            path: 'access/' + props.id,
+            path: 'management/' + props.id,
             params: {
                 person: props.id,
                 personal_email: contact.email.toLowerCase(),

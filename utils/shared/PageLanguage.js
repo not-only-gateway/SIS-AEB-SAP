@@ -27,9 +27,9 @@ import StructurePT from "../../pages/locales/structure/StructurePT";
 import CreateEN from "../../pages/locales/create/CreateEN";
 import CreateES from "../../pages/locales/create/CreateES";
 import CreatePT from "../../pages/locales/create/CreatePT";
-import AccessEN from "../../pages/locales/access/AccessEN";
-import AccessES from "../../pages/locales/access/AccessES";
-import AccessPT from "../../pages/locales/access/AccessPT";
+import ManagementEN from "../../pages/locales/management/ManagementEN";
+import ManagementES from "../../pages/locales/management/ManagementES";
+import ManagementPT from "../../pages/locales/management/ManagementPT";
 
 const cookies = new Cookies()
 
@@ -76,8 +76,8 @@ export function getLanguage(locale, page) {
                     response = CreateEN
                     break
                 }
-                case '/access' : {
-                    response = AccessEN
+                case '/management' : {
+                    response = ManagementEN
                     break
                 }
                 default:
@@ -116,8 +116,8 @@ export function getLanguage(locale, page) {
                     response = CreateES
                     break
                 }
-                case '/access' : {
-                    response = AccessES
+                case '/management' : {
+                    response = ManagementES
                     break
                 }
                 default:
@@ -156,8 +156,8 @@ export function getLanguage(locale, page) {
                     response = CreatePT
                     break
                 }
-                case '/access' : {
-                    response = AccessPT
+                case '/management' : {
+                    response = ManagementPT
                     break
                 }
                 default:

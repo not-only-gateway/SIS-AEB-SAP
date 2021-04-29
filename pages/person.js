@@ -125,7 +125,7 @@ export default function person() {
                                 key: 4,
                                 value: 'Address'
                             } : null,
-                            (accessProfile !== null && accessProfile.canViewCollaboration) ? {
+                            (accessProfile !== null && accessProfile.canUpdateCollaboration && editMode) ? {
                                 disabled: false,
                                 key: 5,
                                 value: 'Collaborations'

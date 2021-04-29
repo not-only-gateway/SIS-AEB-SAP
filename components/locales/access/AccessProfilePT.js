@@ -10,11 +10,11 @@ export default {
     updateRole:'can update role',
     deleteRole:'can delete role',
 
-    createProfile:'can create access profile',
-    updateProfile:'can update access profile',
-    deleteProfile:'can delete access profile ',
+    createProfile:'can create management profile',
+    updateProfile:'can update management profile',
+    deleteProfile:'can delete management profile ',
 
-    viewAccess:'can view access log ',
+    viewAccess:'can view management log ',
     viewActivity:'can view activity log',
 
     createUnit:'can create unit ',

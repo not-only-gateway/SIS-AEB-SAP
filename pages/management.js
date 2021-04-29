@@ -3,17 +3,7 @@ import {useRouter} from "next/router";
 import {getLanguage} from "../utils/shared/PageLanguage";
 import {readAccessProfile} from "../utils/shared/IndexedDB";
 import Cookies from "universal-cookie/lib";
-import fetchComponentData from "../utils/person/FetchData";
 import mainStyles from '../styles/shared/Main.module.css'
-import Head from "next/head";
-import Profile from "../components/elements/profile/Profile";
-import Tabs from "../components/layout/TabsComponent.js";
-import OverviewComponent from "../components/elements/profile/ProfileOverview";
-import BaseForm from "../components/modules/forms/BaseForm";
-import DocumentsForm from "../components/modules/forms/DocumentsForm";
-import ContactForm from "../components/modules/forms/ContactForm";
-import AddressForm from "../components/modules/forms/AddressForm";
-import Collaborations from "../components/elements/collaborations/Collaborations";
 import HeaderLayout from "../components/layout/HeaderLayout";
 import TabContent from "../components/elements/TabContent";
 import Authenticate from "../components/modules/Authenticate";
@@ -21,7 +11,7 @@ import AccessProfileList from "../components/templates/AccessProfileList";
 import axios from "axios";
 import Host from "../utils/shared/Host";
 
-export default function access() {
+export default function management() {
 
     const router = useRouter()
 
@@ -80,9 +70,7 @@ export default function access() {
                                 key: 1,
                                 value: lang.create
                             } : null
-                        ]
-
-                        ,
+                        ],
                         setOpenTab: setOpenTab,
                         openTab: openTab
                     }}
