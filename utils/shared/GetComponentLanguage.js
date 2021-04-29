@@ -21,6 +21,12 @@ import NavigationPT from "../../components/locales/navigation/NavigationPT";
 import AuthenticateEN from "../../components/locales/authenticate/AuthenticateEN";
 import AuthenticatePT from "../../components/locales/authenticate/AuthenticatePT";
 import AuthenticateES from "../../components/locales/authenticate/AuthenticateES";
+import AccessEN from "../../pages/locales/access/AccessEN";
+import AccessES from "../../pages/locales/access/AccessES";
+import AccessPT from "../../pages/locales/access/AccessPT";
+import AccessProfilePT from "../../components/locales/access/AccessProfilePT";
+import AccessProfileES from "../../components/locales/access/AccessProfileES";
+import AccessProfileEN from "../../components/locales/access/AccessProfileEN";
 
 export default function getComponentLanguage(props) {
     let response = null
@@ -57,6 +63,10 @@ export default function getComponentLanguage(props) {
                 }
                 case 'selector': {
                     response = null
+                    break
+                }
+                case 'access': {
+                    response = AccessProfileEN
                     break
                 }
                 default:
@@ -98,6 +108,10 @@ export default function getComponentLanguage(props) {
                     response = null
                     break
                 }
+                case 'access': {
+                    response = AccessProfileES
+                    break
+                }
                 default:
                     break
             }
@@ -135,6 +149,10 @@ export default function getComponentLanguage(props) {
                 }
                 case 'selector': {
                     response = null
+                    break
+                }
+                case 'access': {
+                    response = AccessProfilePT
                     break
                 }
                 default:

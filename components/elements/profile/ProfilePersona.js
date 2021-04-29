@@ -40,7 +40,7 @@ ProfilePersona.propTypes = {
     dark: PropTypes.bool,
     image: PropTypes.string,
     cakeDay: PropTypes.bool,
-    key: PropTypes.number,
+    key: PropTypes.any,
     size: PropTypes.string,
     variant: PropTypes.string,
     elevation: PropTypes.bool,

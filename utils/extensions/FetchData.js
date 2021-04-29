@@ -12,10 +12,7 @@ export default async function fetchIndexData(props) {
         headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
         params: props.params
     }).then(res => {
-        console.log(res)
         switch (props.type){
-
-
             case 0: {
                 props.setResponse([...props.data, ...res.data])
                 if (res.data.length > 0)

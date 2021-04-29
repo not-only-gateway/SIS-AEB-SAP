@@ -16,6 +16,6 @@ export default {
     more: 'Mais',
     createPerson: 'Create Member',
     createRole: 'Create Role',
-    createAccessProfile: 'Create Access Profile',
+    createAccessProfile: 'Access Profile',
     createLinkage: 'Create Linkage'
 }

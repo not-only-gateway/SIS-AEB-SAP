@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useRouter} from "next/router";
 import {Skeleton} from "@material-ui/lab";
 import {getLanguage} from "../utils/shared/PageLanguage";
 import InfiniteScroll from "react-infinite-scroll-component";
-import fetchIndexData from "../utils/index/FetchData";
+import FetchData from "../utils/extensions/FetchData";
 import {getTertiaryColor} from "../styles/shared/MainStyles";
 import mainStyles from '../styles/shared/Main.module.css'
 import ExtensionsSearch from "../components/elements/ExtensionsSearch";
@@ -14,29 +14,44 @@ import HeaderLayout from "../components/layout/HeaderLayout";
 export default function Index() {
 
     const router = useRouter()
-    const [data, setData] = useState([])
+    const data = useRef([])
     const [loading, setLoading] = useState(true)
     const [lang, setLang] = useState(null)
     const [option, setOption] = useState('collaborators')
     const [lastFetchedSize, setLastFetchedSize] = useState(null)
     const [maxID, setMaxID] = useState(null)
     const [searchInput, setSearchInput] = useState('')
-    const [dark, setDark] = useState(false)
-    const [sorterMethod, setSorterMethod] = useState(undefined)
 
     useEffect(() => {
         setLang(getLanguage(router.locale, '/'))
         if (data.length === 0)
             fetchData(1, true, false).catch(error => console.log(error))
-    }, [router.locale])
+    }, [])
+
+    const [filters, setFilters] = useState({
+        unit: undefined,
+        effectiveRole: undefined,
+        commissionedRole: undefined,
+        senior: undefined,
+        effectiveRoleOnly: undefined,
+        commissionedRoleOnly: undefined,
+        changed: false
+    })
+
 
     async function fetchData(type, start, search) {
 
-        await fetchIndexData({
-            setResponse: setData,
+        await FetchData({
+            setResponse: event => data.current = event,
             params: {
                 input: search === false ? null : searchInput.length === 0 ? null : searchInput,
-                max_id: start ? null : maxID
+                max_id: start ? null : maxID,
+                unit: filters.unit === undefined ? null : filters.unit.key,
+                senior: filters.senior === undefined ? null : filters.senior.key,
+                effective: filters.effectiveRoleOnly,
+                commissioned: filters.commissionedRoleOnly,
+                commissioned_role: filters.commissionedRole === undefined ? null : filters.commissionedRole.key,
+                effective_role: filters.effectiveRole === undefined ? null : filters.effectiveRole.key,
             },
             setLoading: setLoading,
             option: option,
@@ -53,13 +68,12 @@ export default function Index() {
         setSearchInput(event)
     }
 
-    function redirect(id) {
-        router.push({
-            pathname: '/person',
-            query: {id: id}
-        })
+    function handleFilterChange(props) {
+        setFilters(prevState => ({
+            ...prevState,
+            [props.name]: props.value
+        }))
     }
-
 
     if (lang !== null)
         return (
@@ -69,15 +83,14 @@ export default function Index() {
                     undefined
                 } filterComponent={
                     <ExtensionsFilters
-                        dark={dark} setData={setData} setOption={setOption}
-                        option={option} lang={lang} setLoading={setLoading} fetchData={fetchData}
-                        searchInput={searchInput} setSearchInput={handleInputChange}
-                        setMaxID={setMaxID}
+                        dark={false} setOption={setOption} option={option}
+                        lang={lang} setLoading={setLoading} fetchData={fetchData}
+                        setMaxID={setMaxID} filters={filters} handleFilterChange={handleFilterChange}
                     />
                 } pageTitle={lang.extensions} title={lang.extensions} searchComponent={
                     <ExtensionsSearch
-                        dark={dark} setData={setData} setOption={setOption}
-                        option={option} lang={lang.search} setLoading={setLoading} fetchData={fetchData}
+                        dark={false} setData={event => data.current = event}
+                        lang={lang.search} setLoading={setLoading} fetchData={fetchData}
                         searchInput={searchInput} setSearchInput={handleInputChange}
                         setMaxID={setMaxID} width={100}
                     />
@@ -85,28 +98,36 @@ export default function Index() {
                 />
                 <div className={mainStyles.displayInlineCenter} style={{width: '100%'}}>
                     {!loading ?
-                        data.length > 0 ?
+                        data.current.length > 0 ?
                             <div style={{width: '75%'}}>
-                            <InfiniteScroll
-                                dataLength={data.length}
-                                next={() => fetchData(0)}
-                                hasMore={lastFetchedSize === 15}
-                                inverse={false}
-                                scrollableTarget="scrollableDiv"
-                                loader={<Skeleton variant={'rect'} width={'100%'} style={{borderRadius: '8px'}}
-                                                  height={'7vh'}/>}
-                                endMessage={
-                                    <div style={{
-                                        width: '100%'
-                                    }}>
-                                        <p className={mainStyles.secondaryParagraph}
-                                           style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.end}</p>
-                                    </div>
-                                }
-                            >
-                                <ExtensionsList sorterMethod={sorterMethod} data={data} redirect={redirect}
-                                                inactiveLocale={lang.inactive}/>
-                            </InfiniteScroll>
+                                <InfiniteScroll
+                                    dataLength={data.current.length}
+                                    next={() => fetchData(0)}
+                                    hasMore={lastFetchedSize === 15}
+                                    inverse={false}
+                                    scrollableTarget="scrollableDiv"
+                                    loader={<Skeleton variant={'rect'} width={'100%'} style={{borderRadius: '8px'}}
+                                                      height={'7vh'}/>}
+                                    endMessage={
+                                        <div style={{
+                                            width: '100%'
+                                        }}>
+                                            <p className={mainStyles.secondaryParagraph}
+                                               style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: false})}}>{lang.end}</p>
+                                        </div>
+                                    }
+                                >
+
+                                    <ExtensionsList data={data.current}
+
+                                                    redirect={id => {
+                                                        router.push({
+                                                            pathname: '/person',
+                                                            query: {id: id}
+                                                        })
+                                                    }}
+                                                    inactiveLocale={lang.inactive}/>
+                                </InfiniteScroll>
                             </div>
                             :
 
@@ -114,7 +135,7 @@ export default function Index() {
                                 ...{marginBottom: '15px', width: '50vw'}
                             }}>
                                 <p className={mainStyles.secondaryParagraph}
-                                   style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.nothingFound}</p>
+                                   style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: false})}}>{lang.nothingFound}</p>
                             </div>
 
                         :
@@ -122,7 +143,7 @@ export default function Index() {
                             ...{marginBottom: '15px', width: '50vw'}
                         }}>
                             <p className={mainStyles.secondaryParagraph}
-                               style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>Loading</p>
+                               style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: false})}}>Loading</p>
                         </div>}
                 </div>
             </>

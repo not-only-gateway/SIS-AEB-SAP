@@ -49,7 +49,7 @@ export default async function signIn(props) {
                         canDeletePerson: res.data.access_profile.can_delete_person,
                         canCreateRole: res.data.access_profile.can_create_role,
                         canUpdateRole: res.data.access_profile.can_update_role,
-                        canViewRole: res.data.access_profile.can_view_role,
+
                         canDeleteRole: res.data.access_profile.can_delete_role,
                         canCreateAccessProfile: res.data.access_profile.can_create_access_profile,
                         canUpdateAccessProfile: res.data.access_profile.can_update_access_profile,
@@ -61,7 +61,6 @@ export default async function signIn(props) {
                         canDeleteUnit: res.data.access_profile.can_delete_unit,
                         canCreateCollaboration: res.data.access_profile.can_create_collaboration,
                         canUpdateCollaboration: res.data.access_profile.can_update_collaboration,
-                        canViewCollaboration: res.data.access_profile.can_view_collaboration,
                         canDeleteCollaboration: res.data.access_profile.can_delete_collaboration,
                         canUpdateLocation: res.data.access_profile.can_update_location,
                         canViewLocation: res.data.access_profile.can_view_location,

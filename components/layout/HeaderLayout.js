@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect, useMemo, useRef, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {Button, Modal, Tabs} from "@material-ui/core";
 import styles from "../../styles/shared/Shared.module.css";
 import animations from "../../styles/shared/Animations.module.css";
@@ -9,22 +9,34 @@ import Head from "next/head";
 import TabsComponent from "./TabsComponent";
 
 export default function HeaderLayout(props) {
-    const [modal, setModal] = useState(false)
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
+    const handleButtonClick = useCallback(() => {
+        // Toggle the `isModalVisible` value:
+        setIsModalVisible(prevIsModalVisible => !prevIsModalVisible);
+    }, []);
 
-    function renderModal() {
+    function RenderModalTest() {
+
         return (
-            <Modal open={modal} onClose={() => setModal(false)}>
+            <Modal
+                disablePortal
+                disableEnforceFocus
+                disableAutoFocus
+                open={isModalVisible}
+                onClose={handleButtonClick}
+            >
                 <div className={[styles.listFilterModal, animations.slideInRightAnimation].join(' ')}>
                     {props.filterComponent}
                 </div>
-
             </Modal>
         )
     }
 
     return (
         <>
+
+            {RenderModalTest()}
             <Head>
                 <title>{props.pageTitle}</title>
             </Head>
@@ -43,7 +55,7 @@ export default function HeaderLayout(props) {
             }}>
 
                 <div className={mainStyles.displayInlineSpaced} style={{width: '75%'}}>
-                    {typeof(props.title) === 'string' ?
+                    {typeof (props.title) === 'string' ?
                         <div>
                             <p className={mainStyles.primaryHeader}>
                                 {props.title}
@@ -52,11 +64,11 @@ export default function HeaderLayout(props) {
                                 {props.information}
                             </p>
                         </div>
-                    :
+                        :
                         props.title
                     }
                     {props.filterComponent !== undefined ?
-                        <Button onClick={() => setModal(true)}>
+                        <Button onClick={handleButtonClick}>
                             <FilterListRounded style={{color: '#777777'}}/>
                         </Button>
                         : null
@@ -69,19 +81,19 @@ export default function HeaderLayout(props) {
                     : null
                 }
                 {props.availableTabs !== undefined ?
-                        <div style={{width: '75%'}}>
-                            <TabsComponent buttons={props.availableTabs.tabs} setOpenTab={props.availableTabs.setOpenTab}
-                                           openTab={props.availableTabs.openTab}/>
-                        </div>
+                    <div style={{width: '75%'}} key={'header-tab-component'}>
+                        <TabsComponent buttons={props.availableTabs.tabs} setOpenTab={props.availableTabs.setOpenTab}
+                                       openTab={props.availableTabs.openTab}/>
+                    </div>
                     :
                     null
                 }
             </div>
-            {renderModal()}
+
         </>
     )
 }
-HeaderLayout.propTypes ={
+HeaderLayout.propTypes = {
     title: PropTypes.any,
     searchComponent: PropTypes.object,
     filterComponent: PropTypes.object,

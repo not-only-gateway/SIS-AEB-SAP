@@ -10,12 +10,8 @@ import Profile from "../components/elements/profile/Profile";
 import Tabs from "../components/layout/TabsComponent.js";
 import OverviewComponent from "../components/elements/profile/ProfileOverview";
 import BaseForm from "../components/modules/forms/BaseForm";
-import DocumentsForm from "../components/modules/forms/DocumentsForm";
-import ContactForm from "../components/modules/forms/ContactForm";
-import AddressForm from "../components/modules/forms/AddressForm";
-import Collaborations from "../components/elements/collaborations/Collaborations";
+
 import HeaderLayout from "../components/layout/HeaderLayout";
-import TabContent from "../components/elements/TabContent";
 import Authenticate from "../components/modules/Authenticate";
 
 export default function create() {

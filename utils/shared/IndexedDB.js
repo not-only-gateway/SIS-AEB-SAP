@@ -17,7 +17,6 @@ export async function startDatabase() {
             ' canDeletePerson,' +
             ' canCreateRole,' +
             ' canUpdateRole,' +
-            ' canViewRole,' +
             ' canDeleteRole,' +
             ' canCreateAccessProfile,' +
             ' canUpdateAccessProfile,' +
@@ -28,7 +27,6 @@ export async function startDatabase() {
             ' canDeleteUnit, ' +
             'canCreateCollaboration,' +
             ' canUpdateCollaboration,' +
-            ' canViewCollaboration, ' +
             'canDeleteCollaboration,' +
             'canUpdateLocation,' +
             ' canViewLocation, ' +
@@ -148,7 +146,6 @@ export async function setAccessProfile(props) {
                     canDeletePerson: props.canDeletePerson,
                     canCreateRole: props.canCreateRole,
                     canUpdateRole: props.canUpdateRole,
-                    canViewRole: props.canViewRole,
                     canDeleteRole: props.canDeleteRole,
                     canCreateAccessProfile: props.canCreateAccessProfile,
                     canUpdateAccessProfile: props.canUpdateAccessProfile,
@@ -160,7 +157,6 @@ export async function setAccessProfile(props) {
                     canDeleteUnit: props.canDeleteUnit,
                     canCreateCollaboration: props.canCreateCollaboration,
                     canUpdateCollaboration: props.canUpdateCollaboration,
-                    canViewCollaboration: props.canViewCollaboration,
                     canDeleteCollaboration: props.canDeleteCollaboration,
                     canUpdateLocation: props.canUpdateLocation,
                     canViewLocation: props.canViewLocation,

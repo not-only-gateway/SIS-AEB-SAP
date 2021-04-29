@@ -9,11 +9,6 @@ import InputLayout from "./InputLayout";
 export default function Selector(props) {
     const [modal, setModal] = useState(false)
     const [search, setSearch] = useState('')
-    const [valid, setValid] = useState(false)
-
-    useEffect(() => {
-        setValid(props.selected !== undefined && props.selected !== null)
-    }, [props.selected])
 
     function handleChange(event) {
         setSearch(event.value)
@@ -36,9 +31,8 @@ export default function Selector(props) {
                                      inputType={0} disabled={false} size={'100%'} required={false}
                                      initialValue={search} key={"search"} setChanged={undefined}/>
 
-                        {valid ?
+                        {props.selected !== undefined && props.selected !== null && props.selected.key !== null ?
                             <div className={mainStyles.rowContainer} style={{width: '100%'}}>
-
                                 <div style={{
                                     border: '#e2e2e2 1px solid',
                                     borderRadius: '8px',
@@ -51,15 +45,14 @@ export default function Selector(props) {
                                 <div>
                                     {props.required ? null :
                                         <Button onClick={() => {
-                                            setValid(false)
                                             props.setChanged(true)
                                             props.handleChange(undefined)
                                         }} style={{
                                             textTransform: 'none',
                                             justifyItems: 'center',
                                             marginLeft: 'auto',
-                                            width: '49%', backgroundColor: !valid ? null : '#f54269',
-                                            color: !valid ? null : 'white'
+                                            width: '49%', backgroundColor:'#f54269',
+                                            color: 'white'
                                         }}>
                                             Remove
                                         </Button>
@@ -83,8 +76,8 @@ export default function Selector(props) {
                                 return (
                                     <Button key={data.key} variant={'contained'} style={{
                                         width: 'calc(50% - 8px)',
-                                        backgroundColor: valid && data.key === props.selected.key ? '#0095ff' : null,
-                                        color: valid && data.key === props.selected.key ? 'white' : null
+                                        backgroundColor: props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? '#0095ff' : null,
+                                        color: props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? 'white' : null
                                     }} onClick={() => {
                                         props.setChanged(true)
                                         props.handleChange(data)
@@ -98,8 +91,8 @@ export default function Selector(props) {
                                 return (
                                     <Button key={data.key} variant={'contained'} style={{
                                         width: 'calc(50% - 8px)',
-                                        backgroundColor: valid && data.key === props.selected.key ? '#0095ff' : null,
-                                        color: valid && data.key === props.selected.key ? 'white' : null
+                                        backgroundColor: props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? '#0095ff' : null,
+                                        color: props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? 'white' : null
                                     }} onClick={() => {
                                         props.setChanged(true)
                                         props.handleChange(data)
@@ -123,16 +116,16 @@ export default function Selector(props) {
                 marginTop: 'auto'
             }}>
                 <FormLabel style={{transform: 'translateY(-5px)'}}>{props.label}</FormLabel>
-                <Button onClick={() => setModal(true)} style={{
+                <Button disabled={props.disabled} onClick={() => setModal(true)} style={{
                     textTransform: 'none',
                     backgroundColor: 'transparent',
                     border: '#d0d0d0 1px solid',
-                    color: '#262626',
+                    color: props.disabled ? null : '#262626',
                     padding: 0,
                     height: '100%',
                 }} variant={'contained'} disableElevation={true}>
                     <div className={[mainStyles.displayInlineSpaced, mainStyles.primaryParagraph].join(' ')}>
-                        {valid ? props.selected.value : <AddRounded/>}
+                        {props.selected !== undefined && props.selected !== null && props.selected.key !== null ? props.selected.value : <AddRounded/>}
                     </div>
                 </Button>
             </FormControl>
@@ -148,5 +141,6 @@ Selector.propTypes = {
     width: PropTypes.number,
     required: PropTypes.bool,
     key: PropTypes.any,
-    setChanged: PropTypes.func
+    setChanged: PropTypes.func,
+    disabled: PropTypes.bool
 }

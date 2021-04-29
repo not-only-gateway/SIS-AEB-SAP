@@ -5,7 +5,6 @@ export default function mapToSelect(props) {
     switch (props.option) {
         case 0: {
             props.units.map(data => {
-            	console.log(data)
                 response.push({
                     key: data.id,
                     value: data.acronym
@@ -16,8 +15,8 @@ export default function mapToSelect(props) {
         case 1: {
             props.effectiveRoles.map(data => {
                 response.push({
-                    key: data.role.id,
-                    value: data.role.denomination
+                    key: data.id,
+                    value: data.denomination
                 })
             })
             break
@@ -25,8 +24,8 @@ export default function mapToSelect(props) {
         case 2: {
             props.commissionedRoles.map(data => {
                 response.push({
-                    key: data.role.id,
-                    value: data.role.das ? 'DAS - ' : 'FCPE - ' + data.role.denomination + ' - ' + data.linkage.denomination
+                    key: data.id,
+                    value: data.das ? 'DAS - ' : 'FCPE - ' + data.denomination
                 })
             })
             break

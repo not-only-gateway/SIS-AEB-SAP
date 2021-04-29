@@ -125,10 +125,13 @@ export default function Navigation(props) {
                                 label: lang.createPerson,
                                 path: '/create'
                             },
-                            {
-                                label: lang.createAccessProfile,
-                                path: '',
-                            }
+                            accessProfile.canCreateAccessProfile ?
+                                {
+                                    label: lang.createAccessProfile,
+                                    path: '/access',
+                                }
+                                :
+                                null
                         ]}
                         icon={
                             <AddRounded
