@@ -20,7 +20,7 @@ export default function InputLayout(props) {
                                    onChange={event => {
                                        let data = event.target.value
                                        if (props.uppercase)
-                                           data = event.target.value.toUpperCase()
+                                           data = event.target.value
 
                                        if (props.maxLength !== undefined) {
                                            const value = (data).slice(0, props.maxLength)

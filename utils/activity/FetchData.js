@@ -12,6 +12,7 @@ export default async function fetchActivityData(props) {
         headers: {'authorization': (new Cookies()).get('jwt')},
         params: {
             start_date: props.startDate !== null  && props.startDate !== undefined? props.startDate.getTime() : null,
+            end_date: props.endDate !== null  && props.endDate !== undefined? props.endDate.getTime() : null,
             ip: props.thisMachine ? localIpUrl('public') : null,
             method: props.method,
             path: props.path,
@@ -57,5 +58,6 @@ fetchActivityData.propTypes={
     method: PropTypes.any,
     path: PropTypes.any,
     setPagesFetched: PropTypes.func,
-    pagesFetched: PropTypes.number
+    pagesFetched: PropTypes.number,
+    endDate: PropTypes.string
 }

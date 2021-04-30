@@ -21,9 +21,9 @@ import NavigationPT from "../../components/locales/navigation/NavigationPT";
 import AuthenticateEN from "../../components/locales/authenticate/AuthenticateEN";
 import AuthenticatePT from "../../components/locales/authenticate/AuthenticatePT";
 import AuthenticateES from "../../components/locales/authenticate/AuthenticateES";
-import AccessEN from "../../pages/locales/management/ManagementEN";
-import AccessES from "../../pages/locales/management/ManagementES";
-import AccessPT from "../../pages/locales/management/ManagementPT";
+import * as simpleEN from '../../components/locales/forms/SimpleFormsEN'
+import * as simpleES from '../../components/locales/forms/SimpleFormsES'
+import * as simplePT from '../../components/locales/forms/SimpleFormsPT'
 import AccessProfilePT from "../../components/locales/access/AccessProfilePT";
 import AccessProfileES from "../../components/locales/access/AccessProfileES";
 import AccessProfileEN from "../../components/locales/access/AccessProfileEN";
@@ -69,6 +69,18 @@ export default function getComponentLanguage(props) {
                     response = AccessProfileEN
                     break
                 }
+                case 'linkage': {
+                    response = simpleEN.linkage
+                    break
+                }
+                case 'commissioned': {
+                    response = simpleEN.commissioned
+                    break
+                }
+                case 'effective': {
+                    response =simpleEN.effective
+                    break
+                }
                 default:
                     break
             }
@@ -112,6 +124,18 @@ export default function getComponentLanguage(props) {
                     response = AccessProfileES
                     break
                 }
+                case 'linkage': {
+                    response = simpleES.linkage
+                    break
+                }
+                case 'commissioned': {
+                    response = simpleES.commissioned
+                    break
+                }
+                case 'effective': {
+                    response =simpleES.effective
+                    break
+                }
                 default:
                     break
             }
@@ -153,6 +177,18 @@ export default function getComponentLanguage(props) {
                 }
                 case 'access': {
                     response = AccessProfilePT
+                    break
+                }
+                case 'linkage': {
+                    response = simplePT.linkage
+                    break
+                }
+                case 'commissioned': {
+                    response = simplePT.commissioned
+                    break
+                }
+                case 'effective': {
+                    response =simplePT.effective
                     break
                 }
                 default:

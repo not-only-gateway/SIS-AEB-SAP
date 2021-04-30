@@ -47,7 +47,8 @@ export default function HeaderLayout(props) {
                 alignContent: 'space-between',
                 width: '100%',
                 backgroundColor: '#f5f6f8',
-                minHeight: '25%',
+
+                height: 'auto',
                 paddingBottom: props.availableTabs !== undefined ? null : '10px',
                 position: 'sticky',
                 top: 0,
@@ -57,12 +58,19 @@ export default function HeaderLayout(props) {
                 <div className={mainStyles.displayInlineSpaced} style={{width: '75%'}}>
                     {typeof (props.title) === 'string' ?
                         <div>
-                            <p className={mainStyles.primaryHeader}>
+                            <p className={mainStyles.primaryHeader}
+                               style={{marginBottom: props.information !== undefined ? 0 : null}}>
                                 {props.title}
                             </p>
-                            <p className={mainStyles.tertiaryParagraph} style={{color: '#777777'}}>
+                            {props.information !== undefined ?
+                                <div className={mainStyles.tertiaryParagraph}
+                                      style={{color: '#555555', marginBottom: '10px'}}>
                                 {props.information}
-                            </p>
+                            </div>
+                                :
+                                null
+                            }
+
                         </div>
                         :
                         props.title
@@ -80,6 +88,7 @@ export default function HeaderLayout(props) {
                     </div>
                     : null
                 }
+                {props.activeFiltersComponent !== undefined ? props.activeFiltersComponent : null}
                 {props.availableTabs !== undefined ?
                     <div style={{width: '75%'}} key={'header-tab-component'}>
                         <TabsComponent buttons={props.availableTabs.tabs} setOpenTab={props.availableTabs.setOpenTab}
@@ -99,5 +108,6 @@ HeaderLayout.propTypes = {
     filterComponent: PropTypes.object,
     availableTabs: PropTypes.object,
     pageTitle: PropTypes.string,
-    information: PropTypes.string
+    information: PropTypes.string,
+    activeFiltersComponent: PropTypes.object
 }

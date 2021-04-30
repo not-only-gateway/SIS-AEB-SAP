@@ -185,7 +185,6 @@ export default function Settings() {
                                     borderRadius: '8px',
                                     opacity: 0,
                                     animationDelay: '400ms'
-
                                 }} className={animations.slideUpAnimation}>
 
                                     <HistoryRounded

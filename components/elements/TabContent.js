@@ -10,7 +10,7 @@ export default function TabContent(props){
                         position: "relative",
                         zIndex: 0,
                         width: '100%',
-                        marginTop: '50px'
+                        marginTop: '25px'
                     }}
                          key={tab.buttonKey + '-content'}>
                         {tab.value}

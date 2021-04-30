@@ -9,13 +9,15 @@ import AccessProfileForm from "../modules/forms/AccessProfileForm";
 import axios from "axios";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
+import CommissionedRoleForm from "../modules/forms/CommissionedRoleForm";
+import LinkageForm from "../modules/forms/LinkageForm";
 
-export default function AccessProfileList(props) {
+export default function LinkageList(props) {
     const [data, setData] = useState([])
     useEffect(() => {
         axios({
             method: 'get',
-            url: Host() + 'access_profiles',
+            url: Host() + 'linkage',
             headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
         }).then(res => {
             setData(res.data)
@@ -31,20 +33,20 @@ export default function AccessProfileList(props) {
             width: '100%',
             borderTop: 'hsla(210, 11%, 78%, 0.5)  .7px solid'
         }}>
-            {(data).map((profile, index) =>
-                <div key={profile.id} style={{borderBottom: 'hsla(210, 11%, 78%, 0.5)  .7px solid'}}>
+            {(data).map((data, index) =>
+                <div key={data.id} style={{borderBottom: 'hsla(210, 11%, 78%, 0.5)  .7px solid'}}>
                     <Accordion
                         elevation={false}
                         summary={
                             <p className={mainStyles.secondaryParagraph}>
-                                {profile.denomination}
+                                {data.denomination}
                             </p>
                         }
                         content={
-                            <AccessProfileForm id={profile.id} locale={props.locale}/>
+                            <LinkageForm data={data} locale={props.locale}/>
                         }
                         animationDelay={index * 200}
-                        asRow={true} disabled={false} key={index + '-accordion-' + profile.id} dark={false}
+                        asRow={true} disabled={false} key={index + '-accordion-' + data.id} dark={false}
                         background={undefined} openSize={100} closedSize={100}
                         asButton={false} onClick={props.redirect}
                     />
@@ -53,6 +55,6 @@ export default function AccessProfileList(props) {
         </div>
     )
 }
-AccessProfileList.propTypes = {
+LinkageList.propTypes = {
     locale: PropTypes.string
 }

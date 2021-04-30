@@ -2,20 +2,11 @@ export default {
     extensions: 'Extensions',
     settings: 'Settings',
     signout: 'Sign out',
-    help: 'Help',
-    about: 'About',
-    search: 'Search',
     signin: 'Sign in',
-    activity: 'Account activity',
-    supervisor: 'Log in as administrator',
-    supervisorExit: 'Remove administrator management',
-    supervisorRevalidate: 'Validate administrator management',
-    menu: 'Action menu',
     structure: 'Structure',
     profile: 'Profile',
     more: 'More',
-    createPerson: 'Create Member',
-    createRole: 'Create Role',
-    createAccessProfile: 'Access Profile',
-    createLinkage: 'Create Linkage'
+
+    createPerson: 'Register Collaborator',
+    management: 'Management',
 }

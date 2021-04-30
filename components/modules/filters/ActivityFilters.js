@@ -118,21 +118,7 @@ export default function ActivityFilterComponent(props) {
                         color: !props.changed ? null : 'white'
                     }} onClick={() => {
                         props.setChanged(false)
-                        fetchActivityData({
-                            type: 1,
-                            setLastFetchedSize: props.setLastFetchedSize,
-                            setData: props.setResponseData,
-                            data: props.data,
-                            setMaxID: props.setMaxID,
-                            maxID: props.maxID,
-                            setError: props.setError,
-                            setErrorMessage: props.setErrorMessage,
-                            thisMachine: props.thisMachine,
-                            startDate: props.filters.date,
-                            method: props.filters.method,
-                            path: props.filters.path,
-                            setPagesFetched: props.setPagesFetched
-                        }).catch(error => console.log(error))
+                        props.fetch(1)
 
                     }}>
                         Apply
@@ -159,5 +145,6 @@ ActivityFilterComponent.propTypes = {
     handleChange: PropTypes.func,
 
     pagesFetched: PropTypes.number,
-    setPagesFetched: PropTypes.func
+    setPagesFetched: PropTypes.func,
+    fetch: PropTypes.func
 }

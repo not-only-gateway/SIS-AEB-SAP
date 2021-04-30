@@ -16,6 +16,9 @@ import ExtensionsFilters from "../components/modules/filters/ExtensionsFilters";
 import ExtensionsSearch from "../components/elements/ExtensionsSearch";
 import ExtensionsList from "../components/templates/ExtensionsList";
 import ActivitySearch from "../components/elements/ActivitySearch";
+import {Button} from "@material-ui/core";
+import {ArrowUpwardRounded} from "@material-ui/icons";
+import ActiveFiltersComponent from "../components/modules/ActiveFiltersComponent";
 
 export default function Activity() {
 
@@ -27,6 +30,7 @@ export default function Activity() {
         startDate: null,
         endDate: null
     })
+
     const [searchInput, setSearchInput] = useState('')
     const [changed, setChanged] = useState(false)
     const [thisMachine, setThisMachine] = useState(false)
@@ -55,7 +59,8 @@ export default function Activity() {
             setError: setError,
             setErrorMessage: setErrorMessage,
             thisMachine: thisMachine,
-            startDate: filters.date,
+            startDate: filters.startDate,
+            endDate: filters.endDate,
             method: filters.method,
             path: searchInput.length > 0 ? searchInput : null,
             setPagesFetched: setPagesFetched,
@@ -77,11 +82,13 @@ export default function Activity() {
         } else
             setLang(getLanguage(router.locale, router.pathname))
     }, [router.locale])
+
     function handleInputChange(event) {
         if (event.length === 0)
             fetch(1)
         setSearchInput(event)
     }
+
     if (lang !== null)
         return (
             <>
@@ -90,7 +97,7 @@ export default function Activity() {
                                   <ActivityFilterComponent
                                       lang={lang} filters={filters} handleChange={handleChange}
                                       dark={dark} changed={changed}
-                                      setChanged={setChanged}
+                                      setChanged={setChanged} fetch={fetch}
                                       setThisMachine={setThisMachine}
                                       thisMachine={thisMachine} setResponseData={setData}
                                       setLastFetchedSize={setLastFetchedSize}
@@ -101,10 +108,35 @@ export default function Activity() {
                               pageTitle={lang.title}
                               title={lang.title}
                               information={lang.information}
+                              activeFiltersComponent={
+                                  <ActiveFiltersComponent
+                                      active={changed}
+                                      activeFilters={[
+                                          {
+                                              key: 'method-filter',
+                                              value: filters.method !== null ? filters.method : null
+                                          },
+                                          {
+                                              key: 'start-date-filter',
+                                              value: filters.startDate !== null ? lang.startDate + ' - ' + new Date(filters.startDate).toLocaleDateString() : null
+                                          },
+                                          {
+                                              key: 'end-date-filter',
+                                              value: filters.endDate !== null ?lang.endDate + ' - ' + new Date(filters.endDate).toLocaleDateString()  : null
+                                          },
+                                          {
+                                              key: 'input-filter',
+                                              value: searchInput.length > 0 ? searchInput : null
+                                          },
+                                          {
+                                              key: 'this-machine-only-filter',
+                                              value: thisMachine ? lang.machine : null
+                                          },
+                                      ]}/>}
                               searchComponent={<ActivitySearch fetchData={fetch} setSearchInput={handleInputChange}
                                                                searchInput={searchInput} lang={lang.search}/>}
                 />
-                <div className={mainStyles.displayInlineCenter} style={{width: '100%'}}>
+                <div className={mainStyles.displayInlineCenter} style={{width: '100%', position: 'relative'}}>
                     {data.length > 0 ?
                         <div style={{width: '75%'}}>
                             <InfiniteScroll
@@ -138,6 +170,18 @@ export default function Activity() {
                             <p className={mainStyles.secondaryParagraph}
                                style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.nothingFound}</p>
                         </div>}
+                    {/*{document.getElementById("scrollableDiv").scrollTop > 0 ?*/}
+                    {/*    <Button style={{*/}
+                    {/*        position: 'fixed',*/}
+                    {/*        zIndex: 5,*/}
+                    {/*        bottom: '10px',*/}
+                    {/*        right: '28px',*/}
+                    {/*        width: '65px',*/}
+                    {/*        height: '65px',*/}
+                    {/*        backgroundColor: 'black',*/}
+                    {/*        color: 'white'*/}
+                    {/*    }}*/}
+                    {/*            onClick={() => document.getElementById("scrollableDiv").scrollTo(0, 0)}><ArrowUpwardRounded/></Button> : null}*/}
                 </div>
             </>
         )

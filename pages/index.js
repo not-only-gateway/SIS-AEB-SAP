@@ -10,6 +10,10 @@ import ExtensionsSearch from "../components/elements/ExtensionsSearch";
 import ExtensionsList from "../components/templates/ExtensionsList";
 import ExtensionsFilters from "../components/modules/filters/ExtensionsFilters";
 import HeaderLayout from "../components/layout/HeaderLayout";
+import {ArrowUpwardRounded} from "@material-ui/icons";
+import {Button} from "@material-ui/core";
+import {fil} from "date-fns/locale";
+import ActiveFiltersComponent from "../components/modules/ActiveFiltersComponent";
 
 export default function Index() {
 
@@ -95,8 +99,34 @@ export default function Index() {
                         setMaxID={setMaxID} width={100}
                     />
                 }
+                              activeFiltersComponent={
+                                  <ActiveFiltersComponent
+                                      active={filters.changed}
+                                      activeFilters={[
+                                          {
+                                              key: 'unit-filter',
+                                              value: filters.unit !== undefined ? filters.unit.value : null
+                                          },
+                                          {
+                                              key: 'commissioned-roles-filter',
+                                              value: filters.commissionedRole !== undefined ? filters.commissionedRole.value : null
+                                          },
+                                          {
+                                              key: 'effective-roles-filter',
+                                              value: filters.effectiveRole !== undefined ? filters.effectiveRole.value : null
+                                          },
+                                          {
+                                              key: 'effective-roles-only-filter',
+                                              value: filters.effectiveRoleOnly !== undefined && filters.effectiveRoleOnly ? 'Effective Roles Only' : null
+                                          },
+                                          {
+                                              key: 'commissioned-roles-only-filter',
+                                              value: filters.commissionedRoleOnly !== undefined && filters.commissionedRoleOnly ? 'Effective Roles Only' : null
+                                          },
+                                      ]}/>}
+
                 />
-                <div className={mainStyles.displayInlineCenter} style={{width: '100%'}}>
+                <div className={mainStyles.displayInlineCenter} style={{width: '100%', position: 'relative'}}>
                     {!loading ?
                         data.current.length > 0 ?
                             <div style={{width: '75%'}}>
@@ -145,6 +175,7 @@ export default function Index() {
                             <p className={mainStyles.secondaryParagraph}
                                style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: false})}}>Loading</p>
                         </div>}
+                    {/*{window.pageYOffset > 0 ? <Button onClick={() => window.scrollTo(0, 0)} style={{position: 'absolute', bottom: '10px', right: '10px'}}><ArrowUpwardRounded/></Button> : null }*/}
                 </div>
             </>
         )

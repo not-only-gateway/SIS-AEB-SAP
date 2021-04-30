@@ -65,7 +65,7 @@ export default function BaseForm(props) {
         formData.append('disabled_person', props.profile.disabled_person.toString())
         formData.append('nationality', props.profile.nationality?.toUpperCase())
 
-        formData.append('authorization_token', (new Cookies()).get('authorization_token'))
+        formData.append('authorization_token',(new Cookies()).get('authorization_token') )
 
         await axios({
             method: props.create === true ? 'post' : 'put',

@@ -9,13 +9,14 @@ import AccessProfileForm from "../modules/forms/AccessProfileForm";
 import axios from "axios";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
+import EffectiveRoleForm from "../modules/forms/EffectiveRoleForm";
 
-export default function AccessProfileList(props) {
+export default function EffectiveRoleList(props) {
     const [data, setData] = useState([])
     useEffect(() => {
         axios({
             method: 'get',
-            url: Host() + 'access_profiles',
+            url: Host() + 'roles/effective',
             headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
         }).then(res => {
             setData(res.data)
@@ -41,7 +42,7 @@ export default function AccessProfileList(props) {
                             </p>
                         }
                         content={
-                            <AccessProfileForm id={profile.id} locale={props.locale}/>
+                            <EffectiveRoleForm data={profile} locale={props.locale}/>
                         }
                         animationDelay={index * 200}
                         asRow={true} disabled={false} key={index + '-accordion-' + profile.id} dark={false}
@@ -53,6 +54,6 @@ export default function AccessProfileList(props) {
         </div>
     )
 }
-AccessProfileList.propTypes = {
+EffectiveRoleList.propTypes = {
     locale: PropTypes.string
 }

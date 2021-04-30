@@ -127,7 +127,7 @@ export default function Navigation(props) {
                             },
                             accessProfile.canCreateAccessProfile ?
                                 {
-                                    label: lang.createAccessProfile,
+                                    label: lang.management,
                                     path: '/management',
                                 }
                                 :
