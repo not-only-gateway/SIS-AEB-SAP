@@ -13,7 +13,7 @@ app.prepare()
             return handle(req, res)
         })
 
-        server.listen(80, '192.168.0.211',(err) => {
+        server.listen(80, '192.168.15.73',(err) => {
             if (err) throw err
             console.log('> Ready')
         })

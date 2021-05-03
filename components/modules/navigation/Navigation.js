@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {Divider} from '@material-ui/core';
 import Cookies from 'universal-cookie/lib';
 import {
-    AccountTreeRounded, AddRounded,
+    AccountTreeRounded, AddRounded, ExitToAppRounded,
     ExtensionRounded,
     MenuOpenRounded,
     SettingsRounded,
@@ -42,7 +42,7 @@ export default function Navigation(props) {
              style={{
                  width: props.reduced ? '75px' : '260px',
                  transition: '250ms ease-in-out',
-                 backgroundColor: 'black',
+                 backgroundColor: '#403c3c',
                  color: 'white',
                  boxShadow: 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px'
              }}>
@@ -88,7 +88,7 @@ export default function Navigation(props) {
                     icon={
                         <ExtensionRounded
                             style={{
-                                ...{color: 'white'},
+                                ...{color: props.path === '/' ? '#0095ff' : 'white'},
                                 ...props.reduced ? {margin: 'auto'} : null
                             }}/>
                     }
@@ -99,7 +99,7 @@ export default function Navigation(props) {
                     label={lang.structure} reduced={props.reduced}
                     icon={<AccountTreeRounded
                         style={{
-                            ...{color: 'white'},
+                            ...{color: props.path === '/structure' ? '#0095ff' : 'white'},
                             ...props.reduced ? {margin: 'auto'} : null
                         }}/>}
                 />
@@ -109,7 +109,7 @@ export default function Navigation(props) {
                     label={lang.settings} reduced={props.reduced}
                     icon={<SettingsRounded
                         style={{
-                            ...{color: 'white'},
+                            ...{color: props.path === '/settings' ? '#0095ff' : 'white'},
                             ...props.reduced ? {margin: 'auto'} : null
                         }}/>}
                 />
@@ -147,8 +147,22 @@ export default function Navigation(props) {
                 }
             </div>
             <div className={mainStyles.displayInlineCenter} style={{height: '33.333%', alignItems: 'flex-end', paddingBottom: '4px'}}>
+                {(profile !== null && (new Cookies()).get('jwt') !== undefined) ?
                 <NavigationProfile dark={props.dark} profile={profile} reduced={props.reduced} setReduced={props.setReduced}
                                    locale={{profile: lang.profile, signout: lang.signout, signin: lang.signin}}/>
+                    :
+                    <NavigationButton
+                        noMargin={true}
+                        dark={props.dark} linkPath={'/signin'}
+                        highlight={false} locale={props.locale}
+                        label={lang.signout} reduced={props.reduced}
+                        icon={<ExitToAppRounded
+                            style={{
+                                ...{color: 'white', transform: 'rotate(180deg)'},
+                                ...props.reduced ? {margin: 'auto'} : null
+                            }}/>}
+                    />
+                }
             </div>
         </div>
     )

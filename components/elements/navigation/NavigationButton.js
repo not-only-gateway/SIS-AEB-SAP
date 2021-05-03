@@ -8,11 +8,10 @@ import {getBoxShadow} from "../../../styles/shared/MainStyles";
 export default function NavigationButton(props) {
 
     return (
-        <div className={mainStyles.marginVertical}
+        <div className={props.noMargin ? null : mainStyles.marginVertical}
              style={{
                  ...{
                      borderRadius: '8px',
-                     backgroundColor: props.highlight ? '#0095ff' : null,
                      width: props.reduced ? '65px' : '250px',
                      height: '65px'
                  },
@@ -45,7 +44,7 @@ export default function NavigationButton(props) {
                                 <p style={{
                                     transition: '.3s',
                                     transform: 'translateX(10px)',
-                                    color: 'white',
+                                    color: props.highlight ? '#0095ff' : 'white',
                                     fontSize: '.95rem'
                                 }}> {!props.reduced ? props.label : null}</p>
                             </div>
@@ -84,5 +83,6 @@ NavigationButton.propTypes = {
     reduced: PropTypes.bool,
     setToggle: PropTypes.func,
     initialValue: PropTypes.bool,
-    animated: PropTypes.bool
+    animated: PropTypes.bool,
+    noMargin: PropTypes.bool
 }

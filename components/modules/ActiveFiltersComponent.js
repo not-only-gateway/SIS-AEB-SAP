@@ -25,7 +25,7 @@ export default function ActiveFiltersComponent(props) {
                             key={filter.key + '-filter-' + index}
                             className={[animations.popInAnimation, mainStyles.overflowEllipsis, mainStyles.displayInlineCenter].join(' ')}
                             style={{
-                                backgroundColor: 'black',
+                                backgroundColor: 'white',
                                 width: 'calc(12.5% - 16px)',
                                 animationDelay: index * 10 + 'ms',
                                 borderRadius: '5px',

@@ -46,7 +46,7 @@ export default function HeaderLayout(props) {
                 justifyItems: 'center',
                 alignContent: 'space-between',
                 width: '100%',
-                backgroundColor: '#f5f6f8',
+                backgroundColor: '#faf9f8',
                 minHeight: '16.6%',
                 height: 'auto',
                 paddingBottom: props.availableTabs !== undefined ? null : '10px',

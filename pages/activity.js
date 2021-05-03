@@ -117,7 +117,6 @@ export default function Activity() {
                                       applyChanges={() => {
                                           setChanged(false)
                                           fetch(1)
-
                                       }}
                                       setChanged={setChanged}
                                       changed={changed}
