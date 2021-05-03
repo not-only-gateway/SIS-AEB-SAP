@@ -61,13 +61,13 @@ export default function Settings() {
                 <HeaderLayout
                     tab={undefined}
                     filterComponent={undefined}
-                    pageTitle={lang.extensions}
+                    pageTitle={lang.settings}
                     title={lang.settings}
                     information={lang.information}
                     searchComponent={undefined}
                 />
                 <div className={mainStyles.displayInlineCenter} style={{width: '100%'}}>
-                    <div className={mainStyles.displayWarp} style={{marginTop: '50px', width: '75%'}}>
+                    <div style={{marginTop: '50px', width: '75%', display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', gap: '16px'}}>
                         <Accordion
                             content={
                                 <FormControl component="fieldset"
@@ -181,7 +181,6 @@ export default function Settings() {
                                     alignItems: 'center',
                                     textTransform: 'none', width: '31%',
                                     border: 'hsla(210, 11%, 78%, 0.5)  .7px solid',
-                                    boxShadow: 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
                                     borderRadius: '8px',
                                     opacity: 0,
                                     animationDelay: '400ms'

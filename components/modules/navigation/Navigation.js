@@ -147,7 +147,7 @@ export default function Navigation(props) {
                 }
             </div>
             <div className={mainStyles.displayInlineCenter} style={{height: '33.333%', alignItems: 'flex-end', paddingBottom: '4px'}}>
-                <NavigationProfile dark={props.dark} profile={profile} reduced={props.reduced}
+                <NavigationProfile dark={props.dark} profile={profile} reduced={props.reduced} setReduced={props.setReduced}
                                    locale={{profile: lang.profile, signout: lang.signout, signin: lang.signin}}/>
             </div>
         </div>

@@ -28,12 +28,14 @@ export default function Activity() {
     const [filters, setFilters] = useState({
         method: null,
         startDate: null,
-        endDate: null
+        endDate: null,
+        thisMachine: false,
+        searchInput: ''
     })
-
-    const [searchInput, setSearchInput] = useState('')
+    // const [thisMachine, setThisMachine] = useState(false)
+    // const [searchInput, setSearchInput] = useState('')
     const [changed, setChanged] = useState(false)
-    const [thisMachine, setThisMachine] = useState(false)
+
     const [maxID, setMaxID] = useState(null)
     const [lastFetchedSize, setLastFetchedSize] = useState(null)
     const [error, setError] = useState(false)
@@ -58,11 +60,11 @@ export default function Activity() {
             maxID: maxID,
             setError: setError,
             setErrorMessage: setErrorMessage,
-            thisMachine: thisMachine,
+            thisMachine: filters.thisMachine,
             startDate: filters.startDate,
             endDate: filters.endDate,
             method: filters.method,
-            path: searchInput.length > 0 ? searchInput : null,
+            path: filters.searchInput.length > 0 ? filters.searchInput : null,
             setPagesFetched: setPagesFetched,
             pagesFetched: pagesFetched
         }).catch(error => console.log(error))
@@ -86,7 +88,7 @@ export default function Activity() {
     function handleInputChange(event) {
         if (event.length === 0)
             fetch(1)
-        setSearchInput(event)
+        handleChange({name: 'searchInput', value: event})
     }
 
     if (lang !== null)
@@ -98,8 +100,8 @@ export default function Activity() {
                                       lang={lang} filters={filters} handleChange={handleChange}
                                       dark={dark} changed={changed}
                                       setChanged={setChanged} fetch={fetch}
-                                      setThisMachine={setThisMachine}
-                                      thisMachine={thisMachine} setResponseData={setData}
+
+                                      setResponseData={setData}
                                       setLastFetchedSize={setLastFetchedSize}
                                       setMaxID={setMaxID} setPagesFetched={setPagesFetched}
 
@@ -111,6 +113,14 @@ export default function Activity() {
                               activeFiltersComponent={
                                   <ActiveFiltersComponent
                                       active={changed}
+                                      handleChange={handleChange}
+                                      applyChanges={() => {
+                                          setChanged(false)
+                                          fetch(1)
+
+                                      }}
+                                      setChanged={setChanged}
+                                      changed={changed}
                                       activeFilters={[
                                           {
                                               key: 'method-filter',
@@ -122,19 +132,19 @@ export default function Activity() {
                                           },
                                           {
                                               key: 'end-date-filter',
-                                              value: filters.endDate !== null ?lang.endDate + ' - ' + new Date(filters.endDate).toLocaleDateString()  : null
+                                              value: filters.endDate !== null ? lang.endDate + ' - ' + new Date(filters.endDate).toLocaleDateString() : null
                                           },
                                           {
                                               key: 'input-filter',
-                                              value: searchInput.length > 0 ? searchInput : null
+                                              value: filters.searchInput.length > 0 ? filters.searchInput : null
                                           },
                                           {
                                               key: 'this-machine-only-filter',
-                                              value: thisMachine ? lang.machine : null
+                                              value: filters.thisMachine ? lang.machine : null
                                           },
                                       ]}/>}
-                              searchComponent={<ActivitySearch fetchData={fetch} setSearchInput={handleInputChange}
-                                                               searchInput={searchInput} lang={lang.search}/>}
+                              searchComponent={<ActivitySearch fetchData={fetch} setSearchInput={handleInputChange} setChanged={setChanged}
+                                                               searchInput={filters.searchInput} lang={lang.search}/>}
                 />
                 <div className={mainStyles.displayInlineCenter} style={{width: '100%', position: 'relative'}}>
                     {data.length > 0 ?
@@ -145,13 +155,20 @@ export default function Activity() {
                                 hasMore={lastFetchedSize === 20 && data[data.length - 1].access_log.id > 1}
                                 inverse={false}
                                 scrollableTarget="scrollableDiv"
-                                loader={<Skeleton variant={'rect'} width={'100%'}
-                                                  style={{borderRadius: '8px'}}
-                                                  height={'7vh'}/>}
+                                loader={
+                                    <Skeleton
+                                        variant={'rect'}
+                                        width={'100%'}
+                                        style={{borderRadius: '8px'}}
+                                        height={'7vh'}
+                                    />
+                                }
                                 endMessage={
-                                    <div style={{
-                                        ...{marginBottom: '15px'}
-                                    }}>
+                                    <div
+                                        style={{
+                                        marginBottom: '15px'
+                                    }}
+                                    >
                                         <p className={mainStyles.secondaryParagraph}
                                            style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.end}</p>
                                     </div>
@@ -164,24 +181,14 @@ export default function Activity() {
                         </div>
                         :
 
-                        <div className={mainStyles.displayInlineCenter} style={{
-                            ...{marginBottom: '15px', width: '50vw'}
-                        }}>
+                        <div className={mainStyles.displayInlineCenter}
+                             style={{
+                                 marginBottom: '15px',
+                                 width: '50vw'
+                             }}>
                             <p className={mainStyles.secondaryParagraph}
                                style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.nothingFound}</p>
                         </div>}
-                    {/*{document.getElementById("scrollableDiv").scrollTop > 0 ?*/}
-                    {/*    <Button style={{*/}
-                    {/*        position: 'fixed',*/}
-                    {/*        zIndex: 5,*/}
-                    {/*        bottom: '10px',*/}
-                    {/*        right: '28px',*/}
-                    {/*        width: '65px',*/}
-                    {/*        height: '65px',*/}
-                    {/*        backgroundColor: 'black',*/}
-                    {/*        color: 'white'*/}
-                    {/*    }}*/}
-                    {/*            onClick={() => document.getElementById("scrollableDiv").scrollTo(0, 0)}><ArrowUpwardRounded/></Button> : null}*/}
                 </div>
             </>
         )

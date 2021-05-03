@@ -13,11 +13,11 @@ export default function ActivityList(props) {
     return (
         <div style={{
             display: 'grid',
-            marginTop: '10px',
-            borderTop: 'hsla(210, 11%, 78%, 0.5)  .7px solid'
+            marginTop: '8px',
+            gap: '8px',
         }}>
             {(props.data).map((data, index) =>
-                <div key={data.activity.id} style={{borderBottom: 'hsla(210, 11%, 78%, 0.5)  .7px solid'}}>
+                <div key={data.activity.id}>
                     <Accordion
                         elevation={false}
                         content={
@@ -123,8 +123,8 @@ export default function ActivityList(props) {
                                     {data.activity.id}
                                 </div>
                                 <div className={[mainStyles.secondaryParagraph, mainStyles.displayInlineStart].join(' ')}
-                                     style={{color: getMethodColor(data.activity.request_method)}}>
-                                    {data.activity.request_method}
+                                     style={{color: getMethodColor(data.activity.request_method.toUpperCase()), fontWeight: '550'}}>
+                                    {data.activity.request_method.toUpperCase()}
                                 </div>
                                 <div className={[mainStyles.tertiaryParagraph, mainStyles.displayInlineStart].join(' ')}
                                      style={getTertiaryColor({dark: false})}>

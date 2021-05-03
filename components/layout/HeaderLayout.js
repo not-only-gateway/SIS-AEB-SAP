@@ -47,12 +47,13 @@ export default function HeaderLayout(props) {
                 alignContent: 'space-between',
                 width: '100%',
                 backgroundColor: '#f5f6f8',
-
+                minHeight: '16.6%',
                 height: 'auto',
                 paddingBottom: props.availableTabs !== undefined ? null : '10px',
                 position: 'sticky',
                 top: 0,
-                zIndex: 1
+                zIndex: 1,
+                gap: props.availableTabs !== undefined ? '16px' : null
             }}>
 
                 <div className={mainStyles.displayInlineSpaced} style={{width: '75%'}}>

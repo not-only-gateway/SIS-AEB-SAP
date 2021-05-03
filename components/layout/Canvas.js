@@ -10,40 +10,51 @@ import PropTypes from 'prop-types'
 export default function Canvas(props) {
     const [zoom, setZoom] = useState(1)
     return (
-        <div style={{position: 'relative'}}>
-            <div className={styles.tree_container}>
+        <div style={{position: 'relative', width: '100%', height: 'auto', minHeight: '100%'}}>
+            <div className={mainStyles.displayInlineCenter} style={{
+                zoom: zoom,
+                transition: '.2s',
+                '-moz-transform': 'scale(' + zoom + ')',
+                marginTop: zoom > 1 ? 'calc(8.3% * ' + (zoom - .25) + ')' : null
+            }}>
                 <ul className={styles.tree} style={{
                     backgroundColor: props.dark ? '#3b424c' : 'none',
                     borderRadius: '8px',
-                    margin: 'auto',
-                    zoom: zoom,
-                    transition: '.2s',
-                '-moz-transform': 'scale('+zoom+')'
+
                 }}>
                     <TreeNode dark={props.dark} subject={props.subject}
                               type={props.type}/>
                 </ul>
             </div>
             <div className={mainStyles.displayColumnSpaced}
-                 style={{position: 'absolute', bottom: '0%', left: '90%', height: '100px'}}>
-                <Button disabled={zoom === 2} onClick={() => setZoom(zoom + 0.5)}
+                 style={{position: 'fixed', bottom: '50px', right: '50px', height: '140px'}}>
+                <span className={mainStyles.displayInlineCenter} style={{
+                    color: '#555555',
+                    padding: '5px',
+                    borderRadius: '8px',
+                    border: 'hsla(210, 11%, 78%, 0.5)  .7px solid'
+                }}>{zoom} : 1</span>
+                <Button disabled={zoom === 2} onClick={() => setZoom(zoom + 0.25)}
                         style={{
                             borderRadius: '8px',
                             height: '50px',
-                            width: '50px',
-                            backgroundColor: zoom === 2 ? null : !props.dark ? '#46b2f3 ' : '#1ea1f1'
+                            width: '30px',
+                            color: 'white',
+                            backgroundColor: zoom === 2 ? 'hsla(210, 11%, 78%, 0.5)' : '#0095ff'
                         }}
                         variant={'contained'}
                         color={'primary'}>
                     <AddRounded/>
                 </Button>
-                <Button disabled={zoom === 0.5} onClick={() => setZoom(zoom - 0.5)}
+                <Button disabled={zoom === 0.5} onClick={() => setZoom(zoom - 0.25)}
                         style={{
                             borderRadius: '8px',
-                            height: '30px'
+                            height: '30px',
+                            width: '30px',
+                            color: 'white',
+                            backgroundColor: zoom === 0.5 ? 'hsla(210, 11%, 78%, 0.5)' :  '#f54269'
                         }}
                         variant={'contained'}
-                        color={'secondary'}
                 >
                     <RemoveRounded/>
                 </Button>

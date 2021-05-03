@@ -13,7 +13,7 @@ import BaseForm from "../components/modules/forms/BaseForm";
 import DocumentsForm from "../components/modules/forms/DocumentsForm";
 import ContactForm from "../components/modules/forms/ContactForm";
 import AddressForm from "../components/modules/forms/AddressForm";
-import Collaborations from "../components/elements/collaborations/Collaborations";
+import Collaborations from "../components/templates/Collaborations";
 import HeaderLayout from "../components/layout/HeaderLayout";
 import TabContent from "../components/elements/TabContent";
 import Authenticate from "../components/modules/Authenticate";

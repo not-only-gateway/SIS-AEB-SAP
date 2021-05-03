@@ -47,7 +47,7 @@ export default function ExtensionsFilters(props) {
                 selected={props.filters.unit}
                 disabled={props.option === 'people'}
                 handleChange={event => props.handleFilterChange({name: 'unit', value: event})}
-                setChanged={() => props.handleFilterChange({name: 'changed', value: true})}
+                setChanged={() => props.setChanged(true)}
                 label={'Unit'} key={'unit-select'}
                 data={mapToSelect({units: entities.units, option: 0})} width={'100%'}
             />
@@ -56,7 +56,7 @@ export default function ExtensionsFilters(props) {
                 selected={props.filters.effectiveRole}
                 handleChange={event => props.handleFilterChange({name: 'effectiveRole', value: event})}
                 disabled={props.filters.commissionedRoleOnly || props.option === 'people'}
-                setChanged={() => props.handleFilterChange({name: 'changed', value: true})}
+                setChanged={() => props.setChanged(true)}
                 label={'Effective Role'} key={'effective-role-select'}
                 data={mapToSelect({effectiveRoles: entities.effectiveRoles, option: 1})} width={'100%'}
             />
@@ -65,7 +65,7 @@ export default function ExtensionsFilters(props) {
                 disabled={props.filters.effectiveRoleOnly || props.option === 'people'}
                 selected={props.filters.commissionedRole}
                 handleChange={event => props.handleFilterChange({name: 'commissionedRole', value: event})}
-                setChanged={() => props.handleFilterChange({name: 'changed', value: true})}
+                setChanged={() => props.setChanged(true)}
                 label={'Commissioned Role'} key={'commissioned-role-select'}
                 data={mapToSelect({commissionedRoles: entities.commissionedRoles, option: 2})} width={'100%'}
             />
@@ -74,7 +74,7 @@ export default function ExtensionsFilters(props) {
                 selected={props.filters.senior}
                 disabled={props.option === 'people' || props.filters.unit === undefined }
                 handleChange={event => props.handleFilterChange({name: 'senior', value: event})}
-                setChanged={() => props.handleFilterChange({name: 'changed', value: true})}
+                setChanged={() => props.setChanged(true)}
                 label={'Senior'} key={'senior-select'}
                 data={mapToSelect({seniors: entities.seniors, option: 3})} width={'100%'}
             />
@@ -88,7 +88,7 @@ export default function ExtensionsFilters(props) {
                                       checked={props.option === 'collaborators'}
                                       onChange={() => {
                                           props.setOption('collaborators')
-                                          props.handleFilterChange({name: 'changed', value: true})
+                                          props.setChanged(true)
                                       }}
                                       inputProps={{'aria-label': 'primary checkbox'}}
                             />
@@ -102,7 +102,7 @@ export default function ExtensionsFilters(props) {
 
                                       onChange={() => {
                                           props.setOption('people')
-                                          props.handleFilterChange({name: 'changed', value: true})
+                                          props.setChanged(true)
                                           props.handleFilterChange({name: 'unit', value: undefined})
                                           props.handleFilterChange({name: 'commissionedRole', value: undefined})
                                           props.handleFilterChange({name: 'effectiveRole', value: undefined})
@@ -127,7 +127,7 @@ export default function ExtensionsFilters(props) {
                                       onChange={() => {
                                           props.handleFilterChange({name: 'commissionedRoleOnly', value: undefined})
                                           props.handleFilterChange({name: 'effectiveRoleOnly', value: true})
-                                          props.handleFilterChange({name: 'changed', value: true})
+                                          props.setChanged(true)
                                       }}
                                       inputProps={{'aria-label': 'primary checkbox'}}
                             />
@@ -142,7 +142,7 @@ export default function ExtensionsFilters(props) {
                                       onChange={() => {
                                           props.handleFilterChange({name: 'commissionedRoleOnly', value: true})
                                           props.handleFilterChange({name: 'effectiveRoleOnly', value: undefined})
-                                          props.handleFilterChange({name: 'changed', value: true})
+                                          props.setChanged(true)
 
                                       }}
                                       inputProps={{'aria-label': 'primary checkbox'}}
@@ -157,7 +157,7 @@ export default function ExtensionsFilters(props) {
                                       onChange={() => {
                                           props.handleFilterChange({name: 'commissionedRoleOnly', value: undefined})
                                           props.handleFilterChange({name: 'effectiveRoleOnly', value: undefined})
-                                          props.handleFilterChange({name: 'changed', value: true})
+                                          props.setChanged(true)
 
                                       }}
                                       inputProps={{'aria-label': 'primary checkbox'}}
@@ -168,18 +168,19 @@ export default function ExtensionsFilters(props) {
                 </FormGroup>
             </FormControl>
 
-            <div className={mainStyles.displayInlineSpaced} style={{width: '100%'}}>
-                <Button disabled={!props.filters.changed} variant={'contained'} style={{
+                <Button disabled={!props.changed} variant={'contained'} style={{
                     width: '100%',
-                    backgroundColor: !props.filters.changed ? undefined : '#0095ff',
-                    color: !props.filters.changed ? undefined : 'white'
+                    backgroundColor: !props.changed ? 'rgba(0, 0,0, 0.07)' : '#0095ff',
+                    color: !props.changed ? '#777777' : 'white',
+
                 }} onClick={() => {
+                    props.setChanged(false)
                     props.fetchData(1, true, false)
                     props.handleFilterChange({name: 'changed', value: false})
                 }}>
                     Apply
                 </Button>
-            </div>
+
         </div>
     )
 }
@@ -195,5 +196,7 @@ ExtensionsFilters.propTypes = {
     setMaxID: PropTypes.func,
     filters: PropTypes.object,
     setFilters: PropTypes.func,
-    setLoading: PropTypes.func
+    setLoading: PropTypes.func,
+    setChanged: PropTypes.func,
+    changed: PropTypes.bool
 }

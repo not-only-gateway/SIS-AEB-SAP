@@ -84,7 +84,7 @@ export default function ActivityFilterComponent(props) {
                                 <Checkbox key={'true-checkbox'}
                                     checked={props.thisMachine}
                                     onChange={() => {
-                                        props.setThisMachine(!props.thisMachine)
+                                        props.handleChange({name: 'thisMachine', value: !props.filters.thisMachine})
                                         props.setChanged(true)
                                         props.setMaxID(null)
                                     }
@@ -99,7 +99,7 @@ export default function ActivityFilterComponent(props) {
                                 <Checkbox key={'false-checkbox'}
                                     checked={!props.thisMachine}
                                     onChange={() => {
-                                        props.setThisMachine(!props.thisMachine)
+                                        props.handleChange({name: 'thisMachine', value: !props.filters.thisMachine})
                                         props.setChanged(true)
                                         props.setMaxID(null)
                                     }
@@ -133,14 +133,9 @@ ActivityFilterComponent.propTypes = {
     dark: PropTypes.bool,
     lang: PropTypes.object,
     setChanged: PropTypes.func,
-    thisMachine: PropTypes.bool,
-    setThisMachine: PropTypes.func,
-    method: PropTypes.string,
 
-    setResponseData: PropTypes.func,
     setLastFetchedSize: PropTypes.func,
     setMaxID: PropTypes.func,
-    startDate: PropTypes.string,
     filters: PropTypes.object,
     handleChange: PropTypes.func,
 

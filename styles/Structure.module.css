@@ -8,16 +8,6 @@
 }
 
 
-.tree_container {
-    margin: auto auto 2vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    position: relative;
-    height: 45vh;
-    display: flex;
-    justify-content: center;
-}
-
 
 .tree,
 .tree ul,
@@ -49,7 +39,7 @@
 }
 
 .tree li:before {
-    outline: solid 1px #39adf6;
+    outline: solid 1px #0095ff;
     content: "";
     left: 0;
     position: absolute;
@@ -77,7 +67,7 @@
 .tree ul:before,
 .tree code:before,
 .tree span:before {
-    outline: solid 1px #39adf6;
+    outline: solid 1px #0095ff;
     content: "";
     height: 2vh;
     left: 50%;

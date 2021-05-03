@@ -50,12 +50,18 @@ export default function ActivitySearch(props) {
                         if (key.key === 'Enter')
                             key.preventDefault()
                     }}
-                    onChange={event => props.setSearchInput(event.target.value)}
+                    onChange={event => {
+                        props.setChanged(true)
+                        props.setSearchInput(event.target.value)
+                    }}
                 />
             </Paper>
 
 
-            <Button onClick={() => props.fetchData(1)} style={{
+            <Button onClick={() => {
+                props.setChanged(false)
+                props.fetchData(1)
+            }} style={{
                 width: '55px',
                 color: props.searchInput.length === 0 ? '#777777' : 'white',
                 backgroundColor: props.searchInput.length === 0 ? null : 'black',
@@ -73,5 +79,6 @@ ActivitySearch.propTypes = {
     setSearchInput: PropTypes.func,
     searchInput: PropTypes.string,
     fetchData: PropTypes.func,
-    lang: PropTypes.string
+    lang: PropTypes.string,
+    setChanged: PropTypes.func
 }

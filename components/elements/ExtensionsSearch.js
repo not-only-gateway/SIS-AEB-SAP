@@ -30,7 +30,7 @@ export default function ExtensionsSearch(props) {
     return (
 
         <div key={'index-simple-filter-component'} className={mainStyles.displayInlineSpaced}
-             style={{height: '55px', gap: '10px', width: '100%'}}>
+             style={{height: '56px', width: '100%'}}>
 
             <Paper component="form"
 
@@ -55,19 +55,25 @@ export default function ExtensionsSearch(props) {
                         if (key.key === 'Enter')
                             key.preventDefault()
                     }}
-                    onChange={event => props.setSearchInput(event.target.value)}
+                    onChange={event => {
+                        props.setChanged(true)
+                        props.setSearchInput(event.target.value)
+                    }}
                 />
             </Paper>
-            <Button onClick={() => props.fetchData(1, true)} style={{
-                width: '55px',
-                color: props.searchInput.length === 0 ? '#777777' : 'white',
-                backgroundColor: props.searchInput.length === 0 ? null : 'black',
-                boxShadow:  props.searchInput.length === 0 ? null : 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px',
-                borderRadius: '8px',
-                height: '100%'
-            }} disabled={props.searchInput.length === 0}>
-                <SearchRounded/>
-            </Button>
+            {/*<Button onClick={() => {*/}
+            {/*    props.setChanged(false)*/}
+            {/*    props.fetchData(1, true)*/}
+            {/*}} style={{*/}
+            {/*    width: '55px',*/}
+            {/*    color: props.searchInput.length === 0 ? '#777777' : 'white',*/}
+            {/*    backgroundColor: props.searchInput.length === 0 ? null : 'black',*/}
+            {/*    boxShadow:  props.searchInput.length === 0 ? null : 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px',*/}
+            {/*    borderRadius: '8px',*/}
+            {/*    height: '100%'*/}
+            {/*}} disabled={props.searchInput.length === 0}>*/}
+            {/*    <SearchRounded/>*/}
+            {/*</Button>*/}
         </div>
     )
 }
@@ -75,8 +81,7 @@ export default function ExtensionsSearch(props) {
 ExtensionsSearch.propTypes = {
     width: PropTypes.number,
     dark: PropTypes.bool,
-    option: PropTypes.string,
-    setOption: PropTypes.func,
+
     lang: PropTypes.object,
     setData: PropTypes.func,
     setSearchInput: PropTypes.func,

@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {AddRounded} from "@material-ui/icons";
-import CollaborationForm from "../../modules/forms/CollaborationForm";
-import Accordion from "../../layout/Accordion";
-import fetchComponentData from "../../../utils/person/FetchData";
-import shared from '../../../styles/shared/Shared.module.css'
+import CollaborationForm from "../modules/forms/CollaborationForm";
+import Accordion from "../layout/Accordion";
+import fetchComponentData from "../../utils/person/FetchData";
+import shared from '../../styles/shared/Shared.module.css'
 import {Divider} from "@material-ui/core";
-import CollaborationSummary from "./CollaborationSummary";
-import mainStyles from '../../../styles/shared/Main.module.css'
+import CollaborationSummary from "../elements/CollaborationSummary";
+import mainStyles from '../../styles/shared/Main.module.css'
+import {getIconStyle} from "../../styles/shared/MainStyles";
 
 export default function Collaborations(props) {
 
@@ -55,11 +56,11 @@ export default function Collaborations(props) {
                         }
                         summary={
                             <div className={mainStyles.displayInlineStart} style={{width: 'fit-content'}}>
-                                <AddRounded/>
+                                <AddRounded style={getIconStyle({dark: false})}/>
                                 <Divider orientation={'horizontal'} style={{
                                     width: '10px',
                                     marginRight: '10px',
-                                    marginLeft: '10px',
+
                                     color: '#262626'
                                 }}/>
                                 <p>New Collaboration</p>

@@ -14,6 +14,7 @@ import {ArrowUpwardRounded} from "@material-ui/icons";
 import {Button} from "@material-ui/core";
 import {fil} from "date-fns/locale";
 import ActiveFiltersComponent from "../components/modules/ActiveFiltersComponent";
+import ActivitySearch from "../components/elements/ActivitySearch";
 
 export default function Index() {
 
@@ -24,11 +25,10 @@ export default function Index() {
     const [option, setOption] = useState('collaborators')
     const [lastFetchedSize, setLastFetchedSize] = useState(null)
     const [maxID, setMaxID] = useState(null)
-    const [searchInput, setSearchInput] = useState('')
 
     useEffect(() => {
         setLang(getLanguage(router.locale, '/'))
-        if (data.length === 0)
+        if (data.current.length === 0)
             fetchData(1, true, false).catch(error => console.log(error))
     }, [])
 
@@ -39,16 +39,16 @@ export default function Index() {
         senior: undefined,
         effectiveRoleOnly: undefined,
         commissionedRoleOnly: undefined,
-        changed: false
+        searchInput: ''
     })
-
+    const [changed, setChanged] = useState(false)
 
     async function fetchData(type, start, search) {
 
         await FetchData({
             setResponse: event => data.current = event,
             params: {
-                input: search === false ? null : searchInput.length === 0 ? null : searchInput,
+                input: search === false ? null : filters.searchInput.length === 0 ? null : filters.searchInput,
                 max_id: start ? null : maxID,
                 unit: filters.unit === undefined ? null : filters.unit.key,
                 senior: filters.senior === undefined ? null : filters.senior.key,
@@ -69,7 +69,7 @@ export default function Index() {
     function handleInputChange(event) {
         if (event.length === 0)
             fetchData(1, true, false)
-        setSearchInput(event)
+        handleFilterChange({name: 'searchInput', value: event})
     }
 
     function handleFilterChange(props) {
@@ -83,47 +83,67 @@ export default function Index() {
         return (
             <>
 
-                <HeaderLayout tab={
-                    undefined
-                } filterComponent={
-                    <ExtensionsFilters
-                        dark={false} setOption={setOption} option={option}
-                        lang={lang} setLoading={setLoading} fetchData={fetchData}
-                        setMaxID={setMaxID} filters={filters} handleFilterChange={handleFilterChange}
-                    />
-                } pageTitle={lang.extensions} title={lang.extensions} searchComponent={
-                    <ExtensionsSearch
-                        dark={false} setData={event => data.current = event}
-                        lang={lang.search} setLoading={setLoading} fetchData={fetchData}
-                        searchInput={searchInput} setSearchInput={handleInputChange}
-                        setMaxID={setMaxID} width={100}
-                    />
-                }
-                              activeFiltersComponent={
-                                  <ActiveFiltersComponent
-                                      active={filters.changed}
-                                      activeFilters={[
-                                          {
-                                              key: 'unit-filter',
-                                              value: filters.unit !== undefined ? filters.unit.value : null
-                                          },
-                                          {
-                                              key: 'commissioned-roles-filter',
-                                              value: filters.commissionedRole !== undefined ? filters.commissionedRole.value : null
-                                          },
-                                          {
-                                              key: 'effective-roles-filter',
-                                              value: filters.effectiveRole !== undefined ? filters.effectiveRole.value : null
-                                          },
-                                          {
-                                              key: 'effective-roles-only-filter',
-                                              value: filters.effectiveRoleOnly !== undefined && filters.effectiveRoleOnly ? 'Effective Roles Only' : null
-                                          },
-                                          {
-                                              key: 'commissioned-roles-only-filter',
-                                              value: filters.commissionedRoleOnly !== undefined && filters.commissionedRoleOnly ? 'Effective Roles Only' : null
-                                          },
-                                      ]}/>}
+                <HeaderLayout
+                    tab={
+                        undefined
+                    }
+                    filterComponent={
+                        <ExtensionsFilters
+                            dark={false} setOption={setOption} option={option} setChanged={setChanged}
+                            lang={lang} setLoading={setLoading} fetchData={fetchData} changed={changed}
+                            setMaxID={setMaxID} filters={filters} handleFilterChange={handleFilterChange}
+                        />
+                    }
+                    pageTitle={lang.extensions}
+                    title={lang.extensions}
+                    searchComponent={
+                        <ExtensionsSearch
+                            dark={false} setData={event => data.current = event}
+                            lang={lang.search} setLoading={setLoading} fetchData={fetchData}
+                            searchInput={filters.searchInput} setSearchInput={handleInputChange}
+                            setMaxID={setMaxID} width={100} setChanged={setChanged}
+                        />
+                    }
+                    activeFiltersComponent={
+                        <ActiveFiltersComponent
+                            active={changed}
+
+                            handleChange={handleFilterChange}
+                            applyChanges={() => {
+                                setChanged(false)
+                                fetchData(1, true)
+
+                            }}
+                            setChanged={setChanged}
+                            changed={changed}
+                            activeFilters={[
+                                {
+                                    key: 'unit',
+                                    value: filters.unit !== undefined ? filters.unit.value : null
+                                },
+                                {
+                                    key: 'commissionedRole',
+                                    value: filters.commissionedRole !== undefined ? filters.commissionedRole.value : null
+                                },
+                                {
+                                    key: 'effectiveRole',
+                                    value: filters.effectiveRole !== undefined ? filters.effectiveRole.value : null
+                                },
+                                {
+                                    key: 'effectiveRoleOnly',
+                                    value: filters.effectiveRoleOnly !== undefined && filters.effectiveRoleOnly ? 'Effective Roles Only' : null
+                                },
+                                {
+                                    key: 'commissionedRoleOnly',
+                                    value: filters.commissionedRoleOnly !== undefined && filters.commissionedRoleOnly ? 'Commissioned Roles Only' : null
+                                },
+                                {
+                                    key: 'searchInput',
+                                    value: filters.searchInput.length > 0 ? filters.searchInput : null,
+                                    type: 'text'
+                                },
+                                {key: 'option', value: option === 'people' ? 'All' :null, disabled: true}
+                            ]}/>}
 
                 />
                 <div className={mainStyles.displayInlineCenter} style={{width: '100%', position: 'relative'}}>
@@ -147,16 +167,20 @@ export default function Index() {
                                         </div>
                                     }
                                 >
-
-                                    <ExtensionsList data={data.current}
-
-                                                    redirect={id => {
-                                                        router.push({
-                                                            pathname: '/person',
-                                                            query: {id: id}
-                                                        })
-                                                    }}
-                                                    inactiveLocale={lang.inactive}/>
+                                    <div style={{display: 'grid', gap: '8px', marginTop: '8px'}}>
+                                        {data.current.map((collaboration, index) =>
+                                            <ExtensionsList
+                                                data={collaboration}
+                                                index={index}
+                                                redirect={id => {
+                                                    router.push({
+                                                        pathname: '/person',
+                                                        query: {id: id}
+                                                    })
+                                                }}
+                                                inactiveLocale={lang.inactive}/>
+                                        )}
+                                    </div>
                                 </InfiniteScroll>
                             </div>
                             :

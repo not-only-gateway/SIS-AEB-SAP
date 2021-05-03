@@ -26,35 +26,47 @@ export default function ImageSelector(props) {
                          }}>
                         <spam style={{fontSize: '1.3rem'}}>{props.label}</spam>
                         <div className={mainStyles.rowContainer} style={{gap: '16px'}}>
-                            <input id="upload-image" type="file" style={{display: 'none'}}
-                                   onChange={event => {
-                                       props.setImage(event)
-                                       props.setChanged(true)
-                                   }}/>
-                            <label htmlFor="upload-image" style={{width: '100%'}}>
-                                <Button
-                                    component="span"
-                                    variant="contained"
-                                    style={{textTransform: 'none', width: '100%', backgroundColor: '#0095ff', color: 'white'}}
-                                >
-                                    Upload
-                                </Button>
 
-                            </label>
                             {props.initialImage !== undefined && props.initialImage !== null ?
                                 <Button
                                     component="span"
                                     variant="contained"
-                                    style={{textTransform: 'none', width: '100%', backgroundColor: '#f54269', color: 'white'}}
-                                    onClick={() =>{
-                                    props.setChanged(true)
+                                    style={{
+                                        textTransform: 'none',
+                                        width: '100%',
+                                        backgroundColor: '#f54269',
+                                        color: 'white'
+                                    }}
+                                    onClick={() => {
+                                        props.setChanged(true)
                                         props.setImage(null)
                                     }}
                                 >
                                     Remove
                                 </Button>
                                 :
-                                null
+                                <>
+                                    <input id="upload-image" type="file" style={{display: 'none'}}
+                                           onChange={event => {
+                                               props.setImage(event)
+                                               props.setChanged(true)
+                                           }}/>
+                                    <label htmlFor="upload-image" style={{width: '100%'}}>
+                                        <Button
+                                            component="span"
+                                            variant="contained"
+                                            style={{
+                                                textTransform: 'none',
+                                                width: '100%',
+                                                backgroundColor: '#0095ff',
+                                                color: 'white'
+                                            }}
+                                        >
+                                            Upload
+                                        </Button>
+
+                                    </label>
+                                </>
                             }
                         </div>
                     </div>
@@ -95,7 +107,9 @@ export default function ImageSelector(props) {
                     {props.initialImage === undefined || props.initialImage === null ?
                         <AddRounded style={getIconStyle({dark: false})}/>
                         :
-                        <ProfilePersona variant={'rounded'} size={props.size} base64={props.base64} image={props.initialImage} key={props.label+'image-avatar'} elevation={true} dark={false} cakeDay={false}/>
+                        <ProfilePersona variant={'rounded'} size={props.size} base64={props.base64}
+                                        image={props.initialImage} key={props.label + 'image-avatar'} elevation={true}
+                                        dark={false} cakeDay={false}/>
                     }
                 </Button>
             </FormControl>
