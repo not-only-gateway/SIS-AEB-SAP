@@ -9,87 +9,60 @@ import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 
 export default function ContactForm(props) {
 
-
     const [changed, setChanged] = useState(false)
-    const [loading, setLoading] = useState(true)
     const [lang, setLang] = useState(null)
-    const [contact, setContact] = useState({
-        email: '',
-        emailAlt: null,
-        phone: '',
-        phoneAlt:null
-    })
-    function handleChange(props) {
 
-        setContact(prevState => ({
-            ...prevState,
-            [props.name]: props.value
-        }))
-    }
     function disabled() {
         return (
-            contact.email.length === 0 ||
-            contact.phone.length === 0 ||
-            changed === false
+            props.contact.email === null ||
+            props.contact.phone === null ||
+            props.contact.email ||
+            props.contact.phone ||
+            changed
         )
     }
 
     useEffect(() => {
-
-        fetchComponentData({path: 'contact/' + props.id, params: {}}).then(res => {
-            console.log(res)
-            if (res !== null) {
-                handleChange({name: 'email', value: res.personal_email !== null ? res.personal_email : ''})
-                handleChange({name: 'phone', value:res.personal_phone !== null ? res.personal_phone : ''})
-                handleChange({name: 'emailAlt', value: res.personal_email_alt !== null && res.personal_email_alt !== undefined ? res.personal_email_alt : ''})
-                handleChange({name: 'phoneAlt', value: res.personal_phone_alt !== null && res.personal_phone_alt !== undefined ? res.personal_phone_alt : ''})
-            }
-            setLoading(false)
-        })
         setLang(getComponentLanguage({locale: props.locale, component: 'contact'}))
     }, [])
 
-    async function saveChanges() {
 
-        await saveComponentChanges({
-            path: 'contact/' + props.id,
-            params: {
-                person: props.id,
-                personal_email: contact.email.toLowerCase(),
-                personal_email_alt: contact.emailAlt.length > 0 ? contact.emailAlt?.toLowerCase() : null,
-                personal_phone: contact.phone.replace(' ', ''),
-                personal_phone_alt:contact.phoneAlt.length > 0 ? contact.phoneAlt?.toLowerCase() : null
-            },
-            method: 'put'
-        }).then(res => res ? setChanged(false) : console.log(res))
-    }
-
-    if (!loading && lang !== null)
+    if (lang !== null)
         return (
             <div className={mainStyles.displayWarp} style={{justifyContent: 'center', width: '100%'}}>
-                <InputLayout inputName={lang.email} dark={props.dark} handleChange={handleChange} name={'email'}
+                <InputLayout inputName={lang.email} dark={props.dark} handleChange={props.handleChange} name={'email'}
                              inputType={0} disabled={!props.editable} size={'calc(50% - 8px)'} required={true}
-                             initialValue={contact.email} key={"3-1"} setChanged={setChanged}/>
+                             initialValue={props.contact.email} key={"3-1"} setChanged={setChanged}/>
 
-                <InputLayout inputName={lang.altEmail} dark={props.dark} handleChange={handleChange} name={'emailAlt'}
+                <InputLayout inputName={lang.altEmail} dark={props.dark} handleChange={props.handleChange} name={'alternative_email'}
                              inputType={0} disabled={!props.editable} size={'calc(50% - 8px)'} required={false}
-                             initialValue={contact.emailAlt} key={"3-2"} setChanged={setChanged}/>
+                             initialValue={props.contact.alternative_email} key={"3-2"} setChanged={setChanged}/>
 
-                <InputLayout inputName={lang.phone} dark={props.dark} handleChange={handleChange} name={'phone'}
+                <InputLayout inputName={lang.phone} dark={props.dark} handleChange={props.handleChange} name={'phone'}
                              inputType={0} disabled={!props.editable} size={'calc(50% - 8px)'} required={true} numeric={true}
-                             initialValue={contact.phone} key={"3-3"} setChanged={setChanged}/>
+                             initialValue={props.contact.phone} key={"3-3"} setChanged={setChanged}/>
 
-                <InputLayout inputName={lang.altPhone} dark={props.dark} handleChange={handleChange} name={'phoneAlt'}
+                <InputLayout inputName={lang.altPhone} dark={props.dark} handleChange={props.handleChange} name={'alternative_phone'}
                              inputType={0} disabled={!props.editable} size={'calc(50% - 8px)'} required={false} numeric={true}
-                             initialValue={contact.phoneAlt} key={"3-4"} setChanged={setChanged}/>
+                             initialValue={props.contact.alternative_phone} key={"3-4"} setChanged={setChanged}/>
 
-                <Button style={{
-                    width: '100%', marginTop: '50px',
-                    backgroundColor: disabled() ? null : '#39adf6',
+                {!props.editable ? null :
+                    <Button style={{
+                        width: '100%', marginTop: '50px',
+                        backgroundColor: disabled() ? 'rgba(0,0,0,0.07)' : '#0095ff',
+                        color: '#777777',
+                        fontWeight: 550,
 
-                }} variant={'contained'} color={'primary'}
-                        disabled={disabled()}
-                        onClick={() => saveChanges()}>{lang.save}</Button>
+                    }} disabled={disabled()} variant={'contained'} onClick={() => {
+                        props.handleSubmit({contact: props.contact, personID: props.id}).then(res => {
+                            setChanged(!res)
+                            if (props.setAccepted !== undefined)
+                                props.setAccepted(res.status)
+                        })
+                    }}>
+                        {props.create ? lang.create : lang.save}
+                    </Button>
+                }
             </div>
 
         )
@@ -98,9 +71,12 @@ export default function ContactForm(props) {
 }
 
 ContactForm.propTypes = {
-    id: PropTypes.string,
-    dark: PropTypes.bool,
-    visible: PropTypes.bool,
+    id: PropTypes.number,
+    contacts: PropTypes.object,
+    handleChange: PropTypes.func,
+    handleSubmit: PropTypes.func,
     editable: PropTypes.bool,
-    locale: PropTypes.string
+    locale: PropTypes.string,
+    setAccepted: PropTypes.func,
+    create: PropTypes.bool,
 }

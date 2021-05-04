@@ -16,12 +16,11 @@ export default function ImageSelector(props) {
             <Modal open={modal} onClose={() => setModal(false)}
                    style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                 <div className={styles.modalContainer}
-                     style={{backgroundColor: 'white'}}>
+                     style={{backgroundColor: 'white', minHeight: '50%'}}>
 
                     <div className={styles.modalFormContainer}
                          style={{
                              borderBottom: '#e2e2e2 1px solid',
-
                          }}>
                         <spam style={{fontSize: '1.3rem'}}>{props.label}</spam>
                         <div className={mainStyles.rowContainer} style={{gap: '16px'}}>
@@ -70,12 +69,12 @@ export default function ImageSelector(props) {
                         </div>
                     </div>
 
-                    <div className={mainStyles.displayWarp} style={{
+                    <div className={mainStyles.displayInlineCenter} style={{
                         gridRow: 2,
                         overflow: 'hidden'
                     }}>
                         <img src={props.base64 ? props.initialImage : ImageHost() + props.initialImage}
-                             style={{maxWidth: '100%', maxHeight: '100%', objectFit: 'contain'}}/>
+                             style={{maxWidth: '100%',borderRadius: '8px',  maxHeight: '100%', objectFit: 'contain'}}/>
                     </div>
                 </div>
             </Modal>

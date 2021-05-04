@@ -1,4 +1,8 @@
 export default {
     title: 'Create Member',
-    information: 'Basic information'
+    information: 'Basic infrmation',
+    contactInfo: 'Personal Contacts',
+    documentsInfo: 'Personal Documents',
+    memberInfo: 'Corporate information',
+    baseInfo: 'Basic Information'
 }

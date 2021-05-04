@@ -11,6 +11,8 @@ import CountryOptions from "../../../packages/options/CountryOptions";
 import StateOptions from "../../../packages/options/StateSelector";
 import ImageSelector from "../../modules/selector/ImageSelector";
 import Selector from "../../modules/selector/Selector";
+import submitPerson from "../../../utils/submit/SubmitPerson";
+import getImage from "../../../utils/shared/GetImage";
 
 export default function BaseForm(props) {
 
@@ -18,7 +20,7 @@ export default function BaseForm(props) {
     const [changed, setChanged] = useState(false)
     const [image, setImage] = useState({
         file: null,
-        imageSrc: props.profile.image,
+        imageSrc: props.person.image,
         removed: false
     })
     const [lang, setLang] = useState(null)
@@ -27,11 +29,6 @@ export default function BaseForm(props) {
         setLang(getComponentLanguage({locale: props.locale, component: 'base'}))
     }, [])
 
-
-    function capitalizeFirstLetter(string) {
-        if (string !== null && string[0] !== undefined)
-            return string.replace(/^./, string[0].toUpperCase());
-    }
 
     function handleNationalityChange(event) {
 
@@ -42,122 +39,67 @@ export default function BaseForm(props) {
         props.handleChange({name: 'birth_place', value: event !== undefined ? event.value : null})
     }
 
-    async function saveChanges() {
-        let formData = new FormData()
-
-        if (image.file !== null) {
-            formData.append('image', image.file[0])
-        } else if (image.removed)
-            formData.append('removed_image', 'true')
-        formData.append('name', props.profile.name.toString())
-        formData.append('birth', (typeof props.profile.birth !== 'number' ? new Date(props.profile.birth).getTime() : props.profile.birth))
-        formData.append('birth_place', props.profile.birth_place?.toUpperCase())
-        formData.append('education', props.profile.education.toString())
-        formData.append('gender', props.profile.gender.toString())
-        formData.append('marital_status', props.profile.marital_status.toString())
-        formData.append('registration', props.profile.registration.toString())
-        formData.append('extension', props.profile.extension.toString())
-        formData.append('corporate_email', props.profile.corporate_email?.toLocaleLowerCase())
-        formData.append('father_name', capitalizeFirstLetter(props.profile.father_name))
-        formData.append('mother_name', capitalizeFirstLetter(props.profile.mother_name))
-        formData.append('disabled_person', props.profile.disabled_person.toString())
-        formData.append('nationality', props.profile.nationality?.toUpperCase())
-
-        formData.append('authorization_token', (new Cookies()).get('authorization_token'))
-
-        await axios({
-            method: props.create === true ? 'post' : 'put',
-            url: props.create ? Host() + 'person' : Host() + 'person/' + props.id,
-            headers: {'authorization': (new Cookies()).get('jwt'), 'content-type': 'multipart/forms-data'},
-            data: formData
-        }).then(async function () {
-            if (!props.create)
-                setChanged(false)
-            else {
-                await axios({
-                    method: "get",
-                    url: Host() + 'corporate_email/person',
-                    headers: {'authorization': (new Cookies()).get('jwt')},
-                    params: {
-                        corporate_email: props.profile.corporate_email.toLocaleLowerCase()
-                    }
-                }).then(res => {
-                    props.setNext(true)
-                }).catch(error => {
-                    console.log(error)
-                })
-            }
-        }).catch(error => {
-            console.log(error)
-        })
-
-    }
 
     function disabled() {
         return (
-            props.profile.name === null ||
-            props.profile.nationality === null ||
-            props.profile.birth_place === null ||
-            props.profile.birth === undefined ||
-            props.profile.disabled_person === null ||
-            props.profile.education === null ||
-            props.profile.gender === null ||
-            props.profile.marital_status === null ||
-            props.profile.corporate_email === null ||
-            props.profile.extension === null ||
+            props.person.name === null ||
+            props.person.nationality === null ||
+            props.person.birth_place === null ||
+            props.person.birth === null ||
+            props.person.disabled_person === null ||
+            props.person.education === null ||
+            props.person.gender === null ||
+            props.person.marital_status === null ||
+            !props.person.name ||
+            !props.person.nationality ||
+            !props.person.birth_place ||
+            !props.person.birth ||
+            !props.person.disabled_person ||
+            !props.person.education ||
+            !props.person.gender ||
+            !props.person.marital_status ||
             changed === false
         )
-    }
-
-    function getFile(event) {
-        let reader = new FileReader()
-
-        if (event !== null && event.target.files.length > 0) {
-            reader.readAsDataURL(event.target.files[0])
-            reader.onload = () => {
-                setImage({
-                    imageSrc: reader.result,
-                    file: event.target.files
-                })
-            }
-            setChanged(true)
-        } else {
-            setImage({file: null, imageSrc: null, removed: true})
-            props.handleChange({name: 'image', value: null})
-        }
-
     }
 
 
     if (lang !== null)
         return (
             <div className={mainStyles.displayWarp} style={{justifyContent: 'center'}}>
-                <ImageSelector initialImage={props.profile.image === null ? image.imageSrc : props.profile.image}
-                               size={'100px'} setImage={getFile} label={'Profile Image'}
-                               base64={props.profile.image === null} setChanged={setChanged}/>
+
                 <InputLayout inputName={lang.name} dark={props.dark} handleChange={props.handleChange} inputType={0}
-                             disabled={!props.editable} size={'calc(25% - 12px)'} required={true}
-                             initialValue={props.profile.name} name={'name'}
+                             disabled={!props.editable} size={'calc(50% - 8px)'} required={true}
+                             initialValue={props.person.name} name={'name'}
                              key={"1-1"} setChanged={setChanged} margin={false}/>
 
                 <InputLayout inputName={lang.birth} dark={props.dark} handleChange={props.handleChange}
                              inputType={2} name={'birth'}
-                             disabled={!props.editable} size={'calc(50% - 8px)'} required={true}
-                             initialValue={props.profile.birth}
+                             disabled={!props.editable} size={'calc(25% - 12px)'} required={true}
+                             initialValue={props.person.birth}
                              key={"1-7"} setChanged={setChanged}/>
+
+                <ImageSelector initialImage={props.person.image === null ? image.imageSrc : props.person.image}
+                               size={'100px'}
+                               setImage={event => getImage({
+                                   event: event,
+                                   handleChange: props.handleChange,
+                                   setChanged: setChanged,
+                                   setImage: setImage
+                               })} label={'person Image'}
+                               base64={props.person.image === null} setChanged={setChanged}/>
 
                 <InputLayout inputName={lang.disabledPerson} dark={props.dark}
                              handleChange={props.handleChange}
                              inputType={1} name={'disabled_person'}
                              disabled={!props.editable} size={'calc(25% - 12px)'} required={true}
-                             initialValue={props.profile.disabled_person}
+                             initialValue={props.person.disabled_person}
                              selectFields={lang.choice}
                              key={"1-8"} setChanged={setChanged}/>
 
                 <InputLayout inputName={lang.gender} dark={props.dark} handleChange={props.handleChange}
                              inputType={1} name={'gender'}
                              disabled={!props.editable} size={'calc(25% - 12px)'} required={true}
-                             initialValue={props.profile.gender}
+                             initialValue={props.person.gender}
                              selectFields={lang.genderChoice}
                              key={"1-10"} setChanged={setChanged}/>
 
@@ -165,35 +107,35 @@ export default function BaseForm(props) {
                              handleChange={props.handleChange}
                              inputType={1} name={'education'}
                              disabled={!props.editable} size={'calc(25% - 12px)'} required={true}
-                             initialValue={props.profile.education}
+                             initialValue={props.person.education}
                              selectFields={lang.educationChoice}
                              key={"1-9"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.marital} dark={props.dark} handleChange={props.handleChange}
                              inputType={1} name={'marital_status'}
                              disabled={!props.editable} size={'calc(25% - 12px)'} required={true}
-                             initialValue={props.profile.marital_status}
+                             initialValue={props.person.marital_status}
                              selectFields={lang.maritalChoice}
                              key={"1-11"} setChanged={setChanged}/>
 
                 <InputLayout inputName={lang.father} dark={props.dark} handleChange={props.handleChange}
                              inputType={0} name={'father_name'}
                              disabled={!props.editable} size={'calc(50% - 8px)'} required={false}
-                             initialValue={props.profile.father_name}
+                             initialValue={props.person.father_name}
                              key={"1-3"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.mother} dark={props.dark} handleChange={props.handleChange}
                              inputType={0} name={'mother_name'}
                              disabled={!props.editable} size={'calc(50% - 8px)'} required={false}
-                             initialValue={props.profile.mother_name}
+                             initialValue={props.person.mother_name}
                              key={"1-4"} setChanged={setChanged}/>
 
 
                 <Selector required={true}
-                          selected={{key: props.profile.birth_place, value: props.profile.birth_place}}
+                          selected={{key: props.person.birth_place, value: props.person.birth_place}}
                           handleChange={handleBirthPlaceChange}
                           label={lang.birthPlace} key={'1-5-'} setChanged={setChanged}
                           data={StateOptions} width={'calc(50% - 8px)'}/>
                 <Selector required={true}
-                          selected={{key: props.profile.nationality, value: props.profile.nationality}}
+                          selected={{key: props.person.nationality, value: props.person.nationality}}
                           handleChange={handleNationalityChange} setChanged={setChanged}
                           label={lang.nationality} key={'1-6-'}
                           data={CountryOptions} width={'calc(50% - 8px)'}/>
@@ -202,13 +144,19 @@ export default function BaseForm(props) {
                     <Button style={{
                         width: '100%', marginTop: '50px',
                         backgroundColor: disabled() ? 'rgba(0,0,0,0.07)' : '#0095ff',
-                        color: 'white'
+                        color: '#777777',
+                        fontWeight: 550,
+
                     }} disabled={disabled()} variant={'contained'} onClick={() => {
-                        saveChanges()
-                        if (props.setNext !== undefined)
-                            props.setNext()
-                    }
-                    }>
+                        props.handleSubmit({person: props.person, image: image, personID: props.id, create: props.create}).then(res => {
+                            setChanged(!res)
+                            if (props.setAccepted !== undefined) {
+                                props.setAccepted(res.status)
+                                props.setID(res.id)
+                            }
+
+                        })
+                    }}>
                         {props.create ? lang.create : lang.save}
                     </Button>
                 }
@@ -220,14 +168,13 @@ export default function BaseForm(props) {
 }
 
 BaseForm.propTypes = {
-    id: PropTypes.string,
-    dark: PropTypes.bool,
-    create: PropTypes.bool,
-    visible: PropTypes.bool,
-    editable: PropTypes.bool,
-    getTitle: PropTypes.func,
-    locale: PropTypes.string,
-    profile: PropTypes.object,
+    id: PropTypes.number,
+    person: PropTypes.object,
     handleChange: PropTypes.func,
-    setNext: PropTypes.func
+    handleSubmit: PropTypes.func,
+    editable: PropTypes.bool,
+    locale: PropTypes.string,
+    setAccepted: PropTypes.func,
+    create: PropTypes.bool,
+    setID: PropTypes.func
 }

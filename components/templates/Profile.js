@@ -2,28 +2,28 @@ import {Button} from "@material-ui/core";
 import React from 'react'
 import PropTypes from 'prop-types'
 import mainStyles from '../../styles/shared/Main.module.css'
-import ProfilePersona from "../elements/ProfilePersona";
+import PersonPersona from "../elements/ProfilePersona";
 
 export default function Profile(props) {
     return (
         <div
             className={mainStyles.displayInlineSpaced}
-            key={props.profile.id} style={{width: '100%', marginTop: '10px'}}>
+            key={props.person.id} style={{width: '100%', marginTop: '10px'}}>
 
             <div className={mainStyles.displayInlineSpaced}>
-                <ProfilePersona size={'140px'} key={props.profile.id} dark={false}
+                <PersonPersona size={'140px'} key={props.person.id} dark={false}
                                 cakeDay={false}
-                                image={props.profile.image} variant={'rounded'}/>
+                                image={props.person.image} variant={'rounded'}/>
 
                 <div style={{marginLeft: '10px', height: 'auto'}}>
                     <p style={{
                         fontSize: '1.5rem',
                         'fontWeight': 540
                     }}>
-                        {props.profile.name}
+                        {props.person.name}
                     </p>
                     <p className={mainStyles.tertiaryParagraph} style={{color: '#777777'}}>
-                        {props.profile.corporate_email}
+                        {props.member.corporate_email}
                     </p>
                 </div>
             </div>
@@ -47,12 +47,10 @@ export default function Profile(props) {
 }
 
 Profile.proptypes = {
-    dark: PropTypes.bool,
-    profile: PropTypes.object,
-
-    inactiveLocale: PropTypes.string,
-    lastActivity: PropTypes.number,
-    editable: PropTypes.bool,
+    person: PropTypes.object,
+    member: PropTypes.object,
     setEditMode: PropTypes.func,
-    editMode: PropTypes.bool
+    editMode: PropTypes.bool,
+    editable: PropTypes.bool,
+    inactiveLocale: PropTypes.string
 }

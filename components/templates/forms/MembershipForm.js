@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import InputLayout from "../../modules/InputLayout";
 import mainStyles from '../../../styles/shared/Main.module.css'
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
+import Selector from "../../modules/selector/Selector";
+import CountryOptions from "../../../packages/options/CountryOptions";
 
 export default function MembershipForm(props) {
 
@@ -12,11 +14,18 @@ export default function MembershipForm(props) {
 
     useEffect(() => {
         setLang(getComponentLanguage({locale: props.locale, component: 'membership'}))
+        console.log("this is ID -> " + props.id)
     }, [])
 
     function disabled() {
         return (
-            false
+            props.member.corporate_email === null ||
+            props.member.extension === null ||
+            props.member.entity === null ||
+            !props.member.corporate_email ||
+            !props.member.extension ||
+            !props.member.entity ||
+            changed
         )
     }
 
@@ -27,31 +36,54 @@ export default function MembershipForm(props) {
 
                 <InputLayout inputName={lang.corporateEmail}
                              handleChange={props.handleChange} name={'corporate_email'}
-                             inputType={0} disabled={!props.editable} size={'calc(25% - 12px)'} required={true}
-                             initialValue={props.corporateEmail} key={"1-12"} setChanged={setChanged}/>
+                             inputType={0} disabled={!props.editable} size={'calc(25% - 12px'} required={true}
+                             initialValue={props.member.corporate_email} key={"membership-1"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.extension} handleChange={props.handleChange}
                              numeric={true} maxLength={4}
-                             inputType={0} disabled={!props.editable} size={'calc(25% - 12px)'} required={true}
+                             inputType={0} disabled={!props.editable} size={'calc(25% - 12px'} required={true}
                              name={'extension'}
-                             initialValue={props.extension} key={"1-13"} setChanged={setChanged}/>
-                <InputLayout inputName={lang.registration} handleChange={props.handleChange}
-                             inputType={0} disabled={!props.editable} size={'calc(50% - 8px)'} required={false}
-                             name={'registration'}
-                             initialValue={props.registration} key={"1-14"} setChanged={setChanged}/>
+                             initialValue={props.member.extension} key={"membership-2"} setChanged={setChanged}/>
 
-                <Button style={{
-                    width: '100%', marginTop: '50px',
-                    backgroundColor: disabled() ? 'rgba(0,0,0,0.07)' : '#0095ff',
-                    color: 'white',
-                    display: !props.editable ? 'none' : null
-                }} disabled={disabled()} variant={'contained'} onClick={() => {
-                    props.saveChanges()
-                    if (props.setNext !== undefined)
-                        props.setNext()
+                <InputLayout inputName={lang.registration} handleChange={props.handleChange}
+                             inputType={0} disabled={!props.editable} size={'calc(25% - 12px'} required={false}
+                             name={'registration'}
+                             initialValue={props.member.registration} key={"membership-4"} setChanged={setChanged}/>
+
+                <InputLayout inputName={lang.homeOffice} handleChange={props.handleChange}
+                             inputType={1} disabled={!props.editable} size={'calc(25% - 12px'} required={false}
+                             name={'home_office'} selectFields={lang.options}
+                             initialValue={props.member.registration} key={"membership-5"} setChanged={setChanged}/>
+
+                <Selector required={true}
+                          selected={{
+                              key: props.member.entity ? props.member.entity.id : null,
+                              value: props.member.entity ? props.member.entity.acronym : null
+                          }}
+                          handleChange={props.handleChange} setChanged={setChanged}
+                          label={lang.entity} key={'1-6-'}
+                          data={[]} width={'100%'}/>
+
+                {!props.editable ? null :
+                    <Button style={{
+                        width: '100%', marginTop: '50px',
+                        backgroundColor: disabled() ? 'rgba(0,0,0,0.07)' : '#0095ff',
+                        color: '#777777',
+                        fontWeight: 550,
+
+                    }} disabled={disabled()} variant={'contained'} onClick={() => {
+                        props.handleSubmit({
+                            member: props.person,
+                            personID: props.id,
+                            create: props.create
+                        }).then(res => {
+                            setChanged(!res)
+                            if (props.setAccepted !== undefined)
+                                props.setAccepted(res)
+                        })
+                    }}>
+                        {props.create ? lang.create : lang.save}
+                    </Button>
                 }
-                }>
-                    {props.create ? lang.create : lang.save}
-                </Button>
 
             </div>
         )
@@ -61,9 +93,12 @@ export default function MembershipForm(props) {
 }
 
 MembershipForm.propTypes = {
-    id: PropTypes.string,
-    create: PropTypes.bool,
+    id: PropTypes.number,
+    member: PropTypes.object,
+    handleChange: PropTypes.func,
+    handleSubmit: PropTypes.func,
     editable: PropTypes.bool,
     locale: PropTypes.string,
-    saveChanges: PropTypes.func
+    setAccepted: PropTypes.func,
+    create: PropTypes.bool
 }

@@ -18,6 +18,8 @@ import ContactForm from "../components/templates/forms/ContactForm";
 import AddressForm from "../components/templates/forms/AddressForm";
 import fetchMember from "../utils/fetch/FetchMember";
 import fetchCollaboration from "../utils/fetch/FetchCollaboration";
+import submitPerson from "../utils/submit/SubmitPerson";
+import handleObjectChange from "../utils/shared/HandleObjectChange";
 
 export default function person() {
 
@@ -40,51 +42,13 @@ export default function person() {
         effectiveRole: null,
         commissionedRole: null,
         linkage: null,
-        senior: null
+        senior: null,
+        data: null
     })
 
     const [editMode, setEditMode] = useState(false)
     const [openTab, setOpenTab] = useState(0)
     const [valid, setValid] = useState(false)
-
-    function handleDocumentsChange(props) {
-
-        setDocuments(prevState => ({
-            ...prevState,
-            [props.name]: props.value
-        }))
-    }
-
-    function handleContactChange(props) {
-        setContact(prevState => ({
-            ...prevState,
-            [props.name]: props.value
-        }))
-    }
-
-    function handlePersonChange(props) {
-
-        setPerson(prevState => ({
-            ...prevState,
-            [props.name]: props.value
-        }))
-    }
-
-    function handleMemberChange(props) {
-
-        setMember(prevState => ({
-            ...prevState,
-            [props.name]: props.value
-        }))
-    }
-
-    function handleAddressChange(props) {
-
-        setAddress(prevState => ({
-            ...prevState,
-            [props.name]: props.value
-        }))
-    }
 
     function handleCollaborationChange(props) {
 
@@ -97,7 +61,7 @@ export default function person() {
     useEffect(() => {
             if (router.isReady && router.query.id !== id) {
                 setId(router.query.id)
-                fetchMember(id).then(res => {
+                fetchMember(router.query.id).then(res => {
                     if (res !== null) {
                         if (accessProfile === null || (!accessProfile.canUpdatePerson)) {
                             delete res.person.education
@@ -110,13 +74,17 @@ export default function person() {
                         setPerson(res.person)
                     }
                 })
-                fetchCollaboration(id).then(res => {
+                fetchCollaboration(router.query.id).then(res => {
                         if (res !== null) {
-                            handleCollaborationChange({name: 'effectiveRole', value: res.effective_role})
-                            handleCollaborationChange({name: 'commissionedRole', value: res.commissioned_role})
-                            handleCollaborationChange({name: 'unit', value: res.unit})
-                            handleCollaborationChange({name: 'linkage', value: res.linkage})
-                            handleCollaborationChange({name: 'senior', value: res.senior_member})
+                            handleObjectChange({event: {name: 'effectiveRole', value: res.effective_role}, setData: setPerson})
+                            handleObjectChange({event: {name: 'senior', value: res.senior_member}, setData: setPerson})
+                            handleObjectChange({event: {name: 'linkage', value: res.linkage}, setData: setPerson})
+                            handleObjectChange({event: {name: 'unit', value: res.unit}, setData: setPerson})
+                            handleObjectChange({event: {name: 'data', value: res.collaboration}, setData: setPerson})
+                            handleObjectChange({
+                                event: {name: 'commissionedRole', value: res.commissioned_role},
+                                setData: setPerson
+                            })
                         }
                         setLoading(false)
                     }
@@ -183,12 +151,16 @@ export default function person() {
                     }}
                     filterComponent={undefined}
                     title={
-                        <Profile person={person} dark={false} setEditMode={event => {
-                            setEditMode(event)
-                            setOpenTab(0)
-                        }} editMode={editMode}
-                                 editable={accessProfile !== null && accessProfile.canUpdatePerson}
-                                 inactiveLocale={lang.inactive}
+                        <Profile
+                            person={person}
+                            member={member}
+                            setEditMode={event => {
+                                setEditMode(event)
+                                setOpenTab(0)
+                            }}
+                            editMode={editMode}
+                            editable={accessProfile !== null && accessProfile.canUpdatePerson}
+                            inactiveLocale={lang.inactive}
                         />
                     }
                     pageTitle={person.name}
@@ -204,10 +176,9 @@ export default function person() {
                                     buttonKey: 0,
                                     value: (
                                         <OverviewComponent
-                                            dark={false}
                                             person={person}
                                             member={member}
-                                            collaboration={collaboration}
+                                            collaboration={collaboration.data}
                                             unit={collaboration.unit}
                                             commissionedRole={collaboration.commissionedRole}
                                             effectiveRole={collaboration.effectiveRole}
@@ -222,10 +193,12 @@ export default function person() {
                                         value: (
                                             <BaseForm
                                                 id={id}
-                                                dark={false}
                                                 person={person}
-                                                handleChange={handlePersonChange}
-                                                visible={accessProfile.canUpdatePerson}
+                                                handleChange={event => handleObjectChange({
+                                                    event: event,
+                                                    setData: setPerson
+                                                })}
+                                                handleSubmit={submitPerson}
                                                 editable={accessProfile.canUpdatePerson}
                                                 locale={router.locale}
                                             />
@@ -236,11 +209,14 @@ export default function person() {
                                     value: (
                                         <DocumentsForm
                                             id={id}
-                                            dark={false}
                                             documents={documents}
-                                            handleChange={handleDocumentsChange}
-                                            locale={router.locale}
+                                            handleChange={event => handleObjectChange({
+                                                event: event,
+                                                setData: setDocuments
+                                            })}
+                                            handleSubmit={submitDocuments}
                                             editable={accessProfile.canUpdateDocuments}
+                                            locale={router.locale}
                                         />
                                     )
                                 } : null,
@@ -249,10 +225,13 @@ export default function person() {
                                     value: (
                                         <ContactForm
                                             id={id}
-                                            dark={false}
                                             contact={contact}
                                             locale={router.locale}
-                                            handleChange={handleContactChange}
+                                            handleChange={event => handleObjectChange({
+                                                event: event,
+                                                setData: setContact
+                                            })}
+                                            handleSubmit={submitContacts}
                                             editable={accessProfile.canUpdateContact}
                                         />
                                     )
@@ -264,7 +243,11 @@ export default function person() {
                                             id={id}
                                             dark={false}
                                             address={address}
-                                            handleChange={handleAddressChange}
+                                            handleChange={event => handleObjectChange({
+                                                event: event,
+                                                setData: setAddress
+                                            })}
+                                            handleSubmit={submitAddress}
                                             locale={router.locale}
                                             editable={accessProfile.canUpdateLocation}
                                         />

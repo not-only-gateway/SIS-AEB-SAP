@@ -91,7 +91,7 @@ export default function InputLayout(props) {
                                 label={props.inputName}
                                 error={props.required === true && (props.initialValue === null || props.initialValue === undefined || props.initialValue.length === 0)}
                                 format="dd/MM/yyyy"
-                                value={props.initialValue}
+                                value={props.initialValue !== undefined ? props.initialValue : null}
                                 onChange={event => {
                                     props.handleChange({name: props.name, value: event})
                                     if (props.setChanged !== undefined)

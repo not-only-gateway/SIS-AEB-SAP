@@ -7,9 +7,11 @@ import {CalendarTodayRounded, EmailRounded, PhoneRounded, WorkRounded} from "@ma
 import ViewQuiltRoundedIcon from "@material-ui/icons/ViewQuiltRounded";
 import styles from '../../styles/person/Form.module.css'
 import animations from '../../styles/shared/Animations.module.css'
+import Profile from "./Profile";
 
 export default function OverviewComponent(props) {
-    const birth = new Date(props.profile.birth)
+    const birth = new Date(props.person.birth)
+
     return (
         <div className={mainStyles.displayWarp} style={{width: '100%'}}>
             <div className={[styles.overviewContainer, animations.popInAnimation].join(' ')}
@@ -28,7 +30,7 @@ export default function OverviewComponent(props) {
                     ...getTertiaryColor({dark: props.dark}), ...{
                         textAlign: "right"
                     }
-                }}>{props.profile.corporate_email}</p>
+                }}>{props.member.corporate_email}</p>
             </div>
             <div className={[styles.overviewContainer, animations.popInAnimation].join(' ')}
                  style={{animationDelay: '300ms'}}>
@@ -37,7 +39,7 @@ export default function OverviewComponent(props) {
                     ...getTertiaryColor({dark: props.dark}), ...{
                         textAlign: "right"
                     }
-                }}>{props.profile.extension}</p>
+                }}>{props.member.extension}</p>
             </div>
 
             <div className={[styles.overviewContainer, animations.popInAnimation].join(' ')}
@@ -104,11 +106,12 @@ export default function OverviewComponent(props) {
 }
 
 OverviewComponent.propTypes = {
-    profile: PropTypes.object,
-    unit: PropTypes.object,
-    effectiveRole: PropTypes.object,
-    commissionedRole: PropTypes.object,
-    senior: PropTypes.object,
+    person: PropTypes.object,
+    member: PropTypes.object,
     collaboration: PropTypes.object,
+    unit: PropTypes.object,
+    commissionedRole: PropTypes.object,
+    effectiveRole: PropTypes.object,
+    senior: PropTypes.object,
     linkage: PropTypes.object
 }

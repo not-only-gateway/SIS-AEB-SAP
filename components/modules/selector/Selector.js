@@ -126,7 +126,7 @@ export default function Selector(props) {
                     height: '100%',
                 }} variant={'contained'} disableElevation={true}>
                     <div className={[mainStyles.displayInlineSpaced, mainStyles.primaryParagraph].join(' ')}>
-                        {props.selected !== undefined && props.selected !== null && props.selected.key !== null ? props.selected.value : <AddRounded/>}
+                        {props.selected !== undefined && props.selected !== null && props.selected.key !== null ? props.selected.value : <AddRounded style={{color: 'black'}}/>}
                     </div>
                 </Button>
             </FormControl>

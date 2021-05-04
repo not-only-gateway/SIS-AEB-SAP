@@ -9,7 +9,6 @@ import {
     SettingsRounded
 } from '@material-ui/icons';
 import styles from '../../../styles/shared/Bar.module.css'
-import en from '../../locales/navigation/NavigationEN';
 import PropTypes from 'prop-types'
 import {readAccessProfile, readProfile} from "../../../utils/shared/IndexedDB";
 import mainStyles from '../../../styles/shared/Main.module.css'
@@ -19,11 +18,12 @@ import NavigationProfile from "../../elements/navigation/NavigationProfile";
 import animations from '../../../styles/shared/Animations.module.css'
 import NavigationButton from "../../layout/NavigationButton";
 import NavigationDropDownButton from "../../layout/NavigationDropDownButton";
+import NavigationEN from "../../../packages/component locales/navigation/NavigationEN";
 
 
 export default function Navigation(props) {
 
-    const [lang, setLang] = useState(en)
+    const [lang, setLang] = useState(NavigationEN)
     const [profile, setProfile] = useState(null)
     const [accessProfile, setAccessProfile] = useState(null)
 
