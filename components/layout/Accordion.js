@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types'
 import {Button} from "@material-ui/core";
-import {
-    ArrowForwardIosRounded,
-} from "@material-ui/icons";
+import {ArrowForwardIosRounded,} from "@material-ui/icons";
 import React, {useState} from "react";
 import animations from '../../styles/shared/Animations.module.css'
 import mainStyles from "../../styles/shared/Main.module.css";

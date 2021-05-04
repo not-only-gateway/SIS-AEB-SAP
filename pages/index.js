@@ -3,18 +3,15 @@ import {useRouter} from "next/router";
 import {Skeleton} from "@material-ui/lab";
 import {getLanguage} from "../utils/shared/PageLanguage";
 import InfiniteScroll from "react-infinite-scroll-component";
-import FetchData from "../utils/extensions/FetchData";
+import FetchData from "../utils/fetch/FerchExtensions";
 import {getTertiaryColor} from "../styles/shared/MainStyles";
 import mainStyles from '../styles/shared/Main.module.css'
 import ExtensionsSearch from "../components/elements/ExtensionsSearch";
-import ExtensionsList from "../components/templates/ExtensionsList";
+
 import ExtensionsFilters from "../components/modules/filters/ExtensionsFilters";
 import HeaderLayout from "../components/layout/HeaderLayout";
-import {ArrowUpwardRounded} from "@material-ui/icons";
-import {Button} from "@material-ui/core";
-import {fil} from "date-fns/locale";
-import ActiveFiltersComponent from "../components/modules/ActiveFiltersComponent";
-import ActivitySearch from "../components/elements/ActivitySearch";
+import FiltersComponent from "../components/layout/FiltersComponent";
+import ExtensionsList from "../components/templates/list/ExtensionsList";
 
 export default function Index() {
 
@@ -105,7 +102,7 @@ export default function Index() {
                         />
                     }
                     activeFiltersComponent={
-                        <ActiveFiltersComponent
+                        <FiltersComponent
                             active={changed}
 
                             handleChange={handleFilterChange}
@@ -168,9 +165,9 @@ export default function Index() {
                                     }
                                 >
                                     <div style={{display: 'grid', gap: '8px', marginTop: '8px'}}>
-                                        {data.current.map((collaboration, index) =>
+                                        {data.current.map((member, index) =>
                                             <ExtensionsList
-                                                data={collaboration}
+                                                data={member}
                                                 index={index}
                                                 redirect={id => {
                                                     router.push({

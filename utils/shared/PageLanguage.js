@@ -1,35 +1,35 @@
 import Cookies from "universal-cookie/lib";
-import SignInEN from '../../pages/locales/signin/SignInEN'
-import SignInES from '../../pages/locales/signin/SignInES'
-import SignInPT from '../../pages/locales/signin/SignInPT'
+import SignInEN from '../../packages/page locales/signin/SignInEN'
+import SignInES from '../../packages/page locales/signin/SignInES'
+import SignInPT from '../../packages/page locales/signin/SignInPT'
 
-import SettingsEN from '../../pages/locales/settings/SettingsEN'
-import SettingsES from '../../pages/locales/settings/SettingsES'
-import SettingsPT from '../../pages/locales/settings/SettingsPT'
+import SettingsEN from '../../packages/page locales/settings/SettingsEN'
+import SettingsES from '../../packages/page locales/settings/SettingsES'
+import SettingsPT from '../../packages/page locales/settings/SettingsPT'
 
-import IndexEN from "../../pages/locales/index/IndexEN";
-import IndexES from "../../pages/locales/index/IndexES";
-import IndexPT from "../../pages/locales/index/IndexPT";
+import IndexEN from "../../packages/page locales/index/IndexEN";
+import IndexES from "../../packages/page locales/index/IndexES";
+import IndexPT from "../../packages/page locales/index/IndexPT";
 
-import PersonEN from '../../pages/locales/person/PersonEN'
-import PersonES from '../../pages/locales/person/PersonES'
-import PersonPT from '../../pages/locales/person/PersonPT'
+import PersonEN from '../../packages/page locales/person/PersonEN'
+import PersonES from '../../packages/page locales/person/PersonES'
+import PersonPT from '../../packages/page locales/person/PersonPT'
 
-import ActivityEN from "../../pages/locales/activity/ActivityEN";
-import ActivityES from "../../pages/locales/activity/ActivityES";
-import ActivityPT from "../../pages/locales/activity/ActivityPT";
+import ActivityEN from "../../packages/page locales/activity/ActivityEN";
+import ActivityES from "../../packages/page locales/activity/ActivityES";
+import ActivityPT from "../../packages/page locales/activity/ActivityPT";
 
 
-import StructureEN from "../../pages/locales/structure/StructureEN";
-import StructureES from "../../pages/locales/structure/StructureES";
-import StructurePT from "../../pages/locales/structure/StructurePT";
+import StructureEN from "../../packages/page locales/structure/StructureEN";
+import StructureES from "../../packages/page locales/structure/StructureES";
+import StructurePT from "../../packages/page locales/structure/StructurePT";
 
-import CreateEN from "../../pages/locales/create/CreateEN";
-import CreateES from "../../pages/locales/create/CreateES";
-import CreatePT from "../../pages/locales/create/CreatePT";
-import ManagementEN from "../../pages/locales/management/ManagementEN";
-import ManagementES from "../../pages/locales/management/ManagementES";
-import ManagementPT from "../../pages/locales/management/ManagementPT";
+import CreateEN from "../../packages/page locales/create/CreateEN";
+import CreateES from "../../packages/page locales/create/CreateES";
+import CreatePT from "../../packages/page locales/create/CreatePT";
+import ManagementEN from "../../packages/page locales/management/ManagementEN";
+import ManagementES from "../../packages/page locales/management/ManagementES";
+import ManagementPT from "../../packages/page locales/management/ManagementPT";
 
 const cookies = new Cookies()
 

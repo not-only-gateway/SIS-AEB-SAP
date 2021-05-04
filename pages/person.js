@@ -5,18 +5,19 @@ import {readAccessProfile} from "../utils/shared/IndexedDB";
 import Cookies from "universal-cookie/lib";
 import fetchComponentData from "../utils/person/FetchData";
 import mainStyles from '../styles/shared/Main.module.css'
-import Head from "next/head";
-import Profile from "../components/elements/profile/Profile";
-import Tabs from "../components/layout/TabsComponent.js";
-import OverviewComponent from "../components/elements/profile/ProfileOverview";
-import BaseForm from "../components/modules/forms/BaseForm";
-import DocumentsForm from "../components/modules/forms/DocumentsForm";
-import ContactForm from "../components/modules/forms/ContactForm";
-import AddressForm from "../components/modules/forms/AddressForm";
-import Collaborations from "../components/templates/Collaborations";
+import Profile from "../components/templates/Profile";
+
+import Collaborations from "../components/modules/Collaborations";
 import HeaderLayout from "../components/layout/HeaderLayout";
-import TabContent from "../components/elements/TabContent";
+import TabContent from "../components/templates/TabContent";
 import Authenticate from "../components/modules/Authenticate";
+import OverviewComponent from "../components/templates/ProfileOverview";
+import BaseForm from "../components/templates/forms/BaseForm";
+import DocumentsForm from "../components/templates/forms/DocumentsForm";
+import ContactForm from "../components/templates/forms/ContactForm";
+import AddressForm from "../components/templates/forms/AddressForm";
+import fetchMember from "../utils/fetch/FetchMember";
+import fetchCollaboration from "../utils/fetch/FetchCollaboration";
 
 export default function person() {
 
@@ -27,20 +28,67 @@ export default function person() {
     const [accessProfile, setAccessProfile] = useState(null)
 
     const [loading, setLoading] = useState(true)
-    const [profile, setProfile] = useState({})
-    const [effectiveRole, setEffectiveRole] = useState({})
-    const [collaboration, setCollaboration] = useState({})
-    const [unit, setUnit] = useState({})
+
+    const [person, setPerson] = useState({})
+    const [member, setMember] = useState({})
+    const [address, setAddress] = useState({})
+    const [contact, setContact] = useState({})
+    const [documents, setDocuments] = useState({})
+
+    const [collaboration, setCollaboration] = useState({
+        unit: null,
+        effectiveRole: null,
+        commissionedRole: null,
+        linkage: null,
+        senior: null
+    })
+
     const [editMode, setEditMode] = useState(false)
-    const [senior, setSenior] = useState(null)
-    const [commissionedRole, setCommissionedRole] = useState(null)
     const [openTab, setOpenTab] = useState(0)
-    const [linkage, setLinkage] = useState(null)
     const [valid, setValid] = useState(false)
 
-    function handleChange(props) {
+    function handleDocumentsChange(props) {
 
-        setProfile(prevState => ({
+        setDocuments(prevState => ({
+            ...prevState,
+            [props.name]: props.value
+        }))
+    }
+
+    function handleContactChange(props) {
+        setContact(prevState => ({
+            ...prevState,
+            [props.name]: props.value
+        }))
+    }
+
+    function handlePersonChange(props) {
+
+        setPerson(prevState => ({
+            ...prevState,
+            [props.name]: props.value
+        }))
+    }
+
+    function handleMemberChange(props) {
+
+        setMember(prevState => ({
+            ...prevState,
+            [props.name]: props.value
+        }))
+    }
+
+    function handleAddressChange(props) {
+
+        setAddress(prevState => ({
+            ...prevState,
+            [props.name]: props.value
+        }))
+    }
+
+    function handleCollaborationChange(props) {
+
+        setCollaboration(prevState => ({
             ...prevState,
             [props.name]: props.value
         }))
@@ -49,44 +97,41 @@ export default function person() {
     useEffect(() => {
             if (router.isReady && router.query.id !== id) {
                 setId(router.query.id)
-                fetchComponentData(
-                    {path: 'person/' + router.query.id, params: {}}
-                ).then(res => {
+                fetchMember(id).then(res => {
                     if (res !== null) {
-                        setProfile(res.profile)
-                        setCollaboration(res.collaboration)
-                        setUnit(res.unit)
-                        setEffectiveRole(res.effective_role)
-                        setCommissionedRole(res.commissioned_role)
-                        setSenior(res.senior)
-                        setLinkage(res.linkage)
+                        if (accessProfile === null || (!accessProfile.canUpdatePerson)) {
+                            delete res.person.education
+                            delete res.person.marital_status
+                            delete res.person.mother_name
+                            delete res.person.father_name
+                            delete res.person.birth_place
+                        }
+                        setMember(res.member)
+                        setPerson(res.person)
                     }
-
-                    if (accessProfile === null || (!accessProfile.canUpdatePerson)) {
-                        delete profile.education
-                        delete profile.marital_status
-                        delete profile.mother_name
-                        delete profile.father_name
-                        delete profile.birth_place
-                    }
-
-                    setLoading(false)
                 })
+                fetchCollaboration(id).then(res => {
+                        if (res !== null) {
+                            handleCollaborationChange({name: 'effectiveRole', value: res.effective_role})
+                            handleCollaborationChange({name: 'commissionedRole', value: res.commissioned_role})
+                            handleCollaborationChange({name: 'unit', value: res.unit})
+                            handleCollaborationChange({name: 'linkage', value: res.linkage})
+                            handleCollaborationChange({name: 'senior', value: res.senior_member})
+                        }
+                        setLoading(false)
+                    }
+                )
             }
-
-
             setLang(getLanguage(router.locale, router.pathname))
 
             if (accessProfile === null)
                 readAccessProfile().then(res => setAccessProfile(res))
-
-        }
-        ,
+        },
         [router.locale, router.isReady, router.query]
     )
 
 
-    if (lang !== null && id !== undefined && !loading && profile !== null && profile !== undefined)
+    if (lang !== null && id !== undefined && !loading)
         return (
             <>
                 <Authenticate
@@ -138,22 +183,15 @@ export default function person() {
                     }}
                     filterComponent={undefined}
                     title={
-                        <Profile profile={profile} dark={false} setEditMode={event => {
+                        <Profile person={person} dark={false} setEditMode={event => {
                             setEditMode(event)
-                            fetchComponentData(
-                                {path: 'person/' + router.query.id, params: {}}
-                            ).then(res => {
-                                console.log(res)
-                                if (res !== null)
-                                    setProfile(res.profile)
-                            })
                             setOpenTab(0)
                         }} editMode={editMode}
                                  editable={accessProfile !== null && accessProfile.canUpdatePerson}
                                  inactiveLocale={lang.inactive}
                         />
                     }
-                    pageTitle={profile.name}
+                    pageTitle={person.name}
                     information={null}
                     searchComponent={undefined}
                 />
@@ -167,13 +205,14 @@ export default function person() {
                                     value: (
                                         <OverviewComponent
                                             dark={false}
-                                            profile={profile}
+                                            person={person}
+                                            member={member}
                                             collaboration={collaboration}
-                                            unit={unit}
-                                            commissionedRole={commissionedRole}
-                                            effectiveRole={effectiveRole}
-                                            senior={senior}
-                                            linkage={linkage}
+                                            unit={collaboration.unit}
+                                            commissionedRole={collaboration.commissionedRole}
+                                            effectiveRole={collaboration.effectiveRole}
+                                            senior={collaboration.senior}
+                                            linkage={collaboration.linkage}
                                         />
                                     )
                                 },
@@ -184,8 +223,8 @@ export default function person() {
                                             <BaseForm
                                                 id={id}
                                                 dark={false}
-                                                profile={profile}
-                                                handleChange={handleChange}
+                                                person={person}
+                                                handleChange={handlePersonChange}
                                                 visible={accessProfile.canUpdatePerson}
                                                 editable={accessProfile.canUpdatePerson}
                                                 locale={router.locale}
@@ -198,8 +237,9 @@ export default function person() {
                                         <DocumentsForm
                                             id={id}
                                             dark={false}
+                                            documents={documents}
+                                            handleChange={handleDocumentsChange}
                                             locale={router.locale}
-                                            visible={accessProfile.canViewDocuments}
                                             editable={accessProfile.canUpdateDocuments}
                                         />
                                     )
@@ -210,8 +250,9 @@ export default function person() {
                                         <ContactForm
                                             id={id}
                                             dark={false}
+                                            contact={contact}
                                             locale={router.locale}
-                                            visible={accessProfile.canViewContact}
+                                            handleChange={handleContactChange}
                                             editable={accessProfile.canUpdateContact}
                                         />
                                     )
@@ -222,8 +263,9 @@ export default function person() {
                                         <AddressForm
                                             id={id}
                                             dark={false}
+                                            address={address}
+                                            handleChange={handleAddressChange}
                                             locale={router.locale}
-                                            visible={accessProfile.canViewLocation}
                                             editable={accessProfile.canUpdateLocation}
                                         />
 

@@ -7,8 +7,8 @@ export async function startDatabase() {
     let response = null
 
     userDB.version(1).stores({
-        profile: '++,id, corporateEmail, name, birth, pic',
-        collaboration: '++,id, unitAcronym, unitID',
+        profile: '++,id, corporateEmail, name, birth, pic, homeOffice',
+        collaboration: '++,id, unitAcronym',
         accessProfile: '++, ' +
             'id,' +
             ' denomination,' +
@@ -23,8 +23,7 @@ export async function startDatabase() {
             ' canDeleteAccessProfile ,' +
             ' canViewAccessLog,' +
             ' canViewActivityLog, ' +
-            'canCreateUnit, canUpdateUnit,' +
-            ' canDeleteUnit, ' +
+            'canManageStructure,' +
             'canCreateCollaboration,' +
             ' canUpdateCollaboration,' +
             'canDeleteCollaboration,' +
@@ -33,8 +32,9 @@ export async function startDatabase() {
             'canUpdateDocument,' +
             ' canViewDocuments,' +
             ' canUpdateContact,' +
-            ' canViewContact'
-
+            ' canViewContact' +
+            'canCreateMembership,' +
+            'canUpdateMembership'
 
     })
 
@@ -57,7 +57,8 @@ export async function setProfile(props) {
                 corporateEmail: props.corporateEmail,
                 name: props.name,
                 birth: props.birth,
-                pic: props.pic
+                pic: props.pic,
+                homeOffice: props.homeOffice
             }).catch(error => console.log(error))
     }).catch(error => console.log(error))
 }
@@ -67,7 +68,8 @@ setProfile.propTypes = {
     corporateEmail: PropTypes.string,
     name: PropTypes.string,
     birth: PropTypes.number,
-    pic: PropTypes.any
+    pic: PropTypes.any,
+    homeOffice: PropTypes.bool
 }
 
 export async function readProfile() {
@@ -76,15 +78,13 @@ export async function readProfile() {
         return userDB.open().then(async function () {
             const profile = userDB.table('profile')
 
-            if (profile){
+            if (profile) {
                 const query = await profile.toArray()
                 if (query.length > 0)
                     return query[0]
                 else
                     return null
-            }
-
-            else return null
+            } else return null
         })
     }
     return null
@@ -100,7 +100,6 @@ export async function setCollaboration(props) {
                 collaboration.add({
                     id: props.id,
                     unitAcronym: props.unitAcronym,
-                    unitID: props.unitID,
                 }).catch(error => console.log(error))
         }).catch(error => console.log(error))
     }
@@ -110,7 +109,6 @@ export async function setCollaboration(props) {
 setCollaboration.propTypes = {
     id: PropTypes.number,
     unitAcronym: PropTypes.string,
-    unitID: PropTypes.number,
 }
 
 export async function readCollaboration() {
@@ -125,8 +123,7 @@ export async function readCollaboration() {
                     return query[0]
                 else
                     return null
-            }
-            else return null
+            } else return null
         })
     }
     return null
@@ -152,9 +149,7 @@ export async function setAccessProfile(props) {
                     canDeleteAccessProfile: props.canDeleteAccessProfile,
                     canViewAccessLog: props.canViewAccessLog,
                     canViewActivityLog: props.canViewActivityLog,
-                    canCreateUnit: props.canCreateUnit,
-                    canUpdateUnit: props.canUpdateUnit,
-                    canDeleteUnit: props.canDeleteUnit,
+                    canManageStructure: props.canManageStructure,
                     canCreateCollaboration: props.canCreateCollaboration,
                     canUpdateCollaboration: props.canUpdateCollaboration,
                     canDeleteCollaboration: props.canDeleteCollaboration,
@@ -163,7 +158,9 @@ export async function setAccessProfile(props) {
                     canUpdateDocuments: props.canUpdateDocuments,
                     canViewDocuments: props.canViewDocuments,
                     canUpdateContact: props.canUpdateContact,
-                    canViewContact: props.canViewContact
+                    canViewContact: props.canViewContact,
+                    canCreateMembership: props.canCreateMembership,
+                    canUpdateMembership: props.canUpdateMembership,
                 }).catch(error => console.log(error))
         }).catch(error => console.log(error))
     }
@@ -184,9 +181,9 @@ setAccessProfile.propTypes = {
     canDeleteAccessProfile: PropTypes.bool,
     canViewAccessLog: PropTypes.bool,
     canViewActivityLog: PropTypes.bool,
-    canCreateUnit: PropTypes.bool,
-    canUpdateUnit: PropTypes.bool,
-    canDeleteUnit: PropTypes.bool,
+    canManageStructure: PropTypes.bool,
+    canCreateMembership:  PropTypes.bool,
+    canUpdateMembership: PropTypes.bool,
     canCreateCollaboration: PropTypes.bool,
     canUpdateCollaboration: PropTypes.bool,
     canViewCollaboration: PropTypes.bool,
@@ -205,14 +202,13 @@ export async function readAccessProfile() {
         return userDB.open().then(async function () {
             const access = userDB.table('accessProfile')
 
-            if (access){
+            if (access) {
                 const query = await access.toArray()
                 if (query.length > 0)
                     return query[0]
                 else
                     return null
-            }
-            else return null
+            } else return null
         })
     }
     return null

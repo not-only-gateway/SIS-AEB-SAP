@@ -1,20 +1,6 @@
 import PropTypes from 'prop-types'
-import {
-    Button,
-    Divider,
-    FormControl,
-    FormControlLabel,
-    IconButton,
-    InputBase,
-    Menu,
-    Paper,
-    Radio,
-    RadioGroup
-} from "@material-ui/core";
-import {searchFieldStyle} from "../../styles/shared/BarMaterialStyles";
-import {BackspaceRounded, MenuRounded, SearchRounded} from "@material-ui/icons";
+import {InputBase, Paper} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
-import {getSecondaryBackground} from "../../styles/shared/MainStyles";
 import mainStyles from '../../styles/shared/Main.module.css'
 
 export default function ExtensionsSearch(props) {

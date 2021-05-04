@@ -1,24 +1,25 @@
 import React, {useEffect, useState} from 'react'
-import {Divider} from '@material-ui/core';
 import Cookies from 'universal-cookie/lib';
 import {
-    AccountTreeRounded, AddRounded, ExitToAppRounded,
+    AccountTreeRounded,
+    AddRounded,
+    ExitToAppRounded,
     ExtensionRounded,
     MenuOpenRounded,
-    SettingsRounded,
-    SupervisorAccountRounded
+    SettingsRounded
 } from '@material-ui/icons';
 import styles from '../../../styles/shared/Bar.module.css'
 import en from '../../locales/navigation/NavigationEN';
 import PropTypes from 'prop-types'
 import {readAccessProfile, readProfile} from "../../../utils/shared/IndexedDB";
 import mainStyles from '../../../styles/shared/Main.module.css'
-import {getBorder} from "../../../styles/shared/MainStyles";
-import NavigationButton from "../../elements/navigation/NavigationButton";
+
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import NavigationProfile from "../../elements/navigation/NavigationProfile";
 import animations from '../../../styles/shared/Animations.module.css'
-import NavigationDropDownButton from "../../elements/navigation/NavigationDropDownButton";
+import NavigationButton from "../../layout/NavigationButton";
+import NavigationDropDownButton from "../../layout/NavigationDropDownButton";
+
 
 export default function Navigation(props) {
 
@@ -42,7 +43,7 @@ export default function Navigation(props) {
              style={{
                  width: props.reduced ? '75px' : '260px',
                  transition: '250ms ease-in-out',
-                 backgroundColor: '#403c3c',
+                 backgroundColor: 'black',
                  color: 'white',
                  boxShadow: 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px'
              }}>

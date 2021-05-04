@@ -1,32 +1,35 @@
 import PropTypes from 'prop-types'
-import ContactFormEN from '../../components/locales/contact/ContactFormEN'
-import ContactFormES from '../../components/locales/contact/ContactFormES'
-import ContactFormPT from '../../components/locales/contact/ContactFormPT'
+import ContactFormEN from '../../packages/component locales/contact/ContactFormEN'
+import ContactFormES from '../../packages/component locales/contact/ContactFormES'
+import ContactFormPT from '../../packages/component locales/contact/ContactFormPT'
 
-import DocumentsFormEN from '../../components/locales/documents/DocumentsFormEN'
-import DocumentsFormES from '../../components/locales/documents/DocumentsFormES'
-import DocumentsFormPT from '../../components/locales/documents/DocumentsFormPT'
+import DocumentsFormEN from '../../packages/component locales/documents/DocumentsFormEN'
+import DocumentsFormES from '../../packages/component locales/documents/DocumentsFormES'
+import DocumentsFormPT from '../../packages/component locales/documents/DocumentsFormPT'
 
-import CollaborationsFormEN from '../../components/locales/collaborations/CollaborationsFormEN'
-import CollaborationsFormES from '../../components/locales/collaborations/CollaborationsFormES'
-import CollaborationsFormPT from '../../components/locales/collaborations/CollaborationsFormPT'
+import CollaborationsFormEN from '../../packages/component locales/collaborations/CollaborationsFormEN'
+import CollaborationsFormES from '../../packages/component locales/collaborations/CollaborationsFormES'
+import CollaborationsFormPT from '../../packages/component locales/collaborations/CollaborationsFormPT'
 
-import BaseFormEN from '../../components/locales/base/BaseFormEN'
-import BaseFormES from '../../components/locales/base/BaseFormES'
-import BaseFormPT from '../../components/locales/base/BaseFormPT'
+import BaseFormEN from '../../packages/component locales/base/BaseFormEN'
+import BaseFormES from '../../packages/component locales/base/BaseFormES'
+import BaseFormPT from '../../packages/component locales/base/BaseFormPT'
 
-import NavigationEN from "../../components/locales/navigation/NavigationEN";
-import NavigationES from "../../components/locales/navigation/NavigationES";
-import NavigationPT from "../../components/locales/navigation/NavigationPT";
-import AuthenticateEN from "../../components/locales/authenticate/AuthenticateEN";
-import AuthenticatePT from "../../components/locales/authenticate/AuthenticatePT";
-import AuthenticateES from "../../components/locales/authenticate/AuthenticateES";
-import * as simpleEN from '../../components/locales/forms/SimpleFormsEN'
-import * as simpleES from '../../components/locales/forms/SimpleFormsES'
-import * as simplePT from '../../components/locales/forms/SimpleFormsPT'
-import AccessProfilePT from "../../components/locales/access/AccessProfilePT";
-import AccessProfileES from "../../components/locales/access/AccessProfileES";
-import AccessProfileEN from "../../components/locales/access/AccessProfileEN";
+import NavigationEN from "../../packages/component locales/navigation/NavigationEN";
+import NavigationES from "../../packages/component locales/navigation/NavigationES";
+import NavigationPT from "../../packages/component locales/navigation/NavigationPT";
+import AuthenticateEN from "../../packages/component locales/authenticate/AuthenticateEN";
+import AuthenticatePT from "../../packages/component locales/authenticate/AuthenticatePT";
+import AuthenticateES from "../../packages/component locales/authenticate/AuthenticateES";
+import * as simpleEN from '../../packages/component locales/forms/SimpleFormsEN'
+import * as simpleES from '../../packages/component locales/forms/SimpleFormsES'
+import * as simplePT from '../../packages/component locales/forms/SimpleFormsPT'
+import AccessProfilePT from "../../packages/component locales/access/AccessProfilePT";
+import AccessProfileES from "../../packages/component locales/access/AccessProfileES";
+import AccessProfileEN from "../../packages/component locales/access/AccessProfileEN";
+import MembershipEN from "../../packages/component locales/membership/MembershipEN";
+import MembershipES from "../../packages/component locales/membership/MembershipES";
+import MembershipPT from "../../packages/component locales/membership/MembershipPT";
 
 export default function getComponentLanguage(props) {
     let response = null
@@ -79,6 +82,10 @@ export default function getComponentLanguage(props) {
                 }
                 case 'effective': {
                     response =simpleEN.effective
+                    break
+                }
+                case 'membership': {
+                    response = MembershipEN
                     break
                 }
                 default:
@@ -136,6 +143,10 @@ export default function getComponentLanguage(props) {
                     response =simpleES.effective
                     break
                 }
+                case 'membership': {
+                    response = MembershipES
+                    break
+                }
                 default:
                     break
             }
@@ -189,6 +200,10 @@ export default function getComponentLanguage(props) {
                 }
                 case 'effective': {
                     response =simplePT.effective
+                    break
+                }
+                case 'membership': {
+                    response = MembershipPT
                     break
                 }
                 default:

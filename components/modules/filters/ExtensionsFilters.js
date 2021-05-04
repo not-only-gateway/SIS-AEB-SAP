@@ -1,28 +1,12 @@
 import PropTypes from 'prop-types'
-import {
-    Button, Checkbox,
-    Divider,
-    FormControl,
-    FormControlLabel, FormGroup, FormLabel,
-    IconButton,
-    InputBase,
-    Menu,
-    Paper,
-    Radio,
-    RadioGroup
-} from "@material-ui/core";
-import {searchFieldStyle} from "../../../styles/shared/BarMaterialStyles";
-import {BackspaceRounded, MenuRounded, SearchRounded} from "@material-ui/icons";
+import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
-import {getSecondaryBackground} from "../../../styles/shared/MainStyles";
-import mainStyles from '../../../styles/shared/Main.module.css'
-import fetchActivityData from "../../../utils/activity/FetchData";
 import shared from "../../../styles/shared/Shared.module.css";
-import CountryOptions from "../../../utils/person/CountryOptions";
-import SelectorLayout from "../Selector";
-import Selector from "../Selector";
+
 import mapToSelect from "../../../utils/person/MapToSelect";
-import FetchFilterData from "../../../utils/extensions/FetchFilterData";
+import Selector from "../selector/Selector";
+import FetchExtensionsFilter from "../../../utils/fetch/FetchExtensionsFilter";
+
 
 export default function ExtensionsFilters(props) {
     const [entities, setEntities] = useState({
@@ -33,7 +17,7 @@ export default function ExtensionsFilters(props) {
     })
     useEffect(() => {
         if (props.option !== 'people')
-            FetchFilterData({
+            FetchExtensionsFilter({
                 setResponse: setEntities,
                 selectedUnit: props.filters.unit !== undefined? props.filters.unit.key : undefined
             })
@@ -42,7 +26,7 @@ export default function ExtensionsFilters(props) {
     return (
         <div className={shared.filterContainer}>
             <p style={{marginRight: "auto", fontSize: '1.2rem'}}>Filters</p>
-            <SelectorLayout
+            <Selector
                 required={false}
                 selected={props.filters.unit}
                 disabled={props.option === 'people'}

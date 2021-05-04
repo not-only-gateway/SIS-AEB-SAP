@@ -1,29 +1,21 @@
 import Cookies from 'universal-cookie/lib'
 import styles from '../styles/auththentication/Auth.module.css'
-import {
-    Button,
-    createMuiTheme,
-    FormControl,
-    IconButton,
-    InputAdornment,
-    InputLabel,
-    OutlinedInput,
-    ThemeProvider
-} from "@material-ui/core";
+import {Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import Head from "next/head";
 import {getLanguage} from "../utils/shared/PageLanguage";
-import signIn from "../utils/authentication/SignIn";
-import signOut from "../utils/authentication/SignOut";
+import submitSignIN from "../utils/submit/SubmitSignIN";
+import submitSignOUT from "../utils/submit/SubmitSignOUT";
 import ClearStorage from "../utils/authentication/ClearStorage";
 import mainStyles from '../styles/shared/Main.module.css'
 import InputLayout from "../components/modules/InputLayout";
 import {VisibilityOffRounded, VisibilityRounded} from "@material-ui/icons";
 import {getTertiaryColor} from "../styles/shared/MainStyles";
 import shared from '../styles/shared/Shared.module.css'
+
 const cookies = new Cookies()
-export default function Signin() {
+export default function SignIN() {
 
     const [dark, setDark] = useState(false)
     const router = useRouter()
@@ -34,7 +26,7 @@ export default function Signin() {
 
     useEffect(() => {
         if ((new Cookies()).get('jwt') !== undefined)
-            signOut().then(() => {
+            submitSignOUT().then(() => {
                 ClearStorage()
             })
 
@@ -60,7 +52,7 @@ export default function Signin() {
     }
 
     async function authenticate() {
-        await signIn({
+        await submitSignIN({
             email: email,
             password: password,
             locale: router.locale

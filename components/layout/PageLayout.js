@@ -3,7 +3,6 @@ import Cookies from 'universal-cookie/lib'
 import Navigation from "../modules/navigation/Navigation";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import {getPrimaryBackground} from "../../styles/shared/MainStyles";
 import {createMuiTheme, ThemeProvider} from "@material-ui/core";
 
 const cookies = new Cookies()

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import mainStyles from '../../styles/shared/Main.module.css'
-import {AccessTimeRounded, AssignmentIndRounded, MultilineChartRounded, StarRounded} from "@material-ui/icons";
+import {AccessTimeRounded, AssignmentIndRounded} from "@material-ui/icons";
 import React from "react";
 import ViewQuiltRoundedIcon from "@material-ui/icons/ViewQuiltRounded";
 import {getIconStyle} from "../../styles/shared/MainStyles";

@@ -11,4 +11,6 @@ export default async function ClearStorage() {
     cookies.remove('lang', {path: '/'})
     cookies.remove('exp', {path: '/'})
     cookies.remove('exp', {path: '/en'})
+    cookies.remove('authorization_token', {path: '/en'})
+    cookies.remove('authorization_token', {path: '/'})
 }

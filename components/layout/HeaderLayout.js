@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types'
-import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
-import {Button, Modal, Tabs} from "@material-ui/core";
+import React, {useCallback, useState} from "react";
+import {Button, Modal} from "@material-ui/core";
 import styles from "../../styles/shared/Shared.module.css";
 import animations from "../../styles/shared/Animations.module.css";
 import mainStyles from "../../styles/shared/Main.module.css";
 import {FilterListRounded} from "@material-ui/icons";
 import Head from "next/head";
-import TabsComponent from "./TabsComponent";
+import TabsComponent from "../modules/navigation/TabsComponent";
+import Stepper from "../modules/navigation/Stepper";
 
 export default function HeaderLayout(props) {
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -46,10 +47,10 @@ export default function HeaderLayout(props) {
                 justifyItems: 'center',
                 alignContent: 'space-between',
                 width: '100%',
-                backgroundColor: '#faf9f8',
+                backgroundColor: '#f5f6f8',
                 minHeight: '16.6%',
                 height: 'auto',
-                paddingBottom: props.availableTabs !== undefined ? null : '10px',
+                paddingBottom: props.availableTabs !== undefined? null : '10px',
                 position: 'sticky',
                 top: 0,
                 zIndex: 1,
@@ -65,9 +66,9 @@ export default function HeaderLayout(props) {
                             </p>
                             {props.information !== undefined ?
                                 <div className={mainStyles.tertiaryParagraph}
-                                      style={{color: '#555555', marginBottom: '10px'}}>
-                                {props.information}
-                            </div>
+                                     style={{color: '#555555', marginBottom: '10px'}}>
+                                    {props.information}
+                                </div>
                                 :
                                 null
                             }
@@ -94,10 +95,17 @@ export default function HeaderLayout(props) {
                     <div style={{width: '75%'}} key={'header-tab-component'}>
                         <TabsComponent buttons={props.availableTabs.tabs} setOpenTab={props.availableTabs.setOpenTab}
                                        openTab={props.availableTabs.openTab}/>
+
                     </div>
                     :
                     null
                 }
+                {props.stepper !== undefined ?
+                    <div style={{width: '75%'}} key={'header-stepper-component'}>
+                        <Stepper buttons={props.stepper.tabs} setOpenTab={props.stepper.setOpenTab}
+                                 openTab={props.stepper.openTab}/>
+
+                    </div> : null}
             </div>
 
         </>
@@ -107,8 +115,13 @@ HeaderLayout.propTypes = {
     title: PropTypes.any,
     searchComponent: PropTypes.object,
     filterComponent: PropTypes.object,
-    availableTabs: PropTypes.object,
+    availableTabs: {
+        tabs: PropTypes.array,
+        openTab: PropTypes.number,
+        setOpenTab: PropTypes.func
+    },
     pageTitle: PropTypes.string,
     information: PropTypes.string,
-    activeFiltersComponent: PropTypes.object
+    activeFiltersComponent: PropTypes.object,
+    stepper: PropTypes.bool
 }

@@ -5,20 +5,13 @@ import Cookies from "universal-cookie/lib";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {Skeleton} from "@material-ui/lab";
 import ActivityFilterComponent from "../components/modules/filters/ActivityFilters";
-import fetchActivityData from "../utils/activity/FetchData";
+import fetchActivityData from "../utils/fetch/FetchActivity";
 import {getTertiaryColor} from "../styles/shared/MainStyles";
 import mainStyles from "../styles/shared/Main.module.css";
-import GetPageTitle from "../utils/shared/GetPageTitle";
-import Head from "next/head";
-import ActivityList from "../components/templates/ActivityList";
 import HeaderLayout from "../components/layout/HeaderLayout";
-import ExtensionsFilters from "../components/modules/filters/ExtensionsFilters";
-import ExtensionsSearch from "../components/elements/ExtensionsSearch";
-import ExtensionsList from "../components/templates/ExtensionsList";
 import ActivitySearch from "../components/elements/ActivitySearch";
-import {Button} from "@material-ui/core";
-import {ArrowUpwardRounded} from "@material-ui/icons";
-import ActiveFiltersComponent from "../components/modules/ActiveFiltersComponent";
+import FiltersComponent from "../components/layout/FiltersComponent";
+import ActivityList from "../components/templates/list/ActivityList";
 
 export default function Activity() {
 
@@ -44,6 +37,7 @@ export default function Activity() {
     const [pagesFetched, setPagesFetched] = useState(0)
 
     function handleChange(props) {
+        console.log(props)
         setFilters(prevState => ({
             ...prevState,
             [props.name]: props.value
@@ -111,7 +105,7 @@ export default function Activity() {
                               title={lang.title}
                               information={lang.information}
                               activeFiltersComponent={
-                                  <ActiveFiltersComponent
+                                  <FiltersComponent
                                       active={changed}
                                       handleChange={handleChange}
                                       applyChanges={() => {
@@ -122,23 +116,23 @@ export default function Activity() {
                                       changed={changed}
                                       activeFilters={[
                                           {
-                                              key: 'method-filter',
-                                              value: filters.method !== null ? filters.method : null
+                                              key: 'method',
+                                              value: filters.method !== undefined ? filters.method : null
                                           },
                                           {
-                                              key: 'start-date-filter',
-                                              value: filters.startDate !== null ? lang.startDate + ' - ' + new Date(filters.startDate).toLocaleDateString() : null
+                                              key: 'startDate',
+                                              value: filters.startDate !== undefined ? lang.startDate + ' - ' + new Date(filters.startDate).toLocaleDateString() : null
                                           },
                                           {
-                                              key: 'end-date-filter',
-                                              value: filters.endDate !== null ? lang.endDate + ' - ' + new Date(filters.endDate).toLocaleDateString() : null
+                                              key: 'endDate',
+                                              value: filters.endDate !== undefined ? lang.endDate + ' - ' + new Date(filters.endDate).toLocaleDateString() : null
                                           },
                                           {
-                                              key: 'input-filter',
+                                              key: 'searchInput',
                                               value: filters.searchInput.length > 0 ? filters.searchInput : null
                                           },
                                           {
-                                              key: 'this-machine-only-filter',
+                                              key: 'thisMachine',
                                               value: filters.thisMachine ? lang.machine : null
                                           },
                                       ]}/>}

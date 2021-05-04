@@ -1,27 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import {createMuiTheme, Divider, ThemeProvider} from "@material-ui/core";
 import {getLanguage} from "../utils/shared/PageLanguage";
 import axios from "axios";
 import Host from "../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import Accordion from "../components/layout/Accordion";
 import mainStyles from '../styles/shared/Main.module.css'
-import shared from "../styles/shared/Shared.module.css";
-import {getIconStyle} from "../styles/shared/MainStyles";
-import {ExtensionRounded, ViewQuiltRounded} from "@material-ui/icons";
-import GetPageTitle from "../utils/shared/GetPageTitle";
 import Canvas from "../components/layout/Canvas";
 import HeaderLayout from "../components/layout/HeaderLayout";
-import ExtensionsFilters from "../components/modules/filters/ExtensionsFilters";
-import ExtensionsSearch from "../components/elements/ExtensionsSearch";
-import TabContent from "../components/elements/TabContent";
-import OverviewComponent from "../components/elements/profile/ProfileOverview";
-import BaseForm from "../components/modules/forms/BaseForm";
-import DocumentsForm from "../components/modules/forms/DocumentsForm";
-import ContactForm from "../components/modules/forms/ContactForm";
-import AddressForm from "../components/modules/forms/AddressForm";
-import Collaborations from "../components/templates/Collaborations";
+import TabContent from "../components/templates/TabContent";
 
 export default function Structure() {
 

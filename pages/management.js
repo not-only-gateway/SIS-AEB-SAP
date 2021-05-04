@@ -1,20 +1,16 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
 import {getLanguage} from "../utils/shared/PageLanguage";
 import {readAccessProfile} from "../utils/shared/IndexedDB";
 import Cookies from "universal-cookie/lib";
 import mainStyles from '../styles/shared/Main.module.css'
 import HeaderLayout from "../components/layout/HeaderLayout";
-import TabContent from "../components/elements/TabContent";
+import TabContent from "../components/templates/TabContent";
 import Authenticate from "../components/modules/Authenticate";
-import AccessProfileList from "../components/templates/AccessProfileList";
-import axios from "axios";
-import Host from "../utils/shared/Host";
 import {Button} from "@material-ui/core";
 import animations from "../styles/shared/Animations.module.css";
-import {ArrowBackRounded, HistoryRounded} from "@material-ui/icons";
-import {getIconStyle, getPrimaryColor, getSecondaryColor} from "../styles/shared/MainStyles";
-import Link from "next/link";
+import {ArrowBackRounded} from "@material-ui/icons";
+import {getSecondaryColor} from "../styles/shared/MainStyles";
 import GetTab from "../utils/management/GetTab";
 
 export default function management() {

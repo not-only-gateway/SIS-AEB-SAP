@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import InputLayout from "../InputLayout";
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel} from "@material-ui/core";
 import React from "react";
-import fetchActivityData from "../../../utils/activity/FetchData";
+
 import mainStyles from '../../../styles/shared/Main.module.css'
 import shared from '../../../styles/shared/Shared.module.css'
 

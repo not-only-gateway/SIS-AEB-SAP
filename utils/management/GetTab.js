@@ -1,16 +1,13 @@
 import PropTypes from 'prop-types'
-import axios from "axios";
-import Host from "../shared/Host";
-import Cookies from "universal-cookie/lib";
-import React, {useState} from "react";
-import AccessProfileList from "../../components/templates/AccessProfileList";
-import AccessProfileForm from "../../components/modules/forms/AccessProfileForm";
-import EffectiveRoleList from "../../components/templates/EffectiveRoleList";
-import CommissionedRoleList from "../../components/templates/CommissionedRoleList";
-import LinkageList from "../../components/templates/LinkageList";
-import EffectiveRoleForm from "../../components/modules/forms/EffectiveRoleForm";
-import CommissionedRoleForm from "../../components/modules/forms/CommissionedRoleForm";
-import LinkageForm from "../../components/modules/forms/LinkageForm";
+import React from "react";
+import AccessProfileList from "../../components/templates/list/AccessProfileList";
+import AccessProfileForm from "../../components/templates/forms/AccessProfileForm";
+import EffectiveRoleList from "../../components/templates/list/EffectiveRoleList";
+import CommissionedRoleList from "../../components/templates/list/CommissionedRoleList";
+import LinkageList from "../../components/templates/list/LinkageList";
+import EffectiveRoleForm from "../../components/templates/forms/EffectiveRoleForm";
+import CommissionedRoleForm from "../../components/templates/forms/CommissionedRoleForm";
+import LinkageForm from "../../components/templates/forms/LinkageForm";
 
 export default function GetTab(props) {
     let response = []

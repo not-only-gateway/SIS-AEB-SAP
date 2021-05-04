@@ -1,29 +1,12 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import mainStyles from '../../styles/shared/Main.module.css'
-import {AddRounded, VisibilityOffRounded, VisibilityRounded} from "@material-ui/icons";
-import {
-    Avatar,
-    Button,
-    Divider,
-    FormControl,
-    FormLabel, IconButton,
-    InputAdornment,
-    InputLabel,
-    Modal,
-    OutlinedInput
-} from "@material-ui/core";
-import styles from '../../styles/person/Form.module.css'
+import {Button, FormControl, InputLabel, Modal, OutlinedInput} from "@material-ui/core";
 import InputLayout from "./InputLayout";
-import {getIconStyle, getTertiaryColor} from "../../styles/shared/MainStyles";
-import ProfilePersona from "../elements/profile/ProfilePersona";
-import ImageHost from "../../utils/shared/ImageHost";
+import {getTertiaryColor} from "../../styles/shared/MainStyles";
 import axios from "axios";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import signOut from "../../utils/authentication/SignOut";
-import ClearStorage from "../../utils/authentication/ClearStorage";
-import {getLanguage} from "../../utils/shared/PageLanguage";
 import getComponentLanguage from "../../utils/shared/GetComponentLanguage";
 import shared from '../../styles/shared/Shared.module.css'
 

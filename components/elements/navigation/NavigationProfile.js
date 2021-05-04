@@ -1,14 +1,10 @@
 import PropTypes from 'prop-types'
 import mainStyles from "../../../styles/shared/Main.module.css";
-import {getBoxShadow} from "../../../styles/shared/MainStyles";
-import {Avatar, Button, createMuiTheme, Divider, ThemeProvider} from "@material-ui/core";
-import ImageHost from "../../../utils/shared/ImageHost";
+import {Button, Divider} from "@material-ui/core";
 import React, {useState} from "react";
 import Link from "next/link";
-import Cookies from "universal-cookie/lib";
-import {ExitToAppRounded} from "@material-ui/icons";
 import animations from '../../../styles/shared/Animations.module.css'
-import ProfilePersona from "../profile/ProfilePersona";
+import ProfilePersona from "../ProfilePersona";
 
 export default function NavigationProfile(props) {
     const [open, setOpen] = useState(false)
@@ -23,7 +19,7 @@ export default function NavigationProfile(props) {
         >
             {open && !props.reduced ?
                 <div style={{
-                    backgroundColor: 'rgba(64, 60, 60, 0.5)',
+                    backgroundColor: '#333333',
                     width: '250px',
                     borderRadius: '5px 5px 0px 0px',
                     opacity: 0
@@ -55,7 +51,7 @@ export default function NavigationProfile(props) {
                 height: '65px',
                 textTransform: 'none',
                 borderRadius: open ? '0px 0px 5px 5px' : '5px',
-                backgroundColor: 'rgba(64, 60, 60, 0.5)',
+                backgroundColor: open ? '#333333' : '#262626',
                 display: 'flex',
                 justifyContent: 'space-between',
                 overflow: 'hidden'
