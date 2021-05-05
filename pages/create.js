@@ -34,7 +34,6 @@ export default function create() {
     const [documents, setDocuments] = useState({})
     const [address, setAddress] = useState({})
 
-    const [valid, setValid] = useState(false)
     const [openTab, setOpenTab] = useState(0)
     const [step, setStep] = useState(0)
     const [status, setStatus] = useState({
@@ -87,9 +86,8 @@ export default function create() {
     if (lang !== null && accessProfile !== null)
         return (
             <>
-                <Authenticate valid={valid || (new Cookies()).get('authorization_token') !== undefined}
-                              setValid={setValid}
-                              redirect={() => router.push('/', '/', {locale: router.locale})} locale={router.locale}/>
+                <Authenticate render={true} redirect={() => router.push('/', '/', {locale: router.locale})}
+                              locale={router.locale}/>
                 <HeaderLayout
                     availableTabs={undefined}
                     activeFiltersComponent={undefined}

@@ -20,6 +20,7 @@ import mapToSelect from "../../utils/person/MapToSelect";
 import fetchSeniors from "../../utils/fetch/FetchSeniors";
 import submitCollaboration from "../../utils/submit/SubmitCollaboration";
 import fetchCanBeMain from "../../utils/fetch/FetchCanBeMain";
+import animations from '../../styles/shared/Animations.module.css'
 
 export default function Collaboration(props) {
 
@@ -48,53 +49,59 @@ export default function Collaboration(props) {
                     if (res !== null)
                         setCollaboration(res)
                 })
-            if (modal) {
-                fetchCanBeMain(props.memberID).then(res => setCanBeMain(res))
-                fetchUnits().then(res => handleObjectChange({
-                    event: {name: 'units', value: res},
+            setLoading(false)
+        }
+        if (modal) {
+            setLoading(true)
+            fetchCanBeMain(props.memberID).then(res => setCanBeMain(res))
+            fetchUnits().then(res => handleObjectChange({
+                event: {name: 'units', value: mapToSelect({units: res, option: 0})},
+                setData: setDependencies
+            }))
+            fetchLinkages().then(res => handleObjectChange({
+                event: {name: 'linkages', value: mapToSelect({linkages: res, option: 5})},
+                setData: setDependencies
+            }))
+            fetchCommissionedRoles().then(res => handleObjectChange({
+                event: {name: 'commissionedRoles', value: mapToSelect({commissionedRoles: res, option: 2})},
+                setData: setDependencies
+            }))
+            fetchEffectiveRoles().then(res => handleObjectChange({
+                event: {name: 'effectiveRoles', value: mapToSelect({effectiveRoles: res, option: 1})},
+                setData: setDependencies
+            }))
+            fetchAccessProfiles().then(res => handleObjectChange({
+                event: {name: 'accessProfiles', value: mapToSelect({accessProfiles: res, option: 4})},
+                setData: setDependencies
+            }))
+            if (collaboration.unit)
+                fetchSeniors().then(res => handleObjectChange({
+                    event: {name: 'seniors', value: mapToSelect({seniors: res, option: 3})},
                     setData: setDependencies
                 }))
-                fetchLinkages().then(res => handleObjectChange({
-                    event: {name: 'linkages', value: mapToSelect({linkages: res, option: 5})},
-                    setData: setDependencies
-                }))
-                fetchCommissionedRoles().then(res => handleObjectChange({
-                    event: {name: 'commissionedRoles', value: mapToSelect({commissionedRoles: res, option: 2})},
-                    setData: setDependencies
-                }))
-                fetchEffectiveRoles().then(res => handleObjectChange({
-                    event: {name: 'effectiveRoles', value: mapToSelect({effectiveRoles: res, option: 1})},
-                    setData: setDependencies
-                }))
-                fetchAccessProfiles().then(res => handleObjectChange({
-                    event: {name: 'accessProfiles', value: mapToSelect({accessProfiles: res, option: 4})},
-                    setData: setDependencies
-                }))
-                if (collaboration.unit)
-                    fetchSeniors().then(res => handleObjectChange({
-                        event: {name: 'seniors', value: mapToSelect({seniors: res, option: 3})},
-                        setData: setDependencies
-                    }))
-            }
-        } else
+
+            setLoading(false)
+        }
+        else
             setLoading(false)
     }, [collaboration.unit, modal])
 
     function renderModal() {
         return (
             <Modal open={modal} onClose={() => setModal(false)}
-                   style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                   style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}} className={animations.fadeIn}>
                 <div style={{
                     backgroundColor: 'white',
                     width: '75%',
                     height: 'auto',
-                    padding: '16px',
+                    padding: '32px',
                     borderRadius: '8px'
                 }}>
                     <CollaborationForm
                         collaboration={collaboration}
                         handleChange={event => handleObjectChange({event: event, setData: setCollaboration})}
                         submitChanges={submitCollaboration}
+                        collaborationID={props.collaborationID}
                         units={dependencies.units}
                         seniors={dependencies.seniors}
                         effectiveRoles={dependencies.effectiveRoles}
@@ -137,13 +144,13 @@ export default function Collaboration(props) {
                             </div>
                             :
                             <CollaborationSummary
-                                commissionedRole={collaboration.commissioned_role ? (collaboration.effective_role.value ? collaboration.effective_role.value : collaboration.commissioned_role.denomination) : null}
+                                commissionedRole={collaboration.commissioned_role ? collaboration.commissioned_role.value : null}
                                 substitute={collaboration.is_substitute}
                                 activeRole={collaboration.is_active_on_role}
                                 mainCollaboration={collaboration.main_collaboration}
-                                effectiveRole={collaboration.effective_role ?( collaboration.effective_role.value ? collaboration.effective_role.value : collaboration.effective_role.denomination) : null}
-                                additionalRoleInfo={collaboration.additional_info}
-                                unit={collaboration.unit.value ? collaboration.unit.value : collaboration.unit.acronym}/>
+                                effectiveRole={collaboration.effective_role ? collaboration.effective_role.value : null}
+                                additionalRoleInfo={collaboration.additional_info !== undefined ? collaboration.additional_info : null}
+                                unit={collaboration.unit ? collaboration.unit.value : null}/>
                         }
                     </>
                 </Button>
@@ -159,7 +166,7 @@ Collaboration.propTypes = {
     locale: PropTypes.string,
     create: PropTypes.bool,
     index: PropTypes.number,
-    memberID: PropTypes.string,
+    memberID: PropTypes.any,
     collaborationID: PropTypes.number,
     key: PropTypes.any
 }

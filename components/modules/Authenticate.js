@@ -16,11 +16,14 @@ export default function Authenticate(props) {
     const [password, setPassword] = useState('')
     const [lang, setLang] = useState(null)
     const [attempts, setAttempts] = useState(0)
+    const [valid, setValid] = useState(false)
     const [error, setError] = useState({
         error: null,
         errorMessage: null
     })
     useEffect(() => {
+        if((new Cookies()).get('authorization_token') !== undefined)
+            setValid(true)
         setLang(getComponentLanguage({locale: props.locale, component: 'authenticate'}))
     }, [])
 
@@ -46,7 +49,7 @@ export default function Authenticate(props) {
 
             cookies.set('authorization_token', res.data.token, {path: '/', expires: new Date(res.data.exp)})
 
-            props.setValid(true)
+            setValid(true)
         }).catch(error => {
             setError({
                 error: error.response.status,
@@ -59,7 +62,7 @@ export default function Authenticate(props) {
 
     if (lang !== null)
         return (
-            <Modal open={!props.valid} onClose={props.redirect}
+            <Modal open={!valid && props.render} onClose={props.redirect}
                    style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                 <div className={shared.signInContainer}>
                     <div style={{
@@ -114,8 +117,7 @@ export default function Authenticate(props) {
 }
 
 Authenticate.propTypes = {
-    setValid: PropTypes.func,
-    valid: PropTypes.bool,
     redirect: PropTypes.func,
-    locale: PropTypes.string
+    locale: PropTypes.string,
+    render: PropTypes.bool
 }

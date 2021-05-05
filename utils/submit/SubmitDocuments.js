@@ -5,13 +5,16 @@ import PropTypes from 'prop-types'
 const cookies = new Cookies()
 export default async function submitDocuments(props) {
     let response = false
-    props.data.authorization_token =  cookies.get('authorization_token')
-    props.data.dispatch_date = new Date(props.data.dispatch_date).getTime()
+
+    let data = {}
+    data = Object.assign(data, props.data)
+    data.authorization_token =  cookies.get('authorization_token')
+    data.dispatch_date = new Date(props.data.dispatch_date).getTime()
     await axios({
         method: 'put',
         url: Host() + 'documents/' + props.personID,
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
-        data: props.data
+        data: data
     }).then(() => {
         response = true
     }).catch(error => {

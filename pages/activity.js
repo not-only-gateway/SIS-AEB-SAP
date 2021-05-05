@@ -11,9 +11,9 @@ import mainStyles from "../styles/shared/Main.module.css";
 import HeaderLayout from "../components/layout/HeaderLayout";
 import ActivitySearch from "../components/elements/ActivitySearch";
 import FiltersComponent from "../components/layout/FiltersComponent";
-import ActivityList from "../components/templates/list/ActivityList";
+import ActivityTemplate from "../components/templates/list/ActivityTemplate";
 
-export default function Activity() {
+export default function activity() {
 
     const router = useRouter()
     const [lang, setLang] = useState(null)
@@ -25,8 +25,7 @@ export default function Activity() {
         thisMachine: false,
         searchInput: ''
     })
-    // const [thisMachine, setThisMachine] = useState(false)
-    // const [searchInput, setSearchInput] = useState('')
+
     const [changed, setChanged] = useState(false)
 
     const [maxID, setMaxID] = useState(null)
@@ -121,11 +120,11 @@ export default function Activity() {
                                           },
                                           {
                                               key: 'startDate',
-                                              value: filters.startDate !== undefined ? lang.startDate + ' - ' + new Date(filters.startDate).toLocaleDateString() : null
+                                              value: filters.startDate !== null && filters.startDate ? lang.startDate + ' - ' + new Date(filters.startDate).toLocaleDateString() : null
                                           },
                                           {
                                               key: 'endDate',
-                                              value: filters.endDate !== undefined ? lang.endDate + ' - ' + new Date(filters.endDate).toLocaleDateString() : null
+                                              value: filters.endDate !== null && filters.endDate ? lang.endDate + ' - ' + new Date(filters.endDate).toLocaleDateString() : null
                                           },
                                           {
                                               key: 'searchInput',
@@ -136,7 +135,8 @@ export default function Activity() {
                                               value: filters.thisMachine ? lang.machine : null
                                           },
                                       ]}/>}
-                              searchComponent={<ActivitySearch fetchData={fetch} setSearchInput={handleInputChange} setChanged={setChanged}
+                              searchComponent={<ActivitySearch fetchData={fetch} setSearchInput={handleInputChange}
+                                                               setChanged={setChanged}
                                                                searchInput={filters.searchInput} lang={lang.search}/>}
                 />
                 <div className={mainStyles.displayInlineCenter} style={{width: '100%', position: 'relative'}}>
@@ -159,17 +159,26 @@ export default function Activity() {
                                 endMessage={
                                     <div
                                         style={{
-                                        marginBottom: '15px'
-                                    }}
+                                            marginBottom: '15px'
+                                        }}
                                     >
                                         <p className={mainStyles.secondaryParagraph}
                                            style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.end}</p>
                                     </div>
                                 }
                             >
-                                <ActivityList data={data} pagesFetched={pagesFetched}
-                                              lang={lang}/>
-
+                                <div style={{
+                                    display: 'grid',
+                                    marginTop: '8px',
+                                    gap: '8px',
+                                }}>
+                                    {(data).map(content =>
+                                        <div key={content.activity.id}>
+                                            <ActivityTemplate data={content} pagesFetched={pagesFetched}
+                                                              lang={lang}/>
+                                        </div>
+                                    )}
+                                </div>
                             </InfiniteScroll>
                         </div>
                         :

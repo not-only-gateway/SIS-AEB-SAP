@@ -4,32 +4,35 @@ import Cookies from "universal-cookie/lib";
 import PropTypes from 'prop-types'
 
 const cookies = new Cookies()
+
 export default async function submitCollaboration(props) {
     let response = false
-    props.data.authorization_token = cookies.get('authorization_token')
-    props.data.official_publication_date = new Date(props.data.official_publication_date).getTime()
-    props.data.admission_date = new Date(props.data.admission_date).getTime()
-    if (props.data.contract_expiration)
-        props.data.contract_expiration = new Date(props.data.contract_expiration).getTime()
+    let data = {}
+    data = Object.assign(data, props.data)
 
-    props.data.access_level_profile = props.data.access_level_profile.key
-    props.data.unit = props.data.unit.key
-    props.data.linkage = props.data.linkage.key
-    if (props.data.senior_member)
-        props.data.senior_member = props.data.senior_member.key
+    data.authorization_token = cookies.get('authorization_token')
+    data.official_publication_date = new Date(data.official_publication_date).getTime()
+    data.admission_date = new Date(data.admission_date).getTime()
+    if (data.contract_expiration)
+        data.contract_expiration = new Date(data.contract_expiration).getTime()
 
-    if (props.data.commissioned_role)
-        props.data.commissioned_role = props.data.commissioned_role.key
-    if (props.data.effective_role)
-        props.data.effective_role = props.data.effective_role.key
-    props.data.member = props.memberID
+    data.access_level_profile = data.access_level_profile.key
+    data.unit = data.unit.key
+    data.linkage = data.linkage.key
+    if (data.senior_member)
+        data.senior_member = data.senior_member.key
+
+    if (data.commissioned_role)
+        data.commissioned_role = data.commissioned_role.key
+    if (data.effective_role)
+        data.effective_role = data.effective_role.key
+    data.member = props.memberID
 
     await axios({
         method: props.create ? 'post': 'put',
-
         url: !props.create ? (Host() + 'collaboration/' + props.collaborationID) :(Host() + 'collaboration'),
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
-        data: props.data
+        data: data
     }).then(() => {
         response = true
     }).catch(error => {
@@ -41,5 +44,6 @@ export default async function submitCollaboration(props) {
 submitCollaboration.propTypes = {
     create: PropTypes.bool,
     data: PropTypes.object,
-    memberID: PropTypes.number
+    memberID: PropTypes.number,
+    collaborationID: PropTypes.any
 }

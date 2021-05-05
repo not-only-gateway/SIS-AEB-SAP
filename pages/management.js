@@ -21,7 +21,6 @@ export default function management() {
     const [accessProfile, setAccessProfile] = useState(null)
 
     const [openTab, setOpenTab] = useState(0)
-    const [valid, setValid] = useState(false)
 
     const [option, setOption] = useState(null)
 
@@ -75,11 +74,10 @@ export default function management() {
         return (
             <>
                 <Authenticate
-                    valid={(valid) || (new Cookies()).get('authorization_token') !== undefined}
-                    setValid={setValid}
                     redirect={() => {
                         router.push('/', '/', {locale: router.locale})
                     }}
+                    render={true}
                     locale={router.locale}
                 />
                 <HeaderLayout

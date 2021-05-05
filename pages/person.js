@@ -56,7 +56,6 @@ export default function person() {
 
     const [editMode, setEditMode] = useState(false)
     const [openTab, setOpenTab] = useState(0)
-    const [valid, setValid] = useState(false)
 
     useEffect(() => {
             if (editMode === false) {
@@ -132,11 +131,10 @@ export default function person() {
         return (
             <>
                 <Authenticate
-                    valid={(valid || !editMode) || (new Cookies()).get('authorization_token') !== undefined}
-                    setValid={setValid}
                     redirect={() => {
                         setEditMode(false)
                     }}
+                    render={editMode}
                     locale={router.locale}
                 />
                 <HeaderLayout

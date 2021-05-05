@@ -113,7 +113,7 @@ export default function Selector(props) {
             {renderModal()}
             <FormControl key={props.key} required={props.required} style={{
                 width: props.width,
-                height: '69px',
+                height: '72px',
                 marginTop: 'auto'
             }}>
                 <FormLabel style={{transform: 'translateY(-5px)'}}>{props.label}</FormLabel>

@@ -31,14 +31,12 @@ export default function CollaborationList(props) {
                 justifyItems: 'center',
                 gap: '16px'
             }}>
-                {!props.editionMode ?
-                    null :
-                    <Collaboration memberID={props.id} create={true} key={'create'} index={undefined} collaborationID={undefined} locale={props.locale} canEdit={props.editionMode}/>
-                }
+                <Collaboration memberID={props.id} create={true} key={'create'} index={undefined}
+                               collaborationID={undefined} locale={props.locale} canEdit={props.editionMode}/>
+
                 {collaborations.map((collaboration, index) => (
-                    <Collaboration memberID={props.id} collaborationID={collaboration.id} key={collaboration.id} create={false} index={index} locale={props.locale} canEdit={props.editionMode}/>
-
-
+                    <Collaboration memberID={props.id} collaborationID={collaboration.id} key={collaboration.id}
+                                   create={false} index={index} locale={props.locale} canEdit={props.editionMode}/>
                 ))
                 }
             </div>

@@ -9,11 +9,17 @@ import {Divider} from "@material-ui/core";
 export default function CollaborationSummary(props) {
     return (
         <div className={mainStyles.displayInlineStart} style={{width: "fit-content", gap: '16px'}}>
-            <div className={mainStyles.displayInlineStart}>
-                <AssignmentIndRounded style={getIconStyle({dark: false})}/>
-                <p className={mainStyles.secondaryParagraph}>{props.effectiveRole !== null ? props.effectiveRole : (props.commissionedRole !== null ? props.commissionedRole : props.additionalRoleInfo)}</p>
-            </div>
-            <Divider orientation={"horizontal"} style={{color: 'hsla(210, 11%, 78%, 0.5)', width: '10px'}}/>
+            {props.effectiveRole !== null || props.commissionedRole !== null || props.additionalRoleInfo !== null ?
+                <>
+                    <div className={mainStyles.displayInlineStart}>
+                        <AssignmentIndRounded style={getIconStyle({dark: false})}/>
+                        <p className={mainStyles.secondaryParagraph}>{props.effectiveRole !== null ? props.effectiveRole : (props.commissionedRole !== null ? props.commissionedRole : props.additionalRoleInfo)}</p>
+                    </div>
+                    <Divider orientation={"horizontal"} style={{color: 'hsla(210, 11%, 78%, 0.5)', width: '10px'}}/>
+                </>
+                :
+                null
+            }
             <div className={mainStyles.displayInlineStart}>
                 <ViewQuiltRoundedIcon style={getIconStyle({dark: false})}/>
                 <p className={mainStyles.secondaryParagraph}>{props.unit}</p>
@@ -24,16 +30,19 @@ export default function CollaborationSummary(props) {
                     width: "fit-content",
                     padding: '5px 10px 5px 10px',
                     borderRadius: '5px',
-                    backgroundColor: props.activeRole ? '#4ad862' : '#f54269',
-                    color: 'white',
-                    height: 'fit-content'
+                    color: props.activeRole ? '#4ad862' : '#f54269',
+                    fontWeight: 550,
+                    height: 'fit-content',
+                    textTransform: 'uppercase'
                 }}>
                     {props.activeRole ? 'Active' : 'Inactive'}
                 </div>
             </div>
-            {props.mainCollaboration ? <Divider orientation={"horizontal"} style={{color: 'hsla(210, 11%, 78%, 0.5)', width: '10px'}}/> : null}
+            {props.mainCollaboration ?
+                <Divider orientation={"horizontal"} style={{color: 'hsla(210, 11%, 78%, 0.5)', width: '10px'}}/> : null}
             {props.mainCollaboration ? 'Main' : null}
-            {props.substitute ? <Divider orientation={"horizontal"} style={{color: 'hsla(210, 11%, 78%, 0.5)', width: '10px'}}/> : null}
+            {props.substitute ?
+                <Divider orientation={"horizontal"} style={{color: 'hsla(210, 11%, 78%, 0.5)', width: '10px'}}/> : null}
 
             {props.substitute ?
                 <div className={mainStyles.displayInlineStart}>

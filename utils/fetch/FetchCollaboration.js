@@ -17,16 +17,20 @@ export default async function fetchCollaboration(props) {
         response = res.data
         if (response.senior)
             response.senior = {key: response.senior.id, value: response.senior.name}
-        if (response.effective_role)
+        if (response.effective_role) {
             response.effective_role = {key: response.effective_role.id, value: response.effective_role.denomination}
-        if (response.commissioned_role)
+        }
+        if (response.commissioned_role) {
             response.commissioned_role = {
                 key: response.commissioned_role.id,
                 value: response.commissioned_role.denomination
             }
-        response.access_profile = {key: response.access_profile.id, value: response.access_profile.denomination}
+        }
+
+        response.access_level_profile = {key: response.access_level_profile.id, value: response.access_level_profile.denomination}
         response.unit = {key: response.unit.id, value: response.unit.acronym}
         response.linkage = {key: response.linkage.id, value: response.linkage.denomination}
+
         props.setLoading(false)
     }).catch(error => {
         console.log(error)
