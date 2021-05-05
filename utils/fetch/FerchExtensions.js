@@ -17,14 +17,14 @@ export default async function FetchExtensions(props) {
             case 0: {
                 props.setResponse([...props.data, ...res.data])
                 if (res.data.length > 0)
-                    props.setMaxID(res.data[res.data.length - 1].profile.id)
+                    props.setMaxID(res.data[res.data.length - 1].member.id)
                 props.setLastFetchedSize(res.data.length)
                 break
             }
             case 1: {
                 props.setResponse(res.data)
                 if (res.data.length > 0)
-                    props.setMaxID(res.data[res.data.length - 1].profile.id)
+                    props.setMaxID(res.data[res.data.length - 1].member.id)
                 props.setLastFetchedSize(res.data.length)
                 break
             }

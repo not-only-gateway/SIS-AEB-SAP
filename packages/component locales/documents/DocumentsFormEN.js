@@ -9,5 +9,6 @@ export default {
     agency: 'Agency',
     section: 'Electoral Section',
     zone: 'Electoral Zone',
-    saveButton: 'Save',
+    save: 'Save',
+    create: 'Next'
 }

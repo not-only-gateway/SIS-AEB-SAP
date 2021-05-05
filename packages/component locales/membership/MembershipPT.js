@@ -6,6 +6,7 @@ export default {
     entity: 'Entidade',
     options: [{key: true, value: 'Sim'}, {key: false, value: 'Não'}],
     save: 'Salvar',
-    create: 'Criar',
+    create: 'Próximo',
+    altPhone: 'Telefone alternativo'
 
 }

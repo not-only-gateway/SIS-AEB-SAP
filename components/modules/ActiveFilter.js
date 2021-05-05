@@ -11,7 +11,7 @@ export default function ActiveFilter(props) {
             key={props.filter.key + '-filter-' + props.index}
             className={[animations.popInAnimation, mainStyles.overflowEllipsis, mainStyles.displayInlineCenter].join(' ')}
             style={{
-                backgroundColor: hovered ? '#f54269' : 'white',
+                backgroundColor: hovered && !props.filter.disabled ? '#f54269' : 'white',
                 width: 'calc(12.5% - 16px)',
                 animationDelay: props.index * 10 + 'ms',
                 borderRadius: '5px',
@@ -36,8 +36,8 @@ export default function ActiveFilter(props) {
                     props.setChanged(true)
                 }
             }}>
-            <DeleteForeverRounded style={{color: 'white',  display:!hovered ? 'none' : null, opacity: 0,animationDelay: '50ms'}} className={animations.popInAnimation}/>
-            <p style={{margin: 0, display: hovered ? 'none' : null, opacity: 0, animationDelay: '50ms'}} className={animations.popInAnimation}>
+            <DeleteForeverRounded style={{color: 'white',  display:!hovered ||props.filter.disabled ? 'none' : null, opacity: 0,animationDelay: '50ms'}} className={animations.popInAnimation}/>
+            <p style={{margin: 0, display: hovered && !props.filter.disabled  ? 'none' : null, opacity: 0, animationDelay: '50ms'}} className={animations.popInAnimation}>
                 {props.filter.value}
             </p>
         </div>

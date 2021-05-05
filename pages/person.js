@@ -7,7 +7,7 @@ import fetchComponentData from "../utils/person/FetchData";
 import mainStyles from '../styles/shared/Main.module.css'
 import Profile from "../components/templates/Profile";
 
-import Collaborations from "../components/modules/Collaborations";
+import CollaborationList from "../components/modules/CollaborationList";
 import HeaderLayout from "../components/layout/HeaderLayout";
 import TabContent from "../components/templates/TabContent";
 import Authenticate from "../components/modules/Authenticate";
@@ -17,9 +17,17 @@ import DocumentsForm from "../components/templates/forms/DocumentsForm";
 import ContactForm from "../components/templates/forms/ContactForm";
 import AddressForm from "../components/templates/forms/AddressForm";
 import fetchMember from "../utils/fetch/FetchMember";
-import fetchCollaboration from "../utils/fetch/FetchCollaboration";
+import FetchMainCollaboration from "../utils/fetch/FetchMainCollaboration";
 import submitPerson from "../utils/submit/SubmitPerson";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
+import fetchDocuments from "../utils/fetch/FetchDocuments";
+import fetchContacts from "../utils/fetch/FetchContacts";
+import fetchAddress from "../utils/fetch/FetchAddress";
+import submitContacts from "../utils/submit/SubmitContacts";
+import submitAddress from "../utils/submit/SubmitAddress";
+import submitDocuments from "../utils/submit/SubmitDocuments";
+import MembershipForm from "../components/templates/forms/MembershipForm";
+import submitMember from "../utils/submit/SubmitMember";
 
 export default function person() {
 
@@ -50,15 +58,32 @@ export default function person() {
     const [openTab, setOpenTab] = useState(0)
     const [valid, setValid] = useState(false)
 
-    function handleCollaborationChange(props) {
-
-        setCollaboration(prevState => ({
-            ...prevState,
-            [props.name]: props.value
-        }))
-    }
-
     useEffect(() => {
+            if (editMode === false) {
+                setDocuments({})
+                setContact({})
+                setAddress({})
+                if (accessProfile === null || (!accessProfile.canUpdatePerson)) {
+                    handleObjectChange({event: {name: 'education', value: null}, setData: setPerson})
+                    handleObjectChange({event: {name: 'marital_status', value: null}, setData: setPerson})
+                    handleObjectChange({event: {name: 'mother_name', value: null}, setData: setPerson})
+                    handleObjectChange({event: {name: 'father_name', value: null}, setData: setPerson})
+                    handleObjectChange({event: {name: 'birth_place', value: null}, setData: setPerson})
+                }
+            } else {
+                fetchDocuments(person.id).then(res => {
+                    if (res !== null)
+                        setDocuments(res)
+                })
+                fetchContacts(person.id).then(res => {
+                    if (res !== null)
+                        setContact(res)
+                })
+                fetchAddress(person.id).then(res => {
+                    if (res !== null)
+                        setAddress(res)
+                })
+            }
             if (router.isReady && router.query.id !== id) {
                 setId(router.query.id)
                 fetchMember(router.query.id).then(res => {
@@ -74,28 +99,32 @@ export default function person() {
                         setPerson(res.person)
                     }
                 })
-                fetchCollaboration(router.query.id).then(res => {
+                FetchMainCollaboration(router.query.id).then(res => {
                         if (res !== null) {
-                            handleObjectChange({event: {name: 'effectiveRole', value: res.effective_role}, setData: setPerson})
-                            handleObjectChange({event: {name: 'senior', value: res.senior_member}, setData: setPerson})
-                            handleObjectChange({event: {name: 'linkage', value: res.linkage}, setData: setPerson})
-                            handleObjectChange({event: {name: 'unit', value: res.unit}, setData: setPerson})
-                            handleObjectChange({event: {name: 'data', value: res.collaboration}, setData: setPerson})
+                            handleObjectChange({
+                                event: {name: 'effectiveRole', value: res.effective_role},
+                                setData: setCollaboration
+                            })
+                            handleObjectChange({event: {name: 'senior', value: res.senior_member}, setData: setCollaboration})
+                            handleObjectChange({event: {name: 'linkage', value: res.linkage}, setData: setCollaboration})
+                            handleObjectChange({event: {name: 'unit', value: res.unit}, setData: setCollaboration})
+                            handleObjectChange({event: {name: 'data', value: res.collaboration}, setData: setCollaboration})
                             handleObjectChange({
                                 event: {name: 'commissionedRole', value: res.commissioned_role},
-                                setData: setPerson
+                                setData: setCollaboration
                             })
                         }
                         setLoading(false)
                     }
                 )
             }
-            setLang(getLanguage(router.locale, router.pathname))
+            if (lang === null)
+                setLang(getLanguage(router.locale, router.pathname))
 
             if (accessProfile === null)
                 readAccessProfile().then(res => setAccessProfile(res))
         },
-        [router.locale, router.isReady, router.query]
+        [router.locale, router.isReady, router.query, editMode]
     )
 
 
@@ -126,21 +155,26 @@ export default function person() {
                             editMode && accessProfile !== null ? {
                                 disabled: !accessProfile.canViewDocuments,
                                 key: 2,
+                                value: 'Membership'
+                            } : null,
+                            editMode && accessProfile !== null ? {
+                                disabled: !accessProfile.canViewDocuments,
+                                key: 3,
                                 value: 'Documents'
                             } : null,
                             editMode && accessProfile !== null ? {
                                 disabled: !accessProfile.canViewContact,
-                                key: 3,
+                                key: 4,
                                 value: 'Contact'
                             } : null,
                             editMode && accessProfile !== null ? {
                                 disabled: !accessProfile.canViewLocation,
-                                key: 4,
+                                key: 5,
                                 value: 'Address'
                             } : null,
                             (accessProfile !== null && accessProfile.canUpdateCollaboration && editMode) ? {
                                 disabled: false,
-                                key: 5,
+                                key: 6,
                                 value: 'Collaborations'
                             } : null
                         ]
@@ -204,8 +238,24 @@ export default function person() {
                                             />
                                         )
                                     } : null,
-                                editMode && accessProfile !== null ? {
+                                (editMode) && accessProfile !== null ? {
                                     buttonKey: 2,
+                                    value: (
+                                        <MembershipForm
+                                            id={id}
+                                            member={member}
+                                            handleChange={event => handleObjectChange({
+                                                event: event,
+                                                setData: setMember
+                                            })}
+                                            handleSubmit={submitMember}
+                                            editable={accessProfile.canUpdateMembership}
+                                            locale={router.locale}
+                                        />
+                                    )
+                                } : null,
+                                editMode && accessProfile !== null ? {
+                                    buttonKey: 3,
                                     value: (
                                         <DocumentsForm
                                             id={id}
@@ -221,7 +271,7 @@ export default function person() {
                                     )
                                 } : null,
                                 editMode && accessProfile !== null ? {
-                                    buttonKey: 3,
+                                    buttonKey: 4,
                                     value: (
                                         <ContactForm
                                             id={id}
@@ -237,7 +287,7 @@ export default function person() {
                                     )
                                 } : null,
                                 editMode && accessProfile !== null ? {
-                                    buttonKey: 4,
+                                    buttonKey: 5,
                                     value: (
                                         <AddressForm
                                             id={id}
@@ -256,9 +306,9 @@ export default function person() {
                                 } : null,
 
                                 {
-                                    buttonKey: 5,
+                                    buttonKey: 6,
                                     value: (
-                                        <Collaborations
+                                        <CollaborationList
                                             id={id}
                                             dark={false}
                                             editionMode={editMode && accessProfile !== null && accessProfile.canUpdateCollaboration}

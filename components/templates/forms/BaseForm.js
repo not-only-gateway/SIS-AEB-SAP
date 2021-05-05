@@ -54,7 +54,7 @@ export default function BaseForm(props) {
             !props.person.nationality ||
             !props.person.birth_place ||
             !props.person.birth ||
-            !props.person.disabled_person ||
+            props.person.disabled_person === undefined||
             !props.person.education ||
             !props.person.gender ||
             !props.person.marital_status ||
@@ -144,7 +144,7 @@ export default function BaseForm(props) {
                     <Button style={{
                         width: '100%', marginTop: '50px',
                         backgroundColor: disabled() ? 'rgba(0,0,0,0.07)' : '#0095ff',
-                        color: '#777777',
+                        color: disabled() ? '#777777' : 'white',
                         fontWeight: 550,
 
                     }} disabled={disabled()} variant={'contained'} onClick={() => {

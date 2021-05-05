@@ -57,6 +57,15 @@ export default function mapToSelect(props) {
             })
             break
         }
+        case 6: {
+            props.entities.map(data => {
+                response.push({
+                    key: data.id,
+                    value: data.denomination
+                })
+            })
+            break
+        }
         default: {
             break
         }
@@ -70,4 +79,5 @@ mapToSelect.propTypes={
     commissionedRoles: PropTypes.array,
     effectiveRoles: PropTypes.array,
     units: PropTypes.array,
+    entities: PropTypes.array
 }

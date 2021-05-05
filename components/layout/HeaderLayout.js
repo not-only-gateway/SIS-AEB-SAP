@@ -21,9 +21,7 @@ export default function HeaderLayout(props) {
 
         return (
             <Modal
-                disablePortal
-                disableEnforceFocus
-                disableAutoFocus
+
                 open={isModalVisible}
                 onClose={handleButtonClick}
             >

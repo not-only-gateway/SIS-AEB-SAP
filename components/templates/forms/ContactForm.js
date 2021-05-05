@@ -14,11 +14,11 @@ export default function ContactForm(props) {
 
     function disabled() {
         return (
-            props.contact.email === null ||
-            props.contact.phone === null ||
-            props.contact.email ||
-            props.contact.phone ||
-            changed
+            props.contact.personal_email === null ||
+            props.contact.personal_phone === null ||
+            !props.contact.personal_email ||
+            !props.contact.personal_phone ||
+            !changed
         )
     }
 
@@ -30,34 +30,40 @@ export default function ContactForm(props) {
     if (lang !== null)
         return (
             <div className={mainStyles.displayWarp} style={{justifyContent: 'center', width: '100%'}}>
-                <InputLayout inputName={lang.email} dark={props.dark} handleChange={props.handleChange} name={'email'}
+                <InputLayout inputName={lang.email} dark={props.dark} handleChange={props.handleChange}
+                             name={'personal_email'}
                              inputType={0} disabled={!props.editable} size={'calc(50% - 8px)'} required={true}
-                             initialValue={props.contact.email} key={"3-1"} setChanged={setChanged}/>
+                             initialValue={props.contact.personal_email} key={"3-1"} setChanged={setChanged}/>
 
-                <InputLayout inputName={lang.altEmail} dark={props.dark} handleChange={props.handleChange} name={'alternative_email'}
+                <InputLayout inputName={lang.altEmail} dark={props.dark} handleChange={props.handleChange}
+                             name={'personal_email_alt'}
                              inputType={0} disabled={!props.editable} size={'calc(50% - 8px)'} required={false}
-                             initialValue={props.contact.alternative_email} key={"3-2"} setChanged={setChanged}/>
+                             initialValue={props.contact.personal_email_alt} key={"3-2"} setChanged={setChanged}/>
 
-                <InputLayout inputName={lang.phone} dark={props.dark} handleChange={props.handleChange} name={'phone'}
-                             inputType={0} disabled={!props.editable} size={'calc(50% - 8px)'} required={true} numeric={true}
-                             initialValue={props.contact.phone} key={"3-3"} setChanged={setChanged}/>
+                <InputLayout inputName={lang.phone} dark={props.dark} handleChange={props.handleChange}
+                             name={'personal_phone'}
+                             inputType={0} disabled={!props.editable} size={'calc(50% - 8px)'} required={true}
+                             numeric={true}
+                             initialValue={props.contact.personal_phone} key={"3-3"} setChanged={setChanged}/>
 
-                <InputLayout inputName={lang.altPhone} dark={props.dark} handleChange={props.handleChange} name={'alternative_phone'}
-                             inputType={0} disabled={!props.editable} size={'calc(50% - 8px)'} required={false} numeric={true}
-                             initialValue={props.contact.alternative_phone} key={"3-4"} setChanged={setChanged}/>
+                <InputLayout inputName={lang.altPhone} dark={props.dark} handleChange={props.handleChange}
+                             name={'personal_phone_alt'}
+                             inputType={0} disabled={!props.editable} size={'calc(50% - 8px)'} required={false}
+                             numeric={true}
+                             initialValue={props.contact.personal_phone_alt} key={"3-4"} setChanged={setChanged}/>
 
                 {!props.editable ? null :
                     <Button style={{
                         width: '100%', marginTop: '50px',
                         backgroundColor: disabled() ? 'rgba(0,0,0,0.07)' : '#0095ff',
-                        color: '#777777',
+                        color: disabled() ? '#777777' : 'white',
                         fontWeight: 550,
 
                     }} disabled={disabled()} variant={'contained'} onClick={() => {
-                        props.handleSubmit({contact: props.contact, personID: props.id}).then(res => {
+                        props.handleSubmit({data: props.contact, personID: props.id}).then(res => {
                             setChanged(!res)
                             if (props.setAccepted !== undefined)
-                                props.setAccepted(res.status)
+                                props.setAccepted(res)
                         })
                     }}>
                         {props.create ? lang.create : lang.save}

@@ -5,5 +5,6 @@ export default {
     altEmail: 'Email Alternativo',
     phone: 'Telefone',
     altPhone: 'Telefone Alternativo',
-    save: 'Salvar'
+    save: 'Salvar',
+    create: 'Próximo'
 }

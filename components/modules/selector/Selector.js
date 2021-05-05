@@ -113,7 +113,7 @@ export default function Selector(props) {
             {renderModal()}
             <FormControl key={props.key} required={props.required} style={{
                 width: props.width,
-                height: '7vh',
+                height: '69px',
                 marginTop: 'auto'
             }}>
                 <FormLabel style={{transform: 'translateY(-5px)'}}>{props.label}</FormLabel>
@@ -121,12 +121,12 @@ export default function Selector(props) {
                     textTransform: 'none',
                     backgroundColor: 'transparent',
                     border: '#d0d0d0 1px solid',
-                    color: props.disabled ? null : '#262626',
+                    color: !props.disabled ? null : 'rgba(0,0,0, 0.4)',
                     padding: 0,
                     height: '100%',
                 }} variant={'contained'} disableElevation={true}>
                     <div className={[mainStyles.displayInlineSpaced, mainStyles.primaryParagraph].join(' ')}>
-                        {props.selected !== undefined && props.selected !== null && props.selected.key !== null ? props.selected.value : <AddRounded style={{color: 'black'}}/>}
+                        {props.selected !== undefined && props.selected !== null && props.selected.key !== null ? props.selected.value : <AddRounded/>}
                     </div>
                 </Button>
             </FormControl>

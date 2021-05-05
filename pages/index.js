@@ -139,7 +139,7 @@ export default function Index() {
                                     value: filters.searchInput.length > 0 ? filters.searchInput : null,
                                     type: 'text'
                                 },
-                                {key: 'option', value: option === 'people' ? 'All' :null, disabled: true}
+                                {key: 'option', value: option === 'member' ? 'All' :null, disabled: true}
                             ]}/>}
 
                 />

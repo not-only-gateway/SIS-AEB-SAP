@@ -82,10 +82,10 @@ export default function ExtensionsFilters(props) {
                     <FormControlLabel
                         control={
                             <Checkbox key={'checkbox-all-collaborators'}
-                                      checked={props.option === 'people'}
+                                      checked={props.option === 'member'}
 
                                       onChange={() => {
-                                          props.setOption('people')
+                                          props.setOption('member')
                                           props.setChanged(true)
                                           props.handleFilterChange({name: 'unit', value: undefined})
                                           props.handleFilterChange({name: 'commissionedRole', value: undefined})

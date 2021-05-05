@@ -30,10 +30,13 @@ import AccessProfileEN from "../../packages/component locales/access/AccessProfi
 import MembershipEN from "../../packages/component locales/membership/MembershipEN";
 import MembershipES from "../../packages/component locales/membership/MembershipES";
 import MembershipPT from "../../packages/component locales/membership/MembershipPT";
+import AddressEN from "../../packages/component locales/address/AddressEN";
+import AddressES from "../../packages/component locales/address/AddressES";
+import AddressPT from "../../packages/component locales/address/AddressPT";
 
 export default function getComponentLanguage(props) {
     let response = null
-    switch ( props.locale) {
+    switch (props.locale) {
         case 'en': {
             switch (props.component) {
                 case 'collaborations': {
@@ -81,11 +84,15 @@ export default function getComponentLanguage(props) {
                     break
                 }
                 case 'effective': {
-                    response =simpleEN.effective
+                    response = simpleEN.effective
                     break
                 }
                 case 'membership': {
                     response = MembershipEN
+                    break
+                }
+                case 'address': {
+                    response = AddressEN
                     break
                 }
                 default:
@@ -140,11 +147,15 @@ export default function getComponentLanguage(props) {
                     break
                 }
                 case 'effective': {
-                    response =simpleES.effective
+                    response = simpleES.effective
                     break
                 }
                 case 'membership': {
                     response = MembershipES
+                    break
+                }
+                case 'address': {
+                    response = AddressES
                     break
                 }
                 default:
@@ -199,11 +210,15 @@ export default function getComponentLanguage(props) {
                     break
                 }
                 case 'effective': {
-                    response =simplePT.effective
+                    response = simplePT.effective
                     break
                 }
                 case 'membership': {
                     response = MembershipPT
+                    break
+                }
+                case 'address': {
+                    response = AddressPT
                     break
                 }
                 default:
@@ -211,7 +226,8 @@ export default function getComponentLanguage(props) {
             }
             break
         }
-        default: break
+        default:
+            break
     }
 
     return response

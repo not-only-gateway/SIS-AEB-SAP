@@ -10,10 +10,7 @@ import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 export default function DocumentsForm(props) {
 
     const [lang, setLang] = useState(null)
-    const [loading, setLoading] = useState(true)
     const [changed, setChanged] = useState(false)
-
-
     function disabled() {
         return (
             props.documents.cpf === null ||
@@ -26,16 +23,16 @@ export default function DocumentsForm(props) {
             props.documents.electoral_section === null ||
             props.documents.pis === null ||
 
-            props.documents.cpf ||
-            props.documents.dispatch_date ||
-            props.documents.rg ||
-            props.documents.issuing_body ||
-            props.documents.voter_registration ||
-            props.documents.electoral_zone ||
-            props.documents.work_card ||
-            props.documents.electoral_section ||
-            props.documents.pis ||
-            changed
+            !props.documents.cpf ||
+            !props.documents.dispatch_date ||
+            !props.documents.rg ||
+            !props.documents.issuing_body ||
+            !props.documents.voter_registration ||
+            !props.documents.electoral_zone ||
+            !props.documents.work_card ||
+            !props.documents.electoral_section ||
+            !props.documents.pis ||
+            !changed
         )
     }
 
@@ -43,8 +40,7 @@ export default function DocumentsForm(props) {
         setLang(getComponentLanguage({locale: props.locale, component: 'documents'}))
     }, [])
 
-
-    if (!loading && lang !== null)
+    if (lang !== null)
         return (
             <div className={mainStyles.displayWarp} style={{justifyContent: 'center'}}>
                 <InputLayout inputName={'CPF'} dark={props.dark} handleChange={props.handleChange} inputType={0} name={'cpf'}
@@ -113,14 +109,15 @@ export default function DocumentsForm(props) {
                     <Button style={{
                         width: '100%', marginTop: '50px',
                         backgroundColor: disabled() ? 'rgba(0,0,0,0.07)' : '#0095ff',
-                        color: '#777777',
+                        color:  disabled() ? '#777777' : 'white',
                         fontWeight: 550,
 
                     }} disabled={disabled()} variant={'contained'} onClick={() => {
-                        props.handleSubmit({documents: props.documents, personID: props.id}).then(res => {
+                        props.handleSubmit({data: props.documents, personID: props.id}).then(res => {
+                            console.log('THIS IS RESPONSE -> ' + JSON.stringify(res))
                             setChanged(!res)
                             if (props.setAccepted !== undefined)
-                                props.setAccepted(res.status)
+                                props.setAccepted(res)
                         })
                     }}>
                         {props.create ? lang.create : lang.save}

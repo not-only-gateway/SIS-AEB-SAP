@@ -60,14 +60,12 @@ export default function Structure() {
                                           key: 1,
                                           value: lang.collaborators
                                       },
-                                      {
-                                          disabled: false,
-                                          key: 2,
-                                          value: 'Estrutura organizacional'
-                                      },
-                                  ]
-
-                                  ,
+                                      // {
+                                      //     disabled: false,
+                                      //     key: 2,
+                                      //     value: 'Estrutura organizacional'
+                                      // },
+                                  ],
                                   setOpenTab: setOpenTab,
                                   openTab: openTab
                               }}

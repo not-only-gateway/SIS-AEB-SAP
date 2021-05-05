@@ -6,6 +6,6 @@ export default {
     entity: 'Entity',
     options: [{key: true, value: 'Yes'}, {key: false, value: 'No'}],
     save: 'Save',
-    create: 'Create',
-
+    create: 'Next',
+    altPhone: 'Alternative Phone'
 }

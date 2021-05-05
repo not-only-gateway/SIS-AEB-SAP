@@ -6,9 +6,10 @@ export default {
     entity: 'Entity',
     options: [{key: true, value: 'Yes'}, {key: false, value: 'No'}],
     save: 'Save',
-    create: 'Create',
+    create: 'Next',
     contactInfo: 'Personal Contacts',
     documentsInfo: 'Personal Documents',
     memberInfo: 'Corporate information',
-    baseInfo: 'Basic Information'
+    baseInfo: 'Basic Information',
+    altPhone: 'Alternative Phone'
 }
