@@ -8,6 +8,8 @@ import ProfilePersona from "../ProfilePersona";
 
 export default function NavigationProfile(props) {
     const [open, setOpen] = useState(false)
+    const [hoveredOption, setHoveredOption] = useState(null)
+    const [hovered, setHovered] = useState(false)
     return (
         <div className={mainStyles.displayColumnSpaced} style={{
             position: 'absolute',
@@ -15,7 +17,10 @@ export default function NavigationProfile(props) {
             justifyItems: 'center',
             width: '100%',
             borderRadius: '8px',
+
         }}
+             onMouseEnter={() => setHovered(true)}
+             onMouseLeave={() => setHovered(false)}
         >
             {open && !props.reduced ?
                 <div style={{
@@ -25,19 +30,22 @@ export default function NavigationProfile(props) {
                     opacity: 0
                 }} className={[mainStyles.displayColumnSpaced, animations.slideUpAnimation].join(' ')}>
                     <Link href={{pathname: 'person', query: {id: props.profile.id}}}>
-                        <Button style={{
-                            textTransform: 'none',
+                        <Button onMouseLeave={() => setHoveredOption(null)} onMouseEnter={() => setHoveredOption(0)} style={{
+                            width: '100%',
                             justifyContent: 'flex-start',
-                            height: '5vh',
-                            color: 'white'
+                            textTransform: 'capitalize',
+                            transition: '300ms ease-in-out',
+                            color: hoveredOption === 0 ? '#0095ff' : 'white',
+                            paddingTop: '8px'
                         }}>{props.locale.profile}</Button>
                     </Link>
                     <Link href={{pathname: 'signin'}}>
-                        <Button style={{
-                            textTransform: 'none',
+                        <Button onMouseLeave={() => setHoveredOption(null)} onMouseEnter={() => setHoveredOption(1)} style={{
+                            width: '100%',
                             justifyContent: 'flex-start',
-                            height: '5vh',
-                            color: 'white'
+                            textTransform: 'capitalize',
+                            transition: '300ms ease-in-out',
+                            color: hoveredOption === 1 ? '#0095ff' : 'white'
                         }}>{props.locale.signout}</Button>
                     </Link>
                     <Divider style={{marginBottom: '10px'}} orientation={"horizontal"}/>
@@ -50,11 +58,12 @@ export default function NavigationProfile(props) {
                 width: props.reduced ? '65px' : '250px',
                 height: '65px',
                 textTransform: 'none',
-                borderRadius: open ? '0px 0px 5px 5px' : '5px',
-                backgroundColor: open ? '#333333' : '#262626',
+                borderRadius: open && !props.reduced ? '0px 0px 5px 5px' : '8px',
+                backgroundColor: open ? '#333333' : hovered ? 'rgba(255, 255, 255, .2)' : 'transparent',
                 display: 'flex',
                 justifyContent: 'space-between',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                transition: '300ms ease-in-out'
             }} onClick={() => {
                 if (props.reduced)
                     props.setReduced(false)

@@ -11,7 +11,7 @@ import ExtensionsSearch from "../components/elements/ExtensionsSearch";
 import ExtensionsFilters from "../components/modules/filters/ExtensionsFilters";
 import HeaderLayout from "../components/layout/HeaderLayout";
 import FiltersComponent from "../components/layout/FiltersComponent";
-import ExtensionsList from "../components/templates/list/ExtensionsList";
+import Extension from "../components/templates/list/Extension";
 import {readAccessProfile} from "../utils/shared/IndexedDB";
 
 export default function Index() {
@@ -120,7 +120,7 @@ export default function Index() {
                             activeFilters={[
                                 {
                                     key: 'unit',
-                                    value: filters.unit !== undefined ? filters.unit.value : null
+                                    value: filters.unit !== undefined   ? filters.unit.value : null
                                 },
                                 {
                                     key: 'commissionedRole',
@@ -170,7 +170,7 @@ export default function Index() {
                                 >
                                     <div style={{display: 'grid', gap: '8px', marginTop: '8px'}}>
                                         {data.current.map((member, index) =>
-                                            <ExtensionsList
+                                            <Extension
                                                 data={member}
                                                 index={index}
                                                 redirect={id => {

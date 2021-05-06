@@ -8,77 +8,84 @@ import animations from '../../styles/shared/Animations.module.css'
 
 export default function NavigationDropDownButton(props) {
     const [open, setOpen] = useState(false)
+    const [hovered, setHovered] = useState(false)
+    const [hoveredOption, setHoveredOption] = useState(null)
     useEffect(() => {
-        if(props.reduced)
+        if (props.reduced)
             setOpen(false)
     }, [props.reduced])
     return (
-        <>
-            <ThemeProvider theme={createMuiTheme({
-                palette: {
-                    type: "dark"
-                }
-            })}>
 
-                <div className={mainStyles.marginVertical}
+        <div
+            className={mainStyles.marginVertical}
+            style={{
+                borderRadius: '8px',
+                width: props.reduced ? '65px' : '250px',
+                height: '65px',
+            }}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+        >
+
+            <Button style={{
+                width: '100%',
+                height: 'auto',
+                textTransform: 'none',
+                borderRadius: open ? '8px 8px 0px 0px' : '8px',
+                backgroundColor: open ? '#333333' : hovered ? 'rgba(255, 255, 255, .2)' : 'transparent',
+                transition: '300ms ease-in-out',
+                padding: '16px',
+                fontFamily: 'Verdana, Arial, sans-serif'
+            }} onClick={() => {
+                setOpen(!open)
+                props.setReduced(false)
+            }
+            }>
+                <div className={props.reduced ? mainStyles.displayInlineCenter : mainStyles.displayInlineStart}
                      style={{
-                         ...{
-                             borderRadius: open? '8px 8px 0 0' : null,
-                             backgroundColor: open ? '#333333' : null,
-                             width: props.reduced ? '65px' : '250px',
-                             height: '65px',
-                                position: 'relative'
-                         },
-                         ...props.highlight ? getBoxShadow({dark: props.dark}) : null
+                         width: '100%',
+                         color: props.highlight || hovered ? '#0095ff' : 'white',
+                         transition: '300ms ease-in-out',
                      }}>
-
-                    <Button style={{
-                        width: props.reduced ? '65px' : '250px',
-                        height: '65px',
-                        textTransform: 'none',
-                        borderRadius: open? '8px 8px 0 0' : '8px',
-                        transition: '.3s'
-                    }} onClick={() => {
-                        if (props.reduced)
-                            props.setReduced(false)
-                        setOpen(!open)
-                    }} >
-                        <div className={mainStyles.displayInlineStart}
-                             style={{
-                                 width: '100%',
-                             }}>
-                            {props.icon}
-                            <p style={{
-                                transition: '350ms',
-                                transform: 'translateX(10px)',
-                                fontSize: '.95rem',
-                                color: 'white'
-                            }}> {!props.reduced ? props.label : null}</p>
-                        </div>
-                    </Button>
-                    {open ?
-                        <div style={{
-                            position: 'absolute',
-                            justifyItems: 'center',
-                            width: '100%',
-                            opacity: 0,
-                            borderRadius: '0px 0 8px 8px',
-                            backgroundColor: open ? '#333333' : null,
-                        }} className={[mainStyles.displayColumnSpaced, animations.slideDownAnimation].join(' ')} >
-                            {props.options.map(option => (
-                                <Link href={{pathname: option.path, locale: props.locale, query: option.query}}>
-                                    <Button style={{width: '100%', justifyContent: 'flex-start', textTransform: 'capitalize', color: 'white'}}>
-                                        {option.label}
-                                    </Button>
-                                </Link>
-                            ))}
-                        </div>
-                        :
-                        null
-                    }
+                    <div className={mainStyles.displayInlineCenter}>
+                        {props.icon}
+                    </div>
+                    <div style={{
+                        display: props.reduced ? 'none' : 'unset',
+                        marginLeft: '16px',
+                        fontSize: '.95rem',
+                        fontWeight: 550,
+                    }}> {props.label}</div>
                 </div>
-            </ThemeProvider>
-        </>
+            </Button>
+
+            {open ?
+                <div style={{
+                    position: 'absolute',
+                    justifyItems: 'center',
+                    width: '250px',
+                    opacity: 0,
+                    borderRadius: '0px 0 8px 8px',
+                    backgroundColor: open ? '#333333' : null,
+                }} className={[mainStyles.displayColumnSpaced, animations.slideDownAnimation].join(' ')}>
+                    {props.options.map((option, index) => (
+                        <Link href={{pathname: option.path, locale: props.locale, query: option.query}}>
+                            <Button onMouseLeave={() => setHoveredOption(null)} onMouseEnter={() => setHoveredOption(index)} style={{
+                                width: '100%',
+                                justifyContent: 'flex-start',
+                                textTransform: 'capitalize',
+                                color: hoveredOption === index ? '#0095ff' : 'white',
+                                transition: '300ms ease-in-out',
+                            }}>
+                                {option.label}
+                            </Button>
+                        </Link>
+                    ))}
+                </div>
+                :
+                null
+            }
+        </div>
     )
 
 }

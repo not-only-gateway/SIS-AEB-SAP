@@ -25,7 +25,7 @@ export default function ExtensionsFilters(props) {
 
     return (
         <div className={shared.filterContainer}>
-            <p style={{marginRight: "auto", fontSize: '1.2rem'}}>Filters</p>
+            <h3 style={{marginRight: "auto"}}>Filters</h3>
             <Selector
                 required={false}
                 selected={props.filters.unit}

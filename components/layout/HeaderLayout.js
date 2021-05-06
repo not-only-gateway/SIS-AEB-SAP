@@ -55,13 +55,12 @@ export default function HeaderLayout(props) {
                 gap: props.availableTabs !== undefined ? '16px' : null
             }}>
 
-                <div className={mainStyles.displayInlineSpaced} style={{width: props.width}}>
+                <div className={mainStyles.displayInlineStart} style={{width: props.width}}>
                     {typeof (props.title) === 'string' ?
                         <div>
-                            <p className={mainStyles.primaryHeader}
-                               style={{marginBottom: props.information !== undefined ? 0 : null}}>
+                            <h2 style={{marginBottom: props.information !== undefined ? 0 : null, padding: 0}}>
                                 {props.title}
-                            </p>
+                            </h2>
                             {props.information !== undefined ?
                                 <div className={mainStyles.tertiaryParagraph}
                                      style={{color: '#555555', marginBottom: '10px'}}>
@@ -77,7 +76,7 @@ export default function HeaderLayout(props) {
                     }
                     {props.filterComponent !== undefined ?
                         <Button onClick={handleButtonClick}>
-                            <FilterListRounded style={{color: '#777777'}}/>
+                            <FilterListRounded style={{color: 'black'}}/>
                         </Button>
                         : null
                     }

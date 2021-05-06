@@ -11,18 +11,15 @@ export default function Profile(props) {
             key={props.person.id} style={{width: '100%', marginTop: '10px'}}>
 
             <div className={mainStyles.displayInlineSpaced}>
-                <PersonPersona size={'140px'} key={props.person.id} dark={false}
+                <PersonPersona size={'130px'} key={props.person.id} dark={false}
                                 cakeDay={false}
                                 image={props.person.image} variant={'rounded'}/>
 
-                <div style={{marginLeft: '10px', height: 'auto'}}>
-                    <p style={{
-                        fontSize: '1.5rem',
-                        'fontWeight': 540
-                    }}>
+                <div style={{marginLeft: '32px', height: 'auto'}}>
+                    <h2>
                         {props.person.name}
-                    </p>
-                    <p className={mainStyles.tertiaryParagraph} style={{color: '#777777'}}>
+                    </h2>
+                    <p style={{fontSize: '.9rem',color: '#555555'}}>
                         {props.member.corporate_email}
                     </p>
                 </div>
@@ -30,8 +27,7 @@ export default function Profile(props) {
 
             {props.editable ?
                 <Button style={{
-                    width: '15%',
-                    backgroundColor: 'black',
+                    backgroundColor: '#0095ff',
                     color: 'white',
                     textTransform: 'none'
                 }} onClick={() => props.setEditMode(!props.editMode)} variant={'contained'}>

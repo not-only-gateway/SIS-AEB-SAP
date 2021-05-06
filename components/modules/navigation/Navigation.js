@@ -43,12 +43,13 @@ export default function Navigation(props) {
              style={{
                  width: props.reduced ? '75px' : '260px',
                  transition: '250ms ease-in-out',
-                 backgroundColor: 'black',
+                 backgroundColor: '#111111',
                  color: 'white',
                  boxShadow: 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px'
              }}>
 
-            <div className={props.reduced ? mainStyles.displayInlineCenter : mainStyles.displayInlineSpaced} style={{height: '33.333%',alignItems: 'flex-start', paddingTop: '4px'}}>
+            <div className={props.reduced ? mainStyles.displayInlineCenter : mainStyles.displayInlineSpaced}
+                 style={{height: '33.333%', alignItems: 'flex-start', paddingTop: '4px'}}>
                 <div>
                     {props.reduced ? null :
                         <img className={animations.fadeIn}
@@ -56,7 +57,8 @@ export default function Navigation(props) {
                              src={'/SIMPLE.png'} alt={'logo'}/>
                     }
                 </div>
-                <div style={{width: '65px',transform: props.reduced ? null : 'translateX(-5px)', maxHeight: '65px'}} className={mainStyles.displayInlineCenter}>
+                <div style={{width: '65px', transform: props.reduced ? null : 'translateX(-5px)', maxHeight: '65px'}}
+                     className={mainStyles.displayInlineCenter}>
                     <NavigationButton
                         dark={props.dark} linkPath={null}
                         highlight={false} locale={props.locale}
@@ -87,32 +89,22 @@ export default function Navigation(props) {
                     highlight={props.path === '/'} locale={props.locale}
                     label={lang.extensions} reduced={props.reduced}
                     icon={
-                        <ExtensionRounded
-                            style={{
-                                ...{color: props.path === '/' ? '#0095ff' : 'white'},
-                                ...props.reduced ? {margin: 'auto'} : null
-                            }}/>
+                        <ExtensionRounded/>
                     }
                 />
                 <NavigationButton
                     dark={props.dark} linkPath={'/structure'}
                     highlight={props.path === '/structure'} locale={props.locale}
                     label={lang.structure} reduced={props.reduced}
-                    icon={<AccountTreeRounded
-                        style={{
-                            ...{color: props.path === '/structure' ? '#0095ff' : 'white'},
-                            ...props.reduced ? {margin: 'auto'} : null
-                        }}/>}
+                    icon={<AccountTreeRounded/>}
                 />
                 <NavigationButton
                     dark={props.dark} linkPath={'/settings'}
                     highlight={props.path === '/settings'} locale={props.locale}
                     label={lang.settings} reduced={props.reduced}
-                    icon={<SettingsRounded
-                        style={{
-                            ...{color: props.path === '/settings' ? '#0095ff' : 'white'},
-                            ...props.reduced ? {margin: 'auto'} : null
-                        }}/>}
+                    icon={
+                        <SettingsRounded/>
+                    }
                 />
                 {accessProfile !== null && (accessProfile.canManageStructure) ?
                     <NavigationDropDownButton
@@ -135,11 +127,7 @@ export default function Navigation(props) {
                                 null
                         ]}
                         icon={
-                            <AddRounded
-                                style={{
-                                    ...{color: 'white'},
-                                    ...props.reduced ? {margin: 'auto'} : null
-                                }}/>
+                            <AddRounded/>
                         }
                     />
                     :
@@ -147,21 +135,19 @@ export default function Navigation(props) {
 
                 }
             </div>
-            <div className={mainStyles.displayInlineCenter} style={{height: '33.333%', alignItems: 'flex-end', paddingBottom: '4px'}}>
+            <div className={mainStyles.displayInlineCenter}
+                 style={{height: '33.333%', alignItems: 'flex-end', paddingBottom: '4px'}}>
                 {(profile !== null && (new Cookies()).get('jwt') !== undefined) ?
-                <NavigationProfile dark={props.dark} profile={profile} reduced={props.reduced} setReduced={props.setReduced}
-                                   locale={{profile: lang.profile, signout: lang.signout, signin: lang.signin}}/>
+                    <NavigationProfile dark={props.dark} profile={profile} reduced={props.reduced}
+                                       setReduced={props.setReduced}
+                                       locale={{profile: lang.profile, signout: lang.signout, signin: lang.signin}}/>
                     :
                     <NavigationButton
                         noMargin={true}
                         dark={props.dark} linkPath={'/signin'}
                         highlight={false} locale={props.locale}
-                        label={lang.signout} reduced={props.reduced}
-                        icon={<ExitToAppRounded
-                            style={{
-                                ...{color: 'white', transform: 'rotate(180deg)'},
-                                ...props.reduced ? {margin: 'auto'} : null
-                            }}/>}
+                        label={lang.signin} reduced={props.reduced}
+                        icon={<ExitToAppRounded/>}
                     />
                 }
             </div>

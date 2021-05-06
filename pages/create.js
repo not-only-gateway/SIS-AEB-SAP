@@ -86,7 +86,7 @@ export default function create() {
     if (lang !== null && accessProfile !== null)
         return (
             <>
-                <Authenticate render={true} redirect={() => router.push('/', '/', {locale: router.locale})}
+                <Authenticate render={true} handleClose={() => router.push('/', '/', {locale: router.locale})}
                               locale={router.locale}/>
                 <HeaderLayout
                     width={'75%'}

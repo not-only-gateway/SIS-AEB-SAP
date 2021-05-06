@@ -5,7 +5,7 @@ import {getTertiaryColor} from "../../../styles/shared/MainStyles";
 import {Button} from "@material-ui/core";
 import ProfilePersona from "../../elements/ProfilePersona";
 
-export default function ExtensionsList(props) {
+export default function Extension(props) {
     const currentDate = new Date()
     const [hovered, setHovered] = useState(false)
     return (
@@ -31,7 +31,7 @@ export default function ExtensionsList(props) {
                     className={[mainStyles.displayInlineStart, mainStyles.overflowEllipsis].join(' ')}
                 >
                     <ProfilePersona dark={false} key={props.data.member.id}
-                                    image={props.data.member.image} size={'70px'} variant={'circle'}
+                                    image={props.data.member.image} size={'75px'} variant={'circle'}
                                     elevation={false}
                                     cakeDay={((new Date(props.data.member.birth)).getDay() === currentDate.getDay() && (new Date(props.data.member.birth)).getMonth() === currentDate.getMonth())}/>
                     <p className={mainStyles.secondaryParagraph}
@@ -70,7 +70,7 @@ export default function ExtensionsList(props) {
         </Button>
     )
 }
-ExtensionsList.propTypes = {
+Extension.propTypes = {
     data: PropTypes.object,
     sorterMethod: PropTypes.string,
     redirect: PropTypes.func,

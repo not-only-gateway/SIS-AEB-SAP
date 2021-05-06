@@ -1,69 +1,69 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Button, createMuiTheme, ThemeProvider} from '@material-ui/core';
 import Link from 'next/link'
 import PropTypes from 'prop-types'
 import mainStyles from '../../styles/shared/Main.module.css'
 
 export default function NavigationButton(props) {
-
+    const [hovered, setHovered] = useState(false)
     return (
-        <div className={props.noMargin ? null : mainStyles.marginVertical}
-             style={{
-                     borderRadius: '8px',
-                     width: props.reduced ? '65px' : '250px',
-                     height: '65px',
-                    backgroundColor: props.highlight ? '#333333' : 'transparent'
-             }}>
+        <div
+            className={props.noMargin ? null : mainStyles.marginVertical}
+            style={{
+                borderRadius: '8px',
+                width: props.reduced ? '65px' : '250px',
+                height: '65px',
+            }}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+        >
             {props.linkPath !== null ?
-                <ThemeProvider theme={createMuiTheme({
-                    palette: {
-                        type: "dark"
-                    }
-                })}>
-                    <Link href={{
-                        pathname: props.linkPath,
-                        locale: props.locale,
-                        query: props.linkQuery !== undefined ? props.linkQuery : null
+                <Link href={{
+                    pathname: props.linkPath,
+                    locale: props.locale,
+                    query: props.linkQuery !== undefined ? props.linkQuery : null
+                }}>
+
+                    <Button style={{
+                        width: '100%',
+                        height: 'auto',
+                        textTransform: 'none',
+                        borderRadius: '8px',
+                        backgroundColor: hovered ? 'rgba(255, 255, 255, .2)' : 'transparent',
+                        transition: '300ms ease-in-out',
+                        padding: '16px',
+                        fontFamily: 'Verdana, Arial, sans-serif'
                     }}>
-
-                        <Button style={{
-                            width: props.reduced ? '65px' : '250px',
-                            height: '65px',
-                            textTransform: 'none',
-                            borderRadius: '8px',
-                            transition: '.3s'
-                        }}>
-                            <div className={mainStyles.displayInlineStart}
-                                 style={{
-                                     width: '100%'
-                                 }}>
+                        <div className={props.reduced ? mainStyles.displayInlineCenter : mainStyles.displayInlineStart}
+                             style={{
+                                 width: '100%',
+                                 color: props.highlight || hovered ? '#0095ff' : 'white',
+                                 transition: '300ms ease-in-out',
+                             }}>
+                            <div className={mainStyles.displayInlineCenter}>
                                 {props.icon}
-                                <p style={{
-                                    transition: '.3s',
-                                    transform: 'translateX(10px)',
-                                    color: props.highlight ? '#0095ff' : 'white',
-                                    fontSize: '.95rem'
-                                }}> {!props.reduced ? props.label : null}</p>
                             </div>
-                        </Button>
+                            <div style={{
+                                display: props.reduced ? 'none' : 'unset',
+                                marginLeft: '16px',
+                                fontSize: '.95rem',
+                                fontWeight: 550,
+                            }}> {props.label}</div>
+                        </div>
+                    </Button>
 
-                    </Link>
-                </ThemeProvider>
+                </Link>
                 :
 
-                <ThemeProvider theme={createMuiTheme({
-                    palette: {
-                        type: "dark"
-                    }
-                })}>
-                    <Button style={{
-                        width: '65px',
-                        height: '65px', textTransform: 'none'
-                    }}
-                            onClick={() => props.setToggle(!props.initialValue)}>
-                        {props.icon}
-                    </Button>
-                </ThemeProvider>
+
+                <Button style={{
+                    width: '65px',
+                    height: '65px', textTransform: 'none'
+                }}
+                        onClick={() => props.setToggle(!props.initialValue)}>
+                    {props.icon}
+                </Button>
+
             }
         </div>
     )
