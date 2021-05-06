@@ -12,6 +12,7 @@ import ExtensionsFilters from "../components/modules/filters/ExtensionsFilters";
 import HeaderLayout from "../components/layout/HeaderLayout";
 import FiltersComponent from "../components/layout/FiltersComponent";
 import ExtensionsList from "../components/templates/list/ExtensionsList";
+import {readAccessProfile} from "../utils/shared/IndexedDB";
 
 export default function Index() {
 
@@ -22,11 +23,15 @@ export default function Index() {
     const [option, setOption] = useState('collaborators')
     const [lastFetchedSize, setLastFetchedSize] = useState(null)
     const [maxID, setMaxID] = useState(null)
-
+    const [accessProfile, setAccessProfile] = useState(null)
     useEffect(() => {
         setLang(getLanguage(router.locale, '/'))
         if (data.current.length === 0)
             fetchData(1, true, false).catch(error => console.log(error))
+        if(accessProfile === null)
+            readAccessProfile().then(profile => {
+                setAccessProfile(profile)
+            })
     }, [])
 
     const [filters, setFilters] = useState({
@@ -81,14 +86,13 @@ export default function Index() {
             <>
 
                 <HeaderLayout
-                    tab={
-                        undefined
-                    }
+                    width={'75%'}
                     filterComponent={
                         <ExtensionsFilters
                             dark={false} setOption={setOption} option={option} setChanged={setChanged}
                             lang={lang} setLoading={setLoading} fetchData={fetchData} changed={changed}
                             setMaxID={setMaxID} filters={filters} handleFilterChange={handleFilterChange}
+                            accessProfile={accessProfile}
                         />
                     }
                     pageTitle={lang.extensions}

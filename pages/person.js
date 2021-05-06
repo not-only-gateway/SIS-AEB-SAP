@@ -135,13 +135,12 @@ export default function person() {
         return (
             <>
                 <Authenticate
-                    redirect={() => {
-                        setEditMode(false)
-                    }}
+                    handleClose={() => setAuthenticate(false)}
                     render={editMode || authenticate}
                     locale={router.locale}
                 />
                 <HeaderLayout
+                    width={'75%'}
                     availableTabs={{
                         tabs: [
                             {

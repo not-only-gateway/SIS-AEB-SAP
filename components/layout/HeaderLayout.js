@@ -48,14 +48,14 @@ export default function HeaderLayout(props) {
                 backgroundColor: '#f5f6f8',
                 minHeight: '16.6%',
                 height: 'auto',
-                paddingBottom: props.availableTabs !== undefined? null : '10px',
+                paddingBottom: props.availableTabs !== undefined ? null : '10px',
                 position: 'sticky',
                 top: 0,
                 zIndex: 1,
                 gap: props.availableTabs !== undefined ? '16px' : null
             }}>
 
-                <div className={mainStyles.displayInlineSpaced} style={{width: '75%'}}>
+                <div className={mainStyles.displayInlineSpaced} style={{width: props.width}}>
                     {typeof (props.title) === 'string' ?
                         <div>
                             <p className={mainStyles.primaryHeader}
@@ -83,14 +83,18 @@ export default function HeaderLayout(props) {
                     }
                 </div>
                 {props.searchComponent !== undefined ?
-                    <div style={{width: '75%'}}>
+                    <div style={{width: props.width}}>
                         {props.searchComponent}
                     </div>
                     : null
                 }
-                {props.activeFiltersComponent !== undefined ? props.activeFiltersComponent : null}
+                {props.activeFiltersComponent !== undefined ?
+                    <div style={{width: props.width}}>
+                        {props.activeFiltersComponent}
+                    </div>
+                    : null}
                 {props.availableTabs !== undefined ?
-                    <div style={{width: '75%'}} key={'header-tab-component'}>
+                    <div style={{width: props.width}} key={'header-tab-component'}>
                         <TabsComponent buttons={props.availableTabs.tabs} setOpenTab={props.availableTabs.setOpenTab}
                                        openTab={props.availableTabs.openTab}/>
 
@@ -99,7 +103,7 @@ export default function HeaderLayout(props) {
                     null
                 }
                 {props.stepper !== undefined ?
-                    <div style={{width: '75%'}} key={'header-stepper-component'}>
+                    <div style={{width: props.width}} key={'header-stepper-component'}>
                         <Stepper buttons={props.stepper.tabs} setOpenTab={props.stepper.setOpenTab}
                                  openTab={props.stepper.openTab}/>
 
@@ -109,7 +113,7 @@ export default function HeaderLayout(props) {
         </>
     )
 }
-HeaderLayout.propTypes = {
+HeaderLayout.propTypes ={
     title: PropTypes.any,
     searchComponent: PropTypes.object,
     filterComponent: PropTypes.object,
@@ -121,5 +125,6 @@ HeaderLayout.propTypes = {
     pageTitle: PropTypes.string,
     information: PropTypes.string,
     activeFiltersComponent: PropTypes.object,
-    stepper: PropTypes.bool
+    stepper: PropTypes.bool,
+    width: PropTypes.string
 }

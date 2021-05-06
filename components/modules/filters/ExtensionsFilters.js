@@ -3,7 +3,7 @@ import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel} f
 import React, {useEffect, useState} from "react";
 import shared from "../../../styles/shared/Shared.module.css";
 
-import mapToSelect from "../../../utils/person/MapToSelect";
+import mapToSelect from "../../../utils/shared/MapToSelect";
 import Selector from "../selector/Selector";
 import FetchExtensionsFilter from "../../../utils/fetch/FetchExtensionsFilter";
 
@@ -33,7 +33,7 @@ export default function ExtensionsFilters(props) {
                 handleChange={event => props.handleFilterChange({name: 'unit', value: event})}
                 setChanged={() => props.setChanged(true)}
                 label={'Unit'} key={'unit-select'}
-                data={mapToSelect({units: entities.units, option: 0})} width={'100%'}
+                data={mapToSelect({data: entities.units, option: 0})} width={'100%'}
             />
             <Selector
                 required={false}
@@ -42,7 +42,7 @@ export default function ExtensionsFilters(props) {
                 disabled={props.filters.commissionedRoleOnly || props.option === 'people'}
                 setChanged={() => props.setChanged(true)}
                 label={'Effective Role'} key={'effective-role-select'}
-                data={mapToSelect({effectiveRoles: entities.effectiveRoles, option: 1})} width={'100%'}
+                data={mapToSelect({data: entities.effectiveRoles, option: 1})} width={'100%'}
             />
             <Selector
                 required={false}
@@ -51,7 +51,7 @@ export default function ExtensionsFilters(props) {
                 handleChange={event => props.handleFilterChange({name: 'commissionedRole', value: event})}
                 setChanged={() => props.setChanged(true)}
                 label={'Commissioned Role'} key={'commissioned-role-select'}
-                data={mapToSelect({commissionedRoles: entities.commissionedRoles, option: 2})} width={'100%'}
+                data={mapToSelect({data: entities.commissionedRoles, option: 2})} width={'100%'}
             />
             <Selector
                 required={false}
@@ -60,7 +60,7 @@ export default function ExtensionsFilters(props) {
                 handleChange={event => props.handleFilterChange({name: 'senior', value: event})}
                 setChanged={() => props.setChanged(true)}
                 label={'Senior'} key={'senior-select'}
-                data={mapToSelect({seniors: entities.seniors, option: 3})} width={'100%'}
+                data={mapToSelect({data: entities.seniors, option: 3})} width={'100%'}
             />
 
             <FormControl component="fieldset" style={{marginRight: 'auto'}}>
@@ -80,6 +80,7 @@ export default function ExtensionsFilters(props) {
                         label={'Only active'}
                     />
                     <FormControlLabel
+                        disabled={props.accessProfile === null || !props.accessProfile.canManageStructure}
                         control={
                             <Checkbox key={'checkbox-all-collaborators'}
                                       checked={props.option === 'member'}
@@ -106,7 +107,7 @@ export default function ExtensionsFilters(props) {
                     <FormControlLabel
                         control={
                             <Checkbox key={'effective-checkbox'}
-                                      checked={props.filters.effectiveRoleOnly}
+                                      checked={props.filters.effectiveRoleOnly === true}
                                       disabled={props.option === 'people'}
                                       onChange={() => {
                                           props.handleFilterChange({name: 'commissionedRoleOnly', value: undefined})
@@ -121,7 +122,7 @@ export default function ExtensionsFilters(props) {
                     <FormControlLabel
                         control={
                             <Checkbox key={'commissioned-checkbox'}
-                                      checked={props.filters.commissionedRoleOnly}
+                                      checked={props.filters.commissionedRoleOnly === true}
                                       disabled={props.option === 'people'}
                                       onChange={() => {
                                           props.handleFilterChange({name: 'commissionedRoleOnly', value: true})
@@ -135,6 +136,7 @@ export default function ExtensionsFilters(props) {
                         label={'Only commissioned'}
                     />
                     <FormControlLabel
+
                         control={
                             <Checkbox key={'checkbox-all'}
                                       checked={props.filters.commissionedRoleOnly === undefined && props.filters.effectiveRoleOnly === undefined}
@@ -173,14 +175,10 @@ ExtensionsFilters.propTypes = {
     option: PropTypes.string,
     setOption: PropTypes.func,
     lang: PropTypes.object,
-    setData: PropTypes.func,
-    setSearchInput: PropTypes.func,
-    searchInput: PropTypes.string,
     fetchData: PropTypes.func,
-    setMaxID: PropTypes.func,
     filters: PropTypes.object,
-    setFilters: PropTypes.func,
     setLoading: PropTypes.func,
     setChanged: PropTypes.func,
-    changed: PropTypes.bool
+    changed: PropTypes.bool,
+    accessProfile: PropTypes.object
 }

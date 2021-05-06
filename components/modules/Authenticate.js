@@ -63,10 +63,15 @@ export default function Authenticate(props) {
 
     if (lang !== null)
         return (
-            <Modal open={!valid && props.render} onClose={props.redirect}
-                   style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
-                   className={animations.fadeIn}>
-                <div className={shared.signInContainer}>
+            <Modal
+                open={!valid && props.render}
+                onClose={() => {
+                    props.handleClose()
+                }} style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+                className={animations.fadeIn}
+            >
+                <div className={shared.signInContainer} >
+
                     <div style={{
                         display: 'grid',
                         justifyItems: 'center',
@@ -104,12 +109,27 @@ export default function Authenticate(props) {
                         </FormControl>
 
                     </div>
-                    <Button variant={'contained'} onClick={submit} disabled={email.length < 12 || password < 8}
-                            style={{
-                                textTransform: 'none',
-                                backgroundColor: email.length < 12 || password < 8 ? null : '#0095ff',
-                                color: email.length < 12 || password < 8 ? null : 'white'
-                            }}>{lang.authenticate}</Button>
+                    <div className={mainStyles.displayInlineSpaced} style={{width: '100%'}}>
+                        <Button variant={'contained'} onClick={submit} disabled={email.length < 12 || password < 8}
+                                style={{
+                                    textTransform: 'none',
+                                    backgroundColor: email.length < 12 || password < 8 ? 'rgba(0,0,0,0.07)' : '#0095ff',
+                                    color: email.length < 12 || password < 8 ? '#777777' : 'white',
+                                    width: '35%'
+                                }}>
+                            {lang.authenticate}
+                        </Button>
+                        <Button variant={'contained'} onClick={() => props.handleClose()}
+                                style={{
+                                    textTransform: 'none',
+                                    backgroundColor: '#f54269',
+                                    color: 'white',
+                                    width: '35%'
+                                }}>
+                            {lang.cancel}
+                        </Button>
+                    </div>
+
                 </div>
             </Modal>
         )
@@ -119,7 +139,7 @@ export default function Authenticate(props) {
 }
 
 Authenticate.propTypes = {
-    redirect: PropTypes.func,
     locale: PropTypes.string,
-    render: PropTypes.bool
+    render: PropTypes.bool,
+    handleClose: PropTypes.func
 }

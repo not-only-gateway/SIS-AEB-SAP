@@ -2,9 +2,7 @@ import {Button} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import InputLayout from "../../modules/InputLayout";
 import PropTypes from "prop-types";
-import saveComponentChanges from "../../../utils/person/SaveChanges";
-import fetchComponentData from "../../../utils/person/FetchData";
-import mapToSelect from "../../../utils/person/MapToSelect";
+
 import mainStyles from '../../../styles/shared/Main.module.css'
 import Selector from "../../modules/selector/Selector";
 

@@ -64,6 +64,7 @@ export default function Settings() {
                     title={lang.settings}
                     information={lang.information}
                     searchComponent={undefined}
+                    width={'75%'}
                 />
                 <div className={mainStyles.displayInlineCenter} style={{width: '100%'}}>
                     <div style={{
@@ -107,52 +108,21 @@ export default function Settings() {
                         />
 
 
-                        <Accordion
-                            content={
-                                <FormControl component="fieldset"
-                                             style={{...{paddingLeft: '10px'}, ...getSecondaryColor({dark: dark})}}>
-                                    <RadioGroup value={dark}>
-                                        <FormControlLabel value={false} control={<Radio/>} label={
-                                            <div className={style.theme_container}>
-                                                <p>Light</p>
-                                                <Brightness7RoundedIcon style={getIconStyle({dark: dark})}/>
-                                            </div>
-                                        }/>
-                                        <FormControlLabel value={true} control={<Radio/>} label={
-                                            <div className={style.theme_container}>
-                                                <p>Dark</p>
-                                                <Brightness3RoundedIcon style={getIconStyle({dark: dark})}/>
-                                            </div>
-                                        }/>
-                                    </RadioGroup>
-                                </FormControl>
-                            }
-                            summary={
-                                <div className={shared.accordionTitle}>
-                                    <p className={mainStyles.secondaryParagraph}>{lang.theme}</p>
-                                    <Divider style={{width: '10px', marginLeft: '10px', marginRight: '10px'}}
-                                             orientation={'horizontal'}/>
-                                    <p className={mainStyles.tertiaryParagraph}
-                                       style={getTertiaryColor({dark: dark})}>{dark ? 'Dark' : 'Light'}</p>
-                                </div>
-                            }
-                            key={'theme - settings'}
-                            closedSize={31}
-                            openSize={31}
-                            disabled={true}
-                            animationDelay={200}
-                            dark={dark}
-                        />
-
                         {(new Cookies()).get('jwt') !== undefined && currentCollaboration !== null ?
-                            <Selector required={false} key={'collaboration-setting'} handleChange={undefined}
-                                      setChanged={undefined} disabled={false} selected={{
+                            <Selector
+                                required={false} key={'collaboration-setting'} handleChange={undefined}
+                                setChanged={undefined} disabled={false} selected={{
                                 key: currentCollaboration.id,
-                                value: <div>
-                                    <p>{currentCollaboration.id}</p>
-                                    <p>{currentCollaboration.id}</p>
+                                value: <div className={mainStyles.displayInlineSpaced}
+                                            style={{width: '100%', padding: '16px', height: '56px'}}>
+                                    <p>{currentCollaboration.unitAcronym}</p>
+                                    <p>{currentCollaboration.roleInformation}</p>
                                 </div>
-                            }} data={mapToSelect({data: collaborations, option: 7})} label={'Collaboration'} width={'31%'}/>
+                            }}
+                                data={mapToSelect({data: collaborations, option: 7})}
+                                label={'Collaboration'}
+                                width={'31%'}
+                            />
                             // <Accordion
                             //     content={
                             //         <>

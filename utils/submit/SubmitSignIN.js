@@ -25,8 +25,6 @@ export default async function submitSignIN(props) {
             startDatabase().catch(error => console.log(error))
             cookies.set('jwt', res.data.jwt, {expires: new Date(res.data.exp)})
             cookies.set('exp', res.data.exp, {expires: new Date(res.data.exp)})
-            console.log(res.data)
-
             setProfile({
                 id: res.data.profile.id,
                 corporateEmail: res.data.profile.corporate_email,
@@ -39,6 +37,7 @@ export default async function submitSignIN(props) {
                     await setCollaboration({
                         id: res.data.collaboration.id,
                         unitAcronym: res.data.collaboration.unit_acronym,
+                        roleInformation: res.data.collaboration.role_information
                     }).catch(error => console.log(error))
                     await setAccessProfile({
                         id: res.data.access_profile.id,

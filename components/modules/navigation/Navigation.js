@@ -114,7 +114,7 @@ export default function Navigation(props) {
                             ...props.reduced ? {margin: 'auto'} : null
                         }}/>}
                 />
-                {accessProfile !== null && (accessProfile.canCreatePerson || accessProfile.canCreateRole || accessProfile.canCreateAccessProfile) ?
+                {accessProfile !== null && (accessProfile.canManageStructure) ?
                     <NavigationDropDownButton
                         locale={props.locale}
                         label={lang.more}

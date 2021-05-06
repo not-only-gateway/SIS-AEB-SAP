@@ -89,6 +89,7 @@ export default function create() {
                 <Authenticate render={true} redirect={() => router.push('/', '/', {locale: router.locale})}
                               locale={router.locale}/>
                 <HeaderLayout
+                    width={'75%'}
                     availableTabs={undefined}
                     activeFiltersComponent={undefined}
 

@@ -3,5 +3,6 @@ export default {
     password: 'Senha',
     authenticate: 'Autenticar',
     genericError: 'Algum erro ocorreu',
-    unauthorized: 'Email ou senha invalidos'
+    unauthorized: 'Email ou senha invalidos',
+    cancel: 'Cancelar'
 }

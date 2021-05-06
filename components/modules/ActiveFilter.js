@@ -12,7 +12,7 @@ export default function ActiveFilter(props) {
             className={[animations.popInAnimation, mainStyles.overflowEllipsis, mainStyles.displayInlineCenter].join(' ')}
             style={{
                 backgroundColor: hovered && !props.filter.disabled ? '#f54269' : 'white',
-                width: 'calc(12.5% - 16px)',
+                width: 'calc(25% - 12px)',
                 animationDelay: props.index * 10 + 'ms',
                 borderRadius: '5px',
                 boxShadow: 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
@@ -21,7 +21,8 @@ export default function ActiveFilter(props) {
                 fontSize: '.8rem',
                 textTransform: 'uppercase',
                 fontWeight: '550',
-                transition: '300ms ease-in-out'
+                transition: '300ms ease-in-out',
+                padding: '0 8px 0 8px'
             }}
             onMouseLeave={() => setHovered(false)}
             onMouseEnter={() => setHovered(true)}
@@ -36,14 +37,24 @@ export default function ActiveFilter(props) {
                     props.setChanged(true)
                 }
             }}>
-            <DeleteForeverRounded style={{color: 'white',  display:!hovered ||props.filter.disabled ? 'none' : null, opacity: 0,animationDelay: '50ms'}} className={animations.popInAnimation}/>
-            <p style={{margin: 0, display: hovered && !props.filter.disabled  ? 'none' : null, opacity: 0, animationDelay: '50ms'}} className={animations.popInAnimation}>
+            <DeleteForeverRounded style={{
+                color: 'white',
+                display: !hovered || props.filter.disabled ? 'none' : null,
+                opacity: 0,
+                animationDelay: '50ms'
+            }} className={animations.popInAnimation}/>
+            <p style={{
+                margin: 0,
+                display: hovered && !props.filter.disabled ? 'none' : null,
+                opacity: 0,
+                animationDelay: '50ms'
+            }} className={animations.popInAnimation}>
                 {props.filter.value}
             </p>
         </div>
     )
 }
-ActiveFilter.propTypes={
+ActiveFilter.propTypes = {
     filter: PropTypes.object,
     index: PropTypes.number,
     handleChange: PropTypes.func,

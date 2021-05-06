@@ -74,13 +74,14 @@ export default function management() {
         return (
             <>
                 <Authenticate
-                    redirect={() => {
+                    handleClose={() => {
                         router.push('/', '/', {locale: router.locale})
                     }}
                     render={true}
                     locale={router.locale}
                 />
                 <HeaderLayout
+                    width={'75%'}
                     availableTabs={ undefined}
                     filterComponent={undefined}
                     title={

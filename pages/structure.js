@@ -45,30 +45,32 @@ export default function Structure() {
     if (lang !== null)
         return (
             <>
-                <HeaderLayout filterComponent={undefined} pageTitle={lang.title} title={lang.title}
-                              information={lang.information}
-                              searchComponent={undefined}
-                              availableTabs={{
-                                  tabs: [
-                                      {
-                                          disabled: false,
-                                          key: 0,
-                                          value: lang.units
-                                      },
-                                      {
-                                          disabled: false,
-                                          key: 1,
-                                          value: lang.collaborators
-                                      },
-                                      // {
-                                      //     disabled: false,
-                                      //     key: 2,
-                                      //     value: 'Estrutura organizacional'
-                                      // },
-                                  ],
-                                  setOpenTab: setOpenTab,
-                                  openTab: openTab
-                              }}
+                <HeaderLayout
+                    width={'75%'}
+                    filterComponent={undefined} pageTitle={lang.title} title={lang.title}
+                    information={lang.information}
+                    searchComponent={undefined}
+                    availableTabs={{
+                        tabs: [
+                            {
+                                disabled: false,
+                                key: 0,
+                                value: lang.units
+                            },
+                            {
+                                disabled: false,
+                                key: 1,
+                                value: lang.collaborators
+                            },
+                            // {
+                            //     disabled: false,
+                            //     key: 2,
+                            //     value: 'Estrutura organizacional'
+                            // },
+                        ],
+                        setOpenTab: setOpenTab,
+                        openTab: openTab
+                    }}
                 />
                 <div className={mainStyles.displayInlineCenter} style={{width: '100%'}}>
                     <div style={{

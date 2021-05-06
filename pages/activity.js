@@ -87,61 +87,64 @@ export default function activity() {
     if (lang !== null)
         return (
             <>
-                <HeaderLayout tab={undefined}
-                              filterComponent={
-                                  <ActivityFilterComponent
-                                      lang={lang} filters={filters} handleChange={handleChange}
-                                      dark={dark} changed={changed}
-                                      setChanged={setChanged} fetch={fetch}
+                <HeaderLayout
 
-                                      setResponseData={setData}
-                                      setLastFetchedSize={setLastFetchedSize}
-                                      setMaxID={setMaxID} setPagesFetched={setPagesFetched}
+                    width={'65%'}
+                    filterComponent={
+                        <ActivityFilterComponent
+                            lang={lang} filters={filters} handleChange={handleChange}
+                            dark={dark} changed={changed}
+                            setChanged={setChanged} fetch={fetch}
 
-                                  />
-                              }
-                              pageTitle={lang.title}
-                              title={lang.title}
-                              information={lang.information}
-                              activeFiltersComponent={
-                                  <FiltersComponent
-                                      active={changed}
-                                      handleChange={handleChange}
-                                      applyChanges={() => {
-                                          setChanged(false)
-                                          fetch(1)
-                                      }}
-                                      setChanged={setChanged}
-                                      changed={changed}
-                                      activeFilters={[
-                                          {
-                                              key: 'method',
-                                              value: filters.method !== undefined ? filters.method : null
-                                          },
-                                          {
-                                              key: 'startDate',
-                                              value: filters.startDate !== null && filters.startDate ? lang.startDate + ' - ' + new Date(filters.startDate).toLocaleDateString() : null
-                                          },
-                                          {
-                                              key: 'endDate',
-                                              value: filters.endDate !== null && filters.endDate ? lang.endDate + ' - ' + new Date(filters.endDate).toLocaleDateString() : null
-                                          },
-                                          {
-                                              key: 'searchInput',
-                                              value: filters.searchInput.length > 0 ? filters.searchInput : null
-                                          },
-                                          {
-                                              key: 'thisMachine',
-                                              value: filters.thisMachine ? lang.machine : null
-                                          },
-                                      ]}/>}
-                              searchComponent={<ActivitySearch fetchData={fetch} setSearchInput={handleInputChange}
-                                                               setChanged={setChanged}
-                                                               searchInput={filters.searchInput} lang={lang.search}/>}
+                            setResponseData={setData}
+                            setLastFetchedSize={setLastFetchedSize}
+                            setMaxID={setMaxID} setPagesFetched={setPagesFetched}
+
+                        />
+                    }
+                    pageTitle={lang.title}
+                    title={lang.title}
+                    information={lang.information}
+                    activeFiltersComponent={
+                        <FiltersComponent
+                            active={changed}
+                            handleChange={handleChange}
+                            applyChanges={() => {
+                                setChanged(false)
+                                fetch(1)
+                            }}
+                            setChanged={setChanged}
+                            changed={changed}
+                            activeFilters={[
+                                {
+                                    key: 'method',
+                                    value: filters.method !== undefined ? filters.method : null
+                                },
+                                {
+                                    key: 'startDate',
+                                    value: filters.startDate !== null && filters.startDate ? lang.startDate + ' - ' + new Date(filters.startDate).toLocaleDateString() : null
+                                },
+                                {
+                                    key: 'endDate',
+                                    value: filters.endDate !== null && filters.endDate ? lang.endDate + ' - ' + new Date(filters.endDate).toLocaleDateString() : null
+                                },
+                                {
+                                    key: 'searchInput',
+                                    value: filters.searchInput.length > 0 ? filters.searchInput : null,
+                                    type: 'text'
+                                },
+                                {
+                                    key: 'thisMachine',
+                                    value: filters.thisMachine ? lang.machine : null
+                                },
+                            ]}/>}
+                    searchComponent={<ActivitySearch fetchData={fetch} setSearchInput={handleInputChange}
+                                                     setChanged={setChanged}
+                                                     searchInput={filters.searchInput} lang={lang.search}/>}
                 />
                 <div className={mainStyles.displayInlineCenter} style={{width: '100%', position: 'relative'}}>
                     {data.length > 0 ?
-                        <div style={{width: '75%'}}>
+                        <div style={{width: '65%'}}>
                             <InfiniteScroll
                                 dataLength={data.length}
                                 next={() => fetch(0)}

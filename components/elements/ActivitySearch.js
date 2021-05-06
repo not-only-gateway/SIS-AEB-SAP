@@ -42,21 +42,6 @@ export default function ActivitySearch(props) {
                     }}
                 />
             </Paper>
-
-
-            <Button onClick={() => {
-                props.setChanged(false)
-                props.fetchData(1)
-            }} style={{
-                width: '55px',
-                color: props.searchInput.length === 0 ? '#777777' : 'white',
-                backgroundColor: props.searchInput.length === 0 ? null : 'black',
-                boxShadow: props.searchInput.length === 0 ? null : 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px',
-                borderRadius: '8px',
-                height: '100%'
-            }} disabled={props.searchInput.length === 0}>
-                <SearchRounded/>
-            </Button>
         </div>
     )
 }
