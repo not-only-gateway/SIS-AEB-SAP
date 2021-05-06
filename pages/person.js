@@ -7,7 +7,7 @@ import fetchComponentData from "../utils/person/FetchData";
 import mainStyles from '../styles/shared/Main.module.css'
 import Profile from "../components/templates/Profile";
 
-import CollaborationList from "../components/modules/CollaborationList";
+import CollaborationList from "../components/templates/list/CollaborationList";
 import HeaderLayout from "../components/layout/HeaderLayout";
 import TabContent from "../components/templates/TabContent";
 import Authenticate from "../components/modules/Authenticate";
@@ -36,7 +36,7 @@ export default function person() {
 
     const [lang, setLang] = useState(null)
     const [accessProfile, setAccessProfile] = useState(null)
-
+    const [authenticate, setAuthenticate] = useState(false)
     const [loading, setLoading] = useState(true)
 
     const [person, setPerson] = useState({})
@@ -84,16 +84,23 @@ export default function person() {
                 })
             }
             if (router.isReady && router.query.id !== id) {
+
                 setId(router.query.id)
                 fetchMember(router.query.id).then(res => {
                     if (res !== null) {
-                        if (accessProfile === null || (!accessProfile.canUpdatePerson)) {
-                            delete res.person.education
-                            delete res.person.marital_status
-                            delete res.person.mother_name
-                            delete res.person.father_name
-                            delete res.person.birth_place
-                        }
+                        if (accessProfile === null)
+                            readAccessProfile().then(profile => {
+                                setAccessProfile(profile)
+                                if (profile === null || (!profile.canUpdatePerson)) {
+                                    console.log('HERE')
+                                    delete res.person.education
+                                    delete res.person.marital_status
+                                    delete res.person.mother_name
+                                    delete res.person.father_name
+                                    delete res.person.birth_place
+                                }
+                            })
+
                         setMember(res.member)
                         setPerson(res.person)
                     }
@@ -119,9 +126,6 @@ export default function person() {
             }
             if (lang === null)
                 setLang(getLanguage(router.locale, router.pathname))
-
-            if (accessProfile === null)
-                readAccessProfile().then(res => setAccessProfile(res))
         },
         [router.locale, router.isReady, router.query, editMode]
     )
@@ -134,7 +138,7 @@ export default function person() {
                     redirect={() => {
                         setEditMode(false)
                     }}
-                    render={editMode}
+                    render={editMode || authenticate}
                     locale={router.locale}
                 />
                 <HeaderLayout
@@ -187,7 +191,12 @@ export default function person() {
                             person={person}
                             member={member}
                             setEditMode={event => {
-                                setEditMode(event)
+                                if (event && (new Cookies()).get('authorization_token') !== undefined)
+                                    setEditMode(event)
+                                else if(!event)
+                                    setEditMode(event)
+                                else
+                                    setAuthenticate(true)
                                 setOpenTab(0)
                             }}
                             editMode={editMode}

@@ -9,6 +9,7 @@ import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import getComponentLanguage from "../../utils/shared/GetComponentLanguage";
 import shared from '../../styles/shared/Shared.module.css'
+import animations from '../../styles/shared/Animations.module.css'
 
 const cookies = new Cookies()
 export default function Authenticate(props) {
@@ -22,7 +23,7 @@ export default function Authenticate(props) {
         errorMessage: null
     })
     useEffect(() => {
-        if((new Cookies()).get('authorization_token') !== undefined)
+        if ((new Cookies()).get('authorization_token') !== undefined)
             setValid(true)
         setLang(getComponentLanguage({locale: props.locale, component: 'authenticate'}))
     }, [])
@@ -63,7 +64,8 @@ export default function Authenticate(props) {
     if (lang !== null)
         return (
             <Modal open={!valid && props.render} onClose={props.redirect}
-                   style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                   style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+                   className={animations.fadeIn}>
                 <div className={shared.signInContainer}>
                     <div style={{
                         display: 'grid',

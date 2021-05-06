@@ -1,7 +1,7 @@
 export default {
     options: [{value: 'Sim', key: true}, {value: 'Não', key: false}],
     denomination: 'Denominação',
-
+    manage: 'Administrar',
     create: 'Criar',
     update: 'Atualizar',
     delete: 'Deletar',
@@ -16,7 +16,7 @@ export default {
     documents: 'Documentos',
     contacts: 'Contato',
     location: 'Localização',
-
-
+    membership: 'Filiação',
+    structure: 'Estrutura',
     save: 'Salvar'
 }

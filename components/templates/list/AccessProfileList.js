@@ -6,19 +6,13 @@ import AccessProfileForm from "../forms/AccessProfileForm";
 import axios from "axios";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
+import AccessProfile from "../../modules/entity/AccessProfile";
+import fetchAccessProfiles from "../../../utils/fetch/FetchAccessProfiles";
 
 export default function AccessProfileList(props) {
     const [data, setData] = useState([])
     useEffect(() => {
-        axios({
-            method: 'get',
-            url: Host() + 'access_profiles',
-            headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
-        }).then(res => {
-            setData(res.data)
-        }).catch(error => {
-            console.log(error)
-        })
+        fetchAccessProfiles().then(res => setData(res))
 
     }, [])
     return (
@@ -26,26 +20,11 @@ export default function AccessProfileList(props) {
             display: 'grid',
             marginTop: '10px',
             width: '100%',
-            borderTop: 'hsla(210, 11%, 78%, 0.5)  .7px solid'
+            gap: '16px'
         }}>
+            <AccessProfile profile={undefined} create={true} index={undefined} locale={props.locale} fetch={() => fetchAccessProfiles().then(res => setData(res))}/>
             {(data).map((profile, index) =>
-                <div key={profile.id} style={{borderBottom: 'hsla(210, 11%, 78%, 0.5)  .7px solid'}}>
-                    <Accordion
-                        elevation={false}
-                        summary={
-                            <p className={mainStyles.secondaryParagraph}>
-                                {profile.denomination}
-                            </p>
-                        }
-                        content={
-                            <AccessProfileForm id={profile.id} locale={props.locale}/>
-                        }
-                        animationDelay={index * 200}
-                        asRow={true} disabled={false} key={index + '-accordion-' + profile.id} dark={false}
-                        background={undefined} openSize={100} closedSize={100}
-                        asButton={false} onClick={props.redirect}
-                    />
-                </div>
+                <AccessProfile profile={profile} index={index} locale={props.locale} fetch={() => fetchAccessProfiles().then(res => setData(res))}/>
             )}
         </div>
     )

@@ -2,25 +2,25 @@ import React, {useEffect, useState} from "react";
 import PropTypes, {func} from "prop-types";
 import {AddRounded} from "@material-ui/icons";
 
-import Accordion from "../layout/Accordion";
-import fetchComponentData from "../../utils/person/FetchData";
+import Accordion from "../../layout/Accordion";
+import fetchComponentData from "../../../utils/person/FetchData";
 import {Button, Divider, Modal} from "@material-ui/core";
-import CollaborationSummary from "../elements/CollaborationSummary";
-import mainStyles from '../../styles/shared/Main.module.css'
-import {getIconStyle} from "../../styles/shared/MainStyles";
-import CollaborationForm from "../templates/forms/CollaborationForm";
-import handleObjectChange from "../../utils/shared/HandleObjectChange";
-import fetchCollaboration from "../../utils/fetch/FetchCollaboration";
-import fetchUnits from "../../utils/fetch/FetchUnits";
-import fetchCommissionedRoles from "../../utils/fetch/FetchCommissionedRoles";
-import fetchEffectiveRoles from "../../utils/fetch/FetchEffectiveRoles";
-import fetchAccessProfiles from "../../utils/fetch/FetchAccessProfiles";
-import fetchLinkages from "../../utils/fetch/FetchLinkages";
-import mapToSelect from "../../utils/person/MapToSelect";
-import fetchSeniors from "../../utils/fetch/FetchSeniors";
-import submitCollaboration from "../../utils/submit/SubmitCollaboration";
-import fetchCanBeMain from "../../utils/fetch/FetchCanBeMain";
-import animations from '../../styles/shared/Animations.module.css'
+import CollaborationSummary from "../../elements/CollaborationSummary";
+import mainStyles from '../../../styles/shared/Main.module.css'
+import {getIconStyle} from "../../../styles/shared/MainStyles";
+import CollaborationForm from "../../templates/forms/CollaborationForm";
+import handleObjectChange from "../../../utils/shared/HandleObjectChange";
+import fetchCollaboration from "../../../utils/fetch/FetchCollaboration";
+import fetchUnits from "../../../utils/fetch/FetchUnits";
+import fetchCommissionedRoles from "../../../utils/fetch/FetchCommissionedRoles";
+import fetchEffectiveRoles from "../../../utils/fetch/FetchEffectiveRoles";
+import fetchAccessProfiles from "../../../utils/fetch/FetchAccessProfiles";
+import fetchLinkages from "../../../utils/fetch/FetchLinkages";
+import mapToSelect from "../../../utils/shared/MapToSelect";
+import fetchSeniors from "../../../utils/fetch/FetchSeniors";
+import submitCollaboration from "../../../utils/submit/SubmitCollaboration";
+import fetchCanBeMain from "../../../utils/fetch/FetchCanBeMain";
+import animations from '../../../styles/shared/Animations.module.css'
 
 export default function Collaboration(props) {
 
@@ -36,6 +36,7 @@ export default function Collaboration(props) {
     const [collaboration, setCollaboration] = useState({})
     const [canBeMain, setCanBeMain] = useState(false)
     const [loading, setLoading] = useState(true)
+    const [accepted, setAccepted] = useState(false)
 
     useEffect(() => {
         if (!collaboration.unit && !props.create) {
@@ -53,43 +54,61 @@ export default function Collaboration(props) {
         }
         if (modal) {
             setLoading(true)
-            fetchCanBeMain(props.memberID).then(res => setCanBeMain(res))
+            fetchCanBeMain(props.memberID).then(res => {
+
+                setCanBeMain(res)
+            })
             fetchUnits().then(res => handleObjectChange({
-                event: {name: 'units', value: mapToSelect({units: res, option: 0})},
+                event: {name: 'units', value: mapToSelect({data: res, option: 0})},
                 setData: setDependencies
             }))
             fetchLinkages().then(res => handleObjectChange({
-                event: {name: 'linkages', value: mapToSelect({linkages: res, option: 5})},
+                event: {name: 'linkages', value: mapToSelect({data: res, option: 5})},
                 setData: setDependencies
             }))
             fetchCommissionedRoles().then(res => handleObjectChange({
-                event: {name: 'commissionedRoles', value: mapToSelect({commissionedRoles: res, option: 2})},
+                event: {name: 'commissionedRoles', value: mapToSelect({data: res, option: 2})},
                 setData: setDependencies
             }))
             fetchEffectiveRoles().then(res => handleObjectChange({
-                event: {name: 'effectiveRoles', value: mapToSelect({effectiveRoles: res, option: 1})},
+                event: {name: 'effectiveRoles', value: mapToSelect({data: res, option: 1})},
                 setData: setDependencies
             }))
             fetchAccessProfiles().then(res => handleObjectChange({
-                event: {name: 'accessProfiles', value: mapToSelect({accessProfiles: res, option: 4})},
+                event: {name: 'accessProfiles', value: mapToSelect({data: res, option: 4})},
                 setData: setDependencies
             }))
             if (collaboration.unit)
                 fetchSeniors().then(res => handleObjectChange({
-                    event: {name: 'seniors', value: mapToSelect({seniors: res, option: 3})},
+                    event: {name: 'seniors', value: mapToSelect({data: res, option: 3})},
                     setData: setDependencies
                 }))
 
             setLoading(false)
-        }
-        else
+        } else {
+            setDependencies({
+                units: [],
+                effectiveRoles: [],
+                commissionedRoles: [],
+                accessProfiles: [],
+                linkages: [],
+                seniors: [],
+            })
             setLoading(false)
-    }, [collaboration.unit, modal])
+        }
+        if(accepted) {
+            setModal(false)
+            setAccepted(false)
+            props.fetch()
+
+        }
+    }, [collaboration.unit, modal,accepted])
 
     function renderModal() {
         return (
             <Modal open={modal} onClose={() => setModal(false)}
-                   style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}} className={animations.fadeIn}>
+                   style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+                   className={animations.fadeIn}>
                 <div style={{
                     backgroundColor: 'white',
                     width: '75%',
@@ -110,6 +129,7 @@ export default function Collaboration(props) {
                         accessProfiles={dependencies.accessProfiles}
                         memberID={props.memberID}
                         canBeMain={canBeMain}
+                        setAccepted={setAccepted}
                     />
                 </div>
             </Modal>
@@ -168,5 +188,6 @@ Collaboration.propTypes = {
     index: PropTypes.number,
     memberID: PropTypes.any,
     collaborationID: PropTypes.number,
-    key: PropTypes.any
+    key: PropTypes.any,
+    fetch: PropTypes.func
 }

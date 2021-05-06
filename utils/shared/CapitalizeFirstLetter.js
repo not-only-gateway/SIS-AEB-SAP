@@ -1,6 +1,6 @@
 export default function capitalizeFirstLetter(string) {
     let response = string
-    if (response !== null && response[0] !== undefined)
+    if (response !== undefined && response !== null )
         response = response.replace(/^./, response[0].toUpperCase());
 
     return response

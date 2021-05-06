@@ -6,46 +6,24 @@ import axios from "axios";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import EffectiveRoleForm from "../forms/EffectiveRoleForm";
+import EffectiveRole from "../../modules/entity/EffectiveRole";
+import fetchEffectiveRoles from "../../../utils/fetch/FetchEffectiveRoles";
 
 export default function EffectiveRoleList(props) {
     const [data, setData] = useState([])
     useEffect(() => {
-        axios({
-            method: 'get',
-            url: Host() + 'roles/effective',
-            headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
-        }).then(res => {
-            setData(res.data)
-        }).catch(error => {
-            console.log(error)
-        })
-
+        fetchEffectiveRoles().then(res => setData(res))
     }, [])
     return (
         <div style={{
             display: 'grid',
             marginTop: '10px',
             width: '100%',
-            borderTop: 'hsla(210, 11%, 78%, 0.5)  .7px solid'
+            gap: '16px'
         }}>
-            {(data).map((profile, index) =>
-                <div key={profile.id} style={{borderBottom: 'hsla(210, 11%, 78%, 0.5)  .7px solid'}}>
-                    <Accordion
-                        elevation={false}
-                        summary={
-                            <p className={mainStyles.secondaryParagraph}>
-                                {profile.denomination}
-                            </p>
-                        }
-                        content={
-                            <EffectiveRoleForm data={profile} locale={props.locale}/>
-                        }
-                        animationDelay={index * 200}
-                        asRow={true} disabled={false} key={index + '-accordion-' + profile.id} dark={false}
-                        background={undefined} openSize={100} closedSize={100}
-                        asButton={false} onClick={props.redirect}
-                    />
-                </div>
+            <EffectiveRole role={undefined} create={true} locale={props.locale} index={undefined} fetch={() => fetchEffectiveRoles().then(res => setData(res))}/>
+            {(data).map((role, index) =>
+                <EffectiveRole role={role} locale={props.locale} index={index} fetch={() => fetchEffectiveRoles().then(res => setData(res))}/>
             )}
         </div>
     )

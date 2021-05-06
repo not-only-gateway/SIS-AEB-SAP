@@ -10,63 +10,53 @@ export default function EffectiveRoleForm(props) {
 
     const [changed, setChanged] = useState(false)
     const [lang, setLang] = useState(null)
-    const [data, setData] = useState({})
-
     useEffect(() => {
-        if(props.create)
-            setData(props.data === undefined ? {} : props.data)
-
         setLang(getComponentLanguage({component: 'effective', locale: props.locale}))
     }, [])
 
-    function handleChange(props) {
-
-        setData(prevState => ({
-            ...prevState,
-            [props.name]: props.value
-        }))
-    }
 
     function disabled() {
         return (
-            data.denomination === null || data.denomination === undefined ||
-            data.hierarchy_level === null || data.hierarchy_level === undefined ||
+            props.data.denomination === undefined ||
+            props.data.hierarchy_level === undefined ||
+            props.data.denomination.length === 0 ||
+            props.data.hierarchy_level.length === 0  ||
             !changed
         )
     }
 
-    async function saveChanges() {
-        await saveComponentChanges({
-            path: !props.create ? ('role/effective/' + data.id) : 'role/effective',
-            params: {
-                denomination: data.denomination,
-                hierarchy_level: data.hierarchy_level,
-            },
-            method: props.create ? 'post' : 'put'
-        }).then(res => res ? setChanged(false) : console.log(res))
-    }
 
     if (lang !== null)
         return (
             <div className={mainStyles.displayWarp} style={{justifyContent: 'center', width: '100%'}}>
 
-                <InputLayout inputName={lang.denomination} dark={false} handleChange={handleChange}
+                <InputLayout inputName={lang.denomination} dark={false} handleChange={props.handleChange}
                              name={'denomination'}
                              inputType={0} size={'calc(50% - 8px)'} required={true}
-                             initialValue={data.denomination} key={"1-1-" + data.id} setChanged={setChanged}/>
+                             initialValue={props.data.denomination} key={'effective-role-1'} setChanged={setChanged}/>
 
-                <InputLayout inputName={lang.hierarchyLevel} dark={false} handleChange={handleChange}
+                <InputLayout inputName={lang.hierarchyLevel} dark={false} handleChange={props.handleChange}
                              name={'hierarchy_level'}
                              inputType={0} size={'calc(50% - 8px)'} required={true}
-                             initialValue={data.hierarchy_level} key={"1-2-" + data.id} setChanged={setChanged}/>
+                             initialValue={props.data.hierarchy_level} key={'effective-role-2'} setChanged={setChanged}/>
 
                 <Button style={{
-                    width: '100%', marginTop: '50px',
-                    backgroundColor: disabled() ? null : '#39adf6',
+                    width: '100%',
 
-                }} variant={'contained'} color={'primary'}
-                        disabled={disabled()}
-                        onClick={() => saveChanges()}>{lang.save}</Button>
+                    backgroundColor: disabled() ? '#f0ecec' : '#0095ff',
+                    color: disabled() ? '#777777' : 'white',
+                    fontWeight: 550,
+                    position: 'sticky',
+                    bottom: 0,
+                    zIndex: 5,
+                }} disabled={disabled()} variant={'contained'} onClick={() => {
+                    props.handleSubmit({pk: props.data.id, data: props.data, create: props.create}).then(res => {
+                        setChanged(!res)
+                        props.setAccepted(res)
+                    })
+                }}>
+                    {props.create ? lang.create : lang.save}
+                </Button>
             </div>
 
         )
@@ -75,7 +65,7 @@ export default function EffectiveRoleForm(props) {
 }
 
 EffectiveRoleForm.propTypes = {
-
+    setAccepted: PropTypes.func,
     locale: PropTypes.string,
     data: PropTypes.object,
     create: PropTypes.bool

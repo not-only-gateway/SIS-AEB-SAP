@@ -7,7 +7,7 @@ import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import Selector from "../../modules/selector/Selector";
 import CountryOptions from "../../../packages/options/CountryOptions";
 import fetchEntities from "../../../utils/fetch/FetchEntities";
-import mapToSelect from "../../../utils/person/MapToSelect";
+import mapToSelect from "../../../utils/shared/MapToSelect";
 
 export default function MembershipForm(props) {
 
@@ -76,7 +76,7 @@ export default function MembershipForm(props) {
                               value: {id: event.key, acronym: event.value}
                           })} setChanged={setChanged}
                           label={lang.entity} key={'membership-6'}
-                          data={mapToSelect({entities: entities, option: 6})} width={'100%'}/>
+                          data={mapToSelect({data: entities, option: 6})} width={'100%'}/>
 
                 {!props.editable ? null :
                     <Button style={{

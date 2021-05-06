@@ -1,55 +1,29 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useState} from "react";
-import mainStyles from "../../../styles/shared/Main.module.css";
-import Accordion from "../../layout/Accordion";
-import axios from "axios";
-import Host from "../../../utils/shared/Host";
-import Cookies from "universal-cookie/lib";
-import LinkageForm from "../forms/LinkageForm";
+import Linkage from "../../modules/entity/Linkage";
+import fetchLinkages from "../../../utils/fetch/FetchLinkages";
 
 export default function LinkageList(props) {
     const [data, setData] = useState([])
     useEffect(() => {
-        axios({
-            method: 'get',
-            url: Host() + 'linkage',
-            headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
-        }).then(res => {
-            setData(res.data)
-        }).catch(error => {
-            console.log(error)
-        })
-
+        fetchLinkages().then(res => setData(res))
     }, [])
     return (
         <div style={{
             display: 'grid',
             marginTop: '10px',
             width: '100%',
-            borderTop: 'hsla(210, 11%, 78%, 0.5)  .7px solid'
+            gap: '16px'
         }}>
-            {(data).map((data, index) =>
-                <div key={data.id} style={{borderBottom: 'hsla(210, 11%, 78%, 0.5)  .7px solid'}}>
-                    <Accordion
-                        elevation={false}
-                        summary={
-                            <p className={mainStyles.secondaryParagraph}>
-                                {data.denomination}
-                            </p>
-                        }
-                        content={
-                            <LinkageForm data={data} locale={props.locale}/>
-                        }
-                        animationDelay={index * 200}
-                        asRow={true} disabled={false} key={index + '-accordion-' + data.id} dark={false}
-                        background={undefined} openSize={100} closedSize={100}
-                        asButton={false} onClick={props.redirect}
-                    />
-                </div>
+            <Linkage create={true} locale={props.locale} linkage={undefined} fetch={() => fetchLinkages().then(res => setData(res))}/>
+            {(data).map((linkage, index) =>
+               <div key={linkage.id + '-linkage-'+index}>
+                   <Linkage create={false} locale={props.locale} linkage={linkage} index={index} fetch={() => fetchLinkages().then(res => setData(res))}/>
+               </div>
             )}
         </div>
     )
 }
-LinkageList.propTypes = {
+LinkageList.propTypes= {
     locale: PropTypes.string
 }

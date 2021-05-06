@@ -6,6 +6,7 @@ export default function getImage(props) {
     if (props.event !== null && props.event.target.files.length > 0) {
         reader.readAsDataURL(props.event.target.files[0])
         reader.onload = () => {
+            console.log(reader.result)
             props.setImage({
                 imageSrc: reader.result,
                 file: props.event.target.files

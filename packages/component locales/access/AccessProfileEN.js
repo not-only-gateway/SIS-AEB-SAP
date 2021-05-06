@@ -1,8 +1,8 @@
 export default {
     options: [{value: 'Yes', key: true}, {value: 'No', key: false}],
     denomination: 'Denomination',
-
-
+    structure: 'Structure',
+    manage: 'Manage',
     create: 'Create',
     update: 'Update',
     delete: 'Delete',
@@ -17,7 +17,7 @@ export default {
     documents: 'Documents',
     contacts: 'Contact',
     location: 'Location',
-
+    membership: 'Membership',
 
     save: 'Save'
 }

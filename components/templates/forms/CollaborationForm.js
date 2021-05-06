@@ -99,7 +99,7 @@ export default function CollaborationForm(props) {
 
             <InputLayout inputName={'Main Collaboration'} dark={props.dark} handleChange={props.handleChange}
                          inputType={1} name={'main_collaboration'}
-                         disabled={(!props.collaboration.unit || !props.canBeMain) && (props.collaboration.main_collaboration === null || !props.collaboration.main_collaboration)}
+                         disabled={!props.canBeMain}
                          size={'calc(25% - 12px)'} required={true}
                          initialValue={props.collaboration.main_collaboration}
                          selectFields={[{key: false, value: 'No'}, {key: true, value: 'Yes'}]}
@@ -170,7 +170,10 @@ export default function CollaborationForm(props) {
                     create: props.collaboration.id === undefined,
                     memberID: props.memberID,
                     collaborationID: props.collaborationID
-                }).then(res => setChanged(!res))}>Save</Button>
+                }).then(res => {
+                    setChanged(!res)
+                    props.setAccepted(res)
+                })}>Save</Button>
         </div>
     )
 }
@@ -185,5 +188,6 @@ CollaborationForm.propTypes = {
     commissionedRoles: PropTypes.array,
     linkages: PropTypes.array,
     canBeMain: PropTypes.bool,
-    collaborationID: PropTypes.any
+    collaborationID: PropTypes.any,
+    setAccepted: PropTypes.func
 }

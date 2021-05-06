@@ -9,8 +9,8 @@ import TabContent from "../components/templates/TabContent";
 import Authenticate from "../components/modules/Authenticate";
 import {Button} from "@material-ui/core";
 import animations from "../styles/shared/Animations.module.css";
-import {ArrowBackRounded} from "@material-ui/icons";
-import {getSecondaryColor} from "../styles/shared/MainStyles";
+import {ArrowBackRounded, AssignmentIndRounded, LinkRounded, LockOpen, LockOpenRounded} from "@material-ui/icons";
+import {getIconStyle, getSecondaryColor} from "../styles/shared/MainStyles";
 import GetTab from "../utils/management/GetTab";
 
 export default function management() {
@@ -81,22 +81,7 @@ export default function management() {
                     locale={router.locale}
                 />
                 <HeaderLayout
-                    availableTabs={option !== null ? {
-                        tabs: [
-                            {
-                                disabled: false,
-                                key: 0,
-                                value: lang.list
-                            },
-                            accessProfile !== null ? {
-                                disabled: !accessProfile.canCreateAccessProfile,
-                                key: 1,
-                                value: lang.create
-                            } : null
-                        ],
-                        setOpenTab: setOpenTab,
-                        openTab: openTab
-                    } : undefined}
+                    availableTabs={ undefined}
                     filterComponent={undefined}
                     title={
                         lang.title
@@ -121,21 +106,26 @@ export default function management() {
                              style={{marginTop: '50px', width: '100%', display: option === null ? null : 'none'}}>
                             <Button style={{...buttonContainer, ...{animationDelay: '100ms'}}}
                                     className={animations.slideUpAnimation} onClick={() => setOption(0)}>
+                                <LockOpenRounded style={getIconStyle({dark: false})}/>
+
                                 <p className={mainStyles.secondaryParagraph}
                                    style={getSecondaryColor({dark: false})}>{lang.accessTitle}</p>
                             </Button>
                             <Button style={{...buttonContainer, ...{animationDelay: '200ms'}}}
                                     className={animations.slideUpAnimation} onClick={() => setOption(1)}>
+                                <AssignmentIndRounded style={getIconStyle({dark: false})}/>
                                 <p className={mainStyles.secondaryParagraph}
                                    style={getSecondaryColor({dark: false})}>{lang.effectiveRoleTitle}</p>
                             </Button>
                             <Button style={{...buttonContainer, ...{animationDelay: '300ms'}}}
                                     className={animations.slideUpAnimation} onClick={() => setOption(2)}>
+                                <AssignmentIndRounded style={getIconStyle({dark: false})}/>
                                 <p className={mainStyles.secondaryParagraph}
                                    style={getSecondaryColor({dark: false})}>{lang.commissionedRoleTitle}</p>
                             </Button>
                             <Button style={{...buttonContainer, ...{animationDelay: '400ms'}}}
                                     className={animations.slideUpAnimation} onClick={() => setOption(3)}>
+                                <LinkRounded style={getIconStyle({dark: false})}/>
                                 <p className={mainStyles.secondaryParagraph}
                                    style={getSecondaryColor({dark: false})}>{lang.linkagesTitle}</p>
                             </Button>
@@ -146,7 +136,6 @@ export default function management() {
                                 tabs={GetTab({option: option, locale: router.locale})}
                             />
                         </div>
-
                     </div>
                 </div>
             </>

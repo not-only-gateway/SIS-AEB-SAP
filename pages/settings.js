@@ -16,6 +16,9 @@ import Link from "next/link";
 import {HistoryRounded} from "@material-ui/icons";
 import animations from "../styles/shared/Animations.module.css";
 import HeaderLayout from "../components/layout/HeaderLayout";
+import Authenticate from "../components/modules/Authenticate";
+import mapToSelect from "../utils/shared/MapToSelect";
+import Selector from "../components/modules/selector/Selector";
 
 export default function Settings() {
 
@@ -63,7 +66,14 @@ export default function Settings() {
                     searchComponent={undefined}
                 />
                 <div className={mainStyles.displayInlineCenter} style={{width: '100%'}}>
-                    <div style={{marginTop: '50px', width: '75%', display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', gap: '16px'}}>
+                    <div style={{
+                        marginTop: '50px',
+                        width: '75%',
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        alignItems: 'flex-start',
+                        gap: '16px'
+                    }}>
                         <Accordion
                             content={
                                 <FormControl component="fieldset"
@@ -101,7 +111,7 @@ export default function Settings() {
                             content={
                                 <FormControl component="fieldset"
                                              style={{...{paddingLeft: '10px'}, ...getSecondaryColor({dark: dark})}}>
-                                    <RadioGroup onChange={() => props.changeTheme()} value={dark}>
+                                    <RadioGroup value={dark}>
                                         <FormControlLabel value={false} control={<Radio/>} label={
                                             <div className={style.theme_container}>
                                                 <p>Light</p>
@@ -135,35 +145,57 @@ export default function Settings() {
                         />
 
                         {(new Cookies()).get('jwt') !== undefined && currentCollaboration !== null ?
-                            <Accordion
-                                content={
-                                    <FormControl component="fieldset"
-                                                 style={{...{paddingLeft: '10px'}, ...getSecondaryColor({dark: dark})}}>
-                                        <RadioGroup value={currentCollaboration.id}>
-                                            {collaborations.map(collaboration => {
-                                                console.log(collaboration)
-                                                return <FormControlLabel value={collaboration.collaboration.id}
-                                                                         control={<Radio/>}
-                                                                         label={collaboration.unit.acronym}/>
-                                            })}
-                                        </RadioGroup>
-                                    </FormControl>
-                                }
-                                summary={
-                                    <div className={shared.accordionTitle}>
-                                        <p className={mainStyles.secondaryParagraph}>{lang.collaboration}</p>
-                                        <Divider style={{width: '10px', marginLeft: '10px', marginRight: '10px'}}
-                                                 orientation={'horizontal'}/>
-                                        <p className={mainStyles.tertiaryParagraph}
-                                           style={getTertiaryColor({dark: dark})}>{currentCollaboration.unitAcronym}</p>
-                                    </div>
-                                }
-                                key={'collaborations - settings'}
-                                closedSize={31}
-                                openSize={31}
-                                dark={dark}
-                                animationDelay={300}
-                            />
+                            <Selector required={false} key={'collaboration-setting'} handleChange={undefined}
+                                      setChanged={undefined} disabled={false} selected={{
+                                key: currentCollaboration.id,
+                                value: <div>
+                                    <p>{currentCollaboration.id}</p>
+                                    <p>{currentCollaboration.id}</p>
+                                </div>
+                            }} data={mapToSelect({data: collaborations, option: 7})} label={'Collaboration'} width={'31%'}/>
+                            // <Accordion
+                            //     content={
+                            //         <>
+                            //             <Authenticate
+                            //                 redirect={() => {
+                            //                     window.location.reload()
+                            //                 }}
+                            //                 render={true}
+                            //                 locale={router.locale}
+                            //             />
+                            //             <FormControl component="fieldset"
+                            //                          style={{...{paddingLeft: '10px'}, ...getSecondaryColor({dark: dark})}}>
+                            //                 <RadioGroup value={currentCollaboration.id} onChange={(event => alert(event.target.value))}>
+                            //                     {collaborations.map(collaboration => {
+                            //                         return <FormControlLabel
+                            //                             value={collaboration.collaboration.id}
+                            //                             control={<Radio/>}
+                            //                             label={<div className={mainStyles.displayInlineSpaced} >
+                            //                                 <p>{collaboration.unit.acronym}</p>
+                            //                                 <p>{collaboration.role.denomination}</p>
+                            //                                 <p>{collaboration.linkage.denomination}</p>
+                            //                             </div>}
+                            //                         />
+                            //                     })}
+                            //                 </RadioGroup>
+                            //             </FormControl>
+                            //         </>
+                            //     }
+                            //     summary={
+                            //         <div className={shared.accordionTitle}>
+                            //             <p className={mainStyles.secondaryParagraph}>{lang.collaboration}</p>
+                            //             <Divider style={{width: '10px', marginLeft: '10px', marginRight: '10px'}}
+                            //                      orientation={'horizontal'}/>
+                            //             <p className={mainStyles.tertiaryParagraph}
+                            //                style={getTertiaryColor({dark: dark})}>{currentCollaboration.unitAcronym}</p>
+                            //         </div>
+                            //     }
+                            //     key={'collaborations-settings'}
+                            //     closedSize={31}
+                            //     openSize={31}
+                            //     dark={dark}
+                            //     animationDelay={300}
+                            // />
                             :
                             null
                         }

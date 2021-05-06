@@ -54,7 +54,7 @@ export default function BaseForm(props) {
             !props.person.nationality ||
             !props.person.birth_place ||
             !props.person.birth ||
-            props.person.disabled_person === undefined||
+            props.person.disabled_person === undefined ||
             !props.person.education ||
             !props.person.gender ||
             !props.person.marital_status ||
@@ -78,15 +78,16 @@ export default function BaseForm(props) {
                              initialValue={props.person.birth}
                              key={"1-7"} setChanged={setChanged}/>
 
-                <ImageSelector initialImage={props.person.image === null ? image.imageSrc : props.person.image}
-                               size={'100px'}
-                               setImage={event => getImage({
-                                   event: event,
-                                   handleChange: props.handleChange,
-                                   setChanged: setChanged,
-                                   setImage: setImage
-                               })} label={'person Image'}
-                               base64={props.person.image === null} setChanged={setChanged}/>
+                <ImageSelector
+                    initialImage={props.person.image === null || !props.person.image ? image.imageSrc : props.person.image}
+                    size={'100px'}
+                    setImage={event => getImage({
+                        event: event,
+                        handleChange: props.handleChange,
+                        setChanged: setChanged,
+                        setImage: setImage
+                    })} label={'person Image'}
+                    base64={props.person.image === null || !props.person.image } setChanged={setChanged}/>
 
                 <InputLayout inputName={lang.disabledPerson} dark={props.dark}
                              handleChange={props.handleChange}
@@ -148,7 +149,12 @@ export default function BaseForm(props) {
                         fontWeight: 550,
 
                     }} disabled={disabled()} variant={'contained'} onClick={() => {
-                        props.handleSubmit({person: props.person, image: image, personID: props.id, create: props.create}).then(res => {
+                        props.handleSubmit({
+                            person: props.person,
+                            image: image,
+                            personID: props.id,
+                            create: props.create
+                        }).then(res => {
                             setChanged(!res)
                             if (props.setAccepted !== undefined) {
                                 props.setAccepted(res.status)

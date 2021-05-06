@@ -4,7 +4,7 @@ export default function mapToSelect(props) {
     let response = []
     switch (props.option) {
         case 0: {
-            props.units.map(data => {
+            props.data.map(data => {
                 response.push({
                     key: data.id,
                     value: data.acronym
@@ -13,7 +13,7 @@ export default function mapToSelect(props) {
             break
         } // unit
         case 1: {
-            props.effectiveRoles.map(data => {
+            props.data.map(data => {
                 response.push({
                     key: data.id,
                     value: data.denomination
@@ -22,7 +22,7 @@ export default function mapToSelect(props) {
             break
         } // effective
         case 2: {
-            props.commissionedRoles.map(data => {
+            props.data.map(data => {
                 response.push({
                     key: data.id,
                     value: data.das ? 'DAS - ' : 'FCPE - ' + data.denomination
@@ -31,7 +31,7 @@ export default function mapToSelect(props) {
             break
         } // commissioned
         case 3: {
-            props.seniors.map(senior => {
+            props.data.map(senior => {
                 response.push({
                     key: senior.collaboration.id,
                     value: senior.person.name + ' - ' + senior.unit.acronym
@@ -40,7 +40,7 @@ export default function mapToSelect(props) {
             break
         } // SENIORS
         case 4: {
-            props.accessProfiles.map(data => {
+            props.data.map(data => {
                 response.push({
                     key: data.id,
                     value: data.denomination
@@ -49,7 +49,7 @@ export default function mapToSelect(props) {
             break
         }
         case 5: {
-            props.linkages.map(data => {
+            props.data.map(data => {
                 response.push({
                     key: data.id,
                     value: data.denomination
@@ -58,7 +58,16 @@ export default function mapToSelect(props) {
             break
         }
         case 6: {
-            props.entities.map(data => {
+            props.data.map(data => {
+                response.push({
+                    key: data.id,
+                    value: data.denomination
+                })
+            })
+            break
+        }
+        case 7: {
+            props.data.map(data => {
                 response.push({
                     key: data.id,
                     value: data.denomination
@@ -74,10 +83,6 @@ export default function mapToSelect(props) {
 }
 mapToSelect.propTypes={
     option: PropTypes.number,
-    accessProfiles: PropTypes.array,
-    seniors: PropTypes.array,
-    commissionedRoles: PropTypes.array,
-    effectiveRoles: PropTypes.array,
-    units: PropTypes.array,
-    entities: PropTypes.array
+
+    data: PropTypes.array
 }
