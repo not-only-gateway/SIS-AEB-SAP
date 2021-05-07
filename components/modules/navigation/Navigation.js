@@ -6,7 +6,7 @@ import {
     ExitToAppRounded,
     ExtensionRounded,
     MenuOpenRounded,
-    SettingsRounded
+    SettingsRounded, ViewQuiltRounded
 } from '@material-ui/icons';
 import styles from '../../../styles/shared/Bar.module.css'
 import PropTypes from 'prop-types'
@@ -19,6 +19,7 @@ import animations from '../../../styles/shared/Animations.module.css'
 import NavigationButton from "../../layout/NavigationButton";
 import NavigationDropDownButton from "../../layout/NavigationDropDownButton";
 import NavigationEN from "../../../packages/component locales/navigation/NavigationEN";
+import {Button} from "@material-ui/core";
 
 
 export default function Navigation(props) {
@@ -52,34 +53,32 @@ export default function Navigation(props) {
                     height: '33.333%',
                     width: '100%',
 
-                    display: 'grid',
-                    justifyItems: 'center',
+                    display: 'flex',
                     alignItems: 'flex-start',
-                    alignContent: 'flex-start'
+
+
                 }}>
                 <div style={{
-                    display: 'flex',
-                    justifyContent: props.reduced ? 'flex-end' : 'center',
                     width: '100%',
-                    paddingRight: props.reduced ? '3px' : 0,
-                    marginTop: '8px'
+                    display: 'flex',
+                    justifyContent: props.reduced ? 'center' : 'space-between',
+                    justifyItems: 'center',
+                    alignItems: 'center',
+                    height: '65px'
                 }}>
-                    <img className={animations.fadeIn}
-                         style={{width: props.reduced ? '52px' : '150px'}}
-                         src={props.reduced ? '/small.png' : '/newnew.png'} alt={'logo'}/>
+                    {props.reduced ? null :
+                        <img className={animations.fadeIn}
+                             style={{width: '50%', marginLeft: '16px'}}
+                             src={'/newnew.png'} alt={'logo'}/>
+                    }
+
+                    <Button onClick={() => props.setReduced(!props.reduced)}>
+                        <MenuOpenRounded style={{
+                            color: '#555555',
+                            transform: props.reduced ? 'rotate(180deg)' : null,
+                        }}/>
+                    </Button>
                 </div>
-                <NavigationButton
-                    dark={props.dark} linkPath={null}
-                    highlight={false} locale={props.locale}
-                    reduced={props.reduced} minWidth={true}
-                    setToggle={props.setReduced}
-                    initialValue={props.reduced}
-                    icon={<MenuOpenRounded style={{
-
-                        transform: props.reduced ? 'rotate(180deg)' : null,
-                    }}/>}
-                />
-
             </div>
 
             <div style={{
@@ -89,7 +88,6 @@ export default function Navigation(props) {
                 justifyContent: 'center',
                 height: '33.333%'
             }}>
-
                 <NavigationButton
                     dark={props.dark} linkPath={'/'}
                     highlight={props.path === '/'} locale={props.locale}
@@ -99,10 +97,10 @@ export default function Navigation(props) {
                     }
                 />
                 <NavigationButton
-                    dark={props.dark} linkPath={'/structure'}
-                    highlight={props.path === '/structure'} locale={props.locale}
-                    label={lang.structure} reduced={props.reduced}
-                    icon={<AccountTreeRounded/>}
+                    dark={props.dark} linkPath={'/units'}
+                    highlight={props.path === '/units'} locale={props.locale}
+                    label={lang.units} reduced={props.reduced}
+                    icon={<ViewQuiltRounded/>}
                 />
                 <NavigationButton
                     dark={props.dark} linkPath={'/settings'}

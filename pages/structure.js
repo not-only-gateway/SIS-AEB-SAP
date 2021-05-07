@@ -21,25 +21,9 @@ export default function Structure() {
     useEffect(() => {
         setLang(getLanguage(router.locale, '/structure'))
         setDark((new Cookies()).get('theme') === 0)
-        axios({
-            method: 'get',
-            url: Host() + 'top/units',
-            headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
-        }).then(res => {
-            setTopUnits(res.data)
-        }).catch(error => {
-            console.log(error)
-        })
 
-        axios({
-            method: 'get',
-            url: Host() + 'top/collaborators',
-            headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
-        }).then(res => {
-            setTopCollaborators(res.data)
-        }).catch(error => {
-            console.log(error)
-        })
+
+
     }, [])
 
     if (lang !== null)

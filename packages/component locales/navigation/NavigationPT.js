@@ -5,10 +5,10 @@ export default {
     signin: 'Entrar',
     activity: 'Atividade da conta',
 
-    structure: 'Estrutura',
+    units: 'Unidades',
     profile: 'Perfil',
     more: 'Mais',
-
+    extended: 'Reduzir',
     management: 'Administração',
     createPerson: 'Cadastrar colaborador'
 }

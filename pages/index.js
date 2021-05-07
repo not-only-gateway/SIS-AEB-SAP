@@ -6,34 +6,32 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import FetchData from "../utils/fetch/FerchExtensions";
 import {getTertiaryColor} from "../styles/shared/MainStyles";
 import mainStyles from '../styles/shared/Main.module.css'
-import ExtensionsSearch from "../components/elements/ExtensionsSearch";
+import SearchBox from "../components/elements/SearchBox";
 
 import ExtensionsFilters from "../components/modules/filters/ExtensionsFilters";
 import HeaderLayout from "../components/layout/HeaderLayout";
 import FiltersComponent from "../components/layout/FiltersComponent";
 import Extension from "../components/templates/list/Extension";
 import {readAccessProfile} from "../utils/shared/IndexedDB";
+import handleObjectChange from "../utils/shared/HandleObjectChange";
+import TabContent from "../components/templates/TabContent";
+import Canvas from "../components/layout/Canvas";
+import Extensions from "../components/modules/Extensions";
+import CollaboratorsStructure from "../components/modules/CollaboratorsStructure";
+import fetchTopCollaborators from "../utils/fetch/FetchTopCollaborators";
 
 export default function Index() {
 
     const router = useRouter()
-    const data = useRef([])
+    const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
     const [lang, setLang] = useState(null)
     const [option, setOption] = useState('collaborators')
+    const [openTab, setOpenTab] = useState(0)
     const [lastFetchedSize, setLastFetchedSize] = useState(null)
     const [maxID, setMaxID] = useState(null)
     const [accessProfile, setAccessProfile] = useState(null)
-    useEffect(() => {
-        setLang(getLanguage(router.locale, '/'))
-        if (data.current.length === 0)
-            fetchData(1, true, false).catch(error => console.log(error))
-        if(accessProfile === null)
-            readAccessProfile().then(profile => {
-                setAccessProfile(profile)
-            })
-    }, [])
-
+    const [changed, setChanged] = useState(false)
     const [filters, setFilters] = useState({
         unit: undefined,
         effectiveRole: undefined,
@@ -43,12 +41,28 @@ export default function Index() {
         commissionedRoleOnly: undefined,
         searchInput: ''
     })
-    const [changed, setChanged] = useState(false)
+
+    useEffect(() => {
+        setLang(getLanguage(router.locale, '/'))
+        if (data.length === 0)
+            fetchData(1, true, false).catch(error => console.log(error))
+        if (accessProfile === null)
+            readAccessProfile().then(profile => {
+                setAccessProfile(profile)
+            })
+    }, [])
+
+    function redirect(id) {
+        router.push({
+            pathname: '/person',
+            query: {id: id}
+        })
+    }
 
     async function fetchData(type, start, search) {
 
         await FetchData({
-            setResponse: event => data.current = event,
+            setResponse: setData,
             params: {
                 input: search === false ? null : filters.searchInput.length === 0 ? null : filters.searchInput,
                 max_id: start ? null : maxID,
@@ -68,140 +82,127 @@ export default function Index() {
         }).catch(error => console.log(error))
     }
 
-    function handleInputChange(event) {
-        if (event.length === 0)
-            fetchData(1, true, false)
-        handleFilterChange({name: 'searchInput', value: event})
-    }
-
-    function handleFilterChange(props) {
-        setFilters(prevState => ({
-            ...prevState,
-            [props.name]: props.value
-        }))
-    }
-
     if (lang !== null)
         return (
             <>
 
                 <HeaderLayout
                     width={'75%'}
+                    availableTabs={{
+                        tabs: [
+                            {
+                                disabled: false,
+                                key: 0,
+                                value: 'Overview'
+                            },
+                            {
+                                disabled: false,
+                                key: 1,
+                                value: 'Structure'
+                            },
+                        ],
+                        setOpenTab: setOpenTab,
+                        openTab: openTab
+                    }}
                     filterComponent={
-                        <ExtensionsFilters
-                            dark={false} setOption={setOption} option={option} setChanged={setChanged}
-                            lang={lang} setLoading={setLoading} fetchData={fetchData} changed={changed}
-                            setMaxID={setMaxID} filters={filters} handleFilterChange={handleFilterChange}
-                            accessProfile={accessProfile}
-                        />
+                        openTab === 0 ?
+                            <ExtensionsFilters
+                                dark={false} setOption={setOption} option={option} setChanged={setChanged}
+                                lang={lang} setLoading={setLoading} fetchData={fetchData} changed={changed}
+                                setMaxID={setMaxID} filters={filters}
+                                handleFilterChange={event => handleObjectChange({event: event, setData: setFilters})}
+                                accessProfile={accessProfile}
+                            />
+                            :
+                            undefined
                     }
                     pageTitle={lang.extensions}
                     title={lang.extensions}
+                    information={openTab === 1 ? lang.information : undefined}
                     searchComponent={
-                        <ExtensionsSearch
-                            dark={false} setData={event => data.current = event}
-                            lang={lang.search} setLoading={setLoading} fetchData={fetchData}
-                            searchInput={filters.searchInput} setSearchInput={handleInputChange}
-                            setMaxID={setMaxID} width={100} setChanged={setChanged}
-                        />
+                        openTab === 0 ?
+                            <SearchBox searchInput={filters.searchInput}
+                                       setSearchInput={event => handleObjectChange({event: {name: 'searchInput', value: event}, setData: setFilters})}
+                                       searchLocale={lang.search} setChanged={setChanged}/>
+                            :
+                            undefined
                     }
                     activeFiltersComponent={
-                        <FiltersComponent
-                            active={changed}
+                        openTab === 0 ?
+                            <FiltersComponent
+                                active={changed}
+                                handleChange={event => handleObjectChange({event: event, setData: setFilters})}
+                                applyChanges={() => {
+                                    setChanged(false)
+                                    fetchData(1, true)
 
-                            handleChange={handleFilterChange}
-                            applyChanges={() => {
-                                setChanged(false)
-                                fetchData(1, true)
-
-                            }}
-                            setChanged={setChanged}
-                            changed={changed}
-                            activeFilters={[
-                                {
-                                    key: 'unit',
-                                    value: filters.unit !== undefined   ? filters.unit.value : null
-                                },
-                                {
-                                    key: 'commissionedRole',
-                                    value: filters.commissionedRole !== undefined ? filters.commissionedRole.value : null
-                                },
-                                {
-                                    key: 'effectiveRole',
-                                    value: filters.effectiveRole !== undefined ? filters.effectiveRole.value : null
-                                },
-                                {
-                                    key: 'effectiveRoleOnly',
-                                    value: filters.effectiveRoleOnly !== undefined && filters.effectiveRoleOnly ? 'Effective Roles Only' : null
-                                },
-                                {
-                                    key: 'commissionedRoleOnly',
-                                    value: filters.commissionedRoleOnly !== undefined && filters.commissionedRoleOnly ? 'Commissioned Roles Only' : null
-                                },
-                                {
-                                    key: 'searchInput',
-                                    value: filters.searchInput.length > 0 ? filters.searchInput : null,
-                                    type: 'text'
-                                },
-                                {key: 'option', value: option === 'member' ? 'All' :null, disabled: true}
-                            ]}/>}
+                                }}
+                                setChanged={setChanged}
+                                changed={changed}
+                                activeFilters={[
+                                    {
+                                        key: 'unit',
+                                        value: filters.unit !== undefined ? filters.unit.value : null
+                                    },
+                                    {
+                                        key: 'commissionedRole',
+                                        value: filters.commissionedRole !== undefined ? filters.commissionedRole.value : null
+                                    },
+                                    {
+                                        key: 'effectiveRole',
+                                        value: filters.effectiveRole !== undefined ? filters.effectiveRole.value : null
+                                    },
+                                    {
+                                        key: 'effectiveRoleOnly',
+                                        value: filters.effectiveRoleOnly !== undefined && filters.effectiveRoleOnly ? 'Effective Roles Only' : null
+                                    },
+                                    {
+                                        key: 'commissionedRoleOnly',
+                                        value: filters.commissionedRoleOnly !== undefined && filters.commissionedRoleOnly ? 'Commissioned Roles Only' : null
+                                    },
+                                    {
+                                        key: 'searchInput',
+                                        value: filters.searchInput.length > 0 ? filters.searchInput : null,
+                                        type: 'text'
+                                    },
+                                    {key: 'option', value: option === 'member' ? 'All' : null, disabled: true}
+                                ]}/>
+                            : undefined
+                    }
 
                 />
                 <div className={mainStyles.displayInlineCenter} style={{width: '100%', position: 'relative'}}>
-                    {!loading ?
-                        data.current.length > 0 ?
-                            <div style={{width: '75%'}}>
-                                <InfiniteScroll
-                                    dataLength={data.current.length}
-                                    next={() => fetchData(0)}
-                                    hasMore={lastFetchedSize === 15}
-                                    inverse={false}
-                                    scrollableTarget="scrollableDiv"
-                                    loader={<Skeleton variant={'rect'} width={'100%'} style={{borderRadius: '8px'}}
-                                                      height={'7vh'}/>}
-                                    endMessage={
-                                        <div style={{
-                                            width: '100%'
-                                        }}>
-                                            <p className={mainStyles.secondaryParagraph}
-                                               style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: false})}}>{lang.end}</p>
-                                        </div>
-                                    }
-                                >
-                                    <div style={{display: 'grid', gap: '8px', marginTop: '8px'}}>
-                                        {data.current.map((member, index) =>
-                                            <Extension
-                                                data={member}
-                                                index={index}
-                                                redirect={id => {
-                                                    router.push({
-                                                        pathname: '/person',
-                                                        query: {id: id}
-                                                    })
-                                                }}
-                                                inactiveLocale={lang.inactive}/>
-                                        )}
-                                    </div>
-                                </InfiniteScroll>
-                            </div>
-                            :
 
-                            <div className={mainStyles.displayInlineCenter} style={{
-                                ...{marginBottom: '15px', width: '50vw'}
-                            }}>
-                                <p className={mainStyles.secondaryParagraph}
-                                   style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: false})}}>{lang.nothingFound}</p>
-                            </div>
+                    <div style={{
+                        width: '75%',
+                        height: 'fit-content',
+                        borderRadius: '8px',
+                        display: 'grid',
+                        gap: '16px'
+                    }}>
+                        <TabContent
+                            openTab={openTab}
+                            tabs={[
+                                {
+                                    buttonKey: 0,
+                                    value: (
+                                        <Extensions
+                                            redirect={redirect} data={data} fetchData={fetchData}
+                                            nothingFound={lang.nothingFound} end={lang.end}
+                                            inactive={lang.inactive} lastFetchedSize={lastFetchedSize}/>
+                                    )
+                                },
 
-                        :
-                        <div className={mainStyles.displayInlineCenter} style={{
-                            ...{marginBottom: '15px', width: '50vw'}
-                        }}>
-                            <p className={mainStyles.secondaryParagraph}
-                               style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: false})}}>Loading</p>
-                        </div>}
-                    {/*{window.pageYOffset > 0 ? <Button onClick={() => window.scrollTo(0, 0)} style={{position: 'absolute', bottom: '10px', right: '10px'}}><ArrowUpwardRounded/></Button> : null }*/}
+                                {
+                                    buttonKey: 1,
+                                    value: (
+                                        <CollaboratorsStructure/>
+                                    )
+                                }
+                            ]}/>
+                    </div>
                 </div>
+
             </>
         )
     else

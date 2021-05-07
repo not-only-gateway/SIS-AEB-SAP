@@ -6,8 +6,8 @@ import animations from "../../styles/shared/Animations.module.css";
 import mainStyles from "../../styles/shared/Main.module.css";
 import {FilterListRounded} from "@material-ui/icons";
 import Head from "next/head";
-import TabsComponent from "../modules/navigation/TabsComponent";
-import Stepper from "../modules/navigation/Stepper";
+import HorizontalTabs from "./navigation/HorizontalTabs";
+import Stepper from "./navigation/Stepper";
 import styles from '../../styles/component/Component.module.css'
 
 export default function HeaderLayout(props) {
@@ -42,7 +42,9 @@ export default function HeaderLayout(props) {
             </Head>
 
             <div className={styles.HeaderLayout} style={{
-                borderBottom: 'hsla(210, 11%, 78%, 0.5)  .7px solid', width: props.width
+                width: props.width,
+                backgroundColor: '#f5f6f8'
+
             }}>
 
                 <div className={mainStyles.displayInlineSpaced} style={{width: '100%'}}>
@@ -51,7 +53,7 @@ export default function HeaderLayout(props) {
                             <div style={{
                                 fontSize: '1.7rem',
                                 fontWeight: 570,
-                                paddingTop: !props.information ? '16px' : '8px',
+                                paddingTop: '16px',
                                 paddingBottom: !props.information ? '16px' : 0
                             }}>
                                 {props.title}
@@ -88,8 +90,8 @@ export default function HeaderLayout(props) {
 
                     : null}
                 {props.availableTabs !== undefined ?
-                    <TabsComponent buttons={props.availableTabs.tabs} setOpenTab={props.availableTabs.setOpenTab}
-                                   openTab={props.availableTabs.openTab}/>
+                    <HorizontalTabs buttons={props.availableTabs.tabs} setOpenTab={props.availableTabs.setOpenTab}
+                                    openTab={props.availableTabs.openTab}/>
 
                     :
                     null

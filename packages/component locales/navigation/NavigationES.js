@@ -3,10 +3,10 @@ export default {
     settings: 'Ajustes',
     signout: 'Desconectar',
     signin: 'Registrarse',
-    structure: 'Estructura',
+    units: 'Units',
     profile: 'Perfil',
     more: 'Mais',
-
+    extended: 'Reduce',
     management: 'Management',
     createPerson: 'Cadastrar colaborador'
 }

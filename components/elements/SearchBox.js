@@ -2,16 +2,11 @@ import PropTypes from 'prop-types'
 import {InputBase, Paper} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import mainStyles from '../../styles/shared/Main.module.css'
+import {SearchRounded} from "@material-ui/icons";
 
-export default function ExtensionsSearch(props) {
+export default function SearchBox(props) {
     const [focused, setFocused] = useState(false)
     const [hovered, setHovered] = useState(false)
-    useEffect(() => {
-        props.setSearchInput('')
-        props.setMaxID(null)
-        props.setData([])
-        props.fetchData(1, true)
-    }, [props.option])
 
     return (
 
@@ -27,8 +22,8 @@ export default function ExtensionsSearch(props) {
                        display: 'flex',
                        justifyContent: 'space-around',
                        alignItems: 'center',
-                       boxShadow: focused || hovered ? 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px' : 'unset',
-                       border: focused || hovered ? '#0095ff .7px solid' : 'hsla(210, 11%, 78%, 0.5)  .7px solid',
+                       boxShadow: focused || hovered ? 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
+                       border: focused ? 'hsla(210, 11%, 78%, 0.5)  .7px solid' : 'transparent .7px solid',
                        width: '100%',
                        borderRadius: '8px',
                        height: '100%',
@@ -36,10 +31,12 @@ export default function ExtensionsSearch(props) {
                        backgroundColor: 'white'
                    }}>
 
-
+                <div style={{width: '50px', marginLeft: '5px', height: '100%'}} className={mainStyles.displayInlineCenter}>
+                    <SearchRounded style={{color: '#777777'}}/>
+                </div>
                 <InputBase
-                    style={{width: '98%'}}
-                    placeholder={props.lang}
+                    style={{width: 'calc(100% - 60px)', marginLeft: 'auto'}}
+                    placeholder={props.searchLocale}
                     value={props.searchInput}
 
                     onKeyDown={key => {
@@ -52,31 +49,14 @@ export default function ExtensionsSearch(props) {
                     }}
                 />
             </Paper>
-            {/*<Button onClick={() => {*/}
-            {/*    props.setChanged(false)*/}
-            {/*    props.fetchData(1, true)*/}
-            {/*}} style={{*/}
-            {/*    width: '55px',*/}
-            {/*    color: props.searchInput.length === 0 ? '#777777' : 'white',*/}
-            {/*    backgroundColor: props.searchInput.length === 0 ? null : 'black',*/}
-            {/*    boxShadow:  props.searchInput.length === 0 ? null : 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px',*/}
-            {/*    borderRadius: '8px',*/}
-            {/*    height: '100%'*/}
-            {/*}} disabled={props.searchInput.length === 0}>*/}
-            {/*    <SearchRounded/>*/}
-            {/*</Button>*/}
+
         </div>
     )
 }
 
-ExtensionsSearch.propTypes = {
-    width: PropTypes.number,
-    dark: PropTypes.bool,
-
-    lang: PropTypes.object,
-    setData: PropTypes.func,
+SearchBox.propTypes = {
+    searchLocale: PropTypes.object,
     setSearchInput: PropTypes.func,
     searchInput: PropTypes.string,
-    fetchData: PropTypes.func,
-    setMaxID: PropTypes.func
+    setChanged: PropTypes.func
 }

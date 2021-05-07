@@ -9,9 +9,10 @@ import fetchActivityData from "../utils/fetch/FetchActivity";
 import {getTertiaryColor} from "../styles/shared/MainStyles";
 import mainStyles from "../styles/shared/Main.module.css";
 import HeaderLayout from "../components/layout/HeaderLayout";
-import ActivitySearch from "../components/elements/ActivitySearch";
 import FiltersComponent from "../components/layout/FiltersComponent";
 import ActivityTemplate from "../components/templates/list/ActivityTemplate";
+import SearchBox from "../components/elements/SearchBox";
+import handleObjectChange from "../utils/shared/HandleObjectChange";
 
 export default function activity() {
 
@@ -34,6 +35,7 @@ export default function activity() {
     const [errorMessage, setErrorMessage] = useState(null)
     const [dark, setDark] = useState(false)
     const [pagesFetched, setPagesFetched] = useState(0)
+    const [openTab, setOpenTab] = useState(0)
 
     function handleChange(props) {
         console.log(props)
@@ -88,7 +90,22 @@ export default function activity() {
         return (
             <>
                 <HeaderLayout
-
+                    availableTabs={{
+                        tabs: [
+                            {
+                                disabled: false,
+                                key: 0,
+                                value: 'Overview'
+                            },
+                            {
+                                disabled: false,
+                                key: 1,
+                                value: 'Advanced'
+                            },
+                        ],
+                        setOpenTab: setOpenTab,
+                        openTab: openTab
+                    }}
                     width={'65%'}
                     filterComponent={
                         <ActivityFilterComponent
@@ -138,9 +155,9 @@ export default function activity() {
                                     value: filters.thisMachine ? lang.machine : null
                                 },
                             ]}/>}
-                    searchComponent={<ActivitySearch fetchData={fetch} setSearchInput={handleInputChange}
-                                                     setChanged={setChanged}
-                                                     searchInput={filters.searchInput} lang={lang.search}/>}
+                    searchComponent={
+                        <SearchBox searchInput={filters.searchInput} setSearchInput={event => handleObjectChange({event:  {name: 'searchInput', value: event}, setData: setFilters})} searchLocale={lang.search} setChanged={setChanged}/>
+                    }
                 />
                 <div className={mainStyles.displayInlineCenter} style={{width: '100%', position: 'relative'}}>
                     {data.length > 0 ?
