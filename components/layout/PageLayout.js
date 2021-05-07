@@ -4,6 +4,7 @@ import Navigation from "../modules/navigation/Navigation";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {createMuiTheme, ThemeProvider} from "@material-ui/core";
+import 'fontsource-roboto';
 
 const cookies = new Cookies()
 
@@ -23,20 +24,15 @@ export default function PageLayout({children}) {
 
     if (router.pathname !== '/signin')
         return (
-            <div>
+            <div style={{fontFamily: 'Roboto', backgroundColor: '#f5f6f8'}}>
                 <div className={styles.page_container}
                      id={'scrollableDiv'} style={{
                     width: reduced ? 'calc(100% - 75px)' : 'calc(100% - 260px)',
                     marginLeft: 'auto',
                     transition: '250ms ease-in-out'
                 }}>
-                    <ThemeProvider theme={createMuiTheme({
-                        palette: {
-                            type: "light"
-                        }
-                    })}>
+
                     {children}
-                    </ThemeProvider>
                 </div>
                 <Navigation dark={dark} locale={router.locale} path={router.pathname} reduced={reduced}
                             setReduced={setReduced}/>
@@ -45,8 +41,8 @@ export default function PageLayout({children}) {
         )
     else
         return (
-            <>
+            <div style={{fontFamily: 'Roboto'}}>
                 {children}
-            </>
+            </div>
         )
 }

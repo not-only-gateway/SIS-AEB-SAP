@@ -18,9 +18,7 @@ export default function Canvas(props) {
                 marginTop: zoom > 1 ? 'calc(8.3% * ' + (zoom - .25) + ')' : null
             }}>
                 <ul className={styles.tree} style={{
-                    backgroundColor: props.dark ? '#3b424c' : 'none',
                     borderRadius: '8px',
-
                 }}>
                     <TreeNode dark={props.dark} subject={props.subject}
                               type={props.type}/>

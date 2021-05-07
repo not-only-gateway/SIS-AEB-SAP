@@ -58,12 +58,11 @@ export default function Settings() {
         return (
             <>
                 <HeaderLayout
-                    tab={undefined}
-                    filterComponent={undefined}
+
+
                     pageTitle={lang.settings}
                     title={lang.settings}
                     information={lang.information}
-                    searchComponent={undefined}
                     width={'75%'}
                 />
                 <div className={mainStyles.displayInlineCenter} style={{width: '100%'}}>
@@ -169,7 +168,7 @@ export default function Settings() {
                             :
                             null
                         }
-                        {accessProfile !== null && accessProfile.canViewActivityLog ?
+                        {(new Cookies()).get('jwt') !== undefined?
 
                             <Link href={{pathname: '/activity', locale: router.locale}}>
                                 <Button style={{
@@ -181,7 +180,8 @@ export default function Settings() {
                                     border: 'hsla(210, 11%, 78%, 0.5)  .7px solid',
                                     borderRadius: '8px',
                                     opacity: 0,
-                                    animationDelay: '400ms'
+                                    animationDelay: '400ms',
+                                    backgroundColor: 'white'
                                 }} className={animations.slideUpAnimation}>
 
                                     <HistoryRounded

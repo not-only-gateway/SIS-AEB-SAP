@@ -49,8 +49,6 @@ export default function AccessProfileForm(props) {
             props.data.can_update_access_profile === undefined ||
             props.data.can_delete_access_profile === undefined ||
 
-            props.data.can_view_access_log === undefined ||
-            props.data.can_view_activity_log === undefined ||
 
             props.data.can_create_collaboration === undefined ||
             props.data.can_update_collaboration === undefined ||
@@ -279,30 +277,6 @@ export default function AccessProfileForm(props) {
                                  inputType={1} size={'calc(25% - 12px)'} required={true}
                                  selectFields={lang.options}
                                  initialValue={props.data.can_view_contact} key={"3-5-" + props.id}
-                                 setChanged={setChanged}/>
-                </fieldset>
-
-                <fieldset style={fieldSetStyle}>
-                    <legend>
-                        <p style={{paddingLeft: '10px', paddingRight: '10px'}}>{lang.activity}</p>
-                    </legend>
-                    <InputLayout inputName={lang.view} dark={false} handleChange={props.handleChange}
-                                 name={'can_view_activity_log'}
-                                 inputType={1} size={'calc(25% - 12px)'} required={true}
-                                 selectFields={lang.options}
-                                 initialValue={props.data.can_view_activity_log} key={"2-1-" + props.id}
-                                 setChanged={setChanged}/>
-                </fieldset>
-
-                <fieldset style={{...fieldSetStyle, ...{paddingBottom: '50px'}}}>
-                    <legend>
-                        <p style={{paddingLeft: '10px', paddingRight: '10px'}}>{lang.access}</p>
-                    </legend>
-                    <InputLayout inputName={lang.view} dark={false} handleChange={props.handleChange}
-                                 name={'can_view_access_log'}
-                                 inputType={1} size={'calc(25% - 12px)'} required={true}
-                                 selectFields={lang.options}
-                                 initialValue={props.data.can_view_access_log} key={"2-2-" + props.id}
                                  setChanged={setChanged}/>
                 </fieldset>
 

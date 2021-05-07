@@ -11,7 +11,7 @@ export default function NavigationButton(props) {
             className={props.noMargin ? null : mainStyles.marginVertical}
             style={{
                 borderRadius: '8px',
-                width: props.reduced ? '65px' : '250px',
+                width: props.minWidth ? '65px' : (props.reduced ? '65px' : '250px'),
                 height: '65px',
             }}
             onMouseEnter={() => setHovered(true)}
@@ -29,15 +29,14 @@ export default function NavigationButton(props) {
                         height: 'auto',
                         textTransform: 'none',
                         borderRadius: '8px',
-                        backgroundColor: hovered ? 'rgba(255, 255, 255, .2)' : 'transparent',
+                        backgroundColor: hovered ? 'rgba(0, 0, 0, .07)' : 'transparent',
                         transition: '300ms ease-in-out',
-                        padding: '16px',
-                        fontFamily: 'Verdana, Arial, sans-serif'
+                        padding: '16px'
                     }}>
                         <div className={props.reduced ? mainStyles.displayInlineCenter : mainStyles.displayInlineStart}
                              style={{
                                  width: '100%',
-                                 color: props.highlight || hovered ? '#0095ff' : 'white',
+                                 color: props.highlight || hovered ? '#0095ff' : '#777777',
                                  transition: '300ms ease-in-out',
                              }}>
                             <div className={mainStyles.displayInlineCenter}>
@@ -46,8 +45,7 @@ export default function NavigationButton(props) {
                             <div style={{
                                 display: props.reduced ? 'none' : 'unset',
                                 marginLeft: '16px',
-                                fontSize: '.95rem',
-                                fontWeight: 550,
+                                fontSize: '1rem',
                             }}> {props.label}</div>
                         </div>
                     </Button>
@@ -81,5 +79,6 @@ NavigationButton.propTypes = {
     setToggle: PropTypes.func,
     initialValue: PropTypes.bool,
     animated: PropTypes.bool,
-    noMargin: PropTypes.bool
+    noMargin: PropTypes.bool,
+    minWidth: PropTypes.bool
 }

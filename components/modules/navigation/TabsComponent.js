@@ -9,7 +9,7 @@ export default function TabsComponent(props) {
     return (
 
         <div key={'tab-component'}
-             className={mainStyles.displayInlineStart} style={{gap: '20px'}}>
+             className={mainStyles.displayInlineStart} style={{gap: '20px', width: '100%'}}>
 
             {props.buttons.map((button) => {
                     if (button !== null)

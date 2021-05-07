@@ -9,16 +9,15 @@ export default function Accordion(props) {
     const [open, setOpen] = useState(false)
     return (
         <div style={{
-            borderTop: 'hsla(210, 11%, 78%, 0.5)  .7px solid',
-            borderLeft: !open ? ('hsla(210, 11%, 78%, 0.5)  .7px solid') : '#0095ff 2px solid',
-            borderRight: 'hsla(210, 11%, 78%, 0.5)  .7px solid',
-            borderBottom: 'hsla(210, 11%, 78%, 0.5)  .7px solid',
+
+            border: 'hsla(210, 11%, 78%, 0.5)  .7px solid',
             width: open ? (props.openSize !== null ? props.openSize + '%' : 'fit-content') : props.closedSize + '%',
             borderRadius: '8px',
             opacity: '0',
             animationDelay: props.animationDelay !== undefined ? props.animationDelay + 'ms' : null,
             boxShadow: props.elevation === false ? null : (open ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : null),
-            height: 'fit-content'
+            height: 'fit-content',
+            backgroundColor: 'white'
         }} className={animations.slideUpAnimation} key={props.key + '-accordion'}>
             <Button onClick={props.asButton !== true ? () => setOpen(!open) : null} disabled={props.disabled}
                     style={{

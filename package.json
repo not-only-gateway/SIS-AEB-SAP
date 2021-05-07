@@ -16,6 +16,7 @@
     "date-fns": "^2.20.2",
     "dexie": "^3.0.3",
     "express": "^4.17.1",
+    "fontsource-roboto": "^4.0.0",
     "local-ip-url": "^1.0.3",
     "next": "10.0.7",
     "prop-types": "^15.7.2",

@@ -21,8 +21,6 @@ export async function startDatabase() {
             ' canCreateAccessProfile,' +
             ' canUpdateAccessProfile,' +
             ' canDeleteAccessProfile ,' +
-            ' canViewAccessLog,' +
-            ' canViewActivityLog, ' +
             'canManageStructure,' +
             'canCreateCollaboration,' +
             ' canUpdateCollaboration,' +

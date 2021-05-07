@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types'
 import React, {useCallback, useState} from "react";
 import {Button, Modal} from "@material-ui/core";
-import styles from "../../styles/shared/Shared.module.css";
+
 import animations from "../../styles/shared/Animations.module.css";
 import mainStyles from "../../styles/shared/Main.module.css";
 import {FilterListRounded} from "@material-ui/icons";
 import Head from "next/head";
 import TabsComponent from "../modules/navigation/TabsComponent";
 import Stepper from "../modules/navigation/Stepper";
+import styles from '../../styles/component/Component.module.css'
 
 export default function HeaderLayout(props) {
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -25,7 +26,7 @@ export default function HeaderLayout(props) {
                 open={isModalVisible}
                 onClose={handleButtonClick}
             >
-                <div className={[styles.listFilterModal, animations.slideInRightAnimation].join(' ')}>
+                <div className={[styles.FilterModal, animations.slideInRightAnimation].join(' ')}>
                     {props.filterComponent}
                 </div>
             </Modal>
@@ -40,30 +41,24 @@ export default function HeaderLayout(props) {
                 <title>{props.pageTitle}</title>
             </Head>
 
-            <div style={{
-                display: 'grid',
-                justifyItems: 'center',
-                alignContent: 'space-between',
-                width: '100%',
-                backgroundColor: '#f5f6f8',
-                minHeight: '16.6%',
-                height: 'auto',
-                paddingBottom: props.availableTabs !== undefined ? null : '10px',
-                position: 'sticky',
-                top: 0,
-                zIndex: 1,
-                gap: props.availableTabs !== undefined ? '16px' : null
+            <div className={styles.HeaderLayout} style={{
+                borderBottom: 'hsla(210, 11%, 78%, 0.5)  .7px solid', width: props.width
             }}>
 
-                <div className={mainStyles.displayInlineStart} style={{width: props.width}}>
+                <div className={mainStyles.displayInlineSpaced} style={{width: '100%'}}>
                     {typeof (props.title) === 'string' ?
-                        <div>
-                            <h2 style={{marginBottom: props.information !== undefined ? 0 : null, padding: 0}}>
+                        <div style={{display: 'grid', gap: '.4rem'}}>
+                            <div style={{
+                                fontSize: '1.7rem',
+                                fontWeight: 570,
+                                paddingTop: !props.information ? '16px' : '8px',
+                                paddingBottom: !props.information ? '16px' : 0
+                            }}>
                                 {props.title}
-                            </h2>
+                            </div>
                             {props.information !== undefined ?
                                 <div className={mainStyles.tertiaryParagraph}
-                                     style={{color: '#555555', marginBottom: '10px'}}>
+                                     style={{color: '#555555', paddingBottom: '8px'}}>
                                     {props.information}
                                 </div>
                                 :
@@ -82,37 +77,34 @@ export default function HeaderLayout(props) {
                     }
                 </div>
                 {props.searchComponent !== undefined ?
-                    <div style={{width: props.width}}>
-                        {props.searchComponent}
-                    </div>
+
+                    props.searchComponent
+
                     : null
                 }
                 {props.activeFiltersComponent !== undefined ?
-                    <div style={{width: props.width}}>
-                        {props.activeFiltersComponent}
-                    </div>
+
+                    props.activeFiltersComponent
+
                     : null}
                 {props.availableTabs !== undefined ?
-                    <div style={{width: props.width}} key={'header-tab-component'}>
-                        <TabsComponent buttons={props.availableTabs.tabs} setOpenTab={props.availableTabs.setOpenTab}
-                                       openTab={props.availableTabs.openTab}/>
+                    <TabsComponent buttons={props.availableTabs.tabs} setOpenTab={props.availableTabs.setOpenTab}
+                                   openTab={props.availableTabs.openTab}/>
 
-                    </div>
                     :
                     null
                 }
                 {props.stepper !== undefined ?
-                    <div style={{width: props.width}} key={'header-stepper-component'}>
-                        <Stepper buttons={props.stepper.tabs} setOpenTab={props.stepper.setOpenTab}
-                                 openTab={props.stepper.openTab}/>
+                    <Stepper buttons={props.stepper.tabs} setOpenTab={props.stepper.setOpenTab}
+                             openTab={props.stepper.openTab}/>
 
-                    </div> : null}
+                    : null}
             </div>
 
         </>
     )
 }
-HeaderLayout.propTypes ={
+HeaderLayout.propTypes = {
     title: PropTypes.any,
     searchComponent: PropTypes.object,
     filterComponent: PropTypes.object,

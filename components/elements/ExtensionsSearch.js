@@ -5,7 +5,7 @@ import mainStyles from '../../styles/shared/Main.module.css'
 
 export default function ExtensionsSearch(props) {
     const [focused, setFocused] = useState(false)
-
+    const [hovered, setHovered] = useState(false)
     useEffect(() => {
         props.setSearchInput('')
         props.setMaxID(null)
@@ -19,15 +19,21 @@ export default function ExtensionsSearch(props) {
              style={{height: '56px', width: '100%'}}>
 
             <Paper component="form"
-
+                   onFocus={() => setFocused(true)}
+                   onBlur={() => setFocused(false)}
+                   onMouseEnter={() => setHovered(true)}
+                   onMouseLeave={() => setHovered(false)}
                    style={{
                        display: 'flex',
                        justifyContent: 'space-around',
                        alignItems: 'center',
-                       boxShadow: focused ? 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
+                       boxShadow: focused || hovered ? 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px' : 'unset',
+                       border: focused || hovered ? '#0095ff .7px solid' : 'hsla(210, 11%, 78%, 0.5)  .7px solid',
                        width: '100%',
                        borderRadius: '8px',
-                       height: '100%'
+                       height: '100%',
+                       transition: '300ms ease-in-out',
+                       backgroundColor: 'white'
                    }}>
 
 
@@ -35,8 +41,7 @@ export default function ExtensionsSearch(props) {
                     style={{width: '98%'}}
                     placeholder={props.lang}
                     value={props.searchInput}
-                    onFocus={() => setFocused(true)}
-                    onBlur={() => setFocused(false)}
+
                     onKeyDown={key => {
                         if (key.key === 'Enter')
                             key.preventDefault()

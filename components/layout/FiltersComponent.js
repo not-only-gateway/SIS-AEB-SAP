@@ -11,7 +11,7 @@ export default function FiltersComponent(props) {
     return (
 
         <div className={mainStyles.displayWarp}
-             style={{gap: '16px', width: '75%', marginTop: '10px'}}>
+             style={{gap: '16px', width: '100%', height: 'auto', paddingBottom: '8px', paddingTop: '8px'}}>
             <Button onClick={() => props.applyChanges()} style={{
                 backgroundColor: '#0095ff',
                 color: 'white',

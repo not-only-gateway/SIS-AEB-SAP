@@ -24,31 +24,36 @@ export default function NavigationProfile(props) {
         >
             {open && !props.reduced ?
                 <div style={{
-                    backgroundColor: '#333333',
+                    borderTop: 'hsla(210, 11%, 78%, 0.5)  .7px solid',
+                    borderLeft: 'hsla(210, 11%, 78%, 0.5)  .7px solid',
+                    borderRight: 'hsla(210, 11%, 78%, 0.5)  .7px solid',
+                    boxShadow: 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px',
                     width: '250px',
-                    borderRadius: '5px 5px 0px 0px',
-                    opacity: 0
+                    borderRadius: '8px 8px 0px 0px',
+                    opacity: 0,
+                    backgroundColor: open || hovered ? '#f2f2f2' : 'white',
                 }} className={[mainStyles.displayColumnSpaced, animations.slideUpAnimation].join(' ')}>
                     <Link href={{pathname: 'person', query: {id: props.profile.id}}}>
-                        <Button onMouseLeave={() => setHoveredOption(null)} onMouseEnter={() => setHoveredOption(0)} style={{
-                            width: '100%',
-                            justifyContent: 'flex-start',
-                            textTransform: 'capitalize',
-                            transition: '300ms ease-in-out',
-                            color: hoveredOption === 0 ? '#0095ff' : 'white',
-                            paddingTop: '8px'
-                        }}>{props.locale.profile}</Button>
+                        <Button onMouseLeave={() => setHoveredOption(null)} onMouseEnter={() => setHoveredOption(0)}
+                                style={{
+                                    width: '100%',
+                                    justifyContent: 'flex-start',
+                                    textTransform: 'capitalize',
+                                    transition: '300ms ease-in-out',
+                                    color: hoveredOption === 0 ? '#0095ff' : '#555555',
+                                    paddingTop: '8px'
+                                }}>{props.locale.profile}</Button>
                     </Link>
                     <Link href={{pathname: 'signin'}}>
-                        <Button onMouseLeave={() => setHoveredOption(null)} onMouseEnter={() => setHoveredOption(1)} style={{
-                            width: '100%',
-                            justifyContent: 'flex-start',
-                            textTransform: 'capitalize',
-                            transition: '300ms ease-in-out',
-                            color: hoveredOption === 1 ? '#0095ff' : 'white'
-                        }}>{props.locale.signout}</Button>
+                        <Button onMouseLeave={() => setHoveredOption(null)} onMouseEnter={() => setHoveredOption(1)}
+                                style={{
+                                    width: '100%',
+                                    justifyContent: 'flex-start',
+                                    textTransform: 'capitalize',
+                                    transition: '300ms ease-in-out',
+                                    color: hoveredOption === 1 ? '#0095ff' : '#555555'
+                                }}>{props.locale.signout}</Button>
                     </Link>
-                    <Divider style={{marginBottom: '10px'}} orientation={"horizontal"}/>
                 </div>
                 :
                 null
@@ -58,8 +63,10 @@ export default function NavigationProfile(props) {
                 width: props.reduced ? '65px' : '250px',
                 height: '65px',
                 textTransform: 'none',
-                borderRadius: open && !props.reduced ? '0px 0px 5px 5px' : '8px',
-                backgroundColor: open ? '#333333' : hovered ? 'rgba(255, 255, 255, .2)' : 'transparent',
+                borderRadius: open && !props.reduced ? '0px 0px 8px 8px' : '8px',
+                border: (open && !props.reduced) || hovered ? 'hsla(210, 11%, 78%, 0.5)  .7px solid' : 'transparent .7px solid',
+                boxShadow: (open && !props.reduced) || hovered ? 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px' : null,
+                backgroundColor: (open && !props.reduced) || hovered ? '#f2f2f2' : 'white',
                 display: 'flex',
                 justifyContent: 'space-between',
                 overflow: 'hidden',
@@ -71,19 +78,19 @@ export default function NavigationProfile(props) {
             }}>
                 <>
                     <ProfilePersona base64={false} cakeDay={false} variant={'circular'} key={'nav-bar-profile'}
-                                    size={'50px'} image={props.profile.pic}/>
+                                    size={'50px'} image={props.profile.pic} elevation={false}/>
                     {props.reduced ?
                         null
                         :
                         <div>
                             <div
                                 className={[mainStyles.overflowEllipsis, mainStyles.displayInlineStart].join(' ')}
-                                style={{color: 'white', fontWeight: '500'}}>
+                                style={{color: '#555555', fontWeight: '500'}}>
                                 {props.profile.name.split(' ')[0] + ' ' + props.profile.name.split(' ').splice(-1).join(' ')}
                             </div>
                             <div
                                 className={[mainStyles.overflowEllipsis, mainStyles.tertiaryParagraph, mainStyles.displayInlineStart].join(' ')}
-                                style={{color: '#e2e2e2'}}>
+                                style={{color: '#777777'}}>
                                 {props.profile.corporateEmail}
                             </div>
                         </div>

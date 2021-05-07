@@ -24,7 +24,7 @@ export default function Stepper(props) {
     return (
 
         <div key={'stepper-component'}
-             className={mainStyles.displayInlineStart} style={{gap: '10px'}}>
+             className={mainStyles.displayInlineStart} style={{gap: '10px', width: '100%'}}>
 
             {props.buttons.map((button, index) => {
                     if (button !== null)

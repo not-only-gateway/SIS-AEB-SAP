@@ -19,9 +19,9 @@ export default function Extension(props) {
                     textTransform: 'none',
                     color: 'initial',
                     borderRadius: '8px',
-                    border: hovered ? '#0095ff .7px solid' : 'hsla(210, 11%, 78%, 0.5)  .7px solid',
+                    border: hovered ? '#0095ff .7px solid' : 'transparent  .7px solid',
                     boxShadow: hovered ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : null,
-                    backgroundColor: hovered ? 'rgba(0, 0, 0, 0.05)' : null,
+                    backgroundColor: 'white',
                     transition: '300ms ease-in-out',
                     paddingBottom: 0,
                     paddingTop: 0
