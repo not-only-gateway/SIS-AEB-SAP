@@ -29,26 +29,37 @@ export default function ContactForm(props) {
 
     if (lang !== null)
         return (
-            <div className={mainStyles.displayWarp} style={{justifyContent: 'center', width: '100%'}}>
+            <div style={{
+                display: 'inline-flex',
+                flexFlow: 'row wrap',
+                gap: '32px',
+                justifyContent: 'center',
+                width: '75%',
+            }}>
+                <h3 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
+                    Emails
+                </h3>
                 <InputLayout inputName={lang.email} dark={props.dark} handleChange={props.handleChange}
                              name={'personal_email'}
-                             inputType={0} disabled={!props.editable} size={'calc(50% - 8px)'} required={true}
+                             inputType={0} disabled={!props.editable} size={'100%'} required={true}
                              initialValue={props.contact.personal_email} key={"3-1"} setChanged={setChanged}/>
 
                 <InputLayout inputName={lang.altEmail} dark={props.dark} handleChange={props.handleChange}
                              name={'personal_email_alt'}
-                             inputType={0} disabled={!props.editable} size={'calc(50% - 8px)'} required={false}
+                             inputType={0} disabled={!props.editable} size={'100%'} required={false}
                              initialValue={props.contact.personal_email_alt} key={"3-2"} setChanged={setChanged}/>
-
+                <h3 style={{width: '100%', marginBottom: 'auto'}}>
+                    Phones
+                </h3>
                 <InputLayout inputName={lang.phone} dark={props.dark} handleChange={props.handleChange}
                              name={'personal_phone'}
-                             inputType={0} disabled={!props.editable} size={'calc(50% - 8px)'} required={true}
+                             inputType={0} disabled={!props.editable} size={'100%'} required={true}
                              numeric={true}
                              initialValue={props.contact.personal_phone} key={"3-3"} setChanged={setChanged}/>
 
                 <InputLayout inputName={lang.altPhone} dark={props.dark} handleChange={props.handleChange}
                              name={'personal_phone_alt'}
-                             inputType={0} disabled={!props.editable} size={'calc(50% - 8px)'} required={false}
+                             inputType={0} disabled={!props.editable} size={'100%'} required={false}
                              numeric={true}
                              initialValue={props.contact.personal_phone_alt} key={"3-4"} setChanged={setChanged}/>
 

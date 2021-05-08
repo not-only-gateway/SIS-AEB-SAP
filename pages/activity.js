@@ -13,6 +13,8 @@ import FiltersComponent from "../components/layout/FiltersComponent";
 import ActivityTemplate from "../components/templates/list/ActivityTemplate";
 import SearchBox from "../components/elements/SearchBox";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
+import Graph from "../components/modules/Graph";
+import getMethodColor from "../utils/activity/GetMethodColor";
 
 export default function activity() {
 
@@ -90,22 +92,6 @@ export default function activity() {
         return (
             <>
                 <HeaderLayout
-                    availableTabs={{
-                        tabs: [
-                            {
-                                disabled: false,
-                                key: 0,
-                                value: 'Overview'
-                            },
-                            {
-                                disabled: false,
-                                key: 1,
-                                value: 'Advanced'
-                            },
-                        ],
-                        setOpenTab: setOpenTab,
-                        openTab: openTab
-                    }}
                     width={'65%'}
                     filterComponent={
                         <ActivityFilterComponent

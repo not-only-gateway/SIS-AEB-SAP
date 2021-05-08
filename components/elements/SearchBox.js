@@ -1,21 +1,21 @@
 import PropTypes from 'prop-types'
-import {InputBase, Paper} from "@material-ui/core";
+import {ButtonBase, Divider, InputBase, Paper} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import mainStyles from '../../styles/shared/Main.module.css'
-import {SearchRounded} from "@material-ui/icons";
+import {ArrowBackIosRounded, SearchRounded} from "@material-ui/icons";
+import {red} from "@material-ui/core/colors";
 
 export default function SearchBox(props) {
     const [focused, setFocused] = useState(false)
     const [hovered, setHovered] = useState(false)
-
+    const [reduced, setReduced] = useState(true)
     return (
 
         <div key={'index-simple-filter-component'} className={mainStyles.displayInlineSpaced}
-             style={{height: '56px', width: '100%'}}>
+             style={{height: '56px', width: reduced ? 'fit-content' : '50%'}}>
 
             <Paper component="form"
-                   onFocus={() => setFocused(true)}
-                   onBlur={() => setFocused(false)}
+
                    onMouseEnter={() => setHovered(true)}
                    onMouseLeave={() => setHovered(false)}
                    style={{
@@ -24,21 +24,29 @@ export default function SearchBox(props) {
                        alignItems: 'center',
                        boxShadow: focused || hovered ? 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
                        border: focused ? 'hsla(210, 11%, 78%, 0.5)  .7px solid' : 'transparent .7px solid',
-                       width: '100%',
-                       borderRadius: '8px',
-                       height: '100%',
+                       width: reduced ? '50px' : '100%',
+                       borderRadius: reduced ? '50%' : '8px',
+                       height: reduced ? '50px' : '100%',
                        transition: '300ms ease-in-out',
-                       backgroundColor: 'white'
+                       backgroundColor: 'white', marginLeft: 'auto'
                    }}>
 
-                <div style={{width: '50px', marginLeft: '5px', height: '100%'}} className={mainStyles.displayInlineCenter}>
-                    <SearchRounded style={{color: '#777777'}}/>
-                </div>
+                <ButtonBase onClick={() => setReduced(!reduced)} style={{
+                    width: '50px',
+                    height: '50px',
+                    borderRadius: reduced ? '50%' : '5px',
+
+                }} className={mainStyles.displayInlineCenter}>
+                    <SearchRounded style={{color: '#777777', display: reduced ? 'initial' : 'none'}}/>
+                    <ArrowBackIosRounded style={{color: '#777777', display: reduced ? 'none' : 'initial', transform: 'rotate(180deg)'}}/>
+                </ButtonBase>
+                <Divider orientation={'vertical'} style={{display: reduced ? 'none' : 'initial'}}/>
                 <InputBase
-                    style={{width: 'calc(100% - 60px)', marginLeft: 'auto'}}
+                    style={{width: 'calc(100% - 60px)', marginLeft: 'auto',  visibility: reduced ? 'hidden' : 'visible',transition: 'visibility 50ms ease-in',}}
                     placeholder={props.searchLocale}
                     value={props.searchInput}
-
+                    onFocus={() => setFocused(true)}
+                    onBlur={() => setFocused(false)}
                     onKeyDown={key => {
                         if (key.key === 'Enter')
                             key.preventDefault()

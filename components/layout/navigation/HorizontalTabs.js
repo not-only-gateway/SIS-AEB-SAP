@@ -23,7 +23,7 @@ export default function HorizontalTabs(props) {
                         return (
                             <Button disabled={button.disabled} key={button.key} style={{
                                 borderRadius: '32px',
-                                backgroundColor: props.openTab === button.key ? 'rgba(0, 147, 255, .7)' : 'unset',
+                                backgroundColor: props.openTab === button.key ? '#0095ff' : 'unset',
                                 transition: '.2s',
                                 height: 'auto',
                                 textTransform: 'capitalize',

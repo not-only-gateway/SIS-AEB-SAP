@@ -42,65 +42,83 @@ export default function DocumentsForm(props) {
 
     if (lang !== null)
         return (
-            <div className={mainStyles.displayWarp} style={{justifyContent: 'center'}}>
+            <div style={{
+                display: 'inline-flex',
+                flexFlow: 'row wrap',
+                gap: '32px',
+                justifyContent: 'center',
+                width: '75%',
+            }}>
+                <h3 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
+                    Registration
+                </h3>
                 <InputLayout inputName={'CPF'} dark={props.dark} handleChange={props.handleChange} inputType={0} name={'cpf'}
-                             disabled={!props.editable} size={'calc(25% - 12px)'} required={true}
+                             disabled={!props.editable} size={'100%'} required={true}
                              initialValue={props.documents.cpf} numeric={true} maxLength={11}
                              key={"5-1"} setChanged={setChanged}/>
 
                 <InputLayout inputName={'RG'} dark={props.dark} handleChange={props.handleChange} inputType={0} name={'rg'}
-                             disabled={!props.editable} size={'calc(25% - 12px)'} required={true}
+                             disabled={!props.editable} size={'calc(50% - 16px)'} required={true}
                              initialValue={props.documents.rg} numeric={true} maxLength={8}
                              key={"5-2"} setChanged={setChanged}/>
 
                 <InputLayout inputName={lang.issuing} dark={props.dark} handleChange={props.handleChange} inputType={0}
                              name={'issuing_body'}
-                             disabled={!props.editable} size={'calc(25% - 12px)'} required={true}
+                             disabled={!props.editable} size={'calc(25% - 24px)'} required={true}
                              initialValue={props.documents.issuing_body}
                              key={"5-3"} setChanged={setChanged}/>
 
                 <InputLayout inputName={lang.dispatch} dark={props.dark} handleChange={props.handleChange}
                              inputType={2} name={'dispatch_date'}
-                             disabled={!props.editable} size={'calc(25% - 12px)'} required={true}
+                             disabled={!props.editable} size={'calc(25% - 24px)'} required={true}
                              initialValue={props.documents.dispatch_date}
                              key={"5-4"} setChanged={setChanged}/>
 
+                <h3 style={{width: '100%',marginBottom: 'auto'}}>
+                    Work Card
+                </h3>
                 <InputLayout inputName={lang.work} dark={props.dark} handleChange={props.handleChange} inputType={0}
                              name={'work_card'}
-                             disabled={!props.editable} size={'calc(50% - 8px)'} required={true}
+                             disabled={!props.editable} size={'calc(75% - 12px)'} required={true}
                              initialValue={props.documents.work_card}
                              key={"5-5"} setChanged={setChanged}/>
 
                 <InputLayout inputName={'PIS/PASEP'} dark={props.dark} handleChange={props.handleChange} inputType={0}
                              name={'pis'}
-                             disabled={!props.editable} size={'calc(50% - 8px)'} required={true}
+                             disabled={!props.editable} size={'calc(25% - 24px)'} required={true}
                              initialValue={props.documents.pis}
                              key={"5-6"} setChanged={setChanged}/>
 
+                <h3 style={{width: '100%', marginBottom: 'auto'}}>
+                    Bank
+                </h3>
                 <InputLayout inputName={lang.bank} dark={props.dark} handleChange={props.handleChange} inputType={0}
                              name={'bank'}
-                             disabled={!props.editable} size={'calc(50% - 8px)'} required={false}
+                             disabled={!props.editable} size={'calc(50% - 16px)'} required={false}
                              initialValue={props.documents.bank}
                              key={"5-7"} setChanged={setChanged}
                 />
                 <InputLayout inputName={lang.agency} dark={props.dark} handleChange={props.handleChange} inputType={0}
                              name={'agency'}
-                             disabled={!props.editable} size={'calc(50% - 8px)'} required={false}
+                             disabled={!props.editable} size={'calc(50% - 16px)'} required={false}
                              initialValue={props.documents.agency}
                              key={"5-8"} setChanged={setChanged}/>
+                <h3 style={{width: '100%', marginBottom: 'auto'}}>
+                    Voter
+                </h3>
                 <InputLayout inputName={lang.voter} dark={props.dark} handleChange={props.handleChange}
                              inputType={0} name={'voter_registration'}
-                             disabled={!props.editable} size={'calc(33.333% - 10.6666px)'} required={true}
+                             disabled={!props.editable} size={'calc(33.333% - 21.4px)'} required={true}
                              initialValue={props.documents.voter_registration}
                              key={"5-9"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.section} dark={props.dark} handleChange={props.handleChange}
                              inputType={0} name={'electoral_section'}
-                             disabled={!props.editable} size={'calc(33.333% - 10.6666px)'} required={true}
+                             disabled={!props.editable} size={'calc(33.333% - 21.4px)'} required={true}
                              initialValue={props.documents.electoral_section}
                              key={"5-10"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.zone} dark={props.dark} handleChange={props.handleChange}
                              inputType={0} name={'electoral_zone'}
-                             disabled={!props.editable} size={'calc(33.333% - 10.6666px)'} required={true}
+                             disabled={!props.editable} size={'calc(33.333% - 21.4px)'} required={true}
                              initialValue={props.documents.electoral_zone}
                              key={"5-11"} setChanged={setChanged}/>
 

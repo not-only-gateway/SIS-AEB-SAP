@@ -1,9 +1,8 @@
-.HeaderLayout{
+.HeaderLayout {
     display: grid;
     justify-items: center;
     align-content: space-between;
-    margin:auto;
-    min-height: 16.6%;
+    margin: auto;
     height: auto;
     position: sticky;
     top: 0;
@@ -12,12 +11,27 @@
     z-index: 1;
 }
 
-.FilterModal{
+.FilterModal {
     height: 100%;
     position: fixed;
     width: 20%;
     right: 0;
-    border-radius: 8px 0 0  8px;
+    border-radius: 8px 0 0 8px;
     padding: 15px;
     background-color: white;
+}
+
+.GraphInfo {
+    position: absolute;
+    z-index: 5;
+    width: 100px;
+    height: fit-content;
+    margin-left: calc(100% + 16px);
+    background-color: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+    border-radius: 8px;
+    padding: 0 16px 0 16px;
+    transition: opacity 300ms ease-in-out;
+    text-align: center;
+
 }

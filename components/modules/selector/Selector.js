@@ -116,16 +116,21 @@ export default function Selector(props) {
                 maxHeight: '72px',
                 marginTop: 'auto'
             }}>
-                <FormLabel style={{transform: 'translateY(-5px)'}}>{props.label}</FormLabel>
+
                 <Button disabled={props.disabled} onClick={() => setModal(true)} style={{
                     textTransform: 'none',
                     backgroundColor: 'transparent',
-                    border: '#d0d0d0 1px solid',
+                    border: '#c0c0c0 1px solid',
                     color: !props.disabled ? null : 'rgba(0,0,0, 0.4)',
                     padding: 0,
-                    height: '72px',
+                    height: '56px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    paddingLeft: '16px',
+                    paddingRight: '16px'
                 }} variant={'contained'} disableElevation={true}>
-                    <div className={[mainStyles.displayInlineCenter,mainStyles.primaryParagraph].join(' ')} style={{width: '100%'}}>
+                    <FormLabel style={{width: 'auto'}}>{props.label}</FormLabel>
+                    <div style={{width: 'fit-content', display: 'flex', alignItems: 'center'}}>
                         {props.selected !== undefined && props.selected !== null && props.selected.key !== null ? props.selected.value : <AddRounded/>}
                     </div>
                 </Button>

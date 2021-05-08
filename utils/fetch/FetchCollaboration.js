@@ -10,7 +10,7 @@ export default async function fetchCollaboration(props) {
         method: 'get',
         url: Host() + 'collaboration/' + props.collaborationID,
         headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
-        params:{
+        params: {
             authorization_token: (new Cookies()).get('authorization_token')
         }
     }).then(res => {
@@ -26,8 +26,12 @@ export default async function fetchCollaboration(props) {
                 value: response.commissioned_role.denomination
             }
         }
-
-        response.access_level_profile = {key: response.access_level_profile.id, value: response.access_level_profile.denomination}
+        console.log('this is ACCESS PROFILE')
+        response.access_level_profile = {
+            key: response.access_level_profile.id,
+            value: response.access_level_profile.denomination
+        }
+        console.log(response.access_level_profile)
         response.unit = {key: response.unit.id, value: response.unit.acronym}
         response.linkage = {key: response.linkage.id, value: response.linkage.denomination}
 

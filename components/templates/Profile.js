@@ -8,7 +8,7 @@ export default function Profile(props) {
     return (
         <div
             className={mainStyles.displayInlineSpaced}
-            key={props.person.id} style={{width: '100%', marginTop: '10px'}}>
+            key={props.person.id} style={{width: '100%'}}>
 
             <div className={mainStyles.displayInlineSpaced}>
                 <PersonPersona size={'130px'} key={props.person.id} dark={false}

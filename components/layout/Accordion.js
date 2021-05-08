@@ -16,15 +16,14 @@ export default function Accordion(props) {
             opacity: '0',
             animationDelay: props.animationDelay !== undefined ? props.animationDelay + 'ms' : null,
             boxShadow: props.elevation === false ? null : (open ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : null),
-            height: 'fit-content',
-            backgroundColor: 'white'
+            backgroundColor: 'white',
         }} className={animations.slideUpAnimation} key={props.key + '-accordion'}>
             <Button onClick={props.asButton !== true ? () => setOpen(!open) : null} disabled={props.disabled}
                     style={{
                         textTransform: 'none',
                         width: '100%',
                         color: 'black',
-                        borderRadius: open ? '0 8px 8px 0' : props.asRow ? '0px' : '8px',
+                        borderRadius:  '8px',
                         position: 'relative',
                         minHeight: '65px',
                     }}>
@@ -34,20 +33,19 @@ export default function Accordion(props) {
                     {props.disabled || props.asButton ? null :
                         <ArrowForwardIosRounded style={{
                             transform: open ? 'rotate(270deg)' : 'rotate(90deg)',
-                            transition: '300ms',
+                            transition: '300ms ease',
                         }}/>
                     }
                 </div>
             </Button>
-            {open ?
 
-                <div style={{padding: '15px'}}>
-                    {props.content}
-                </div>
 
-                :
-                null
-            }
+            <div style={{
+                padding: '15px',
+                display: open ? 'initial' : 'none',
+            }}>
+                {props.content}
+            </div>
         </div>
     )
 }

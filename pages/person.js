@@ -28,6 +28,8 @@ import submitAddress from "../utils/submit/SubmitAddress";
 import submitDocuments from "../utils/submit/SubmitDocuments";
 import MembershipForm from "../components/templates/forms/MembershipForm";
 import submitMember from "../utils/submit/SubmitMember";
+import PersonalForms from "../components/elements/PersonalForms";
+import CorporateForms from "../components/elements/CorporateForms";
 
 export default function person() {
 
@@ -151,33 +153,13 @@ export default function person() {
                             (editMode) && accessProfile !== null ? {
                                 disabled: false,
                                 key: 1,
-                                value: 'Basic'
+                                value: 'Personal'
                             } : null,
                             editMode && accessProfile !== null ? {
                                 disabled: !accessProfile.canViewDocuments,
                                 key: 2,
-                                value: 'Membership'
+                                value: 'Corporate'
                             } : null,
-                            editMode && accessProfile !== null ? {
-                                disabled: !accessProfile.canViewDocuments,
-                                key: 3,
-                                value: 'Documents'
-                            } : null,
-                            editMode && accessProfile !== null ? {
-                                disabled: !accessProfile.canViewContact,
-                                key: 4,
-                                value: 'Contact'
-                            } : null,
-                            editMode && accessProfile !== null ? {
-                                disabled: !accessProfile.canViewLocation,
-                                key: 5,
-                                value: 'Address'
-                            } : null,
-                            (accessProfile !== null && accessProfile.canUpdateCollaboration && editMode) ? {
-                                disabled: false,
-                                key: 6,
-                                value: 'Collaborations'
-                            } : null
                         ]
 
                         ,
@@ -190,9 +172,7 @@ export default function person() {
                             person={person}
                             member={member}
                             setEditMode={event => {
-                                if (event && (new Cookies()).get('authorization_token') !== undefined)
-                                    setEditMode(event)
-                                else if(!event)
+                                if (event && (new Cookies()).get('authorization_token') !== undefined || !event)
                                     setEditMode(event)
                                 else
                                     setAuthenticate(true)
@@ -231,97 +211,23 @@ export default function person() {
                                     {
                                         buttonKey: 1,
                                         value: (
-                                            <BaseForm
-                                                id={id}
-                                                person={person}
-                                                handleChange={event => handleObjectChange({
-                                                    event: event,
-                                                    setData: setPerson
-                                                })}
-                                                handleSubmit={submitPerson}
-                                                editable={accessProfile.canUpdatePerson}
-                                                locale={router.locale}
+                                            <PersonalForms
+                                                accessProfile={accessProfile} id={id} setPerson={setPerson}
+                                                contact={contact} setContact={setContact}
+                                                locale={router.locale} documents={documents}
+                                                setDocuments={setDocuments} person={person}
+                                                address={address} setAddress={setAddress}
                                             />
                                         )
                                     } : null,
                                 (editMode) && accessProfile !== null ? {
                                     buttonKey: 2,
                                     value: (
-                                        <MembershipForm
-                                            id={id}
-                                            member={member}
-                                            handleChange={event => handleObjectChange({
-                                                event: event,
-                                                setData: setMember
-                                            })}
-                                            handleSubmit={submitMember}
-                                            editable={accessProfile.canUpdateMembership}
-                                            locale={router.locale}
-                                        />
+                                        <CorporateForms locale={router.locale} id={id} accessProfile={accessProfile}
+                                                        member={member} setMember={setMember}/>
                                     )
-                                } : null,
-                                editMode && accessProfile !== null ? {
-                                    buttonKey: 3,
-                                    value: (
-                                        <DocumentsForm
-                                            id={id}
-                                            documents={documents}
-                                            handleChange={event => handleObjectChange({
-                                                event: event,
-                                                setData: setDocuments
-                                            })}
-                                            handleSubmit={submitDocuments}
-                                            editable={accessProfile.canUpdateDocuments}
-                                            locale={router.locale}
-                                        />
-                                    )
-                                } : null,
-                                editMode && accessProfile !== null ? {
-                                    buttonKey: 4,
-                                    value: (
-                                        <ContactForm
-                                            id={id}
-                                            contact={contact}
-                                            locale={router.locale}
-                                            handleChange={event => handleObjectChange({
-                                                event: event,
-                                                setData: setContact
-                                            })}
-                                            handleSubmit={submitContacts}
-                                            editable={accessProfile.canUpdateContact}
-                                        />
-                                    )
-                                } : null,
-                                editMode && accessProfile !== null ? {
-                                    buttonKey: 5,
-                                    value: (
-                                        <AddressForm
-                                            id={id}
-                                            dark={false}
-                                            address={address}
-                                            handleChange={event => handleObjectChange({
-                                                event: event,
-                                                setData: setAddress
-                                            })}
-                                            handleSubmit={submitAddress}
-                                            locale={router.locale}
-                                            editable={accessProfile.canUpdateLocation}
-                                        />
+                                } : null
 
-                                    )
-                                } : null,
-
-                                {
-                                    buttonKey: 6,
-                                    value: (
-                                        <CollaborationList
-                                            id={id}
-                                            dark={false}
-                                            editionMode={editMode && accessProfile !== null && accessProfile.canUpdateCollaboration}
-                                            locale={router.locale}
-                                        />
-                                    )
-                                }
                             ]}/>
                     </div>
                 </div>

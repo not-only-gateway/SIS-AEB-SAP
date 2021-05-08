@@ -40,29 +40,42 @@ export default function MembershipForm(props) {
 
     if (lang !== null)
         return (
-            <div className={mainStyles.displayWarp} style={{justifyContent: 'center', width: '100%'}}>
+            <div style={{
+                display: 'inline-flex',
+                flexFlow: 'row wrap',
+                gap: '32px',
+                justifyContent: 'center',
+                width: '75%',
+            }}>
+                <InputLayout inputName={lang.registration} handleChange={props.handleChange}
+                             inputType={0} disabled={!props.editable} size={'100%'} required={false}
+                             name={'registration'}
+                             initialValue={props.member.registration} key={"membership-4"} setChanged={setChanged}/>
 
+                <h3 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
+                    Contact
+                </h3>
                 <InputLayout inputName={lang.corporateEmail}
                              handleChange={props.handleChange} name={'corporate_email'}
-                             inputType={0} disabled={!props.editable} size={'calc(33.333% - 10.666px)'} required={true}
+                             inputType={0} disabled={!props.editable} size={'calc(33.333% - 21.35px)'} required={true}
                              initialValue={props.member.corporate_email} key={"membership-1"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.extension} handleChange={props.handleChange}
                              numeric={true} maxLength={4}
-                             inputType={0} disabled={!props.editable} size={'calc(33.333% - 10.666px)'} required={true}
+                             inputType={0} disabled={!props.editable} size={'calc(33.333% - 21.35px)'} required={true}
                              name={'extension'}
                              initialValue={props.member.extension} key={"membership-2"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.altPhone} handleChange={props.handleChange}
                              numeric={true} maxLength={4}
-                             inputType={0} disabled={!props.editable} size={'calc(33.333% - 10.666px)'} required={false}
+                             inputType={0} disabled={!props.editable} size={'calc(33.333% - 21.35px)'} required={false}
                              name={'alternative_phone'}
                              initialValue={props.member.alternative_phone} key={"membership-3"} setChanged={setChanged}/>
-                <InputLayout inputName={lang.registration} handleChange={props.handleChange}
-                             inputType={0} disabled={!props.editable} size={'calc(50% - 8px'} required={false}
-                             name={'registration'}
-                             initialValue={props.member.registration} key={"membership-4"} setChanged={setChanged}/>
+
+                <h3 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
+                    Linkage & Work Position
+                </h3>
 
                 <InputLayout inputName={lang.homeOffice} handleChange={props.handleChange}
-                             inputType={1} disabled={!props.editable} size={'calc(50% - 8px'} required={true}
+                             inputType={1} disabled={!props.editable} size={'calc(50% - 16px'} required={true}
                              name={'home_office'} selectFields={lang.options}
                              initialValue={props.member.home_office} key={"membership-5"} setChanged={setChanged}/>
 
@@ -76,7 +89,7 @@ export default function MembershipForm(props) {
                               value: {id: event.key, acronym: event.value}
                           })} setChanged={setChanged}
                           label={lang.entity} key={'membership-6'}
-                          data={mapToSelect({data: entities, option: 6})} width={'100%'}/>
+                          data={mapToSelect({data: entities, option: 6})} width={'calc(50% - 16px)'}/>
 
                 {!props.editable ? null :
                     <Button style={{

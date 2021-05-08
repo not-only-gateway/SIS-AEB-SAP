@@ -9,58 +9,61 @@ export default function VerticalTabs(props) {
         index: 0
     })
 
-    const [tabsHeight, setTabsHeight] = useState(null)
-    const [contentHeight, setContentHeight] = useState(null)
-    useEffect(() => {
-        if(tabsHeight === null)
-            setTabsHeight(document.getElementById("vertical-tab-component").offsetHeight)
+    const [marginTop, setMarginTop] = useState(null)
 
-        setContentHeight(document.getElementById("content-container").offsetHeight)
+    useEffect(() => {
+        setMarginTop(window.scrollY + document.getElementById('vertical-tab-component').getBoundingClientRect().top)
     }, [openTab])
     return (
-        <div className={mainStyles.displayInlineSpaced} style={{width: '100%', alignContent: 'flex-start', position: 'relative'}}>
+        <div className={mainStyles.displayInlineSpaced}
+             style={{
+                 width: '100%',
+                 alignContent: 'flex-start', gap: '20px'
+             }}>
             <div key={'vertical-tab-component'} id={'vertical-tab-component'}
                  style={{
                      display: 'grid',
                      gap: '20px',
                      width: 'fit-content',
-                     marginBottom: 'auto'
+                     marginBottom: 'auto',
+                     position: 'sticky',
+                     top: marginTop + 'px'
                  }}>
-                {props.buttons.map((button, index) => {
-                        if (button !== null)
-                            return (
-                                <Button disabled={button.disabled} key={button.key} style={{
-                                    borderRadius: ' 8px 0  0 8px ',
-                                    backgroundColor: openTab.key === button.key ? 'white' : 'unset',
-                                    transition: '.2s',
-                                    textTransform: 'capitalize',
-                                    paddingRight: '32px',
-                                    paddingLeft: '32px',
-                                    color: 'black',
-                                    height: '50px',
-                                    boxShadow: openTab.key === button.key ? 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px' : 'unset'
-                                }}
-                                        onClick={() => setOpenTab({
-                                            key:button.key,
-                                            index: index
-                                        })}>
-                                    {button.value}
-                                </Button>
-                            )
-                        else
-                            return null
-                    }
-                )}
+                {props.buttons.map((button, index) => (
+                    <Button
+                        disabled={button.disabled} key={button.key} style={{
+                        display: button ? 'flex' : 'none',
+                        borderRadius: ' 8px ',
+                        backgroundColor: openTab.key === button.key ? '#0095ff' : 'unset',
+                        transition: '.2s',
+                        textTransform: 'capitalize',
+                        paddingRight: '32px',
+                        paddingLeft: '32px',
+                        color: openTab.key === button.key ? 'white' : 'black',
+                        height: '50px',
+                        boxShadow: openTab.key === button.key ? 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px' : 'unset',
+                        justifyItems: 'center'
+                    }}
+                        onClick={() => setOpenTab({
+                            key: button.key,
+                            index: index
+                        })}>
+                        {button.value}
+                    </Button>
+
+
+                ))}
 
             </div>
             {!props.tabs ? null : props.tabs.map(tab => (
                 tab.key === openTab.key ?
-                    <div style={{
+                    <div className={mainStyles.displayInlineCenter} style={{
                         backgroundColor: 'white',
                         width: '100%',
-                        height: '100%',
                         boxShadow: 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
-                        borderRadius: ((contentHeight !== tabsHeight &&  openTab.index > 0) || (openTab.index > 0 && openTab.index < props.buttons.length - 1)  ? '8px' : openTab.index === 0 ? '0 8px  8px 8px' : '8px 8px  8px 0' )
+                        borderRadius: '8px',
+                        padding: '32px',
+                        marginBottom: '50px'
                     }} id={'content-container'}>
                         {tab.content}
                     </div>

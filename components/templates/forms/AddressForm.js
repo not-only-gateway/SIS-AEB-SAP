@@ -43,7 +43,7 @@ export default function AddressForm(props) {
             method: 'get',
             url: 'http://viacep.com.br/ws/' + cep + '/json/',
         }).then(res => {
-            if(!res.data.error) {
+            if (!res.data.error) {
                 props.handleChange({name: 'neighborhood', value: res.data.bairro},)
                 props.handleChange({name: 'state_initials', value: res.data.uf})
                 props.handleChange({name: 'state', value: res.data.localidade})
@@ -60,7 +60,14 @@ export default function AddressForm(props) {
 
     if (lang !== null)
         return (
-            <div className={mainStyles.displayWarp} style={{justifyContent: 'center'}}>
+            <div style={{
+                display: 'inline-flex',
+                flexFlow: 'row wrap',
+                gap: '32px',
+                justifyContent: 'center',
+                width: '75%',
+            }}>
+
                 <InputLayout inputName={lang.zipCode} dark={props.dark}
                              handleChange={event => {
                                  if (event.value.length === 8) {
@@ -76,48 +83,58 @@ export default function AddressForm(props) {
                              disabled={!props.editable} size={'100%'} required={true}
                              initialValue={props.address.zip_code}
                              key={"4-3"} setChanged={setChanged}/>
+
+                <h3 style={{width: '100%', marginBottom: 'auto'}}>
+                    Address
+                </h3>
                 <InputLayout inputName={'Address'} dark={props.dark}
                              handleChange={props.handleChange} inputType={0}
                              name={'address'}
                              disabled={!props.editable || !validZipCode}
-                             size={'calc(50% - 8px)'} required={true} initialValue={props.address.address}
+                             size={'calc(50% - 16px)'} required={true} initialValue={props.address.address}
                              key={"4-1"} setChanged={setChanged}
                 />
                 <InputLayout inputName={'Complement'} dark={props.dark} handleChange={props.handleChange} inputType={0}
                              name={'address_complement'}
                              disabled={!props.editable || !validZipCode}
-                             size={'calc(50% - 8px)'} required={false} initialValue={props.address.address_complement}
+                             size={'calc(50% - 16px)'} required={false} initialValue={props.address.address_complement}
                              key={"4-2"} setChanged={setChanged}/>
 
+                <h3 style={{width: '100%', marginBottom: 'auto'}}>
+                    State & City
+                </h3>
 
                 <InputLayout inputName={'City'} dark={props.dark} handleChange={props.handleChange} inputType={0}
                              disabled={!props.editable || !validZipCode}
-                             size={'calc(33.333% - 10.666px'} required={true} initialValue={props.address.city}
+                             size={'calc(33.333% - 21.35px'} required={true} initialValue={props.address.city}
                              name={'city'}
                              key={"4-6"} setChanged={setChanged}/>
                 <InputLayout inputName={'State'} dark={props.dark} handleChange={props.handleChange} inputType={0}
                              disabled={!props.editable || !validZipCode}
-                             size={'calc(33.333% - 10.666px'} required={true} initialValue={props.address.state}
+                             size={'calc(33.333% - 21.35px'} required={true} initialValue={props.address.state}
                              name={'state'}
                              key={"4-7"} setChanged={setChanged}/>
                 <InputLayout inputName={'State Initials'} dark={props.dark} handleChange={props.handleChange}
                              inputType={0} name={'state_initials'} maxLength={2} uppercase={true}
                              disabled={!props.editable || !validZipCode}
-                             size={'calc(33.333% - 10.666px'} required={true}
+                             size={'calc(33.333% - 21.35px'} required={true}
                              initialValue={props.address.state_initials}
                              key={"4-8"} setChanged={setChanged}/>
-
-                <InputLayout inputName={'Street'} dark={props.dark} handleChange={props.handleChange} inputType={0}
-                             name={'street'}
-                             disabled={!props.editable || !validZipCode}
-                             size={'calc(50% - 8px)'} required={false} initialValue={props.address.street}
-                             key={"4-4"} setChanged={setChanged}/>
+                <h3 style={{width: '100%', marginBottom: 'auto'}}>
+                    Neighborhood
+                </h3>
                 <InputLayout inputName={'Neighborhood'} dark={props.dark} handleChange={props.handleChange}
                              inputType={0} name={'neighborhood'}
                              disabled={!props.editable || !validZipCode}
-                             size={'calc(50% - 8px)'} required={false}
+                             size={'calc(50% - 16px)'} required={false}
                              initialValue={props.address.neighborhood}
                              key={"4-5"} setChanged={setChanged}/>
+                <InputLayout inputName={'Street'} dark={props.dark} handleChange={props.handleChange} inputType={0}
+                             name={'street'}
+                             disabled={!props.editable || !validZipCode}
+                             size={'calc(50% - 16px)'} required={false} initialValue={props.address.street}
+                             key={"4-4"} setChanged={setChanged}/>
+
 
 
                 {!props.editable ? null :
@@ -143,7 +160,7 @@ export default function AddressForm(props) {
         return null
 }
 
-AddressForm.propTypes ={
+AddressForm.propTypes = {
     id: PropTypes.number,
     address: PropTypes.object,
     handleChange: PropTypes.func,

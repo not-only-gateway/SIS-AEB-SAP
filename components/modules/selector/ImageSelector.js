@@ -87,8 +87,7 @@ export default function ImageSelector(props) {
             <FormControl key={props.key} required={props.required} style={{
                 width: props.width,
                 marginTop: 'auto',
-                minHeight: '56px',
-                minWidth: 'calc(25% - 12px)',
+                minHeight: '56px'
 
             }}>
 
@@ -121,5 +120,6 @@ ImageSelector.propTypes = {
     size: PropTypes.string,
     label: PropTypes.string,
     base64: PropTypes.bool,
-    setChanged: PropTypes.func
+    setChanged: PropTypes.func,
+    width: PropTypes.string
 }
