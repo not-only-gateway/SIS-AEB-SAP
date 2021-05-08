@@ -17,10 +17,9 @@ export default function NavigationDropDownButton(props) {
     return (
 
         <div
-            className={mainStyles.marginVertical}
             style={{
                 borderRadius: '8px',
-                width: props.reduced ? '65px' : '250px',
+                width: props.reduced ? '65px' : '210px',
                 height: '65px',
             }}
             onMouseEnter={() => setHovered(true)}
@@ -35,9 +34,9 @@ export default function NavigationDropDownButton(props) {
 
                 border: open ? 'hsla(210, 11%, 78%, 0.5)  .7px solid' : 'transparent .7px solid',
                 boxShadow: open  ? 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px' : null,
-                backgroundColor: (open && !props.reduced) || hovered ? '#f2f2f2' : 'white',
+                backgroundColor: (open && !props.reduced) || hovered ? '#f2f2f2' : 'transparent',
                 transition: '300ms ease-in-out',
-                padding: '16px',
+                padding: props.reduced ? '16px' : '10px',
             }} onClick={() => {
                 setOpen(!open)
                 props.setReduced(false)
@@ -46,7 +45,7 @@ export default function NavigationDropDownButton(props) {
                 <div className={props.reduced ? mainStyles.displayInlineCenter : mainStyles.displayInlineStart}
                      style={{
                          width: '100%',
-                         color: props.highlight || hovered ? '#0095ff' : '#777777',
+                         color: props.highlight || hovered ? '#0095ff' : '#a6a6a9',
                          transition: '300ms ease-in-out',
                      }}>
                     <div className={mainStyles.displayInlineCenter}>
@@ -54,8 +53,8 @@ export default function NavigationDropDownButton(props) {
                     </div>
                     <div style={{
                         display: props.reduced ? 'none' : 'unset',
-                        marginLeft: '16px',
-                        fontSize: '1rem',
+                        marginLeft: '8px',
+                        fontSize: '.9rem',
                     }}> {props.label}</div>
                 </div>
             </Button>
@@ -70,7 +69,7 @@ export default function NavigationDropDownButton(props) {
                     borderLeft: 'hsla(210, 11%, 78%, 0.5)  .7px solid',
                     borderRight: 'hsla(210, 11%, 78%, 0.5)  .7px solid',
                     boxShadow: 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px',
-                    width: '250px',
+                    width: '210px',
                     borderRadius: '0px 0px 8px 8px',
                     backgroundColor: open || hovered ? '#f2f2f2' : 'white',
                 }} className={[mainStyles.displayColumnSpaced, animations.slideDownAnimation].join(' ')}>
@@ -82,6 +81,7 @@ export default function NavigationDropDownButton(props) {
                                 textTransform: 'capitalize',
                                 color: hoveredOption === index ? '#0095ff' : '#555555',
                                 transition: '300ms ease-in-out',
+
                             }}>
                                 {option.label}
                             </Button>

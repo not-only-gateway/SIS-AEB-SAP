@@ -74,9 +74,9 @@ export default function BaseForm(props) {
                     width: '75%',
                 }}>
 
-                <h3 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
+                <h4 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
                     Personal information
-                </h3>
+                </h4>
                 <ImageSelector
                     initialImage={props.person.image === null || !props.person.image ? image.imageSrc : props.person.image}
                     size={'100px'}
@@ -107,9 +107,9 @@ export default function BaseForm(props) {
                              selectFields={lang.choice}
                              key={"1-8"} setChanged={setChanged}/>
 
-                <h3 style={{width: '100%', marginBottom: 'auto'}}>
+                <h4 style={{width: '100%', marginBottom: 'auto'}}>
                     Life & Education
-                </h3>
+                </h4>
 
 
                 <InputLayout inputName={lang.gender} dark={props.dark} handleChange={props.handleChange}
@@ -133,9 +133,9 @@ export default function BaseForm(props) {
                              selectFields={lang.maritalChoice}
                              key={"1-11"} setChanged={setChanged}/>
 
-                <h3 style={{width: '100%', marginBottom: 'auto'}}>
+                <h4 style={{width: '100%', marginBottom: 'auto'}}>
                     Parents & nationality
-                </h3>
+                </h4>
                 <InputLayout inputName={lang.father} dark={props.dark} handleChange={props.handleChange}
                              inputType={0} name={'father_name'}
                              disabled={!props.editable} size={'calc(50% - 16px)'} required={false}
@@ -161,7 +161,7 @@ export default function BaseForm(props) {
 
                 {!props.editable ? null :
                     <Button style={{
-                        width: '100%', marginTop: '50px',
+                        width: '100%',
                         backgroundColor: disabled() ? 'rgba(0,0,0,0.07)' : '#0095ff',
                         color: disabled() ? '#777777' : 'white',
                         fontWeight: 550,

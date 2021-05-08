@@ -3,22 +3,22 @@
 
     .navigationContainer{
         position: fixed;
-        left:4px;
-        top: 4px;
+        left: 0;
+        top: 0;
         z-index: 0;
         overflow: hidden;
-        height: calc(100vh - 8px);
+        height: 100vh;
 
         display: block;
         justify-items: center;
-        border-radius:  8px;
+        border-radius: 0 8px 8px 0;
     }
     .navigationContainer > * {
         width: 100%;
     }
     .top_bar_container{
         display: grid;
-        grid-template-columns: 33.333vw 33.333vw 33.333vw;
+        /*grid-template-columns: 66.666vw 33.333vw;*/
         align-content: center;
         align-items: center;
         height: 100%;

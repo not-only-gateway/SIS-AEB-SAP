@@ -10,10 +10,8 @@ export default function NavigationButton(props) {
         <div
             style={{
                 borderRadius: '8px',
-                width: (props.reduced ? '65px' : '250px'),
+                width: (props.reduced ? '65px' : '210px'),
                 height: '65px',
-                marginTop: '8px',
-                marginBottom: props.noMargin ? '0' : '8px'
             }}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
@@ -29,14 +27,16 @@ export default function NavigationButton(props) {
                     height: 'auto',
                     textTransform: 'none',
                     borderRadius: '8px',
-                    backgroundColor: hovered ? 'rgba(0, 0, 0, .07)' : 'transparent',
+                    backgroundColor: props.highlight || hovered ? '#0095ff' : 'transparent',
                     transition: '300ms ease-in-out',
-                    padding: '16px'
+                    padding: props.reduced ? '16px' : '10px',
+
+
                 }}>
                     <div className={props.reduced ? mainStyles.displayInlineCenter : mainStyles.displayInlineStart}
                          style={{
                              width: '100%',
-                             color: props.highlight || hovered ? '#0095ff' : '#777777',
+                             color: props.highlight || hovered ? 'white' : '#a6a6a9',
                              transition: '300ms ease-in-out',
                          }}>
                         <div className={mainStyles.displayInlineCenter}>
@@ -44,8 +44,8 @@ export default function NavigationButton(props) {
                         </div>
                         <div style={{
                             display: props.reduced ? 'none' : 'unset',
-                            marginLeft: '16px',
-                            fontSize: '1rem',
+                            marginLeft: '8px',
+                            fontSize: '.9rem',
                         }}> {props.label}</div>
                     </div>
                 </Button>

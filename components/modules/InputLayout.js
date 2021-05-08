@@ -111,10 +111,9 @@ export default function InputLayout(props) {
             return (
                 <div key={props.key} style={{width: props.size}}>
                     <FormControl component="fieldset" style={{width: '100%'}}>
-                        <FormLabel style={{marginBottom: '5px'}} component="legend">{props.inputName}</FormLabel>
                         <TextField
                             required={props.required}
-
+                            label={props.inputName}
                             variant={'outlined'}
                             style={{width: '100%'}}
                             id={props.inputName.replace(' ', '')}

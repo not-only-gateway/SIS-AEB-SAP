@@ -49,9 +49,9 @@ export default function DocumentsForm(props) {
                 justifyContent: 'center',
                 width: '75%',
             }}>
-                <h3 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
+                <h4 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
                     Registration
-                </h3>
+                </h4>
                 <InputLayout inputName={'CPF'} dark={props.dark} handleChange={props.handleChange} inputType={0} name={'cpf'}
                              disabled={!props.editable} size={'100%'} required={true}
                              initialValue={props.documents.cpf} numeric={true} maxLength={11}
@@ -74,9 +74,9 @@ export default function DocumentsForm(props) {
                              initialValue={props.documents.dispatch_date}
                              key={"5-4"} setChanged={setChanged}/>
 
-                <h3 style={{width: '100%',marginBottom: 'auto'}}>
+                <h4 style={{width: '100%',marginBottom: 'auto'}}>
                     Work Card
-                </h3>
+                </h4>
                 <InputLayout inputName={lang.work} dark={props.dark} handleChange={props.handleChange} inputType={0}
                              name={'work_card'}
                              disabled={!props.editable} size={'calc(75% - 12px)'} required={true}
@@ -89,9 +89,9 @@ export default function DocumentsForm(props) {
                              initialValue={props.documents.pis}
                              key={"5-6"} setChanged={setChanged}/>
 
-                <h3 style={{width: '100%', marginBottom: 'auto'}}>
+                <h4 style={{width: '100%', marginBottom: 'auto'}}>
                     Bank
-                </h3>
+                </h4>
                 <InputLayout inputName={lang.bank} dark={props.dark} handleChange={props.handleChange} inputType={0}
                              name={'bank'}
                              disabled={!props.editable} size={'calc(50% - 16px)'} required={false}
@@ -103,9 +103,9 @@ export default function DocumentsForm(props) {
                              disabled={!props.editable} size={'calc(50% - 16px)'} required={false}
                              initialValue={props.documents.agency}
                              key={"5-8"} setChanged={setChanged}/>
-                <h3 style={{width: '100%', marginBottom: 'auto'}}>
+                <h4 style={{width: '100%', marginBottom: 'auto'}}>
                     Voter
-                </h3>
+                </h4>
                 <InputLayout inputName={lang.voter} dark={props.dark} handleChange={props.handleChange}
                              inputType={0} name={'voter_registration'}
                              disabled={!props.editable} size={'calc(33.333% - 21.4px)'} required={true}
@@ -125,7 +125,7 @@ export default function DocumentsForm(props) {
 
                 {!props.editable ? null :
                     <Button style={{
-                        width: '100%', marginTop: '50px',
+                        width: '100%',
                         backgroundColor: disabled() ? 'rgba(0,0,0,0.07)' : '#0095ff',
                         color:  disabled() ? '#777777' : 'white',
                         fontWeight: 550,

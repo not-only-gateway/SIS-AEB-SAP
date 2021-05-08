@@ -36,9 +36,9 @@ export default function ContactForm(props) {
                 justifyContent: 'center',
                 width: '75%',
             }}>
-                <h3 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
+                <h4 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
                     Emails
-                </h3>
+                </h4>
                 <InputLayout inputName={lang.email} dark={props.dark} handleChange={props.handleChange}
                              name={'personal_email'}
                              inputType={0} disabled={!props.editable} size={'100%'} required={true}
@@ -48,9 +48,9 @@ export default function ContactForm(props) {
                              name={'personal_email_alt'}
                              inputType={0} disabled={!props.editable} size={'100%'} required={false}
                              initialValue={props.contact.personal_email_alt} key={"3-2"} setChanged={setChanged}/>
-                <h3 style={{width: '100%', marginBottom: 'auto'}}>
+                <h4 style={{width: '100%', marginBottom: 'auto'}}>
                     Phones
-                </h3>
+                </h4>
                 <InputLayout inputName={lang.phone} dark={props.dark} handleChange={props.handleChange}
                              name={'personal_phone'}
                              inputType={0} disabled={!props.editable} size={'100%'} required={true}
@@ -65,7 +65,7 @@ export default function ContactForm(props) {
 
                 {!props.editable ? null :
                     <Button style={{
-                        width: '100%', marginTop: '50px',
+                        width: '100%',
                         backgroundColor: disabled() ? 'rgba(0,0,0,0.07)' : '#0095ff',
                         color: disabled() ? '#777777' : 'white',
                         fontWeight: 550,

@@ -84,9 +84,9 @@ export default function AddressForm(props) {
                              initialValue={props.address.zip_code}
                              key={"4-3"} setChanged={setChanged}/>
 
-                <h3 style={{width: '100%', marginBottom: 'auto'}}>
+                <h4 style={{width: '100%', marginBottom: 'auto'}}>
                     Address
-                </h3>
+                </h4>
                 <InputLayout inputName={'Address'} dark={props.dark}
                              handleChange={props.handleChange} inputType={0}
                              name={'address'}
@@ -100,9 +100,9 @@ export default function AddressForm(props) {
                              size={'calc(50% - 16px)'} required={false} initialValue={props.address.address_complement}
                              key={"4-2"} setChanged={setChanged}/>
 
-                <h3 style={{width: '100%', marginBottom: 'auto'}}>
+                <h4 style={{width: '100%', marginBottom: 'auto'}}>
                     State & City
-                </h3>
+                </h4>
 
                 <InputLayout inputName={'City'} dark={props.dark} handleChange={props.handleChange} inputType={0}
                              disabled={!props.editable || !validZipCode}
@@ -120,9 +120,9 @@ export default function AddressForm(props) {
                              size={'calc(33.333% - 21.35px'} required={true}
                              initialValue={props.address.state_initials}
                              key={"4-8"} setChanged={setChanged}/>
-                <h3 style={{width: '100%', marginBottom: 'auto'}}>
+                <h4 style={{width: '100%', marginBottom: 'auto'}}>
                     Neighborhood
-                </h3>
+                </h4>
                 <InputLayout inputName={'Neighborhood'} dark={props.dark} handleChange={props.handleChange}
                              inputType={0} name={'neighborhood'}
                              disabled={!props.editable || !validZipCode}
@@ -139,7 +139,7 @@ export default function AddressForm(props) {
 
                 {!props.editable ? null :
                     <Button style={{
-                        width: '100%', marginTop: '50px',
+                        width: '100%',
                         backgroundColor: disabled() ? 'rgba(0,0,0,0.07)' : '#0095ff',
                         color: disabled() ? '#777777' : 'white',
                         fontWeight: 550,

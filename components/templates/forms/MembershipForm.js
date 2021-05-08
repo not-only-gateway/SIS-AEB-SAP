@@ -52,9 +52,9 @@ export default function MembershipForm(props) {
                              name={'registration'}
                              initialValue={props.member.registration} key={"membership-4"} setChanged={setChanged}/>
 
-                <h3 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
+                <h4 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
                     Contact
-                </h3>
+                </h4>
                 <InputLayout inputName={lang.corporateEmail}
                              handleChange={props.handleChange} name={'corporate_email'}
                              inputType={0} disabled={!props.editable} size={'calc(33.333% - 21.35px)'} required={true}
@@ -70,9 +70,9 @@ export default function MembershipForm(props) {
                              name={'alternative_phone'}
                              initialValue={props.member.alternative_phone} key={"membership-3"} setChanged={setChanged}/>
 
-                <h3 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
+                <h4 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
                     Linkage & Work Position
-                </h3>
+                </h4>
 
                 <InputLayout inputName={lang.homeOffice} handleChange={props.handleChange}
                              inputType={1} disabled={!props.editable} size={'calc(50% - 16px'} required={true}
@@ -93,7 +93,7 @@ export default function MembershipForm(props) {
 
                 {!props.editable ? null :
                     <Button style={{
-                        width: '100%', marginTop: '50px',
+                        width: '100%',
                         backgroundColor: disabled() ? 'rgba(0,0,0,0.07)' : '#0095ff',
                         color: disabled() ? '#777777' : 'white',
                         fontWeight: 550,

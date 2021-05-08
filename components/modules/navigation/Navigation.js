@@ -42,21 +42,22 @@ export default function Navigation(props) {
 
         <div className={[styles.navigationContainer, animations.slideInLeftAnimation].join(' ')}
              style={{
-                 width: props.reduced ? '75px' : '260px',
+                 width: props.reduced ? '75px' : '240px',
                  transition: '250ms ease-in-out',
-                 backgroundColor: 'white',
+                 backgroundColor: '#222228',
                  boxShadow: 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px'
              }}>
 
             <div
                 style={{
-                    height: '33.333%',
+                    height: '66.666%',
                     width: '100%',
-
-                    display: 'flex',
+                    display: 'grid',
+                    alignContent: 'flex-start',
                     alignItems: 'flex-start',
-
-
+                    justifyContent: 'center',
+                    justifyItems: 'center',
+                    gap: '4px'
                 }}>
                 <div style={{
                     width: '100%',
@@ -64,7 +65,8 @@ export default function Navigation(props) {
                     justifyContent: props.reduced ? 'center' : 'space-between',
                     justifyItems: 'center',
                     alignItems: 'center',
-                    height: '65px'
+                    height: '65px',
+                    marginBottom: '32px'
                 }}>
                     {props.reduced ? null :
                         <img className={animations.fadeIn}
@@ -72,22 +74,23 @@ export default function Navigation(props) {
                              src={'/newnew.png'} alt={'logo'}/>
                     }
 
-                    <Button onClick={() => props.setReduced(!props.reduced)}>
+                    <Button onClick={() => props.setReduced(!props.reduced)}
+                            style={{width: '55px', height: '55px', borderRadius: '8px', padding: 'unset'}}>
                         <MenuOpenRounded style={{
-                            color: '#555555',
+                            color: '#f2f2f2',
                             transform: props.reduced ? 'rotate(180deg)' : null,
                         }}/>
                     </Button>
                 </div>
-            </div>
-
-            <div style={{
-                display: 'grid',
-                alignContent: 'flex-start',
-                alignItems: 'flex-start',
-                justifyContent: 'center',
-                height: '33.333%'
-            }}>
+                <h5 style={{
+                    marginRight: 'auto',
+                    transform: 'translateX(15px)',
+                    display: props.reduced ? 'none' : 'unset',
+                    marginBottom: '16px',
+                    color: '#a6a6a9'
+                }}>
+                    Navigation
+                </h5>
                 <NavigationButton
                     dark={props.dark} linkPath={'/'}
                     highlight={props.path === '/'} locale={props.locale}
