@@ -24,7 +24,15 @@ export default function Stepper(props) {
     return (
 
         <div key={'stepper-component'}
-             className={mainStyles.displayInlineStart} style={{gap: '10px', width: '100%'}}>
+             className={mainStyles.displayInlineCenter} style={{
+            gap: '10px',
+            width: '100%',
+            backgroundColor: 'white',
+            padding: '8px',
+            borderRadius: '8px',
+            marginTop: '16px',
+            boxShadow: 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px'
+        }}>
 
             {props.buttons.map((button, index) => {
                     if (button !== null)
@@ -43,7 +51,7 @@ export default function Stepper(props) {
                                         fontWeight: 550,
                                         cursor: button.disabled ? null : 'pointer',
                                         opacity: props.openTab === button.key ? 1 : .5,
-                                        boxShadow: props.openTab === button.key ? 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px' : null
+                                        boxShadow: props.openTab === button.key ? 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px' : null
                                     }}
                                          onClick={() => {
                                              if (!button.disabled)
@@ -51,11 +59,11 @@ export default function Stepper(props) {
                                          }}>
                                         {index + 1}
                                     </div>
-                                    <span style={{opacity: props.openTab === button.key ? 1 : .5, fontSize: '.8rem'}}>
+                                    <span style={{opacity: props.openTab === button.key ? 1 : .5, fontSize: '.8rem', marginTop: '5px'}}>
                                         {button.value}
                                     </span>
                                 </div>
-                                {index < props.buttons.length - 1 && props.buttons[index + 1] !== null?
+                                {index < props.buttons.length - 1 && props.buttons[index + 1] !== null ?
                                     <Divider style={{width: '50px'}} orientation={"horizontal"}/>
                                     :
                                     null}

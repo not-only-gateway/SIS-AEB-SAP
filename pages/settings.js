@@ -168,7 +168,7 @@ export default function Settings() {
                             :
                             null
                         }
-                        {(new Cookies()).get('jwt') !== undefined?
+                        {(new Cookies()).get('jwt') !== undefined ?
 
                             <Link href={{pathname: '/activity', locale: router.locale}}>
                                 <Button style={{
@@ -177,15 +177,17 @@ export default function Settings() {
                                     justifyContent: 'flex-start',
                                     alignItems: 'center',
                                     textTransform: 'none', width: '31%',
-                                    border: 'hsla(210, 11%, 78%, 0.5)  .7px solid',
                                     borderRadius: '8px',
                                     opacity: 0,
                                     animationDelay: '400ms',
-                                    backgroundColor: 'white'
+                                    backgroundColor: 'white',
+                                    boxShadow: 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px'
                                 }} className={animations.slideUpAnimation}>
 
                                     <HistoryRounded
-                                        style={{...getIconStyle({dark: dark}), ...getPrimaryColor({dark: dark})}}/>
+                                        style={{...getIconStyle({dark: false}), ...{marginRight: 0}}}/>
+                                    <Divider style={{width: '10px', marginLeft: '10px', marginRight: '10px'}}
+                                             orientation={'horizontal'}/>
                                     <p className={mainStyles.secondaryParagraph}
                                        style={getSecondaryColor({dark: dark})}>{lang.activity}</p>
                                 </Button>

@@ -27,23 +27,26 @@ export default function VerticalTabs(props) {
                      width: 'fit-content',
                      marginBottom: 'auto',
                      position: 'sticky',
-                     top: marginTop + 'px'
+                     top: marginTop + 'px',
+                     backgroundColor: 'white',
+                     borderRadius: '8px',
+                     padding: '8px',
+                     boxShadow: 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
+                     maxWidth: '20%'
                  }}>
                 {props.buttons.map((button, index) => (
                     <Button
                         disabled={button.disabled} key={button.key} style={{
                         display: button ? 'flex' : 'none',
-                        borderRadius: ' 8px ',
+                        borderRadius: '32px',
                         backgroundColor: openTab.key === button.key ? '#0095ff' : 'unset',
-                        transition: '.2s',
+                        transition: '300ms ease-in-out',
                         textTransform: 'capitalize',
-                        paddingRight: '32px',
-                        paddingLeft: '32px',
-    
+                        paddingRight: '24px',
+                        paddingLeft: '24px',
                         color: openTab.key === button.key ? 'white' : 'black',
-                        height: '50px',
-                        boxShadow: openTab.key === button.key ? 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px' : 'unset',
-                        justifyItems: 'center'
+                        justifyItems: 'center',
+                        boxShadow: openTab.key === button.key ? 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px' : 'unset'
                     }}
                         onClick={() => setOpenTab({
                             key: button.key,

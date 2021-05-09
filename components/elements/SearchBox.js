@@ -25,7 +25,7 @@ export default function SearchBox(props) {
                        boxShadow: focused || hovered ? 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
                        border: focused ? '#0095ff  .7px solid' : 'transparent .7px solid',
                        width: reduced ? '50px' : '100%',
-                       borderRadius: reduced ? '50%' : '8px',
+                       borderRadius: '8px',
                        height: reduced ? '50px' : '100%',
                        transition: '300ms ease-in-out',
                        backgroundColor: 'white', marginLeft: 'auto'
@@ -34,7 +34,7 @@ export default function SearchBox(props) {
                 <ButtonBase onClick={() => setReduced(!reduced)} style={{
                     width: '50px',
                     height: '50px',
-                    borderRadius: reduced ? '50%' : '5px',
+                    borderRadius:'8px',
 
                 }} className={mainStyles.displayInlineCenter}>
                     <SearchRounded style={{color: '#777777', display: reduced ? 'initial' : 'none'}}/>

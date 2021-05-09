@@ -16,7 +16,8 @@ export default function HorizontalTabs(props) {
                  padding: '8px',
                  borderRadius: '8px',
                  marginTop: '16px',
-                 boxShadow:'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px'
+                 boxShadow:'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
+
              }}>
             {props.buttons.map((button) => {
                     if (button !== null)
@@ -24,7 +25,7 @@ export default function HorizontalTabs(props) {
                             <Button disabled={button.disabled} key={button.key} style={{
                                 borderRadius: '32px',
                                 backgroundColor: props.openTab === button.key ? '#0095ff' : 'unset',
-                                transition: '.2s',
+                                transition: '300ms ease-in-out',
                                 height: 'auto',
                                 textTransform: 'capitalize',
                                 paddingRight: '32px',
