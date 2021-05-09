@@ -39,6 +39,7 @@ export default function VerticalTabs(props) {
                         textTransform: 'capitalize',
                         paddingRight: '32px',
                         paddingLeft: '32px',
+    
                         color: openTab.key === button.key ? 'white' : 'black',
                         height: '50px',
                         boxShadow: openTab.key === button.key ? 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px' : 'unset',

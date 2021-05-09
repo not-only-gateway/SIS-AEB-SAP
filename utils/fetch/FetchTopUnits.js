@@ -4,7 +4,7 @@ import Cookies from "universal-cookie/lib";
 
 export default async function fetchTopUnits() {
     let response = []
-    axios({
+    await axios({
         method: 'get',
         url: Host() + 'top/units',
         headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
@@ -13,5 +13,6 @@ export default async function fetchTopUnits() {
     }).catch(error => {
         console.log(error)
     })
+
     return response
 }

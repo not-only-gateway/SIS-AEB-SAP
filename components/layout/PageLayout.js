@@ -27,7 +27,7 @@ export default function PageLayout({children}) {
             <div style={{fontFamily: 'Roboto', backgroundColor: '#f5f6f8'}}>
                 <div className={styles.page_container}
                      id={'scrollableDiv'} style={{
-                    width: reduced ? 'calc(100% - 75px)' : 'calc(100% - 240px)',
+                    width: reduced ? 'calc(100% - 75px)' : 'calc(100% - 250px)',
                     marginLeft: 'auto',
                     transition: '250ms ease-in-out'
                 }}>
@@ -35,7 +35,7 @@ export default function PageLayout({children}) {
                     {children}
                 </div>
                 <Navigation dark={dark} locale={router.locale} path={router.pathname} reduced={reduced}
-                            setReduced={setReduced}/>
+                            setReduced={setReduced} query={router.query}/>
 
             </div>
         )

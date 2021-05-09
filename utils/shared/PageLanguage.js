@@ -19,17 +19,17 @@ import ActivityEN from "../../packages/page locales/activity/ActivityEN";
 import ActivityES from "../../packages/page locales/activity/ActivityES";
 import ActivityPT from "../../packages/page locales/activity/ActivityPT";
 
-
-import StructureEN from "../../packages/page locales/structure/StructureEN";
-import StructureES from "../../packages/page locales/structure/StructureES";
-import StructurePT from "../../packages/page locales/structure/StructurePT";
-
 import CreateEN from "../../packages/page locales/create/CreateEN";
 import CreateES from "../../packages/page locales/create/CreateES";
 import CreatePT from "../../packages/page locales/create/CreatePT";
+
 import ManagementEN from "../../packages/page locales/management/ManagementEN";
 import ManagementES from "../../packages/page locales/management/ManagementES";
 import ManagementPT from "../../packages/page locales/management/ManagementPT";
+
+import UnitsEN from "../../packages/page locales/units/UnitsEN";
+import UnitsES from "../../packages/page locales/units/UnitsES";
+import UnitsPT from "../../packages/page locales/units/UnitsPT";
 
 const cookies = new Cookies()
 
@@ -68,8 +68,8 @@ export function getLanguage(locale, page) {
                     break
                 }
 
-                case '/structure': {
-                    response = StructureEN
+                case '/units': {
+                    response = UnitsEN
                     break
                 }
                 case '/create' : {
@@ -108,8 +108,8 @@ export function getLanguage(locale, page) {
                     break
                 }
 
-                case '/structure': {
-                    response = StructureES
+                case '/units': {
+                    response = UnitsES
                     break
                 }
                 case '/create' : {
@@ -148,8 +148,8 @@ export function getLanguage(locale, page) {
                     response = ActivityPT
                     break
                 }
-                case '/structure': {
-                    response = StructurePT
+                case '/units': {
+                    response = UnitsPT
                     break
                 }
                 case '/create' : {

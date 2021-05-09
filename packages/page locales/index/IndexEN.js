@@ -1,7 +1,7 @@
 export default {
     extensions: 'Extensions',
     search: 'Search',
-    information: 'Internal structure of collaborators',
+    information: 'Internal units of collaborators',
     filterChoice: [
         {value: 'All Collaborators', key: 'people'},
         {value: 'Active Collaborators', key: 'collaborators'}

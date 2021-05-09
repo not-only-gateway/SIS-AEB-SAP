@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react'
 import Cookies from 'universal-cookie/lib';
 import {
     AccountTreeRounded,
-    AddRounded,
+    AddRounded, ExitToApp,
     ExitToAppRounded,
     ExtensionRounded,
-    MenuOpenRounded,
+    MenuOpenRounded, PersonRounded,
     SettingsRounded, ViewQuiltRounded
 } from '@material-ui/icons';
 import styles from '../../../styles/shared/Bar.module.css'
@@ -42,7 +42,7 @@ export default function Navigation(props) {
 
         <div className={[styles.navigationContainer, animations.slideInLeftAnimation].join(' ')}
              style={{
-                 width: props.reduced ? '75px' : '240px',
+                 width: props.reduced ? '75px' : '250px',
                  transition: '250ms ease-in-out',
                  backgroundColor: '#222228',
                  boxShadow: 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px'
@@ -84,7 +84,7 @@ export default function Navigation(props) {
                 </div>
                 <h5 style={{
                     marginRight: 'auto',
-                    transform: 'translateX(15px)',
+                    transform: 'translateX(20px)',
                     display: props.reduced ? 'none' : 'unset',
                     marginBottom: '16px',
                     color: '#a6a6a9'
@@ -113,6 +113,14 @@ export default function Navigation(props) {
                         <SettingsRounded/>
                     }
                 />
+                {/*{profile === null ? null :*/}
+                {/*    <NavigationButton*/}
+                {/*        dark={props.dark} linkPath={'/person'} linkQuery={{id: profile.id}}*/}
+                {/*        highlight={props.path === '/person' && props.query.id === profile.id.toString()} locale={props.locale}*/}
+                {/*        label={lang.profile} reduced={props.reduced}*/}
+                {/*        icon={<PersonRounded/>}*/}
+                {/*    />*/}
+                {/*}*/}
                 {accessProfile !== null && (accessProfile.canManageStructure) ?
                     <NavigationDropDownButton
                         locale={props.locale}
@@ -141,7 +149,16 @@ export default function Navigation(props) {
                     null
 
                 }
+                <NavigationButton
+                    dark={props.dark} linkPath={'/signin'}
+                    highlight={false} locale={props.locale}
+                    label={lang.signout} reduced={props.reduced}
+                    icon={
+                        <ExitToApp style={{transform: 'rotate(180deg)'}}/>
+                    }
+                />
             </div>
+
             <div className={mainStyles.displayInlineCenter}
                  style={{height: '33.333%', alignItems: 'flex-end', paddingBottom: '4px'}}>
                 {(profile !== null && (new Cookies()).get('jwt') !== undefined) ?
@@ -167,5 +184,6 @@ Navigation.propTypes = {
     dark: PropTypes.bool,
     path: PropTypes.string,
     reduced: PropTypes.bool,
-    setReduced: PropTypes.func
+    setReduced: PropTypes.func,
+    query: PropTypes.object
 }

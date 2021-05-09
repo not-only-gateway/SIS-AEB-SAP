@@ -10,6 +10,7 @@ import {Avatar} from "@material-ui/core";
 import mainStyles from '../../styles/shared/Main.module.css'
 import animations from '../../styles/shared/Animations.module.css'
 import {getSecondaryColor, getTertiaryColor} from "../../styles/shared/MainStyles";
+import ProfilePersona from "../elements/ProfilePersona";
 
 export default function TreeNode(props) {
     const [dependents, setDependents] = useState([])
@@ -40,32 +41,35 @@ export default function TreeNode(props) {
                   onMouseLeave={() => setHovered(false)}
                   style={{
                       cursor: 'pointer',
-                      minWidth: '75px',
-                      maxWidth: '300px',
-                      minHeight: '75px',
-                      border: hovered ? '#0095ff .7px solid' : 'hsla(210, 11%, 78%, 0.5)  .7px solid',
-                      boxShadow: hovered ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : null,
-                      backgroundColor: 'white',
+                      width: props.type !== 'unit' ? '150px' : 'auto',
+                      maxWidth: props.type !== 'unit' ? 'unset' : '150px',
+                      minWidth: props.type !== 'unit' ? 'unset' : '50px',
+                      height: props.type !== 'unit' ? 'auto' : '50px',
+                      boxShadow: hovered ?'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
+                      backgroundColor: hovered ? '#0095ff' : 'white',
+
                       transition: '300ms ease-in-out'
                   }}
                   className={[animations.popInAnimation, mainStyles.normalBorder, mainStyles.displayInlineCenter].join(' ')}>
                 {props.type !== 'unit' ?
-                    <div className={styles.subject_person_container}>
+                    <div style={{display: 'grid', alignContent: "space-evenly", justifyItems: 'center', width: '100%', padding: '8px'}}>
 
-                        <Avatar src={props.subject.pic}/>
+                        <ProfilePersona base64={false} dark={false} key={props.subject.id} cakeDay={false}
+                                        elevation={true} image={props.subject.image} size={'53px'} variant={'rounded'}/>
 
-                        <p className={mainStyles.primaryParagraph} style={getSecondaryColor({dark: props.dark})}>
+                        <h4 style={{color: hovered ? 'white' : '#555555'}}>
                             {props.subject.name.replace(/([a-z]+) .* ([a-z]+)/i, "$1 $2")}
-                        </p>
-                        <p className={mainStyles.tertiaryParagraph}
-                           style={{...getTertiaryColor({dark: props.dark}), ...{lineHeight: '0'}}}>
+                        </h4>
+                        <h5
+                            style={{color: hovered ? 'white' : '#777777', marginBottom: 0}}>
                             {props.subject.unit_acronym}
-                        </p>
+                        </h5>
                     </div>
                     :
-                   <div style={{width: '100%', height: '100%', padding: '5px'}} className={mainStyles.overflowEllipsis}>
-                       {props.subject.acronym}
-                   </div>
+                    <div style={{width: '100%', height: '100%', padding: '5px', color: hovered ? 'white' : '#262626',}}
+                         className={[mainStyles.overflowEllipsis, mainStyles.displayInlineCenter].join(' ')}>
+                        {props.subject.acronym}
+                    </div>
                 }
             </span>
             </Link>

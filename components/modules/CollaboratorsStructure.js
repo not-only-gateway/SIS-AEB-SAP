@@ -6,7 +6,7 @@ export default function CollaboratorsStructure() {
     const [topCollaborators, setTopCollaborators] = useState([])
     useEffect(() => {
         fetchTopCollaborators().then(res => setTopCollaborators(res))
-    })
+    }, [])
     return topCollaborators.map((collaborator, index) => (
         <>
             {index === 0 ?

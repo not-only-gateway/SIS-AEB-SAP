@@ -10,14 +10,14 @@ h3{
     color: #262626;
     font-size: 1.3rem;
     font-weight: 540;
-    line-height: 10px;
+    /*line-height: 10px;*/
     margin-bottom: 0;
 }
 h4{
     color: #262626;
     font-size: 1rem;
     font-weight: 500;
-    line-height: 5px;
+    /*line-height: 5px;*/
     margin-bottom: 0;
 }
 h5{

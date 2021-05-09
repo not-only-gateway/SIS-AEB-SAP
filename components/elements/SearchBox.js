@@ -23,7 +23,7 @@ export default function SearchBox(props) {
                        justifyContent: 'space-around',
                        alignItems: 'center',
                        boxShadow: focused || hovered ? 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
-                       border: focused ? 'hsla(210, 11%, 78%, 0.5)  .7px solid' : 'transparent .7px solid',
+                       border: focused ? '#0095ff  .7px solid' : 'transparent .7px solid',
                        width: reduced ? '50px' : '100%',
                        borderRadius: reduced ? '50%' : '8px',
                        height: reduced ? '50px' : '100%',
@@ -63,7 +63,7 @@ export default function SearchBox(props) {
 }
 
 SearchBox.propTypes = {
-    searchLocale: PropTypes.object,
+    searchLocale: PropTypes.string,
     setSearchInput: PropTypes.func,
     searchInput: PropTypes.string,
     setChanged: PropTypes.func

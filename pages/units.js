@@ -15,10 +15,9 @@ import Extension from "../components/templates/list/Extension";
 import {readAccessProfile} from "../utils/shared/IndexedDB";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import TabContent from "../components/templates/TabContent";
-import Canvas from "../components/layout/Canvas";
-import Extensions from "../components/modules/Extensions";
-import CollaboratorsStructure from "../components/modules/CollaboratorsStructure";
-import fetchTopCollaborators from "../utils/fetch/FetchTopCollaborators";
+import Link from 'next/link'
+import fetchUnits from "../utils/fetch/FetchUnits";
+import {Button} from "@material-ui/core";
 import UnitsStructure from "../components/modules/UnitsStructure";
 
 export default function Index() {
@@ -27,18 +26,13 @@ export default function Index() {
     const [data, setData] = useState([])
     const [lang, setLang] = useState(null)
     const [openTab, setOpenTab] = useState(0)
-    const [accessProfile, setAccessProfile] = useState(null)
+    const [hoveredUnit, setHoveredUnit] = useState(null)
     const [changed, setChanged] = useState(false)
     const [searchInput, setSearchInput] = useState('')
 
     useEffect(() => {
         setLang(getLanguage(router.locale, '/units'))
-        // if (data.length === 0)
-        //     fetchData(1, true, false).catch(error => console.log(error))
-        // if (accessProfile === null)
-        //     readAccessProfile().then(profile => {
-        //         setAccessProfile(profile)
-        //     })
+        fetchUnits().then(res => setData(res))
     }, [])
 
     function redirect(id) {
@@ -74,7 +68,8 @@ export default function Index() {
                     information={openTab === 1 ? lang.information : undefined}
                     searchComponent={
                         openTab === 0 ?
-                            <SearchBox searchInput={searchInput} setSearchInput={setSearchInput} searchLocale={lang.search} setChanged={setChanged}/>
+                            <SearchBox searchInput={searchInput} setSearchInput={setSearchInput}
+                                       searchLocale={lang.search} setChanged={setChanged}/>
                             :
                             undefined
                     }
@@ -95,7 +90,70 @@ export default function Index() {
                                 {
                                     buttonKey: 0,
                                     value: (
-                                        null
+                                        <div style={{display: 'grid', gap: '8px', width: '100%'}} key={'units-container'}>
+                                            {data.map((unit, index) => (
+                                                <div key={unit.id.toString()}>
+                                                    <Link href={{pathname: '/unit', query: {id: unit.id}}}>
+                                                        <Button
+                                                            onMouseEnter={() => setHoveredUnit(unit.id)}
+                                                            onMouseLeave={() => setHoveredUnit(null)}
+                                                            style={{
+                                                                animationDelay: index * 200 + 'ms',
+                                                                width: '100%',
+                                                                height: '100%',
+                                                                textTransform: 'none',
+                                                                color: 'initial',
+                                                                borderRadius: '8px',
+                                                                border: hoveredUnit === unit.id? '#0095ff .7px solid' : 'transparent  .7px solid',
+                                                                boxShadow: hoveredUnit === unit.id ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : null,
+                                                                backgroundColor: 'white',
+                                                                transition: '300ms ease-in-out',
+                                                                display: 'flex',
+                                                                justifyContent: 'flex-start',
+                                                                alignItems: 'center',
+                                                                alignContent: 'center',
+
+                                                            }}>
+                                                            <h5 style={{
+                                                                marginTop: "0",
+                                                                marginBottom: 0,
+                                                                marginRight: '5px'
+                                                            }}>Acronym: </h5>
+                                                            <h4 style={{
+                                                                color: '#555555',
+                                                                marginBottom: 0,
+                                                                marginTop: "0",
+                                                                marginRight: '25px'
+                                                            }}>{unit.acronym}</h4>
+                                                            <h5 style={{
+                                                                marginTop: "0",
+                                                                marginBottom: 0,
+                                                                marginRight: '5px'
+                                                            }}>Name:</h5>
+                                                            <h4 style={{
+                                                                color: '#555555',
+                                                                marginBottom: 0,
+                                                                marginTop: 0,
+                                                                marginRight: '25px'
+                                                            }}>{unit.name}</h4>
+                                                            {unit.parent_unit_acronym !== null ?
+                                                                <>
+                                                                    <h5 style={{marginTop: "0", marginBottom: 0,marginRight: '5px'}}>Parent
+                                                                        Unit:</h5>
+                                                                    <h4 style={{
+                                                                        color: '#555555',
+                                                                        marginBottom: 0,
+                                                                        marginTop: 0
+                                                                    }}>{unit.parent_unit_acronym}</h4>
+                                                                </>
+                                                                :
+                                                                null
+                                                            }
+                                                        </Button>
+                                                    </Link>
+                                                </div>
+                                            ))}
+                                        </div>
                                     )
                                 },
 

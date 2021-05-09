@@ -6,8 +6,11 @@ import fetchTopUnits from "../../utils/fetch/FetchTopUnits";
 export default function UnitsStructure() {
     const [topUnits, setTopUnits] = useState([])
     useEffect(() => {
-        fetchTopUnits().then(res => setTopUnits(res))
-    })
+        fetchTopUnits().then(res => {
+            console.log(res)
+            setTopUnits(res)
+        })
+    }, [])
     return topUnits.map((unit, index) => (
         <>
             {index === 0 ?

@@ -27,7 +27,7 @@ export default function NavigationButton(props) {
                     height: 'auto',
                     textTransform: 'none',
                     borderRadius: '8px',
-                    backgroundColor: props.highlight || hovered ? '#0095ff' : 'transparent',
+                    backgroundColor: props.highlight ? '#0095ff' :'transparent',
                     transition: '300ms ease-in-out',
                     padding: props.reduced ? '16px' : '10px',
 
@@ -36,7 +36,7 @@ export default function NavigationButton(props) {
                     <div className={props.reduced ? mainStyles.displayInlineCenter : mainStyles.displayInlineStart}
                          style={{
                              width: '100%',
-                             color: props.highlight || hovered ? 'white' : '#a6a6a9',
+                             color: props.highlight ? 'white' : hovered ? '#0095ff' : '#a6a6a9',
                              transition: '300ms ease-in-out',
                          }}>
                         <div className={mainStyles.displayInlineCenter}>

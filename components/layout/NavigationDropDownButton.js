@@ -20,7 +20,7 @@ export default function NavigationDropDownButton(props) {
             style={{
                 borderRadius: '8px',
                 width: props.reduced ? '65px' : '210px',
-                height: '65px',
+                height: open ? 'auto' : '65px',
             }}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
@@ -30,11 +30,10 @@ export default function NavigationDropDownButton(props) {
                 width: '100%',
                 height: 'auto',
                 textTransform: 'none',
-                borderRadius: open ? '8px 8px 0px 0px' : '8px',
+                borderRadius: open ? '0px' : '8px',
 
-                border: open ? 'hsla(210, 11%, 78%, 0.5)  .7px solid' : 'transparent .7px solid',
-                boxShadow: open  ? 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px' : null,
-                backgroundColor: (open && !props.reduced) || hovered ? '#f2f2f2' : 'transparent',
+                borderLeft: open ? '#0095ff  .7px solid' : 'transparent .7px solid',
+                backgroundColor: props.highlight ? '#0095ff' :'transparent',
                 transition: '300ms ease-in-out',
                 padding: props.reduced ? '16px' : '10px',
             }} onClick={() => {
@@ -45,7 +44,7 @@ export default function NavigationDropDownButton(props) {
                 <div className={props.reduced ? mainStyles.displayInlineCenter : mainStyles.displayInlineStart}
                      style={{
                          width: '100%',
-                         color: props.highlight || hovered ? '#0095ff' : '#a6a6a9',
+                         color: hovered || open ? '#0095ff' : '#a6a6a9',
                          transition: '300ms ease-in-out',
                      }}>
                     <div className={mainStyles.displayInlineCenter}>
@@ -61,17 +60,12 @@ export default function NavigationDropDownButton(props) {
 
             {open ?
                 <div style={{
-                    position: 'absolute',
                     justifyItems: 'center',
 
                     opacity: 0,
-                    borderBottom: 'hsla(210, 11%, 78%, 0.5)  .7px solid',
-                    borderLeft: 'hsla(210, 11%, 78%, 0.5)  .7px solid',
-                    borderRight: 'hsla(210, 11%, 78%, 0.5)  .7px solid',
-                    boxShadow: 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px',
+                    borderLeft: '#0095ff  .7px solid',
                     width: '210px',
-                    borderRadius: '0px 0px 8px 8px',
-                    backgroundColor: open || hovered ? '#f2f2f2' : 'white',
+                    borderRadius: '0px',
                 }} className={[mainStyles.displayColumnSpaced, animations.slideDownAnimation].join(' ')}>
                     {props.options.map((option, index) => (
                         <Link href={{pathname: option.path, locale: props.locale, query: option.query}}>
@@ -79,7 +73,7 @@ export default function NavigationDropDownButton(props) {
                                 width: '100%',
                                 justifyContent: 'flex-start',
                                 textTransform: 'capitalize',
-                                color: hoveredOption === index ? '#0095ff' : '#555555',
+                                color: hoveredOption === index ? '#0095ff' : '#a6a6a9',
                                 transition: '300ms ease-in-out',
 
                             }}>

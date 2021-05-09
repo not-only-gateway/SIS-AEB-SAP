@@ -19,7 +19,7 @@ export default function Structure() {
     const [openTab, setOpenTab] = useState(0)
 
     useEffect(() => {
-        setLang(getLanguage(router.locale, '/structure'))
+        setLang(getLanguage(router.locale, '/units'))
         setDark((new Cookies()).get('theme') === 0)
 
 
