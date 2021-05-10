@@ -3,6 +3,7 @@ import mainStyles from '../../styles/shared/Main.module.css'
 import {useEffect, useState} from "react";
 import styles from '../../styles/component/Component.module.css'
 import {Divider} from "@material-ui/core";
+
 export default function Graph(props) {
     const [maxValue, setMaxValue] = useState(1)
     const [hoveredElement, setHoveredElement] = useState(undefined)

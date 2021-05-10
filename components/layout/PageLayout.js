@@ -3,7 +3,6 @@ import Cookies from 'universal-cookie/lib'
 import Navigation from "../modules/navigation/Navigation";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import {createMuiTheme, ThemeProvider} from "@material-ui/core";
 import 'fontsource-roboto';
 
 const cookies = new Cookies()
@@ -22,7 +21,7 @@ export default function PageLayout({children}) {
             router.push(router.pathname, router.pathname, {locale: cookies.get('lang')}).catch(error => console.log(error))
     }, [router.isReady, router.locale])
 
-    if (router.pathname !== '/signin' && router.pathname !== '/teste')
+    if (router.pathname !== '/authenticate' && router.pathname !== '/authenticate')
         return (
             <div style={{fontFamily: 'Roboto', backgroundColor: '#f5f6f8'}}>
                 <div className={styles.page_container}

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from "react";
-import {FormControl, FormLabel, Grid, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
+import {FormControl, Grid, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 

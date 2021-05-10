@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import mainStyles from '../../styles/shared/Main.module.css'
 import VerticalTabs from "../layout/navigation/VerticalTabs";

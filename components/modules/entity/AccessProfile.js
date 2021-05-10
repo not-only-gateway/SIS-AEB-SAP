@@ -1,4 +1,3 @@
-import Accordion from "../../layout/Accordion";
 import mainStyles from "../../../styles/shared/Main.module.css";
 import AccessProfileForm from "../../templates/forms/AccessProfileForm";
 import React, {useEffect, useState} from "react";

@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useState} from "react";
-import Linkage from "../../modules/entity/Linkage";
-import fetchLinkages from "../../../utils/fetch/FetchLinkages";
 import fetchCommissionedRoles from "../../../utils/fetch/FetchCommissionedRoles";
 import CommissionedRole from "../../modules/entity/CommissionedRole";
 

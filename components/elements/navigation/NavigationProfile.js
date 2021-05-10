@@ -1,11 +1,9 @@
 import PropTypes from 'prop-types'
 import mainStyles from "../../../styles/shared/Main.module.css";
-import {Button, Divider} from "@material-ui/core";
+import {Button} from "@material-ui/core";
 import React, {useState} from "react";
 import Link from "next/link";
-import animations from '../../../styles/shared/Animations.module.css'
 import ProfilePersona from "../ProfilePersona";
-import {ExitToApp, PersonPinRounded, PersonRounded} from "@material-ui/icons";
 
 export default function NavigationProfile(props) {
 

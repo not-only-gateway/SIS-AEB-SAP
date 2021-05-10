@@ -1,0 +1,8 @@
+.contentContainer{
+    width: 75%;
+    height: fit-content;
+    border-radius: 8px;
+    display: grid;
+    gap: 16px;
+    margin: auto;
+}

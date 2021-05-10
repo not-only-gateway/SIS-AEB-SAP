@@ -3,13 +3,13 @@ import {Skeleton} from "@material-ui/lab";
 import mainStyles from "../../styles/shared/Main.module.css";
 import {getTertiaryColor} from "../../styles/shared/MainStyles";
 import Extension from "../templates/list/Extension";
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from 'prop-types'
-
+import styles from '../../styles/Extensions.module.css'
 export default function Extensions(props) {
     if (props.data.length > 0)
         return (
-            <div style={{width: '100%'}}>
+            <div className={styles.fullWidth}>
                 <InfiniteScroll
                     dataLength={props.data.length}
                     next={() => props.fetchData(0)}
@@ -19,15 +19,13 @@ export default function Extensions(props) {
                     loader={<Skeleton variant={'rect'} width={'100%'} style={{borderRadius: '8px'}}
                                       height={'7vh'}/>}
                     endMessage={
-                        <div style={{
-                            width: '100%'
-                        }}>
+                        <div className={styles.fullWidth}>
                             <p className={mainStyles.secondaryParagraph}
                                style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: false})}}>{props.end}</p>
                         </div>
                     }
                 >
-                    <div style={{display: 'grid', gap: '8px'}}>
+                    <div className={styles.extensionsList}>
                         {props.data.map((member, index) =>
                             <Extension
                                 data={member}
@@ -43,11 +41,8 @@ export default function Extensions(props) {
         )
     else
         return (
-            <div className={mainStyles.displayInlineCenter} style={{
-                ...{marginBottom: '15px', width: '100%'}
-            }}>
-                <p className={mainStyles.secondaryParagraph}
-                   style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: false})}}>{props.nothingFound}</p>
+            <div className={styles.nothingFoundContainer}>
+                <p className={styles.nothingFoundParagraph}>{props.nothingFound}</p>
             </div>
         )
 }

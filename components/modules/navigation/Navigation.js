@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import Cookies from 'universal-cookie/lib';
 import {
-    AccountTreeRounded,
-    AddRounded, ExitToApp,
+    AddRounded,
+    ExitToApp,
     ExitToAppRounded,
     ExtensionRounded,
-    MenuOpenRounded, PersonRounded,
-    SettingsRounded, ViewQuiltRounded
+    MenuOpenRounded,
+    SettingsRounded,
+    ViewQuiltRounded
 } from '@material-ui/icons';
 import styles from '../../../styles/shared/Bar.module.css'
 import PropTypes from 'prop-types'
@@ -45,7 +46,7 @@ export default function Navigation(props) {
                  width: props.reduced ? '75px' : '250px',
                  transition: '250ms ease-in-out',
                  backgroundColor: '#222228',
-                 boxShadow:'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
+                 boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
              }}>
 
             <div
@@ -144,14 +145,17 @@ export default function Navigation(props) {
                     null
 
                 }
-                <NavigationButton
-                    dark={props.dark} linkPath={'/signin'}
+                {profile !== null && (new Cookies()).get('jwt') !== undefined ?
+                    <NavigationButton
+                    dark={props.dark} linkPath={'/authenticate'}
                     highlight={false} locale={props.locale}
                     label={lang.signout} reduced={props.reduced}
                     icon={
-                        <ExitToApp style={{transform: 'rotate(180deg)'}}/>
-                    }
-                />
+                    <ExitToApp style={{transform: 'rotate(180deg)'}}/>
+                }
+                    />
+                    : null
+                }
             </div>
 
             <div className={mainStyles.displayInlineCenter}
@@ -163,10 +167,10 @@ export default function Navigation(props) {
                     :
                     <NavigationButton
                         noMargin={true}
-                        dark={props.dark} linkPath={'/signin'}
+                        dark={props.dark} linkPath={'/authenticate'}
                         highlight={false} locale={props.locale}
                         label={lang.signin} reduced={props.reduced}
-                        icon={<ExitToAppRounded/>}
+                        icon={<ExitToAppRounded style={{transform: 'rotate(180deg)'}}/>}
                     />
                 }
             </div>

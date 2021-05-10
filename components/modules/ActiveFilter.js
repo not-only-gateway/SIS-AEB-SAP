@@ -1,10 +1,9 @@
-import React, {useState} from "react";
+import React from "react";
 import animations from "../../styles/shared/Animations.module.css";
 import mainStyles from "../../styles/shared/Main.module.css";
 import PropTypes from "prop-types";
-import {ClearRounded, DeleteForeverRounded, RemoveCircleRounded} from "@material-ui/icons";
-import {Button, IconButton} from "@material-ui/core";
-import {getIconStyle} from "../../styles/shared/MainStyles";
+import {ClearRounded} from "@material-ui/icons";
+import {IconButton} from "@material-ui/core";
 
 export default function ActiveFilter(props) {
     return (

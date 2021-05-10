@@ -3,6 +3,7 @@ import Host from "../shared/Host";
 import Cookies from "universal-cookie/lib";
 import PropTypes from 'prop-types'
 import capitalizeFirstLetter from "../shared/CapitalizeFirstLetter";
+
 export default async function submitPerson(props){
     let formData = new FormData()
     let response = {

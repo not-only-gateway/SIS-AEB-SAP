@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import mainStyles from "../../styles/shared/Main.module.css";
-import {getBoxShadow} from "../../styles/shared/MainStyles";
-import {Button, createMuiTheme, ThemeProvider} from "@material-ui/core";
+import {Button} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import Link from "next/link";
 import animations from '../../styles/shared/Animations.module.css'

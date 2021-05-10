@@ -2,16 +2,11 @@ import {Button} from '@material-ui/core';
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types'
 import InputLayout from "../../modules/InputLayout";
-import axios from "axios";
-import Host from "../../../utils/shared/Host";
-import Cookies from "universal-cookie/lib";
-import mainStyles from '../../../styles/shared/Main.module.css'
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import CountryOptions from "../../../packages/options/CountryOptions";
 import StateOptions from "../../../packages/options/StateSelector";
 import ImageSelector from "../../modules/selector/ImageSelector";
 import Selector from "../../modules/selector/Selector";
-import submitPerson from "../../../utils/submit/SubmitPerson";
 import getImage from "../../../utils/shared/GetImage";
 
 export default function BaseForm(props) {

@@ -1,6 +1,5 @@
 import Canvas from "../layout/Canvas";
 import React, {useEffect, useState} from "react";
-import fetchTopCollaborators from "../../utils/fetch/FetchTopCollaborators";
 import fetchTopUnits from "../../utils/fetch/FetchTopUnits";
 
 export default function UnitsStructure() {

@@ -1,7 +1,6 @@
 import axios from "axios";
 import Host from "../shared/Host";
 import Cookies from "universal-cookie/lib";
-import PropTypes from 'prop-types'
 
 export default async function fetchEffectiveRoles() {
     let response = []

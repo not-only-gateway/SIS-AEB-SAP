@@ -4,12 +4,9 @@ import axios from "axios";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import shared from '../../styles/shared/Shared.module.css'
-import styles from '../../styles/Structure.module.css'
 import Link from 'next/link'
-import {Avatar} from "@material-ui/core";
 import mainStyles from '../../styles/shared/Main.module.css'
 import animations from '../../styles/shared/Animations.module.css'
-import {getSecondaryColor, getTertiaryColor} from "../../styles/shared/MainStyles";
 import ProfilePersona from "../elements/ProfilePersona";
 
 export default function TreeNode(props) {

@@ -1,9 +1,7 @@
 import {Button} from "@material-ui/core";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import InputLayout from "../../modules/InputLayout";
 import PropTypes from "prop-types";
-
-import mainStyles from '../../../styles/shared/Main.module.css'
 import Selector from "../../modules/selector/Selector";
 
 

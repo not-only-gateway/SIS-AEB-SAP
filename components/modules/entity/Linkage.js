@@ -1,15 +1,11 @@
-import Accordion from "../../layout/Accordion";
 import mainStyles from "../../../styles/shared/Main.module.css";
-import AccessProfileForm from "../../templates/forms/AccessProfileForm";
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
-import fetchAccessProfile from "../../../utils/fetch/FetchAccessProfile";
 import {Button, Modal} from "@material-ui/core";
 import animations from '../../../styles/shared/Animations.module.css'
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
-import submitAccessProfile from "../../../utils/submit/SubmitAccessProfile";
 import {AddRounded} from "@material-ui/icons";
-import {getIconStyle, getTertiaryColor} from "../../../styles/shared/MainStyles";
+import {getIconStyle} from "../../../styles/shared/MainStyles";
 
 import LinkageForm from "../../templates/forms/LinkageForm";
 import submitLinkage from "../../../utils/submit/SubmitLinkage";

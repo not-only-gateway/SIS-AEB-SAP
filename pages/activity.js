@@ -13,8 +13,6 @@ import FiltersComponent from "../components/layout/FiltersComponent";
 import ActivityTemplate from "../components/templates/list/ActivityTemplate";
 import SearchBox from "../components/elements/SearchBox";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
-import Graph from "../components/modules/Graph";
-import getMethodColor from "../utils/activity/GetMethodColor";
 
 export default function activity() {
 

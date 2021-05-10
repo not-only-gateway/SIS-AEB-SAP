@@ -1,11 +1,5 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useState} from "react";
-import mainStyles from "../../../styles/shared/Main.module.css";
-import Accordion from "../../layout/Accordion";
-import axios from "axios";
-import Host from "../../../utils/shared/Host";
-import Cookies from "universal-cookie/lib";
-import EffectiveRoleForm from "../forms/EffectiveRoleForm";
 import EffectiveRole from "../../modules/entity/EffectiveRole";
 import fetchEffectiveRoles from "../../../utils/fetch/FetchEffectiveRoles";
 

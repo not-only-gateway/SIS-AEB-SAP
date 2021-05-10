@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import {Button} from "@material-ui/core";
-import mainStyles from '../../../styles/shared/Main.module.css'
 
 export default function HorizontalTabs(props) {
     // const [open, setOpen] = useState(null)

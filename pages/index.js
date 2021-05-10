@@ -1,24 +1,17 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import {Skeleton} from "@material-ui/lab";
 import {getLanguage} from "../utils/shared/PageLanguage";
-import InfiniteScroll from "react-infinite-scroll-component";
 import FetchData from "../utils/fetch/FerchExtensions";
-import {getTertiaryColor} from "../styles/shared/MainStyles";
-import mainStyles from '../styles/shared/Main.module.css'
 import SearchBox from "../components/elements/SearchBox";
-
+import styles from '../styles/Extensions.module.css'
 import ExtensionsFilters from "../components/modules/filters/ExtensionsFilters";
 import HeaderLayout from "../components/layout/HeaderLayout";
 import FiltersComponent from "../components/layout/FiltersComponent";
-import Extension from "../components/templates/list/Extension";
 import {readAccessProfile} from "../utils/shared/IndexedDB";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import TabContent from "../components/templates/TabContent";
-import Canvas from "../components/layout/Canvas";
 import Extensions from "../components/modules/Extensions";
 import CollaboratorsStructure from "../components/modules/CollaboratorsStructure";
-import fetchTopCollaborators from "../utils/fetch/FetchTopCollaborators";
 
 export default function Index() {
 
@@ -122,7 +115,12 @@ export default function Index() {
                     searchComponent={
                         openTab === 0 ?
                             <SearchBox searchInput={filters.searchInput}
-                                       setSearchInput={event => handleObjectChange({event: {name: 'searchInput', value: event}, setData: setFilters})}
+                                       setSearchInput={event => handleObjectChange({
+                                           event: {
+                                               name: 'searchInput',
+                                               value: event
+                                           }, setData: setFilters
+                                       })}
                                        searchLocale={lang.search} setChanged={setChanged}/>
                             :
                             undefined
@@ -171,40 +169,31 @@ export default function Index() {
                     }
 
                 />
-                <div className={mainStyles.displayInlineCenter} style={{width: '100%', position: 'relative'}}>
+                <div className={styles.contentContainer}>
+                    <TabContent
+                        openTab={openTab}
+                        tabs={[
+                            {
+                                buttonKey: 0,
+                                value: (
+                                    <Extensions
+                                        redirect={redirect} data={data} fetchData={fetchData}
+                                        nothingFound={lang.nothingFound} end={lang.end}
+                                        inactive={lang.inactive} lastFetchedSize={lastFetchedSize}/>
+                                )
+                            },
 
-                    <div style={{
-                        width: '75%',
-                        height: 'fit-content',
-                        borderRadius: '8px',
-                        display: 'grid',
-                        gap: '16px'
-                    }}>
-                        <TabContent
-                            openTab={openTab}
-                            tabs={[
-                                {
-                                    buttonKey: 0,
-                                    value: (
-                                        <Extensions
-                                            redirect={redirect} data={data} fetchData={fetchData}
-                                            nothingFound={lang.nothingFound} end={lang.end}
-                                            inactive={lang.inactive} lastFetchedSize={lastFetchedSize}/>
-                                    )
-                                },
-
-                                {
-                                    buttonKey: 1,
-                                    value: (
-                                        <CollaboratorsStructure/>
-                                    )
-                                }
-                            ]}/>
-                    </div>
+                            {
+                                buttonKey: 1,
+                                value: (
+                                    <CollaboratorsStructure/>
+                                )
+                            }
+                        ]}/>
                 </div>
 
             </>
         )
     else
-        return <></>
+        return null
 }

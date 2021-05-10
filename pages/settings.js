@@ -1,22 +1,18 @@
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import style from '../styles/settings/Settings.module.css'
 import {Button, Divider, FormControl, FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
-import Brightness7RoundedIcon from "@material-ui/icons/Brightness7Rounded";
-import Brightness3RoundedIcon from "@material-ui/icons/Brightness3Rounded";
 import {getLanguage, setCookiesLanguage} from "../utils/shared/PageLanguage";
 import Cookies from "universal-cookie/lib";
 import Accordion from "../components/layout/Accordion";
 import fetchSettingsData from "../utils/fetch/FetchSettings";
 import {readAccessProfile, readCollaboration} from "../utils/shared/IndexedDB";
 import shared from '../styles/shared/Shared.module.css'
-import {getIconStyle, getPrimaryColor, getSecondaryColor, getTertiaryColor} from "../styles/shared/MainStyles";
+import {getSecondaryColor, getTertiaryColor} from "../styles/shared/MainStyles";
 import mainStyles from '../styles/shared/Main.module.css'
 import Link from "next/link";
 import {HistoryRounded} from "@material-ui/icons";
 import animations from "../styles/shared/Animations.module.css";
 import HeaderLayout from "../components/layout/HeaderLayout";
-import Authenticate from "../components/modules/Authenticate";
 import mapToSelect from "../utils/shared/MapToSelect";
 import Selector from "../components/modules/selector/Selector";
 

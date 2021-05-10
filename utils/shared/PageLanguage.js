@@ -1,7 +1,7 @@
 import Cookies from "universal-cookie/lib";
-import SignInEN from '../../packages/page locales/signin/SignInEN'
-import SignInES from '../../packages/page locales/signin/SignInES'
-import SignInPT from '../../packages/page locales/signin/SignInPT'
+import AuthenticateEN from '../../packages/page locales/authenticate/AuthenticateEN'
+import AuthenticateES from '../../packages/page locales/authenticate/AuthenticateES'
+import AuthenticatePT from '../../packages/page locales/authenticate/AuthenticatePT'
 
 import SettingsEN from '../../packages/page locales/settings/SettingsEN'
 import SettingsES from '../../packages/page locales/settings/SettingsES'
@@ -47,8 +47,8 @@ export function getLanguage(locale, page) {
     switch (locale) {
         case 'en': {
             switch (page) {
-                case '/signin': {
-                    response = SignInEN
+                case '/authenticate': {
+                    response = AuthenticateEN
                     break
                 }
                 case '/' : {
@@ -87,8 +87,8 @@ export function getLanguage(locale, page) {
         }
         case 'es': {
             switch (page) {
-                case '/signin': {
-                    response = SignInES
+                case '/authenticate': {
+                    response = AuthenticateES
                     break
                 }
                 case '/' : {
@@ -128,8 +128,8 @@ export function getLanguage(locale, page) {
         }
         case 'pt': {
             switch (page) {
-                case '/signin': {
-                    response = SignInPT
+                case '/authenticate': {
+                    response = AuthenticatePT
                     break
                 }
                 case '/' : {

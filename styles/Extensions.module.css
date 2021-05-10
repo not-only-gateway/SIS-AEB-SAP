@@ -1,0 +1,26 @@
+.contentContainer{
+    width: 75%;
+    height: fit-content;
+    border-radius: 8px;
+    display: grid;
+    gap: 16px;
+    margin: auto;
+}
+.fullWidth{
+    width: 100%;
+}
+.extensionsList{
+    display: grid;
+    gap: 8px;
+}
+.nothingFoundContainer{
+    width: 100%;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nothingFoundParagraph{
+    color: #a6a6a9;
+    text-align: center;
+}

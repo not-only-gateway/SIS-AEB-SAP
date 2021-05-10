@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
 import {getLanguage} from "../utils/shared/PageLanguage";
 import {readAccessProfile} from "../utils/shared/IndexedDB";
-import Cookies from "universal-cookie/lib";
 import mainStyles from '../styles/shared/Main.module.css'
 import HeaderLayout from "../components/layout/HeaderLayout";
 import TabContent from "../components/templates/TabContent";

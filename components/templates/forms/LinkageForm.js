@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 
 import mainStyles from '../../../styles/shared/Main.module.css'
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
-import saveComponentChanges from "../../../utils/person/SaveChanges";
 import InputLayout from "../../modules/InputLayout";
 
 

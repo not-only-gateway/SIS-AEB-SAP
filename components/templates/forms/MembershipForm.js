@@ -2,10 +2,8 @@ import {Button} from '@material-ui/core';
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types'
 import InputLayout from "../../modules/InputLayout";
-import mainStyles from '../../../styles/shared/Main.module.css'
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import Selector from "../../modules/selector/Selector";
-import CountryOptions from "../../../packages/options/CountryOptions";
 import fetchEntities from "../../../utils/fetch/FetchEntities";
 import mapToSelect from "../../../utils/shared/MapToSelect";
 

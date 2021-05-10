@@ -2,13 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import mainStyles from '../../styles/shared/Main.module.css'
 import VerticalTabs from "../layout/navigation/VerticalTabs";
-import ContactForm from "../templates/forms/ContactForm";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
-import submitContacts from "../../utils/submit/SubmitContacts";
-import DocumentsForm from "../templates/forms/DocumentsForm";
-import submitDocuments from "../../utils/submit/SubmitDocuments";
-import submitPerson from "../../utils/submit/SubmitPerson";
-import BaseForm from "../templates/forms/BaseForm";
 import MembershipForm from "../templates/forms/MembershipForm";
 import submitMember from "../../utils/submit/SubmitMember";
 import CollaborationList from "../templates/list/CollaborationList";

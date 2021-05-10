@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
 import {getLanguage} from "../utils/shared/PageLanguage";
 import {readAccessProfile} from "../utils/shared/IndexedDB";
-import Cookies from "universal-cookie/lib";
 import mainStyles from '../styles/shared/Main.module.css'
 import BaseForm from "../components/templates/forms/BaseForm";
 
@@ -12,8 +11,6 @@ import TabContent from "../components/templates/TabContent";
 import MembershipForm from "../components/templates/forms/MembershipForm";
 import submitPerson from "../utils/submit/SubmitPerson";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
-import fetchMember from "../utils/fetch/FetchMember";
-import {func} from "prop-types";
 import submitMember from "../utils/submit/SubmitMember";
 import DocumentsForm from "../components/templates/forms/DocumentsForm";
 import submitDocuments from "../utils/submit/SubmitDocuments";

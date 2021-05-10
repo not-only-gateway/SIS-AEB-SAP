@@ -2,9 +2,6 @@ import {Button} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import InputLayout from "../../modules/InputLayout";
 import PropTypes from 'prop-types'
-import fetchComponentData from "../../../utils/person/FetchData";
-import saveComponentChanges from "../../../utils/person/SaveChanges";
-import mainStyles from "../../../styles/shared/Main.module.css";
 import axios from "axios";
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 

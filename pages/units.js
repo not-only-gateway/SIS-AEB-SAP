@@ -1,19 +1,10 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import {Skeleton} from "@material-ui/lab";
 import {getLanguage} from "../utils/shared/PageLanguage";
-import InfiniteScroll from "react-infinite-scroll-component";
-import FetchData from "../utils/fetch/FerchExtensions";
 import {getTertiaryColor} from "../styles/shared/MainStyles";
 import mainStyles from '../styles/shared/Main.module.css'
 import SearchBox from "../components/elements/SearchBox";
-
-import ExtensionsFilters from "../components/modules/filters/ExtensionsFilters";
 import HeaderLayout from "../components/layout/HeaderLayout";
-import FiltersComponent from "../components/layout/FiltersComponent";
-import Extension from "../components/templates/list/Extension";
-import {readAccessProfile} from "../utils/shared/IndexedDB";
-import handleObjectChange from "../utils/shared/HandleObjectChange";
 import TabContent from "../components/templates/TabContent";
 import Link from 'next/link'
 import fetchUnits from "../utils/fetch/FetchUnits";

@@ -1,14 +1,5 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import {AddRounded} from "@material-ui/icons";
-
-import Accordion from "../../layout/Accordion";
-import fetchComponentData from "../../../utils/person/FetchData";
-import {Divider} from "@material-ui/core";
-import CollaborationSummary from "../../elements/CollaborationSummary";
-import mainStyles from '../../../styles/shared/Main.module.css'
-import {getIconStyle} from "../../../styles/shared/MainStyles";
-import CollaborationForm from "../forms/CollaborationForm";
 import fetchAllCollaborations from "../../../utils/fetch/FetchAllCollaborations";
 import Collaboration from "../../modules/entity/Collaboration";
 

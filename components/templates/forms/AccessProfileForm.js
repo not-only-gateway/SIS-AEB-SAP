@@ -2,14 +2,8 @@ import {Button} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import InputLayout from "../../modules/InputLayout";
-import saveComponentChanges from "../../../utils/person/SaveChanges";
 import mainStyles from '../../../styles/shared/Main.module.css'
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
-import axios from "axios";
-import Host from "../../../utils/shared/Host";
-import Cookies from "universal-cookie/lib";
-import submitAccessProfile from "../../../utils/submit/SubmitAccessProfile";
-import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 
 export default function AccessProfileForm(props) {
     const [changed, setChanged] = useState(false)

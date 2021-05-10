@@ -3,31 +3,18 @@ import {useRouter} from "next/router";
 import {getLanguage} from "../utils/shared/PageLanguage";
 import {readAccessProfile} from "../utils/shared/IndexedDB";
 import Cookies from "universal-cookie/lib";
-import fetchComponentData from "../utils/person/FetchData";
-import mainStyles from '../styles/shared/Main.module.css'
+import styles from '../styles/Person.module.css'
 import Profile from "../components/templates/Profile";
-
-import CollaborationList from "../components/templates/list/CollaborationList";
 import HeaderLayout from "../components/layout/HeaderLayout";
 import TabContent from "../components/templates/TabContent";
 import Authenticate from "../components/modules/Authenticate";
 import OverviewComponent from "../components/templates/ProfileOverview";
-import BaseForm from "../components/templates/forms/BaseForm";
-import DocumentsForm from "../components/templates/forms/DocumentsForm";
-import ContactForm from "../components/templates/forms/ContactForm";
-import AddressForm from "../components/templates/forms/AddressForm";
 import fetchMember from "../utils/fetch/FetchMember";
 import FetchMainCollaboration from "../utils/fetch/FetchMainCollaboration";
-import submitPerson from "../utils/submit/SubmitPerson";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import fetchDocuments from "../utils/fetch/FetchDocuments";
 import fetchContacts from "../utils/fetch/FetchContacts";
 import fetchAddress from "../utils/fetch/FetchAddress";
-import submitContacts from "../utils/submit/SubmitContacts";
-import submitAddress from "../utils/submit/SubmitAddress";
-import submitDocuments from "../utils/submit/SubmitDocuments";
-import MembershipForm from "../components/templates/forms/MembershipForm";
-import submitMember from "../utils/submit/SubmitMember";
 import PersonalForms from "../components/elements/PersonalForms";
 import CorporateForms from "../components/elements/CorporateForms";
 
@@ -187,8 +174,7 @@ export default function person() {
                     information={null}
                     searchComponent={undefined}
                 />
-                <div className={mainStyles.displayInlineCenter} style={{width: '100%'}}>
-                    <div style={{width: '75%'}}>
+                <div className={styles.contentContainer} >
                         <TabContent
                             openTab={openTab}
                             tabs={[
@@ -229,7 +215,6 @@ export default function person() {
                                 } : null
 
                             ]}/>
-                    </div>
                 </div>
             </>
 

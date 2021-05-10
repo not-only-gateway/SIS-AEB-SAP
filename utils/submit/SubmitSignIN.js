@@ -8,6 +8,7 @@ import publicIp from "public-ip";
 const cookies = new Cookies()
 export default async function submitSignIN(props) {
     let ip = await publicIp.v4()
+    let response = false
     try {
         await axios({
             method: 'post',
@@ -67,6 +68,7 @@ export default async function submitSignIN(props) {
                         canUpdateContact: res.data.access_profile.can_update_contact,
                         canViewContact: res.data.access_profile.can_view_contact
                     }).catch(error => console.log(error))
+                    response = true
                 }
 
             }).catch(error => console.log(error))
@@ -76,6 +78,7 @@ export default async function submitSignIN(props) {
     } catch (error) {
         console.log(error)
     }
+    return response
 }
 submitSignIN.propTypes = {
     email: PropTypes.string,

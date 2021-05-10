@@ -2,6 +2,7 @@ import axios from "axios";
 import Host from "../shared/Host";
 import Cookies from "universal-cookie/lib";
 import PropTypes from 'prop-types'
+
 const cookies = new Cookies()
 export default async function submitDocuments(props) {
     let response = false

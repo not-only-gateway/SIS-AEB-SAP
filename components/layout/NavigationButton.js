@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Button, createMuiTheme, ThemeProvider} from '@material-ui/core';
+import {Button} from '@material-ui/core';
 import Link from 'next/link'
 import PropTypes from 'prop-types'
 import mainStyles from '../../styles/shared/Main.module.css'
@@ -11,7 +11,8 @@ export default function NavigationButton(props) {
             style={{
                 borderRadius: '8px',
                 width: (props.reduced ? '65px' : '210px'),
-                height: '65px',
+                height: 'fit-content',
+                marginBottom: props.noMargin ? 'unset' : '10px'
             }}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
@@ -55,7 +56,6 @@ export default function NavigationButton(props) {
 }
 
 NavigationButton.propTypes = {
-    dark: PropTypes.bool,
     highlight: PropTypes.bool,
     linkPath: PropTypes.string,
     linkQuery: PropTypes.object,
@@ -63,9 +63,5 @@ NavigationButton.propTypes = {
     locale: PropTypes.string,
     label: PropTypes.any,
     reduced: PropTypes.bool,
-    setToggle: PropTypes.func,
     initialValue: PropTypes.bool,
-    animated: PropTypes.bool,
-    topMargin: PropTypes.bool,
-    minWidth: PropTypes.bool
 }

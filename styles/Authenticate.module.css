@@ -1,0 +1,48 @@
+.logoHalf {
+    width: 40%;
+    height: 100%;
+    display: grid;
+    align-content: space-evenly;
+    justify-items: center;
+    border-radius: 0 8px 8px 0;
+    background-color: #222228;
+
+}
+
+.pageContainer {
+    width: 100%;
+    height: 100vh;
+    background-color: #f2f2f2;
+    display: flex;
+}
+
+.logoImage {
+    width: 50%;
+
+}
+
+.inputHalf {
+    width: 60%;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-around;
+
+}
+
+.welcomeContainer {
+    height: 250px;
+}
+
+.inputContainer {
+    display: grid;
+    justify-content: center;
+    align-content: space-between;
+    height: 250px;
+}
+
+.headerContainer{
+    margin-top: 0;
+    margin-bottom: 1rem;
+}

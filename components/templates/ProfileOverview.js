@@ -1,22 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 import mainStyles from '../../styles/shared/Main.module.css'
-import {getIconStyle, getTertiaryColor} from "../../styles/shared/MainStyles";
-import CakeRoundedIcon from "@material-ui/icons/CakeRounded";
+import {getIconStyle} from "../../styles/shared/MainStyles";
 import {
     CalendarTodayRounded,
     EmailRounded,
     HomeRounded,
-    LinkRounded, LocationOnRounded, PhoneForwardedRounded,
+    LinkRounded,
+    LocationOnRounded,
+    PhoneForwardedRounded,
     PhoneRounded,
     WorkRounded
 } from "@material-ui/icons";
 import ViewQuiltRoundedIcon from "@material-ui/icons/ViewQuiltRounded";
-import styles from '../../styles/person/Form.module.css'
-import animations from '../../styles/shared/Animations.module.css'
-import Profile from "./Profile";
-import VerticalTabs from "../layout/navigation/VerticalTabs";
-import ProfilePersona from "../elements/ProfilePersona";
 
 export default function OverviewComponent(props) {
     const birth = new Date(props.person.birth)
