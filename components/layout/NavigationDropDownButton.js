@@ -73,7 +73,7 @@ export default function NavigationDropDownButton(props) {
                                 width: '100%',
                                 justifyContent: 'flex-start',
                                 textTransform: 'capitalize',
-                                color: hoveredOption === index ? '#0095ff' : '#a6a6a9',
+                                color: hoveredOption === index || option.highlight ? '#0095ff' : '#a6a6a9',
                                 transition: '300ms ease-in-out',
 
                             }}>

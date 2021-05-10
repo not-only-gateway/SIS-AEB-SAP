@@ -16,6 +16,7 @@ export default function AccessProfile(props) {
     const [modal, setModal] = useState(false)
     const [loading, setLoading] = useState(true)
     const [accepted, setAccepted] = useState(false)
+    const [hovered, setHovered] = useState(false)
     useEffect(() => {
         if (modal && !props.create)
             fetchAccessProfile(props.profile.id).then(res => {
@@ -61,18 +62,23 @@ export default function AccessProfile(props) {
     return (
         <>
             {renderModal()}
-            <Button className={animations.slideUpAnimation} style={{
-                animationDelay: props.index * 200 + 'ms', width: '100%',
-                display: 'flex',
-                justifyContent: 'flex-start',
-                border: 'hsla(210, 11%, 78%, 0.5)  .7px solid',
-                borderRadius: '8px',
-                minHeight: '70px',
-                color: '#262626',
-                textTransform: 'none',
-                opacity: 0
-            }} onClick={() => setModal(true)}
-                    key={props.create ? 'create-access-profile' : props.profile.id}>
+            <Button
+                className={animations.slideUpAnimation}
+                onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+                style={{
+                    animationDelay: props.index * 200 + 'ms', width: '100%',
+                    display: 'flex',
+                    justifyContent: 'flex-start',
+                    backgroundColor: 'white',
+                    border: hovered ? '#0095ff .7px solid' : 'transparent  .7px solid',
+                    boxShadow: hovered ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
+                    borderRadius: '8px',
+                    minHeight: '70px',
+                    color: '#262626',
+                    textTransform: 'none',
+                    opacity: 0
+                }} onClick={() => setModal(true)}
+                key={props.create ? 'create-access-profile' : props.profile.id}>
                 <AddRounded style={{
                     ...{
                         color: 'black',

@@ -11,31 +11,39 @@ export default function Profile(props) {
             key={props.person.id} style={{width: '100%'}}>
 
             <div className={mainStyles.displayInlineSpaced}>
-                <PersonPersona size={'130px'} key={props.person.id} dark={false}
-                                cakeDay={false}
-                                image={props.person.image} variant={'rounded'}/>
+                <PersonPersona size={'150px'} key={props.person.id} dark={false}
+                               cakeDay={false}
+                               image={props.person.image} variant={'rounded'}/>
 
-                <div style={{marginLeft: '32px', height: 'auto'}}>
-                    <h2>
-                        {props.person.name}
-                    </h2>
-                    <p style={{fontSize: '.9rem',color: '#555555'}}>
-                        {props.member.corporate_email}
-                    </p>
+                <div className={mainStyles.displayColumnSpaced} style={{marginLeft: '16px', height: '150px'}}>
+                    <div style={{display: 'grid', alignContent: 'flex-start', alignItems: 'flex-start'}}>
+                        <div style={{
+                            fontSize: '1.7rem',
+                            fontWeight: 570,
+
+                        }}>
+                            {props.person.name}
+                        </div>
+
+                        <h4 style={{fontSize: '.9rem', color: '#555555', marginTop: '8px'}}>
+                            {props.member.corporate_email}
+                        </h4>
+                    </div>
+
+                    <Button style={{
+                        backgroundColor: '#0095ff',
+                        color: 'white',
+                        textTransform: 'none',
+                        display: props.editable ? 'initial' : 'none',
+                        marginTop: 'auto'
+                    }} onClick={() => props.setEditMode(!props.editMode)}>
+                        {props.editMode ? 'Visualize' : 'Edit'}
+                    </Button>
+
                 </div>
-            </div>
 
-            {props.editable ?
-                <Button style={{
-                    backgroundColor: '#0095ff',
-                    color: 'white',
-                    textTransform: 'none'
-                }} onClick={() => props.setEditMode(!props.editMode)} variant={'contained'}>
-                    {props.editMode ? 'Visualize' : 'Edit'}
-                </Button>
-                :
-                null
-            }
+
+            </div>
 
         </div>
 

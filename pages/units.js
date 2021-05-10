@@ -35,11 +35,15 @@ export default function Index() {
         fetchUnits().then(res => setData(res))
     }, [])
 
-    function redirect(id) {
-        router.push({
-            pathname: '/unit',
-            query: {id: id}
-        })
+    function rendered() {
+        let count = 0
+        data.filter(unit =>{
+            if(searchInput.length > 0 && (unit.name.toLowerCase()).match(searchInput.toLowerCase()) || searchInput.length === 0)
+                count += 1
+            }
+        )
+
+        return count
     }
 
     if (lang !== null)
@@ -91,7 +95,7 @@ export default function Index() {
                                     buttonKey: 0,
                                     value: (
                                         <div style={{display: 'grid', gap: '8px', width: '100%'}} key={'units-container'}>
-                                            {data.map((unit, index) => (
+                                            {rendered() > 0 ? data.map((unit, index) => (
                                                 <div key={unit.id.toString()}>
                                                     <Link href={{pathname: '/unit', query: {id: unit.id}}}>
                                                         <Button
@@ -100,51 +104,50 @@ export default function Index() {
                                                             style={{
                                                                 animationDelay: index * 200 + 'ms',
                                                                 width: '100%',
-                                                                height: '100%',
                                                                 textTransform: 'none',
                                                                 color: 'initial',
                                                                 borderRadius: '8px',
-                                                                border: hoveredUnit === unit.id? '#0095ff .7px solid' : 'transparent  .7px solid',
-                                                                boxShadow: hoveredUnit === unit.id ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : null,
+                                                                border: hoveredUnit === unit.id ? '#0095ff .7px solid' : 'transparent  .7px solid',
+                                                                boxShadow: hoveredUnit === unit.id ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
                                                                 backgroundColor: 'white',
                                                                 transition: '300ms ease-in-out',
-                                                                display: 'flex',
+                                                                display: (searchInput.length > 0 && (unit.name.toLowerCase()).match(searchInput.toLowerCase()) || searchInput.length === 0) ? 'flex' : 'none',
                                                                 justifyContent: 'flex-start',
                                                                 alignItems: 'center',
                                                                 alignContent: 'center',
-
+                                                                minHeight: '70px',
                                                             }}>
                                                             <h5 style={{
                                                                 marginTop: "0",
                                                                 marginBottom: 0,
                                                                 marginRight: '5px'
                                                             }}>Acronym: </h5>
-                                                            <h4 style={{
+                                                            <h5 style={{
                                                                 color: '#555555',
                                                                 marginBottom: 0,
                                                                 marginTop: "0",
                                                                 marginRight: '25px'
-                                                            }}>{unit.acronym}</h4>
+                                                            }}>{unit.acronym}</h5>
                                                             <h5 style={{
                                                                 marginTop: "0",
                                                                 marginBottom: 0,
                                                                 marginRight: '5px'
                                                             }}>Name:</h5>
-                                                            <h4 style={{
+                                                            <h5 style={{
                                                                 color: '#555555',
                                                                 marginBottom: 0,
                                                                 marginTop: 0,
                                                                 marginRight: '25px'
-                                                            }}>{unit.name}</h4>
+                                                            }}>{unit.name}</h5>
                                                             {unit.parent_unit_acronym !== null ?
                                                                 <>
                                                                     <h5 style={{marginTop: "0", marginBottom: 0,marginRight: '5px'}}>Parent
                                                                         Unit:</h5>
-                                                                    <h4 style={{
+                                                                    <h5 style={{
                                                                         color: '#555555',
                                                                         marginBottom: 0,
                                                                         marginTop: 0
-                                                                    }}>{unit.parent_unit_acronym}</h4>
+                                                                    }}>{unit.parent_unit_acronym}</h5>
                                                                 </>
                                                                 :
                                                                 null
@@ -152,7 +155,14 @@ export default function Index() {
                                                         </Button>
                                                     </Link>
                                                 </div>
-                                            ))}
+                                            )) :
+                                                <div className={mainStyles.displayInlineCenter} style={{
+                                                    ...{marginBottom: '15px', width: '100%'}
+                                                }}>
+                                                    <p className={mainStyles.secondaryParagraph}
+                                                       style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: false})}}>{lang.nothingFound}</p>
+                                                </div>
+                                            }
                                         </div>
                                     )
                                 },

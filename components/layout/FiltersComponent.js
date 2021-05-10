@@ -22,7 +22,7 @@ export default function FiltersComponent(props) {
             {props.activeFilters.map((filter, index) => {
                 if (filter.value !== null)
                     return (
-                        <ActiveFilter filter={filter} index={index} handleChange={props.handleChange} setChanged={props.setChanged}/>
+                        <ActiveFilter filter={filter} index={index} handleChange={props.handleChange} setChanged={props.setChanged} changed={props.changed}/>
                     )
                 else
                     return null

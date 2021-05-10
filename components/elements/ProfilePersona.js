@@ -8,7 +8,7 @@ import {CakeRounded} from "@material-ui/icons";
 export default function ProfilePersona(props) {
 console.log(props.image)
     return (
-        <div key={props.key} style={{position: 'relative'}}>
+        <div style={{position: 'relative'}}>
             <Avatar src={typeof(props.image) === 'string' ? (props.base64 ? props.image : (ImageHost()+props.image)) : undefined}
                     style={{
                         height: props.size,
@@ -39,7 +39,6 @@ ProfilePersona.propTypes = {
     dark: PropTypes.bool,
     image: PropTypes.string,
     cakeDay: PropTypes.bool,
-    key: PropTypes.any,
     size: PropTypes.string,
     variant: PropTypes.string,
     elevation: PropTypes.bool,

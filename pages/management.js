@@ -7,34 +7,19 @@ import mainStyles from '../styles/shared/Main.module.css'
 import HeaderLayout from "../components/layout/HeaderLayout";
 import TabContent from "../components/templates/TabContent";
 import Authenticate from "../components/modules/Authenticate";
-import {Button} from "@material-ui/core";
-import animations from "../styles/shared/Animations.module.css";
-import {ArrowBackRounded, AssignmentIndRounded, LinkRounded, LockOpen, LockOpenRounded} from "@material-ui/icons";
-import {getIconStyle, getSecondaryColor} from "../styles/shared/MainStyles";
-import GetTab from "../utils/management/GetTab";
+import AccessProfileList from "../components/templates/list/AccessProfileList";
+import EffectiveRoleList from "../components/templates/list/EffectiveRoleList";
+import CommissionedRoleList from "../components/templates/list/CommissionedRoleList";
+import LinkageList from "../components/templates/list/LinkageList";
 
 export default function management() {
 
     const router = useRouter()
-
     const [lang, setLang] = useState(null)
     const [accessProfile, setAccessProfile] = useState(null)
-
     const [openTab, setOpenTab] = useState(0)
 
-    const [option, setOption] = useState(null)
 
-    const buttonContainer = {
-        height: '65px',
-        display: 'flex',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        textTransform: 'none', width: '31%',
-        border: 'hsla(210, 11%, 78%, 0.5)  .7px solid',
-        boxShadow: 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
-        borderRadius: '8px',
-        opacity: 0,
-    }
     useEffect(() => {
 
             if (lang === null)
@@ -45,30 +30,6 @@ export default function management() {
         }, [router.locale]
     )
 
-    function getInfo() {
-        let response = undefined
-        switch (option) {
-            case 0: {
-                response = lang.accessTitle
-                break
-            }
-            case 1: {
-                response = lang.effectiveRoleTitle
-                break
-            }
-            case 2: {
-                response = lang.commissionedRoleTitle
-                break
-            }
-            case 3: {
-                response = lang.linkagesTitle
-                break
-            }
-            default:
-                break
-        }
-        return response
-    }
 
     if (lang !== null)
         return (
@@ -82,61 +43,32 @@ export default function management() {
                 />
                 <HeaderLayout
                     width={'75%'}
-                    availableTabs={ undefined}
-                    filterComponent={undefined}
+                    availableTabs={{
+                        tabs: [
+                            {key: 0, value: lang.accessTitle},
+                            {key: 1, value: lang.effectiveRoleTitle},
+                            {key: 2, value: lang.commissionedRoleTitle},
+                            {key: 3, value: lang.linkagesTitle},
+                        ],
+                        openTab: openTab,
+                        setOpenTab: setOpenTab
+                    }}
                     title={
                         lang.title
                     }
                     pageTitle={lang.title}
-                    information={getInfo()}
-                    searchComponent={undefined}
                 />
                 <div className={mainStyles.displayInlineCenter} style={{width: '100%'}}>
                     <div style={{width: '75%'}}>
-                        <div style={{
-                            display: option === null ? 'none' : null,
-                            position: 'sticky',
-                            top: 0,
-                            width: '100%',
-                            marginTop: '25px'
-                        }}>
-                            <Button style={{backgroundColor: 'black', color: 'white', marginLeft: 'auto', width: '65px', height: '30px'}}
-                                    onClick={() => setOption(null)}><ArrowBackRounded/></Button>
-                        </div>
-                        <div className={mainStyles.displayWarp}
-                             style={{marginTop: '50px', width: '100%', display: option === null ? null : 'none'}}>
-                            <Button style={{...buttonContainer, ...{animationDelay: '100ms'}}}
-                                    className={animations.slideUpAnimation} onClick={() => setOption(0)}>
-                                <LockOpenRounded style={getIconStyle({dark: false})}/>
-
-                                <p className={mainStyles.secondaryParagraph}
-                                   style={getSecondaryColor({dark: false})}>{lang.accessTitle}</p>
-                            </Button>
-                            <Button style={{...buttonContainer, ...{animationDelay: '200ms'}}}
-                                    className={animations.slideUpAnimation} onClick={() => setOption(1)}>
-                                <AssignmentIndRounded style={getIconStyle({dark: false})}/>
-                                <p className={mainStyles.secondaryParagraph}
-                                   style={getSecondaryColor({dark: false})}>{lang.effectiveRoleTitle}</p>
-                            </Button>
-                            <Button style={{...buttonContainer, ...{animationDelay: '300ms'}}}
-                                    className={animations.slideUpAnimation} onClick={() => setOption(2)}>
-                                <AssignmentIndRounded style={getIconStyle({dark: false})}/>
-                                <p className={mainStyles.secondaryParagraph}
-                                   style={getSecondaryColor({dark: false})}>{lang.commissionedRoleTitle}</p>
-                            </Button>
-                            <Button style={{...buttonContainer, ...{animationDelay: '400ms'}}}
-                                    className={animations.slideUpAnimation} onClick={() => setOption(3)}>
-                                <LinkRounded style={getIconStyle({dark: false})}/>
-                                <p className={mainStyles.secondaryParagraph}
-                                   style={getSecondaryColor({dark: false})}>{lang.linkagesTitle}</p>
-                            </Button>
-                        </div>
-                        <div style={{display: option === null ? 'none' : null}}>
-                            <TabContent
-                                openTab={openTab}
-                                tabs={GetTab({option: option, locale: router.locale})}
-                            />
-                        </div>
+                        <TabContent
+                            openTab={openTab}
+                            tabs={[
+                                {buttonKey: 0, value: <AccessProfileList locale={router.locale}/>},
+                                {buttonKey: 1, value: <EffectiveRoleList locale={router.locale}/>},
+                                {buttonKey: 2, value: <CommissionedRoleList locale={router.locale}/>},
+                                {buttonKey: 3, value: <LinkageList locale={router.locale}/>},
+                            ]}
+                        />
                     </div>
                 </div>
             </>

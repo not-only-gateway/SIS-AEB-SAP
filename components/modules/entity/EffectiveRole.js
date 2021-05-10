@@ -17,15 +17,16 @@ export default function EffectiveRole(props) {
     const [role, setRole] = useState({})
     const [modal, setModal] = useState(false)
     const [accepted, setAccepted] = useState(false)
+    const [hovered, setHovered] = useState(false)
     useEffect(() => {
-        if(props.role !== undefined )
+        if (props.role !== undefined)
             setRole(props.role)
 
-            if (accepted) {
-                props.fetch()
-                setAccepted(false)
-                setModal(false)
-            }
+        if (accepted) {
+            props.fetch()
+            setAccepted(false)
+            setModal(false)
+        }
     }, [accepted])
 
     function renderModal() {
@@ -58,18 +59,22 @@ export default function EffectiveRole(props) {
     return (
         <>
             {renderModal()}
-            <Button className={animations.slideUpAnimation} style={{
+            <Button
+                onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+                className={animations.slideUpAnimation} style={{
                 animationDelay: props.index * 200 + 'ms', width: '100%',
                 display: 'flex',
                 justifyContent: 'flex-start',
-                border: 'hsla(210, 11%, 78%, 0.5)  .7px solid',
+                border: hovered ? '#0095ff .7px solid' : 'transparent  .7px solid',
+                boxShadow: hovered ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
+                backgroundColor: 'white',
                 borderRadius: '8px',
                 minHeight: '70px',
                 color: '#262626',
                 textTransform: 'none',
                 opacity: 0
             }} onClick={() => setModal(true)}
-                    key={props.create ? 'create-effective-role' : props.role.id}>
+                key={props.create ? 'create-effective-role' : props.role.id}>
                 <AddRounded style={{
                     ...{
                         color: 'black',

@@ -1,7 +1,6 @@
 export default {
-    title: 'Perfil',
-    info: 'Registro de colaborador',
-    profile: 'Criar Membro'
+    edit: 'Editar',
+    visualize: 'Visualizar'
 
 }
 

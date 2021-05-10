@@ -45,7 +45,7 @@ export default function Navigation(props) {
                  width: props.reduced ? '75px' : '250px',
                  transition: '250ms ease-in-out',
                  backgroundColor: '#222228',
-                 boxShadow: 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px'
+                 boxShadow:'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
              }}>
 
             <div
@@ -71,7 +71,7 @@ export default function Navigation(props) {
                     {props.reduced ? null :
                         <img className={animations.fadeIn}
                              style={{width: '50%', marginLeft: '16px'}}
-                             src={'/newnew.png'} alt={'logo'}/>
+                             src={'/dark.png'} alt={'logo'}/>
                     }
 
                     <Button onClick={() => props.setReduced(!props.reduced)}
@@ -113,14 +113,7 @@ export default function Navigation(props) {
                         <SettingsRounded/>
                     }
                 />
-                {/*{profile === null ? null :*/}
-                {/*    <NavigationButton*/}
-                {/*        dark={props.dark} linkPath={'/person'} linkQuery={{id: profile.id}}*/}
-                {/*        highlight={props.path === '/person' && props.query.id === profile.id.toString()} locale={props.locale}*/}
-                {/*        label={lang.profile} reduced={props.reduced}*/}
-                {/*        icon={<PersonRounded/>}*/}
-                {/*    />*/}
-                {/*}*/}
+
                 {accessProfile !== null && (accessProfile.canManageStructure) ?
                     <NavigationDropDownButton
                         locale={props.locale}
@@ -131,12 +124,14 @@ export default function Navigation(props) {
                         options={[
                             {
                                 label: lang.createPerson,
-                                path: '/create'
+                                path: '/create',
+                                highlight: props.path === '/create'
                             },
                             accessProfile.canCreateAccessProfile ?
                                 {
                                     label: lang.management,
                                     path: '/management',
+                                    highlight: props.path === '/management'
                                 }
                                 :
                                 null

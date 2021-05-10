@@ -3,5 +3,5 @@ export default {
     information: 'Estrutura interna das unidades',
     units: 'Unidades',
     collaborators: 'Colaboradores',
-    search: 'Pesquisar Unidade'
+    search: 'Pesquisar Unidade', nothingFound: 'Nada Encontrado'
 }

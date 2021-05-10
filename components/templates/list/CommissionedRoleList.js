@@ -1,55 +1,31 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useState} from "react";
-import mainStyles from "../../../styles/shared/Main.module.css";
-import Accordion from "../../layout/Accordion";
-import axios from "axios";
-import Host from "../../../utils/shared/Host";
-import Cookies from "universal-cookie/lib";
-import CommissionedRoleForm from "../forms/CommissionedRoleForm";
+import Linkage from "../../modules/entity/Linkage";
+import fetchLinkages from "../../../utils/fetch/FetchLinkages";
+import fetchCommissionedRoles from "../../../utils/fetch/FetchCommissionedRoles";
+import CommissionedRole from "../../modules/entity/CommissionedRole";
 
 export default function CommissionedRoleList(props) {
     const [data, setData] = useState([])
     useEffect(() => {
-        axios({
-            method: 'get',
-            url: Host() + 'roles/commissioned',
-            headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
-        }).then(res => {
-            setData(res.data)
-        }).catch(error => {
-            console.log(error)
-        })
-
+        fetchCommissionedRoles().then(res => setData(res))
     }, [])
     return (
         <div style={{
             display: 'grid',
             marginTop: '10px',
             width: '100%',
-            borderTop: 'hsla(210, 11%, 78%, 0.5)  .7px solid'
+            gap: '16px'
         }}>
-            {(data).map((profile, index) =>
-                <div key={profile.id} style={{borderBottom: 'hsla(210, 11%, 78%, 0.5)  .7px solid'}}>
-                    <Accordion
-                        elevation={false}
-                        summary={
-                            <p className={mainStyles.secondaryParagraph}>
-                                {profile.denomination}
-                            </p>
-                        }
-                        content={
-                            <CommissionedRoleForm data={profile} locale={props.locale}/>
-                        }
-                        animationDelay={index * 200}
-                        asRow={true} disabled={false} key={index + '-accordion-' + profile.id} dark={false}
-                        background={undefined} openSize={100} closedSize={100}
-                        asButton={false} onClick={props.redirect}
-                    />
+            <CommissionedRole create={true} locale={props.locale} role={undefined} fetch={() => fetchCommissionedRoles().then(res => setData(res))}/>
+            {(data).map((role, index) =>
+                <div key={role.id + '-commissioned-role-'+index}>
+                    <CommissionedRole create={false} locale={props.locale} role={role} index={index} fetch={() => fetchCommissionedRoles().then(res => setData(res))}/>
                 </div>
             )}
         </div>
     )
 }
-CommissionedRoleList.propTypes = {
+CommissionedRoleList.propTypes= {
     locale: PropTypes.string
 }

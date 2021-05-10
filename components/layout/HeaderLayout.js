@@ -114,11 +114,11 @@ HeaderLayout.propTypes = {
     title: PropTypes.any,
     searchComponent: PropTypes.object,
     filterComponent: PropTypes.object,
-    availableTabs: {
+    availableTabs: PropTypes.shape({
         tabs: PropTypes.array,
         openTab: PropTypes.number,
         setOpenTab: PropTypes.func
-    },
+    }),
     pageTitle: PropTypes.string,
     information: PropTypes.string,
     activeFiltersComponent: PropTypes.object,

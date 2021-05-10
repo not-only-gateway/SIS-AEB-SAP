@@ -185,11 +185,11 @@ export default function Settings() {
                                 }} className={animations.slideUpAnimation}>
 
                                     <HistoryRounded
-                                        style={{...getIconStyle({dark: false}), ...{marginRight: 0}}}/>
+                                        style={{marginRight: 0, fontSize: '1.5rem', color: '#262626'}}/>
                                     <Divider style={{width: '10px', marginLeft: '10px', marginRight: '10px'}}
                                              orientation={'horizontal'}/>
                                     <p className={mainStyles.secondaryParagraph}
-                                       style={getSecondaryColor({dark: dark})}>{lang.activity}</p>
+                                       style={{color: '#777777'}}>{lang.activity}</p>
                                 </Button>
                             </Link>
                             :

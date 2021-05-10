@@ -3,5 +3,6 @@ export default {
     information: 'Internal structure of units',
     units: 'Units',
     collaborators: 'Collaborators',
-    search: 'Search Unit'
+    search: 'Search Unit',
+    nothingFound: 'Nothing Found'
 }

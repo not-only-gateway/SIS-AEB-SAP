@@ -44,7 +44,7 @@ export default function Extensions(props) {
     else
         return (
             <div className={mainStyles.displayInlineCenter} style={{
-                ...{marginBottom: '15px', width: '50vw'}
+                ...{marginBottom: '15px', width: '100%'}
             }}>
                 <p className={mainStyles.secondaryParagraph}
                    style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: false})}}>{props.nothingFound}</p>

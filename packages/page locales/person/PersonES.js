@@ -1,9 +1,8 @@
 import React from "react";
 
 export default {
-    title: 'Perfil',
-    info: 'Registro de colaborador',
-    profile: 'Create Profile'
+    edit: 'Edit',
+    visualize: 'Visualize'
 
 }
 

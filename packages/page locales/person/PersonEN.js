@@ -1,7 +1,7 @@
 export default {
-    title: 'Profile',
-    info: 'Collaborator Registration',
-    profile: 'Create Member'
+    edit: 'Edit',
+    visualize: 'Visualize'
+
 }
 //
 // export const collaborations = {

@@ -3,5 +3,6 @@ export default {
     information: 'Estructura interna de unidades y colaboradores',
     units: 'Unidades',
     collaborators: 'Colaboradores(as)',
-    search: 'Pesquisar Unidade'
+    search: 'Pesquisar Unidade',
+    nothingFound: 'Nothing Found'
 }

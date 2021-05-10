@@ -13,10 +13,12 @@ export default function NavigationProfile(props) {
     return (
         <div className={mainStyles.displayColumnSpaced} style={{
             position: 'absolute',
-
+            paddingLeft: props.reduced ? '0' : '8px',
+            paddingRight: props.reduced ? '0' : '8px',
             justifyItems: 'center',
             borderRadius: '8px',
-
+            backgroundColor: hovered ? '#0095ff' : 'transparent',
+            transition: '300ms ease-in'
         }}
              onMouseEnter={() => setHovered(true)}
              onMouseLeave={() => setHovered(false)}
@@ -46,16 +48,22 @@ export default function NavigationProfile(props) {
                                 <div
                                     className={[mainStyles.overflowEllipsis, mainStyles.displayInlineStart].join(' ')}
                                     style={{
-                                        color: '#f2f2f2',
+                                        color: hovered ? 'white' : '#f2f2f2',
                                         fontWeight: '550',
                                         marginLeft: '10px',
-                                        fontSize: '.85rem'
+                                        fontSize: '.85rem',
+                                        transition: '300ms ease-in'
                                     }}>
                                     {props.profile.name}
                                 </div>
                                 <div
                                     className={mainStyles.overflowEllipsis}
-                                    style={{color: '#a6a6a9', marginLeft: '10px', fontSize: '.73rem'}}>
+                                    style={{
+                                        color: hovered ? '#f2f2f2' : '#a6a6a9',
+                                        marginLeft: '10px',
+                                        fontSize: '.73rem',
+                                        transition: '300ms ease-in'
+                                    }}>
                                     {props.profile.corporateEmail}
                                 </div>
 
