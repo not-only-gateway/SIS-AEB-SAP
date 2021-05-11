@@ -24,18 +24,18 @@
 .inputHalf {
     width: 60%;
     margin-left: auto;
-    display: flex;
-    align-items: center;
-    align-content: center;
+    display: grid;
+    grid-template-rows: calc((100% - 250px) / 2) 250px calc((100% - 250px) / 2);
     justify-content: space-around;
-
 }
 
 .welcomeContainer {
+    grid-row: 2;
     height: 250px;
 }
 
 .inputContainer {
+    grid-row: 2;
     display: grid;
     justify-content: center;
     align-content: space-between;

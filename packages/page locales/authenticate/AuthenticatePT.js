@@ -4,5 +4,6 @@ export default {
     password: 'Senha',
     forgotPassword: 'Esqueci minha senha.',
     developer: 'Desenvilvido na CTIC',
-    authenticate: 'Autenticar'
+    authenticate: 'Autenticar',
+    access: 'Acessar sistema sem autenticar'
 }

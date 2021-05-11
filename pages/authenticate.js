@@ -59,9 +59,10 @@ export default function authenticate() {
                             <h3 className={styles.headerContainer}>
                                 {lang.authenticate}
                             </h3>
-
                         </div>
+
                         <div className={styles.inputContainer}>
+
                             <InputLayout inputName={'Email'} dark={false}
                                          handleChange={event => handleObjectChange({event: event, setData: setData})}
                                          inputType={0} disabled={false} size={'100%'} required={false}
@@ -102,21 +103,26 @@ export default function authenticate() {
                                     {lang.forgotPassword}
                                 </Button>
                             </div>
-                            <Button variant={'contained'}
-                                    onClick={() => submitSignIN({
-                                        email: data.email,
-                                        password: data.password
-                                    }).then(res => {
-                                            if (res)
-                                                router.push('/', '/', {locale: router.locale})
-                                        }
-                                    )}
-                                    disabled={data.email.length < 12 || data.password < 8}
-                                    style={{
-                                        textTransform: 'none',
-                                        backgroundColor: data.email.length < 12 || data.password < 8 ? null : '#0095ff',
-                                        color: data.email.length < 12 || data.password < 8 ? null : 'white'
-                                    }}>{lang.authenticate}</Button>
+                            <div style={{display: 'flex', width: '100%'}}>
+
+                                <Button variant={'contained'}
+                                        onClick={() => submitSignIN({
+                                            email: data.email,
+                                            password: data.password
+                                        }).then(res => {
+                                                if (res)
+                                                    router.push('/', '/', {locale: router.locale})
+                                            }
+                                        )}
+                                        disabled={data.email.length < 12 || data.password < 8}
+                                        style={{
+                                            textTransform: 'none',
+                                            backgroundColor: data.email.length < 12 || data.password < 8 ? null : '#0095ff',
+                                            color: data.email.length < 12 || data.password < 8 ? null : 'white'
+                                        }}>{lang.authenticate}</Button>
+                                <Button style={{color: '#555555', textTransform: 'none', marginLeft: 'auto'}} onClick={() => router.push({pathname: '/'})}>{lang.access}</Button>
+                            </div>
+
                         </div>
                     </div>
                 </div>
