@@ -15,12 +15,12 @@ export default function CorporateForms(props) {
                     {
                         disabled: false,
                         key: 0,
-                        value: 'Membership'
+                        value: props.lang.membership
                     },
                     {
                         disabled: false,
                         key: 1,
-                        value: 'Collaborations'
+                        value: props.lang.collaborations
                     }
                 ]}
 
@@ -66,5 +66,5 @@ CorporateForms.propTypes = {
     setMember: PropTypes.func,
     accessProfile:PropTypes.object,
     locale: PropTypes.string,
-
+    lang: PropTypes.object
 }

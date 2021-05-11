@@ -6,6 +6,13 @@ body {
     width: 100vw;
     /*overflow: hidden;*/
 }
+
+h2{
+    font-size: 1.7rem;
+    font-weight: 570;
+    margin-top: 16px;
+    margin-bottom: 16px
+}
 h3{
     color: #262626;
     font-size: 1.3rem;

@@ -9,4 +9,6 @@ export default {
     inactive: 'Inactive collaborator',
     nothingFound:'Nothing Found',
     end: 'You\'ve reached the bottom.',
+    list: 'List',
+    structure: 'Structure'
 }

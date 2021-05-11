@@ -4,7 +4,7 @@ export default {
     more: 'Mais',
     save: 'Salvar',
     create: 'Próximo',
-    personal: 'Pessoal',
+
     education: 'Educação',
     name: 'Nome',
     father: 'Pai',
@@ -35,5 +35,8 @@ export default {
         {value: 'Mestrado Completo', key: 'COMPLETE-MASTER\'S-DEGREE'},
         {value: 'Doutorado Incompleto', key: 'INCOMPLETE-DOCTORATE-DEGREE'},
         {value: 'Doutorado Completo', key: 'COMPLETE-DOCTORATE-DEGREE'}
-    ]
+    ],
+    personal: 'Personal Information',
+    life: 'Vida & Educação',
+    parents: 'Pais & Nacionalidade'
 }

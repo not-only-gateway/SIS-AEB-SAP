@@ -35,21 +35,25 @@ export default function OverviewComponent(props) {
                     </h5>
                 </div>
 
-                <div style={{width: '100%'}} className={mainStyles.displayInlineStart}>
-                    {props.member.home_office ?
-                        <HomeRounded style={getIconStyle({dark: false})}/>
-                        :
-                        <LocationOnRounded style={getIconStyle({dark: false})}/>
-                    }
-
-                    <h5 style={{marginBottom: '16px', marginTop: '16px'}}>
+                {props.member.entity !== undefined ?
+                    <div style={{width: '100%'}} className={mainStyles.displayInlineStart}>
                         {props.member.home_office ?
-                           'Home Office'
+                            <HomeRounded style={getIconStyle({dark: false})}/>
                             :
-                            props.member.entity.acronym
+                            <LocationOnRounded style={getIconStyle({dark: false})}/>
                         }
-                    </h5>
-                </div>
+
+                        <h5 style={{marginBottom: '16px', marginTop: '16px'}}>
+                            {props.member.home_office ?
+                                'Home Office'
+                                :
+                                props.member.entity.acronym
+                            }
+                        </h5>
+                    </div>
+                    :
+                    null
+                }
                 <div style={{width: '100%'}} className={mainStyles.displayInlineStart}>
                     <PhoneRounded style={getIconStyle({dark: false})}/>
                     <h5 style={{marginBottom: '16px', marginTop: '16px'}}>

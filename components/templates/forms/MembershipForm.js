@@ -51,7 +51,7 @@ export default function MembershipForm(props) {
                              initialValue={props.member.registration} key={"membership-4"} setChanged={setChanged}/>
 
                 <h4 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
-                    Contact
+                    {lang.contact}
                 </h4>
                 <InputLayout inputName={lang.corporateEmail}
                              handleChange={props.handleChange} name={'corporate_email'}
@@ -69,7 +69,7 @@ export default function MembershipForm(props) {
                              initialValue={props.member.alternative_phone} key={"membership-3"} setChanged={setChanged}/>
 
                 <h4 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
-                    Linkage & Work Position
+                    {lang.linkage}
                 </h4>
 
                 <InputLayout inputName={lang.homeOffice} handleChange={props.handleChange}

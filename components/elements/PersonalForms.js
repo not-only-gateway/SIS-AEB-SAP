@@ -21,22 +21,22 @@ export default function PersonalForms(props) {
                     {
                         disabled: false,
                         key: 0,
-                        value: 'General'
+                        value:props.lang.general
                     },
                     {
                         disabled: false,
                         key: 1,
-                        value: 'Documents'
+                        value: props.lang.documents
                     },
                     {
                         disabled: false,
                         key: 2,
-                        value: 'Contacts'
+                        value: props.lang.contacts
                     },
                     {
                         disabled: false,
                         key: 3,
-                        value: 'Address'
+                        value: props.lang.address
                     },
                 ]}
 
@@ -125,5 +125,6 @@ PersonalForms.propTypes = {
     documents: PropTypes.object,
     person: PropTypes.object,
     address: PropTypes.object,
-    setAddress: PropTypes.func
+    setAddress: PropTypes.func,
+    lang: PropTypes.object
 }

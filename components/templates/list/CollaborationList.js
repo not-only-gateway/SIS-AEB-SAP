@@ -32,7 +32,7 @@ export default function CollaborationList(props) {
                                    create={false} index={index} locale={props.locale} canEdit={props.editionMode}
                                    fetch={() => fetchAllCollaborations(props.id).then(res => {
                                        setCollaborations(res)
-                                   })}/>
+                                   })} />
                 </div>
             ))
             }

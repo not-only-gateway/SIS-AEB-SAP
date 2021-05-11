@@ -114,6 +114,7 @@ export default function Collaboration(props) {
                     borderRadius: '8px'
                 }}>
                     <CollaborationForm
+                        locale={props.locale}
                         collaboration={collaboration}
                         handleChange={event => handleObjectChange({event: event, setData: setCollaboration})}
                         submitChanges={submitCollaboration}

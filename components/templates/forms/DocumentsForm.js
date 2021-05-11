@@ -47,7 +47,7 @@ export default function DocumentsForm(props) {
                 width: '75%',
             }}>
                 <h4 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
-                    Registration
+                    {lang.registration}
                 </h4>
                 <InputLayout inputName={'CPF'} dark={props.dark} handleChange={props.handleChange} inputType={0} name={'cpf'}
                              disabled={!props.editable} size={'100%'} required={true}
@@ -72,7 +72,7 @@ export default function DocumentsForm(props) {
                              key={"5-4"} setChanged={setChanged}/>
 
                 <h4 style={{width: '100%',marginBottom: 'auto'}}>
-                    Work Card
+                    {lang.work}
                 </h4>
                 <InputLayout inputName={lang.work} dark={props.dark} handleChange={props.handleChange} inputType={0}
                              name={'work_card'}
@@ -87,7 +87,7 @@ export default function DocumentsForm(props) {
                              key={"5-6"} setChanged={setChanged}/>
 
                 <h4 style={{width: '100%', marginBottom: 'auto'}}>
-                    Bank
+                    {lang.bank}
                 </h4>
                 <InputLayout inputName={lang.bank} dark={props.dark} handleChange={props.handleChange} inputType={0}
                              name={'bank'}
@@ -101,7 +101,7 @@ export default function DocumentsForm(props) {
                              initialValue={props.documents.agency}
                              key={"5-8"} setChanged={setChanged}/>
                 <h4 style={{width: '100%', marginBottom: 'auto'}}>
-                    Voter
+                    {lang.voter}
                 </h4>
                 <InputLayout inputName={lang.voter} dark={props.dark} handleChange={props.handleChange}
                              inputType={0} name={'voter_registration'}

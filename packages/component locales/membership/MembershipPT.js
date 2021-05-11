@@ -7,6 +7,7 @@ export default {
     options: [{key: true, value: 'Sim'}, {key: false, value: 'Não'}],
     save: 'Salvar',
     create: 'Próximo',
-    altPhone: 'Telefone alternativo'
-
+    altPhone: 'Telefone alternativo',
+    contact: 'Contato',
+    linkage: 'Vínculo & Posição de trabalho'
 }

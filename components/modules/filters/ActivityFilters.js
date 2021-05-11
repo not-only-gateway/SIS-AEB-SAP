@@ -8,7 +8,6 @@ import shared from '../../../styles/shared/Shared.module.css'
 
 export default function ActivityFilterComponent(props) {
     return (
-
         <div className={shared.filterContainer}>
             <h3 style={{marginRight: "auto"}}>{props.lang.filters}</h3>
 
@@ -71,7 +70,7 @@ export default function ActivityFilterComponent(props) {
                                                props.handleChange({name: 'method', value: null})
                                                props.setChanged(true)
                                            }}/>}
-                        label="ALL"
+                        label={props.lang.all}
                     />
                 </FormGroup>
             </FormControl>
@@ -92,7 +91,7 @@ export default function ActivityFilterComponent(props) {
                                       inputProps={{'aria-label': 'primary checkbox'}}
                             />
                         }
-                        label={'YES'}
+                        label={props.lang.yes}
                     />
                     <FormControlLabel
                         control={
@@ -107,7 +106,7 @@ export default function ActivityFilterComponent(props) {
                                       inputProps={{'aria-label': 'primary checkbox'}}
                             />
                         }
-                        label={'NO'}
+                        label={props.lang.no}
                     />
                 </FormGroup>
             </FormControl>
@@ -122,7 +121,7 @@ export default function ActivityFilterComponent(props) {
                     props.fetch(1)
 
                 }}>
-                    Apply
+                    {props.lang.apply}
                 </Button>
             </div>
         </div>

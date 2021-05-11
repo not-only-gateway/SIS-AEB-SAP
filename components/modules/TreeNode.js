@@ -42,28 +42,43 @@ export default function TreeNode(props) {
                       maxWidth: props.type !== 'unit' ? 'unset' : '150px',
                       minWidth: props.type !== 'unit' ? 'unset' : '50px',
                       height: props.type !== 'unit' ? 'auto' : '50px',
-                      boxShadow: hovered ?'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
+                      boxShadow: hovered ? 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
                       backgroundColor: hovered ? '#0095ff' : 'white',
 
                       transition: '300ms ease-in-out'
                   }}
                   className={[animations.popInAnimation, mainStyles.normalBorder, mainStyles.displayInlineCenter].join(' ')}>
                 {props.type !== 'unit' ?
-                    <div style={{display: 'grid', alignContent: "space-evenly", justifyItems: 'center', width: '100%', padding: '8px'}}>
+                    <div style={{
+                        display: 'grid',
+                        alignContent: "space-evenly",
+                        justifyItems: 'center',
+                        width: '100%',
+                        padding: '8px'
+                    }}>
 
                         <ProfilePersona base64={false} dark={false} key={props.subject.id} cakeDay={false}
                                         elevation={true} image={props.subject.image} size={'53px'} variant={'rounded'}/>
 
-                        <h4 style={{color: hovered ? 'white' : '#555555'}}>
+                        <h4 style={{
+                            color: hovered ? 'white' : '#555555',
+                            transition: '300ms ease-in-out'
+                        }}>
                             {props.subject.name.replace(/([a-z]+) .* ([a-z]+)/i, "$1 $2")}
                         </h4>
                         <h5
-                            style={{color: hovered ? 'white' : '#777777', marginBottom: 0}}>
+                            style={{
+                                color: hovered ? 'white' : '#777777', marginBottom: 0,
+                                transition: '300ms ease-in-out'
+                            }}>
                             {props.subject.unit_acronym}
                         </h5>
                     </div>
                     :
-                    <div style={{width: '100%', height: '100%', padding: '5px', color: hovered ? 'white' : '#262626',}}
+                    <div style={{
+                        width: '100%', height: '100%', padding: '5px', color: hovered ? 'white' : '#262626',
+                        transition: '300ms ease-in-out'
+                    }}
                          className={[mainStyles.overflowEllipsis, mainStyles.displayInlineCenter].join(' ')}>
                         {props.subject.acronym}
                     </div>

@@ -4,7 +4,6 @@ export default {
     more: 'More',
     save: 'Save',
     create: 'Next',
-    personal: 'Personal',
     education: 'Education',
     name: 'Name',
     father: 'Father',
@@ -35,5 +34,8 @@ export default {
         {value: 'Complete Master\'s Degree', key: 'COMPLETE-MASTER\'S-DEGREE'},
         {value: 'Incomplete Doctorate Degree', key: 'INCOMPLETE-DOCTORATE-DEGREE'},
         {value: 'Complete Doctorate Degree', key: 'COMPLETE-DOCTORATE-DEGREE'}
-    ]
+    ],
+    personal: 'Personal Information',
+    life: 'Life & Education',
+    parents: 'Parents & Nationality'
 }

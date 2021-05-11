@@ -47,12 +47,12 @@ export default function Index() {
                             {
                                 disabled: false,
                                 key: 0,
-                                value: 'Overview'
+                                value: lang.list
                             },
                             {
                                 disabled: false,
                                 key: 1,
-                                value: 'Structure'
+                                value: lang.structure
                             },
                         ],
                         setOpenTab: setOpenTab,
@@ -112,7 +112,7 @@ export default function Index() {
                                                                 marginTop: "0",
                                                                 marginBottom: 0,
                                                                 marginRight: '5px'
-                                                            }}>Acronym: </h5>
+                                                            }}>{lang.acronym}: </h5>
                                                             <h5 style={{
                                                                 color: '#555555',
                                                                 marginBottom: 0,
@@ -123,7 +123,7 @@ export default function Index() {
                                                                 marginTop: "0",
                                                                 marginBottom: 0,
                                                                 marginRight: '5px'
-                                                            }}>Name:</h5>
+                                                            }}>{lang.name}:</h5>
                                                             <h5 style={{
                                                                 color: '#555555',
                                                                 marginBottom: 0,
@@ -132,8 +132,7 @@ export default function Index() {
                                                             }}>{unit.name}</h5>
                                                             {unit.parent_unit_acronym !== null ?
                                                                 <>
-                                                                    <h5 style={{marginTop: "0", marginBottom: 0,marginRight: '5px'}}>Parent
-                                                                        Unit:</h5>
+                                                                    <h5 style={{marginTop: "0", marginBottom: 0,marginRight: '5px'}}>{lang.parentUnit}:</h5>
                                                                     <h5 style={{
                                                                         color: '#555555',
                                                                         marginBottom: 0,

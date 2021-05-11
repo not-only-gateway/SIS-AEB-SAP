@@ -95,36 +95,36 @@ export default function create() {
                             {
                                 disabled: false,
                                 key: 0,
-                                value: 'Person',
+                                value: lang.person,
                                 status: status.base,
                             }, {
                                 disabled: step === 0,
                                 key: 1,
-                                value: 'Membership',
+                                value: lang.membership,
                                 status: status.member,
                             },
                             {
                                 disabled: step < 2,
                                 key: 2,
-                                value: 'Documents',
+                                value: lang.documents,
                                 status: status.documents,
                             },
                             {
                                 disabled: step < 3,
                                 key: 3,
-                                value: 'Contacts',
+                                value: lang.contacts,
                                 status: status.contact,
                             },
                             {
                                 disabled: step < 4,
                                 key: 4,
-                                value: 'Address',
+                                value:  lang.address,
                                 status: status.address,
                             },
                             step === 5 ? {
                                 disabled: true,
                                 key: 5,
-                                value: 'Finished',
+                                value: lang.end,
                                 status: true,
                             } : null
                         ],

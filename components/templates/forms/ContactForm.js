@@ -46,7 +46,7 @@ export default function ContactForm(props) {
                              inputType={0} disabled={!props.editable} size={'100%'} required={false}
                              initialValue={props.contact.personal_email_alt} key={"3-2"} setChanged={setChanged}/>
                 <h4 style={{width: '100%', marginBottom: 'auto'}}>
-                    Phones
+                    {lang.phones}
                 </h4>
                 <InputLayout inputName={lang.phone} dark={props.dark} handleChange={props.handleChange}
                              name={'personal_phone'}

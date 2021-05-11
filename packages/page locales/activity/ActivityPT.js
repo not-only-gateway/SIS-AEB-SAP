@@ -16,5 +16,9 @@ export default {
     end: 'Você chegou ao final.',
     created: 'Criado em',
     ip: 'Endereço de IP (v4)',
-    filters: 'Filtros'
+    filters: 'Filtros',
+    all: 'Todos',
+    yes: 'Sim',
+    no: 'Não',
+    apply: 'Aplicar'
 }

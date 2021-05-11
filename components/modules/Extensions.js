@@ -33,7 +33,9 @@ export default function Extensions(props) {
                                 redirect={id => {
                                     props.redirect(id)
                                 }}
-                                inactiveLocale={props.inactive}/>
+                                locale={props.locale}
+
+                            />
                         )}
                     </div>
                 </InfiniteScroll>
@@ -50,9 +52,9 @@ export default function Extensions(props) {
 Extensions.propTypes = {
     data: PropTypes.array,
     nothingFound: PropTypes.string,
-    inactive: PropTypes.string,
     redirect: PropTypes.func,
     fetchData: PropTypes.func,
     lastFetchedSize: PropTypes.number,
-    end: PropTypes.string
+    end: PropTypes.string,
+    locale: PropTypes.string
 }

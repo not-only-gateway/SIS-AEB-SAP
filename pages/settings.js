@@ -79,7 +79,7 @@ export default function Settings() {
                                         {[{value: 'Português', key: 'pt'}, {
                                             value: 'English',
                                             key: 'en'
-                                        }, {value: 'Español', key: 'es'}].map(choice => {
+                                        }].map(choice => {
                                             return <FormControlLabel value={choice.key} control={<Radio/>}
                                                                      label={choice.value}/>
                                         })}
@@ -92,7 +92,7 @@ export default function Settings() {
                                     <Divider style={{width: '10px', marginLeft: '10px', marginRight: '10px'}}
                                              orientation={'horizontal'}/>
                                     <p className={mainStyles.tertiaryParagraph}
-                                       style={getTertiaryColor({dark: dark})}>{router.locale === 'pt' ? 'Português' : router.locale === 'es' ? 'Español' : 'English'}</p>
+                                       style={getTertiaryColor({dark: dark})}>{router.locale === 'pt' ? 'Português' : 'English'}</p>
                                 </div>
                             }
                             key={'language - settings'}

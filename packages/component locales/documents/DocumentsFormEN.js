@@ -10,5 +10,7 @@ export default {
     section: 'Electoral Section',
     zone: 'Electoral Zone',
     save: 'Save',
-    create: 'Next'
+    create: 'Next',
+    registration: 'Registration',
+
 }

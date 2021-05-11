@@ -6,7 +6,7 @@ import ClearStorage from "../authentication/ClearStorage";
 export default async function submitSignOUT() {
     let resp = false
     await axios({
-        method: 'delete',
+        method: 'patch',
         url: Host() + 'authentication',
         headers: {'authorization': (new Cookies()).get('jwt')}
     }).then(() => {

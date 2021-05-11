@@ -6,5 +6,6 @@ export default {
     phone: 'Telefone',
     altPhone: 'Telefone Alternativo',
     save: 'Salvar',
-    create: 'Próximo'
+    create: 'Próximo',
+    phones: 'Telefones'
 }

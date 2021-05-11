@@ -6,5 +6,6 @@ export default {
     phone: 'Phone',
     altPhone: 'Alternative Phone',
    save: 'Save',
-    create: 'Next'
+    create: 'Next',
+    phones: 'Phones'
 }

@@ -1,16 +1,22 @@
 import PropTypes from 'prop-types'
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import mainStyles from "../../../styles/shared/Main.module.css";
 import {getTertiaryColor} from "../../../styles/shared/MainStyles";
 import {Button} from "@material-ui/core";
 import ProfilePersona from "../../elements/ProfilePersona";
+import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 
 export default function Extension(props) {
     const currentDate = new Date()
     const [hovered, setHovered] = useState(false)
+    const [lang, setLang] = useState(null)
+    useEffect(() => {
+        if(lang === null)
+            setLang(getComponentLanguage({locale: props.locale, component: 'extension'}))
+    }, [])
+
+    if(lang !== null)
     return (
-
-
         <Button key={props.data.member.id} onClick={() => props.redirect(props.data.member.id)}
                 onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
                 style={{
@@ -53,7 +59,7 @@ export default function Extension(props) {
                 </div>
                 <div className={[mainStyles.tertiaryParagraph, mainStyles.displayInlineCenter].join(' ')}
                      style={getTertiaryColor({dark: false})}>
-                    <h5 style={{marginTop: "0", marginBottom: 0, marginRight: '5px'}}>Extension:</h5>
+                    <h5 style={{marginTop: "0", marginBottom: 0, marginRight: '5px'}}>{lang.extension}:</h5>
                     <h5 style={{
                         color: '#555555',
                         marginBottom: 0,
@@ -65,7 +71,7 @@ export default function Extension(props) {
                     :
                     <div className={[mainStyles.tertiaryParagraph, mainStyles.displayInlineCenter].join(' ')}
                          style={getTertiaryColor({dark: false})}>
-                        <h5 style={{marginTop: "0", marginBottom: 0, marginRight: '5px'}}>Unit:</h5>
+                        <h5 style={{marginTop: "0", marginBottom: 0, marginRight: '5px'}}>{lang.unit}:</h5>
                         <h5 style={{
                             color: '#555555',
                             marginBottom: 0,
@@ -85,18 +91,19 @@ export default function Extension(props) {
                         color: 'white'
                     }}>
 
-                        {props.data.unit !== undefined && props.data.unit !== null ? 'Active' : 'Inactive'}
+                        {props.data.unit !== undefined && props.data.unit !== null ? lang.active : lang.inactive}
                     </div>
                 </div>
 
             </div>
         </Button>
     )
+    else
+        return null
 }
 Extension.propTypes = {
     data: PropTypes.object,
-    sorterMethod: PropTypes.string,
     redirect: PropTypes.func,
     index: PropTypes.number,
-    inactiveLocale: PropTypes.string,
+    locale: PropTypes.string
 }

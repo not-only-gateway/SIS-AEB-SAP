@@ -1,35 +1,29 @@
 import Cookies from "universal-cookie/lib";
 import AuthenticateEN from '../../packages/page locales/authenticate/AuthenticateEN'
-import AuthenticateES from '../../packages/page locales/authenticate/AuthenticateES'
 import AuthenticatePT from '../../packages/page locales/authenticate/AuthenticatePT'
 
 import SettingsEN from '../../packages/page locales/settings/SettingsEN'
-import SettingsES from '../../packages/page locales/settings/SettingsES'
 import SettingsPT from '../../packages/page locales/settings/SettingsPT'
 
 import IndexEN from "../../packages/page locales/index/IndexEN";
-import IndexES from "../../packages/page locales/index/IndexES";
 import IndexPT from "../../packages/page locales/index/IndexPT";
 
 import PersonEN from '../../packages/page locales/person/PersonEN'
-import PersonES from '../../packages/page locales/person/PersonES'
 import PersonPT from '../../packages/page locales/person/PersonPT'
 
 import ActivityEN from "../../packages/page locales/activity/ActivityEN";
-import ActivityES from "../../packages/page locales/activity/ActivityES";
 import ActivityPT from "../../packages/page locales/activity/ActivityPT";
 
 import CreateEN from "../../packages/page locales/create/CreateEN";
-import CreateES from "../../packages/page locales/create/CreateES";
 import CreatePT from "../../packages/page locales/create/CreatePT";
 
 import ManagementEN from "../../packages/page locales/management/ManagementEN";
-import ManagementES from "../../packages/page locales/management/ManagementES";
 import ManagementPT from "../../packages/page locales/management/ManagementPT";
 
 import UnitsEN from "../../packages/page locales/units/UnitsEN";
-import UnitsES from "../../packages/page locales/units/UnitsES";
 import UnitsPT from "../../packages/page locales/units/UnitsPT";
+import UnitPT from "../../packages/page locales/unit/UnitPT";
+import UnitEN from "../../packages/page locales/unit/UnitEN";
 
 const cookies = new Cookies()
 
@@ -80,52 +74,16 @@ export function getLanguage(locale, page) {
                     response = ManagementEN
                     break
                 }
-                default:
-                    break
-            }
-            break
-        }
-        case 'es': {
-            switch (page) {
-                case '/authenticate': {
-                    response = AuthenticateES
-                    break
-                }
-                case '/' : {
-                    response = IndexES
-                    break
-                }
-                case '/person': {
-                    response = PersonES
-                    break
-                }
-                case '/settings': {
-                    response = SettingsES
-                    break
-                }
-                case '/activity': {
-                    response = ActivityES
-                    break
-                }
-
-                case '/units': {
-                    response = UnitsES
-                    break
-                }
-                case '/create' : {
-                    response = CreateES
-                    break
-                }
-                case '/management' : {
-                    response = ManagementES
+                case '/unit' : {
+                    response = UnitEN
                     break
                 }
                 default:
                     break
             }
-
             break
         }
+
         case 'pt': {
             switch (page) {
                 case '/authenticate': {
@@ -158,6 +116,10 @@ export function getLanguage(locale, page) {
                 }
                 case '/management' : {
                     response = ManagementPT
+                    break
+                }
+                case '/unit' : {
+                    response = UnitPT
                     break
                 }
                 default:

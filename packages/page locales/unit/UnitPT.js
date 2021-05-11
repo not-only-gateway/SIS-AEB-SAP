@@ -1,0 +1,23 @@
+export default {
+    overview: 'Visão global',
+    collaborators: 'Colaboradores',
+    inactive: 'Colaborador inativo',
+    nothingFound: 'Nada encontrado',
+    end: 'Você chegou ao final.',
+    parentUnit: 'Unidade pai',
+    parentEntity: 'Entidade Pai',
+    sphere: 'Esfera',
+    power: 'Tipo do poder',
+    legalNature: 'Natureza jurídica',
+    category: 'Categoria',
+    changeType: 'Tipo de alteração',
+    acronym: 'Sigla',
+    name: 'Denominação',
+    standardization: 'Normatização',
+    strategicObjective: 'Objetivo estratégico',
+    competence: 'Competência ',
+    finality: 'Finalidade',
+    mission: 'Missão',
+    address: 'Endereço',
+    decentralized: 'Descentralizada'
+}

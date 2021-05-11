@@ -12,4 +12,6 @@ export default {
     inactive: 'Colaborador inativo',
     nothingFound: 'Nada encontrado',
     end: 'Você chegou ao final.',
+    list: 'Listar',
+    structure: 'Estrutura'
 }

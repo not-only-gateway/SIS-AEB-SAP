@@ -4,5 +4,10 @@ export default {
     units: 'Units',
     collaborators: 'Collaborators',
     search: 'Search Unit',
-    nothingFound: 'Nothing Found'
+    nothingFound: 'Nothing Found',
+    structure: 'Structure',
+    list: 'List',
+    acronym: 'Acronym',
+    name: 'Denomination',
+    parentUnit: 'Parent Unit'
 }

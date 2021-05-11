@@ -3,16 +3,16 @@ import axios from "axios";
 import Host from "../shared/Host";
 import Cookies from "universal-cookie/lib";
 
-export default async function FetchExtensions(props) {
+export default async function fetchExtensions(props) {
     props.setLoading(true)
 
     await axios({
         method: 'get',
-        url: Host() + props.option,
+        url: Host() + props.path,
         headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
         params: props.params
     }).then(res => {
-        console.log(res.data)
+
         switch (props.type){
             case 0: {
                 props.setResponse([...props.data, ...res.data])
@@ -37,12 +37,12 @@ export default async function FetchExtensions(props) {
 
     props.setLoading(false)
 }
-FetchExtensions.propTypes = {
+fetchExtensions.propTypes = {
     setResponse: PropTypes.func,
     data: PropTypes.array,
     params: PropTypes.object,
     setLoading: PropTypes.func,
-    option: PropTypes.string,
+    path: PropTypes.string,
     setLastFetchedSize: PropTypes.func,
     setMaxID: PropTypes.func,
     type: PropTypes.number

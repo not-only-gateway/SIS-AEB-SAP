@@ -26,6 +26,7 @@ export default async function submitSignIN(props) {
             startDatabase().catch(error => console.log(error))
             cookies.set('jwt', res.data.jwt, {expires: new Date(res.data.exp)})
             cookies.set('exp', res.data.exp, {expires: new Date(res.data.exp)})
+            response = true
             setProfile({
                 id: res.data.profile.id,
                 corporateEmail: res.data.profile.corporate_email,
@@ -34,6 +35,7 @@ export default async function submitSignIN(props) {
                 pic: res.data.profile.image,
                 homeOffice: res.data.profile.home_office
             }).then(async function () {
+
                 if (res.data.collaboration !== undefined && res.data.collaboration !== null) {
                     await setCollaboration({
                         id: res.data.collaboration.id,
@@ -68,13 +70,15 @@ export default async function submitSignIN(props) {
                         canUpdateContact: res.data.access_profile.can_update_contact,
                         canViewContact: res.data.access_profile.can_view_contact
                     }).catch(error => console.log(error))
-                    response = true
+
                 }
 
             }).catch(error => console.log(error))
+
         }).catch(error => {
             console.log(error)
         })
+
     } catch (error) {
         console.log(error)
     }

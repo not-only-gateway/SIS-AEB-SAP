@@ -70,7 +70,7 @@ export default function BaseForm(props) {
                 }}>
 
                 <h4 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
-                    Personal information
+                    {lang.personal}
                 </h4>
                 <ImageSelector
                     initialImage={props.person.image === null || !props.person.image ? image.imageSrc : props.person.image}
@@ -103,7 +103,7 @@ export default function BaseForm(props) {
                              key={"1-8"} setChanged={setChanged}/>
 
                 <h4 style={{width: '100%', marginBottom: 'auto'}}>
-                    Life & Education
+                    {lang.life}
                 </h4>
 
 
@@ -129,7 +129,7 @@ export default function BaseForm(props) {
                              key={"1-11"} setChanged={setChanged}/>
 
                 <h4 style={{width: '100%', marginBottom: 'auto'}}>
-                    Parents & nationality
+                    {lang.parents}
                 </h4>
                 <InputLayout inputName={lang.father} dark={props.dark} handleChange={props.handleChange}
                              inputType={0} name={'father_name'}

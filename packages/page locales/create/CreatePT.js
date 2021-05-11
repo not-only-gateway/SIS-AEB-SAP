@@ -4,5 +4,11 @@ export default {
     contactInfo: 'Contatos Pessoais',
     documentsInfo: 'Documentos Pessoais',
     memberInfo: 'Informações Corporativas',
-    baseInfo: 'Informações Básicas'
+    baseInfo: 'Informações Básicas',
+    person: 'Pessoal',
+    membership: 'Filiação',
+    documents:'Documentos',
+    contacts: 'Contatos',
+    address: 'Endereço',
+    end: 'Fim'
 }

@@ -91,9 +91,11 @@ export default function person() {
                             })
 
                         setMember(res.member)
+                        setLoading(false)
                         setPerson(res.person)
                     }
                 })
+
                 FetchMainCollaboration(router.query.id).then(res => {
                         if (res !== null) {
                             handleObjectChange({
@@ -135,17 +137,17 @@ export default function person() {
                             {
                                 disabled: false,
                                 key: 0,
-                                value: 'Overview'
+                                value: lang.overview
                             },
                             (editMode) && accessProfile !== null ? {
                                 disabled: false,
                                 key: 1,
-                                value: 'Personal'
+                                value: lang.personal
                             } : null,
                             editMode && accessProfile !== null ? {
                                 disabled: !accessProfile.canViewDocuments,
                                 key: 2,
-                                value: 'Corporate'
+                                value: lang.corporate
                             } : null,
                         ]
 
@@ -198,6 +200,7 @@ export default function person() {
                                         buttonKey: 1,
                                         value: (
                                             <PersonalForms
+                                                lang={lang}
                                                 accessProfile={accessProfile} id={id} setPerson={setPerson}
                                                 contact={contact} setContact={setContact}
                                                 locale={router.locale} documents={documents}
@@ -209,7 +212,9 @@ export default function person() {
                                 (editMode) && accessProfile !== null ? {
                                     buttonKey: 2,
                                     value: (
-                                        <CorporateForms locale={router.locale} id={id} accessProfile={accessProfile}
+                                        <CorporateForms
+                                            lang={lang}
+                                            locale={router.locale} id={id} accessProfile={accessProfile}
                                                         member={member} setMember={setMember}/>
                                     )
                                 } : null

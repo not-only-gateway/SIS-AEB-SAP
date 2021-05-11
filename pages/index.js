@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {getLanguage} from "../utils/shared/PageLanguage";
-import FetchData from "../utils/fetch/FerchExtensions";
+import fetchExtensions from "../utils/fetch/FerchExtensions";
 import SearchBox from "../components/elements/SearchBox";
 import styles from '../styles/Extensions.module.css'
 import ExtensionsFilters from "../components/modules/filters/ExtensionsFilters";
@@ -45,16 +45,9 @@ export default function Index() {
             })
     }, [])
 
-    function redirect(id) {
-        router.push({
-            pathname: '/person',
-            query: {id: id}
-        })
-    }
-
     async function fetchData(type, start, search) {
 
-        await FetchData({
+        await fetchExtensions({
             setResponse: setData,
             params: {
                 input: search === false ? null : filters.searchInput.length === 0 ? null : filters.searchInput,
@@ -67,7 +60,7 @@ export default function Index() {
                 effective_role: filters.effectiveRole === undefined ? null : filters.effectiveRole.key,
             },
             setLoading: setLoading,
-            option: option,
+            path: option,
             setLastFetchedSize: setLastFetchedSize,
             setMaxID: setMaxID,
             data: data,
@@ -86,12 +79,12 @@ export default function Index() {
                             {
                                 disabled: false,
                                 key: 0,
-                                value: 'Overview'
+                                value: lang.list
                             },
                             {
                                 disabled: false,
                                 key: 1,
-                                value: 'Structure'
+                                value: lang.structure
                             },
                         ],
                         setOpenTab: setOpenTab,
@@ -104,7 +97,7 @@ export default function Index() {
                                 lang={lang} setLoading={setLoading} fetchData={fetchData} changed={changed}
                                 setMaxID={setMaxID} filters={filters}
                                 handleFilterChange={event => handleObjectChange({event: event, setData: setFilters})}
-                                accessProfile={accessProfile}
+                                accessProfile={accessProfile} locale={router.locale}
                             />
                             :
                             undefined
@@ -177,9 +170,14 @@ export default function Index() {
                                 buttonKey: 0,
                                 value: (
                                     <Extensions
-                                        redirect={redirect} data={data} fetchData={fetchData}
+                                        redirect={id => router.push({
+                                            pathname: '/person',
+                                            query: {id: id}
+                                        })} data={data} fetchData={fetchData}
                                         nothingFound={lang.nothingFound} end={lang.end}
-                                        inactive={lang.inactive} lastFetchedSize={lastFetchedSize}/>
+                                        lastFetchedSize={lastFetchedSize}
+                                        locale={router.locale}
+                                    />
                                 )
                             },
 

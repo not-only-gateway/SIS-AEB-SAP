@@ -45,11 +45,11 @@ export default function InputLayout(props) {
                     <FormControl variant="outlined" disabled={props.disabled}
                                  style={{width: '100%'}} required={props.required}
                                  error={props.required === true && (props.initialValue === null || props.initialValue === undefined || props.initialValue.length === 0)}>
-                        <InputLabel id={props.inputName.replace(' ', '')}>{props.inputName}</InputLabel>
+                        <InputLabel id={props.key+'-selector'}>{props.inputName}</InputLabel>
                         <Select
-                            labelId={props.inputName.replace(' ', '')}
+                            labelId={props.key+'-selector'}
                             label={props.inputName}
-                            id={props.inputName.replace(' ', '')}
+                            id={props.key+'-selector'}
                             value={props.initialValue}
                             disabled={props.disabled}
                             onChange={event => {
@@ -70,8 +70,6 @@ export default function InputLayout(props) {
 
         case 2: {
             return (
-
-
                 <div key={props.key}
                      style={{width: props.size}}>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -86,7 +84,6 @@ export default function InputLayout(props) {
                                 required={props.required}
                                 inputVariant="outlined"
                                 margin="normal"
-                                id={props.inputName.replace(' ', '')}
                                 disabled={props.disabled}
                                 label={props.inputName}
                                 error={props.required === true && (props.initialValue === null || props.initialValue === undefined || props.initialValue.length === 0)}

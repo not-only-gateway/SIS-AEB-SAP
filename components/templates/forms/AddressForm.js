@@ -82,51 +82,51 @@ export default function AddressForm(props) {
                              key={"4-3"} setChanged={setChanged}/>
 
                 <h4 style={{width: '100%', marginBottom: 'auto'}}>
-                    Address
+                    {lang.address}
                 </h4>
-                <InputLayout inputName={'Address'} dark={props.dark}
+                <InputLayout inputName={lang.address} dark={props.dark}
                              handleChange={props.handleChange} inputType={0}
                              name={'address'}
                              disabled={!props.editable || !validZipCode}
                              size={'calc(50% - 16px)'} required={true} initialValue={props.address.address}
                              key={"4-1"} setChanged={setChanged}
                 />
-                <InputLayout inputName={'Complement'} dark={props.dark} handleChange={props.handleChange} inputType={0}
+                <InputLayout inputName={lang.complement} dark={props.dark} handleChange={props.handleChange} inputType={0}
                              name={'address_complement'}
                              disabled={!props.editable || !validZipCode}
                              size={'calc(50% - 16px)'} required={false} initialValue={props.address.address_complement}
                              key={"4-2"} setChanged={setChanged}/>
 
                 <h4 style={{width: '100%', marginBottom: 'auto'}}>
-                    State & City
+                    {lang.location}
                 </h4>
 
-                <InputLayout inputName={'City'} dark={props.dark} handleChange={props.handleChange} inputType={0}
+                <InputLayout inputName={lang.city} dark={props.dark} handleChange={props.handleChange} inputType={0}
                              disabled={!props.editable || !validZipCode}
                              size={'calc(33.333% - 21.35px'} required={true} initialValue={props.address.city}
                              name={'city'}
                              key={"4-6"} setChanged={setChanged}/>
-                <InputLayout inputName={'State'} dark={props.dark} handleChange={props.handleChange} inputType={0}
+                <InputLayout inputName={lang.state} dark={props.dark} handleChange={props.handleChange} inputType={0}
                              disabled={!props.editable || !validZipCode}
                              size={'calc(33.333% - 21.35px'} required={true} initialValue={props.address.state}
                              name={'state'}
                              key={"4-7"} setChanged={setChanged}/>
-                <InputLayout inputName={'State Initials'} dark={props.dark} handleChange={props.handleChange}
+                <InputLayout inputName={lang.stateInitials} dark={props.dark} handleChange={props.handleChange}
                              inputType={0} name={'state_initials'} maxLength={2} uppercase={true}
                              disabled={!props.editable || !validZipCode}
                              size={'calc(33.333% - 21.35px'} required={true}
                              initialValue={props.address.state_initials}
                              key={"4-8"} setChanged={setChanged}/>
                 <h4 style={{width: '100%', marginBottom: 'auto'}}>
-                    Neighborhood
+                    {lang.neighborhood}
                 </h4>
-                <InputLayout inputName={'Neighborhood'} dark={props.dark} handleChange={props.handleChange}
+                <InputLayout inputName={lang.neighborhood} dark={props.dark} handleChange={props.handleChange}
                              inputType={0} name={'neighborhood'}
                              disabled={!props.editable || !validZipCode}
                              size={'calc(50% - 16px)'} required={false}
                              initialValue={props.address.neighborhood}
                              key={"4-5"} setChanged={setChanged}/>
-                <InputLayout inputName={'Street'} dark={props.dark} handleChange={props.handleChange} inputType={0}
+                <InputLayout inputName={lang.street} dark={props.dark} handleChange={props.handleChange} inputType={0}
                              name={'street'}
                              disabled={!props.editable || !validZipCode}
                              size={'calc(50% - 16px)'} required={false} initialValue={props.address.street}

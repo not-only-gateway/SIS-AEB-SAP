@@ -19,5 +19,9 @@ export default {
     end: 'You\'ve reached the bottom.',
     created: 'Created on',
     ip: 'Machine IP address (v4)',
-    filters: 'Filters'
+    filters: 'Filters',
+    all: 'All',
+    yes: 'Yes',
+    no: 'No',
+    apply: 'Apply'
 }

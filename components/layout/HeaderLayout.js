@@ -48,33 +48,31 @@ export default function HeaderLayout(props) {
             }}>
 
                 <div className={mainStyles.displayInlineSpaced} style={{width: '100%', marginTop: '10px'}}>
-                    <div className={mainStyles.displayInlineStart} style={{width: '100%', marginTop: '10px'}} >
+                    <div className={mainStyles.displayInlineStart} style={{width: '100%', marginTop: '10px'}}>
 
-                        {typeof (props.title) === 'string' ?
-                            <div style={{display: 'grid', gap: '.4rem'}}>
-                                <div style={{
-                                    fontSize: '1.7rem',
-                                    fontWeight: 570,
-                                    paddingTop: '16px',
-                                    paddingBottom: !props.information ? '16px' : 0,
+
+                        <div style={{display: 'grid', gap: '.4rem', width: typeof (props.title) === 'string' ? 'initial' : '100%'}}>
+                            {typeof (props.title) === 'string' ?
+                                <h2 style={{
+                                    marginBottom: !props.information ? '16px' : 0,
                                 }}>
                                     {props.title}
+                                </h2>
+                                :
+                                <div style={{width: '100%'}}>
+                                    {props.title}
                                 </div>
-                                {props.information !== undefined ?
-                                    <div className={mainStyles.tertiaryParagraph}
-                                         style={{color: '#555555', paddingBottom: '8px'}}>
-                                        {props.information}
-                                    </div>
-                                    :
-                                    null
-                                }
+                            }
+                            {props.information !== undefined ?
+                                <div className={mainStyles.tertiaryParagraph}
+                                     style={{color: '#555555', paddingBottom: '8px'}}>
+                                    {props.information}
+                                </div>
+                                :
+                                null
+                            }
+                        </div>
 
-                            </div>
-                            :
-                            <div style={{width: '100%'}}>
-                                {props.title}
-                            </div>
-                        }
                         {props.filterComponent !== undefined ?
                             <Button onClick={handleButtonClick}>
                                 <FilterListRounded style={{color: 'black'}}/>

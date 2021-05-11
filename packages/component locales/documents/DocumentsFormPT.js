@@ -10,5 +10,6 @@ export default {
     section: 'Seção Eleitoral',
     zone: 'Zona Eleitoral',
     save: 'Salvar',
-    create: 'Próximo'
+    create: 'Próximo',
+    registration: 'Registro',
 }
