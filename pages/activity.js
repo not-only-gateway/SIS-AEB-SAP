@@ -145,7 +145,7 @@ export default function activity() {
                 />
                 <div className={mainStyles.displayInlineCenter} style={{width: '100%', position: 'relative'}}>
                     {data.length > 0 ?
-                        <div style={{width: '65%'}}>
+                        <div style={{width: '65%', marginTop: '50px'}}>
                             <InfiniteScroll
                                 dataLength={data.length}
                                 next={() => fetch(0)}

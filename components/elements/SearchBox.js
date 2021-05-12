@@ -8,8 +8,8 @@ export default function SearchBox(props) {
     const [focused, setFocused] = useState(false)
     const [hovered, setHovered] = useState(false)
     const [reduced, setReduced] = useState(true)
-    return (
 
+    return (
         <div key={'index-simple-filter-component'} className={mainStyles.displayInlineSpaced}
              style={{height: '56px', width: reduced ? 'fit-content' : '50%'}}>
 
@@ -21,13 +21,13 @@ export default function SearchBox(props) {
                        display: 'flex',
                        justifyContent: 'space-around',
                        alignItems: 'center',
-                       boxShadow: focused || hovered ? 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
-                       border: focused ? '#0095ff  .7px solid' : 'transparent .7px solid',
+                       boxShadow: focused ? 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px' :  !reduced ? 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px': 'unset',
+                       border:  !reduced ? '#0095ff  .7px solid' : 'transparent .7px solid',
                        width: reduced ? '50px' : '100%',
                        borderRadius: '8px',
                        height: reduced ? '50px' : '100%',
                        transition: '300ms ease-in-out',
-                       backgroundColor: 'white', marginLeft: 'auto'
+                       backgroundColor: !reduced ? 'white' : 'transparent', marginLeft: 'auto'
                    }}>
 
                 <ButtonBase onClick={() => setReduced(!reduced)} style={{

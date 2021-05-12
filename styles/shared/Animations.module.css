@@ -17,6 +17,7 @@
 .slideDownAnimation{
     animation: slideDown ease-in-out 250ms forwards;
 }
+
 @keyframes slideDown {
     0% {
         opacity: 0;

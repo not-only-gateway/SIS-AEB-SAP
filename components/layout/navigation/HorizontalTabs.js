@@ -11,12 +11,12 @@ export default function HorizontalTabs(props) {
                  display: 'flex',
                  gap: '20px',
                  width: '100%',
-                 backgroundColor: 'white',
+                 backgroundColor: props.highlight ?  'white' : 'unset',
                  padding: '8px',
                  borderRadius: '8px',
                  marginTop: '16px',
-                 boxShadow:'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
-
+                 boxShadow: props.highlight ? 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px' : 'unset',
+                 transition: '300ms ease-in-out'
              }}>
             {props.buttons.map((button) => {
                     if (button !== null)
@@ -46,5 +46,6 @@ export default function HorizontalTabs(props) {
 HorizontalTabs.proptypes = {
     buttons: PropTypes.object,
     setOpenTab: PropTypes.func,
-    openTab: PropTypes.object
+    openTab: PropTypes.object,
+    highlight: PropTypes.bool
 }
