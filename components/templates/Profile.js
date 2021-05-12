@@ -3,6 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import mainStyles from '../../styles/shared/Main.module.css'
 import PersonPersona from "../elements/ProfilePersona";
+import Cookies from "universal-cookie/lib";
 
 export default function Profile(props) {
     return (
@@ -31,15 +32,15 @@ export default function Profile(props) {
                     </div>
 
                     <Button style={{
-                        backgroundColor: '#0095ff',
+                        backgroundColor: (new Cookies()).get('authorization_token') !== undefined && !props.notAuthenticate ? '#0095ff' : '#f54269',
                         color: 'white',
                         textTransform: 'none',
                         display: props.editable ? 'initial' : 'none',
                         marginTop: 'auto'
                     }} onClick={() => props.setEditMode(!props.editMode)}>
-                        {props.editMode ? 'Visualize' : 'Edit'}
+                        {props.editMode ? props.lang.visualize :
+                            (new Cookies()).get('authorization_token') !== undefined && !props.notAuthenticate ? props.lang.edit : props.lang.authenticate}
                     </Button>
-
                 </div>
 
 
@@ -56,5 +57,7 @@ Profile.proptypes = {
     setEditMode: PropTypes.func,
     editMode: PropTypes.bool,
     editable: PropTypes.bool,
-    inactiveLocale: PropTypes.string
+    inactiveLocale: PropTypes.string,
+    lang: PropTypes.object,
+    notAuthenticate: PropTypes.bool
 }

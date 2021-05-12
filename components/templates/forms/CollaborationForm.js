@@ -73,8 +73,15 @@ export default function CollaborationForm(props) {
                           data={props.linkages} disabled={!props.collaboration.unit}
                           width={'calc(33.333% - 21.35px)'}/>
 
-                <Selector required={false} selected={props.collaboration.senior_member}
-                          handleChange={event => props.handleChange({name: 'senior_member', value: event})}
+                <Selector required={false}
+                          selected={props.collaboration.senior_member !== undefined && props.collaboration.senior_member !== null ? {
+                              key: props.collaboration.senior_member.id,
+                              value: props.collaboration.senior_member.name,
+                          } : undefined}
+                          handleChange={event => props.handleChange({
+                              name: 'senior_member',
+                              value: event !== undefined && event !== null ? {id: event.key, name: event.value} : event
+                          })}
                           setChanged={setChanged} disabled={props.seniors.length === 0}
                           label={lang.senior} key={'collaboration-field-7'}
                           data={props.seniors} width={'calc(50% - 16px)'}/>

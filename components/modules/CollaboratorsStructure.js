@@ -9,11 +9,7 @@ export default function CollaboratorsStructure() {
     }, [])
     return topCollaborators.map((collaborator, index) => (
         <>
-            {index === 0 ?
                 <Canvas dark={false} type={'collaborator'} subject={collaborator}/>
-                :
-                null
-            }
         </>
     ))
 }

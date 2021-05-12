@@ -93,7 +93,7 @@ export default function create() {
                     stepper={{
                         tabs: [
                             {
-                                disabled: false,
+                                disabled: status.base === true,
                                 key: 0,
                                 value: lang.person,
                                 status: status.base,

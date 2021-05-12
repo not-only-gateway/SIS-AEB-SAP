@@ -10,7 +10,7 @@ export default function AddressForm(props) {
     const [changed, setChanged] = useState(false)
     const [validZipCode, setValidZipCode] = useState(false)
     const [lang, setLang] = useState(null)
-
+    const [loading, setLoading] = useState(false)
     useEffect(() => {
         setLang(getComponentLanguage({locale: props.locale, component: 'address'}))
     }, [])
@@ -36,26 +36,31 @@ export default function AddressForm(props) {
 
     async function fetchCep(cep) {
         console.log('fetching')
+        setLoading(true)
         await axios({
             method: 'get',
             url: 'http://viacep.com.br/ws/' + cep + '/json/',
         }).then(res => {
             if (!res.data.error) {
+                console.log(res.data)
                 props.handleChange({name: 'neighborhood', value: res.data.bairro},)
                 props.handleChange({name: 'state_initials', value: res.data.uf})
-                props.handleChange({name: 'state', value: res.data.localidade})
+                props.handleChange({name: 'state', value: res.data.uf})
                 props.handleChange({name: 'address', value: res.data.logradouro})
                 props.handleChange({name: 'address_complement', value: res.data.complemento})
+                props.handleChange({name: 'city', value: res.data.localidade})
+                setValidZipCode(true)
             }
-            setValidZipCode(true)
+            setLoading(false)
         }).catch(error => {
             console.log(error)
             setValidZipCode(false)
+            setLoading(false)
         })
     }
 
 
-    if (lang !== null)
+    if (lang !== null && !loading)
         return (
             <div style={{
                 display: 'inline-flex',

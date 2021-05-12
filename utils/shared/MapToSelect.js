@@ -33,8 +33,8 @@ export default function mapToSelect(props) {
         case 3: {
             props.data.map(senior => {
                 response.push({
-                    key: senior.collaboration.id,
-                    value: senior.person.name + ' - ' + senior.unit.acronym
+                    key: senior.id,
+                    value: senior.name + ' - ' + senior.unit_acronym
                 })
             })
             break

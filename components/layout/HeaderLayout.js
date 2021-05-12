@@ -12,7 +12,7 @@ import styles from '../../styles/component/Component.module.css'
 
 export default function HeaderLayout(props) {
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [scrolledHeight, setScrolledHeight] = useState(0)
+    const [scrolledHeight, setScrolledHeight] = useState(false)
     const handleButtonClick = useCallback(() => {
         // Toggle the `isModalVisible` value:
         setIsModalVisible(prevIsModalVisible => !prevIsModalVisible);
@@ -34,33 +34,37 @@ export default function HeaderLayout(props) {
     }
 
     useEffect(() => {
-        document.getElementById('scrollableDiv').addEventListener('scroll', () => {
-            if (document.getElementById('r').offsetTop <= 50)
-                setScrolledHeight(document.getElementById('r').offsetTop)
-        })
-        return () => {
-            document.getElementById('scrollableDiv').removeEventListener('scroll', () => {
-                if (document.getElementById('r').offsetTop <= 50)
-                    setScrolledHeight(document.getElementById('r').offsetTop)
+        if(!scrolledHeight){
+            document.getElementById('scrollableDiv').addEventListener('scroll', () => {
+                if (document.getElementById('r').offsetTop > 50)
+                    setScrolledHeight(true)
+                else if (document.getElementById('r').offsetTop === 0)
+                    setScrolledHeight(false)
             })
+            return () => {
+                document.getElementById('scrollableDiv').removeEventListener('scroll', () => {
+                    if (document.getElementById('r').offsetTop === 0)
+                        setScrolledHeight(false)
+                })
+            }
         }
     })
 
     return (
-        <div style={{
+        <div id={'r'} style={{
             position: 'sticky',
             top: 0,
-            background: scrolledHeight > 0 ? 'white' : 'transparent',
+            background: scrolledHeight ? 'white' : 'transparent',
             transition: '300ms ease-in-out',
             zIndex: '100',
-            boxShadow: scrolledHeight > 0 ? 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px' : 'unset'
-        }} id={'r'}>
+            boxShadow: scrolledHeight ? 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px' : 'unset'
+        }} >
             {RenderModalTest()}
             <Head>
                 <title>{props.pageTitle}</title>
             </Head>
 
-            <div className={styles.HeaderLayout} style={{
+            <div className={styles.HeaderLayout}  style={{
                 width: props.width
             }}>
 
@@ -75,16 +79,17 @@ export default function HeaderLayout(props) {
                         }}>
                             {typeof (props.title) === 'string' ?
                                 <h2 style={{
-                                    marginBottom: !props.information ? '16px' : 0,
+                                    marginBottom: !props.information || scrolledHeight ? '16px' : 0,
                                 }}>
                                     {props.title}
+
                                 </h2>
                                 :
                                 <div style={{width: '100%'}}>
                                     {props.title}
                                 </div>
                             }
-                            {props.information !== undefined ?
+                            {props.information !== undefined && !scrolledHeight ?
                                 <div className={mainStyles.tertiaryParagraph}
                                      style={{color: '#555555', paddingBottom: '8px'}}>
                                     {props.information}
@@ -114,7 +119,7 @@ export default function HeaderLayout(props) {
                     : null}
                 {props.availableTabs !== undefined ?
                     <HorizontalTabs buttons={props.availableTabs.tabs} setOpenTab={props.availableTabs.setOpenTab}
-                                    openTab={props.availableTabs.openTab} highlight={scrolledHeight < 50}/>
+                                    openTab={props.availableTabs.openTab} highlight={!scrolledHeight}/>
 
                     :
                     null

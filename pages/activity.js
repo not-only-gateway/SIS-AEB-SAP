@@ -38,7 +38,7 @@ export default function activity() {
     const [openTab, setOpenTab] = useState(0)
 
     function handleChange(props) {
-        console.log(props)
+
         setFilters(prevState => ({
             ...prevState,
             [props.name]: props.value
@@ -145,7 +145,7 @@ export default function activity() {
                 />
                 <div className={mainStyles.displayInlineCenter} style={{width: '100%', position: 'relative'}}>
                     {data.length > 0 ?
-                        <div style={{width: '65%', marginTop: '50px'}}>
+                        <div style={{width: '65%'}}>
                             <InfiniteScroll
                                 dataLength={data.length}
                                 next={() => fetch(0)}

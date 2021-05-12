@@ -6,14 +6,12 @@ export default function UnitsStructure() {
     const [topUnits, setTopUnits] = useState([])
     useEffect(() => {
         fetchTopUnits().then(res => {
-            console.log(res)
             setTopUnits(res)
         })
     }, [])
     return topUnits.map((unit, index) => (
         <>
-            {index === 0 ?
-                <Canvas dark={false} type={'unit'} subject={unit}/> : null}
+            <Canvas dark={false} type={'unit'} subject={unit}/>
         </>
     ))
 }

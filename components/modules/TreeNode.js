@@ -15,6 +15,7 @@ export default function TreeNode(props) {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
+        console.log(props)
         axios({
             method: 'get',
             url: Host() + 'dependents/' + props.type + '/' + props.subject.id,
@@ -31,7 +32,7 @@ export default function TreeNode(props) {
 
         <li key={'subject-layout-' + props.subject.id + props.type}>
             <Link href={{
-                pathname: '/' + props.type,
+                pathname: props.type === 'unit' ? '/unit' : '/person' ,
                 query: {id: props.subject.id}
             }}>
             <span onMouseEnter={() => setHovered(true)}

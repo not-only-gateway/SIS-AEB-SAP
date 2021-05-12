@@ -58,12 +58,12 @@ export default function MembershipForm(props) {
                              inputType={0} disabled={!props.editable} size={'calc(33.333% - 21.35px)'} required={true}
                              initialValue={props.member.corporate_email} key={"membership-1"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.extension} handleChange={props.handleChange}
-                             numeric={true} maxLength={4}
+                             numeric={true}
                              inputType={0} disabled={!props.editable} size={'calc(33.333% - 21.35px)'} required={true}
                              name={'extension'}
                              initialValue={props.member.extension} key={"membership-2"} setChanged={setChanged}/>
                 <InputLayout inputName={lang.altPhone} handleChange={props.handleChange}
-                             numeric={true} maxLength={4}
+                             numeric={true}
                              inputType={0} disabled={!props.editable} size={'calc(33.333% - 21.35px)'} required={false}
                              name={'alternative_phone'}
                              initialValue={props.member.alternative_phone} key={"membership-3"} setChanged={setChanged}/>

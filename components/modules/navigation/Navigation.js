@@ -43,6 +43,7 @@ export default function Navigation(props) {
 
         <div className={[styles.navigationContainer, animations.slideInLeftAnimation].join(' ')}
              style={{
+
                  width: props.reduced ? '75px' : '250px',
                  transition: '250ms ease-in-out',
                  backgroundColor: '#222228',

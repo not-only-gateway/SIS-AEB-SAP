@@ -1,5 +1,6 @@
 export default {
     edit: 'Edit',
+    authenticate: 'Authenticate',
     visualize: 'Visualize',
     overview: 'Overview',
     personal: 'Personal',

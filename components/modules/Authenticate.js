@@ -51,6 +51,7 @@ export default function Authenticate(props) {
             cookies.set('authorization_token', res.data.token, {path: '/', expires: new Date(res.data.exp)})
 
             setValid(true)
+            props.handleClose(true)
         }).catch(error => {
             setError({
                 error: error.response.status,
@@ -64,10 +65,7 @@ export default function Authenticate(props) {
     if (lang !== null)
         return (
             <Modal
-                open={!valid && props.render}
-                onClose={() => {
-                    props.handleClose()
-                }} style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+                open={props.render} style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
                 className={animations.fadeIn}
             >
                 <div className={shared.signInContainer} >
@@ -119,7 +117,7 @@ export default function Authenticate(props) {
                                 }}>
                             {lang.authenticate}
                         </Button>
-                        <Button variant={'contained'} onClick={() => props.handleClose()}
+                        <Button variant={'contained'} onClick={() => props.handleClose(valid)}
                                 style={{
                                     textTransform: 'none',
                                     backgroundColor: '#f54269',

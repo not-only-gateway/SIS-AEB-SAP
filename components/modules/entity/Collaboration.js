@@ -36,6 +36,7 @@ export default function Collaboration(props) {
     const [accepted, setAccepted] = useState(false)
 
     useEffect(() => {
+        console.log('HERE')
         if (!collaboration.unit && !props.create) {
 
             if (props.collaborationID)
@@ -76,10 +77,13 @@ export default function Collaboration(props) {
                 setData: setDependencies
             }))
             if (collaboration.unit)
-                fetchSeniors().then(res => handleObjectChange({
-                    event: {name: 'seniors', value: mapToSelect({data: res, option: 3})},
-                    setData: setDependencies
-                }))
+                fetchSeniors({unitID: collaboration.unit.key, memberID: props.memberID}).then(res => {
+                    console.log(res)
+                    handleObjectChange({
+                        event: {name: 'seniors', value: mapToSelect({data: res, option: 3})},
+                        setData: setDependencies
+                    })
+                })
 
             setLoading(false)
         } else {

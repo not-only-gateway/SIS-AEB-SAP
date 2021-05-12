@@ -7,11 +7,12 @@ const cookies = new Cookies()
 export default async function submitMember(props) {
     let response = false
     let data = {}
+    console.log(props)
     data = Object.assign(data, props.data)
 
     data.authorization_token = cookies.get('authorization_token')
     data.person = props.personID
-    data.entity = props.data.entity.key
+    data.entity = props.data.entity.id
     await axios({
         method: props.create ? 'post' : 'put',
         url: props.create ? Host() + 'member' : Host() + 'member/' + props.personID,

@@ -8,6 +8,7 @@ const cookies = new Cookies()
 export default async function submitCollaboration(props) {
     let response = false
     let data = {}
+    console.log(props.data)
     data = Object.assign(data, props.data)
 
     data.authorization_token = cookies.get('authorization_token')
@@ -19,8 +20,9 @@ export default async function submitCollaboration(props) {
     data.access_level_profile = data.access_level_profile.key
     data.unit = data.unit.key
     data.linkage = data.linkage.key
+
     if (data.senior_member)
-        data.senior_member = data.senior_member.key
+        data.senior_member = data.senior_member.id
 
     if (data.commissioned_role)
         data.commissioned_role = data.commissioned_role.key

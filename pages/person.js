@@ -25,7 +25,7 @@ export default function person() {
 
     const [lang, setLang] = useState(null)
     const [accessProfile, setAccessProfile] = useState(null)
-    const [authenticate, setAuthenticate] = useState(false)
+    const [notAuthenticated, setNotAuthenticated] = useState(true)
     const [loading, setLoading] = useState(true)
 
     const [person, setPerson] = useState({})
@@ -117,8 +117,11 @@ export default function person() {
             }
             if (lang === null)
                 setLang(getLanguage(router.locale, router.pathname))
+            console.log('setting cookie to')
+            console.log(!(new Cookies()).get('authorization_token'))
+            setNotAuthenticated(!(new Cookies()).get('authorization_token'))
         },
-        [router.locale, router.isReady, router.query, editMode]
+        [router.locale, router.isReady, router.query, notAuthenticated, editMode]
     )
 
 
@@ -126,8 +129,12 @@ export default function person() {
         return (
             <>
                 <Authenticate
-                    handleClose={() => setAuthenticate(false)}
-                    render={editMode || authenticate}
+                    handleClose={valid => {
+                        if (valid)
+                            setNotAuthenticated(false)
+                        setEditMode(true)
+                    }}
+                    render={editMode && notAuthenticated}
                     locale={router.locale}
                 />
                 <HeaderLayout
@@ -160,12 +167,14 @@ export default function person() {
                         <Profile
                             person={person}
                             member={member}
+                            notAuthenticate={notAuthenticated}
+                            lang={lang}
                             setEditMode={event => {
-                                if (event && (new Cookies()).get('authorization_token') !== undefined || !event)
+                                if (!notAuthenticated) {
                                     setEditMode(event)
-                                else
-                                    setAuthenticate(true)
-                                setOpenTab(0)
+                                    setOpenTab(0)
+                                } else
+                                    setEditMode(event)
                             }}
                             editMode={editMode}
                             editable={accessProfile !== null && accessProfile.canUpdatePerson}
@@ -176,50 +185,50 @@ export default function person() {
                     information={null}
                     searchComponent={undefined}
                 />
-                <div className={styles.contentContainer} >
-                        <TabContent
-                            openTab={openTab}
-                            tabs={[
+                <div className={styles.contentContainer}>
+                    <TabContent
+                        openTab={openTab}
+                        tabs={[
+                            {
+                                buttonKey: 0,
+                                value: (
+                                    <OverviewComponent
+                                        person={person}
+                                        member={member}
+                                        collaboration={collaboration.data}
+                                        unit={collaboration.unit}
+                                        commissionedRole={collaboration.commissionedRole}
+                                        effectiveRole={collaboration.effectiveRole}
+                                        senior={collaboration.senior}
+                                        linkage={collaboration.linkage}
+                                    />
+                                )
+                            },
+                            (editMode) && accessProfile !== null ?
                                 {
-                                    buttonKey: 0,
+                                    buttonKey: 1,
                                     value: (
-                                        <OverviewComponent
-                                            person={person}
-                                            member={member}
-                                            collaboration={collaboration.data}
-                                            unit={collaboration.unit}
-                                            commissionedRole={collaboration.commissionedRole}
-                                            effectiveRole={collaboration.effectiveRole}
-                                            senior={collaboration.senior}
-                                            linkage={collaboration.linkage}
+                                        <PersonalForms
+                                            lang={lang}
+                                            accessProfile={accessProfile} id={id} setPerson={setPerson}
+                                            contact={contact} setContact={setContact}
+                                            locale={router.locale} documents={documents}
+                                            setDocuments={setDocuments} person={person}
+                                            address={address} setAddress={setAddress}
                                         />
                                     )
-                                },
-                                (editMode) && accessProfile !== null ?
-                                    {
-                                        buttonKey: 1,
-                                        value: (
-                                            <PersonalForms
-                                                lang={lang}
-                                                accessProfile={accessProfile} id={id} setPerson={setPerson}
-                                                contact={contact} setContact={setContact}
-                                                locale={router.locale} documents={documents}
-                                                setDocuments={setDocuments} person={person}
-                                                address={address} setAddress={setAddress}
-                                            />
-                                        )
-                                    } : null,
-                                (editMode) && accessProfile !== null ? {
-                                    buttonKey: 2,
-                                    value: (
-                                        <CorporateForms
-                                            lang={lang}
-                                            locale={router.locale} id={id} accessProfile={accessProfile}
-                                                        member={member} setMember={setMember}/>
-                                    )
-                                } : null
+                                } : null,
+                            (editMode) && accessProfile !== null ? {
+                                buttonKey: 2,
+                                value: (
+                                    <CorporateForms
+                                        lang={lang}
+                                        locale={router.locale} id={id} accessProfile={accessProfile}
+                                        member={member} setMember={setMember}/>
+                                )
+                            } : null
 
-                            ]}/>
+                        ]}/>
                 </div>
             </>
 

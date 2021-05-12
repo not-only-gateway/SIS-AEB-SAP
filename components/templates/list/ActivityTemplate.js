@@ -10,6 +10,22 @@ import animations from '../../../styles/shared/Animations.module.css'
 export default function ActivityTemplate(props) {
     const [modal, setModal] = useState(false)
 
+    const downloadFile = async () => {
+        const data = props.data.activity.data_package; // I am assuming that "this.state.myData"
+                                     // is an object and I wrote it to file as
+                                     // json
+        const fileName = "file";
+        const json = JSON.stringify(data);
+        const blob = new Blob([json],{type:'application/json'});
+        const href = await URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = href;
+        link.download = fileName + ".json";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
     function renderModal() {
         return (
             <Modal open={modal} onClose={() => setModal(false)} className={animations.fadeIn}
@@ -17,57 +33,54 @@ export default function ActivityTemplate(props) {
                 <div style={{
                     backgroundColor: 'white',
                     width: '75%',
-                    height: 'auto',
+                    height: '75%',
                     padding: '16px',
-                    borderRadius: '8px'
+                    borderRadius: '8px',
+                    overflow: "auto"
                 }}>
                     <div className={styles.informationContainer} key={'activity - ' + props.data.activity.id}>
                         <div className={styles.info_row}>
-                            <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: false})}>ID</p>
+                            <h4 style={{marginBottom: '16px', marginTop: '16px'}}>ID</h4>
                             <Divider orientation={'horizontal'}
                                      style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
                             <p className={mainStyles.tertiaryParagraph}
                                style={getTertiaryColor({dark: false})}>{props.data.activity.id}</p>
                         </div>
                         <div className={styles.info_row}>
-                            <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: false})}>Full
-                                path</p>
+                            <h4 style={{marginBottom: '16px', marginTop: '16px'}}>Full
+                                path</h4>
                             <Divider orientation={'horizontal'}
                                      style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
                             <p className={mainStyles.tertiaryParagraph}
                                style={getTertiaryColor({dark: false})}>{props.data.activity.path}</p>
                         </div>
 
-                        <div className={styles.info_row}>
-                            <p className={mainStyles.primaryParagraph}
-                               style={getPrimaryColor({dark: false})}>Package</p>
+                        <div className={styles.info_row} style={{overflow: 'hidden'}}>
+                            <h4 style={{marginBottom: '16px', marginTop: '16px'}}>Package</h4>
                             <Divider orientation={'horizontal'}
                                      style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
-                            <div className={mainStyles.normalBorder}>
-                            <pre className={mainStyles.primaryParagraph}
-                                 style={getTertiaryColor({dark: false})}>{JSON.stringify(JSON.parse(props.data.activity.data_package), null, 2)}</pre>
-                            </div>
+
+
+                                <Button onClick={() => downloadFile()}>Download</Button>
+
                         </div>
 
                         <div className={styles.info_row}>
-                            <p className={mainStyles.primaryParagraph}
-                               style={getPrimaryColor({dark: false})}>{props.lang.platform}</p>
+                            <h4 style={{marginBottom: '16px', marginTop: '16px'}}>{props.lang.platform}</h4>
                             <Divider orientation={'horizontal'}
                                      style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
                             <p className={mainStyles.tertiaryParagraph}
                                style={getTertiaryColor({dark: false})}>{props.data.access_log.platform}</p>
                         </div>
                         <div className={styles.info_row}>
-                            <p className={mainStyles.primaryParagraph}
-                               style={getPrimaryColor({dark: false})}>{props.lang.created}</p>
+                            <h4 style={{marginBottom: '16px', marginTop: '16px'}}>{props.lang.created}</h4>
                             <Divider orientation={'horizontal'}
                                      style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
                             <p className={mainStyles.tertiaryParagraph}
                                style={getTertiaryColor({dark: false})}>{new Date(props.data.activity.time_of_creation).toString()}</p>
                         </div>
                         <div className={styles.info_row}>
-                            <p className={mainStyles.primaryParagraph}
-                               style={getPrimaryColor({dark: false})}>{props.lang.method}</p>
+                            <h4 style={{marginBottom: '16px', marginTop: '16px'}}>{props.lang.method}</h4>
                             <Divider orientation={'horizontal'}
                                      style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
                             <p className={mainStyles.tertiaryParagraph}
@@ -75,23 +88,21 @@ export default function ActivityTemplate(props) {
                         </div>
 
                         <div className={styles.info_row}>
-                            <p className={mainStyles.primaryParagraph} style={getPrimaryColor({dark: false})}>URL</p>
+                            <h4 style={{marginBottom: '16px', marginTop: '16px'}}>URL</h4>
                             <Divider orientation={'horizontal'}
                                      style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
                             <p className={mainStyles.tertiaryParagraph}
                                style={getTertiaryColor({dark: false})}>{props.data.activity.path}</p>
                         </div>
                         <div className={styles.info_row}>
-                            <p className={mainStyles.primaryParagraph}
-                               style={getPrimaryColor({dark: false})}>{props.lang.ip}</p>
+                            <h4 style={{marginBottom: '16px', marginTop: '16px'}}>{props.lang.ip}</h4>
                             <Divider orientation={'horizontal'}
                                      style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
                             <p className={mainStyles.tertiaryParagraph}
                                style={getTertiaryColor({dark: false})}>{props.data.access_log.ip_address}</p>
                         </div>
                         <div className={styles.info_row}>
-                            <p className={mainStyles.primaryParagraph}
-                               style={getPrimaryColor({dark: false})}>{props.lang.browser}</p>
+                            <h4 style={{marginBottom: '16px', marginTop: '16px'}}>{props.lang.browser}</h4>
                             <Divider orientation={'horizontal'}
                                      style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
                             <p className={mainStyles.tertiaryParagraph}
@@ -99,16 +110,14 @@ export default function ActivityTemplate(props) {
                         </div>
 
                         <div className={styles.info_row}>
-                            <p className={mainStyles.primaryParagraph}
-                               style={getPrimaryColor({dark: false})}>{props.lang.engine}</p>
+                            <h4 style={{marginBottom: '16px', marginTop: '16px'}}>{props.lang.engine}</h4>
                             <Divider orientation={'horizontal'}
                                      style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
                             <p className={mainStyles.tertiaryParagraph}
                                style={getTertiaryColor({dark: false})}>{props.data.access_log.browser_engine}</p>
                         </div>
                         <div className={styles.info_row}>
-                            <p className={mainStyles.primaryParagraph}
-                               style={getPrimaryColor({dark: false})}>{props.lang.userAgent}</p>
+                            <h4 style={{marginBottom: '16px', marginTop: '16px'}}>{props.lang.userAgent}</h4>
                             <Divider orientation={'horizontal'}
                                      style={{width: '2vw', marginLeft: '10px', marginRight: '10px'}}/>
                             <p className={mainStyles.tertiaryParagraph}
@@ -127,7 +136,7 @@ export default function ActivityTemplate(props) {
                 width: '100%',
                 display: 'flex',
                 justifyContent: 'flex-start',
-                border: 'hsla(210, 11%, 78%, 0.5)  .7px solid',
+                background: 'white',
                 borderRadius: '8px',
                 minHeight: '70px',
                 color: '#262626',

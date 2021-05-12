@@ -14,7 +14,6 @@
     display: grid;
     gap: 2vh;
     margin: auto;
-    max-height: 500px;
     padding-left: 10px;
     overflow-y: auto;
 }
@@ -23,4 +22,5 @@
     /*justify-content: space-between;*/
     align-items: center;
     width: 75%;
+
 }
