@@ -10,6 +10,7 @@ import AccessProfileList from "../components/templates/list/AccessProfileList";
 import EffectiveRoleList from "../components/templates/list/EffectiveRoleList";
 import CommissionedRoleList from "../components/templates/list/CommissionedRoleList";
 import LinkageList from "../components/templates/list/LinkageList";
+import Cookies from "universal-cookie/lib";
 
 export default function management() {
 
@@ -17,7 +18,7 @@ export default function management() {
     const [lang, setLang] = useState(null)
     const [accessProfile, setAccessProfile] = useState(null)
     const [openTab, setOpenTab] = useState(0)
-
+    const [notAuthenticated, setNotAuthenticated] = useState(true)
 
     useEffect(() => {
 
@@ -25,7 +26,7 @@ export default function management() {
                 setLang(getLanguage(router.locale, router.pathname))
             if (accessProfile === null)
                 readAccessProfile().then(res => setAccessProfile(res))
-
+        setNotAuthenticated((new Cookies()).get('authorization_token') === undefined)
         }, [router.locale]
     )
 
@@ -34,10 +35,13 @@ export default function management() {
         return (
             <>
                 <Authenticate
-                    handleClose={() => {
-                        router.push('/', '/', {locale: router.locale})
+                    handleClose={valid => {
+                        if(valid)
+                            setNotAuthenticated(false)
+                        else
+                            router.push('/', '/', {locale: router.locale})
                     }}
-                    render={true}
+                    render={notAuthenticated}
                     locale={router.locale}
                 />
                 <HeaderLayout

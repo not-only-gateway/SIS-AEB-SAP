@@ -91,7 +91,7 @@ export default function Navigation(props) {
                     marginBottom: '16px',
                     color: '#a6a6a9'
                 }}>
-                    Navigation
+                    {lang.navigation}
                 </h5>
                 <NavigationButton
                     dark={props.dark} linkPath={'/'}
@@ -116,7 +116,7 @@ export default function Navigation(props) {
                     }
                 />
 
-                {accessProfile !== null && (accessProfile.canManageStructure) ?
+                {accessProfile !== null && (accessProfile.canManageStructure || (accessProfile.canCreatePerson && accessProfile.canManageMembership)) ?
                     <NavigationDropDownButton
                         locale={props.locale}
                         label={lang.more}
@@ -124,12 +124,12 @@ export default function Navigation(props) {
                         setReduced={props.setReduced}
                         key={'more-options'}
                         options={[
-                            {
+                            accessProfile.canCreatePerson && accessProfile.canManageMembership? {
                                 label: lang.createPerson,
                                 path: '/create',
                                 highlight: props.path === '/create'
-                            },
-                            accessProfile.canCreateAccessProfile ?
+                            } : undefined,
+                            accessProfile.canManageStructure ?
                                 {
                                     label: lang.management,
                                     path: '/management',
@@ -148,12 +148,12 @@ export default function Navigation(props) {
                 }
                 {profile !== null && (new Cookies()).get('jwt') !== undefined ?
                     <NavigationButton
-                    dark={props.dark} linkPath={'/authenticate'}
-                    highlight={false} locale={props.locale}
-                    label={lang.signout} reduced={props.reduced}
-                    icon={
-                    <ExitToApp style={{transform: 'rotate(180deg)'}}/>
-                }
+                        dark={props.dark} linkPath={'/authenticate'}
+                        highlight={false} locale={props.locale}
+                        label={lang.signout} reduced={props.reduced}
+                        icon={
+                            <ExitToApp style={{transform: 'rotate(180deg)'}}/>
+                        }
                     />
                     : null
                 }

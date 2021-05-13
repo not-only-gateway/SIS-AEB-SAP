@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import fetchAllCollaborations from "../../../utils/fetch/FetchAllCollaborations";
+import fetchCollaborations from "../../../utils/fetch/FetchCollaborations";
 import Collaboration from "../../modules/entity/Collaboration";
 
 export default function CollaborationList(props) {
@@ -8,7 +8,7 @@ export default function CollaborationList(props) {
 
 
     useEffect(() => {
-        fetchAllCollaborations(props.id).then(res => {
+        fetchCollaborations(props.id).then(res => {
             setCollaborations(res)
         })
     }, [])
@@ -22,7 +22,7 @@ export default function CollaborationList(props) {
         }}>
             <Collaboration memberID={props.id} create={true} key={'create'} index={undefined}
                            collaborationID={undefined} locale={props.locale} canEdit={props.editionMode}
-                           fetch={() => fetchAllCollaborations(props.id).then(res => {
+                           fetch={() => fetchCollaborations(props.id).then(res => {
                                setCollaborations(res)
                            })}/>
 
@@ -30,7 +30,7 @@ export default function CollaborationList(props) {
                 <div key={collaboration.id + '-collaboration-' + index} style={{width: '100%'}}>
                     <Collaboration memberID={props.id} collaborationID={collaboration.id} key={collaboration.id}
                                    create={false} index={index} locale={props.locale} canEdit={props.editionMode}
-                                   fetch={() => fetchAllCollaborations(props.id).then(res => {
+                                   fetch={() => fetchCollaborations(props.id).then(res => {
                                        setCollaborations(res)
                                    })} />
                 </div>

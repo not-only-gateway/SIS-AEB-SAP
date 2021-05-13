@@ -18,6 +18,7 @@ import ContactForm from "../components/templates/forms/ContactForm";
 import submitContacts from "../utils/submit/SubmitContacts";
 import AddressForm from "../components/templates/forms/AddressForm";
 import submitAddress from "../utils/submit/SubmitAddress";
+import Cookies from "universal-cookie/lib";
 
 export default function create() {
 
@@ -30,7 +31,7 @@ export default function create() {
     const [contact, setContact] = useState({})
     const [documents, setDocuments] = useState({})
     const [address, setAddress] = useState({})
-
+    const [notAuthenticated, setNotAuthenticated] = useState(true)
     const [openTab, setOpenTab] = useState(0)
     const [step, setStep] = useState(0)
     const [status, setStatus] = useState({
@@ -43,9 +44,10 @@ export default function create() {
 
 
     useEffect(() => {
+        setNotAuthenticated((new Cookies()).get('authorization_token') === undefined)
         if (accessProfile === null)
             readAccessProfile().then(res => {
-                if (res === null)
+                if (res === null || !res.canCreatePerson || !res.canManageMembership)
                     router.push('/', '/', {locale: router.locale})
                 else
                     setAccessProfile(res)
@@ -55,35 +57,15 @@ export default function create() {
     }, [router.locale, router.isReady, router.query])
 
 
-    function getStepInfo() {
-        let response = null
-        switch (step) {
-            case 0: {
-                response = lang.baseInfo
-                break
-            }
-            case 1: {
-                response = lang.memberInfo
-                break
-            }
-            case 2: {
-                response = lang.documentsInfo
-                break
-            }
-            case 3: {
-                response = lang.contactInfo
-                break
-            }
-            default:
-                break
-        }
-        return response
-    }
-
     if (lang !== null && accessProfile !== null)
         return (
             <>
-                <Authenticate render={true} handleClose={() => router.push('/', '/', {locale: router.locale})}
+                <Authenticate render={notAuthenticated} handleClose={valid => {
+                    if(valid)
+                        setNotAuthenticated(false)
+                    else
+                        router.push('/', '/', {locale: router.locale})
+                }}
                               locale={router.locale}/>
                 <HeaderLayout
                     width={'75%'}
@@ -189,7 +171,7 @@ export default function create() {
                                             setData: setMember
                                         })}
                                         handleSubmit={submitMember}
-                                        editable={accessProfile.canUpdateMembership}
+                                        editable={accessProfile.canManageMembership}
                                         locale={router.locale}
                                         create={true}
                                         setAccepted={event => {
@@ -214,7 +196,7 @@ export default function create() {
                                             setData: setDocuments
                                         })}
                                         handleSubmit={submitDocuments}
-                                        editable={accessProfile.canUpdateDocuments}
+                                        editable={accessProfile.canUpdatePerson}
                                         locale={router.locale}
                                         create={true}
                                         setAccepted={event => {
@@ -240,7 +222,7 @@ export default function create() {
                                             setData: setContact
                                         })}
                                         handleSubmit={submitContacts}
-                                        editable={accessProfile.canUpdateContact}
+                                        editable={accessProfile.canUpdatePerson}
                                         create={true}
                                         setAccepted={event => {
                                             handleObjectChange({
@@ -266,7 +248,7 @@ export default function create() {
                                         handleSubmit={() => submitAddress({personID: id, data: address})}
                                         locale={router.locale}
                                         create={true}
-                                        editable={accessProfile.canUpdateLocation}
+                                        editable={accessProfile.canUpdatePerson}
                                         setAccepted={event => {
                                             handleObjectChange({
                                                 event: {name: 'address', value: event},

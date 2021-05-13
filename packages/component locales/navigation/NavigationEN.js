@@ -9,4 +9,5 @@ export default {
     extended: 'Reduce',
     createPerson: 'Register Collaborator',
     management: 'Management',
+    navigation: 'Navigation'
 }

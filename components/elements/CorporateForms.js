@@ -35,8 +35,9 @@ export default function CorporateForms(props) {
                                     event: event,
                                     setData: props.setMember
                                 })}
+                                mainCollaboration={props.mainCollaboration}
                                 handleSubmit={submitMember}
-                                editable={props.accessProfile.canUpdateMembership}
+                                editable={props.accessProfile.canManageMembership}
                                 locale={props.locale}
                             />
                         )
@@ -47,7 +48,7 @@ export default function CorporateForms(props) {
                             <CollaborationList
                                 id={props.id}
                                 dark={false}
-                                editionMode={props.accessProfile.canUpdateCollaboration}
+                                editionMode={props.accessProfile.canManageMembership}
                                 locale={props.locale}
                             />
                         )
@@ -66,5 +67,6 @@ CorporateForms.propTypes = {
     setMember: PropTypes.func,
     accessProfile:PropTypes.object,
     locale: PropTypes.string,
-    lang: PropTypes.object
+    lang: PropTypes.object,
+    mainCollaboration: PropTypes.object
 }

@@ -32,30 +32,7 @@ export default function AccessProfileForm(props) {
             props.data.can_update_person === undefined ||
             props.data.can_delete_person === undefined ||
 
-            props.data.can_create_membership === undefined ||
-            props.data.can_update_membership === undefined ||
-
-            props.data.can_create_role === undefined ||
-            props.data.can_update_role === undefined ||
-            props.data.can_delete_role === undefined ||
-
-            props.data.can_create_access_profile === undefined ||
-            props.data.can_update_access_profile === undefined ||
-            props.data.can_delete_access_profile === undefined ||
-
-
-            props.data.can_create_collaboration === undefined ||
-            props.data.can_update_collaboration === undefined ||
-            props.data.can_delete_collaboration === undefined ||
-
-            props.data.can_update_location === undefined ||
-            props.data.can_view_location === undefined ||
-
-            props.data.can_update_documents === undefined ||
-            props.data.can_view_documents === undefined ||
-
-            props.data.can_update_contact === undefined ||
-            props.data.can_view_contact === undefined ||
+            props.data.can_manage_membership === undefined ||
 
             props.data.can_manage_structure === undefined ||
             !changed
@@ -69,9 +46,8 @@ export default function AccessProfileForm(props) {
                  style={{
                      justifyContent: 'center',
                      width: '100%',
-                     position: 'relative',
-                     height: '700px',
-                     overflowY: 'auto',
+                     height: 'auto',
+
                  }}>
                 <div style={{marginTop: props.create ? null : '20px', width: '98%'}}>
                     <InputLayout inputName={lang.denomination} dark={false} handleChange={props.handleChange}
@@ -111,74 +87,15 @@ export default function AccessProfileForm(props) {
                     <legend>
                         <p style={{paddingLeft: '10px', paddingRight: '10px'}}>{lang.membership}</p>
                     </legend>
-                    <InputLayout inputName={lang.create} dark={false} handleChange={props.handleChange}
-                                 name={'can_create_membership'}
+                    <InputLayout inputName={lang.manage} dark={false} handleChange={props.handleChange}
+                                 name={'can_manage_membership'}
                                  inputType={1} size={'calc(25% - 12px)'} required={true}
                                  selectFields={lang.options}
-                                 initialValue={props.data.can_create_membership} key={'membership-1'}
-                                 setChanged={setChanged}/>
-
-                    <InputLayout inputName={lang.update} dark={false} handleChange={props.handleChange}
-                                 name={'can_update_membership'}
-                                 inputType={1} size={'calc(25% - 12px)'} required={true}
-                                 selectFields={lang.options}
-                                 initialValue={props.data.can_update_membership} key={'membership-2'}
+                                 initialValue={props.data.can_manage_membership} key={'membership-1'}
                                  setChanged={setChanged}/>
 
                 </fieldset>
-                <fieldset style={fieldSetStyle}>
-                    <legend>
-                        <p style={{paddingLeft: '10px', paddingRight: '10px'}}>{lang.role}</p>
-                    </legend>
-                    <InputLayout inputName={lang.create} dark={false} handleChange={props.handleChange}
-                                 name={'can_create_role'}
-                                 inputType={1} size={'calc(25% - 12px)'} required={true}
-                                 selectFields={lang.options}
-                                 initialValue={props.data.can_create_role} key={"1-4-" + props.id}
-                                 setChanged={setChanged}/>
 
-                    <InputLayout inputName={lang.update} dark={false} handleChange={props.handleChange}
-                                 name={'can_update_role'}
-                                 inputType={1} size={'calc(25% - 12px)'} required={true}
-                                 selectFields={lang.options}
-                                 initialValue={props.data.can_update_role} key={"1-5-" + props.id}
-                                 setChanged={setChanged}/>
-
-
-                    <InputLayout inputName={lang.delete} dark={false} handleChange={props.handleChange}
-                                 name={'can_delete_role'}
-                                 inputType={1} size={'calc(25% - 12px)'} required={true}
-                                 selectFields={lang.options}
-                                 initialValue={props.data.can_delete_role} key={"1-6-" + props.id}
-                                 setChanged={setChanged}/>
-                </fieldset>
-
-                <fieldset style={fieldSetStyle}>
-                    <legend>
-                        <p style={{paddingLeft: '10px', paddingRight: '10px'}}>{lang.profile}</p>
-                    </legend>
-                    <InputLayout inputName={lang.create} dark={false} handleChange={props.handleChange}
-                                 name={'can_create_access_profile'}
-                                 inputType={1} size={'calc(25% - 12px)'} required={true}
-                                 selectFields={lang.options}
-                                 initialValue={props.data.can_create_access_profile} key={"1-7-" + props.id}
-                                 setChanged={setChanged}/>
-
-                    <InputLayout inputName={lang.update} dark={false} handleChange={props.handleChange}
-                                 name={'can_update_access_profile'}
-                                 inputType={1} size={'calc(25% - 12px)'} required={true}
-                                 selectFields={lang.options}
-                                 initialValue={props.data.can_update_access_profile} key={"1-8-" + props.id}
-                                 setChanged={setChanged}/>
-
-
-                    <InputLayout inputName={lang.delete} dark={false} handleChange={props.handleChange}
-                                 name={'can_delete_access_profile'}
-                                 inputType={1} size={'calc(25% - 12px)'} required={true}
-                                 selectFields={lang.options}
-                                 initialValue={props.data.can_delete_access_profile} key={"1-9-" + props.id}
-                                 setChanged={setChanged}/>
-                </fieldset>
 
                 <fieldset style={fieldSetStyle}>
                     <legend>
@@ -193,86 +110,6 @@ export default function AccessProfileForm(props) {
 
                 </fieldset>
 
-                <fieldset style={fieldSetStyle}>
-                    <legend>
-                        <p style={{paddingLeft: '10px', paddingRight: '10px'}}>{lang.collaboration}</p>
-                    </legend>
-                    <InputLayout inputName={lang.create} dark={false} handleChange={props.handleChange}
-                                 name={'can_create_collaboration'}
-                                 inputType={1} size={'calc(25% - 12px)'} required={true}
-                                 selectFields={lang.options}
-                                 initialValue={props.data.can_create_collaboration} key={"2-6-" + props.id}
-                                 setChanged={setChanged}/>
-
-                    <InputLayout inputName={lang.update} dark={false} handleChange={props.handleChange}
-                                 name={'can_update_collaboration'}
-                                 inputType={1} size={'calc(25% - 12px)'} required={true}
-                                 selectFields={lang.options}
-                                 initialValue={props.data.can_update_collaboration} key={"2-7-" + props.id}
-                                 setChanged={setChanged}/>
-
-
-                    <InputLayout inputName={lang.delete} dark={false} handleChange={props.handleChange}
-                                 name={'can_delete_collaboration'}
-                                 inputType={1} size={'calc(25% - 12px)'} required={true}
-                                 selectFields={lang.options}
-                                 initialValue={props.data.can_delete_collaboration} key={"2-8-" + props.id}
-                                 setChanged={setChanged}/>
-                </fieldset>
-
-                <fieldset style={fieldSetStyle}>
-                    <legend>
-                        <p style={{paddingLeft: '10px', paddingRight: '10px'}}>{lang.location}</p>
-                    </legend>
-                    <InputLayout inputName={lang.update} dark={false} handleChange={props.handleChange}
-                                 name={'can_update_location'}
-                                 inputType={1} size={'calc(25% - 12px)'} required={true}
-                                 selectFields={lang.options}
-                                 initialValue={props.data.can_update_location} key={"2-9-" + props.id}
-                                 setChanged={setChanged}/>
-                    <InputLayout inputName={lang.view} dark={false} handleChange={props.handleChange}
-                                 name={'can_view_location'}
-                                 inputType={1} size={'calc(25% - 12px)'} required={true}
-                                 selectFields={lang.options}
-                                 initialValue={props.data.can_view_location} key={"3-1-" + props.id}
-                                 setChanged={setChanged}/>
-                </fieldset>
-
-                <fieldset style={fieldSetStyle}>
-                    <legend>
-                        <p style={{paddingLeft: '10px', paddingRight: '10px'}}>{lang.documents}</p>
-                    </legend>
-                    <InputLayout inputName={lang.update} dark={false} handleChange={props.handleChange}
-                                 name={'can_update_documents'}
-                                 inputType={1} size={'calc(25% - 12px)'} required={true}
-                                 selectFields={lang.options}
-                                 initialValue={props.data.can_update_documents} key={"3-2-" + props.id}
-                                 setChanged={setChanged}/>
-                    <InputLayout inputName={lang.view} dark={false} handleChange={props.handleChange}
-                                 name={'can_view_documents'}
-                                 inputType={1} size={'calc(25% - 12px)'} required={true}
-                                 selectFields={lang.options}
-                                 initialValue={props.data.can_view_documents} key={"3-3-" + props.id}
-                                 setChanged={setChanged}/>
-                </fieldset>
-
-                <fieldset style={fieldSetStyle}>
-                    <legend>
-                        <p style={{paddingLeft: '10px', paddingRight: '10px'}}>{lang.contacts}</p>
-                    </legend>
-                    <InputLayout inputName={lang.update} dark={false} handleChange={props.handleChange}
-                                 name={'can_update_contact'}
-                                 inputType={1} size={'calc(25% - 12px)'} required={true}
-                                 selectFields={lang.options}
-                                 initialValue={props.data.can_update_contact} key={"3-4-" + props.id}
-                                 setChanged={setChanged}/>
-                    <InputLayout inputName={lang.view} dark={false} handleChange={props.handleChange}
-                                 name={'can_view_contact'}
-                                 inputType={1} size={'calc(25% - 12px)'} required={true}
-                                 selectFields={lang.options}
-                                 initialValue={props.data.can_view_contact} key={"3-5-" + props.id}
-                                 setChanged={setChanged}/>
-                </fieldset>
 
 
                 <Button style={{

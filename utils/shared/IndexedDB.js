@@ -7,33 +7,16 @@ export async function startDatabase() {
     let response = null
 
     userDB.version(1).stores({
-        profile: '++,id, corporateEmail, name, birth, pic, homeOffice',
+        profile: '++,id, corporateEmail, name, birth, pic, homeOffice, mainCollaboration',
         collaboration: '++,id, unitAcronym, roleInformation',
         accessProfile: '++, ' +
             'id,' +
-            ' denomination,' +
-            ' canCreatePerson,' +
-            ' canUpdatePerson,' +
-            ' canDeletePerson,' +
-            ' canCreateRole,' +
-            ' canUpdateRole,' +
-            ' canDeleteRole,' +
-            ' canCreateAccessProfile,' +
-            ' canUpdateAccessProfile,' +
-            ' canDeleteAccessProfile ,' +
-            'canManageStructure,' +
-            'canCreateCollaboration,' +
-            ' canUpdateCollaboration,' +
-            'canDeleteCollaboration,' +
-            'canUpdateLocation,' +
-            ' canViewLocation, ' +
-            'canUpdateDocument,' +
-            ' canViewDocuments,' +
-            ' canUpdateContact,' +
-            ' canViewContact' +
-            'canCreateMembership,' +
-            'canUpdateMembership'
-
+            'denomination, ' +
+            'canCreatePerson, ' +
+            'canUpdatePerson, ' +
+            'canDeletePerson, ' +
+            'canManageStructure, ' +
+            'canManageMembership'
     })
 
     await userDB.open().then(() => {
@@ -56,7 +39,8 @@ export async function setProfile(props) {
                 name: props.name,
                 birth: props.birth,
                 pic: props.pic,
-                homeOffice: props.homeOffice
+                homeOffice: props.homeOffice,
+                mainCollaboration: props.mainCollaboration
             }).catch(error => console.log(error))
     }).catch(error => console.log(error))
 }
@@ -67,7 +51,8 @@ setProfile.propTypes = {
     name: PropTypes.string,
     birth: PropTypes.number,
     pic: PropTypes.any,
-    homeOffice: PropTypes.bool
+    homeOffice: PropTypes.bool,
+    mainCollaboration: PropTypes.number
 }
 
 export async function readProfile() {
@@ -138,29 +123,11 @@ export async function setAccessProfile(props) {
                 access.add({
                     id: props.id,
                     denomination: props.denomination,
-                    canCreatePerson: props.canCreatePerson,
-                    canUpdatePerson: props.canUpdatePerson,
-                    canDeletePerson: props.canDeletePerson,
-                    canCreateRole: props.canCreateRole,
-                    canUpdateRole: props.canUpdateRole,
-                    canDeleteRole: props.canDeleteRole,
-                    canCreateAccessProfile: props.canCreateAccessProfile,
-                    canUpdateAccessProfile: props.canUpdateAccessProfile,
-                    canDeleteAccessProfile: props.canDeleteAccessProfile,
-                    canViewAccessLog: props.canViewAccessLog,
-                    canViewActivityLog: props.canViewActivityLog,
-                    canManageStructure: props.canManageStructure,
-                    canCreateCollaboration: props.canCreateCollaboration,
-                    canUpdateCollaboration: props.canUpdateCollaboration,
-                    canDeleteCollaboration: props.canDeleteCollaboration,
-                    canUpdateLocation: props.canUpdateLocation,
-                    canViewLocation: props.canViewLocation,
-                    canUpdateDocuments: props.canUpdateDocuments,
-                    canViewDocuments: props.canViewDocuments,
-                    canUpdateContact: props.canUpdateContact,
-                    canViewContact: props.canViewContact,
-                    canCreateMembership: props.canCreateMembership,
-                    canUpdateMembership: props.canUpdateMembership,
+                    canCreatePerson:props.denomination,
+                    canUpdatePerson:props.denomination,
+                    canDeletePerson:props.denomination,
+                    canManageStructure:props.denomination,
+                    canManageMembership:props.canManageMembership
                 }).catch(error => console.log(error))
         }).catch(error => console.log(error))
     }
@@ -172,28 +139,9 @@ setAccessProfile.propTypes = {
     canCreatePerson: PropTypes.bool,
     canUpdatePerson: PropTypes.bool,
     canDeletePerson: PropTypes.bool,
-    canCreateRole: PropTypes.bool,
-    canUpdateRole: PropTypes.bool,
-    canViewRole: PropTypes.bool,
-    canDeleteRole: PropTypes.bool,
-    canCreateAccessProfile: PropTypes.bool,
-    canUpdateAccessProfile: PropTypes.bool,
-    canDeleteAccessProfile: PropTypes.bool,
-    canViewAccessLog: PropTypes.bool,
-    canViewActivityLog: PropTypes.bool,
     canManageStructure: PropTypes.bool,
-    canCreateMembership:  PropTypes.bool,
-    canUpdateMembership: PropTypes.bool,
-    canCreateCollaboration: PropTypes.bool,
-    canUpdateCollaboration: PropTypes.bool,
-    canViewCollaboration: PropTypes.bool,
-    canDeleteCollaboration: PropTypes.bool,
-    canUpdateLocation: PropTypes.bool,
-    canViewLocation: PropTypes.bool,
-    canUpdateDocuments: PropTypes.bool,
-    canViewDocuments: PropTypes.bool,
-    canUpdateContact: PropTypes.bool,
-    canViewContact: PropTypes.bool
+    canManageMembership: PropTypes.bool,
+
 }
 
 export async function readAccessProfile() {

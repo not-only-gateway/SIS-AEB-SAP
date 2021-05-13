@@ -32,7 +32,7 @@ export default function NavigationDropDownButton(props) {
                 borderRadius: open ? '0px' : '8px',
 
                 borderLeft: open ? '#0095ff  .7px solid' : 'transparent .7px solid',
-                backgroundColor: props.highlight ? '#0095ff' :'transparent',
+                backgroundColor: props.highlight ? '#0095ff' : 'transparent',
                 transition: '300ms ease-in-out',
                 padding: props.reduced ? '16px' : '10px',
             }} onClick={() => {
@@ -66,20 +66,27 @@ export default function NavigationDropDownButton(props) {
                     width: '210px',
                     borderRadius: '0px',
                 }} className={[mainStyles.displayColumnSpaced, animations.slideDownAnimation].join(' ')}>
-                    {props.options.map((option, index) => (
-                        <Link href={{pathname: option.path, locale: props.locale, query: option.query}}>
-                            <Button onMouseLeave={() => setHoveredOption(null)} onMouseEnter={() => setHoveredOption(index)} style={{
-                                width: '100%',
-                                justifyContent: 'flex-start',
-                                textTransform: 'capitalize',
-                                color: hoveredOption === index || option.highlight ? '#0095ff' : '#a6a6a9',
-                                transition: '300ms ease-in-out',
+                    {props.options.map((option, index) => {
+                            if (option !== undefined)
+                                return (
+                                    <Link href={{pathname: option.path, locale: props.locale, query: option.query}}>
+                                        <Button onMouseLeave={() => setHoveredOption(null)}
+                                                onMouseEnter={() => setHoveredOption(index)} style={{
+                                            width: '100%',
+                                            justifyContent: 'flex-start',
+                                            textTransform: 'capitalize',
+                                            color: hoveredOption === index || option.highlight ? '#0095ff' : '#a6a6a9',
+                                            transition: '300ms ease-in-out',
 
-                            }}>
-                                {option.label}
-                            </Button>
-                        </Link>
-                    ))}
+                                        }}>
+                                            {option.label}
+                                        </Button>
+                                    </Link>
+                                )
+                            else
+                                return null
+                        }
+                    )}
                 </div>
                 :
                 null

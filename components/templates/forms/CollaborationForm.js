@@ -23,18 +23,18 @@ export default function CollaborationForm(props) {
             props.collaboration.official_publication_date === null ||
             props.collaboration.admission_date === null ||
             props.collaboration.legal_document === null ||
-            props.collaboration.is_substitute === null ||
-            props.collaboration.is_active_on_role === null ||
+            props.collaboration.substitute === null ||
+            props.collaboration.active_collaboration === null ||
             props.collaboration.linkage === null ||
-            props.collaboration.access_level_profile === null ||
+            props.collaboration.access_profile === null ||
             !props.collaboration.unit ||
             !props.collaboration.official_publication_date ||
             !props.collaboration.admission_date ||
             !props.collaboration.legal_document ||
-            props.collaboration.is_substitute === undefined ||
-            props.collaboration.is_active_on_role === undefined ||
+            props.collaboration.substitute === undefined ||
+            props.collaboration.active_collaboration === undefined ||
             !props.collaboration.linkage ||
-            !props.collaboration.access_level_profile ||
+            !props.collaboration.access_profile ||
             !changed
 
         )
@@ -46,37 +46,40 @@ export default function CollaborationForm(props) {
                 style={{
                     display: 'inline-flex',
                     flexFlow: 'row wrap',
-                    gap: '32px',
+                    gap: '16px',
                     justifyContent: 'center',
                     width: '100%',
                 }}>
                 <h4 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
                     {lang.placement}
                 </h4>
-                <InputLayout inputName={lang.main} dark={props.dark} handleChange={props.handleChange}
-                             inputType={1} name={'main_collaboration'}
-                             disabled={!props.canBeMain}
-                             size={'calc(33.333% - 21.35px)'} required={true}
-                             initialValue={props.collaboration.main_collaboration}
-                             selectFields={[{key: false, value: 'No'}, {key: true, value: 'Yes'}]}
-                             key={'collaboration-field-9'}
-                             setChanged={setChanged}/>
-                <Selector required={true} selected={props.collaboration.unit}
+                <Selector required={true}
+                          selected={
+                              props.collaboration.unit !== undefined && props.collaboration.unit !== null ? {
+                                  key: props.collaboration.unit && props.collaboration.unit.id ? props.collaboration.unit.id : props.collaboration.unit.key,
+                                  value: props.collaboration.unit && props.collaboration.unit.acronym ? props.collaboration.unit.acronym : props.collaboration.unit.value
+                              } : undefined
+                          }
                           handleChange={event => props.handleChange({name: 'unit', value: event})} label={lang.unit}
-                          data={props.units} width={'calc(33.333% - 21.35px)'}
+                          data={props.units} width={'calc(25% - 12px)'}
                           key={'collaboration-field-1'} setChanged={setChanged}
                 />
-                <Selector required={true} selected={props.collaboration.linkage}
+
+                <Selector required={true}
+                          selected={props.collaboration.linkage !== undefined && props.collaboration.linkage !== null ? {
+                              key: props.collaboration.linkage && props.collaboration.linkage.id ? props.collaboration.linkage.id : props.collaboration.linkage.key,
+                              value: props.collaboration.linkage && props.collaboration.linkage.denomination ? props.collaboration.linkage.denomination : props.collaboration.linkage.value
+                          } : null}
                           handleChange={event => props.handleChange({name: 'linkage', value: event})}
                           setChanged={setChanged}
                           label={lang.linkage} key={'collaboration-field-5'}
                           data={props.linkages} disabled={!props.collaboration.unit}
-                          width={'calc(33.333% - 21.35px)'}/>
+                          width={'calc(25% - 12px)'}/>
 
                 <Selector required={false}
                           selected={props.collaboration.senior_member !== undefined && props.collaboration.senior_member !== null ? {
-                              key: props.collaboration.senior_member.id,
-                              value: props.collaboration.senior_member.name,
+                              key: props.collaboration.senior_member && props.collaboration.senior_member.id,
+                              value: props.collaboration.senior_member && props.collaboration.senior_member.name,
                           } : undefined}
                           handleChange={event => props.handleChange({
                               name: 'senior_member',
@@ -84,21 +87,24 @@ export default function CollaborationForm(props) {
                           })}
                           setChanged={setChanged} disabled={props.seniors.length === 0}
                           label={lang.senior} key={'collaboration-field-7'}
-                          data={props.seniors} width={'calc(50% - 16px)'}/>
-
-                <Selector required={true} selected={props.collaboration.access_level_profile}
-                          handleChange={event => props.handleChange({name: 'access_level_profile', value: event})}
+                          data={props.seniors} width={'calc(25% - 12px)'}/>
+                <Selector required={true}
+                          selected={props.collaboration.access_profile !== undefined && props.collaboration.access_profile !== null ? {
+                              key: props.collaboration.access_profile && props.collaboration.access_profile.id ? props.collaboration.access_profile.id : props.collaboration.access_profile.key,
+                              value: props.collaboration.access_profile && props.collaboration.access_profile.denomination ? props.collaboration.access_profile.denomination : props.collaboration.access_profile.value
+                          } : undefined}
+                          handleChange={event => props.handleChange({name: 'access_profile', value: event})}
                           setChanged={setChanged} disabled={!props.collaboration.unit}
                           label={lang.access} key={'collaboration-field-6'}
-                          data={props.accessProfiles} width={'calc(50% - 16px)'}/>
+                          data={props.accessProfiles} width={'calc(25% - 12px)'}/>
 
 
                 <h4 style={{width: '100%', marginBottom: 'auto'}}>
                     {lang.role}
                 </h4>
                 <InputLayout inputName={lang.active} dark={props.dark} handleChange={props.handleChange} inputType={1}
-                             disabled={!props.collaboration.unit} size={'calc(33.333% - 21.35px)'} required={true}
-                             initialValue={props.collaboration.is_active_on_role} name={'is_active_on_role'}
+                             disabled={!props.collaboration.unit} size={'calc(33.333% - 10.666px)'} required={true}
+                             initialValue={props.collaboration.active_collaboration} name={'active_collaboration'}
                              selectFields={[{key: false, value: 'No'}, {key: true, value: 'Yes'}]}
                              key={'collaboration-field-8'}
                              setChanged={setChanged}/>
@@ -106,27 +112,27 @@ export default function CollaborationForm(props) {
                           handleChange={event => props.handleChange({name: 'effective_role', value: event})}
                           setChanged={setChanged} disabled={!props.collaboration.unit}
                           label={lang.effective} key={'collaboration-field-2'}
-                          data={props.effectiveRoles} width={'calc(33.333% - 21.35px)'}/>
+                          data={props.effectiveRoles} width={'calc(33.333% - 10.666px)'}/>
 
                 <Selector required={false} selected={props.collaboration.commissioned_role}
                           handleChange={event => props.handleChange({name: 'commissioned_role', value: event})}
                           setChanged={setChanged} disabled={!props.collaboration.unit}
                           label={lang.commissioned} key={'collaboration-field-3'}
                           data={props.commissionedRoles}
-                          width={'calc(33.333% - 21.35px)'}/>
+                          width={'calc(33.333% - 10.666px)'}/>
 
                 <InputLayout inputName={lang.substitute} dark={props.dark} handleChange={props.handleChange}
                              inputType={1}
-                             disabled={!props.collaboration.unit} size={'calc(50% - 16px)'} required={true}
-                             initialValue={props.collaboration.is_substitute}
+                             disabled={!props.collaboration.unit} size={'calc(50% - 8px)'} required={true}
+                             initialValue={props.collaboration.substitute}
                              selectFields={[{key: false, value: 'No'}, {key: true, value: 'Yes'}]}
-                             key={'collaboration-field-10'} name={'is_substitute'}
+                             key={'collaboration-field-10'} name={'substitute'}
                              setChanged={setChanged}/>
                 <InputLayout inputName={lang.additional} dark={props.dark}
                              handleChange={props.handleChange}
-                             inputType={0} name={'additional_information'}
-                             disabled={!props.collaboration.unit} size={'calc(50% - 16px)'} required={false}
-                             initialValue={props.collaboration.additional_information}
+                             inputType={0} name={'additional_role_information'}
+                             disabled={!props.collaboration.unit} size={'calc(50% - 8px)'} required={false}
+                             initialValue={props.collaboration.additional_role_information}
                              key={'collaboration-field-4'}
                              setChanged={setChanged}/>
 
@@ -135,28 +141,28 @@ export default function CollaborationForm(props) {
                 </h4>
                 <InputLayout inputName={lang.admission} dark={props.dark} handleChange={props.handleChange}
                              inputType={2}
-                             disabled={!props.collaboration.unit} size={'calc(25% - 24px)'} required={true}
+                             disabled={!props.collaboration.unit} size={'calc(25% - 12px)'} required={true}
                              initialValue={props.collaboration.admission_date}
                              key={'collaboration-field-12'} name={'admission_date'}
                              setChanged={setChanged}/>
 
                 <InputLayout inputName={lang.publication} dark={props.dark} handleChange={props.handleChange}
                              inputType={2} name={'official_publication_date'}
-                             disabled={!props.collaboration.unit} size={'calc(25% - 24px)'} required={true}
+                             disabled={!props.collaboration.unit} size={'calc(25% - 12px)'} required={true}
                              initialValue={props.collaboration.official_publication_date}
                              key={'collaboration-field-13'}
                              setChanged={setChanged}/>
 
                 <InputLayout inputName={lang.exp} dark={props.dark} handleChange={props.handleChange}
                              inputType={2} name={'contract_expiration'}
-                             disabled={!props.collaboration.unit} size={'calc(25% - 24px)'} required={false}
+                             disabled={!props.collaboration.unit} size={'calc(25% - 12px)'} required={false}
                              initialValue={props.collaboration.contract_expiration}
                              key={'collaboration-field-14'}
                              setChanged={setChanged}/>
 
                 <InputLayout inputName={lang.legalDocument} dark={props.dark} handleChange={props.handleChange}
                              inputType={0} name={'legal_document'}
-                             disabled={!props.collaboration.unit} size={'calc(25% - 24px)'} required={true}
+                             disabled={!props.collaboration.unit} size={'calc(25% - 12px)'} required={true}
                              initialValue={props.collaboration.legal_document}
                              key={'collaboration-field-11'}
                              setChanged={setChanged}/>
@@ -165,14 +171,14 @@ export default function CollaborationForm(props) {
                 </h4>
                 <InputLayout inputName={lang.start} dark={props.dark} handleChange={props.handleChange}
                              inputType={3} name={'work_shift_start'}
-                             disabled={!props.collaboration.unit} size={'calc(50% - 16px)'} required={false}
+                             disabled={!props.collaboration.unit} size={'calc(50% - 8px)'} required={false}
                              initialValue={props.collaboration.work_shift_start}
                              key={'collaboration-field-15'}
                              setChanged={setChanged}/>
 
                 <InputLayout inputName={lang.end} dark={props.dark} handleChange={props.handleChange}
                              inputType={3} name={'work_shift_end'}
-                             disabled={!props.collaboration.unit} size={'calc(50% - 16px)'} required={false}
+                             disabled={!props.collaboration.unit} size={'calc(50% - 8px)'} required={false}
                              initialValue={props.collaboration.work_shift_end}
                              key={'collaboration-field-16'}
                              setChanged={setChanged}/>
@@ -211,7 +217,6 @@ CollaborationForm.propTypes = {
     effectiveRoles: PropTypes.array,
     commissionedRoles: PropTypes.array,
     linkages: PropTypes.array,
-    canBeMain: PropTypes.bool,
     collaborationID: PropTypes.any,
     setAccepted: PropTypes.func,
     locale: PropTypes.string

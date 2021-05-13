@@ -9,5 +9,6 @@ export default {
     create: 'Próximo',
     altPhone: 'Telefone alternativo',
     contact: 'Contato',
-    linkage: 'Vínculo & Posição de trabalho'
+    linkage: 'Vínculo & Posição de trabalho',
+    mainCollaboration: 'Colaboração principal'
 }

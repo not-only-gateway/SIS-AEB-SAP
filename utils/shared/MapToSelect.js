@@ -40,41 +40,15 @@ export default function mapToSelect(props) {
             break
         } // SENIORS
         case 4: {
-            props.data.map(data => {
+            props.data.map(collaboration => {
                 response.push({
-                    key: data.id,
-                    value: data.denomination
+                    key: collaboration.id,
+                    value: collaboration.unit_acronym + ' - ' + collaboration.access_profile_denomination
                 })
             })
             break
-        }
-        case 5: {
-            props.data.map(data => {
-                response.push({
-                    key: data.id,
-                    value: data.denomination
-                })
-            })
-            break
-        }
-        case 6: {
-            props.data.map(data => {
-                response.push({
-                    key: data.id,
-                    value: data.denomination
-                })
-            })
-            break
-        }
-        case 7: {
-            props.data.map(data => {
-                response.push({
-                    key: data.id,
-                    value: data.denomination
-                })
-            })
-            break
-        }
+        } // collaboration
+
         default: {
             break
         }

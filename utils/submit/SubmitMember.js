@@ -13,6 +13,8 @@ export default async function submitMember(props) {
     data.authorization_token = cookies.get('authorization_token')
     data.person = props.personID
     data.entity = props.data.entity.id
+    if(!props.create && data.main_collaboration !== null)
+        data.main_collaboration = data.main_collaboration.key
     await axios({
         method: props.create ? 'post' : 'put',
         url: props.create ? Host() + 'member' : Host() + 'member/' + props.personID,

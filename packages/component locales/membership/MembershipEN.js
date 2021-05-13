@@ -9,5 +9,6 @@ export default {
     create: 'Next',
     altPhone: 'Alternative Phone',
     contact: 'Contact',
-    linkage: 'Linkage & Work Position'
+    linkage: 'Linkage & Work Position',
+    mainCollaboration: 'Main Collaboration'
 }

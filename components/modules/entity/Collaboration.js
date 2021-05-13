@@ -16,7 +16,6 @@ import fetchLinkages from "../../../utils/fetch/FetchLinkages";
 import mapToSelect from "../../../utils/shared/MapToSelect";
 import fetchSeniors from "../../../utils/fetch/FetchSeniors";
 import submitCollaboration from "../../../utils/submit/SubmitCollaboration";
-import fetchCanBeMain from "../../../utils/fetch/FetchCanBeMain";
 import animations from '../../../styles/shared/Animations.module.css'
 
 export default function Collaboration(props) {
@@ -31,7 +30,6 @@ export default function Collaboration(props) {
     })
     const [modal, setModal] = useState(false)
     const [collaboration, setCollaboration] = useState({})
-    const [canBeMain, setCanBeMain] = useState(false)
     const [loading, setLoading] = useState(true)
     const [accepted, setAccepted] = useState(false)
 
@@ -52,16 +50,12 @@ export default function Collaboration(props) {
         }
         if (modal) {
             setLoading(true)
-            fetchCanBeMain(props.memberID).then(res => {
-
-                setCanBeMain(res)
-            })
             fetchUnits().then(res => handleObjectChange({
                 event: {name: 'units', value: mapToSelect({data: res, option: 0})},
                 setData: setDependencies
             }))
             fetchLinkages().then(res => handleObjectChange({
-                event: {name: 'linkages', value: mapToSelect({data: res, option: 5})},
+                event: {name: 'linkages', value: mapToSelect({data: res, option: 1})},
                 setData: setDependencies
             }))
             fetchCommissionedRoles().then(res => handleObjectChange({
@@ -73,11 +67,11 @@ export default function Collaboration(props) {
                 setData: setDependencies
             }))
             fetchAccessProfiles().then(res => handleObjectChange({
-                event: {name: 'accessProfiles', value: mapToSelect({data: res, option: 4})},
+                event: {name: 'accessProfiles', value: mapToSelect({data: res, option: 1})},
                 setData: setDependencies
             }))
             if (collaboration.unit)
-                fetchSeniors({unitID: collaboration.unit.key, memberID: props.memberID}).then(res => {
+                fetchSeniors({unitID: collaboration.unit.id ? collaboration.unit.id : collaboration.unit.key, memberID: props.memberID}).then(res => {
                     console.log(res)
                     handleObjectChange({
                         event: {name: 'seniors', value: mapToSelect({data: res, option: 3})},
@@ -130,7 +124,6 @@ export default function Collaboration(props) {
                         linkages={dependencies.linkages}
                         accessProfiles={dependencies.accessProfiles}
                         memberID={props.memberID}
-                        canBeMain={canBeMain}
                         setAccepted={setAccepted}
                     />
                 </div>
@@ -167,12 +160,11 @@ export default function Collaboration(props) {
                             :
                             <CollaborationSummary
                                 commissionedRole={collaboration.commissioned_role ? collaboration.commissioned_role.value : null}
-                                substitute={collaboration.is_substitute}
-                                activeRole={collaboration.is_active_on_role}
-                                mainCollaboration={collaboration.main_collaboration}
+                                substitute={collaboration.substitute}
+                                activeRole={collaboration.active_collaboration}
                                 effectiveRole={collaboration.effective_role ? collaboration.effective_role.value : null}
                                 additionalRoleInfo={collaboration.additional_info !== undefined ? collaboration.additional_info : null}
-                                unit={collaboration.unit ? collaboration.unit.value : null}/>
+                                unit={collaboration.unit ? collaboration.unit.acronym : null}/>
                         }
                     </>
                 </Button>

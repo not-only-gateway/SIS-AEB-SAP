@@ -20,6 +20,24 @@ export default function Index() {
     const [hoveredUnit, setHoveredUnit] = useState(null)
     const [changed, setChanged] = useState(false)
     const [searchInput, setSearchInput] = useState('')
+    const headerStyle =(key) => {
+        return {
+            marginTop: "0",
+            marginBottom: 0,
+            marginRight: '5px',
+            color: hoveredUnit === key ? 'white' : '#262626',
+            transition: '300ms ease-in-out'
+        }
+    }
+    const secondaryHeaderStyle=(key) => {
+        return {
+            color: hoveredUnit === key  ? '#f2f2f2' : '#555555',
+            marginBottom: 0,
+            marginTop: 0,
+            transition: '300ms ease-in-out',
+            marginRight: '25px'
+        }
+    }
 
     useEffect(() => {
         setLang(getLanguage(router.locale, '/units'))
@@ -98,9 +116,8 @@ export default function Index() {
                                                                 textTransform: 'none',
                                                                 color: 'initial',
                                                                 borderRadius: '8px',
-                                                                border: hoveredUnit === unit.id ? '#0095ff .7px solid' : 'transparent  .7px solid',
+                                                                backgroundColor: hoveredUnit === unit.id ? '#0095ff' : 'white',
                                                                 boxShadow: hoveredUnit === unit.id ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
-                                                                backgroundColor: 'white',
                                                                 transition: '300ms ease-in-out',
                                                                 display: (searchInput.length > 0 && (unit.name.toLowerCase()).match(searchInput.toLowerCase()) || searchInput.length === 0) ? 'flex' : 'none',
                                                                 justifyContent: 'flex-start',
@@ -108,36 +125,14 @@ export default function Index() {
                                                                 alignContent: 'center',
                                                                 minHeight: '70px',
                                                             }}>
-                                                            <h5 style={{
-                                                                marginTop: "0",
-                                                                marginBottom: 0,
-                                                                marginRight: '5px'
-                                                            }}>{lang.acronym}: </h5>
-                                                            <h5 style={{
-                                                                color: '#555555',
-                                                                marginBottom: 0,
-                                                                marginTop: "0",
-                                                                marginRight: '25px'
-                                                            }}>{unit.acronym}</h5>
-                                                            <h5 style={{
-                                                                marginTop: "0",
-                                                                marginBottom: 0,
-                                                                marginRight: '5px'
-                                                            }}>{lang.name}:</h5>
-                                                            <h5 style={{
-                                                                color: '#555555',
-                                                                marginBottom: 0,
-                                                                marginTop: 0,
-                                                                marginRight: '25px'
-                                                            }}>{unit.name}</h5>
+                                                            <h5 style={headerStyle(unit.id)}>{lang.acronym}: </h5>
+                                                            <h5 style={secondaryHeaderStyle(unit.id)}>{unit.acronym}</h5>
+                                                            <h5 style={headerStyle(unit.id)}>{lang.name}:</h5>
+                                                            <h5 style={secondaryHeaderStyle(unit.id)}>{unit.name}</h5>
                                                             {unit.parent_unit_acronym !== null ?
                                                                 <>
-                                                                    <h5 style={{marginTop: "0", marginBottom: 0,marginRight: '5px'}}>{lang.parentUnit}:</h5>
-                                                                    <h5 style={{
-                                                                        color: '#555555',
-                                                                        marginBottom: 0,
-                                                                        marginTop: 0
-                                                                    }}>{unit.parent_unit_acronym}</h5>
+                                                                    <h5 style={headerStyle(unit.id)}>{lang.parentUnit}:</h5>
+                                                                    <h5 style={secondaryHeaderStyle(unit.id)}>{unit.parent_unit_acronym}</h5>
                                                                 </>
                                                                 :
                                                                 null

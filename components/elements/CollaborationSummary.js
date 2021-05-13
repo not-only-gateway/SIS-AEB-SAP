@@ -9,11 +9,33 @@ import {Divider} from "@material-ui/core";
 export default function CollaborationSummary(props) {
     return (
         <div className={mainStyles.displayInlineStart} style={{width: "fit-content", gap: '16px'}}>
-            {props.effectiveRole !== null || props.commissionedRole !== null || props.additionalRoleInfo !== null ?
+            {props.effectiveRole !== null ?
                 <>
                     <div className={mainStyles.displayInlineStart}>
-                        <AssignmentIndRounded style={getIconStyle({dark: false})}/>
-                        <p className={mainStyles.secondaryParagraph}>{props.effectiveRole !== null ? props.effectiveRole : (props.commissionedRole !== null ? props.commissionedRole : props.additionalRoleInfo)}</p>
+                        <h5 style={{marginTop: 'auto', marginBottom: 'auto'}}>Effective Role:</h5>
+                        <h5 style={{marginLeft: '10px', marginTop: 'auto', marginBottom: 'auto', color: '#555555'}}>{props.effectiveRole}</h5>
+                    </div>
+                    <Divider orientation={"horizontal"} style={{color: 'hsla(210, 11%, 78%, 0.5)', width: '10px'}}/>
+                </>
+                :
+                null
+            }
+            { props.commissionedRole !== null ?
+                <>
+                    <div className={mainStyles.displayInlineStart}>
+                        <h5 style={{marginTop: 'auto', marginBottom: 'auto'}}>Commissioned Role:</h5>
+                        <h5 style={{marginLeft: '10px', marginTop: 'auto', marginBottom: 'auto', color: '#555555'}}>{props.commissionedRole}</h5>
+                    </div>
+                    <Divider orientation={"horizontal"} style={{color: 'hsla(210, 11%, 78%, 0.5)', width: '10px'}}/>
+                </>
+                :
+                null
+            }
+            {props.additionalRoleInfo !== null ?
+                <>
+                    <div className={mainStyles.displayInlineStart}>
+                        <h5 style={{marginTop: 'auto', marginBottom: 'auto'}}>Additional Role Information:</h5>
+                        <h5 style={{marginLeft: '10px', marginTop: 'auto', marginBottom: 'auto', color: '#555555'}}>{props.commissionedRole}</h5>
                     </div>
                     <Divider orientation={"horizontal"} style={{color: 'hsla(210, 11%, 78%, 0.5)', width: '10px'}}/>
                 </>
@@ -21,8 +43,8 @@ export default function CollaborationSummary(props) {
                 null
             }
             <div className={mainStyles.displayInlineStart}>
-                <ViewQuiltRoundedIcon style={getIconStyle({dark: false})}/>
-                <p className={mainStyles.secondaryParagraph}>{props.unit}</p>
+                <h5 style={{marginTop: 'auto', marginBottom: 'auto'}}>Unit:</h5>
+                <h5 style={{marginLeft: '10px', marginTop: 'auto', marginBottom: 'auto', color: '#555555'}}>{props.unit}</h5>
             </div>
             <Divider orientation={"horizontal"} style={{color: 'hsla(210, 11%, 78%, 0.5)', width: '10px'}}/>
             <div>
@@ -38,9 +60,6 @@ export default function CollaborationSummary(props) {
                     {props.activeRole ? 'Active' : 'Inactive'}
                 </div>
             </div>
-            {props.mainCollaboration ?
-                <Divider orientation={"horizontal"} style={{color: 'hsla(210, 11%, 78%, 0.5)', width: '10px'}}/> : null}
-            {props.mainCollaboration ? 'Main' : null}
             {props.substitute ?
                 <Divider orientation={"horizontal"} style={{color: 'hsla(210, 11%, 78%, 0.5)', width: '10px'}}/> : null}
 
@@ -62,6 +81,6 @@ CollaborationSummary.propTypes = {
     additionalRoleInfo: PropTypes.string,
     unit: PropTypes.string,
     activeRole: PropTypes.bool,
-    mainCollaboration: PropTypes.bool,
+
     substitute: PropTypes.bool
 }

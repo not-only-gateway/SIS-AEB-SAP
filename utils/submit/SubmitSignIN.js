@@ -33,7 +33,8 @@ export default async function submitSignIN(props) {
                 name: res.data.profile.name,
                 birth: res.data.profile.birth,
                 pic: res.data.profile.image,
-                homeOffice: res.data.profile.home_office
+                homeOffice: res.data.profile.home_office,
+                mainCollaboration: res.data.main_collaboration
             }).then(async function () {
 
                 if (res.data.collaboration !== undefined && res.data.collaboration !== null) {
@@ -48,27 +49,10 @@ export default async function submitSignIN(props) {
                         canCreatePerson: res.data.access_profile.can_create_person,
                         canUpdatePerson: res.data.access_profile.can_update_person,
                         canDeletePerson: res.data.access_profile.can_delete_person,
-                        canCreateRole: res.data.access_profile.can_create_role,
-                        canUpdateRole: res.data.access_profile.can_update_role,
 
-                        canDeleteRole: res.data.access_profile.can_delete_role,
-                        canCreateAccessProfile: res.data.access_profile.can_create_access_profile,
-                        canUpdateAccessProfile: res.data.access_profile.can_update_access_profile,
-                        canDeleteAccessProfile: res.data.access_profile.can_delete_access_profile,
-                        canViewAccessLog: res.data.access_profile.can_view_access_log,
-                        canViewActivityLog: res.data.access_profile.can_view_activity_log,
                         canManageStructure: res.data.access_profile.can_manage_structure,
-                        canUpdateMembership: res.data.access_profile.can_update_membership,
-                        canCreateMembership: res.data.access_profile.can_create_membership,
-                        canCreateCollaboration: res.data.access_profile.can_create_collaboration,
-                        canUpdateCollaboration: res.data.access_profile.can_update_collaboration,
-                        canDeleteCollaboration: res.data.access_profile.can_delete_collaboration,
-                        canUpdateLocation: res.data.access_profile.can_update_location,
-                        canViewLocation: res.data.access_profile.can_view_location,
-                        canUpdateDocuments: res.data.access_profile.can_update_documents,
-                        canViewDocuments: res.data.access_profile.can_view_documents,
-                        canUpdateContact: res.data.access_profile.can_update_contact,
-                        canViewContact: res.data.access_profile.can_view_contact
+                        canManageMembership: res.data.access_profile.can_manage_membership,
+
                     }).catch(error => console.log(error))
 
                 }

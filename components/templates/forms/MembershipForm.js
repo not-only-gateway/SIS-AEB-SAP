@@ -6,18 +6,23 @@ import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import Selector from "../../modules/selector/Selector";
 import fetchEntities from "../../../utils/fetch/FetchEntities";
 import mapToSelect from "../../../utils/shared/MapToSelect";
+import fetchCollaborations from "../../../utils/fetch/FetchCollaborations";
+import fetchActiveCollaborations from "../../../utils/fetch/fetchActiveCollaborations";
 
 export default function MembershipForm(props) {
 
     const [changed, setChanged] = useState(false)
     const [lang, setLang] = useState(null)
     const [entities, setEntities] = useState([])
+    const [collaborations, setCollaborations] = useState([])
     useEffect(() => {
         setLang(getComponentLanguage({locale: props.locale, component: 'membership'}))
         fetchEntities().then(res => {
             if (res !== null)
                 setEntities(res)
         })
+        if (!props.create)
+            fetchActiveCollaborations(props.id).then(res => setCollaborations(res))
     }, [])
 
     function disabled() {
@@ -66,7 +71,8 @@ export default function MembershipForm(props) {
                              numeric={true}
                              inputType={0} disabled={!props.editable} size={'calc(33.333% - 21.35px)'} required={false}
                              name={'alternative_phone'}
-                             initialValue={props.member.alternative_phone} key={"membership-3"} setChanged={setChanged}/>
+                             initialValue={props.member.alternative_phone} key={"membership-3"}
+                             setChanged={setChanged}/>
 
                 <h4 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
                     {lang.linkage}
@@ -87,8 +93,20 @@ export default function MembershipForm(props) {
                               value: {id: event.key, acronym: event.value}
                           })} setChanged={setChanged}
                           label={lang.entity} key={'membership-6'}
-                          data={mapToSelect({data: entities, option: 6})} width={'calc(50% - 16px)'}/>
-
+                          data={mapToSelect({data: entities, option: 1})} width={'calc(50% - 16px'}/>
+                {props.create ? null :
+                    <Selector required={false}
+                              selected={{
+                                  key: props.mainCollaboration !== null ?  props.mainCollaboration.key : null,
+                                  value: props.mainCollaboration !== null ? props.mainCollaboration.value : null,
+                              }}
+                              handleChange={event => props.handleChange({
+                                  name: 'main_collaboration',
+                                  value: event
+                              })} setChanged={setChanged}
+                              label={lang.mainCollaboration} key={'membership-7'}
+                              data={mapToSelect({data: collaborations, option: 4})} width={'100%'}/>
+                }
                 {!props.editable ? null :
                     <Button style={{
                         width: '100%',
@@ -126,5 +144,6 @@ MembershipForm.propTypes = {
     editable: PropTypes.bool,
     locale: PropTypes.string,
     setAccepted: PropTypes.func,
-    create: PropTypes.bool
+    create: PropTypes.bool,
+    mainCollaboration: PropTypes.object
 }

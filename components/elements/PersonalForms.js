@@ -68,7 +68,7 @@ export default function PersonalForms(props) {
                                     setData: props.setDocuments
                                 })}
                                 handleSubmit={submitDocuments}
-                                editable={props.accessProfile.canUpdateDocuments}
+                                editable={props.accessProfile.canUpdatePerson}
                                 locale={props.locale}
                             />
                         )
@@ -85,7 +85,7 @@ export default function PersonalForms(props) {
                                     setData: props.setContact
                                 })}
                                 handleSubmit={submitContacts}
-                                editable={props.accessProfile.canUpdateContact}
+                                editable={props.accessProfile.canUpdatePerson}
                             />
                         )
                     },
@@ -102,7 +102,7 @@ export default function PersonalForms(props) {
                                 })}
                                 handleSubmit={submitAddress}
                                 locale={props.locale}
-                                editable={props.accessProfile.canUpdateLocation}
+                                editable={props.accessProfile.canUpdatePerson}
                             />
                         )
                     },

@@ -11,7 +11,7 @@
 }
 .extensionsList{
     display: grid;
-    gap: 8px;
+    gap: 16px;
 }
 .nothingFoundContainer{
     width: 100%;

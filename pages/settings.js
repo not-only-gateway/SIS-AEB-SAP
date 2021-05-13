@@ -5,7 +5,7 @@ import {getLanguage, setCookiesLanguage} from "../utils/shared/PageLanguage";
 import Cookies from "universal-cookie/lib";
 import Accordion from "../components/layout/Accordion";
 import fetchSettingsData from "../utils/fetch/FetchSettings";
-import {readAccessProfile, readCollaboration} from "../utils/shared/IndexedDB";
+import {readAccessProfile, readCollaboration, readProfile} from "../utils/shared/IndexedDB";
 import shared from '../styles/shared/Shared.module.css'
 import {getSecondaryColor, getTertiaryColor} from "../styles/shared/MainStyles";
 import mainStyles from '../styles/shared/Main.module.css'
@@ -28,10 +28,12 @@ export default function Settings() {
         setDark((new Cookies()).get('theme') === 0)
         if (collaborations.length === 0) {
             readCollaboration().then(res => {
-                if (res !== null) {
+                if (res !== null)
                     setCurrentCollaboration(res)
-                    fetchSettingsData().then(res => setCollaborations(res))
-                }
+            })
+            readProfile().then(res => {
+                if (res !== null)
+                    fetchSettingsData(res.id).then(res => setCollaborations(res))
             })
         }
         if (accessProfile === null)
@@ -114,7 +116,7 @@ export default function Settings() {
                                     <p>{currentCollaboration.roleInformation}</p>
                                 </div>
                             }}
-                                data={mapToSelect({data: collaborations, option: 7})}
+                                data={mapToSelect({data: collaborations, option: 1})}
                                 label={'Collaboration'}
                                 width={'31%'}
                             />

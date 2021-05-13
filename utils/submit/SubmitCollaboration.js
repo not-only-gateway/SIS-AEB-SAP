@@ -8,7 +8,7 @@ const cookies = new Cookies()
 export default async function submitCollaboration(props) {
     let response = false
     let data = {}
-    console.log(props.data)
+
     data = Object.assign(data, props.data)
 
     data.authorization_token = cookies.get('authorization_token')
@@ -17,9 +17,9 @@ export default async function submitCollaboration(props) {
     if (data.contract_expiration)
         data.contract_expiration = new Date(data.contract_expiration).getTime()
 
-    data.access_level_profile = data.access_level_profile.key
-    data.unit = data.unit.key
-    data.linkage = data.linkage.key
+    data.access_profile = data.access_profile.id
+    data.unit = data.unit.id
+    data.linkage = data.linkage.id
 
     if (data.senior_member)
         data.senior_member = data.senior_member.id
@@ -29,7 +29,9 @@ export default async function submitCollaboration(props) {
     if (data.effective_role)
         data.effective_role = data.effective_role.key
     data.member = props.memberID
-
+    // console.log('THIS IS DATA')
+    // console.log(props.data)
+    // console.log(data)
     await axios({
         method: props.create ? 'post': 'put',
         url: !props.create ? (Host() + 'collaboration/' + props.collaborationID) :(Host() + 'collaboration'),

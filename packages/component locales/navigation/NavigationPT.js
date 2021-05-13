@@ -10,5 +10,6 @@ export default {
     more: 'Mais',
     extended: 'Reduzir',
     management: 'Administração',
-    createPerson: 'Cadastrar colaborador'
+    createPerson: 'Cadastrar colaborador',
+    navigation: 'Navegação'
 }

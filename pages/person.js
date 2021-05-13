@@ -10,7 +10,7 @@ import TabContent from "../components/templates/TabContent";
 import Authenticate from "../components/modules/Authenticate";
 import OverviewComponent from "../components/templates/ProfileOverview";
 import fetchMember from "../utils/fetch/FetchMember";
-import FetchMainCollaboration from "../utils/fetch/FetchMainCollaboration";
+
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import fetchDocuments from "../utils/fetch/FetchDocuments";
 import fetchContacts from "../utils/fetch/FetchContacts";
@@ -73,7 +73,6 @@ export default function person() {
                 })
             }
             if (router.isReady && router.query.id !== id) {
-
                 setId(router.query.id)
                 fetchMember(router.query.id).then(res => {
                     if (res !== null) {
@@ -89,36 +88,45 @@ export default function person() {
                                     delete res.person.birth_place
                                 }
                             })
+                        if (res.main_collaboration !== null) {
+                            handleObjectChange({
+                                event: {name: 'effectiveRole', value: res.effective_role},
+                                setData: setCollaboration
+                            })
+                            handleObjectChange({
+                                event: {name: 'senior', value: res.main_collaboration.senior_member},
+                                setData: setCollaboration
+                            })
+                            handleObjectChange({
+                                event: {name: 'linkage', value: res.main_collaboration.linkage},
+                                setData: setCollaboration
+                            })
+                            handleObjectChange({
+                                event: {name: 'unit', value: res.main_collaboration.unit},
+                                setData: setCollaboration
+                            })
+                            handleObjectChange({
+                                event: {name: 'data', value: res.main_collaboration.data},
+                                setData: setCollaboration
+                            })
+                            handleObjectChange({
+                                event: {name: 'commissionedRole', value: res.main_collaboration.commissioned_role},
+                                setData: setCollaboration
+                            })
+                            handleObjectChange({
+                                event: {name: 'accessProfile', value: res.main_collaboration.access_profile_denomination},
+                                setData: setCollaboration
+                            })
 
+                        }
                         setMember(res.member)
                         setLoading(false)
                         setPerson(res.person)
                     }
                 })
-
-                FetchMainCollaboration(router.query.id).then(res => {
-                        if (res !== null) {
-                            handleObjectChange({
-                                event: {name: 'effectiveRole', value: res.effective_role},
-                                setData: setCollaboration
-                            })
-                            handleObjectChange({event: {name: 'senior', value: res.senior_member}, setData: setCollaboration})
-                            handleObjectChange({event: {name: 'linkage', value: res.linkage}, setData: setCollaboration})
-                            handleObjectChange({event: {name: 'unit', value: res.unit}, setData: setCollaboration})
-                            handleObjectChange({event: {name: 'data', value: res.collaboration}, setData: setCollaboration})
-                            handleObjectChange({
-                                event: {name: 'commissionedRole', value: res.commissioned_role},
-                                setData: setCollaboration
-                            })
-                        }
-                        setLoading(false)
-                    }
-                )
             }
             if (lang === null)
                 setLang(getLanguage(router.locale, router.pathname))
-            console.log('setting cookie to')
-            console.log(!(new Cookies()).get('authorization_token'))
             setNotAuthenticated(!(new Cookies()).get('authorization_token'))
         },
         [router.locale, router.isReady, router.query, notAuthenticated, editMode]
@@ -152,7 +160,7 @@ export default function person() {
                                 value: lang.personal
                             } : null,
                             editMode && accessProfile !== null ? {
-                                disabled: !accessProfile.canViewDocuments,
+                                disabled: !accessProfile.canManageMembership,
                                 key: 2,
                                 value: lang.corporate
                             } : null,
@@ -223,6 +231,15 @@ export default function person() {
                                 value: (
                                     <CorporateForms
                                         lang={lang}
+                                        mainCollaboration={collaboration.data !== null && collaboration.data ?
+                                            {
+                                                key: collaboration.data.id,
+                                                value: collaboration.unit.unit_acronym + ' - '+ collaboration.data.access_profile_denomination,
+                                            } : member.main_collaboration !== null && member.main_collaboration ? {
+                                                value: member.main_collaboration.value,
+                                                key: member.main_collaboration.key,
+
+                                            } : null}
                                         locale={router.locale} id={id} accessProfile={accessProfile}
                                         member={member} setMember={setMember}/>
                                 )

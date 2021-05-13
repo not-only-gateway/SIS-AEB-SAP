@@ -21,7 +21,7 @@ export default function PageLayout({children}) {
             router.push(router.pathname, router.pathname, {locale: cookies.get('lang')}).catch(error => console.log(error))
     }, [router.isReady, router.locale])
 
-    if (router.pathname !== '/authenticate' && router.pathname !== '/authenticate')
+    if (router.pathname !== '/authenticate')
         return (
             <div style={{fontFamily: 'Roboto', backgroundColor: '#f5f6f8'}}>
                 <div className={styles.page_container}

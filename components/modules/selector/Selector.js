@@ -5,7 +5,7 @@ import {AddRounded} from "@material-ui/icons";
 import {Button, FormControl, FormLabel, Modal} from "@material-ui/core";
 import styles from '../../../styles/person/Form.module.css'
 import InputLayout from "../InputLayout";
-
+import animations from '../../../styles/shared/Animations.module.css'
 
 export default function Selector(props) {
     const [modal, setModal] = useState(false)
@@ -19,7 +19,7 @@ export default function Selector(props) {
         return (
             <Modal open={modal} onClose={() => setModal(false)}
                    style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                <div className={styles.modalContainer}
+                <div className={[styles.modalContainer, animations.fadeIn].join(' ')}
                      style={{backgroundColor: 'white'}}>
 
                     <div className={styles.modalFormContainer}
