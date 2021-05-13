@@ -43,6 +43,8 @@ export default function authenticate() {
             <>
                 <Head>
                     <title>{lang.title}</title>
+
+                    <link rel = "icon" href={"/LOGO.png"} type = "image/x-icon"/>
                 </Head>
 
                 <div className={styles.pageContainer}>

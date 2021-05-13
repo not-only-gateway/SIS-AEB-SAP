@@ -41,12 +41,13 @@ export default function HeaderLayout(props) {
                 else if (document.getElementById('r').offsetTop === 0)
                     setScrolledHeight(false)
             })
-            return () => {
-                document.getElementById('scrollableDiv').removeEventListener('scroll', () => {
-                    if (document.getElementById('r').offsetTop === 0)
-                        setScrolledHeight(false)
-                })
-            }
+            if(document.getElementById('scrollableDiv') !== null)
+                return () => {
+                    document.getElementById('scrollableDiv').removeEventListener('scroll', () => {
+                        if (document.getElementById('r').offsetTop === 0)
+                            setScrolledHeight(false)
+                    })
+                }
         }
     })
 
@@ -62,6 +63,7 @@ export default function HeaderLayout(props) {
             {RenderModalTest()}
             <Head>
                 <title>{props.pageTitle}</title>
+                <link rel = "icon" href={"/LOGO.png"} type = "image/x-icon"/>
             </Head>
 
             <div className={styles.HeaderLayout}  style={{

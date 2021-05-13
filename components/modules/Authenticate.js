@@ -76,7 +76,7 @@ export default function Authenticate(props) {
                         height: 'fit-content',
                         gap: '10px',
                     }}>
-                        <img src={'./newnew.png'} style={{width: '50%'}}/>
+                        <img src={'./LOGOBIG.png'} style={{width: '50%'}}/>
                         <div style={{
                             display: 'grid',
                             justifyItems: 'center',
