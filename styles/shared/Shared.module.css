@@ -73,11 +73,7 @@
     align-content: space-between;
     line-height: normal;
 }
-.row{
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-}
+
 .accordionTitle{
     display: flex;
     align-items: center;
@@ -88,11 +84,8 @@
     text-overflow: ellipsis;
     overflow: hidden
 }
-
-.pop_up_animation{
-    border-radius: 8px;
-    transition: .3s;
-    height: fit-content;
-    animation-duration: .2s;
-    animation-name: pop_in;
+.closeButtonModalContainer{
+    position: absolute;
+    top: 16px;
+    right: 16px;
 }

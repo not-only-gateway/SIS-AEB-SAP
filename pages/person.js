@@ -142,6 +142,7 @@ export default function person() {
                             setNotAuthenticated(false)
                         setEditMode(true)
                     }}
+                    forceClose={() => setEditMode(false)}
                     render={editMode && notAuthenticated}
                     locale={router.locale}
                 />

@@ -1,20 +1,26 @@
 import PropTypes from 'prop-types'
-import React from "react";
+import React, {useState} from "react";
 import {FormControl, Grid, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 
 export default function InputLayout(props) {
-
+    const [focused, setFocused] = useState(false)
     switch (props.inputType) {
         case 0: {
             return (
                 <div key={props.key} style={{width: props.size}}>
                     <FormControl component="fieldset" style={{width: '100%'}}>
-                        <TextField disabled={props.disabled} value={props.initialValue} label={props.inputName}
+                        <TextField
+                            onFocus={() => setFocused(true)}
+                            onBlur={() => setFocused(false)}
+                            disabled={props.disabled}
+                                   value={props.initialValue}
+                                   label={props.inputName}
                                    variant={"outlined"}
                                    style={{
                                        width: '100%',
+                                       background: focused ? '#f5f6f8' : 'transparent'
                                    }}
                                    type={props.numeric ? 'number' : 'text'}
                                    onChange={event => {
@@ -45,11 +51,11 @@ export default function InputLayout(props) {
                     <FormControl variant="outlined" disabled={props.disabled}
                                  style={{width: '100%'}} required={props.required}
                                  error={props.required === true && (props.initialValue === null || props.initialValue === undefined || props.initialValue.length === 0)}>
-                        <InputLabel id={props.key+'-selector'}>{props.inputName}</InputLabel>
+                        <InputLabel id={props.key + '-selector'}>{props.inputName}</InputLabel>
                         <Select
-                            labelId={props.key+'-selector'}
+                            labelId={props.key + '-selector'}
                             label={props.inputName}
-                            id={props.key+'-selector'}
+                            id={props.key + '-selector'}
                             value={props.initialValue}
                             disabled={props.disabled}
                             onChange={event => {

@@ -7,6 +7,7 @@ import mapToSelect from "../../../utils/shared/MapToSelect";
 import Selector from "../selector/Selector";
 import FetchExtensionsFilter from "../../../utils/fetch/FetchExtensionsFilter";
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
+import {CloseRounded} from "@material-ui/icons";
 
 
 export default function ExtensionsFilters(props) {
@@ -30,7 +31,7 @@ export default function ExtensionsFilters(props) {
     if (lang !== null)
         return (
             <div className={shared.filterContainer}>
-                <h3 style={{marginRight: "auto"}}>{lang.title}</h3>
+                <h3 style={{marginRight: "auto", marginTop: '8px'}}>{lang.title}</h3>
                 <Selector
                     required={false}
                     selected={props.filters.unit}

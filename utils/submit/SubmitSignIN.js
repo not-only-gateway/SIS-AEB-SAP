@@ -27,6 +27,7 @@ export default async function submitSignIN(props) {
             cookies.set('jwt', res.data.jwt, {expires: new Date(res.data.exp)})
             cookies.set('exp', res.data.exp, {expires: new Date(res.data.exp)})
             response = true
+
             setProfile({
                 id: res.data.profile.id,
                 corporateEmail: res.data.profile.corporate_email,
@@ -57,19 +58,29 @@ export default async function submitSignIN(props) {
 
                 }
 
-            }).catch(error => console.log(error))
+            }).catch(error => props.setError({
+                error: true,
+                message: error.message
+            }))
 
         }).catch(error => {
-            console.log(error)
+            props.setError({
+                error: true,
+                message: error.message
+            })
         })
 
     } catch (error) {
-        console.log(error)
+        props.setError({
+            error: true,
+            message: error.message
+        })
     }
     return response
 }
 submitSignIN.propTypes = {
     email: PropTypes.string,
     password: PropTypes.string,
-    locale: PropTypes.string
+    locale: PropTypes.string,
+    setError: PropTypes.func
 }

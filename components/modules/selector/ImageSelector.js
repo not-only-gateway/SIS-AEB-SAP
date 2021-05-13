@@ -1,12 +1,13 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 import mainStyles from '../../../styles/shared/Main.module.css'
-import {AddRounded} from "@material-ui/icons";
+import {AddRounded, CloseRounded} from "@material-ui/icons";
 import {Button, FormControl, FormLabel, Modal} from "@material-ui/core";
 import styles from '../../../styles/person/Form.module.css'
 import {getIconStyle} from "../../../styles/shared/MainStyles";
 import ProfilePersona from "../../elements/ProfilePersona";
 import ImageHost from "../../../utils/shared/ImageHost";
+import shared from "../../../styles/shared/Shared.module.css";
 
 export default function ImageSelector(props) {
     const [modal, setModal] = useState(false)
@@ -16,8 +17,12 @@ export default function ImageSelector(props) {
             <Modal open={modal} onClose={() => setModal(false)}
                    style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                 <div className={styles.modalContainer}
-                     style={{backgroundColor: 'white', minHeight: '50%'}}>
-
+                     style={{backgroundColor: 'white', minHeight: '50%', position: 'relative'}}>
+                    <div className={shared.closeButtonModalContainer}>
+                        <Button onClick={() => setModal(false)}>
+                            <CloseRounded/>
+                        </Button>
+                    </div>
                     <div className={styles.modalFormContainer}
                          style={{
                              borderBottom: '#e2e2e2 1px solid',

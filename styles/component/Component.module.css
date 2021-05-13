@@ -31,5 +31,26 @@
     padding: 0 16px 0 16px;
     transition: opacity 300ms ease-in-out;
     text-align: center;
+}
+.alertContainer{
+    padding: 16px;
+    width: clamp(500px, 500px, 90%);
 
+    position: fixed;
+    bottom: clamp(16px, 5%, 5%);
+    left: 50%;
+    transform: translateX(-50%);
+
+    border-radius: 8px;
+
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+
+}
+
+.alertContent{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
 }

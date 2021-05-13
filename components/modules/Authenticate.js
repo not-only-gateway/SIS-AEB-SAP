@@ -10,6 +10,9 @@ import Cookies from "universal-cookie/lib";
 import getComponentLanguage from "../../utils/shared/GetComponentLanguage";
 import shared from '../../styles/shared/Shared.module.css'
 import animations from '../../styles/shared/Animations.module.css'
+import Alert from "../layout/Alert";
+import {CloseRounded} from "@material-ui/icons";
+import styles from '../../styles/component/Component.module.css'
 
 const cookies = new Cookies()
 export default function Authenticate(props) {
@@ -20,7 +23,7 @@ export default function Authenticate(props) {
     const [valid, setValid] = useState(false)
     const [error, setError] = useState({
         error: null,
-        errorMessage: null
+        message: null
     })
     useEffect(() => {
         if ((new Cookies()).get('authorization_token') !== undefined)
@@ -54,8 +57,8 @@ export default function Authenticate(props) {
             props.handleClose(true)
         }).catch(error => {
             setError({
-                error: error.response.status,
-                errorMessage: error.response.data
+                error: true,
+                message: error.message
             })
             setAttempts(attempts + 1)
         })
@@ -64,72 +67,76 @@ export default function Authenticate(props) {
 
     if (lang !== null)
         return (
+
             <Modal
                 open={props.render} style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
                 className={animations.fadeIn}
             >
-                <div className={shared.signInContainer} >
+                <>
+                    <Alert
+                        type={'error'} message={error.message} render={error.error} duration={5000}
+                        handleClose={() => setError({error: false, message: ''})}
+                    />
+                    <div className={shared.signInContainer}>
 
-                    <div style={{
-                        display: 'grid',
-                        justifyItems: 'center',
-                        height: 'fit-content',
-                        gap: '10px',
-                    }}>
-                        <img src={'./LOGOBIG.png'} style={{width: '50%'}}/>
+                        <div className={shared.closeButtonModalContainer}>
+                            <Button onClick={() => props.forceClose()}>
+                                <CloseRounded/>
+                            </Button>
+                        </div>
                         <div style={{
                             display: 'grid',
                             justifyItems: 'center',
-                            gap: '5px',
-
+                            height: 'fit-content',
+                            gap: '10px',
                         }}>
-                            <span style={{fontSize: '1.5rem'}}>{lang.signin}</span>
-                            <span className={mainStyles.tertiaryParagraph}
-                                  style={getTertiaryColor({dark: false})}>{lang.authenticate}</span>
+                            <img src={'./LOGOBIG.png'} style={{width: '50%'}}/>
+                            <div style={{
+                                display: 'grid',
+                                justifyItems: 'center',
+                                gap: '5px',
+
+                            }}>
+                                <span style={{fontSize: '1.5rem'}}>{lang.signin}</span>
+                                <span className={mainStyles.tertiaryParagraph}
+                                      style={getTertiaryColor({dark: false})}>{lang.authenticate}</span>
+                            </div>
                         </div>
+                        <InputLayout inputName={lang.email} dark={false}
+                                     handleChange={handleChange} name={'email'}
+                                     inputType={0} disabled={false} size={'100%'} required={false}
+                                     initialValue={email} key={"1-1"} setChanged={undefined}/>
+                        <div style={{width: '100%'}}>
+
+                            <FormControl variant="outlined" style={{width: '100%'}}>
+                                <InputLabel htmlFor="password">{lang.password}</InputLabel>
+                                <OutlinedInput
+
+                                    id="password"
+                                    type={'password'}
+                                    value={password}
+                                    onChange={event => handleChange({name: 'password', value: event.target.value})}
+                                    labelWidth={70}
+                                />
+                            </FormControl>
+
+                        </div>
+                        <div className={mainStyles.displayInlineCenter} style={{width: '100%'}}>
+                            <Button variant={'contained'} onClick={submit} disabled={email.length < 12 || password < 8}
+                                    style={{
+                                        textTransform: 'none',
+                                        backgroundColor: email.length < 12 || password < 8 ? 'rgba(0,0,0,0.07)' : '#0095ff',
+                                        color: email.length < 12 || password < 8 ? '#777777' : 'white',
+                                        width: '35%'
+                                    }}>
+                                {lang.authenticate}
+                            </Button>
+                        </div>
+
                     </div>
-                    <InputLayout inputName={lang.email} dark={false}
-                                 handleChange={handleChange} name={'email'}
-                                 inputType={0} disabled={false} size={'100%'} required={false}
-                                 initialValue={email} key={"1-1"} setChanged={undefined}/>
-                    <div style={{width: '100%'}}>
-
-                        <FormControl variant="outlined" style={{width: '100%'}}>
-                            <InputLabel htmlFor="password">{lang.password}</InputLabel>
-                            <OutlinedInput
-
-                                id="password"
-                                type={'password'}
-                                value={password}
-                                onChange={event => handleChange({name: 'password', value: event.target.value})}
-                                labelWidth={70}
-                            />
-                        </FormControl>
-
-                    </div>
-                    <div className={mainStyles.displayInlineSpaced} style={{width: '100%'}}>
-                        <Button variant={'contained'} onClick={submit} disabled={email.length < 12 || password < 8}
-                                style={{
-                                    textTransform: 'none',
-                                    backgroundColor: email.length < 12 || password < 8 ? 'rgba(0,0,0,0.07)' : '#0095ff',
-                                    color: email.length < 12 || password < 8 ? '#777777' : 'white',
-                                    width: '35%'
-                                }}>
-                            {lang.authenticate}
-                        </Button>
-                        <Button variant={'contained'} onClick={() => props.handleClose(valid)}
-                                style={{
-                                    textTransform: 'none',
-                                    backgroundColor: '#f54269',
-                                    color: 'white',
-                                    width: '35%'
-                                }}>
-                            {lang.cancel}
-                        </Button>
-                    </div>
-
-                </div>
+                </>
             </Modal>
+
         )
     else {
         return <></>
@@ -139,5 +146,6 @@ export default function Authenticate(props) {
 Authenticate.propTypes = {
     locale: PropTypes.string,
     render: PropTypes.bool,
-    handleClose: PropTypes.func
+    handleClose: PropTypes.func,
+    forceClose: PropTypes.func
 }

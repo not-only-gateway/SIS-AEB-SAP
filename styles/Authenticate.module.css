@@ -6,12 +6,13 @@
     justify-items: center;
     border-radius: 0 8px 8px 0;
     background-color: #222228;
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
 }
 
 .pageContainer {
     width: 100%;
     height: 100vh;
-    background-color: #f5f6f8;
+
     display: flex;
 }
 
@@ -25,20 +26,27 @@
     margin-left: auto;
     display: grid;
     grid-template-rows: calc((100% - 250px) / 2) 250px calc((100% - 250px) / 2);
+    grid-template-columns: 35% 65%;
     justify-content: space-around;
 }
 
 .welcomeContainer {
+    grid-column: 1;
     grid-row: 2;
     height: 250px;
+
+    display: flex;
+    justify-content: center;
 }
 
 .inputContainer {
+    grid-column: 2;
     grid-row: 2;
     display: grid;
-    justify-content: center;
+    justify-items: center;
     align-content: space-between;
     height: 250px;
+
 }
 
 .headerContainer{

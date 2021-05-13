@@ -80,12 +80,6 @@ export default function activity() {
             setLang(getLanguage(router.locale, router.pathname))
     }, [router.locale])
 
-    function handleInputChange(event) {
-        if (event.length === 0)
-            fetch(1)
-        handleChange({name: 'searchInput', value: event})
-    }
-
     if (lang !== null)
         return (
             <>

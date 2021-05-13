@@ -4,31 +4,37 @@ import {Button, Modal} from "@material-ui/core";
 
 import animations from "../../styles/shared/Animations.module.css";
 import mainStyles from "../../styles/shared/Main.module.css";
-import {FilterListRounded} from "@material-ui/icons";
+import {CloseRounded, FilterListRounded} from "@material-ui/icons";
 import Head from "next/head";
 import HorizontalTabs from "./navigation/HorizontalTabs";
 import Stepper from "./navigation/Stepper";
 import styles from '../../styles/component/Component.module.css'
+import shared from "../../styles/shared/Shared.module.css";
 
 export default function HeaderLayout(props) {
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [modal, setModal] = useState(false);
     const [scrolledHeight, setScrolledHeight] = useState(false)
-    const handleButtonClick = useCallback(() => {
-        // Toggle the `isModalVisible` value:
-        setIsModalVisible(prevIsModalVisible => !prevIsModalVisible);
-    }, []);
 
     function RenderModalTest() {
 
         return (
             <Modal
 
-                open={isModalVisible}
-                onClose={handleButtonClick}
+                open={modal}
+                onClose={() => setModal(false)}
             >
+
+
                 <div className={[styles.FilterModal, animations.slideInRightAnimation].join(' ')}>
+                    <div className={shared.closeButtonModalContainer}>
+                        <Button onClick={() => setModal(false)}>
+                            <CloseRounded/>
+                        </Button>
+                    </div>
                     {props.filterComponent}
+
                 </div>
+
             </Modal>
         )
     }
@@ -41,13 +47,13 @@ export default function HeaderLayout(props) {
                 else if (document.getElementById('r').offsetTop === 0)
                     setScrolledHeight(false)
             })
-            if(document.getElementById('scrollableDiv') !== null)
-                return () => {
-                    document.getElementById('scrollableDiv').removeEventListener('scroll', () => {
-                        if (document.getElementById('r').offsetTop === 0)
-                            setScrolledHeight(false)
-                    })
-                }
+            // if(document.getElementById('scrollableDiv') !== null)
+            //     return () => {
+            //         document.getElementById('scrollableDiv').removeEventListener('scroll', () => {
+            //             if (document.getElementById('r').offsetTop === 0)
+            //                 setScrolledHeight(false)
+            //         })
+            //     }
         }
     })
 
@@ -102,7 +108,7 @@ export default function HeaderLayout(props) {
                         </div>
 
                         {props.filterComponent !== undefined ?
-                            <Button onClick={handleButtonClick}>
+                            <Button onClick={() => setModal(true)}>
                                 <FilterListRounded style={{color: 'black'}}/>
                             </Button>
                             : null

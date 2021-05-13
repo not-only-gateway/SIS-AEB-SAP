@@ -41,6 +41,7 @@ export default function management() {
                         else
                             router.push('/', '/', {locale: router.locale})
                     }}
+                    forceClose={() => router.push('/', '/', {locale: router.locale})}
                     render={notAuthenticated}
                     locale={router.locale}
                 />
