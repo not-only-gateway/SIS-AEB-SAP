@@ -4,11 +4,11 @@ import ImageHost from "../../utils/shared/ImageHost";
 import React from "react";
 import mainStyles from '../../styles/shared/Main.module.css'
 import {CakeRounded} from "@material-ui/icons";
-
+import animations from '../../styles/shared/Animations.module.css'
 export default function ProfilePersona(props) {
 console.log(props.image)
     return (
-        <div style={{position: 'relative'}}>
+        <div style={{position: 'relative'}} className={animations.fadeIn}>
             <Avatar src={typeof(props.image) === 'string' ? (props.base64 ? props.image : (ImageHost()+props.image)) : undefined}
                     style={{
                         height: props.size,
