@@ -287,7 +287,8 @@ export default function CollaborationForm(props) {
                             setStatus: setStatus
                         }).then(res => {
                             setChanged(!res)
-                            props.setAccepted(res)
+                            if(props.collaborationID === undefined || props.collaborationID === null)
+                                props.setAccepted(res)
                         })}>
                         {props.collaborationID !== undefined && props.collaborationID !== null ? lang.save : lang.create}
                     </Button>
