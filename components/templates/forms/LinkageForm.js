@@ -5,15 +5,19 @@ import PropTypes from "prop-types";
 import mainStyles from '../../../styles/shared/Main.module.css'
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import InputLayout from "../../modules/InputLayout";
+import Alert from "../../layout/Alert";
 
 
 export default function LinkageForm(props) {
 
     const [changed, setChanged] = useState(false)
     const [lang, setLang] = useState(null)
+    const [status, setStatus] = useState({
+        type: undefined,
+        message: undefined
+    })
 
     useEffect(() => {
-
         setLang(getComponentLanguage({component: 'linkage', locale: props.locale}))
     }, [])
 
@@ -29,8 +33,11 @@ export default function LinkageForm(props) {
 
     if (lang !== null)
         return (
-            <div className={mainStyles.displayWarp} style={{justifyContent: 'center', width: '100%'}}>
-
+            <div className={mainStyles.displayWarp} style={{justifyContent: 'center', width: '100%', position: 'relative'}}>
+                <Alert
+                    type={status.type} render={status.type !== undefined} duration={5000}
+                    handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
+                />
                 <InputLayout inputName={lang.denomination} dark={false} handleChange={props.handleChange}
                              name={'denomination'}
                              inputType={0} size={'calc(50% - 8px)'} required={true}
@@ -50,9 +57,8 @@ export default function LinkageForm(props) {
                     bottom: 0,
                     zIndex: 5,
                 }} disabled={disabled()} variant={'contained'} onClick={() => {
-                    props.handleSubmit({pk: props.data.id, data: props.data, create: props.create}).then(res => {
+                    props.handleSubmit({pk: props.data.id, data: props.data, create: props.create, setStatus: setStatus}).then(res => {
                         setChanged(!res)
-                        props.setAccepted(res)
                     })
                 }}>
                     {props.create ? lang.create : lang.save}
@@ -68,6 +74,5 @@ LinkageForm.propTypes = {
     create: PropTypes.bool,
     locale: PropTypes.string,
     data: PropTypes.object,
-    handleChange: PropTypes.func,
-    setAccepted: PropTypes.func
+    handleChange: PropTypes.func
 }

@@ -15,26 +15,6 @@ export default async function fetchCollaboration(props) {
         }
     }).then(res => {
         response = res.data
-        if (response.senior)
-            response.senior = {key: response.senior.id, value: response.senior.name}
-        if (response.effective_role) {
-            response.effective_role = {key: response.effective_role.id, value: response.effective_role.denomination}
-        }
-        if (response.commissioned_role) {
-            response.commissioned_role = {
-                key: response.commissioned_role.id,
-                value: response.commissioned_role.denomination
-            }
-        }
-        console.log('this is ACCESS PROFILE')
-        response.access_level_profile = {
-            key: response.access_level_profile.id,
-            value: response.access_level_profile.denomination
-        }
-        console.log(response.access_level_profile)
-        response.unit = {key: response.unit.id, value: response.unit.acronym}
-        response.linkage = {key: response.linkage.id, value: response.linkage.denomination}
-
         props.setLoading(false)
     }).catch(error => {
         console.log(error)

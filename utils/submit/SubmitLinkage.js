@@ -13,9 +13,17 @@ export default async function submitLinkage(props) {
         url: props.create ? Host() + 'linkage' : Host() + 'linkage/' + props.pk,
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         data: props.data
-    }).then(() => {
+    }).then(res => {
+        props.setStatus({
+            type: 'success',
+            message: res.status + ' - ' + res.statusText,
+        })
         response = true
     }).catch(error => {
+        props.setStatus({
+            type: 'error',
+            message: error.message,
+        })
         console.log(error)
     })
     return response
@@ -23,5 +31,6 @@ export default async function submitLinkage(props) {
 submitLinkage.propTypes = {
     pk: PropTypes.number,
     data: PropTypes.object,
-    create: PropTypes.bool
+    create: PropTypes.bool,
+    setStatus: PropTypes.func
 }

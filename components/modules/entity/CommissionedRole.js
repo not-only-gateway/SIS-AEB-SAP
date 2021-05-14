@@ -12,19 +12,13 @@ import submitCommissionedRole from "../../../utils/submit/SubmitCommissionedRole
 export default function CommissionedRole(props) {
     const [role, setRole] = useState({})
     const [modal, setModal] = useState(false)
-    const [accepted, setAccepted] = useState(false)
     const [hovered, setHovered] = useState(false)
 
     useEffect(() => {
         if (props.role !== undefined || props.role === role)
             setRole(props.role)
 
-        if (accepted) {
-            props.fetch()
-            setAccepted(false)
-            setModal(false)
-        }
-    }, [accepted])
+    }, [])
 
     function renderModal() {
         return (
@@ -45,7 +39,6 @@ export default function CommissionedRole(props) {
                                               event: event,
                                               setData: setRole
                                           })} create={props.create}
-                                          setAccepted={setAccepted}
                                           data={role} locale={props.locale}/>
                 </div>
             </Modal>
@@ -123,6 +116,5 @@ CommissionedRole.propTypes = {
     role: PropTypes.object,
     locale: PropTypes.object,
     create: PropTypes.bool,
-    index: PropTypes.number,
-    fetch: PropTypes.func
+    index: PropTypes.number
 }

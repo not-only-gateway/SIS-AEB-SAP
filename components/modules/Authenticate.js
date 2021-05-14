@@ -77,7 +77,7 @@ export default function Authenticate(props) {
                         type={'error'} message={error.message} render={error.error} duration={5000}
                         handleClose={() => setError({error: false, message: ''})}
                     />
-                    <div className={shared.signInContainer}>
+                    <div className={styles.authenticateModalContainer}>
 
                         <div className={shared.closeButtonModalContainer}>
                             <Button onClick={() => props.forceClose()}>

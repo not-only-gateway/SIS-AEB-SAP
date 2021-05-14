@@ -15,9 +15,9 @@ export default function EffectiveRoleList(props) {
             width: '100%',
             gap: '16px'
         }}>
-            <EffectiveRole role={undefined} create={true} locale={props.locale} index={undefined} fetch={() => fetchEffectiveRoles().then(res => setData(res))}/>
+            <EffectiveRole role={undefined} create={true} locale={props.locale} index={undefined} />
             {(data).map((role, index) =>
-                <EffectiveRole role={role} locale={props.locale} index={index} fetch={() => fetchEffectiveRoles().then(res => setData(res))}/>
+                <EffectiveRole role={role} locale={props.locale} index={index}/>
             )}
         </div>
     )

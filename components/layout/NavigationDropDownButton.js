@@ -19,7 +19,7 @@ export default function NavigationDropDownButton(props) {
             style={{
                 borderRadius: '8px',
                 width: props.reduced ? '65px' : '210px',
-                height: open ? 'auto' : '65px',
+                height: 'fit-content',
             }}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
@@ -27,7 +27,6 @@ export default function NavigationDropDownButton(props) {
 
             <Button style={{
                 width: '100%',
-                height: 'auto',
                 textTransform: 'none',
                 borderRadius: open ? '0px' : '8px',
 

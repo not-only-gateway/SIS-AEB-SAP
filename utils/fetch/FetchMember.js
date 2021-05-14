@@ -1,18 +1,27 @@
 import axios from "axios";
 import Host from "../shared/Host";
 import Cookies from "universal-cookie/lib";
+import PropTypes from 'prop-types'
 
-export default async function fetchMember(memberID){
+export default async function fetchMember(props){
     let response = null
     await axios({
         method: 'get',
-        url: Host() + 'member/'+memberID,
+        url: Host() + 'member/'+props.memberID,
         headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
     }).then(res => {
         response = res.data
-        response.entity = {key: response.entity.id, value: response.entity.acronym}
+        response.member.entity = {key: response.member.entity.id, value: response.member.entity.acronym}
     }).catch(error => {
-        console.log(error)
+        props.setStatus({
+            error: true,
+            message: error.message
+        })
     })
     return response
+}
+
+fetchMember.propTypes={
+    memberID: PropTypes.number,
+    setStatus: PropTypes.func
 }

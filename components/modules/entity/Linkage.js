@@ -13,19 +13,12 @@ import submitLinkage from "../../../utils/submit/SubmitLinkage";
 export default function Linkage(props) {
     const [linkage, setLinkage] = useState({})
     const [modal, setModal] = useState(false)
-    const [accepted, setAccepted] = useState(false)
     const [hovered, setHovered] = useState(false)
 
     useEffect(() => {
         if (props.linkage !== undefined || props.linkage === linkage)
             setLinkage(props.linkage)
-
-        if (accepted) {
-            props.fetch()
-            setAccepted(false)
-            setModal(false)
-        }
-    }, [accepted])
+    }, [])
 
     function renderModal() {
         return (
@@ -46,7 +39,7 @@ export default function Linkage(props) {
                                      event: event,
                                      setData: setLinkage
                                  })} create={props.create}
-                                 setAccepted={setAccepted}
+
                                  data={linkage} locale={props.locale}/>
                 </div>
             </Modal>
@@ -110,5 +103,4 @@ Linkage.propTypes = {
     locale: PropTypes.object,
     create: PropTypes.bool,
     index: PropTypes.number,
-    fetch: PropTypes.func
 }

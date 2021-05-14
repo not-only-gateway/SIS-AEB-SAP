@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import mainStyles from '../../../styles/shared/Main.module.css'
 import {AddRounded, CloseRounded} from "@material-ui/icons";
 import {Button, FormControl, FormLabel, Modal} from "@material-ui/core";
-import styles from '../../../styles/person/Form.module.css'
+import styles from '../../../styles/component/Component.module.css'
 import {getIconStyle} from "../../../styles/shared/MainStyles";
 import ProfilePersona from "../../elements/ProfilePersona";
 import ImageHost from "../../../utils/shared/ImageHost";
@@ -23,11 +23,11 @@ export default function ImageSelector(props) {
                             <CloseRounded/>
                         </Button>
                     </div>
-                    <div className={styles.modalFormContainer}
+                    <div className={styles.modalContentContainer}
                          style={{
                              borderBottom: '#e2e2e2 1px solid',
                          }}>
-                        <spam style={{fontSize: '1.3rem'}}>{props.label}</spam>
+                        <h3 style={{marginTop: 0}}>{props.label}</h3>
                         <div className={mainStyles.rowContainer} style={{gap: '16px'}}>
 
                             {props.initialImage !== undefined && props.initialImage !== null ?
@@ -74,12 +74,25 @@ export default function ImageSelector(props) {
                         </div>
                     </div>
 
-                    <div className={mainStyles.displayInlineCenter} style={{
+                    <div style={{
                         gridRow: 2,
-                        overflow: 'hidden'
+                        overflow: 'hidden',
+                        backgroundColor: '#eeeef1',
+                        borderRadius: '8px',
+                        padding: '16px',
+                        display: props.initialImage !== null && props.initialImage !== undefined ? 'flex' : 'none',
+                        placeContent: 'center'
                     }}>
                         <img src={props.base64 ? props.initialImage : ImageHost() + props.initialImage}
-                             style={{maxWidth: '100%',borderRadius: '8px',  maxHeight: '100%', objectFit: 'contain'}}/>
+                             style={{
+                                 minWidth: '75%',
+                                 maxWidth: '100%',
+                                 borderRadius: '8px',
+                                 maxHeight: '100%',
+                                 objectFit: 'contain',
+                                 boxShadow: 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
+                                 border: '#0095ff 2px solid'
+                             }} alt={props.label}/>
                     </div>
                 </div>
             </Modal>

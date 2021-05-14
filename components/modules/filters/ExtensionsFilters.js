@@ -35,38 +35,38 @@ export default function ExtensionsFilters(props) {
                 <Selector
                     required={false}
                     selected={props.filters.unit}
-                    disabled={props.option === 'people'}
+                    disabled={props.option === 'member'}
                     handleChange={event => props.handleFilterChange({name: 'unit', value: event})}
                     setChanged={() => props.setChanged(true)}
                     label={lang.unit} key={'unit-select'}
-                    data={mapToSelect({data: entities.units, option: 0})} width={'100%'}
+                    data={mapToSelect({data: entities.units, option: 0})} width={'calc(100% - 4px)'}
                 />
                 <Selector
                     required={false}
                     selected={props.filters.effectiveRole}
                     handleChange={event => props.handleFilterChange({name: 'effectiveRole', value: event})}
-                    disabled={props.filters.commissionedRoleOnly || props.option === 'people'}
+                    disabled={props.filters.commissionedRoleOnly || props.option === 'member'}
                     setChanged={() => props.setChanged(true)}
                     label={lang.effectiveRole} key={'effective-role-select'}
-                    data={mapToSelect({data: entities.effectiveRoles, option: 1})} width={'100%'}
+                    data={mapToSelect({data: entities.effectiveRoles, option: 1})} width={'calc(100% - 4px)'}
                 />
                 <Selector
                     required={false}
-                    disabled={props.filters.effectiveRoleOnly || props.option === 'people'}
+                    disabled={props.filters.effectiveRoleOnly || props.option === 'member'}
                     selected={props.filters.commissionedRole}
                     handleChange={event => props.handleFilterChange({name: 'commissionedRole', value: event})}
                     setChanged={() => props.setChanged(true)}
                     label={lang.commissionedRole} key={'commissioned-role-select'}
-                    data={mapToSelect({data: entities.commissionedRoles, option: 2})} width={'100%'}
+                    data={mapToSelect({data: entities.commissionedRoles, option: 2})} width={'calc(100% - 4px)'}
                 />
                 <Selector
                     required={false}
                     selected={props.filters.senior}
-                    disabled={props.option === 'people' || props.filters.unit === undefined}
+                    disabled={props.option === 'member' || props.filters.unit === undefined || entities.seniors.length === 0}
                     handleChange={event => props.handleFilterChange({name: 'senior', value: event})}
                     setChanged={() => props.setChanged(true)}
                     label={lang.senior} key={'senior-select'}
-                    data={mapToSelect({data: entities.seniors, option: 3})} width={'100%'}
+                    data={mapToSelect({data: entities.seniors, option: 3})} width={'calc(100% - 4px)'}
                 />
 
                 <FormControl component="fieldset" style={{marginRight: 'auto'}}>

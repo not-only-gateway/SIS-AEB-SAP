@@ -8,6 +8,48 @@
     transition: all 300ms ease-in-out;
 
 }
+.modalContainer{
+    display: grid;
+    gap: 10px;
+    width: 600px;
+    height: 75%;
+
+    padding: 16px;
+    border-radius: 8px;
+    grid-template-rows: 25% 1fr;
+}
+.collaborationContainer{
+    display: grid;
+    grid-template-rows: 10% 83% 7%;
+    gap: 32px;
+    height: 100%;
+    position:relative;
+}
+
+.modalContentContainer{
+    grid-row: 1;
+
+    display: grid;
+    justify-items: center;
+    align-content: space-around;
+}
+.authenticateModalContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 450px;
+    height: 500px;
+    border-radius: 8px;
+    display: grid;
+    align-content: space-around;
+
+    justify-items: center;
+    padding: 16px 32px 4px 32px;
+
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px;
+    background-color: white;
+}
 
 .FilterModal {
     height: 100%;

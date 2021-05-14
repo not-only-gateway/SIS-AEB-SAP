@@ -15,10 +15,10 @@ export default function CommissionedRoleList(props) {
             width: '100%',
             gap: '16px'
         }}>
-            <CommissionedRole create={true} locale={props.locale} role={undefined} fetch={() => fetchCommissionedRoles().then(res => setData(res))}/>
+            <CommissionedRole create={true} locale={props.locale} role={undefined} />
             {(data).map((role, index) =>
                 <div key={role.id + '-commissioned-role-'+index}>
-                    <CommissionedRole create={false} locale={props.locale} role={role} index={index} fetch={() => fetchCommissionedRoles().then(res => setData(res))}/>
+                    <CommissionedRole create={false} locale={props.locale} role={role} index={index}/>
                 </div>
             )}
         </div>

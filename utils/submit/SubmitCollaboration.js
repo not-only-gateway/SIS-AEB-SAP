@@ -17,30 +17,37 @@ export default async function submitCollaboration(props) {
     if (data.contract_expiration)
         data.contract_expiration = new Date(data.contract_expiration).getTime()
 
-    data.access_profile = data.access_profile.id
-    data.unit = data.unit.id
-    data.linkage = data.linkage.id
+    data.access_profile = data.access_profile.key
+    data.unit = data.unit.key
+    data.linkage = data.linkage.key
 
     if (data.senior_member)
-        data.senior_member = data.senior_member.id
+        data.senior_member = data.senior_member.key
 
-    if (data.commissioned_role)
+    if (data.commissioned_role !== undefined && data.commissioned_role !== null)
         data.commissioned_role = data.commissioned_role.key
-    if (data.effective_role)
+    if (data.effective_role !== undefined && data.effective_role !== null)
         data.effective_role = data.effective_role.key
     data.member = props.memberID
-    // console.log('THIS IS DATA')
-    // console.log(props.data)
-    // console.log(data)
+    console.log(props.data)
+    console.log(data)
     await axios({
         method: props.create ? 'post': 'put',
         url: !props.create ? (Host() + 'collaboration/' + props.collaborationID) :(Host() + 'collaboration'),
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         data: data
-    }).then(() => {
+    }).then(res => {
+        props.setStatus({
+            type: 'success',
+            message: res.status + ' - ' + res.statusText
+        })
         response = true
     }).catch(error => {
-        console.log(error)
+        props.setStatus({
+            type: 'error',
+            message: error.message
+        })
+
     })
     return response
 }
@@ -49,5 +56,6 @@ submitCollaboration.propTypes = {
     create: PropTypes.bool,
     data: PropTypes.object,
     memberID: PropTypes.number,
-    collaborationID: PropTypes.any
+    collaborationID: PropTypes.any,
+    setStatus: PropTypes.func
 }

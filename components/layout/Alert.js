@@ -7,10 +7,11 @@ import {useEffect, useRef, useState} from "react";
 
 export default function Alert(props) {
     const [counter, setCounter] = useState(undefined)
-
+    const [alertColor, setAlertColor] = useState(undefined)
     useEffect(() => {
         if(counter === undefined && props.render) {
             setCounter(props.duration)
+            setAlertColor(getColor(props.type))
         }
         else {
             if (counter > 0 && props.render)
@@ -40,7 +41,7 @@ export default function Alert(props) {
             case 'success':
                 response = {
                     background: '#ABFF57',
-                    color: '#333333'
+                    color: '#555555'
                 }
                 break
             default:
@@ -52,11 +53,11 @@ export default function Alert(props) {
 
     return (
         <div className={[styles.alertContainer, animations.fadeIn].join(' ')}
-             style={{...getColor(props.type), ...{display: props.render ? 'initial' : 'none'}}}
+             style={{...alertColor, ...{display: props.render ? 'initial' : 'none'}}}
              onBlur={() => props.handleClose()}>
             <div className={styles.alertContent}>
                 <p style={{margin: 0}}>{props.message}</p>
-                <Button onClick={() => props.handleClose()} style={{...getColor(props.type),...{
+                <Button onClick={() => props.handleClose()} style={{...alertColor,...{
                     height: '100%',
                     width: '10%',
                     position: 'absolute',

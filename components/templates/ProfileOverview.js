@@ -112,16 +112,6 @@ export default function OverviewComponent(props) {
                     :
                     null
                 }
-                {props.collaboration !== null ?
-                    <div className={mainStyles.displayInlineStart} style={{width: '100%'}}>
-                        <CalendarTodayRounded style={getIconStyle({dark: false})}/>
-                        <h5 style={{
-                            marginTop: '16px',
-                            marginBottom: '16px'
-                        }}>{new Date(props.collaboration.admission_date).toLocaleDateString()}</h5>
-                    </div>
-                    : null
-                }
             </div>
             {/*<div*/}
             {/*    className={[styles.overviewContainer, animations.popInAnimation].join(' ')}*/}

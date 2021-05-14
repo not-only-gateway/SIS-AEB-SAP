@@ -80,7 +80,7 @@ export default function BaseForm(props) {
                         handleChange: props.handleChange,
                         setChanged: setChanged,
                         setImage: setImage
-                    })} label={'person Image'}
+                    })} label={lang.personImage}
                     width={'calc(25% - 24px)'}
 
                     base64={props.person.image === null || !props.person.image} setChanged={setChanged}/>

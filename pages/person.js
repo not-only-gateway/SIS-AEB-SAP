@@ -17,6 +17,7 @@ import fetchContacts from "../utils/fetch/FetchContacts";
 import fetchAddress from "../utils/fetch/FetchAddress";
 import PersonalForms from "../components/elements/PersonalForms";
 import CorporateForms from "../components/elements/CorporateForms";
+import Alert from "../components/layout/Alert";
 
 export default function person() {
 
@@ -45,7 +46,10 @@ export default function person() {
 
     const [editMode, setEditMode] = useState(false)
     const [openTab, setOpenTab] = useState(0)
-
+    const [status, setStatus] = useState({
+        error: false,
+        message: undefined
+    })
     useEffect(() => {
             if (editMode === false) {
                 setDocuments({})
@@ -74,13 +78,13 @@ export default function person() {
             }
             if (router.isReady && router.query.id !== id) {
                 setId(router.query.id)
-                fetchMember(router.query.id).then(res => {
+                fetchMember({memberID: router.query.id, setStatus: setStatus}).then(res => {
+
                     if (res !== null) {
                         if (accessProfile === null)
                             readAccessProfile().then(profile => {
                                 setAccessProfile(profile)
                                 if (profile === null || (!profile.canUpdatePerson)) {
-                                    console.log('HERE')
                                     delete res.person.education
                                     delete res.person.marital_status
                                     delete res.person.mother_name
@@ -133,121 +137,133 @@ export default function person() {
     )
 
 
-    if (lang !== null && id !== undefined && !loading)
+    if (lang !== null && id !== undefined)
         return (
             <>
-                <Authenticate
-                    handleClose={valid => {
-                        if (valid)
-                            setNotAuthenticated(false)
-                        setEditMode(true)
-                    }}
-                    forceClose={() => setEditMode(false)}
-                    render={editMode && notAuthenticated}
-                    locale={router.locale}
-                />
-                <HeaderLayout
-                    width={'75%'}
-                    availableTabs={{
-                        tabs: [
-                            {
-                                disabled: false,
-                                key: 0,
-                                value: lang.overview
-                            },
-                            (editMode) && accessProfile !== null ? {
-                                disabled: false,
-                                key: 1,
-                                value: lang.personal
-                            } : null,
-                            editMode && accessProfile !== null ? {
-                                disabled: !accessProfile.canManageMembership,
-                                key: 2,
-                                value: lang.corporate
-                            } : null,
-                        ]
 
-                        ,
-                        setOpenTab: setOpenTab,
-                        openTab: openTab
-                    }}
-                    filterComponent={undefined}
-                    title={
-                        <Profile
-                            person={person}
-                            member={member}
-                            notAuthenticate={notAuthenticated}
-                            lang={lang}
-                            setEditMode={event => {
-                                if (!notAuthenticated) {
-                                    setEditMode(event)
-                                    setOpenTab(0)
-                                } else
-                                    setEditMode(event)
+                <Alert type={'error'} message={status.message} handleClose={() => setStatus({
+                    error: false,
+                    message: undefined
+                })} duration={5000} render={status.error}/>
+                {!loading ?
+                    <>
+                        <Authenticate
+                            handleClose={valid => {
+                                if (valid)
+                                    setNotAuthenticated(false)
+                                setEditMode(true)
                             }}
-                            editMode={editMode}
-                            editable={accessProfile !== null && accessProfile.canUpdatePerson}
-                            inactiveLocale={lang.inactive}
+                            forceClose={() => setEditMode(false)}
+                            render={editMode && notAuthenticated}
+                            locale={router.locale}
                         />
-                    }
-                    pageTitle={person.name}
-                    information={null}
-                    searchComponent={undefined}
-                />
-                <div className={styles.contentContainer}>
-                    <TabContent
-                        openTab={openTab}
-                        tabs={[
-                            {
-                                buttonKey: 0,
-                                value: (
-                                    <OverviewComponent
-                                        person={person}
-                                        member={member}
-                                        collaboration={collaboration.data}
-                                        unit={collaboration.unit}
-                                        commissionedRole={collaboration.commissionedRole}
-                                        effectiveRole={collaboration.effectiveRole}
-                                        senior={collaboration.senior}
-                                        linkage={collaboration.linkage}
-                                    />
-                                )
-                            },
-                            (editMode) && accessProfile !== null ?
-                                {
-                                    buttonKey: 1,
-                                    value: (
-                                        <PersonalForms
-                                            lang={lang}
-                                            accessProfile={accessProfile} id={id} setPerson={setPerson}
-                                            contact={contact} setContact={setContact}
-                                            locale={router.locale} documents={documents}
-                                            setDocuments={setDocuments} person={person}
-                                            address={address} setAddress={setAddress}
-                                        />
-                                    )
-                                } : null,
-                            (editMode) && accessProfile !== null ? {
-                                buttonKey: 2,
-                                value: (
-                                    <CorporateForms
-                                        lang={lang}
-                                        mainCollaboration={collaboration.data !== null && collaboration.data ?
-                                            {
-                                                key: collaboration.data.id,
-                                                value: collaboration.unit.unit_acronym + ' - '+ collaboration.data.access_profile_denomination,
-                                            } : member.main_collaboration !== null && member.main_collaboration ? {
-                                                value: member.main_collaboration.value,
-                                                key: member.main_collaboration.key,
+                        <HeaderLayout
+                            width={'75%'}
+                            availableTabs={{
+                                tabs: [
+                                    {
+                                        disabled: false,
+                                        key: 0,
+                                        value: lang.overview
+                                    },
+                                    (editMode) && accessProfile !== null ? {
+                                        disabled: false,
+                                        key: 1,
+                                        value: lang.personal
+                                    } : null,
+                                    editMode && accessProfile !== null ? {
+                                        disabled: !accessProfile.canManageMembership,
+                                        key: 2,
+                                        value: lang.corporate
+                                    } : null,
+                                ]
 
-                                            } : null}
-                                        locale={router.locale} id={id} accessProfile={accessProfile}
-                                        member={member} setMember={setMember}/>
-                                )
-                            } : null
+                                ,
+                                setOpenTab: setOpenTab,
+                                openTab: openTab
+                            }}
+                            filterComponent={undefined}
+                            title={
+                                <Profile
+                                    person={person}
+                                    member={member}
+                                    notAuthenticate={notAuthenticated}
+                                    lang={lang}
+                                    setEditMode={event => {
+                                        if (!notAuthenticated) {
+                                            setEditMode(event)
+                                            setOpenTab(0)
+                                        } else
+                                            setEditMode(event)
+                                    }}
+                                    editMode={editMode}
+                                    editable={accessProfile !== null && accessProfile.canUpdatePerson}
+                                    inactiveLocale={lang.inactive}
+                                />
+                            }
+                            pageTitle={person.name}
+                            information={null}
+                            searchComponent={undefined}
+                        />
+                        <div className={styles.contentContainer}>
 
-                        ]}/>
-                </div>
+                            <TabContent
+                                openTab={openTab}
+                                tabs={[
+                                    {
+                                        buttonKey: 0,
+                                        value: (
+                                            <OverviewComponent
+                                                person={person}
+                                                member={member}
+                                                collaboration={collaboration.data}
+                                                unit={collaboration.unit}
+                                                commissionedRole={collaboration.commissionedRole}
+                                                effectiveRole={collaboration.effectiveRole}
+                                                senior={collaboration.senior}
+                                                linkage={collaboration.linkage}
+                                            />
+                                        )
+                                    },
+                                    (editMode) && accessProfile !== null ?
+                                        {
+                                            buttonKey: 1,
+                                            value: (
+                                                <PersonalForms
+                                                    lang={lang}
+                                                    accessProfile={accessProfile} id={id} setPerson={setPerson}
+                                                    contact={contact} setContact={setContact}
+                                                    locale={router.locale} documents={documents}
+                                                    setDocuments={setDocuments} person={person}
+                                                    address={address} setAddress={setAddress}
+                                                />
+                                            )
+                                        } : null,
+                                    (editMode) && accessProfile !== null ? {
+                                        buttonKey: 2,
+                                        value: (
+                                            <CorporateForms
+                                                lang={lang}
+                                                mainCollaboration={collaboration.data !== null && collaboration.data ?
+                                                    {
+                                                        key: collaboration.data.id,
+                                                        value: collaboration.unit.acronym + ' - ' + collaboration.accessProfile,
+                                                    } : member.main_collaboration !== null && member.main_collaboration ? {
+                                                        value: member.main_collaboration.value,
+                                                        key: member.main_collaboration.key,
+
+                                                    } : null}
+                                                locale={router.locale} id={id} accessProfile={accessProfile}
+                                                member={member} setMember={setMember}/>
+                                        )
+                                    } : null
+
+                                ]}/>
+                        </div>
+                    </>
+                    :
+                    null
+                }
             </>
 
 

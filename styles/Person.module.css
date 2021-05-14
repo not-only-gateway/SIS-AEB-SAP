@@ -5,4 +5,5 @@
     display: grid;
     gap: 16px;
     margin: auto;
+    position: relative;
 }

@@ -1,7 +1,14 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 import mainStyles from '../../../styles/shared/Main.module.css'
-import {AddRounded, CloseRounded} from "@material-ui/icons";
+import {
+    AddRounded,
+    CloseRounded,
+    LaunchRounded,
+    ListRounded,
+    OpenInBrowser,
+    OpenInBrowserRounded
+} from "@material-ui/icons";
 import {Button, FormControl, FormLabel, Modal} from "@material-ui/core";
 import styles from '../../../styles/person/Form.module.css'
 import InputLayout from "../InputLayout";
@@ -11,6 +18,8 @@ import shared from "../../../styles/shared/Shared.module.css";
 export default function Selector(props) {
     const [modal, setModal] = useState(false)
     const [search, setSearch] = useState('')
+    const [lang, setLang] = useState(null)
+    const [hovered, setHovered] = useState(false)
 
     function handleChange(event) {
         setSearch(event.value)
@@ -20,30 +29,30 @@ export default function Selector(props) {
         return (
             <Modal open={modal} onClose={() => setModal(false)}
                    style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                <div className={[styles.modalContainer, animations.fadeIn].join(' ')}
+                <div className={[shared.modalContainer, animations.fadeIn].join(' ')}
                      style={{backgroundColor: 'white', position: 'relative'}}>
                     <div className={shared.closeButtonModalContainer}>
                         <Button onClick={() => setModal(false)}>
                             <CloseRounded/>
                         </Button>
                     </div>
-                    <div className={styles.modalFormContainer}
-                         style={{
-                             borderBottom: '#e2e2e2 1px solid'
-                         }}>
-                        <spam style={{fontSize: '1.3rem'}}>Search</spam>
+                    <div className={mainStyles.displayColumnSpaced} style={{
+                        justifyItems: 'center',
+                    }}>
+                        <h3 style={{marginTop: 0, marginBottom: '16px'}}>{props.label}</h3>
                         <InputLayout inputName={'Search'} dark={props.dark}
                                      handleChange={handleChange} name={undefined}
                                      inputType={0} disabled={false} size={'100%'} required={false}
                                      initialValue={search} key={"search"} setChanged={undefined}/>
 
-                        {props.selected !== undefined && props.selected !== null && props.selected.key !== null ?
+                        {props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ?
                             <div className={mainStyles.rowContainer} style={{width: '100%'}}>
                                 <div style={{
                                     border: '#e2e2e2 1px solid',
                                     borderRadius: '8px',
                                     padding: '10px',
-                                    minWidth: 'calc(50% - 8px)'
+                                    minWidth: props.required ? '100%' : 'calc(50% - 8px)',
+                                    marginTop: '16px'
                                 }} className={mainStyles.displayInlineCenter}>
                                     {props.selected.value}
                                 </div>
@@ -57,7 +66,7 @@ export default function Selector(props) {
                                             textTransform: 'none',
                                             justifyItems: 'center',
                                             marginLeft: 'auto',
-                                            width: '49%', backgroundColor:'#f54269',
+                                            width: '49%', backgroundColor: '#f54269',
                                             color: 'white'
                                         }}>
                                             Remove
@@ -72,22 +81,30 @@ export default function Selector(props) {
 
                     <div className={mainStyles.displayWarp} style={{
                         overflowY: 'auto',
-                        marginBottom: 'auto',
-                        gridRow: 2,
-                        maxHeight: '100%',
-                        paddingBottom: '10px',
+                        backgroundColor: '#eeeef1',
+                        borderRadius: '8px',
+                        padding: '16px',
+                        gap: '16px',
+                        height: 'auto',
+                        marginTop: '16px'
+
                     }}>
                         {props.data.map(data => {
                             if (search.length > 0 && (data.value.toLowerCase()).match(search.toLowerCase())) {
                                 return (
-                                    <Button key={data.key} variant={'contained'} style={{
-                                        width: 'calc(50% - 8px)',
-                                        backgroundColor: props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? '#0095ff' : null,
-                                        color: props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? 'white' : null
-                                    }} onClick={() => {
-                                        props.setChanged(true)
-                                        props.handleChange(data)
-                                    }}>
+                                    <Button
+                                        key={data.key} variant={'contained'}
+                                        style={{
+                                            width: 'calc(50% - 8px)',
+                                            backgroundColor: props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? '#0095ff' : 'white',
+                                            color: props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? 'white' : null,
+                                            borderRadius: '8px',
+                                            boxShadow: 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px'
+                                        }}
+                                        onClick={() => {
+                                            props.setChanged(true)
+                                            props.handleChange(data)
+                                        }}>
                                         {data.value}
                                     </Button>
                                 )
@@ -95,10 +112,13 @@ export default function Selector(props) {
                                 return null
                             else
                                 return (
-                                    <Button key={data.key} variant={'contained'} style={{
+                                    <Button
+                                        key={data.key} style={{
                                         width: 'calc(50% - 8px)',
-                                        backgroundColor: props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? '#0095ff' : null,
-                                        color: props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? 'white' : null
+                                        backgroundColor: props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? '#0095ff' : 'white',
+                                        color: props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? 'white' : null,
+                                        borderRadius: '8px',
+                                        boxShadow: 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px'
                                     }} onClick={() => {
                                         props.setChanged(true)
                                         props.handleChange(data)
@@ -116,30 +136,67 @@ export default function Selector(props) {
     return (
         <>
             {renderModal()}
-            <FormControl key={props.key} required={props.required} style={{
-                width: props.width,
-                maxHeight: '72px',
-                marginTop: 'auto'
-            }}>
 
-                <Button disabled={props.disabled} onClick={() => setModal(true)} style={{
-                    textTransform: 'none',
-                    backgroundColor: 'transparent',
-                    border: '#c0c0c0 1px solid',
-                    color: !props.disabled ? null : 'rgba(0,0,0, 0.4)',
-                    padding: 0,
-                    height: '56px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    paddingLeft: '16px',
-                    paddingRight: '16px'
-                }} variant={'contained'} disableElevation={true}>
-                    <FormLabel style={{width: 'auto'}}>{props.label}</FormLabel>
-                    <div style={{width: 'fit-content', display: 'flex', alignItems: 'center'}}>
-                        {props.selected !== undefined && props.selected !== null && props.selected.key !== null ? props.selected.value : <AddRounded/>}
+                <fieldset
+                    onMouseEnter={() => setHovered(true)}
+                    onMouseLeave={() => setHovered(false)}
+                    className={mainStyles.displayInlineSpaced}
+                    style={{
+                        width: props.width,
+                        height: '56px',
+                        border: hovered ? 'black 1px solid' : '#c0c0c0 1px solid',
+                        borderRadius: '4px',
+                        cursor: props.disabled ? 'auto' : 'pointer',
+                        color: 'rgba(0,0,0,.9)',
+                        alignItems: 'center',
+                        position: 'relative',
+
+                        margin: 'unset'
+
+                    }} onClick={() => {
+                    if(!props.disabled)
+                        setModal(true)
+                }}>
+                    {props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ?
+                        <legend style={{
+                            paddingRight: '5px',
+                            paddingLeft: '5px',
+                            fontSize: '.8rem',
+                            color: 'rgba(0,0,0,.6)',
+                            position: "absolute",
+                            top: 0,
+                            transform:'translateY(-10px)',
+                            backgroundColor: 'white'
+                        }}>
+                            {props.label}
+                            {props.required ? ' *' : null}
+                        </legend>
+                        :
+                        null
+                    }
+                    <div style={{position: "absolute", height: '56px', width: '100%', padding: '10px', left: 0,
+                        bottom: 0,
+                        right: 0}} className={mainStyles.displayInlineSpaced}>
+
+                        {props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ?
+                            <>
+
+                                {props.selected.value}
+                                <ListRounded style={{color: 'rgba(0,0,0,.6)'}}/>
+                            </>
+                            :
+                            <>
+                                <p style={{
+                                    color: 'rgba(0,0,0,.55)',
+                                }}>    {props.label}
+                                    {props.required ? ' *' : null}</p>
+                                <AddRounded style={{color: 'rgba(0,0,0,.6)'}}/>
+                            </>
+                        }
                     </div>
-                </Button>
-            </FormControl>
+                </fieldset>
+
+
         </>
     )
 }

@@ -5,87 +5,71 @@ import InputLayout from "../../modules/InputLayout";
 import saveComponentChanges from "../../../utils/person/SaveChanges";
 import mainStyles from '../../../styles/shared/Main.module.css'
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
+import submitCommissionedRole from "../../../utils/submit/SubmitCommissionedRole";
+import handleObjectChange from "../../../utils/shared/HandleObjectChange";
+import Alert from "../../layout/Alert";
 
 export default function CommissionedRoleForm(props) {
 
     const [changed, setChanged] = useState(false)
     const [lang, setLang] = useState(null)
-    const [data, setData] = useState({})
+    const [status, setStatus] = useState({
+        type: undefined,
+        message: undefined
+    })
 
     useEffect(() => {
-        if(!props.create)
-            setData(props.data === undefined ? {} : props.data)
         setLang(getComponentLanguage({component: 'commissioned', locale: props.locale}))
     }, [])
 
-    function handleChange(props) {
-
-        setData(prevState => ({
-            ...prevState,
-            [props.name]: props.value
-        }))
-    }
-
     function disabled() {
         return (
-            data.denomination === null || data.denomination === undefined ||
-            data.hierarchy_level === null || data.hierarchy_level === undefined ||
-            data.role_level === null || data.role_level === undefined ||
-            data.fcpe === null || data.fcpe === undefined ||
-            data.das === null || data.das === undefined ||
-            data.role_class === null || data.role_class === undefined || !changed
+            props.data.denomination === null || !props.data.denomination ||
+            props.data.hierarchy_level === null || !props.data.hierarchy_level ||
+            props.data.role_level === null || !props.data.role_level ||
+            props.data.fcpe === null || !props.data.fcpe ||
+            props.data.das === null || !props.data.das ||
+            props.data.role_class === null || !props.data.role_class || !changed
         )
     }
 
-    async function saveChanges() {
-
-        await saveComponentChanges({
-            path: props.create ? 'role/commissioned' : ('role/commissioned/' + data.id),
-            params: {
-                denomination: data.denomination,
-                role_level: data.role_level,
-                role_class: data.role_class,
-                das: data.das,
-                fcpe: data.fcpe,
-                hierarchy_level: data.hierarchy_level,
-            },
-            method: props.create ? 'post' : 'put'
-        }).then(res => res ? setChanged(false) : console.log(res))
-    }
 
     if (lang !== null)
         return (
-            <div className={mainStyles.displayWarp} style={{justifyContent: 'center', width: '100%'}}>
-
-                <InputLayout inputName={lang.denomination} dark={false} handleChange={handleChange}
+            <div className={mainStyles.displayWarp}
+                 style={{justifyContent: 'center', width: '100%', position: 'relative'}}>
+                <Alert
+                    type={status.type} render={status.type !== undefined} duration={5000}
+                    handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
+                />
+                <InputLayout inputName={lang.denomination} dark={false} handleChange={props.handleChange}
                              name={'denomination'}
                              inputType={0} size={'calc(25% - 12px)'} required={true}
-                             initialValue={data.denomination} key={"1-1-" + data.id} setChanged={setChanged}/>
-                <InputLayout inputName={lang.level} dark={false} handleChange={handleChange}
+                             initialValue={props.data.denomination} setChanged={setChanged}/>
+                <InputLayout inputName={lang.level} dark={false} handleChange={props.handleChange}
                              name={'role_level'}
                              inputType={0} size={'calc(25% - 12px)'} required={true}
-                             initialValue={data.role_level} key={"1-2-" + data.id} setChanged={setChanged}/>
+                             initialValue={props.data.role_level} setChanged={setChanged}/>
 
-                <InputLayout inputName={lang.roleClass} dark={false} handleChange={handleChange}
+                <InputLayout inputName={lang.roleClass} dark={false} handleChange={props.handleChange}
                              name={'role_class'}
                              inputType={0} size={'calc(25% - 12px)'} required={true}
-                             initialValue={data.role_class} key={"1-3-" + data.id} setChanged={setChanged}/>
-                <InputLayout inputName={lang.hierarchyLevel} dark={false} handleChange={handleChange}
+                             initialValue={props.data.role_class} setChanged={setChanged}/>
+                <InputLayout inputName={lang.hierarchyLevel} dark={false} handleChange={props.handleChange}
                              name={'hierarchy_level'}
                              inputType={0} size={'calc(25% - 12px)'} required={true}
-                             initialValue={data.hierarchy_level} key={"1-4-" + data.id} setChanged={setChanged}/>
+                             initialValue={props.data.hierarchy_level} setChanged={setChanged}/>
 
 
-                <InputLayout inputName={'DAS'} dark={false} handleChange={handleChange}
+                <InputLayout inputName={'DAS'} dark={false} handleChange={props.handleChange}
                              name={'das'} selectFields={lang.options}
                              inputType={1} size={'calc(50% - 8px)'} required={true}
-                             initialValue={data.das} key={"1-5-" + data.id} setChanged={setChanged}/>
+                             initialValue={props.data.das} setChanged={setChanged}/>
 
-                <InputLayout inputName={'FCPE'} dark={false} handleChange={handleChange}
+                <InputLayout inputName={'FCPE'} dark={false} handleChange={props.handleChange}
                              name={'fcpe'} selectFields={lang.options}
                              inputType={1} size={'calc(50% - 8px)'} required={true}
-                             initialValue={data.fcpe} key={"1-6-" + data.id} setChanged={setChanged}/>
-
+                             initialValue={props.data.fcpe} setChanged={setChanged}/>
 
 
                 <Button style={{
@@ -94,7 +78,14 @@ export default function CommissionedRoleForm(props) {
 
                 }} variant={'contained'} color={'primary'}
                         disabled={disabled()}
-                        onClick={() => saveChanges()}>{lang.save}</Button>
+                        onClick={() => props.handleSubmit({
+                            pk: props.data.id,
+                            data: props.data,
+                            create: props.create,
+                            setStatus: setStatus
+                        }).then(res => {
+                            setChanged(!res)
+                        })}>{lang.save}</Button>
             </div>
 
         )
@@ -103,7 +94,9 @@ export default function CommissionedRoleForm(props) {
 }
 
 CommissionedRoleForm.propTypes = {
+    handleSubmit: PropTypes.func,
+    handleChange: PropTypes.func,
     create: PropTypes.bool,
-    locale: PropTypes.string,
-    data: PropTypes.object
+    data: PropTypes.object,
+    locale: PropTypes.string
 }

@@ -13,10 +13,17 @@ export default async function submitCommissionedRole(props) {
         url: props.create ? Host() + 'role/commissioned' : Host() + 'role/commissioned/' + props.pk,
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         data: props.data
-    }).then(() => {
+    }).then(res => {
         response = true
+        props.setStatus({
+            type: 'success',
+            message: res.status + ' - ' + res.statusText,
+        })
     }).catch(error => {
-        console.log(error)
+        props.setStatus({
+            type: 'error',
+            message: error.message
+        })
     })
     return response
 }
@@ -24,5 +31,6 @@ export default async function submitCommissionedRole(props) {
 submitCommissionedRole.propTypes = {
     pk: PropTypes.number,
     data: PropTypes.object,
-    create: PropTypes.bool
+    create: PropTypes.bool,
+    setStatus: PropTypes.func
 }

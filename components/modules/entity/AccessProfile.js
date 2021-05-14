@@ -9,12 +9,12 @@ import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import submitAccessProfile from "../../../utils/submit/SubmitAccessProfile";
 import {AddRounded} from "@material-ui/icons";
 import {getIconStyle} from "../../../styles/shared/MainStyles";
+import Alert from "../../layout/Alert";
 
 export default function AccessProfile(props) {
     const [accessProfile, setAccessProfile] = useState({})
     const [modal, setModal] = useState(false)
     const [loading, setLoading] = useState(true)
-    const [accepted, setAccepted] = useState(false)
     const [hovered, setHovered] = useState(false)
     useEffect(() => {
         if (modal && !props.create)
@@ -24,16 +24,12 @@ export default function AccessProfile(props) {
             })
         else
             setLoading(false)
-        if (accepted) {
-            props.fetch()
-            setAccepted(false)
-        }
-    }, [modal, accepted])
+    }, [modal])
 
 
     function renderModal() {
         return (
-            <Modal open={modal && !loading && accessProfile !== {} && !accepted} onClose={() => setModal(false)}
+            <Modal open={modal && !loading && accessProfile !== {}} onClose={() => setModal(false)}
                    style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
                    className={animations.fadeIn}>
                 <div style={{
@@ -43,15 +39,12 @@ export default function AccessProfile(props) {
                     overflow: 'hidden',
                     height: 'auto',
                     padding: '16px',
-
-
                 }}>
                     <AccessProfileForm handleSubmit={submitAccessProfile}
                                        handleChange={event => handleObjectChange({
                                            event: event,
                                            setData: setAccessProfile
                                        })} create={props.create}
-                                       setAccepted={setAccepted}
                                        data={accessProfile} locale={props.locale}/>
                 </div>
             </Modal>
@@ -61,6 +54,7 @@ export default function AccessProfile(props) {
     return (
         <>
             {renderModal()}
+
             <Button
                 className={animations.slideUpAnimation}
                 onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
@@ -96,5 +90,4 @@ AccessProfile.propTypes = {
     profile: PropTypes.object,
     locale: PropTypes.object,
     create: PropTypes.bool,
-    fetch: PropTypes.func
 }

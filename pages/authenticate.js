@@ -80,7 +80,7 @@ export default function authenticate() {
                             <FormControl variant="outlined" style={{width: '65%'}}>
                                 <InputLabel htmlFor="password">{lang.password}</InputLabel>
                                 <OutlinedInput
-
+                                    label={lang.password}
                                     id="password"
                                     type={visible ? 'text' : 'password'}
                                     value={data.password}

@@ -16,9 +16,9 @@ export default function AccessProfileList(props) {
             width: '100%',
             gap: '16px'
         }}>
-            <AccessProfile profile={undefined} create={true} index={undefined} locale={props.locale} fetch={() => fetchAccessProfiles().then(res => setData(res))}/>
+            <AccessProfile profile={undefined} create={true} index={undefined} locale={props.locale} />
             {(data).map((profile, index) =>
-                <AccessProfile profile={profile} index={index} locale={props.locale} fetch={() => fetchAccessProfiles().then(res => setData(res))}/>
+                <AccessProfile profile={profile} index={index} locale={props.locale} />
             )}
         </div>
     )

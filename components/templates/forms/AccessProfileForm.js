@@ -4,10 +4,15 @@ import PropTypes from "prop-types";
 import InputLayout from "../../modules/InputLayout";
 import mainStyles from '../../../styles/shared/Main.module.css'
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
+import Alert from "../../layout/Alert";
 
 export default function AccessProfileForm(props) {
     const [changed, setChanged] = useState(false)
     const [lang, setLang] = useState(null)
+    const [status, setStatus] = useState({
+        type: undefined,
+        message: undefined
+    })
     const fieldSetStyle = {
         borderLeft: 'none',
         borderRight: 'none',
@@ -47,8 +52,12 @@ export default function AccessProfileForm(props) {
                      justifyContent: 'center',
                      width: '100%',
                      height: 'auto',
-
+                     position: "relative"
                  }}>
+                <Alert
+                    type={status.type} render={status.type !== undefined} duration={5000}
+                    handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
+                />
                 <div style={{marginTop: props.create ? null : '20px', width: '98%'}}>
                     <InputLayout inputName={lang.denomination} dark={false} handleChange={props.handleChange}
                                  name={'denomination'}
@@ -122,9 +131,8 @@ export default function AccessProfileForm(props) {
                     bottom: 0,
                     zIndex: 5,
                 }} disabled={disabled()} variant={'contained'} onClick={() => {
-                    props.handleSubmit({pk: props.data.id, data: props.data, create: props.create}).then(res => {
+                    props.handleSubmit({pk: props.data.id, data: props.data, create: props.create, setStatus: setStatus}).then(res => {
                         setChanged(!res)
-                        props.setAccepted(res)
                     })
                 }}>
                     {props.create ? lang.create : lang.save}
@@ -137,7 +145,6 @@ export default function AccessProfileForm(props) {
 }
 
 AccessProfileForm.propTypes = {
-    setAccepted: PropTypes.func,
     handleSubmit: PropTypes.func,
     handleChange: PropTypes.func,
     data: PropTypes.object,

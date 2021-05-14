@@ -1,20 +1,4 @@
-.modalContainer{
-    display: grid;
-    gap: 10px;
-    width: 600px;
-    height: 75%;
 
-    padding: 16px;
-    border-radius: 8px;
-    grid-template-rows: 25% 1fr;
-}
-.modalFormContainer{
-    grid-row: 1;
-
-    display: grid;
-    justify-items: center;
-    align-content: space-around;
-}
 .overviewContainer{
     color: black;
     display: flex;

@@ -12,18 +12,11 @@ import submitEffectiveRole from "../../../utils/submit/SubmitEffectiveRole";
 export default function EffectiveRole(props) {
     const [role, setRole] = useState({})
     const [modal, setModal] = useState(false)
-    const [accepted, setAccepted] = useState(false)
     const [hovered, setHovered] = useState(false)
     useEffect(() => {
         if (props.role !== undefined)
             setRole(props.role)
-
-        if (accepted) {
-            props.fetch()
-            setAccepted(false)
-            setModal(false)
-        }
-    }, [accepted])
+    }, [])
 
     function renderModal() {
         return (
@@ -45,7 +38,6 @@ export default function EffectiveRole(props) {
                                            event: event,
                                            setData: setRole
                                        })} create={props.create}
-                                       setAccepted={setAccepted}
                                        data={role} locale={props.locale}/>
                 </div>
             </Modal>
@@ -90,5 +82,4 @@ EffectiveRole.propTypes = {
     locale: PropTypes.object,
     create: PropTypes.bool,
     index: PropTypes.number,
-    fetch: PropTypes.func
 }

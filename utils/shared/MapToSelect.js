@@ -22,10 +22,10 @@ export default function mapToSelect(props) {
             break
         } // effective
         case 2: {
-            props.data.map(data => {
+            props.data.map(commissioned => {
                 response.push({
-                    key: data.id,
-                    value: data.das ? 'DAS - ' : 'FCPE - ' + data.denomination
+                    key: commissioned.id,
+                    value: commissioned.das ? 'DAS - ' + commissioned.denomination: 'FCPE - ' + commissioned.denomination
                 })
             })
             break

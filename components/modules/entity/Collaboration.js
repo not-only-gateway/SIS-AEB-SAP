@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import {AddRounded} from "@material-ui/icons";
+import {AddRounded, CloseRounded} from "@material-ui/icons";
 import {Button, Divider, Modal} from "@material-ui/core";
 import CollaborationSummary from "../../elements/CollaborationSummary";
 import mainStyles from '../../../styles/shared/Main.module.css'
@@ -17,6 +17,7 @@ import mapToSelect from "../../../utils/shared/MapToSelect";
 import fetchSeniors from "../../../utils/fetch/FetchSeniors";
 import submitCollaboration from "../../../utils/submit/SubmitCollaboration";
 import animations from '../../../styles/shared/Animations.module.css'
+import shared from "../../../styles/shared/Shared.module.css";
 
 export default function Collaboration(props) {
 
@@ -34,7 +35,6 @@ export default function Collaboration(props) {
     const [accepted, setAccepted] = useState(false)
 
     useEffect(() => {
-        console.log('HERE')
         if (!collaboration.unit && !props.create) {
 
             if (props.collaborationID)
@@ -43,6 +43,7 @@ export default function Collaboration(props) {
                     setLoading: setLoading,
                     collaborationID: props.collaborationID
                 }).then(res => {
+                    console.log(res)
                     if (res !== null)
                         setCollaboration(res)
                 })
@@ -108,9 +109,15 @@ export default function Collaboration(props) {
                     backgroundColor: 'white',
                     width: '75%',
                     height: 'auto',
-                    padding: '32px',
-                    borderRadius: '8px'
+                    padding: '16px',
+                    borderRadius: '8px',
+                    position: "relative"
                 }}>
+                    <div className={shared.closeButtonModalContainer} style={{top: '8px', right: '8px', zIndex: 5}}>
+                        <Button onClick={() => setModal(false)}>
+                            <CloseRounded/>
+                        </Button>
+                    </div>
                     <CollaborationForm
                         locale={props.locale}
                         collaboration={collaboration}
@@ -164,7 +171,7 @@ export default function Collaboration(props) {
                                 activeRole={collaboration.active_collaboration}
                                 effectiveRole={collaboration.effective_role ? collaboration.effective_role.value : null}
                                 additionalRoleInfo={collaboration.additional_info !== undefined ? collaboration.additional_info : null}
-                                unit={collaboration.unit ? collaboration.unit.acronym : null}/>
+                                unit={collaboration.unit ? collaboration.unit.value : null}/>
                         }
                     </>
                 </Button>

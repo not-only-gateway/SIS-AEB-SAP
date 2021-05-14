@@ -15,10 +15,10 @@ export default function LinkageList(props) {
             width: '100%',
             gap: '16px'
         }}>
-            <Linkage create={true} locale={props.locale} linkage={undefined} fetch={() => fetchLinkages().then(res => setData(res))}/>
+            <Linkage create={true} locale={props.locale} linkage={undefined}/>
             {(data).map((linkage, index) =>
                <div key={linkage.id + '-linkage-'+index}>
-                   <Linkage create={false} locale={props.locale} linkage={linkage} index={index} fetch={() => fetchLinkages().then(res => setData(res))}/>
+                   <Linkage create={false} locale={props.locale} linkage={linkage} index={index} />
                </div>
             )}
         </div>

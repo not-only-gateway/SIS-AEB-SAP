@@ -37,5 +37,6 @@ export default {
     ],
     personal: 'Personal Information',
     life: 'Life & Education',
-    parents: 'Parents & Nationality'
+    parents: 'Parents & Nationality',
+    personImage: 'Profile Image'
 }

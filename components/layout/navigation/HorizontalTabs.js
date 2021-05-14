@@ -14,7 +14,7 @@ export default function HorizontalTabs(props) {
                  backgroundColor: props.highlight ?  'white' : 'unset',
                  padding: '8px',
                  borderRadius: '8px',
-                 marginTop: '16px',
+                 marginTop: props.noMargin ? 0 : '16px',
                  boxShadow: props.highlight ? 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px' : 'unset',
                  transition: '300ms ease-in-out'
              }}>
@@ -47,5 +47,6 @@ HorizontalTabs.proptypes = {
     buttons: PropTypes.object,
     setOpenTab: PropTypes.func,
     openTab: PropTypes.object,
-    highlight: PropTypes.bool
+    highlight: PropTypes.bool,
+    noMargin: PropTypes.bool
 }

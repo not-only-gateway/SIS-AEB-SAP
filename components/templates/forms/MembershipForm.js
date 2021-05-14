@@ -85,8 +85,8 @@ export default function MembershipForm(props) {
 
                 <Selector required={true}
                           selected={{
-                              key: props.member.entity ? props.member.entity.id : null,
-                              value: props.member.entity ? props.member.entity.acronym : null
+                              key: props.member.entity ? props.member.entity.key : null,
+                              value: props.member.entity ? props.member.entity.value : null
                           }}
                           handleChange={event => props.handleChange({
                               name: 'entity',
