@@ -1,4 +1,4 @@
-import styles from '../../styles/index/Index.module.css'
+import styles from '../../styles/Input.module.css'
 import PropTypes from 'prop-types'
 import {useState} from "react";
 import InputMask from 'react-input-mask';
