@@ -82,7 +82,7 @@ export default function activity() {
 
     if (lang !== null)
         return (
-            <>
+            <div>
                 <HeaderLayout
                     width={'65%'}
                     filterComponent={
@@ -190,7 +190,7 @@ export default function activity() {
                                style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.nothingFound}</p>
                         </div>}
                 </div>
-            </>
+            </div>
         )
     else
         return <></>

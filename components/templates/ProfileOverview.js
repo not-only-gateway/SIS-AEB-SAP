@@ -47,13 +47,14 @@ export default function OverviewComponent(props) {
                             {props.member.home_office ?
                                 'Home Office'
                                 :
-                                props.member.entity.acronym
+                                props.member.entity.value
                             }
                         </h5>
                     </div>
                     :
                     null
                 }
+
                 <div style={{width: '100%'}} className={mainStyles.displayInlineStart}>
                     <PhoneRounded style={getIconStyle({dark: false})}/>
                     <h5 style={{marginBottom: '16px', marginTop: '16px'}}>
@@ -86,12 +87,13 @@ export default function OverviewComponent(props) {
                     <h5 style={{
                         marginTop: '16px',
                         marginBottom: '16px'
-                    }}>{props.unit !== null ? props.unit.acronym : 'none'}</h5>
+                    }}>{props.unit !== null ? props.unit.value : 'none'}</h5>
                 </div>
+
                 {props.effectiveRole !== undefined && props.effectiveRole !== null ?
                     <div style={{width: '100%'}} className={mainStyles.displayInlineStart}>
                         <WorkRounded style={getIconStyle({dark: false})}/>
-                        <h5 style={{marginTop: '16px', marginBottom: '16px'}}>{props.effectiveRole.denomination}</h5>
+                        <h5 style={{marginTop: '16px', marginBottom: '16px'}}>{props.effectiveRole.value}</h5>
                     </div>
                     :
                     null
@@ -99,7 +101,7 @@ export default function OverviewComponent(props) {
                 {props.commissionedRole !== undefined && props.commissionedRole !== null ?
                     <div style={{width: '100%'}} className={mainStyles.displayInlineStart}>
                         <WorkRounded style={getIconStyle({dark: false})}/>
-                        <h5 style={{marginTop: '16px', marginBottom: '16px'}}>{props.commissionedRole.denomination}</h5>
+                        <h5 style={{marginTop: '16px', marginBottom: '16px'}}>{props.commissionedRole.value}</h5>
                     </div>
                     :
                     null
@@ -107,7 +109,7 @@ export default function OverviewComponent(props) {
                 {props.linkage !== null && props.linkage !== undefined ?
                     <div style={{width: '100%'}} className={mainStyles.displayInlineStart}>
                         <LinkRounded style={getIconStyle({dark: false})}/>
-                        <h5 style={{marginTop: '16px', marginBottom: '16px'}}>{props.linkage.denomination}</h5>
+                        <h5 style={{marginTop: '16px', marginBottom: '16px'}}>{props.linkage.value}</h5>
                     </div>
                     :
                     null

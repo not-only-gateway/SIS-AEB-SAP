@@ -9,28 +9,28 @@ export default function HorizontalTabs(props) {
         <div key={'tab-component'}
              style={{
                  display: 'flex',
-                 gap: '20px',
-                 width: '100%',
-                 backgroundColor: props.highlight ?  'white' : 'unset',
-                 padding: '8px',
-                 borderRadius: '8px',
+                 gap: '8px',
+                 justifyContent: 'center',
+                 width: 'fit-content',
+                 backgroundColor: '#f4f5fa',
                  marginTop: props.noMargin ? 0 : '16px',
-                 boxShadow: props.highlight ? 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px' : 'unset',
-                 transition: '300ms ease-in-out'
+                 transition: '300ms ease-in-out',
+                 borderRadius: '8px',
+                 padding: '4px',
+                 border : '#ecedf2 .7px solid'
              }}>
             {props.buttons.map((button) => {
                     if (button !== null)
                         return (
                             <Button disabled={button.disabled} key={button.key} style={{
-                                borderRadius: '32px',
-                                backgroundColor: props.openTab === button.key ? '#0095ff' : 'unset',
+                                borderRadius: '8px',
+                                backgroundColor: props.openTab === button.key ? 'white' : 'unset',
+                                border : props.openTab === button.key ? '#ecedf2 .7px solid' : 'transparent .7px solid',
                                 transition: '300ms ease-in-out',
                                 height: 'auto',
                                 textTransform: 'capitalize',
-                                paddingRight: '32px',
-                                paddingLeft: '32px',
-                                color: props.openTab === button.key ? 'white' : 'black',
-                                boxShadow: props.openTab === button.key ?'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px' : 'unset'
+                                padding: '5px 32px 5px 32px',
+                                color: '#262626'
                             }}
                                     onClick={() => props.setOpenTab(button.key)}>
                                 {button.value}
@@ -47,6 +47,5 @@ HorizontalTabs.proptypes = {
     buttons: PropTypes.object,
     setOpenTab: PropTypes.func,
     openTab: PropTypes.object,
-    highlight: PropTypes.bool,
     noMargin: PropTypes.bool
 }

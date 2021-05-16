@@ -8,6 +8,7 @@ import StateOptions from "../../../packages/options/StateSelector";
 import ImageSelector from "../../modules/selector/ImageSelector";
 import Selector from "../../modules/selector/Selector";
 import getImage from "../../../utils/shared/GetImage";
+import TextField from "../../modules/TextField";
 
 export default function BaseForm(props) {
 
@@ -82,12 +83,13 @@ export default function BaseForm(props) {
                         setImage: setImage
                     })} label={lang.personImage}
                     width={'calc(25% - 24px)'}
-
                     base64={props.person.image === null || !props.person.image} setChanged={setChanged}/>
-                <InputLayout inputName={lang.name} dark={props.dark} handleChange={props.handleChange} inputType={0}
-                             disabled={!props.editable} size={'calc(75% - 12px)'} required={true}
-                             initialValue={props.person.name} name={'name'}
-                             key={"1-1"} setChanged={setChanged} margin={false}/>
+
+                <TextField placeholder={lang.name} label={lang.name} handleChange={event => {
+                    setChanged(true)
+                    props.handleChange({name: 'name', value: event.target.value})
+                }} locale={props.locale} value={props.person.name} required={true} width={'calc(75% - 12px)'} maxLength={undefined}/>
+
 
                 <InputLayout inputName={lang.birth} dark={props.dark} handleChange={props.handleChange}
                              inputType={2} name={'birth'}
@@ -131,16 +133,15 @@ export default function BaseForm(props) {
                 <h4 style={{width: '100%', marginBottom: 'auto'}}>
                     {lang.parents}
                 </h4>
-                <InputLayout inputName={lang.father} dark={props.dark} handleChange={props.handleChange}
-                             inputType={0} name={'father_name'}
-                             disabled={!props.editable} size={'calc(50% - 16px)'} required={false}
-                             initialValue={props.person.father_name}
-                             key={"1-3"} setChanged={setChanged}/>
-                <InputLayout inputName={lang.mother} dark={props.dark} handleChange={props.handleChange}
-                             inputType={0} name={'mother_name'}
-                             disabled={!props.editable} size={'calc(50% - 16px)'} required={false}
-                             initialValue={props.person.mother_name}
-                             key={"1-4"} setChanged={setChanged}/>
+                <TextField placeholder={lang.father} label={lang.father} handleChange={event => {
+                    setChanged(true)
+                    props.handleChange({name: 'father_name', value: event.target.value})
+                }} locale={props.locale} value={props.person.father_name} required={true} width={'calc(50% - 16px)'}/>
+
+                <TextField placeholder={lang.mother} label={lang.mother} handleChange={event => {
+                    setChanged(true)
+                    props.handleChange({name: 'mother_name', value: event.target.value})
+                }} locale={props.locale} value={props.person.mother_name} required={true} width={'calc(50% - 16px)'}/>
 
 
                 <Selector required={true}

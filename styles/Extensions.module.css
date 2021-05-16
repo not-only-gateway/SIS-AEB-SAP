@@ -5,13 +5,16 @@
     display: grid;
     gap: 16px;
     margin: auto;
+    overflow-x: visible;
 }
 .fullWidth{
     width: 100%;
+    overflow-x: visible;
 }
 .extensionsList{
     display: grid;
     gap: 16px;
+    overflow-x: visible;
 }
 .nothingFoundContainer{
     width: 100%;

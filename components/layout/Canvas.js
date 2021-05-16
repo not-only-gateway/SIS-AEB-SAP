@@ -9,20 +9,21 @@ import PropTypes from 'prop-types'
 
 export default function Canvas(props) {
     const [zoom, setZoom] = useState(1)
+
     return (
         <div style={{position: 'relative', width: '100%', height: 'auto', minHeight: '100%'}}>
-            <div className={mainStyles.displayInlineCenter} style={{
+            <div style={{
                 zoom: zoom,
                 transition: '.2s',
                 '-moz-transform': 'scale(' + zoom + ')',
                 marginTop: zoom > 1 ? 'calc(8.3% * ' + (zoom - .25) + ')' : null
             }}>
-                <ul className={styles.tree} style={{
-                    borderRadius: '8px',
-                }}>
-                    <TreeNode dark={props.dark} subject={props.subject}
-                              type={props.type}/>
-                </ul>
+                <span className={styles.nav} style={{width: '100%', display: 'flex', placeContent: 'center'}}>
+                    <ul >
+                        <TreeNode dark={props.dark} subject={props.subject}
+                                  type={props.type} hoveredParent={false}/>
+                    </ul>
+                </span>
             </div>
             <div className={mainStyles.displayColumnSpaced}
                  style={{position: 'fixed', bottom: '50px', right: '50px', height: '140px'}}>
@@ -50,7 +51,7 @@ export default function Canvas(props) {
                             height: '30px',
                             width: '30px',
                             color: 'white',
-                            backgroundColor: zoom === 0.5 ? 'hsla(210, 11%, 78%, 0.5)' :  '#f54269'
+                            backgroundColor: zoom === 0.5 ? 'hsla(210, 11%, 78%, 0.5)' : '#f54269'
                         }}
                         variant={'contained'}
                 >

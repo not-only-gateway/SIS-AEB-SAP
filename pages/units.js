@@ -25,13 +25,13 @@ export default function Index() {
             marginTop: "0",
             marginBottom: 0,
             marginRight: '5px',
-            color: hoveredUnit === key ? 'white' : '#262626',
+            color: '#262626',
             transition: '300ms ease-in-out'
         }
     }
     const secondaryHeaderStyle=(key) => {
         return {
-            color: hoveredUnit === key  ? '#f2f2f2' : '#555555',
+            color: '#555555',
             marginBottom: 0,
             marginTop: 0,
             transition: '300ms ease-in-out',
@@ -47,7 +47,7 @@ export default function Index() {
     function rendered() {
         let count = 0
         data.filter(unit =>{
-            if(searchInput.length > 0 && (unit.name.toLowerCase()).match(searchInput.toLowerCase()) || searchInput.length === 0)
+            if(searchInput.length === 0 || (searchInput.length > 0 && unit.name.toLowerCase().match(searchInput.toLowerCase()) && !changed) || changed)
                 count += 1
             }
         )
@@ -82,7 +82,7 @@ export default function Index() {
                     searchComponent={
                         openTab === 0 ?
                             <SearchBox searchInput={searchInput} setSearchInput={setSearchInput}
-                                       searchLocale={lang.search} setChanged={setChanged}/>
+                                       searchLocale={lang.search} setChanged={setChanged} applyChanges={() => setChanged(false)}/>
                             :
                             undefined
                     }
@@ -106,6 +106,7 @@ export default function Index() {
                                         <div style={{display: 'grid', gap: '8px', width: '100%'}} key={'units-container'}>
                                             {rendered() > 0 ? data.map((unit, index) => (
                                                 <div key={unit.id.toString()}>
+
                                                     <Link href={{pathname: '/unit', query: {id: unit.id}}}>
                                                         <Button
                                                             onMouseEnter={() => setHoveredUnit(unit.id)}
@@ -114,16 +115,17 @@ export default function Index() {
                                                                 animationDelay: index * 200 + 'ms',
                                                                 width: '100%',
                                                                 textTransform: 'none',
-                                                                color: 'initial',
                                                                 borderRadius: '8px',
-                                                                backgroundColor: hoveredUnit === unit.id ? '#0095ff' : 'white',
-                                                                boxShadow: hoveredUnit === unit.id ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
+                                                                backgroundColor: '#f4f5fa',
+                                                                border: hoveredUnit === unit.id ? '#0095ff .7px solid' : '#ecedf2 .7px solid',
+                                                                boxShadow: hoveredUnit === unit.id ? 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px' : 'unset',
                                                                 transition: '300ms ease-in-out',
-                                                                display: (searchInput.length > 0 && (unit.name.toLowerCase()).match(searchInput.toLowerCase()) || searchInput.length === 0) ? 'flex' : 'none',
+                                                                display: searchInput.length === 0 || (searchInput.length > 0 && unit.name.toLowerCase().match(searchInput.toLowerCase()) && !changed) || changed  ? 'flex' : 'none',
                                                                 justifyContent: 'flex-start',
                                                                 alignItems: 'center',
                                                                 alignContent: 'center',
-                                                                minHeight: '70px',
+                                                                height: '70px',
+                                                                padding: hoveredUnit === unit.id ? '8px 8px 8px 16px'  :'8px',
                                                             }}>
                                                             <h5 style={headerStyle(unit.id)}>{lang.acronym}: </h5>
                                                             <h5 style={secondaryHeaderStyle(unit.id)}>{unit.acronym}</h5>

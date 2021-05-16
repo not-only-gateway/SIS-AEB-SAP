@@ -11,7 +11,6 @@ export default async function fetchMember(props){
         headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
     }).then(res => {
         response = res.data
-        response.member.entity = {key: response.member.entity.id, value: response.member.entity.acronym}
     }).catch(error => {
         props.setStatus({
             error: true,

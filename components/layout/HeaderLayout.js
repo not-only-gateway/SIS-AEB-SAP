@@ -61,10 +61,10 @@ export default function HeaderLayout(props) {
         <div id={'r'} style={{
             position: 'sticky',
             top: 0,
-            background: scrolledHeight ? 'white' : 'transparent',
+            // background: scrolledHeight ? 'white' : 'transparent',
             transition: '300ms ease-in-out',
             zIndex: '100',
-            boxShadow: scrolledHeight ? 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px' : 'unset'
+            boxShadow: scrolledHeight ? 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px' : 'unset',
         }} >
             {RenderModalTest()}
             <Head>
@@ -88,6 +88,7 @@ export default function HeaderLayout(props) {
                             {typeof (props.title) === 'string' ?
                                 <h2 style={{
                                     marginBottom: !props.information || scrolledHeight ? '16px' : 0,
+
                                 }}>
                                     {props.title}
 

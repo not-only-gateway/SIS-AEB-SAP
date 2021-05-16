@@ -136,11 +136,10 @@ export default function ActivityTemplate(props) {
                 width: '100%',
                 display: 'flex',
                 justifyContent: 'flex-start',
-                background: 'white',
                 borderRadius: '8px',
                 minHeight: '70px',
                 color: '#262626',
-                textTransform: 'none',
+                textTransform: 'none'
             }}>
                 <div className={[mainStyles.rowContainer, mainStyles.maxWidth].join(' ')} style={{width: '75%'}}>
                     <div

@@ -1,0 +1,46 @@
+.textFieldContainer {
+    position: relative;
+    height: 82px;
+
+    display: grid;
+
+    gap: 3px;
+
+}
+
+.inputContainer {
+    border-radius: 5px;
+    border: #eeeef1 1px solid;
+    box-shadow: unset;
+    transition: 250ms ease-in-out;
+    background: #f4f5fa;
+    width: 100%;
+    outline: none;
+    padding: 5px;
+    font-size: 1rem;
+    color: #555555;
+}
+
+.inputContainer:hover, .inputContainer:focus, .inputContainer:focus-visible, .inputContainer:focus-within {
+    color: #262626;
+    border: #0095ff 1px solid;
+}
+.labelContainer {
+    animation: slideUp ease-in-out 250ms both;
+    color: #262626;
+    font-size: .9rem;
+}
+.alertLabel{
+    margin-left: auto;
+    font-weight: 550;
+    font-size: .8rem;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

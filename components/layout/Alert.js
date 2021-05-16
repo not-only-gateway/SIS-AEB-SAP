@@ -40,7 +40,7 @@ export default function Alert(props) {
                 break
             case 'success':
                 response = {
-                    background: '#ABFF57',
+                    background: '#57FF57',
                     color: '#555555'
                 }
                 break

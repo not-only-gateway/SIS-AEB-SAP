@@ -11,9 +11,9 @@ export default function TabContent(props) {
                     return (
                         <div className={mainStyles.displayInlineCenter} style={{
                             position: "relative",
-                            zIndex: 0,
+                            zIndex: 100,
                             width: '100%',
-                            marginTop: '25px'
+                            marginTop: '25px',
                         }}
                              key={tab.buttonKey + '-content'}>
                             {tab.value}

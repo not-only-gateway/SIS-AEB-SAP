@@ -2,9 +2,9 @@ import PropTypes from 'prop-types'
 import mainStyles from '../../styles/shared/Main.module.css'
 import animations from '../../styles/shared/Animations.module.css'
 import React from "react";
-import {Button} from "@material-ui/core";
-import {CheckRounded} from "@material-ui/icons";
-import ActiveFilter from "../modules/ActiveFilter";
+import {Button, IconButton} from "@material-ui/core";
+import {CheckRounded, ClearRounded} from "@material-ui/icons";
+
 
 export default function FiltersComponent(props) {
 
@@ -12,17 +12,56 @@ export default function FiltersComponent(props) {
 
         <div className={mainStyles.displayWarp}
              style={{gap: '16px', width: '100%', height: 'auto', paddingBottom: '8px', paddingTop: '8px'}}>
-            <Button onClick={() => props.applyChanges()} style={{
-                backgroundColor: '#0095ff',
-                color: 'white',
-                display: props.changed ? null : 'none'
-            }} variant={"contained"} className={animations.popInAnimation}>
-                <CheckRounded/>
-            </Button>
+
             {props.activeFilters.map((filter, index) => {
                 if (filter.value !== null)
                     return (
-                        <ActiveFilter filter={filter} index={index} handleChange={props.handleChange} setChanged={props.setChanged} changed={props.changed}/>
+                        <div
+                            key={filter.key + '-filter-' + index}
+                            style={{
+                                backgroundColor: '#f4f5fa',
+                                width: 'clamp(50px, calc(25% - 12px), 150px)',
+                                animationDelay: index * 10 + 'ms',
+                                borderRadius: '32px',
+
+                                border : '#ecedf2 .7px solid',
+                                height: '37px',
+                                fontSize: '.8rem',
+                                textTransform: 'uppercase',
+                                fontWeight: '550',
+
+                                padding: '0 0px 0 8px',
+                                display: props.changed ? 'none' : 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+
+                            }}
+
+                        >
+                            <span className={mainStyles.overflowEllipsis} style={{
+                                color: '#262626',
+                                maxWidth: '78%',
+                            }}>
+                                {filter.value}
+                            </span>
+                            <IconButton disabled={filter.disabled}
+                                        style={{padding: '8px'}}
+                                        onClick={() => {
+                                            if (filter.type !== 'text') {
+                                                props.handleChange({name: filter.key, value: undefined})
+                                                props.applyChanges()
+                                            }
+                                            else {
+                                                props.handleChange({name: filter.key, value: ''})
+                                                props.applyChanges()
+                                            }
+
+                                            props.setChanged(true)
+
+                                        }}>
+                                <ClearRounded style={{fontSize: '1.3rem', color: '#777777'}}/>
+                            </IconButton>
+                        </div>
                     )
                 else
                     return null

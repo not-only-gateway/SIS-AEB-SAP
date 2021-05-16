@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import InputLayout from "../../modules/InputLayout";
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
+import TextField from "../../modules/TextField";
 
 export default function ContactForm(props) {
 
@@ -48,17 +49,17 @@ export default function ContactForm(props) {
                 <h4 style={{width: '100%', marginBottom: 'auto'}}>
                     {lang.phones}
                 </h4>
-                <InputLayout inputName={lang.phone} dark={props.dark} handleChange={props.handleChange}
-                             name={'personal_phone'}
-                             inputType={0} disabled={!props.editable} size={'100%'} required={true}
-                             numeric={true}
-                             initialValue={props.contact.personal_phone} key={"3-3"} setChanged={setChanged}/>
 
-                <InputLayout inputName={lang.altPhone} dark={props.dark} handleChange={props.handleChange}
-                             name={'personal_phone_alt'}
-                             inputType={0} disabled={!props.editable} size={'100%'} required={false}
-                             numeric={true}
-                             initialValue={props.contact.personal_phone_alt} key={"3-4"} setChanged={setChanged}/>
+                <TextField placeholder={lang.phone} label={lang.phone} handleChange={event => {
+                    setChanged(true)
+                    props.handleChange({name: 'personal_phone', value: event.target.value})
+                }} locale={props.locale} value={props.contact.personal_phone} required={true} width={'100%'} maxLength={undefined} phoneMask={true}/>
+
+
+                <TextField placeholder={lang.altPhone} label={lang.altPhone} handleChange={event => {
+                    setChanged(true)
+                    props.handleChange({name: 'personal_phone_alt', value: event.target.value})
+                }} locale={props.locale} value={props.contact.personal_phone_alt} required={true} width={'100%'} maxLength={undefined} phoneMask={true}/>
 
                 {!props.editable ? null :
                     <Button style={{

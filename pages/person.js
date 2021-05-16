@@ -18,6 +18,7 @@ import fetchAddress from "../utils/fetch/FetchAddress";
 import PersonalForms from "../components/elements/PersonalForms";
 import CorporateForms from "../components/elements/CorporateForms";
 import Alert from "../components/layout/Alert";
+import TextField from "../components/modules/TextField";
 
 export default function person() {
 
@@ -79,7 +80,7 @@ export default function person() {
             if (router.isReady && router.query.id !== id) {
                 setId(router.query.id)
                 fetchMember({memberID: router.query.id, setStatus: setStatus}).then(res => {
-
+                    console.log(res)
                     if (res !== null) {
                         if (accessProfile === null)
                             readAccessProfile().then(profile => {
@@ -94,7 +95,7 @@ export default function person() {
                             })
                         if (res.main_collaboration !== null) {
                             handleObjectChange({
-                                event: {name: 'effectiveRole', value: res.effective_role},
+                                event: {name: 'effectiveRole', value: res.main_collaboration.effective_role},
                                 setData: setCollaboration
                             })
                             handleObjectChange({
@@ -118,7 +119,7 @@ export default function person() {
                                 setData: setCollaboration
                             })
                             handleObjectChange({
-                                event: {name: 'accessProfile', value: res.main_collaboration.access_profile_denomination},
+                                event: {name: 'accessProfile', value: res.main_collaboration.access_profile},
                                 setData: setCollaboration
                             })
 
@@ -223,6 +224,7 @@ export default function person() {
                                                 senior={collaboration.senior}
                                                 linkage={collaboration.linkage}
                                             />
+
                                         )
                                     },
                                     (editMode) && accessProfile !== null ?
@@ -247,11 +249,10 @@ export default function person() {
                                                 mainCollaboration={collaboration.data !== null && collaboration.data ?
                                                     {
                                                         key: collaboration.data.id,
-                                                        value: collaboration.unit.acronym + ' - ' + collaboration.accessProfile,
+                                                        value: collaboration.unit.value + ' - ' + collaboration.accessProfile.value,
                                                     } : member.main_collaboration !== null && member.main_collaboration ? {
                                                         value: member.main_collaboration.value,
                                                         key: member.main_collaboration.key,
-
                                                     } : null}
                                                 locale={router.locale} id={id} accessProfile={accessProfile}
                                                 member={member} setMember={setMember}/>

@@ -82,7 +82,6 @@ export default function MembershipForm(props) {
                              inputType={1} disabled={!props.editable} size={'calc(50% - 16px'} required={true}
                              name={'home_office'} selectFields={lang.options}
                              initialValue={props.member.home_office} key={"membership-5"} setChanged={setChanged}/>
-
                 <Selector required={true}
                           selected={{
                               key: props.member.entity ? props.member.entity.key : null,
@@ -90,7 +89,7 @@ export default function MembershipForm(props) {
                           }}
                           handleChange={event => props.handleChange({
                               name: 'entity',
-                              value: {id: event.key, acronym: event.value}
+                              value: event
                           })} setChanged={setChanged}
                           label={lang.entity} key={'membership-6'}
                           data={mapToSelect({data: entities, option: 1})} width={'calc(50% - 16px'}/>

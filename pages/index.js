@@ -70,7 +70,7 @@ export default function Index() {
 
     if (lang !== null)
         return (
-            <>
+            <div>
 
                 <HeaderLayout
                     width={'75%'}
@@ -114,6 +114,10 @@ export default function Index() {
                                                value: event
                                            }, setData: setFilters
                                        })}
+                                       applyChanges={() => {
+                                           setChanged(false)
+                                           fetchData(1, true)
+                                       }}
                                        searchLocale={lang.search} setChanged={setChanged}/>
                             :
                             undefined
@@ -126,7 +130,6 @@ export default function Index() {
                                 applyChanges={() => {
                                     setChanged(false)
                                     fetchData(1, true)
-
                                 }}
                                 setChanged={setChanged}
                                 changed={changed}
@@ -190,7 +193,7 @@ export default function Index() {
                         ]}/>
                 </div>
 
-            </>
+            </div>
         )
     else
         return null
