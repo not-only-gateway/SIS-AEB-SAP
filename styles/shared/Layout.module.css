@@ -1,9 +1,7 @@
-.page_container{
+.pageContentContainer{
     z-index: 1;
     position: relative;
     height: 100vh;
-
-
     overflow-y: auto;
     overflow-x: visible;
 }

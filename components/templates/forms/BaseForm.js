@@ -5,7 +5,7 @@ import InputLayout from "../../modules/InputLayout";
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import CountryOptions from "../../../packages/options/CountryOptions";
 import StateOptions from "../../../packages/options/StateSelector";
-import ImageSelector from "../../modules/selector/ImageSelector";
+import ImageSelector from "../../modules/selector/ImageField";
 import Selector from "../../modules/selector/Selector";
 import getImage from "../../../utils/shared/GetImage";
 import TextField from "../../modules/TextField";
@@ -74,21 +74,19 @@ export default function BaseForm(props) {
                     {lang.personal}
                 </h4>
                 <ImageSelector
-                    initialImage={props.person.image === null || !props.person.image ? image.imageSrc : props.person.image}
+                    initialImage={props.person.image !== null ? props.person.image : null}
                     size={'100px'}
-                    setImage={event => getImage({
-                        event: event,
-                        handleChange: props.handleChange,
-                        setChanged: setChanged,
-                        setImage: setImage
+                    setImage={event => props.handleChange({
+                        name: 'image',
+                        value: event !== null ? event.target.files[0] : null
                     })} label={lang.personImage}
-                    width={'calc(25% - 24px)'}
-                    base64={props.person.image === null || !props.person.image} setChanged={setChanged}/>
+                    width={'calc(25% - 24px)'} setChanged={setChanged}/>
 
                 <TextField placeholder={lang.name} label={lang.name} handleChange={event => {
                     setChanged(true)
                     props.handleChange({name: 'name', value: event.target.value})
-                }} locale={props.locale} value={props.person.name} required={true} width={'calc(75% - 12px)'} maxLength={undefined}/>
+                }} locale={props.locale} value={props.person.name} required={true} width={'calc(75% - 12px)'}
+                           maxLength={undefined}/>
 
 
                 <InputLayout inputName={lang.birth} dark={props.dark} handleChange={props.handleChange}

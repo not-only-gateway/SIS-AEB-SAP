@@ -8,6 +8,7 @@ import fetchEntities from "../../../utils/fetch/FetchEntities";
 import mapToSelect from "../../../utils/shared/MapToSelect";
 import fetchCollaborations from "../../../utils/fetch/FetchCollaborations";
 import fetchActiveCollaborations from "../../../utils/fetch/fetchActiveCollaborations";
+import TextField from "../../modules/TextField";
 
 export default function MembershipForm(props) {
 
@@ -50,29 +51,36 @@ export default function MembershipForm(props) {
                 justifyContent: 'center',
                 width: '75%',
             }}>
-                <InputLayout inputName={lang.registration} handleChange={props.handleChange}
-                             inputType={0} disabled={!props.editable} size={'100%'} required={false}
-                             name={'registration'}
-                             initialValue={props.member.registration} key={"membership-4"} setChanged={setChanged}/>
+                <TextField placeholder={lang.registration} label={lang.registration} handleChange={event => {
+                    setChanged(true)
+                    props.handleChange({name: 'registration', value: event.target.value})
+                }} locale={props.locale} value={props.member.registration} required={false}
+                           width={'100%'} maxLength={undefined}/>
 
                 <h4 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
                     {lang.contact}
                 </h4>
-                <InputLayout inputName={lang.corporateEmail}
-                             handleChange={props.handleChange} name={'corporate_email'}
-                             inputType={0} disabled={!props.editable} size={'calc(33.333% - 21.35px)'} required={true}
-                             initialValue={props.member.corporate_email} key={"membership-1"} setChanged={setChanged}/>
-                <InputLayout inputName={lang.extension} handleChange={props.handleChange}
-                             numeric={true}
-                             inputType={0} disabled={!props.editable} size={'calc(33.333% - 21.35px)'} required={true}
-                             name={'extension'}
-                             initialValue={props.member.extension} key={"membership-2"} setChanged={setChanged}/>
-                <InputLayout inputName={lang.altPhone} handleChange={props.handleChange}
-                             numeric={true}
-                             inputType={0} disabled={!props.editable} size={'calc(33.333% - 21.35px)'} required={false}
-                             name={'alternative_phone'}
-                             initialValue={props.member.alternative_phone} key={"membership-3"}
-                             setChanged={setChanged}/>
+
+                <TextField placeholder={lang.corporateEmail} label={lang.corporateEmail} handleChange={event => {
+                    setChanged(true)
+                    props.handleChange({name: 'corporate_email', value: event.target.value})
+                }} locale={props.locale} value={props.member.corporate_email} required={true}
+                           width={'calc(33.333% - 21.35px)'}
+                           maxLength={undefined}/>
+
+                <TextField placeholder={lang.extension} label={lang.extension} handleChange={event => {
+                    setChanged(true)
+                    props.handleChange({name: 'extension', value: event.target.value})
+                }} locale={props.locale} value={props.member.extension} required={true}
+                           width={'calc(33.333% - 21.35px)'}
+                           maxLength={undefined} phoneMask={true}/>
+
+                <TextField placeholder={lang.altPhone} label={lang.altPhone} handleChange={event => {
+                    setChanged(true)
+                    props.handleChange({name: 'alternative_phone', value: event.target.value})
+                }} locale={props.locale} value={props.member.alternative_phone} required={false}
+                           width={'calc(33.333% - 21.35px)'}
+                           maxLength={undefined} phoneMask={true}/>
 
                 <h4 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
                     {lang.linkage}
@@ -96,7 +104,7 @@ export default function MembershipForm(props) {
                 {props.create ? null :
                     <Selector required={false}
                               selected={{
-                                  key: props.mainCollaboration !== null ?  props.mainCollaboration.key : null,
+                                  key: props.mainCollaboration !== null ? props.mainCollaboration.key : null,
                                   value: props.mainCollaboration !== null ? props.mainCollaboration.value : null,
                               }}
                               handleChange={event => props.handleChange({

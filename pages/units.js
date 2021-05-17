@@ -118,14 +118,14 @@ export default function Index() {
                                                                 borderRadius: '8px',
                                                                 backgroundColor: '#f4f5fa',
                                                                 border: hoveredUnit === unit.id ? '#0095ff .7px solid' : '#ecedf2 .7px solid',
-                                                                boxShadow: hoveredUnit === unit.id ? 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px' : 'unset',
                                                                 transition: '300ms ease-in-out',
                                                                 display: searchInput.length === 0 || (searchInput.length > 0 && unit.name.toLowerCase().match(searchInput.toLowerCase()) && !changed) || changed  ? 'flex' : 'none',
                                                                 justifyContent: 'flex-start',
                                                                 alignItems: 'center',
                                                                 alignContent: 'center',
                                                                 height: '70px',
-                                                                padding: hoveredUnit === unit.id ? '8px 8px 8px 16px'  :'8px',
+                                                                padding: '8px',
+                                                                boxShadow: hoveredUnit === unit.id ? 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px' : 'unset'
                                                             }}>
                                                             <h5 style={headerStyle(unit.id)}>{lang.acronym}: </h5>
                                                             <h5 style={secondaryHeaderStyle(unit.id)}>{unit.acronym}</h5>

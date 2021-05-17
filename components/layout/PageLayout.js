@@ -23,12 +23,12 @@ export default function PageLayout({children}) {
 
     if (router.pathname !== '/authenticate')
         return (
-            <div style={{fontFamily: 'Roboto', backgroundColor: 'white'}}>
-                <div className={styles.page_container}
+            <div style={{fontFamily: 'Roboto',  backgroundColor: 'white'}}>
+                <div className={styles.pageContentContainer}
                      id={'scrollableDiv'} style={{
                     width: reduced ? 'calc(100% - 75px)' : 'calc(100% - 250px)',
                     marginLeft: 'auto',
-                    transition: '250ms ease-in-out'
+                    transition: '250ms ease-in-out',
                 }}>
 
                     {children}

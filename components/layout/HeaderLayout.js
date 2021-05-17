@@ -76,10 +76,8 @@ export default function HeaderLayout(props) {
                 width: props.width
             }}>
 
-                <div className={mainStyles.displayInlineSpaced} style={{width: '100%', marginTop: '10px'}}>
-                    <div className={mainStyles.displayInlineStart} style={{width: '100%', marginTop: '10px'}}>
-
-
+                <div className={mainStyles.displayInlineSpaced} style={{width: '100%', marginTop: '15px', height: 'auto',}}>
+                    <div className={mainStyles.displayInlineStart} style={{width: '100%', height: '100%'}}>
                         <div style={{
                             display: 'grid',
                             gap: '.4rem',
@@ -87,8 +85,8 @@ export default function HeaderLayout(props) {
                         }}>
                             {typeof (props.title) === 'string' ?
                                 <h2 style={{
-                                    marginBottom: !props.information || scrolledHeight ? '16px' : 0,
-
+                                    marginBottom: "unset",
+                                    marginTop: "unset",
                                 }}>
                                     {props.title}
 

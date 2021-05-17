@@ -1,11 +1,20 @@
-.textFieldContainer {
-    position: relative;
-    height: 82px;
+/*TEXT FIELD*/
 
-    display: grid;
+.visibilityContainer {
+    margin-left: auto;
+    cursor: pointer;
+    color: #555555;
+}
 
-    gap: 3px;
+.visibilityContainer:hover {
+    color: #0095ff
+}
 
+.fieldsContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
 }
 
 .inputContainer {
@@ -21,16 +30,15 @@
     color: #555555;
 }
 
-.inputContainer:hover, .inputContainer:focus, .inputContainer:focus-visible, .inputContainer:focus-within {
-    color: #262626;
-    border: #0095ff 1px solid;
-}
 .labelContainer {
-    animation: slideUp ease-in-out 250ms both;
+    /*animation: slideUp ease-in-out 250ms both;*/
+    transition: visibility 300ms ease-in-out;
     color: #262626;
     font-size: .9rem;
+    margin-top: auto;
 }
-.alertLabel{
+
+.alertLabel {
     margin-left: auto;
     font-weight: 550;
     font-size: .8rem;
@@ -43,4 +51,46 @@
     to {
         opacity: 1;
     }
+}
+
+/*TEXT FIELD*/
+
+.inputContainer:hover, .inputContainer:focus, .inputContainer:focus-visible, .inputContainer:focus-within, .uploadFormContainer:hover {
+    color: #262626;
+    border: #0095ff 1px solid;
+}
+
+/*IMAGE FIELD*/
+.uploadFormContainer {
+    border-radius: 5px;
+    border: #eeeef1 1px solid;
+
+    transition: 250ms ease-in-out;
+    background: white;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+
+    font-size: 1rem;
+    color: #555555;
+
+}
+
+.imageFieldContainer{
+    width: 100%;
+
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 4px;
+
+    border: #eeeef1 1px solid;
+    border-radius: 8px;
+    background: #f4f5fa;
 }

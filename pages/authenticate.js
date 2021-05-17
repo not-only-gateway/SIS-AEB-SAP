@@ -12,6 +12,7 @@ import {VisibilityOffRounded, VisibilityRounded} from "@material-ui/icons";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import submitSignIN from "../utils/submit/SubmitSignIN";
 import Alert from "../components/layout/Alert";
+import TextField from "../components/modules/TextField";
 
 export default function authenticate() {
     const router = useRouter()
@@ -71,44 +72,30 @@ export default function authenticate() {
                         </div>
 
                         <div className={styles.inputContainer}>
-                            <InputLayout inputName={'Email'} dark={false}
-                                         handleChange={event => handleObjectChange({event: event, setData: setData})}
-                                         inputType={0} disabled={false} size={'65%'} required={false}
-                                         name={'email'}
-                                         initialValue={data.email} setChanged={undefined}/>
+                            <TextField
+                                placeholder={'Email'} label={'Email'}
+                                handleChange={event => handleObjectChange({
+                                    event: {
+                                        name: 'email',
+                                        value: event.target.value
+                                    }, setData: setData
+                                })} locale={router.locale} value={data.email}
+                                width={'65%'}
+                                maxLength={undefined}/>
 
-                            <FormControl variant="outlined" style={{width: '65%'}}>
-                                <InputLabel htmlFor="password">{lang.password}</InputLabel>
-                                <OutlinedInput
-                                    label={lang.password}
-                                    id="password"
-                                    type={visible ? 'text' : 'password'}
-                                    value={data.password}
-                                    onChange={event => handleObjectChange({
-                                        event: {
-                                            name: 'password',
-                                            value: event.target.value
-                                        }, setData: setData
-                                    })}
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={() => setVisible(!visible)}
-
-                                                edge="end"
-                                            >
-                                                {visible ? <VisibilityRounded/> : <VisibilityOffRounded/>}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                    labelWidth={70}
-                                />
-                            </FormControl>
+                            <TextField
+                                placeholder={lang.password} label={lang.password}
+                                handleChange={event => handleObjectChange({
+                                    event: {
+                                        name: 'password',
+                                        value: event.target.value
+                                    }, setData: setData
+                                })} locale={router.locale} value={data.password}
+                                width={'65%'} passwordMask={true}
+                                maxLength={undefined}/>
                             <div style={{display: 'flex', width: '65%'}}>
 
-                                <Button variant={'contained'}
-                                        onClick={() => submitSignIN({
+                                <Button onClick={() => submitSignIN({
                                             email: data.email,
                                             password: data.password,
                                             setError: setError
@@ -117,11 +104,11 @@ export default function authenticate() {
                                                     router.push('/', '/', {locale: router.locale})
                                             }
                                         )}
-                                        disabled={data.email.length < 12 || data.password < 8}
+                                        disabled={data.email.length < 12 || data.password.length < 8}
                                         style={{
                                             textTransform: 'none',
-                                            backgroundColor: data.email.length < 12 || data.password < 8 ? null : '#0095ff',
-                                            color: data.email.length < 12 || data.password < 8 ? null : 'white'
+                                            backgroundColor: data.email.length < 12 || data.password.length < 8 ? null : '#0095ff',
+                                            color: data.email.length < 12 || data.password.length < 8 ? null : 'white'
                                         }}>{lang.authenticate}</Button>
                                 <Button style={{color: '#555555', textTransform: 'none', marginLeft: 'auto'}}
                                         onClick={() => router.push({pathname: '/'})}>{lang.access}</Button>

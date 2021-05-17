@@ -43,33 +43,12 @@ export default function Navigation(props) {
 
         <div className={[styles.navigationContainer, animations.slideInLeftAnimation].join(' ')}
              style={{
-
+                 borderRadius: props.reduced ? '0' : '0 8px 8px 0',
                  width: props.reduced ? '75px' : '250px',
-                 transition: '250ms ease-in-out',
-                 backgroundColor: '#222228',
-                 boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
              }}>
 
-            <div
-                style={{
-                    height: '66.666%',
-                    width: '100%',
-                    display: 'grid',
-                    alignContent: 'flex-start',
-                    alignItems: 'flex-start',
-                    justifyContent: 'center',
-                    justifyItems: 'center',
-                    gap: '4px'
-                }}>
-                <div style={{
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: props.reduced ? 'center' : 'space-between',
-                    justifyItems: 'center',
-                    alignItems: 'center',
-                    height: '65px',
-                    marginBottom: '32px'
-                }}>
+            <div className={styles.navigationButtonsHalf}>
+                <div className={styles.logoContainer} style={{justifyContent: props.reduced ? 'center' : 'space-between'}}>
                     {props.reduced ? null :
                         <img className={animations.fadeIn}
                              style={{width: '50%', marginLeft: '16px'}}

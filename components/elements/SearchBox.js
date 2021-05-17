@@ -7,13 +7,11 @@ import {ArrowBackIosRounded, CloseRounded, SearchRounded} from "@material-ui/ico
 export default function SearchBox(props) {
     const [focused, setFocused] = useState(false)
     const [hovered, setHovered] = useState(false)
-    const [reduced, setReduced] = useState(true)
     const [searchHovered, setSearchHovered] = useState(false)
     const [closeHovered, setCloseHovered] = useState(false)
 
     return (
-        <div key={'index-simple-filter-component'} className={mainStyles.displayInlineSpaced}
-             style={{height: '56px', width: reduced ? '50px' : '50%'}}>
+        <div style={{height: '56px', width: '50%', margin: 'auto'}}>
 
             <Paper component="form"
 
@@ -24,26 +22,21 @@ export default function SearchBox(props) {
                        justifyContent: 'space-around',
                        alignItems: 'center',
                        boxShadow: 'unset',
-                       border: focused || !reduced ? '#ecedf2 .7px solid' : 'transparent .7px solid',
+                       border: focused || hovered ? '#0095ff .7px solid' :  '#ecedf2 .7px solid' ,
                        width: '100%',
                        borderRadius: '8px',
-                       height: reduced ? '50px' : '100%',
+                       height: '100%',
                        transition: '300ms ease-in-out',
-                       backgroundColor: !focused ? 'white' : '#f4f5fa',
-                       marginLeft: 'auto'
+                       backgroundColor: '#f4f5fa',
+                       marginLeft: 'auto',
+
                    }}>
 
                 <ButtonBase
                     onMouseEnter={() => setSearchHovered(true)}
                     onMouseLeave={() => setSearchHovered(false)}
-                    onClick={() => {
-                        if (reduced)
-                            setReduced(!reduced)
-                        else {
-                            props.applyChanges()
-                        }
-                    }} style={{
-                    width: reduced ? '100%' : '50px',
+                    onClick={() => props.applyChanges()} style={{
+                    width: '56px',
                     height: '100%'
                 }} className={mainStyles.displayInlineCenter}>
                     <SearchRounded style={{
@@ -51,13 +44,11 @@ export default function SearchBox(props) {
                         transition: '300ms ease-in-out'
                     }}/>
                 </ButtonBase>
-                <Divider orientation={'vertical'} style={{display: reduced ? 'none' : 'initial'}}/>
+                {/*<Divider orientation={'vertical'}/>*/}
                 <InputBase
                     style={{
-                        width: 'calc(100% - 100px)',
-                        marginLeft: reduced ? 'unset' : '10px',
-                        visibility: reduced ? 'hidden' : 'visible',
-                        transition: 'visibility 300ms ease-in',
+                        width: 'calc(100% - 112px)',
+                        marginLeft: '10px',
                     }}
                     placeholder={props.searchLocale}
                     value={props.searchInput}
@@ -72,24 +63,21 @@ export default function SearchBox(props) {
                         props.setSearchInput(event.target.value)
                     }}
                 />
-                <Divider orientation={'vertical'} style={{display: reduced ? 'none' : 'initial'}}/>
+                {/*<Divider orientation={'vertical'} />*/}
                 <ButtonBase
                     onMouseEnter={() => setCloseHovered(true)}
                     onMouseLeave={() => setCloseHovered(false)}
                     style={{
-                        width: reduced ? '100%' : '50px',
+                        width: '56px',
                         height: '100%',
-                        display: reduced ? 'none' : 'initial',
                     }}
                     className={mainStyles.displayInlineCenter}
                     onClick={() => {
                         props.setSearchInput('')
                         props.applyChanges()
-                        setReduced(true)
-
                     }}>
                     <CloseRounded
-                        style={{color: closeHovered ? '#ff5555' : '#777777', display: reduced ? 'none' : 'initial'}}/>
+                        style={{color: closeHovered ? '#ff5555' : '#777777', display: 'initial'}}/>
                 </ButtonBase>
             </Paper>
 

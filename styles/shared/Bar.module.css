@@ -1,64 +1,53 @@
+.navigationContainer {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 0;
+    overflow: hidden;
+    height: 100vh;
 
-@media (orientation: landscape){
+    display: block;
+    justify-items: center;
 
-    .navigationContainer{
-        position: fixed;
-        left: 0;
-        top: 0;
-        z-index: 0;
-        overflow: hidden;
-        height: 100vh;
+    transition: 250ms ease-in-out;
+    background-color: #222228;
 
-        display: block;
-        justify-items: center;
-        border-radius: 0 8px 8px 0;
-    }
-    .navigationContainer > * {
-        width: 100%;
-    }
-    .top_bar_container{
-        display: grid;
-        /*grid-template-columns: 66.666vw 33.333vw;*/
-        align-content: center;
-        align-items: center;
-        height: 100%;
-        width: 100vw;
-        margin-left: auto;
-    }
+}
+/*.navigationContainer {*/
+/*    position: fixed;*/
+/*    left: 4px;*/
+/*    top: 4px;*/
+/*    z-index: 0;*/
+/*    overflow: hidden;*/
+/*    height: calc(100vh - 8px);*/
 
-    .bar_profile_container{
+/*    display: block;*/
+/*    justify-items: center;*/
 
+/*    transition: 250ms ease-in-out;*/
+/*    background-color: #222228;*/
+/*    box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;*/
+/*    border-radius: 8px;*/
 
-    }
+/*}*/
+
+.navigationButtonsHalf {
+    height: 66.666%;
+    width: 100%;
+    display: grid;
+    align-content: flex-start;
+    align-items: flex-start;
+    justify-content: center;
+    justify-items: center;
+    gap: 4px;
 }
 
-@media (orientation: portrait){
-    .left_bar_container{
-        display: grid;
-        width: 14vw;
-        justify-content: center;
-        align-content: center;
-        align-items: center;
-        overflow: hidden;
-        height: 100vh;
-        margin: auto;
-    }
+.logoContainer {
+    width: 100%;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    height: 65px;
+    margin-bottom: 32px;
 
-    .top_bar_container{
-        display: grid;
-        align-content: center;
-        align-items: center;
-        height: 100%;
-        justify-content: space-evenly;
-        width: 86vw;
-        margin-left: auto;
-    }
-
-    .bar_profile_container{
-        display: flex;
-        overflow: hidden;
-        justify-content: flex-end;
-        width: 75%;
-        margin-left: auto;
-    }
 }

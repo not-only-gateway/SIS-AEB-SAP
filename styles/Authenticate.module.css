@@ -1,18 +1,20 @@
 .logoHalf {
-    width: 40%;
+    width: 45% ;
     height: 100%;
     display: grid;
     align-content: space-evenly;
     justify-items: center;
-    border-radius: 0 8px 8px 0;
+
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
     background-color: #222228;
-    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
 }
 
 .pageContainer {
     width: 100%;
     height: 100vh;
-background-color: #eeeef1;
+
+    background-color: white;
     display: flex;
 }
 
@@ -22,9 +24,11 @@ background-color: #eeeef1;
 }
 
 .inputHalf {
-    width: 60%;
+    width:55% ;
     margin-left: auto;
+    height: 100%;
     display: grid;
+    background-color: white;
     grid-template-rows: calc((100% - 250px) / 2) 250px calc((100% - 250px) / 2);
     grid-template-columns: 35% 65%;
     justify-content: space-around;

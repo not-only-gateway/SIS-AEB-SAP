@@ -53,6 +53,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
 }
 .normalBorder{
     border-radius: 8px;

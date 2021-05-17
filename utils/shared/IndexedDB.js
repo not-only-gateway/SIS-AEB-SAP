@@ -123,10 +123,10 @@ export async function setAccessProfile(props) {
                 access.add({
                     id: props.id,
                     denomination: props.denomination,
-                    canCreatePerson:props.denomination,
-                    canUpdatePerson:props.denomination,
-                    canDeletePerson:props.denomination,
-                    canManageStructure:props.denomination,
+                    canCreatePerson:props.canCreatePerson,
+                    canUpdatePerson:props.canUpdatePerson,
+                    canDeletePerson:props.canDeletePerson,
+                    canManageStructure:props.canManageStructure,
                     canManageMembership:props.canManageMembership
                 }).catch(error => console.log(error))
         }).catch(error => console.log(error))

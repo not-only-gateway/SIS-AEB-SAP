@@ -11,9 +11,9 @@ export default async function submitPerson(props){
         id: undefined
     }
 
-    if (props.image.file !== null) {
-        formData.append('image', props.image.file[0])
-    } else if (props.image.removed)
+    if (props.image !== null) {
+        formData.append('image', props.image)
+    } else
         formData.append('removed_image', 'true')
     formData.append('name', props.person.name.toString())
     formData.append('birth', (typeof props.person.birth !== 'number' ? new Date(props.person.birth).getTime() : props.person.birth))

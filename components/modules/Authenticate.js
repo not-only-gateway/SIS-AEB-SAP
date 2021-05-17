@@ -13,6 +13,8 @@ import animations from '../../styles/shared/Animations.module.css'
 import Alert from "../layout/Alert";
 import {CloseRounded} from "@material-ui/icons";
 import styles from '../../styles/component/Component.module.css'
+import TextField from "./TextField";
+import handleObjectChange from "../../utils/shared/HandleObjectChange";
 
 const cookies = new Cookies()
 export default function Authenticate(props) {
@@ -79,16 +81,12 @@ export default function Authenticate(props) {
                     />
                     <div className={styles.authenticateModalContainer}>
 
-                        <div className={shared.closeButtonModalContainer}>
-                            <Button onClick={() => props.forceClose()}>
-                                <CloseRounded/>
-                            </Button>
-                        </div>
                         <div style={{
                             display: 'grid',
                             justifyItems: 'center',
                             height: 'fit-content',
                             gap: '10px',
+                            marginTop: '32px'
                         }}>
                             <img src={'./LOGOBIG.png'} style={{width: '50%'}}/>
                             <div style={{
@@ -102,32 +100,58 @@ export default function Authenticate(props) {
                                       style={getTertiaryColor({dark: false})}>{lang.authenticate}</span>
                             </div>
                         </div>
-                        <InputLayout inputName={lang.email} dark={false}
-                                     handleChange={handleChange} name={'email'}
-                                     inputType={0} disabled={false} size={'100%'} required={false}
-                                     initialValue={email} key={"1-1"} setChanged={undefined}/>
-                        <div style={{width: '100%'}}>
+                        <div style={{
+                            display: 'grid',
+                            height: 'fit-content',
+                            gap: '10px',
+                            width: '100%',
+                            justifyItems: 'center',
+                            paddingLeft: '24px',
+                            paddingRight: '24px'
+                        }}>
+                            <TextField
+                                placeholder={lang.email} label={lang.email}
+                                handleChange={event => handleChange(
+                                    {
+                                        name: 'email',
+                                        value: event.target.value
+                                    })} locale={props.locale} value={email}
+                                width={'100%'}
+                                maxLength={undefined}/>
 
-                            <FormControl variant="outlined" style={{width: '100%'}}>
-                                <InputLabel htmlFor="password">{lang.password}</InputLabel>
-                                <OutlinedInput
-
-                                    id="password"
-                                    type={'password'}
-                                    value={password}
-                                    onChange={event => handleChange({name: 'password', value: event.target.value})}
-                                    labelWidth={70}
-                                />
-                            </FormControl>
-
+                            <TextField
+                                placeholder={lang.password} label={lang.password}
+                                handleChange={event => handleChange(
+                                    {
+                                        name: 'password',
+                                        value: event.target.value
+                                    })} locale={props.locale} value={password}
+                                width={'100%'} passwordMask={true}
+                                maxLength={undefined}/>
                         </div>
-                        <div className={mainStyles.displayInlineCenter} style={{width: '100%'}}>
-                            <Button variant={'contained'} onClick={submit} disabled={email.length < 12 || password < 8}
+                        <div className={mainStyles.displayInlineEnd} style={{
+                            width: '100%',
+                            backgroundColor: '#f4f5fa',
+                            height: '60px',
+                            borderRadius: '0 0 8px 8px',
+                            padding: '24px',
+                            gap: '10px'
+                        }}>
+                            <Button onClick={() => props.forceClose()} style={{
+                                backgroundColor: 'white',
+                                textTransform: 'none',
+                                borderRadius: '8px',
+                                boxShadow:  'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px'
+                            }}>
+                                {lang.cancel}
+                            </Button>
+                            <Button onClick={submit} disabled={email.length < 12 || password < 8}
                                     style={{
                                         textTransform: 'none',
                                         backgroundColor: email.length < 12 || password < 8 ? 'rgba(0,0,0,0.07)' : '#0095ff',
                                         color: email.length < 12 || password < 8 ? '#777777' : 'white',
-                                        width: '35%'
+                                        borderRadius: '8px',
+
                                     }}>
                                 {lang.authenticate}
                             </Button>

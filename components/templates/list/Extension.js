@@ -42,17 +42,16 @@ export default function Extension(props) {
                             backgroundColor:'#f4f5fa',
                             border: hovered ? '#0095ff .7px solid' : '#ecedf2 .7px solid',
                             height: '80px',
-                            padding: hovered ? '8px 8px 8px 16px'  :'8px',
+                            padding: '8px',
                             transition: '300ms ease-in-out',
-                            // color: hovered ? 'white' : 'initial',
-
+                            boxShadow: hovered ? 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px' : 'unset'
                         }}>
                     <div className={mainStyles.rowContainer} style={{height: 'auto'}}>
                         <div
                             className={[mainStyles.displayInlineStart, mainStyles.overflowEllipsis].join(' ')}
                         >
                             <ProfilePersona dark={false} key={props.data.member.id}
-                                            image={props.data.member.image} size={hovered ? '62px' : '65px'} variant={'rounded'}
+                                            image={props.data.member.image} size={'65px'} variant={'rounded'}
                                             elevation={hovered}
                                             cakeDay={((new Date(props.data.member.birth)).getDay() === currentDate.getDay() && (new Date(props.data.member.birth)).getMonth() === currentDate.getMonth())}/>
                             <p className={mainStyles.secondaryParagraph}

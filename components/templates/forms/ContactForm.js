@@ -27,48 +27,49 @@ export default function ContactForm(props) {
 
     if (lang !== null)
         return (
-            <div style={{
+            <form style={{
                 display: 'inline-flex',
                 flexFlow: 'row wrap',
                 gap: '32px',
                 justifyContent: 'center',
                 width: '75%',
             }}>
-                <h4 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
-                    Emails
-                </h4>
-                <InputLayout inputName={lang.email} dark={props.dark} handleChange={props.handleChange}
-                             name={'personal_email'}
-                             inputType={0} disabled={!props.editable} size={'100%'} required={true}
-                             initialValue={props.contact.personal_email} key={"3-1"} setChanged={setChanged}/>
 
-                <InputLayout inputName={lang.altEmail} dark={props.dark} handleChange={props.handleChange}
-                             name={'personal_email_alt'}
-                             inputType={0} disabled={!props.editable} size={'100%'} required={false}
-                             initialValue={props.contact.personal_email_alt} key={"3-2"} setChanged={setChanged}/>
-                <h4 style={{width: '100%', marginBottom: 'auto'}}>
-                    {lang.phones}
-                </h4>
+                <TextField placeholder={lang.email} label={lang.email} handleChange={event => {
+                    setChanged(true)
+                    props.handleChange({name: 'personal_email', value: event.target.value})
+                }} locale={props.locale} value={props.contact.personal_email} required={true} width={'100%'}/>
+                <TextField placeholder={lang.altEmail} label={lang.altEmail} handleChange={event => {
+                    setChanged(true)
+                    props.handleChange({name: 'personal_email_alt', value: event.target.value})
+                }} locale={props.locale} value={props.contact.personal_email_alt} required={false} width={'100%'}/>
+
 
                 <TextField placeholder={lang.phone} label={lang.phone} handleChange={event => {
                     setChanged(true)
                     props.handleChange({name: 'personal_phone', value: event.target.value})
-                }} locale={props.locale} value={props.contact.personal_phone} required={true} width={'100%'} maxLength={undefined} phoneMask={true}/>
+                }} locale={props.locale} value={props.contact.personal_phone} required={true} width={'100%'}
+                           maxLength={undefined} phoneMask={true}/>
 
 
                 <TextField placeholder={lang.altPhone} label={lang.altPhone} handleChange={event => {
                     setChanged(true)
                     props.handleChange({name: 'personal_phone_alt', value: event.target.value})
-                }} locale={props.locale} value={props.contact.personal_phone_alt} required={true} width={'100%'} maxLength={undefined} phoneMask={true}/>
+                }} locale={props.locale} value={props.contact.personal_phone_alt} required={false} width={'100%'}
+                           maxLength={undefined} phoneMask={true}/>
 
                 {!props.editable ? null :
-                    <Button style={{
+                    <button type={"submit"} style={{
                         width: '100%',
                         backgroundColor: disabled() ? 'rgba(0,0,0,0.07)' : '#0095ff',
                         color: disabled() ? '#777777' : 'white',
-                        fontWeight: 550,
-
-                    }} disabled={disabled()} variant={'contained'} onClick={() => {
+                        borderRadius: '5px',
+                        boxShadow: 'unset',
+                        outline: 'none',
+                        border: 'none',
+                        fontSize: '1rem',
+                        padding: '5px'
+                    }} disabled={disabled()} onClick={() => {
                         props.handleSubmit({data: props.contact, personID: props.id}).then(res => {
                             setChanged(!res)
                             if (props.setAccepted !== undefined)
@@ -76,9 +77,9 @@ export default function ContactForm(props) {
                         })
                     }}>
                         {props.create ? lang.create : lang.save}
-                    </Button>
+                    </button>
                 }
-            </div>
+            </form>
 
         )
     else
