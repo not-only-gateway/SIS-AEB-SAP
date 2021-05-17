@@ -27,3 +27,16 @@
     color: #a6a6a9;
     text-align: center;
 }
+.extensionButton{
+    cursor: pointer;
+    width: 100%;
+    text-transform: none;
+    border-radius: 8px;
+    background-color: #f4f5fa;
+    height: 80px;
+    padding: 8px;
+    transition: 300ms ease-in-out;
+
+    display: flex;
+    align-items: center;
+}

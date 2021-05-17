@@ -12,7 +12,7 @@ import {VisibilityOffRounded, VisibilityRounded} from "@material-ui/icons";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import submitSignIN from "../utils/submit/SubmitSignIN";
 import Alert from "../components/layout/Alert";
-import TextField from "../components/modules/TextField";
+import TextField from "../components/modules/inputs/TextField";
 
 export default function authenticate() {
     const router = useRouter()

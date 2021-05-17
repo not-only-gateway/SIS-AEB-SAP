@@ -1,62 +1,83 @@
-import {Button} from "@material-ui/core";
 import React from 'react'
 import PropTypes from 'prop-types'
-import mainStyles from '../../styles/shared/Main.module.css'
+import styles from '../../styles/Person.module.css'
 import PersonPersona from "../elements/ProfilePersona";
 import Cookies from "universal-cookie/lib";
+import HorizontalTabs from "../layout/navigation/HorizontalTabs";
+import VerticalTabs from "../layout/navigation/VerticalTabs";
+import Button from "../modules/inputs/Button";
+import {EditRounded, LockOpenRounded, VisibilityRounded} from "@material-ui/icons";
 
 export default function Profile(props) {
     return (
         <div
-            className={mainStyles.displayInlineSpaced}
-            key={props.person.id} style={{width: '100%'}}>
+            className={styles.profileContainer}
+            key={props.person.id}>
 
-            <div className={mainStyles.displayInlineSpaced}>
-                {props.editMode ? null :
-                    <PersonPersona size={'150px'} key={props.person.id} dark={false}
-                                   cakeDay={false}
-                                   image={props.person.image} variant={'rounded'}/>
-                }
-                <div className={!props.editMode ? mainStyles.displayColumnSpaced : mainStyles.displayInlineStart}
-                     style={{
-                         marginLeft: !props.editMode ? '16px' : 'unset',
-                         height: !props.editMode ? '150px' : 'auto',
-                         transition: '300ms ease-in-out'
-                     }}>
+            <div style={{
+                display: 'grid',
+                gap: '16px',
+                justifyItems: 'center'
+            }}>
+                <PersonPersona size={'150px'} key={props.person.id} dark={false}
+                               cakeDay={false}
+                               absoluteContent={
+                                   <Button
+                                       content={
+                                           <div style={{
+                                               height: 'auto',
+                                               width: 'auto',
+                                               background: (new Cookies()).get('authorization_token') !== undefined && !props.notAuthenticate ? '#0095ff' : '#f54269',
+                                               color: 'white',
+                                               display: 'flex',
+                                               placeContent: 'center',
+                                               borderRadius: '50%',
+                                               padding: '8px'
+                                           }}>
+                                               {props.editMode ? <VisibilityRounded/> :
+                                                   (new Cookies()).get('authorization_token') !== undefined &&
+                                                   !props.notAuthenticate ? <EditRounded/> : <LockOpenRounded/>}
+                                           </div>
+                                       }
+                                       width={'auto'}
+                                       handleClick={() => props.setEditMode(!props.editMode)}/>
+                               }
+                               image={props.person.image} variant={'rounded'}/>
+
+                <div style={{
+                    display: 'grid',
+                    alignContent: 'flex-start',
+                    alignItems: 'flex-start',
+                    justifyItems: 'center'
+                }}>
                     <div style={{
-                        display: 'grid',
-                        alignContent: 'flex-start',
-                        alignItems: 'flex-start',
-                        marginRight: props.editMode ? '16px' : 'unset'
+                        fontSize: '1.7rem',
+                        fontWeight: 570,
                     }}>
-                        <div style={{
-                            fontSize: '1.7rem',
-                            fontWeight: 570,
-
-                        }}>
-                            {props.person.name}
-                        </div>
-                        {props.editMode ? null :
-                            <h4 style={{fontSize: '.9rem', color: '#555555', marginTop: '8px'}}>
-                                {props.member.corporate_email}
-                            </h4>
-                        }
+                        {props.person.name}
                     </div>
-                    <Button style={{
-                        backgroundColor: (new Cookies()).get('authorization_token') !== undefined && !props.notAuthenticate ? '#0095ff' : '#f54269',
-                        color: 'white',
-                        textTransform: 'none',
-                        display: props.editable ? 'initial' : 'none',
-                        marginTop: 'auto'
-                    }} onClick={() => props.setEditMode(!props.editMode)}>
-                        {props.editMode ? props.lang.visualize :
-                            (new Cookies()).get('authorization_token') !== undefined && !props.notAuthenticate ? props.lang.edit : props.lang.authenticate}
-                    </Button>
 
+                    <h4 style={{fontSize: '.9rem', color: '#555555', marginTop: '8px'}}>
+                        {props.member.corporate_email}
+                    </h4>
                 </div>
-
-
             </div>
+            {props.editMode ?
+                <VerticalTabs
+                    buttons={[
+                        props.accessProfile !== null ? {
+                            disabled: false,
+                            key: 0,
+                            value: props.lang.personal
+                        } : null,
+                        props.accessProfile !== null ? {
+                            disabled: !props.accessProfile.canManageMembership,
+                            key: 1,
+                            value: props.lang.corporate
+                        } : null,
+
+                    ]} openTab={props.openTab} setOpenTab={props.setOpenTab}/> : null}
+
 
         </div>
 
@@ -71,5 +92,8 @@ Profile.proptypes = {
     editable: PropTypes.bool,
     inactiveLocale: PropTypes.string,
     lang: PropTypes.object,
-    notAuthenticate: PropTypes.bool
+    notAuthenticate: PropTypes.bool,
+    accessProfile: PropTypes.object,
+    openTab: PropTypes.any,
+    setOpenTab: PropTypes.func
 }

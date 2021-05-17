@@ -18,17 +18,14 @@ console.log(props.image)
                         transition: '300ms ease-in-out'
 
                     }} variant={props.variant}/>
-            {props.cakeDay === true ?
-                <div className={mainStyles.displayInlineCenter} style={{
-                    width: '30px',
-                    height: '30px',
+            {props.absoluteContent ?
+                <div style={{
+
                     position: 'absolute',
-                    bottom: '-5%',
-                    left: '-5%',
-                    background: 'white',
-                    borderRadius: '16px'
+                    bottom: '-7%',
+                    right: '-7%',
                 }}>
-                    <CakeRounded style={{color: '#f54269', fontSize: '1.4rem'}}/>
+                    {props.absoluteContent}
                 </div>
                 :
                 null
@@ -44,5 +41,6 @@ ProfilePersona.propTypes = {
     size: PropTypes.string,
     variant: PropTypes.string,
     elevation: PropTypes.bool,
-    base64: PropTypes.bool
+    base64: PropTypes.bool,
+    absoluteContent: PropTypes.any
 }

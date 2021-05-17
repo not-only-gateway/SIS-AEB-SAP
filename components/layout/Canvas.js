@@ -1,5 +1,5 @@
 import styles from "../../styles/Structure.module.css";
-import TreeNode from "../modules/TreeNode";
+import TreeNode from "../modules/structure/TreeNode";
 import mainStyles from "../../styles/shared/Main.module.css";
 import {Button} from "@material-ui/core";
 import {AddRounded, RemoveRounded} from "@material-ui/icons";

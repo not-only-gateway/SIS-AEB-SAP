@@ -2,7 +2,7 @@ import {Button} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import InputLayout from "../../modules/InputLayout";
 import PropTypes from "prop-types";
-import Selector from "../../modules/selector/Selector";
+import Selector from "../../modules/inputs/Selector";
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import Alert from "../../layout/Alert";
 import HorizontalTabs from "../../layout/navigation/HorizontalTabs";

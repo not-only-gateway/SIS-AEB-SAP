@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import shared from "../../../styles/shared/Shared.module.css";
 
 import mapToSelect from "../../../utils/shared/MapToSelect";
-import Selector from "../selector/Selector";
+import Selector from "../inputs/Selector";
 import FetchExtensionsFilter from "../../../utils/fetch/FetchExtensionsFilter";
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import {CloseRounded} from "@material-ui/icons";

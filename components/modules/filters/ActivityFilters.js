@@ -14,12 +14,12 @@ export default function ActivityFilterComponent(props) {
             <InputLayout inputName={props.lang.startDate} dark={props.dark} handleChange={props.handleChange}
                          inputType={2} name={'startDate'}
                          disabled={props.disabled} size={'100%'} initialValue={props.filters.startDate}
-                         key={"start-date-selector"} setChanged={props.setChanged} margin={false}
+                         key={"start-date-inputs"} setChanged={props.setChanged} margin={false}
             />
             <InputLayout inputName={props.lang.endDate} dark={props.dark} handleChange={props.handleChange}
                          inputType={2} name={'endDate'}
                          disabled={props.disabled} size={'100%'} initialValue={props.filters.endDate}
-                         key={"end-date-selector"} setChanged={props.setChanged} margin={false}
+                         key={"end-date-inputs"} setChanged={props.setChanged} margin={false}
             />
             <FormControl component="fieldset" style={{marginRight: 'auto'}}>
                 <FormLabel component="legend">{props.lang.method}</FormLabel>

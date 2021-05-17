@@ -51,11 +51,11 @@ export default function InputLayout(props) {
                     <FormControl variant="outlined" disabled={props.disabled}
                                  style={{width: '100%'}} required={props.required}
                                  error={props.required === true && (props.initialValue === null || props.initialValue === undefined || props.initialValue.length === 0)}>
-                        <InputLabel id={props.key + '-selector'}>{props.inputName}</InputLabel>
+                        <InputLabel id={props.key + '-inputs'}>{props.inputName}</InputLabel>
                         <Select
-                            labelId={props.key + '-selector'}
+                            labelId={props.key + '-inputs'}
                             label={props.inputName}
-                            id={props.key + '-selector'}
+                            id={props.key + '-inputs'}
                             value={props.initialValue}
                             disabled={props.disabled}
                             onChange={event => {

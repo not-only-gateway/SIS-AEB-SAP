@@ -9,7 +9,7 @@ import TabContent from "../components/templates/TabContent";
 import Link from 'next/link'
 import fetchUnits from "../utils/fetch/FetchUnits";
 import {Button} from "@material-ui/core";
-import UnitsStructure from "../components/modules/UnitsStructure";
+import UnitsStructure from "../components/modules/structure/UnitsStructure";
 
 export default function Index() {
 

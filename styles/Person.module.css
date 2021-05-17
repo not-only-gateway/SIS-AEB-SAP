@@ -1,9 +1,46 @@
-.contentContainer{
-    width: 75%;
-    height: fit-content;
+
+.overviewRowContainer{
+    background-color: #f4f5fa;
+    padding: 16px 32px 16px 32px;
     border-radius: 8px;
-    display: grid;
+    border: #ecedf2 .7px solid;
+    width: 100%;
+}
+.overviewLineContainer{
+    display: flex;
+    align-items: center;
     gap: 16px;
-    margin: auto;
-    position: relative;
+    width: 100%;
+}
+.pageContainer{
+    display: grid;
+    grid-template-columns: 17% 83%;
+    gap: 16px;
+
+    width: 75%;
+    margin: 32px auto auto;
+}
+
+.profileContainer{
+    grid-column: 1;
+
+    display: grid;
+    gap: 32px;
+    justify-items: center;
+    height: fit-content;
+    position: sticky;
+
+    top: 32px;
+
+    /*background-color: #f4f5fa;*/
+    /*border-radius: 8px;*/
+    /*border: #ecedf2 .7px solid;*/
+    /*padding: 16px 0;*/
+    overflow: hidden;
+}
+.profileContentContainer{
+    display: grid;
+    align-items: flex-start;
+    gap: 16px
+    /*grid-template-rows: 20% 80%;*/
 }

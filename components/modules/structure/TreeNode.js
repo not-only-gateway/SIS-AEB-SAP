@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import Host from "../../utils/shared/Host";
+import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import shared from '../../styles/shared/Shared.module.css'
+import shared from '../../../styles/shared/Shared.module.css'
 import Link from 'next/link'
-import mainStyles from '../../styles/shared/Main.module.css'
-import animations from '../../styles/shared/Animations.module.css'
-import ProfilePersona from "../elements/ProfilePersona";
-import styles from '../../styles/Structure.module.css'
+import mainStyles from '../../../styles/shared/Main.module.css'
+import animations from '../../../styles/shared/Animations.module.css'
+import ProfilePersona from "../../elements/ProfilePersona";
+import styles from '../../../styles/Structure.module.css'
 
 export default function TreeNode(props) {
     const [dependents, setDependents] = useState([])

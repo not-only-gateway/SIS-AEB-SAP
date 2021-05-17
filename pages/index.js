@@ -11,7 +11,7 @@ import {readAccessProfile} from "../utils/shared/IndexedDB";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import TabContent from "../components/templates/TabContent";
 import Extensions from "../components/modules/Extensions";
-import CollaboratorsStructure from "../components/modules/CollaboratorsStructure";
+import CollaboratorsStructure from "../components/modules/structure/CollaboratorsStructure";
 
 export default function Index() {
 

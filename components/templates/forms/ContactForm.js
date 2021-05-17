@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import InputLayout from "../../modules/InputLayout";
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
-import TextField from "../../modules/TextField";
+import TextField from "../../modules/inputs/TextField";
 
 export default function ContactForm(props) {
 

@@ -5,10 +5,10 @@ import InputLayout from "../../modules/InputLayout";
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import CountryOptions from "../../../packages/options/CountryOptions";
 import StateOptions from "../../../packages/options/StateSelector";
-import ImageSelector from "../../modules/selector/ImageField";
-import Selector from "../../modules/selector/Selector";
+import ImageSelector from "../../modules/inputs/ImageField";
+import Selector from "../../modules/inputs/Selector";
 import getImage from "../../../utils/shared/GetImage";
-import TextField from "../../modules/TextField";
+import TextField from "../../modules/inputs/TextField";
 
 export default function BaseForm(props) {
 

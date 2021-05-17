@@ -14,7 +14,7 @@ import {HistoryRounded} from "@material-ui/icons";
 import animations from "../styles/shared/Animations.module.css";
 import HeaderLayout from "../components/layout/HeaderLayout";
 import mapToSelect from "../utils/shared/MapToSelect";
-import Selector from "../components/modules/selector/Selector";
+import Selector from "../components/modules/inputs/Selector";
 
 export default function Settings() {
 

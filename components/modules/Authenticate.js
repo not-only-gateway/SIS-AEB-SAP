@@ -13,7 +13,7 @@ import animations from '../../styles/shared/Animations.module.css'
 import Alert from "../layout/Alert";
 import {CloseRounded} from "@material-ui/icons";
 import styles from '../../styles/component/Component.module.css'
-import TextField from "./TextField";
+import TextField from "./inputs/TextField";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 
 const cookies = new Cookies()
