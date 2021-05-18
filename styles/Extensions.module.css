@@ -1,4 +1,4 @@
-.contentContainer{
+.contentContainer {
     width: 75%;
     height: fit-content;
     border-radius: 8px;
@@ -7,27 +7,32 @@
     margin: auto;
     overflow-x: visible;
 }
-.fullWidth{
+
+.fullWidth {
     width: 100%;
     overflow-x: visible;
 }
-.extensionsList{
+
+.extensionsList {
     display: grid;
     gap: 16px;
     overflow-x: visible;
 }
-.nothingFoundContainer{
+
+.nothingFoundContainer {
     width: 100%;
     margin-bottom: 16px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.nothingFoundParagraph{
+
+.nothingFoundParagraph {
     color: #a6a6a9;
     text-align: center;
 }
-.extensionButton{
+
+.extensionButton {
     cursor: pointer;
     width: 100%;
     text-transform: none;
@@ -39,4 +44,57 @@
 
     display: flex;
     align-items: center;
+}
+
+.secondaryHeaderStyle {
+    color: #555555;
+    margin-bottom: 0;
+    margin-top: 0;
+    transition: 300ms ease-in-out;
+}
+
+.headerStyle {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 5px;
+    color: #262626;
+    transition: 300ms ease-in-out;
+}
+
+.extensionModalContainer {
+    background: white;
+    border-radius: 8px;
+    width: clamp(500px, 75%, 1000px);
+    height: clamp(500px, 75%, 900px);
+
+    display: grid;
+    align-content: space-between;
+    /*justify-content: space-between;*/
+    /*align-items: center;*/
+}
+
+.extensionModalFooter {
+
+    background: #f4f5fa;
+    display: flex;
+    justify-content: flex-end;
+    border-radius: 0 0 8px 8px;
+    padding: 24px;
+    gap: 16px;
+}
+
+.overviewRowContainer {
+    background-color: #f4f5fa;
+    border-radius: 8px;
+    border: #ecedf2 .7px solid;
+    padding: 16px 32px 16px 32px;
+
+    width: 100%;
+}
+
+.overviewLineContainer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
 }

@@ -10,5 +10,6 @@ export default {
     nothingFound:'Nothing Found',
     end: 'You\'ve reached the bottom.',
     list: 'List',
-    structure: 'Structure'
+    structure: 'Structure',
+
 }

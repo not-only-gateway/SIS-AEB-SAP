@@ -10,53 +10,27 @@ import {EditRounded, LockOpenRounded, VisibilityRounded} from "@material-ui/icon
 
 export default function Profile(props) {
     return (
-        <div
-            className={styles.profileContainer}
-            key={props.person.id}>
-                <PersonPersona size={'150px'} key={props.person.id} dark={false}
-                               cakeDay={false}
-                               absoluteContent={
-                                   <Button
-                                       content={
-                                           <div style={{
-                                               height: 'auto',
-                                               width: 'auto',
-                                               background: (new Cookies()).get('authorization_token') !== undefined && !props.notAuthenticate ? '#0095ff' : '#f54269',
-                                               color: 'white',
-                                               display: 'flex',
-                                               placeContent: 'center',
-                                               borderRadius: '50%',
-                                               padding: '8px'
-                                           }}>
-                                               {props.editMode ? <VisibilityRounded/> :
-                                                   (new Cookies()).get('authorization_token') !== undefined &&
-                                                   !props.notAuthenticate ? <EditRounded/> : <LockOpenRounded/>}
-                                           </div>
-                                       }
-                                       padding={'0'}
-                                       border={'none'}
-                                       width={'auto'}
-                                       handleClick={() => props.setEditMode(!props.editMode)}/>
-                               }
-                               image={props.person.image} elevation={false} variant={'rounded'}/>
+        <div className={styles.profileContainer}>
+            <PersonPersona
+                size={'150px'}
+                dark={false}
+                cakeDay={false}
+                image={props.person.image} elevation={false} variant={'rounded'}/>
 
-                <div style={{
-                    display: 'grid',
-                    alignContent: 'flex-start',
-                    alignItems: 'flex-start',
-                    justifyItems: 'center'
-                }}>
-                    <div style={{
-                        fontSize: '1.7rem',
-                        fontWeight: 570,
-                    }}>
-                        {props.person.name}
-                    </div>
+            <div style={{
+                display: 'grid',
+                alignContent: 'flex-start',
+                alignItems: 'flex-start',
+                justifyItems: 'flex-start'
+            }}>
+                <h3 style={{marginTop: '0', marginBottom: '0'}}>
+                    {props.person.name}
+                </h3>
 
-                    <h4 style={{fontSize: '.9rem', color: '#555555', marginTop: '8px'}}>
-                        {props.member.corporate_email}
-                    </h4>
-                </div>
+                <h5 style={{marginTop: '8px'}}>
+                    {props.member.corporate_email}
+                </h5>
+            </div>
         </div>
 
     )
@@ -65,13 +39,4 @@ export default function Profile(props) {
 Profile.proptypes = {
     person: PropTypes.object,
     member: PropTypes.object,
-    setEditMode: PropTypes.func,
-    editMode: PropTypes.bool,
-    editable: PropTypes.bool,
-    inactiveLocale: PropTypes.string,
-    lang: PropTypes.object,
-    notAuthenticate: PropTypes.bool,
-    accessProfile: PropTypes.object,
-    openTab: PropTypes.any,
-    setOpenTab: PropTypes.func
 }

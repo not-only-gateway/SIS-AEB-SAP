@@ -13,5 +13,6 @@ export default {
     nothingFound: 'Nada encontrado',
     end: 'Você chegou ao final.',
     list: 'Listar',
-    structure: 'Estrutura'
+    structure: 'Estrutura',
+
 }

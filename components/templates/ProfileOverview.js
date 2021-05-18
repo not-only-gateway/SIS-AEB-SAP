@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styles from '../../styles/Person.module.css'
+import styles from '../../styles/Extensions.module.css'
 import {getIconStyle} from "../../styles/shared/MainStyles";
 import {
     CalendarTodayRounded,
@@ -14,7 +14,7 @@ import {
 } from "@material-ui/icons";
 import ViewQuiltRoundedIcon from "@material-ui/icons/ViewQuiltRounded";
 
-export default function OverviewComponent(props) {
+export default function ProfileOverview(props) {
     const birth = new Date(props.person.birth)
     return (
         <>
@@ -38,7 +38,7 @@ export default function OverviewComponent(props) {
                             {props.member.home_office ?
                                 'Home Office'
                                 :
-                                props.member.entity.value
+                                props.member.entity
                             }
                         </h5>
                     </div>
@@ -106,10 +106,9 @@ export default function OverviewComponent(props) {
     )
 }
 
-OverviewComponent.propTypes = {
+ProfileOverview.propTypes = {
     person: PropTypes.object,
     member: PropTypes.object,
-    collaboration: PropTypes.object,
     unit: PropTypes.object,
     commissionedRole: PropTypes.object,
     effectiveRole: PropTypes.object,

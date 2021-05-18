@@ -1,19 +1,5 @@
 
-.overviewRowContainer {
-    background-color: #f4f5fa;
-    border-radius: 8px;
-    border: #ecedf2 .7px solid;
-    padding: 16px 32px 16px 32px;
 
-    width: 100%;
-}
-
-.overviewLineContainer {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    width: 100%;
-}
 
 .pageContainer {
     display: grid;
@@ -34,8 +20,6 @@
 
     height: fit-content;
     position: sticky;
-
-    top: 16px;
 
     padding: 8px 0;
     overflow: hidden;

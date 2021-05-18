@@ -14,7 +14,7 @@ console.log(props.image)
                         height: props.size,
                         width: props.size,
                         boxShadow: props.elevation === false ? null : 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px',
-                        borderRadius: props.variant === 'rounded' ? '16px' : null,
+                        borderRadius: props.variant === 'rounded' ? '8px' : null,
                         transition: '300ms ease-in-out'
 
                     }} variant={props.variant}/>
