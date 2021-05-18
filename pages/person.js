@@ -21,6 +21,8 @@ import Alert from "../components/layout/Alert";
 import TextField from "../components/modules/inputs/TextField";
 import HorizontalTabs from "../components/layout/navigation/HorizontalTabs";
 import Head from 'next/head'
+import DateField from "../components/modules/inputs/DateField";
+import VerticalTabs from "../components/layout/navigation/VerticalTabs";
 
 export default function person() {
 
@@ -147,7 +149,7 @@ export default function person() {
                     <title>
                         {person.name}
                     </title>
-                    <link rel = "icon" href={"/LOGO.png"} type = "image/x-icon"/>
+                    <link rel="icon" href={"/LOGO.png"} type="image/x-icon"/>
                 </Head>
                 <Authenticate
                     handleClose={valid => {
@@ -168,33 +170,52 @@ export default function person() {
 
                 {!loading ?
                     <div className={styles.pageContainer}>
-                        <Profile
-                            person={person} setOpenTab={setOpenTab}
-                            member={member} openTab={openTab}
-                            notAuthenticate={notAuthenticated}
-                            lang={lang} accessProfile={accessProfile}
-                            setEditMode={event => {
-                                if (!notAuthenticated) {
-                                    setEditMode(event)
-                                    if (event)
-                                        setOpenTab(0)
-                                    else
-                                        setOpenTab(undefined)
-                                } else {
-                                    setEditMode(event)
-                                    if (event)
-                                        setOpenTab(0)
-                                    else
-                                        setOpenTab(undefined)
-                                }
-                            }}
-                            editMode={editMode}
-                            editable={accessProfile !== null && accessProfile.canUpdatePerson}
-                            inactiveLocale={lang.inactive}
-                        />
+                        <div className={styles.profileHeader}>
+                            <Profile
+                                person={person} setOpenTab={setOpenTab}
+                                member={member} openTab={openTab}
+                                notAuthenticate={notAuthenticated}
+                                lang={lang} accessProfile={accessProfile}
+                                setEditMode={event => {
+                                    if (!notAuthenticated) {
+                                        setEditMode(event)
+                                        if (event)
+                                            setOpenTab(0)
+                                        else
+                                            setOpenTab(undefined)
+                                    } else {
+                                        setEditMode(event)
+                                        if (event)
+                                            setOpenTab(0)
+                                        else
+                                            setOpenTab(undefined)
+                                    }
+                                }}
+                                editMode={editMode}
+                                editable={accessProfile !== null && accessProfile.canUpdatePerson}
+                                inactiveLocale={lang.inactive}
 
+                            />
+                            {editMode ?
+                                <HorizontalTabs
+                                    buttons={[
+                                        accessProfile !== null ? {
+                                            disabled: false,
+                                            key: 0,
+                                            value: lang.personal
+                                        } : null,
+                                        accessProfile !== null ? {
+                                            disabled: !accessProfile.canManageMembership,
+                                            key: 1,
+                                            value: lang.corporate
+                                        } : null,
+
+                                    ]} openTab={openTab} setOpenTab={setOpenTab}/> : null}
+                        </div>
                         <div className={styles.profileContentContainer}>
-                            {openTab === undefined?
+
+
+                            {openTab === undefined ?
                                 <OverviewComponent
                                     person={person}
                                     member={member}
@@ -208,6 +229,7 @@ export default function person() {
                                 :
                                 <TabContent
                                     openTab={openTab}
+                                    key={'person'}
                                     tabs={[
                                         (editMode) && accessProfile !== null ?
                                             {

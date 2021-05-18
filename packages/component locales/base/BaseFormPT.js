@@ -36,7 +36,7 @@ export default {
         {value: 'Doutorado Incompleto', key: 'INCOMPLETE-DOCTORATE-DEGREE'},
         {value: 'Doutorado Completo', key: 'COMPLETE-DOCTORATE-DEGREE'}
     ],
-    personal: 'Personal Information',
+    personal: 'Informações Básicas',
     life: 'Vida & Educação',
     parents: 'Pais & Nacionalidade',
     personImage: 'Imagem de perfil'

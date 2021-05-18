@@ -22,10 +22,14 @@ export default function VerticalTabs(props) {
             {props.buttons.map((button) => {
                     if (button !== null)
                         return (
+
                             <Button
                                 content={button.value} handleClick={() => props.setOpenTab(button.key)}
-                                highlight={props.openTab === button.key} disabled={false}
-                                variant={'rounded'} width={'100%'} highlightColor={'white'} fontHighlightColor={'#262626'} paddingType={'long'}
+                                elevation={props.openTab === button.key} disabled={false} padding={'8px 32px 8px 32px'}
+                                variant={'rounded'} width={'auto'}
+                                border={props.openTab === button.key ? '#eeeef1 1px solid' : 'transparent 1px solid'}
+                                backgroundColor={props.openTab === button.key ? 'white' : 'transparent'}
+                                fontColor={'#262626'} paddingType={'long'} hoverHighlight={false}
                             />
                         )
                     else

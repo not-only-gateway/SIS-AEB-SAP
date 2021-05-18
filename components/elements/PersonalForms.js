@@ -17,19 +17,9 @@ import TabContent from "../templates/TabContent";
 export default function PersonalForms(props) {
     const [openTab, setOpenTab] = useState(0)
     return (
-        <div style={{width: '100%', display: 'grid', gap: '16px', alignItems: 'flex-start'}}>
-            <div style={{
-                width: '100%',
-                position: 'sticky',
-                top: '32px',
+        <div style={{width: '100%', display: 'flex', gap: '16px', alignItems: 'flex-start'}}>
 
-                display: 'flex',
-                alignContent: 'flex-start',
-                justifyContent: 'center',
-
-                background: 'red'
-            }}>
-                <HorizontalTabs
+                <VerticalTabs
                     buttons={[
                         {
                             disabled: false,
@@ -55,13 +45,13 @@ export default function PersonalForms(props) {
                     openTab={openTab}
                     setOpenTab={setOpenTab}
                 />
-            </div>
             <TabContent
                 openTab={openTab}
+                key={'personal-forms'}
                 tabs={[
                     {
-                        key: 0,
-                        content: (
+                        buttonKey: 0,
+                        value: (
                             <BaseForm
                                 id={props.id}
                                 person={props.person}
@@ -76,8 +66,8 @@ export default function PersonalForms(props) {
                         )
                     },
                     {
-                        key: 1,
-                        content: (
+                        buttonKey: 1,
+                        value: (
                             <DocumentsForm
                                 id={props.id}
                                 documents={props.documents}
@@ -92,8 +82,8 @@ export default function PersonalForms(props) {
                         )
                     },
                     {
-                        key: 2,
-                        content: (
+                        buttonKey: 2,
+                        value: (
                             <ContactForm
                                 id={props.id}
                                 contact={props.contact}
@@ -108,8 +98,8 @@ export default function PersonalForms(props) {
                         )
                     },
                     {
-                        key: 3,
-                        content: (
+                        buttonKey: 3,
+                        value: (
                             <AddressForm
                                 id={props.id}
                                 dark={false}

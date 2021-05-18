@@ -9,6 +9,8 @@ import ImageSelector from "../../modules/inputs/ImageField";
 import Selector from "../../modules/inputs/Selector";
 import getImage from "../../../utils/shared/GetImage";
 import TextField from "../../modules/inputs/TextField";
+import DateField from "../../modules/inputs/DateField";
+import DropDownField from "../../modules/inputs/DropDownField";
 
 export default function BaseForm(props) {
 
@@ -22,6 +24,7 @@ export default function BaseForm(props) {
     const [lang, setLang] = useState(null)
 
     useEffect(() => {
+
         setLang(getComponentLanguage({locale: props.locale, component: 'base'}))
     }, [])
 
@@ -67,7 +70,7 @@ export default function BaseForm(props) {
                     flexFlow: 'row wrap',
                     gap: '32px',
                     justifyContent: 'center',
-                    width: '75%',
+                    width: '100%',
                 }}>
 
                 <h4 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
@@ -88,46 +91,67 @@ export default function BaseForm(props) {
                 }} locale={props.locale} value={props.person.name} required={true} width={'calc(75% - 12px)'}
                            maxLength={undefined}/>
 
+                <DateField
+                    placeholder={lang.birth} label={lang.birth}
+                    handleChange={event => {
+                        setChanged(true)
+                        props.handleChange({name: 'birth', value: event.target.value})
+                    }} locale={props.locale}
+                    value={
+                        typeof (props.person.birth) === 'number' ?
+                            new Date(props.person.birth).toLocaleDateString().replace('/', '-')
+                            :
+                            props.person.birth
+                    }
+                    required={true} width={'calc(50% - 16px)'}/>
 
-                <InputLayout inputName={lang.birth} dark={props.dark} handleChange={props.handleChange}
-                             inputType={2} name={'birth'}
-                             disabled={!props.editable} size={'calc(50% - 16px)'} required={true}
-                             initialValue={props.person.birth}
-                             key={"1-7"} setChanged={setChanged}/>
-                <InputLayout inputName={lang.disabledPerson} dark={props.dark}
-                             handleChange={props.handleChange}
-                             inputType={1} name={'disabled_person'}
-                             disabled={!props.editable} size={'calc(50% - 16px)'} required={true}
-                             initialValue={props.person.disabled_person}
-                             selectFields={lang.choice}
-                             key={"1-8"} setChanged={setChanged}/>
+
+                <DropDownField
+                    placeholder={lang.disabledPerson}
+                    label={lang.disabledPerson}
+                    handleChange={event => {
+                        setChanged(true)
+                        props.handleChange({name: 'disabled_person', value: event})
+                    }} locale={props.locale} value={props.person.disabled_person} required={true}
+                    width={'calc(50% - 16px)'} choices={lang.choice}/>
 
                 <h4 style={{width: '100%', marginBottom: 'auto'}}>
                     {lang.life}
                 </h4>
 
 
-                <InputLayout inputName={lang.gender} dark={props.dark} handleChange={props.handleChange}
-                             inputType={1} name={'gender'}
-                             disabled={!props.editable} size={'calc(33.333% - 21.35px)'} required={true}
-                             initialValue={props.person.gender}
-                             selectFields={lang.genderChoice}
-                             key={"1-10"} setChanged={setChanged}/>
+                {/*<InputLayout inputName={lang.gender} dark={props.dark} handleChange={props.handleChange}*/}
+                {/*             inputType={1} name={'gender'}*/}
+                {/*             disabled={!props.editable} size={'calc(33.333% - 21.35px)'} required={true}*/}
+                {/*             initialValue={props.person.gender}*/}
+                {/*             selectFields={lang.genderChoice}*/}
+                {/*             key={"1-10"} setChanged={setChanged}/>*/}
+                <DropDownField
+                    placeholder={lang.gender}
+                    label={lang.gender}
+                    handleChange={event => {
+                        setChanged(true)
+                        props.handleChange({name: 'gender', value: event})
+                    }} locale={props.locale} value={props.person.gender} required={true}
+                    width={'calc(33.333% - 21.35px)'} choices={lang.genderChoice}/>
 
-                <InputLayout inputName={lang.education} dark={props.dark}
-                             handleChange={props.handleChange}
-                             inputType={1} name={'education'}
-                             disabled={!props.editable} size={'calc(33.333% - 21.35px)'} required={true}
-                             initialValue={props.person.education}
-                             selectFields={lang.educationChoice}
-                             key={"1-9"} setChanged={setChanged}/>
-                <InputLayout inputName={lang.marital} dark={props.dark} handleChange={props.handleChange}
-                             inputType={1} name={'marital_status'}
-                             disabled={!props.editable} size={'calc(33.333% - 21.35px)'} required={true}
-                             initialValue={props.person.marital_status}
-                             selectFields={lang.maritalChoice}
-                             key={"1-11"} setChanged={setChanged}/>
+                <DropDownField
+                    placeholder={lang.education}
+                    label={lang.education}
+                    handleChange={event => {
+                        setChanged(true)
+                        props.handleChange({name: 'education', value: event})
+                    }} locale={props.locale} value={props.person.education} required={true}
+                    width={'calc(33.333% - 21.35px)'} choices={lang.educationChoice}/>
 
+                <DropDownField
+                    placeholder={lang.marital}
+                    label={lang.marital}
+                    handleChange={event => {
+                        setChanged(true)
+                        props.handleChange({name: 'marital_status', value: event})
+                    }} locale={props.locale} value={props.person.marital_status} required={true}
+                    width={'calc(33.333% - 21.35px)'} choices={lang.maritalChoice}/>
                 <h4 style={{width: '100%', marginBottom: 'auto'}}>
                     {lang.parents}
                 </h4>

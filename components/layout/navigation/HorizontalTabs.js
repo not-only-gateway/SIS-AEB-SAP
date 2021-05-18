@@ -23,8 +23,11 @@ export default function HorizontalTabs(props) {
 
                             <Button
                                 content={button.value} handleClick={() => props.setOpenTab(button.key)}
-                                highlight={props.openTab === button.key} disabled={false}
-                                variant={'rounded'} width={'auto'} highlightColor={'white'} fontHighlightColor={'#262626'} paddingType={'long'}
+                                elevation={props.openTab === button.key} disabled={false} padding={'8px 32px 8px 32px'}
+                                variant={'rounded'} width={'auto'}
+                                border={props.openTab === button.key ? '#eeeef1 1px solid' : 'transparent 1px solid'}
+                                backgroundColor={props.openTab === button.key ? 'white' : 'transparent'}
+                                fontColor={'#262626'} paddingType={'long'}
                             />
                         )
                     else

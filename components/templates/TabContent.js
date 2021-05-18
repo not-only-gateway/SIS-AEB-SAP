@@ -3,30 +3,33 @@ import mainStyles from '../../styles/shared/Main.module.css'
 
 export default function TabContent(props) {
     return (
-        props.tabs.map(tab => {
-            if (tab !== null && tab.buttonKey === props.openTab)
-                if (props.noContainer)
-                    return tab.value
-                else
-                    return (
-                        <div className={mainStyles.displayInlineCenter} style={{
-                            position: "relative",
-                            zIndex: 100,
-                            width: '100%',
-                            marginTop: '25px',
-                        }}
-                             key={tab.buttonKey + '-content'}>
-                            {tab.value}
-                        </div>
-                    )
-            else
-                return null
-        })
+        <div key={props.key}>
+            {props.tabs.map(tab => {
+                if (tab !== null && tab.buttonKey === props.openTab) {
+                    if (props.noContainer)
+                        return tab.value
+                    else
+                        return (
+                            <div className={mainStyles.displayInlineCenter} style={{
+                                position: "relative",
+                                zIndex: 100,
+                                width: '100%',
+                                marginTop: '25px',
+                            }}
+                                 key={tab.buttonKey + '-content-'+props.key}>
+                                {tab.value}
+                            </div>
+                        )
+                } else
+                    return null
+            })}
+        </div>
     )
 }
 
-TabContent.propTypes = {
+TabContent.propTypes =  {
     tabs: PropTypes.array,
     openTab: PropTypes.any,
-    noContainer: PropTypes.bool
+    noContainer: PropTypes.bool,
+    key: PropTypes.string
 }

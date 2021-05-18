@@ -22,8 +22,8 @@ console.log(props.image)
                 <div style={{
 
                     position: 'absolute',
-                    bottom: '-7%',
-                    right: '-7%',
+                    bottom: '-8px',
+                    right: '-8px',
                 }}>
                     {props.absoluteContent}
                 </div>

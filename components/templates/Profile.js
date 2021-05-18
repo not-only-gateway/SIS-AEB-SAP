@@ -13,12 +13,6 @@ export default function Profile(props) {
         <div
             className={styles.profileContainer}
             key={props.person.id}>
-
-            <div style={{
-                display: 'grid',
-                gap: '16px',
-                justifyItems: 'center'
-            }}>
                 <PersonPersona size={'150px'} key={props.person.id} dark={false}
                                cakeDay={false}
                                absoluteContent={
@@ -39,10 +33,12 @@ export default function Profile(props) {
                                                    !props.notAuthenticate ? <EditRounded/> : <LockOpenRounded/>}
                                            </div>
                                        }
+                                       padding={'0'}
+                                       border={'none'}
                                        width={'auto'}
                                        handleClick={() => props.setEditMode(!props.editMode)}/>
                                }
-                               image={props.person.image} variant={'rounded'}/>
+                               image={props.person.image} elevation={false} variant={'rounded'}/>
 
                 <div style={{
                     display: 'grid',
@@ -61,24 +57,6 @@ export default function Profile(props) {
                         {props.member.corporate_email}
                     </h4>
                 </div>
-            </div>
-            {props.editMode ?
-                <VerticalTabs
-                    buttons={[
-                        props.accessProfile !== null ? {
-                            disabled: false,
-                            key: 0,
-                            value: props.lang.personal
-                        } : null,
-                        props.accessProfile !== null ? {
-                            disabled: !props.accessProfile.canManageMembership,
-                            key: 1,
-                            value: props.lang.corporate
-                        } : null,
-
-                    ]} openTab={props.openTab} setOpenTab={props.setOpenTab}/> : null}
-
-
         </div>
 
     )
