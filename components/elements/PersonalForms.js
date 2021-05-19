@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import mainStyles from '../../styles/shared/Main.module.css'
 import VerticalTabs from "../layout/navigation/VerticalTabs";
@@ -13,51 +13,89 @@ import AddressForm from "../templates/forms/AddressForm";
 import submitAddress from "../../utils/submit/SubmitAddress";
 import HorizontalTabs from "../layout/navigation/HorizontalTabs";
 import TabContent from "../templates/TabContent";
+import fetchMember from "../../utils/fetch/FetchMember";
+import fetchMainCollaboration from "../../utils/fetch/FetchMainCollaboration";
+import fetchDocuments from "../../utils/fetch/FetchDocuments";
+import fetchContacts from "../../utils/fetch/FetchContacts";
+import fetchAddress from "../../utils/fetch/FetchAddress";
+import fetchPerson from "../../utils/fetch/FetchPerson";
+import Alert from "../layout/Alert";
 
 export default function PersonalForms(props) {
     const [openTab, setOpenTab] = useState(0)
+    const [documents, setDocuments] = useState(null)
+    const [contact, setContact] = useState(null)
+    const [address, setAddress] = useState(null)
+    const [person, setPerson] = useState(null)
+    const [status, setStatus] = useState({
+        error: undefined,
+        message: undefined
+    })
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        setLoading(true)
+        switch (true) {
+            case openTab === 0 && person === null: {
+                fetchPerson(
+                    {personID: props.personID, setStatus: setStatus}
+                ).then(res => {
+                    setPerson(res)
+                    setLoading(false)
+                })
+                break
+            }
+            case openTab === 1 && documents === null: {
+                fetchDocuments(
+                    {personID: props.personID, setStatus: setStatus}
+                ).then(res => {
+                    setDocuments(res)
+                    setLoading(false)
+                })
+                break
+            }
+            case openTab === 2 && contact === null: {
+                fetchContacts(
+                    {personID: props.personID, setStatus: setStatus}
+                ).then(res => {
+                    setContact(res)
+                    setLoading(false)
+                })
+                break
+            }
+            case openTab === 3 && address === null: {
+                fetchAddress(
+                    {personID: props.personID, setStatus: setStatus}
+                ).then(res => {
+                    address(res)
+                    setLoading(false)
+                })
+                break
+            }
+            default:
+                break
+        }
+    }, [openTab])
+
     return (
         <div style={{width: '100%', display: 'flex', gap: '16px', alignItems: 'flex-start'}}>
+            <Alert type={'error'} message={status.message} handleClose={() => setStatus({
+                error: false,
+                message: undefined
+            })} render={status.error}/>
 
-                <VerticalTabs
-                    buttons={[
-                        {
-                            disabled: false,
-                            key: 0,
-                            value: props.lang.general
-                        },
-                        {
-                            disabled: false,
-                            key: 1,
-                            value: props.lang.documents
-                        },
-                        {
-                            disabled: false,
-                            key: 2,
-                            value: props.lang.contacts
-                        },
-                        {
-                            disabled: false,
-                            key: 3,
-                            value: props.lang.address
-                        },
-                    ]}
-                    openTab={openTab}
-                    setOpenTab={setOpenTab}
-                />
             <TabContent
                 openTab={openTab}
-                key={'personal-forms'}
                 tabs={[
                     {
                         buttonKey: 0,
-                        value: (
+                        value: loading || person === null ? null : (
                             <BaseForm
                                 id={props.id}
-                                person={props.person}
+                                person={person}
                                 handleChange={event => handleObjectChange({
                                     event: event,
-                                    setData: props.setPerson
+                                    setData: setPerson
                                 })}
                                 handleSubmit={submitPerson}
                                 editable={props.accessProfile.canUpdatePerson}
@@ -67,13 +105,13 @@ export default function PersonalForms(props) {
                     },
                     {
                         buttonKey: 1,
-                        value: (
+                        value: loading || documents === null ? null : (
                             <DocumentsForm
                                 id={props.id}
-                                documents={props.documents}
+                                documents={documents}
                                 handleChange={event => handleObjectChange({
                                     event: event,
-                                    setData: props.setDocuments
+                                    setData: setDocuments
                                 })}
                                 handleSubmit={submitDocuments}
                                 editable={props.accessProfile.canUpdatePerson}
@@ -83,14 +121,14 @@ export default function PersonalForms(props) {
                     },
                     {
                         buttonKey: 2,
-                        value: (
+                        value: loading || contact === null ? null : (
                             <ContactForm
                                 id={props.id}
-                                contact={props.contact}
+                                contact={contact}
                                 locale={props.locale}
                                 handleChange={event => handleObjectChange({
                                     event: event,
-                                    setData: props.setContact
+                                    setData: setContact
                                 })}
                                 handleSubmit={submitContacts}
                                 editable={props.accessProfile.canUpdatePerson}
@@ -99,14 +137,14 @@ export default function PersonalForms(props) {
                     },
                     {
                         buttonKey: 3,
-                        value: (
+                        value: loading || address === null ? null : (
                             <AddressForm
                                 id={props.id}
                                 dark={false}
-                                address={props.address}
+                                address={address}
                                 handleChange={event => handleObjectChange({
                                     event: event,
-                                    setData: props.setAddress
+                                    setData: setAddress
                                 })}
                                 handleSubmit={submitAddress}
                                 locale={props.locale}
@@ -122,15 +160,8 @@ export default function PersonalForms(props) {
 
 PersonalForms.propTypes = {
     id: PropTypes.string,
-    setPerson: PropTypes.func,
+    personID: PropTypes.number,
     locale: PropTypes.string,
     accessProfile: PropTypes.object,
-    setDocuments: PropTypes.func,
-    setContact: PropTypes.func,
-    contact: PropTypes.object,
-    documents: PropTypes.object,
-    person: PropTypes.object,
-    address: PropTypes.object,
-    setAddress: PropTypes.func,
     lang: PropTypes.object
 }

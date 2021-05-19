@@ -55,7 +55,7 @@ export default function AccessProfileForm(props) {
                      position: "relative"
                  }}>
                 <Alert
-                    type={status.type} render={status.type !== undefined} duration={5000}
+                    type={status.type} render={status.type !== undefined}
                     handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
                 />
                 <div style={{marginTop: props.create ? null : '20px', width: '98%'}}>

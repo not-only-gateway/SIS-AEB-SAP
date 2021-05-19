@@ -76,7 +76,9 @@ export default function Authenticate(props) {
             >
                 <>
                     <Alert
-                        type={'error'} message={error.message} render={error.error} duration={5000}
+                        type={'error'}
+                        message={error.message}
+                        render={error.error}
                         handleClose={() => setError({error: false, message: ''})}
                     />
                     <div className={styles.authenticateModalContainer}>

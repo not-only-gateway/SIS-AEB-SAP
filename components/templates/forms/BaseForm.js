@@ -11,6 +11,7 @@ import getImage from "../../../utils/shared/GetImage";
 import TextField from "../../modules/inputs/TextField";
 import DateField from "../../modules/inputs/DateField";
 import DropDownField from "../../modules/inputs/DropDownField";
+import Alert from "../../layout/Alert";
 
 export default function BaseForm(props) {
 
@@ -22,7 +23,10 @@ export default function BaseForm(props) {
         removed: false
     })
     const [lang, setLang] = useState(null)
-
+    const [status, setStatus] = useState({
+        error: undefined,
+        message: undefined
+    })
     useEffect(() => {
 
         setLang(getComponentLanguage({locale: props.locale, component: 'base'}))
@@ -72,6 +76,12 @@ export default function BaseForm(props) {
                     justifyContent: 'center',
                     width: '100%',
                 }}>
+                <Alert
+                    type={'error'} message={status.message}
+                    handleClose={() => setStatus({
+                        error: false,
+                        message: undefined
+                    })} render={status.error}/>
 
                 <h4 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
                     {lang.personal}
@@ -150,20 +160,30 @@ export default function BaseForm(props) {
                     handleChange={event => {
                         setChanged(true)
                         props.handleChange({name: 'marital_status', value: event})
-                    }} locale={props.locale} value={props.person.marital_status} required={true}
-                    width={'calc(33.333% - 21.35px)'} choices={lang.maritalChoice}/>
+                    }}
+                    locale={props.locale}
+                    value={props.person.marital_status} required={true}
+                    width={'calc(33.333% - 21.35px)'}
+                    choices={lang.maritalChoice}/>
                 <h4 style={{width: '100%', marginBottom: 'auto'}}>
                     {lang.parents}
                 </h4>
                 <TextField placeholder={lang.father} label={lang.father} handleChange={event => {
                     setChanged(true)
                     props.handleChange({name: 'father_name', value: event.target.value})
-                }} locale={props.locale} value={props.person.father_name} required={true} width={'calc(50% - 16px)'}/>
+                }} locale={props.locale} value={props.person.father_name} required={false} width={'calc(50% - 16px)'}/>
 
-                <TextField placeholder={lang.mother} label={lang.mother} handleChange={event => {
-                    setChanged(true)
-                    props.handleChange({name: 'mother_name', value: event.target.value})
-                }} locale={props.locale} value={props.person.mother_name} required={true} width={'calc(50% - 16px)'}/>
+                <TextField
+                    placeholder={lang.mother}
+                    label={lang.mother}
+                    handleChange={event => {
+                        setChanged(true)
+                        props.handleChange({name: 'mother_name', value: event.target.value})
+                    }}
+                    locale={props.locale}
+                    value={props.person.mother_name}
+                    required={false}
+                    width={'calc(50% - 16px)'}/>
 
 
                 <Selector required={true}
@@ -189,12 +209,15 @@ export default function BaseForm(props) {
                             person: props.person,
                             image: image,
                             personID: props.id,
-                            create: props.create
+                            create: props.create,
+                            setStatus: setStatus
                         }).then(res => {
-                            setChanged(!res)
+
+                            setChanged(!res.status)
                             if (props.setAccepted !== undefined) {
                                 props.setAccepted(res.status)
                                 props.setID(res.id)
+
                             }
 
                         })

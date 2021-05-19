@@ -5,11 +5,11 @@ import PropTypes from "prop-types";
 import fetchContacts from "./FetchContacts";
 
 const cookies = new Cookies()
-export default async function fetchAddress(props){
+export default async function fetchPerson(props){
     let response = null
     await axios({
         method: 'get',
-        url: Host() + 'address/'+props.personID,
+        url: Host() + 'person/'+props.personID,
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         params:{
             authorization_token: cookies.get('authorization_token')
@@ -25,7 +25,7 @@ export default async function fetchAddress(props){
     })
     return response
 }
-fetchAddress.propTypes ={
+fetchPerson.propTypes ={
     personID: PropTypes.number,
     setStatus: PropTypes.func
 }

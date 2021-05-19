@@ -21,7 +21,7 @@ export default function TextField(props) {
         <div
             style={{
                 width: props.width,
-                height: '82px',
+                height: '100px',
                 display: 'grid',
                 alignItems: props.value ? 'unset' : 'flex-start',
                 gap: '4px',
@@ -43,7 +43,6 @@ export default function TextField(props) {
                         <input
                             id={'input'}
                             placeholder={props.placeholder}
-                            style={{height: (props.value !== undefined && props.value !== null && props.value.length > 0) ? '40px' : '50px'}}
                             className={styles.inputContainer}
                             value={event.value}
                             onChange={event.onChange}
@@ -51,13 +50,10 @@ export default function TextField(props) {
                         />}
                 </InputMask>
                 :
-                <div
-                    className={styles.fieldsContainer}
-                    style={{height: (props.value !== undefined && props.value !== null && props.value.length > 0) ? '40px' : '50px'}}>
+                <div className={styles.fieldsContainer}>
                     <input
                         id={'input'}
                         placeholder={props.placeholder}
-                        style={{height: '100%'}}
                         className={styles.inputContainer}
                         value={props.value}
                         type={props.passwordMask && !visible ? 'password' : 'text'}

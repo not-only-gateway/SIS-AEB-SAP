@@ -5,11 +5,21 @@ import styles from '../../../styles/Input.module.css'
 import {CloseRounded, CloudUploadRounded} from "@material-ui/icons";
 
 export default function ImageField(props) {
+
+    function getLang(locale) {
+        let response = 'This field is required.'
+
+        if (locale === 'pt')
+            response = 'Este campo é obrigatório.'
+
+        return response
+    }
+
     return (
         <div style={{
             width: props.width,
             marginBottom: 'auto',
-            height: '63px',
+            height: '100px',
             display: "grid",
             gap: '4px',
             alignItems: props.initialImage ? 'unset' : 'flex-end'
@@ -24,9 +34,22 @@ export default function ImageField(props) {
 
             <form className={styles.imageFieldContainer}
             >
-                {props.initialImage ? <p className={styles.labelContainer}
-                                         style={{color: '#262626', margin: 'unset'}}>{props.initialImage.name}</p> :
-                    <p className={styles.labelContainer} style={{color: '#555555', margin: 'unset'}}> {props.label}</p>}
+                {props.initialImage ?
+                    <p
+                        className={styles.labelContainer}
+                        style={{
+                            color: '#262626',
+                            margin: 'unset',
+                            overflowX: 'hidden',
+                            width: '75%',
+                            wordBreak: 'keep-all',
+                            whiteSpace: 'nowrap'
+                        }}
+                    >{props.initialImage.name}</p> :
+                    <p
+                        className={styles.labelContainer}
+                        style={{color: '#555555', margin: 'unset'}}
+                    > {props.label}</p>}
 
                 {props.initialImage ?
 
@@ -51,6 +74,13 @@ export default function ImageField(props) {
                        }}/>
 
             </form>
+
+            <label htmlFor={'input'} className={styles.alertLabel}
+                   style={{
+                       color: (props.value === null || !props.value || props.value.length === 0) ? '#ff5555' : '#262626',
+                       visibility: props.required ? 'visible' : 'hidden'
+                   }}>{getLang(props.locale)}</label>
+
         </div>
     )
 }
@@ -62,5 +92,6 @@ ImageField.propTypes = {
     label: PropTypes.string,
     base64: PropTypes.bool,
     setChanged: PropTypes.func,
-    width: PropTypes.string
+    width: PropTypes.string,
+    required: PropTypes.bool
 }

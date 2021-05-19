@@ -33,6 +33,7 @@
     position: relative;
     z-index: 2;
     margin-bottom: 16px;
+    margin-top: 64px;
 }
 
 .profileHeader {
@@ -41,6 +42,7 @@
     z-index: 5;
     background: white;
     display: grid;
+    height: fit-content;
 
     justify-items: center;
 }

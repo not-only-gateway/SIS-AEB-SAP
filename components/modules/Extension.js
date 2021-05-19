@@ -92,7 +92,7 @@ export default function Extension(props) {
                     >
                         <ProfilePersona dark={false} key={props.member.id}
                                         image={props.person.image} size={'65px'} variant={'rounded'}
-                                        elevation={hovered}
+                                        elevation={hovered} base64={false}
                                         cakeDay={((new Date(props.person.birth)).getDay() === currentDate.getDay() && (new Date(props.member.birth)).getMonth() === currentDate.getMonth())}/>
                         <h4 className={styles.headerStyle}
                             style={{

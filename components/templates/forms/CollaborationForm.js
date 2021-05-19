@@ -55,7 +55,7 @@ export default function CollaborationForm(props) {
             <div className={styles.collaborationContainer}>
 
                 <Alert
-                    type={status.type} render={status.type !== undefined} duration={5000}
+                    type={status.type} render={status.type !== undefined}
                     handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
                 />
                 <div style={{gridRow: 1, width: '100%',}}>

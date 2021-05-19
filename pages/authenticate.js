@@ -48,7 +48,7 @@ export default function authenticate() {
         return (
             <>
                 <Alert
-                    type={'error'} message={error.message} render={error.error} duration={5000}
+                    type={'error'} message={error.message} render={error.error}
                     handleClose={() => setError({error: false, message: ''})}
                 />
                 <Head>

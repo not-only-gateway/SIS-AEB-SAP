@@ -18,14 +18,19 @@ export default function Button(props) {
                 padding: props.padding ? props.padding : '8px',
                 height: 'auto',
 
-                outline:'none',
+                outline: 'none',
                 border: props.border,
                 fontSize: '.9rem',
 
                 transition: '200ms ease-in-out',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                display: 'flex',
+                justifyContent: props.justification ? props.justification :  'center'
             }} disabled={props.disabled}
-            onClick={() => props.handleClick()}
+            onClick={() => {
+                if (props.handleClick !== undefined)
+                    props.handleClick()
+            }}
         >
             {props.content}
         </button>
@@ -47,5 +52,6 @@ Button.propTypes = {
     border: PropTypes.string,
     elevation: PropTypes.bool,
     width: PropTypes.string,
-    hoverHighlight: PropTypes.bool
+    hoverHighlight: PropTypes.bool,
+    justification: PropTypes.string
 }

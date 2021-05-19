@@ -1,27 +1,31 @@
 import PropTypes from 'prop-types'
 import styles from '../../styles/component/Component.module.css'
 import {CloseRounded, RemoveRounded} from "@material-ui/icons";
-import {Button} from "@material-ui/core";
 import animations from '../../styles/shared/Animations.module.css'
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
+import Button from "../modules/inputs/Button";
+import {Modal} from "@material-ui/core";
+import Profile from "../templates/Profile";
+import ProfileOverview from "../templates/ProfileOverview";
 
 export default function Alert(props) {
-    const [counter, setCounter] = useState(undefined)
+    const counter = useRef(10)
     const [alertColor, setAlertColor] = useState(undefined)
+    const [modal, setModal] = useState(false)
     useEffect(() => {
-        if(counter === undefined && props.render) {
-            setCounter(props.duration)
+        if (props.render) {
             setAlertColor(getColor(props.type))
+            setInterval(() => {
+                if (counter.current >= 1) {
+                    counter.current = counter.current - 1
+                } else {
+                    props.handleClose()
+
+                }
+            }, 1000)
+            counter.current = 10
         }
-        else {
-            if (counter > 0 && props.render)
-                setCounter(counter - 1)
-            else {
-                props.handleClose()
-                setCounter(undefined)
-            }
-        }
-    }, [counter, props.render])
+    }, [props.render])
 
     function getColor(type) {
         let response = 'unset'
@@ -51,24 +55,49 @@ export default function Alert(props) {
         return response
     }
 
-    return (
-        <div className={[styles.alertContainer, animations.fadeIn].join(' ')}
-             style={{...alertColor, ...{display: props.render ? 'initial' : 'none'}}}
-             onBlur={() => props.handleClose()}>
-            <div className={styles.alertContent}>
-                <p style={{margin: 0}}>{props.message}</p>
-                <Button onClick={() => props.handleClose()} style={{...alertColor,...{
-                    height: '100%',
-                    width: '10%',
-                    position: 'absolute',
-                    right: 0,
-                    borderRadius: '8px'
-                }}}>
-                    <CloseRounded style={{padding: 0}}/>
-                </Button>
-            </div>
+    //
+    // function renderModal() {
+    //     return (
+    //         <Modal style={{display: "flex", justifyContent: 'center', alignItems: 'center'}}
+    //                onClose={() => setModal(false)} open={modal}>
+    //             <div className={[styles.modalContainer, animations.fadeIn].join(' ')}>
+    //
+    //             </div>
+    //         </Modal>
+    //     )
+    // }
 
-        </div>
+    return (
+        <>
+
+            <div className={[styles.alertContainer, animations.fadeIn].join(' ')}
+                 style={{...alertColor, ...{display: props.render ? 'initial' : 'none',}}}
+                 onBlur={() => props.handleClose()}>
+                <div className={styles.alertContent}>
+                    <Button
+                        // handleClick={() => setModal(true)}
+                        fontColor={alertColor ? alertColor.color : '#262626'}
+                        border={'none'}
+                        padding={''}
+                        backgroundColor={alertColor ? alertColor.background : 'white'}
+                        disabled={false}
+                        content={props.message}
+                        width={'100%'}
+                    />
+                    <Button
+                        handleClick={() => props.handleClose()}
+                        fontColor={alertColor ? alertColor.color : '#262626'}
+                        border={'none'}
+                        padding={'none'}
+                        backgroundColor={alertColor ? alertColor.background : 'white'}
+                        disabled={false}
+                        content={<CloseRounded/>}
+                        width={'10%'}
+                    />
+                </div>
+
+            </div>
+        </>
     )
 }
 
@@ -77,5 +106,4 @@ Alert.propTypes = {
     type: PropTypes.oneOf(['error', 'alert', 'success']),
     handleClose: PropTypes.func,
     render: PropTypes.bool,
-    duration: PropTypes.number
 }

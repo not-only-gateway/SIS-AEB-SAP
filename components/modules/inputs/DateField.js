@@ -19,19 +19,17 @@ export default function DateField(props) {
         <div
             style={{
                 width: props.width,
-                height: '82px',
+                height: '100px',
                 display: 'grid',
                 alignItems: props.value ? 'unset' : 'flex-start',
                 gap: '4px',
             }}>
             <label htmlFor={'input'} className={styles.labelContainer}>{props.label}</label>
 
-            <div
-                className={styles.fieldsContainer}
-                style={{height: (props.value !== undefined && props.value !== null) ? '40px' : '50px'}}>
+            <div className={styles.fieldsContainer}>
                 <input
                     id={'input'}
-                    style={{height: '100%', fontWeight: 500, fontSize: '1rem', fontFamily: '\'Source Sans Pro\', sans-serif'}}
+                    style={{height: '56px', fontWeight: 500, fontSize: '1rem', fontFamily: '\'Source Sans Pro\', sans-serif'}}
                     className={styles.inputContainer}
                     value={props.value}
                     type={'date'}

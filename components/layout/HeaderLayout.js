@@ -13,7 +13,6 @@ import shared from "../../styles/shared/Shared.module.css";
 
 export default function HeaderLayout(props) {
     const [modal, setModal] = useState(false);
-    const [scrolledHeight, setScrolledHeight] = useState(false)
 
     function RenderModalTest() {
 
@@ -23,8 +22,6 @@ export default function HeaderLayout(props) {
                 open={modal}
                 onClose={() => setModal(false)}
             >
-
-
                 <div className={[styles.FilterModal, animations.slideInRightAnimation].join(' ')}>
                     <div className={shared.closeButtonModalContainer}>
                         <Button onClick={() => setModal(false)}>
@@ -39,44 +36,44 @@ export default function HeaderLayout(props) {
         )
     }
 
-    useEffect(() => {
-        if(!scrolledHeight){
-            document.getElementById('scrollableDiv').addEventListener('scroll', () => {
-                if (document.getElementById('r').offsetTop > 50)
-                    setScrolledHeight(true)
-                else if (document.getElementById('r').offsetTop === 0)
-                    setScrolledHeight(false)
-            })
-            // if(document.getElementById('scrollableDiv') !== null)
-            //     return () => {
-            //         document.getElementById('scrollableDiv').removeEventListener('scroll', () => {
-            //             if (document.getElementById('r').offsetTop === 0)
-            //                 setScrolledHeight(false)
-            //         })
-            //     }
-        }
-    })
+    // useEffect(() => {
+    //     if(!scrolledHeight){
+    //         document.getElementById('scrollableDiv').addEventListener('scroll', () => {
+    //             if (document.getElementById('r').offsetTop > 50)
+    //                 setScrolledHeight(true)
+    //             else if (document.getElementById('r').offsetTop === 0)
+    //                 setScrolledHeight(false)
+    //         })
+    //         // if(document.getElementById('scrollableDiv') !== null)
+    //         //     return () => {
+    //         //         document.getElementById('scrollableDiv').removeEventListener('scroll', () => {
+    //         //             if (document.getElementById('r').offsetTop === 0)
+    //         //                 setScrolledHeight(false)
+    //         //         })
+    //         //     }
+    //     }
+    // })
 
     return (
-        <div id={'r'} style={{
+        <div style={{
             position: 'sticky',
             top: 0,
-            // background: scrolledHeight ? 'white' : 'transparent',
+            background: 'white',
             transition: '300ms ease-in-out',
             zIndex: '100',
-            boxShadow: scrolledHeight ? 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px' : 'unset',
-        }} >
+        }}>
             {RenderModalTest()}
             <Head>
                 <title>{props.pageTitle}</title>
-                <link rel = "icon" href={"/LOGO.png"} type = "image/x-icon"/>
+                <link rel="icon" href={"/LOGO.png"} type="image/x-icon"/>
             </Head>
 
-            <div className={styles.HeaderLayout}  style={{
+            <div className={styles.HeaderLayout} style={{
                 width: props.width
             }}>
 
-                <div className={mainStyles.displayInlineSpaced} style={{width: '100%', marginTop: '15px', height: 'auto',}}>
+                <div className={mainStyles.displayInlineSpaced}
+                     style={{width: '100%', marginTop: '15px', height: 'auto',}}>
                     <div className={mainStyles.displayInlineStart} style={{width: '100%', height: '100%'}}>
                         <div style={{
                             display: 'grid',
@@ -96,7 +93,7 @@ export default function HeaderLayout(props) {
                                     {props.title}
                                 </div>
                             }
-                            {props.information !== undefined && !scrolledHeight ?
+                            {props.information !== undefined ?
                                 <div className={mainStyles.tertiaryParagraph}
                                      style={{color: '#555555', paddingBottom: '8px'}}>
                                     {props.information}
@@ -126,7 +123,7 @@ export default function HeaderLayout(props) {
                     : null}
                 {props.availableTabs !== undefined ?
                     <HorizontalTabs buttons={props.availableTabs.tabs} setOpenTab={props.availableTabs.setOpenTab}
-                                    openTab={props.availableTabs.openTab} highlight={!scrolledHeight}/>
+                                    openTab={props.availableTabs.openTab}/>
 
                     :
                     null

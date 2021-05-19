@@ -4,23 +4,24 @@ import Cookies from "universal-cookie/lib";
 import PropTypes from 'prop-types'
 import capitalizeFirstLetter from "../shared/CapitalizeFirstLetter";
 
-export default async function submitPerson(props){
+export default async function submitPerson(props) {
     let formData = new FormData()
     let response = {
         status: false,
         id: undefined
     }
 
-    if (props.image !== null) {
-        formData.append('image', props.image)
+    if (typeof (props.person.image) !== 'string' && props.person.image !== null) {
+        formData.append('image', props.person.image)
     } else
         formData.append('removed_image', 'true')
     formData.append('name', props.person.name.toString())
     formData.append('birth', (typeof props.person.birth !== 'number' ? new Date(props.person.birth).getTime() : props.person.birth))
     formData.append('birth_place', props.person.birth_place?.toUpperCase())
-    formData.append('education', props.person.education.toString())
-    formData.append('gender', props.person.gender.toString())
-    formData.append('marital_status', props.person.marital_status.toString())
+    formData.append('education', props.person.education)
+    formData.append('gender', props.person.gender)
+    formData.append('marital_status', props.person.marital_status)
+    console.log(props)
     formData.append('father_name', capitalizeFirstLetter(props.person.father_name))
     formData.append('mother_name', capitalizeFirstLetter(props.person.mother_name))
     formData.append('disabled_person', props.person.disabled_person.toString())
@@ -39,15 +40,20 @@ export default async function submitPerson(props){
             id: res.data.id
         }
     }).catch(error => {
+        props.setStatus({
+            error: true,
+            message: error.message
+        })
         console.log(error)
     })
 
     return response
 }
 
-submitPerson.propTypes={
+submitPerson.propTypes = {
     person: PropTypes.object,
     image: PropTypes.object,
     create: PropTypes.bool,
-    personID: PropTypes.string
+    personID: PropTypes.string,
+    setStatus: PropTypes.func
 }

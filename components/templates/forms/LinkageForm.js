@@ -35,7 +35,7 @@ export default function LinkageForm(props) {
         return (
             <div className={mainStyles.displayWarp} style={{justifyContent: 'center', width: '100%', position: 'relative'}}>
                 <Alert
-                    type={status.type} render={status.type !== undefined} duration={5000}
+                    type={status.type} render={status.type !== undefined}
                     handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
                 />
                 <InputLayout inputName={lang.denomination} dark={false} handleChange={props.handleChange}

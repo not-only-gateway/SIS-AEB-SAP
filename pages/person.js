@@ -75,16 +75,20 @@ export default function person() {
                     <link rel="icon" href={"/LOGO.png"} type="image/x-icon"/>
                 </Head>
 
-                <Alert type={'error'} message={status.message} handleClose={() => setStatus({
-                    error: false,
-                    message: undefined
-                })} duration={5000} render={status.error}/>
+                <Alert
+                    type={'error'} message={status.message}
+                    handleClose={() => setStatus({
+                        error: false,
+                        message: undefined
+                    })} render={status.error}
+                />
 
                 {!loading ?
                     <div className={styles.pageContainer}>
                         <div className={styles.profileHeader}>
                             <Profile person={person} member={member}/>
                             <HorizontalTabs
+                                noMargin={true}
                                 buttons={[
                                     accessProfile !== null ? {
                                         disabled: false,
@@ -101,50 +105,34 @@ export default function person() {
                             />
                         </div>
                         <div className={styles.profileContentContainer}>
-                            {/*<TabContent*/}
-                            {/*    openTab={openTab}*/}
-                            {/*    key={'person'}*/}
-                            {/*    tabs={[*/}
-                            {/*        {*/}
-                            {/*            buttonKey: 0,*/}
-                            {/*            value: (*/}
-                            {/*                <PersonalForms*/}
-                            {/*                    lang={lang}*/}
-                            {/*                    accessProfile={accessProfile}*/}
-                            {/*                    id={id} */}
-                            {/*                    */}
-                            {/*                    setPerson={setPerson}*/}
-                            {/*                    contact={contact}*/}
-                            {/*                    setContact={setContact}*/}
-                            {/*                    locale={router.locale}*/}
-                            {/*                    documents={documents}*/}
-                            {/*                    setDocuments={setDocuments} */}
-                            {/*                    person={person}*/}
-                            {/*                    address={address} */}
-                            {/*                    setAddress={setAddress}*/}
-                            {/*                />*/}
-                            {/*            )*/}
-                            {/*        },*/}
-                            {/*        {*/}
-                            {/*            buttonKey: 1,*/}
-                            {/*            value: (*/}
-                            {/*                <CorporateForms*/}
-                            {/*                    lang={lang}*/}
-                            {/*                    mainCollaboration={collaboration.data !== null && collaboration.data ?*/}
-                            {/*                        {*/}
-                            {/*                            key: collaboration.data.id,*/}
-                            {/*                            value: collaboration.unit.value + ' - ' + collaboration.accessProfile.value,*/}
-                            {/*                        } : member.main_collaboration !== null && member.main_collaboration ? {*/}
-                            {/*                            value: member.main_collaboration.value,*/}
-                            {/*                            key: member.main_collaboration.key,*/}
-                            {/*                        } : null*/}
-                            {/*                    }*/}
-                            {/*                    locale={router.locale} id={id} accessProfile={accessProfile}*/}
-                            {/*                    member={member} setMember={setMember}/>*/}
-                            {/*            )*/}
-                            {/*        }*/}
-                            {/*    ]}/>*/}
-                            }
+                            <TabContent
+                                openTab={openTab}
+                                key={'person'}
+                                tabs={[
+                                    {
+                                        buttonKey: 0,
+                                        value: (
+                                            <PersonalForms
+                                                lang={lang}
+                                                accessProfile={accessProfile}
+                                                id={id}
+                                                locale={router.locale}
+                                                personID={member.person}
+                                            />
+                                        )
+                                    },
+                                    {
+                                        buttonKey: 1,
+                                        value: (
+                                            <CorporateForms
+                                                lang={lang}
+                                                locale={router.locale}
+                                                id={id}
+                                                accessProfile={accessProfile}
+                                            />
+                                        )
+                                    }
+                                ]}/>
                         </div>
                     </div>
                     :
