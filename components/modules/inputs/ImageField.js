@@ -27,14 +27,13 @@ export default function ImageField(props) {
 
             <label htmlFor={'upload-image'} className={styles.labelContainer}
                    style={{
-                       visibility: props.initialImage ? 'visible' : 'hidden',
+                       visibility: props.initialImage && props.initialImage.name ? 'visible' : 'hidden',
                        opacity: props.initialImage ? '1' : '0',
                        transition: 'visibility 0.2s ease,opacity 0.2s ease'
                    }}>{props.label}</label>
 
-            <form className={styles.imageFieldContainer}
-            >
-                {props.initialImage ?
+            <form className={styles.imageFieldContainer}>
+                {props.initialImage && props.initialImage.name ?
                     <p
                         className={styles.labelContainer}
                         style={{

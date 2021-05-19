@@ -21,9 +21,10 @@ export default async function submitPerson(props) {
     formData.append('education', props.person.education)
     formData.append('gender', props.person.gender)
     formData.append('marital_status', props.person.marital_status)
-    console.log(props)
-    formData.append('father_name', capitalizeFirstLetter(props.person.father_name))
-    formData.append('mother_name', capitalizeFirstLetter(props.person.mother_name))
+    if (props.person.father_name !== null && props.person.father_name.length > 0 && props.person.father_name)
+        formData.append('father_name', capitalizeFirstLetter(props.person.father_name))
+    if (props.person.mother_name !== null && props.person.mother_name.length > 0 && props.person.mother_name)
+        formData.append('mother_name', capitalizeFirstLetter(props.person.mother_name))
     formData.append('disabled_person', props.person.disabled_person.toString())
     formData.append('nationality', props.person.nationality?.toUpperCase())
 

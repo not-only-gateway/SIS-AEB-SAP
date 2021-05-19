@@ -35,7 +35,6 @@ export default function AddressForm(props) {
 
 
     async function fetchCep(cep) {
-        console.log('fetching')
         setLoading(true)
         await axios({
             method: 'get',

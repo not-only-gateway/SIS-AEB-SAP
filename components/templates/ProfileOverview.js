@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import styles from '../../styles/Extensions.module.css'
 import {getIconStyle} from "../../styles/shared/MainStyles";
@@ -15,7 +15,6 @@ import {
 import ViewQuiltRoundedIcon from "@material-ui/icons/ViewQuiltRounded";
 
 export default function ProfileOverview(props) {
-    const birth = new Date(props.person.birth)
     return (
         <>
             <div className={styles.overviewRowContainer}>
@@ -66,7 +65,7 @@ export default function ProfileOverview(props) {
             </div>
 
             <div className={styles.overviewRowContainer}>
-
+                {/*<label className={styles.overviewRowLabel}>{locale.placement}</label>*/}
                 <div className={styles.overviewLineContainer}>
                     <ViewQuiltRoundedIcon style={getIconStyle({dark: false})}/>
                     <h5 style={{
@@ -113,5 +112,6 @@ ProfileOverview.propTypes = {
     commissionedRole: PropTypes.object,
     effectiveRole: PropTypes.object,
     senior: PropTypes.object,
-    linkage: PropTypes.object
+    linkage: PropTypes.object,
+    locale: PropTypes.string,
 }

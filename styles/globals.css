@@ -43,6 +43,8 @@ a {
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     box-sizing: border-box;
+    : 1px;
+
 }
 
 /* width */

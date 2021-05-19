@@ -10,20 +10,26 @@ import TabContent from "../templates/TabContent";
 import fetchMember from "../../utils/fetch/FetchMember";
 import fetchMainCollaboration from "../../utils/fetch/FetchMainCollaboration";
 import Alert from "../layout/Alert";
+import Button from "../modules/inputs/Button";
+import {ArrowBackRounded, AssignmentIndRounded, ExtensionRounded, PersonRounded} from "@material-ui/icons";
 
 export default function CorporateForms(props) {
     const [member, setMember] = useState(null)
     const [mainCollaboration, setMainCollaboration] = useState(null)
-    const [openTab, setOpenTab] = useState(0)
+    const [openTab, setOpenTab] = useState(undefined)
     const [status, setStatus] = useState({
         error: undefined,
         message: undefined
     })
     const [loading, setLoading] = useState(true)
+    const [returnPosition, setReturnPosition] = useState(null)
 
     useEffect(() => {
-        setLoading(true)
-        if(openTab === 0) {
+        if (returnPosition === null || returnPosition === 0) {
+            setReturnPosition(window.scrollY + document.getElementById('return-corporate-form').getBoundingClientRect().top)
+        }
+        if (openTab === 0 && member === null) {
+            setLoading(true)
             fetchMember({memberID: props.id, setStatus: setStatus}).then(res => {
                 setMember(res.member)
 
@@ -33,19 +39,63 @@ export default function CorporateForms(props) {
                 setLoading(false)
             })
         }
-    }, [])
+    }, [openTab])
 
 
-        return (
-            <div className={mainStyles.displayWarp} style={{width: '100%'}}>
-                <Alert type={'error'} message={status.message} handleClose={() => setStatus({
-                    error: false,
-                    message: undefined
-                })}
-                       render={status.error}/>
+    return (
+        <div style={{width: '100%', display: 'grid', gap: '16px', alignItems: 'flex-start', justifyItems: 'center'}}>
 
+            <div id={'return-corporate-form'}
+                 style={{
+                     width: '100%',
+                     display: openTab === undefined ? 'none' : 'initial',
+                     position: "sticky",
+                     top: returnPosition + 'px',
+                     backgroundColor: 'green'
+                 }}>
+                <Button width={'fit-content'} elevation={false}
+                        hoverHighlight={true} border={'#eeeed1 1px solid'} padding={'8px'} fontColor={'#555555'}
+                        backgroundColor={'#f4f5fa'}
+                        handleClick={() => setOpenTab(undefined)} disabled={false} variant={'rounded'}
+                        content={<ArrowBackRounded/>} justification={'center'}/>
+            </div>
+            <Alert type={'error'} message={status.message} handleClose={() => setStatus({
+                error: false,
+                message: undefined
+            })}
+                   render={status.error}/>
+            <div style={{width: '100%'}}>
                 <TabContent
                     tabs={[
+                        {
+                            buttonKey: undefined,
+                            value: (
+                                <div style={{width: '100%', display: "grid", gap: '16px'}}>
+                                    <Button width={'100%'} hoverHighlight={true} justification={'flex-start'} content={
+                                        <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
+                                            <ExtensionRounded/>
+                                            <p>Member</p>
+                                        </div>
+                                    } variant={'default'} disabled={false}
+                                            border={'#ecedf2 .7px solid'} padding={'8px 0  8px 16px'}
+                                            fontColor={'#555555'}
+                                            backgroundColor={'#f4f5fa'}
+                                            handleClick={() => setOpenTab(0)} elevation={true}
+                                    />
+                                    <Button width={'100%'} hoverHighlight={true} justification={'flex-start'} content={
+                                        <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
+                                            <AssignmentIndRounded/>
+                                            <p>Collaborations</p>
+                                        </div>
+                                    } variant={'default'} disabled={false}
+                                            border={'#ecedf2 .7px solid'} padding={'8px 0  8px 16px'}
+                                            fontColor={'#555555'}
+                                            backgroundColor={'#f4f5fa'}
+                                            handleClick={() => setOpenTab(1)} elevation={true}
+                                    />
+                                </div>
+                            )
+                        },
                         {
                             buttonKey: 0,
                             value: loading ? null : (
@@ -58,6 +108,7 @@ export default function CorporateForms(props) {
                                     })}
                                     mainCollaboration={mainCollaboration}
                                     handleSubmit={submitMember}
+                                    create={member === null}
                                     editable={props.accessProfile.canManageMembership}
                                     locale={props.locale}
                                 />
@@ -65,7 +116,7 @@ export default function CorporateForms(props) {
                         },
                         {
                             buttonKey: 1,
-                            value:(
+                            value: (
                                 <CollaborationList
                                     id={props.id}
                                     dark={false}
@@ -79,14 +130,22 @@ export default function CorporateForms(props) {
 
                 />
             </div>
-        )
+        </div>
+    )
 }
 
-CorporateForms.propTypes = {
+CorporateForms.propTypes =
+{
     id: PropTypes.string,
 
 
-    accessProfile:PropTypes.object,
-    locale: PropTypes.string,
-    lang: PropTypes.object,
+        accessProfile
+:
+    PropTypes.object,
+        locale
+:
+    PropTypes.string,
+        lang
+:
+    PropTypes.object,
 }

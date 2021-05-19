@@ -1,5 +1,12 @@
 
-
+.formContainer{
+    display:inline-flex;
+    flex-flow:row wrap;
+    column-gap:32px;
+    row-gap:8px;
+    justify-content:center;
+    width:100%;
+}
 
 
 

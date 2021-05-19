@@ -28,6 +28,7 @@ export default function Extension(props) {
                     <div style={{padding: '32px', height: '100%', display: 'grid', gap: '32px'}}>
                         <Profile person={props.person} member={props.member}/>
                         <ProfileOverview
+                            locale={props.locale}
                             person={props.person} unit={props.unit} member={props.member}
                             commissionedRole={props.commissionedRole}
                             effectiveRole={props.effectiveRole} linkage={props.linkage} senior={props.senior}
@@ -68,8 +69,6 @@ export default function Extension(props) {
     return (
         <>
             {renderModal()}
-
-            {/*props.redirect(props.member.id)*/}
             <button key={props.member.id} onClick={() => setModal(true)}
                     onMouseDown={() => setFocused(true)}
                     onMouseUp={() => setFocused(false)}
@@ -136,5 +135,6 @@ Extension.propTypes = {
     lang: PropTypes.object,
     index: PropTypes.number,
     redirect: PropTypes.func,
-    editable: PropTypes.bool
+    editable: PropTypes.bool,
+    locale: PropTypes.string
 }

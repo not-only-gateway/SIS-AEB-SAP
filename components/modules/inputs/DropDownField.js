@@ -67,10 +67,10 @@ export default function DropDownField(props) {
                         <Button key={index + '-choice-button'} width={'100%'} paddingType={"default"}
                                 justification={'flex-start'}
                                 handleClick={() => props.handleChange(choice.key)} content={choice.value}
-                                highlight={true}
+
                                 backgroundColor={choice.key === props.value ? '#0095ff' : 'transparent'}
                                 fontColor={choice.key === props.value ? 'white' : '#262626'}
-                                border={'transparent 1px solid'} elevation={false} hoverHighlight={true}/>
+                                border={'transparent 1px solid'} elevation={false} hoverHighlight={choice.key !== props.value}/>
                     )) : null}
                 </div>
             </div>

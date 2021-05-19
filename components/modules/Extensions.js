@@ -49,7 +49,7 @@ export default function Extensions(props) {
                                 lang={lang} index={index} member={member.member} redirect={id => props.redirect(id)}
                                 unit={member.unit} commissionedRole={member.commissioned_role}
                                 effectiveRole={member.effective_role} senior={member.senior} linkage={member.linkage}
-                                person={member.person} editable={editable}
+                                person={member.person} editable={editable} locale={props.locale}
                             />
                         )}
                     </div>

@@ -69,6 +69,8 @@
 
     display: grid;
     align-content: space-between;
+
+    overflow: hidden;
     /*justify-content: space-between;*/
     /*align-items: center;*/
 }
@@ -89,12 +91,31 @@
     border: #ecedf2 .7px solid;
     padding: 16px 32px 16px 32px;
 
-    width: 100%;
-}
+    height: auto;
 
+    display: flex;
+    flex-flow: row wrap;
+    gap: 16px;
+
+    position: relative;
+}
+/*.overviewRowLabel{*/
+/*    position: absolute;*/
+/*    top: calc(-.5rem - 5px);*/
+/*    left: 16px;*/
+
+/*    background-color: #f4f5fa;*/
+/*    border-radius: 5px;*/
+/*    padding: 5px;*/
+
+/*    border-top:  #ecedf2 .7px solid;*/
+/*    border-left:  #ecedf2 .7px solid;*/
+/*    border-right:  #ecedf2 .7px solid;*/
+/*}*/
 .overviewLineContainer {
     display: flex;
     align-items: center;
-    gap: 16px;
-    width: 100%;
+    gap: 8px;
+
+    width: calc(50% - 8px);
 }
