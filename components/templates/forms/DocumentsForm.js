@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import InputLayout from "../../modules/InputLayout";
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import TextField from "../../modules/inputs/TextField";
 import Alert from "../../layout/Alert";
@@ -59,6 +58,8 @@ export default function DocumentsForm(props) {
                     })} render={status.error}/>
 
                 <HorizontalTabs
+                    variant={'secondary'}
+                    extended={true}
                     buttons={[
                         {
                             key: 0,

@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types'
-import InputLayout from "../../modules/InputLayout";
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import CountryOptions from "../../../packages/options/CountryOptions";
 import StateOptions from "../../../packages/options/StateSelector";
 import ImageSelector from "../../modules/inputs/ImageField";
 import Selector from "../../modules/inputs/Selector";
-import getImage from "../../../utils/shared/GetImage";
 import TextField from "../../modules/inputs/TextField";
 import DateField from "../../modules/inputs/DateField";
 import DropDownField from "../../modules/inputs/DropDownField";
@@ -81,6 +79,8 @@ export default function BaseForm(props) {
                     })} render={status.error}/>
 
                 <HorizontalTabs
+                    extended={true}
+                    variant={'secondary'}
                     buttons={[
                         {
                             key: 0,
@@ -239,15 +239,17 @@ export default function BaseForm(props) {
 
 
                 <Button width={'100%'} elevation={true} border={'none'} padding={'8px 32px 8px 32px'}
-                        fontColor={'white'} backgroundColor={'#0095ff'} handleClick={() => {
-                    props.handleSubmit({
-                        person: props.person,
-                        image: image,
-                        personID: props.id,
-                        create: props.create,
-                        setStatus: setStatus
-                    })
-                }}
+                        fontColor={'white'} backgroundColor={'#0095ff'}
+                        handleClick={() => {
+                            setChanged(false)
+                            props.handleSubmit({
+                                person: props.person,
+                                image: image,
+                                personID: props.id,
+                                create: props.create,
+                                setStatus: setStatus
+                            })
+                        }}
                         disabled={disabled()} variant={'rounded'}
                         content={
                             props.create ? lang.create : lang.save

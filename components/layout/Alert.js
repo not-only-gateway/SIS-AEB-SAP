@@ -1,12 +1,9 @@
 import PropTypes from 'prop-types'
 import styles from '../../styles/component/Component.module.css'
-import {CloseRounded, RemoveRounded} from "@material-ui/icons";
+import {CloseRounded} from "@material-ui/icons";
 import animations from '../../styles/shared/Animations.module.css'
 import React, {useEffect, useRef, useState} from "react";
 import Button from "../modules/inputs/Button";
-import {Modal} from "@material-ui/core";
-import Profile from "../templates/Profile";
-import ProfileOverview from "../templates/ProfileOverview";
 
 export default function Alert(props) {
     const counter = useRef(10)

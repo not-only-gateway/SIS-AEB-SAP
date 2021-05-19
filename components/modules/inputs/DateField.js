@@ -1,8 +1,6 @@
 import styles from '../../../styles/Input.module.css'
 import PropTypes from 'prop-types'
-import React, {useState} from "react";
-import InputMask from 'react-input-mask';
-import {VisibilityOffRounded, VisibilityRounded} from "@material-ui/icons";
+import React from "react";
 
 export default function DateField(props) {
 

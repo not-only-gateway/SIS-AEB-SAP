@@ -1,13 +1,8 @@
-import InfiniteScroll from "react-infinite-scroll-component";
-import {Skeleton} from "@material-ui/lab";
 import mainStyles from "../../styles/shared/Main.module.css";
-import {getTertiaryColor} from "../../styles/shared/MainStyles";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import PropTypes from 'prop-types'
 import styles from '../../styles/Extensions.module.css'
-import getComponentLanguage from "../../utils/shared/GetComponentLanguage";
 import ProfilePersona from "../elements/ProfilePersona";
-import shared from '../../styles/shared/Shared.module.css'
 import animations from '../../styles/shared/Animations.module.css'
 import {Modal} from "@material-ui/core";
 import Button from "./inputs/Button";

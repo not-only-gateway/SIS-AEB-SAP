@@ -1,20 +1,16 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import mainStyles from '../../styles/shared/Main.module.css'
-import {Button, FormControl, InputLabel, Modal, OutlinedInput} from "@material-ui/core";
-import InputLayout from "./InputLayout";
+import {Button, Modal} from "@material-ui/core";
 import {getTertiaryColor} from "../../styles/shared/MainStyles";
 import axios from "axios";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import getComponentLanguage from "../../utils/shared/GetComponentLanguage";
-import shared from '../../styles/shared/Shared.module.css'
 import animations from '../../styles/shared/Animations.module.css'
 import Alert from "../layout/Alert";
-import {CloseRounded} from "@material-ui/icons";
 import styles from '../../styles/component/Component.module.css'
 import TextField from "./inputs/TextField";
-import handleObjectChange from "../../utils/shared/HandleObjectChange";
 
 const cookies = new Cookies()
 export default function Authenticate(props) {

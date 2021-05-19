@@ -2,7 +2,6 @@ import axios from "axios";
 import Host from "../shared/Host";
 import Cookies from "universal-cookie/lib";
 import PropTypes from "prop-types";
-import fetchDocuments from "./FetchDocuments";
 
 const cookies = new Cookies()
 export default async function fetchContacts(props){

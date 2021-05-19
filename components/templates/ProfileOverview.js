@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styles from '../../styles/Extensions.module.css'
 import {getIconStyle} from "../../styles/shared/MainStyles";
 import {
-    CalendarTodayRounded,
     EmailRounded,
     HomeRounded,
     LinkRounded,

@@ -2,11 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styles from '../../styles/Person.module.css'
 import PersonPersona from "../elements/ProfilePersona";
-import Cookies from "universal-cookie/lib";
-import HorizontalTabs from "../layout/navigation/HorizontalTabs";
-import VerticalTabs from "../layout/navigation/VerticalTabs";
-import Button from "../modules/inputs/Button";
-import {EditRounded, LockOpenRounded, VisibilityRounded} from "@material-ui/icons";
 
 export default function Profile(props) {
     return (

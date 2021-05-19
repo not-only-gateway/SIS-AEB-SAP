@@ -6,7 +6,6 @@ import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import Selector from "../../modules/inputs/Selector";
 import fetchEntities from "../../../utils/fetch/FetchEntities";
 import mapToSelect from "../../../utils/shared/MapToSelect";
-import fetchCollaborations from "../../../utils/fetch/FetchCollaborations";
 import fetchActiveCollaborations from "../../../utils/fetch/fetchActiveCollaborations";
 import TextField from "../../modules/inputs/TextField";
 

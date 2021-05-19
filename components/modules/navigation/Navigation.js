@@ -9,7 +9,7 @@ import {
     SettingsRounded,
     ViewQuiltRounded
 } from '@material-ui/icons';
-import styles from '../../../styles/shared/Bar.module.css'
+import styles from '../../../styles/Navigation.module.css'
 import PropTypes from 'prop-types'
 import {readAccessProfile, readProfile} from "../../../utils/shared/IndexedDB";
 import mainStyles from '../../../styles/shared/Main.module.css'

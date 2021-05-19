@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types'
 import mainStyles from '../../styles/shared/Main.module.css'
-import animations from '../../styles/shared/Animations.module.css'
 import React from "react";
-import {Button, IconButton} from "@material-ui/core";
-import {CheckRounded, ClearRounded} from "@material-ui/icons";
+import {IconButton} from "@material-ui/core";
+import {ClearRounded} from "@material-ui/icons";
 
 
 export default function FiltersComponent(props) {

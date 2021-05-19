@@ -1,9 +1,11 @@
-import {Button} from "@material-ui/core";
+
 import React, {useEffect, useState} from "react";
 import InputLayout from "../../modules/InputLayout";
 import PropTypes from 'prop-types'
 import axios from "axios";
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
+import TextField from "../../modules/inputs/TextField";
+import Button from "../../modules/inputs/Button";
 
 export default function AddressForm(props) {
 
@@ -17,6 +19,7 @@ export default function AddressForm(props) {
 
     function disabled() {
         return (
+            props.address === null ||
             props.address.zip_code === null ||
             props.address.address === null ||
             props.address.city === null ||
@@ -64,97 +67,105 @@ export default function AddressForm(props) {
             <div style={{
                 display: 'inline-flex',
                 flexFlow: 'row wrap',
-                gap: '32px',
+                rowGap: '8px',
+                columnGap: '32px',
                 justifyContent: 'center',
-                width: '75%',
+                width: '100%',
             }}>
+                <TextField placeholder={lang.zipCode} label={lang.zipCode} handleChange={event => {
+                    if (event.target.value.length === 8) {
+                        props.handleChange({name: 'zip_code', value: event.target.value})
+                        fetchCep(event.target.value).catch(error => console.log(error))
+                    } else if (props.address === null || (event.target.value.length < 8 || (props.address.zip_code !== null && event.target.value.length < props.address.zip_code.length))) {
+                        setChanged(true)
+                        props.handleChange({name: 'zip_code', value: event.target.value})
+                    }
+                }} locale={props.locale} value={props.address === null ? null : props.address.zip_code} required={true}
+                           width={'calc(33.333% - 21.35px)'} maxLength={8}/>
 
-                <InputLayout inputName={lang.zipCode} dark={props.dark}
-                             handleChange={event => {
-                                 if (event.value.length === 8) {
-                                     props.handleChange(event)
-                                     fetchCep(event.value).catch(error => console.log(error))
-                                 } else if (event.value.length < 8 || event.value.length < props.address.zip_code.length) {
-                                     setValidZipCode(false)
-                                     props.handleChange(event)
-                                 }
-                             }
-                             } inputType={0}
-                             name={'zip_code'} maxLength={8} numeric={true}
-                             disabled={!props.editable} size={'100%'} required={true}
-                             initialValue={props.address.zip_code}
-                             key={"4-3"} setChanged={setChanged}/>
 
-                <h4 style={{width: '100%', marginBottom: 'auto'}}>
-                    {lang.address}
-                </h4>
-                <InputLayout inputName={lang.address} dark={props.dark}
-                             handleChange={props.handleChange} inputType={0}
-                             name={'address'}
-                             disabled={!props.editable || !validZipCode}
-                             size={'calc(50% - 16px)'} required={true} initialValue={props.address.address}
-                             key={"4-1"} setChanged={setChanged}
+                <TextField
+                    disabled={!props.editable || !validZipCode}
+                    placeholder={lang.address} label={lang.address} handleChange={event => {
+                    setChanged(true)
+                    props.handleChange({name: 'address', value: event.target.value})
+                }} locale={props.locale} value={props.address === null ? null : props.address.address} required={true}
+                    width={'calc(33.333% - 21.35px)'}/>
+
+
+                <TextField
+                    disabled={!props.editable || !validZipCode}
+                    placeholder={lang.complement} label={lang.complement} handleChange={event => {
+                    setChanged(true)
+                    props.handleChange({name: 'address_complement', value: event.target.value})
+                }} locale={props.locale} value={props.address === null ? null : props.address.address_complement}
+                    required={false} width={'calc(33.333% - 21.35px)'}/>
+
+
+
+                <TextField
+                    disabled={!props.editable || !validZipCode}
+                    placeholder={lang.state}
+                    label={lang.state}
+                    handleChange={event => {
+                        setChanged(true)
+                        props.handleChange({name: 'state', value: event.target.value})
+                    }} locale={props.locale} value={props.address === null ? null : props.address.state}
+                    required={false} width={'calc(33.333% - 21.35px)'}/>
+
+                <TextField
+                    disabled={!props.editable || !validZipCode}
+                    placeholder={lang.city}
+                    label={lang.city}
+                    handleChange={event => {
+                        setChanged(true)
+                        props.handleChange({name: 'city', value: event.target.value})
+                    }} locale={props.locale} value={props.address === null ? null : props.address.city} required={false}
+                    width={'calc(33.333% - 21.35px)'}/>
+                <TextField
+                    disabled={!props.editable || !validZipCode}
+                    placeholder={lang.stateInitials}
+                    label={lang.stateInitials}
+                    handleChange={event => {
+                        setChanged(true)
+                        props.handleChange({name: 'state_initials', value: event.target.value})
+                    }} locale={props.locale} value={props.address === null ? null : props.address.state_initials}
+                    required={false} width={'calc(33.333% - 21.35px)'} maxLength={2}/>
+
+                <TextField
+                    disabled={!props.editable || !validZipCode}
+                    placeholder={lang.neighborhood}
+                    label={lang.neighborhood}
+                    handleChange={event => {
+                        setChanged(true)
+                        props.handleChange({name: 'neighborhood', value: event.target.value})
+                    }} locale={props.locale} value={props.address === null ? null : props.address.neighborhood}
+                    required={false} width={'calc(50% - 16px)'} maxLength={2}/>
+                <TextField
+                    disabled={!props.editable || !validZipCode}
+                    placeholder={lang.street}
+                    label={lang.street}
+                    handleChange={event => {
+                        setChanged(true)
+                        props.handleChange({name: 'street', value: event.target.value})
+                    }} locale={props.locale} value={props.address === null ? null : props.address.street}
+                    required={false} width={'calc(50% - 16px)'} maxLength={2}/>
+
+                <Button width={'100%'} elevation={true} border={'none'} padding={'8px 32px 8px 32px'}
+                        fontColor={'white'} backgroundColor={'#0095ff'}
+                        handleClick={() => {
+                            setChanged(false)
+                            props.handleSubmit({personID: props.id, data: props.address}).then(res => {
+                                setChanged(!res)
+                                if (props.setAccepted !== undefined)
+                                    props.setAccepted(res)
+                            })
+                        }}
+                        disabled={disabled()} variant={'rounded'}
+                        content={
+                            props.create ? lang.create : lang.save
+                        } justification={'center'} hoverHighlight={false}
                 />
-                <InputLayout inputName={lang.complement} dark={props.dark} handleChange={props.handleChange} inputType={0}
-                             name={'address_complement'}
-                             disabled={!props.editable || !validZipCode}
-                             size={'calc(50% - 16px)'} required={false} initialValue={props.address.address_complement}
-                             key={"4-2"} setChanged={setChanged}/>
-
-                <h4 style={{width: '100%', marginBottom: 'auto'}}>
-                    {lang.location}
-                </h4>
-
-                <InputLayout inputName={lang.city} dark={props.dark} handleChange={props.handleChange} inputType={0}
-                             disabled={!props.editable || !validZipCode}
-                             size={'calc(33.333% - 21.35px'} required={true} initialValue={props.address.city}
-                             name={'city'}
-                             key={"4-6"} setChanged={setChanged}/>
-                <InputLayout inputName={lang.state} dark={props.dark} handleChange={props.handleChange} inputType={0}
-                             disabled={!props.editable || !validZipCode}
-                             size={'calc(33.333% - 21.35px'} required={true} initialValue={props.address.state}
-                             name={'state'}
-                             key={"4-7"} setChanged={setChanged}/>
-                <InputLayout inputName={lang.stateInitials} dark={props.dark} handleChange={props.handleChange}
-                             inputType={0} name={'state_initials'} maxLength={2} uppercase={true}
-                             disabled={!props.editable || !validZipCode}
-                             size={'calc(33.333% - 21.35px'} required={true}
-                             initialValue={props.address.state_initials}
-                             key={"4-8"} setChanged={setChanged}/>
-                <h4 style={{width: '100%', marginBottom: 'auto'}}>
-                    {lang.neighborhood}
-                </h4>
-                <InputLayout inputName={lang.neighborhood} dark={props.dark} handleChange={props.handleChange}
-                             inputType={0} name={'neighborhood'}
-                             disabled={!props.editable || !validZipCode}
-                             size={'calc(50% - 16px)'} required={false}
-                             initialValue={props.address.neighborhood}
-                             key={"4-5"} setChanged={setChanged}/>
-                <InputLayout inputName={lang.street} dark={props.dark} handleChange={props.handleChange} inputType={0}
-                             name={'street'}
-                             disabled={!props.editable || !validZipCode}
-                             size={'calc(50% - 16px)'} required={false} initialValue={props.address.street}
-                             key={"4-4"} setChanged={setChanged}/>
-
-
-
-                {!props.editable ? null :
-                    <Button style={{
-                        width: '100%',
-                        backgroundColor: disabled() ? 'rgba(0,0,0,0.07)' : '#0095ff',
-                        color: disabled() ? '#777777' : 'white',
-                        fontWeight: 550,
-
-                    }} disabled={disabled()} variant={'contained'} onClick={() => {
-                        props.handleSubmit({personID: props.id, data: props.address}).then(res => {
-                            setChanged(!res)
-                            if (props.setAccepted !== undefined)
-                                props.setAccepted(res)
-                        })
-                    }}>
-                        {props.create ? lang.create : lang.save}
-                    </Button>
-                }
             </div>
         )
     else

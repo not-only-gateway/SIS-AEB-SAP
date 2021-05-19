@@ -6,7 +6,6 @@ import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import styles from '../../styles/Extensions.module.css'
 import getComponentLanguage from "../../utils/shared/GetComponentLanguage";
-import ProfilePersona from "../elements/ProfilePersona";
 import Extension from "./Extension";
 import {readAccessProfile} from "../../utils/shared/IndexedDB";
 

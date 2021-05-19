@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, {useState} from "react";
 import styles from "../../../styles/activity/Activity.module.css";
 import mainStyles from "../../../styles/shared/Main.module.css";
-import {getPrimaryColor, getTertiaryColor} from "../../../styles/shared/MainStyles";
+import {getTertiaryColor} from "../../../styles/shared/MainStyles";
 import {Button, Divider, Modal} from "@material-ui/core";
 import getMethodColor from "../../../utils/activity/GetMethodColor";
 import animations from '../../../styles/shared/Animations.module.css'

@@ -6,9 +6,7 @@ import {getLanguage} from "../utils/shared/PageLanguage";
 import {useRouter} from "next/router";
 import styles from '../styles/Authenticate.module.css'
 import Head from "next/head";
-import InputLayout from "../components/modules/InputLayout";
-import {Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput} from "@material-ui/core";
-import {VisibilityOffRounded, VisibilityRounded} from "@material-ui/icons";
+import {Button} from "@material-ui/core";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import submitSignIN from "../utils/submit/SubmitSignIN";
 import Alert from "../components/layout/Alert";

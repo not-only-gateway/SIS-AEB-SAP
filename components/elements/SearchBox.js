@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
-import {Button, ButtonBase, Divider, InputBase, Paper} from "@material-ui/core";
+import {ButtonBase, InputBase, Paper} from "@material-ui/core";
 import React, {useState} from "react";
 import mainStyles from '../../styles/shared/Main.module.css'
-import {ArrowBackIosRounded, CloseRounded, SearchRounded} from "@material-ui/icons";
+import {CloseRounded, SearchRounded} from "@material-ui/icons";
 
 export default function SearchBox(props) {
     const [focused, setFocused] = useState(false)

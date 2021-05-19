@@ -1,19 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import mainStyles from '../../styles/shared/Main.module.css'
-import {getIconStyle} from "../../styles/shared/MainStyles";
-import {
-    CalendarTodayRounded,
-    EmailRounded,
-    HomeRounded,
-    LinkRounded,
-    LocationOnRounded,
-    PhoneForwardedRounded,
-    PhoneRounded,
-    WorkRounded
-} from "@material-ui/icons";
-import ViewQuiltRoundedIcon from "@material-ui/icons/ViewQuiltRounded";
-import styles from '../../styles/Unit.module.css'
 
 
 export default function UnitOverview(props) {

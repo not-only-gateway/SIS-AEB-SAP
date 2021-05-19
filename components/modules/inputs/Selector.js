@@ -1,16 +1,8 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 import mainStyles from '../../../styles/shared/Main.module.css'
-import {
-    AddRounded,
-    CloseRounded,
-    LaunchRounded,
-    ListRounded,
-    OpenInBrowser,
-    OpenInBrowserRounded
-} from "@material-ui/icons";
-import {Button, FormControl, FormLabel, Modal} from "@material-ui/core";
-import styles from '../../../styles/person/Form.module.css'
+import {AddRounded, CloseRounded, ListRounded} from "@material-ui/icons";
+import {Button, Modal} from "@material-ui/core";
 import InputLayout from "../InputLayout";
 import animations from '../../../styles/shared/Animations.module.css'
 import shared from "../../../styles/shared/Shared.module.css";

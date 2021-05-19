@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Button, Modal} from "@material-ui/core";
 
 import animations from "../../styles/shared/Animations.module.css";

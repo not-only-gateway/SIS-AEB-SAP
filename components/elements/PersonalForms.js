@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import mainStyles from '../../styles/shared/Main.module.css'
-import VerticalTabs from "../layout/navigation/VerticalTabs";
 import ContactForm from "../templates/forms/ContactForm";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import submitContacts from "../../utils/submit/SubmitContacts";
@@ -11,20 +9,14 @@ import submitPerson from "../../utils/submit/SubmitPerson";
 import BaseForm from "../templates/forms/BaseForm";
 import AddressForm from "../templates/forms/AddressForm";
 import submitAddress from "../../utils/submit/SubmitAddress";
-import HorizontalTabs from "../layout/navigation/HorizontalTabs";
 import TabContent from "../templates/TabContent";
-import fetchMember from "../../utils/fetch/FetchMember";
-import fetchMainCollaboration from "../../utils/fetch/FetchMainCollaboration";
 import fetchDocuments from "../../utils/fetch/FetchDocuments";
 import fetchContacts from "../../utils/fetch/FetchContacts";
 import fetchAddress from "../../utils/fetch/FetchAddress";
 import fetchPerson from "../../utils/fetch/FetchPerson";
 import Alert from "../layout/Alert";
-import {ArrowBackRounded, DescriptionRounded, LocationOnRounded, PersonRounded, PhoneRounded} from "@material-ui/icons";
-import Button from "../modules/inputs/Button";
 
 export default function PersonalForms(props) {
-    const [openTab, setOpenTab] = useState(undefined)
     const [documents, setDocuments] = useState(null)
     const [contact, setContact] = useState(null)
     const [address, setAddress] = useState(null)
@@ -36,9 +28,8 @@ export default function PersonalForms(props) {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-
         switch (true) {
-            case openTab === 0 && person === null: {
+            case props.openTab === 0 && person === null: {
                 setLoading(true)
                 fetchPerson(
                     {personID: props.personID, setStatus: setStatus}
@@ -48,7 +39,7 @@ export default function PersonalForms(props) {
                 })
                 break
             }
-            case openTab === 1 && documents === null: {
+            case props.openTab === 1 && documents === null: {
                 setLoading(true)
                 fetchDocuments(
                     {personID: props.personID, setStatus: setStatus}
@@ -58,7 +49,7 @@ export default function PersonalForms(props) {
                 }).catch(() => setLoading(false))
                 break
             }
-            case openTab === 2 && contact === null: {
+            case props.openTab === 2 && contact === null: {
                 setLoading(true)
                 fetchContacts(
                     {personID: props.personID, setStatus: setStatus}
@@ -68,7 +59,7 @@ export default function PersonalForms(props) {
                 }).catch(() => setLoading(false))
                 break
             }
-            case openTab === 3 && address === null: {
+            case props.openTab === 3 && address === null: {
                 setLoading(true)
                 fetchAddress(
                     {personID: props.personID, setStatus: setStatus}
@@ -81,7 +72,7 @@ export default function PersonalForms(props) {
             default:
                 break
         }
-    }, [openTab])
+    }, [props.openTab])
 
     return (
         <div style={{width: '100%', display: 'grid', gap: '16px', alignItems: 'flex-start', placeItems: 'center'}}>
@@ -89,78 +80,13 @@ export default function PersonalForms(props) {
                 error: false,
                 message: undefined
             })} render={status.error}/>
-            <div style={{width: '100%', display: openTab === undefined ? 'none' : 'initial'}}>
-                <Button width={'fit-content'} elevation={false}
-                        hoverHighlight={true} border={'#eeeed1 1px solid'} padding={'8px'} fontColor={'#555555'}
-                        backgroundColor={'#f4f5fa'}
-                        handleClick={() => setOpenTab(undefined)} disabled={false} variant={'rounded'}
-                        content={<ArrowBackRounded/>} justification={'center'}/>
-            </div>
+
             <div style={{width: '100%'}}>
 
                 <TabContent
-                    openTab={openTab}
+                    openTab={props.openTab}
                     noContainer={true}
-                    tabs={[
-                        {
-                            buttonKey: undefined,
-                            value: (
-                                <div style={{width: '100%', display: "grid", gap: '16px'}}>
-
-                                    <Button width={'100%'} hoverHighlight={true} justification={'flex-start'} content={
-                                        <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
-                                            <PersonRounded/>
-                                            <p>Basic</p>
-                                        </div>
-                                    } variant={'default'} disabled={false}
-                                            border={'#ecedf2 .7px solid'} padding={'8px 0  8px 16px'}
-                                            fontColor={'#555555'}
-                                            backgroundColor={'#f4f5fa'}
-                                            handleClick={() => setOpenTab(0)} elevation={true}
-                                    />
-
-
-                                    <Button width={'100%'} hoverHighlight={true} justification={'unset'} content={
-                                        <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
-                                            <DescriptionRounded/>
-                                            <p>Documents</p>
-                                        </div>
-                                    } variant={'default'} disabled={false}
-                                            border={'#ecedf2 .7px solid'} padding={'8px 0  8px 16px'}
-                                            fontColor={'#555555'}
-                                            backgroundColor={'#f4f5fa'}
-                                            handleClick={() => setOpenTab(1)} elevation={true}
-                                    />
-
-                                    <Button width={'100%'} hoverHighlight={true} justification={'unset'} content={
-                                        <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
-                                            <PhoneRounded/>
-                                            <p>Contact</p>
-                                        </div>
-                                    } variant={'default'} disabled={false}
-                                            border={'#ecedf2 .7px solid'} padding={'8px 0  8px 16px'}
-                                            fontColor={'#555555'}
-                                            backgroundColor={'#f4f5fa'}
-                                            handleClick={() => setOpenTab(2)} elevation={true}
-                                    />
-
-
-                                    <Button width={'100%'} hoverHighlight={true} justification={'unset'} content={
-                                        <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
-                                            <LocationOnRounded/>
-                                            <p>Address</p>
-                                        </div>
-                                    } variant={'default'} disabled={false}
-                                            border={'#ecedf2 .7px solid'} padding={'8px 0  8px 16px'}
-                                            fontColor={'#555555'}
-                                            backgroundColor={'#f4f5fa'}
-                                            handleClick={() => setOpenTab(3)} elevation={true}
-                                    />
-
-                                </div>
-                            )
-                        },
-                        {
+                    tabs={[{
                             buttonKey: 0,
                             value: loading || person === null ? null : (
                                 <BaseForm

@@ -8,8 +8,6 @@ import Alert from "../../layout/Alert";
 import HorizontalTabs from "../../layout/navigation/HorizontalTabs";
 import TabContent from "../TabContent";
 import styles from '../../../styles/component/Component.module.css'
-import shared from "../../../styles/shared/Shared.module.css";
-import {CloseRounded} from "@material-ui/icons";
 
 export default function CollaborationForm(props) {
 

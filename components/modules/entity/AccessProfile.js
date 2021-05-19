@@ -9,7 +9,6 @@ import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import submitAccessProfile from "../../../utils/submit/SubmitAccessProfile";
 import {AddRounded} from "@material-ui/icons";
 import {getIconStyle} from "../../../styles/shared/MainStyles";
-import Alert from "../../layout/Alert";
 
 export default function AccessProfile(props) {
     const [accessProfile, setAccessProfile] = useState({})

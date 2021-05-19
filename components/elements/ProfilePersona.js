@@ -2,9 +2,8 @@ import PropTypes from 'prop-types'
 import {Avatar} from "@material-ui/core";
 import ImageHost from "../../utils/shared/ImageHost";
 import React from "react";
-import mainStyles from '../../styles/shared/Main.module.css'
-import {CakeRounded} from "@material-ui/icons";
 import animations from '../../styles/shared/Animations.module.css'
+
 export default function ProfilePersona(props) {
 console.log(props.image)
     return (

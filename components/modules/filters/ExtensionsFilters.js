@@ -7,7 +7,6 @@ import mapToSelect from "../../../utils/shared/MapToSelect";
 import Selector from "../inputs/Selector";
 import FetchExtensionsFilter from "../../../utils/fetch/FetchExtensionsFilter";
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
-import {CloseRounded} from "@material-ui/icons";
 
 
 export default function ExtensionsFilters(props) {

@@ -1,7 +1,5 @@
-
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import InputLayout from "../../modules/InputLayout";
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import TextField from "../../modules/inputs/TextField";
 import Button from "../../modules/inputs/Button";
@@ -37,11 +35,11 @@ export default function ContactForm(props) {
                 justifyContent: 'center',
                 width: '100%',
             }}>
-
                 <TextField placeholder={lang.email} label={lang.email} handleChange={event => {
                     setChanged(true)
                     props.handleChange({name: 'personal_email', value: event.target.value})
                 }} locale={props.locale} value={props.contact === null ? null : props.contact.personal_email} required={true} width={'calc(50% - 16px)'}/>
+
                 <TextField placeholder={lang.altEmail} label={lang.altEmail} handleChange={event => {
                     setChanged(true)
                     props.handleChange({name: 'personal_email_alt', value: event.target.value})

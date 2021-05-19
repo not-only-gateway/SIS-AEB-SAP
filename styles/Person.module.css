@@ -43,5 +43,5 @@
     display: grid;
     height: fit-content;
 
-    justify-items: center;
+    justify-items: flex-start;
 }
