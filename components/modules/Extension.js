@@ -11,7 +11,6 @@ import Profile from "../templates/Profile";
 
 export default function Extension(props) {
     const currentDate = new Date()
-    const [hovered, setHovered] = useState(false)
     const [modal, setModal] = useState(false)
     const [focused, setFocused] = useState(false)
 
@@ -70,51 +69,49 @@ export default function Extension(props) {
                     onMouseUp={() => setFocused(false)}
                     onMouseLeave={() => {
                         setFocused(false)
-                        setHovered(false)
                     }}
 
-                    onMouseEnter={() => setHovered(true)}
+                    className={[styles.extensionButton, animations.popInAnimation].join(' ')}
+                    style={{boxShadow: focused ? '0 0 1px 1px #ecedf2' : undefined}}
+            >
+                <>
 
-                    className={styles.extensionButton}
-                    style={{
-                        animationDelay: props.index * 200 + 'ms',
-                        border: hovered ? '#0095ff .7px solid' : '#ecedf2 .7px solid',
-                        boxShadow: hovered && !focused ? 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px' : 'unset'
-                    }}>
-                <div className={mainStyles.rowContainer} style={{height: 'auto'}}>
-                    <div
-                        className={[mainStyles.displayInlineStart, mainStyles.overflowEllipsis].join(' ')}
-                    >
-                        <ProfilePersona dark={false} key={props.member.id}
-                                        image={props.person.image} size={'65px'} variant={'rounded'}
-                                        elevation={hovered} base64={false}
-                                        cakeDay={((new Date(props.person.birth)).getDay() === currentDate.getDay() && (new Date(props.member.birth)).getMonth() === currentDate.getMonth())}/>
-                        <h4 className={styles.headerStyle}
-                            style={{
-                                marginLeft: '5px',
-                                fontWeight: 525
-                            }}>{props.person.name}</h4>
+                    <ProfilePersona
+                        dark={false} key={props.member.id}
+                        image={props.person.image} size={'110px'} variant={'circular'}
+                        elevation={true} base64={false}
+                        cakeDay={
+                            ((new Date(props.person.birth)).getDay() === currentDate.getDay() &&
+                                (new Date(props.member.birth)).getMonth() === currentDate.getMonth())
+                        }/>
+
+                    <div style={{width: '100%', marginTop: '15%'}}>
+                    <h3 className={[mainStyles.overflowEllipsis].join(' ')}
+                        style={{
+
+                            fontWeight: 525
+                        }}>{props.person.name}</h3>
+
+
+                    <h5>{props.member.corporate_email}</h5>
+
+                    <h5 className={styles.headerStyle}>{props.member.extension}</h5>
                     </div>
-                    <div className={mainStyles.displayInlineSpaced}>
-                        <h5 className={styles.headerStyle}>Email:</h5>
-                        <h5 className={styles.secondaryHeaderStyle}>{props.member.corporate_email}</h5>
+                    {/*<div className={mainStyles.displayInlineSpaced}>*/}
+                    {/*
+                    {/*    <h5 className={styles.secondaryHeaderStyle}></h5>*/}
+                    {/*</div>*/}
+                    {/*{props.unit === undefined || props.unit === null ?*/}
+                    {/*    null*/}
+                    {/*    :*/}
+                    {/*    <div className={mainStyles.displayInlineSpaced}>*/}
+                    {/*        <h5 className={styles.headerStyle}>{props.lang.unit}:</h5>*/}
+                    {/*        <h5 className={styles.secondaryHeaderStyle}>{props.unit.value}</h5>*/}
 
-                    </div>
-                    <div className={mainStyles.displayInlineSpaced}>
-                        <h5 className={styles.headerStyle}>{props.lang.extension}:</h5>
-                        <h5 className={styles.secondaryHeaderStyle}>{props.member.extension}</h5>
-                    </div>
-                    {props.unit === undefined || props.unit === null ?
-                        null
-                        :
-                        <div className={mainStyles.displayInlineSpaced}>
-                            <h5 className={styles.headerStyle}>{props.lang.unit}:</h5>
-                            <h5 className={styles.secondaryHeaderStyle}>{props.unit.value}</h5>
+                    {/*    </div>*/}
+                    {/*}*/}
 
-                        </div>
-                    }
-
-                </div>
+                </>
             </button>
         </>
     )

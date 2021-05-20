@@ -23,11 +23,14 @@ export default function CorporateForms(props) {
         if (props.openTab === 0 && member === null) {
             setLoading(true)
             fetchMember({memberID: props.id, setStatus: setStatus}).then(res => {
-                setMember(res.member)
+                if(res !== null)
+                    setMember(res.member)
 
             })
             fetchMainCollaboration({memberID: props.id, setStatus: setStatus}).then(res => {
-                setMainCollaboration(res.member)
+                if(res !== null)
+                    setMainCollaboration(res.member)
+
                 setLoading(false)
             })
         }

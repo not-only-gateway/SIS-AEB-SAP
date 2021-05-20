@@ -35,8 +35,8 @@ export default function ExpandableTabs(props) {
                                     variant={ 'rounded'} width={'auto'}
                                     hoverHighlight={button.mainButton.key !== extendedTab && props.openTab.mainTab !== button.mainButton.key}
                                     border={'transparent 1px solid'}
-                                    backgroundColor={props.openTab.mainTab === button.mainButton.key ? '#0095ff' : button.mainButton.key === extendedTab ? '#ff4940' : 'unset'}
-                                    fontColor={props.openTab.mainTab === button.mainButton.key || button.mainButton.key === extendedTab? 'white' :  '#222228'}
+                                    backgroundColor={props.openTab.mainTab === button.mainButton.key ? '#0095ff' : button.mainButton.key === extendedTab ? 'white' : 'unset'}
+                                    fontColor={props.openTab.mainTab === button.mainButton.key ? 'white' :  '#222228'}
                                     paddingType={'long'}
                                 />
                                 {extendedTab === button.mainButton.key ? button.subButtons.map(subButton => (

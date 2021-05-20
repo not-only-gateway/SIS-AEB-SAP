@@ -60,8 +60,7 @@ export default function DropDownField(props) {
                     {value ? value : props.placeholder}
                     <ArrowDropDownRounded style={{transform: open ? 'unset' : 'rotate(180deg)'}}/>
                 </button>
-                <div className={styles.dropDownChoicesContainer} style={{display: open ? 'initial' : 'none'}}
-                     >
+                <div className={styles.dropDownChoicesContainer} style={{display: open ? 'initial' : 'none'}}>
                     {open ? props.choices.map((choice, index) => (
                         <Button key={index + '-choice-button'} width={'100%'} paddingType={"default"}
                                 justification={'flex-start'}

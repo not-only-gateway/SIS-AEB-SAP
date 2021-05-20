@@ -32,7 +32,7 @@ export default function ImageField(props) {
                        transition: 'visibility 0.2s ease,opacity 0.2s ease'
                    }}>{props.label}</label>
 
-            <form className={styles.imageFieldContainer}>
+            <form className={[styles.imageFieldContainer, styles.hovered].join(' ')}>
                 {props.initialImage && props.initialImage.name ?
                     <p
                         className={styles.labelContainer}

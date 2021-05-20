@@ -57,233 +57,180 @@ export default function DocumentsForm(props) {
                         message: undefined
                     })} render={status.error}/>
 
-                <HorizontalTabs
-                    noBackground={true}
-                    variant={'secondary'}
-                    extended={true}
-                    buttons={[
-                        {
-                            key: 0,
-                            value: lang.registration
-                        },
-                        {
-                            key: 1,
-                            value: lang.work
-                        },
-                        {
-                            key: 2,
-                            value: lang.bank
-                        },
-                        {
-                            key: 3,
-                            value: lang.voter
+                <div className={shared.formContainer}>
+                    <h4 style={{width: '100%', marginBottom: '16px'}}>{lang.registration}</h4>
+                    <TextField
+                        placeholder={'CPF'}
+                        label={'CPF'}
+                        handleChange={event => {
+                            setChanged(true)
+                            props.handleChange({name: 'cpf', value: event.target.value})
+                        }}
+                        locale={props.locale}
+                        value={props.documents === null ? null : props.documents.cpf}
+                        required={true}
+                        maxLength={11}
+                        width={'calc(50% - 16px)'}
+                    />
+
+                    <TextField
+                        placeholder={'RG'}
+                        label={'RG'}
+                        handleChange={event => {
+                            setChanged(true)
+                            props.handleChange({name: 'rg', value: event.target.value})
+                        }}
+                        locale={props.locale}
+                        value={props.documents === null ? null : props.documents.rg}
+                        required={true}
+                        maxLength={8}
+                        width={'calc(50% - 16px)'}
+                    />
+
+                    <TextField
+                        placeholder={lang.issuing}
+                        label={lang.issuing}
+                        handleChange={event => {
+                            setChanged(true)
+                            props.handleChange({name: 'issuing_body', value: event.target.value})
+                        }}
+                        locale={props.locale}
+                        value={props.documents === null ? null : props.documents.issuing_body}
+                        required={true}
+                        maxLength={8}
+                        width={'calc(50% - 16px)'}
+                    />
+
+
+                    <DateField
+                        placeholder={lang.dispatch}
+                        label={lang.dispatch}
+                        handleChange={event => {
+                            setChanged(true)
+                            props.handleChange({name: 'dispatch_date', value: event.target.value})
+                        }}
+                        locale={props.locale}
+                        value={props.documents === null ? null :
+                            (typeof (props.documents.dispatch_date) === 'number' ?
+                                new Date(props.documents.dispatch_date).toLocaleDateString().replace('/', '-')
+                                :
+                                props.documents.dispatch_date)
                         }
-                    ]}
-                    setOpenTab={setOpenTab}
-                    openTab={openTab}
-                    noMargin={false}
-                />
-                <TabContent
-                    openTab={openTab}
-                    key={undefined} noContainer={true}
-                    tabs={[
-                        {
-                            buttonKey: 0,
-                            value: (
-                                <div className={shared.formContainer}>
-                                    <TextField
-                                        placeholder={'CPF'}
-                                        label={'CPF'}
-                                        handleChange={event => {
-                                            setChanged(true)
-                                            props.handleChange({name: 'cpf', value: event.target.value})
-                                        }}
-                                        locale={props.locale}
-                                        value={props.documents === null ? null : props.documents.cpf}
-                                        required={true}
-                                        maxLength={11}
-                                        width={'calc(50% - 16px)'}
-                                    />
+                        required={true}
 
-                                    <TextField
-                                        placeholder={'RG'}
-                                        label={'RG'}
-                                        handleChange={event => {
-                                            setChanged(true)
-                                            props.handleChange({name: 'rg', value: event.target.value})
-                                        }}
-                                        locale={props.locale}
-                                        value={props.documents === null ? null : props.documents.rg}
-                                        required={true}
-                                        maxLength={8}
-                                        width={'calc(50% - 16px)'}
-                                    />
+                        width={'calc(50% - 16px)'}
+                    />
 
-                                    <TextField
-                                        placeholder={lang.issuing}
-                                        label={lang.issuing}
-                                        handleChange={event => {
-                                            setChanged(true)
-                                            props.handleChange({name: 'issuing_body', value: event.target.value})
-                                        }}
-                                        locale={props.locale}
-                                        value={props.documents === null ? null : props.documents.issuing_body}
-                                        required={true}
-                                        maxLength={8}
-                                        width={'calc(50% - 16px)'}
-                                    />
+                    <div className={shared.line}/>
+                    <h4 style={{width: '100%', marginBottom: '16px'}}>{lang.work}</h4>
 
+                    <TextField
+                        placeholder={lang.work}
+                        label={lang.work}
+                        handleChange={event => {
+                            setChanged(true)
+                            props.handleChange({name: 'work_card', value: event.target.value})
+                        }}
+                        locale={props.locale}
+                        value={props.documents === null ? null : props.documents.work_card}
+                        required={true}
 
-                                    <DateField
-                                        placeholder={lang.dispatch}
-                                        label={lang.dispatch}
-                                        handleChange={event => {
-                                            setChanged(true)
-                                            props.handleChange({name: 'dispatch_date', value: event.target.value})
-                                        }}
-                                        locale={props.locale}
-                                        value={props.documents === null ? null :
-                                            (typeof (props.documents.dispatch_date) === 'number' ?
-                                                new Date(props.documents.dispatch_date).toLocaleDateString().replace('/', '-')
-                                                :
-                                                props.documents.dispatch_date)
-                                        }
-                                        required={true}
+                        width={'calc(50% - 16px)'}
+                    />
+                    <TextField
+                        placeholder={'PIS/PASEP'}
+                        label={'PIS/PASEP'}
+                        handleChange={event => {
+                            setChanged(true)
+                            props.handleChange({name: 'pis', value: event.target.value})
+                        }}
+                        locale={props.locale}
+                        value={props.documents === null ? null : props.documents.pis}
+                        required={true}
 
-                                        width={'calc(50% - 16px)'}
-                                    />
+                        width={'calc(50% - 16px)'}
+                    />
+                    <div className={shared.line}/>
+                    <h4 style={{width: '100%', marginBottom: '16px'}}>{lang.bank}</h4>
+                    <TextField
+                        placeholder={lang.bank}
+                        label={lang.bank}
+                        handleChange={event => {
+                            setChanged(true)
+                            props.handleChange({name: 'bank', value: event.target.value})
+                        }}
+                        locale={props.locale}
+                        value={props.documents === null ? null : props.documents.bank}
+                        required={false}
+                        width={'calc(50% - 16px)'}
+                    />
+                    <TextField
+                        placeholder={lang.agency}
+                        label={lang.agency}
+                        handleChange={event => {
+                            setChanged(true)
+                            props.handleChange({name: 'agency', value: event.target.value})
+                        }}
+                        locale={props.locale}
+                        value={props.documents === null ? null : props.documents.agency}
+                        required={false}
+                        width={'calc(50% - 16px)'}
+                    />
+                    <div className={shared.line}/>
+                    <h4 style={{width: '100%', marginBottom: '16px'}}>{lang.voter}</h4>
+                    <TextField
+                        placeholder={lang.voter}
+                        label={lang.voter}
+                        handleChange={event => {
+                            setChanged(true)
+                            props.handleChange({name: 'voter_registration', value: event.target.value})
+                        }}
+                        locale={props.locale}
+                        value={props.documents === null ? null : props.documents.voter_registration}
+                        required={false}
+                        width={'100%'}
+                    />
+                    <TextField
+                        placeholder={lang.section}
+                        label={lang.section}
+                        handleChange={event => {
+                            setChanged(true)
+                            props.handleChange({name: 'electoral_section', value: event.target.value})
+                        }}
+                        locale={props.locale}
+                        value={props.documents === null ? null : props.documents.electoral_section}
+                        required={false}
+                        width={'calc(50% - 16px)'}
+                    />
+                    <TextField
+                        placeholder={lang.zone}
+                        label={lang.zone}
+                        handleChange={event => {
+                            setChanged(true)
+                            props.handleChange({name: 'electoral_zone', value: event.target.value})
+                        }}
+                        locale={props.locale}
+                        value={props.documents === null ? null : props.documents.electoral_zone}
+                        required={false}
+                        width={'calc(50% - 16px)'}
+                    />
+                </div>
 
-                                </div>
-                            )
-                        },
-                        {
-                            buttonKey: 1,
-                            value: (
-                                <div
-                                    className={shared.formContainer}>
-                                    <TextField
-                                        placeholder={lang.work}
-                                        label={lang.work}
-                                        handleChange={event => {
-                                            setChanged(true)
-                                            props.handleChange({name: 'work_card', value: event.target.value})
-                                        }}
-                                        locale={props.locale}
-                                        value={props.documents === null ? null : props.documents.work_card}
-                                        required={true}
-
-                                        width={'calc(50% - 16px)'}
-                                    />
-                                    <TextField
-                                        placeholder={'PIS/PASEP'}
-                                        label={'PIS/PASEP'}
-                                        handleChange={event => {
-                                            setChanged(true)
-                                            props.handleChange({name: 'pis', value: event.target.value})
-                                        }}
-                                        locale={props.locale}
-                                        value={props.documents === null ? null : props.documents.pis}
-                                        required={true}
-
-                                        width={'calc(50% - 16px)'}
-                                    />
-                                </div>
-                            )
-                        },
-                        {
-                            buttonKey: 2,
-                            value: (
-                                <div
-                                    className={shared.formContainer}>
-                                    <TextField
-                                        placeholder={lang.bank}
-                                        label={lang.bank}
-                                        handleChange={event => {
-                                            setChanged(true)
-                                            props.handleChange({name: 'bank', value: event.target.value})
-                                        }}
-                                        locale={props.locale}
-                                        value={props.documents === null ? null : props.documents.bank}
-                                        required={false}
-                                        width={'calc(50% - 16px)'}
-                                    />
-                                    <TextField
-                                        placeholder={lang.agency}
-                                        label={lang.agency}
-                                        handleChange={event => {
-                                            setChanged(true)
-                                            props.handleChange({name: 'agency', value: event.target.value})
-                                        }}
-                                        locale={props.locale}
-                                        value={props.documents === null ? null : props.documents.agency}
-                                        required={false}
-                                        width={'calc(50% - 16px)'}
-                                    />
-                                </div>
-                            )
-                        },
-                        {
-                            buttonKey: 3,
-                            value: (
-                                <div
-                                    className={shared.formContainer}>
-                                    <TextField
-                                        placeholder={lang.voter}
-                                        label={lang.voter}
-                                        handleChange={event => {
-                                            setChanged(true)
-                                            props.handleChange({name: 'voter_registration', value: event.target.value})
-                                        }}
-                                        locale={props.locale}
-                                        value={props.documents === null ? null : props.documents.voter_registration}
-                                        required={false}
-                                        width={'100%'}
-                                    />
-                                    <TextField
-                                        placeholder={lang.section}
-                                        label={lang.section}
-                                        handleChange={event => {
-                                            setChanged(true)
-                                            props.handleChange({name: 'electoral_section', value: event.target.value})
-                                        }}
-                                        locale={props.locale}
-                                        value={props.documents === null ? null : props.documents.electoral_section}
-                                        required={false}
-                                        width={'calc(50% - 16px)'}
-                                    />
-                                    <TextField
-                                        placeholder={lang.zone}
-                                        label={lang.zone}
-                                        handleChange={event => {
-                                            setChanged(true)
-                                            props.handleChange({name: 'electoral_zone', value: event.target.value})
-                                        }}
-                                        locale={props.locale}
-                                        value={props.documents === null ? null : props.documents.electoral_zone}
-                                        required={false}
-                                        width={'calc(50% - 16px)'}
-                                    />
-                                </div>
-                            )
-                        }
-                    ]
-                    }/>
-
-
-                <Button width={'100%'} elevation={true} border={'none'} padding={'8px 32px 8px 32px'}
-                        fontColor={'white'} backgroundColor={'#0095ff'} handleClick={() => {
-                    props.handleSubmit({data: props.documents, personID: props.id}).then(res => {
-                        setChanged(!res)
-                        if (props.setAccepted !== undefined)
-                            props.setAccepted(res)
-                    })
-                }}
-                        disabled={disabled()} variant={'rounded'}
-                        content={
-                            props.create ? lang.create : lang.save
-                        } justification={'center'} hoverHighlight={false}
-                />
-
+                <div className={shared.formSubmitContainer}>
+                    <Button width={'100%'} elevation={true} border={'none'} padding={'8px 32px 8px 32px'}
+                            fontColor={'white'} backgroundColor={'#0095ff'} handleClick={() => {
+                        props.handleSubmit({data: props.documents, personID: props.id}).then(res => {
+                            setChanged(!res)
+                            if (props.setAccepted !== undefined)
+                                props.setAccepted(res)
+                        })
+                    }}
+                            disabled={disabled()} variant={'rounded'}
+                            content={
+                                props.create ? lang.create : lang.save
+                            } justification={'center'} hoverHighlight={false}
+                    />
+                </div>
             </div>
         )
     else

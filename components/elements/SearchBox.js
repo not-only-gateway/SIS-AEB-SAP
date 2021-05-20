@@ -60,8 +60,12 @@ export default function SearchBox(props) {
                     onFocus={() => setFocused(true)}
                     onBlur={() => setFocused(false)}
                     onKeyDown={key => {
-                        if (key.key === 'Enter')
+                        if (key.key === 'Enter') {
                             props.applyChanges()
+                            key.preventDefault()
+                        }
+
+
                     }}
                     onChange={event => {
 

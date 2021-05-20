@@ -35,6 +35,7 @@ export default function Extensions(props) {
                     scrollableTarget="scrollableDiv"
                     loader={<Skeleton variant={'rect'} width={'100%'} style={{borderRadius: '8px'}}
                                       height={'7vh'}/>}
+                    style={{overflow: 'visible'}}
                     endMessage={
                         <div className={styles.fullWidth}>
                             <p className={mainStyles.secondaryParagraph}
@@ -43,6 +44,54 @@ export default function Extensions(props) {
                     }
                 >
                     <div className={styles.extensionsList}>
+                        {props.data.map((member, index) =>
+                            <Extension
+                                lang={lang} index={index} member={member.member} redirect={id => props.redirect(id)}
+                                unit={member.unit} commissionedRole={member.commissioned_role}
+                                effectiveRole={member.effective_role} senior={member.senior} linkage={member.linkage}
+                                person={member.person} editable={editable} locale={props.locale}
+                            />
+                        )}
+                        {props.data.map((member, index) =>
+                            <Extension
+                                lang={lang} index={index} member={member.member} redirect={id => props.redirect(id)}
+                                unit={member.unit} commissionedRole={member.commissioned_role}
+                                effectiveRole={member.effective_role} senior={member.senior} linkage={member.linkage}
+                                person={member.person} editable={editable} locale={props.locale}
+                            />
+                        )}
+                        {props.data.map((member, index) =>
+                            <Extension
+                                lang={lang} index={index} member={member.member} redirect={id => props.redirect(id)}
+                                unit={member.unit} commissionedRole={member.commissioned_role}
+                                effectiveRole={member.effective_role} senior={member.senior} linkage={member.linkage}
+                                person={member.person} editable={editable} locale={props.locale}
+                            />
+                        )}
+                        {props.data.map((member, index) =>
+                            <Extension
+                                lang={lang} index={index} member={member.member} redirect={id => props.redirect(id)}
+                                unit={member.unit} commissionedRole={member.commissioned_role}
+                                effectiveRole={member.effective_role} senior={member.senior} linkage={member.linkage}
+                                person={member.person} editable={editable} locale={props.locale}
+                            />
+                        )}
+                        {props.data.map((member, index) =>
+                            <Extension
+                                lang={lang} index={index} member={member.member} redirect={id => props.redirect(id)}
+                                unit={member.unit} commissionedRole={member.commissioned_role}
+                                effectiveRole={member.effective_role} senior={member.senior} linkage={member.linkage}
+                                person={member.person} editable={editable} locale={props.locale}
+                            />
+                        )}
+                        {props.data.map((member, index) =>
+                            <Extension
+                                lang={lang} index={index} member={member.member} redirect={id => props.redirect(id)}
+                                unit={member.unit} commissionedRole={member.commissioned_role}
+                                effectiveRole={member.effective_role} senior={member.senior} linkage={member.linkage}
+                                person={member.person} editable={editable} locale={props.locale}
+                            />
+                        )}
                         {props.data.map((member, index) =>
                             <Extension
                                 lang={lang} index={index} member={member.member} redirect={id => props.redirect(id)}

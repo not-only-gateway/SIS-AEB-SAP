@@ -103,7 +103,7 @@ export default function Index() {
             <div>
                 {renderModal()}
                 <HeaderLayout
-                    width={'75%'}
+                    width={'65%'}
                     availableTabs={{
                         tabs: [
                             {
@@ -130,13 +130,14 @@ export default function Index() {
                             }}>
                                 {lang.extensions}
                             </h2>
-                            <Button handleClick={() => setModal(true)} boxShadow={false} disabled={false}
-                                    hoverHighlight={true}
-                                    justification={'center'} content={<FilterListRounded/>} variant={"default"}
-                                    backgroundColor={'#f4f5fa'} fontColor={'#262626'} padding={'8px'}
-                                    border={' #ecedf2 .7px solid'} width={'fit-content'} colorVariant={'default'}
-                            />
-
+                            {openTab > 0 ? null :
+                                <Button handleClick={() => setModal(true)} boxShadow={false} disabled={false}
+                                        hoverHighlight={true}
+                                        justification={'center'} content={<FilterListRounded/>} variant={"default"}
+                                        backgroundColor={'#f4f5fa'} fontColor={'#262626'} padding={'8px'}
+                                        border={' #ecedf2 .7px solid'} width={'fit-content'} colorVariant={'default'}
+                                />
+                            }
                         </div>
                     }
                     information={openTab === 1 ? lang.information : undefined}

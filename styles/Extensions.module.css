@@ -1,5 +1,5 @@
 .contentContainer {
-    width: 75%;
+    width: 65%;
     height: fit-content;
     border-radius: 8px;
     display: grid;
@@ -10,13 +10,15 @@
 
 .fullWidth {
     width: 100%;
-    overflow-x: visible;
+
 }
 
 .extensionsList {
-    display: grid;
-    gap: 16px;
-    overflow-x: visible;
+    display: flex;
+    gap: 37px;
+
+    flex-flow: row wrap;
+
 }
 
 .nothingFoundContainer {
@@ -34,16 +36,31 @@
 
 .extensionButton {
     cursor: pointer;
-    width: 100%;
+
     text-transform: none;
     border-radius: 8px;
-    background-color: #f4f5fa;
-    height: 80px;
-    padding: 8px;
-    transition: 300ms ease-in-out;
 
-    display: flex;
-    align-items: center;
+
+    padding: 8px 8px 75px 8px;
+
+    display: grid;
+    justify-items: center;
+    align-content: space-between;
+
+    width: 210px;
+
+    height: 275px;
+
+
+    background: #f4f5fa;
+    box-shadow: 0 0 1px 1px #ecedf2;
+    border: unset;
+
+    transition: 300ms ease-in-out;
+}
+
+.extensionButton:hover {
+    box-shadow: 0 0 4px 2px #0095ff;
 }
 
 .secondaryHeaderStyle {
@@ -81,7 +98,7 @@
     display: flex;
     justify-content: flex-end;
     border-radius: 0 0 8px 8px;
-    padding: 24px 32px 24px  32px;
+    padding: 24px 32px 24px 32px;
     gap: 16px;
 }
 
@@ -94,9 +111,7 @@
 
     height: auto;
 
-    display: flex;
-    flex-flow: row wrap;
-
+    display: grid;
 
     position: relative;
 }
