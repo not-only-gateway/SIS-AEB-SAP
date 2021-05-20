@@ -32,11 +32,11 @@ export default function ExpandableTabs(props) {
                                 }}
                                     elevation={button.mainButton.key === extendedTab} disabled={false}
                                     padding={'8px 32px 8px 32px'}
-                                    variant={button.mainButton.key !== extendedTab ? 'default' : 'rounded'} width={'auto'}
+                                    variant={ 'rounded'} width={'auto'}
                                     hoverHighlight={button.mainButton.key !== extendedTab && props.openTab.mainTab !== button.mainButton.key}
                                     border={'transparent 1px solid'}
-                                    backgroundColor={button.mainButton.key === extendedTab || props.openTab.mainTab === button.mainButton.key ? '#0095ff' : ''}
-                                    fontColor={button.mainButton.key === extendedTab || props.openTab.mainTab === button.mainButton.key ? 'white' : '#262626'}
+                                    backgroundColor={props.openTab.mainTab === button.mainButton.key ? '#0095ff' : button.mainButton.key === extendedTab ? '#ff4940' : 'unset'}
+                                    fontColor={props.openTab.mainTab === button.mainButton.key || button.mainButton.key === extendedTab? 'white' :  '#222228'}
                                     paddingType={'long'}
                                 />
                                 {extendedTab === button.mainButton.key ? button.subButtons.map(subButton => (
@@ -50,10 +50,10 @@ export default function ExpandableTabs(props) {
                                             disabled={false} padding={'8px 32px 8px 32px'}
                                             variant={'rounded'} width={'auto'}
                                             hoverHighlight={subButton.key !== props.openTab.subTab}
-                                            border={'transparent 1px solid'}
-                                            colorVariant={'secondary'}
-                                            backgroundColor={props.openTab && subButton.key === props.openTab.subTab && button.mainButton.key === props.openTab.mainTab ? '#ff4940' : 'transparent'}
-                                            fontColor={props.openTab && subButton.key === props.openTab.subTab && button.mainButton.key === props.openTab.mainTab ?  'white':'#262626'}
+                                            border={props.openTab && subButton.key === props.openTab.subTab && button.mainButton.key === props.openTab.mainTab ? '#ecedf2 1px solid' : 'transparent 1px solid'}
+                                            colorVariant={'default'}
+                                            backgroundColor={props.openTab && subButton.key === props.openTab.subTab && button.mainButton.key === props.openTab.mainTab ? 'white' : 'transparent'}
+                                            fontColor={ '#262626'}
                                             paddingType={'long'}
                                         />
                                     </div>

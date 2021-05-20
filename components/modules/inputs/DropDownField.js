@@ -48,12 +48,12 @@ export default function DropDownField(props) {
             }} >
                 <button
                     id={'dropdown-'+props.label}
+                    disabled={props.disabled}
 
                     style={{
                         height: '56px', borderRadius: '5px',
-                        border: open ? '#0095ff 1px solid' : '#eeeef1 1px solid',
                     }}
-                    className={styles.selectContainer}
+                    className={[styles.selectContainer, props.disabled ? {} : styles.hovered].join(' ')}
                     onClick={() => setOpen(!open)}
                 >
 
@@ -65,7 +65,10 @@ export default function DropDownField(props) {
                     {open ? props.choices.map((choice, index) => (
                         <Button key={index + '-choice-button'} width={'100%'} paddingType={"default"}
                                 justification={'flex-start'}
-                                handleClick={() => props.handleChange(choice.key)} content={choice.value}
+                                handleClick={() => {
+                                    props.handleChange(choice.key)
+                                    setOpen(false)
+                                }} content={choice.value}
 
                                 backgroundColor={choice.key === props.value ? '#0095ff' : 'transparent'}
                                 fontColor={choice.key === props.value ? 'white' : '#262626'}
@@ -93,5 +96,5 @@ DropDownField.propTypes = {
     value: PropTypes.string,
     required: PropTypes.bool,
     locale: PropTypes.string,
-
+    disabled: PropTypes.bool
 }

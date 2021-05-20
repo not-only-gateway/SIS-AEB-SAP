@@ -5,8 +5,8 @@ import InputMask from 'react-input-mask';
 import {VisibilityOffRounded, VisibilityRounded} from "@material-ui/icons";
 
 export default function TextField(props) {
-    const [focused, setFocused] = useState(false)
     const [visible, setVisible] = useState(false)
+
 
     function getLang(locale) {
         let response = 'This field is required.'
@@ -21,13 +21,12 @@ export default function TextField(props) {
         <div
             style={{
                 width: props.width,
-                height: '100px',
+                height: props.variant === 'small' ? '86px' : '100px',
                 display: 'grid',
                 alignItems: props.value ? 'unset' : 'flex-start',
                 gap: '4px',
             }}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}>
+        >
             <label htmlFor={'input'} className={styles.labelContainer}
                    style={{
                        visibility: (props.value !== undefined && props.value !== null && props.value.length > 0) ? 'visible' : 'hidden',
@@ -41,9 +40,10 @@ export default function TextField(props) {
                            onChange={props.handleChange}>
                     {event =>
                         <input
+                            disabled={props.disabled}
                             id={'input'}
                             placeholder={props.placeholder}
-                            className={styles.inputContainer}
+                            className={[styles.inputContainer, props.disabled ? {} : styles.hovered].join(' ')}
                             value={event.value}
                             onChange={event.onChange}
                             maxLength={props.maxLength}
@@ -52,10 +52,12 @@ export default function TextField(props) {
                 :
                 <div className={styles.fieldsContainer}>
                     <input
+                        disabled={props.disabled}
                         id={'input'}
                         placeholder={props.placeholder}
-                        className={styles.inputContainer}
+                        className={[styles.inputContainer, props.disabled ? {} : styles.hovered].join(' ')}
                         value={props.value}
+                        style={{height: props.variant === 'small'? '40px' : undefined}}
                         type={props.passwordMask && !visible ? 'password' : 'text'}
                         onChange={props.handleChange}
                         maxLength={props.maxLength}
@@ -95,5 +97,9 @@ TextField.propTypes = {
     passwordMask: PropTypes.bool,
     phoneMask: PropTypes.bool,
     maxLength: PropTypes.number,
-
+    disabled: PropTypes.bool,
+    variant: PropTypes.oneOf([
+        'default',
+        'small'
+    ])
 }

@@ -18,6 +18,7 @@
     overflow: hidden;
 
     height: 100%;
+
 }
 .accordionTitle{
     display: flex;
@@ -40,14 +41,16 @@
 .modalContainer{
     background-color: white;
     border-radius: 8px;
-    height: clamp(500px, 75%, 75%);
-    width: clamp(500px, 60%, 60%);
-    padding: 16px;
+    height: 60%;
+    width: clamp(500px, 60%,750px);
+    padding:32px;
     overflow: hidden;
 
     display: grid;
     justify-items: center;
     align-content: flex-start;
+
+    position: relative;
 }
 .modalContainer > div {
     /*height: 100%;*/

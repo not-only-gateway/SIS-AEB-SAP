@@ -33,12 +33,13 @@ export default function Extension(props) {
 
                         <Button
                             width={'fit-content'}
-                            border={'unset'}
+                            border={'#ecedf2 .7px solid'}
                             variant={'rounded'}
                             content={props.lang.close}
                             handleClick={() => setModal(false)}
                             backgroundColor={'white'}
-                            disabled={false}
+                            hoverHighlight={true}
+                            colorVariant={'secondary'}
                             elevation={true}
                             fontColor={'#262626'}
                             padding={'8px 32px 8px 32px'}
@@ -50,7 +51,7 @@ export default function Extension(props) {
                             content={props.lang.edit}
                             handleClick={() => props.redirect(props.member.id)}
                             backgroundColor={'#0095ff'}
-                            disabled={false}
+                            hoverHighlight={false}
                             elevation={true}
                             fontColor={'white'}
                             padding={'8px 32px 8px 32px'}

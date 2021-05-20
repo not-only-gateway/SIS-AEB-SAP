@@ -12,9 +12,9 @@ export default function HorizontalTabs(props) {
                  width: props.extended ? '100%' : 'fit-content',
                  transition: '300ms ease-in-out',
                  borderRadius: '32px',
-                 backgroundColor: '#f4f5fa',
+                 backgroundColor: props.noBackground ? 'unset' : '#f4f5fa',
                  padding: '3px',
-                 border: '#ecedf2 .7px solid'
+                 border:  props.noBackground ? 'unset' : '#ecedf2 .7px solid'
              }}>
             {props.buttons.map((button) => {
                     if (button !== null)
@@ -25,7 +25,7 @@ export default function HorizontalTabs(props) {
                                 elevation={props.openTab === button.key} disabled={false} padding={'8px 32px 8px 32px'}
                                 variant={'rounded'} width={'auto'} hoverHighlight={props.openTab !== button.key}
                                 colorVariant={props.variant === 'secondary' ? 'secondary' : undefined}
-                                border={props.openTab === button.key ? '#eeeef1 1px solid' : 'transparent 1px solid'}
+                                border={'unset'} boxShadow={'unset'}
                                 backgroundColor={props.openTab === button.key ? (props.variant === 'secondary' ? '#ff4940' : '#0095ff') : 'transparent'}
                                 fontColor={props.openTab === button.key ? 'white' : '#262626'} paddingType={'long'}
                             />
@@ -52,5 +52,6 @@ HorizontalTabs.proptypes = {
     variant: PropTypes.oneOf([
         'default',
         'secondary'
-    ])
+    ]),
+    noBackground: PropTypes.bool
 }

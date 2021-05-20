@@ -12,19 +12,22 @@ import handleObjectChange from "../utils/shared/HandleObjectChange";
 import TabContent from "../components/templates/TabContent";
 import Extensions from "../components/modules/Extensions";
 import CollaboratorsStructure from "../components/modules/structure/CollaboratorsStructure";
+import {Modal} from "@material-ui/core";
+import animations from "../styles/shared/Animations.module.css";
+import shared from "../styles/shared/Shared.module.css";
+import {CloseRounded, FilterListRounded} from "@material-ui/icons";
+import Button from "../components/modules/inputs/Button";
 
 export default function Index() {
 
     const router = useRouter()
     const [data, setData] = useState([])
-    const [loading, setLoading] = useState(true)
     const [lang, setLang] = useState(null)
     const [option, setOption] = useState('collaborators')
     const [openTab, setOpenTab] = useState(0)
     const [lastFetchedSize, setLastFetchedSize] = useState(null)
     const [maxID, setMaxID] = useState(null)
     const [accessProfile, setAccessProfile] = useState(null)
-    const [changed, setChanged] = useState(false)
     const [filters, setFilters] = useState({
         unit: undefined,
         effectiveRole: undefined,
@@ -34,6 +37,7 @@ export default function Index() {
         commissionedRoleOnly: undefined,
         searchInput: ''
     })
+    const [modal, setModal] = useState(false);
 
     useEffect(() => {
         setLang(getLanguage(router.locale, '/'))
@@ -59,7 +63,7 @@ export default function Index() {
                 commissioned_role: filters.commissionedRole === undefined ? null : filters.commissionedRole.key,
                 effective_role: filters.effectiveRole === undefined ? null : filters.effectiveRole.key,
             },
-            setLoading: setLoading,
+
             path: option,
             setLastFetchedSize: setLastFetchedSize,
             setMaxID: setMaxID,
@@ -68,10 +72,36 @@ export default function Index() {
         }).catch(error => console.log(error))
     }
 
+    function renderModal() {
+
+        return (
+            <Modal
+                open={modal}
+                onClose={() => setModal(false)}
+                style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center'}}
+            >
+                <div className={[styles.filterModalContainer, animations.slideInRightAnimation].join(' ')}>
+                    <ExtensionsFilters
+                        dark={false} setOption={setOption} option={option}
+                        setModal={() => setModal(false)}
+                        applyChanges={() => {
+                            fetchData(1, true)
+                        }}
+                        setMaxID={setMaxID} filters={filters}
+                        handleFilterChange={event => handleObjectChange({event: event, setData: setFilters})}
+                        accessProfile={accessProfile} locale={router.locale}
+                    />
+
+                </div>
+
+            </Modal>
+        )
+    }
+
     if (lang !== null)
         return (
             <div>
-
+                {renderModal()}
                 <HeaderLayout
                     width={'75%'}
                     availableTabs={{
@@ -90,20 +120,25 @@ export default function Index() {
                         setOpenTab: setOpenTab,
                         openTab: openTab
                     }}
-                    filterComponent={
-                        openTab === 0 ?
-                            <ExtensionsFilters
-                                dark={false} setOption={setOption} option={option} setChanged={setChanged}
-                                lang={lang} setLoading={setLoading} fetchData={fetchData} changed={changed}
-                                setMaxID={setMaxID} filters={filters}
-                                handleFilterChange={event => handleObjectChange({event: event, setData: setFilters})}
-                                accessProfile={accessProfile} locale={router.locale}
-                            />
-                            :
-                            undefined
-                    }
+
                     pageTitle={lang.extensions}
-                    title={lang.extensions}
+                    title={
+                        <div style={{display: 'flex', gap: '16px', alignItems: "center", justifyItems: 'flex-start'}}>
+                            <h2 style={{
+                                marginBottom: "unset",
+                                marginTop: "unset",
+                            }}>
+                                {lang.extensions}
+                            </h2>
+                            <Button handleClick={() => setModal(true)} boxShadow={false} disabled={false}
+                                    hoverHighlight={true}
+                                    justification={'center'} content={<FilterListRounded/>} variant={"default"}
+                                    backgroundColor={'#f4f5fa'} fontColor={'#262626'} padding={'8px'}
+                                    border={' #ecedf2 .7px solid'} width={'fit-content'} colorVariant={'default'}
+                            />
+
+                        </div>
+                    }
                     information={openTab === 1 ? lang.information : undefined}
                     searchComponent={
                         openTab === 0 ?
@@ -112,27 +147,23 @@ export default function Index() {
                                            event: {
                                                name: 'searchInput',
                                                value: event
-                                           }, setData: setFilters
+                                           },
+                                           setData: setFilters
                                        })}
                                        applyChanges={() => {
-                                           setChanged(false)
                                            fetchData(1, true)
                                        }}
-                                       searchLocale={lang.search} setChanged={setChanged}/>
+                                       searchLocale={lang.search}/>
                             :
                             undefined
                     }
                     activeFiltersComponent={
-                        openTab === 0 ?
+                        openTab > 0 ? null :
                             <FiltersComponent
-                                active={changed}
                                 handleChange={event => handleObjectChange({event: event, setData: setFilters})}
                                 applyChanges={() => {
-                                    setChanged(false)
                                     fetchData(1, true)
                                 }}
-                                setChanged={setChanged}
-                                changed={changed}
                                 activeFilters={[
                                     {
                                         key: 'unit',
@@ -154,16 +185,10 @@ export default function Index() {
                                         key: 'commissionedRoleOnly',
                                         value: filters.commissionedRoleOnly !== undefined && filters.commissionedRoleOnly ? 'Commissioned Roles Only' : null
                                     },
-                                    {
-                                        key: 'searchInput',
-                                        value: filters.searchInput.length > 0 ? filters.searchInput : null,
-                                        type: 'text'
-                                    },
                                     {key: 'option', value: option === 'member' ? 'All' : null, disabled: true}
-                                ]}/>
-                            : undefined
+                                ]}
+                            />
                     }
-
                 />
                 <div className={styles.contentContainer}>
                     <TabContent

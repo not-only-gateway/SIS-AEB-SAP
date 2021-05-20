@@ -13,6 +13,7 @@ import CorporateForms from "../components/elements/CorporateForms";
 import Alert from "../components/layout/Alert";
 import Head from 'next/head'
 import ExpandableTabs from "../components/layout/navigation/ExpandableTabs";
+import {Divider} from "@material-ui/core";
 
 export default function person() {
 
@@ -127,9 +128,10 @@ export default function person() {
                                 openTab={openTab}
                                 setOpenTab={setOpenTab}
                             />
-
+                            <Divider orientation={'horizontal'} style={{backgroundColor: '#ecedf2', width: '100%', marginTop: '5px'}}/>
                         </div>
                         <div className={styles.profileContentContainer}>
+
                             <TabContent
                                 openTab={openTab.mainTab}
                                 key={'person'}

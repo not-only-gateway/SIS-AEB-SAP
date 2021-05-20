@@ -58,6 +58,7 @@ export default function DocumentsForm(props) {
                     })} render={status.error}/>
 
                 <HorizontalTabs
+                    noBackground={true}
                     variant={'secondary'}
                     extended={true}
                     buttons={[

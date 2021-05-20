@@ -1,17 +1,25 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import mainStyles from '../../../styles/shared/Main.module.css'
-import {AddRounded, CloseRounded, ListRounded} from "@material-ui/icons";
-import {Button, Modal} from "@material-ui/core";
+import {AddRounded, ArrowDropDownRounded, CloseRounded, DeleteForeverRounded, ListRounded} from "@material-ui/icons";
+import {Divider, Modal} from "@material-ui/core";
 import InputLayout from "../InputLayout";
 import animations from '../../../styles/shared/Animations.module.css'
 import shared from "../../../styles/shared/Shared.module.css";
+import styles from "../../../styles/Input.module.css";
+import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
+import Button from "./Button";
+import TextField from "./TextField";
 
 export default function Selector(props) {
     const [modal, setModal] = useState(false)
     const [search, setSearch] = useState('')
     const [lang, setLang] = useState(null)
-    const [hovered, setHovered] = useState(false)
+
+    useEffect(() => {
+        if (lang === null)
+            setLang(getComponentLanguage({component: 'selector', locale: props.locale}))
+    }, [])
 
     function handleChange(event) {
         setSearch(event.value)
@@ -21,176 +29,170 @@ export default function Selector(props) {
         return (
             <Modal open={modal} onClose={() => setModal(false)}
                    style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                <div className={[shared.modalContainer, animations.fadeIn].join(' ')}
-                     style={{backgroundColor: 'white', position: 'relative'}}>
-                    <div className={shared.closeButtonModalContainer}>
-                        <Button onClick={() => setModal(false)}>
-                            <CloseRounded/>
-                        </Button>
-                    </div>
-                    <div className={mainStyles.displayColumnSpaced} style={{
-                        justifyItems: 'center',
+                <div className={[shared.modalContainer, animations.fadeIn].join(' ')}>
+                    <div style={{
+                        display: 'grid',
+                        justifyItems: 'flex-start',
+                        gap: '8px',
                     }}>
                         <h3 style={{marginTop: 0, marginBottom: '16px'}}>{props.label}</h3>
-                        <InputLayout inputName={'Search'} dark={props.dark}
-                                     handleChange={handleChange} name={undefined}
-                                     inputType={0} disabled={false} size={'100%'} required={false}
-                                     initialValue={search} key={"search"} setChanged={undefined}/>
-
                         {props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ?
-                            <div className={mainStyles.rowContainer} style={{width: '100%'}}>
-                                <div style={{
-                                    border: '#e2e2e2 1px solid',
-                                    borderRadius: '8px',
-                                    padding: '10px',
-                                    minWidth: props.required ? '100%' : 'calc(50% - 8px)',
-                                    marginTop: '16px'
-                                }} className={mainStyles.displayInlineCenter}>
-                                    {props.selected.value}
-                                </div>
+                            <Button
+                                content={props.required ?
+                                    <div>
+                                        <h5 style={{marginTop: 0, marginBottom: 0}}>{props.selected.value}</h5>
+                                    </div>
+                                    :
+                                    <div style={{display: 'flex', gap: '32px', alignItems: 'center'}}>
+                                        <h5 style={{marginTop: 0, marginBottom: 0}}>{props.selected.value}</h5>
+                                        <DeleteForeverRounded/>
+                                    </div>}
+                                hoverHighlight={true}
+                                colorVariant={'secondary'}
+                                variant={'default'}
+                                border={'unset'}
+                                width={'fit-content'}
+                                backgroundColor={'#f4f5fa'}
+                                handleClick={() => {
+                                    if (props.setChanged)
+                                        props.setChanged(true)
+                                    props.handleChange(undefined)
+                                }}
+                                padding={props.required ? '8px 32px 8px 32px' : '8px'}
+                                disabled={props.required}
+                                fontColor={'#555555'}/>
+                            : null}
 
-                                <div>
-                                    {props.required ? null :
-                                        <Button onClick={() => {
-                                            props.setChanged(true)
-                                            props.handleChange(undefined)
-                                        }} style={{
-                                            textTransform: 'none',
-                                            justifyItems: 'center',
-                                            marginLeft: 'auto',
-                                            width: '49%', backgroundColor: '#f54269',
-                                            color: 'white'
-                                        }}>
-                                            Remove
-                                        </Button>
 
-                                    }
-                                </div>
-                            </div>
-                            :
-                            null}
+                            <TextField
+                                variant={'small'}
+                                placeholder={lang.search} label={lang.search}
+                                handleChange={event => {
+                                    setSearch(event.target.value)
+                                }}
+                                locale={props.locale} value={search} required={false}
+                                width={'100%'}
+                                maxLength={undefined}/>
+                        <Divider orientation={'horizontal'} style={{backgroundColor: '#ecedf2', width: '100%'}}/>
                     </div>
 
-                    <div className={mainStyles.displayWarp} style={{
-                        overflowY: 'auto',
-                        backgroundColor: '#eeeef1',
-                        borderRadius: '8px',
-                        padding: '16px',
-                        gap: '16px',
-                        height: 'auto',
-                        marginTop: '16px'
 
+                    <div style={{
+                        overflowY: 'auto',
+                        marginTop: '16px',
+                        marginBottom: '64px',
+                        display: 'grid'
                     }}>
-                        {props.data.map(data => {
-                            if (search.length > 0 && (data.value.toLowerCase()).match(search.toLowerCase())) {
+                        {props.data.map((data) => {
+                            if (search.length === 0 || search.length > 0 && (data.value.toLowerCase()).match(search.toLowerCase())) {
                                 return (
                                     <Button
-                                        key={data.key} variant={'contained'}
-                                        style={{
-                                            width: 'calc(50% - 8px)',
-                                            backgroundColor: props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? '#0095ff' : 'white',
-                                            color: props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? 'white' : null,
-                                            borderRadius: '8px',
-                                            boxShadow: 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px'
-                                        }}
-                                        onClick={() => {
-                                            props.setChanged(true)
+                                        content={data.value}
+                                        hoverHighlight={!(props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key)}
+                                        colorVariant={'primary'}
+                                        variant={'default'}
+                                        justification={'flex-start'}
+                                        border={props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? '#ecedf2 .7px solid' : 'transparent .7px solid'}
+                                        width={'100%'}
+                                        backgroundColor={props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? '#f4f5fa' : 'white'}
+                                        handleClick={() => {
+                                            if (props.setChanged)
+                                                props.setChanged(true)
                                             props.handleChange(data)
-                                        }}>
-                                        {data.value}
-                                    </Button>
+                                        }}
+                                        padding={'8px'}
+                                        elevation={true}
+                                        fontColor={'#222228'}
+                                    />
                                 )
                             } else if (search.length > 0)
                                 return null
-                            else
-                                return (
-                                    <Button
-                                        key={data.key} style={{
-                                        width: 'calc(50% - 8px)',
-                                        backgroundColor: props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? '#0095ff' : 'white',
-                                        color: props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? 'white' : null,
-                                        borderRadius: '8px',
-                                        boxShadow: 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px'
-                                    }} onClick={() => {
-                                        props.setChanged(true)
-                                        props.handleChange(data)
-                                    }}>
-                                        {data.value}
-                                    </Button>
-                                )
+
                         })}
+                    </div>
+                    <div className={styles.modalFooter}>
+
+                        <Button
+                            width={'fit-content'}
+                            border={'#ecedf2 .7px solid'}
+                            variant={'rounded'}
+                            content={lang.close}
+                            handleClick={() => setModal(false)}
+                            backgroundColor={'white'}
+                            hoverHighlight={true}
+                            colorVariant={'secondary'}
+                            elevation={true}
+                            fontColor={'#262626'}
+                            padding={'8px 32px 8px 32px'}
+                        />
                     </div>
                 </div>
             </Modal>
         )
     }
 
-    return (
-        <>
-            {renderModal()}
 
-                <fieldset
-                    onMouseEnter={() => setHovered(true)}
-                    onMouseLeave={() => setHovered(false)}
-                    className={mainStyles.displayInlineSpaced}
+    if (lang !== null)
+        return (
+            <>
+                {renderModal()}
+
+                <div
                     style={{
                         width: props.width,
-                        height: '56px',
-                        border: hovered ? 'black 1px solid' : '#c0c0c0 1px solid',
-                        borderRadius: '4px',
-                        cursor: props.disabled ? 'auto' : 'pointer',
-                        color: 'rgba(0,0,0,.9)',
-                        alignItems: 'center',
-                        position: 'relative',
+                        height: '100px',
+                        display: 'grid',
+                        alignItems: props.value ? 'unset' : 'flex-start',
+                        gap: '4px',
+                    }}
+                >
+                    <label htmlFor={'select-' + props.label} className={styles.labelContainer}
+                           style={{
+                               visibility: props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ? 'visible' : 'hidden',
+                               opacity: props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ? '1' : '0',
+                               transition: 'visibility 0.2s ease,opacity 0.2s ease'
+                           }}>{props.label}</label>
 
-                        margin: 'unset'
+                    <div className={styles.dropDownContainer}>
+                        <button
+                            id={'select-' + props.label}
+                            disabled={props.disabled}
 
-                    }} onClick={() => {
-                    if(!props.disabled)
-                        setModal(true)
-                }}>
-                    {props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ?
-                        <legend style={{
-                            paddingRight: '5px',
-                            paddingLeft: '5px',
-                            fontSize: '.8rem',
-                            color: 'rgba(0,0,0,.6)',
-                            position: "absolute",
-                            top: 0,
-                            transform:'translateY(-10px)',
-                            backgroundColor: 'white'
-                        }}>
-                            {props.label}
-                            {props.required ? ' *' : null}
-                        </legend>
-                        :
-                        null
-                    }
-                    <div style={{position: "absolute", height: '56px', width: '100%', padding: '10px', left: 0,
-                        bottom: 0,
-                        right: 0}} className={mainStyles.displayInlineSpaced}>
+                            style={{
+                                height: '56px', borderRadius: '5px',
+                            }}
+                            className={[styles.selectContainer, props.disabled ? {} : styles.hovered].join(' ')}
+                            onClick={() => setModal(true)}
+                        >
 
-                        {props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ?
-                            <>
+                            {props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ?
+                                <>
 
-                                {props.selected.value}
-                                <ListRounded style={{color: 'rgba(0,0,0,.6)'}}/>
-                            </>
-                            :
-                            <>
-                                <p style={{
-                                    color: 'rgba(0,0,0,.55)',
-                                }}>    {props.label}
-                                    {props.required ? ' *' : null}</p>
-                                <AddRounded style={{color: 'rgba(0,0,0,.6)'}}/>
-                            </>
-                        }
+                                    {props.selected.value}
+                                    <ListRounded style={{color: 'rgba(0,0,0,.6)'}}/>
+                                </>
+                                :
+                                <>
+                                    <p style={{
+                                        color: 'rgba(0,0,0,.55)',
+                                    }}>    {props.label}
+                                        {props.required ? ' *' : null}</p>
+                                    <AddRounded style={{color: 'rgba(0,0,0,.6)'}}/>
+                                </>
+                            }
+                        </button>
                     </div>
-                </fieldset>
 
+                    <label htmlFor={'select-' + props.label} className={styles.alertLabel}
+                           style={{
+                               color: props.value === null || props.value === undefined ? '#ff5555' : '#262626',
+                               visibility: props.required && !open ? 'visible' : 'hidden',
+                           }}>{lang.required}</label>
 
-        </>
-    )
+                </div>
+            </>
+        )
+    else return null
 }
 
 Selector.propTypes = {

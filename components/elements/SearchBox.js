@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import {ButtonBase, InputBase, Paper} from "@material-ui/core";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import mainStyles from '../../styles/shared/Main.module.css'
 import {CloseRounded, SearchRounded} from "@material-ui/icons";
 
@@ -9,6 +9,11 @@ export default function SearchBox(props) {
     const [hovered, setHovered] = useState(false)
     const [searchHovered, setSearchHovered] = useState(false)
     const [closeHovered, setCloseHovered] = useState(false)
+
+    useEffect(() => {
+        if(props.searchInput.length === 0)
+            props.applyChanges()
+    }, [props.searchInput])
 
     return (
         <div style={{height: '56px', width: '50%', margin: 'auto'}}>
@@ -56,10 +61,10 @@ export default function SearchBox(props) {
                     onBlur={() => setFocused(false)}
                     onKeyDown={key => {
                         if (key.key === 'Enter')
-                            key.preventDefault()
+                            props.applyChanges()
                     }}
                     onChange={event => {
-                        props.setChanged(true)
+
                         props.setSearchInput(event.target.value)
                     }}
                 />
@@ -74,7 +79,6 @@ export default function SearchBox(props) {
                     className={mainStyles.displayInlineCenter}
                     onClick={() => {
                         props.setSearchInput('')
-                        props.applyChanges()
                     }}>
                     <CloseRounded
                         style={{color: closeHovered ? '#ff5555' : '#777777', display: 'initial'}}/>
@@ -89,6 +93,6 @@ SearchBox.propTypes = {
     searchLocale: PropTypes.string,
     setSearchInput: PropTypes.func,
     searchInput: PropTypes.string,
-    setChanged: PropTypes.func,
+
     applyChanges: PropTypes.func
 }

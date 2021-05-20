@@ -20,7 +20,7 @@
 
 .inputContainer {
     border-radius: 5px;
-    border: #eeeef1 1px solid;
+    border: #ecedf2 1px solid;
     box-shadow: unset;
     transition: 250ms ease-in-out;
     background: #f4f5fa;
@@ -39,7 +39,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    border: #ecedf2 1px solid;
 
     box-shadow: unset;
     transition: 250ms ease-in-out;
@@ -64,7 +64,7 @@
     display: grid;
 
     background-color: #f4f5fa;
-    border: #eeeef1 1px solid;
+    border: #ecedf2 1px solid;
     border-radius: 5px;
     position: absolute;
     z-index: 5;
@@ -111,7 +111,7 @@
 
 /*TEXT FIELD*/
 
-.inputContainer:hover, .inputContainer:focus, .inputContainer:focus-visible, .inputContainer:focus-within, .uploadFormContainer:hover {
+.hovered:hover, .hovered:focus, .hovered:focus-visible, .hovered:focus-within {
     color: #262626;
     border: #0095ff 1px solid;
 }
@@ -119,7 +119,7 @@
 /*IMAGE FIELD*/
 .uploadFormContainer {
     border-radius: 5px;
-    border: #eeeef1 1px solid;
+    border: #ecedf2 1px solid;
 
     transition: 250ms ease-in-out;
     background: white;
@@ -133,6 +133,7 @@
     font-size: 1rem;
     color: #555555;
 
+    cursor: pointer;
 }
 
 .imageFieldContainer {
@@ -145,9 +146,25 @@
 
     padding: 4px;
 
-    border: #eeeef1 1px solid;
+    border: #ecedf2 1px solid;
     border-radius: 5px;
     background: #f4f5fa;
 
     overflow: hidden;
+}
+.modalFooter{
+
+    background: #f4f5fa;
+    display: flex;
+    justify-content: flex-end;
+    border-radius: 0 0 8px 8px;
+    padding: 16px 32px 16px  32px;
+    gap: 16px;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    height: 64px;
+
 }

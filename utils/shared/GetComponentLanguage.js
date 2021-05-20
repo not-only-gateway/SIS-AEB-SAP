@@ -23,6 +23,8 @@ import ExtensionsFilterEN from "../../packages/component locales/extensions/Exte
 import ExtensionsFilterPT from "../../packages/component locales/extensions/ExtensionsFilterPT";
 import ExtensionEN from "../../packages/component locales/extensions/ExtensionEN";
 import ExtensionPT from "../../packages/component locales/extensions/ExtensionPT";
+import SelectorsEN from "../../packages/component locales/selector/SelectorsEN";
+import SelectorsPT from "../../packages/component locales/selector/SelectorsPT";
 
 export default function getComponentLanguage(props) {
     let response = null
@@ -54,12 +56,8 @@ export default function getComponentLanguage(props) {
                     response = AuthenticateEN
                     break
                 }
-                case 'image': {
-                    response = null
-                    break
-                }
                 case 'selector': {
-                    response = null
+                    response = SelectorsEN
                     break
                 }
                 case 'access': {
@@ -125,12 +123,8 @@ export default function getComponentLanguage(props) {
                     response = AuthenticatePT
                     break
                 }
-                case 'image': {
-                    response = null
-                    break
-                }
                 case 'selector': {
-                    response = null
+                    response = SelectorsPT
                     break
                 }
                 case 'access': {

@@ -4,7 +4,6 @@ import Host from "../shared/Host";
 import Cookies from "universal-cookie/lib";
 
 export default async function fetchExtensions(props) {
-    props.setLoading(true)
 
     await axios({
         method: 'get',
@@ -35,13 +34,11 @@ export default async function fetchExtensions(props) {
         console.log(error)
     })
 
-    props.setLoading(false)
 }
 fetchExtensions.propTypes = {
     setResponse: PropTypes.func,
     data: PropTypes.array,
     params: PropTypes.object,
-    setLoading: PropTypes.func,
     path: PropTypes.string,
     setLastFetchedSize: PropTypes.func,
     setMaxID: PropTypes.func,

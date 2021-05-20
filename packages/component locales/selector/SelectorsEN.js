@@ -1,3 +1,5 @@
 export default {
-    baseTitle: 'Select',
+    close: 'Close',
+    search: 'Search',
+    required: 'This field is required.'
 }

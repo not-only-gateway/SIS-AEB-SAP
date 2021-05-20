@@ -81,6 +81,7 @@ export default function BaseForm(props) {
                 <HorizontalTabs
                     extended={true}
                     variant={'secondary'}
+                    noBackground={true}
                     buttons={[
                         {
                             key: 0,
@@ -116,10 +117,12 @@ export default function BaseForm(props) {
                                         })} label={lang.personImage}
                                         width={'calc(25% - 24px)'} setChanged={setChanged}/>
 
-                                    <TextField placeholder={lang.name} label={lang.name} handleChange={event => {
-                                        setChanged(true)
-                                        props.handleChange({name: 'name', value: event.target.value})
-                                    }} locale={props.locale} value={props.person.name} required={true}
+                                    <TextField placeholder={lang.name} label={lang.name}
+                                               handleChange={event => {
+                                                   setChanged(true)
+                                                   props.handleChange({name: 'name', value: event.target.value})
+                                               }}
+                                               locale={props.locale} value={props.person.name} required={true}
                                                width={'calc(75% - 12px)'}
                                                maxLength={undefined}/>
 
@@ -217,6 +220,7 @@ export default function BaseForm(props) {
 
 
                                     <Selector required={true}
+                                              locale={props.locale}
                                               selected={{
                                                   key: props.person.birth_place,
                                                   value: props.person.birth_place
@@ -225,6 +229,7 @@ export default function BaseForm(props) {
                                               label={lang.birthPlace} key={'1-5-'} setChanged={setChanged}
                                               data={StateOptions} width={'calc(50% - 16px)'}/>
                                     <Selector required={true}
+                                              locale={props.locale}
                                               selected={{
                                                   key: props.person.nationality,
                                                   value: props.person.nationality

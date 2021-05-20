@@ -65,7 +65,7 @@
     background: white;
     border-radius: 8px;
     width: clamp(500px, 75%, 1000px);
-    height: clamp(500px, 75%, 900px);
+    height: fit-content;
 
     display: grid;
     align-content: space-between;
@@ -81,7 +81,7 @@
     display: flex;
     justify-content: flex-end;
     border-radius: 0 0 8px 8px;
-    padding: 24px;
+    padding: 24px 32px 24px  32px;
     gap: 16px;
 }
 
@@ -90,32 +90,50 @@
     border-radius: 8px;
     border: #ecedf2 .7px solid;
     padding: 16px 32px 16px 32px;
+    box-sizing: border-box;
 
     height: auto;
 
     display: flex;
     flex-flow: row wrap;
-    gap: 16px;
+
 
     position: relative;
 }
-/*.overviewRowLabel{*/
-/*    position: absolute;*/
-/*    top: calc(-.5rem - 5px);*/
-/*    left: 16px;*/
 
-/*    background-color: #f4f5fa;*/
-/*    border-radius: 5px;*/
-/*    padding: 5px;*/
-
-/*    border-top:  #ecedf2 .7px solid;*/
-/*    border-left:  #ecedf2 .7px solid;*/
-/*    border-right:  #ecedf2 .7px solid;*/
-/*}*/
 .overviewLineContainer {
     display: flex;
     align-items: center;
     gap: 8px;
 
     width: calc(50% - 8px);
+}
+
+.filterModalContainer {
+    width: clamp(300px, 25%, 700px);
+    background-color: white;
+    height: 100vh;
+    border-radius: 8px 0 0 8px;
+
+
+    padding: 32px 32px 0 32px;
+
+    display: grid;
+    position: relative;
+}
+
+.modalFooterContainer {
+    background-color: #f4f5fa;
+    height: 50px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    display: grid;
+    justify-content: flex-start;
+
+    align-items: center;
+
+    padding: 8px 32px 8px 32px;
 }

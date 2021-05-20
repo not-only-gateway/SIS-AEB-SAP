@@ -10,5 +10,5 @@ export default {
     role: 'Cargo',
     effective: 'Somente Efetivos',
     commissioned: 'Somente Comissionados',
-    apply: 'Aplicar'
+    close: 'Fechar'
 }

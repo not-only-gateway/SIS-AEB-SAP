@@ -54,9 +54,6 @@ export default function FiltersComponent(props) {
                                                 props.handleChange({name: filter.key, value: ''})
                                                 props.applyChanges()
                                             }
-
-                                            props.setChanged(true)
-
                                         }}>
                                 <ClearRounded style={{fontSize: '1.3rem', color: '#777777'}}/>
                             </IconButton>
@@ -74,6 +71,4 @@ FiltersComponent.propTypes ={
     active: PropTypes.bool,
     handleChange: PropTypes.func,
     applyChanges: PropTypes.func,
-    changed: PropTypes.bool,
-    setChanged: PropTypes.func
 }

@@ -8,7 +8,7 @@ export default {
     save: 'Salvar',
     create: 'Próximo',
     altPhone: 'Telefone alternativo',
-    contact: 'Contato',
+    general: 'Geral',
     linkage: 'Vínculo & Posição de trabalho',
     mainCollaboration: 'Colaboração principal'
 }

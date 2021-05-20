@@ -8,7 +8,7 @@ export default {
     save: 'Save',
     create: 'Next',
     altPhone: 'Alternative Phone',
-    contact: 'Contact',
+    general: 'General',
     linkage: 'Linkage & Work Position',
     mainCollaboration: 'Main Collaboration'
 }

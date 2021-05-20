@@ -4,6 +4,27 @@ import React, {useState} from "react";
 export default function Button(props) {
     const [focused, setFocused] = useState(false)
     const [hovered, setHovered] = useState(false)
+    function getBorder(){
+        let response = '5px'
+        switch (props.variant){
+            case 'rounded':{
+                response = '32px'
+                break
+            }
+            case'circular':{
+                response = '50%'
+                break
+            }
+            case 'custom':{
+                response = props.borderRadius
+                break
+            }
+            default:
+                break
+        }
+        return response
+    }
+
     return (
         <button
             onMouseDown={() => setFocused(true)}
@@ -18,8 +39,8 @@ export default function Button(props) {
                 width: props.width,
                 backgroundColor: props.backgroundColor && !props.disabled ? props.backgroundColor : props.disabled ? 'rgba(0,0,0,0.1)' : 'unset',
                 color: !props.disabled ? (props.hoverHighlight && hovered ? props.colorVariant === 'secondary' ? '#ff4940' : '#0095ff' : props.fontColor) : '#555555',
-                borderRadius: props.variant && props.variant !== 'default' ? (props.variant === 'rounded' ? '32px' : '50%') : '5px',
-                boxShadow: props.elevation && !focused && !props.disabled ? 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px' : 'unset',
+                borderRadius:  getBorder(),
+                boxShadow: props.boxShadow,
                 padding: props.padding ? props.padding : '8px',
                 height: 'auto',
 
@@ -51,15 +72,17 @@ Button.propTypes = {
     variant: PropTypes.oneOf([
         'rounded',
         'default',
-        'circle'
+        'circle',
+        'custom'
     ]),
     border: PropTypes.string,
-    elevation: PropTypes.bool,
+    boxShadow: PropTypes.any,
     width: PropTypes.string,
     hoverHighlight: PropTypes.bool,
     justification: PropTypes.string,
     colorVariant: PropTypes.oneOf([
         'default',
         'secondary'
-    ])
+    ]),
+    borderRadius: PropTypes.any
 }

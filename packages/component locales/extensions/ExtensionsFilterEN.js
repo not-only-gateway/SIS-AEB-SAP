@@ -10,5 +10,5 @@ export default {
     role: 'Role',
     effective: 'Only Effective',
     commissioned: 'Only Commissioned',
-    apply: 'Apply'
+    close: 'Close'
 }

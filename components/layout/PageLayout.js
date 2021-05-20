@@ -3,7 +3,7 @@ import Cookies from 'universal-cookie/lib'
 import Navigation from "../modules/navigation/Navigation";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import 'fontsource-roboto';
+import "@fontsource/roboto"
 
 const cookies = new Cookies()
 
@@ -23,7 +23,7 @@ export default function PageLayout({children}) {
 
     if (router.pathname !== '/authenticate')
         return (
-            <div style={{fontFamily: 'Roboto',  backgroundColor: 'white'}}>
+            <div style={{fontFamily: 'Roboto !important',  backgroundColor: 'white'}}>
                 <div className={styles.pageContentContainer}
                      id={'scrollableDiv'} style={{
                     width: reduced ? 'calc(100% - 75px)' : 'calc(100% - 250px)',

@@ -7,6 +7,9 @@ export default function handleObjectChange(props){
     }))
 }
 handleObjectChange.propTypes={
-    event: PropTypes.object,
+    event: PropTypes.shape({
+        name: PropTypes.string,
+        value: PropTypes.any
+    }),
     setData: PropTypes.func
 }

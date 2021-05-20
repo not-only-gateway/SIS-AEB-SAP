@@ -59,7 +59,8 @@ export default function ImageField(props) {
                         <CloseRounded/>
                     </div>
                     :
-                    <label htmlFor='upload-image' className={styles.uploadFormContainer}
+                    <label htmlFor='upload-image'
+                           className={[styles.uploadFormContainer, props.disabled ? {} : styles.hovered].join(' ')}
                            onChange={event => {
                                props.setImage(event)
                                props.setChanged(true)
@@ -67,6 +68,7 @@ export default function ImageField(props) {
 
                 }
                 <input id="upload-image" type="file" style={{display: 'none'}}
+                        disabled={props.disabled}
                        onChange={event => {
                            props.setImage(event)
                            props.setChanged(true)
@@ -92,5 +94,6 @@ ImageField.propTypes = {
     base64: PropTypes.bool,
     setChanged: PropTypes.func,
     width: PropTypes.string,
-    required: PropTypes.bool
+    required: PropTypes.bool,
+    disabled: PropTypes.bool
 }

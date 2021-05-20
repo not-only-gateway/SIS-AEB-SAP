@@ -23,7 +23,10 @@ export default async function submitMember(props) {
     }).then(() => {
         response = true
     }).catch(error => {
-        console.log(error)
+        props.setStatus({
+            error: true,
+            message: error.message
+        })
     })
     return response
 }
@@ -31,5 +34,6 @@ export default async function submitMember(props) {
 submitMember.propTypes = {
     personID: PropTypes.number,
     data: PropTypes.object,
-    create: PropTypes.bool
+    create: PropTypes.bool,
+    setStatus: PropTypes.func
 }

@@ -1,4 +1,3 @@
-import {Button} from '@material-ui/core';
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types'
 import InputLayout from "../../modules/InputLayout";
@@ -8,6 +7,12 @@ import fetchEntities from "../../../utils/fetch/FetchEntities";
 import mapToSelect from "../../../utils/shared/MapToSelect";
 import fetchActiveCollaborations from "../../../utils/fetch/fetchActiveCollaborations";
 import TextField from "../../modules/inputs/TextField";
+import DropDownField from "../../modules/inputs/DropDownField";
+import Alert from "../../layout/Alert";
+import HorizontalTabs from "../../layout/navigation/HorizontalTabs";
+import TabContent from "../TabContent";
+import shared from "../../../styles/shared/Shared.module.css";
+import Button from "../../modules/inputs/Button";
 
 export default function MembershipForm(props) {
 
@@ -15,6 +20,12 @@ export default function MembershipForm(props) {
     const [lang, setLang] = useState(null)
     const [entities, setEntities] = useState([])
     const [collaborations, setCollaborations] = useState([])
+    const [openTab, setOpenTab] = useState(0)
+    const [status, setStatus] = useState({
+        error: false,
+        message: undefined
+    })
+
     useEffect(() => {
         setLang(getComponentLanguage({locale: props.locale, component: 'membership'}))
         fetchEntities().then(res => {
@@ -27,6 +38,7 @@ export default function MembershipForm(props) {
 
     function disabled() {
         return (
+            props.member === null ||
             props.member.corporate_email === null ||
             props.member.extension === null ||
             props.member.entity === null ||
@@ -43,97 +55,157 @@ export default function MembershipForm(props) {
 
     if (lang !== null)
         return (
-            <div style={{
-                display: 'inline-flex',
-                flexFlow: 'row wrap',
-                gap: '32px',
-                justifyContent: 'center',
-                width: '75%',
-            }}>
-                <TextField placeholder={lang.registration} label={lang.registration} handleChange={event => {
-                    setChanged(true)
-                    props.handleChange({name: 'registration', value: event.target.value})
-                }} locale={props.locale} value={props.member.registration} required={false}
-                           width={'100%'} maxLength={undefined}/>
+            <div style={{display: 'grid', rowGap: '32px', width: '100%'}}>
+                <Alert
+                    type={'error'} message={status.message}
+                    handleClose={() => setStatus({
+                        error: false,
+                        message: undefined
+                    })} render={status.error}/>
 
-                <h4 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
-                    {lang.contact}
-                </h4>
+                <HorizontalTabs
+                    extended={true}
+                    noBackground={true}
+                    variant={'secondary'}
+                    buttons={[
+                        {
+                            key: 0,
+                            value: lang.general
+                        },
+                        {
+                            key: 1,
+                            value: lang.linkage
+                        },
+                    ]}
+                    setOpenTab={setOpenTab}
+                    openTab={openTab}
+                    noMargin={false}
+                />
+                <TabContent
+                    openTab={openTab}
+                    key={undefined}
+                    noContainer={true}
+                    tabs={[
+                        {
+                            buttonKey: 0,
+                            value: (
+                                <div className={shared.formContainer}>
+                                    <TextField placeholder={lang.registration} label={lang.registration}
+                                               handleChange={event => {
+                                                   setChanged(true)
+                                                   props.handleChange({name: 'registration', value: event.target.value})
+                                               }} locale={props.locale}
+                                               value={props.member === null ? null : props.member.registration}
+                                               required={false}
+                                               width={'calc(50% - 16px)'} maxLength={undefined}/>
 
-                <TextField placeholder={lang.corporateEmail} label={lang.corporateEmail} handleChange={event => {
-                    setChanged(true)
-                    props.handleChange({name: 'corporate_email', value: event.target.value})
-                }} locale={props.locale} value={props.member.corporate_email} required={true}
-                           width={'calc(33.333% - 21.35px)'}
-                           maxLength={undefined}/>
 
-                <TextField placeholder={lang.extension} label={lang.extension} handleChange={event => {
-                    setChanged(true)
-                    props.handleChange({name: 'extension', value: event.target.value})
-                }} locale={props.locale} value={props.member.extension} required={true}
-                           width={'calc(33.333% - 21.35px)'}
-                           maxLength={undefined} phoneMask={true}/>
+                                    <TextField placeholder={lang.corporateEmail} label={lang.corporateEmail}
+                                               handleChange={event => {
+                                                   setChanged(true)
+                                                   props.handleChange({
+                                                       name: 'corporate_email',
+                                                       value: event.target.value
+                                                   })
+                                               }} locale={props.locale}
+                                               value={props.member === null ? null : props.member.corporate_email}
+                                               required={true}
+                                               width={'calc(50% - 16px)'}
+                                               maxLength={undefined}/>
 
-                <TextField placeholder={lang.altPhone} label={lang.altPhone} handleChange={event => {
-                    setChanged(true)
-                    props.handleChange({name: 'alternative_phone', value: event.target.value})
-                }} locale={props.locale} value={props.member.alternative_phone} required={false}
-                           width={'calc(33.333% - 21.35px)'}
-                           maxLength={undefined} phoneMask={true}/>
+                                    <TextField placeholder={lang.extension} label={lang.extension}
+                                               handleChange={event => {
+                                                   setChanged(true)
+                                                   props.handleChange({name: 'extension', value: event.target.value})
+                                               }} locale={props.locale}
+                                               value={props.member === null ? null : props.member.extension}
+                                               required={true}
+                                               width={'calc(50% - 16px)'}
+                                               maxLength={undefined} phoneMask={true}/>
 
-                <h4 style={{width: '100%', marginTop: 'auto', marginBottom: 'auto'}}>
-                    {lang.linkage}
-                </h4>
+                                    <TextField placeholder={lang.altPhone} label={lang.altPhone}
+                                               handleChange={event => {
+                                                   setChanged(true)
+                                                   props.handleChange({
+                                                       name: 'alternative_phone',
+                                                       value: event.target.value
+                                                   })
+                                               }} locale={props.locale}
+                                               value={props.member === null ? null : props.member.alternative_phone}
+                                               required={false}
+                                               width={'calc(50% - 16px)'}
+                                               maxLength={undefined} phoneMask={true}/>
+                                </div>
+                            )
+                        },
+                        {
+                            buttonKey: 1,
+                            value: (
+                                <div className={shared.formContainer}>
+                                    <DropDownField
+                                        placeholder={lang.homeOffice}
+                                        label={lang.homeOffice}
+                                        handleChange={event => {
+                                            setChanged(true)
+                                            props.handleChange({name: 'home_office', value: event})
+                                        }} locale={props.locale}
+                                        value={props.member === null ? null : props.member.home_office}
+                                        required={true}
+                                        width={'calc(50% - 16px)'} choices={lang.options}/>
 
-                <InputLayout inputName={lang.homeOffice} handleChange={props.handleChange}
-                             inputType={1} disabled={!props.editable} size={'calc(50% - 16px'} required={true}
-                             name={'home_office'} selectFields={lang.options}
-                             initialValue={props.member.home_office} key={"membership-5"} setChanged={setChanged}/>
-                <Selector required={true}
-                          selected={{
-                              key: props.member.entity ? props.member.entity.key : null,
-                              value: props.member.entity ? props.member.entity.value : null
-                          }}
-                          handleChange={event => props.handleChange({
-                              name: 'entity',
-                              value: event
-                          })} setChanged={setChanged}
-                          label={lang.entity} key={'membership-6'}
-                          data={mapToSelect({data: entities, option: 1})} width={'calc(50% - 16px'}/>
-                {props.create ? null :
-                    <Selector required={false}
-                              selected={{
-                                  key: props.mainCollaboration !== null ? props.mainCollaboration.key : null,
-                                  value: props.mainCollaboration !== null ? props.mainCollaboration.value : null,
-                              }}
-                              handleChange={event => props.handleChange({
-                                  name: 'main_collaboration',
-                                  value: event
-                              })} setChanged={setChanged}
-                              label={lang.mainCollaboration} key={'membership-7'}
-                              data={mapToSelect({data: collaborations, option: 4})} width={'100%'}/>
-                }
-                {!props.editable ? null :
-                    <Button style={{
-                        width: '100%',
-                        backgroundColor: disabled() ? 'rgba(0,0,0,0.07)' : '#0095ff',
-                        color: disabled() ? '#777777' : 'white',
-                        fontWeight: 550,
+                                    <Selector required={true}
+                                              locale={props.locale}
+                                              selected={{
+                                                  key: props.member === null ? null : (props.member.entity ? props.member.entity.key : null),
+                                                  value: props.member === null ? null : (props.member.entity ? props.member.entity.value : null)
+                                              }}
+                                              handleChange={event => props.handleChange({
+                                                  name: 'entity',
+                                                  value: event
+                                              })} setChanged={setChanged}
+                                              label={lang.entity} key={'membership-6'}
+                                              data={mapToSelect({data: entities, option: 1})}
+                                              width={'calc(50% - 16px'}/>
+                                    {props.create ? null :
+                                        <Selector required={false}
+                                                  locale={props.locale}
+                                                  selected={{
+                                                      key: (props.mainCollaboration !== null ? props.mainCollaboration.key : null),
+                                                      value: props.mainCollaboration !== null ? props.mainCollaboration.value : null,
+                                                  }}
+                                                  handleChange={event => props.handleChange({
+                                                      name: 'main_collaboration',
+                                                      value: event
+                                                  })} setChanged={setChanged}
+                                                  label={lang.mainCollaboration} key={'membership-7'}
+                                                  data={mapToSelect({data: collaborations, option: 4})} width={'100%'}/>
+                                    }
+                                </div>
+                            )
+                        }
+                    ]}
+                />
 
-                    }} disabled={disabled()} variant={'contained'} onClick={() => {
-                        props.handleSubmit({
-                            data: props.member,
-                            personID: props.id,
-                            create: props.create
-                        }).then(res => {
-                            setChanged(!res)
-                            if (props.setAccepted !== undefined)
-                                props.setAccepted(res)
-                        })
-                    }}>
-                        {props.create ? lang.create : lang.save}
-                    </Button>
-                }
+
+                <Button width={'100%'} elevation={true} border={'none'} padding={'8px 32px 8px 32px'}
+                        fontColor={'white'} backgroundColor={'#0095ff'}
+                        handleClick={() => {
+                            props.handleSubmit({
+                                data: props.member,
+                                personID: props.id,
+                                create: props.create,
+                                setStatus: setStatus
+                            }).then(res => {
+                                setChanged(!res)
+                                if (props.setAccepted !== undefined)
+                                    props.setAccepted(res)
+                            })
+                        }}
+                        disabled={disabled()} variant={'rounded'}
+                        content={
+                            props.create ? lang.create : lang.save
+                        } justification={'center'} hoverHighlight={false}
+                />
 
             </div>
         )

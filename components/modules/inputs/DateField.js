@@ -22,13 +22,14 @@ export default function DateField(props) {
                 alignItems: props.value ? 'unset' : 'flex-start',
                 gap: '4px',
             }}>
-            <label htmlFor={'input'} className={styles.labelContainer}>{props.label}</label>
+            <label htmlFor={'input-'+props.label+'-date'} className={styles.labelContainer}>{props.label}</label>
 
             <div className={styles.fieldsContainer}>
                 <input
-                    id={'input'}
-                    style={{height: '56px', fontWeight: 500, fontSize: '1rem', fontFamily: '\'Source Sans Pro\', sans-serif'}}
-                    className={styles.inputContainer}
+                    disabled={props.disabled}
+                    id={'input-'+props.label+'-date'}
+                    style={{height: '56px', fontWeight: 500, fontSize: '1rem', fontFamily: '\'Source Sans Pro\', sans-serif', cursor: props.disabled ? 'initial' : 'text'}}
+                    className={[styles.inputContainer, props.disabled ? {} : styles.hovered].join(' ')}
                     value={props.value}
                     type={'date'}
                     onChange={props.handleChange}
@@ -37,7 +38,7 @@ export default function DateField(props) {
             </div>
 
 
-            <label htmlFor={'input'} className={styles.alertLabel}
+            <label htmlFor={'input-'+props.label+'-date'} className={styles.alertLabel}
                    style={{
                        color: (props.value === null || !props.value) ? '#ff5555' : '#262626',
                        visibility: props.required ? 'visible' : 'hidden'
@@ -54,6 +55,6 @@ DateField.propTypes = {
     value: PropTypes.number,
     required: PropTypes.bool,
     locale: PropTypes.string,
-
+    disabled: PropTypes.bool
 
 }

@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
 import {FormControl, Grid, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
-import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
 
 export default function InputLayout(props) {
     const [focused, setFocused] = useState(false)
@@ -71,43 +69,6 @@ export default function InputLayout(props) {
                         </Select>
                     </FormControl>
                 </div>
-            )
-        }
-
-        case 2: {
-            return (
-                <div key={props.key}
-                     style={{width: props.size}}>
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <Grid container justify="space-around"
-                              style={{width: '100%'}}>
-                            <KeyboardDatePicker
-                                style={{
-                                    width: '100%',
-                                    margin: 'auto',
-                                    borderRadius: '8px'
-                                }}
-                                required={props.required}
-                                inputVariant="outlined"
-                                margin="normal"
-                                disabled={props.disabled}
-                                label={props.inputName}
-                                error={props.required === true && (props.initialValue === null || props.initialValue === undefined || props.initialValue.length === 0)}
-                                format="dd/MM/yyyy"
-                                value={props.initialValue !== undefined ? props.initialValue : null}
-                                onChange={event => {
-                                    props.handleChange({name: props.name, value: event})
-                                    if (props.setChanged !== undefined)
-                                        props.setChanged(true)
-                                }}
-                                KeyboardButtonProps={{
-                                    'aria-label': 'change date',
-                                }}
-                            />
-                        </Grid>
-                    </MuiPickersUtilsProvider>
-                </div>
-
             )
         }
         case 3: {

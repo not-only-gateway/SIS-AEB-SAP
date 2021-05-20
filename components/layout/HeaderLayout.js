@@ -12,47 +12,7 @@ import styles from '../../styles/component/Component.module.css'
 import shared from "../../styles/shared/Shared.module.css";
 
 export default function HeaderLayout(props) {
-    const [modal, setModal] = useState(false);
 
-    function RenderModalTest() {
-
-        return (
-            <Modal
-
-                open={modal}
-                onClose={() => setModal(false)}
-            >
-                <div className={[styles.FilterModal, animations.slideInRightAnimation].join(' ')}>
-                    <div className={shared.closeButtonModalContainer}>
-                        <Button onClick={() => setModal(false)}>
-                            <CloseRounded/>
-                        </Button>
-                    </div>
-                    {props.filterComponent}
-
-                </div>
-
-            </Modal>
-        )
-    }
-
-    // useEffect(() => {
-    //     if(!scrolledHeight){
-    //         document.getElementById('scrollableDiv').addEventListener('scroll', () => {
-    //             if (document.getElementById('r').offsetTop > 50)
-    //                 setScrolledHeight(true)
-    //             else if (document.getElementById('r').offsetTop === 0)
-    //                 setScrolledHeight(false)
-    //         })
-    //         // if(document.getElementById('scrollableDiv') !== null)
-    //         //     return () => {
-    //         //         document.getElementById('scrollableDiv').removeEventListener('scroll', () => {
-    //         //             if (document.getElementById('r').offsetTop === 0)
-    //         //                 setScrolledHeight(false)
-    //         //         })
-    //         //     }
-    //     }
-    // })
 
     return (
         <div style={{
@@ -62,7 +22,6 @@ export default function HeaderLayout(props) {
             transition: '300ms ease-in-out',
             zIndex: '100',
         }}>
-            {RenderModalTest()}
             <Head>
                 <title>{props.pageTitle}</title>
                 <link rel="icon" href={"/LOGO.png"} type="image/x-icon"/>
@@ -103,12 +62,6 @@ export default function HeaderLayout(props) {
                             }
                         </div>
 
-                        {props.filterComponent !== undefined ?
-                            <Button onClick={() => setModal(true)}>
-                                <FilterListRounded style={{color: 'black'}}/>
-                            </Button>
-                            : null
-                        }
                     </div>
                     {props.searchComponent !== undefined ?
                         props.searchComponent
@@ -141,7 +94,6 @@ export default function HeaderLayout(props) {
 HeaderLayout.propTypes = {
     title: PropTypes.any,
     searchComponent: PropTypes.object,
-    filterComponent: PropTypes.object,
     availableTabs: PropTypes.shape({
         tabs: PropTypes.array,
         openTab: PropTypes.number,

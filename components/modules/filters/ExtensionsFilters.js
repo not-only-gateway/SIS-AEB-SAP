@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel} from "@material-ui/core";
+import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import shared from "../../../styles/shared/Shared.module.css";
 
@@ -7,7 +7,14 @@ import mapToSelect from "../../../utils/shared/MapToSelect";
 import Selector from "../inputs/Selector";
 import FetchExtensionsFilter from "../../../utils/fetch/FetchExtensionsFilter";
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
+import fetchSeniors from "../../../utils/fetch/FetchSeniors";
+import handleObjectChange from "../../../utils/shared/HandleObjectChange";
+import fetchCommissionedRoles from "../../../utils/fetch/FetchCommissionedRoles";
+import fetchEffectiveRoles from "../../../utils/fetch/FetchEffectiveRoles";
+import fetchUnits from "../../../utils/fetch/FetchUnits";
+import Button from "../inputs/Button";
 
+import styles from '../../../styles/Extensions.module.css'
 
 export default function ExtensionsFilters(props) {
     const [lang, setLang] = useState(null)
@@ -18,52 +25,89 @@ export default function ExtensionsFilters(props) {
         seniors: [],
     })
     useEffect(() => {
-        if (props.option !== 'people')
-            FetchExtensionsFilter({
-                setResponse: setEntities,
-                selectedUnit: props.filters.unit !== undefined ? props.filters.unit.key : undefined
-            })
-        if(lang === null)
+        if (props.option !== 'people') {
+            switch (true) {
+                case entities.units.length === 0: {
+                    fetchUnits().then(res => handleObjectChange({
+                        event: {name: 'units', value: res},
+                        setData: setEntities
+                    }))
+                    break
+                }
+                case entities.effectiveRoles.length === 0: {
+                    fetchEffectiveRoles().then(res => handleObjectChange({
+                        event: {name: 'effectiveRoles', value: res},
+                        setData: setEntities
+                    }))
+                    break
+                }
+                case entities.commissionedRoles.length === 0: {
+                    fetchCommissionedRoles().then(res => handleObjectChange({
+                        event: {
+                            name: 'commissionedRoles',
+                            value: res
+                        }, setData: setEntities
+                    }))
+                    break
+                }
+                case props.filters.unit !== null && props.filters.unit !== undefined: {
+                    fetchSeniors({
+                        unitID: props.filters.unit?.key,
+                        memberID: undefined
+                    }).then(res => handleObjectChange({event: {name: 'seniors', value: res}, setData: setEntities}))
+                    break
+                }
+                default: {
+                    break
+                }
+            }
+        }
+        props.applyChanges()
+        if (lang === null)
             setLang(getComponentLanguage({locale: props.locale, component: 'extensionsFilter'}))
-    }, [props.filters.unit])
+    }, [props.filters])
 
     if (lang !== null)
         return (
-            <div className={shared.filterContainer}>
+            <>
                 <h3 style={{marginRight: "auto", marginTop: '8px'}}>{lang.title}</h3>
                 <Selector
+                    locale={props.locale}
                     required={false}
                     selected={props.filters.unit}
                     disabled={props.option === 'member'}
                     handleChange={event => props.handleFilterChange({name: 'unit', value: event})}
-                    setChanged={() => props.setChanged(true)}
+
                     label={lang.unit} key={'unit-select'}
                     data={mapToSelect({data: entities.units, option: 0})} width={'calc(100% - 4px)'}
                 />
                 <Selector
                     required={false}
+                    locale={props.locale}
                     selected={props.filters.effectiveRole}
                     handleChange={event => props.handleFilterChange({name: 'effectiveRole', value: event})}
                     disabled={props.filters.commissionedRoleOnly || props.option === 'member'}
-                    setChanged={() => props.setChanged(true)}
+
                     label={lang.effectiveRole} key={'effective-role-select'}
                     data={mapToSelect({data: entities.effectiveRoles, option: 1})} width={'calc(100% - 4px)'}
                 />
                 <Selector
                     required={false}
+                    locale={props.locale}
                     disabled={props.filters.effectiveRoleOnly || props.option === 'member'}
                     selected={props.filters.commissionedRole}
                     handleChange={event => props.handleFilterChange({name: 'commissionedRole', value: event})}
-                    setChanged={() => props.setChanged(true)}
+
                     label={lang.commissionedRole} key={'commissioned-role-select'}
                     data={mapToSelect({data: entities.commissionedRoles, option: 2})} width={'calc(100% - 4px)'}
                 />
                 <Selector
                     required={false}
+                    locale={props.locale}
                     selected={props.filters.senior}
                     disabled={props.option === 'member' || props.filters.unit === undefined || entities.seniors.length === 0}
                     handleChange={event => props.handleFilterChange({name: 'senior', value: event})}
-                    setChanged={() => props.setChanged(true)}
+
                     label={lang.senior} key={'senior-select'}
                     data={mapToSelect({data: entities.seniors, option: 3})} width={'calc(100% - 4px)'}
                 />
@@ -77,7 +121,8 @@ export default function ExtensionsFilters(props) {
                                           checked={props.option === 'collaborators'}
                                           onChange={() => {
                                               props.setOption('collaborators')
-                                              props.setChanged(true)
+
+
                                           }}
                                           inputProps={{'aria-label': 'primary checkbox'}}
                                 />
@@ -92,11 +137,13 @@ export default function ExtensionsFilters(props) {
 
                                           onChange={() => {
                                               props.setOption('member')
-                                              props.setChanged(true)
+
                                               props.handleFilterChange({name: 'unit', value: undefined})
                                               props.handleFilterChange({name: 'commissionedRole', value: undefined})
                                               props.handleFilterChange({name: 'effectiveRole', value: undefined})
                                               props.handleFilterChange({name: 'senior', value: undefined})
+
+
                                           }}
                                           inputProps={{'aria-label': 'primary checkbox'}}
                                 />
@@ -117,7 +164,7 @@ export default function ExtensionsFilters(props) {
                                           onChange={() => {
                                               props.handleFilterChange({name: 'commissionedRoleOnly', value: undefined})
                                               props.handleFilterChange({name: 'effectiveRoleOnly', value: true})
-                                              props.setChanged(true)
+
                                           }}
                                           inputProps={{'aria-label': 'primary checkbox'}}
                                 />
@@ -132,7 +179,7 @@ export default function ExtensionsFilters(props) {
                                           onChange={() => {
                                               props.handleFilterChange({name: 'commissionedRoleOnly', value: true})
                                               props.handleFilterChange({name: 'effectiveRoleOnly', value: undefined})
-                                              props.setChanged(true)
+
 
                                           }}
                                           inputProps={{'aria-label': 'primary checkbox'}}
@@ -148,8 +195,6 @@ export default function ExtensionsFilters(props) {
                                           onChange={() => {
                                               props.handleFilterChange({name: 'commissionedRoleOnly', value: undefined})
                                               props.handleFilterChange({name: 'effectiveRoleOnly', value: undefined})
-                                              props.setChanged(true)
-
                                           }}
                                           inputProps={{'aria-label': 'primary checkbox'}}
                                 />
@@ -158,21 +203,13 @@ export default function ExtensionsFilters(props) {
                         />
                     </FormGroup>
                 </FormControl>
-
-                <Button disabled={!props.changed} variant={'contained'} style={{
-                    width: '100%',
-                    backgroundColor: !props.changed ? 'rgba(0, 0,0, 0.07)' : '#0095ff',
-                    color: !props.changed ? '#777777' : 'white',
-
-                }} onClick={() => {
-                    props.setChanged(false)
-                    props.fetchData(1, true, false)
-                    props.handleFilterChange({name: 'changed', value: false})
-                }}>
-                    {lang.apply}
-                </Button>
-
-            </div>
+                <div className={styles.modalFooterContainer}>
+                    <Button disabled={false} width={'fit-content'} colorVariant={'secondary'} variant={'rounded'}
+                            border={'#ecedf2 .7px solid'} padding={'8px 32px 8px 32px'} fontColor={'#262626'}
+                            backgroundColor={'white'} content={lang.close} hoverHighlight={true} boxShadow={'unset'}
+                            handleClick={() => props.setModal()}/>
+                </div>
+            </>
         )
     else
         return null
@@ -181,12 +218,11 @@ export default function ExtensionsFilters(props) {
 ExtensionsFilters.propTypes = {
     option: PropTypes.string,
     setOption: PropTypes.func,
-    lang: PropTypes.object,
-    fetchData: PropTypes.func,
+
+    applyChanges: PropTypes.func,
     filters: PropTypes.object,
-    setLoading: PropTypes.func,
-    setChanged: PropTypes.func,
     changed: PropTypes.bool,
     accessProfile: PropTypes.object,
-    locale: PropTypes.string
+    locale: PropTypes.string,
+    setModal: PropTypes.func
 }
