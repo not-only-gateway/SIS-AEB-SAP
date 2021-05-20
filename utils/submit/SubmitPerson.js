@@ -11,7 +11,7 @@ export default async function submitPerson(props) {
         id: undefined
     }
 
-    if (typeof (props.person.image) !== 'string' && props.person.image !== null) {
+    if (typeof (props.person.image) !== 'string' && props.person.image !== null && props.person.image !== undefined) {
         formData.append('image', props.person.image)
     } else
         formData.append('removed_image', 'true')

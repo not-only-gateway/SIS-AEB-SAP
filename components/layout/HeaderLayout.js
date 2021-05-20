@@ -20,7 +20,7 @@ export default function HeaderLayout(props) {
             top: 0,
             background: 'white',
             transition: '300ms ease-in-out',
-            zIndex: '100',
+            zIndex: '50',
         }}>
             <Head>
                 <title>{props.pageTitle}</title>

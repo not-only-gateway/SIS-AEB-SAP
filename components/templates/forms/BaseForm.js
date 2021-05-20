@@ -13,6 +13,7 @@ import TabContent from "../TabContent";
 import HorizontalTabs from "../../layout/navigation/HorizontalTabs";
 import shared from '../../../styles/shared/Shared.module.css'
 import Button from "../../modules/inputs/Button";
+import {setAccessProfile} from "../../../utils/shared/IndexedDB";
 
 export default function BaseForm(props) {
 
@@ -200,12 +201,15 @@ export default function BaseForm(props) {
                     <Button width={'100%'} elevation={true} border={'none'} padding={'8px 32px 8px 32px'}
                             fontColor={'white'} backgroundColor={'#0095ff'}
                             handleClick={() => {
-                                setChanged(false)
+
                                 props.handleSubmit({
                                     person: props.person,
                                     personID: props.id,
                                     create: props.create,
                                     setStatus: setStatus
+                                }).then(res => {
+                                    setChanged(!res)
+                                    props.setAccepted(res)
                                 })
                             }}
                             disabled={disabled()} variant={'rounded'}

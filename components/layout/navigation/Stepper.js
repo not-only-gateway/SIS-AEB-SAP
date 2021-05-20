@@ -27,11 +27,12 @@ export default function Stepper(props) {
              className={mainStyles.displayInlineCenter} style={{
             gap: '10px',
             width: '100%',
-            backgroundColor: 'white',
+            backgroundColor: '#f4f5fa',
             padding: '8px',
             borderRadius: '8px',
             marginTop: '16px',
-            boxShadow: 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px'
+            position: 'relative',
+
         }}>
 
             {props.buttons.map((button, index) => {
@@ -64,7 +65,7 @@ export default function Stepper(props) {
                                     </span>
                                 </div>
                                 {index < props.buttons.length - 1 && props.buttons[index + 1] !== null ?
-                                    <Divider style={{width: '50px'}} orientation={"horizontal"}/>
+                                    <Divider style={{width: '50px', backgroundColor: props.buttons.status ? '#0095ff' : undefined}} orientation={"horizontal"}/>
                                     :
                                     null}
                             </>

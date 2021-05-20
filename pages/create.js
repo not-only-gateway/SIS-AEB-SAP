@@ -72,10 +72,9 @@ export default function create() {
                     forceClose={() => router.push('/', '/', {locale: router.locale})}
                 />
                 <HeaderLayout
-                    width={'75%'}
+                    width={'65%'}
                     availableTabs={undefined}
                     activeFiltersComponent={undefined}
-
                     stepper={{
                         tabs: [
                             {
@@ -125,16 +124,12 @@ export default function create() {
                     information={lang.information}
                     searchComponent={undefined}
                 />
-                <div className={mainStyles.displayInlineCenter} style={{
-                    width: '100%', marginTop: '16px'
+                <div style={{
+                    width: '65%', margin: '16px auto auto ', marginBottom: '100px',
+                    position: 'relative',
+                    zIndex: 0
                 }}>
-                    <div style={{
-                        width: '75%',
-                        backgroundColor: 'white',
-                        padding: '16px',
-                        boxShadow: 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
-                        borderRadius: '8px'
-                    }}>
+
                         <TabContent
                             openTab={openTab}
                             tabs={[
@@ -154,6 +149,7 @@ export default function create() {
                                             locale={router.locale}
                                             create={true}
                                             setAccepted={event => {
+
                                                 handleObjectChange({
                                                     event: {name: 'base', value: event},
                                                     setData: setStatus
@@ -265,7 +261,6 @@ export default function create() {
                                 },
                             ]}/>
                     </div>
-                </div>
             </>
 
 

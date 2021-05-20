@@ -1,11 +1,12 @@
-import localIpUrl from "local-ip-url";
+
 import Host from "../shared/Host";
 import PropTypes from 'prop-types'
 import axios from "axios";
 import Cookies from "universal-cookie/lib";
+import publicIp from "public-ip";
 
 export default async function fetchActivityData(props) {
-
+    let ip = await publicIp.v4()
     await axios({
         method: 'get',
         url: Host() + 'activity',
@@ -13,7 +14,7 @@ export default async function fetchActivityData(props) {
         params: {
             start_date: props.startDate !== null  && props.startDate !== undefined? props.startDate.getTime() : null,
             end_date: props.endDate !== null  && props.endDate !== undefined? props.endDate.getTime() : null,
-            ip: props.thisMachine ? localIpUrl('public') : null,
+            ip: props.thisMachine ? ip : null,
             method: props.method,
             path: props.path,
             max_id: props.type === 1 ? null : props.maxID

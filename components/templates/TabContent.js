@@ -28,7 +28,12 @@ export default function TabContent(props) {
 }
 
 TabContent.propTypes =  {
-    tabs: PropTypes.array,
+    tabs: PropTypes.arrayOf(
+        PropTypes.shape({
+            buttonKey: PropTypes.number,
+            value: PropTypes.any
+        })
+    ),
     openTab: PropTypes.any,
     noContainer: PropTypes.bool,
     key: PropTypes.string

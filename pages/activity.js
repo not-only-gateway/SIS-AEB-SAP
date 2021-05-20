@@ -13,6 +13,7 @@ import FiltersComponent from "../components/layout/FiltersComponent";
 import ActivityTemplate from "../components/templates/list/ActivityTemplate";
 import SearchBox from "../components/elements/SearchBox";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
+import TabContent from "../components/templates/TabContent";
 
 export default function activity() {
 
@@ -134,64 +135,46 @@ export default function activity() {
                                 },
                             ]}/>}
                     searchComponent={
-                        <SearchBox searchInput={filters.searchInput} setSearchInput={event => handleObjectChange({event:  {name: 'searchInput', value: event}, setData: setFilters})} searchLocale={lang.search} setChanged={setChanged}/>
+                        undefined
+                        // <SearchBox searchInput={filters.searchInput} setSearchInput={event => handleObjectChange({
+                        //     event: {
+                        //         name: 'searchInput',
+                        //         value: event
+                        //     }, setData: setFilters
+                        // })} searchLocale={lang.search} setChanged={setChanged}/>
                     }
+                    availableTabs={{
+                        openTab: openTab,
+                        setOpenTab: setOpenTab,
+                        tabs: [
+                            {key: 0, value: 'Overview'},
+                            {key: 1, value: 'Advanced'}
+                        ]
+                    }}
                 />
-                <div className={mainStyles.displayInlineCenter} style={{width: '100%', position: 'relative'}}>
-                    {data.length > 0 ?
-                        <div style={{width: '65%'}}>
-                            <InfiniteScroll
-                                dataLength={data.length}
-                                next={() => fetch(0)}
-                                hasMore={lastFetchedSize === 20 && data[data.length - 1].access_log.id > 1}
-                                inverse={false}
-                                scrollableTarget="scrollableDiv"
-                                loader={
-                                    <Skeleton
-                                        variant={'rect'}
-                                        width={'100%'}
-                                        style={{borderRadius: '8px'}}
-                                        height={'7vh'}
-                                    />
-                                }
-                                endMessage={
-                                    <div
-                                        style={{
-                                            marginBottom: '15px'
-                                        }}
-                                    >
-                                        <p className={mainStyles.secondaryParagraph}
-                                           style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.end}</p>
-                                    </div>
-                                }
-                            >
-                                <div style={{
-                                    display: 'grid',
-                                    marginTop: '8px',
-                                    gap: '8px',
-                                }}>
-                                    {(data).map(content =>
-                                        <div key={content.activity.id}>
-                                            <ActivityTemplate data={content} pagesFetched={pagesFetched}
-                                                              lang={lang}/>
-                                        </div>
-                                    )}
-                                </div>
-                            </InfiniteScroll>
-                        </div>
-                        :
-
-                        <div className={mainStyles.displayInlineCenter}
-                             style={{
-                                 marginBottom: '15px',
-                                 width: '50vw'
-                             }}>
-                            <p className={mainStyles.secondaryParagraph}
-                               style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: dark})}}>{lang.nothingFound}</p>
-                        </div>}
+                <div className={mainStyles.displayInlineCenter}
+                     style={{width: '65%', position: 'relative', margin: 'auto'}}>
+                    <TabContent
+                        openTab={openTab}
+                        tabs={[
+                            {
+                                buttonKey: 0,
+                                value: (
+                                    'cafe'
+                                )
+                            },
+                            {
+                                buttonKey: 1,
+                                value: (
+                                    'cafe 2'
+                                )
+                            }
+                        ]}
+                    />
                 </div>
             </div>
         )
     else
-        return <></>
+        return null
 }
+
