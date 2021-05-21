@@ -79,6 +79,7 @@ export default function BaseForm(props) {
 
 
                     <ImageSelector
+                        dark={true}
                         initialImage={props.person.image !== null ? props.person.image : null}
                         size={'100px'}
                         setImage={event => props.handleChange({
@@ -87,7 +88,9 @@ export default function BaseForm(props) {
                         })} label={lang.personImage}
                         width={'calc(25% - 24px)'} setChanged={setChanged}/>
 
-                    <TextField placeholder={lang.name} label={lang.name}
+                    <TextField
+                        dark={true}
+                        placeholder={lang.name} label={lang.name}
                                handleChange={event => {
                                    setChanged(true)
                                    props.handleChange({name: 'name', value: event.target.value})
@@ -97,6 +100,7 @@ export default function BaseForm(props) {
                                maxLength={undefined}/>
 
                     <DateField
+                        dark={true}
                         placeholder={lang.birth} label={lang.birth}
                         handleChange={event => {
                             setChanged(true)
@@ -113,6 +117,7 @@ export default function BaseForm(props) {
 
 
                     <DropDownField
+                        dark={true}
                         placeholder={lang.disabledPerson}
                         label={lang.disabledPerson}
                         handleChange={event => {
@@ -125,6 +130,7 @@ export default function BaseForm(props) {
                 <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
                     <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.life}</h4></legend>
                     <DropDownField
+                        dark={true}
                         placeholder={lang.gender}
                         label={lang.gender}
                         handleChange={event => {
@@ -134,6 +140,7 @@ export default function BaseForm(props) {
                         width={'calc(33.333% - 21.35px)'} choices={lang.genderChoice}/>
 
                     <DropDownField
+                        dark={true}
                         placeholder={lang.education}
                         label={lang.education}
                         handleChange={event => {
@@ -143,6 +150,7 @@ export default function BaseForm(props) {
                         width={'calc(33.333% - 21.35px)'} choices={lang.educationChoice}/>
 
                     <DropDownField
+                        dark={true}
                         placeholder={lang.marital}
                         label={lang.marital}
                         handleChange={event => {
@@ -157,7 +165,9 @@ export default function BaseForm(props) {
 
                 <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
                     <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.parents}</h4></legend>
-                    <TextField placeholder={lang.father} label={lang.father}
+                    <TextField
+                        dark={true}
+                        placeholder={lang.father} label={lang.father}
                                handleChange={event => {
                                    setChanged(true)
                                    props.handleChange({
@@ -169,6 +179,7 @@ export default function BaseForm(props) {
                                width={'calc(50% - 16px)'}/>
 
                     <TextField
+                        dark={true}
                         placeholder={lang.mother}
                         label={lang.mother}
                         handleChange={event => {
@@ -181,7 +192,9 @@ export default function BaseForm(props) {
                         width={'calc(50% - 16px)'}/>
 
 
-                    <Selector required={true}
+                    <Selector
+                        dark={true}
+                        required={true}
                               locale={props.locale}
                               selected={{
                                   key: props.person.birth_place,
@@ -190,7 +203,9 @@ export default function BaseForm(props) {
                               handleChange={handleBirthPlaceChange}
                               label={lang.birthPlace} key={'1-5-'} setChanged={setChanged}
                               data={StateOptions} width={'calc(50% - 16px)'}/>
-                    <Selector required={true}
+                    <Selector
+                        dark={true}
+                        required={true}
                               locale={props.locale}
                               selected={{
                                   key: props.person.nationality,

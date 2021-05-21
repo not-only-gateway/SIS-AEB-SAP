@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import Cookies from 'universal-cookie/lib';
 import {
-    AddRounded, BusinessRounded,
+    AddRounded, Adjust, AdjustRounded, BusinessRounded,
     ExitToApp,
     ExitToAppRounded,
     ExtensionRounded,
     MenuOpenRounded, PersonAddRounded,
-    SettingsRounded,
+    SettingsRounded, TuneRounded,
     ViewQuiltRounded
 } from '@material-ui/icons';
 import styles from '../../../styles/Navigation.module.css'
@@ -86,14 +86,7 @@ export default function Navigation(props) {
                     label={lang.units} reduced={props.reduced}
                     icon={<ViewQuiltRounded/>}
                 />
-                <NavigationButton
-                    dark={props.dark} linkPath={'/settings'}
-                    highlight={props.path === '/settings'} locale={props.locale}
-                    label={lang.settings} reduced={props.reduced}
-                    icon={
-                        <SettingsRounded/>
-                    }
-                />
+
                 {accessProfile !== null && accessProfile.canCreatePerson && accessProfile.canManageMembership && (new Cookies()).get('jwt') !== undefined?
                     <NavigationButton
                         dark={props.dark} linkPath={'/create'}
@@ -106,6 +99,14 @@ export default function Navigation(props) {
                     :
                     null
                 }
+                <NavigationButton
+                    dark={props.dark} linkPath={'/settings'}
+                    highlight={props.path === '/settings'} locale={props.locale}
+                    label={(new Cookies()).get('jwt') !== undefined ? lang.adjustments : lang.settings} reduced={props.reduced}
+                    icon={
+                        <TuneRounded/>
+                    }
+                />
                 {accessProfile !== null && accessProfile.canManageStructure && (new Cookies()).get('jwt') !== undefined ?
                     <NavigationButton
                         dark={props.dark} linkPath={'/management'}

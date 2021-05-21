@@ -53,7 +53,7 @@ export default function DropDownField(props) {
                     style={{
                         height: '56px', borderRadius: '5px',
                     }}
-                    className={[styles.selectContainer, props.disabled ? {} : styles.hovered].join(' ')}
+                    className={[styles.selectContainer, props.disabled ? {} : props.dark ? styles.darkHighlight : styles.highlight].join(' ')}
                     onClick={() => setOpen(!open)}
                 >
 
@@ -95,5 +95,6 @@ DropDownField.propTypes = {
     value: PropTypes.string,
     required: PropTypes.bool,
     locale: PropTypes.string,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    dark: PropTypes.bool
 }

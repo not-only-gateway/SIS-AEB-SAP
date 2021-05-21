@@ -7,10 +7,10 @@ export default function Profile(props) {
     return (
         <div className={styles.profileContainer} style={{top: props.padding? '0' :    '32px', paddingTop: props.padding ? '16px' : 0}}>
             <PersonPersona
-                size={'150px'}
+                size={'120px'}
                 dark={false}
                 cakeDay={false}
-                image={props.person.image} elevation={false} variant={'rounded'}/>
+                image={props.person.image} elevation={false} variant={'circular'}/>
 
             <div style={{
                 display: 'grid',

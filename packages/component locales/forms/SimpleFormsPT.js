@@ -5,7 +5,9 @@ export const commissioned ={
     hierarchyLevel: 'Nível hierárquico',
     save: 'Salvar',
     options: [{key: true, value: 'Sim'}, {key: false, value: 'Não'}],
-    create: 'Criar'
+    create: 'Criar',
+    appointment: 'Nomeação',
+    additional: 'Informações adicionais'
 }
 
 export const effective ={

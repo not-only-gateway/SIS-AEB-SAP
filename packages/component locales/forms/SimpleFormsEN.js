@@ -6,7 +6,9 @@ export const commissioned = {
     save: 'Save',
 
     options: [{key: true, value: 'Yes'}, {key: false, value: 'No'}],
-    create: 'Create'
+    create: 'Create',
+    appointment: 'Appointment',
+    additional: 'Additional Information'
 }
 
 export const effective = {

@@ -9,5 +9,6 @@ export default {
     city: 'City',
     state: 'State',
     stateInitials: 'State Initials',
-    street: 'Street'
+    street: 'Street',
+    invalid: 'Invalid zip code.'
 }

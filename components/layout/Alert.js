@@ -76,6 +76,7 @@ export default function Alert(props) {
                         fontColor={alertColor ? alertColor.color : '#262626'}
                         border={'none'}
                         padding={''}
+                        justification={'flex-start'}
                         backgroundColor={alertColor ? alertColor.background : 'white'}
                         disabled={false}
                         content={props.message}

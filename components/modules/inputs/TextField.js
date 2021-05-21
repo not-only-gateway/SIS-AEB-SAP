@@ -43,7 +43,7 @@ export default function TextField(props) {
                             disabled={props.disabled}
                             id={'input'}
                             placeholder={props.placeholder}
-                            className={[styles.inputContainer, props.disabled ? {} : styles.hovered].join(' ')}
+                            className={[styles.inputContainer,props.disabled ? {} : props.dark ? styles.darkHighlight : styles.highlight].join(' ')}
                             value={event.value}
                             onChange={event.onChange}
                             maxLength={props.maxLength}
@@ -56,7 +56,7 @@ export default function TextField(props) {
                         id={'input'}
 
                         placeholder={props.placeholder}
-                        className={[styles.inputContainer, props.disabled ? {} : styles.hovered].join(' ')}
+                        className={[styles.inputContainer, props.disabled ? {} : props.dark ? styles.darkHighlight : styles.highlight].join(' ')}
                         value={props.value}
                         style={{height: props.variant === 'small' ? '40px' : undefined}}
                         type={props.passwordMask && !visible ? 'password' : props.type ? props.type : 'text'}
@@ -103,5 +103,6 @@ TextField.propTypes = {
         'default',
         'small'
     ]),
-    type: PropTypes.string
+    type: PropTypes.string,
+    dark: PropTypes.bool
 }

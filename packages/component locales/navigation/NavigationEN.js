@@ -1,5 +1,6 @@
 export default {
     extensions: 'Extensions',
+    adjustments: 'Adjustments & Activity',
     settings: 'Settings',
     signout: 'Sign out',
     signin: 'Sign in',

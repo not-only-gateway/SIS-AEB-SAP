@@ -1,9 +1,10 @@
 export default {
     extensions: 'Ramais',
+    adjustments: 'Ajustes & Atividade',
     settings: 'Configurações',
     signout: 'Sair',
     signin: 'Entrar',
-    activity: 'Atividade da conta',
+
 
     units: 'Unidades',
     profile: 'Perfil',

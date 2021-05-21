@@ -165,7 +165,7 @@ export default function Selector(props) {
                             style={{
                                 height: '56px', borderRadius: '5px',
                             }}
-                            className={[styles.selectContainer, props.disabled ? {} : styles.hovered].join(' ')}
+                            className={[styles.selectContainer, props.disabled ? {} : props.dark ? styles.darkHighlight : styles.highlight].join(' ')}
                             onClick={() => setModal(true)}
                         >
 
@@ -206,7 +206,7 @@ Selector.propTypes = {
     label: PropTypes.string,
     width: PropTypes.number,
     required: PropTypes.bool,
-    key: PropTypes.any,
     setChanged: PropTypes.func,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    dark: PropTypes.bool
 }

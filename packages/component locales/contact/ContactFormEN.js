@@ -1,5 +1,5 @@
 export default {
-    title: 'Contact',
+
     info: 'Contact information',
     email: 'Email',
     altEmail: 'Alternative Email',
@@ -7,5 +7,6 @@ export default {
     altPhone: 'Alternative Phone',
    save: 'Save',
     create: 'Next',
+    emails: 'Emails',
     phones: 'Phones'
 }

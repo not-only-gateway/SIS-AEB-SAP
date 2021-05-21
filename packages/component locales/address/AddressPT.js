@@ -9,5 +9,6 @@ export default {
     city: 'Cidade',
     state: 'Estado',
     stateInitials: 'Iniciais do estado',
-    street: 'Rua'
+    street: 'Rua',
+    invalid: 'CEP inválido.'
 }

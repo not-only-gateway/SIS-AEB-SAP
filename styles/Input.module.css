@@ -93,6 +93,7 @@
     overflow: hidden;
 
     text-transform: capitalize;
+
 }
 
 .alertLabel {
@@ -101,23 +102,17 @@
     font-size: .8rem;
 }
 
-@keyframes slideUp {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
 /*TEXT FIELD*/
 
-.hovered:hover, .hovered:focus, .hovered:focus-visible, .hovered:focus-within {
+.highlight:hover, .highlight:focus, .highlight:focus-visible, .highlight:focus-within {
     color: #262626;
     background: #f4f5fa;
     box-shadow: 0 0 4px 2px #0095ff;
 }
-
+ .darkHighlight:hover, .darkHighlight:focus, .darkHighlight:focus-visible, .darkHighlight:focus-within {
+     color: #262626;
+     box-shadow: 0 0 4px 2px #0095ff;
+ }
 /*IMAGE FIELD*/
 .uploadFormContainer {
     border-radius: 5px;

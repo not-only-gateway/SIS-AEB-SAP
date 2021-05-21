@@ -32,7 +32,7 @@ export default function ImageField(props) {
                        transition: 'visibility 0.2s ease,opacity 0.2s ease'
                    }}>{props.label}</label>
 
-            <form className={[styles.imageFieldContainer, styles.hovered].join(' ')}>
+            <form className={[styles.imageFieldContainer, styles.highlight].join(' ')}>
                 {props.initialImage && props.initialImage.name ?
                     <p
                         className={styles.labelContainer}
@@ -60,7 +60,7 @@ export default function ImageField(props) {
                     </div>
                     :
                     <label htmlFor='upload-image'
-                           className={[styles.uploadFormContainer, props.disabled ? {} : styles.hovered].join(' ')}
+                           className={[styles.uploadFormContainer,props.disabled ? {} : props.dark ? styles.darkHighlight : styles.highlight].join(' ')}
                            onChange={event => {
                                props.setImage(event)
                                props.setChanged(true)
@@ -95,5 +95,6 @@ ImageField.propTypes = {
     setChanged: PropTypes.func,
     width: PropTypes.string,
     required: PropTypes.bool,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    dark: PropTypes.bool
 }

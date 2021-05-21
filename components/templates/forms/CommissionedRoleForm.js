@@ -1,10 +1,13 @@
-import {Button} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import InputLayout from "../../modules/InputLayout";
 import mainStyles from '../../../styles/shared/Main.module.css'
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import Alert from "../../layout/Alert";
+import TextField from "../../modules/inputs/TextField";
+import shared from "../../../styles/shared/Shared.module.css";
+import Button from "../../modules/inputs/Button";
+import DropDownField from "../../modules/inputs/DropDownField";
 
 export default function CommissionedRoleForm(props) {
 
@@ -39,50 +42,103 @@ export default function CommissionedRoleForm(props) {
                     type={status.type} render={status.type !== undefined}
                     handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
                 />
-                <InputLayout inputName={lang.denomination} dark={false} handleChange={props.handleChange}
-                             name={'denomination'}
-                             inputType={0} size={'calc(25% - 12px)'} required={true}
-                             initialValue={props.data.denomination} setChanged={setChanged}/>
-                <InputLayout inputName={lang.level} dark={false} handleChange={props.handleChange}
-                             name={'role_level'}
-                             inputType={0} size={'calc(25% - 12px)'} required={true}
-                             initialValue={props.data.role_level} setChanged={setChanged}/>
+                <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
+                    {/*<legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.personal}</h4></legend>*/}
 
-                <InputLayout inputName={lang.roleClass} dark={false} handleChange={props.handleChange}
-                             name={'role_class'}
-                             inputType={0} size={'calc(25% - 12px)'} required={true}
-                             initialValue={props.data.role_class} setChanged={setChanged}/>
-                <InputLayout inputName={lang.hierarchyLevel} dark={false} handleChange={props.handleChange}
-                             name={'hierarchy_level'}
-                             inputType={0} size={'calc(25% - 12px)'} required={true}
-                             initialValue={props.data.hierarchy_level} setChanged={setChanged}/>
+                    <TextField
+                        dark={true}
+                        placeholder={lang.denomination} label={lang.denomination}
+                        handleChange={event => {
+                            setChanged(true)
+                            props.handleChange({name: 'denomination', value: event.target.value})
+                        }}
+                        locale={props.locale} value={props.data.denomination} required={true}
+                        width={'100%'}
+                    />
 
+                </fieldset>
+                <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
+                    <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.additional}</h4></legend>
+                    <TextField
+                        dark={true}
+                        placeholder={lang.level} label={lang.level}
+                        handleChange={event => {
+                            setChanged(true)
+                            props.handleChange({name: 'role_level', value: event.target.value})
+                        }}
+                        locale={props.locale} value={props.data.role_level} required={true}
+                        width={'calc(33.333%  - 21.35px)'}
+                    />
+                    <TextField
+                        dark={true}
+                        placeholder={lang.roleClass} label={lang.roleClass}
+                        handleChange={event => {
+                            setChanged(true)
+                            props.handleChange({name: 'role_class', value: event.target.value})
+                        }}
+                        locale={props.locale} value={props.data.role_class} required={true}
+                        width={'calc(33.333%  - 21.35px)'}
+                    />
+                    <TextField
+                        dark={true}
+                        placeholder={lang.hierarchyLevel} label={lang.hierarchyLevel}
+                        handleChange={event => {
+                            setChanged(true)
+                            props.handleChange({name: 'hierarchy_level', value: event.target.value})
+                        }}
+                        locale={props.locale} value={props.data.hierarchy_level} required={true}
+                        width={'calc(33.333%  - 21.35px)'}
+                    />
+                </fieldset>
+                <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
+                    <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.appointment}</h4></legend>
+                    <DropDownField
+                        dark={true}
+                        placeholder={'DAS'}
+                        label={'DAS'}
+                        handleChange={event => {
+                            setChanged(true)
+                            props.handleChange({name: 'das', value: event})
+                        }}
+                        locale={props.locale}
+                        value={props.data.das} required={true}
+                        width={'calc(50% - 16px)'}
+                        choices={lang.options}/>
 
-                <InputLayout inputName={'DAS'} dark={false} handleChange={props.handleChange}
-                             name={'das'} selectFields={lang.options}
-                             inputType={1} size={'calc(50% - 8px)'} required={true}
-                             initialValue={props.data.das} setChanged={setChanged}/>
+                    <DropDownField
+                        dark={true}
+                        placeholder={'FCPE'}
+                        label={'FCPE'}
+                        handleChange={event => {
+                            setChanged(true)
+                            props.handleChange({name: 'fcpe', value: event})
+                        }}
+                        locale={props.locale}
+                        value={props.data.fcpe} required={true}
+                        width={'calc(50% - 16px)'}
+                        choices={lang.options}/>
+                </fieldset>
 
-                <InputLayout inputName={'FCPE'} dark={false} handleChange={props.handleChange}
-                             name={'fcpe'} selectFields={lang.options}
-                             inputType={1} size={'calc(50% - 8px)'} required={true}
-                             initialValue={props.data.fcpe} setChanged={setChanged}/>
+                <div className={shared.formSubmitContainer}>
+                    <Button width={'100%'} elevation={true} border={'none'} padding={'8px 32px 8px 32px'}
+                            fontColor={'white'} backgroundColor={'#0095ff'}
+                            handleClick={() => {
 
-
-                <Button style={{
-                    width: '100%', marginTop: '50px',
-                    backgroundColor: disabled() ? null : '#39adf6',
-
-                }} variant={'contained'} color={'primary'}
-                        disabled={disabled()}
-                        onClick={() => props.handleSubmit({
-                            pk: props.data.id,
-                            data: props.data,
-                            create: props.create,
-                            setStatus: setStatus
-                        }).then(res => {
-                            setChanged(!res)
-                        })}>{lang.save}</Button>
+                                props.handleSubmit({
+                                    pk: props.data.id,
+                                    data: props.data,
+                                    create: props.create,
+                                    setStatus: setStatus
+                                }).then(res => {
+                                    setChanged(!res)
+                                })
+                            }}
+                            disabled={disabled()} variant={'rounded'}
+                            content={
+                                lang.save
+                            } justification={'center'} hoverHighlight={false}
+                    />
+                </div>
             </div>
 
         )

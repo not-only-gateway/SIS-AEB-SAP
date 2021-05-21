@@ -60,6 +60,8 @@ export default function DocumentsForm(props) {
                 <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
                     <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.registration}</h4></legend>
                     <TextField
+
+                        dark={true}
                         placeholder={'CPF'}
                         label={'CPF'}
                         handleChange={event => {
@@ -74,6 +76,7 @@ export default function DocumentsForm(props) {
                     />
 
                     <TextField
+                        dark={true}
                         placeholder={'RG'}
                         label={'RG'}
                         handleChange={event => {
@@ -88,6 +91,7 @@ export default function DocumentsForm(props) {
                     />
 
                     <TextField
+                        dark={true}
                         placeholder={lang.issuing}
                         label={lang.issuing}
                         handleChange={event => {
@@ -103,6 +107,7 @@ export default function DocumentsForm(props) {
 
 
                     <DateField
+                        dark={true}
                         placeholder={lang.dispatch}
                         label={lang.dispatch}
                         handleChange={event => {
@@ -122,9 +127,10 @@ export default function DocumentsForm(props) {
                     />
                 </fieldset>
                 <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
-                    <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.parents}</h4></legend>
+                    <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.work}</h4></legend>
 
                     <TextField
+                        dark={true}
                         placeholder={lang.work}
                         label={lang.work}
                         handleChange={event => {
@@ -138,6 +144,7 @@ export default function DocumentsForm(props) {
                         width={'calc(50% - 16px)'}
                     />
                     <TextField
+                        dark={true}
                         placeholder={'PIS/PASEP'}
                         label={'PIS/PASEP'}
                         handleChange={event => {
@@ -154,6 +161,7 @@ export default function DocumentsForm(props) {
                 <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
                     <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.bank}</h4></legend>
                     <TextField
+                        dark={true}
                         placeholder={lang.bank}
                         label={lang.bank}
                         handleChange={event => {
@@ -166,6 +174,7 @@ export default function DocumentsForm(props) {
                         width={'calc(50% - 16px)'}
                     />
                     <TextField
+                        dark={true}
                         placeholder={lang.agency}
                         label={lang.agency}
                         handleChange={event => {
@@ -181,6 +190,7 @@ export default function DocumentsForm(props) {
                 <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
                     <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.voter}</h4></legend>
                     <TextField
+                        dark={true}
                         placeholder={lang.voter}
                         label={lang.voter}
                         handleChange={event => {
@@ -193,6 +203,7 @@ export default function DocumentsForm(props) {
                         width={'100%'}
                     />
                     <TextField
+                        dark={true}
                         placeholder={lang.section}
                         label={lang.section}
                         handleChange={event => {
@@ -205,6 +216,7 @@ export default function DocumentsForm(props) {
                         width={'calc(50% - 16px)'}
                     />
                     <TextField
+                        dark={true}
                         placeholder={lang.zone}
                         label={lang.zone}
                         handleChange={event => {

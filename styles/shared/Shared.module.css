@@ -1,17 +1,15 @@
 
-.formContainer{
-    display:inline-flex;
-    flex-flow:row wrap;
-    column-gap:32px;
-    row-gap:8px;
-    justify-content:center;
-    width:100%;
+.formContainer {
+    display: inline-flex;
+    flex-flow: row wrap;
+    column-gap: 32px;
+    row-gap: 8px;
+    justify-content: center;
+    width: 100%;
 }
 
 
-
-
-.filterContainer{
+.filterContainer {
     display: grid;
     justify-items: center;
     align-content: space-between;
@@ -20,7 +18,8 @@
     height: 100%;
 
 }
-.accordionTitle{
+
+.accordionTitle {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -30,7 +29,8 @@
     text-overflow: ellipsis;
     overflow: hidden
 }
-.closeButtonModalContainer{
+
+.closeButtonModalContainer {
     position: absolute;
     top: 16px;
     right: 16px;
@@ -38,12 +38,13 @@
     justify-content: flex-end;
     justify-items: flex-end;
 }
-.modalContainer{
+
+.modalContainer {
     background-color: white;
     border-radius: 8px;
     height: 60%;
-    width: clamp(500px, 60%,750px);
-    padding:32px;
+    width: clamp(500px, 60%, 750px);
+    padding: 32px;
     overflow: hidden;
 
     display: grid;
@@ -52,11 +53,13 @@
 
     position: relative;
 }
+
 .modalContainer > div {
     /*height: 100%;*/
     width: 100%;
 }
-.formSubmitContainer{
+
+.formSubmitContainer {
     width: 100%;
     background: white;
     position: sticky;
@@ -70,28 +73,34 @@
     height: 7vh;
 }
 
-.line{
+.line {
     width: 100%;
     background: #ecedf2;
     height: 1px;
     margin-top: 8px;
     margin-bottom: 8px;
 }
-.fieldsetContainer{
+
+.fieldsetContainer {
     padding: 8px;
-    border-left: #ecedf2 2px solid;
-
-    border-bottom:none ;
-    border-top: none;
-    border-right: none;
-
+    background: #f4f5fa;
+    border: #ecedf2 1px solid;
     width: 100%;
+    border-radius: 8px;
+    margin: auto;
 }
 
-.rowContainer{
+.fieldsetContainer > legend {
+    transform: translateY(-1rem);
+
+
+}
+
+
+.rowContainer {
     font-family: 'Roboto' !important;
     background: #f4f5fa;
-    border:  #ecedf2 1px solid;
+    border: #ecedf2 1px solid;
 
     transition: 300ms ease-in-out;
 
@@ -111,17 +120,17 @@
     outline: none;
 }
 
-.rowContainer:hover{
+.rowContainer:hover {
     /*border-color: #0095ff;*/
     box-shadow: 0 0 4px 2px #0095ff;
 }
 
-.modalFooter{
+.modalFooter {
     background: #f4f5fa;
     display: flex;
     justify-content: flex-end;
     border-radius: 0 0 8px 8px;
     padding: 24px 32px 24px 32px;
     gap: 16px;
-
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .1);
 }

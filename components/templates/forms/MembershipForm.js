@@ -63,55 +63,64 @@ export default function MembershipForm(props) {
                     })} render={status.error}/>
                 <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
                     <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.general}</h4></legend>
-                    <TextField placeholder={lang.registration} label={lang.registration}
-                               handleChange={event => {
-                                   setChanged(true)
-                                   props.handleChange({name: 'registration', value: event.target.value})
-                               }} locale={props.locale}
-                               value={props.member === null ? null : props.member.registration}
-                               required={false}
-                               width={'calc(50% - 16px)'} maxLength={undefined}/>
+                    <TextField
+                        dark={true}
+                        placeholder={lang.registration} label={lang.registration}
+                        handleChange={event => {
+                            setChanged(true)
+                            props.handleChange({name: 'registration', value: event.target.value})
+                        }} locale={props.locale}
+                        value={props.member === null ? null : props.member.registration}
+                        required={false}
+                        width={'calc(50% - 16px)'} maxLength={undefined}/>
 
 
-                    <TextField placeholder={lang.corporateEmail} label={lang.corporateEmail}
-                               handleChange={event => {
-                                   setChanged(true)
-                                   props.handleChange({
-                                       name: 'corporate_email',
-                                       value: event.target.value
-                                   })
-                               }} locale={props.locale}
-                               value={props.member === null ? null : props.member.corporate_email}
-                               required={true}
-                               width={'calc(50% - 16px)'}
-                               maxLength={undefined}/>
+                    <TextField
+                        dark={true}
+                        placeholder={lang.corporateEmail} label={lang.corporateEmail}
+                        handleChange={event => {
+                            setChanged(true)
+                            props.handleChange({
+                                name: 'corporate_email',
+                                value: event.target.value
+                            })
+                        }} locale={props.locale}
+                        value={props.member === null ? null : props.member.corporate_email}
+                        required={true}
+                        width={'calc(50% - 16px)'}
+                        maxLength={undefined}/>
 
-                    <TextField placeholder={lang.extension} label={lang.extension}
-                               handleChange={event => {
-                                   setChanged(true)
-                                   props.handleChange({name: 'extension', value: event.target.value})
-                               }} locale={props.locale}
-                               value={props.member === null ? null : props.member.extension}
-                               required={true}
-                               width={'calc(50% - 16px)'}
-                               maxLength={undefined} phoneMask={true}/>
+                    <TextField
+                        dark={true}
+                        placeholder={lang.extension} label={lang.extension}
+                        handleChange={event => {
+                            setChanged(true)
+                            props.handleChange({name: 'extension', value: event.target.value})
+                        }} locale={props.locale}
+                        value={props.member === null ? null : props.member.extension}
+                        required={true}
+                        width={'calc(50% - 16px)'}
+                        maxLength={undefined} phoneMask={true}/>
 
-                    <TextField placeholder={lang.altPhone} label={lang.altPhone}
-                               handleChange={event => {
-                                   setChanged(true)
-                                   props.handleChange({
-                                       name: 'alternative_phone',
-                                       value: event.target.value
-                                   })
-                               }} locale={props.locale}
-                               value={props.member === null ? null : props.member.alternative_phone}
-                               required={false}
-                               width={'calc(50% - 16px)'}
-                               maxLength={undefined} phoneMask={true}/>
+                    <TextField
+                        dark={true}
+                        placeholder={lang.altPhone} label={lang.altPhone}
+                        handleChange={event => {
+                            setChanged(true)
+                            props.handleChange({
+                                name: 'alternative_phone',
+                                value: event.target.value
+                            })
+                        }} locale={props.locale}
+                        value={props.member === null ? null : props.member.alternative_phone}
+                        required={false}
+                        width={'calc(50% - 16px)'}
+                        maxLength={undefined} phoneMask={true}/>
                 </fieldset>
                 <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
                     <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.linkage}</h4></legend>
                     <DropDownField
+                        dark={true}
                         placeholder={lang.homeOffice}
                         label={lang.homeOffice}
                         handleChange={event => {
@@ -122,31 +131,35 @@ export default function MembershipForm(props) {
                         required={true}
                         width={'calc(50% - 16px)'} choices={lang.options}/>
 
-                    <Selector required={true}
-                              locale={props.locale}
-                              selected={{
-                                  key: props.member === null ? null : (props.member.entity ? props.member.entity.key : null),
-                                  value: props.member === null ? null : (props.member.entity ? props.member.entity.value : null)
-                              }}
-                              handleChange={event => props.handleChange({
-                                  name: 'entity',
-                                  value: event
-                              })} setChanged={setChanged}
-                              label={lang.entity} key={'membership-6'}
-                              data={mapToSelect({data: entities, option: 1})}
-                              width={'calc(50% - 16px'}/>
+                    <Selector
+                        dark={true}
+                        required={true}
+                        locale={props.locale}
+                        selected={{
+                            key: props.member === null ? null : (props.member.entity ? props.member.entity.key : null),
+                            value: props.member === null ? null : (props.member.entity ? props.member.entity.value : null)
+                        }}
+                        handleChange={event => props.handleChange({
+                            name: 'entity',
+                            value: event
+                        })} setChanged={setChanged}
+                        label={lang.entity} key={'membership-6'}
+                        data={mapToSelect({data: entities, option: 1})}
+                        width={'calc(50% - 16px'}/>
                     {props.create ? null :
-                        <Selector required={false}
-                                  locale={props.locale}
-                                  selected={typeof (props.member.main_collaboration) === 'number' || props.member.mainCollaboration === null ? props.mainCollaboration : props.member.main_collaboration}
-                                  handleChange={event => {
-                                      props.handleChange({
-                                          name: 'main_collaboration',
-                                          value: event
-                                      })
-                                  }} setChanged={setChanged}
-                                  label={lang.mainCollaboration} key={'membership-7'}
-                                  data={mapToSelect({data: collaborations, option: 4})} width={'100%'}/>
+                        <Selector
+                            dark={true}
+                            required={false}
+                            locale={props.locale}
+                            selected={typeof (props.member.main_collaboration) === 'number' || props.member.mainCollaboration === null ? props.mainCollaboration : props.member.main_collaboration}
+                            handleChange={event => {
+                                props.handleChange({
+                                    name: 'main_collaboration',
+                                    value: event
+                                })
+                            }} setChanged={setChanged}
+                            label={lang.mainCollaboration} key={'membership-7'}
+                            data={mapToSelect({data: collaborations, option: 4})} width={'100%'}/>
                     }
                 </fieldset>
 
@@ -161,7 +174,7 @@ export default function MembershipForm(props) {
                                     setStatus: setStatus
                                 }).then(res => {
                                     setChanged(!res)
-                                    if(props.setAccepted)
+                                    if (props.setAccepted)
                                         props.setAccepted(res)
                                 })
                             }}
