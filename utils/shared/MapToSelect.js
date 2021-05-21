@@ -43,7 +43,7 @@ export default function mapToSelect(props) {
             props.data.map(collaboration => {
                 response.push({
                     key: collaboration.id,
-                    value: collaboration.unit_acronym + ' - ' + collaboration.access_profile_denomination
+                    value: collaboration.tag
                 })
             })
             break

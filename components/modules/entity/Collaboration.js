@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import PropTypes from "prop-types";
+import PropTypes, {func} from "prop-types";
 import {AddRounded, CloseRounded} from "@material-ui/icons";
-import {Button, Divider, Modal} from "@material-ui/core";
-import CollaborationSummary from "../../elements/CollaborationSummary";
+import {Divider, Modal} from "@material-ui/core";
+
 import mainStyles from '../../../styles/shared/Main.module.css'
 import {getIconStyle} from "../../../styles/shared/MainStyles";
 import CollaborationForm from "../../templates/forms/CollaborationForm";
@@ -18,6 +18,8 @@ import fetchSeniors from "../../../utils/fetch/FetchSeniors";
 import submitCollaboration from "../../../utils/submit/SubmitCollaboration";
 import animations from '../../../styles/shared/Animations.module.css'
 import shared from "../../../styles/shared/Shared.module.css";
+import Button from "../inputs/Button";
+import styles from "../../../styles/Extensions.module.css";
 
 export default function Collaboration(props) {
 
@@ -33,6 +35,7 @@ export default function Collaboration(props) {
     const [collaboration, setCollaboration] = useState({})
     const [loading, setLoading] = useState(true)
     const [accepted, setAccepted] = useState(false)
+    const [focused, setFocused] = useState(false)
 
     useEffect(() => {
         if (!collaboration.unit && !props.create) {
@@ -72,7 +75,10 @@ export default function Collaboration(props) {
                 setData: setDependencies
             }))
             if (collaboration.unit)
-                fetchSeniors({unitID: collaboration.unit.id ? collaboration.unit.id : collaboration.unit.key, memberID: props.memberID}).then(res => {
+                fetchSeniors({
+                    unitID: collaboration.unit.id ? collaboration.unit.id : collaboration.unit.key,
+                    memberID: props.memberID
+                }).then(res => {
                     console.log(res)
                     handleObjectChange({
                         event: {name: 'seniors', value: mapToSelect({data: res, option: 3})},
@@ -92,13 +98,13 @@ export default function Collaboration(props) {
             })
             setLoading(false)
         }
-        if(accepted) {
+        if (accepted) {
             setModal(false)
             setAccepted(false)
             props.fetch()
 
         }
-    }, [collaboration.unit, modal,accepted])
+    }, [collaboration.unit, modal, accepted])
 
     function renderModal() {
         return (
@@ -108,17 +114,15 @@ export default function Collaboration(props) {
                 <div style={{
                     backgroundColor: 'white',
                     width: '75%',
-                    height: 'auto',
-                    padding: '16px',
+                    maxHeight: '700px',
+                    paddingTop: '16px',
                     borderRadius: '8px',
-                    position: "relative"
+                    position: "relative",
+
+                    overflowY: 'auto'
                 }}>
-                    <div className={shared.closeButtonModalContainer} style={{top: '8px', right: '8px', zIndex: 5}}>
-                        <Button onClick={() => setModal(false)}>
-                            <CloseRounded/>
-                        </Button>
-                    </div>
                     <CollaborationForm
+                        handleClose={() => setModal(false)}
                         locale={props.locale}
                         collaboration={collaboration}
                         handleChange={event => handleObjectChange({event: event, setData: setCollaboration})}
@@ -137,44 +141,48 @@ export default function Collaboration(props) {
             </Modal>
         )
     }
+    function getLang(locale){
+        let response = 'New Collaboration'
+        if(locale === 'pt')
+            response = 'Nova colaboração'
+
+        return response
+    }
 
     if (!loading)
         return (
-            <div style={{width: '100%'}}>
+            <div key={props.collaborationID + '-' + props.memberID} style={{width: '100%'}}>
                 {renderModal()}
-                <Button onClick={() => setModal(true)} style={{
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'flex-start',
-                    border: 'hsla(210, 11%, 78%, 0.5)  .7px solid',
-                    borderRadius: '8px',
-                    minHeight: '70px',
-                    color: '#262626',
-                    textTransform: 'none'
-                }} key={'collaboration-' + props.key}>
+
+                <button onClick={() => setModal(true)}
+                        onMouseDown={() => setFocused(true)}
+                        onMouseUp={() => setFocused(false)}
+                        onMouseLeave={() => {
+                            setFocused(false)
+                        }}
+
+                        className={[shared.rowContainer, animations.popInAnimation].join(' ')}
+                        style={{boxShadow: focused ? '0 0 1px 1px #ecedf2' : undefined}}
+                >
                     <>
                         {props.create ?
                             <div className={mainStyles.displayInlineStart} style={{width: 'fit-content'}}>
-                                <AddRounded style={getIconStyle({dark: false})}/>
+                                <AddRounded style={{marginRight: '10px', color: '#555555'}}/>
                                 <Divider orientation={'horizontal'} style={{
                                     width: '10px',
                                     marginRight: '10px',
 
-                                    color: '#262626'
                                 }}/>
-                                <p>New Collaboration</p>
+                                <p>{getLang(props.locale)}</p>
                             </div>
                             :
-                            <CollaborationSummary
-                                commissionedRole={collaboration.commissioned_role ? collaboration.commissioned_role.value : null}
-                                substitute={collaboration.substitute}
-                                activeRole={collaboration.active_collaboration}
-                                effectiveRole={collaboration.effective_role ? collaboration.effective_role.value : null}
-                                additionalRoleInfo={collaboration.additional_info !== undefined ? collaboration.additional_info : null}
-                                unit={collaboration.unit ? collaboration.unit.value : null}/>
+                            <h5 style={{marginBottom: 'auto', marginTop: 'auto'}}>
+                                {collaboration.tag}
+                            </h5>
                         }
                     </>
-                </Button>
+                </button>
+
             </div>
 
         )

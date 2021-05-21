@@ -20,7 +20,6 @@ export default function MembershipForm(props) {
     const [lang, setLang] = useState(null)
     const [entities, setEntities] = useState([])
     const [collaborations, setCollaborations] = useState([])
-    const [openTab, setOpenTab] = useState(0)
     const [status, setStatus] = useState({
         error: false,
         message: undefined
@@ -62,8 +61,8 @@ export default function MembershipForm(props) {
                         error: false,
                         message: undefined
                     })} render={status.error}/>
-                <h4 style={{width: '100%', marginBottom: '16px'}}>{lang.general}</h4>
-                <div className={shared.formContainer}>
+                <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
+                    <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.general}</h4></legend>
                     <TextField placeholder={lang.registration} label={lang.registration}
                                handleChange={event => {
                                    setChanged(true)
@@ -109,8 +108,9 @@ export default function MembershipForm(props) {
                                required={false}
                                width={'calc(50% - 16px)'}
                                maxLength={undefined} phoneMask={true}/>
-                    <div className={shared.line}/>
-                    <h4 style={{width: '100%', marginBottom: '16px'}}>{lang.linkage}</h4>
+                </fieldset>
+                <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
+                    <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.linkage}</h4></legend>
                     <DropDownField
                         placeholder={lang.homeOffice}
                         label={lang.homeOffice}
@@ -138,18 +138,17 @@ export default function MembershipForm(props) {
                     {props.create ? null :
                         <Selector required={false}
                                   locale={props.locale}
-                                  selected={{
-                                      key: (props.mainCollaboration !== null ? props.mainCollaboration.id : null),
-                                      value: props.mainCollaboration !== null ? props.mainCollaboration.unit  : null,
-                                  }}
-                                  handleChange={event => props.handleChange({
-                                      name: 'main_collaboration',
-                                      value: event
-                                  })} setChanged={setChanged}
+                                  selected={typeof (props.member.main_collaboration) === 'number' || props.member.mainCollaboration === null ? props.mainCollaboration : props.member.main_collaboration}
+                                  handleChange={event => {
+                                      props.handleChange({
+                                          name: 'main_collaboration',
+                                          value: event
+                                      })
+                                  }} setChanged={setChanged}
                                   label={lang.mainCollaboration} key={'membership-7'}
                                   data={mapToSelect({data: collaborations, option: 4})} width={'100%'}/>
                     }
-                </div>
+                </fieldset>
 
                 <div className={shared.formSubmitContainer}>
                     <Button width={'100%'} elevation={true} border={'none'} padding={'8px 32px 8px 32px'}
@@ -162,7 +161,7 @@ export default function MembershipForm(props) {
                                     setStatus: setStatus
                                 }).then(res => {
                                     setChanged(!res)
-                                    if (props.setAccepted !== undefined)
+                                    if(props.setAccepted)
                                         props.setAccepted(res)
                                 })
                             }}

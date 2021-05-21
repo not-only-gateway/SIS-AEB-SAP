@@ -3,7 +3,7 @@ import {ButtonBase, InputBase, Paper} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import mainStyles from '../../styles/shared/Main.module.css'
 import {CloseRounded, SearchRounded} from "@material-ui/icons";
-
+import shared from '../../styles/shared/Shared.module.css'
 export default function SearchBox(props) {
     const [focused, setFocused] = useState(false)
     const [hovered, setHovered] = useState(false)
@@ -22,26 +22,25 @@ export default function SearchBox(props) {
 
                    onMouseEnter={() => setHovered(true)}
                    onMouseLeave={() => setHovered(false)}
+            className={shared.rowContainer}
                    style={{
                        display: 'flex',
                        justifyContent: 'space-around',
                        alignItems: 'center',
-                       boxShadow: 'unset',
-                       border: focused || hovered ? '#0095ff .7px solid' :  '#ecedf2 .7px solid' ,
-                       width: '100%',
+                       boxShadow: hovered || focused ? '0 0 4px 2px #0095ff' : 'unset',
                        borderRadius: '8px',
-                       height: '100%',
-                       transition: '300ms ease-in-out',
+
                        backgroundColor: '#f4f5fa',
                        marginLeft: 'auto',
 
-                   }}>
+                   }}
+            >
 
                 <ButtonBase
                     onMouseEnter={() => setSearchHovered(true)}
                     onMouseLeave={() => setSearchHovered(false)}
                     onClick={() => props.applyChanges()} style={{
-                    width: '56px',
+                    width: '40px',
                     height: '100%'
                 }} className={mainStyles.displayInlineCenter}>
                     <SearchRounded style={{
@@ -52,21 +51,19 @@ export default function SearchBox(props) {
                 {/*<Divider orientation={'vertical'}/>*/}
                 <InputBase
                     style={{
-                        width: 'calc(100% - 112px)',
+                        width: 'calc(100% - 10px)',
                         marginLeft: '10px',
                     }}
                     placeholder={props.searchLocale}
                     value={props.searchInput}
-                    onFocus={() => setFocused(true)}
-                    onBlur={() => setFocused(false)}
                     onKeyDown={key => {
                         if (key.key === 'Enter') {
                             props.applyChanges()
                             key.preventDefault()
                         }
-
-
                     }}
+                    onFocus={() => setFocused(true)}
+                    onBlur={() => setFocused(false)}
                     onChange={event => {
 
                         props.setSearchInput(event.target.value)

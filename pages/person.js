@@ -54,8 +54,7 @@ export default function person() {
             if (lang === null)
                 setLang(getLanguage(router.locale, router.pathname))
             setNotAuthenticated(!(new Cookies()).get('authorization_token'))
-        },
-        [router.locale, router.isReady, router.query, notAuthenticated]
+        }, [router.locale, router.isReady, router.query, notAuthenticated]
     )
 
 
@@ -80,14 +79,14 @@ export default function person() {
                 {!loading ?
                     <div className={styles.pageContainer}>
                         <div className={styles.profileHeader}>
-                            <Profile person={person} member={member}/>
+                            <Profile person={person} member={member} padding={true}/>
 
                             <ExpandableTabs
                                 buttons={[
                                     {
                                         mainButton: {
                                             key: 0,
-                                            value:  lang.personal
+                                            value: lang.personal
                                         },
                                         subButtons: [
                                             {
@@ -128,7 +127,8 @@ export default function person() {
                                 openTab={openTab}
                                 setOpenTab={setOpenTab}
                             />
-                            <Divider orientation={'horizontal'} style={{backgroundColor: '#ecedf2', width: '100%', marginTop: '5px'}}/>
+                            <Divider orientation={'horizontal'}
+                                     style={{backgroundColor: '#ecedf2', width: '100%', marginTop: '5px'}}/>
                         </div>
                         <div className={styles.profileContentContainer}>
 

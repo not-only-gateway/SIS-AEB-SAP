@@ -10,6 +10,7 @@ import Link from 'next/link'
 import fetchUnits from "../utils/fetch/FetchUnits";
 import {Button} from "@material-ui/core";
 import UnitsStructure from "../components/modules/structure/UnitsStructure";
+import shared from '../styles/shared/Shared.module.css'
 
 export default function Index() {
 
@@ -20,7 +21,7 @@ export default function Index() {
     const [hoveredUnit, setHoveredUnit] = useState(null)
     const [changed, setChanged] = useState(false)
     const [searchInput, setSearchInput] = useState('')
-    const headerStyle =(key) => {
+    const headerStyle = (key) => {
         return {
             marginTop: "0",
             marginBottom: 0,
@@ -29,7 +30,7 @@ export default function Index() {
             transition: '300ms ease-in-out'
         }
     }
-    const secondaryHeaderStyle=(key) => {
+    const secondaryHeaderStyle = (key) => {
         return {
             color: '#555555',
             marginBottom: 0,
@@ -46,9 +47,9 @@ export default function Index() {
 
     function rendered() {
         let count = 0
-        data.filter(unit =>{
-            if(searchInput.length === 0 || (searchInput.length > 0 && unit.name.toLowerCase().match(searchInput.toLowerCase()) && !changed) || changed)
-                count += 1
+        data.filter(unit => {
+                if (searchInput.length === 0 || (searchInput.length > 0 && unit.name.toLowerCase().match(searchInput.toLowerCase()) && !changed) || changed)
+                    count += 1
             }
         )
 
@@ -82,7 +83,8 @@ export default function Index() {
                     searchComponent={
                         openTab === 0 ?
                             <SearchBox searchInput={searchInput} setSearchInput={setSearchInput}
-                                       searchLocale={lang.search} setChanged={setChanged} applyChanges={() => setChanged(false)}/>
+                                       searchLocale={lang.search} setChanged={setChanged}
+                                       applyChanges={() => setChanged(false)}/>
                             :
                             undefined
                     }
@@ -103,46 +105,33 @@ export default function Index() {
                                 {
                                     buttonKey: 0,
                                     value: (
-                                        <div style={{display: 'grid', gap: '8px', width: '100%'}} key={'units-container'}>
+                                        <div style={{display: 'grid', gap: '8px', width: '100%'}}
+                                             key={'units-container'}>
                                             {rendered() > 0 ? data.map((unit, index) => (
-                                                <div key={unit.id.toString()}>
+                                                    <button
+                                                        onClick={() => router.push({
+                                                            locale: router.locale,
+                                                            pathname: '/unit',
+                                                            query: {id: unit.id}
+                                                        })}
+                                                        key={unit.id + '-' + unit.acronym}
+                                                        className={shared.rowContainer}
 
-                                                    <Link href={{pathname: '/unit', query: {id: unit.id}}}>
-                                                        <Button
-                                                            onMouseEnter={() => setHoveredUnit(unit.id)}
-                                                            onMouseLeave={() => setHoveredUnit(null)}
-                                                            style={{
-                                                                animationDelay: index * 200 + 'ms',
-                                                                width: '100%',
-                                                                textTransform: 'none',
-                                                                borderRadius: '8px',
-                                                                backgroundColor: '#f4f5fa',
-                                                                border: hoveredUnit === unit.id ? '#0095ff .7px solid' : '#ecedf2 .7px solid',
-                                                                transition: '300ms ease-in-out',
-                                                                display: searchInput.length === 0 || (searchInput.length > 0 && unit.name.toLowerCase().match(searchInput.toLowerCase()) && !changed) || changed  ? 'flex' : 'none',
-                                                                justifyContent: 'flex-start',
-                                                                alignItems: 'center',
-                                                                alignContent: 'center',
-                                                                height: '70px',
-                                                                padding: '8px',
-                                                                boxShadow: hoveredUnit === unit.id ? 'rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0,0,0,0.06) 0 2px 4px -1px' : 'unset'
-                                                            }}>
-                                                            <h5 style={headerStyle(unit.id)}>{lang.acronym}: </h5>
-                                                            <h5 style={secondaryHeaderStyle(unit.id)}>{unit.acronym}</h5>
-                                                            <h5 style={headerStyle(unit.id)}>{lang.name}:</h5>
-                                                            <h5 style={secondaryHeaderStyle(unit.id)}>{unit.name}</h5>
-                                                            {unit.parent_unit_acronym !== null ?
-                                                                <>
-                                                                    <h5 style={headerStyle(unit.id)}>{lang.parentUnit}:</h5>
-                                                                    <h5 style={secondaryHeaderStyle(unit.id)}>{unit.parent_unit_acronym}</h5>
-                                                                </>
-                                                                :
-                                                                null
-                                                            }
-                                                        </Button>
-                                                    </Link>
-                                                </div>
-                                            )) :
+                                                    >
+                                                        <h5 style={headerStyle(unit.id)}>{lang.acronym}: </h5>
+                                                        <h5 style={secondaryHeaderStyle(unit.id)}>{unit.acronym}</h5>
+                                                        <h5 style={headerStyle(unit.id)}>{lang.name}:</h5>
+                                                        <h5 style={secondaryHeaderStyle(unit.id)}>{unit.name}</h5>
+                                                        {unit.parent_unit_acronym !== null ?
+                                                            <>
+                                                                <h5 style={headerStyle(unit.id)}>{lang.parentUnit}:</h5>
+                                                                <h5 style={secondaryHeaderStyle(unit.id)}>{unit.parent_unit_acronym}</h5>
+                                                            </>
+                                                            :
+                                                            null
+                                                        }
+                                                    </button>
+                                                )) :
                                                 <div className={mainStyles.displayInlineCenter} style={{
                                                     ...{marginBottom: '15px', width: '100%'}
                                                 }}>

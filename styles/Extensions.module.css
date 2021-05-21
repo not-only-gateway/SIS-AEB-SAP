@@ -6,6 +6,10 @@
     gap: 16px;
     margin: auto;
     overflow-x: visible;
+
+    position: relative;
+
+    z-index: 0;
 }
 
 .fullWidth {
@@ -13,13 +17,6 @@
 
 }
 
-.extensionsList {
-    display: flex;
-    gap: 37px;
-
-    flex-flow: row wrap;
-
-}
 
 .nothingFoundContainer {
     width: 100%;
@@ -34,34 +31,6 @@
     text-align: center;
 }
 
-.extensionButton {
-    cursor: pointer;
-
-    text-transform: none;
-    border-radius: 8px;
-
-
-    padding: 8px 8px 75px 8px;
-
-    display: grid;
-    justify-items: center;
-    align-content: space-between;
-
-    width: 210px;
-
-    height: 275px;
-
-
-    background: #f4f5fa;
-    box-shadow: 0 0 1px 1px #ecedf2;
-    border: unset;
-
-    transition: 300ms ease-in-out;
-}
-
-.extensionButton:hover {
-    box-shadow: 0 0 4px 2px #0095ff;
-}
 
 .secondaryHeaderStyle {
     color: #555555;
@@ -92,15 +61,6 @@
     /*align-items: center;*/
 }
 
-.extensionModalFooter {
-
-    background: #f4f5fa;
-    display: flex;
-    justify-content: flex-end;
-    border-radius: 0 0 8px 8px;
-    padding: 24px 32px 24px 32px;
-    gap: 16px;
-}
 
 .overviewRowContainer {
     background-color: #f4f5fa;
@@ -135,6 +95,7 @@
 
     display: grid;
     position: relative;
+
 }
 
 .modalFooterContainer {
@@ -151,4 +112,115 @@
     align-items: center;
 
     padding: 8px 32px 8px 32px;
+}
+.extensionsList {
+    display: flex;
+    column-gap: 16px;
+    row-gap: 32px;
+    flex-flow: row wrap;
+
+}
+@media(orientation: landscape) {
+
+    .extensionButton {
+        overflow: hidden;
+
+
+        cursor: pointer;
+        font-family: 'Roboto' !important;
+
+        text-transform: none;
+        border-radius: 8px;
+
+        padding: 8px 8px 75px 8px;
+
+        display: grid;
+        justify-content: center;
+        justify-items: center;
+        align-content: space-between;
+
+        width: calc(20% - 13px);
+        height: 275px;
+
+        background: #f4f5fa;
+        border:  #ecedf2 1px solid;
+        outline: none;
+
+        transition: 300ms ease-in-out;
+    }
+
+    .extensionButton:hover {
+        /*border-color: #0095ff;*/
+        box-shadow: 0 0 4px 2px #0095ff;
+
+    }
+}
+@media (max-width: 1350px) {
+
+    .extensionButton {
+        overflow: hidden;
+        font-family: 'Roboto' !important;
+
+        cursor: pointer;
+
+        text-transform: none;
+        border-radius: 8px;
+
+        padding: 8px 8px 75px 8px;
+
+        display: grid;
+        justify-items: center;
+        align-content: space-between;
+
+        width: calc(33.333% - 10.666px);
+        height: 275px;
+
+        background: #f4f5fa;
+        border:  #ecedf2 1px solid;
+        outline: none;
+
+        transition: 300ms ease-in-out;
+    }
+
+    .extensionButton:hover {
+
+        box-shadow: 0 0 4px 2px #0095ff;
+
+    }
+
+}
+@media (orientation:portrait) and (max-width: 1000px) {
+
+
+    .extensionButton {
+        overflow: hidden;
+
+
+        cursor: pointer;
+
+        text-transform: none;
+        border-radius: 8px;
+
+        padding: 8px 8px 75px 8px;
+
+        display: grid;
+        justify-items: center;
+        align-content: space-between;
+
+        width: calc(50% - 8px);
+        height: 275px;
+
+        background: #f4f5fa;
+        border:  #ecedf2 1px solid;
+        outline: none;
+
+        transition: 300ms ease-in-out;
+    }
+
+    .extensionButton:hover {
+
+        box-shadow: 0 0 4px 2px #0095ff;
+
+    }
+
 }

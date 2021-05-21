@@ -64,15 +64,15 @@ export default function Selector(props) {
                             : null}
 
 
-                            <TextField
-                                variant={'small'}
-                                placeholder={lang.search} label={lang.search}
-                                handleChange={event => {
-                                    setSearch(event.target.value)
-                                }}
-                                locale={props.locale} value={search} required={false}
-                                width={'100%'}
-                                maxLength={undefined}/>
+                        <TextField
+                            variant={'small'}
+                            placeholder={lang.search} label={lang.search}
+                            handleChange={event => {
+                                setSearch(event.target.value)
+                            }}
+                            locale={props.locale} value={search} required={false}
+                            width={'100%'}
+                            maxLength={undefined}/>
                         <Divider orientation={'horizontal'} style={{backgroundColor: '#ecedf2', width: '100%'}}/>
                     </div>
 
@@ -83,32 +83,35 @@ export default function Selector(props) {
                         marginBottom: '64px',
                         display: 'grid'
                     }}>
-                        {props.data.map((data) => {
-                            if (search.length === 0 || search.length > 0 && (data.value.toLowerCase()).match(search.toLowerCase())) {
-                                return (
-                                    <Button
-                                        content={data.value}
-                                        hoverHighlight={!(props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key)}
-                                        colorVariant={'primary'}
-                                        variant={'default'}
-                                        justification={'flex-start'}
-                                        border={props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? '#ecedf2 .7px solid' : 'transparent .7px solid'}
-                                        width={'100%'}
-                                        backgroundColor={props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? '#f4f5fa' : 'white'}
-                                        handleClick={() => {
-                                            if (props.setChanged)
-                                                props.setChanged(true)
-                                            props.handleChange(data)
-                                        }}
-                                        padding={'8px'}
-                                        elevation={true}
-                                        fontColor={'#222228'}
-                                    />
-                                )
-                            } else if (search.length > 0)
-                                return null
+                        {props.data.map((data) => (
+                            <>
+                                {(search.length === 0 || search.length > 0 && (data.value.toLowerCase()).match(search.toLowerCase())) ?
+                                    <div key={data.key + '-'+ data.value}>
+                                        <Button
 
-                        })}
+                                            content={data.value}
+                                            hoverHighlight={!(props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key)}
+                                            colorVariant={'primary'}
+                                            variant={'default'}
+                                            justification={'flex-start'}
+                                            border={props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? '#ecedf2 .7px solid' : 'transparent .7px solid'}
+                                            width={'100%'}
+                                            backgroundColor={props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? '#f4f5fa' : 'white'}
+                                            handleClick={() => {
+                                                if (props.setChanged)
+                                                    props.setChanged(true)
+                                                props.handleChange(data)
+                                                setModal(false)
+                                            }}
+                                            padding={'8px'}
+                                            elevation={true}
+                                            fontColor={'#222228'}
+                                        />
+                                    </div>
+                                    :
+                                    null}
+                            </>
+                        ))}
                     </div>
                     <div className={styles.modalFooter}>
 
@@ -138,6 +141,7 @@ export default function Selector(props) {
                 {renderModal()}
 
                 <div
+                    key={props.label+'-selector'}
                     style={{
                         width: props.width,
                         height: '100px',

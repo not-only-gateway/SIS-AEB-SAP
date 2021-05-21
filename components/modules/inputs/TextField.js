@@ -29,8 +29,8 @@ export default function TextField(props) {
         >
             <label htmlFor={'input'} className={styles.labelContainer}
                    style={{
-                       visibility: (props.value !== undefined && props.value !== null && props.value.length > 0) ? 'visible' : 'hidden',
-                       opacity: (props.value !== undefined && props.value !== null && props.value.length > 0) ? '1' : '0',
+                       visibility: (props.value !== undefined && props.value !== null && props.value.length > 0) || props.type === 'time' ? 'visible' : 'hidden',
+                       opacity: (props.value !== undefined && props.value !== null && props.value.length > 0) || props.type === 'time' ? '1' : '0',
                        transition: 'visibility 0.2s ease,opacity 0.2s ease'
                    }}>{props.label}</label>
 
@@ -54,11 +54,12 @@ export default function TextField(props) {
                     <input
                         disabled={props.disabled}
                         id={'input'}
+
                         placeholder={props.placeholder}
                         className={[styles.inputContainer, props.disabled ? {} : styles.hovered].join(' ')}
                         value={props.value}
-                        style={{height: props.variant === 'small'? '40px' : undefined}}
-                        type={props.passwordMask && !visible ? 'password' : 'text'}
+                        style={{height: props.variant === 'small' ? '40px' : undefined}}
+                        type={props.passwordMask && !visible ? 'password' : props.type ? props.type : 'text'}
                         onChange={props.handleChange}
                         maxLength={props.maxLength}
                     />
@@ -101,5 +102,6 @@ TextField.propTypes = {
     variant: PropTypes.oneOf([
         'default',
         'small'
-    ])
+    ]),
+    type: PropTypes.string
 }

@@ -57,8 +57,8 @@ export default function DocumentsForm(props) {
                         message: undefined
                     })} render={status.error}/>
 
-                <div className={shared.formContainer}>
-                    <h4 style={{width: '100%', marginBottom: '16px'}}>{lang.registration}</h4>
+                <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
+                    <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.registration}</h4></legend>
                     <TextField
                         placeholder={'CPF'}
                         label={'CPF'}
@@ -120,9 +120,9 @@ export default function DocumentsForm(props) {
 
                         width={'calc(50% - 16px)'}
                     />
-
-                    <div className={shared.line}/>
-                    <h4 style={{width: '100%', marginBottom: '16px'}}>{lang.work}</h4>
+                </fieldset>
+                <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
+                    <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.parents}</h4></legend>
 
                     <TextField
                         placeholder={lang.work}
@@ -150,8 +150,9 @@ export default function DocumentsForm(props) {
 
                         width={'calc(50% - 16px)'}
                     />
-                    <div className={shared.line}/>
-                    <h4 style={{width: '100%', marginBottom: '16px'}}>{lang.bank}</h4>
+                </fieldset>
+                <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
+                    <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.bank}</h4></legend>
                     <TextField
                         placeholder={lang.bank}
                         label={lang.bank}
@@ -176,8 +177,9 @@ export default function DocumentsForm(props) {
                         required={false}
                         width={'calc(50% - 16px)'}
                     />
-                    <div className={shared.line}/>
-                    <h4 style={{width: '100%', marginBottom: '16px'}}>{lang.voter}</h4>
+                </fieldset>
+                <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
+                    <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.voter}</h4></legend>
                     <TextField
                         placeholder={lang.voter}
                         label={lang.voter}
@@ -214,7 +216,7 @@ export default function DocumentsForm(props) {
                         required={false}
                         width={'calc(50% - 16px)'}
                     />
-                </div>
+                </fieldset>
 
                 <div className={shared.formSubmitContainer}>
                     <Button width={'100%'} elevation={true} border={'none'} padding={'8px 32px 8px 32px'}

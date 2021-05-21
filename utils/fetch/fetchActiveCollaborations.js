@@ -13,6 +13,7 @@ export default async function fetchActiveCollaborations(memberID){
         }
     }).then(res => {
         response = res.data
+
     }).catch(error => {
         console.log(error)
     })

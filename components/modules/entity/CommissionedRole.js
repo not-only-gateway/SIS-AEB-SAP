@@ -8,6 +8,7 @@ import {AddRounded} from "@material-ui/icons";
 import {getIconStyle} from "../../../styles/shared/MainStyles";
 import CommissionedRoleForm from "../../templates/forms/CommissionedRoleForm";
 import submitCommissionedRole from "../../../utils/submit/SubmitCommissionedRole";
+import shared from "../../../styles/shared/Shared.module.css";
 
 export default function CommissionedRole(props) {
     const [role, setRole] = useState({})
@@ -48,21 +49,11 @@ export default function CommissionedRole(props) {
     return (
         <>
             {renderModal()}
-            <Button
-                onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
-                className={animations.slideUpAnimation} style={{
-                animationDelay: props.index * 200 + 'ms', width: '100%',
-                display: 'flex',
-                justifyContent: 'flex-start',
-                border: hovered ? '#0095ff .7px solid' : 'transparent  .7px solid',
-                boxShadow: hovered ? 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' : 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
-                backgroundColor: 'white',
-                borderRadius: '8px',
-                minHeight: '70px',
-                color: '#262626',
-                textTransform: 'none',
-                opacity: 0
-            }} onClick={() => setModal(true)}>
+            <button
+                className={[shared.rowContainer, animations.slideUpAnimation].join(' ')}
+                onClick={() => setModal(true)}
+                key={props.create ? 'create-commissioned-role' : props.role.id}
+            >
                 <AddRounded style={{
                     ...{
                         color: 'black',
@@ -107,7 +98,7 @@ export default function CommissionedRole(props) {
                         </div>
                     }
                 </p>
-            </Button>
+            </button>
         </>
     )
 }

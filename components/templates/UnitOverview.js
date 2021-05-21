@@ -10,10 +10,10 @@ export default function UnitOverview(props) {
         }}>
 
             <div style={{
-                backgroundColor: 'white',
+                backgroundColor: '#f4f5fa',
                 padding: '16px 32px 16px 32px ',
                 borderRadius: '8px',
-                boxShadow: 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
+                border: '#ecedf2 .7px solid',
                 width: 'calc(33.333% - 10.666px)'
             }}>
                 <div className={mainStyles.displayInlineStart} style={{width: '100%'}}>
@@ -98,11 +98,11 @@ export default function UnitOverview(props) {
                 }
             </div>
 
-            <div style={{
-                backgroundColor: 'white',
+            <div  style={{
+                backgroundColor: '#f4f5fa',
                 padding: '16px 32px 16px 32px ',
                 borderRadius: '8px',
-                boxShadow: 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
+                border: '#ecedf2 .7px solid',
                 width: 'calc(33.333% - 10.666px)'
             }}>
                 <div style={{width: '100%'}} className={mainStyles.displayInlineStart}>
@@ -156,11 +156,11 @@ export default function UnitOverview(props) {
 
             </div>
 
-            <div style={{
-                backgroundColor: 'white',
+            <div  style={{
+                backgroundColor: '#f4f5fa',
                 padding: '16px 32px 16px 32px ',
                 borderRadius: '8px',
-                boxShadow: 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
+                border: '#ecedf2 .7px solid',
                 width: 'calc(33.333% - 10.666px)'
             }}>
                 {props.unit.standardization !== null ?

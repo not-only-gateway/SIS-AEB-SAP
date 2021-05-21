@@ -20,6 +20,18 @@ export default {
     start: 'Start',
     end: 'End',
     save: 'Save',
-    create: 'Create'
-
+    create: 'Create',
+    close: 'Close',
+    title: 'Collaboration',
+    choices: [
+        {
+            key: false,
+            value: 'No'
+        },
+        {
+            key: true,
+            value: 'Yes'
+        }
+    ],
+    tag: 'Tag'
 }

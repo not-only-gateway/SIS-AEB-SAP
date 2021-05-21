@@ -43,7 +43,7 @@ export default function Button(props) {
                 boxShadow: props.boxShadow,
                 padding: props.padding ? props.padding : '8px',
                 height: 'auto',
-
+                fontFamily: '\'Roboto\' !important',
                 outline: 'none',
                 border: props.border,
                 // fontSize: '.9rem',

@@ -66,15 +66,18 @@ export default function BaseForm(props) {
 
     if (lang !== null)
         return (
-            <div style={{display: 'grid', rowGap: '32px'}}>
+            <div style={{display: 'grid', rowGap: '32px', width: '100%'}}>
                 <Alert
                     type={'error'} message={status.message}
                     handleClose={() => setStatus({
                         error: false,
                         message: undefined
                     })} render={status.error}/>
-                <div className={shared.formContainer}>
-                    <h4 style={{width: '100%', marginBottom: '16px'}}>{lang.personal}</h4>
+
+                <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
+                    <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.personal}</h4></legend>
+
+
                     <ImageSelector
                         initialImage={props.person.image !== null ? props.person.image : null}
                         size={'100px'}
@@ -101,7 +104,8 @@ export default function BaseForm(props) {
                         }} locale={props.locale}
                         value={
                             typeof (props.person.birth) === 'number' ?
-                                new Date(props.person.birth).toLocaleDateString().replace('/', '-')
+                                new Date(props.person.birth).toLocaleDateString().replaceAll('/', '-'
+                                ).replace( /(\d{2})-(\d{2})-(\d{4})/, "$3-$2-$1")
                                 :
                                 props.person.birth
                         }
@@ -117,9 +121,9 @@ export default function BaseForm(props) {
                         }} locale={props.locale} value={props.person.disabled_person}
                         required={true}
                         width={'calc(50% - 16px)'} choices={lang.choice}/>
-
-                    <div className={shared.line}/>
-                    <h4 style={{width: '100%', marginBottom: '16px'}}>{lang.life}</h4>
+                </fieldset>
+                <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
+                    <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.life}</h4></legend>
                     <DropDownField
                         placeholder={lang.gender}
                         label={lang.gender}
@@ -149,9 +153,10 @@ export default function BaseForm(props) {
                         value={props.person.marital_status} required={true}
                         width={'calc(33.333% - 21.35px)'}
                         choices={lang.maritalChoice}/>
-                    <div className={shared.line}/>
+                </fieldset>
 
-                    <h4 style={{width: '100%', marginBottom: '16px'}}>{lang.parents}</h4>
+                <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
+                    <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.parents}</h4></legend>
                     <TextField placeholder={lang.father} label={lang.father}
                                handleChange={event => {
                                    setChanged(true)
@@ -194,9 +199,8 @@ export default function BaseForm(props) {
                               handleChange={handleNationalityChange} setChanged={setChanged}
                               label={lang.nationality} key={'1-6-'}
                               data={CountryOptions} width={'calc(50% - 16px)'}/>
-                </div>
 
-
+                </fieldset>
                 <div className={shared.formSubmitContainer}>
                     <Button width={'100%'} elevation={true} border={'none'} padding={'8px 32px 8px 32px'}
                             fontColor={'white'} backgroundColor={'#0095ff'}
@@ -209,7 +213,8 @@ export default function BaseForm(props) {
                                     setStatus: setStatus
                                 }).then(res => {
                                     setChanged(!res)
-                                    props.setAccepted(res)
+                                    if(props.setAccepted)
+                                        props.setAccepted(res)
                                 })
                             }}
                             disabled={disabled()} variant={'rounded'}

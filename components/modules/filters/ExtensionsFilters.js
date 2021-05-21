@@ -69,7 +69,7 @@ export default function ExtensionsFilters(props) {
 
     if (lang !== null)
         return (
-            <>
+            <div style={{display: 'grid', justifyItems: 'flex-start', gap: '8px', height: '85%'}}>
                 <h3 style={{marginRight: "auto", marginTop: '8px'}}>{lang.title}</h3>
                 <Selector
                     locale={props.locale}
@@ -203,13 +203,13 @@ export default function ExtensionsFilters(props) {
                         />
                     </FormGroup>
                 </FormControl>
-                <div className={styles.modalFooterContainer}>
+                <div className={styles.modalFooterContainer} style={{borderBottomLeftRadius: '8px'}}>
                     <Button disabled={false} width={'fit-content'} colorVariant={'secondary'} variant={'rounded'}
                             border={'#ecedf2 .7px solid'} padding={'8px 32px 8px 32px'} fontColor={'#262626'}
                             backgroundColor={'white'} content={lang.close} hoverHighlight={true} boxShadow={'unset'}
                             handleClick={() => props.setModal()}/>
                 </div>
-            </>
+            </div>
         )
     else
         return null

@@ -29,7 +29,7 @@ export default function CorporateForms(props) {
             })
             fetchMainCollaboration({memberID: props.id, setStatus: setStatus}).then(res => {
                 if(res !== null)
-                    setMainCollaboration(res.member)
+                    setMainCollaboration({key: res.id, value:res.tag})
 
                 setLoading(false)
             })

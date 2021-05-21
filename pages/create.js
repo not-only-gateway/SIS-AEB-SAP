@@ -36,10 +36,7 @@ export default function create() {
     const [step, setStep] = useState(0)
     const [status, setStatus] = useState({
         base: undefined,
-        member: null,
-        documents: null,
-        address: null,
-        contact: null,
+        member: null
     })
 
 
@@ -82,36 +79,15 @@ export default function create() {
                                 key: 0,
                                 value: lang.person,
                                 status: status.base,
-                            }, {
+                                required: true
+                            },
+                            {
                                 disabled: step === 0,
                                 key: 1,
                                 value: lang.membership,
                                 status: status.member,
-                            },
-                            {
-                                disabled: step < 2,
-                                key: 2,
-                                value: lang.documents,
-                                status: status.documents,
-                            },
-                            {
-                                disabled: step < 3,
-                                key: 3,
-                                value: lang.contacts,
-                                status: status.contact,
-                            },
-                            {
-                                disabled: step < 4,
-                                key: 4,
-                                value: lang.address,
-                                status: status.address,
-                            },
-                            step === 5 ? {
-                                disabled: true,
-                                key: 5,
-                                value: lang.end,
-                                status: true,
-                            } : null
+                                required: true
+                            }
                         ],
                         setOpenTab: setOpenTab,
                         openTab: openTab
@@ -130,137 +106,68 @@ export default function create() {
                     zIndex: 0
                 }}>
 
-                        <TabContent
-                            openTab={openTab}
-                            tabs={[
-                                {
-                                    buttonKey: 0,
-                                    value: (
-                                        <BaseForm
-                                            id={undefined}
-                                            setID={setID}
-                                            person={person}
-                                            handleChange={event => handleObjectChange({
-                                                event: event,
-                                                setData: setPerson
-                                            })}
-                                            handleSubmit={submitPerson}
-                                            editable={accessProfile.canUpdatePerson}
-                                            locale={router.locale}
-                                            create={true}
-                                            setAccepted={event => {
+                    <TabContent
+                        openTab={openTab}
+                        tabs={[
+                            {
+                                buttonKey: 0,
+                                value: (
+                                    <BaseForm
+                                        id={undefined}
+                                        setID={setID}
+                                        person={person}
+                                        handleChange={event => handleObjectChange({
+                                            event: event,
+                                            setData: setPerson
+                                        })}
+                                        handleSubmit={submitPerson}
+                                        editable={accessProfile.canUpdatePerson}
+                                        locale={router.locale}
+                                        create={true}
+                                        setAccepted={event => {
+                                            console.log(event)
 
-                                                handleObjectChange({
-                                                    event: {name: 'base', value: event},
-                                                    setData: setStatus
-                                                })
+                                            handleObjectChange({
+                                                event: {name: 'base', value: event.status},
+                                                setData: setStatus
+                                            })
+                                            if (event.status) {
+                                                setID(event.id)
                                                 setStep(step + 1)
                                                 setOpenTab(openTab + 1)
-                                            }}
-                                        />
-                                    )
-                                },
-                                {
-                                    buttonKey: 1,
-                                    value: (
-                                        <MembershipForm
-                                            id={id}
-                                            member={member}
-                                            handleChange={event => handleObjectChange({
-                                                event: event,
-                                                setData: setMember
-                                            })}
-                                            handleSubmit={submitMember}
-                                            editable={accessProfile.canManageMembership}
-                                            locale={router.locale}
-                                            create={true}
-                                            setAccepted={event => {
-                                                handleObjectChange({
-                                                    event: {name: 'member', value: event},
-                                                    setData: setStatus
-                                                })
-                                                setStep(step + 1)
-                                                setOpenTab(openTab + 1)
-                                            }}
-                                        />
-                                    )
-                                },
-                                {
-                                    buttonKey: 2,
-                                    value: (
-                                        <DocumentsForm
-                                            id={id}
-                                            documents={documents}
-                                            handleChange={event => handleObjectChange({
-                                                event: event,
-                                                setData: setDocuments
-                                            })}
-                                            handleSubmit={submitDocuments}
-                                            editable={accessProfile.canUpdatePerson}
-                                            locale={router.locale}
-                                            create={true}
-                                            setAccepted={event => {
-                                                handleObjectChange({
-                                                    event: {name: 'documents', value: event},
-                                                    setData: setStatus
-                                                })
-                                                setStep(step + 1)
-                                                setOpenTab(openTab + 1)
-                                            }}
-                                        />
-                                    )
-                                },
-                                {
-                                    buttonKey: 3,
-                                    value: (
-                                        <ContactForm
-                                            id={id}
-                                            contact={contact}
-                                            locale={router.locale}
-                                            handleChange={event => handleObjectChange({
-                                                event: event,
-                                                setData: setContact
-                                            })}
-                                            handleSubmit={submitContacts}
-                                            editable={accessProfile.canUpdatePerson}
-                                            create={true}
-                                            setAccepted={event => {
-                                                handleObjectChange({
-                                                    event: {name: 'contact', value: event},
-                                                    setData: setStatus
-                                                })
-                                                setStep(step + 1)
-                                                setOpenTab(openTab + 1)
-                                            }}
-                                        />
-                                    )
-                                },
-                                {
-                                    buttonKey: 4,
-                                    value: (
-                                        <AddressForm
-                                            id={id}
-                                            address={address}
-                                            handleChange={event => handleObjectChange({
-                                                event: event,
-                                                setData: setAddress
-                                            })}
-                                            handleSubmit={() => submitAddress({personID: id, data: address})}
-                                            locale={router.locale}
-                                            create={true}
-                                            editable={accessProfile.canUpdatePerson}
-                                            setAccepted={event => {
-                                                handleObjectChange({
-                                                    event: {name: 'address', value: event},
-                                                    setData: setStatus
-                                                })
+                                            }
+                                        }}
+                                    />
+                                )
+                            },
+                            {
+                                buttonKey: 1,
+                                value: (
+                                    <MembershipForm
+                                        id={id}
+                                        member={member}
+                                        handleChange={event => handleObjectChange({
+                                            event: event,
+                                            setData: setMember
+                                        })}
+                                        handleSubmit={submitMember}
+                                        editable={accessProfile.canManageMembership}
+                                        locale={router.locale}
+                                        create={true}
+                                        setAccepted={event => {
 
-                                            }}
-                                        />
-                                    )
-                                },
-                            ]}/>
-                    </div>
+                                            handleObjectChange({
+                                                event: {name: 'member', value: event.status},
+                                                setData: setStatus
+                                            })
+                                            if (event.status)
+                                                router.push({pathname: '/person', query: {id: event.id}})
+                                        }}
+                                    />
+                                )
+                            }
+                        ]}/>
+                </div>
             </>
 
 

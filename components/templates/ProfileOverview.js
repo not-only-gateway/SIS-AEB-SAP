@@ -50,7 +50,7 @@ export default function ProfileOverview(props) {
                         {props.member.extension}
                     </h5>
                 </div>
-                {!props.member.home_office ?
+                {!props.member.home_office || props.member.alternative_phone === null ||props.member.alternative_phone.length === 0 ?
                     null
                     :
                     <div className={styles.overviewLineContainer}>

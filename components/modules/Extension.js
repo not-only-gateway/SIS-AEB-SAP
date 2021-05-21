@@ -8,7 +8,7 @@ import {Modal} from "@material-ui/core";
 import Button from "./inputs/Button";
 import ProfileOverview from "../templates/ProfileOverview";
 import Profile from "../templates/Profile";
-
+import shared from '../../styles/shared/Shared.module.css'
 export default function Extension(props) {
     const currentDate = new Date()
     const [modal, setModal] = useState(false)
@@ -28,7 +28,7 @@ export default function Extension(props) {
                             effectiveRole={props.effectiveRole} linkage={props.linkage} senior={props.senior}
                         />
                     </div>
-                    <div className={styles.extensionModalFooter}>
+                    <div className={shared.modalFooter}>
 
                         <Button
                             width={'fit-content'}
@@ -85,9 +85,10 @@ export default function Extension(props) {
                                 (new Date(props.member.birth)).getMonth() === currentDate.getMonth())
                         }/>
 
-                    <div style={{width: '100%', marginTop: '15%'}}>
-                    <h3 className={[mainStyles.overflowEllipsis].join(' ')}
+                    <div style={{maxWidth: '200px', marginTop: '15%'}}>
+                    <h3 className={mainStyles.overflowEllipsis}
                         style={{
+                            width: '100%',
 
                             fontWeight: 525
                         }}>{props.person.name}</h3>

@@ -5,7 +5,7 @@ import PersonPersona from "../elements/ProfilePersona";
 
 export default function Profile(props) {
     return (
-        <div className={styles.profileContainer}>
+        <div className={styles.profileContainer} style={{top: props.padding? '0' :    '32px', paddingTop: props.padding ? '16px' : 0}}>
             <PersonPersona
                 size={'150px'}
                 dark={false}
@@ -34,4 +34,5 @@ export default function Profile(props) {
 Profile.proptypes = {
     person: PropTypes.object,
     member: PropTypes.object,
+    padding: PropTypes.bool
 }

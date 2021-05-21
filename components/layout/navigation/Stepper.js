@@ -61,7 +61,7 @@ export default function Stepper(props) {
                                         {index + 1}
                                     </div>
                                     <span style={{opacity: props.openTab === button.key ? 1 : .5, fontSize: '.8rem', marginTop: '5px'}}>
-                                        {button.value}
+                                        {button.value} {button.required ? ' *' : null}
                                     </span>
                                 </div>
                                 {index < props.buttons.length - 1 && props.buttons[index + 1] !== null ?

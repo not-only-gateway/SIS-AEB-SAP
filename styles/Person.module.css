@@ -36,7 +36,7 @@
 
 .profileHeader {
     position: sticky;
-    top: 32px;
+top: 0;
     z-index: 5;
     background: white;
     display: grid;

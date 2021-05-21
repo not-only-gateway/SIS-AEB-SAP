@@ -17,13 +17,11 @@ export default function LinkageList(props) {
         }}>
             <Linkage create={true} locale={props.locale} linkage={undefined}/>
             {(data).map((linkage, index) =>
-               <div key={linkage.id + '-linkage-'+index}>
-                   <Linkage create={false} locale={props.locale} linkage={linkage} index={index} />
-               </div>
+                <Linkage create={false} locale={props.locale} linkage={linkage} index={index}/>
             )}
         </div>
     )
 }
-LinkageList.propTypes= {
+LinkageList.propTypes = {
     locale: PropTypes.string
 }

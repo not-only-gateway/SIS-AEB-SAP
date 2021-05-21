@@ -77,3 +77,51 @@
     margin-top: 8px;
     margin-bottom: 8px;
 }
+.fieldsetContainer{
+    padding: 8px;
+    border-left: #ecedf2 2px solid;
+
+    border-bottom:none ;
+    border-top: none;
+    border-right: none;
+
+    width: 100%;
+}
+
+.rowContainer{
+    font-family: 'Roboto' !important;
+    background: #f4f5fa;
+    border:  #ecedf2 1px solid;
+
+    transition: 300ms ease-in-out;
+
+    width: 100%;
+    height: 56px;
+
+    padding: 8px;
+
+    border-radius: 8px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: flex-start;
+
+    cursor: pointer;
+    outline: none;
+}
+
+.rowContainer:hover{
+    /*border-color: #0095ff;*/
+    box-shadow: 0 0 4px 2px #0095ff;
+}
+
+.modalFooter{
+    background: #f4f5fa;
+    display: flex;
+    justify-content: flex-end;
+    border-radius: 0 0 8px 8px;
+    padding: 24px 32px 24px 32px;
+    gap: 16px;
+
+}

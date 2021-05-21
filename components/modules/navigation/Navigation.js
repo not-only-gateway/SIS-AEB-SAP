@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import Cookies from 'universal-cookie/lib';
 import {
-    AddRounded,
+    AddRounded, BusinessRounded,
     ExitToApp,
     ExitToAppRounded,
     ExtensionRounded,
-    MenuOpenRounded,
+    MenuOpenRounded, PersonAddRounded,
     SettingsRounded,
     ViewQuiltRounded
 } from '@material-ui/icons';
@@ -94,37 +94,60 @@ export default function Navigation(props) {
                         <SettingsRounded/>
                     }
                 />
-
-                {accessProfile !== null && (accessProfile.canManageStructure || (accessProfile.canCreatePerson && accessProfile.canManageMembership)) ?
-                    <NavigationDropDownButton
-                        locale={props.locale}
-                        label={lang.more}
-                        reduced={props.reduced}
-                        setReduced={props.setReduced}
-                        key={'more-options'}
-                        options={[
-                            accessProfile.canCreatePerson && accessProfile.canManageMembership? {
-                                label: lang.createPerson,
-                                path: '/create',
-                                highlight: props.path === '/create'
-                            } : undefined,
-                            accessProfile.canManageStructure ?
-                                {
-                                    label: lang.management,
-                                    path: '/management',
-                                    highlight: props.path === '/management'
-                                }
-                                :
-                                null
-                        ]}
+                {accessProfile !== null && accessProfile.canCreatePerson && accessProfile.canManageMembership && (new Cookies()).get('jwt') !== undefined?
+                    <NavigationButton
+                        dark={props.dark} linkPath={'/create'}
+                        highlight={props.path === '/create'} locale={props.locale}
+                        label={lang.createPerson} reduced={props.reduced}
                         icon={
-                            <AddRounded/>
+                            <PersonAddRounded/>
                         }
                     />
                     :
                     null
-
                 }
+                {accessProfile !== null && accessProfile.canManageStructure && (new Cookies()).get('jwt') !== undefined ?
+                    <NavigationButton
+                        dark={props.dark} linkPath={'/management'}
+                        highlight={props.path === '/management'} locale={props.locale}
+                        label={lang.management} reduced={props.reduced}
+                        icon={
+                            <BusinessRounded/>
+                        }
+                    />
+                    :
+                    null }
+
+
+                {/*    <NavigationDropDownButton*/}
+                {/*        locale={props.locale}*/}
+                {/*        label={lang.more}*/}
+                {/*        reduced={props.reduced}*/}
+                {/*        setReduced={props.setReduced}*/}
+                {/*        key={'more-options'}*/}
+                {/*        options={[*/}
+                {/*            accessProfile.canCreatePerson && accessProfile.canManageMembership? {*/}
+                {/*                label: lang.createPerson,*/}
+                {/*                path: '/create',*/}
+                {/*                highlight: props.path === '/create'*/}
+                {/*            } : undefined,*/}
+                {/*            accessProfile.canManageStructure ?*/}
+                {/*                {*/}
+                {/*                    label: lang.management,*/}
+                {/*                    path: '/management',*/}
+                {/*                    highlight: props.path === '/management'*/}
+                {/*                }*/}
+                {/*                :*/}
+                {/*                null*/}
+                {/*        ]}*/}
+                {/*        icon={*/}
+                {/*            <AddRounded/>*/}
+                {/*        }*/}
+                {/*    />*/}
+                {/*    :*/}
+                {/*    null*/}
+
+                {/*}*/}
                 {profile !== null && (new Cookies()).get('jwt') !== undefined ?
                     <NavigationButton
                         dark={props.dark} linkPath={'/authenticate'}

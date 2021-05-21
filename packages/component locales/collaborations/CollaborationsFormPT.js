@@ -21,6 +21,18 @@ export default {
     start: 'Início',
     end: 'Fim',
     save: 'Salvar',
-    create: 'Criar'
-
+    create: 'Criar',
+    close: 'Fechar',
+    title: 'Colaboração',
+    choices: [
+        {
+            key: false,
+            value: 'Não'
+        },
+        {
+            key: true,
+            value: 'Sim'
+        }
+    ],
+    tag:'Marcação'
 }
