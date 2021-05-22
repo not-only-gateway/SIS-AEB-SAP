@@ -13,7 +13,6 @@ import shared from "../../../styles/shared/Shared.module.css";
 export default function CommissionedRole(props) {
     const [role, setRole] = useState({})
     const [modal, setModal] = useState(false)
-    const [hovered, setHovered] = useState(false)
 
     useEffect(() => {
         if (props.role !== undefined || props.role === role)
@@ -26,21 +25,15 @@ export default function CommissionedRole(props) {
             <Modal open={modal} onClose={() => setModal(false)}
                    style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
                    className={animations.fadeIn}>
-                <div style={{
-                    backgroundColor: 'white',
-                    width: '75%',
-                    borderRadius: '8px',
-                    overflow: 'hidden',
-                    height: 'auto',
-                    padding: '16px',
-
-                }} key={props.create ? 'create-commissioned-role' : props.role.id}>
-                    <CommissionedRoleForm handleSubmit={submitCommissionedRole}
-                                          handleChange={event => handleObjectChange({
-                                              event: event,
-                                              setData: setRole
-                                          })} create={props.create}
-                                          data={role} locale={props.locale}/>
+                <div className={shared.modalContainer} key={props.create ? 'create-commissioned-role' : props.role.id}>
+                    <CommissionedRoleForm
+                        handleSubmit={submitCommissionedRole}
+                        closeModal={() => setModal(false)}
+                        handleChange={event => handleObjectChange({
+                            event: event,
+                            setData: setRole
+                        })} create={props.create}
+                        data={role} locale={props.locale}/>
                 </div>
             </Modal>
         )

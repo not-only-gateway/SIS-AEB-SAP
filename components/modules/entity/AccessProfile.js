@@ -32,15 +32,9 @@ export default function AccessProfile(props) {
             <Modal open={modal && !loading && accessProfile !== {}} onClose={() => setModal(false)}
                    style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
                    className={animations.fadeIn}>
-                <div style={{
-                    backgroundColor: 'white',
-                    width: '75%',
-                    borderRadius: '8px',
-                    overflow: 'hidden',
-                    height: 'auto',
-                    padding: '16px',
-                }}>
+                <div className={shared.modalContainer}>
                     <AccessProfileForm handleSubmit={submitAccessProfile}
+                                       closeModal={() => setModal(false)}
                                        handleChange={event => handleObjectChange({
                                            event: event,
                                            setData: setAccessProfile

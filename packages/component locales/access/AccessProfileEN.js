@@ -19,5 +19,6 @@ export default {
     location: 'Location',
     membership: 'Membership',
 
-    save: 'Save'
+    save: 'Save',
+    close: 'Close'
 }

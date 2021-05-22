@@ -18,5 +18,6 @@ export default {
     location: 'Localização',
     membership: 'Filiação',
     structure: 'Estrutura',
-    save: 'Salvar'
+    save: 'Salvar',
+    close: 'Fechar'
 }

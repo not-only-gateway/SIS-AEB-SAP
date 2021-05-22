@@ -39,26 +39,6 @@
     justify-items: flex-end;
 }
 
-.modalContainer {
-    background-color: white;
-    border-radius: 8px;
-    height: 60%;
-    width: clamp(500px, 60%, 750px);
-    padding: 32px;
-    overflow: hidden;
-
-    display: grid;
-    justify-items: center;
-    align-content: flex-start;
-
-    position: relative;
-}
-
-.modalContainer > div {
-    /*height: 100%;*/
-    width: 100%;
-}
-
 .formSubmitContainer {
     width: 100%;
     background: white;
@@ -125,6 +105,23 @@
     box-shadow: 0 0 4px 2px #0095ff;
 }
 
+.modalContainer {
+    background: white;
+    border-radius: 8px;
+    width: clamp(500px, 75%, 1000px);
+    height: fit-content;
+
+    display: grid;
+    align-content: space-between;
+
+    overflow: hidden;
+}
+
+.modalContainer > div {
+    /*height: 100%;*/
+    width: 100%;
+}
+
 .modalFooter {
     background: #f4f5fa;
     display: flex;
@@ -132,5 +129,5 @@
     border-radius: 0 0 8px 8px;
     padding: 24px 32px 24px 32px;
     gap: 16px;
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .1);
+    border-top: #ecedf2 1px solid;
 }

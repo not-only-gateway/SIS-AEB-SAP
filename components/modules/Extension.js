@@ -18,7 +18,7 @@ export default function Extension(props) {
         return (
             <Modal style={{display: "flex", justifyContent: 'center', alignItems: 'center'}}
                    onClose={() => setModal(false)} open={modal}>
-                <div className={[styles.extensionModalContainer, animations.fadeIn].join(' ')}>
+                <div className={[shared.modalContainer, animations.fadeIn].join(' ')}>
                     <div style={{padding: '32px', height: '100%', display: 'grid', gap: '32px'}}>
                         <Profile person={props.person} member={props.member}/>
                         <ProfileOverview
@@ -29,7 +29,6 @@ export default function Extension(props) {
                         />
                     </div>
                     <div className={shared.modalFooter}>
-
                         <Button
                             width={'fit-content'}
                             border={'#ecedf2 .7px solid'}

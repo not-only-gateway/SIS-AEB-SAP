@@ -32,7 +32,7 @@ export default function Stepper(props) {
             borderRadius: '8px',
             marginTop: '16px',
             position: 'relative',
-
+            border: '#ecedf2 .7px solid',
         }}>
 
             {props.buttons.map((button, index) => {
@@ -60,12 +60,19 @@ export default function Stepper(props) {
                                          }}>
                                         {index + 1}
                                     </div>
-                                    <span style={{opacity: props.openTab === button.key ? 1 : .5, fontSize: '.8rem', marginTop: '5px'}}>
+                                    <span style={{
+                                        opacity: props.openTab === button.key ? 1 : .5,
+                                        fontSize: '.8rem',
+                                        marginTop: '5px'
+                                    }}>
                                         {button.value} {button.required ? ' *' : null}
                                     </span>
                                 </div>
                                 {index < props.buttons.length - 1 && props.buttons[index + 1] !== null ?
-                                    <Divider style={{width: '50px', backgroundColor: props.buttons.status ? '#0095ff' : undefined}} orientation={"horizontal"}/>
+                                    <Divider style={{
+                                        width: '50px',
+                                        backgroundColor: props.buttons.status ? '#0095ff' : undefined
+                                    }} orientation={"horizontal"}/>
                                     :
                                     null}
                             </>

@@ -26,16 +26,10 @@ export default function Linkage(props) {
             <Modal open={modal} onClose={() => setModal(false)}
                    style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
                    className={animations.fadeIn}>
-                <div style={{
-                    backgroundColor: 'white',
-                    width: '75%',
-                    borderRadius: '8px',
-                    overflow: 'hidden',
-                    height: 'auto',
-                    padding: '16px',
-
-                }} key={props.create ? 'create-linkage' : props.linkage.id}>
-                    <LinkageForm handleSubmit={submitLinkage}
+                <div className={shared.modalContainer}>
+                    <LinkageForm
+                        closeModal={() => setModal(false)}
+                        handleSubmit={submitLinkage}
                                  handleChange={event => handleObjectChange({
                                      event: event,
                                      setData: setLinkage

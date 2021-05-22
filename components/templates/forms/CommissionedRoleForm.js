@@ -37,89 +37,102 @@ export default function CommissionedRoleForm(props) {
     if (lang !== null)
         return (
             <div className={mainStyles.displayWarp}
-                 style={{justifyContent: 'center', width: '100%', position: 'relative'}}>
+                 style={{justifyContent: 'center', width: '100%', position: 'relative', overflow: 'auto'}}>
                 <Alert
                     type={status.type} render={status.type !== undefined}
                     handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
                 />
-                <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
-                    {/*<legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.personal}</h4></legend>*/}
+                <div style={{padding: '16px'}}>
+                    <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
+                        {/*<legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.personal}</h4></legend>*/}
 
-                    <TextField
-                        dark={true}
-                        placeholder={lang.denomination} label={lang.denomination}
-                        handleChange={event => {
-                            setChanged(true)
-                            props.handleChange({name: 'denomination', value: event.target.value})
-                        }}
-                        locale={props.locale} value={props.data.denomination} required={true}
-                        width={'100%'}
-                    />
+                        <TextField
+                            dark={true}
+                            placeholder={lang.denomination} label={lang.denomination}
+                            handleChange={event => {
+                                setChanged(true)
+                                props.handleChange({name: 'denomination', value: event.target.value})
+                            }}
+                            locale={props.locale} value={props.data.denomination} required={true}
+                            width={'100%'}
+                        />
 
-                </fieldset>
-                <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
-                    <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.additional}</h4></legend>
-                    <TextField
-                        dark={true}
-                        placeholder={lang.level} label={lang.level}
-                        handleChange={event => {
-                            setChanged(true)
-                            props.handleChange({name: 'role_level', value: event.target.value})
-                        }}
-                        locale={props.locale} value={props.data.role_level} required={true}
-                        width={'calc(33.333%  - 21.35px)'}
-                    />
-                    <TextField
-                        dark={true}
-                        placeholder={lang.roleClass} label={lang.roleClass}
-                        handleChange={event => {
-                            setChanged(true)
-                            props.handleChange({name: 'role_class', value: event.target.value})
-                        }}
-                        locale={props.locale} value={props.data.role_class} required={true}
-                        width={'calc(33.333%  - 21.35px)'}
-                    />
-                    <TextField
-                        dark={true}
-                        placeholder={lang.hierarchyLevel} label={lang.hierarchyLevel}
-                        handleChange={event => {
-                            setChanged(true)
-                            props.handleChange({name: 'hierarchy_level', value: event.target.value})
-                        }}
-                        locale={props.locale} value={props.data.hierarchy_level} required={true}
-                        width={'calc(33.333%  - 21.35px)'}
-                    />
-                </fieldset>
-                <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
-                    <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.appointment}</h4></legend>
-                    <DropDownField
-                        dark={true}
-                        placeholder={'DAS'}
-                        label={'DAS'}
-                        handleChange={event => {
-                            setChanged(true)
-                            props.handleChange({name: 'das', value: event})
-                        }}
-                        locale={props.locale}
-                        value={props.data.das} required={true}
-                        width={'calc(50% - 16px)'}
-                        choices={lang.options}/>
+                    </fieldset>
+                    <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
+                        <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.additional}</h4></legend>
+                        <TextField
+                            dark={true}
+                            placeholder={lang.level} label={lang.level}
+                            handleChange={event => {
+                                setChanged(true)
+                                props.handleChange({name: 'role_level', value: event.target.value})
+                            }}
+                            locale={props.locale} value={props.data.role_level} required={true}
+                            width={'calc(33.333%  - 21.35px)'}
+                        />
+                        <TextField
+                            dark={true}
+                            placeholder={lang.roleClass} label={lang.roleClass}
+                            handleChange={event => {
+                                setChanged(true)
+                                props.handleChange({name: 'role_class', value: event.target.value})
+                            }}
+                            locale={props.locale} value={props.data.role_class} required={true}
+                            width={'calc(33.333%  - 21.35px)'}
+                        />
+                        <TextField
+                            dark={true}
+                            placeholder={lang.hierarchyLevel} label={lang.hierarchyLevel}
+                            handleChange={event => {
+                                setChanged(true)
+                                props.handleChange({name: 'hierarchy_level', value: event.target.value})
+                            }}
+                            locale={props.locale} value={props.data.hierarchy_level} required={true}
+                            width={'calc(33.333%  - 21.35px)'}
+                        />
+                    </fieldset>
+                    <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
+                        <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.appointment}</h4></legend>
+                        <DropDownField
+                            dark={true}
+                            placeholder={'DAS'}
+                            label={'DAS'}
+                            handleChange={event => {
+                                setChanged(true)
+                                props.handleChange({name: 'das', value: event})
+                            }}
+                            locale={props.locale}
+                            value={props.data.das} required={true}
+                            width={'calc(50% - 16px)'}
+                            choices={lang.options}/>
 
-                    <DropDownField
-                        dark={true}
-                        placeholder={'FCPE'}
-                        label={'FCPE'}
-                        handleChange={event => {
-                            setChanged(true)
-                            props.handleChange({name: 'fcpe', value: event})
-                        }}
-                        locale={props.locale}
-                        value={props.data.fcpe} required={true}
-                        width={'calc(50% - 16px)'}
-                        choices={lang.options}/>
-                </fieldset>
+                        <DropDownField
+                            dark={true}
+                            placeholder={'FCPE'}
+                            label={'FCPE'}
+                            handleChange={event => {
+                                setChanged(true)
+                                props.handleChange({name: 'fcpe', value: event})
+                            }}
+                            locale={props.locale}
+                            value={props.data.fcpe} required={true}
+                            width={'calc(50% - 16px)'}
+                            choices={lang.options}/>
+                    </fieldset>
 
-                <div className={shared.formSubmitContainer}>
+                </div>
+                <div className={shared.modalFooter} style={{width: '100%', padding: '24px 16px 24px 16px'}}>
+                    <Button width={'100%'} elevation={true} border={'none'} padding={'8px 32px 8px 32px'}
+                            fontColor={'#262626'} backgroundColor={'white'}
+                            handleClick={() => {
+                                props.closeModal()
+                            }}
+                            variant={'rounded'}
+                            colorVariant={'secondary'}
+                            content={
+                                lang.close
+                            } justification={'center'}  hoverHighlight={true}
+                    />
                     <Button width={'100%'} elevation={true} border={'none'} padding={'8px 32px 8px 32px'}
                             fontColor={'white'} backgroundColor={'#0095ff'}
                             handleClick={() => {
@@ -151,5 +164,6 @@ CommissionedRoleForm.propTypes = {
     handleChange: PropTypes.func,
     create: PropTypes.bool,
     data: PropTypes.object,
-    locale: PropTypes.string
+    locale: PropTypes.string,
+    closeModal: PropTypes.func
 }

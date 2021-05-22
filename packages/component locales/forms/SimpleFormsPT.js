@@ -7,14 +7,16 @@ export const commissioned ={
     options: [{key: true, value: 'Sim'}, {key: false, value: 'Não'}],
     create: 'Criar',
     appointment: 'Nomeação',
-    additional: 'Informações adicionais'
+    additional: 'Informações adicionais',
+    close: 'Fechar'
 }
 
 export const effective ={
     denomination: 'Denominação',
     hierarchyLevel: 'Nível hierárquico',
     save: 'Salvar',
-    create: 'Criar'
+    create: 'Criar',
+    close: 'Fechar'
 
 }
 
@@ -22,5 +24,6 @@ export const linkage ={
     denomination: 'Denominação',
     description: 'Descrição',
     save: 'Salvar',
-    create: 'Criar'
+    create: 'Criar',
+    close: 'Fechar'
 }

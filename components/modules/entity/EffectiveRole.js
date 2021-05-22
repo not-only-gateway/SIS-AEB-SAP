@@ -13,7 +13,7 @@ import shared from "../../../styles/shared/Shared.module.css";
 export default function EffectiveRole(props) {
     const [role, setRole] = useState({})
     const [modal, setModal] = useState(false)
-    const [hovered, setHovered] = useState(false)
+
     useEffect(() => {
         if (props.role !== undefined)
             setRole(props.role)
@@ -24,17 +24,10 @@ export default function EffectiveRole(props) {
             <Modal open={modal} onClose={() => setModal(false)}
                    style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
                    className={animations.fadeIn}>
-                <div style={{
-                    backgroundColor: 'white',
-                    width: '75%',
-                    borderRadius: '8px',
-                    overflow: 'hidden',
-                    height: 'auto',
-                    padding: '16px',
-
-
-                }}>
-                    <EffectiveRoleForm handleSubmit={submitEffectiveRole}
+                <div className={shared.modalContainer}>
+                    <EffectiveRoleForm
+                        closeModal={() => setModal(false)}
+                        handleSubmit={submitEffectiveRole}
                                        handleChange={event => handleObjectChange({
                                            event: event,
                                            setData: setRole

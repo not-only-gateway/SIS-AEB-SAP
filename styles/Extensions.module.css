@@ -47,21 +47,6 @@
     transition: 300ms ease-in-out;
 }
 
-.extensionModalContainer {
-    background: white;
-    border-radius: 8px;
-    width: clamp(500px, 75%, 1000px);
-    height: fit-content;
-
-    display: grid;
-    align-content: space-between;
-
-    overflow: hidden;
-    /*justify-content: space-between;*/
-    /*align-items: center;*/
-}
-
-
 .overviewRowContainer {
     background-color: #f4f5fa;
     border-radius: 8px;

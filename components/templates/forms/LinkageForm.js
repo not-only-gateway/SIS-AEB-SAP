@@ -1,4 +1,3 @@
-import {Button} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 
@@ -6,6 +5,9 @@ import mainStyles from '../../../styles/shared/Main.module.css'
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import InputLayout from "../../modules/InputLayout";
 import Alert from "../../layout/Alert";
+import shared from "../../../styles/shared/Shared.module.css";
+import Button from "../../modules/inputs/Button";
+import TextField from "../../modules/inputs/TextField";
 
 
 export default function LinkageForm(props) {
@@ -33,36 +35,68 @@ export default function LinkageForm(props) {
 
     if (lang !== null)
         return (
-            <div className={mainStyles.displayWarp} style={{justifyContent: 'center', width: '100%', position: 'relative'}}>
+            <div className={mainStyles.displayWarp}
+                 style={{justifyContent: 'center', width: '100%', position: 'relative'}}>
                 <Alert
                     type={status.type} render={status.type !== undefined}
                     handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
                 />
-                <InputLayout inputName={lang.denomination} dark={false} handleChange={props.handleChange}
-                             name={'denomination'}
-                             inputType={0} size={'calc(50% - 8px)'} required={true}
-                             initialValue={props.data.denomination} key={'linkage-1'} setChanged={setChanged}/>
-                <InputLayout inputName={lang.denomination} dark={false} handleChange={props.handleChange}
-                             name={'description'}
-                             inputType={0} size={'calc(50% - 8px)'} required={true}
-                             initialValue={props.data.description} key={'linkage-2'} setChanged={setChanged}/>
+                <div style={{padding: '16px 16px 8px 16px', width: '100%', display: "grid", gap: '16px'}}>
+                    <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
+                        <TextField
+                            dark={true}
+                            placeholder={lang.denomination} label={lang.denomination}
+                            handleChange={event => {
+                                setChanged(true)
+                                props.handleChange({name: 'denomination', value: event.target.value})
+                            }}
+                            locale={props.locale} value={props.data.denomination} required={true}
+                            width={'calc(50% - 16px)'}
+                        />
+                        <TextField
+                            dark={true}
+                            placeholder={lang.description} label={lang.description}
+                            handleChange={event => {
+                                setChanged(true)
+                                props.handleChange({name: 'description', value: event.target.value})
+                            }}
+                            locale={props.locale} value={props.data.description} required={true}
+                            width={'calc(50% - 16px)'}
+                        />
 
-                <Button style={{
-                    width: '100%',
+                    </fieldset>
+                </div>
+                <div className={shared.modalFooter} style={{width: '100%', padding: '24px 16px 24px 16px'}}>
+                    <Button width={'100%'} elevation={true} border={'none'} padding={'8px 32px 8px 32px'}
+                            fontColor={'#262626'} backgroundColor={'white'}
+                            handleClick={() => {
+                                props.closeModal()
+                            }}
+                            variant={'rounded'}
+                            colorVariant={'secondary'}
+                            content={
+                                lang.close
+                            } justification={'center'} hoverHighlight={true}
+                    />
+                    <Button width={'100%'} elevation={true} border={'none'} padding={'8px 32px 8px 32px'}
+                            fontColor={'white'} backgroundColor={'#0095ff'}
+                            handleClick={() => {
+                                props.handleSubmit({
+                                    pk: props.data.id,
+                                    data: props.data,
+                                    create: props.create,
+                                    setStatus: setStatus
+                                }).then(res => {
+                                    setChanged(!res)
+                                })
+                            }}
+                            disabled={disabled()} variant={'rounded'}
+                            content={
+                                props.create ? lang.create : lang.save
+                            } justification={'center'} hoverHighlight={false}
+                    />
+                </div>
 
-                    backgroundColor: disabled() ? '#f0ecec' : '#0095ff',
-                    color: disabled() ? '#777777' : 'white',
-                    fontWeight: 550,
-                    position: 'sticky',
-                    bottom: 0,
-                    zIndex: 5,
-                }} disabled={disabled()} variant={'contained'} onClick={() => {
-                    props.handleSubmit({pk: props.data.id, data: props.data, create: props.create, setStatus: setStatus}).then(res => {
-                        setChanged(!res)
-                    })
-                }}>
-                    {props.create ? lang.create : lang.save}
-                </Button>
             </div>
 
         )
