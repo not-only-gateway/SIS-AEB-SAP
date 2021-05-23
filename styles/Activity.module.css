@@ -24,3 +24,20 @@
     width: 75%;
 
 }
+
+.overviewContainer{
+    display: grid;
+    row-gap: 32px;
+    grid-template-rows: 60% 40%;
+
+    width: 100%;
+    background: green;
+
+}
+.overviewListContainer{
+    grid-row: 2;
+    display: grid;
+    gap: 16px;
+    width: 100%;
+    background: red;
+}

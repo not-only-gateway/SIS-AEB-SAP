@@ -11,6 +11,7 @@ import fetchUnits from "../utils/fetch/FetchUnits";
 import {Button} from "@material-ui/core";
 import UnitsStructure from "../components/modules/structure/UnitsStructure";
 import shared from '../styles/shared/Shared.module.css'
+import styles from "../styles/Extensions.module.css";
 
 export default function Index() {
 
@@ -139,6 +140,10 @@ export default function Index() {
                                                        style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: false})}}>{lang.nothingFound}</p>
                                                 </div>
                                             }
+                                            <div style={{width: '100%'}}>
+                                                <h5
+                                                    style={{textAlign: 'center', color: '#555555'}}>{lang.end}</h5>
+                                            </div>
                                         </div>
                                     )
                                 },

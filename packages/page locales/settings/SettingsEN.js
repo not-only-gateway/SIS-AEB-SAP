@@ -1,5 +1,5 @@
 export default {
-    settings: 'Settings',
+    title: 'Settings & Activity',
     theme: 'Theme',
     language: 'Language',
     information: 'Local adjustments',

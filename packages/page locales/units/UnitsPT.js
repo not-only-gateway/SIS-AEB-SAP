@@ -8,5 +8,6 @@ export default {
     list: 'Listar',
     acronym: 'Sigla',
     name: 'Denominação',
-    parentUnit: 'Unidade Pai'
+    parentUnit: 'Unidade Pai',
+    end: 'Você chegou ao final.',
 }

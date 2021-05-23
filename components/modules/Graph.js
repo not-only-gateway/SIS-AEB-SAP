@@ -23,7 +23,7 @@ export default function Graph(props) {
             width: '100%',
             padding: '16px 16px 0 16px',
             gap: '16px',
-            backgroundColor: 'white'
+            backgroundColor: '#f4f5fa'
         }}>
             {props.values.map((column, index) => (
                 <div
@@ -52,7 +52,7 @@ export default function Graph(props) {
                         }}>
                             <p>{column.amount}</p>
                             <Divider orientation={"horizontal"}/>
-                            <p style={{color: '#262626', fontSize: '.9rem'}}>{(column.amount/ maxValue) * 100}%</p>
+                            <p style={{color: '#262626', fontSize: '.9rem'}}>{(column.amount / maxValue) * 100}%</p>
                         </div>
 
                     </div>
@@ -66,5 +66,11 @@ export default function Graph(props) {
 }
 
 Graph.propTypes = {
-    values: PropTypes.array
+    values: PropTypes.arrayOf(
+        PropTypes.shape({
+            amount: PropTypes.number,
+            color: PropTypes.any,
+            label: PropTypes.string
+        })
+    )
 }

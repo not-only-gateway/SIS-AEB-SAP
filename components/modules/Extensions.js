@@ -40,8 +40,8 @@ export default function Extensions(props) {
                     }}
                     endMessage={
                         <div className={styles.fullWidth}>
-                            <p className={mainStyles.secondaryParagraph}
-                               style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: false})}}>{props.end}</p>
+                            <h5
+                               style={{textAlign: 'center', color: '#555555'}}>{props.end}</h5>
                         </div>
                     }
                 >
@@ -60,9 +60,13 @@ export default function Extensions(props) {
         )
     else
         return (
-            <div className={styles.nothingFoundContainer}>
-                <p className={styles.nothingFoundParagraph}>{props.nothingFound}</p>
-            </div>
+
+                <div className={styles.fullWidth}>
+                    <h5 className={mainStyles.secondaryParagraph}
+                       style={{textAlign: 'center', color: '#555555'}}>{props.nothingFound}</h5>
+                </div>
+                // <p className={styles.nothingFoundParagraph}>{props.nothingFound}</p>
+            // </div>
         )
 }
 

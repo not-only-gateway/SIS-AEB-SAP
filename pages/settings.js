@@ -58,8 +58,8 @@ export default function Settings() {
                 <HeaderLayout
 
 
-                    pageTitle={lang.settings}
-                    title={lang.settings}
+                    pageTitle={lang.title}
+                    title={lang.title}
                     information={lang.information}
                     width={'75%'}
                 />

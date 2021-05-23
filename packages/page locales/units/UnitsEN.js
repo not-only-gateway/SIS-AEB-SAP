@@ -9,5 +9,6 @@ export default {
     list: 'List',
     acronym: 'Acronym',
     name: 'Denomination',
-    parentUnit: 'Parent Unit'
+    parentUnit: 'Parent Unit',
+    end: 'You\'ve reached the bottom.'
 }

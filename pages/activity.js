@@ -14,6 +14,7 @@ import ActivityTemplate from "../components/templates/list/ActivityTemplate";
 import SearchBox from "../components/elements/SearchBox";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import TabContent from "../components/templates/TabContent";
+import ActivityOverview from "../components/templates/ActivityOverview";
 
 export default function activity() {
 
@@ -152,15 +153,15 @@ export default function activity() {
                         ]
                     }}
                 />
-                <div className={mainStyles.displayInlineCenter}
-                     style={{width: '65%', position: 'relative', margin: 'auto'}}>
+                <div style={{width: '65%', position: 'relative', margin: 'auto'}}>
                     <TabContent
                         openTab={openTab}
+                        noContainer={true}
                         tabs={[
                             {
                                 buttonKey: 0,
                                 value: (
-                                    'cafe'
+                                    <ActivityOverview/>
                                 )
                             },
                             {
