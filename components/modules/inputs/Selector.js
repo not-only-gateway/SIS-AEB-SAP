@@ -128,95 +128,77 @@ export default function Selector(props) {
     }
 
 
-if (lang !== null)
-return (
-    <>
-        {renderModal()}
+    if (lang !== null)
+        return (
+            <>
+                {renderModal()}
 
-        <div
-            key={props.label + '-selector'}
-            style={{
-                width: props.width,
-                height: '100px',
-                display: 'grid',
-                alignItems: props.value ? 'unset' : 'flex-start',
-                gap: '4px',
-            }}
-        >
-            <label htmlFor={'select-' + props.label} className={styles.labelContainer}
-                   style={{
-                       visibility: props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ? 'visible' : 'hidden',
-                       opacity: props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ? '1' : '0',
-                       transition: 'visibility 0.2s ease,opacity 0.2s ease'
-                   }}>{props.label}</label>
-
-            <div className={styles.dropDownContainer}>
-                <button
-                    id={'select-' + props.label}
-                    disabled={props.disabled}
-
+                <div
+                    key={props.label + '-selector'}
                     style={{
-                        height: '56px', borderRadius: '5px',
+                        width: props.width,
+                        height: '100px',
+                        display: 'grid',
+                        alignItems: props.value ? 'unset' : 'flex-start',
+                        gap: '4px',
                     }}
-                    className={[styles.selectContainer, props.disabled ? {} : props.dark ? styles.darkHighlight : styles.highlight].join(' ')}
-                    onClick={() => setModal(true)}
                 >
+                    <label htmlFor={'select-' + props.label} className={styles.labelContainer}
+                           style={{
+                               visibility: props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ? 'visible' : 'hidden',
+                               opacity: props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ? '1' : '0',
+                               transition: 'visibility 0.2s ease,opacity 0.2s ease'
+                           }}>{props.label}</label>
 
-                    {props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ?
-                        <>
+                    <div className={styles.dropDownContainer}>
+                        <button
+                            id={'select-' + props.label}
+                            disabled={props.disabled}
 
-                            {props.selected.value}
-                            <ListRounded style={{color: 'rgba(0,0,0,.6)'}}/>
-                        </>
-                        :
-                        <>
-                            <p style={{
-                                color: 'rgba(0,0,0,.55)',
-                            }}>    {props.label}
-                                {props.required ? ' *' : null}</p>
-                            <AddRounded style={{color: 'rgba(0,0,0,.6)'}}/>
-                        </>
-                    }
-                </button>
-            </div>
+                            style={{
+                                height: '56px', borderRadius: '5px',
+                            }}
+                            className={[styles.selectContainer, props.disabled ? {} : props.dark ? styles.darkHighlight : styles.highlight].join(' ')}
+                            onClick={() => setModal(true)}
+                        >
 
-            <label htmlFor={'select-' + props.label} className={styles.alertLabel}
-                   style={{
-                       color: props.value === null || props.value === undefined ? '#ff5555' : '#262626',
-                       visibility: props.required && !open ? 'visible' : 'hidden',
-                   }}>{lang.required}</label>
+                            {props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ?
+                                <>
 
-        </div>
-    </>
-)
-else return null
+                                    {props.selected.value}
+                                    <ListRounded style={{color: 'rgba(0,0,0,.6)'}}/>
+                                </>
+                                :
+                                <>
+                                    <p style={{
+                                        color: 'rgba(0,0,0,.55)',
+                                    }}>{props.label}</p>
+                                    <AddRounded style={{color: 'rgba(0,0,0,.6)'}}/>
+                                </>
+                            }
+                        </button>
+                    </div>
+
+                    <label htmlFor={'select-' + props.label} className={styles.alertLabel}
+                           style={{
+                               color: props.selected?.key === null || !props.selected?.key ? '#ff5555' : '#262626',
+                               visibility: props.required ? 'visible' : 'hidden',
+                           }}>{lang.required}</label>
+
+                </div>
+            </>
+        )
+    else return null
 }
 
-Selector.propTypes =
-    {
-        data: PropTypes.array,
-            handleChange
-    :
-        PropTypes.func,
-            selected
-    :
-        PropTypes.any,
-            label
-    :
-        PropTypes.string,
-            width
-    :
-        PropTypes.number,
-            required
-    :
-        PropTypes.bool,
-            setChanged
-    :
-        PropTypes.func,
-            disabled
-    :
-        PropTypes.bool,
-            dark
-    :
-        PropTypes.bool
-    }
+Selector.propTypes = {
+    data: PropTypes.array,
+    handleChange: PropTypes.func,
+    selected: PropTypes.any,
+    label: PropTypes.string,
+    width: PropTypes.number,
+    required: PropTypes.bool,
+    setChanged: PropTypes.func,
+    disabled: PropTypes.bool,
+    dark: PropTypes.bool
+}
