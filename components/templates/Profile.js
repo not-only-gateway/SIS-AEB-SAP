@@ -5,7 +5,8 @@ import PersonPersona from "../elements/ProfilePersona";
 
 export default function Profile(props) {
     return (
-        <div className={styles.profileContainer} style={{top: props.padding? '0' :    '32px', paddingTop: props.padding ? '16px' : 0}}>
+        <div className={styles.profileContainer}
+             style={{top: props.padding ? '0' : '32px', paddingTop: props.padding ? '16px' : 0}}>
             <PersonPersona
                 size={'120px'}
                 dark={false}
@@ -21,10 +22,13 @@ export default function Profile(props) {
                 <h3 style={{marginTop: '0', marginBottom: '0'}}>
                     {props.person.name}
                 </h3>
-
-                <h5 style={{marginTop: '8px'}}>
-                    {props.member.corporate_email}
-                </h5>
+                {props.member !== null ?
+                    <h5 style={{marginTop: '8px'}}>
+                        {props.member.corporate_email}
+                    </h5>
+                    :
+                    null
+                }
             </div>
         </div>
 

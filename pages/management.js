@@ -11,6 +11,7 @@ import EffectiveRoleList from "../components/templates/list/EffectiveRoleList";
 import CommissionedRoleList from "../components/templates/list/CommissionedRoleList";
 import LinkageList from "../components/templates/list/LinkageList";
 import Cookies from "universal-cookie/lib";
+import PeopleList from "../components/templates/list/PeopleList";
 
 export default function management() {
 
@@ -26,7 +27,7 @@ export default function management() {
                 setLang(getLanguage(router.locale, router.pathname))
             if (accessProfile === null)
                 readAccessProfile().then(res => setAccessProfile(res))
-        setNotAuthenticated((new Cookies()).get('authorization_token') === undefined)
+            setNotAuthenticated((new Cookies()).get('authorization_token') === undefined)
         }, [router.locale]
     )
 
@@ -36,7 +37,7 @@ export default function management() {
             <>
                 <Authenticate
                     handleClose={valid => {
-                        if(valid)
+                        if (valid)
                             setNotAuthenticated(false)
                         else
                             router.push('/', '/', {locale: router.locale})
@@ -49,10 +50,11 @@ export default function management() {
                     width={'75%'}
                     availableTabs={{
                         tabs: [
-                            {key: 0, value: lang.accessTitle},
-                            {key: 1, value: lang.effectiveRoleTitle},
-                            {key: 2, value: lang.commissionedRoleTitle},
-                            {key: 3, value: lang.linkagesTitle},
+                            {key: 0, value: lang.registered},
+                            {key: 1, value: lang.accessTitle},
+                            {key: 2, value: lang.effectiveRoleTitle},
+                            {key: 3, value: lang.commissionedRoleTitle},
+                            {key: 4, value: lang.linkagesTitle},
                         ],
                         openTab: openTab,
                         setOpenTab: setOpenTab
@@ -67,10 +69,16 @@ export default function management() {
                         <TabContent
                             openTab={openTab}
                             tabs={[
-                                {buttonKey: 0, value: <AccessProfileList locale={router.locale}/>},
-                                {buttonKey: 1, value: <EffectiveRoleList locale={router.locale}/>},
-                                {buttonKey: 2, value: <CommissionedRoleList locale={router.locale}/>},
-                                {buttonKey: 3, value: <LinkageList locale={router.locale}/>},
+                                {buttonKey: 0,
+                                    value: <PeopleList
+                                        member={lang.member}
+                                        locale={router.locale} searchInput={''}
+                                                       nothingFound={lang.nothingFound} end={lang.end}/>
+                                },
+                                {buttonKey: 1, value: <AccessProfileList locale={router.locale}/>},
+                                {buttonKey: 2, value: <EffectiveRoleList locale={router.locale}/>},
+                                {buttonKey: 3, value: <CommissionedRoleList locale={router.locale}/>},
+                                {buttonKey: 4, value: <LinkageList locale={router.locale}/>},
                             ]}
                         />
                     </div>

@@ -109,6 +109,7 @@ export default function Index() {
                                         <div style={{display: 'grid', gap: '8px', width: '100%'}}
                                              key={'units-container'}>
                                             {rendered() > 0 ? data.map((unit, index) => (
+                                                <>
                                                     <button
                                                         onClick={() => router.push({
                                                             locale: router.locale,
@@ -132,6 +133,16 @@ export default function Index() {
                                                             null
                                                         }
                                                     </button>
+                                                    {index === data.length -1 ?
+                                                        <div style={{width: '100%'}}>
+                                                            <h5
+                                                                style={{textAlign: 'center', color: '#555555'}}>{lang.end}</h5>
+                                                        </div>
+                                                        :
+                                                        null
+                                                    }
+                                                </>
+
                                                 )) :
                                                 <div className={mainStyles.displayInlineCenter} style={{
                                                     ...{marginBottom: '15px', width: '100%'}
@@ -140,10 +151,7 @@ export default function Index() {
                                                        style={{...{textAlign: 'center'}, ...getTertiaryColor({dark: false})}}>{lang.nothingFound}</p>
                                                 </div>
                                             }
-                                            <div style={{width: '100%'}}>
-                                                <h5
-                                                    style={{textAlign: 'center', color: '#555555'}}>{lang.end}</h5>
-                                            </div>
+
                                         </div>
                                     )
                                 },

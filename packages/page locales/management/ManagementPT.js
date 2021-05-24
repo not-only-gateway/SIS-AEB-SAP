@@ -6,4 +6,8 @@ export default {
     linkagesTitle: 'Vínculos',
     list: 'Listar',
     create: 'Criar',
+    registered: 'Pessoas Registradas',
+    end: 'Você chegou ao fim',
+    nothingFound: 'Nada encontrado',
+    member: 'Membro'
 }
