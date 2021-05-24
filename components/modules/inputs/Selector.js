@@ -27,7 +27,7 @@ export default function Selector(props) {
         return (
             <Modal open={modal} onClose={() => setModal(false)}
                    style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                <div className={[shared.modalContainer, animations.fadeIn].join(' ')}>
+                <div className={[shared.modalContainer, animations.fadeIn].join(' ')} style={{height: 'clamp(500px, 75%, 1000px'}}>
                     <div style={{
                         display: 'grid',
                         justifyItems: 'flex-start',
