@@ -6,7 +6,7 @@ export default {
     entity: 'Entidade',
     options: [{key: true, value: 'Sim'}, {key: false, value: 'Não'}],
     save: 'Salvar',
-    create: 'Próximo',
+    create: 'Criar',
     altPhone: 'Telefone alternativo',
     general: 'Geral',
     linkage: 'Vínculo & Posição de trabalho',

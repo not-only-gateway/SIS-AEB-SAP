@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
 import {getLanguage} from "../utils/shared/PageLanguage";
 import {readAccessProfile} from "../utils/shared/IndexedDB";
-import mainStyles from '../styles/shared/Main.module.css'
 import BaseForm from "../components/templates/forms/BaseForm";
 
 import HeaderLayout from "../components/layout/HeaderLayout";
@@ -12,12 +11,6 @@ import MembershipForm from "../components/templates/forms/MembershipForm";
 import submitPerson from "../utils/submit/SubmitPerson";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import submitMember from "../utils/submit/SubmitMember";
-import DocumentsForm from "../components/templates/forms/DocumentsForm";
-import submitDocuments from "../utils/submit/SubmitDocuments";
-import ContactForm from "../components/templates/forms/ContactForm";
-import submitContacts from "../utils/submit/SubmitContacts";
-import AddressForm from "../components/templates/forms/AddressForm";
-import submitAddress from "../utils/submit/SubmitAddress";
 import Cookies from "universal-cookie/lib";
 
 export default function create() {

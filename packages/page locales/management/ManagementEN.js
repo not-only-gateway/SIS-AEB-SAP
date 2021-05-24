@@ -9,5 +9,6 @@ export default {
     registered: 'Registered People',
     end: 'You\'ve reached the end',
     nothingFound: 'Nothing Found',
-    member: 'Member'
+    member: 'Member',
+    units: 'Units'
 }

@@ -1,6 +1,5 @@
 import '../styles/globals.css'
 import PageLayout from "../components/layout/PageLayout";
-import {useEffect} from "react";
 // import NProgress from 'nprogess'
 // import Router from 'next'
 // Router.events.on('routeChangeStart', () => NProgress.start());

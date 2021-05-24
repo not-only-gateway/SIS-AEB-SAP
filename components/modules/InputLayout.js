@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
-import {FormControl, Grid, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
+import {FormControl, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
 
 export default function InputLayout(props) {
     const [focused, setFocused] = useState(false)

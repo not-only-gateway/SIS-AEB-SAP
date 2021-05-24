@@ -3,7 +3,7 @@ import AccessProfileForm from "../../templates/forms/AccessProfileForm";
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import fetchAccessProfile from "../../../utils/fetch/FetchAccessProfile";
-import {Button, Modal} from "@material-ui/core";
+import {Modal} from "@material-ui/core";
 import animations from '../../../styles/shared/Animations.module.css'
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import submitAccessProfile from "../../../utils/submit/SubmitAccessProfile";

@@ -1,22 +1,33 @@
-import mainStyles from "../../styles/shared/Main.module.css";
 import React, {useState} from "react";
 import PropTypes from 'prop-types'
 
 import animations from '../../styles/shared/Animations.module.css'
 import {Modal} from "@material-ui/core";
-import ProfileOverview from "../templates/ProfileOverview";
 import Profile from "../templates/Profile";
 import shared from '../../styles/shared/Shared.module.css'
-import Link from "next/link";
 import ProfilePersona from "../elements/ProfilePersona";
 import {ExtensionRounded} from "@material-ui/icons";
 import Button from "../modules/inputs/Button";
-
+import Link from 'next/link'
 
 export default function Person(props) {
 
     const [modal, setModal] = useState(false)
 
+    function getLang() {
+        let response = null
+        if (props.locale === 'en')
+            response = {
+                close: 'Close',
+                edit: 'Edit'
+            }
+        else
+            response = {
+                close: 'Fechar',
+                edit: 'Editar'
+            }
+        return response
+    }
 
     function renderModal() {
         return (
@@ -25,19 +36,13 @@ export default function Person(props) {
                 <div className={[shared.modalContainer, animations.fadeIn].join(' ')}>
                     <div style={{padding: '32px', height: '100%', display: 'grid', gap: '32px'}}>
                         <Profile person={props.person.person} member={props.person.member}/>
-                        {/*<ProfileOverview*/}
-                        {/*    locale={props.locale}*/}
-                        {/*    person={props.person} unit={props.unit} member={props.member}*/}
-                        {/*    commissionedRole={props.commissionedRole}*/}
-                        {/*    effectiveRole={props.effectiveRole} linkage={props.linkage} senior={props.senior}*/}
-                        {/*/>*/}
                     </div>
                     <div className={shared.modalFooter}>
                         <Button
                             width={'fit-content'}
                             border={'#ecedf2 .7px solid'}
                             variant={'rounded'}
-                            content={props.close}
+                            content={getLang().close}
                             handleClick={() => setModal(false)}
                             backgroundColor={'white'}
                             hoverHighlight={true}
@@ -46,18 +51,19 @@ export default function Person(props) {
                             fontColor={'#262626'}
                             padding={'8px 32px 8px 32px'}
                         />
-                        {props.editable ? <Button
-                            width={'fit-content'}
-                            border={'unset'}
-                            variant={'rounded'}
-                            content={props.edit}
-                            handleClick={() => props.redirect(props.member.id)}
-                            backgroundColor={'#0095ff'}
-                            hoverHighlight={false}
-                            elevation={true}
-                            fontColor={'white'}
-                            padding={'8px 32px 8px 32px'}
-                        /> : null}
+                        <Link href={'/person?id=' + props.person.person.id}>
+                            <button style={{
+                                backgroundColor: '#0095ff',
+                                padding: '8px 32px 8px 32px',
+                                color: 'white',
+                                borderRadius: '32px',
+                                border: 'none',
+                                outline: 'none',
+                                cursor: 'pointer'
+                            }}>
+                                {getLang().edit}
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </Modal>

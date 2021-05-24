@@ -4,6 +4,7 @@ import {CloseRounded} from "@material-ui/icons";
 import animations from '../../styles/shared/Animations.module.css'
 import React, {useEffect, useRef, useState} from "react";
 import Button from "../modules/inputs/Button";
+import {Modal} from "@material-ui/core";
 
 export default function Alert(props) {
     const counter = useRef(10)
@@ -66,10 +67,9 @@ export default function Alert(props) {
 
     return (
         <>
-
+        <Modal open={props.render} onClose={() => props.handleClose()}>
             <div className={[styles.alertContainer, animations.fadeIn].join(' ')}
-                 style={{...alertColor, ...{display: props.render ? 'initial' : 'none',}}}
-                 onBlur={() => props.handleClose()}>
+                 style={alertColor}>
                 <div className={styles.alertContent}>
                     <Button
                         // handleClick={() => setModal(true)}
@@ -93,10 +93,11 @@ export default function Alert(props) {
                         width={'10%'}
                     />
                 </div>
-
             </div>
-        </>
-    )
+        </Modal>
+
+</>
+)
 }
 
 Alert.propTypes = {

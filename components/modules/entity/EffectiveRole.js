@@ -1,7 +1,7 @@
 import mainStyles from "../../../styles/shared/Main.module.css";
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
-import {Button, Modal} from "@material-ui/core";
+import {Modal} from "@material-ui/core";
 import animations from '../../../styles/shared/Animations.module.css'
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import {AddRounded} from "@material-ui/icons";

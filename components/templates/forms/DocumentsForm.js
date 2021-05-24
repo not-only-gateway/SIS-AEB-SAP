@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import TextField from "../../modules/inputs/TextField";
 import Alert from "../../layout/Alert";
-import HorizontalTabs from "../../layout/navigation/HorizontalTabs";
-import TabContent from "../TabContent";
 import shared from "../../../styles/shared/Shared.module.css";
 import Button from "../../modules/inputs/Button";
 import DateField from "../../modules/inputs/DateField";

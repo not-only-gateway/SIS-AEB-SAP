@@ -1,7 +1,6 @@
 import InfiniteScroll from "react-infinite-scroll-component";
 import {Skeleton} from "@material-ui/lab";
 import mainStyles from "../../styles/shared/Main.module.css";
-import {getTertiaryColor} from "../../styles/shared/MainStyles";
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import styles from '../../styles/Extensions.module.css'

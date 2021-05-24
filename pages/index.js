@@ -14,8 +14,7 @@ import Extensions from "../components/modules/Extensions";
 import CollaboratorsStructure from "../components/modules/structure/CollaboratorsStructure";
 import {Modal} from "@material-ui/core";
 import animations from "../styles/shared/Animations.module.css";
-import shared from "../styles/shared/Shared.module.css";
-import {CloseRounded, FilterListRounded} from "@material-ui/icons";
+import {FilterListRounded} from "@material-ui/icons";
 import Button from "../components/modules/inputs/Button";
 
 export default function Index() {

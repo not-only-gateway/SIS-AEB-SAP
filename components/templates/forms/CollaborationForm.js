@@ -1,11 +1,8 @@
 import React, {useEffect, useState} from "react";
-import InputLayout from "../../modules/InputLayout";
 import PropTypes from "prop-types";
 import Selector from "../../modules/inputs/Selector";
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import Alert from "../../layout/Alert";
-import HorizontalTabs from "../../layout/navigation/HorizontalTabs";
-import TabContent from "../TabContent";
 import styles from '../../../styles/component/Component.module.css'
 import shared from "../../../styles/shared/Shared.module.css";
 import Button from "../../modules/inputs/Button";

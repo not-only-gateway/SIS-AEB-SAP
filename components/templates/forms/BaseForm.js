@@ -9,11 +9,8 @@ import TextField from "../../modules/inputs/TextField";
 import DateField from "../../modules/inputs/DateField";
 import DropDownField from "../../modules/inputs/DropDownField";
 import Alert from "../../layout/Alert";
-import TabContent from "../TabContent";
-import HorizontalTabs from "../../layout/navigation/HorizontalTabs";
 import shared from '../../../styles/shared/Shared.module.css'
 import Button from "../../modules/inputs/Button";
-import {setAccessProfile} from "../../../utils/shared/IndexedDB";
 
 export default function BaseForm(props) {
 

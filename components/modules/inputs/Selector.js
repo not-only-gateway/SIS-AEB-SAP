@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import mainStyles from '../../../styles/shared/Main.module.css'
-import {AddRounded, ArrowDropDownRounded, CloseRounded, DeleteForeverRounded, ListRounded} from "@material-ui/icons";
+import {AddRounded, DeleteForeverRounded, ListRounded} from "@material-ui/icons";
 import {Divider, Modal} from "@material-ui/core";
-import InputLayout from "../InputLayout";
 import animations from '../../../styles/shared/Animations.module.css'
 import shared from "../../../styles/shared/Shared.module.css";
 import styles from "../../../styles/Input.module.css";
@@ -34,6 +32,7 @@ export default function Selector(props) {
                         display: 'grid',
                         justifyItems: 'flex-start',
                         gap: '8px',
+                        padding: '32px 32px 0px 32px'
                     }}>
                         <h3 style={{marginTop: 0, marginBottom: '16px'}}>{props.label}</h3>
                         {props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ?
@@ -79,34 +78,28 @@ export default function Selector(props) {
 
                     <div style={{
                         overflowY: 'auto',
-                        marginTop: '16px',
                         marginBottom: '64px',
-                        display: 'grid'
+                        display: 'grid',
+                        padding: '32px',
+                        gap: '8px'
                     }}>
                         {props.data.map((data) => (
                             <>
                                 {(search.length === 0 || search.length > 0 && (data.value.toLowerCase()).match(search.toLowerCase())) ?
-                                    <div key={data.key + '-'+ data.value}>
-                                        <Button
-
-                                            content={data.value}
-                                            hoverHighlight={!(props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key)}
-                                            colorVariant={'primary'}
-                                            variant={'default'}
-                                            justification={'flex-start'}
-                                            border={props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? '#ecedf2 .7px solid' : 'transparent .7px solid'}
-                                            width={'100%'}
-                                            backgroundColor={props.selected !== undefined && props.selected !== null && props.selected.key !== null && data.key === props.selected.key ? '#f4f5fa' : 'white'}
-                                            handleClick={() => {
-                                                if (props.setChanged)
-                                                    props.setChanged(true)
-                                                props.handleChange(data)
-                                                setModal(false)
-                                            }}
-                                            padding={'8px'}
-                                            elevation={true}
-                                            fontColor={'#222228'}
-                                        />
+                                    <div key={data.key + '-' + data.value}>
+                                        <button onClick={() => {
+                                            if (props.setChanged)
+                                                props.setChanged(true)
+                                            props.handleChange(data)
+                                            setModal(false)
+                                        }} className={shared.rowContainer}
+                                                style={{
+                                                    backgroundColor: data.key === props.selected?.key ? '#0095ff' : undefined,
+                                                    color: data.key === props.selected?.key ? 'white' : undefined,
+                                                    outline: 'none'
+                                                }}>
+                                            {data.value}
+                                        </button>
                                     </div>
                                     :
                                     null}
@@ -135,78 +128,95 @@ export default function Selector(props) {
     }
 
 
-    if (lang !== null)
-        return (
-            <>
-                {renderModal()}
+if (lang !== null)
+return (
+    <>
+        {renderModal()}
 
-                <div
-                    key={props.label+'-selector'}
+        <div
+            key={props.label + '-selector'}
+            style={{
+                width: props.width,
+                height: '100px',
+                display: 'grid',
+                alignItems: props.value ? 'unset' : 'flex-start',
+                gap: '4px',
+            }}
+        >
+            <label htmlFor={'select-' + props.label} className={styles.labelContainer}
+                   style={{
+                       visibility: props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ? 'visible' : 'hidden',
+                       opacity: props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ? '1' : '0',
+                       transition: 'visibility 0.2s ease,opacity 0.2s ease'
+                   }}>{props.label}</label>
+
+            <div className={styles.dropDownContainer}>
+                <button
+                    id={'select-' + props.label}
+                    disabled={props.disabled}
+
                     style={{
-                        width: props.width,
-                        height: '100px',
-                        display: 'grid',
-                        alignItems: props.value ? 'unset' : 'flex-start',
-                        gap: '4px',
+                        height: '56px', borderRadius: '5px',
                     }}
+                    className={[styles.selectContainer, props.disabled ? {} : props.dark ? styles.darkHighlight : styles.highlight].join(' ')}
+                    onClick={() => setModal(true)}
                 >
-                    <label htmlFor={'select-' + props.label} className={styles.labelContainer}
-                           style={{
-                               visibility: props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ? 'visible' : 'hidden',
-                               opacity: props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ? '1' : '0',
-                               transition: 'visibility 0.2s ease,opacity 0.2s ease'
-                           }}>{props.label}</label>
 
-                    <div className={styles.dropDownContainer}>
-                        <button
-                            id={'select-' + props.label}
-                            disabled={props.disabled}
+                    {props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ?
+                        <>
 
-                            style={{
-                                height: '56px', borderRadius: '5px',
-                            }}
-                            className={[styles.selectContainer, props.disabled ? {} : props.dark ? styles.darkHighlight : styles.highlight].join(' ')}
-                            onClick={() => setModal(true)}
-                        >
+                            {props.selected.value}
+                            <ListRounded style={{color: 'rgba(0,0,0,.6)'}}/>
+                        </>
+                        :
+                        <>
+                            <p style={{
+                                color: 'rgba(0,0,0,.55)',
+                            }}>    {props.label}
+                                {props.required ? ' *' : null}</p>
+                            <AddRounded style={{color: 'rgba(0,0,0,.6)'}}/>
+                        </>
+                    }
+                </button>
+            </div>
 
-                            {props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ?
-                                <>
+            <label htmlFor={'select-' + props.label} className={styles.alertLabel}
+                   style={{
+                       color: props.value === null || props.value === undefined ? '#ff5555' : '#262626',
+                       visibility: props.required && !open ? 'visible' : 'hidden',
+                   }}>{lang.required}</label>
 
-                                    {props.selected.value}
-                                    <ListRounded style={{color: 'rgba(0,0,0,.6)'}}/>
-                                </>
-                                :
-                                <>
-                                    <p style={{
-                                        color: 'rgba(0,0,0,.55)',
-                                    }}>    {props.label}
-                                        {props.required ? ' *' : null}</p>
-                                    <AddRounded style={{color: 'rgba(0,0,0,.6)'}}/>
-                                </>
-                            }
-                        </button>
-                    </div>
-
-                    <label htmlFor={'select-' + props.label} className={styles.alertLabel}
-                           style={{
-                               color: props.value === null || props.value === undefined ? '#ff5555' : '#262626',
-                               visibility: props.required && !open ? 'visible' : 'hidden',
-                           }}>{lang.required}</label>
-
-                </div>
-            </>
-        )
-    else return null
+        </div>
+    </>
+)
+else return null
 }
 
-Selector.propTypes = {
-    data: PropTypes.array,
-    handleChange: PropTypes.func,
-    selected: PropTypes.any,
-    label: PropTypes.string,
-    width: PropTypes.number,
-    required: PropTypes.bool,
-    setChanged: PropTypes.func,
-    disabled: PropTypes.bool,
-    dark: PropTypes.bool
-}
+Selector.propTypes =
+    {
+        data: PropTypes.array,
+            handleChange
+    :
+        PropTypes.func,
+            selected
+    :
+        PropTypes.any,
+            label
+    :
+        PropTypes.string,
+            width
+    :
+        PropTypes.number,
+            required
+    :
+        PropTypes.bool,
+            setChanged
+    :
+        PropTypes.func,
+            disabled
+    :
+        PropTypes.bool,
+            dark
+    :
+        PropTypes.bool
+    }

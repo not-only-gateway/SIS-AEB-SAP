@@ -12,6 +12,7 @@ import CommissionedRoleList from "../components/templates/list/CommissionedRoleL
 import LinkageList from "../components/templates/list/LinkageList";
 import Cookies from "universal-cookie/lib";
 import PeopleList from "../components/templates/list/PeopleList";
+import UnitList from "../components/templates/list/UnitList";
 
 export default function management() {
 
@@ -51,10 +52,11 @@ export default function management() {
                     availableTabs={{
                         tabs: [
                             {key: 0, value: lang.registered},
-                            {key: 1, value: lang.accessTitle},
-                            {key: 2, value: lang.effectiveRoleTitle},
-                            {key: 3, value: lang.commissionedRoleTitle},
-                            {key: 4, value: lang.linkagesTitle},
+                            {key: 1, value: lang.units},
+                            {key: 2, value: lang.accessTitle},
+                            {key: 3, value: lang.effectiveRoleTitle},
+                            {key: 4, value: lang.commissionedRoleTitle},
+                            {key: 5, value: lang.linkagesTitle},
                         ],
                         openTab: openTab,
                         setOpenTab: setOpenTab
@@ -75,10 +77,15 @@ export default function management() {
                                         locale={router.locale} searchInput={''}
                                                        nothingFound={lang.nothingFound} end={lang.end}/>
                                 },
-                                {buttonKey: 1, value: <AccessProfileList locale={router.locale}/>},
-                                {buttonKey: 2, value: <EffectiveRoleList locale={router.locale}/>},
-                                {buttonKey: 3, value: <CommissionedRoleList locale={router.locale}/>},
-                                {buttonKey: 4, value: <LinkageList locale={router.locale}/>},
+                                {buttonKey: 1,
+                                    value: <UnitList
+                                        locale={router.locale} searchInput={''}
+                                        nothingFound={lang.nothingFound} end={lang.end}/>
+                                },
+                                {buttonKey: 2, value: <AccessProfileList locale={router.locale}/>},
+                                {buttonKey: 3, value: <EffectiveRoleList locale={router.locale}/>},
+                                {buttonKey: 4, value: <CommissionedRoleList locale={router.locale}/>},
+                                {buttonKey: 5, value: <LinkageList locale={router.locale}/>},
                             ]}
                         />
                     </div>

@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import InputLayout from "../../modules/InputLayout";
 import PropTypes from 'prop-types'
 import axios from "axios";
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";

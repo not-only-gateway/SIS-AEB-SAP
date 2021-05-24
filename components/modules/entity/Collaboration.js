@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from "react";
-import PropTypes, {func} from "prop-types";
-import {AddRounded, CloseRounded} from "@material-ui/icons";
+import PropTypes from "prop-types";
+import {AddRounded} from "@material-ui/icons";
 import {Divider, Modal} from "@material-ui/core";
 
 import mainStyles from '../../../styles/shared/Main.module.css'
-import {getIconStyle} from "../../../styles/shared/MainStyles";
 import CollaborationForm from "../../templates/forms/CollaborationForm";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import fetchCollaboration from "../../../utils/fetch/FetchCollaboration";
@@ -18,8 +17,6 @@ import fetchSeniors from "../../../utils/fetch/FetchSeniors";
 import submitCollaboration from "../../../utils/submit/SubmitCollaboration";
 import animations from '../../../styles/shared/Animations.module.css'
 import shared from "../../../styles/shared/Shared.module.css";
-import Button from "../inputs/Button";
-import styles from "../../../styles/Extensions.module.css";
 
 export default function Collaboration(props) {
 
@@ -30,6 +27,12 @@ export default function Collaboration(props) {
         accessProfiles: [],
         linkages: [],
         seniors: [],
+    })
+    const [maxID, setMaxID] = useState({
+        unitsMaxID: null
+    })
+    const [lastFetchedSize, setLastFetchedSize] = useState({
+        unitsFetchedSize: 0
     })
     const [modal, setModal] = useState(false)
     const [collaboration, setCollaboration] = useState({})
@@ -46,6 +49,7 @@ export default function Collaboration(props) {
                     setLoading: setLoading,
                     collaborationID: props.collaborationID
                 }).then(res => {
+                    console.log('THIS IS COLLAB')
                     console.log(res)
                     if (res !== null)
                         setCollaboration(res)
@@ -54,10 +58,24 @@ export default function Collaboration(props) {
         }
         if (modal) {
             setLoading(true)
-            fetchUnits().then(res => handleObjectChange({
-                event: {name: 'units', value: mapToSelect({data: res, option: 0})},
-                setData: setDependencies
-            }))
+            fetchUnits({
+                setData: res => handleObjectChange({
+                    event: {name: 'units', value: mapToSelect({data: res, option: 0})},
+                    setData: setDependencies
+                }),
+                data: dependencies.units,
+                maxID: null,
+                searchInput: null,
+                setMaxID: res => handleObjectChange({
+                    event: {name: 'unitsMaxID', value: res},
+                    setData: setMaxID
+                }),
+                setLastFetchedSize: res => handleObjectChange({
+                    event: {name: 'unitsFetchedSize', value: res},
+                    setData: setLastFetchedSize
+                })
+            })
+
             fetchLinkages().then(res => handleObjectChange({
                 event: {name: 'linkages', value: mapToSelect({data: res, option: 1})},
                 setData: setDependencies
@@ -141,9 +159,10 @@ export default function Collaboration(props) {
             </Modal>
         )
     }
-    function getLang(locale){
+
+    function getLang(locale) {
         let response = 'New Collaboration'
-        if(locale === 'pt')
+        if (locale === 'pt')
             response = 'Nova colaboração'
 
         return response

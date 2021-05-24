@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 
 import mainStyles from '../../../styles/shared/Main.module.css'
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
-import InputLayout from "../../modules/InputLayout";
 import Alert from "../../layout/Alert";
 import shared from "../../../styles/shared/Shared.module.css";
 import Button from "../../modules/inputs/Button";

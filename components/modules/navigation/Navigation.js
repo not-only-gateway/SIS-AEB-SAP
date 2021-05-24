@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import Cookies from 'universal-cookie/lib';
 import {
-    AddRounded, Adjust, AdjustRounded, BusinessRounded,
+    BusinessRounded,
     ExitToApp,
     ExitToAppRounded,
     ExtensionRounded,
-    MenuOpenRounded, PersonAddRounded,
-    SettingsRounded, TuneRounded,
+    MenuOpenRounded,
+    PersonAddRounded,
+    TuneRounded,
     ViewQuiltRounded
 } from '@material-ui/icons';
 import styles from '../../../styles/Navigation.module.css'
@@ -18,7 +19,6 @@ import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import NavigationProfile from "../../elements/navigation/NavigationProfile";
 import animations from '../../../styles/shared/Animations.module.css'
 import NavigationButton from "../../layout/NavigationButton";
-import NavigationDropDownButton from "../../layout/NavigationDropDownButton";
 import NavigationEN from "../../../packages/component locales/navigation/NavigationEN";
 import {Button} from "@material-ui/core";
 

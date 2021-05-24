@@ -14,6 +14,8 @@ import Alert from "../components/layout/Alert";
 import Head from 'next/head'
 import ExpandableTabs from "../components/layout/navigation/ExpandableTabs";
 import {Divider} from "@material-ui/core";
+import fetchPerson from "../utils/fetch/FetchPerson";
+import fetchMemberByPerson from "../utils/fetch/FetchMemberByPerson";
 
 export default function person() {
 
@@ -39,13 +41,19 @@ export default function person() {
     useEffect(() => {
             if (router.isReady && router.query.id !== id && !notAuthenticated) {
                 setId(router.query.id)
-                fetchMember({memberID: router.query.id, setStatus: setStatus}).then(res => {
-                    if (res !== null) {
-                        setMember(res.member)
+                fetchPerson({memberID: null, personID: router.query.id, setStatus: setStatus}).then(res => {
+                    if(res !== null) {
+                        fetchMemberByPerson({personID: res.id, setStatus: setStatus}).then(response => {
+                            if (response !== null) {
+                                setMember(response.member)
+
+                            }
+                        })
+                        setPerson(res)
                         setLoading(false)
-                        setPerson(res.person)
                     }
                 })
+
             }
             if (accessProfile === null)
                 readAccessProfile().then(profile => {
@@ -119,7 +127,8 @@ export default function person() {
                                             },
                                             {
                                                 key: 1,
-                                                value: lang.collaborations
+                                                value: lang.collaborations,
+                                                disable: member === null || !member || !member.id
                                             },
                                         ]
                                     }
@@ -142,10 +151,10 @@ export default function person() {
                                             <PersonalForms
                                                 lang={lang}
                                                 accessProfile={accessProfile}
-                                                id={id}
+                                                id={member !== null && member ? member.id : null}
                                                 openTab={openTab.subTab}
                                                 locale={router.locale}
-                                                personID={member.person}
+                                                personID={id}
                                             />
                                         )
                                     },
@@ -155,7 +164,7 @@ export default function person() {
                                             <CorporateForms
                                                 lang={lang}
                                                 locale={router.locale}
-                                                id={id}
+                                                id={member !== null && member ? member.id : null}
                                                 openTab={openTab.subTab}
                                                 accessProfile={accessProfile}
                                             />

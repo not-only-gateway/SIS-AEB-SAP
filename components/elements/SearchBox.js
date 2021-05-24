@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import mainStyles from '../../styles/shared/Main.module.css'
 import {CloseRounded, SearchRounded} from "@material-ui/icons";
 import shared from '../../styles/shared/Shared.module.css'
+
 export default function SearchBox(props) {
     const [focused, setFocused] = useState(false)
     const [hovered, setHovered] = useState(false)

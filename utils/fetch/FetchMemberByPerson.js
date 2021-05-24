@@ -3,11 +3,11 @@ import Host from "../shared/Host";
 import Cookies from "universal-cookie/lib";
 import PropTypes from 'prop-types'
 
-export default async function fetchMember(props){
+export default async function fetchMemberByPerson(props){
     let response = null
     await axios({
         method: 'get',
-        url: Host() + 'member/'+props.memberID,
+        url: Host() + 'person/member/' + props.personID,
         headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
     }).then(res => {
         response = res.data
@@ -20,7 +20,8 @@ export default async function fetchMember(props){
     return response
 }
 
-fetchMember.propTypes={
-    memberID: PropTypes.number,
+fetchMemberByPerson.propTypes={
+
     setStatus: PropTypes.func,
+    personID: PropTypes.number
 }

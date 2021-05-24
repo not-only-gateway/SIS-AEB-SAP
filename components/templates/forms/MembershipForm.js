@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types'
-import InputLayout from "../../modules/InputLayout";
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import Selector from "../../modules/inputs/Selector";
 import fetchEntities from "../../../utils/fetch/FetchEntities";
@@ -9,8 +8,6 @@ import fetchActiveCollaborations from "../../../utils/fetch/fetchActiveCollabora
 import TextField from "../../modules/inputs/TextField";
 import DropDownField from "../../modules/inputs/DropDownField";
 import Alert from "../../layout/Alert";
-import HorizontalTabs from "../../layout/navigation/HorizontalTabs";
-import TabContent from "../TabContent";
 import shared from "../../../styles/shared/Shared.module.css";
 import Button from "../../modules/inputs/Button";
 

@@ -2,17 +2,10 @@ import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {getLanguage} from "../utils/shared/PageLanguage";
 import Cookies from "universal-cookie/lib";
-import InfiniteScroll from "react-infinite-scroll-component";
-import {Skeleton} from "@material-ui/lab";
 import ActivityFilterComponent from "../components/modules/filters/ActivityFilters";
 import fetchActivityData from "../utils/fetch/FetchActivity";
-import {getTertiaryColor} from "../styles/shared/MainStyles";
-import mainStyles from "../styles/shared/Main.module.css";
 import HeaderLayout from "../components/layout/HeaderLayout";
 import FiltersComponent from "../components/layout/FiltersComponent";
-import ActivityTemplate from "../components/templates/list/ActivityTemplate";
-import SearchBox from "../components/elements/SearchBox";
-import handleObjectChange from "../utils/shared/HandleObjectChange";
 import TabContent from "../components/templates/TabContent";
 import ActivityOverview from "../components/templates/ActivityOverview";
 

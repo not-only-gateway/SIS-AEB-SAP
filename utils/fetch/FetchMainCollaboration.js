@@ -11,12 +11,13 @@ export default async function fetchMainCollaboration(props){
         headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
     }).then(res => {
         response = res.data
-        console.log(res.data)
+
     }).catch(error => {
-        props.setStatus({
-            error: true,
-            message: error.message
-        })
+        if(props.setStatus !== null && props.setStatus )
+            props.setStatus({
+                error: true,
+                message: error.message
+            })
     })
     return response
 }

@@ -19,20 +19,21 @@ export default function CorporateForms(props) {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-
-        if (props.openTab === 0 && member === null) {
+        if (props.openTab === 0 && member === null && props.id !== null) {
             setLoading(true)
             fetchMember({memberID: props.id, setStatus: setStatus}).then(res => {
-                if(res !== null)
+
+                if(res !== null) {
                     setMember(res.member)
+                    fetchMainCollaboration({memberID: res.member.id, setStatus: undefined}).then(res => {
+                        if(res !== null)
+                            setMainCollaboration({key: res.id, value:res.tag})
 
-            })
-            fetchMainCollaboration({memberID: props.id, setStatus: setStatus}).then(res => {
-                if(res !== null)
-                    setMainCollaboration({key: res.id, value:res.tag})
 
-                setLoading(false)
+                    })
+                }
             })
+            setLoading(false)
         }
     }, [props.openTab])
 
@@ -60,7 +61,7 @@ export default function CorporateForms(props) {
                                     })}
                                     mainCollaboration={mainCollaboration}
                                     handleSubmit={submitMember}
-                                    create={member === null}
+                                    create={member === null || member.id === undefined}
                                     editable={props.accessProfile.canManageMembership}
                                     locale={props.locale}
                                 />

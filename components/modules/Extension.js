@@ -9,6 +9,7 @@ import Button from "./inputs/Button";
 import ProfileOverview from "../templates/ProfileOverview";
 import Profile from "../templates/Profile";
 import shared from '../../styles/shared/Shared.module.css'
+
 export default function Extension(props) {
     const currentDate = new Date()
     const [modal, setModal] = useState(false)
@@ -47,7 +48,7 @@ export default function Extension(props) {
                             border={'unset'}
                             variant={'rounded'}
                             content={props.lang.edit}
-                            handleClick={() => props.redirect(props.member.id)}
+                            handleClick={() => props.redirect(props.person.id)}
                             backgroundColor={'#0095ff'}
                             hoverHighlight={false}
                             elevation={true}

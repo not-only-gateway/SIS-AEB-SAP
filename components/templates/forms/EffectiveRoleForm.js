@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import InputLayout from "../../modules/InputLayout";
 import mainStyles from '../../../styles/shared/Main.module.css'
 import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import Alert from "../../layout/Alert";

@@ -1,15 +1,10 @@
 import PropTypes from 'prop-types'
-import React, {useState} from "react";
-import {Button, Modal} from "@material-ui/core";
-
-import animations from "../../styles/shared/Animations.module.css";
+import React from "react";
 import mainStyles from "../../styles/shared/Main.module.css";
-import {CloseRounded, FilterListRounded} from "@material-ui/icons";
 import Head from "next/head";
 import HorizontalTabs from "./navigation/HorizontalTabs";
 import Stepper from "./navigation/Stepper";
 import styles from '../../styles/component/Component.module.css'
-import shared from "../../styles/shared/Shared.module.css";
 
 export default function HeaderLayout(props) {
 

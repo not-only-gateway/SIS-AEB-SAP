@@ -6,14 +6,18 @@ import {Skeleton} from "@material-ui/lab";
 import styles from "../../../styles/Extensions.module.css";
 import mainStyles from "../../../styles/shared/Main.module.css";
 import Person from "../Person";
+import shared from "../../../styles/shared/Shared.module.css";
+import ProfilePersona from "../../elements/ProfilePersona";
+import {ExtensionRounded} from "@material-ui/icons";
+import Link from 'next/link'
+import fetchUnits from "../../../utils/fetch/FetchUnits";
 
-
-export default function PeopleList(props) {
+export default function UnitList(props) {
     const [data, setData] = useState([])
     const [maxID, setMaxID] = useState(null)
     const [lastFetchedSize, setLastFetchedSize] = useState(0)
     useEffect(() => {
-        fetchPeople({
+        fetchUnits({
             setData: setData,
             data: data,
             maxID: null,
@@ -33,7 +37,7 @@ export default function PeopleList(props) {
             {data.length > 0 ?
                 <InfiniteScroll
                     dataLength={data.length}
-                    next={() => fetchPeople({
+                    next={() => fetchUnits({
                         setData: setData,
                         data: data,
                         maxID: maxID,
@@ -62,8 +66,13 @@ export default function PeopleList(props) {
                         width: '100%',
                         gap: '8px'
                     }}>
-                        {data.map(person => (
-                           <Person person={person} member={props.member} redirect={props.redirect} locale={props.locale}/>
+                        {data.map(unit => (
+                            <Link href={'/unit?id=' + unit.id}>
+                                <div key={unit.id} className={shared.rowContainer} style={{gap: '16px'}}>
+                                    {unit.acronym}
+                                    {unit.name}
+                                </div>
+                            </Link>
                         ))}
                     </div>
                 </InfiniteScroll>
@@ -76,7 +85,7 @@ export default function PeopleList(props) {
         </div>
     )
 }
-PeopleList.propTypes = {
+UnitList.propTypes = {
     end: PropTypes.string,
     nothingFound: PropTypes.string,
     locale: PropTypes.string,

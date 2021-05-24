@@ -47,7 +47,7 @@ export default function ExpandableTabs(props) {
                                             subTab: subButton.key
                                         })}
                                             elevation={props.openTab ? (subButton.key === props.openTab.subTab && button.mainButton.key === props.openTab.mainTab) : false}
-                                            disabled={false} padding={'8px 32px 8px 32px'}
+                                            disabled={subButton.disabled} padding={'8px 32px 8px 32px'}
                                             variant={'rounded'} width={'auto'}
                                             hoverHighlight={subButton.key !== props.openTab.subTab}
                                             border={props.openTab && subButton.key === props.openTab.subTab && button.mainButton.key === props.openTab.mainTab ? '#ecedf2 1px solid' : 'transparent 1px solid'}

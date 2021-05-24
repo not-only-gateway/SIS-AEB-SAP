@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import PropTypes from "prop-types";
 import styles from '../../styles/Activity.module.css'
 import Graph from "../modules/Graph";
 import shared from '../../styles/shared/Shared.module.css'
