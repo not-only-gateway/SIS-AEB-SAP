@@ -166,7 +166,7 @@ export default function Navigation(props) {
                  style={{height: '33.333%', alignItems: 'flex-end', paddingBottom: '4px'}}>
                 {(profile !== null && (new Cookies()).get('jwt') !== undefined) ?
                     <NavigationProfile dark={props.dark} profile={profile} reduced={props.reduced}
-                                       setReduced={props.setReduced}
+                                       setReduced={props.setReduced} accessProfile={accessProfile}
                                        locale={{profile: lang.profile, signout: lang.signout, signin: lang.signin}}/>
                     :
                     <NavigationButton
