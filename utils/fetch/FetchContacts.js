@@ -16,11 +16,11 @@ export default async function fetchContacts(props){
     }).then(res => {
         response = res.data
     }).catch(error => {
-        props.setStatus({
-            error: true,
-            message: error.message
-        })
-        console.log(error)
+        if(props.setStatus !== undefined)
+            props.setStatus({
+                error: true,
+                message: error.message
+            })
     })
     return response
 }

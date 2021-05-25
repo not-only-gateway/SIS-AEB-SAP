@@ -4,5 +4,8 @@ export default {
     language: 'Language',
     information: 'Local adjustments',
     activity: 'Account activity',
-    collaboration: 'Collaboration'
+    collaboration: 'Collaboration',
+    settings: 'Settings',
+    activityOverview: 'Activity Overview',
+    activityList: 'Activity List'
 }

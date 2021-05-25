@@ -27,7 +27,8 @@ export default function Selector(props) {
         return (
             <Modal open={modal} onClose={() => setModal(false)}
                    style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                <div className={[shared.modalContainer, animations.fadeIn].join(' ')} style={{height: 'clamp(500px, 75%, 1000px'}}>
+                <div className={[shared.modalContainer, animations.fadeIn].join(' ')}
+                     style={{height: 'clamp(500px, 75%, 1000px', alignContent: 'flex-start'}}>
                     <div style={{
                         display: 'grid',
                         justifyItems: 'flex-start',
@@ -81,33 +82,32 @@ export default function Selector(props) {
                         marginBottom: '64px',
                         display: 'grid',
                         padding: '32px',
-                        gap: '8px'
+                        gap: '8px',
+
+
                     }}>
                         {props.data.map((data) => (
-                            <>
-                                {(search.length === 0 || search.length > 0 && (data.value.toLowerCase()).match(search.toLowerCase())) ?
-                                    <div key={data.key + '-' + data.value}>
-                                        <button onClick={() => {
-                                            if (props.setChanged)
-                                                props.setChanged(true)
-                                            props.handleChange(data)
-                                            setModal(false)
-                                        }} className={shared.rowContainer}
-                                                style={{
-                                                    backgroundColor: data.key === props.selected?.key ? '#0095ff' : undefined,
-                                                    color: data.key === props.selected?.key ? 'white' : undefined,
-                                                    outline: 'none'
-                                                }}>
-                                            {data.value}
-                                        </button>
-                                    </div>
-                                    :
-                                    null}
-                            </>
+                            (search.length === 0 || search.length > 0 && (data.value.toLowerCase()).match(search.toLowerCase())) ?
+                                <div key={data.key + '-' + data.value}>
+                                    <button onClick={() => {
+                                        if (props.setChanged)
+                                            props.setChanged(true)
+                                        props.handleChange(data)
+                                        setModal(false)
+                                    }} className={shared.rowContainer}
+                                            style={{
+                                                backgroundColor: data.key === props.selected?.key ? '#0095ff' : undefined,
+                                                color: data.key === props.selected?.key ? 'white' : undefined,
+                                                outline: 'none'
+                                            }}>
+                                        {data.value}
+                                    </button>
+                                </div>
+                                :
+                                null
                         ))}
                     </div>
                     <div className={styles.modalFooter}>
-
                         <Button
                             width={'fit-content'}
                             border={'#ecedf2 .7px solid'}

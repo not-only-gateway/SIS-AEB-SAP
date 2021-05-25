@@ -39,31 +39,30 @@ export default function person() {
         message: undefined
     })
     useEffect(() => {
-            if (router.isReady && router.query.id !== id && !notAuthenticated) {
-                setId(router.query.id)
-                fetchPerson({memberID: null, personID: router.query.id, setStatus: setStatus}).then(res => {
-                    if(res !== null) {
-                        fetchMemberByPerson({personID: res.id, setStatus: setStatus}).then(response => {
-                            if (response !== null) {
-                                setMember(response.member)
+        if (router.isReady && router.query.id !== id && !notAuthenticated) {
+            setId(router.query.id)
+            fetchPerson({memberID: null, personID: router.query.id, setStatus: setStatus}).then(res => {
+                if (res !== null) {
+                    fetchMemberByPerson({personID: res.id}).then(response => {
+                        if (response !== null) {
+                            setMember(response.member)
 
-                            }
-                        })
-                        setPerson(res)
-                        setLoading(false)
-                    }
-                })
+                        }
+                    })
+                    setPerson(res)
+                    setLoading(false)
+                }
+            })
 
-            }
-            if (accessProfile === null)
-                readAccessProfile().then(profile => {
-                    setAccessProfile(profile)
-                })
-            if (lang === null)
-                setLang(getLanguage(router.locale, router.pathname))
-            setNotAuthenticated(!(new Cookies()).get('authorization_token'))
-        }, [router.locale, router.isReady, router.query, notAuthenticated]
-    )
+        }
+        if (accessProfile === null)
+            readAccessProfile().then(profile => {
+                setAccessProfile(profile)
+            })
+        if (lang === null)
+            setLang(getLanguage(router.locale, router.pathname))
+        setNotAuthenticated(!(new Cookies()).get('authorization_token'))
+    })
 
 
     if (lang !== null && id !== undefined && !notAuthenticated)
@@ -151,10 +150,10 @@ export default function person() {
                                             <PersonalForms
                                                 lang={lang}
                                                 accessProfile={accessProfile}
-                                                id={member !== null && member ? member.id : null}
+                                                memberID={member !== null && member ? member.id : null}
                                                 openTab={openTab.subTab}
                                                 locale={router.locale}
-                                                personID={id}
+                                                personID={person.id}
                                             />
                                         )
                                     },
@@ -163,7 +162,16 @@ export default function person() {
                                         value: (
                                             <CorporateForms
                                                 lang={lang}
+                                                fetchMembership={() =>
+                                                    fetchMemberByPerson({personID: person.id}).then(response => {
+                                                        if (response !== null) {
+                                                            setMember(response.member)
+
+                                                        }
+                                                    })
+                                                }
                                                 locale={router.locale}
+                                                personID={person.id}
                                                 id={member !== null && member ? member.id : null}
                                                 openTab={openTab.subTab}
                                                 accessProfile={accessProfile}

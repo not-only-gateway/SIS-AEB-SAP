@@ -23,14 +23,16 @@ export default function MembershipForm(props) {
     })
 
     useEffect(() => {
-        setLang(getComponentLanguage({locale: props.locale, component: 'membership'}))
-        fetchEntities().then(res => {
-            if (res !== null)
-                setEntities(res)
-        })
+        if(lang === null)
+            setLang(getComponentLanguage({locale: props.locale, component: 'membership'}))
+        if(entities.length === 0)
+            fetchEntities().then(res => {
+                if (res !== null)
+                    setEntities(res)
+            })
         if (!props.create)
-            fetchActiveCollaborations(props.id).then(res => setCollaborations(res))
-    }, [])
+            fetchActiveCollaborations(props.memberID).then(res => setCollaborations(res))
+    }, [props.create])
 
     function disabled() {
         return (
@@ -164,16 +166,16 @@ export default function MembershipForm(props) {
                     <Button width={'100%'} elevation={true} border={'none'} padding={'8px 32px 8px 32px'}
                             fontColor={'white'} backgroundColor={'#0095ff'}
                             handleClick={() => {
-                                props.handleSubmit({
+                                const res = props.handleSubmit({
                                     data: props.member,
-                                    personID: props.id,
+                                    personID: props.personID,
                                     create: props.create,
-                                    setStatus: setStatus
-                                }).then(res => {
-                                    setChanged(!res)
-                                    if (props.setAccepted)
-                                        props.setAccepted(res)
+                                    setStatus: setStatus,
+                                    memberID: props.memberID
                                 })
+                                setChanged(!res)
+                                if (props.setAccepted)
+                                    props.setAccepted(res)
                             }}
                             disabled={disabled()} variant={'rounded'}
                             content={
@@ -189,7 +191,8 @@ export default function MembershipForm(props) {
 }
 
 MembershipForm.propTypes = {
-    id: PropTypes.number,
+    memberID: PropTypes.number,
+    personID: PropTypes.number,
     member: PropTypes.object,
     handleChange: PropTypes.func,
     handleSubmit: PropTypes.func,

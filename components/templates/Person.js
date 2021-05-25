@@ -74,8 +74,7 @@ export default function Person(props) {
         <>
             {renderModal()}
 
-            <button onClick={() => setModal(true)}
-                    style={{border: 'none', outline: 'none', boxShadow: 'none', backgroundColor: 'transparent'}}>
+            <button onClick={() => setModal(true)} style={{border: 'none', outline: 'none', boxShadow: 'none', backgroundColor: 'transparent', width: '100%'}}>
                 <div key={props.person.person.id} className={shared.rowContainer} style={{gap: '16px'}}>
                     <ProfilePersona variant={'circular'} elevation={false} image={props.person.person.image}
                                     base64={false} size={'45px'} absoluteContent={null}/>

@@ -25,12 +25,18 @@ import ExtensionEN from "../../packages/component locales/extensions/ExtensionEN
 import ExtensionPT from "../../packages/component locales/extensions/ExtensionPT";
 import SelectorsEN from "../../packages/component locales/selector/SelectorsEN";
 import SelectorsPT from "../../packages/component locales/selector/SelectorsPT";
+import ActivityOverviewPT from "../../packages/component locales/activity/ActivityOverviewPT";
+import ActivityOverviewEN from "../../packages/component locales/activity/ActivityOverviewEN";
 
 export default function getComponentLanguage(props) {
     let response = null
     switch (props.locale) {
         case 'en': {
             switch (props.component) {
+                case 'activityOverview': {
+                    response = ActivityOverviewEN
+                    break
+                }
                 case 'collaborationForm': {
 
                     response = CollaborationsFormEN
@@ -99,6 +105,10 @@ export default function getComponentLanguage(props) {
         }
         case 'pt': {
             switch (props.component) {
+                case 'activityOverview': {
+                    response = ActivityOverviewPT
+                    break
+                }
                 case 'collaborationForm': {
                     response = CollaborationsFormPT
                     break

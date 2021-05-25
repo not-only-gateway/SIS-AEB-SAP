@@ -90,7 +90,13 @@ HeaderLayout.propTypes = {
     title: PropTypes.any,
     searchComponent: PropTypes.object,
     availableTabs: PropTypes.shape({
-        tabs: PropTypes.array,
+        tabs: PropTypes.arrayOf(
+            PropTypes.shape({
+                key: PropTypes.number,
+                value: PropTypes.any,
+                disabled: PropTypes.bool
+            })
+        ),
         openTab: PropTypes.number,
         setOpenTab: PropTypes.func
     }),

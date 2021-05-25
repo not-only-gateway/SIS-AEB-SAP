@@ -29,8 +29,8 @@ export default function management() {
             if (accessProfile === null)
                 readAccessProfile().then(res => setAccessProfile(res))
             setNotAuthenticated((new Cookies()).get('authorization_token') === undefined)
-        }, [router.locale]
-    )
+        console.log('REFRESHING')
+        })
 
 
     if (lang !== null)

@@ -4,6 +4,7 @@ import Cookies from "universal-cookie/lib";
 
 export default async function fetchActiveCollaborations(memberID){
     let response = []
+
     await axios({
         method: 'get',
         url: Host() + 'active/collaborations/'+memberID,

@@ -42,7 +42,7 @@ export default function PersonalForms(props) {
             case props.openTab === 1 && documents === null: {
                 setLoading(true)
                 fetchDocuments(
-                    {personID: props.personID, setStatus: setStatus}
+                    {personID: props.personID}
                 ).then(res => {
                     setDocuments(res)
                     setLoading(false)
@@ -52,7 +52,7 @@ export default function PersonalForms(props) {
             case props.openTab === 2 && contact === null: {
                 setLoading(true)
                 fetchContacts(
-                    {personID: props.personID, setStatus: setStatus}
+                    {personID: props.personID}
                 ).then(res => {
                     setContact(res)
                     setLoading(false)
@@ -62,7 +62,7 @@ export default function PersonalForms(props) {
             case props.openTab === 3 && address === null: {
                 setLoading(true)
                 fetchAddress(
-                    {personID: props.personID, setStatus: setStatus}
+                    {personID: props.personID}
                 ).then(res => {
                     setAddress(res)
                     setLoading(false)
@@ -90,7 +90,7 @@ export default function PersonalForms(props) {
                             buttonKey: 0,
                             value: loading || person === null ? null : (
                                 <BaseForm
-                                    id={props.id}
+                                    id={props.personID}
                                     person={person}
                                     handleChange={event => handleObjectChange({
                                         event: event,
@@ -106,7 +106,7 @@ export default function PersonalForms(props) {
                             buttonKey: 1,
                             value: loading ? null : (
                                 <DocumentsForm
-                                    id={props.id}
+                                    id={props.personID}
                                     documents={documents}
                                     handleChange={event => handleObjectChange({
                                         event: event,
@@ -122,7 +122,7 @@ export default function PersonalForms(props) {
                             buttonKey: 2,
                             value: loading ? null : (
                                 <ContactForm
-                                    id={props.id}
+                                    id={props.personID}
                                     contact={contact}
                                     locale={props.locale}
                                     handleChange={event => handleObjectChange({
@@ -137,7 +137,7 @@ export default function PersonalForms(props) {
                             buttonKey: 3,
                             value: loading ? null : (
                                 <AddressForm
-                                    id={props.id}
+                                    id={props.personID}
                                     dark={false}
                                     address={address}
                                     handleChange={event => handleObjectChange({
@@ -159,6 +159,7 @@ export default function PersonalForms(props) {
 PersonalForms.propTypes = {
     id: PropTypes.string,
     personID: PropTypes.number,
+    memberID: PropTypes.number,
     locale: PropTypes.string,
     accessProfile: PropTypes.object,
     lang: PropTypes.object

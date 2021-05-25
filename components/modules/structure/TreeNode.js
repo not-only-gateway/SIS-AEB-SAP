@@ -45,23 +45,29 @@ export default function TreeNode(props) {
                 {props.type !== 'unit' ?
                     <div style={{
                         display: 'grid',
-                        alignContent: "space-evenly",
+                        gap: '8px',
+                        justifyContent: 'center',
                         justifyItems: 'center',
                         width: '100%',
                         padding: '8px',
-                        transition: '300ms ease-in-out'
+                        transition: '300ms ease-in-out',
+                        overflow: "hidden",
                     }}>
 
                         <ProfilePersona base64={false} dark={false} key={props.subject.id} cakeDay={false}
                                         elevation={true} image={props.subject.image} size={'53px'} variant={'rounded'}/>
+                        <div style={{maxWidth: '130px'}}>
+                            <h4  className={mainStyles.overflowEllipsis} style={{
+                                color: '#555555',
+                                width: '100%',
 
-                        <h4 style={{
-                            color: '#555555',
-                        }}>
-                            {props.subject.name.replace(/([a-z]+) .* ([a-z]+)/i, "$1 $2")}
-                        </h4>
+                            }}>
+                                {props.subject.name.replace(/([a-z]+) .* ([a-z]+)/i, "$1 $2")}
+                            </h4>
+                        </div>
                         <h5
                             style={{
+                                marginTop: "auto",
                                 color: '#777777', marginBottom: 0
                             }}>
                             {props.subject.unit_acronym}
@@ -71,8 +77,8 @@ export default function TreeNode(props) {
                     <div style={{
                         width: '100%',
                         height: '100%',
-                        padding:  '8px',
-                        color:  '#262626',
+                        padding: '8px',
+                        color: '#262626',
                         transition: '300ms ease-in-out'
                     }}
                          className={[mainStyles.overflowEllipsis, mainStyles.displayInlineCenter].join(' ')}>

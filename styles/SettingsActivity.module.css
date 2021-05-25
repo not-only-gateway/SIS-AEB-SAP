@@ -41,3 +41,10 @@
     width: 100%;
     background: red;
 }
+.settingsComponentContainer{
+    width: 100%;
+
+    display: grid;
+    gap: 16px;
+
+}

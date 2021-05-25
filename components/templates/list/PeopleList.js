@@ -63,7 +63,10 @@ export default function PeopleList(props) {
                         gap: '8px'
                     }}>
                         {data.map(person => (
-                           <Person person={person} member={props.member} redirect={props.redirect} locale={props.locale}/>
+                            <div key={person.id + ' - ' + person.name} style={{width: '100%'}}>
+                                <Person person={person} member={props.member} redirect={props.redirect}
+                                        locale={props.locale}/>
+                            </div>
                         ))}
                     </div>
                 </InfiniteScroll>

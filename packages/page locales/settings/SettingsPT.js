@@ -4,5 +4,8 @@ export default {
     language: 'Idioma',
     information: 'Ajustes locais',
     activity: 'Atividade da conta',
-    collaboration: 'Colaboração'
+    collaboration: 'Colaboração',
+    settings: 'Configurações',
+    activityOverview: 'Visão Global das Atividades',
+    activityList: 'Lista de Atividades'
 }

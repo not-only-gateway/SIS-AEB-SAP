@@ -114,10 +114,11 @@ export default function DocumentsForm(props) {
                         }}
                         locale={props.locale}
                         value={props.documents === null ? null :
-                            (typeof (props.documents.dispatch_date) === 'number' ?
-                                new Date(props.documents.dispatch_date).toLocaleDateString().replace('/', '-')
+                            typeof (props.documents.dispatch_date) === 'number' ?
+                                new Date(props.documents.dispatch_date).toLocaleDateString().replaceAll('/', '-'
+                                ).replace( /(\d{2})-(\d{2})-(\d{4})/, "$3-$2-$1")
                                 :
-                                props.documents.dispatch_date)
+                                props.documents.dispatch_date
                         }
                         required={true}
 

@@ -68,10 +68,17 @@ export default function UnitList(props) {
                     }}>
                         {data.map(unit => (
                             <Link href={'/unit?id=' + unit.id}>
-                                <div key={unit.id} className={shared.rowContainer} style={{gap: '16px'}}>
-                                    {unit.acronym}
-                                    {unit.name}
-                                </div>
+                                <button
+                                    style={{
+                                        border: 'none',
+                                        outline: 'none',
+                                        boxShadow: 'none',
+                                        backgroundColor: 'transparent'
+                                    }}>
+                                    <div key={unit.id} className={shared.rowContainer} style={{gap: '16px'}}>
+                                        {unit.name}
+                                    </div>
+                                </button>
                             </Link>
                         ))}
                     </div>

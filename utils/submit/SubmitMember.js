@@ -19,7 +19,7 @@ export default async function submitMember(props) {
         data.main_collaboration = data.main_collaboration.key
     await axios({
         method: props.create ? 'post' : 'put',
-        url: props.create ? Host() + 'member' : Host() + 'member/' + props.personID,
+        url: props.create ? Host() + 'member' : Host() + 'member/' + props.memberID,
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         data: data
     }).then(res => {
@@ -38,6 +38,7 @@ export default async function submitMember(props) {
 
 submitMember.propTypes = {
     personID: PropTypes.number,
+    memberID: PropTypes.number,
     data: PropTypes.object,
     create: PropTypes.bool,
     setStatus: PropTypes.func

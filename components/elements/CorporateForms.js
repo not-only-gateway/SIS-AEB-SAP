@@ -8,6 +8,7 @@ import TabContent from "../templates/TabContent";
 import fetchMember from "../../utils/fetch/FetchMember";
 import fetchMainCollaboration from "../../utils/fetch/FetchMainCollaboration";
 import Alert from "../layout/Alert";
+import fetchMemberByPerson from "../../utils/fetch/FetchMemberByPerson";
 
 export default function CorporateForms(props) {
     const [member, setMember] = useState(null)
@@ -19,24 +20,53 @@ export default function CorporateForms(props) {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        if (props.openTab === 0 && member === null && props.id !== null) {
+        if (props.openTab === 0 && member === null && props.id !== null && props.id !== undefined) {
             setLoading(true)
             fetchMember({memberID: props.id, setStatus: setStatus}).then(res => {
-
-                if(res !== null) {
+                if (res !== null) {
                     setMember(res.member)
                     fetchMainCollaboration({memberID: res.member.id, setStatus: undefined}).then(res => {
-                        if(res !== null)
-                            setMainCollaboration({key: res.id, value:res.tag})
+                        if (res !== null)
+                            setMainCollaboration({key: res.id, value: res.tag})
 
 
                     })
                 }
             })
             setLoading(false)
-        }
+        } else
+            setLoading(false)
     }, [props.openTab])
 
+    function handleMemberSubmit(event){
+        let response = false
+        if (member === null || member.id === undefined) {
+            submitMember(event).then(res => {
+                fetchMemberByPerson({personID: props.personID, setStatus: setStatus}).then(res => {
+
+                    if (res !== null) {
+                        setMember(res.member)
+                        fetchMainCollaboration({
+                            memberID: res.member.id,
+                            setStatus: undefined
+                        }).then(res => {
+                            if (res !== null)
+                                setMainCollaboration({key: res.id, value: res.tag})
+                        })
+                    }
+                })
+                props.fetchMembership()
+                response = res
+            })
+
+        }
+        else
+            submitMember(event).then(res => {
+                response = res
+            })
+
+        return response
+    }
 
     return (
         <div style={{width: '100%', display: 'grid', gap: '16px', alignItems: 'flex-start', justifyItems: 'center'}}>
@@ -53,14 +83,15 @@ export default function CorporateForms(props) {
                             buttonKey: 0,
                             value: loading ? null : (
                                 <MembershipForm
-                                    id={props.id}
+                                    personID={props.personID}
+                                    memberID={props.id}
                                     member={member}
                                     handleChange={event => handleObjectChange({
                                         event: event,
                                         setData: setMember
                                     })}
                                     mainCollaboration={mainCollaboration}
-                                    handleSubmit={submitMember}
+                                    handleSubmit={handleMemberSubmit}
                                     create={member === null || member.id === undefined}
                                     editable={props.accessProfile.canManageMembership}
                                     locale={props.locale}
@@ -89,8 +120,11 @@ export default function CorporateForms(props) {
 
 CorporateForms.propTypes = {
     id: PropTypes.string,
-        accessProfile:PropTypes.object,
-        locale:PropTypes.string,
-        lang:PropTypes.object,
-    openTab: PropTypes.number
+    accessProfile: PropTypes.object,
+    locale: PropTypes.string,
+    lang: PropTypes.object,
+    openTab: PropTypes.number,
+    personID: PropTypes.number,
+    fetchMembership: PropTypes.func
+
 }
