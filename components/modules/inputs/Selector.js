@@ -200,5 +200,6 @@ Selector.propTypes = {
     required: PropTypes.bool,
     setChanged: PropTypes.func,
     disabled: PropTypes.bool,
-    dark: PropTypes.bool
+    dark: PropTypes.bool,
+    locale: PropTypes.string
 }

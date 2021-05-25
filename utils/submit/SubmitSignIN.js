@@ -28,40 +28,24 @@ export default async function submitSignIN(props) {
             cookies.set('exp', res.data.exp, {expires: new Date(res.data.exp)})
             response = true
 
-            setProfile({
-                id: res.data.profile.id,
-                corporateEmail: res.data.profile.corporate_email,
-                name: res.data.profile.name,
-                birth: res.data.profile.birth,
-                pic: res.data.profile.image,
-                homeOffice: res.data.profile.home_office,
-                mainCollaboration: res.data.main_collaboration
-            }).then(async function () {
+            if (res.data.collaboration !== undefined && res.data.collaboration !== null) {
+                await setCollaboration({
+                    id: res.data.collaboration.id,
+                    unitAcronym: res.data.collaboration.unit_acronym,
+                    roleInformation: res.data.collaboration.role_information
+                }).catch(error => console.log(error))
+                await setAccessProfile({
+                    id: res.data.access_profile.id,
+                    denomination: res.data.access_profile.denomination,
+                    canCreatePerson: res.data.access_profile.can_create_person,
+                    canUpdatePerson: res.data.access_profile.can_update_person,
+                    canDeletePerson: res.data.access_profile.can_delete_person,
 
-                if (res.data.collaboration !== undefined && res.data.collaboration !== null) {
-                    await setCollaboration({
-                        id: res.data.collaboration.id,
-                        unitAcronym: res.data.collaboration.unit_acronym,
-                        roleInformation: res.data.collaboration.role_information
-                    }).catch(error => console.log(error))
-                    await setAccessProfile({
-                        id: res.data.access_profile.id,
-                        denomination: res.data.access_profile.denomination,
-                        canCreatePerson: res.data.access_profile.can_create_person,
-                        canUpdatePerson: res.data.access_profile.can_update_person,
-                        canDeletePerson: res.data.access_profile.can_delete_person,
+                    canManageStructure: res.data.access_profile.can_manage_structure,
+                    canManageMembership: res.data.access_profile.can_manage_membership,
 
-                        canManageStructure: res.data.access_profile.can_manage_structure,
-                        canManageMembership: res.data.access_profile.can_manage_membership,
-
-                    }).catch(error => console.log(error))
-
-                }
-
-            }).catch(error => props.setError({
-                error: true,
-                message: error.message
-            }))
+                }).catch(error => console.log(error))
+            }
 
         }).catch(error => {
             props.setError({

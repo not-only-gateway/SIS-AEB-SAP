@@ -23,11 +23,14 @@ export default function Settings(props) {
     const [collaborations, setCollaborations] = useState([])
     const [currentCollaboration, setCurrentCollaboration] = useState(null)
     useEffect(() => {
-        if (currentCollaboration === null)
-            readCollaboration().then(res => {
-                if (res !== null)
-                    setCurrentCollaboration(res)
-            })
+        if (currentCollaboration === null) {
+            const collaborationSession = sessionStorage.getItem('collaboration')
+            console.log('this is ')
+            console.log(collaborationSession)
+            if (collaborationSession !== null)
+                setCurrentCollaboration(JSON.parse(collaborationSession))
+        }
+
         if (collaborations.length === 0)
             readProfile().then(res => {
                 if (res !== null)
@@ -57,18 +60,17 @@ export default function Settings(props) {
 
             {(new Cookies()).get('jwt') !== undefined && currentCollaboration !== null ?
                 <Selector
-                    required={false} key={'collaboration-setting'} handleChange={undefined}
-                    setChanged={undefined} disabled={false} selected={{
-                    key: currentCollaboration.id,
-                    value: <div className={mainStyles.displayInlineSpaced}
-                                style={{width: '100%', padding: '16px', height: '56px'}}>
-                        <p>{currentCollaboration.unitAcronym}</p>
-                        <p>{currentCollaboration.roleInformation}</p>
-                    </div>
-                }}
+                    locale={props.locale}
+                    required={false}
+                    handleChange={undefined}
+                    setChanged={undefined} disabled={false}
+                    selected={{
+                        key: currentCollaboration.id,
+                        value: currentCollaboration.tag
+                    }}
                     data={mapToSelect({data: collaborations, option: 1})}
-                    label={'Collaboration'}
-                    width={'31%'}
+                    label={props.lang.collaboration}
+                    width={'100%'}
                 />
                 :
                 null

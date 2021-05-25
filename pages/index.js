@@ -102,7 +102,7 @@ export default function Index() {
             <div>
                 {renderModal()}
                 <HeaderLayout
-                    width={'65%'}
+                    width={'75%'}
                     availableTabs={{
                         tabs: [
                             {

@@ -31,8 +31,11 @@ export default function Navigation(props) {
 
     useEffect(() => {
         setLang(getComponentLanguage({locale: props.locale, component: 'navigation'}))
-        if (profile === null)
-            readProfile().then(res => setProfile(res))
+        if (profile === null){
+            const profileSession = sessionStorage.getItem('profile')
+            if(profileSession !== null)
+                setProfile(JSON.parse(profileSession))
+        }
         if (accessProfile === null)
             readAccessProfile().then(res => setAccessProfile(res))
 

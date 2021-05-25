@@ -19,5 +19,7 @@ export default {
     finality: 'Finality',
     mission: 'Mission',
     address: 'Address',
-    decentralized: 'Decentralized'
+    decentralized: 'Decentralized',
+
+    edit: 'Edit'
 }

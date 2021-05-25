@@ -28,7 +28,7 @@ export default function NavigationProfile(props) {
         >
             <>
                 <ProfilePersona base64={false} cakeDay={false} variant={'rounded'} key={'nav-bar-profile'}
-                                size={props.reduced ? '55px' : '50px'} image={props.profile.pic}
+                                size={props.reduced ? '55px' : '50px'} image={props.profile.image}
                                 elevation={false}/>
                 {props.reduced ?
                     null

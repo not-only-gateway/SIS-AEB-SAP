@@ -10,6 +10,8 @@ import fetchUnit from "../utils/fetch/FetchUnit";
 import fetchExtensions from "../utils/fetch/FerchExtensions";
 import Extensions from "../components/modules/Extensions";
 import UnitOverview from "../components/templates/UnitOverview";
+import UnitForm from "../components/templates/forms/UnitForm";
+import submitUnit from "../utils/submit/SubmitUnit";
 
 export default function unit() {
 
@@ -89,15 +91,16 @@ export default function unit() {
                                 key: 0,
                                 value: lang.collaborators
                             },
-                            {
-                                disabled: false,
+                            // {
+                            //     disabled: false,
+                            //     key: 1,
+                            //     value: lang.overview
+                            // },
+
+                            accessProfile !== null && accessProfile.canManageStructure ? {
+                                disabled: !accessProfile.canManageStructure,
                                 key: 1,
-                                value: lang.overview
-                            },
-                            editMode && accessProfile !== null && accessProfile.canManageStructure ? {
-                                disabled: !accessProfile.canViewDocuments,
-                                key: 2,
-                                value: 'Edit'
+                                value: lang.edit
                             } : null,
                         ],
                         setOpenTab: setOpenTab,
@@ -134,18 +137,15 @@ export default function unit() {
                                         locale={router.locale} lastFetchedSize={lastFetchedSize}/>
                                 )
                             },
-
-                            {
+                            // {
+                            //     buttonKey: 1,
+                            //     value: (
+                            //         <UnitOverview unit={unit} lang={lang}/>
+                            //     )
+                            // },
+                            accessProfile !== null && accessProfile.canManageStructure ? {
                                 buttonKey: 1,
-                                value: (
-                                    <UnitOverview unit={unit} lang={lang}/>
-                                )
-                            },
-                            (editMode) && accessProfile !== null && accessProfile.canManageStructure ? {
-                                buttonKey: 2,
-                                value: (
-                                    'edit mode'
-                                )
+                                value: <UnitForm handleSubmit={submitUnit} data={unit} locale={router.locale}/>
                             } : null
 
                         ]}/>
