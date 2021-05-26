@@ -8,11 +8,15 @@ import Authenticate from "../components/modules/Authenticate";
 import fetchUnit from "../utils/fetch/FetchUnit";
 import fetchExtensions from "../utils/fetch/FerchExtensions";
 import Extensions from "../components/modules/Extensions";
-import UnitForm from "../components/templates/forms/UnitForm";
 import submitUnit from "../utils/submit/SubmitUnit";
 import HorizontalTabs from "../components/layout/navigation/HorizontalTabs";
 import ExpandableTabs from "../components/layout/navigation/ExpandableTabs";
 import Cookies from "universal-cookie/lib";
+import AddressForm from "../components/templates/forms/AddressForm";
+import PropTypes from "prop-types";
+import handleObjectChange from "../utils/shared/HandleObjectChange";
+import submitUnitAddress from "../utils/submit/SubmitUnitAddress";
+import UnitForm from "../components/templates/forms/UnitForm";
 
 export default function unit() {
 
@@ -26,7 +30,7 @@ export default function unit() {
 
     const [unit, setUnit] = useState({})
     const [collaborators, setCollaborators] = useState({})
-
+    const [unitAddress, setUnitAddress] = useState({})
 
     const [openTab, setOpenTab] = useState({
         mainTab: 0,
@@ -37,25 +41,26 @@ export default function unit() {
 
     useEffect(() => {
 
-            if (router.isReady && id === undefined) {
-                setId(router.query.id)
-                fetchUnit(router.query.id).then(res => {
-                    if (res !== null) {
-                        setUnit(res)
-                        setLoading(false)
-                    }
-                })
-                fetchCollaborators()
-            }
+        if (router.isReady && id === undefined) {
+            setId(router.query.id)
+            fetchUnit(router.query.id).then(res => {
+                if (res !== null) {
+                    setUnit(res)
+                    setLoading(false)
+                    setUnitAddress(res.address)
+                }
+            })
+            fetchCollaborators()
+        }
 
-            if (accessProfile === null && sessionStorage.getItem('accessProfile') !== null)
-                setAccessProfile(JSON.parse(sessionStorage.getItem('accessProfile')))
+        if (accessProfile === null && sessionStorage.getItem('accessProfile') !== null)
+            setAccessProfile(JSON.parse(sessionStorage.getItem('accessProfile')))
 
-            if (lang === null)
-                setLang(getLanguage(router.locale, router.pathname))
+        if (lang === null)
+            setLang(getLanguage(router.locale, router.pathname))
 
-            setNotAuthenticate(!(new Cookies()).get('authorization_token'))
-        })
+        setNotAuthenticate(!(new Cookies()).get('authorization_token'))
+    })
 
     async function fetchCollaborators() {
         await fetchExtensions({
@@ -116,15 +121,15 @@ export default function unit() {
                                     },
                                     subButtons: [
                                         {
-                                        disabled: false,
-                                        key: 0,
-                                        value: lang.base
-                                    },
-                                    {
-                                        disabled: false,
-                                        key: 1,
-                                        value: lang.location
-                                    }
+                                            disabled: false,
+                                            key: 0,
+                                            value: lang.base
+                                        },
+                                        {
+                                            disabled: false,
+                                            key: 1,
+                                            value: lang.location
+                                        }
                                     ]
                                 } : null]}
                             setOpenTab={setOpenTab}
@@ -170,7 +175,17 @@ export default function unit() {
                             // },
                             accessProfile !== null && accessProfile.can_manage_structure ? {
                                 buttonKey: 1,
-                                value: <UnitForm handleSubmit={submitUnit} data={unit} locale={router.locale}/>
+                                value: (openTab.subTab === 0 ?
+
+                                    <UnitForm handleSubmit={submitUnit} data={unit} locale={router.locale}/>
+                                    :
+                                    <AddressForm data={unit} locale={router.locale}
+                                                 id={unit.id} address={unitAddress}
+                                                 handleChange={event => handleObjectChange({
+                                                     event: event,
+                                                     setData: setUnitAddress
+                                                 })} handleSubmit={submitUnitAddress}
+                                    />)
                             } : null
 
                         ]}/>

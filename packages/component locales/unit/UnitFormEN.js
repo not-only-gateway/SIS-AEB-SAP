@@ -1,0 +1,20 @@
+export default {
+    additionalInformation: 'Additional Information',
+    information: 'Structural Information',
+    basic: 'Basic Information',
+    choice: [{key: true, value: 'Yes'},{key: false, value: 'No'}],
+    acronym: 'acronym',
+    denomination: 'denomination',
+    decentralized: 'Is decentralized',
+    sphere: 'sphere',
+    power: 'power',
+    legalNature: 'Legal Nature',
+    changeType: 'change type',
+    category: 'category',
+    competence: 'competence',
+    finality: 'finality',
+    mission: 'mission',
+    strategicObjective: 'strategic objective',
+    standardization: 'standardization',
+    save: 'Save'
+}

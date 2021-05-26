@@ -137,7 +137,7 @@ export default function AddressForm(props) {
                             setChanged(true)
                             props.handleChange({name: 'state', value: event.target.value})
                         }} locale={props.locale} value={props.address === null ? null : props.address.state}
-                        required={false} width={'calc(33.333% - 21.35px)'}/>
+                        required={true} width={'calc(33.333% - 21.35px)'}/>
 
                     <TextField
                         dark={true}
@@ -148,7 +148,7 @@ export default function AddressForm(props) {
                             setChanged(true)
                             props.handleChange({name: 'city', value: event.target.value})
                         }} locale={props.locale} value={props.address === null ? null : props.address.city}
-                        required={false}
+                        required={true}
                         width={'calc(33.333% - 21.35px)'}/>
                     <TextField
                         dark={true}
@@ -159,7 +159,7 @@ export default function AddressForm(props) {
                             setChanged(true)
                             props.handleChange({name: 'state_initials', value: event.target.value})
                         }} locale={props.locale} value={props.address === null ? null : props.address.state_initials}
-                        required={false} width={'calc(33.333% - 21.35px)'} maxLength={2}/>
+                        required={true} width={'calc(33.333% - 21.35px)'} maxLength={2}/>
 
                 </fieldset>
                 <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
@@ -191,7 +191,7 @@ export default function AddressForm(props) {
                             fontColor={'white'} backgroundColor={'#0095ff'}
                             handleClick={() => {
                                 setChanged(false)
-                                props.handleSubmit({personID: props.id, data: props.address}).then(res => {
+                                props.handleSubmit({subjectID: props.id, data: props.address, setStatus: setStatus}).then(res => {
                                     setChanged(!res)
                                     if (props.setAccepted !== undefined)
                                         props.setAccepted(res)
@@ -214,7 +214,6 @@ AddressForm.propTypes = {
     address: PropTypes.object,
     handleChange: PropTypes.func,
     handleSubmit: PropTypes.func,
-    editable: PropTypes.bool,
     locale: PropTypes.string,
     setAccepted: PropTypes.func,
     create: PropTypes.bool,

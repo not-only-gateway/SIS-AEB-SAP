@@ -10,18 +10,24 @@ export default async function submitAddress(props){
 
     await axios({
         method: 'put',
-        url: Host() + 'address/'+props.personID,
+        url: Host() + 'person/address/'+props.subjectID,
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         data: props.data
     }).then(() => {
         response = true
     }).catch(error => {
-        console.log(error)
+        if(props.setStatus !== null)
+            props.setStatus({
+                error: true,
+                message: error.message
+            })
     })
     return response
 }
 
 submitAddress.propTypes={
-    personID: PropTypes.number,
-    data: PropTypes.object
+    subjectID: PropTypes.number,
+    data: PropTypes.object,
+    setStatus: PropTypes.func
+
 }

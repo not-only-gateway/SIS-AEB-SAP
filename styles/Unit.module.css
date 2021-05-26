@@ -5,6 +5,8 @@
     display: grid;
     gap: 16px;
     margin: auto;
+    position: relative;
+    z-index: 2;
 }
 .titleContainer{
     display: flex;
