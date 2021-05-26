@@ -93,7 +93,7 @@ export default function CorporateForms(props) {
                                     mainCollaboration={mainCollaboration}
                                     handleSubmit={handleMemberSubmit}
                                     create={member === null || member.id === undefined}
-                                    editable={props.accessProfile.canManageMembership}
+                                    editable={props.accessProfile !== null && props.accessProfile.can_manage_membership}
                                     locale={props.locale}
                                 />
                             )
@@ -104,7 +104,7 @@ export default function CorporateForms(props) {
                                 <CollaborationList
                                     id={props.id}
                                     dark={false}
-                                    editionMode={props.accessProfile.canManageMembership}
+                                    editionMode={props.accessProfile !== null && props.accessProfile.can_manage_membership}
                                     locale={props.locale}
                                 />
                             )

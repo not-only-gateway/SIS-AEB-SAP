@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
 import {getLanguage} from "../utils/shared/PageLanguage";
-import {readAccessProfile} from "../utils/shared/IndexedDB";
 import BaseForm from "../components/templates/forms/BaseForm";
 
 import HeaderLayout from "../components/layout/HeaderLayout";
@@ -21,9 +20,6 @@ export default function create() {
     const [id, setID] = useState(undefined)
     const [person, setPerson] = useState({})
     const [member, setMember] = useState({})
-    const [contact, setContact] = useState({})
-    const [documents, setDocuments] = useState({})
-    const [address, setAddress] = useState({})
     const [notAuthenticated, setNotAuthenticated] = useState(true)
     const [openTab, setOpenTab] = useState(0)
     const [step, setStep] = useState(0)
@@ -35,13 +31,20 @@ export default function create() {
 
     useEffect(() => {
         setNotAuthenticated((new Cookies()).get('authorization_token') === undefined)
-        if (accessProfile === null)
-            readAccessProfile().then(res => {
-                if (res === null || !res.canCreatePerson || !res.canManageMembership)
-                    router.push('/', '/', {locale: router.locale})
+
+            if (accessProfile === null){
+                let accessProfileSession = sessionStorage.getItem('accessProfile')
+                if(accessProfileSession !== null) {
+                    accessProfileSession = JSON.parse(accessProfileSession)
+                    if (!accessProfileSession.can_create_person || !accessProfileSession.can_manage_membership)
+                        router.push('/', '/', {locale: router.locale})
+                    else
+                        setAccessProfile(accessProfileSession)
+                }
                 else
-                    setAccessProfile(res)
-            })
+                    router.push('/', '/', {locale: router.locale})
+            }
+
         if (lang === null)
             setLang(getLanguage(router.locale, router.pathname))
     }, [router.locale, router.isReady, router.query])
@@ -114,7 +117,7 @@ export default function create() {
                                             setData: setPerson
                                         })}
                                         handleSubmit={submitPerson}
-                                        editable={accessProfile.canUpdatePerson}
+                                        editable={accessProfile.can_update_person}
                                         locale={router.locale}
                                         create={true}
                                         setAccepted={event => {
@@ -144,7 +147,7 @@ export default function create() {
                                             setData: setMember
                                         })}
                                         handleSubmit={submitMember}
-                                        editable={accessProfile.canManageMembership}
+                                        editable={accessProfile.can_manage_membership}
                                         locale={router.locale}
                                         create={true}
                                         setAccepted={event => {

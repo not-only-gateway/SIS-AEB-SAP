@@ -24,28 +24,30 @@ export default function ExpandableTabs(props) {
                                 border: extendedTab === button.mainButton.key ? '#ecedf2 .7px solid' : 'transparent .7px solid'
                             }}>
                                 <Button
-                                    content={button.mainButton.value} handleClick={() => {
-                                    if (extendedTab !== undefined && button.mainButton.key === extendedTab)
-                                        setExtendedTab(undefined)
-                                    else
-                                        setExtendedTab(button.mainButton.key)
-                                }}
-                                    elevation={button.mainButton.key === extendedTab} disabled={false}
+                                    content={button.mainButton.value}
+                                    handleClick={() => {
+                                        if (extendedTab !== undefined && button.mainButton.key === extendedTab)
+                                            setExtendedTab(undefined)
+                                        else
+                                            setExtendedTab(button.mainButton.key)
+                                    }}
+                                    elevation={button.mainButton.key === extendedTab} disabled={button.mainButton.disabled}
                                     padding={'8px 32px 8px 32px'}
-                                    variant={ 'rounded'} width={'auto'}
+                                    variant={'rounded'} width={'auto'}
                                     hoverHighlight={button.mainButton.key !== extendedTab && props.openTab.mainTab !== button.mainButton.key}
                                     border={'transparent 1px solid'}
                                     backgroundColor={props.openTab.mainTab === button.mainButton.key ? '#0095ff' : button.mainButton.key === extendedTab ? 'white' : 'unset'}
-                                    fontColor={props.openTab.mainTab === button.mainButton.key ? 'white' :  '#222228'}
+                                    fontColor={props.openTab.mainTab === button.mainButton.key ? 'white' : '#222228'}
                                     paddingType={'long'}
                                 />
                                 {extendedTab === button.mainButton.key ? button.subButtons.map(subButton => (
                                     <div>
                                         <Button
-                                            content={subButton.value} handleClick={() => props.setOpenTab({
-                                            mainTab: button.mainButton.key,
-                                            subTab: subButton.key
-                                        })}
+                                            content={subButton.value}
+                                            handleClick={() => props.setOpenTab({
+                                                mainTab: button.mainButton.key,
+                                                subTab: subButton.key
+                                            })}
                                             elevation={props.openTab ? (subButton.key === props.openTab.subTab && button.mainButton.key === props.openTab.mainTab) : false}
                                             disabled={subButton.disabled} padding={'8px 32px 8px 32px'}
                                             variant={'rounded'} width={'auto'}
@@ -53,7 +55,7 @@ export default function ExpandableTabs(props) {
                                             border={props.openTab && subButton.key === props.openTab.subTab && button.mainButton.key === props.openTab.mainTab ? '#ecedf2 1px solid' : 'transparent 1px solid'}
                                             colorVariant={'default'}
                                             backgroundColor={props.openTab && subButton.key === props.openTab.subTab && button.mainButton.key === props.openTab.mainTab ? 'white' : 'transparent'}
-                                            fontColor={ '#262626'}
+                                            fontColor={'#262626'}
                                             paddingType={'long'}
                                         />
                                     </div>
@@ -74,14 +76,16 @@ ExpandableTabs.proptypes = {
             mainButton: PropTypes.shape(
                 {
                     key: PropTypes.number,
-                    value: PropTypes.any
+                    value: PropTypes.any,
+                    disabled: PropTypes.bool
                 }
             ),
             subButtons: PropTypes.arrayOf(
                 PropTypes.shape(
                     {
                         key: PropTypes.number,
-                        value: PropTypes.any
+                        value: PropTypes.any,
+                        disabled: PropTypes.bool
                     }
                 )
             )

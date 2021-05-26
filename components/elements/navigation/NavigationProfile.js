@@ -4,7 +4,6 @@ import mainStyles from "../../../styles/shared/Main.module.css";
 import React, {useState} from "react";
 import Link from "next/link";
 import ProfilePersona from "../ProfilePersona";
-import Button from "../../modules/inputs/Button";
 
 export default function NavigationProfile(props) {
 
@@ -20,11 +19,12 @@ export default function NavigationProfile(props) {
                 outline: 'none',
                 padding: '5px',
                 display: 'flex',
-                justifyContent: props.reduced ? 'center' : 'flex-start',
+                justifyContent: props.reduced ? 'center' : 'space-between',
                 width: props.reduced ? '65px' : '220px',
-                cursor: props.accessProfile !== null && props.accessProfile.canUpdatePerson ? 'pointer' : 'unset'
+                cursor: props.accessProfile !== null && props.accessProfile.can_update_person ? 'pointer' : 'unset',
+
             }}
-            disabled={props.accessProfile === null || !props.accessProfile.canUpdatePerson}
+            disabled={props.accessProfile === null || !props.accessProfile.can_update_person}
         >
             <>
                 <ProfilePersona base64={false} cakeDay={false} variant={'rounded'} key={'nav-bar-profile'}
@@ -33,7 +33,7 @@ export default function NavigationProfile(props) {
                 {props.reduced ?
                     null
                     :
-                    <div>
+                    <div style={{display: 'grid', height: '50px'}}>
                         <div
                             className={[mainStyles.overflowEllipsis, mainStyles.displayInlineStart].join(' ')}
                             style={{
@@ -53,7 +53,7 @@ export default function NavigationProfile(props) {
                                 fontSize: '.73rem',
                                 transition: '300ms ease-in'
                             }}>
-                            {props.profile.corporateEmail}
+                            {props.profile.corporate_email}
                         </div>
 
                     </div>
@@ -65,18 +65,18 @@ export default function NavigationProfile(props) {
     return (
         <div className={mainStyles.displayColumnSpaced} style={{
             position: 'absolute',
-            paddingLeft: props.reduced ? '0' : '8px',
-            paddingRight: props.reduced ? '0' : '8px',
+            paddingLeft: '0',
+            paddingRight: '0',
             justifyItems: 'center',
             borderRadius: '8px',
             backgroundColor: hovered ? '#0095ff' : 'transparent',
-            transition: '300ms ease-in'
+            transition: '300ms ease-in',
         }}
              onMouseEnter={() => setHovered(true)}
              onMouseLeave={() => setHovered(false)}
         >
 
-            {props.accessProfile !== null && props.accessProfile.canUpdatePerson ?
+            {props.accessProfile !== null && props.accessProfile.can_update_person ?
                 <Link href={{pathname: '/person', query: {id: props.profile.id}}}>
                     {content}
                 </Link>

@@ -1,13 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
 import {getLanguage} from "../utils/shared/PageLanguage";
-import {readAccessProfile} from "../utils/shared/IndexedDB";
 import Cookies from "universal-cookie/lib";
 import styles from '../styles/Person.module.css'
 import Profile from "../components/templates/Profile";
 import TabContent from "../components/templates/TabContent";
 import Authenticate from "../components/modules/Authenticate";
-import fetchMember from "../utils/fetch/FetchMember";
 import PersonalForms from "../components/elements/PersonalForms";
 import CorporateForms from "../components/elements/CorporateForms";
 import Alert from "../components/layout/Alert";
@@ -55,10 +53,13 @@ export default function person() {
             })
 
         }
-        if (accessProfile === null)
-            readAccessProfile().then(profile => {
-                setAccessProfile(profile)
-            })
+        if (accessProfile === null && sessionStorage.getItem('accessProfile') !== null) {
+            const accessProfileSession = JSON.parse(sessionStorage.getItem('accessProfile'))
+            if (accessProfileSession.can_manage_structure || accessProfileSession.can_update_person)
+                setAccessProfile(accessProfileSession)
+            else
+                router.push('/', '/', {locale: router.locale})
+        }
         if (lang === null)
             setLang(getLanguage(router.locale, router.pathname))
         setNotAuthenticated(!(new Cookies()).get('authorization_token'))
@@ -93,7 +94,8 @@ export default function person() {
                                     {
                                         mainButton: {
                                             key: 0,
-                                            value: lang.personal
+                                            value: lang.personal,
+                                            disabled: accessProfile === null || !accessProfile.can_update_person
                                         },
                                         subButtons: [
                                             {
@@ -117,7 +119,8 @@ export default function person() {
                                     {
                                         mainButton: {
                                             key: 1,
-                                            value: lang.corporate
+                                            value: lang.corporate,
+                                            disabled: accessProfile === null || !accessProfile.can_manage_membership
                                         },
                                         subButtons: [
                                             {
@@ -146,7 +149,7 @@ export default function person() {
                                 tabs={[
                                     {
                                         buttonKey: 0,
-                                        value: (
+                                        value: accessProfile === null || !accessProfile.can_update_person ? null :  (
                                             <PersonalForms
                                                 lang={lang}
                                                 accessProfile={accessProfile}
@@ -159,7 +162,7 @@ export default function person() {
                                     },
                                     {
                                         buttonKey: 1,
-                                        value: (
+                                        value: accessProfile === null || !accessProfile.can_manage_membership ? null : (
                                             <CorporateForms
                                                 lang={lang}
                                                 fetchMembership={() =>
@@ -192,7 +195,7 @@ export default function person() {
         return <>
             <Authenticate
                 handleClose={valid => {
-                    if (valid && accessProfile !== null && (accessProfile.canUpdatePerson || accessProfile.canManageMembership)) {
+                    if (valid && accessProfile !== null && (accessProfile.can_update_person || accessProfile.can_manage_membership)) {
                         setNotAuthenticated(false)
                     } else
                         router.push('/', '/', {locale: router.locale})

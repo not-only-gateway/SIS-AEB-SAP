@@ -196,7 +196,7 @@ Selector.propTypes = {
     handleChange: PropTypes.func,
     selected: PropTypes.any,
     label: PropTypes.string,
-    width: PropTypes.number,
+    width: PropTypes.string,
     required: PropTypes.bool,
     setChanged: PropTypes.func,
     disabled: PropTypes.bool,

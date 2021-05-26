@@ -7,7 +7,6 @@ import styles from '../styles/Extensions.module.css'
 import ExtensionsFilters from "../components/modules/filters/ExtensionsFilters";
 import HeaderLayout from "../components/layout/HeaderLayout";
 import FiltersComponent from "../components/layout/FiltersComponent";
-import {readAccessProfile} from "../utils/shared/IndexedDB";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import TabContent from "../components/templates/TabContent";
 import Extensions from "../components/modules/Extensions";
@@ -26,7 +25,7 @@ export default function Index() {
     const [openTab, setOpenTab] = useState(0)
     const [lastFetchedSize, setLastFetchedSize] = useState(null)
     const [maxID, setMaxID] = useState(null)
-    const [accessProfile, setAccessProfile] = useState(null)
+
     const [filters, setFilters] = useState({
         unit: undefined,
         effectiveRole: undefined,
@@ -42,10 +41,8 @@ export default function Index() {
         setLang(getLanguage(router.locale, '/'))
         if (data.length === 0)
             fetchData(1, true, false).catch(error => console.log(error))
-        if (accessProfile === null)
-            readAccessProfile().then(profile => {
-                setAccessProfile(profile)
-            })
+
+
     }, [])
 
     async function fetchData(type, start, search) {
@@ -88,7 +85,7 @@ export default function Index() {
                         }}
                         setMaxID={setMaxID} filters={filters}
                         handleFilterChange={event => handleObjectChange({event: event, setData: setFilters})}
-                        accessProfile={accessProfile} locale={router.locale}
+                        locale={router.locale}
                     />
 
                 </div>

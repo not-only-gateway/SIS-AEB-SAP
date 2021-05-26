@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import styles from '../../styles/Extensions.module.css'
 import getComponentLanguage from "../../utils/shared/GetComponentLanguage";
 import Extension from "./Extension";
-import {readAccessProfile} from "../../utils/shared/IndexedDB";
+
 
 export default function Extensions(props) {
     const [lang, setLang] = useState(null)
@@ -14,13 +14,14 @@ export default function Extensions(props) {
     useEffect(() => {
         if (lang === null)
             setLang(getComponentLanguage({locale: props.locale, component: 'extension'}))
-        if (editable === null)
-            readAccessProfile().then(r => {
-                if (r !== null)
-                    setEditable(r.canUpdatePerson)
-                else
-                    setEditable(false)
-            })
+        if (editable === null){
+            const accessProfileSession = sessionStorage.getItem('accessProfile')
+            if(accessProfileSession !== null)
+                setEditable(JSON.parse(accessProfileSession).can_update_person)
+            else
+                setEditable(false)
+        }
+
     }, [])
 
     if (props.data.length > 0 && lang !== null)
@@ -46,12 +47,14 @@ export default function Extensions(props) {
                 >
                     <div className={styles.extensionsList}>
                         {props.data.map((member, index) =>
+                            <div className={styles.fullWidth} key={member.member.id + ' - ' + member.person.id}>
                             <Extension
                                 lang={lang} index={index} member={member.member} redirect={id => props.redirect(id)}
                                 unit={member.unit} commissionedRole={member.commissioned_role}
                                 effectiveRole={member.effective_role} senior={member.senior} linkage={member.linkage}
                                 person={member.person} editable={editable} locale={props.locale}
                             />
+                            </div>
                         )}
                     </div>
                 </InfiniteScroll>

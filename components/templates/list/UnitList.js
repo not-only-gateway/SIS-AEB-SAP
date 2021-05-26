@@ -1,14 +1,10 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useState} from "react";
-import fetchPeople from "../../../utils/fetch/FetchPeople";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {Skeleton} from "@material-ui/lab";
 import styles from "../../../styles/Extensions.module.css";
 import mainStyles from "../../../styles/shared/Main.module.css";
-import Person from "../Person";
 import shared from "../../../styles/shared/Shared.module.css";
-import ProfilePersona from "../../elements/ProfilePersona";
-import {ExtensionRounded} from "@material-ui/icons";
 import Link from 'next/link'
 import fetchUnits from "../../../utils/fetch/FetchUnits";
 

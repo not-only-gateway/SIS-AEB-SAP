@@ -184,7 +184,7 @@ ExtensionsFilters.propTypes = {
     applyChanges: PropTypes.func,
     filters: PropTypes.object,
     changed: PropTypes.bool,
-    accessProfile: PropTypes.object,
+
     locale: PropTypes.string,
     setModal: PropTypes.func
 }

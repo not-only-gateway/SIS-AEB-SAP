@@ -19,7 +19,7 @@ export default function HorizontalTabs(props) {
             {props.buttons.map((button) => {
                     if (button !== null)
                         return (
-
+                            <div key={button.key + ' - ' + button.value}>
                             <Button
                                 content={button.value} handleClick={() => props.setOpenTab(button.key)}
                                 elevation={props.openTab === button.key} disabled={button.disabled} padding={'8px 32px 8px 32px'}
@@ -29,6 +29,7 @@ export default function HorizontalTabs(props) {
                                 backgroundColor={props.openTab === button.key ? (props.variant === 'secondary' ? '#ff4940' : '#0095ff') : 'transparent'}
                                 fontColor={props.openTab === button.key ? 'white' : '#262626'} paddingType={'long'}
                             />
+                                </div>
                         )
                     else
                         return null

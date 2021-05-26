@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
 import {getLanguage} from "../utils/shared/PageLanguage";
-import {readAccessProfile} from "../utils/shared/IndexedDB";
 import styles from '../styles/Unit.module.css'
 import HeaderLayout from "../components/layout/HeaderLayout";
 import TabContent from "../components/templates/TabContent";
@@ -9,7 +8,6 @@ import Authenticate from "../components/modules/Authenticate";
 import fetchUnit from "../utils/fetch/FetchUnit";
 import fetchExtensions from "../utils/fetch/FerchExtensions";
 import Extensions from "../components/modules/Extensions";
-import UnitOverview from "../components/templates/UnitOverview";
 import UnitForm from "../components/templates/forms/UnitForm";
 import submitUnit from "../utils/submit/SubmitUnit";
 
@@ -44,8 +42,10 @@ export default function unit() {
                 fetchCollaborators()
 
             }
-            if (accessProfile === null)
-                readAccessProfile().then(res => setAccessProfile(res))
+
+            if (accessProfile === null && sessionStorage.getItem('accessProfile') !== null)
+                setAccessProfile(JSON.parse(sessionStorage.getItem('accessProfile')))
+
             if (lang === null)
                 setLang(getLanguage(router.locale, router.pathname))
         },
@@ -97,8 +97,8 @@ export default function unit() {
                             //     value: lang.overview
                             // },
 
-                            accessProfile !== null && accessProfile.canManageStructure ? {
-                                disabled: !accessProfile.canManageStructure,
+                            accessProfile !== null && accessProfile.can_manage_structure ? {
+                                disabled: false,
                                 key: 1,
                                 value: lang.edit
                             } : null,
@@ -143,7 +143,7 @@ export default function unit() {
                             //         <UnitOverview unit={unit} lang={lang}/>
                             //     )
                             // },
-                            accessProfile !== null && accessProfile.canManageStructure ? {
+                            accessProfile !== null && accessProfile.can_manage_structure ? {
                                 buttonKey: 1,
                                 value: <UnitForm handleSubmit={submitUnit} data={unit} locale={router.locale}/>
                             } : null

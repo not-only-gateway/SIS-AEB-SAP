@@ -1,16 +1,7 @@
-import Accordion from "../layout/Accordion";
-import {Button, Divider, FormControl, FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
-import {getSecondaryColor, getTertiaryColor} from "../../styles/shared/MainStyles";
-import shared from "../../styles/shared/Shared.module.css";
-import mainStyles from "../../styles/shared/Main.module.css";
 import Cookies from "universal-cookie/lib";
 import Selector from "./inputs/Selector";
 import mapToSelect from "../../utils/shared/MapToSelect";
-import Link from "next/link";
-import animations from "../../styles/shared/Animations.module.css";
-import {HistoryRounded} from "@material-ui/icons";
 import React, {useEffect, useState} from "react";
-import {readCollaboration, readProfile} from "../../utils/shared/IndexedDB";
 import fetchSettingsData from "../../utils/fetch/FetchSettings";
 
 import PropTypes from "prop-types";
@@ -25,18 +16,14 @@ export default function Settings(props) {
     useEffect(() => {
         if (currentCollaboration === null) {
             const collaborationSession = sessionStorage.getItem('collaboration')
-            console.log('this is ')
-            console.log(collaborationSession)
             if (collaborationSession !== null)
                 setCurrentCollaboration(JSON.parse(collaborationSession))
         }
 
-        if (collaborations.length === 0)
-            readProfile().then(res => {
-                if (res !== null)
-                    fetchSettingsData(res.id).then(res => setCollaborations(res))
-            })
-
+        const profile = sessionStorage.getItem('profile')
+        if(profile !== null) {
+            fetchSettingsData(JSON.parse(profile).member_id).then(res => setCollaborations(res))
+        }
     }, [])
 
     return (
@@ -68,7 +55,7 @@ export default function Settings(props) {
                         key: currentCollaboration.id,
                         value: currentCollaboration.tag
                     }}
-                    data={mapToSelect({data: collaborations, option: 1})}
+                    data={mapToSelect({data: collaborations, option: 4})}
                     label={props.lang.collaboration}
                     width={'100%'}
                 />
