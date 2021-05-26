@@ -5,7 +5,10 @@ import PropTypes from 'prop-types'
 
 export default async function fetchCollaboration(props) {
     let response = null
-    props.setLoading(true)
+
+    if(props.setLoading !== undefined)
+        props.setLoading(true)
+
     await axios({
         method: 'get',
         url: Host() + 'collaboration/' + props.collaborationID,
@@ -15,7 +18,8 @@ export default async function fetchCollaboration(props) {
         }
     }).then(res => {
         response = res.data
-        props.setLoading(false)
+        if(props.setLoading !== undefined)
+            props.setLoading(false)
     }).catch(error => {
         console.log(error)
     })
@@ -23,7 +27,6 @@ export default async function fetchCollaboration(props) {
 }
 
 fetchCollaboration.propTypes = {
-    setCollaboration: PropTypes.func,
     setLoading: PropTypes.func,
     collaborationID: PropTypes.number
 }

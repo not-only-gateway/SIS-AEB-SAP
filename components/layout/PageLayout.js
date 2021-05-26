@@ -27,7 +27,10 @@ export default function PageLayout({children}) {
                     sessionStorage.setItem('profile', JSON.stringify(res.person))
                     setProfile(res.person)
                     if(sessionStorage.getItem('collaboration') === null && res.main_collaboration !== null) {
-                        sessionStorage.setItem('collaboration', JSON.stringify(res.main_collaboration))
+                        sessionStorage.setItem('collaboration', JSON.stringify({
+                            id: res.main_collaboration.id,
+                            tag: res.main_collaboration.tag
+                        }))
                         sessionStorage.setItem('accessProfile', JSON.stringify(res.main_collaboration.access_profile))
                         setAccessProfile(res.main_collaboration.access_profile)
                     }

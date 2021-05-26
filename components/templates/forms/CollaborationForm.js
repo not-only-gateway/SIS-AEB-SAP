@@ -77,7 +77,21 @@ export default function CollaborationForm(props) {
                                 })
                             }} locale={props.locale} value={props.collaboration.tag}
                             required={true} disabled={false}
-                            width={'100%'}/>
+                            width={'calc(50% - 16px)'}/>
+                        <DropDownField
+                            dark={true}
+                            placeholder={lang.active}
+                            label={lang.active}
+                            handleChange={event => {
+                                setChanged(true)
+                                props.handleChange({name: 'active_collaboration', value: event})
+                            }}
+                            disabled={!props.collaboration.unit}
+                            locale={props.locale}
+                            value={props.collaboration.active_collaboration} required={true}
+                            width={'calc(50% - 16px)'}
+                            choices={lang.choices}/>
+
                     </fieldset>
                     <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
                         <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.placement}</h4></legend>
@@ -157,19 +171,6 @@ export default function CollaborationForm(props) {
                         <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.role}</h4></legend>
 
 
-                        <DropDownField
-                            dark={true}
-                            placeholder={lang.active}
-                            label={lang.active}
-                            handleChange={event => {
-                                setChanged(true)
-                                props.handleChange({name: 'active_collaboration', value: event})
-                            }}
-                            disabled={!props.collaboration.unit}
-                            locale={props.locale}
-                            value={props.collaboration.active_collaboration} required={true}
-                            width={'calc(33.333% - 21.35px)'}
-                            choices={lang.choices}/>
 
                         <Selector
                             dark={true}
@@ -182,7 +183,7 @@ export default function CollaborationForm(props) {
                             })}
                             setChanged={setChanged} disabled={!props.collaboration.unit}
                             label={lang.effective} key={'collaboration-field-2'}
-                            data={props.effectiveRoles} width={'calc(33.333% - 21.35px)'}/>
+                            data={props.effectiveRoles} width={'calc(25% - 24px)'}/>
 
                         <Selector
                             dark={true}
@@ -195,7 +196,7 @@ export default function CollaborationForm(props) {
                             setChanged={setChanged} disabled={!props.collaboration.unit}
                             label={lang.commissioned} key={'collaboration-field-3'}
                             data={props.commissionedRoles}
-                            width={'calc(33.333% - 21.35px)'}/>
+                            width={'calc(25% - 24px)'}/>
 
 
                         <DropDownField
@@ -209,7 +210,7 @@ export default function CollaborationForm(props) {
                             disabled={!props.collaboration.unit}
                             locale={props.locale}
                             value={props.collaboration.substitute} required={true}
-                            width={'calc(50% - 16px)'}
+                            width={'calc(25% - 24px)'}
                             choices={lang.choices}/>
 
                         <TextField
@@ -223,7 +224,7 @@ export default function CollaborationForm(props) {
                                 })
                             }} locale={props.locale} value={props.collaboration.additional_role_information}
                             required={false} disabled={!props.collaboration.unit}
-                            width={'calc(50% - 16px)'}/>
+                            width={'calc(25% - 24px)'}/>
 
                     </fieldset>
                     <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>

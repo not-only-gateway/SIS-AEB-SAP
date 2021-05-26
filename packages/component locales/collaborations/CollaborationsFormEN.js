@@ -6,7 +6,7 @@ export default {
     senior: 'Senior',
     access: 'Access Profile',
     role: 'Role',
-    active: 'Active on Role',
+    active: 'Active collaboration',
     effective: 'Effective Role',
     commissioned: 'Commissioned Role',
     substitute: 'Substitute',

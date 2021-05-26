@@ -14,7 +14,6 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "axios": "^0.21.1",
-    "dexie": "^3.0.3",
     "express": "^4.17.1",
     "next": "^10.2.3",
     "prop-types": "^15.7.2",

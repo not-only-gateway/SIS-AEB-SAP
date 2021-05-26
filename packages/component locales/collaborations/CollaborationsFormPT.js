@@ -7,7 +7,7 @@ export default {
     senior: 'Superior',
     access: 'Perfil de Acesso',
     role: 'Cargo',
-    active: 'Ativo no Cargo',
+    active: 'Colaboração ativa',
     effective: 'Cargo Efetivo',
     commissioned: 'Cargo Comissionado',
     substitute: 'Substituto',

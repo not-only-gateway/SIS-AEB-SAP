@@ -8,6 +8,8 @@ import PropTypes from "prop-types";
 import {setCookiesLanguage} from "../../utils/shared/PageLanguage";
 import styles from '../../styles/SettingsActivity.module.css'
 import DropDownField from "./inputs/DropDownField";
+import fetchCollaboration from "../../utils/fetch/FetchCollaboration";
+import fetchAccessProfile from "../../utils/fetch/FetchAccessProfile";
 
 
 export default function Settings(props) {
@@ -22,7 +24,9 @@ export default function Settings(props) {
 
         const profile = sessionStorage.getItem('profile')
         if(profile !== null) {
-            fetchSettingsData(JSON.parse(profile).member_id).then(res => setCollaborations(res))
+            fetchSettingsData(JSON.parse(profile).member_id).then(res => {
+                setCollaborations(res)
+            })
         }
     }, [])
 
@@ -49,7 +53,29 @@ export default function Settings(props) {
                 <Selector
                     locale={props.locale}
                     required={false}
-                    handleChange={undefined}
+                    handleChange={event => {
+                        fetchCollaboration({collaborationID: event.key}).then( collaborationRes => {
+                            if (collaborationRes !== null) {
+                                fetchAccessProfile(collaborationRes.access_profile.key).then(res => {
+                                    if(res !== null) {
+                                        sessionStorage.removeItem('collaboration')
+                                        sessionStorage.removeItem('accessProfile')
+
+                                        sessionStorage.setItem('collaboration', JSON.stringify({
+                                            id: collaborationRes.id,
+                                            tag: collaborationRes.tag
+                                        }))
+                                        setCurrentCollaboration({
+                                            id: collaborationRes.id,
+                                            tag: collaborationRes.tag
+                                        })
+                                        sessionStorage.setItem('accessProfile', JSON.stringify(res))
+
+                                    }
+                                })
+                            }
+                        })
+                    }}
                     setChanged={undefined} disabled={false}
                     selected={{
                         key: currentCollaboration.id,

@@ -17,7 +17,7 @@ export default function Extensions(props) {
         if (editable === null){
             const accessProfileSession = sessionStorage.getItem('accessProfile')
             if(accessProfileSession !== null)
-                setEditable(JSON.parse(accessProfileSession).can_update_person)
+                setEditable(JSON.parse(accessProfileSession).can_update_person || JSON.parse(accessProfileSession).can_manage_membership)
             else
                 setEditable(false)
         }
