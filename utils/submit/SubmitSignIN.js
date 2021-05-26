@@ -1,6 +1,5 @@
 import axios from "axios";
 import Host from "../shared/Host";
-import {setAccessProfile, setCollaboration, startDatabase} from "../shared/IndexedDB";
 import PropTypes from 'prop-types'
 import Cookies from "universal-cookie/lib";
 import publicIp from "public-ip";
