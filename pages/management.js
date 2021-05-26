@@ -12,6 +12,7 @@ import LinkageList from "../components/templates/list/LinkageList";
 import Cookies from "universal-cookie/lib";
 import PeopleList from "../components/templates/list/PeopleList";
 import UnitList from "../components/templates/list/UnitList";
+import HorizontalTabs from "../components/layout/navigation/HorizontalTabs";
 
 export default function management() {
 
@@ -27,10 +28,13 @@ export default function management() {
             setLang(getLanguage(router.locale, router.pathname))
         if (accessProfile === null && sessionStorage.getItem('accessProfile') !== null) {
             const accessProfileSession = JSON.parse(sessionStorage.getItem('accessProfile'))
-            if(accessProfileSession.can_manage_structure || accessProfileSession.can_update_person)
+            if(accessProfileSession.can_manage_structure || accessProfileSession.can_update_person) {
                 setAccessProfile(accessProfileSession)
+                setOpenTab(accessProfileSession.can_update_person ? 0 : 1)
+            }
             else
                 router.push('/', '/', {locale: router.locale})
+
         }
         setNotAuthenticated((new Cookies()).get('authorization_token') === undefined)
 
@@ -53,18 +57,21 @@ export default function management() {
                 />
                 <HeaderLayout
                     width={'75%'}
-                    availableTabs={{
-                        tabs: [
-                            accessProfile !== null && accessProfile.can_update_person ? {key: 0, value: lang.registered} : null,
-                            accessProfile !== null && accessProfile.can_manage_structure ? {key: 1, value: lang.units} : null,
-                            accessProfile !== null && accessProfile.can_manage_structure ? {key: 2, value: lang.accessTitle} : null,
-                            accessProfile !== null && accessProfile.can_manage_structure ? {key: 3, value: lang.effectiveRoleTitle} : null,
-                            accessProfile !== null && accessProfile.can_manage_structure ? {key: 4, value: lang.commissionedRoleTitle} : null,
-                            accessProfile !== null && accessProfile.can_manage_structure ? {key: 5, value: lang.linkagesTitle} : null,
-                        ],
-                        openTab: openTab,
-                        setOpenTab: setOpenTab
-                    }}
+
+                    tabs={
+                        <HorizontalTabs
+                            buttons={[
+                                accessProfile !== null && accessProfile.can_update_person ? {key: 0, value: lang.registered} : null,
+                                accessProfile !== null && accessProfile.can_manage_structure ? {key: 1, value: lang.units} : null,
+                                accessProfile !== null && accessProfile.can_manage_structure ? {key: 2, value: lang.accessTitle} : null,
+                                accessProfile !== null && accessProfile.can_manage_structure ? {key: 3, value: lang.effectiveRoleTitle} : null,
+                                accessProfile !== null && accessProfile.can_manage_structure ? {key: 4, value: lang.commissionedRoleTitle} : null,
+                                accessProfile !== null && accessProfile.can_manage_structure ? {key: 5, value: lang.linkagesTitle} : null,
+                            ]}
+                            setOpenTab={setOpenTab}
+                            openTab={openTab}
+                        />
+                    }
                     title={
                         lang.title
                     }

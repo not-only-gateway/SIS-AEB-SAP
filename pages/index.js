@@ -15,6 +15,7 @@ import {Modal} from "@material-ui/core";
 import animations from "../styles/shared/Animations.module.css";
 import {FilterListRounded} from "@material-ui/icons";
 import Button from "../components/modules/inputs/Button";
+import HorizontalTabs from "../components/layout/navigation/HorizontalTabs";
 
 export default function Index() {
 
@@ -100,22 +101,24 @@ export default function Index() {
                 {renderModal()}
                 <HeaderLayout
                     width={'75%'}
-                    availableTabs={{
-                        tabs: [
-                            {
-                                disabled: false,
-                                key: 0,
-                                value: lang.list
-                            },
-                            {
-                                disabled: false,
-                                key: 1,
-                                value: lang.structure
-                            },
-                        ],
-                        setOpenTab: setOpenTab,
-                        openTab: openTab
-                    }}
+                    tabs={
+                        <HorizontalTabs
+                            buttons={[
+                                {
+                                    disabled: false,
+                                    key: 0,
+                                    value: lang.list
+                                },
+                                {
+                                    disabled: false,
+                                    key: 1,
+                                    value: lang.structure
+                                },
+                            ]}
+                            setOpenTab={setOpenTab}
+                            openTab={openTab}
+                        />
+                    }
 
                     pageTitle={lang.extensions}
                     title={

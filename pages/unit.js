@@ -10,6 +10,9 @@ import fetchExtensions from "../utils/fetch/FerchExtensions";
 import Extensions from "../components/modules/Extensions";
 import UnitForm from "../components/templates/forms/UnitForm";
 import submitUnit from "../utils/submit/SubmitUnit";
+import HorizontalTabs from "../components/layout/navigation/HorizontalTabs";
+import ExpandableTabs from "../components/layout/navigation/ExpandableTabs";
+import Cookies from "universal-cookie/lib";
 
 export default function unit() {
 
@@ -18,20 +21,23 @@ export default function unit() {
 
     const [lang, setLang] = useState(null)
     const [accessProfile, setAccessProfile] = useState(null)
-    const [authenticate, setAuthenticate] = useState(false)
+    const [notAuthenticated, setNotAuthenticate] = useState(false)
     const [loading, setLoading] = useState(true)
 
     const [unit, setUnit] = useState({})
     const [collaborators, setCollaborators] = useState({})
 
-    const [editMode, setEditMode] = useState(false)
-    const [openTab, setOpenTab] = useState(0)
+
+    const [openTab, setOpenTab] = useState({
+        mainTab: 0,
+        subTab: undefined
+    })
     const [maxID, setMaxID] = useState(null)
     const [lastFetchedSize, setLastFetchedSize] = useState(null)
 
     useEffect(() => {
 
-            if (router.isReady) {
+            if (router.isReady && id === undefined) {
                 setId(router.query.id)
                 fetchUnit(router.query.id).then(res => {
                     if (res !== null) {
@@ -40,7 +46,6 @@ export default function unit() {
                     }
                 })
                 fetchCollaborators()
-
             }
 
             if (accessProfile === null && sessionStorage.getItem('accessProfile') !== null)
@@ -48,9 +53,9 @@ export default function unit() {
 
             if (lang === null)
                 setLang(getLanguage(router.locale, router.pathname))
-        },
-        [router.locale, router.isReady, router.query]
-    )
+
+            setNotAuthenticate(!(new Cookies()).get('authorization_token'))
+        })
 
     async function fetchCollaborators() {
         await fetchExtensions({
@@ -78,34 +83,54 @@ export default function unit() {
         return (
             <>
                 <Authenticate
-                    handleClose={() => setAuthenticate(false)}
-                    render={editMode || authenticate}
+                    handleClose={res => {
+                        console.log(res)
+                        setNotAuthenticate(false)
+                    }}
+                    forceClose={() => setOpenTab({
+                        mainTab: 0,
+                        subTab: undefined
+                    })}
+                    render={openTab.mainTab === 1 && notAuthenticated}
                     locale={router.locale}
                 />
                 <HeaderLayout
                     width={'75%'}
-                    availableTabs={{
-                        tabs: [
-                            {
-                                disabled: false,
-                                key: 0,
-                                value: lang.collaborators
-                            },
-                            // {
-                            //     disabled: false,
-                            //     key: 1,
-                            //     value: lang.overview
-                            // },
+                    tabs={
 
-                            accessProfile !== null && accessProfile.can_manage_structure ? {
-                                disabled: false,
-                                key: 1,
-                                value: lang.edit
-                            } : null,
-                        ],
-                        setOpenTab: setOpenTab,
-                        openTab: openTab
-                    }}
+                        <ExpandableTabs
+                            buttons={[
+                                {
+                                    mainButton: {
+                                        disabled: false,
+                                        key: 0,
+                                        value: lang.collaborators
+                                    },
+                                    subButtons: null
+                                },
+                                accessProfile !== null && accessProfile.can_manage_structure ? {
+                                    mainButton: {
+                                        disabled: false,
+                                        key: 1,
+                                        value: lang.edit
+                                    },
+                                    subButtons: [
+                                        {
+                                        disabled: false,
+                                        key: 0,
+                                        value: lang.base
+                                    },
+                                    {
+                                        disabled: false,
+                                        key: 1,
+                                        value: lang.location
+                                    }
+                                    ]
+                                } : null]}
+                            setOpenTab={setOpenTab}
+                            openTab={openTab}
+                        />
+                    }
                     filterComponent={undefined}
                     title={
                         <div className={styles.titleContainer}>
@@ -123,7 +148,7 @@ export default function unit() {
                 />
                 <div className={styles.contentContainer}>
                     <TabContent
-                        openTab={openTab}
+                        openTab={openTab.mainTab}
                         tabs={[
                             {
                                 buttonKey: 0,

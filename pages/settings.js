@@ -5,6 +5,7 @@ import HeaderLayout from "../components/layout/HeaderLayout";
 import TabContent from "../components/templates/TabContent";
 import Settings from "../components/modules/Settings";
 import ActivityOverview from "../components/templates/ActivityOverview";
+import HorizontalTabs from "../components/layout/navigation/HorizontalTabs";
 
 export default function settings() {
 
@@ -23,26 +24,29 @@ export default function settings() {
         return (
             <>
                 <HeaderLayout
-                    availableTabs={{
-                        tabs: [
-                            {
-                                key: 0,
-                                value: lang.settings
-                            },
-                            {
-                                key: 1,
-                                value: lang.activityOverview,
-                                disabled: true
-                            },
-                            {
-                                key: 2,
-                                value: lang.activityList,
-                                disabled: true
-                            }
-                        ],
-                        openTab: openTab,
-                        setOpenTab: setOpenTab
-                    }}
+
+                    tabs={
+                        <HorizontalTabs
+                            buttons={[
+                                {
+                                    key: 0,
+                                    value: lang.settings
+                                },
+                                {
+                                    key: 1,
+                                    value: lang.activityOverview,
+                                    disabled: true
+                                },
+                                {
+                                    key: 2,
+                                    value: lang.activityList,
+                                    disabled: true
+                                }
+                            ]}
+                            setOpenTab={setOpenTab}
+                            openTab={openTab}
+                        />
+                    }
 
                     pageTitle={lang.title}
                     title={lang.title}

@@ -11,6 +11,10 @@ export default function ExpandableTabs(props) {
              className={styles.expandableTabsContainer}
              style={{
                  marginTop: props.noMargin ? 0 : '16px',
+                 backgroundColor: extendedTab === undefined ? '#f4f5fa' : 'transparent',
+                 padding: extendedTab === undefined ? ' 0 3px  0 3px' : "unset",
+                 borderRadius: extendedTab === undefined ? '32px' : '0',
+                 border: extendedTab === undefined ? '#ecedf2 .7px solid' : 'transparent .7px solid'
              }}>
             {props.buttons.map((button) => {
                     if (button !== null)
@@ -22,14 +26,21 @@ export default function ExpandableTabs(props) {
                                 gap: '8px',
                                 borderRadius: extendedTab !== undefined ? '32px' : '0',
                                 border: extendedTab === button.mainButton.key ? '#ecedf2 .7px solid' : 'transparent .7px solid'
+
                             }}>
                                 <Button
                                     content={button.mainButton.value}
                                     handleClick={() => {
-                                        if (extendedTab !== undefined && button.mainButton.key === extendedTab)
-                                            setExtendedTab(undefined)
-                                        else
-                                            setExtendedTab(button.mainButton.key)
+                                        if (button.subButtons?.length > 0) {
+                                            if (extendedTab !== undefined && button.mainButton.key === extendedTab)
+                                                setExtendedTab(undefined)
+                                            else
+                                                setExtendedTab(button.mainButton.key)
+                                        } else
+                                            props.setOpenTab({
+                                                mainTab: button.mainButton.key,
+                                                subTab: undefined
+                                            })
                                     }}
                                     elevation={button.mainButton.key === extendedTab} disabled={button.mainButton.disabled}
                                     padding={'8px 32px 8px 32px'}
@@ -40,7 +51,7 @@ export default function ExpandableTabs(props) {
                                     fontColor={props.openTab.mainTab === button.mainButton.key ? 'white' : '#222228'}
                                     paddingType={'long'}
                                 />
-                                {extendedTab === button.mainButton.key ? button.subButtons.map(subButton => (
+                                {extendedTab === button.mainButton.key && button.subButtons?.length > 0 ? button.subButtons.map(subButton => (
                                     <div>
                                         <Button
                                             content={subButton.value}

@@ -69,18 +69,12 @@ export default function HeaderLayout(props) {
                     props.activeFiltersComponent
 
                     : null}
-                {props.availableTabs !== undefined ?
-                    <HorizontalTabs buttons={props.availableTabs.tabs} setOpenTab={props.availableTabs.setOpenTab}
-                                    openTab={props.availableTabs.openTab}/>
+                {props.tabs !== undefined ?
+                    props.tabs
 
                     :
                     null
                 }
-                {props.stepper !== undefined ?
-                    <Stepper buttons={props.stepper.tabs} setOpenTab={props.stepper.setOpenTab}
-                             openTab={props.stepper.openTab}/>
-
-                    : null}
             </div>
 
         </div>
@@ -89,20 +83,9 @@ export default function HeaderLayout(props) {
 HeaderLayout.propTypes = {
     title: PropTypes.any,
     searchComponent: PropTypes.object,
-    availableTabs: PropTypes.shape({
-        tabs: PropTypes.arrayOf(
-            PropTypes.shape({
-                key: PropTypes.number,
-                value: PropTypes.any,
-                disabled: PropTypes.bool
-            })
-        ),
-        openTab: PropTypes.number,
-        setOpenTab: PropTypes.func
-    }),
+    tabs: PropTypes.object,
     pageTitle: PropTypes.string,
     information: PropTypes.string,
     activeFiltersComponent: PropTypes.object,
-    stepper: PropTypes.bool,
     width: PropTypes.string
 }

@@ -11,6 +11,8 @@ import submitPerson from "../utils/submit/SubmitPerson";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import submitMember from "../utils/submit/SubmitMember";
 import Cookies from "universal-cookie/lib";
+import Stepper from "../components/layout/navigation/Stepper";
+import HorizontalTabs from "../components/layout/navigation/HorizontalTabs";
 
 export default function create() {
 
@@ -68,8 +70,8 @@ export default function create() {
                     width={'65%'}
                     availableTabs={undefined}
                     activeFiltersComponent={undefined}
-                    stepper={{
-                        tabs: [
+                    tabs={
+                        <Stepper buttons={[
                             {
                                 disabled: status.base === true,
                                 key: 0,
@@ -84,10 +86,9 @@ export default function create() {
                                 status: status.member,
                                 required: true
                             }
-                        ],
-                        setOpenTab: setOpenTab,
-                        openTab: openTab
-                    }}
+                        ]} setOpenTab={setOpenTab}
+                                 openTab={openTab}/>
+                    }
                     filterComponent={undefined}
                     title={
                         lang.title

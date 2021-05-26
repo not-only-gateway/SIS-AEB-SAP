@@ -21,5 +21,8 @@ export default {
     address: 'Address',
     decentralized: 'Decentralized',
 
-    edit: 'Edit'
+    edit: 'Edit',
+    base: 'Basic Information',
+    location: 'Location'
+
 }
