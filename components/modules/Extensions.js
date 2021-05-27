@@ -26,7 +26,7 @@ export default function Extensions(props) {
 
     if (props.data.length > 0 && lang !== null)
         return (
-            <div className={styles.fullWidth}>
+            <div className={styles.fullWidth} >
                 <InfiniteScroll
                     dataLength={props.data.length}
                     next={() => props.fetchData(0)}
@@ -47,7 +47,7 @@ export default function Extensions(props) {
                 >
                     <div className={styles.extensionsList}>
                         {props.data.map((member, index) =>
-                            <div className={styles.fullWidth} key={member.member.id + ' - ' + member.person.id}>
+                            <div  style={{width: 'calc(20% - 13px)'}} key={member.member.id + ' - ' + member.person.id}>
                             <Extension
                                 lang={lang} index={index} member={member.member} redirect={id => props.redirect(id)}
                                 unit={member.unit} commissionedRole={member.commissioned_role}

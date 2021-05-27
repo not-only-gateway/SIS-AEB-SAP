@@ -16,5 +16,7 @@ export default {
     mission: 'Missão',
     strategicObjective: 'Objetivo Estratégico',
     standardization: 'Normatização',
-    save: 'Salvar'
+    save: 'Salvar',
+    parentEntity: 'Entidade Pai',
+    parentUnit: 'Unidade Pai'
 }

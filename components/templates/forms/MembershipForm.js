@@ -10,12 +10,17 @@ import DropDownField from "../../modules/inputs/DropDownField";
 import Alert from "../../layout/Alert";
 import shared from "../../../styles/shared/Shared.module.css";
 import Button from "../../modules/inputs/Button";
+import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 
 export default function MembershipForm(props) {
 
     const [changed, setChanged] = useState(false)
     const [lang, setLang] = useState(null)
     const [entities, setEntities] = useState([])
+
+    const [entitiesMaxID, setEntitiesMaxID] = useState(null)
+    const [entitiesLastFetchedSize, setEntitiesLastFetchedSize] = useState(0)
+
     const [collaborations, setCollaborations] = useState([])
     const [status, setStatus] = useState({
         error: false,
@@ -26,9 +31,13 @@ export default function MembershipForm(props) {
         if(lang === null)
             setLang(getComponentLanguage({locale: props.locale, component: 'membership'}))
         if(entities.length === 0)
-            fetchEntities().then(res => {
-                if (res !== null)
-                    setEntities(res)
+            fetchEntities({
+                setData: setEntities,
+                data: entities,
+                maxID: null,
+                searchInput: props.searchInput,
+                setMaxID: setEntitiesMaxID,
+                setLastFetchedSize: setEntitiesLastFetchedSize
             })
         if (!props.create)
             fetchActiveCollaborations(props.memberID).then(res => setCollaborations(res))

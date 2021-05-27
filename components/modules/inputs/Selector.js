@@ -157,6 +157,7 @@ export default function Selector(props) {
 
                             style={{
                                 height: '56px', borderRadius: '5px',
+                                cursor: props.disabled ? 'unset' : 'pointer'
                             }}
                             className={[styles.selectContainer, props.disabled ? {} : props.dark ? styles.darkHighlight : styles.highlight].join(' ')}
                             onClick={() => setModal(true)}
@@ -173,7 +174,7 @@ export default function Selector(props) {
                                     <p style={{
                                         color: 'rgba(0,0,0,.55)',
                                     }}>{props.label}</p>
-                                    <AddRounded style={{color: 'rgba(0,0,0,.6)'}}/>
+                                    <AddRounded style={{visibility:props.disabled ? 'hidden' : 'visible', color: 'rgba(0,0,0,.6)'}}/>
                                 </>
                             }
                         </button>

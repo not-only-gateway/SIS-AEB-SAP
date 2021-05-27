@@ -44,7 +44,7 @@ export default function FiltersComponent(props) {
                                 {filter.value}
                             </span>
                             <IconButton disabled={filter.disabled}
-                                        style={{padding: '8px'}}
+                                        style={{padding: '8px', visibility: filter.disabled ? 'hidden' : 'visible'}}
                                         onClick={() => {
                                             if (filter.type !== 'text') {
                                                 props.handleChange({name: filter.key, value: undefined})

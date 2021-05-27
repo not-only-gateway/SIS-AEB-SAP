@@ -20,7 +20,7 @@ export default function Canvas(props) {
             }}>
                 <span className={styles.nav} style={{width: '100%', display: 'flex', placeContent: 'center'}}>
                     <ul >
-                        <TreeNode dark={props.dark} subject={props.subject}
+                        <TreeNode dark={props.dark} subject={props.subject} disabled={props.disabled}
                                   type={props.type} hoveredParent={false}/>
                     </ul>
                 </span>
@@ -65,5 +65,6 @@ export default function Canvas(props) {
 Canvas.propTypes = {
     subject: PropTypes.object,
     type: PropTypes.string,
-    dark: PropTypes.bool
+    dark: PropTypes.bool,
+    disabled: PropTypes.bool
 }

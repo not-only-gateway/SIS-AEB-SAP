@@ -92,7 +92,7 @@ DropDownField.propTypes = {
     label: PropTypes.string,
     choices: PropTypes.array,
     handleChange: PropTypes.func,
-    value: PropTypes.string,
+    value: PropTypes.any,
     required: PropTypes.bool,
     locale: PropTypes.string,
     disabled: PropTypes.bool,

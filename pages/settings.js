@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useRouter} from "next/router";
 import {getLanguage} from "../utils/shared/PageLanguage";
 import HeaderLayout from "../components/layout/HeaderLayout";
@@ -6,13 +6,14 @@ import TabContent from "../components/templates/TabContent";
 import Settings from "../components/modules/Settings";
 import ActivityOverview from "../components/templates/ActivityOverview";
 import HorizontalTabs from "../components/layout/navigation/HorizontalTabs";
+import Cookies from "universal-cookie/lib";
 
 export default function settings() {
 
     const router = useRouter()
     const [lang, setLang] = useState(null)
     const [openTab, setOpenTab] = useState(0)
-
+    const authenticated = useRef((new Cookies()).get('jwt'))
     useEffect(() => {
 
         setLang(getLanguage(router.locale, router.pathname))
@@ -32,16 +33,16 @@ export default function settings() {
                                     key: 0,
                                     value: lang.settings
                                 },
-                                {
+                                authenticated.current !== undefined ? {
                                     key: 1,
                                     value: lang.activityOverview,
                                     disabled: true
-                                },
-                                {
+                                } : null,
+                                authenticated.current !== undefined ? {
                                     key: 2,
                                     value: lang.activityList,
                                     disabled: true
-                                }
+                                } : null
                             ]}
                             setOpenTab={setOpenTab}
                             openTab={openTab}

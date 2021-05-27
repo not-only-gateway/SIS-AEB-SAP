@@ -9,10 +9,12 @@ export default async function fetchSeniors(props) {
 
     await axios({
         method: 'get',
-        url: Host() + 'seniors/'+props.unitID + '/'+props.memberID,
+        url: Host() + 'seniors',
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         params: {
-            authorization_token: cookies.get('authorization_token')
+            authorization_token: cookies.get('authorization_token'),
+            member_id: props.memberID,
+            unit_id: props.unitID
         }
     }).then(res => {
         response = res.data
@@ -22,7 +24,7 @@ export default async function fetchSeniors(props) {
     return response
 }
 
-fetchSeniors.propTypes={
+fetchSeniors.propTypes = {
     memberID: PropTypes.number,
     unitID: PropTypes.number
 

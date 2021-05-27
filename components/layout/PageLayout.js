@@ -46,7 +46,7 @@ export default function PageLayout({children}) {
 
         if (locale !== cookies.get('lang') && cookies.get('lang') !== undefined)
             router.push(router.pathname, router.pathname, {locale: cookies.get('lang')}).catch(error => console.log(error))
-    }, [router.isReady, router.locale])
+    }, [router.isReady, router.locale, router.pathname])
 
     if (router.pathname !== '/authenticate')
         return (

@@ -19,7 +19,7 @@ export default function authenticate() {
         error: false,
         message: ''
     })
-    const [visible, setVisible] = useState(false)
+
     const [data, setData] = useState({
         email: '',
         password: ''

@@ -48,6 +48,16 @@ export default function mapToSelect(props) {
             })
             break
         } // collaboration
+        case 5: {
+            props.data.map(unit => {
+                response.push({
+                    key: unit.id,
+                    value: unit.acronym,
+                    parent_entity: unit.parent_entity
+                })
+            })
+            break
+        } // unit + parent entity
 
         default: {
             break

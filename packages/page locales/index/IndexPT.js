@@ -14,5 +14,7 @@ export default {
     end: 'Você chegou ao final.',
     list: 'Listar',
     structure: 'Estrutura',
+    commissionedOnly: 'Apenas Comissionados',
+    effectiveOnly: 'Apenas Efetivos'
 
 }

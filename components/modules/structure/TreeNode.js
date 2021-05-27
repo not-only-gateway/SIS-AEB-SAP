@@ -26,22 +26,17 @@ export default function TreeNode(props) {
         setLoading(false)
     }, [])
 
-    return (
-
-        <li key={'subject-layout-' + props.subject.id + props.type}>
-            <Link href={{
-                pathname: props.type === 'unit' ? '/unit' : '/person',
-                query: {id: props.subject.id}
-            }}>
-            <span onMouseEnter={() => setHovered(true)}
-                  onMouseLeave={() => setHovered(false)}
-                  style={{
-                      width: 'clamp(150px, 150px, 200px)',
-                      height: props.type !== 'unit' ? 'clamp(150px, 150px, 200px)' : '50px',
-                      border: hovered || props.hoveredParent ? '#0095ff .7px solid' : '#ecedf2 .7px solid',
-                      boxSizing: 'border-box'
-                  }}
-                  className={animations.popInAnimation}>
+    const content = (
+        <span onMouseEnter={() => setHovered(true)}
+              onMouseLeave={() => setHovered(false)}
+              style={{
+                  width: 'clamp(150px, 150px, 200px)',
+                  height: props.type !== 'unit' ? 'clamp(150px, 150px, 200px)' : '50px',
+                  border: hovered || props.hoveredParent ? '#0095ff .7px solid' : '#ecedf2 .7px solid',
+                  boxSizing: 'border-box',
+                  cursor: props.disabled ? 'unset' : 'pointer'
+              }}
+              className={animations.popInAnimation}>
                 {props.type !== 'unit' ?
                     <div style={{
                         display: 'grid',
@@ -57,7 +52,7 @@ export default function TreeNode(props) {
                         <ProfilePersona base64={false} dark={false} key={props.subject.id} cakeDay={false}
                                         elevation={true} image={props.subject.image} size={'53px'} variant={'rounded'}/>
                         <div style={{maxWidth: '130px'}}>
-                            <h4  className={mainStyles.overflowEllipsis} style={{
+                            <h4 className={mainStyles.overflowEllipsis} style={{
                                 color: '#555555',
                                 width: '100%',
 
@@ -86,12 +81,28 @@ export default function TreeNode(props) {
                     </div>
                 }
             </span>
-            </Link>
+    )
+
+
+    return (
+
+        <li key={'subject-layout-' + props.subject.id + props.type}>
+            {props.disabled ?
+                content
+                :
+                <Link href={{
+                    pathname: props.type === 'unit' ? '/unit' : '/person',
+                    query: {id: props.subject.id}
+                }}>
+                    {content}
+                </Link>
+            }
+
             {!loading && dependents.length > 0 ?
                 <ul>
                     {dependents.map(subject => (
                         <TreeNode dark={props.dark} redirect={props.redirect} subject={subject}
-                                  type={props.type}
+                                  type={props.type} disabled={props.disabled}
                                   hoveredParent={props.hoveredParent ? props.hoveredParent : hovered}/>
                     ))}
                 </ul>
@@ -105,5 +116,6 @@ export default function TreeNode(props) {
 TreeNode.propTypes = {
     subject: PropTypes.object,
     type: PropTypes.string,
-    hoveredParent: PropTypes.bool
+    hoveredParent: PropTypes.bool,
+    disabled: PropTypes.bool
 }

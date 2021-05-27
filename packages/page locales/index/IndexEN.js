@@ -11,5 +11,7 @@ export default {
     end: 'You\'ve reached the bottom.',
     list: 'List',
     structure: 'Structure',
+    commissionedOnly: 'Commissioned Roles Only',
+    effectiveOnly: 'Effective Roles Only'
 
 }

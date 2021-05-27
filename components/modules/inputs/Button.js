@@ -4,18 +4,19 @@ import React, {useState} from "react";
 export default function Button(props) {
     const [focused, setFocused] = useState(false)
     const [hovered, setHovered] = useState(false)
-    function getBorder(){
+
+    function getBorder() {
         let response = '5px'
-        switch (props.variant){
-            case 'rounded':{
+        switch (props.variant) {
+            case 'rounded': {
                 response = '32px'
                 break
             }
-            case'circular':{
+            case'circular': {
                 response = '50%'
                 break
             }
-            case 'custom':{
+            case 'custom': {
                 response = props.borderRadius
                 break
             }
@@ -34,12 +35,12 @@ export default function Button(props) {
                 setFocused(false)
                 setHovered(false)
             }}
-
+            key={props.buttonKey}
             style={{
                 width: props.width,
                 backgroundColor: props.backgroundColor && !props.disabled ? props.backgroundColor : props.disabled ? 'rgba(0,0,0,0.1)' : 'unset',
                 color: !props.disabled ? (props.hoverHighlight && hovered ? props.colorVariant === 'secondary' ? '#ff4940' : '#0095ff' : props.fontColor) : '#555555',
-                borderRadius:  getBorder(),
+                borderRadius: getBorder(),
                 boxShadow: props.boxShadow,
                 padding: props.padding ? props.padding : '8px',
                 height: 'auto',
@@ -84,5 +85,6 @@ Button.propTypes = {
         'default',
         'secondary'
     ]),
-    borderRadius: PropTypes.any
+    borderRadius: PropTypes.any,
+    buttonKey: PropTypes.any
 }

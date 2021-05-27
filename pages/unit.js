@@ -17,6 +17,7 @@ import PropTypes from "prop-types";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import submitUnitAddress from "../utils/submit/SubmitUnitAddress";
 import UnitForm from "../components/templates/forms/UnitForm";
+import BaseForm from "../components/templates/forms/BaseForm";
 
 export default function unit() {
 
@@ -29,7 +30,7 @@ export default function unit() {
     const [loading, setLoading] = useState(true)
 
     const [unit, setUnit] = useState({})
-    const [collaborators, setCollaborators] = useState({})
+    const [collaborators, setCollaborators] = useState([])
     const [unitAddress, setUnitAddress] = useState({})
 
     const [openTab, setOpenTab] = useState({
@@ -70,8 +71,8 @@ export default function unit() {
                 max_id: maxID,
                 unit: router.query.id,
                 senior: null,
-                effective: null,
-                commissioned: null,
+                effective: false,
+                commissioned: false,
                 commissioned_role: null,
                 effective_role: null
             },
@@ -89,7 +90,6 @@ export default function unit() {
             <>
                 <Authenticate
                     handleClose={res => {
-                        console.log(res)
                         setNotAuthenticate(false)
                     }}
                     forceClose={() => setOpenTab({
@@ -177,7 +177,11 @@ export default function unit() {
                                 buttonKey: 1,
                                 value: (openTab.subTab === 0 ?
 
-                                    <UnitForm handleSubmit={submitUnit} data={unit} locale={router.locale}/>
+                                    <UnitForm handleSubmit={submitUnit} data={unit} locale={router.locale}
+                                              handleChange={event => handleObjectChange({
+                                                  event: event,
+                                                  setData: setUnit
+                                              })}/>
                                     :
                                     <AddressForm data={unit} locale={router.locale}
                                                  id={unit.id} address={unitAddress}

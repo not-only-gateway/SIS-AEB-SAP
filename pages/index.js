@@ -22,7 +22,6 @@ export default function Index() {
     const router = useRouter()
     const [data, setData] = useState([])
     const [lang, setLang] = useState(null)
-    const [option, setOption] = useState('collaborators')
     const [openTab, setOpenTab] = useState(0)
     const [lastFetchedSize, setLastFetchedSize] = useState(null)
     const [maxID, setMaxID] = useState(null)
@@ -32,19 +31,19 @@ export default function Index() {
         effectiveRole: undefined,
         commissionedRole: undefined,
         senior: undefined,
-        effectiveRoleOnly: undefined,
-        commissionedRoleOnly: undefined,
+        only: undefined,
         searchInput: ''
     })
     const [modal, setModal] = useState(false);
 
     useEffect(() => {
-        setLang(getLanguage(router.locale, '/'))
-        if (data.length === 0)
+        if (lang === null)
+            setLang(getLanguage(router.locale, '/'))
+        if (data.length === 0 && maxID === null)
             fetchData(1, true, false).catch(error => console.log(error))
-
-
-    }, [])
+        else
+            fetchData(1, true)
+    }, [filters])
 
     async function fetchData(type, start, search) {
 
@@ -55,13 +54,13 @@ export default function Index() {
                 max_id: start ? null : maxID,
                 unit: filters.unit === undefined ? null : filters.unit.key,
                 senior: filters.senior === undefined ? null : filters.senior.key,
-                effective: filters.effectiveRoleOnly,
-                commissioned: filters.commissionedRoleOnly,
+                effective: filters.only === 'effective',
+                commissioned: filters.only === 'commissioned',
                 commissioned_role: filters.commissionedRole === undefined ? null : filters.commissionedRole.key,
                 effective_role: filters.effectiveRole === undefined ? null : filters.effectiveRole.key,
             },
 
-            path: option,
+            path: 'collaborators',
             setLastFetchedSize: setLastFetchedSize,
             setMaxID: setMaxID,
             data: data,
@@ -79,13 +78,12 @@ export default function Index() {
             >
                 <div className={[styles.filterModalContainer, animations.slideInRightAnimation].join(' ')}>
                     <ExtensionsFilters
-                        dark={false} setOption={setOption} option={option}
+                        dark={false}
                         setModal={() => setModal(false)}
-                        applyChanges={() => {
-                            fetchData(1, true)
-                        }}
                         setMaxID={setMaxID} filters={filters}
-                        handleFilterChange={event => handleObjectChange({event: event, setData: setFilters})}
+                        handleFilterChange={event => {
+                            handleObjectChange({event: event, setData: setFilters})
+                        }}
                         locale={router.locale}
                     />
 
@@ -160,14 +158,17 @@ export default function Index() {
                     activeFiltersComponent={
                         openTab > 0 ? null :
                             <FiltersComponent
-                                handleChange={event => handleObjectChange({event: event, setData: setFilters})}
+                                handleChange={event => {
+                                    handleObjectChange({event: event, setData: setFilters})
+                                }}
                                 applyChanges={() => {
                                     fetchData(1, true)
                                 }}
                                 activeFilters={[
                                     {
                                         key: 'unit',
-                                        value: filters.unit !== undefined ? filters.unit.value : null
+                                        value: filters.unit !== undefined ? filters.unit.value : null,
+                                        disabled: filters.senior !== undefined
                                     },
                                     {
                                         key: 'commissionedRole',
@@ -178,14 +179,13 @@ export default function Index() {
                                         value: filters.effectiveRole !== undefined ? filters.effectiveRole.value : null
                                     },
                                     {
-                                        key: 'effectiveRoleOnly',
-                                        value: filters.effectiveRoleOnly !== undefined && filters.effectiveRoleOnly ? 'Effective Roles Only' : null
+                                        key: 'only',
+                                        value: filters.only !== undefined ? filters.only === 'commissioned' ? lang.commissionedOnly : lang.effectiveOnly : null
                                     },
                                     {
-                                        key: 'commissionedRoleOnly',
-                                        value: filters.commissionedRoleOnly !== undefined && filters.commissionedRoleOnly ? 'Commissioned Roles Only' : null
-                                    },
-                                    {key: 'option', value: option === 'member' ? 'All' : null, disabled: true}
+                                        key: 'senior',
+                                        value: filters.senior !== undefined ? filters.senior.value : null
+                                    }
                                 ]}
                             />
                     }

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import Button from "../../modules/inputs/Button";
 import {useState} from "react";
 import styles from '../../../styles/Navigation.module.css'
-
+import React from 'react'
 export default function ExpandableTabs(props) {
     const [extendedTab, setExtendedTab] = useState(undefined)
 
@@ -19,7 +19,7 @@ export default function ExpandableTabs(props) {
             {props.buttons.map((button) => {
                     if (button !== null)
                         return (
-                            <div style={{
+                            <div key={button.mainButton.key + '-main_button_container'} style={{
                                 display: 'flex',
                                 backgroundColor: extendedTab === button.mainButton.key ? '#f4f5fa' : 'transparent',
                                 padding: extendedTab !== undefined ? '3px' : '3px 0 3px 0 ',
@@ -28,6 +28,8 @@ export default function ExpandableTabs(props) {
                                 border: extendedTab === button.mainButton.key ? '#ecedf2 .7px solid' : 'transparent .7px solid'
 
                             }}>
+                                <React.Fragment key={button.mainButton.key + '-main_button'}>
+
                                 <Button
                                     content={button.mainButton.value}
                                     handleClick={() => {
@@ -51,14 +53,16 @@ export default function ExpandableTabs(props) {
                                     fontColor={props.openTab.mainTab === button.mainButton.key ? 'white' : '#222228'}
                                     paddingType={'long'}
                                 />
+                                </React.Fragment>
                                 {extendedTab === button.mainButton.key && button.subButtons?.length > 0 ? button.subButtons.map(subButton => (
-                                    <div>
+                                    <React.Fragment key={button.mainButton.key + '-main_button-'+subButton.key+'sub_button'}>
                                         <Button
                                             content={subButton.value}
                                             handleClick={() => props.setOpenTab({
                                                 mainTab: button.mainButton.key,
                                                 subTab: subButton.key
                                             })}
+
                                             elevation={props.openTab ? (subButton.key === props.openTab.subTab && button.mainButton.key === props.openTab.mainTab) : false}
                                             disabled={subButton.disabled} padding={'8px 32px 8px 32px'}
                                             variant={'rounded'} width={'auto'}
@@ -69,7 +73,7 @@ export default function ExpandableTabs(props) {
                                             fontColor={'#262626'}
                                             paddingType={'long'}
                                         />
-                                    </div>
+                                    </React.Fragment>
                                 )) : null}
                             </div>
                         )
