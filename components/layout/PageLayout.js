@@ -18,7 +18,7 @@ export default function PageLayout({children}) {
     const [accessProfile, setAccessProfile] = useState(null)
 
     useEffect(() => {
-
+        console.log((cookies.get('jwt') !== undefined && sessionStorage.getItem('profile') === null ))
         if (cookies.get('jwt') !== undefined && sessionStorage.getItem('profile') === null ) {
             fetchMemberByToken().then(res => {
                 if (res !== null) {
@@ -26,13 +26,13 @@ export default function PageLayout({children}) {
                     res.person.member_id = res.member.id
                     sessionStorage.setItem('profile', JSON.stringify(res.person))
                     setProfile(res.person)
-                    if(sessionStorage.getItem('collaboration') === null && res.main_collaboration !== null) {
+                    if(sessionStorage.getItem('collaboration') === null && res.active_collaboration !== null) {
                         sessionStorage.setItem('collaboration', JSON.stringify({
-                            id: res.main_collaboration.id,
-                            tag: res.main_collaboration.tag
+                            id: res.active_collaboration.id,
+                            tag: res.active_collaboration.tag
                         }))
-                        sessionStorage.setItem('accessProfile', JSON.stringify(res.main_collaboration.access_profile))
-                        setAccessProfile(res.main_collaboration.access_profile)
+                        sessionStorage.setItem('accessProfile', JSON.stringify(res.active_collaboration.access_profile))
+                        setAccessProfile(res.active_collaboration.access_profile)
                     }
                 }
             })

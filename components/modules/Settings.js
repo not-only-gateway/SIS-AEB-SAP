@@ -10,11 +10,18 @@ import styles from '../../styles/SettingsActivity.module.css'
 import DropDownField from "./inputs/DropDownField";
 import fetchCollaboration from "../../utils/fetch/FetchCollaboration";
 import fetchAccessProfile from "../../utils/fetch/FetchAccessProfile";
+import fetchMemberByToken from "../../utils/fetch/FetchMemberByToken";
+import submitCollaborationChange from "../../utils/submit/SubmitCollaborationChange";
+import Alert from "../layout/Alert";
 
 
 export default function Settings(props) {
     const [collaborations, setCollaborations] = useState([])
     const [currentCollaboration, setCurrentCollaboration] = useState(null)
+    const [status, setStatus]= useState({
+        type: undefined,
+        message: undefined
+    })
     useEffect(() => {
         if (currentCollaboration === null) {
             const collaborationSession = sessionStorage.getItem('collaboration')
@@ -32,7 +39,13 @@ export default function Settings(props) {
 
     return (
         <div className={styles.settingsComponentContainer}>
-
+            <Alert
+                type={status.type} message={status.message}
+                handleClose={() => setStatus({
+                    type: undefined,
+                    message: undefined
+                })} render={status.type !== undefined}
+            />
             <DropDownField
                 dark={false}
                 placeholder={props.lang.language}
@@ -54,27 +67,16 @@ export default function Settings(props) {
                     locale={props.locale}
                     required={false}
                     handleChange={event => {
-                        fetchCollaboration({collaborationID: event.key}).then( collaborationRes => {
-                            if (collaborationRes !== null) {
-                                fetchAccessProfile(collaborationRes.access_profile.key).then(res => {
-                                    if(res !== null) {
-                                        sessionStorage.removeItem('collaboration')
-                                        sessionStorage.removeItem('accessProfile')
+                        submitCollaborationChange({collaborationID: event.key, setStatus: setStatus}).then(res => {
+                            if (res) {
+                                sessionStorage.removeItem('profile')
+                                sessionStorage.removeItem('collaboration')
+                                sessionStorage.removeItem('accessProfile')
 
-                                        sessionStorage.setItem('collaboration', JSON.stringify({
-                                            id: collaborationRes.id,
-                                            tag: collaborationRes.tag
-                                        }))
-                                        setCurrentCollaboration({
-                                            id: collaborationRes.id,
-                                            tag: collaborationRes.tag
-                                        })
-                                        sessionStorage.setItem('accessProfile', JSON.stringify(res))
-
-                                    }
-                                })
+                                window.location.reload()
                             }
-                        })
+                        }
+                        )
                     }}
                     setChanged={undefined} disabled={false}
                     selected={{

@@ -26,14 +26,13 @@ export default function Navigation(props) {
     const [lang, setLang] = useState(null)
 
 
-
     useEffect(() => {
-        if(lang === null)
+        if (lang === null)
             setLang(getComponentLanguage({locale: props.locale, component: 'navigation'}))
 
     }, [props.locale])
 
-    if(lang !== null)
+    if (lang !== null)
         return (
             <div className={[styles.navigationContainer, animations.slideInLeftAnimation].join(' ')}
                  style={{
@@ -42,7 +41,8 @@ export default function Navigation(props) {
                  }}>
 
                 <div className={styles.navigationButtonsHalf}>
-                    <div className={styles.logoContainer} style={{justifyContent: props.reduced ? 'center' : 'space-between'}}>
+                    <div className={styles.logoContainer}
+                         style={{justifyContent: props.reduced ? 'center' : 'space-between'}}>
                         {props.reduced ? null :
                             <img className={animations.fadeIn}
                                  style={{width: '50%', marginLeft: '16px'}}
@@ -80,72 +80,49 @@ export default function Navigation(props) {
                         label={lang.units} reduced={props.reduced}
                         icon={<ViewQuiltRounded/>}
                     />
-                    {(new Cookies()).get('jwt') !== undefined ? <div style={{height: '1px', width: '85%', backgroundColor: '#a6a6a9'}}/> : null}
-                    {props.accessProfile !== null && props.accessProfile.can_create_person && props.accessProfile.can_manage_membership && (new Cookies()).get('jwt') !== undefined?
-                        <NavigationButton
-                            dark={props.dark} linkPath={'/create'}
-                            highlight={props.path === '/create'} locale={props.locale}
-                            label={lang.createPerson} reduced={props.reduced}
-                            icon={
-                                <PersonAddRounded/>
-                            }
-                        />
+
+                    {props.accessProfile !== null && props.accessProfile.can_create_person && props.accessProfile.can_manage_membership && (new Cookies()).get('jwt') !== undefined ?
+                        <>
+                            <div style={{height: '1px', width: '85%', backgroundColor: '#a6a6a9'}}/>
+                            <NavigationButton
+                                dark={props.dark} linkPath={'/create'}
+                                highlight={props.path === '/create'} locale={props.locale}
+                                label={lang.createPerson} reduced={props.reduced}
+                                icon={
+                                    <PersonAddRounded/>
+                                }
+                            />
+                        </>
                         :
                         null
                     }
 
                     {props.accessProfile !== null && props.accessProfile.can_manage_structure && (new Cookies()).get('jwt') !== undefined ?
-                        <NavigationButton
-                            dark={props.dark} linkPath={'/management'}
-                            highlight={props.path === '/management'} locale={props.locale}
-                            label={lang.management} reduced={props.reduced}
-                            icon={
-                                <BusinessRounded/>
-                            }
-                        />
+                        <>
+                            <NavigationButton
+                                dark={props.dark} linkPath={'/management'}
+                                highlight={props.path === '/management'} locale={props.locale}
+                                label={lang.management} reduced={props.reduced}
+                                icon={
+                                    <BusinessRounded/>
+                                }
+                            />
+                            <div style={{height: '1px', width: '85%', backgroundColor: '#a6a6a9'}}/>
+                        </>
                         :
-                        null }
-                    {(new Cookies()).get('jwt') !== undefined ?   <div style={{height: '1px', width: '85%', backgroundColor: '#a6a6a9'}}/> : null }
+                        null}
+
                     <NavigationButton
                         dark={props.dark} linkPath={'/settings'}
                         highlight={props.path === '/settings'} locale={props.locale}
-                        label={(new Cookies()).get('jwt') !== undefined ? lang.adjustments : lang.settings} reduced={props.reduced}
+                        label={(new Cookies()).get('jwt') !== undefined ? lang.adjustments : lang.settings}
+                        reduced={props.reduced}
                         icon={
                             <TuneRounded/>
                         }
                     />
 
-
-                    {/*    <NavigationDropDownButton*/}
-                    {/*        locale={props.locale}*/}
-                    {/*        label={lang.more}*/}
-                    {/*        reduced={props.reduced}*/}
-                    {/*        setReduced={props.setReduced}*/}
-                    {/*        key={'more-options'}*/}
-                    {/*        options={[*/}
-                    {/*            accessProfile.canCreatePerson && accessProfile.canManageMembership? {*/}
-                    {/*                label: lang.createPerson,*/}
-                    {/*                path: '/create',*/}
-                    {/*                highlight: props.path === '/create'*/}
-                    {/*            } : undefined,*/}
-                    {/*            accessProfile.canManageStructure ?*/}
-                    {/*                {*/}
-                    {/*                    label: lang.management,*/}
-                    {/*                    path: '/management',*/}
-                    {/*                    highlight: props.path === '/management'*/}
-                    {/*                }*/}
-                    {/*                :*/}
-                    {/*                null*/}
-                    {/*        ]}*/}
-                    {/*        icon={*/}
-                    {/*            <AddRounded/>*/}
-                    {/*        }*/}
-                    {/*    />*/}
-                    {/*    :*/}
-                    {/*    null*/}
-
-                    {/*}*/}
-                    {(new Cookies()).get('jwt') !== undefined ?
+                    {props.accessProfile !== null && props.accessProfile.can_manage_structure && (new Cookies()).get('jwt') !== undefined ?
                         <NavigationButton
                             dark={props.dark} linkPath={'/authenticate'}
                             highlight={false} locale={props.locale}
@@ -168,7 +145,11 @@ export default function Navigation(props) {
                             name: props.profile.name
                         }} reduced={props.reduced}
                                            setReduced={props.setReduced} accessProfile={props.accessProfile}
-                                           locale={{profile: lang.profile, signout: lang.signout, signin: lang.signin}}/>
+                                           locale={{
+                                               profile: lang.profile,
+                                               signout: lang.signout,
+                                               signin: lang.signin
+                                           }}/>
                         :
                         <NavigationButton
                             noMargin={true}

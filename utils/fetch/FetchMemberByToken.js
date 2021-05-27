@@ -9,7 +9,7 @@ export default async function fetchMemberByToken(){
 
     await axios({
         method: 'get',
-        url: Host() + 'authenticated/member',
+        url: Host() + 'authentication',
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
     }).then(res => {
         response = res.data
