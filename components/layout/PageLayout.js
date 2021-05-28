@@ -24,7 +24,13 @@ export default function PageLayout({children}) {
                 if (res !== null) {
                     res.person.corporate_email = res.member.corporate_email
                     res.person.member_id = res.member.id
-                    sessionStorage.setItem('profile', JSON.stringify(res.person))
+                    sessionStorage.setItem('profile', JSON.stringify({
+                        id: res.person.id,
+                        corporate_email: res.person.corporate_email,
+                        member_id: res.person.member_id,
+                        image: res.person.image,
+                        name: res.person.name
+                    }))
                     setProfile(res.person)
                     if(sessionStorage.getItem('collaboration') === null && res.active_collaboration !== null) {
                         sessionStorage.setItem('collaboration', JSON.stringify({

@@ -62,7 +62,7 @@ export default function Settings(props) {
                 {value: 'English', key: 'en'}
             ]}/>
 
-            {(new Cookies()).get('jwt') !== undefined && currentCollaboration !== null ?
+            {(new Cookies()).get('jwt') !== undefined ?
                 <Selector
                     locale={props.locale}
                     required={false}
@@ -80,8 +80,8 @@ export default function Settings(props) {
                     }}
                     setChanged={undefined} disabled={false}
                     selected={{
-                        key: currentCollaboration.id,
-                        value: currentCollaboration.tag
+                        key: currentCollaboration !== null ? currentCollaboration.id : undefined,
+                        value: currentCollaboration !== null ? currentCollaboration.tag : undefined
                     }}
                     data={mapToSelect({data: collaborations, option: 4})}
                     label={props.lang.collaboration}

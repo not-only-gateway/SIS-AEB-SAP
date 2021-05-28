@@ -122,7 +122,7 @@ export default function Navigation(props) {
                         }
                     />
 
-                    {props.accessProfile !== null && props.accessProfile.can_manage_structure && (new Cookies()).get('jwt') !== undefined ?
+                    {props.profile !== null && (new Cookies()).get('jwt') !== undefined ?
                         <NavigationButton
                             dark={props.dark} linkPath={'/authenticate'}
                             highlight={false} locale={props.locale}
