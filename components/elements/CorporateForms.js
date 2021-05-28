@@ -38,32 +38,28 @@ export default function CorporateForms(props) {
             setLoading(false)
     }, [props.openTab])
 
-    function handleMemberSubmit(event){
+    async function handleMemberSubmit(event){
         let response = false
         if (member === null || member.id === undefined) {
-            submitMember(event).then(res => {
-                fetchMemberByPerson({personID: props.personID, setStatus: setStatus}).then(res => {
-
-                    if (res !== null) {
-                        setMember(res.member)
-                        fetchMainCollaboration({
-                            memberID: res.member.id,
-                            setStatus: undefined
-                        }).then(res => {
-                            if (res !== null)
-                                setMainCollaboration({key: res.id, value: res.tag})
-                        })
-                    }
-                })
+            const submitMemberResponse = await submitMember(event)
+            if (submitMemberResponse.status){
+                const fetchMemberResponse = await fetchMemberByPerson({personID: props.personID, setStatus: setStatus})
+                if (fetchMemberResponse !== null) {
+                    setMember(fetchMemberResponse.member)
+                    const mainCollaborationResponse = await fetchMainCollaboration({
+                        memberID: fetchMemberResponse.member.id,
+                        setStatus: undefined
+                    })
+                    if (mainCollaborationResponse !== null)
+                        setMainCollaboration({key: mainCollaborationResponse.id, value: mainCollaborationResponse.tag})
+                }
                 props.fetchMembership()
-                response = res
-            })
-
+                response = submitMemberResponse
+            }
         }
-        else
-            submitMember(event).then(res => {
-                response = res
-            })
+        else {
+            response = await submitMember(event)
+        }
 
         return response
     }

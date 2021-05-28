@@ -28,9 +28,9 @@ export default function MembershipForm(props) {
     })
 
     useEffect(() => {
-        if(lang === null)
+        if (lang === null)
             setLang(getComponentLanguage({locale: props.locale, component: 'membership'}))
-        if(entities.length === 0)
+        if (entities.length === 0)
             fetchEntities({
                 setData: setEntities,
                 data: entities,
@@ -175,16 +175,17 @@ export default function MembershipForm(props) {
                     <Button width={'100%'} elevation={true} border={'none'} padding={'8px 32px 8px 32px'}
                             fontColor={'white'} backgroundColor={'#0095ff'}
                             handleClick={() => {
-                                const res = props.handleSubmit({
+                                props.handleSubmit({
                                     data: props.member,
                                     personID: props.personID,
                                     create: props.create,
                                     setStatus: setStatus,
                                     memberID: props.memberID
+                                }).then(res => {
+                                    setChanged(!res)
+                                    if (props.setAccepted)
+                                        props.setAccepted(res)
                                 })
-                                setChanged(!res)
-                                if (props.setAccepted)
-                                    props.setAccepted(res)
                             }}
                             disabled={disabled()} variant={'rounded'}
                             content={
