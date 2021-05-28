@@ -90,10 +90,15 @@ export default function Selector(props) {
                             (search.length === 0 || search.length > 0 && (data.value.toLowerCase()).match(search.toLowerCase())) ?
                                 <div key={data.key + '-' + data.value}>
                                     <button onClick={() => {
-                                        if (props.setChanged)
-                                            props.setChanged(true)
-                                        props.handleChange(data)
-                                        setModal(false)
+                                        if(props.selected?.key === data.key)
+                                            props.handleChange(undefined)
+
+                                        else {
+                                            if (props.setChanged)
+                                                props.setChanged(true)
+                                            props.handleChange(data)
+                                            setModal(false)
+                                        }
                                     }} className={shared.rowContainer}
                                             style={{
                                                 backgroundColor: data.key === props.selected?.key ? '#0095ff' : undefined,

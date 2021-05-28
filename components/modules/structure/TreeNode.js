@@ -19,6 +19,7 @@ export default function TreeNode(props) {
             url: Host() + 'dependents/' + props.type + '/' + props.subject.id,
             headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
         }).then(res => {
+            console.log(res)
             setDependents(res.data)
         }).catch(error => {
             console.log(error)
@@ -49,7 +50,7 @@ export default function TreeNode(props) {
                         overflow: "hidden",
                     }}>
 
-                        <ProfilePersona base64={false} dark={false} key={props.subject.id} cakeDay={false}
+                        <ProfilePersona base64={false} dark={false} cakeDay={false}
                                         elevation={true} image={props.subject.image} size={'53px'} variant={'rounded'}/>
                         <div style={{maxWidth: '130px'}}>
                             <h4 className={mainStyles.overflowEllipsis} style={{
@@ -92,7 +93,7 @@ export default function TreeNode(props) {
                 :
                 <Link href={{
                     pathname: props.type === 'unit' ? '/unit' : '/person',
-                    query: {id: props.subject.id}
+                    query: {id: props.type === 'unit' ? props.subject.id : props.subject.person_id}
                 }}>
                     {content}
                 </Link>

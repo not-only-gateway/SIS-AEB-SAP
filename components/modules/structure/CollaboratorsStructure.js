@@ -7,16 +7,20 @@ export default function CollaboratorsStructure() {
     const [topCollaborators, setTopCollaborators] = useState([])
     const [accessProfile, setAccessProfile] = useState(null)
     useEffect(() => {
-        fetchTopCollaborators().then(res => setTopCollaborators(res))
-        if (accessProfile === null)
-            setAccessProfile(sessionStorage.getItem('accessProfile'))
+        fetchTopCollaborators().then(res => {
+
+            setTopCollaborators(res)
+        })
+        if (accessProfile === null && sessionStorage.getItem('accessProfile') !== null)
+            setAccessProfile(JSON.parse(sessionStorage.getItem('accessProfile')))
     }, [])
 
 
-    return topCollaborators.map((collaborator, index) => (
-        <>
-            <Canvas dark={false} type={'collaborator'} subject={collaborator}
+    return (
+        <div>
+            <Canvas dark={false} type={'collaborator'} subjects={topCollaborators}
                     disabled={!(new Cookies()).get('jwt') || accessProfile === null || (!accessProfile.can_update_person && !accessProfile.can_manage_membership)}/>
-        </>
-    ))
+        </div>
+    )
+
 }

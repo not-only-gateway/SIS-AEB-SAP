@@ -99,10 +99,10 @@ export default function CollaborationForm(props) {
                             required={true}
                             locale={props.locale}
                             selected={
-                                props.collaboration.unit !== undefined && props.collaboration.unit !== null ? {
-                                    key: props.collaboration.unit && props.collaboration.unit.id ? props.collaboration.unit.id : props.collaboration.unit.key,
-                                    value: props.collaboration.unit && props.collaboration.unit.acronym ? props.collaboration.unit.acronym : props.collaboration.unit.value
-                                } : undefined
+                                {
+                                    key: props.collaboration.unit?.key,
+                                    value:props.collaboration.unit?.value
+                                }
                             }
                             handleChange={event => props.handleChange({
                                 name: 'unit',
@@ -110,23 +110,23 @@ export default function CollaborationForm(props) {
                             })}
                             label={lang.unit}
                             data={props.units} width={'calc(50% - 16px)'}
-                            key={'collaboration-field-1'} setChanged={setChanged}
+                            setChanged={setChanged}
                         />
 
                         <Selector
                             dark={true}
                             required={true}
                             locale={props.locale}
-                            selected={props.collaboration.linkage !== undefined && props.collaboration.linkage !== null ? {
-                                key: props.collaboration.linkage && props.collaboration.linkage.id ? props.collaboration.linkage.id : props.collaboration.linkage.key,
-                                value: props.collaboration.linkage && props.collaboration.linkage.denomination ? props.collaboration.linkage.denomination : props.collaboration.linkage.value
-                            } : null}
+                            selected={{
+                                key: props.collaboration.linkage?.key,
+                                value: props.collaboration.linkage?.value
+                            }}
                             handleChange={event => props.handleChange({
                                 name: 'linkage',
                                 value: event
                             })}
                             setChanged={setChanged}
-                            label={lang.linkage} key={'collaboration-field-5'}
+                            label={lang.linkage}
                             data={props.linkages} disabled={!props.collaboration.unit}
                             width={'calc(50% - 16px)'}/>
 
@@ -134,34 +134,31 @@ export default function CollaborationForm(props) {
                             required={false}
                             dark={true}
                             locale={props.locale}
-                            selected={props.collaboration.senior_member !== undefined && props.collaboration.senior_member !== null ? {
-                                key: props.collaboration.senior_member && props.collaboration.senior_member.id,
-                                value: props.collaboration.senior_member && props.collaboration.senior_member.name,
-                            } : undefined}
+                            selected={{
+                                key: props.collaboration.senior_member?.key ,
+                                value: props.collaboration.senior_member?.value ,
+                            }}
                             handleChange={event => props.handleChange({
                                 name: 'senior_member',
-                                value: event !== undefined && event !== null ? {
-                                    id: event.key,
-                                    name: event.value
-                                } : event
+                                value: event
                             })}
                             setChanged={setChanged} disabled={props.seniors.length === 0}
-                            label={lang.senior} key={'collaboration-field-7'}
+                            label={lang.senior}
                             data={props.seniors} width={'calc(50% - 16px)'}/>
                         <Selector
                             dark={true}
                             required={true}
                             locale={props.locale}
                             selected={props.collaboration.access_profile !== undefined && props.collaboration.access_profile !== null ? {
-                                key: props.collaboration.access_profile && props.collaboration.access_profile.id ? props.collaboration.access_profile.id : props.collaboration.access_profile.key,
-                                value: props.collaboration.access_profile && props.collaboration.access_profile.denomination ? props.collaboration.access_profile.denomination : props.collaboration.access_profile.value
+                                key:props.collaboration.access_profile?.key,
+                                value:  props.collaboration.access_profile?.value
                             } : undefined}
                             handleChange={event => props.handleChange({
                                 name: 'access_profile',
                                 value: event
                             })}
                             setChanged={setChanged} disabled={!props.collaboration.unit}
-                            label={lang.access} key={'collaboration-field-6'}
+                            label={lang.access}
                             data={props.accessProfiles} width={'calc(50% - 16px)'}/>
 
                     </fieldset>
@@ -181,7 +178,7 @@ export default function CollaborationForm(props) {
                                 value: event
                             })}
                             setChanged={setChanged} disabled={!props.collaboration.unit}
-                            label={lang.effective} key={'collaboration-field-2'}
+                            label={lang.effective}
                             data={props.effectiveRoles} width={'calc(25% - 24px)'}/>
 
                         <Selector
@@ -193,7 +190,7 @@ export default function CollaborationForm(props) {
                                 value: event
                             })}
                             setChanged={setChanged} disabled={!props.collaboration.unit}
-                            label={lang.commissioned} key={'collaboration-field-3'}
+                            label={lang.commissioned}
                             data={props.commissionedRoles}
                             width={'calc(25% - 24px)'}/>
 

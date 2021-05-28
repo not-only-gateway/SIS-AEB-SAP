@@ -19,10 +19,13 @@ export default function Canvas(props) {
                 marginTop: zoom > 1 ? 'calc(8.3% * ' + (zoom - .25) + ')' : null
             }}>
                 <span className={styles.nav} style={{width: '100%', display: 'flex', placeContent: 'center'}}>
-                    <ul >
-                        <TreeNode dark={props.dark} subject={props.subject} disabled={props.disabled}
-                                  type={props.type} hoveredParent={false}/>
-                    </ul>
+                    {props.subjects.map(subject =>
+                        <ul key={subject.id}>
+                            <TreeNode dark={props.dark} subject={subject} disabled={props.disabled}
+                                      type={props.type} hoveredParent={false}/>
+                        </ul>
+                    )}
+
                 </span>
             </div>
             <div className={mainStyles.displayColumnSpaced}
@@ -63,7 +66,7 @@ export default function Canvas(props) {
 }
 
 Canvas.propTypes = {
-    subject: PropTypes.object,
+    subjects: PropTypes.array,
     type: PropTypes.string,
     dark: PropTypes.bool,
     disabled: PropTypes.bool

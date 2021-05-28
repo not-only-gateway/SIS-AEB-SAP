@@ -22,7 +22,7 @@ export default async function submitCollaboration(props) {
     data.linkage = data.linkage.key
 
     if (data.senior_member)
-        data.senior_member = data.senior_member.id
+        data.senior_member = data.senior_member.key
 
     if (data.commissioned_role !== undefined && data.commissioned_role !== null)
         data.commissioned_role = data.commissioned_role.key
