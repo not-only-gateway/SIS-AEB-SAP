@@ -18,7 +18,6 @@ export default function CollaborationForm(props) {
         type: undefined,
         message: undefined
     })
-    const [openTab, setOpenTab] = useState(0)
 
     useEffect(() => {
         if (lang === null)
@@ -86,7 +85,7 @@ export default function CollaborationForm(props) {
                                 setChanged(true)
                                 props.handleChange({name: 'active_collaboration', value: event})
                             }}
-                            disabled={!props.collaboration.unit}
+                            disabled={false}
                             locale={props.locale}
                             value={props.collaboration.active_collaboration} required={true}
                             width={'calc(50% - 16px)'}
