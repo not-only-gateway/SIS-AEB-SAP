@@ -1,135 +1,34 @@
-# dependencies
-/MAIN/node_modules
-/MAIN/.pnp
-/MAIN/.pnp.js
-
-# testing
-/MAIN/coverage
-
-# next.js
-/MAIN/.next/
-/MAIN/out/
-
-# production
-/MAIN/build
-
-# misc
-/MAIN/.DS_Store
-/MAIN/*.pem
-
-# debug
-/MAIN/npm-debug.log*
-/MAIN/yarn-debug.log*
-/MAIN/yarn-error.log*
-
-# local env files
-/MAIN/.env.local
-/MAIN/.env.development.local
-/MAIN/.env.test.local
-/MAIN/.env.production.local
-
-# vercel
-/MAIN/.vercel
-
-#admin
-# dependencies
-/ADMIN/node_modules
-/ADMIN/.pnp
-/ADMIN/.pnp.js
-
-# testing
-/ADMIN/coverage
-
-# next.js
-/ADMIN/.next/
-/ADMIN/out/
-
-# production
-/ADMIN/build
-
-# misc
-/ADMIN/.DS_Store
-/ADMIN/*.pem
-
-# debug
-/ADMIN/npm-debug.log*
-/ADMIN/yarn-debug.log*
-/ADMIN/yarn-error.log*
-
-# local env files
-/ADMIN/.env.local
-/ADMIN/.env.development.local
-/ADMIN/.env.test.local
-/ADMIN/.env.production.local
-
-# vercel
-/ADMIN/.vercel
-
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-MAIN/node_modules
-MAIN/.pnp
-MAIN/.pnp.js
+/node_modules
+/.pnp
+.pnp.js
 
 # testing
-MAIN/coverage
+/coverage
 
 # next.js
-MAIN/.next/
-MAIN/out/
+/.next/
+/out/
 
 # production
-MAIN/build
+/build
 
 # misc
-MAIN/.DS_Store
-MAIN/*.pem
+.DS_Store
+*.pem
 
 # debug
-MAIN/npm-debug.log*
-MAIN/yarn-debug.log*
-MAIN/yarn-error.log*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # local env files
-MAIN/.env.local
-MAIN/.env.development.local
-MAIN/.env.test.local
-MAIN/.env.production.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # vercel
-MAIN/.vercel
-
-#admin
-# dependencies
-ADMIN/node_modules
-ADMIN/.pnp
-ADMIN/.pnp.js
-
-# testing
-ADMIN/coverage
-
-# next.js
-ADMIN/.next/
-ADMIN/out/
-
-# production
-ADMIN/build
-
-# misc
-ADMIN/.DS_Store
-ADMIN/*.pem
-
-# debug
-ADMIN/npm-debug.log*
-ADMIN/yarn-debug.log*
-ADMIN/yarn-error.log*
-
-# local env files
-ADMIN/.env.local
-ADMIN/.env.development.local
-ADMIN/.env.test.local
-ADMIN/.env.production.local
-
-# vercel
-ADMIN/.vercel
-
+.vercel
