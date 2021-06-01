@@ -1,34 +1,135 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
-/node_modules
-/.pnp
-.pnp.js
+/MAIN/node_modules
+/MAIN/.pnp
+/MAIN/.pnp.js
 
 # testing
-/coverage
+/MAIN/coverage
 
 # next.js
-/.next/
-/out/
+/MAIN/.next/
+/MAIN/out/
 
 # production
-/build
+/MAIN/build
 
 # misc
-.DS_Store
-*.pem
+/MAIN/.DS_Store
+/MAIN/*.pem
 
 # debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+/MAIN/npm-debug.log*
+/MAIN/yarn-debug.log*
+/MAIN/yarn-error.log*
 
 # local env files
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+/MAIN/.env.local
+/MAIN/.env.development.local
+/MAIN/.env.test.local
+/MAIN/.env.production.local
 
 # vercel
-.vercel
+/MAIN/.vercel
+
+#admin
+# dependencies
+/ADMIN/node_modules
+/ADMIN/.pnp
+/ADMIN/.pnp.js
+
+# testing
+/ADMIN/coverage
+
+# next.js
+/ADMIN/.next/
+/ADMIN/out/
+
+# production
+/ADMIN/build
+
+# misc
+/ADMIN/.DS_Store
+/ADMIN/*.pem
+
+# debug
+/ADMIN/npm-debug.log*
+/ADMIN/yarn-debug.log*
+/ADMIN/yarn-error.log*
+
+# local env files
+/ADMIN/.env.local
+/ADMIN/.env.development.local
+/ADMIN/.env.test.local
+/ADMIN/.env.production.local
+
+# vercel
+/ADMIN/.vercel
+
+
+# dependencies
+MAIN/node_modules
+MAIN/.pnp
+MAIN/.pnp.js
+
+# testing
+MAIN/coverage
+
+# next.js
+MAIN/.next/
+MAIN/out/
+
+# production
+MAIN/build
+
+# misc
+MAIN/.DS_Store
+MAIN/*.pem
+
+# debug
+MAIN/npm-debug.log*
+MAIN/yarn-debug.log*
+MAIN/yarn-error.log*
+
+# local env files
+MAIN/.env.local
+MAIN/.env.development.local
+MAIN/.env.test.local
+MAIN/.env.production.local
+
+# vercel
+MAIN/.vercel
+
+#admin
+# dependencies
+ADMIN/node_modules
+ADMIN/.pnp
+ADMIN/.pnp.js
+
+# testing
+ADMIN/coverage
+
+# next.js
+ADMIN/.next/
+ADMIN/out/
+
+# production
+ADMIN/build
+
+# misc
+ADMIN/.DS_Store
+ADMIN/*.pem
+
+# debug
+ADMIN/npm-debug.log*
+ADMIN/yarn-debug.log*
+ADMIN/yarn-error.log*
+
+# local env files
+ADMIN/.env.local
+ADMIN/.env.development.local
+ADMIN/.env.test.local
+ADMIN/.env.production.local
+
+# vercel
+ADMIN/.vercel
+

@@ -1,0 +1,46 @@
+
+
+
+.pageContainer {
+    display: grid;
+    width: 75%;
+    gap: 16px;
+    margin: 32px auto auto;
+}
+
+.profileContainer {
+    grid-row: 1;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 32px;
+
+    height: fit-content;
+    position: sticky;
+
+    overflow: hidden;
+}
+
+.profileContentContainer {
+    grid-row: 2;
+    display: grid;
+    align-items: flex-start;
+    gap: 16px;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 16px;
+
+}
+
+.profileHeader {
+    position: sticky;
+top: 0;
+    z-index: 5;
+    background: white;
+    display: grid;
+    height: fit-content;
+
+    justify-items: flex-start;
+}

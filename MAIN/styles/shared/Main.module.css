@@ -1,0 +1,106 @@
+
+/*HEADERS*/
+.primaryHeader{
+    font-size: 1.7rem;
+    font-weight: 540;
+}
+/*HEADERS*/
+
+/*PARAGRAPHS*/
+.primaryParagraph{
+    font-size: 1rem;
+    font-weight: 445;
+}
+.secondaryParagraph{
+    font-size: .9rem;
+    font-weight: 420;
+}
+.tertiaryParagraph{
+    font-size: .8rem;
+    font-weight: 400;
+}
+.overflowEllipsis{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+/*PARAGRAPHS*/
+
+/*DISPLAY*/
+.displayWarp{
+    display: inline-flex;
+    flex-flow: row wrap;
+    gap: 16px;
+}
+.displayInlineCenter{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+}
+.displayInlineStart{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+}
+.displayInlineEnd{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.displayInlineSpaced{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.normalBorder{
+    border-radius: 8px;
+}
+.baseWidth{
+    width: 63vw;
+}
+.mediumWidth{
+    width: 43vw;
+}
+.smallWidth{
+    width: 38vw;
+}
+.displayColumnSpaced{
+    display: grid;
+    /*justify-content: center;*/
+    align-items: center;
+    align-content: space-between;
+}
+/*DISPLAY*/
+
+/*SPACING*/
+.marginHorizontal{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.marginVertical{
+    margin-top: 1.5vh;
+    margin-bottom: 1.5vh;
+}
+.smallPaddingVertical{
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.smallPaddingHorizontal{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+/*SPACING*/
+
+.rowContainer{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+.maxWidth > * {
+    width: 100%;
+}

@@ -1,0 +1,15 @@
+.contentContainer{
+    width: 75%;
+    height: fit-content;
+    border-radius: 8px;
+    display: grid;
+    gap: 16px;
+    margin: auto;
+    position: relative;
+    z-index: 2;
+}
+.titleContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
