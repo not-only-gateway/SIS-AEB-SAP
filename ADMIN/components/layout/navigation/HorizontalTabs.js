@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import Button from "../../modules/inputs/Button";
+import styles from '../../../styles/component/Component.module.css'
 
 export default function HorizontalTabs(props) {
     return (
@@ -13,23 +14,30 @@ export default function HorizontalTabs(props) {
                  transition: '300ms ease-in-out',
                  borderRadius: '32px',
                  backgroundColor: props.noBackground ? 'unset' : '#f4f5fa',
-                 padding: '3px',
-                 border:  props.noBackground ? 'unset' : '#ecedf2 .7px solid'
+
              }}>
             {props.buttons.map((button) => {
                     if (button !== null)
                         return (
                             <div key={button.key + ' - ' + button.value}>
-                            <Button
-                                content={button.value} handleClick={() => props.setOpenTab(button.key)}
-                                elevation={props.openTab === button.key} disabled={button.disabled} padding={'8px 32px 8px 32px'}
-                                variant={'rounded'} width={'auto'} hoverHighlight={props.openTab !== button.key}
-                                colorVariant={props.variant === 'secondary' ? 'secondary' : undefined}
-                                border={'unset'} boxShadow={'unset'}
-                                backgroundColor={props.openTab === button.key ? (props.variant === 'secondary' ? '#ff4940' : '#0095ff') : 'transparent'}
-                                fontColor={props.openTab === button.key ? 'white' : '#262626'} paddingType={'long'}
-                            />
-                                </div>
+                                <button
+                                    onClick={() => props.setOpenTab(button.key)}
+                                    // elevation={props.openTab === button.key}
+                                    disabled={button.disabled}
+                                    // padding={'8px 32px 8px 32px'}
+                                    // variant={'rounded'} width={'auto'} hoverHighlight={props.openTab !== button.key}
+                                    // border={''} boxShadow={'unset'}
+                                    // backgroundColor={props.openTab === button.key ? (props.variant === 'secondary' ? '#ff4940' : '#0095ff') : 'transparent'}
+                                    // fontColor={props.openTab === button.key ? 'white' : '#262626'} paddingType={'long'}
+                                    className={styles.tabsContainer}
+                                    style={{
+                                        backgroundColor: props.openTab === button.key ? '#0095ff' : undefined,
+                                        color: props.openTab === button.key ? 'white' : undefined
+                                    }}
+                                >
+                                    {button.value}
+                                </button>
+                            </div>
                         )
                     else
                         return null

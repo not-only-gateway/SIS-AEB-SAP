@@ -5,7 +5,7 @@ import Head from "next/head";
 import styles from '../../styles/component/Component.module.css'
 
 export default function HeaderLayout(props) {
-    // const [scrolledHeight, setScrolledHeight] = useState(false)
+    const [height, setHeight] = useState('170px')
     //
     // useEffect(() => {
     //     if (!scrolledHeight) {
@@ -33,9 +33,10 @@ export default function HeaderLayout(props) {
         <div id={'header'} style={{
             position: 'sticky',
             top: 0,
-            background: 'white',
+            background: '#f4f5fa',
             transition: '300ms ease-in-out',
             zIndex: '50',
+            height: height
         }}>
             <Head>
                 <title>{props.pageTitle}</title>
