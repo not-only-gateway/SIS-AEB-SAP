@@ -22,7 +22,7 @@
     align-items: flex-start;
     justify-content: center;
     justify-items: center;
-    gap: 4px;
+    gap: 16px;
 }
 
 .logoContainer {
@@ -43,5 +43,40 @@
 
 
     padding: 3px;
+
+}
+
+
+.buttonContainer {
+    height: 48px;
+    width: fit-content;
+
+    display: flex;
+
+
+    align-items: center;
+
+
+    outline: none;
+    box-shadow: none;
+
+    background-color: #333333;
+    padding-left: 8px;
+    padding-right: 8px;
+
+    border-radius: 8px;
+    border: none;
+
+    color: #a6a6a9;
+
+    cursor: pointer;
+
+    transition: 300ms ease;
+
+    font-family: 'Roboto' !important;
+}
+
+.buttonContainer:hover {
+    color: #0095ff;
 
 }

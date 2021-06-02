@@ -57,15 +57,6 @@ export default function Navigation(props) {
                             }}/>
                         </Button>
                     </div>
-                    {/*<h5 style={{*/}
-                    {/*    marginRight: 'auto',*/}
-                    {/*    transform: 'translateX(20px)',*/}
-                    {/*    display: props.reduced ? 'none' : 'unset',*/}
-                    {/*    marginBottom: '16px',*/}
-                    {/*    color: '#a6a6a9'*/}
-                    {/*}}>*/}
-                    {/*    {lang.navigation}*/}
-                    {/*</h5>*/}
                     <NavigationButton
                         dark={props.dark} linkPath={'/'}
                         highlight={props.path === '/'} locale={props.locale}
@@ -74,43 +65,26 @@ export default function Navigation(props) {
                             <ExtensionRounded/>
                         }
                     />
+
+
                     <NavigationButton
-                        dark={props.dark} linkPath={'/units'}
-                        highlight={props.path === '/units'} locale={props.locale}
-                        label={lang.units} reduced={props.reduced}
-                        icon={<ViewQuiltRounded/>}
+                        dark={props.dark} linkPath={'/create'}
+                        highlight={props.path === '/create'} locale={props.locale}
+                        label={lang.createPerson} reduced={props.reduced}
+                        icon={
+                            <PersonAddRounded/>
+                        }
                     />
 
-                    {props.accessProfile !== null && props.accessProfile.can_create_person && props.accessProfile.can_manage_membership && (new Cookies()).get('jwt') !== undefined ?
-                        <>
-                            <div style={{height: '1px', width: '85%', backgroundColor: '#a6a6a9'}}/>
-                            <NavigationButton
-                                dark={props.dark} linkPath={'/create'}
-                                highlight={props.path === '/create'} locale={props.locale}
-                                label={lang.createPerson} reduced={props.reduced}
-                                icon={
-                                    <PersonAddRounded/>
-                                }
-                            />
-                        </>
-                        :
-                        null
-                    }
+                    <NavigationButton
+                        dark={props.dark} linkPath={'/management'}
+                        highlight={props.path === '/management'} locale={props.locale}
+                        label={lang.management} reduced={props.reduced}
+                        icon={
+                            <BusinessRounded/>
+                        }
+                    />
 
-                    {props.accessProfile !== null && props.accessProfile.can_manage_structure && (new Cookies()).get('jwt') !== undefined ?
-                        <>
-                            <NavigationButton
-                                dark={props.dark} linkPath={'/management'}
-                                highlight={props.path === '/management'} locale={props.locale}
-                                label={lang.management} reduced={props.reduced}
-                                icon={
-                                    <BusinessRounded/>
-                                }
-                            />
-                            <div style={{height: '1px', width: '85%', backgroundColor: '#a6a6a9'}}/>
-                        </>
-                        :
-                        null}
 
                     <NavigationButton
                         dark={props.dark} linkPath={'/settings'}
@@ -122,17 +96,14 @@ export default function Navigation(props) {
                         }
                     />
 
-                    {props.profile !== null && (new Cookies()).get('jwt') !== undefined ?
-                        <NavigationButton
-                            dark={props.dark} linkPath={'/authenticate'}
-                            highlight={false} locale={props.locale}
-                            label={lang.signout} reduced={props.reduced}
-                            icon={
-                                <ExitToApp style={{transform: 'rotate(180deg)'}}/>
-                            }
-                        />
-                        : null
-                    }
+                    <NavigationButton
+                        dark={props.dark} linkPath={'/authenticate'}
+                        highlight={false} locale={props.locale}
+                        label={lang.signout} reduced={props.reduced}
+                        icon={
+                            <ExitToApp style={{transform: 'rotate(180deg)'}}/>
+                        }
+                    />
                 </div>
 
                 <div className={mainStyles.displayInlineCenter}
@@ -151,13 +122,7 @@ export default function Navigation(props) {
                                                signin: lang.signin
                                            }}/>
                         :
-                        <NavigationButton
-                            noMargin={true}
-                            dark={props.dark} linkPath={'/authenticate'}
-                            highlight={false} locale={props.locale}
-                            label={lang.signin} reduced={props.reduced}
-                            icon={<ExitToAppRounded style={{transform: 'rotate(180deg)'}}/>}
-                        />
+                        null
                     }
                 </div>
             </div>

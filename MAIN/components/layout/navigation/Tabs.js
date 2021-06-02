@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import styles from '../../../styles/component/Component.module.css'
 import NavigationButton from "../NavigationButton";
 
-export default function HorizontalTabs(props) {
+export default function Tabs(props) {
     return (
         <div className={styles.verticalTabsContainer}>
             {props.buttons.map((button) => {
@@ -36,7 +36,7 @@ export default function HorizontalTabs(props) {
     )
 }
 
-HorizontalTabs.proptypes = {
+Tabs.proptypes = {
     buttons: PropTypes.arrayOf(
         PropTypes.shape({
             key: PropTypes.number,

@@ -1,14 +1,36 @@
 import PropTypes from 'prop-types'
-import React from "react";
+import React, {useEffect, useState} from "react";
 import mainStyles from "../../styles/shared/Main.module.css";
 import Head from "next/head";
 import styles from '../../styles/component/Component.module.css'
 
 export default function HeaderLayout(props) {
-
+    // const [scrolledHeight, setScrolledHeight] = useState(false)
+    //
+    // useEffect(() => {
+    //     if (!scrolledHeight) {
+    //         document.getElementById('scrollableDiv').addEventListener('scroll', () => {
+    //             console.log(document.getElementById('header').offsetTop)
+    //             if (document.getElementById('header').offsetTop > 50) {
+    //                 setScrolledHeight(true)
+    //
+    //             }
+    //
+    //             else if (document.getElementById('header').offsetTop === 0)
+    //                 setScrolledHeight(false)
+    //         })
+    //         // if (document.getElementById('scrollableDiv') !== null)
+    //         //     return () => {
+    //         //         document.getElementById('scrollableDiv').removeEventListener('scroll', () => {
+    //         //             if (document.getElementById('header').offsetTop === 0)
+    //         //                 setScrolledHeight(false)
+    //         //         })
+    //         //     }
+    //     }
+    // })
 
     return (
-        <div style={{
+        <div id={'header'} style={{
             position: 'sticky',
             top: 0,
             background: 'white',

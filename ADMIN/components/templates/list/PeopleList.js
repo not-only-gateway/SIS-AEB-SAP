@@ -3,7 +3,6 @@ import React, {useEffect, useState} from "react";
 import fetchPeople from "../../../utils/fetch/FetchPeople";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {Skeleton} from "@material-ui/lab";
-import styles from "../../../styles/Extensions.module.css";
 import mainStyles from "../../../styles/shared/Main.module.css";
 import Person from "../Person";
 
@@ -50,7 +49,7 @@ export default function PeopleList(props) {
                         overflow: 'visible'
                     }}
                     endMessage={
-                        <div className={styles.fullWidth}>
+                        <div >
                             <h5
                                 style={{textAlign: 'center', color: '#555555'}}>{props.end}</h5>
                         </div>
@@ -71,7 +70,7 @@ export default function PeopleList(props) {
                     </div>
                 </InfiniteScroll>
                 :
-                <div className={styles.fullWidth}>
+                <div>
                     <h5 className={mainStyles.secondaryParagraph}
                         style={{textAlign: 'center', color: '#555555'}}>{props.nothingFound}</h5>
                 </div>

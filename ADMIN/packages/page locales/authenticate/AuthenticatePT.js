@@ -1,6 +1,6 @@
 export default {
     title: 'Entrar',
-    welcome: 'Bem vindo de volta!',
+    welcome: 'Plataforma dos administradores',
     password: 'Senha',
     forgotPassword: 'Esqueci minha senha.',
     developer: 'Desenvilvido na CTIC',

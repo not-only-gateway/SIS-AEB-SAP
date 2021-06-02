@@ -20,7 +20,6 @@ export default function management() {
     const [lang, setLang] = useState(null)
     const [accessProfile, setAccessProfile] = useState(null)
     const [openTab, setOpenTab] = useState(0)
-    const [notAuthenticated, setNotAuthenticated] = useState(true)
 
     useEffect(() => {
 
@@ -36,25 +35,12 @@ export default function management() {
                 router.push('/', '/', {locale: router.locale})
 
         }
-        setNotAuthenticated((new Cookies()).get('authorization_token') === undefined)
-
     })
 
 
     if (lang !== null)
         return (
             <>
-                <Authenticate
-                    handleClose={valid => {
-                        if (valid)
-                            setNotAuthenticated(false)
-                        else
-                            router.push('/', '/', {locale: router.locale})
-                    }}
-                    forceClose={() => router.push('/', '/', {locale: router.locale})}
-                    render={notAuthenticated}
-                    locale={router.locale}
-                />
                 <HeaderLayout
                     width={'75%'}
 
@@ -108,5 +94,5 @@ export default function management() {
 
         )
     else
-        return <></>
+        return null
 }

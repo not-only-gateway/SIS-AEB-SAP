@@ -11,7 +11,7 @@ export default async function submitSignIN(props) {
     try {
         await axios({
             method: 'post',
-            url: 'http://192.168.0.211:8000/api/authentication',
+            url: 'http://192.168.0.211:443/api/authentication',
             data: {
                 corporate_email: props.email,
                 password: props.password,
@@ -22,8 +22,7 @@ export default async function submitSignIN(props) {
                 user_agent: navigator.userAgent
             }
         }).then(async function (res) {
-            cookies.set('jwt', res.data.jwt, {expires: new Date(res.data.exp)})
-            cookies.set('exp', res.data.exp, {expires: new Date(res.data.exp)})
+            cookies.set('jwt', res.data)
             response = true
         }).catch(error => {
             props.setError({

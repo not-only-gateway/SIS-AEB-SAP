@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Cookies from "universal-cookie/lib";
-import submitSignOUT from "../utils/submit/SubmitSignOUT";
-import ClearStorage from "../utils/authentication/ClearStorage";
+
 import {getLanguage} from "../utils/shared/PageLanguage";
 import {useRouter} from "next/router";
 import styles from '../styles/Authenticate.module.css'
@@ -26,10 +25,8 @@ export default function authenticate() {
     })
 
     useEffect(() => {
-        if ((new Cookies()).get('jwt') !== undefined)
-            submitSignOUT().then(() => {
-                ClearStorage()
-            })
+
+        (new Cookies()).remove('jwt')
 
         setLang(getLanguage(router.locale, router.pathname))
 
@@ -62,14 +59,12 @@ export default function authenticate() {
                         {/*</div>*/}
                     </div>
                     <div className={styles.inputHalf}>
-                        <div className={styles.welcomeContainer}>
-                            <h3 className={styles.headerContainer}>
+                        <div className={styles.inputContentContainer}>
+                            <p style={{fontSize: '1.6rem',}}>
                                 {lang.welcome}
-                            </h3>
+                            </p>
 
-                        </div>
 
-                        <div className={styles.inputContainer}>
                             <TextField
                                 placeholder={'Email'} label={'Email'}
                                 handleChange={event => handleObjectChange({
@@ -78,7 +73,7 @@ export default function authenticate() {
                                         value: event.target.value
                                     }, setData: setData
                                 })} locale={router.locale} value={data.email}
-                                width={'65%'}
+                                width={'100%'}
                                 maxLength={undefined}/>
 
                             <TextField
@@ -89,29 +84,27 @@ export default function authenticate() {
                                         value: event.target.value
                                     }, setData: setData
                                 })} locale={router.locale} value={data.password}
-                                width={'65%'} passwordMask={true}
+                                width={'100%'} passwordMask={true}
                                 maxLength={undefined}/>
-                            <div style={{display: 'flex', width: '65%'}}>
 
-                                <Button onClick={() => submitSignIN({
-                                            email: data.email,
-                                            password: data.password,
-                                            setError: setError
-                                        }).then(res => {
-                                                if (res)
-                                                    router.push('/', '/', {locale: router.locale})
-                                            }
-                                        )}
-                                        disabled={data.email.length < 12 || data.password.length < 8}
-                                        style={{
-                                            textTransform: 'none',
-                                            backgroundColor: data.email.length < 12 || data.password.length < 8 ? null : '#0095ff',
-                                            color: data.email.length < 12 || data.password.length < 8 ? null : 'white'
-                                        }}>{lang.authenticate}</Button>
-                                <Button style={{color: '#555555', textTransform: 'none', marginLeft: 'auto'}}
-                                        onClick={() => router.push({pathname: '/'})}>{lang.access}</Button>
-                            </div>
 
+                            <Button
+                                onClick={() => submitSignIN({
+                                    email: data.email,
+                                    password: data.password,
+                                    setError: setError
+                                }).then(res => {
+                                        if (res)
+                                            router.push('/', '/', {locale: router.locale})
+                                    }
+                                )}
+                                disabled={data.email.length < 12 || data.password.length < 8}
+                                style={{
+                                    textTransform: 'none',
+                                    backgroundColor: data.email.length < 12 || data.password.length < 8 ? '#f4f5fa' : '#0095ff',
+                                    color: data.email.length < 12 || data.password.length < 8 ? null : 'white',
+                                    width: '100%'
+                                }}>{lang.authenticate}</Button>
                         </div>
                     </div>
                 </div>

@@ -25,6 +25,7 @@ import ActivityOverviewPT from "../../packages/component locales/activity/Activi
 import ActivityOverviewEN from "../../packages/component locales/activity/ActivityOverviewEN";
 import UnitFormEN from "../../packages/component locales/unit/UnitFormEN";
 import UnitFormPT from "../../packages/component locales/unit/UnitFormPT";
+import AddressPT from "../../packages/component locales/address/AddressPT";
 
 export default function getComponentLanguage(props) {
     let response = null
@@ -40,7 +41,6 @@ export default function getComponentLanguage(props) {
                     break
                 }
                 case 'collaborationForm': {
-
                     response = CollaborationsFormEN
                     break
                 }
@@ -92,14 +92,7 @@ export default function getComponentLanguage(props) {
                     response = AddressEN
                     break
                 }
-                case 'extensionsFilter': {
-                    response = ExtensionsFilterEN
-                    break
-                }
-                case 'extension': {
-                    response = ExtensionEN
-                    break
-                }
+
                 default:
                     break
             }
@@ -165,14 +158,6 @@ export default function getComponentLanguage(props) {
                 }
                 case 'address': {
                     response = AddressPT
-                    break
-                }
-                case 'extensionsFilter': {
-                    response = ExtensionsFilterPT
-                    break
-                }
-                case 'extension': {
-                    response = ExtensionPT
                     break
                 }
                 default:

@@ -8,7 +8,7 @@ export default async function fetchMemberByToken(){
 
     await axios({
         method: 'get',
-        url: 'http://192.168.0.211:8000/api/authentication',
+        url: 'http://192.168.0.211:80/api/profile/member',
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
     }).then(res => {
         response = res.data

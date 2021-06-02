@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import React, {useEffect, useState} from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {Skeleton} from "@material-ui/lab";
-import styles from "../../../styles/Extensions.module.css";
 import mainStyles from "../../../styles/shared/Main.module.css";
 import shared from "../../../styles/shared/Shared.module.css";
 import Link from 'next/link'
@@ -50,7 +49,7 @@ export default function UnitList(props) {
                         overflow: 'visible'
                     }}
                     endMessage={
-                        <div className={styles.fullWidth}>
+                        <div>
                             <h5
                                 style={{textAlign: 'center', color: '#555555'}}>{props.end}</h5>
                         </div>
@@ -80,7 +79,7 @@ export default function UnitList(props) {
                     </div>
                 </InfiniteScroll>
                 :
-                <div className={styles.fullWidth}>
+                <div>
                     <h5 className={mainStyles.secondaryParagraph}
                         style={{textAlign: 'center', color: '#555555'}}>{props.nothingFound}</h5>
                 </div>

@@ -15,7 +15,7 @@ import {Modal} from "@material-ui/core";
 import animations from "../styles/shared/Animations.module.css";
 import {FilterListRounded} from "@material-ui/icons";
 import Button from "../components/modules/inputs/Button";
-import HorizontalTabs from "../components/layout/navigation/HorizontalTabs";
+import Tabs from "../components/layout/navigation/Tabs";
 
 export default function Index() {
 
@@ -97,7 +97,7 @@ export default function Index() {
         return (
             <div style={{marginLeft: "auto", width: 'calc(100% - 170px)', paddingLeft: '32px', paddingRight: '32px'}}>
                 {renderModal()}
-                <HorizontalTabs
+                <Tabs
                     buttons={[
                         {
                             disabled: false,

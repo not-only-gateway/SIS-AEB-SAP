@@ -18,9 +18,9 @@ export default function PageLayout({children}) {
     const [accessProfile, setAccessProfile] = useState(null)
 
     useEffect(() => {
-        if(cookies.get('jwt') === undefined)
+        if (cookies.get('jwt') === undefined)
             router.push('/authenticate')
-        if (cookies.get('jwt') !== undefined && sessionStorage.getItem('profile') === null ) {
+        if (cookies.get('jwt') !== undefined && sessionStorage.getItem('profile') === null) {
             fetchMemberByToken().then(res => {
                 if (res !== null) {
                     res.person.corporate_email = res.member.corporate_email
@@ -33,7 +33,7 @@ export default function PageLayout({children}) {
                         name: res.person.name
                     }))
                     setProfile(res.person)
-                    if(sessionStorage.getItem('collaboration') === null && res.active_collaboration !== null) {
+                    if (sessionStorage.getItem('collaboration') === null && res.active_collaboration !== null) {
                         sessionStorage.setItem('collaboration', JSON.stringify({
                             id: res.active_collaboration.id,
                             tag: res.active_collaboration.tag
@@ -43,8 +43,8 @@ export default function PageLayout({children}) {
                     }
                 }
             })
-        }
-
+        } else
+            setProfile(JSON.parse(sessionStorage.getItem('profile')))
 
         if (locale !== cookies.get('lang') && cookies.get('lang') !== undefined)
             router.push(router.pathname, router.pathname, {locale: cookies.get('lang')}).catch(error => console.log(error))
@@ -63,7 +63,8 @@ export default function PageLayout({children}) {
                     {children}
                 </div>
                 <Navigation dark={false} locale={router.locale} path={router.pathname} reduced={reduced}
-                            setReduced={setReduced} query={router.query} profile={profile} accessProfile={accessProfile}/>
+                            setReduced={setReduced} query={router.query} profile={profile}
+                            accessProfile={accessProfile}/>
 
             </div>
         )

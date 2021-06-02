@@ -1,6 +1,6 @@
 export default {
     title: 'Sign in',
-    welcome: 'Welcome back!',
+    welcome: 'Administrator\'s platform',
     password: 'Password',
     forgotPassword: 'I forgot my password',
     authenticate: 'Authenticate',

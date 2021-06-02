@@ -22,7 +22,7 @@ export default function person() {
 
     const [lang, setLang] = useState(null)
     const [accessProfile, setAccessProfile] = useState(null)
-    const [notAuthenticated, setNotAuthenticated] = useState(true)
+
     const [loading, setLoading] = useState(true)
 
     const [person, setPerson] = useState({})
@@ -37,7 +37,7 @@ export default function person() {
         message: undefined
     })
     useEffect(() => {
-        if (router.isReady && router.query.id !== id && !notAuthenticated) {
+        if (router.isReady && router.query.id !== id) {
             setId(router.query.id)
             fetchPerson({memberID: null, personID: router.query.id, setStatus: setStatus}).then(res => {
                 if (res !== null) {
@@ -62,11 +62,10 @@ export default function person() {
         }
         if (lang === null)
             setLang(getLanguage(router.locale, router.pathname))
-        setNotAuthenticated(!(new Cookies()).get('authorization_token'))
     })
 
 
-    if (lang !== null && id !== undefined && !notAuthenticated)
+    if (lang !== null && id !== undefined)
         return (
             <>
                 <Head>
@@ -192,17 +191,5 @@ export default function person() {
 
         )
     else
-        return <>
-            <Authenticate
-                handleClose={valid => {
-                    if (valid && accessProfile !== null && (accessProfile.can_update_person || accessProfile.can_manage_membership)) {
-                        setNotAuthenticated(false)
-                    } else
-                        router.push('/', '/', {locale: router.locale})
-                }}
-                forceClose={() => router.push('/', '/', {locale: router.locale})}
-                render={notAuthenticated}
-                locale={router.locale}
-            />
-        </>
+        return null
 }
