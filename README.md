@@ -6,11 +6,12 @@
 
 - Frontend
 
-Source code para as duas interfaces do sistema:
+## Estrutura:
+
 - ADMINISTRATION:
-  - Administração do sistema. Contém interface para criação e atualização de entidades, suporte a autenticação e
-  acesso a outras informações.
+    - Administração do sistema. Contém interface para criação e atualização de entidades, suporte a autenticação e
+      acesso a outras informações.
 
 - MAIN:
-   - Contém a interface para os Ramais e estruturas organizacionais. 
+    - Contém a interface para os Ramais e estruturas organizacionais. 
    
