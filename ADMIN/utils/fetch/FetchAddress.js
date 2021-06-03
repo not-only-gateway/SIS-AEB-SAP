@@ -8,11 +8,8 @@ export default async function fetchAddress(props){
     let response = null
     await axios({
         method: 'get',
-        url: Host() + 'address/'+props.personID,
+        url: Host() + 'person/address/'+props.personID,
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
-        params:{
-            authorization_token: cookies.get('authorization_token')
-        }
     }).then(res => {
         response = res.data
     }).catch(error => {

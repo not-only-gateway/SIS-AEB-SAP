@@ -174,7 +174,7 @@ export default function AddressForm(props) {
                             setChanged(true)
                             props.handleChange({name: 'neighborhood', value: event.target.value})
                         }} locale={props.locale} value={props.address === null ? null : props.address.neighborhood}
-                        required={false} width={'calc(50% - 16px)'} maxLength={2}/>
+                        required={false} width={'calc(50% - 16px)'}/>
                     <TextField
                         dark={true}
                         disabled={!validZipCode}
@@ -184,7 +184,7 @@ export default function AddressForm(props) {
                             setChanged(true)
                             props.handleChange({name: 'street', value: event.target.value})
                         }} locale={props.locale} value={props.address === null ? null : props.address.street}
-                        required={false} width={'calc(50% - 16px)'} maxLength={2}/>
+                        required={false} width={'calc(50% - 16px)'} />
                 </fieldset>
                 <div className={shared.formSubmitContainer}>
                     <Button width={'100%'} elevation={true} border={'none'} padding={'8px 32px 8px 32px'}

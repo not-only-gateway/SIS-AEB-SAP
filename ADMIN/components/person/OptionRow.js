@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import styles from "../../styles/Person.module.css";
 import shared from "../../styles/shared/Shared.module.css";
-import {EditRounded, HistoryRounded} from "@material-ui/icons";
+import {AddRounded, EditRounded, HistoryRounded} from "@material-ui/icons";
 import React, {useState} from "react";
 import {Modal} from "@material-ui/core";
 import Button from "../modules/inputs/Button";
@@ -29,15 +29,22 @@ export default function OptionRow(props) {
     return (
         <div className={styles.optionContainer}>
             {renderModal()}
-            <button className={shared.rowContainer} onClick={() => setModal(true)}
-                    style={{width: '100%', justifyContent: "space-between"}}>
+            <button className={shared.rowContainer} disabled={props.modalContent === null}
+                    onClick={() => setModal(true)}
+                    style={{
+                        width: '100%',
+                        justifyContent: "space-between",
+                        cursor: props.modalContent === null ? 'unset' : 'pointer',
+                        color: '#282828',
+                        boxShadow: props.modalContent === null ? 'unset' : undefined
+                    }}>
                 {props.label}
             </button>
             <button onClick={() => props.setOption()} className={shared.rowContainer}
-                    style={{width: '56px', justifyContent: 'center'}}><EditRounded/>
+                    style={{width: '56px', justifyContent: 'center', color: '#555555'}}> {props.modalContent === null ? <AddRounded/> : <EditRounded/>}
             </button>
             <button className={shared.rowContainer}
-                    style={{width: '56px', justifyContent: 'center'}}><HistoryRounded/>
+                    style={{width: '56px', justifyContent: 'center', display: props.modalContent === null ? 'none' : 'initial', color: '#555555'}}><HistoryRounded/>
             </button>
         </div>
     )

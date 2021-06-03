@@ -6,7 +6,6 @@ import PropTypes from 'prop-types'
 const cookies = new Cookies()
 export default async function submitAddress(props){
     let response = false
-    props.data.authorization_token =  cookies.get('authorization_token')
 
     await axios({
         method: 'put',
@@ -16,7 +15,7 @@ export default async function submitAddress(props){
     }).then(() => {
         response = true
     }).catch(error => {
-        if(props.setStatus !== null)
+        if(props.setStatus !== null && props.setStatus !== undefined)
             props.setStatus({
                 error: true,
                 message: error.message

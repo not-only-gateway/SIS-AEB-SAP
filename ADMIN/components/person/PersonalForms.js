@@ -87,13 +87,13 @@ export default function PersonalForms(props) {
                             value: (
                                 <div className={styles.personOptionsContainer}>
                                     <OptionRow setOption={() => setOpenTab(1)} label={props.lang.personal}
-                                               modalContent={<PersonOverview data={person}/>}/>
+                                               modalContent={person === null ? null : <PersonOverview data={person}/>}/>
                                     <OptionRow setOption={() => setOpenTab(2)} label={props.lang.documents}
-                                               modalContent={<DocumentsOverview data={documents}/>}/>
+                                               modalContent={documents === null ? null :<DocumentsOverview data={documents}/>}/>
                                     <OptionRow setOption={() => setOpenTab(3)} label={props.lang.contacts}
-                                               modalContent={<ContactsOverview data={contact}/>}/>
+                                               modalContent={contact === null ? null :<ContactsOverview data={contact}/>}/>
                                     <OptionRow setOption={() => setOpenTab(4)} label={props.lang.address}
-                                               modalContent={<AddressOverview data={address}/>}/>
+                                               modalContent={address === null ? null :<AddressOverview data={address}/>}/>
                                 </div>
                             )
                         }, {
