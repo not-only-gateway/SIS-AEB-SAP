@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import mainStyles from "../../styles/shared/Main.module.css";
 import Head from "next/head";
 import styles from '../../styles/component/Component.module.css'
@@ -31,12 +31,13 @@ export default function HeaderLayout(props) {
 
     return (
         <div id={'header'} style={{
-            position: 'sticky',
-            top: 0,
             background: '#f4f5fa',
+
             transition: '300ms ease-in-out',
-            zIndex: '50',
-            height: height
+            zIndex: 50,
+            height: height,
+            paddingBottom: '8px',
+            borderBottom: '#ecedf2 1px solid'
         }}>
             <Head>
                 <title>{props.pageTitle}</title>

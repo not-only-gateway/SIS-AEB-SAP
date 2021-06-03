@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useState} from "react";
-import Linkage from "../../modules/entity/Linkage";
+import Linkage from "../../management/Linkage";
 import fetchLinkages from "../../../utils/fetch/FetchLinkages";
 
 export default function LinkageList(props) {

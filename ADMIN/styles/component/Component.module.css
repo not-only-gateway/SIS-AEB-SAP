@@ -7,7 +7,6 @@
     flex-direction: column;
     transition: all 300ms ease-in-out;
     box-sizing: border-box;
-    border-bottom: #ecedf2 1px solid;
 }
 
 .collaborationContainer {
@@ -86,10 +85,21 @@
     width: 100%;
 }
 
-
 .tabsContainer {
+    display: flex;
+
+    width: 100%;
+    transition: 300ms ease-in-out;
+
+    gap: 16px;
+}
+
+
+
+.tabButtonContainer {
     cursor: pointer;
 
+    width: 100%;
     outline: none;
     border-top: none;
     border-bottom: none;
@@ -99,6 +109,6 @@
 
     box-shadow: none;
 
-    border-radius: 8px;
+    border-radius: 32px;
     padding: 8px 32px 8px 32px;
 }

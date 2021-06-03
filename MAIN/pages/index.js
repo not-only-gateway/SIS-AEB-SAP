@@ -95,7 +95,12 @@ export default function Index() {
 
     if (lang !== null)
         return (
-            <div style={{marginLeft: "auto", width: 'calc(100% - 170px)', paddingLeft: '32px', paddingRight: '32px'}}>
+            <div style={{
+                marginLeft: "auto",
+                width: 'calc(100% - 170px)',
+                paddingLeft: 'clamp(32px, 7%, 150px)',
+                paddingRight: 'clamp(32px, 7%, 150px) '
+            }}>
                 {renderModal()}
                 <Tabs
                     buttons={[

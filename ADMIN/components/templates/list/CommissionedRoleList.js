@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useState} from "react";
 import fetchCommissionedRoles from "../../../utils/fetch/FetchCommissionedRoles";
-import CommissionedRole from "../../modules/entity/CommissionedRole";
+import CommissionedRole from "../../management/CommissionedRole";
 
 export default function CommissionedRoleList(props) {
     const [data, setData] = useState([])

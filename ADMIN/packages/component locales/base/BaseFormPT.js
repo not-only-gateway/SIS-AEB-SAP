@@ -18,23 +18,23 @@ export default {
     marital: 'Estado civil',
 
     choice: [{value: 'Sim', key: true}, {value: 'Não', key: false}],
-    genderChoice: [{value: 'Masculino', key: 'MALE'}, {value: 'Feminino', key: 'FEMALE'}, {value: 'Outro', key: 'OTHER'}],
+    genderChoice: [{value: 'Masculino', key: 'Masculino'}, {value: 'Feminino', key: 'Feminino'}, {value: 'Outro', key: 'Outro'}],
     maritalChoice: [
-        {key: 'SINGLE', value: 'Solteiro'},
-        {key: 'DIVORCED', value: 'Divorciado'},
-        {key: 'MARRIED', value: 'Casado'},
-        {key: 'WIDOWED', value: 'Viúvo(a)'}
+        {key: 'Solteiro', value: 'Solteiro'},
+        {key: 'Divorciado', value: 'Divorciado'},
+        {key: 'Casado', value: 'Casado'},
+        {key: 'Viúvo(a)', value: 'Viúvo(a)'}
     ],
     educationChoice: [
-        {value: 'Fundamental', key: 'FUNDAMENTAL'},
-        {value: 'Ensino Médio Incompleto', key: 'INCOMPLETE-HIGH-SCHOOL'},
-        {value: 'Ensino Médio Completo', key: 'COMPLETE-HIGH-SCHOOL'},
-        {value: 'Graduação Incompleta', key: 'INCOMPLETE-GRADUATION'},
-        {value: 'Graduação Completa', key: 'COMPLETE-GRADUATION'},
-        {value: 'Mestrado Incompleto', key: 'INCOMPLETE-MASTER\'S-DEGREE'},
-        {value: 'Mestrado Completo', key: 'COMPLETE-MASTER\'S-DEGREE'},
-        {value: 'Doutorado Incompleto', key: 'INCOMPLETE-DOCTORATE-DEGREE'},
-        {value: 'Doutorado Completo', key: 'COMPLETE-DOCTORATE-DEGREE'}
+        {value: 'Fundamental', key: 'Fundamental'},
+        {value: 'Ensino Médio Incompleto', key: 'Ensino Médio Incompleto'},
+        {value: 'Ensino Médio Completo', key: 'Ensino Médio Completo'},
+        {value: 'Graduação Incompleta', key: 'Graduação Incompleta'},
+        {value: 'Graduação Completa', key: 'Graduação Completa'},
+        {value: 'Mestrado Incompleto', key: 'Mestrado Incompleto'},
+        {value: 'Mestrado Completo', key: 'Mestrado Completo'},
+        {value: 'Doutorado Incompleto', key: 'Doutorado Incompleto'},
+        {value: 'Doutorado Completo', key: 'Doutorado Completo'}
     ],
     personal: 'Informações Básicas',
     life: 'Vida & Educação',

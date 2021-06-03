@@ -101,8 +101,7 @@
 }
 .extensionsList {
     display: flex;
-    column-gap: 16px;
-    row-gap: 32px;
+    gap: 32px;
     flex-flow: row wrap;
 
 

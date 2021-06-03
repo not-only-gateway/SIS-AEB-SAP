@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useState} from "react";
-import AccessProfile from "../../modules/entity/AccessProfile";
+import AccessProfile from "../../management/AccessProfile";
 import fetchAccessProfiles from "../../../utils/fetch/FetchAccessProfiles";
 
 export default function AccessProfileList(props) {

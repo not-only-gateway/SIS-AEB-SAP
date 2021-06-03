@@ -1,15 +1,15 @@
-import mainStyles from "../../../styles/shared/Main.module.css";
-import AccessProfileForm from "../../templates/forms/AccessProfileForm";
+import mainStyles from "../../styles/shared/Main.module.css";
+import AccessProfileForm from "../person/forms/AccessProfileForm";
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
-import fetchAccessProfile from "../../../utils/fetch/FetchAccessProfile";
+import fetchAccessProfile from "../../utils/fetch/FetchAccessProfile";
 import {Modal} from "@material-ui/core";
-import animations from '../../../styles/shared/Animations.module.css'
-import handleObjectChange from "../../../utils/shared/HandleObjectChange";
-import submitAccessProfile from "../../../utils/submit/SubmitAccessProfile";
+import animations from '../../styles/shared/Animations.module.css'
+import handleObjectChange from "../../utils/shared/HandleObjectChange";
+import submitAccessProfile from "../../utils/submit/SubmitAccessProfile";
 import {AddRounded} from "@material-ui/icons";
-import {getIconStyle} from "../../../styles/shared/MainStyles";
-import shared from '../../../styles/shared/Shared.module.css'
+import {getIconStyle} from "../../styles/shared/MainStyles";
+import shared from '../../styles/shared/Shared.module.css'
 
 export default function AccessProfile(props) {
     const [accessProfile, setAccessProfile] = useState({})

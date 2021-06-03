@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useState} from "react";
-import EffectiveRole from "../../modules/entity/EffectiveRole";
+import EffectiveRole from "../../management/EffectiveRole";
 import fetchEffectiveRoles from "../../../utils/fetch/FetchEffectiveRoles";
 
 export default function EffectiveRoleList(props) {

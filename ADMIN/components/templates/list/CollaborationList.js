@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import fetchCollaborations from "../../../utils/fetch/FetchCollaborations";
-import Collaboration from "../../modules/entity/Collaboration";
+import Collaboration from "../../management/Collaboration";
 
 export default function CollaborationList(props) {
     const [collaborations, setCollaborations] = useState([])

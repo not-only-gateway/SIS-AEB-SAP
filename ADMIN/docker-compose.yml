@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+  nextjs-ui:
+    build:
+      context: ./
+    ports:
+      - "3000:3000"
+    container_name: sis-aeb-admin
+    stdin_open: true
+    volumes:
+       - ./ADMIN:/SIS-AEB-FRONTEND/ADMIN
+       - /SIS-AEB-FRONTEND/ADMIN/node_modules

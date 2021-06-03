@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types'
 import ContactFormEN from '../../packages/component locales/contact/ContactFormEN'
 import ContactFormPT from '../../packages/component locales/contact/ContactFormPT'
-import DocumentsFormEN from '../../packages/component locales/documents/DocumentsFormEN'
-import DocumentsFormPT from '../../packages/component locales/documents/DocumentsFormPT'
+
 import CollaborationsFormEN from '../../packages/component locales/collaborations/CollaborationsFormEN'
 import CollaborationsFormPT from '../../packages/component locales/collaborations/CollaborationsFormPT'
-import BaseFormEN from '../../packages/component locales/base/BaseFormEN'
-import BaseFormPT from '../../packages/component locales/base/BaseFormPT'
+
 import NavigationEN from "../../packages/component locales/navigation/NavigationEN";
 import NavigationPT from "../../packages/component locales/navigation/NavigationPT";
 import AuthenticateEN from "../../packages/component locales/authenticate/AuthenticateEN";
@@ -52,14 +50,8 @@ export default function getComponentLanguage(props) {
                     response = ContactFormEN
                     break
                 }
-                case 'documents': {
-                    response = DocumentsFormEN
-                    break
-                }
-                case 'base': {
-                    response = BaseFormEN
-                    break
-                }
+
+
                 case 'authenticate': {
                     response = AuthenticateEN
                     break
@@ -120,14 +112,7 @@ export default function getComponentLanguage(props) {
                     response = ContactFormPT
                     break
                 }
-                case 'documents': {
-                    response = DocumentsFormPT
-                    break
-                }
-                case 'base': {
-                    response = BaseFormPT
-                    break
-                }
+
                 case 'authenticate': {
                     response = AuthenticatePT
                     break

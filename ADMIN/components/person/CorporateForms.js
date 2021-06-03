@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
-import MembershipForm from "../templates/forms/MembershipForm";
+import MembershipForm from "./forms/MembershipForm";
 import submitMember from "../../utils/submit/SubmitMember";
 import CollaborationList from "../templates/list/CollaborationList";
 import TabContent from "../templates/TabContent";

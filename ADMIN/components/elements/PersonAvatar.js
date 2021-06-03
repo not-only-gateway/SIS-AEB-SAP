@@ -5,7 +5,6 @@ import React from "react";
 import animations from '../../styles/shared/Animations.module.css'
 
 export default function PersonAvatar(props) {
-console.log(props.image)
     return (
         <div style={{position: 'relative'}} className={animations.fadeIn}>
             <Avatar src={typeof(props.image) === 'string' ? (props.base64 ? props.image : (ImageHost()+props.image)) : undefined}

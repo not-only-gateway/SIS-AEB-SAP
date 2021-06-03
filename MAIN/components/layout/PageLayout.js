@@ -25,8 +25,8 @@ export default function PageLayout({children}) {
             <div style={{fontFamily: 'Roboto !important', backgroundColor: 'white'}}>
                 <div className={styles.pageContentContainer}
                      id={'scrollableDiv'} style={{
-                    height: 'calc(100vh - 65px)',
-                    transform: 'translateY(65px)',
+                    height: 'calc(100vh - 60px)',
+                    transform: 'translateY(60px)',
                     transition: '250ms ease-in-out',
                 }}>
 

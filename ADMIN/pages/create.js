@@ -1,16 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
 import {getLanguage} from "../utils/shared/PageLanguage";
-import BaseForm from "../components/templates/forms/BaseForm";
+import BaseForm from "../components/person/forms/BaseForm";
 
 import HeaderLayout from "../components/layout/HeaderLayout";
-import Authenticate from "../components/modules/Authenticate";
 import TabContent from "../components/templates/TabContent";
-import MembershipForm from "../components/templates/forms/MembershipForm";
+import MembershipForm from "../components/person/forms/MembershipForm";
 import submitPerson from "../utils/submit/SubmitPerson";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import submitMember from "../utils/submit/SubmitMember";
-import Cookies from "universal-cookie/lib";
 import Stepper from "../components/layout/navigation/Stepper";
 
 export default function create() {

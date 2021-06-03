@@ -7,10 +7,10 @@ import TabContent from "../components/templates/TabContent";
 import fetchUnit from "../utils/fetch/FetchUnit";
 import submitUnit from "../utils/submit/SubmitUnit";
 import ExpandableTabs from "../components/layout/navigation/ExpandableTabs";
-import AddressForm from "../components/templates/forms/AddressForm";
+import AddressForm from "../components/person/forms/AddressForm";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import submitUnitAddress from "../utils/submit/SubmitUnitAddress";
-import UnitForm from "../components/templates/forms/UnitForm";
+import UnitForm from "../components/management/forms/UnitForm";
 
 export default function unit() {
 

@@ -5,10 +5,6 @@ import AuthenticatePT from '../../packages/page locales/authenticate/Authenticat
 import SettingsEN from '../../packages/page locales/settings/SettingsEN'
 import SettingsPT from '../../packages/page locales/settings/SettingsPT'
 
-
-import PersonEN from '../../packages/page locales/person/PersonEN'
-import PersonPT from '../../packages/page locales/person/PersonPT'
-
 import ActivityEN from "../../packages/page locales/activity/ActivityEN";
 import ActivityPT from "../../packages/page locales/activity/ActivityPT";
 
@@ -38,14 +34,7 @@ export function getLanguage(locale, page) {
                 case '/authenticate': {
                     response = AuthenticateEN
                     break
-                }
-                case '/' : {
-                    response = IndexEN
-                    break
-                }
-                case '/person': {
-                    response = PersonEN
-                    break
+
                 }
                 case '/settings': {
                     response = SettingsEN
@@ -56,15 +45,11 @@ export function getLanguage(locale, page) {
                     break
                 }
 
-                case '/units': {
-                    response = UnitsEN
-                    break
-                }
                 case '/create' : {
                     response = CreateEN
                     break
                 }
-                case '/management' : {
+                case '/' : {
                     response = ManagementEN
                     break
                 }
@@ -84,14 +69,7 @@ export function getLanguage(locale, page) {
                     response = AuthenticatePT
                     break
                 }
-                case '/' : {
-                    response = IndexPT
-                    break
-                }
-                case '/person': {
-                    response = PersonPT
-                    break
-                }
+
                 case '/settings': {
                     response = SettingsPT
                     break
@@ -100,15 +78,11 @@ export function getLanguage(locale, page) {
                     response = ActivityPT
                     break
                 }
-                case '/units': {
-                    response = UnitsPT
-                    break
-                }
                 case '/create' : {
                     response = CreatePT
                     break
                 }
-                case '/management' : {
+                case '/' : {
                     response = ManagementPT
                     break
                 }

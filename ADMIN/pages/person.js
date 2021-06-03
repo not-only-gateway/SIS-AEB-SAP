@@ -1,26 +1,24 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
 import {getLanguage} from "../utils/shared/PageLanguage";
-import Cookies from "universal-cookie/lib";
 import styles from '../styles/Person.module.css'
-import Profile from "../components/templates/Profile";
+import Profile from "../components/person/Profile";
 import TabContent from "../components/templates/TabContent";
-import Authenticate from "../components/modules/Authenticate";
-import PersonalForms from "../components/elements/PersonalForms";
-import CorporateForms from "../components/elements/CorporateForms";
+import PersonalForms from "../components/person/PersonalForms";
+import CorporateForms from "../components/person/CorporateForms";
 import Alert from "../components/layout/Alert";
 import Head from 'next/head'
-import ExpandableTabs from "../components/layout/navigation/ExpandableTabs";
-import {Divider} from "@material-ui/core";
 import fetchPerson from "../utils/fetch/FetchPerson";
 import fetchMemberByPerson from "../utils/fetch/FetchMemberByPerson";
+import HorizontalTabs from "../components/layout/navigation/HorizontalTabs";
+import PersonPT from "../packages/page locales/person/PersonPT";
 
 export default function person() {
 
     const router = useRouter()
     const [id, setId] = useState(undefined)
 
-    const [lang, setLang] = useState(null)
+    const lang = PersonPT
     const [accessProfile, setAccessProfile] = useState(null)
 
     const [loading, setLoading] = useState(true)
@@ -28,10 +26,7 @@ export default function person() {
     const [person, setPerson] = useState({})
     const [member, setMember] = useState({})
 
-    const [openTab, setOpenTab] = useState({
-        mainTab: 0,
-        subTab: 0
-    })
+    const [openTab, setOpenTab] = useState(0)
     const [status, setStatus] = useState({
         error: false,
         message: undefined
@@ -60,12 +55,10 @@ export default function person() {
             else
                 router.push('/', '/', {locale: router.locale})
         }
-        if (lang === null)
-            setLang(getLanguage(router.locale, router.pathname))
     })
 
 
-    if (lang !== null && id !== undefined)
+    if (id !== undefined)
         return (
             <>
                 <Head>
@@ -88,72 +81,36 @@ export default function person() {
                         <div className={styles.profileHeader}>
                             <Profile person={person} member={member} padding={true}/>
 
-                            <ExpandableTabs
+                            <HorizontalTabs
                                 buttons={[
                                     {
-                                        mainButton: {
-                                            key: 0,
-                                            value: lang.personal,
-                                            disabled: accessProfile === null || !accessProfile.can_update_person
-                                        },
-                                        subButtons: [
-                                            {
-                                                key: 0,
-                                                value: lang.general
-                                            },
-                                            {
-                                                key: 1,
-                                                value: lang.documents
-                                            },
-                                            {
-                                                key: 2,
-                                                value: lang.contacts
-                                            },
-                                            {
-                                                key: 3,
-                                                value: lang.address
-                                            },
-                                        ]
+                                        key: 0,
+                                        value: lang.personal,
+                                        disabled: accessProfile === null || !accessProfile.can_update_person
                                     },
                                     {
-                                        mainButton: {
-                                            key: 1,
-                                            value: lang.corporate,
-                                            disabled: accessProfile === null || !accessProfile.can_manage_membership
-                                        },
-                                        subButtons: [
-                                            {
-                                                key: 0,
-                                                value: lang.membership
-                                            },
-                                            {
-                                                key: 1,
-                                                value: lang.collaborations,
-                                                disable: member === null || !member || !member.id
-                                            },
-                                        ]
+                                        key: 1,
+                                        value: lang.corporate,
+                                        disabled: accessProfile === null || !accessProfile.can_manage_membership
                                     }
                                 ]}
                                 openTab={openTab}
                                 setOpenTab={setOpenTab}
                             />
-                            <Divider orientation={'horizontal'}
-                                     style={{backgroundColor: '#ecedf2', width: '100%', marginTop: '5px'}}/>
                         </div>
                         <div className={styles.profileContentContainer}>
 
                             <TabContent
-                                openTab={openTab.mainTab}
+                                openTab={openTab}
                                 key={'person'}
                                 tabs={[
                                     {
                                         buttonKey: 0,
-                                        value: accessProfile === null || !accessProfile.can_update_person ? null :  (
+                                        value: accessProfile === null || !accessProfile.can_update_person ? null : (
                                             <PersonalForms
                                                 lang={lang}
                                                 accessProfile={accessProfile}
                                                 memberID={member !== null && member ? member.id : null}
-                                                openTab={openTab.subTab}
                                                 locale={router.locale}
                                                 personID={person.id}
                                             />
@@ -175,7 +132,6 @@ export default function person() {
                                                 locale={router.locale}
                                                 personID={person.id}
                                                 id={member !== null && member ? member.id : null}
-                                                openTab={openTab.subTab}
                                                 accessProfile={accessProfile}
                                             />
                                         )

@@ -1,15 +1,15 @@
-import mainStyles from "../../../styles/shared/Main.module.css";
+import mainStyles from "../../styles/shared/Main.module.css";
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import {Modal} from "@material-ui/core";
-import animations from '../../../styles/shared/Animations.module.css'
-import handleObjectChange from "../../../utils/shared/HandleObjectChange";
+import animations from '../../styles/shared/Animations.module.css'
+import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import {AddRounded} from "@material-ui/icons";
-import {getIconStyle} from "../../../styles/shared/MainStyles";
+import {getIconStyle} from "../../styles/shared/MainStyles";
 
-import LinkageForm from "../../templates/forms/LinkageForm";
-import submitLinkage from "../../../utils/submit/SubmitLinkage";
-import shared from "../../../styles/shared/Shared.module.css";
+import LinkageForm from "./forms/LinkageForm";
+import submitLinkage from "../../utils/submit/SubmitLinkage";
+import shared from "../../styles/shared/Shared.module.css";
 
 export default function Linkage(props) {
     const [linkage, setLinkage] = useState({})

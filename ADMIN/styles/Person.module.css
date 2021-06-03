@@ -1,11 +1,8 @@
-
-
-
 .pageContainer {
     display: grid;
-    width: 75%;
+    width: 100%;
     gap: 16px;
-    margin: 32px auto auto;
+
 }
 
 .profileContainer {
@@ -18,7 +15,6 @@
     gap: 32px;
 
     height: fit-content;
-    position: sticky;
 
     overflow: hidden;
 }
@@ -30,17 +26,55 @@
     gap: 16px;
     position: relative;
     z-index: 2;
-    margin-bottom: 16px;
+    padding-left: 13%;
+    padding-right: 13%;
 
+    margin-bottom: 15%;
 }
 
 .profileHeader {
-    position: sticky;
-top: 0;
-    z-index: 5;
-    background: white;
+    background: #f4f5fa;
+
+    border-bottom: #ecedf2 1px solid;
+    width: 100%;
+
     display: grid;
-    height: fit-content;
+    gap: 32px;
 
     justify-items: flex-start;
+
+    padding-left: 13%;
+    padding-right: 13%;
+    padding-bottom: 16px;
+
+    height: 210px;
+}
+
+.personOptionsContainer {
+    display: grid;
+    gap: 16px;
+
+}
+
+.optionContainer {
+    display: flex;
+    gap: 16px;
+}
+
+.overviewContainer {
+    display: grid;
+    gap: 16px;
+}
+
+.overviewRow {
+    height: 56px;
+    width: 100%;
+    background: #f4f5fa;
+    border-radius: 8px;
+    padding: 8px;
+
+    border: #ecedf2 .7px solid;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

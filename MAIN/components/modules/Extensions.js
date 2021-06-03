@@ -47,7 +47,7 @@ export default function Extensions(props) {
                 >
                     <div className={styles.extensionsList}>
                         {props.data.map((member, index) =>
-                            <div  style={{width: 'calc(20% - 13px)'}} key={member.member.id + ' - ' + member.person.id}>
+                            <div  style={{width: 'calc(20% - 25.75px)'}} key={member.member.id + ' - ' + member.person.id}>
                             <Extension
                                 lang={lang} index={index} member={member.member} redirect={id => props.redirect(id)}
                                 unit={member.unit} commissionedRole={member.commissioned_role}

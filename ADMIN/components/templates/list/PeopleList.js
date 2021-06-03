@@ -4,7 +4,7 @@ import fetchPeople from "../../../utils/fetch/FetchPeople";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {Skeleton} from "@material-ui/lab";
 import mainStyles from "../../../styles/shared/Main.module.css";
-import Person from "../Person";
+import Person from "../../management/Person";
 
 
 export default function PeopleList(props) {

@@ -1,21 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import Cookies from 'universal-cookie/lib';
-import {
-    BusinessRounded,
-    ExitToApp,
-    ExitToAppRounded,
-    ExtensionRounded,
-    MenuOpenRounded,
-    PersonAddRounded,
-    TuneRounded,
-    ViewQuiltRounded
-} from '@material-ui/icons';
+import {ExitToApp, HomeRounded, MenuOpenRounded, PersonAddRounded, TuneRounded} from '@material-ui/icons';
 import styles from '../../styles/Navigation.module.css'
 import PropTypes from 'prop-types'
 import mainStyles from '../../styles/shared/Main.module.css'
 
 import getComponentLanguage from "../../utils/shared/GetComponentLanguage";
-import NavigationProfile from "../elements/navigation/NavigationProfile";
+import NavigationProfile from "./NavigationProfile";
 import animations from '../../styles/shared/Animations.module.css'
 import NavigationButton from "../layout/NavigationButton";
 import {Button} from "@material-ui/core";
@@ -57,12 +48,13 @@ export default function Navigation(props) {
                             }}/>
                         </Button>
                     </div>
+
                     <NavigationButton
                         dark={props.dark} linkPath={'/'}
                         highlight={props.path === '/'} locale={props.locale}
-                        label={lang.extensions} reduced={props.reduced}
+                        label={lang.management} reduced={props.reduced}
                         icon={
-                            <ExtensionRounded/>
+                            <HomeRounded/>
                         }
                     />
 
@@ -76,14 +68,6 @@ export default function Navigation(props) {
                         }
                     />
 
-                    <NavigationButton
-                        dark={props.dark} linkPath={'/management'}
-                        highlight={props.path === '/management'} locale={props.locale}
-                        label={lang.management} reduced={props.reduced}
-                        icon={
-                            <BusinessRounded/>
-                        }
-                    />
 
 
                     <NavigationButton

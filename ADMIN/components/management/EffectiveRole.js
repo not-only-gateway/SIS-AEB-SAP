@@ -1,14 +1,14 @@
-import mainStyles from "../../../styles/shared/Main.module.css";
+import mainStyles from "../../styles/shared/Main.module.css";
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import {Modal} from "@material-ui/core";
-import animations from '../../../styles/shared/Animations.module.css'
-import handleObjectChange from "../../../utils/shared/HandleObjectChange";
+import animations from '../../styles/shared/Animations.module.css'
+import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import {AddRounded} from "@material-ui/icons";
-import {getIconStyle} from "../../../styles/shared/MainStyles";
-import EffectiveRoleForm from "../../templates/forms/EffectiveRoleForm";
-import submitEffectiveRole from "../../../utils/submit/SubmitEffectiveRole";
-import shared from "../../../styles/shared/Shared.module.css";
+import {getIconStyle} from "../../styles/shared/MainStyles";
+import EffectiveRoleForm from "./forms/EffectiveRoleForm";
+import submitEffectiveRole from "../../utils/submit/SubmitEffectiveRole";
+import shared from "../../styles/shared/Shared.module.css";
 
 export default function EffectiveRole(props) {
     const [role, setRole] = useState({})

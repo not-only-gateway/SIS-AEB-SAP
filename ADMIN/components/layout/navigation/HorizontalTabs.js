@@ -1,38 +1,21 @@
 import PropTypes from 'prop-types'
-import Button from "../../modules/inputs/Button";
 import styles from '../../../styles/component/Component.module.css'
 
 export default function HorizontalTabs(props) {
     return (
-        <div key={'tab-component'}
-             style={{
-                 marginTop: props.noMargin ? 0 : '16px',
-                 display: 'flex',
-                 gap: '8px',
-                 justifyContent: 'center',
-                 width: props.extended ? '100%' : 'fit-content',
-                 transition: '300ms ease-in-out',
-                 borderRadius: '32px',
-                 backgroundColor: props.noBackground ? 'unset' : '#f4f5fa',
-
-             }}>
+        <div
+            className={styles.tabsContainer}>
             {props.buttons.map((button) => {
                     if (button !== null)
                         return (
-                            <div key={button.key + ' - ' + button.value}>
+                            <div key={button.key + ' - ' + button.value} style={{width: '100%'}}>
                                 <button
                                     onClick={() => props.setOpenTab(button.key)}
-                                    // elevation={props.openTab === button.key}
                                     disabled={button.disabled}
-                                    // padding={'8px 32px 8px 32px'}
-                                    // variant={'rounded'} width={'auto'} hoverHighlight={props.openTab !== button.key}
-                                    // border={''} boxShadow={'unset'}
-                                    // backgroundColor={props.openTab === button.key ? (props.variant === 'secondary' ? '#ff4940' : '#0095ff') : 'transparent'}
-                                    // fontColor={props.openTab === button.key ? 'white' : '#262626'} paddingType={'long'}
-                                    className={styles.tabsContainer}
+                                    className={styles.tabButtonContainer}
                                     style={{
-                                        backgroundColor: props.openTab === button.key ? '#0095ff' : undefined,
-                                        color: props.openTab === button.key ? 'white' : undefined
+                                        backgroundColor: props.openTab === button.key ? '#0095ff' : 'white',
+                                        color: props.openTab === button.key ? 'white' : undefined,
                                     }}
                                 >
                                     {button.value}

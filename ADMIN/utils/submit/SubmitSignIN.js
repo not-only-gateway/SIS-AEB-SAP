@@ -1,5 +1,4 @@
 import axios from "axios";
-import Host from "../shared/Host";
 import PropTypes from 'prop-types'
 import Cookies from "universal-cookie/lib";
 import publicIp from "public-ip";
@@ -11,7 +10,7 @@ export default async function submitSignIN(props) {
     try {
         await axios({
             method: 'post',
-            url: 'http://192.168.0.211:443/api/authentication',
+            url: 'http://localhost:8000/api/authentication',
             data: {
                 corporate_email: props.email,
                 password: props.password,

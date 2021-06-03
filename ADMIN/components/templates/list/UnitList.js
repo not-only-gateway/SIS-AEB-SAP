@@ -68,7 +68,8 @@ export default function UnitList(props) {
                                         border: 'none',
                                         outline: 'none',
                                         boxShadow: 'none',
-                                        backgroundColor: 'transparent'
+                                        backgroundColor: 'transparent',
+                                        padding: 0
                                     }}>
                                     <div key={unit.id} className={shared.rowContainer} style={{gap: '16px'}}>
                                         {unit.name}

@@ -1,14 +1,14 @@
-import mainStyles from "../../../styles/shared/Main.module.css";
+import mainStyles from "../../styles/shared/Main.module.css";
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import {Modal} from "@material-ui/core";
-import animations from '../../../styles/shared/Animations.module.css'
-import handleObjectChange from "../../../utils/shared/HandleObjectChange";
+import animations from '../../styles/shared/Animations.module.css'
+import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import {AddRounded} from "@material-ui/icons";
-import {getIconStyle} from "../../../styles/shared/MainStyles";
-import CommissionedRoleForm from "../../templates/forms/CommissionedRoleForm";
-import submitCommissionedRole from "../../../utils/submit/SubmitCommissionedRole";
-import shared from "../../../styles/shared/Shared.module.css";
+import {getIconStyle} from "../../styles/shared/MainStyles";
+import CommissionedRoleForm from "./forms/CommissionedRoleForm";
+import submitCommissionedRole from "../../utils/submit/SubmitCommissionedRole";
+import shared from "../../styles/shared/Shared.module.css";
 
 export default function CommissionedRole(props) {
     const [role, setRole] = useState({})

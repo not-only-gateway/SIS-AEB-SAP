@@ -1,8 +1,6 @@
-import React, {useState} from 'react'
-import {Button} from '@material-ui/core';
+import React from 'react'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
-import mainStyles from '../../styles/shared/Main.module.css'
 import styles from '../../styles/Navigation.module.css'
 
 export default function NavigationButton(props) {

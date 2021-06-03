@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
-import mainStyles from "../../../styles/shared/Main.module.css";
+import mainStyles from "../../styles/shared/Main.module.css";
 
 import React, {useState} from "react";
 import Link from "next/link";
-import PersonAvatar from "../PersonAvatar";
-import styles from '../../../styles/Navigation.module.css'
+import PersonAvatar from "../elements/PersonAvatar";
+import styles from '../../styles/Navigation.module.css'
 
 export default function NavigationProfile(props) {
 
@@ -13,15 +13,14 @@ export default function NavigationProfile(props) {
     return (
         <div className={mainStyles.displayColumnSpaced} style={{
             position: 'absolute',
-            paddingLeft: '0',
-            paddingRight: '0',
+            padding: 0,
             justifyItems: 'center',
             borderRadius: '8px',
             backgroundColor: hovered ? '#0095ff' : '#333333',
             transition: '300ms ease-in',
-            width: props.reduced ? '55px' : '220px',
+            width: props.reduced ? '60px' : '220px',
             height: '60px',
-            marginBottom: '8px'
+            marginBottom: props.reduced ? '2px' : '8px'
         }}
              onMouseEnter={() => setHovered(true)}
              onMouseLeave={() => setHovered(false)}
@@ -33,19 +32,21 @@ export default function NavigationProfile(props) {
                         backgroundColor: 'transparent',
                         color: hovered ? 'white' : null,
                         justifyContent: props.reduced ? 'center' : 'space-between',
-                        width:  '100%',
+                        width: '100%',
                         cursor: 'pointer',
-                        height: '60px'
+                        height: '60px',
+                        paddingLeft: props.reduced ? 'unset' : '4px',
+                        paddingRight: props.reduced ? 'unset' : '4px',
                     }}
                 >
                     <>
                         <PersonAvatar base64={false} cakeDay={false} variant={'rounded'} key={'nav-bar-profile'}
-                                      size={'50px'} image={props.profile.image}
+                                      size={props.reduced ? '60px' : '50px'} image={props.profile.image}
                                       elevation={false}/>
                         {props.reduced ?
                             null
                             :
-                            <div style={{display: 'grid', height: '50px'}}>
+                            <div style={{display: 'grid', height: '48px'}}>
                                 <div
                                     className={[mainStyles.overflowEllipsis, mainStyles.displayInlineStart].join(' ')}
                                     style={{

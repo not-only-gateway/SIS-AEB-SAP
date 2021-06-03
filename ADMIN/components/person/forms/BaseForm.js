@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types'
-import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
 import CountryOptions from "../../../packages/options/CountryOptions";
 import StateOptions from "../../../packages/options/StateSelector";
 import ImageSelector from "../../modules/inputs/ImageField";
@@ -11,21 +10,17 @@ import DropDownField from "../../modules/inputs/DropDownField";
 import Alert from "../../layout/Alert";
 import shared from '../../../styles/shared/Shared.module.css'
 import Button from "../../modules/inputs/Button";
+import BaseFormPT from "../../../packages/component locales/base/BaseFormPT";
 
 export default function BaseForm(props) {
 
 
     const [changed, setChanged] = useState(false)
-    const [lang, setLang] = useState(null)
+    const lang =BaseFormPT
     const [status, setStatus] = useState({
         error: undefined,
         message: undefined
     })
-
-    useEffect(() => {
-
-        setLang(getComponentLanguage({locale: props.locale, component: 'base'}))
-    }, [])
 
 
     function handleNationalityChange(event) {
@@ -60,8 +55,6 @@ export default function BaseForm(props) {
         )
     }
 
-
-    if (lang !== null)
         return (
             <div style={{display: 'grid', rowGap: '32px', width: '100%'}}>
                 <Alert
@@ -237,7 +230,7 @@ export default function BaseForm(props) {
                 </div>
             </div>
         )
-    else return null
+
 }
 
 BaseForm.propTypes = {

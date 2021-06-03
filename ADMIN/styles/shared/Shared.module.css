@@ -112,11 +112,13 @@
     height: fit-content;
 
     display: grid;
-    align-content: space-between;
+
+    grid-template-rows: calc(100% - 64px) 64px;
 
     overflow: hidden;
 
     position: relative;
+    max-height: 80%;
 }
 
 .modalContainer > div {
@@ -125,11 +127,23 @@
 }
 
 .modalFooter {
+    grid-row: 2;
     background: #f4f5fa;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+
     border-radius: 0 0 8px 8px;
     padding: 24px 32px 24px 32px;
     gap: 16px;
     border-top: #ecedf2 1px solid;
+
+}
+
+.modalContent {
+    grid-row: 1;
+    width: 100%;
+
+    overflow: auto;
+    padding: 32px clamp(32px, 10%, 64px);
 }

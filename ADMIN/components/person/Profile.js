@@ -6,7 +6,7 @@ import PersonPersona from "../elements/PersonAvatar";
 export default function Profile(props) {
     return (
         <div className={styles.profileContainer}
-             style={{top: props.padding ? '0' : '32px', paddingTop: props.padding ? '16px' : 0}}>
+             style={{paddingTop: props.padding ? '16px' : 0}}>
             <PersonPersona
                 size={'120px'}
                 dark={false}
