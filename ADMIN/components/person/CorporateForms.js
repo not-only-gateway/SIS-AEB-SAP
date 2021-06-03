@@ -9,6 +9,15 @@ import fetchMember from "../../utils/fetch/FetchMember";
 import fetchMainCollaboration from "../../utils/fetch/FetchMainCollaboration";
 import Alert from "../layout/Alert";
 import fetchMemberByPerson from "../../utils/fetch/FetchMemberByPerson";
+import styles from "../../styles/Person.module.css";
+import OptionRow from "./OptionRow";
+import PersonOverview from "./overview/PersonOverview";
+import DocumentsOverview from "./overview/DocumentsOverview";
+import ContactsOverview from "./overview/ContactsOverview";
+import AddressOverview from "./overview/AddressOverview";
+import shared from "../../styles/shared/Shared.module.css";
+import {ArrowBackRounded} from "@material-ui/icons";
+import MemberOverview from "./overview/MemberOverview";
 
 export default function CorporateForms(props) {
     const [member, setMember] = useState(null)
@@ -18,9 +27,9 @@ export default function CorporateForms(props) {
         message: undefined
     })
     const [loading, setLoading] = useState(true)
-
+    const [openTab, setOpenTab] = useState(0)
     useEffect(() => {
-        if (props.openTab === 0 && member === null && props.id !== null && props.id !== undefined) {
+        if (member === null && props.id !== null && props.id !== undefined) {
             setLoading(true)
             fetchMember({memberID: props.id, setStatus: setStatus}).then(res => {
                 if (res !== null) {
@@ -28,8 +37,6 @@ export default function CorporateForms(props) {
                     fetchMainCollaboration({memberID: res.member.id, setStatus: undefined}).then(res => {
                         if (res !== null)
                             setMainCollaboration({key: res.id, value: res.tag})
-
-
                     })
                 }
             })
@@ -38,11 +45,11 @@ export default function CorporateForms(props) {
             setLoading(false)
     }, [props.openTab])
 
-    async function handleMemberSubmit(event){
+    async function handleMemberSubmit(event) {
         let response = false
         if (member === null || member.id === undefined) {
             const submitMemberResponse = await submitMember(event)
-            if (submitMemberResponse.status){
+            if (submitMemberResponse.status) {
                 const fetchMemberResponse = await fetchMemberByPerson({personID: props.personID, setStatus: setStatus})
                 if (fetchMemberResponse !== null) {
                     setMember(fetchMemberResponse.member)
@@ -56,8 +63,7 @@ export default function CorporateForms(props) {
                 props.fetchMembership()
                 response = submitMemberResponse
             }
-        }
-        else {
+        } else {
             response = await submitMember(event)
         }
 
@@ -73,10 +79,33 @@ export default function CorporateForms(props) {
             })}
                    render={status.error}/>
             <div style={{width: '100%'}}>
+                <button className={shared.rowContainer} onClick={() => setOpenTab(0)} style={{display: openTab !== 0 ? undefined : 'none', marginBottom: '32px', gap: '16px'}}>
+                    <ArrowBackRounded/>
+                    <p style={{fontSize: '.9rem'}}>{props.lang.returnLabel}</p>
+                </button>
                 <TabContent
                     tabs={[
                         {
                             buttonKey: 0,
+                            value: (
+                                <div className={styles.personOptionsContainer}>
+                                    <OptionRow setOption={() => setOpenTab(1)} label={props.lang.membership}
+                                               modalContent={member === null ? null : <MemberOverview data={member}/>}/>
+                                    <button className={shared.rowContainer} onClick={() => setOpenTab(2)}
+                                            style={{
+                                                width: '100%',
+                                                justifyContent: "space-between",
+                                                cursor: props.modalContent === null ? 'unset' : 'pointer',
+                                                color: '#282828',
+                                                boxShadow: props.modalContent === null ? 'unset' : undefined
+                                            }}>
+                                        {props.lang.collaborations}
+                                    </button>
+                                </div>
+                            )
+                        },
+                        {
+                            buttonKey: 1,
                             value: loading ? null : (
                                 <MembershipForm
                                     personID={props.personID}
@@ -95,7 +124,7 @@ export default function CorporateForms(props) {
                             )
                         },
                         {
-                            buttonKey: 1,
+                            buttonKey: 2,
                             value: (
                                 <CollaborationList
                                     id={props.id}
@@ -106,7 +135,7 @@ export default function CorporateForms(props) {
                             )
                         }
                     ]}
-                    openTab={props.openTab}
+                    openTab={openTab}
 
                 />
             </div>
@@ -119,7 +148,7 @@ CorporateForms.propTypes = {
     accessProfile: PropTypes.object,
     locale: PropTypes.string,
     lang: PropTypes.object,
-    openTab: PropTypes.number,
+
     personID: PropTypes.number,
     fetchMembership: PropTypes.func
 

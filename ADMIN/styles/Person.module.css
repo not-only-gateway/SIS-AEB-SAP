@@ -53,7 +53,7 @@
 .personOptionsContainer {
     display: grid;
     gap: 16px;
-
+    width: 100%;
 }
 
 .optionContainer {
