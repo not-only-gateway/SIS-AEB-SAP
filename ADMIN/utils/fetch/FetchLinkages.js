@@ -7,7 +7,7 @@ export default async function fetchLinkages() {
 
     await axios({
         method: 'get',
-        url: Host() + 'linkages',
+        url: Host() + 'list/linkage',
         headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
     }).then(res => {
         response = res.data

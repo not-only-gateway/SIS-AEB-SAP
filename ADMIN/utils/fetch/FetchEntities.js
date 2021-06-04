@@ -8,7 +8,7 @@ export default async function fetchEntities(props) {
 
     await axios({
         method: 'get',
-        url: Host() + 'entities',
+        url: Host() + 'list/entity',
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         params: {
             authorization_token: cookies.get('authorization_token'),

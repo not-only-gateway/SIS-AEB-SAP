@@ -8,7 +8,7 @@ export default async function fetchContacts(props){
     let response = null
     await axios({
         method: 'get',
-        url: Host() + 'contact/'+props.personID,
+        url: Host() + 'contact/person/'+props.personID,
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         params:{
             authorization_token: cookies.get('authorization_token')

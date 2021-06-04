@@ -6,7 +6,7 @@ export default async function fetchTopCollaborators() {
     let response = []
     await axios({
         method: 'get',
-        url: Host() + 'top/collaborators',
+        url: Host() + 'top/collaborator',
         headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
     }).then(res => {
         console.log(res)

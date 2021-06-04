@@ -7,7 +7,7 @@ export default async function fetchCollaborations(memberID){
     let response = []
     await axios({
         method: 'get',
-        url: Host() + 'collaborations/'+memberID,
+        url: Host() + 'list/collaboration/'+memberID,
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         params: {
             authorization_token: cookies.get('authorization_token')

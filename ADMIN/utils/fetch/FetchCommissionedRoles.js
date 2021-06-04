@@ -6,7 +6,7 @@ export default async function fetchCommissionedRoles() {
     let response = []
     await axios({
         method: 'get',
-        url: Host() + 'roles/commissioned',
+        url: Host() + 'list/commissioned_role',
         headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
     }).then(res => {
         response = res.data

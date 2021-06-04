@@ -8,7 +8,7 @@ export default async function fetchPeople(props) {
 
     await axios({
         method: 'get',
-        url: Host() + 'people',
+        url: Host() + 'list/person',
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         params: {
             authorization_token: cookies.get('authorization_token'),

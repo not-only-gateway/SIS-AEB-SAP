@@ -9,7 +9,7 @@ export default async function fetchSeniors(props) {
 
     await axios({
         method: 'get',
-        url: Host() + 'seniors',
+        url: Host() + 'list/senior',
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         params: {
             authorization_token: cookies.get('authorization_token'),

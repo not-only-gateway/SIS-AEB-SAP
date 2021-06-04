@@ -6,7 +6,7 @@ export default async function fetchAccessProfiles() {
     let response = []
     await axios({
         method: 'get',
-        url: Host() + 'access_profiles',
+        url: Host() + 'list/access',
         headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
     }).then(res => {
         response = res.data

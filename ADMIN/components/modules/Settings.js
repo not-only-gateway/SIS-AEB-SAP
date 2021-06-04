@@ -2,7 +2,7 @@ import Cookies from "universal-cookie/lib";
 import Selector from "./inputs/Selector";
 import mapToSelect from "../../utils/shared/MapToSelect";
 import React, {useEffect, useState} from "react";
-import fetchSettingsData from "../../utils/fetch/FetchSettings";
+
 
 import PropTypes from "prop-types";
 import {setCookiesLanguage} from "../../utils/shared/PageLanguage";
@@ -10,6 +10,7 @@ import styles from '../../styles/SettingsActivity.module.css'
 import DropDownField from "./inputs/DropDownField";
 import submitCollaborationChange from "../../utils/submit/SubmitCollaborationChange";
 import Alert from "../layout/Alert";
+import fetchActiveCollaborations from "../../utils/fetch/fetchActiveCollaborations";
 
 
 export default function Settings(props) {
@@ -28,7 +29,7 @@ export default function Settings(props) {
 
         const profile = sessionStorage.getItem('profile')
         if(profile !== null) {
-            fetchSettingsData(JSON.parse(profile).member_id).then(res => {
+            fetchActiveCollaborations(JSON.parse(profile).member_id).then(res => {
                 setCollaborations(res)
             })
         }

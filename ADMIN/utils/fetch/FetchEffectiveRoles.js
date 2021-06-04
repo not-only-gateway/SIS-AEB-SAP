@@ -7,7 +7,7 @@ export default async function fetchEffectiveRoles() {
 
     await axios({
         method: 'get',
-        url: Host() + 'roles/effective',
+        url: Host() + 'list/effective_role',
         headers: (new Cookies()).get('jwt') !== undefined ? {'authorization': (new Cookies()).get('jwt')} : null,
     }).then(res => {
         response = res.data
