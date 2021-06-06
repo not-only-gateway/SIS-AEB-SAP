@@ -2,6 +2,7 @@ import axios from "axios";
 import PropTypes from 'prop-types'
 import Cookies from "universal-cookie/lib";
 import publicIp from "public-ip";
+import Host from '../../utils/shared/Host'
 
 const cookies = new Cookies()
 export default async function submitSignIN(props) {
@@ -10,7 +11,7 @@ export default async function submitSignIN(props) {
     try {
         await axios({
             method: 'post',
-            url: 'http://localhost:8000/api/authentication',
+            url: Host() + 'authentication',
             data: {
                 corporate_email: props.email,
                 password: props.password,
@@ -21,7 +22,9 @@ export default async function submitSignIN(props) {
                 user_agent: navigator.userAgent
             }
         }).then(async function (res) {
-            cookies.set('jwt', res.data)
+            cookies.set('jwt', res.data.token, {expires: new Date(res.data.exp)})
+
+
             response = true
         }).catch(error => {
             props.setError({

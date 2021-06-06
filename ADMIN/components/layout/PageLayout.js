@@ -18,6 +18,7 @@ export default function PageLayout({children}) {
     const [accessProfile, setAccessProfile] = useState(null)
 
     useEffect(() => {
+
         if (cookies.get('jwt') === undefined)
             router.push('/authenticate')
         if (cookies.get('jwt') !== undefined && sessionStorage.getItem('profile') === null) {

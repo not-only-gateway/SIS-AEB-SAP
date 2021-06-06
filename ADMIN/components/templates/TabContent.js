@@ -1,33 +1,24 @@
 import PropTypes from 'prop-types'
 import mainStyles from '../../styles/shared/Main.module.css'
+import React from "react";
 
 export default function TabContent(props) {
     return (
-        <div key={props.key}>
-            {props.tabs.map(tab => {
-                if (tab !== null && tab.buttonKey === props.openTab) {
-                    if (props.noContainer)
-                        return tab.value
-                    else
-                        return (
-                            <div className={mainStyles.displayInlineCenter} style={{
-                                position: "relative",
-                                zIndex: 100,
-                                width: '100%',
-                                marginTop: '25px',
-                            }}
-                                 key={tab.buttonKey + '-content-'+props.key}>
-                                {tab.value}
-                            </div>
-                        )
-                } else
-                    return null
-            })}
-        </div>
+        <>
+            {props.tabs.map(tab => (
+                <div style={{
+                    display: tab !== null && tab.buttonKey === props.openTab ? undefined : 'none',
+                    width: '100%',
+                    position: 'relative'
+                }}>
+                    {tab.value}
+                </div>
+            ))}
+        </>
     )
 }
 
-TabContent.propTypes =  {
+TabContent.propTypes = {
     tabs: PropTypes.arrayOf(
         PropTypes.shape({
             buttonKey: PropTypes.number,
@@ -35,6 +26,5 @@ TabContent.propTypes =  {
         })
     ),
     openTab: PropTypes.any,
-    noContainer: PropTypes.bool,
-    key: PropTypes.string
+    noContainer: PropTypes.bool
 }

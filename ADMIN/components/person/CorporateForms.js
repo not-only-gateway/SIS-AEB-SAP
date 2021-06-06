@@ -43,7 +43,7 @@ export default function CorporateForms(props) {
             setLoading(false)
         } else
             setLoading(false)
-    }, [props.openTab])
+    }, [props])
 
     async function handleMemberSubmit(event) {
         let response = false

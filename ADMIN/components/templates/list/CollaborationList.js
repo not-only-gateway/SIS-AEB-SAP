@@ -8,10 +8,11 @@ export default function CollaborationList(props) {
 
 
     useEffect(() => {
-        fetchCollaborations(props.id).then(res => {
-            setCollaborations(res)
-        })
-    }, [])
+        if(props.id !== undefined)
+            fetchCollaborations(props.id).then(res => {
+                setCollaborations(res)
+            })
+    }, [props.id])
 
     return (
         <div style={{

@@ -103,6 +103,7 @@ export default function person() {
                             <TabContent
                                 openTab={openTab}
                                 key={'person'}
+                                maintainTab={true}
                                 tabs={[
                                     {
                                         buttonKey: 0,
