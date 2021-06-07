@@ -6,8 +6,6 @@ import Cookies from "universal-cookie/lib";
 const cookies = new Cookies()
 export default async function submitLinkage(props) {
     let response = false
-    props.data.authorization_token = cookies.get('authorization_token')
-
     await axios({
         method: props.create ? 'post' : 'put',
         url: props.create ? Host() + 'linkage' : Host() + 'linkage/' + props.pk,

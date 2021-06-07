@@ -1,13 +1,12 @@
 import Cookies from "universal-cookie/lib";
-import Selector from "./inputs/Selector";
+import Selector from "../inputs/Selector";
 import mapToSelect from "../../utils/shared/MapToSelect";
 import React, {useEffect, useState} from "react";
 
 
 import PropTypes from "prop-types";
-import {setCookiesLanguage} from "../../utils/shared/PageLanguage";
 import styles from '../../styles/SettingsActivity.module.css'
-import DropDownField from "./inputs/DropDownField";
+import DropDownField from "../inputs/DropDownField";
 import submitCollaborationChange from "../../utils/submit/SubmitCollaborationChange";
 import Alert from "../layout/Alert";
 import fetchActiveCollaborations from "../../utils/fetch/fetchActiveCollaborations";
@@ -44,25 +43,9 @@ export default function Settings(props) {
                     message: undefined
                 })} render={status.type !== undefined}
             />
-            <DropDownField
-                dark={false}
-                placeholder={props.lang.language}
-                label={props.lang.language}
-                handleChange={event => {
-                    setCookiesLanguage(event)
-                    props.redirect({url: '/settings', locale: event})
-                }}
-                locale={props.locale}
-                value={props.locale}
-                required={false}
-                width={'100%'} choices={[
-                {value: 'Português', key: 'pt'},
-                {value: 'English', key: 'en'}
-            ]}/>
 
             {(new Cookies()).get('jwt') !== undefined ?
                 <Selector
-                    locale={props.locale}
                     required={false}
                     handleChange={event => {
                         submitCollaborationChange({collaborationID: event.key, setStatus: setStatus}).then(res => {
@@ -94,6 +77,6 @@ export default function Settings(props) {
 
 Settings.propTypes = {
     redirect: PropTypes.func,
-    locale: PropTypes.string,
+
     lang: PropTypes.object
 }

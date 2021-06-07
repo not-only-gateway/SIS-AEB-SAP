@@ -1,5 +1,5 @@
 import mainStyles from "../../styles/shared/Main.module.css";
-import AccessProfileForm from "../person/forms/AccessProfileForm";
+import AccessProfileForm from "./AccessProfileForm";
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import fetchAccessProfile from "../../utils/fetch/FetchAccessProfile";
@@ -15,7 +15,7 @@ export default function AccessProfile(props) {
     const [accessProfile, setAccessProfile] = useState({})
     const [modal, setModal] = useState(false)
     const [loading, setLoading] = useState(true)
-    const [hovered, setHovered] = useState(false)
+
     useEffect(() => {
         if (modal && !props.create)
             fetchAccessProfile(props.profile.id).then(res => {

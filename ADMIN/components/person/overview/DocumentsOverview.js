@@ -1,9 +1,6 @@
 import PropTypes from 'prop-types'
-import DocumentsOverviewPT from "../../../packages/page locales/person/DocumentsOverviewPT";
 import styles from "../../../styles/Person.module.css";
-import {Avatar} from "@material-ui/core";
-import ImageHost from "../../../utils/shared/ImageHost";
-import DocumentsFormPT from "../../../packages/component locales/documents/DocumentsFormPT";
+import DocumentsFormPT from "../../../packages/locales/person/DocumentsFormPT";
 
 export default function DocumentsOverview(props){
     const lang = DocumentsFormPT

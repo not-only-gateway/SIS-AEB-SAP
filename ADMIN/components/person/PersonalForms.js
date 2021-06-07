@@ -17,12 +17,13 @@ import fetchPerson from "../../utils/fetch/FetchPerson";
 import Alert from "../layout/Alert";
 import shared from '../../styles/shared/Shared.module.css'
 import styles from '../../styles/Person.module.css'
-import {ArrowBackRounded, ArrowLeftRounded, EditRounded, HistoryRounded} from "@material-ui/icons";
+import {ArrowBackRounded} from "@material-ui/icons";
 import OptionRow from "./OptionRow";
 import AddressOverview from "./overview/AddressOverview";
 import ContactsOverview from "./overview/ContactsOverview";
 import DocumentsOverview from "./overview/DocumentsOverview";
 import PersonOverview from "./overview/PersonOverview";
+import PersonHistory from "./history/PersonHistory";
 
 export default function PersonalForms(props) {
     const [documents, setDocuments] = useState(null)
@@ -74,7 +75,8 @@ export default function PersonalForms(props) {
             })} render={status.error}/>
 
             <div style={{width: '100%'}}>
-                <button className={shared.rowContainer} onClick={() => setOpenTab(0)} style={{display: openTab !== 0 ? undefined : 'none', marginBottom: '32px', gap: '16px'}}>
+                <button className={shared.rowContainer} onClick={() => setOpenTab(0)}
+                        style={{display: openTab !== 0 ? undefined : 'none', marginBottom: '32px', gap: '16px'}}>
                     <ArrowBackRounded/>
                     <p style={{fontSize: '.9rem'}}>{props.lang.returnLabel}</p>
                 </button>
@@ -86,14 +88,20 @@ export default function PersonalForms(props) {
                             buttonKey: 0,
                             value: (
                                 <div className={styles.personOptionsContainer}>
-                                    <OptionRow setOption={() => setOpenTab(1)} label={props.lang.personal}
+                                    <OptionRow setOption={() => setOpenTab(1)} setHistory={() => setOpenTab(5)}
+                                               label={props.lang.personal}
                                                modalContent={person === null ? null : <PersonOverview data={person}/>}/>
-                                    <OptionRow setOption={() => setOpenTab(2)} label={props.lang.documents}
-                                               modalContent={documents === null ? null :<DocumentsOverview data={documents}/>}/>
-                                    <OptionRow setOption={() => setOpenTab(3)} label={props.lang.contacts}
-                                               modalContent={contact === null ? null :<ContactsOverview data={contact}/>}/>
+                                    <OptionRow setOption={() => setOpenTab(2)} setHistory={() => setOpenTab(6)}
+                                               label={props.lang.documents}
+                                               modalContent={documents === null ? null :
+                                                   <DocumentsOverview data={documents}/>}/>
+                                    <OptionRow setOption={() => setOpenTab(3)} setHistory={() => setOpenTab(7)}
+                                               label={props.lang.contacts}
+                                               modalContent={contact === null ? null :
+                                                   <ContactsOverview data={contact}/>}/>
                                     <OptionRow setOption={() => setOpenTab(4)} label={props.lang.address}
-                                               modalContent={address === null ? null :<AddressOverview data={address}/>}/>
+                                               modalContent={address === null ? null :
+                                                   <AddressOverview data={address}/>}/>
                                 </div>
                             )
                         }, {
@@ -160,6 +168,24 @@ export default function PersonalForms(props) {
                                 />
                             )
                         },
+                        {
+                            buttonKey: 5,
+                            value: (
+                                <PersonHistory id={props.personID}/>
+                            )
+                        },
+                        {
+                            buttonKey: 6,
+                            value: (
+                                null
+                            )
+                        },
+                        {
+                            buttonKey: 7,
+                            value: (
+                                null
+                            )
+                        },
                     ]}/>
             </div>
         </div>
@@ -167,10 +193,10 @@ export default function PersonalForms(props) {
 }
 
 PersonalForms.propTypes = {
-    id: PropTypes.string,
-    personID: PropTypes.number,
-    memberID: PropTypes.number,
-    locale: PropTypes.string,
-    accessProfile: PropTypes.object,
-    lang: PropTypes.object
-}
+        id: PropTypes.string,
+        personID: PropTypes.number,
+        memberID: PropTypes.number,
+        locale: PropTypes.string,
+        accessProfile: PropTypes.object,
+        lang: PropTypes.object
+    }

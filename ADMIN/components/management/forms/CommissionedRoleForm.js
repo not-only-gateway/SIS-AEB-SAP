@@ -1,25 +1,22 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import mainStyles from '../../../styles/shared/Main.module.css'
-import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
+
 import Alert from "../../layout/Alert";
-import TextField from "../../modules/inputs/TextField";
+import TextField from "../../inputs/TextField";
 import shared from "../../../styles/shared/Shared.module.css";
-import Button from "../../modules/inputs/Button";
-import DropDownField from "../../modules/inputs/DropDownField";
+import Button from "../../inputs/Button";
+import DropDownField from "../../inputs/DropDownField";
+import {commissioned} from "../../../packages/locales/management/SimpleFormsPT";
 
 export default function CommissionedRoleForm(props) {
 
     const [changed, setChanged] = useState(false)
-    const [lang, setLang] = useState(null)
+    const lang = commissioned
     const [status, setStatus] = useState({
         type: undefined,
         message: undefined
     })
-
-    useEffect(() => {
-        setLang(getComponentLanguage({component: 'commissioned', locale: props.locale}))
-    }, [])
 
     function disabled() {
         return (
@@ -33,7 +30,6 @@ export default function CommissionedRoleForm(props) {
     }
 
 
-    if (lang !== null)
         return (
             <div className={mainStyles.displayWarp}
                  style={{justifyContent: 'center', width: '100%', position: 'relative', overflow: 'auto'}}>
@@ -154,8 +150,7 @@ export default function CommissionedRoleForm(props) {
             </div>
 
         )
-    else
-        return <></>
+
 }
 
 CommissionedRoleForm.propTypes = {
@@ -163,6 +158,6 @@ CommissionedRoleForm.propTypes = {
     handleChange: PropTypes.func,
     create: PropTypes.bool,
     data: PropTypes.object,
-    locale: PropTypes.string,
+
     closeModal: PropTypes.func
 }

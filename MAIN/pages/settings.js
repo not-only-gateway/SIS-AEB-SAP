@@ -1,9 +1,8 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {getLanguage} from "../utils/shared/PageLanguage";
 import HeaderLayout from "../components/layout/HeaderLayout";
 import Settings from "../components/modules/Settings";
-import Cookies from "universal-cookie/lib";
 
 export default function settings() {
 

@@ -1,11 +1,6 @@
 import PropTypes from 'prop-types'
 import styles from '../../../styles/Person.module.css'
-import {Avatar} from "@material-ui/core";
-import ImageHost from "../../../utils/shared/ImageHost";
-import {useEffect, useState} from "react";
-
-import PersonOverviewPT from "../../../packages/page locales/person/PersonOverviewPT";
-import MemberOverviewPT from "../../../packages/page locales/person/MemberOverviewPT";
+import MemberOverviewPT from "../../../packages/locales/person/MemberOverviewPT";
 
 export default function MemberOverview(props) {
     const lang = MemberOverviewPT

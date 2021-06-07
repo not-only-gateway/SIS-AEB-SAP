@@ -12,7 +12,7 @@ export default function PageLayout({children}) {
 
 
     const router = useRouter()
-    const {locale} = router
+
     const [reduced, setReduced] = useState(true)
     const [profile, setProfile] = useState(null)
     const [accessProfile, setAccessProfile] = useState(null)
@@ -46,10 +46,7 @@ export default function PageLayout({children}) {
             })
         } else
             setProfile(JSON.parse(sessionStorage.getItem('profile')))
-
-        if (locale !== cookies.get('lang') && cookies.get('lang') !== undefined)
-            router.push(router.pathname, router.pathname, {locale: cookies.get('lang')}).catch(error => console.log(error))
-    }, [router.isReady, router.locale, router.pathname])
+    }, [router.isReady, router.pathname])
 
     if (router.pathname !== '/authenticate')
         return (
@@ -63,7 +60,7 @@ export default function PageLayout({children}) {
 
                     {children}
                 </div>
-                <Navigation dark={false} locale={router.locale} path={router.pathname} reduced={reduced}
+                <Navigation dark={false} path={router.pathname} reduced={reduced}
                             setReduced={setReduced} query={router.query} profile={profile}
                             accessProfile={accessProfile}/>
 

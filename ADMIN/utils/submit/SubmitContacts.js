@@ -6,7 +6,6 @@ import PropTypes from 'prop-types'
 const cookies = new Cookies()
 export default async function submitContacts(props){
     let response = false
-    props.data.authorization_token =  cookies.get('authorization_token')
     await axios({
         method: 'put',
         url: Host() + 'contact/'+props.personID,

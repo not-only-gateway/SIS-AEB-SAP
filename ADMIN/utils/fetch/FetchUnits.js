@@ -11,9 +11,8 @@ export default async function fetchUnits(props) {
         url: Host() + 'list/unit',
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         params: {
-            authorization_token: cookies.get('authorization_token'),
             max_id: props.maxID,
-            searchInput: props.searchInput && props.searchInput.length > 0 ? props.searchInput : null
+            search_input: props.searchInput && props.searchInput.length > 0 ? props.searchInput : null
         }
     }).then(res => {
         if (props.maxID === null)

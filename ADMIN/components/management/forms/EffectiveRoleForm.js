@@ -1,23 +1,22 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import mainStyles from '../../../styles/shared/Main.module.css'
-import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
+
 import Alert from "../../layout/Alert";
 import shared from "../../../styles/shared/Shared.module.css";
-import Button from "../../modules/inputs/Button";
-import TextField from "../../modules/inputs/TextField";
+import Button from "../../inputs/Button";
+import TextField from "../../inputs/TextField";
+import {effective} from "../../../packages/locales/management/SimpleFormsPT";
 
 export default function EffectiveRoleForm(props) {
 
     const [changed, setChanged] = useState(false)
-    const [lang, setLang] = useState(null)
+    const lang = effective
+
     const [status, setStatus] = useState({
         type: undefined,
         message: undefined
     })
-    useEffect(() => {
-        setLang(getComponentLanguage({component: 'effective', locale: props.locale}))
-    }, [])
 
 
     function disabled() {
@@ -30,8 +29,6 @@ export default function EffectiveRoleForm(props) {
         )
     }
 
-
-    if (lang !== null)
         return (
             <div className={mainStyles.displayWarp}
                  style={{justifyContent: 'center', width: '100%', position: 'relative'}}>
@@ -97,12 +94,10 @@ export default function EffectiveRoleForm(props) {
             </div>
 
         )
-    else
-        return <></>
+
 }
 
 EffectiveRoleForm.propTypes = {
-    locale: PropTypes.string,
     data: PropTypes.object,
     create: PropTypes.bool,
     closeModal: PropTypes.func

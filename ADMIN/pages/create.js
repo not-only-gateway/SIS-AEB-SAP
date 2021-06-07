@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
-import {getLanguage} from "../utils/shared/PageLanguage";
 import BaseForm from "../components/person/forms/BaseForm";
 
 import HeaderLayout from "../components/layout/HeaderLayout";
@@ -10,11 +9,12 @@ import submitPerson from "../utils/submit/SubmitPerson";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import submitMember from "../utils/submit/SubmitMember";
 import Stepper from "../components/layout/navigation/Stepper";
+import CreatePT from "../packages/locales/create/CreatePT";
 
 export default function create() {
 
     const router = useRouter()
-    const [lang, setLang] = useState(null)
+    const lang = CreatePT
     const [accessProfile, setAccessProfile] = useState(null)
     const [id, setID] = useState(undefined)
     const [person, setPerson] = useState({})
@@ -44,8 +44,6 @@ export default function create() {
                     router.push('/', '/', {locale: router.locale})
             }
 
-        if (lang === null)
-            setLang(getLanguage(router.locale, router.pathname))
     }, [router.locale, router.isReady, router.query])
 
 

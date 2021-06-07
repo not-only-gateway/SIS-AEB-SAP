@@ -1,12 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
-import getComponentLanguage from "../../../utils/shared/GetComponentLanguage";
-import TextField from "../../modules/inputs/TextField";
+import TextField from "../../inputs/TextField";
 import Alert from "../../layout/Alert";
 import shared from "../../../styles/shared/Shared.module.css";
-import Button from "../../modules/inputs/Button";
-import DateField from "../../modules/inputs/DateField";
-import DocumentsFormPT from "../../../packages/component locales/documents/DocumentsFormPT";
+import Button from "../../inputs/Button";
+import DateField from "../../inputs/DateField";
+import DocumentsFormPT from "../../../packages/locales/person/DocumentsFormPT";
 
 
 export default function DocumentsForm(props) {

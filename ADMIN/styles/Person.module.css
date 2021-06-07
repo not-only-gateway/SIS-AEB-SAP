@@ -37,7 +37,10 @@
 
     border-bottom: #ecedf2 1px solid;
     width: 100%;
+    position: sticky;
+    top: 0;
 
+    z-index: 50;
     display: grid;
     gap: 32px;
 
@@ -77,4 +80,20 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.historyContainer{
+    display: grid;
+    row-gap: 16px;
+
+}
+.historyContainer > div{
+    width: 100%;
+}
+
+.historyFieldSetContainer{
+    border-right: none;
+    border-left: none;
+    border-bottom: none;
+    border-top: #0095ff 1px solid;
 }

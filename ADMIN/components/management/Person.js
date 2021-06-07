@@ -1,13 +1,8 @@
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from 'prop-types'
-
-import animations from '../../styles/shared/Animations.module.css'
-import {Modal} from "@material-ui/core";
-import Profile from "../person/Profile";
 import shared from '../../styles/shared/Shared.module.css'
 import PersonAvatar from "../elements/PersonAvatar";
 import {ExtensionRounded} from "@material-ui/icons";
-import Button from "../modules/inputs/Button";
 import Link from 'next/link'
 
 export default function Person(props) {

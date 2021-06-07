@@ -6,29 +6,27 @@ import {getTertiaryColor} from "../../styles/shared/MainStyles";
 import axios from "axios";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import getComponentLanguage from "../../utils/shared/GetComponentLanguage";
+
 import animations from '../../styles/shared/Animations.module.css'
 import Alert from "../layout/Alert";
 import styles from '../../styles/component/Component.module.css'
-import TextField from "./inputs/TextField";
-import Button from "./inputs/Button";
+import TextField from "../inputs/TextField";
+import Button from "../inputs/Button";
+import AuthenticatePT from "../../packages/locales/authenticate/AuthenticatePT";
 
 const cookies = new Cookies()
 export default function Authenticate(props) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [lang, setLang] = useState(null)
+    const lang = AuthenticatePT
+
     const [attempts, setAttempts] = useState(0)
+
     const [valid, setValid] = useState(false)
     const [error, setError] = useState({
         error: null,
         message: null
     })
-    useEffect(() => {
-        if ((new Cookies()).get('authorization_token') !== undefined)
-            setValid(true)
-        setLang(getComponentLanguage({locale: props.locale, component: 'authenticate'}))
-    }, [])
 
     function handleChange(event) {
         if (event.name === 'email')

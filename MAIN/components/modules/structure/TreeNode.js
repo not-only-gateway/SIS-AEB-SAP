@@ -3,7 +3,6 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import Link from 'next/link'
 import mainStyles from '../../../styles/shared/Main.module.css'
 import animations from '../../../styles/shared/Animations.module.css'
 import ProfilePersona from "../../elements/ProfilePersona";

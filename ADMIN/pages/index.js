@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
-import {getLanguage} from "../utils/shared/PageLanguage";
 import HeaderLayout from "../components/layout/HeaderLayout";
 import TabContent from "../components/templates/TabContent";
 import AccessProfileList from "../components/templates/list/AccessProfileList";
@@ -10,18 +9,16 @@ import LinkageList from "../components/templates/list/LinkageList";
 import PeopleList from "../components/templates/list/PeopleList";
 import UnitList from "../components/templates/list/UnitList";
 import HorizontalTabs from "../components/layout/navigation/HorizontalTabs";
+import ManagementPT from "../packages/locales/management/ManagementPT";
 
 export default function management() {
 
     const router = useRouter()
-    const [lang, setLang] = useState(null)
+    const lang = ManagementPT
     const [accessProfile, setAccessProfile] = useState(null)
     const [openTab, setOpenTab] = useState(0)
 
     useEffect(() => {
-
-        if (lang === null)
-            setLang(getLanguage(router.locale, router.pathname))
         if (accessProfile === null && sessionStorage.getItem('accessProfile') !== null) {
             const accessProfileSession = JSON.parse(sessionStorage.getItem('accessProfile'))
             if (accessProfileSession.can_manage_structure || accessProfileSession.can_update_person) {

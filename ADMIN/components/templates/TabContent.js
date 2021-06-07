@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import mainStyles from '../../styles/shared/Main.module.css'
 import React from "react";
 
 export default function TabContent(props) {

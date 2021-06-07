@@ -6,17 +6,18 @@ import HeaderLayout from "../components/layout/HeaderLayout";
 import TabContent from "../components/templates/TabContent";
 import fetchUnit from "../utils/fetch/FetchUnit";
 import submitUnit from "../utils/submit/SubmitUnit";
-import ExpandableTabs from "../components/layout/navigation/ExpandableTabs";
 import AddressForm from "../components/person/forms/AddressForm";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import submitUnitAddress from "../utils/submit/SubmitUnitAddress";
 import UnitForm from "../components/management/forms/UnitForm";
+import UnitPT from "../packages/locales/unit/UnitPT";
+import HorizontalTabs from "../components/layout/navigation/HorizontalTabs";
 
 export default function unit() {
 
     const router = useRouter()
     const [id, setId] = useState(undefined)
-    const [lang, setLang] = useState(null)
+    const lang = UnitPT
     const [accessProfile, setAccessProfile] = useState(null)
     const [loading, setLoading] = useState(true)
     const [unit, setUnit] = useState({})
@@ -43,7 +44,7 @@ export default function unit() {
             setLang(getLanguage(router.locale, router.pathname))
     })
 
-    if (lang !== null && id !== undefined && !loading)
+    if ( id !== undefined && !loading)
         return (
             <>
 
@@ -51,7 +52,7 @@ export default function unit() {
                     width={'75%'}
                     tabs={
 
-                        <ExpandableTabs
+                        <HorizontalTabs
                             buttons={[
                                 {
                                     disabled: false,

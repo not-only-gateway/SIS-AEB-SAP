@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
-import {getLanguage} from "../utils/shared/PageLanguage";
 import styles from '../styles/Person.module.css'
 import Profile from "../components/person/Profile";
 import TabContent from "../components/templates/TabContent";
@@ -11,7 +10,7 @@ import Head from 'next/head'
 import fetchPerson from "../utils/fetch/FetchPerson";
 import fetchMemberByPerson from "../utils/fetch/FetchMemberByPerson";
 import HorizontalTabs from "../components/layout/navigation/HorizontalTabs";
-import PersonPT from "../packages/page locales/person/PersonPT";
+import PersonPT from "../packages/locales/person/PersonPT";
 
 export default function person() {
 

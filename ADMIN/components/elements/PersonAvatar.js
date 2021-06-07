@@ -1,13 +1,20 @@
 import PropTypes from 'prop-types'
 import {Avatar} from "@material-ui/core";
-import ImageHost from "../../utils/shared/ImageHost";
-import React from "react";
+import FetchImage from "../../utils/shared/FetchImage";
+import React, {useEffect, useState} from "react";
 import animations from '../../styles/shared/Animations.module.css'
 
 export default function PersonAvatar(props) {
+    const [image, setImage] = useState(null)
+
+    useEffect(() => {
+        FetchImage(props.image).then(res => setImage(res))
+
+    })
+
     return (
         <div style={{position: 'relative'}} className={animations.fadeIn}>
-            <Avatar src={typeof(props.image) === 'string' ? (props.base64 ? props.image : (ImageHost()+props.image)) : undefined}
+            <Avatar src={image}
                     style={{
                         height: props.size,
                         width: props.size,
@@ -39,6 +46,5 @@ PersonAvatar.propTypes = {
     size: PropTypes.string,
     variant: PropTypes.string,
     elevation: PropTypes.bool,
-    base64: PropTypes.bool,
     absoluteContent: PropTypes.any
 }

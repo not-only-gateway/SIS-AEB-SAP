@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import styles from "../../../styles/Person.module.css";
-import AddressOverviewPT from "../../../packages/page locales/person/AddressOverviewPT";
+import AddressOverviewPT from "../../../packages/locales/person/AddressOverviewPT";
 
 export default function AddressOverview(props){
     const lang = AddressOverviewPT

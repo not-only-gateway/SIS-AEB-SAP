@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import styles from "../../../styles/Person.module.css";
-import ContactsOverviewPT from "../../../packages/page locales/person/ContactsOverviewPT";
+import ContactsOverviewPT from "../../../packages/locales/person/ContactsOverviewPT";
 
 export default function ContactsOverview(props){
     const lang = ContactsOverviewPT

@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types'
 import CountryOptions from "../../../packages/options/CountryOptions";
 import StateOptions from "../../../packages/options/StateSelector";
-import ImageSelector from "../../modules/inputs/ImageField";
-import Selector from "../../modules/inputs/Selector";
-import TextField from "../../modules/inputs/TextField";
-import DateField from "../../modules/inputs/DateField";
-import DropDownField from "../../modules/inputs/DropDownField";
+import ImageSelector from "../../inputs/ImageField";
+import Selector from "../../inputs/Selector";
+import TextField from "../../inputs/TextField";
+import DateField from "../../inputs/DateField";
+import DropDownField from "../../inputs/DropDownField";
 import Alert from "../../layout/Alert";
 import shared from '../../../styles/shared/Shared.module.css'
-import Button from "../../modules/inputs/Button";
-import BaseFormPT from "../../../packages/component locales/base/BaseFormPT";
+import Button from "../../inputs/Button";
+import BaseFormPT from "../../../packages/locales/person/BaseFormPT";
 
 export default function BaseForm(props) {
 

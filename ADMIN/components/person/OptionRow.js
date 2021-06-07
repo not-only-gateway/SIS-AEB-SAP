@@ -4,7 +4,7 @@ import shared from "../../styles/shared/Shared.module.css";
 import {AddRounded, EditRounded, HistoryRounded} from "@material-ui/icons";
 import React, {useState} from "react";
 import {Modal} from "@material-ui/core";
-import Button from "../modules/inputs/Button";
+import Button from "../inputs/Button";
 
 export default function OptionRow(props) {
     const [modal, setModal] = useState(false)
@@ -43,7 +43,7 @@ export default function OptionRow(props) {
             <button onClick={() => props.setOption()} className={shared.rowContainer}
                     style={{width: '56px', justifyContent: 'center', color: '#555555'}}> {props.modalContent === null ? <AddRounded/> : <EditRounded/>}
             </button>
-            <button className={shared.rowContainer}
+            <button className={shared.rowContainer} onClick={() => props.setHistory()}
                     style={{width: '56px', justifyContent: 'center', display: props.modalContent === null ? 'none' : 'initial', color: '#555555'}}><HistoryRounded/>
             </button>
         </div>
@@ -53,5 +53,6 @@ export default function OptionRow(props) {
 OptionRow.propTypes = {
     label: PropTypes.string,
     setOption: PropTypes.func,
-    modalContent: PropTypes.any
+    modalContent: PropTypes.any,
+    setHistory: PropTypes.func
 }

@@ -14,6 +14,7 @@ export default async function fetchPerson(props){
             authorization_token: cookies.get('authorization_token')
         }
     }).then(res => {
+        console.log(res.data)
         response = res.data
     }).catch(error => {
         props.setStatus({

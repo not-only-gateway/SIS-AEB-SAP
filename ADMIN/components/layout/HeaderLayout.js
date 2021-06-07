@@ -5,37 +5,15 @@ import Head from "next/head";
 import styles from '../../styles/component/Component.module.css'
 
 export default function HeaderLayout(props) {
-    const [height, setHeight] = useState('170px')
-    //
-    // useEffect(() => {
-    //     if (!scrolledHeight) {
-    //         document.getElementById('scrollableDiv').addEventListener('scroll', () => {
-    //             console.log(document.getElementById('header').offsetTop)
-    //             if (document.getElementById('header').offsetTop > 50) {
-    //                 setScrolledHeight(true)
-    //
-    //             }
-    //
-    //             else if (document.getElementById('header').offsetTop === 0)
-    //                 setScrolledHeight(false)
-    //         })
-    //         // if (document.getElementById('scrollableDiv') !== null)
-    //         //     return () => {
-    //         //         document.getElementById('scrollableDiv').removeEventListener('scroll', () => {
-    //         //             if (document.getElementById('header').offsetTop === 0)
-    //         //                 setScrolledHeight(false)
-    //         //         })
-    //         //     }
-    //     }
-    // })
-
     return (
         <div id={'header'} style={{
             background: '#f4f5fa',
+            position: 'sticky',
+            top: 0,
 
-            transition: '300ms ease-in-out',
             zIndex: 50,
-            height: height,
+            transition: '300ms ease-in-out',
+            height: '170px',
             paddingBottom: '8px',
             borderBottom: '#ecedf2 1px solid'
         }}>
