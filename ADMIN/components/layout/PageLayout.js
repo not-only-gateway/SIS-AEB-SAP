@@ -23,6 +23,7 @@ export default function PageLayout({children}) {
             router.push('/authenticate')
         if (cookies.get('jwt') !== undefined && sessionStorage.getItem('profile') === null) {
             fetchMemberByToken().then(res => {
+
                 if (res !== null) {
                     res.person.corporate_email = res.member.corporate_email
                     res.person.member_id = res.member.id
@@ -34,14 +35,15 @@ export default function PageLayout({children}) {
                         name: res.person.name
                     }))
                     setProfile(res.person)
-                    if (sessionStorage.getItem('collaboration') === null && res.active_collaboration !== null) {
-                        sessionStorage.setItem('collaboration', JSON.stringify({
-                            id: res.active_collaboration.id,
-                            tag: res.active_collaboration.tag
-                        }))
-                        sessionStorage.setItem('accessProfile', JSON.stringify(res.active_collaboration.access_profile))
-                        setAccessProfile(res.active_collaboration.access_profile)
-                    }
+
+                    sessionStorage.setItem('collaboration', JSON.stringify({
+                        id: res.active_collaboration.id,
+                        tag: res.active_collaboration.tag
+                    }))
+
+                    sessionStorage.setItem('accessProfile', JSON.stringify(res.access_profile))
+                    setAccessProfile(res.access_profile)
+
                 }
             })
         } else

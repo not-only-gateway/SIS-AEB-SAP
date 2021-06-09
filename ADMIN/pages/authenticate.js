@@ -25,9 +25,9 @@ export default function authenticate() {
     })
 
     useEffect(() => {
-
         (new Cookies()).remove('jwt')
-
+        sessionStorage.removeItem('profile')
+        sessionStorage.removeItem('accessProfile')
     }, [])
 
     return (

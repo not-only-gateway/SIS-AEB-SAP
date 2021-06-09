@@ -9,7 +9,7 @@ export default function TabContent(props) {
                     display: tab !== null && tab.buttonKey === props.openTab ? undefined : 'none',
                     width: '100%',
                     position: 'relative'
-                }}>
+                }} key={tab.buttonKey + '-' + tab.value}>
                     {tab.value}
                 </div>
             ))}
