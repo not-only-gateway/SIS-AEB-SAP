@@ -38,12 +38,17 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="Z:\SIS-AEB-FRONTEND\statistics\packages\locales" />
+      <recent name="Z:\SIS-AEB-FRONTEND\statistics\statistics\styles" />
+      <recent name="Z:\SIS-AEB-FRONTEND\statistics\statistics\components\shared" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="Z:\SIS-AEB-FRONTEND\statistics" />
       <recent name="Z:\SIS-AEB-FRONTEND\ADMIN\components" />
       <recent name="Z:\SIS-AEB-FRONTEND\ADMIN\packages\locales\others" />
       <recent name="Z:\SIS-AEB-FRONTEND\ADMIN\packages\locales\person" />
       <recent name="Z:\SIS-AEB-FRONTEND\ADMIN\packages\locales\unit" />
-      <recent name="Z:\SIS-AEB-FRONTEND\ADMIN\packages\locales\management" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -69,7 +74,8 @@
       <workItem from="1623251641828" duration="1581000" />
       <workItem from="1623370583527" duration="1482000" />
       <workItem from="1623432726350" duration="2565000" />
-      <workItem from="1623674008024" duration="565000" />
+      <workItem from="1623674008024" duration="3295000" />
+      <workItem from="1623685492765" duration="26000" />
     </task>
     <servers />
   </component>

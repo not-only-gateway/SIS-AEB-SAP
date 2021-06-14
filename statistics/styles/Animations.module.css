@@ -1,0 +1,76 @@
+
+.slideUpAnimation {
+    animation: slideUp ease-in-out 250ms forwards;
+}
+
+.fadeIn {
+    position: relative;
+    animation: fadeIn ease-in-out 150ms forwards;
+
+}
+
+.fadeOutAnimation {
+    position: relative;
+    animation: fadeOut ease-in-out 150ms forwards;
+
+}
+
+.slideDownAnimation {
+    animation: slideDown ease-in-out 250ms forwards;
+}
+
+@keyframes slideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-10%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+
+@keyframes fadeOut {
+
+    0% {
+        opacity: 1;
+        height: inherit;
+    }
+    50% {
+        opacity: .5;
+        height: inherit;
+    }
+    90% {
+        opacity: .1;
+        height: inherit;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+        height: 0;
+        z-index: -1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 100%;
+    }
+
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50%);
+    }
+    to {
+        opacity: 100%;
+        transform: translateY(0%);
+    }
+
+}

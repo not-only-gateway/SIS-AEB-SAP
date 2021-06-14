@@ -133,3 +133,4 @@ admin/.env.production.local
 # vercel
 admin/.vercel
 
+/statistics/node_modules
