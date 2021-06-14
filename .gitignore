@@ -1,135 +1,135 @@
 # dependencies
-/MAIN/node_modules
-/MAIN/.pnp
-/MAIN/.pnp.js
+/public/node_modules
+/public/.pnp
+/public/.pnp.js
 
 # testing
-/MAIN/coverage
+/public/coverage
 
 # next.js
-/MAIN/.next/
-/MAIN/out/
+/public/.next/
+/public/out/
 
 # production
-/MAIN/build
+/public/build
 
 # misc
-/MAIN/.DS_Store
-/MAIN/*.pem
+/public/.DS_Store
+/public/*.pem
 
 # debug
-/MAIN/npm-debug.log*
-/MAIN/yarn-debug.log*
-/MAIN/yarn-error.log*
+/public/npm-debug.log*
+/public/yarn-debug.log*
+/public/yarn-error.log*
 
 # local env files
-/MAIN/.env.local
-/MAIN/.env.development.local
-/MAIN/.env.test.local
-/MAIN/.env.production.local
+/public/.env.local
+/public/.env.development.local
+/public/.env.test.local
+/public/.env.production.local
 
 # vercel
-/MAIN/.vercel
+/public/.vercel
 
 #admin
 # dependencies
-/ADMIN/node_modules
-/ADMIN/.pnp
-/ADMIN/.pnp.js
+/admin/node_modules
+/admin/.pnp
+/admin/.pnp.js
 
 # testing
-/ADMIN/coverage
+/admin/coverage
 
 # next.js
-/ADMIN/.next/
-/ADMIN/out/
+/admin/.next/
+/admin/out/
 
 # production
-/ADMIN/build
+/admin/build
 
 # misc
-/ADMIN/.DS_Store
-/ADMIN/*.pem
+/admin/.DS_Store
+/admin/*.pem
 
 # debug
-/ADMIN/npm-debug.log*
-/ADMIN/yarn-debug.log*
-/ADMIN/yarn-error.log*
+/admin/npm-debug.log*
+/admin/yarn-debug.log*
+/admin/yarn-error.log*
 
 # local env files
-/ADMIN/.env.local
-/ADMIN/.env.development.local
-/ADMIN/.env.test.local
-/ADMIN/.env.production.local
+/admin/.env.local
+/admin/.env.development.local
+/admin/.env.test.local
+/admin/.env.production.local
 
 # vercel
-/ADMIN/.vercel
+/admin/.vercel
 
 
 # dependencies
-MAIN/node_modules
-MAIN/.pnp
-MAIN/.pnp.js
+public/node_modules
+public/.pnp
+public/.pnp.js
 
 # testing
-MAIN/coverage
+public/coverage
 
 # next.js
-MAIN/.next/
-MAIN/out/
+public/.next/
+public/out/
 
 # production
-MAIN/build
+public/build
 
 # misc
-MAIN/.DS_Store
-MAIN/*.pem
+public/.DS_Store
+public/*.pem
 
 # debug
-MAIN/npm-debug.log*
-MAIN/yarn-debug.log*
-MAIN/yarn-error.log*
+public/npm-debug.log*
+public/yarn-debug.log*
+public/yarn-error.log*
 
 # local env files
-MAIN/.env.local
-MAIN/.env.development.local
-MAIN/.env.test.local
-MAIN/.env.production.local
+public/.env.local
+public/.env.development.local
+public/.env.test.local
+public/.env.production.local
 
 # vercel
-MAIN/.vercel
+public/.vercel
 
 #admin
 # dependencies
-ADMIN/node_modules
-ADMIN/.pnp
-ADMIN/.pnp.js
+admin/node_modules
+admin/.pnp
+admin/.pnp.js
 
 # testing
-ADMIN/coverage
+admin/coverage
 
 # next.js
-ADMIN/.next/
-ADMIN/out/
+admin/.next/
+admin/out/
 
 # production
-ADMIN/build
+admin/build
 
 # misc
-ADMIN/.DS_Store
-ADMIN/*.pem
+admin/.DS_Store
+admin/*.pem
 
 # debug
-ADMIN/npm-debug.log*
-ADMIN/yarn-debug.log*
-ADMIN/yarn-error.log*
+admin/npm-debug.log*
+admin/yarn-debug.log*
+admin/yarn-error.log*
 
 # local env files
-ADMIN/.env.local
-ADMIN/.env.development.local
-ADMIN/.env.test.local
-ADMIN/.env.production.local
+admin/.env.local
+admin/.env.development.local
+admin/.env.test.local
+admin/.env.production.local
 
 # vercel
-ADMIN/.vercel
+admin/.vercel
 
