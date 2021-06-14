@@ -669,10 +669,16 @@ Selector.propTypes = {
   dark: PropTypes.bool
 };
 
-exports.Button = Button;
-exports.DateField = DateField;
-exports.DropDownField = DropDownField;
-exports.ImageField = ImageField;
-exports.Selector = Selector;
-exports.TextField = TextField;
+var inputs = function inputs() {
+  return {
+    DateField: DateField,
+    TextField: TextField,
+    ImageField: ImageField,
+    DropDownField: DropDownField,
+    Button: Button,
+    Selector: Selector
+  };
+};
+
+exports.inputs = inputs;
 //# sourceMappingURL=index.js.map

@@ -8,7 +8,7 @@ import {Button} from "@material-ui/core";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import authenticationSubmitRequests from "../utils/submit/AuthenticationSubmitRequests";
 import Alert from "../components/shared/layout/Alert";
-import {TextField} from "sis-aeb-inputs";
+import * as teste from "sis-aeb-inputs";
 import AuthenticatePT from "../packages/locales/authenticate/AuthenticatePT";
 import AuthenticationSubmitRequests from "../utils/submit/AuthenticationSubmitRequests";
 
@@ -27,7 +27,9 @@ export default function authenticate() {
     })
 
     useEffect(() => {
+
         (new Cookies()).remove('jwt')
+        console.log(JSON.stringify(teste))
         sessionStorage.removeItem('profile')
         sessionStorage.removeItem('accessProfile')
     }, [])
@@ -52,27 +54,27 @@ export default function authenticate() {
                         {lang.welcome}
                     </h4>
 
-                    <TextField
-                        placeholder={'Email'} label={'Email'}
-                        handleChange={event => handleObjectChange({
-                            event: {
-                                name: 'email',
-                                value: event.target.value
-                            }, setData: setData
-                        })} locale={router.locale} value={data.email}
-                        width={'100%'}
-                        maxLength={undefined}/>
+                    {/*<TextField*/}
+                    {/*    placeholder={'Email'} label={'Email'}*/}
+                    {/*    handleChange={event => handleObjectChange({*/}
+                    {/*        event: {*/}
+                    {/*            name: 'email',*/}
+                    {/*            value: event.target.value*/}
+                    {/*        }, setData: setData*/}
+                    {/*    })} locale={router.locale} value={data.email}*/}
+                    {/*    width={'100%'}*/}
+                    {/*    maxLength={undefined}/>*/}
 
-                    <TextField
-                        placeholder={lang.password} label={lang.password}
-                        handleChange={event => handleObjectChange({
-                            event: {
-                                name: 'password',
-                                value: event.target.value
-                            }, setData: setData
-                        })} locale={router.locale} value={data.password}
-                        width={'100%'} passwordMask={true}
-                        maxLength={undefined}/>
+                    {/*<TextField*/}
+                    {/*    placeholder={lang.password} label={lang.password}*/}
+                    {/*    handleChange={event => handleObjectChange({*/}
+                    {/*        event: {*/}
+                    {/*            name: 'password',*/}
+                    {/*            value: event.target.value*/}
+                    {/*        }, setData: setData*/}
+                    {/*    })} locale={router.locale} value={data.password}*/}
+                    {/*    width={'100%'} passwordMask={true}*/}
+                    {/*    maxLength={undefined}/>*/}
 
 
                     <Button

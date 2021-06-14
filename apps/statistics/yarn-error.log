@@ -14,7 +14,7 @@ Platform:
   linux x64
 
 Trace: 
-  SyntaxError: /usr/local/share/.config/yarn/link/sis-aeb-inputs/package.json: Unexpected token } in JSON at position 1596
+  SyntaxError: /usr/local/share/.config/yarn/link/sis-aeb-inputs/package.json: Unexpected token } in JSON at position 1569
       at JSON.parse (<anonymous>)
       at /usr/share/yarn/lib/cli.js:1625:59
       at Generator.next (<anonymous>)

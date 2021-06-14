@@ -666,5 +666,16 @@ Selector.propTypes = {
   dark: PropTypes.bool
 };
 
-export { Button, DateField, DropDownField, ImageField, Selector, TextField };
+var inputs = function inputs() {
+  return {
+    DateField: DateField,
+    TextField: TextField,
+    ImageField: ImageField,
+    DropDownField: DropDownField,
+    Button: Button,
+    Selector: Selector
+  };
+};
+
+export { inputs };
 //# sourceMappingURL=index.modern.js.map

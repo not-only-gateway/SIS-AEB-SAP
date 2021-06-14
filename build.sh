@@ -1,3 +1,10 @@
+if [ ! -d "logs" ]; then
+  mkdir logs
+  cd logs
+  mkdir build
+  mkdir run
+  cd ..
+fi
 
 cd scripts/builders
 

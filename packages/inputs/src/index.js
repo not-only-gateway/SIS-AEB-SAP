@@ -8,13 +8,13 @@ import Button from './components/Button'
 import Selector from './components/Selector'
 
 
-export {
-  DateField,
-  TextField,
-  ImageField,
-  DropDownField,
-  Button,
-  Selector
+export default const Inputs = (props) => {
+  return (
+    <>
+
+      {TextField(props)}
+    </>
+  )
 }
 
 
