@@ -1,136 +1,24 @@
-# dependencies
-/public/node_modules
-/public/.pnp
-/public/.pnp.js
+apps/public/node_modules
+apps/admin/node_modules
+apps/statistics/node_modules
+packages/inputs/node_modules
 
-# testing
-/public/coverage
+apps/public/.next
+apps/admin/.next
+apps/statistics/.next
 
-# next.js
-/public/.next/
-/public/out/
+apps/public/.idea
+apps/admin/.idea
+apps/statistics/.idea
+packages/inputs/.idea
 
-# production
-/public/build
+logs/build/admin.txt
+logs/build/inputs.txt
+logs/build/public.txt
+logs/build/statistics.txt
 
-# misc
-/public/.DS_Store
-/public/*.pem
-
-# debug
-/public/npm-debug.log*
-/public/yarn-debug.log*
-/public/yarn-error.log*
-
-# local env files
-/public/.env.local
-/public/.env.development.local
-/public/.env.test.local
-/public/.env.production.local
-
-# vercel
-/public/.vercel
-
-#admin
-# dependencies
-/admin/node_modules
-/admin/.pnp
-/admin/.pnp.js
-
-# testing
-/admin/coverage
-
-# next.js
-/admin/.next/
-/admin/out/
-
-# production
-/admin/build
-
-# misc
-/admin/.DS_Store
-/admin/*.pem
-
-# debug
-/admin/npm-debug.log*
-/admin/yarn-debug.log*
-/admin/yarn-error.log*
-
-# local env files
-/admin/.env.local
-/admin/.env.development.local
-/admin/.env.test.local
-/admin/.env.production.local
-
-# vercel
-/admin/.vercel
+logs/run/admin.txt
+logs/run/public.txt
+logs/run/statistics.txt
 
 
-# dependencies
-public/node_modules
-public/.pnp
-public/.pnp.js
-
-# testing
-public/coverage
-
-# next.js
-public/.next/
-public/out/
-
-# production
-public/build
-
-# misc
-public/.DS_Store
-public/*.pem
-
-# debug
-public/npm-debug.log*
-public/yarn-debug.log*
-public/yarn-error.log*
-
-# local env files
-public/.env.local
-public/.env.development.local
-public/.env.test.local
-public/.env.production.local
-
-# vercel
-public/.vercel
-
-#admin
-# dependencies
-admin/node_modules
-admin/.pnp
-admin/.pnp.js
-
-# testing
-admin/coverage
-
-# next.js
-admin/.next/
-admin/out/
-
-# production
-admin/build
-
-# misc
-admin/.DS_Store
-admin/*.pem
-
-# debug
-admin/npm-debug.log*
-admin/yarn-debug.log*
-admin/yarn-error.log*
-
-# local env files
-admin/.env.local
-admin/.env.development.local
-admin/.env.test.local
-admin/.env.production.local
-
-# vercel
-admin/.vercel
-
-/statistics/node_modules

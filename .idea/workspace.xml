@@ -19,6 +19,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1tOWrMfojy03Of9kNa4zEJppCkk" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -27,7 +28,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/scripts/runners" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -39,16 +40,17 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="\\wsl$\Ubuntu\home\roque\projects\SIS-AEB-FRONTEND\scripts\runners" />
       <recent name="Z:\SIS-AEB-FRONTEND\statistics\packages\locales" />
       <recent name="Z:\SIS-AEB-FRONTEND\statistics\statistics\styles" />
       <recent name="Z:\SIS-AEB-FRONTEND\statistics\statistics\components\shared" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="\\wsl$\Ubuntu\home\roque\projects\SIS-AEB-FRONTEND\scripts\builders" />
+      <recent name="\\wsl$\Ubuntu\home\roque\projects\SIS-AEB-FRONTEND\apps" />
+      <recent name="\\wsl$\Ubuntu\home\roque\projects\SIS-AEB-FRONTEND\packages" />
       <recent name="Z:\SIS-AEB-FRONTEND\statistics" />
       <recent name="Z:\SIS-AEB-FRONTEND\ADMIN\components" />
-      <recent name="Z:\SIS-AEB-FRONTEND\ADMIN\packages\locales\others" />
-      <recent name="Z:\SIS-AEB-FRONTEND\ADMIN\packages\locales\person" />
-      <recent name="Z:\SIS-AEB-FRONTEND\ADMIN\packages\locales\unit" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -76,6 +78,12 @@
       <workItem from="1623432726350" duration="2565000" />
       <workItem from="1623674008024" duration="3295000" />
       <workItem from="1623685492765" duration="26000" />
+      <workItem from="1623697942582" duration="50000" />
+      <workItem from="1623698000395" duration="314000" />
+      <workItem from="1623698413561" duration="298000" />
+      <workItem from="1623698738378" duration="3537000" />
+      <workItem from="1623702427615" duration="529000" />
+      <workItem from="1623703254381" duration="523000" />
     </task>
     <servers />
   </component>
