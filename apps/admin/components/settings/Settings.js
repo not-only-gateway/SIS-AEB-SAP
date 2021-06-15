@@ -1,12 +1,11 @@
 import Cookies from "universal-cookie/lib";
-import Selector from "../shared/inputs/Selector";
+import {Selector} from "sis-aeb-inputs";
 import mapToSelect from "../../utils/shared/MapToSelect";
 import React, {useEffect, useState} from "react";
 
 
 import PropTypes from "prop-types";
 import styles from '../../styles/SettingsActivity.module.css'
-import DropDownField from "../shared/inputs/DropDownField";
 import submitCollaborationChange from "../../utils/submit/SubmitCollaborationChange";
 import Alert from "../shared/layout/Alert";
 

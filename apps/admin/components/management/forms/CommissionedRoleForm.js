@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import mainStyles from '../../../styles/shared/Main.module.css'
 
 import Alert from "../../shared/layout/Alert";
-import TextField from "../../shared/inputs/TextField";
+import {TextField} from "sis-aeb-inputs";
 import shared from "../../../styles/shared/Shared.module.css";
-import Button from "../../shared/inputs/Button";
-import DropDownField from "../../shared/inputs/DropDownField";
+import {Button} from "sis-aeb-inputs";
+import {DropDownField} from "sis-aeb-inputs";
 import {commissioned} from "../../../packages/locales/management/SimpleFormsPT";
 
 export default function CommissionedRoleForm(props) {

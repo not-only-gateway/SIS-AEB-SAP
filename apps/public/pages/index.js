@@ -14,7 +14,7 @@ import CollaboratorsStructure from "../components/modules/structure/Collaborator
 import {Modal} from "@material-ui/core";
 import animations from "../styles/shared/Animations.module.css";
 import {FilterListRounded} from "@material-ui/icons";
-import Button from "../components/modules/inputs/Button";
+import {Button} from "sis-aeb-inputs";
 import Tabs from "../components/layout/navigation/Tabs";
 
 export default function Index() {

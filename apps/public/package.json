@@ -20,7 +20,8 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-infinite-scroll-component": "^6.0.0",
-    "react-input-mask": "^2.0.4"
+    "react-input-mask": "^2.0.4",
+    "sis-aeb-inputs": "../../packages/inputs"
   },
   "devDependencies": {
     "@material-ui/pickers": "^3.3.10",

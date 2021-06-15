@@ -3,7 +3,7 @@ import styles from '../../../styles/component/Component.module.css'
 import {CloseRounded} from "@material-ui/icons";
 import animations from '../../../styles/shared/Animations.module.css'
 import React, {useEffect, useRef, useState} from "react";
-import Button from "../inputs/Button";
+import {Button} from "sis-aeb-inputs";
 import {Modal} from "@material-ui/core";
 
 export default function Alert(props) {

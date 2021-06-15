@@ -6,14 +6,7 @@ import {Divider, Modal} from "@material-ui/core";
 import mainStyles from '../../styles/shared/Main.module.css'
 import CollaborationForm from "../person/forms/CollaborationForm";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
-import fetchCollaboration from "../../utils/fetch/FetchCollaboration";
-import fetchUnits from "../../utils/fetch/FetchUnits";
-import fetchCommissionedRoles from "../../utils/fetch/FetchCommissionedRoles";
-import fetchEffectiveRoles from "../../utils/fetch/FetchEffectiveRoles";
-import fetchAccessProfiles from "../../utils/fetch/FetchAccessProfiles";
-import fetchLinkages from "../../utils/fetch/FetchLinkages";
 import mapToSelect from "../../utils/shared/MapToSelect";
-import fetchSeniors from "../../utils/fetch/FetchSeniors";
 import submitCollaboration from "../../utils/submit/SubmitCollaboration";
 import animations from '../../styles/shared/Animations.module.css'
 import shared from "../../styles/shared/Shared.module.css";

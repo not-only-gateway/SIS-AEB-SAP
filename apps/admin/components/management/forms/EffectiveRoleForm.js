@@ -4,8 +4,8 @@ import mainStyles from '../../../styles/shared/Main.module.css'
 
 import Alert from "../../shared/layout/Alert";
 import shared from "../../../styles/shared/Shared.module.css";
-import Button from "../../shared/inputs/Button";
-import TextField from "../../shared/inputs/TextField";
+import {Button} from "sis-aeb-inputs";
+import {TextField} from "sis-aeb-inputs";
 import {effective} from "../../../packages/locales/management/SimpleFormsPT";
 
 export default function EffectiveRoleForm(props) {
