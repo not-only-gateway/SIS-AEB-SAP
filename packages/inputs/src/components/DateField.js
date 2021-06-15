@@ -1,4 +1,4 @@
-import './Input.css'
+import './Input.module.css'
 import PropTypes from 'prop-types'
 import React from 'react'
 

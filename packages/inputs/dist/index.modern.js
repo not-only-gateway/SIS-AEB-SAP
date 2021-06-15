@@ -1,2 +1,727 @@
-import e,{useState as l,useEffect as t}from"react";import a from"prop-types";import n from"react-input-mask";import{VisibilityOffRounded as i,VisibilityRounded as r,CloseRounded as o,CloudUploadRounded as s,ArrowDropDownRounded as d,DeleteForeverRounded as c,ListRounded as u,AddRounded as m}from"@material-ui/icons";import{Modal as h}from"@material-ui/core";function p(l){return e.createElement("div",{style:{width:l.width,height:"100px",display:"grid",alignItems:l.value?"unset":"flex-start",gap:"4px"}},e.createElement("label",{htmlFor:"input-"+l.label+"-date",className:".labelContainer"},l.label),e.createElement("div",{className:"fieldsContainer"},e.createElement("input",{disabled:l.disabled,id:"input-"+l.label+"-date",style:{height:"56px",fontWeight:500,fontSize:"1rem",fontFamily:"'Source Sans Pro', sans-serif",cursor:l.disabled?"initial":"text"},className:"inputContainer",value:l.value,type:"date",onChange:l.handleChange,maxLength:l.maxLength})),e.createElement("label",{htmlFor:"input-"+l.label+"-date",className:".alertLabel",style:{color:null!==l.value&&l.value?"#262626":"#ff5555",visibility:l.required?"visible":"hidden"}},"Este campo é obrigatório."))}function b(t){var a,o=l(!1),s=o[0],d=o[1];return e.createElement("div",{style:{width:t.width,height:"small"===t.variant?"86px":"100px",display:"grid",alignItems:t.value?"unset":"flex-start",gap:"4px"}},e.createElement("label",{htmlFor:t.label+"text_field",className:".labelContainer",style:{visibility:null!=t.value&&t.value.length>0||"time"===t.type?"visible":"hidden",opacity:null!=t.value&&t.value.length>0||"time"===t.type?"1":"0",transition:"visibility 0.2s ease,opacity 0.2s ease"}},t.label),t.phoneMask?e.createElement(n,{mask:"(99) 9999-9999",value:t.value,onChange:t.handleChange},function(l){return e.createElement("input",{disabled:t.disabled,id:t.label+"text_field",placeholder:t.placeholder,style:{height:"small"===t.variant?"40px":"56px",borderRadius:"5px",border:"#ecedf2 1px solid",boxShadow:"unset",transition:" 250ms ease-in-out",background:"#f4f5fa",width:"100%",outline:"none",padding:"5px",fontSize:"1rem",color:" #555555"},value:l.value,onChange:l.onChange,maxLength:t.maxLength})}):e.createElement("div",{className:".fieldsContainer"},e.createElement("input",{disabled:t.disabled,id:t.label+"text_field",placeholder:t.placeholder,value:t.value,style:{height:"small"===t.variant?"40px":"56px",borderRadius:"5px",border:"#ecedf2 1px solid",boxShadow:"unset",transition:" 250ms ease-in-out",background:"#f4f5fa",width:"100%",outline:"none",padding:"5px",fontSize:"1rem",color:" #555555"},type:t.passwordMask&&!s?"password":t.type?t.type:"text",onChange:t.handleChange,maxLength:t.maxLength}),t.passwordMask?s?e.createElement(r,{htmlFor:t.label+"text_field",style:{transition:"300ms ease-in-out"},className:".visibilityContainer",onClick:function(){return d(!1)}}):e.createElement(i,{htmlFor:t.label+"text_field",style:{transition:"300ms ease-in-out"},onClick:function(){return d(!0)},className:".visibilityContainer"}):null),e.createElement("label",{htmlFor:t.label+"text_field",className:".alertLabel",style:{color:null!==t.value&&t.value&&0!==t.value.length?"#262626":"#ff5555",visibility:t.required?"visible":"hidden"}},(a="This field is required.","pt"===t.locale&&(a="Este campo é obrigatório."),a)))}function g(l){return e.createElement("div",{style:{width:l.width,marginBottom:"auto",height:"100px",display:"grid",gap:"4px",alignItems:l.initialImage?"unset":"flex-end"}},e.createElement("label",{htmlFor:"upload-image",className:".labelContainer",style:{visibility:l.initialImage&&l.initialImage.name?"visible":"hidden",opacity:l.initialImage?"1":"0",transition:"visibility 0.2s ease,opacity 0.2s ease"}},l.label),e.createElement("form",{className:".imageFieldContainer, .highlight"},l.initialImage&&l.initialImage.name?e.createElement("p",{className:".labelContainer",style:{color:"#262626",margin:"unset",overflowX:"hidden",width:"75%",wordBreak:"keep-all",whiteSpace:"nowrap"}},l.initialImage.name):e.createElement("p",{className:".labelContainer",style:{color:"#555555",margin:"unset"}}," ",l.label),l.initialImage?e.createElement("div",{className:".uploadFormContainer",style:{cursor:"pointer"},onClick:function(){l.setImage(null),l.setChanged(!0)}},e.createElement(o,null)):e.createElement("label",{htmlFor:"upload-image",className:".uploadFormContainer",onChange:function(e){l.setImage(e),l.setChanged(!0)}},e.createElement(s,null)),e.createElement("input",{id:"upload-image",type:"file",style:{display:"none"},disabled:l.disabled,onChange:function(e){l.setImage(e),l.setChanged(!0)}})),e.createElement("label",{htmlFor:"input",className:".alertLabel",style:{color:null!==l.value&&l.value&&0!==l.value.length?"#262626":"#ff5555",visibility:l.required?"visible":"hidden"}},(t="This field is required.","pt"===l.locale&&(t="Este campo é obrigatório."),t)));var t}function v(t){var a=l(!1)[1],n=l(!1),i=n[1];return e.createElement("button",{onMouseDown:function(){return a(!0)},onMouseUp:function(){return a(!1)},onMouseEnter:function(){return i(!0)},onMouseLeave:function(){a(!1),i(!1)},key:t.buttonKey,style:{width:t.width,backgroundColor:t.backgroundColor&&!t.disabled?t.backgroundColor:t.disabled?"rgba(0,0,0,0.1)":"unset",color:t.disabled?"#555555":t.hoverHighlight&&n[0]?"secondary"===t.colorVariant?"#ff4940":"#0095ff":t.fontColor,borderRadius:function(){var e="5px";switch(t.variant){case"rounded":e="32px";break;case"circular":e="50%";break;case"custom":e=t.borderRadius}return e}(),boxShadow:t.boxShadow,padding:t.padding?t.padding:"8px",height:"auto",fontFamily:"'Roboto' !important",outline:"none",border:t.border,transition:"200ms ease-in-out",cursor:t.disabled?"initial":"pointer",display:"flex",justifyContent:t.justification?t.justification:"center"},disabled:t.disabled,onClick:function(){void 0!==t.handleClick&&t.handleClick()}},t.content)}function y(a){var n,i=l(!1),r=i[0],o=i[1],s=l(void 0),c=s[0],u=s[1];return t(function(){var e=a.choices.filter(function(e){if(e.key===a.value)return e});e.length>0&&u(e[0].value)},[a.value]),e.createElement("div",{style:{width:a.width,height:"100px",display:"grid",alignItems:a.value?"unset":"flex-start",gap:"4px"}},e.createElement("label",{htmlFor:"dropdown-"+a.label,className:"_qVpd1",style:{visibility:null!=a.value?"visible":"hidden",opacity:null!=a.value?"1":"0",transition:"visibility 0.2s ease,opacity 0.2s ease"}},a.label),e.createElement("div",{className:"_2F1kW",onBlur:function(e){e.currentTarget.contains(e.relatedTarget)||o(!1)}},e.createElement("button",{id:"dropdown-"+a.label,disabled:a.disabled,style:{height:"56px",borderRadius:"5px"},className:"_2WZ9k",onClick:function(){return o(!r)}},c||a.placeholder,e.createElement(d,{style:{transform:r?"unset":"rotate(180deg)"}})),e.createElement("div",{className:"_3wZGJ",style:{display:r?"initial":"none"}},r?a.choices.map(function(l,t){return e.createElement(v,{key:t+"-choice-button",width:"100%",paddingType:"default",justification:"flex-start",handleClick:function(){a.handleChange(l.key),o(!1)},content:l.value,backgroundColor:l.key===a.value?"#0095ff":"transparent",fontColor:l.key===a.value?"white":"#262626",border:"transparent 1px solid",elevation:!1,hoverHighlight:l.key!==a.value})}):null)),e.createElement("label",{htmlFor:"dropdown-"+a.label,className:"_24t0v",style:{color:null==a.value?"#ff5555":"#262626",visibility:a.required&&!r?"visible":"hidden"}},(n="This field is required.","pt"===a.locale&&(n="Este campo é obrigatório."),n)))}p.propTypes={width:a.string,label:a.string,handleChange:a.func,value:a.number,required:a.bool,locale:a.string,disabled:a.bool,dark:a.bool},b.propTypes={width:a.string,placeholder:a.string,label:a.string,handleChange:a.func,value:a.string,required:a.bool,locale:a.string,passwordMask:a.bool,phoneMask:a.bool,maxLength:a.number,disabled:a.bool,variant:a.oneOf(["default","small"]),type:a.string},g.propTypes={setImage:a.func,initialImage:a.any,size:a.string,label:a.string,base64:a.bool,setChanged:a.func,width:a.string,required:a.bool,disabled:a.bool},v.propTypes={handleClick:a.func,disabled:a.bool,content:a.any,backgroundColor:a.any,fontColor:a.any,padding:a.string,variant:a.oneOf(["rounded","default","circle","custom"]),border:a.string,boxShadow:a.any,width:a.string,hoverHighlight:a.bool,justification:a.string,colorVariant:a.oneOf(["default","secondary"]),borderRadius:a.any,buttonKey:a.any},y.propTypes={width:a.string,placeholder:a.string,label:a.string,choices:a.array,handleChange:a.func,value:a.any,required:a.bool,locale:a.string,disabled:a.bool,dark:a.bool};var f={close:"Fechar",search:"Pesquisar",required:"Este campo é obrigatório."};function C(t){var a,n,i=l(!1),r=i[0],o=i[1],s=l(""),d=s[0],p=s[1],g=f;return e.createElement(Fragment,null,e.createElement(h,{open:r,onClose:function(){return o(!1)},style:{display:"flex",alignItems:"center",justifyContent:"center"}},e.createElement("div",{className:".modalContainer",style:{height:"clamp(500px, 75%, 1000px",alignContent:"flex-start"}},e.createElement("div",{className:".modalContent"},e.createElement("h3",{style:{marginTop:0,marginBottom:"16px"}},t.label),null!=t.selected&&null!=t.selected.key?e.createElement(v,{content:t.required?e.createElement("div",null,e.createElement("h5",{style:{marginTop:0,marginBottom:0}},t.selected.value)):e.createElement("div",{style:{display:"flex",gap:"32px",alignItems:"center"}},e.createElement("h5",{style:{marginTop:0,marginBottom:0}},t.selected.value),e.createElement(c,null)),hoverHighlight:!0,colorVariant:"secondary",variant:"default",border:"unset",width:"fit-content",backgroundColor:"#f4f5fa",handleClick:function(){t.setChanged&&t.setChanged(!0),t.handleChange(void 0)},padding:t.required?"8px 32px 8px 32px":"8px",disabled:t.required,fontColor:"#555555"}):null,e.createElement(b,{variant:"small",placeholder:g.search,label:g.search,handleChange:function(e){p(e.target.value)},locale:t.locale,value:d,required:!1,width:"100%",maxLength:void 0}),e.createElement("div",{style:{display:"grid",gap:"8px"}},t.data.map(function(l){var a,n;return 0===d.length||d.length>0&&l.value.toLowerCase().match(d.toLowerCase())?e.createElement("div",{key:l.key+"-"+l.value},e.createElement("button",{onClick:function(){var e;(null===(e=t.selected)||void 0===e?void 0:e.key)===l.key?t.handleChange(void 0):(t.setChanged&&t.setChanged(!0),t.handleChange(l),o(!1))},className:".rowContainer",style:{backgroundColor:l.key===(null===(a=t.selected)||void 0===a?void 0:a.key)?"#0095ff":void 0,color:l.key===(null===(n=t.selected)||void 0===n?void 0:n.key)?"white":void 0,outline:"none"}},l.value)):null}))),e.createElement("div",{className:".modalFooter"},e.createElement(v,{width:"fit-content",border:"#ecedf2 .7px solid",variant:"rounded",content:g.close,handleClick:function(){return o(!1)},backgroundColor:"white",hoverHighlight:!0,colorVariant:"secondary",elevation:!0,fontColor:"#262626",padding:"8px 32px 8px 32px"})))),e.createElement("div",{key:t.label+"-selector",style:{width:t.width,height:"100px",display:"grid",alignItems:t.value?"unset":"flex-start",gap:"4px"}},e.createElement("label",{htmlFor:"select-"+t.label,className:".labelContainer",style:{visibility:null!=t.selected&&null!=t.selected.key?"visible":"hidden",opacity:null!=t.selected&&null!=t.selected.key?"1":"0",transition:"visibility 0.2s ease,opacity 0.2s ease"}},t.label),e.createElement("div",{className:".dropDownContainer"},e.createElement("button",{id:"select-"+t.label,disabled:t.disabled,style:{height:"56px",borderRadius:"5px",cursor:t.disabled?"unset":"pointer"},className:".selectContainer",onClick:function(){return o(!0)}},null!=t.selected&&null!=t.selected.key?e.createElement(Fragment,null,t.selected.value,e.createElement(u,{style:{color:"rgba(0,0,0,.6)"}})):e.createElement(Fragment,null,e.createElement("p",{style:{color:"rgba(0,0,0,.55)"}},t.label),e.createElement(m,{style:{visibility:t.disabled?"hidden":"visible",color:"rgba(0,0,0,.6)"}})))),e.createElement("label",{htmlFor:"select-"+t.label,className:".alertLabel",style:{color:null!==(null===(a=t.selected)||void 0===a?void 0:a.key)&&null!==(n=t.selected)&&void 0!==n&&n.key?"#262626":"#ff5555",visibility:t.required?"visible":"hidden"}},g.required)))}C.propTypes={data:a.array,handleChange:a.func,selected:a.any,label:a.string,width:a.string,required:a.bool,setChanged:a.func,disabled:a.bool,dark:a.bool};export{v as Button,p as DateField,y as DropDownField,g as ImageField,C as Selector,b as TextField};
-//# sourceMappingURL=index.modern.js.map
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import InputMask from 'react-input-mask';
+import { VisibilityOffRounded, VisibilityRounded, CloseRounded, CloudUploadRounded, ArrowDropDownRounded, DeleteForeverRounded, ListRounded, AddRounded } from '@material-ui/icons';
+import { Modal } from '@material-ui/core';
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css_248z = "/*TEXT FIELD*/\n\n.Input-module_visibilityContainer__dO7YR {\n    margin-left: auto;\n    cursor: pointer;\n    color: #555555;\n}\n\n.Input-module_visibilityContainer__dO7YR:hover {\n    color: #0095ff\n}\n\n.Input-module_fieldsContainer__3_nK0 {\n    display: flex;\n    align-items: center;\n    gap: 10px;\n    height: 56px;\n\n}\n\n.Input-module_inputContainer__37-nQ {\n    border-radius: 5px;\n    border: #ecedf2 1px solid;\n    box-shadow: unset;\n    transition: 250ms ease-in-out;\n    background: #f4f5fa;\n    width: 100%;\n    font-family: 'Roboto' !important;\n    height: 56px;\n\n    outline: none;\n    padding: 5px;\n    font-size: 1rem;\n\n    color: #555555;\n}\n\n.Input-module_selectContainer__2TdB2 {\n    font-family: 'Roboto' !important;\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    border: #ecedf2 1px solid;\n\n    box-shadow: unset;\n    transition: 250ms ease-in-out;\n    background: #f4f5fa;\n    width: 100%;\n    outline: none;\n    padding: 5px;\n    font-size: 1rem;\n    color: #555555;\n    cursor: pointer;\n    height: 40px;\n}\n\n.Input-module_dropDownContainer__fWQ4H {\n    display: grid;\n    gap: 8px;\n    height: auto;\n    position: relative;\n}\n\n.Input-module_dropDownChoicesContainer__22tVM {\n    display: grid;\n\n    background-color: white;\n\n    border-radius: 5px;\n    position: absolute;\n    z-index: 5;\n\n    box-shadow: 0 0 10px 2px rgba(0, 0, 0, .2);\n\n    padding: 5px;\n\n    top: -20%;\n    width: 100%;\n    max-height: 250px;\n    overflow: auto;\n}\n\n.Input-module_dropDownChoicesContainer__22tVM > button {\n    width: 100%;\n}\n\n.Input-module_labelContainer__c0PKr {\n    /*animation: slideUp ease-in-out 250ms both;*/\n    transition: visibility 300ms ease-in-out;\n    color: #262626;\n    font-size: .9rem;\n    margin-top: auto;\n    overflow: hidden;\n\n    text-transform: capitalize;\n\n}\n\n.Input-module_alertLabel__1Bmzu {\n    margin-left: auto;\n    font-weight: 550;\n    font-size: .8rem;\n}\n\n/*TEXT FIELD*/\n\n\n/*IMAGE FIELD*/\n.Input-module_uploadFormContainer__N7CfC {\n    border-radius: 5px;\n    border: #ecedf2 1px solid;\n\n    transition: 250ms ease-in-out;\n    background: white;\n    width: 45px;\n    height: 45px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    outline: none;\n\n    font-size: 1rem;\n    color: #555555;\n\n    cursor: pointer;\n}\n\n.Input-module_imageFieldContainer__2aEV6 {\n\n    height: 56px;\n\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n\n    padding: 4px;\n\n    border: #ecedf2 1px solid;\n    border-radius: 5px;\n    background: white;\n\n    overflow: hidden;\n\n    transition: 300ms ease-in-out;\n}\n\n\n.Input-module_selectContainer__2TdB2:hover, .Input-module_selectContainer__2TdB2:focus, .Input-module_selectContainer__2TdB2:focus-visible, .Input-module_selectContainer__2TdB2:focus-within, .Input-module_imageFieldContainer__2aEV6:hover, .Input-module_imageFieldContainer__2aEV6:focus, .Input-module_imageFieldContainer__2aEV6:focus-visible, .Input-module_imageFieldContainer__2aEV6:focus-within, .Input-module_inputContainer__37-nQ:hover, .Input-module_inputContainer__37-nQ:focus, .Input-module_inputContainer__37-nQ:focus-visible, .Input-module_inputContainer__37-nQ:focus-within  {\n    color: #262626;\n    box-shadow: 0 0 2px 1px #0095ff;\n    border: #0095ff 1px solid;\n    background: #E8F0FE;\n}\n\n\n.Input-module_modalContainer__1LpRz {\n    background: white;\n    border-radius: 8px;\n    width: clamp(500px, 75%, 1000px);\n    height: fit-content;\n\n    display: grid;\n\n    grid-template-rows: calc(100% - 64px) 64px;\n\n    overflow: hidden;\n\n    position: relative;\n    max-height: 80%;\n}\n\n.Input-module_modalContainer__1LpRz > div {\n    /*height: 100%;*/\n    width: 100%;\n}\n\n.Input-module_modalFooter__2yLT7 {\n    grid-row: 2;\n    background: #f4f5fa;\n    display: flex;\n    justify-content: flex-end;\n    align-items: center;\n\n    border-radius: 0 0 8px 8px;\n    padding: 24px 32px 24px 32px;\n    gap: 16px;\n    border-top: #ecedf2 1px solid;\n\n}\n\n.Input-module_modalContent__119pn {\n    grid-row: 1;\n    width: 100%;\n\n    overflow: auto;\n    padding: 32px clamp(32px, 10%, 64px);\n}\n\n.Input-module_rowContainer__2dvQs {\n    font-family: 'Roboto' !important;\n    background: #f4f5fa;\n    border: #ecedf2 1px solid;\n\n    transition: 300ms ease-in-out;\n\n    width: 100%;\n    height: 56px;\n\n    padding: 8px;\n\n    border-radius: 8px;\n\n    display: flex;\n\n    align-items: center;\n    justify-content: flex-start;\n\n    cursor: pointer;\n    outline: none;\n}\n\n.Input-module_rowContainer__2dvQs:hover {\n    /*border-color: #0095ff;*/\n    box-shadow: 0 0 4px 2px #0095ff;\n}\n";
+var styles = {"visibilityContainer":"Input-module_visibilityContainer__dO7YR","fieldsContainer":"Input-module_fieldsContainer__3_nK0","inputContainer":"Input-module_inputContainer__37-nQ","selectContainer":"Input-module_selectContainer__2TdB2","dropDownContainer":"Input-module_dropDownContainer__fWQ4H","dropDownChoicesContainer":"Input-module_dropDownChoicesContainer__22tVM","labelContainer":"Input-module_labelContainer__c0PKr","alertLabel":"Input-module_alertLabel__1Bmzu","uploadFormContainer":"Input-module_uploadFormContainer__N7CfC","imageFieldContainer":"Input-module_imageFieldContainer__2aEV6","modalContainer":"Input-module_modalContainer__1LpRz","modalFooter":"Input-module_modalFooter__2yLT7","modalContent":"Input-module_modalContent__119pn","rowContainer":"Input-module_rowContainer__2dvQs"};
+styleInject(css_248z);
+
+function DateField(props) {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: props.width,
+      height: '100px',
+      display: 'grid',
+      alignItems: props.value ? 'unset' : 'flex-start',
+      gap: '4px'
+    }
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: 'input-' + props.label + '-date',
+    className: '.labelContainer'
+  }, props.label), /*#__PURE__*/React.createElement("div", {
+    className: 'fieldsContainer'
+  }, /*#__PURE__*/React.createElement("input", {
+    disabled: props.disabled,
+    id: 'input-' + props.label + '-date',
+    style: {
+      height: '56px',
+      fontWeight: 500,
+      fontSize: '1rem',
+      fontFamily: '\'Source Sans Pro\', sans-serif',
+      cursor: props.disabled ? 'initial' : 'text'
+    },
+    className: 'inputContainer',
+    value: props.value,
+    type: 'date',
+    onChange: props.handleChange,
+    maxLength: props.maxLength
+  })), /*#__PURE__*/React.createElement("label", {
+    htmlFor: 'input-' + props.label + '-date',
+    className: '.alertLabel',
+    style: {
+      color: props.value === null || !props.value ? '#ff5555' : '#262626',
+      visibility: props.required ? 'visible' : 'hidden'
+    }
+  }, 'Este campo é obrigatório.'));
+}
+DateField.propTypes = {
+  width: PropTypes.string,
+  label: PropTypes.string,
+  handleChange: PropTypes.func,
+  value: PropTypes.number,
+  required: PropTypes.bool,
+  locale: PropTypes.string,
+  disabled: PropTypes.bool,
+  dark: PropTypes.bool
+};
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+  return arr2;
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function TextField(props) {
+  var _useState = useState(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      visible = _useState2[0],
+      setVisible = _useState2[1];
+
+  function getLang(locale) {
+    var response = 'This field is required.';
+    if (locale === 'pt') response = 'Este campo é obrigatório.';
+    return response;
+  }
+
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: props.width,
+      height: props.variant === 'small' ? '86px' : '100px',
+      display: 'grid',
+      alignItems: props.value ? 'unset' : 'flex-start',
+      gap: '4px'
+    }
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: props.label + 'text_field',
+    className: styles.labelContainer,
+    style: {
+      visibility: props.value !== undefined && props.value !== null && props.value.length > 0 || props.type === 'time' ? 'visible' : 'hidden',
+      opacity: props.value !== undefined && props.value !== null && props.value.length > 0 || props.type === 'time' ? '1' : '0',
+      transition: 'visibility 0.2s ease,opacity 0.2s ease'
+    }
+  }, props.label), props.phoneMask ? /*#__PURE__*/React.createElement(InputMask, {
+    mask: '(99) 9999-9999',
+    value: props.value,
+    onChange: props.handleChange
+  }, function (event) {
+    return /*#__PURE__*/React.createElement("input", {
+      disabled: props.disabled,
+      id: props.label + 'text_field',
+      placeholder: props.placeholder,
+      className: styles.inputContainer,
+      value: event.value,
+      onChange: event.onChange,
+      maxLength: props.maxLength
+    });
+  }) : /*#__PURE__*/React.createElement("div", {
+    className: styles.fieldsContainer
+  }, /*#__PURE__*/React.createElement("input", {
+    disabled: props.disabled,
+    id: props.label + 'text_field',
+    placeholder: props.placeholder,
+    value: props.value,
+    className: styles.inputContainer,
+    type: props.passwordMask && !visible ? 'password' : props.type ? props.type : 'text',
+    onChange: props.handleChange,
+    maxLength: props.maxLength
+  }), props.passwordMask ? !visible ? /*#__PURE__*/React.createElement(VisibilityOffRounded, {
+    htmlFor: props.label + 'text_field',
+    style: {
+      transition: '300ms ease-in-out'
+    },
+    onClick: function onClick() {
+      return setVisible(true);
+    },
+    className: styles.visibilityContainer
+  }) : /*#__PURE__*/React.createElement(VisibilityRounded, {
+    htmlFor: props.label + 'text_field',
+    style: {
+      transition: '300ms ease-in-out'
+    },
+    className: styles.visibilityContainer,
+    onClick: function onClick() {
+      return setVisible(false);
+    }
+  }) : null), /*#__PURE__*/React.createElement("label", {
+    htmlFor: props.label + 'text_field',
+    className: styles.alertLabel,
+    style: {
+      color: props.value === null || !props.value || props.value.length === 0 ? '#ff5555' : '#262626',
+      visibility: props.required ? 'visible' : 'hidden'
+    }
+  }, getLang(props.locale)));
+}
+TextField.propTypes = {
+  width: PropTypes.string,
+  placeholder: PropTypes.string,
+  label: PropTypes.string,
+  handleChange: PropTypes.func,
+  value: PropTypes.string,
+  required: PropTypes.bool,
+  locale: PropTypes.string,
+  passwordMask: PropTypes.bool,
+  phoneMask: PropTypes.bool,
+  maxLength: PropTypes.number,
+  disabled: PropTypes.bool,
+  variant: PropTypes.oneOf(['default', 'small']),
+  type: PropTypes.string
+};
+
+function ImageField(props) {
+  function getLang(locale) {
+    var response = 'This field is required.';
+    if (locale === 'pt') response = 'Este campo é obrigatório.';
+    return response;
+  }
+
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: props.width,
+      marginBottom: 'auto',
+      height: '100px',
+      display: "grid",
+      gap: '4px',
+      alignItems: props.initialImage ? 'unset' : 'flex-end'
+    }
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: 'upload-image',
+    className: '.labelContainer',
+    style: {
+      visibility: props.initialImage && props.initialImage.name ? 'visible' : 'hidden',
+      opacity: props.initialImage ? '1' : '0',
+      transition: 'visibility 0.2s ease,opacity 0.2s ease'
+    }
+  }, props.label), /*#__PURE__*/React.createElement("form", {
+    className: '.imageFieldContainer, .highlight'
+  }, props.initialImage && props.initialImage.name ? /*#__PURE__*/React.createElement("p", {
+    className: '.labelContainer',
+    style: {
+      color: '#262626',
+      margin: 'unset',
+      overflowX: 'hidden',
+      width: '75%',
+      wordBreak: 'keep-all',
+      whiteSpace: 'nowrap'
+    }
+  }, props.initialImage.name) : /*#__PURE__*/React.createElement("p", {
+    className: '.labelContainer',
+    style: {
+      color: '#555555',
+      margin: 'unset'
+    }
+  }, " ", props.label), props.initialImage ? /*#__PURE__*/React.createElement("div", {
+    className: '.uploadFormContainer',
+    style: {
+      cursor: 'pointer'
+    },
+    onClick: function onClick() {
+      props.setImage(null);
+      props.setChanged(true);
+    }
+  }, /*#__PURE__*/React.createElement(CloseRounded, null)) : /*#__PURE__*/React.createElement("label", {
+    htmlFor: "upload-image",
+    className: '.uploadFormContainer',
+    onChange: function onChange(event) {
+      props.setImage(event);
+      props.setChanged(true);
+    }
+  }, /*#__PURE__*/React.createElement(CloudUploadRounded, null)), /*#__PURE__*/React.createElement("input", {
+    id: "upload-image",
+    type: "file",
+    style: {
+      display: 'none'
+    },
+    disabled: props.disabled,
+    onChange: function onChange(event) {
+      props.setImage(event);
+      props.setChanged(true);
+    }
+  })), /*#__PURE__*/React.createElement("label", {
+    htmlFor: 'input',
+    className: '.alertLabel',
+    style: {
+      color: props.value === null || !props.value || props.value.length === 0 ? '#ff5555' : '#262626',
+      visibility: props.required ? 'visible' : 'hidden'
+    }
+  }, getLang(props.locale)));
+}
+ImageField.propTypes = {
+  setImage: PropTypes.func,
+  initialImage: PropTypes.any,
+  size: PropTypes.string,
+  label: PropTypes.string,
+  base64: PropTypes.bool,
+  setChanged: PropTypes.func,
+  width: PropTypes.string,
+  required: PropTypes.bool,
+  disabled: PropTypes.bool
+};
+
+function Button(props) {
+  var _useState = useState(false),
+      _useState2 = _slicedToArray(_useState, 2);
+      _useState2[0];
+      var setFocused = _useState2[1];
+
+  var _useState3 = useState(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      hovered = _useState4[0],
+      setHovered = _useState4[1];
+
+  function getBorder() {
+    var response = '5px';
+
+    switch (props.variant) {
+      case 'rounded':
+        {
+          response = '32px';
+          break;
+        }
+
+      case 'circular':
+        {
+          response = '50%';
+          break;
+        }
+
+      case 'custom':
+        {
+          response = props.borderRadius;
+          break;
+        }
+    }
+
+    return response;
+  }
+
+  return /*#__PURE__*/React.createElement("button", {
+    onMouseDown: function onMouseDown() {
+      return setFocused(true);
+    },
+    onMouseUp: function onMouseUp() {
+      return setFocused(false);
+    },
+    onMouseEnter: function onMouseEnter() {
+      return setHovered(true);
+    },
+    onMouseLeave: function onMouseLeave() {
+      setFocused(false);
+      setHovered(false);
+    },
+    key: props.buttonKey,
+    style: {
+      width: props.width,
+      backgroundColor: props.backgroundColor && !props.disabled ? props.backgroundColor : props.disabled ? 'rgba(0,0,0,0.1)' : 'unset',
+      color: !props.disabled ? props.hoverHighlight && hovered ? props.colorVariant === 'secondary' ? '#ff4940' : '#0095ff' : props.fontColor : '#555555',
+      borderRadius: getBorder(),
+      boxShadow: props.boxShadow,
+      padding: props.padding ? props.padding : '8px',
+      height: 'auto',
+      fontFamily: '\'Roboto\' !important',
+      outline: 'none',
+      border: props.border,
+      // fontSize: '.9rem',
+      transition: '200ms ease-in-out',
+      cursor: props.disabled ? 'initial' : 'pointer',
+      display: 'flex',
+      justifyContent: props.justification ? props.justification : 'center'
+    },
+    disabled: props.disabled,
+    onClick: function onClick() {
+      if (props.handleClick !== undefined) props.handleClick();
+    }
+  }, props.content);
+}
+Button.propTypes = {
+  handleClick: PropTypes.func,
+  disabled: PropTypes.bool,
+  content: PropTypes.any,
+  backgroundColor: PropTypes.any,
+  fontColor: PropTypes.any,
+  padding: PropTypes.string,
+  variant: PropTypes.oneOf(['rounded', 'default', 'circle', 'custom']),
+  border: PropTypes.string,
+  boxShadow: PropTypes.any,
+  width: PropTypes.string,
+  hoverHighlight: PropTypes.bool,
+  justification: PropTypes.string,
+  colorVariant: PropTypes.oneOf(['default', 'secondary']),
+  borderRadius: PropTypes.any,
+  buttonKey: PropTypes.any
+};
+
+function DropDownField(props) {
+  var _useState = useState(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      open = _useState2[0],
+      setOpen = _useState2[1];
+
+  var _useState3 = useState(undefined),
+      _useState4 = _slicedToArray(_useState3, 2),
+      value = _useState4[0],
+      setValue = _useState4[1];
+
+  function getLang(locale) {
+    var response = 'This field is required.';
+    if (locale === 'pt') response = 'Este campo é obrigatório.';
+    return response;
+  }
+
+  useEffect(function () {
+    var filtered = props.choices.filter(function (element) {
+      if (element.key === props.value) return element;
+    });
+    if (filtered.length > 0) setValue(filtered[0].value);
+  }, [props.value]);
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: props.width,
+      height: '100px',
+      display: 'grid',
+      alignItems: props.value ? 'unset' : 'flex-start',
+      gap: '4px'
+    }
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: 'dropdown-' + props.label,
+    className: styles.labelContainer,
+    style: {
+      visibility: props.value !== undefined && props.value !== null ? 'visible' : 'hidden',
+      opacity: props.value !== undefined && props.value !== null ? '1' : '0',
+      transition: 'visibility 0.2s ease,opacity 0.2s ease'
+    }
+  }, props.label), /*#__PURE__*/React.createElement("div", {
+    className: styles.dropDownContainer,
+    onBlur: function onBlur(event) {
+      if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    id: 'dropdown-' + props.label,
+    disabled: props.disabled,
+    style: {
+      height: '56px',
+      borderRadius: '5px'
+    },
+    className: styles.selectContainer,
+    onClick: function onClick() {
+      return setOpen(!open);
+    }
+  }, value ? value : props.placeholder, /*#__PURE__*/React.createElement(ArrowDropDownRounded, {
+    style: {
+      transform: open ? 'unset' : 'rotate(180deg)'
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    className: styles.dropDownChoicesContainer,
+    style: {
+      display: open ? 'initial' : 'none'
+    }
+  }, open ? props.choices.map(function (choice, index) {
+    return /*#__PURE__*/React.createElement(Button, {
+      key: index + '-choice-button',
+      width: '100%',
+      paddingType: "default",
+      justification: 'flex-start',
+      handleClick: function handleClick() {
+        props.handleChange(choice.key);
+        setOpen(false);
+      },
+      content: choice.value,
+      backgroundColor: choice.key === props.value ? '#0095ff' : 'transparent',
+      fontColor: choice.key === props.value ? 'white' : '#262626',
+      border: 'transparent 1px solid',
+      elevation: false,
+      hoverHighlight: choice.key !== props.value
+    });
+  }) : null)), /*#__PURE__*/React.createElement("label", {
+    htmlFor: 'dropdown-' + props.label,
+    className: styles.alertLabel,
+    style: {
+      color: props.value === null || props.value === undefined ? '#ff5555' : '#262626',
+      visibility: props.required && !open ? 'visible' : 'hidden'
+    }
+  }, getLang(props.locale)));
+}
+DropDownField.propTypes = {
+  width: PropTypes.string,
+  placeholder: PropTypes.string,
+  label: PropTypes.string,
+  choices: PropTypes.array,
+  handleChange: PropTypes.func,
+  value: PropTypes.any,
+  required: PropTypes.bool,
+  locale: PropTypes.string,
+  disabled: PropTypes.bool,
+  dark: PropTypes.bool
+};
+
+var SelectorsPT = {
+  close: 'Fechar',
+  search: 'Pesquisar',
+  required: 'Este campo é obrigatório.'
+};
+
+function Selector(props) {
+  var _props$selected4, _props$selected5;
+
+  var _useState = useState(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      modal = _useState2[0],
+      setModal = _useState2[1];
+
+  var _useState3 = useState(''),
+      _useState4 = _slicedToArray(_useState3, 2),
+      search = _useState4[0],
+      setSearch = _useState4[1];
+
+  var lang = SelectorsPT;
+
+  function renderModal() {
+    return /*#__PURE__*/React.createElement(Modal, {
+      open: modal,
+      onClose: function onClose() {
+        return setModal(false);
+      },
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: '.modalContainer',
+      style: {
+        height: 'clamp(500px, 75%, 1000px',
+        alignContent: 'flex-start'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: '.modalContent'
+    }, /*#__PURE__*/React.createElement("h3", {
+      style: {
+        marginTop: 0,
+        marginBottom: '16px'
+      }
+    }, props.label), props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ? /*#__PURE__*/React.createElement(Button, {
+      content: props.required ? /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h5", {
+        style: {
+          marginTop: 0,
+          marginBottom: 0
+        }
+      }, props.selected.value)) : /*#__PURE__*/React.createElement("div", {
+        style: {
+          display: 'flex',
+          gap: '32px',
+          alignItems: 'center'
+        }
+      }, /*#__PURE__*/React.createElement("h5", {
+        style: {
+          marginTop: 0,
+          marginBottom: 0
+        }
+      }, props.selected.value), /*#__PURE__*/React.createElement(DeleteForeverRounded, null)),
+      hoverHighlight: true,
+      colorVariant: 'secondary',
+      variant: 'default',
+      border: 'unset',
+      width: 'fit-content',
+      backgroundColor: '#f4f5fa',
+      handleClick: function handleClick() {
+        if (props.setChanged) props.setChanged(true);
+        props.handleChange(undefined);
+      },
+      padding: props.required ? '8px 32px 8px 32px' : '8px',
+      disabled: props.required,
+      fontColor: '#555555'
+    }) : null, /*#__PURE__*/React.createElement(TextField, {
+      variant: 'small',
+      placeholder: lang.search,
+      label: lang.search,
+      handleChange: function handleChange(event) {
+        setSearch(event.target.value);
+      },
+      locale: props.locale,
+      value: search,
+      required: false,
+      width: '100%',
+      maxLength: undefined
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'grid',
+        gap: '8px'
+      }
+    }, props.data.map(function (data) {
+      var _props$selected2, _props$selected3;
+
+      return search.length === 0 || search.length > 0 && data.value.toLowerCase().match(search.toLowerCase()) ? /*#__PURE__*/React.createElement("div", {
+        key: data.key + '-' + data.value
+      }, /*#__PURE__*/React.createElement("button", {
+        onClick: function onClick() {
+          var _props$selected;
+
+          if (((_props$selected = props.selected) === null || _props$selected === void 0 ? void 0 : _props$selected.key) === data.key) props.handleChange(undefined);else {
+            if (props.setChanged) props.setChanged(true);
+            props.handleChange(data);
+            setModal(false);
+          }
+        },
+        className: '.rowContainer',
+        style: {
+          backgroundColor: data.key === ((_props$selected2 = props.selected) === null || _props$selected2 === void 0 ? void 0 : _props$selected2.key) ? '#0095ff' : undefined,
+          color: data.key === ((_props$selected3 = props.selected) === null || _props$selected3 === void 0 ? void 0 : _props$selected3.key) ? 'white' : undefined,
+          outline: 'none'
+        }
+      }, data.value)) : null;
+    }))), /*#__PURE__*/React.createElement("div", {
+      className: '.modalFooter'
+    }, /*#__PURE__*/React.createElement(Button, {
+      width: 'fit-content',
+      border: '#ecedf2 .7px solid',
+      variant: 'rounded',
+      content: lang.close,
+      handleClick: function handleClick() {
+        return setModal(false);
+      },
+      backgroundColor: 'white',
+      hoverHighlight: true,
+      colorVariant: 'secondary',
+      elevation: true,
+      fontColor: '#262626',
+      padding: '8px 32px 8px 32px'
+    }))));
+  }
+
+  return /*#__PURE__*/React.createElement(React.Fragment, null, renderModal(), /*#__PURE__*/React.createElement("div", {
+    key: props.label + '-selector',
+    style: {
+      width: props.width,
+      height: '100px',
+      display: 'grid',
+      alignItems: props.value ? 'unset' : 'flex-start',
+      gap: '4px'
+    }
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: 'select-' + props.label,
+    className: '.labelContainer',
+    style: {
+      visibility: props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ? 'visible' : 'hidden',
+      opacity: props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ? '1' : '0',
+      transition: 'visibility 0.2s ease,opacity 0.2s ease'
+    }
+  }, props.label), /*#__PURE__*/React.createElement("div", {
+    className: '.dropDownContainer'
+  }, /*#__PURE__*/React.createElement("button", {
+    id: 'select-' + props.label,
+    disabled: props.disabled,
+    style: {
+      height: '56px',
+      borderRadius: '5px',
+      cursor: props.disabled ? 'unset' : 'pointer'
+    },
+    className: '.selectContainer',
+    onClick: function onClick() {
+      return setModal(true);
+    }
+  }, props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ? /*#__PURE__*/React.createElement(React.Fragment, null, props.selected.value, /*#__PURE__*/React.createElement(ListRounded, {
+    style: {
+      color: 'rgba(0,0,0,.6)'
+    }
+  })) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", {
+    style: {
+      color: 'rgba(0,0,0,.55)'
+    }
+  }, props.label), /*#__PURE__*/React.createElement(AddRounded, {
+    style: {
+      visibility: props.disabled ? 'hidden' : 'visible',
+      color: 'rgba(0,0,0,.6)'
+    }
+  })))), /*#__PURE__*/React.createElement("label", {
+    htmlFor: 'select-' + props.label,
+    className: '.alertLabel',
+    style: {
+      color: ((_props$selected4 = props.selected) === null || _props$selected4 === void 0 ? void 0 : _props$selected4.key) === null || !((_props$selected5 = props.selected) !== null && _props$selected5 !== void 0 && _props$selected5.key) ? '#ff5555' : '#262626',
+      visibility: props.required ? 'visible' : 'hidden'
+    }
+  }, lang.required)));
+}
+Selector.propTypes = {
+  data: PropTypes.array,
+  handleChange: PropTypes.func,
+  selected: PropTypes.any,
+  label: PropTypes.string,
+  width: PropTypes.string,
+  required: PropTypes.bool,
+  setChanged: PropTypes.func,
+  disabled: PropTypes.bool,
+  dark: PropTypes.bool
+};
+
+export { Button, DateField, DropDownField, ImageField, Selector, TextField };

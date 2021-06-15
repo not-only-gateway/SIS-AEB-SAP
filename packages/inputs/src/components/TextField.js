@@ -1,4 +1,4 @@
-import './Input.css'
+import styles from './Input.module.css'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import InputMask from 'react-input-mask'
@@ -26,7 +26,7 @@ export default function TextField(props) {
                 gap: '4px',
             }}
         >
-            <label htmlFor={props.label + 'text_field'} className={'.labelContainer'}
+            <label htmlFor={props.label + 'text_field'} className={styles.labelContainer}
                    style={{
                        visibility: (props.value !== undefined && props.value !== null && props.value.length > 0) || props.type === 'time' ? 'visible' : 'hidden',
                        opacity: (props.value !== undefined && props.value !== null && props.value.length > 0) || props.type === 'time' ? '1' : '0',
@@ -42,26 +42,14 @@ export default function TextField(props) {
                             disabled={props.disabled}
                             id={props.label + 'text_field'}
                             placeholder={props.placeholder}
-                            style={{
-                              height: props.variant === 'small' ? '40px' : '56px',
-                              borderRadius: '5px',
-                              border: '#ecedf2 1px solid',
-                              boxShadow: 'unset',
-                              transition:' 250ms ease-in-out',
-                              background: '#f4f5fa',
-                              width: '100%',
-                              outline: 'none',
-                              padding: '5px',
-                              fontSize: '1rem',
-                              color:' #555555'
-                            }}
+                            className={styles.inputContainer}
                             value={event.value}
                             onChange={event.onChange}
                             maxLength={props.maxLength}
                         />}
                 </InputMask>
                 :
-                <div className={'.fieldsContainer'}>
+                <div className={styles.fieldsContainer}>
                     <input
                         disabled={props.disabled}
                         id={props.label + 'text_field'}
@@ -69,19 +57,7 @@ export default function TextField(props) {
                         placeholder={props.placeholder}
 
                         value={props.value}
-                        style={{
-                          height: props.variant === 'small' ? '40px' : '56px',
-                          borderRadius: '5px',
-                          border: '#ecedf2 1px solid',
-                          boxShadow: 'unset',
-                          transition:' 250ms ease-in-out',
-                          background: '#f4f5fa',
-                          width: '100%',
-                          outline: 'none',
-                          padding: '5px',
-                          fontSize: '1rem',
-                          color:' #555555'
-                        }}
+                        className={styles.inputContainer}
                         type={props.passwordMask && !visible ? 'password' : props.type ? props.type : 'text'}
                         onChange={props.handleChange}
                         maxLength={props.maxLength}
@@ -90,10 +66,10 @@ export default function TextField(props) {
                         !visible ? <VisibilityOffRounded htmlFor={props.label + 'text_field'}
                                                          style={{transition: '300ms ease-in-out'}}
                                                          onClick={() => setVisible(true)}
-                                                         className={'.visibilityContainer'}/> :
+                                                         className={styles.visibilityContainer}/> :
                             <VisibilityRounded htmlFor={props.label + 'text_field'}
                                                style={{transition: '300ms ease-in-out'}}
-                                               className={'.visibilityContainer'}
+                                               className={styles.visibilityContainer}
                                                onClick={() => setVisible(false)}/>
                         :
                         null
@@ -102,7 +78,7 @@ export default function TextField(props) {
             }
 
 
-            <label htmlFor={props.label + 'text_field'} className={'.alertLabel'}
+            <label htmlFor={props.label + 'text_field'} className={styles.alertLabel}
                    style={{
                        color: (props.value === null || !props.value || props.value.length === 0) ? '#ff5555' : '#262626',
                        visibility: props.required ? 'visible' : 'hidden'

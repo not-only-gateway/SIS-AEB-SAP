@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import './Input.css'
+import './Input.module.css'
 import { CloseRounded, CloudUploadRounded } from '@material-ui/icons'
 
 export default function ImageField(props) {
