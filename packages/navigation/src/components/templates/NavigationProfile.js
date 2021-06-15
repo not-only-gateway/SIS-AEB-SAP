@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import {Avatar} from "@material-ui/core";
 import React, {useState} from "react";
 import Link from "next/link";
-import styles from './Navigation.module.css'
+import styles from '../styles/Navigation.module.css'
 import {AppsRounded, ExitToApp, ExtensionRounded, TimelineRounded, TuneRounded} from "@material-ui/icons";
 import AnimationFrame from "./AnimationFrame";
 import NavigationButton from "./NavigationButton";

@@ -1,21 +1,14 @@
-import styles from './Input.module.css'
+import styles from './styles/Input.module.css'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { ArrowDropDownRounded } from '@material-ui/icons'
 import Button from './Button'
+import LocalePT from './locales/LocalePT'
 
 export default function DropDownField(props) {
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState(undefined)
-
-    function getLang(locale) {
-        let response = 'This field is required.'
-
-        if (locale === 'pt')
-            response = 'Este campo é obrigatório.'
-
-        return response
-    }
+    const lang = LocalePT
 
     useEffect(() => {
         const filtered = props.choices.filter(element => {
@@ -80,7 +73,7 @@ export default function DropDownField(props) {
                    style={{
                        color: props.value === null || props.value === undefined ? '#ff5555' : '#262626',
                        visibility: props.required && !open ? 'visible' : 'hidden',
-                   }}>{getLang(props.locale)}</label>
+                   }}>{lang.required}</label>
 
         </div>
     )

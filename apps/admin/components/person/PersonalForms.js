@@ -14,7 +14,7 @@ import fetchDocuments from "../../utils/fetch/FetchDocuments";
 import fetchContacts from "../../utils/fetch/FetchContacts";
 import fetchAddress from "../../utils/fetch/FetchAddress";
 import fetchPerson from "../../utils/fetch/FetchPerson";
-import Alert from "../shared/layout/Alert";
+import Alert from "../../../../packages/alert/src/components/Alert";
 import shared from '../../styles/shared/Shared.module.css'
 import styles from '../../styles/Person.module.css'
 import {ArrowBackRounded} from "@material-ui/icons";

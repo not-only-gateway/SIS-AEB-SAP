@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import styles from "./Navigation.module.css";
+import styles from "../styles/Navigation.module.css";
 import {AppsRounded, ExtensionRounded, TimelineRounded} from "@material-ui/icons";
 import AnimationFrame from "./AnimationFrame";
 import PropTypes from 'prop-types'

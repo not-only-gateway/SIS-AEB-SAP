@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
-import styles from './Navigation.module.css'
+import styles from '../styles/Navigation.module.css'
 
 export default function NavigationButton(props) {
 

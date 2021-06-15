@@ -7,7 +7,7 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import styles from '../../styles/SettingsActivity.module.css'
 import submitCollaborationChange from "../../utils/submit/SubmitCollaborationChange";
-import Alert from "../shared/layout/Alert";
+import Alert from "../../../../packages/alert/src/components/Alert";
 
 export default function Settings(props) {
     const [collaborations, setCollaborations] = useState([])

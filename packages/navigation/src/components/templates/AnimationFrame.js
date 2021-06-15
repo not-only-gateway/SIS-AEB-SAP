@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import {useEffect, useState} from "react";
-import animations from './Animations.module.css'
+import animations from '../styles/Animations.module.css'
 
 export default function AnimationFrame(props) {
     const [animationClass, setAnimationClass] = useState(undefined)

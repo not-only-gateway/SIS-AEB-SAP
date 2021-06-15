@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import mainStyles from '../../../styles/shared/Main.module.css'
 
-import Alert from "../../shared/layout/Alert";
+import Alert from "../../../../../packages/alert/src/components/Alert";
 import {TextField} from "sis-aeb-inputs";
 import shared from "../../../styles/shared/Shared.module.css";
 import {Button} from "sis-aeb-inputs";

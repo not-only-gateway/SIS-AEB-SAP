@@ -1,6 +1,9 @@
 cd ../../packages/inputs
 
-#yarn link >>../../logs/build/inputs.txt 2>>../../logs/build/inputs.txt &&
+if [ ! -d "dist" ]; then
+  mkdir dist
+fi
+
 {
   yarn >>../../logs/build/inputs.txt 2>>../../logs/build/inputs.txt
   yarn start >>../../logs/build/inputs.txt 2>>../../logs/build/inputs.txt
@@ -9,5 +12,3 @@ cd ../../packages/inputs
 echo "INPUTS ARE OK"
 
 exit
-
-#"start": "microbundle-crl --no-compress --format modern,cjs",

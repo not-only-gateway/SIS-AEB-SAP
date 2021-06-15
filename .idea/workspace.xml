@@ -1,33 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="51dde260-c9a2-44c5-b623-1f5a75384082" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/components/management/AccessProfileForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/components/management/AccessProfileForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/components/management/Collaboration.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/components/management/Collaboration.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/components/management/forms/CommissionedRoleForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/components/management/forms/CommissionedRoleForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/components/management/forms/EffectiveRoleForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/components/management/forms/EffectiveRoleForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/components/management/forms/LinkageForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/components/management/forms/LinkageForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/components/management/forms/UnitForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/components/management/forms/UnitForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/components/settings/Settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/components/settings/Settings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/components/shared/inputs/Button.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/components/shared/inputs/DateField.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/components/shared/inputs/DropDownField.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/components/shared/inputs/ImageField.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/components/shared/inputs/Selector.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/components/shared/inputs/TextField.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/components/shared/layout/Alert.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/components/shared/layout/Alert.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/styles/Input.module.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/public/components/modules/inputs/Button.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/public/components/modules/inputs/DateField.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/public/components/modules/inputs/DropDownField.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/public/components/modules/inputs/ImageField.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/public/components/modules/inputs/Selector.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/public/components/modules/inputs/TextField.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/public/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/public/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/public/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/public/pages/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/public/styles/Input.module.css" beforeDir="false" />
-    </list>
+    <list default="true" id="51dde260-c9a2-44c5-b623-1f5a75384082" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,8 +10,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -45,13 +19,12 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/apps/admin/pages/authenticate.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/clear.sh" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/packages/inputs/src/components/TextField.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/kill.sh" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/logs/build/inputs.txt" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/packages/inputs/package.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/scripts/builders/inputs.sh" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/packages/inputs/src/components/TextField.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/clear.sh" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/kill.sh" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/apps/admin/pages/authenticate.js" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1tOWrMfojy03Of9kNa4zEJppCkk" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -65,7 +38,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/packages/navigation/src/components" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/packages/alert" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -77,18 +50,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="\\wsl$\Ubuntu\home\roque\projects\SIS-AEB-FRONTEND\packages\alert" />
       <recent name="$PROJECT_DIR$/packages/navigation/src/components" />
       <recent name="$PROJECT_DIR$/packages/navigation" />
       <recent name="\\wsl$\Ubuntu\home\roque\projects\SIS-AEB-FRONTEND\scripts\runners" />
       <recent name="Z:\SIS-AEB-FRONTEND\statistics\packages\locales" />
-      <recent name="Z:\SIS-AEB-FRONTEND\statistics\statistics\styles" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="\\wsl$\Ubuntu\home\roque\projects\SIS-AEB-FRONTEND\packages\alert\src\components" />
       <recent name="\\wsl$\Ubuntu\home\roque\projects\SIS-AEB-FRONTEND\scripts\builders" />
       <recent name="\\wsl$\Ubuntu\home\roque\projects\SIS-AEB-FRONTEND\apps" />
       <recent name="\\wsl$\Ubuntu\home\roque\projects\SIS-AEB-FRONTEND\packages" />
       <recent name="Z:\SIS-AEB-FRONTEND\statistics" />
-      <recent name="Z:\SIS-AEB-FRONTEND\ADMIN\components" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -142,5 +115,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

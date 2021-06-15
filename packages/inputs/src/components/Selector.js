@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { AddRounded, DeleteForeverRounded, ListRounded } from '@material-ui/icons'
 import { Modal } from '@material-ui/core'
-import './Input.module.css'
+import styles from './styles/Input.module.css'
 
 import Button from './Button'
 import TextField from './TextField'
-import SelectorsPT from './SelectorsPT'
+import SelectorsPT from './locales/SelectorsPT'
 
 export default function Selector(props) {
     const [modal, setModal] = useState(false)
@@ -21,9 +21,9 @@ export default function Selector(props) {
         return (
             <Modal open={modal} onClose={() => setModal(false)}
                    style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                <div className={'.modalContainer'}
+                <div className={styles.modalContainer}
                      style={{height: 'clamp(500px, 75%, 1000px', alignContent: 'flex-start'}}>
-                    <div className={'.modalContent'}>
+                    <div className={styles.modalContent}>
                         <h3 style={{marginTop: 0, marginBottom: '16px'}}>{props.label}</h3>
                         {props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ?
                             <Button
@@ -77,7 +77,7 @@ export default function Selector(props) {
                                                 props.handleChange(data)
                                                 setModal(false)
                                             }
-                                        }} className={'.rowContainer'}
+                                        }} className={styles.rowContainer}
                                                 style={{
                                                     backgroundColor: data.key === props.selected?.key ? '#0095ff' : undefined,
                                                     color: data.key === props.selected?.key ? 'white' : undefined,
@@ -91,7 +91,7 @@ export default function Selector(props) {
                             ))}
                         </div>
                     </div>
-                    <div className={'.modalFooter'}>
+                    <div className={styles.modalFooter}>
                         <Button
                             width={'fit-content'}
                             border={'#ecedf2 .7px solid'}
@@ -126,14 +126,14 @@ export default function Selector(props) {
                     gap: '4px',
                 }}
             >
-                <label htmlFor={'select-' + props.label} className={'.labelContainer'}
+                <label htmlFor={'select-' + props.label} className={styles.labelContainer}
                        style={{
                            visibility: props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ? 'visible' : 'hidden',
                            opacity: props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ? '1' : '0',
                            transition: 'visibility 0.2s ease,opacity 0.2s ease'
                        }}>{props.label}</label>
 
-                <div className={'.dropDownContainer'}>
+                <div className={styles.dropDownContainer}>
                     <button
                         id={'select-' + props.label}
                         disabled={props.disabled}
@@ -142,7 +142,7 @@ export default function Selector(props) {
                             height: '56px', borderRadius: '5px',
                             cursor: props.disabled ? 'unset' : 'pointer'
                         }}
-                        className={'.selectContainer'}
+                        className={styles.selectContainer}
                         onClick={() => setModal(true)}
                     >
 
@@ -166,7 +166,7 @@ export default function Selector(props) {
                     </button>
                 </div>
 
-                <label htmlFor={'select-' + props.label} className={'.alertLabel'}
+                <label htmlFor={'select-' + props.label} className={styles.alertLabel}
                        style={{
                            color: props.selected?.key === null || !props.selected?.key ? '#ff5555' : '#262626',
                            visibility: props.required ? 'visible' : 'hidden',

@@ -8,7 +8,7 @@ import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 
 import animations from '../../styles/shared/Animations.module.css'
-import Alert from "./layout/Alert";
+import Alert from "../../../../packages/alert/src/components/Alert";
 import styles from '../../styles/component/Component.module.css'
 import TextField from "./inputs/TextField";
 import Button from "./inputs/Button";

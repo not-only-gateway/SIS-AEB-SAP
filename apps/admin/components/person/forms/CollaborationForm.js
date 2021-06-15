@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import Selector from "../../shared/inputs/Selector";
 
-import Alert from "../../shared/layout/Alert";
+import Alert from "../../../../../packages/alert/src/components/Alert";
 import styles from '../../../styles/component/Component.module.css'
 import shared from "../../../styles/shared/Shared.module.css";
 import Button from "../../shared/inputs/Button";

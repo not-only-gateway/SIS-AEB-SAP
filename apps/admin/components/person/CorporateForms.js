@@ -5,7 +5,7 @@ import MembershipForm from "./forms/MembershipForm";
 import CollaborationList from "../management/list/CollaborationList";
 import TabContent from "../shared/TabContent";
 
-import Alert from "../shared/layout/Alert";
+import Alert from "../../../../packages/alert/src/components/Alert";
 import styles from "../../styles/Person.module.css";
 import OptionRow from "./OptionRow";
 import shared from "../../styles/shared/Shared.module.css";

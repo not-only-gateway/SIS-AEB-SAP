@@ -4,7 +4,7 @@ import axios from "axios";
 import TextField from "../../shared/inputs/TextField";
 import Button from "../../shared/inputs/Button";
 import shared from "../../../styles/shared/Shared.module.css";
-import Alert from "../../shared/layout/Alert";
+import Alert from "../../../../../packages/alert/src/components/Alert";
 import AddressPT from "../../../packages/locales/others/AddressPT";
 
 export default function AddressForm(props) {

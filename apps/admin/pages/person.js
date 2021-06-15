@@ -5,7 +5,7 @@ import Profile from "../components/person/Profile";
 import TabContent from "../components/shared/TabContent";
 import PersonalForms from "../components/person/PersonalForms";
 import CorporateForms from "../components/person/CorporateForms";
-import Alert from "../components/shared/layout/Alert";
+import Alert from "../../../packages/alert/src/components/Alert";
 import Head from 'next/head'
 import Tabs from "../components/shared/layout/Tabs";
 import PersonPT from "../packages/locales/person/PersonPT";

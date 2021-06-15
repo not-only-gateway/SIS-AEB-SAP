@@ -7,7 +7,7 @@ import Selector from "../../shared/inputs/Selector";
 import TextField from "../../shared/inputs/TextField";
 import DateField from "../../shared/inputs/DateField";
 import DropDownField from "../../shared/inputs/DropDownField";
-import Alert from "../../shared/layout/Alert";
+import Alert from "../../../../../packages/alert/src/components/Alert";
 import shared from '../../../styles/shared/Shared.module.css'
 import Button from "../../shared/inputs/Button";
 import BaseFormPT from "../../../packages/locales/person/BaseFormPT";

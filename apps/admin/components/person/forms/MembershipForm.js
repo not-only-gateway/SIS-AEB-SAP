@@ -5,7 +5,7 @@ import mapToSelect from "../../../utils/shared/MapToSelect";
 
 import TextField from "../../shared/inputs/TextField";
 import DropDownField from "../../shared/inputs/DropDownField";
-import Alert from "../../shared/layout/Alert";
+import Alert from "../../../../../packages/alert/src/components/Alert";
 import shared from "../../../styles/shared/Shared.module.css";
 import Button from "../../shared/inputs/Button";
 import MembershipPT from "../../../packages/locales/person/MembershipPT";

@@ -1,12 +1,11 @@
 import React from 'react'
-import {AppsRounded, ExitToApp, HomeRounded, MenuOpenRounded, PersonAddRounded, TuneRounded} from '@material-ui/icons';
-import styles from './Navigation.module.css'
+import styles from './styles/Navigation.module.css'
 import PropTypes from 'prop-types'
 
-import NavigationProfile from "./NavigationProfile";
-import NavigationButton from "./NavigationButton";
-import NavigationPT from "./NavigationPT";
-import NavigationApps from "./NavigationApps";
+import NavigationProfile from './templates/NavigationProfile'
+import NavigationButton from './templates/NavigationButton'
+import NavigationPT from './locales/NavigationPT'
+import NavigationApps from './templates/NavigationApps'
 
 
 export default function Navigation(props) {
@@ -18,13 +17,13 @@ export default function Navigation(props) {
       <div className={styles.container}>
 
         <img
-          style={{height: '50px'}}
-          src={'/dark.png'} alt={'logo'}/>
+          style={{ height: '50px' }}
+          src={props.logo} alt={'logo'} />
       </div>
 
 
-      <div className={styles.container} style={{justifyContent: "flex-end", gap: '16px'}}>
-        <div style={{width: 'fit-content', height: '100%'}}>
+      <div className={styles.container} style={{ justifyContent: 'flex-end', gap: '16px' }}>
+        <div style={{ width: 'fit-content', height: '100%' }}>
           {props.buttons.map(button => (
             <NavigationButton
               linkPath={button.link}
@@ -36,23 +35,23 @@ export default function Navigation(props) {
             />
           ))}
         </div>
-        <NavigationApps lang={lang} buttons={props.apps}/>
+        <NavigationApps lang={lang} buttons={props.apps} />
 
-        {props.profile !== null ?
+        {props.profile !== null && props.profile !== undefined ?
           <NavigationProfile
             buttons={props.profileButtons}
             profile={{
-            id: props.profile.id,
-            image: props.profile.image,
-            corporate_email: props.profile.corporate_email,
-            name: props.profile.name
-          }} reduced={props.reduced}
-                             setReduced={props.setReduced} accessProfile={props.accessProfile}
-                             locale={{
-                               profile: lang.profile,
-                               signout: lang.signout,
-                               signin: lang.signin
-                             }}/>
+              id: props.profile.id,
+              image: props.profile.image,
+              corporate_email: props.profile.corporate_email,
+              name: props.profile.name
+            }} reduced={props.reduced}
+            setReduced={props.setReduced} accessProfile={props.accessProfile}
+            locale={{
+              profile: lang.profile,
+              signout: lang.signout,
+              signin: lang.signin
+            }} />
           :
           null
         }
@@ -64,6 +63,7 @@ export default function Navigation(props) {
 }
 
 Navigation.propTypes = {
+  logo: PropTypes.any,
   path: PropTypes.string,
   query: PropTypes.object,
   profile: PropTypes.object,
@@ -81,7 +81,7 @@ Navigation.propTypes = {
     PropTypes.shape({
       name: PropTypes.string,
       icon: PropTypes.any,
-      link: PropTypes.string,
+      link: PropTypes.string
     })
   ]),
   profileButtons: PropTypes.arrayOf([

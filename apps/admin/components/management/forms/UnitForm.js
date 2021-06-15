@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {TextField} from "sis-aeb-inputs";
 import {Button} from "sis-aeb-inputs";
 import shared from "../../../styles/shared/Shared.module.css";
-import Alert from "../../shared/layout/Alert";
+import Alert from "../../../../../packages/alert/src/components/Alert";
 import {DropDownField} from "sis-aeb-inputs";
 import {Selector} from "sis-aeb-inputs";
 

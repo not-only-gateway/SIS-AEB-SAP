@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 import TextField from "../../shared/inputs/TextField";
-import Alert from "../../shared/layout/Alert";
+import Alert from "../../../../../packages/alert/src/components/Alert";
 import shared from "../../../styles/shared/Shared.module.css";
 import Button from "../../shared/inputs/Button";
 import DateField from "../../shared/inputs/DateField";

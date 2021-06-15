@@ -1,20 +1,13 @@
-import styles from './Input.module.css'
+import styles from './styles/Input.module.css'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import InputMask from 'react-input-mask'
 import { VisibilityOffRounded, VisibilityRounded } from '@material-ui/icons'
+import LocalePT from './locales/LocalePT'
 
 export default function TextField(props) {
     const [visible, setVisible] = useState(false)
-
-    function getLang(locale) {
-        let response = 'This field is required.'
-
-        if (locale === 'pt')
-            response = 'Este campo é obrigatório.'
-
-        return response
-    }
+  const lang = LocalePT
 
     return (
         <div
@@ -82,7 +75,7 @@ export default function TextField(props) {
                    style={{
                        color: (props.value === null || !props.value || props.value.length === 0) ? '#ff5555' : '#262626',
                        visibility: props.required ? 'visible' : 'hidden'
-                   }}>{getLang(props.locale)}</label>
+                   }}>{lang.required}</label>
 
         </div>
     )

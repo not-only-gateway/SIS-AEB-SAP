@@ -1,9 +1,10 @@
-import './Input.module.css'
+import styles from './styles/Input.module.css'
 import PropTypes from 'prop-types'
 import React from 'react'
+import LocalePT from './locales/LocalePT'
 
 export default function DateField(props) {
-
+  const lang = LocalePT
   return (
     <div style={{
       width: props.width,
@@ -12,9 +13,9 @@ export default function DateField(props) {
       alignItems: props.value ? 'unset' : 'flex-start',
       gap: '4px',
     }}>
-      <label htmlFor={'input-' + props.label + '-date'} className={'.labelContainer'}>{props.label}</label>
+      <label htmlFor={'input-' + props.label + '-date'} className={styles.labelContainer}>{props.label}</label>
 
-      <div className={'fieldsContainer'}>
+      <div className={styles.fieldsContainer}>
         <input
           disabled={props.disabled}
           id={'input-' + props.label + '-date'}
@@ -25,7 +26,7 @@ export default function DateField(props) {
             fontFamily: '\'Source Sans Pro\', sans-serif',
             cursor: props.disabled ? 'initial' : 'text'
           }}
-          className={'inputContainer'}
+          className={styles.inputContainer}
           value={props.value}
           type={'date'}
           onChange={props.handleChange}
@@ -34,11 +35,11 @@ export default function DateField(props) {
       </div>
 
 
-      <label htmlFor={'input-' + props.label + '-date'} className={'.alertLabel'}
+      <label htmlFor={'input-' + props.label + '-date'} className={styles.alertLabel}
              style={{
                color: (props.value === null || !props.value) ? '#ff5555' : '#262626',
                visibility: props.required ? 'visible' : 'hidden'
-             }}>{'Este campo é obrigatório.'}</label>
+             }}>{lang.required}</label>
 
     </div>
   )

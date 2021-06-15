@@ -11,6 +11,12 @@ apps/public/.idea
 apps/admin/.idea
 apps/statistics/.idea
 packages/inputs/.idea
+packages/navigation/.idea
+packages/alert/.idea
+
+packages/inputs/dist
+packages/navigation/dist
+packages/alert/dist
 
 logs/build/admin.txt
 logs/build/inputs.txt
