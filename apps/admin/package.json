@@ -1,7 +1,7 @@
 {
   "name": "sis-aeb",
   "version": "0.1.0",
-  "private": false,
+  "private": true,
   "scripts": {
     "dev": "NODE_OPTIONS=\"--max_old_space_size=8192\" next",
     "build": "next build",
@@ -15,13 +15,13 @@
     "axios": "^0.21.1",
     "express": "^4.17.1",
     "next": "^10.2.3",
-    "nprogress": "^0.2.0",
     "prop-types": "^15.7.2",
     "public-ip": "^4.0.3",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-infinite-scroll-component": "^6.0.0",
-    "react-input-mask": "^2.0.4"
+    "react-input-mask": "^2.0.4",
+    "sis-aeb-inputs": "../../packages/inputs"
   },
   "devDependencies": {
     "@material-ui/pickers": "^3.3.10",

@@ -1,31 +1,26 @@
 Arguments: 
-  /usr/local/bin/node /usr/share/yarn/bin/yarn.js link sis-aeb-inputs
+  /usr/bin/node /usr/local/bin/yarn add ../../packages/inputs
 
 PATH: 
-  /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+  /sbin:/bin:/usr/bin:/usr/local/bin
 
 Yarn version: 
-  1.22.5
+  1.22.10
 
 Node version: 
-  14.17.0
+  12.18.2
 
 Platform: 
   linux x64
 
 Trace: 
-  SyntaxError: /usr/local/share/.config/yarn/link/sis-aeb-inputs/package.json: Unexpected token } in JSON at position 1569
-      at JSON.parse (<anonymous>)
-      at /usr/share/yarn/lib/cli.js:1625:59
-      at Generator.next (<anonymous>)
-      at step (/usr/share/yarn/lib/cli.js:310:30)
-      at /usr/share/yarn/lib/cli.js:321:13
+  Error: EACCES: permission denied, unlink '/home/aeb/SIS-AEB-FRONTEND/apps/admin/node_modules/.yarn-integrity'
 
 npm manifest: 
   {
     "name": "sis-aeb",
     "version": "0.1.0",
-    "private": false,
+    "private": true,
     "scripts": {
       "dev": "NODE_OPTIONS=\"--max_old_space_size=8192\" next",
       "build": "next build",
@@ -39,13 +34,13 @@ npm manifest:
       "axios": "^0.21.1",
       "express": "^4.17.1",
       "next": "^10.2.3",
-      "nprogress": "^0.2.0",
       "prop-types": "^15.7.2",
       "public-ip": "^4.0.3",
       "react": "17.0.1",
       "react-dom": "17.0.1",
       "react-infinite-scroll-component": "^6.0.0",
       "react-input-mask": "^2.0.4"
+  
     },
     "devDependencies": {
       "@material-ui/pickers": "^3.3.10",
@@ -1875,11 +1870,6 @@ Lockfile:
     version "4.5.1"
     resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-4.5.1.tgz#0dd90cf1288ee1d1313b87081c9a5932ee48518a"
     integrity sha512-9UZCFRHQdNrfTpGg8+1INIg93B6zE0aXMVFkw1WFwvO4SlZywU6aLg5Of0Ap/PgcbSw4LNxvMWXMeugwMCX0AA==
-  
-  nprogress@^0.2.0:
-    version "0.2.0"
-    resolved "https://registry.yarnpkg.com/nprogress/-/nprogress-0.2.0.tgz#cb8f34c53213d895723fcbab907e9422adbcafb1"
-    integrity sha1-y480xTIT2JVyP8urkH6UIq28r7E=
   
   object-assign@^4.1.1:
     version "4.1.1"

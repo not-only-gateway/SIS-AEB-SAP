@@ -1,25 +1,25 @@
 Arguments: 
-  /usr/local/bin/node /usr/share/yarn/bin/yarn.js link sis-aeb-inputs
+  /usr/bin/node /usr/local/bin/yarn link sis-aeb-inputs
 
 PATH: 
   /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
 
 Yarn version: 
-  1.22.5
+  1.22.10
 
 Node version: 
-  14.17.0
+  12.18.2
 
 Platform: 
   linux x64
 
 Trace: 
-  SyntaxError: /usr/local/share/.config/yarn/link/sis-aeb-inputs/package.json: Unexpected token } in JSON at position 1569
+  SyntaxError: /usr/local/share/.config/yarn/link/sis-aeb-inputs/package.json: Unexpected token } in JSON at position 1711
       at JSON.parse (<anonymous>)
-      at /usr/share/yarn/lib/cli.js:1625:59
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:1625:59
       at Generator.next (<anonymous>)
-      at step (/usr/share/yarn/lib/cli.js:310:30)
-      at /usr/share/yarn/lib/cli.js:321:13
+      at step (/usr/local/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:321:13
 
 npm manifest: 
   {

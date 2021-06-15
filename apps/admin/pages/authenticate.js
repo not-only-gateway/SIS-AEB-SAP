@@ -6,11 +6,10 @@ import styles from '../styles/Authenticate.module.css'
 import Head from "next/head";
 import {Button} from "@material-ui/core";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
-import authenticationSubmitRequests from "../utils/submit/AuthenticationSubmitRequests";
 import Alert from "../components/shared/layout/Alert";
-import {TextField} from "sis-aeb-inputs";
 import AuthenticatePT from "../packages/locales/authenticate/AuthenticatePT";
 import AuthenticationSubmitRequests from "../utils/submit/AuthenticationSubmitRequests";
+import {TextField} from "sis-aeb-inputs";
 
 export default function authenticate() {
     const router = useRouter()
@@ -53,7 +52,6 @@ export default function authenticate() {
                     <h4 style={{fontWeight: 575}}>
                         {lang.welcome}
                     </h4>
-
                     <TextField
                         placeholder={'Email'} label={'Email'}
                         handleChange={event => handleObjectChange({

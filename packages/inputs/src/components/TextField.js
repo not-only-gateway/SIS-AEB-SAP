@@ -7,7 +7,6 @@ import { VisibilityOffRounded, VisibilityRounded } from '@material-ui/icons'
 export default function TextField(props) {
     const [visible, setVisible] = useState(false)
 
-
     function getLang(locale) {
         let response = 'This field is required.'
 
@@ -43,7 +42,19 @@ export default function TextField(props) {
                             disabled={props.disabled}
                             id={props.label + 'text_field'}
                             placeholder={props.placeholder}
-                            className={'.inputContainer'}
+                            style={{
+                              height: props.variant === 'small' ? '40px' : '56px',
+                              borderRadius: '5px',
+                              border: '#ecedf2 1px solid',
+                              boxShadow: 'unset',
+                              transition:' 250ms ease-in-out',
+                              background: '#f4f5fa',
+                              width: '100%',
+                              outline: 'none',
+                              padding: '5px',
+                              fontSize: '1rem',
+                              color:' #555555'
+                            }}
                             value={event.value}
                             onChange={event.onChange}
                             maxLength={props.maxLength}
@@ -56,9 +67,21 @@ export default function TextField(props) {
                         id={props.label + 'text_field'}
 
                         placeholder={props.placeholder}
-                        className={'.inputContainer'}
+
                         value={props.value}
-                        style={{height: props.variant === 'small' ? '40px' : undefined}}
+                        style={{
+                          height: props.variant === 'small' ? '40px' : '56px',
+                          borderRadius: '5px',
+                          border: '#ecedf2 1px solid',
+                          boxShadow: 'unset',
+                          transition:' 250ms ease-in-out',
+                          background: '#f4f5fa',
+                          width: '100%',
+                          outline: 'none',
+                          padding: '5px',
+                          fontSize: '1rem',
+                          color:' #555555'
+                        }}
                         type={props.passwordMask && !visible ? 'password' : props.type ? props.type : 'text'}
                         onChange={props.handleChange}
                         maxLength={props.maxLength}
@@ -89,7 +112,7 @@ export default function TextField(props) {
     )
 }
 
-TextField.propTypes = {
+TextField.propTypes= {
     width: PropTypes.string,
     placeholder: PropTypes.string,
     label: PropTypes.string,

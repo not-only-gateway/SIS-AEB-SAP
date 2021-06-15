@@ -1,4 +1,4 @@
-import './Input.css'
+import styles from './Input.css'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { ArrowDropDownRounded } from '@material-ui/icons'
@@ -35,14 +35,14 @@ export default function DropDownField(props) {
                 gap: '4px',
             }}
         >
-            <label htmlFor={'dropdown-'+props.label} className={'.labelContainer'}
+            <label htmlFor={'dropdown-'+props.label} className={styles.labelContainer}
                    style={{
                        visibility: (props.value !== undefined && props.value !== null) ? 'visible' : 'hidden',
                        opacity: (props.value !== undefined && props.value !== null) ? '1' : '0',
                        transition: 'visibility 0.2s ease,opacity 0.2s ease'
                    }}>{props.label}</label>
 
-            <div className={'.dropDownContainer'} onBlur={event => {
+            <div className={styles.dropDownContainer} onBlur={event => {
                 if(!event.currentTarget.contains(event.relatedTarget))
                     setOpen(false)
             }} >
@@ -53,14 +53,14 @@ export default function DropDownField(props) {
                     style={{
                         height: '56px', borderRadius: '5px',
                     }}
-                    className={'.selectContainer'}
+                    className={styles.selectContainer}
                     onClick={() => setOpen(!open)}
                 >
 
                     {value ? value : props.placeholder}
                     <ArrowDropDownRounded style={{transform: open ? 'unset' : 'rotate(180deg)'}}/>
                 </button>
-                <div className={'.dropDownChoicesContainer'} style={{display: open ? 'initial' : 'none'}}>
+                <div className={styles.dropDownChoicesContainer} style={{display: open ? 'initial' : 'none'}}>
                     {open ? props.choices.map((choice, index) => (
                         <Button key={index + '-choice-button'} width={'100%'} paddingType={"default"}
                                 justification={'flex-start'}
@@ -76,7 +76,7 @@ export default function DropDownField(props) {
                 </div>
             </div>
 
-            <label htmlFor={'dropdown-'+props.label} className={'.alertLabel'}
+            <label htmlFor={'dropdown-'+props.label} className={styles.alertLabel}
                    style={{
                        color: props.value === null || props.value === undefined ? '#ff5555' : '#262626',
                        visibility: props.required && !open ? 'visible' : 'hidden',

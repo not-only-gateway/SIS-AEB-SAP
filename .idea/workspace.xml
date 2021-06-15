@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="51dde260-c9a2-44c5-b623-1f5a75384082" name="Default Changelist" comment="" />
+    <list default="true" id="51dde260-c9a2-44c5-b623-1f5a75384082" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/pages/_app.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/pages/_app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/pages/authenticate.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/pages/authenticate.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/yarn-error.log" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/yarn-error.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/public/yarn-error.log" beforeDir="false" afterPath="$PROJECT_DIR$/apps/public/yarn-error.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/statistics/yarn-error.log" beforeDir="false" afterPath="$PROJECT_DIR$/apps/statistics/yarn-error.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kill.sh" beforeDir="false" afterPath="$PROJECT_DIR$/kill.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/builders/admin.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/builders/admin.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/builders/inputs.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/builders/inputs.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/builders/public.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/builders/public.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/builders/statistics.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/builders/statistics.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/runners/public.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/runners/public.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/runners/statistics.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/runners/statistics.sh" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,6 +34,13 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/logs/build/inputs.txt" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/clear.sh" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/packages/inputs/src/components/TextField.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/packages/inputs/package.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/scripts/builders/inputs.sh" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectId" id="1tOWrMfojy03Of9kNa4zEJppCkk" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -28,7 +51,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../react-modern-library-boilerplate" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
