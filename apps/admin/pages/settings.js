@@ -1,12 +1,9 @@
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import {useRouter} from "next/router";
 
-import HeaderLayout from "../components/shared/layout/HeaderLayout";
-import TabContent from "../components/shared/TabContent";
+import {Header} from "sis-aeb-header";
+import {RenderTabs, Tabs} from "sis-aeb-navigation";
 import Settings from "../components/settings/Settings";
-
-import Tabs from "../components/shared/layout/Tabs";
-import Cookies from "universal-cookie/lib";
 import SettingsPT from "../packages/locales/settings/SettingsPT";
 
 export default function settings() {
@@ -39,13 +36,13 @@ export default function settings() {
             />
 
             <div style={{width: 'calc(100% - 220px)', marginLeft: 'auto', overflowY: 'hidden'}}>
-                <HeaderLayout
+                <Header
                     pageTitle={lang.title}
                     title={lang.title}
                     information={lang.information}
                     width={'95%'}
                 />
-                <TabContent tabs={[
+                <RenderTabs tabs={[
                     {
                         buttonKey: 0,
                         value: <Settings lang={lang} locale={router.locale}
@@ -53,11 +50,11 @@ export default function settings() {
                     },
                     {
                         buttonKey: 1,
-                        value: null
+                        value: <div style={{background: 'green', width: '100px', height: '100px'}}/>
                     },
                     {
                         buttonKey: 2,
-                        value: null
+                        value: <div style={{background: 'blue', width: '100px', height: '100px'}}/>
                     }
                 ]} noContainer={true} openTab={openTab}/>
             </div>

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
 import BaseForm from "../components/person/forms/BaseForm";
-import HeaderLayout from "../components/shared/layout/HeaderLayout";
-import TabContent from "../components/shared/TabContent";
+import {Header} from 'sis-aeb-header'
+import {TabContent} from 'sis-aeb-navigation'
 import MembershipForm from "../components/person/forms/MembershipForm";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import Stepper from "../components/shared/layout/Stepper";

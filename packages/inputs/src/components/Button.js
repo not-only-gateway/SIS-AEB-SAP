@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 
 export default function Button(props) {
     const [focused, setFocused] = useState(false)

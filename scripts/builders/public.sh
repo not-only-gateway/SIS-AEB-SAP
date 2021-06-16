@@ -1,7 +1,9 @@
 cd ../../apps/public
 
-
-yarn link 'sis-aeb-inputs' >> ../../logs/build/inputs.txt 2>> ../../logs/build/inputs.txt
+#yarn add ../../packages/inputs
+#yarn add ../../packages/navigation
+#yarn add ../../packages/alert
+#yarn add ../../packages/header
 
 yarn >> ../../logs/build/public.txt 2>> ../../logs/build/public.txt
 

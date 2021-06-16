@@ -2,6 +2,10 @@ apps/public/node_modules
 apps/admin/node_modules
 apps/statistics/node_modules
 packages/inputs/node_modules
+packages/navigation/node_modules
+packages/alert/node_modules
+packages/header/node_modules
+
 
 apps/public/.next
 apps/admin/.next
@@ -10,6 +14,7 @@ apps/statistics/.next
 apps/public/.idea
 apps/admin/.idea
 apps/statistics/.idea
+
 packages/inputs/.idea
 packages/navigation/.idea
 packages/alert/.idea
@@ -17,6 +22,7 @@ packages/alert/.idea
 packages/inputs/dist
 packages/navigation/dist
 packages/alert/dist
+packages/header/dist
 
 logs/build/admin.txt
 logs/build/inputs.txt

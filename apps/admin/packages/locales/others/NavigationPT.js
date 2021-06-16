@@ -1,4 +1,5 @@
 export default {
+    title: 'Administração',
     extensions: 'Ramais',
     adjustments: 'Ajustes & Atividade',
     settings: 'Configurações',

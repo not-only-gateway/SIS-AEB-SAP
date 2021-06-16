@@ -1,10 +1,9 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import TextField from "../../shared/inputs/TextField";
-import Alert from "../../../../../packages/alert/src/components/Alert";
+
 import shared from "../../../styles/shared/Shared.module.css";
-import Button from "../../shared/inputs/Button";
-import DateField from "../../shared/inputs/DateField";
+import {Alert} from "sis-aeb-alert";
+import {Button, TextField, DropDownField, DateField, Selector} from "sis-aeb-inputs";
 import DocumentsFormPT from "../../../packages/locales/person/DocumentsFormPT";
 
 

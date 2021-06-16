@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import PropTypes from 'prop-types'
 import axios from "axios";
-import TextField from "../../shared/inputs/TextField";
-import Button from "../../shared/inputs/Button";
+import {TextField, Button} from "sis-aeb-inputs"
 import shared from "../../../styles/shared/Shared.module.css";
-import Alert from "../../../../../packages/alert/src/components/Alert";
+import {Alert} from "sis-aeb-alert";
 import AddressPT from "../../../packages/locales/others/AddressPT";
 
 export default function AddressForm(props) {

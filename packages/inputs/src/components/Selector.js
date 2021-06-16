@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
-import { AddRounded, DeleteForeverRounded, ListRounded } from '@material-ui/icons'
-import { Modal } from '@material-ui/core'
+import {AddRounded, DeleteForeverRounded, ListRounded} from '@material-ui/icons'
+import {Modal} from '@material-ui/core'
 import styles from './styles/Input.module.css'
 
 import Button from './Button'

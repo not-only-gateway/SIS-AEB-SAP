@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import styles from './styles/Navigation.module.css'
 import PropTypes from 'prop-types'
 
@@ -17,13 +17,14 @@ export default function Navigation(props) {
       <div className={styles.container}>
 
         <img
-          style={{ height: '50px' }}
-          src={props.logo} alt={'logo'} />
+          style={{height: '50px'}}
+          src={props.logo} alt={'logo'}/>
+        {props.appName}
       </div>
 
 
-      <div className={styles.container} style={{ justifyContent: 'flex-end', gap: '16px' }}>
-        <div style={{ width: 'fit-content', height: '100%' }}>
+      <div className={styles.container} style={{justifyContent: 'flex-end', gap: '16px'}}>
+        <div style={{width: 'fit-content', height: '100%'}}>
           {props.buttons.map(button => (
             <NavigationButton
               linkPath={button.link}
@@ -35,7 +36,7 @@ export default function Navigation(props) {
             />
           ))}
         </div>
-        <NavigationApps lang={lang} buttons={props.apps} />
+        <NavigationApps lang={lang} buttons={props.apps} centered={props.profile !== null && props.profile !== undefined}/>
 
         {props.profile !== null && props.profile !== undefined ?
           <NavigationProfile
@@ -51,7 +52,7 @@ export default function Navigation(props) {
               profile: lang.profile,
               signout: lang.signout,
               signin: lang.signin
-            }} />
+            }}/>
           :
           null
         }
@@ -63,12 +64,11 @@ export default function Navigation(props) {
 }
 
 Navigation.propTypes = {
-  logo: PropTypes.any,
   path: PropTypes.string,
-  query: PropTypes.object,
+  appName: PropTypes.string,
+  logo: PropTypes.any,
   profile: PropTypes.object,
   accessProfile: PropTypes.object,
-  lang: PropTypes.object,
   buttons: PropTypes.arrayOf([
     PropTypes.shape({
       name: PropTypes.string,

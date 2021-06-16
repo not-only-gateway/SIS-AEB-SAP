@@ -1,8 +1,8 @@
 Arguments: 
-  /usr/bin/node /usr/local/bin/yarn add rollup-plugin-postcss
+  /usr/bin/node /usr/local/bin/yarn start
 
 PATH: 
-  /sbin:/bin:/usr/bin:/usr/local/bin
+  /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
 
 Yarn version: 
   1.22.10
@@ -14,63 +14,53 @@ Platform:
   linux x64
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/home/aeb/SIS-AEB-FRONTEND/packages/inputs/node_modules/.yarn-integrity'
+  SyntaxError: /home/aeb/SIS-AEB-FRONTEND/packages/navigation/package.json: Unexpected token } in JSON at position 482
+      at JSON.parse (<anonymous>)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:321:13
 
 npm manifest: 
   {
-    "name": "sis-aeb-inputs",
+    "name": "sis-aeb-navigation",
     "version": "1.0.0",
-    "description": "Coleção de inputs",
-    "author": "FacoBackup",
+    "description": "Modulo de Navegação para o sistema SIS-AEB",
+    "author": "facobackup",
     "license": "MIT",
-    "repository": "FacoBackup/sis-aeb-inputs",
     "main": "dist/index.js",
     "module": "dist/index.modern.js",
     "source": "src/index.js",
-    "type": "module",
     "engines": {
       "node": ">=10"
     },
     "scripts": {
-      "build": "microbundle-crl --no-compress --css-modules true --format modern,cjs",
-      "start": "rollup -c ",
-      "test": "run-s test:unit test:lint test:build",
-      "test:build": "run-s build",
-      "test:lint": "eslint .",
-      "test:unit": "cross-env CI=1 react-scripts test --env=jsdom",
-      "test:watch": "react-scripts test --env=jsdom",
-      "predeploy": "cd example && yarn install && yarn run build",
-      "deploy": "gh-pages -d example/build"
+      "start": "rollup -c "
     },
     "peerDependencies": {
       "@fontsource/roboto": "^4.3.0",
-      "@material-ui/core": "^4.11.4",
-      "@material-ui/icons": "^4.11.2",
       "prop-types": "^15.7.2",
       "react": "17.0.1",
       "react-dom": "17.0.1",
-      "react-infinite-scroll-component": "^6.0.0",
-      "react-input-mask": "^2.0.4"
     },
     "dependencies": {
-  
+      "postcss": "^8.3.4"
     },
     "devDependencies": {
-      "rollup-plugin-node-resolve": "^5.2.0",
+      "autoprefixer": "^9.0.0",
       "babel-core": "^6.26.0",
       "babel-eslint": "^8.2.1",
       "babel-plugin-external-helpers": "^6.22.0",
       "babel-preset-env": "^1.6.0",
       "babel-preset-react": "^6.24.1",
       "babel-preset-stage-0": "^6.24.1",
-      "gh-pages": "^1.1.0",
-      "microbundle-crl": "^0.13.11",
       "react-scripts": "^1.0.17",
       "rollup": "^2.38.4",
       "rollup-plugin-babel": "^4.4.0",
       "rollup-plugin-commonjs": "^10.1.0",
+      "rollup-plugin-node-resolve": "^5.2.0",
       "rollup-plugin-peer-deps-external": "^2.2.4",
-  
+      "rollup-plugin-postcss": "^4.0.0",
       "rollup-plugin-terser": "^7.0.2"
     },
     "files": [
@@ -1729,7 +1719,7 @@ Lockfile:
       postcss "^5.2.16"
       postcss-value-parser "^3.2.3"
   
-  autoprefixer@^9.7.3:
+  autoprefixer@^9.0.0, autoprefixer@^9.7.3:
     version "9.8.6"
     resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-9.8.6.tgz#3b73594ca1bf9266320c5acf1588d74dea74210f"
     integrity sha512-XrvP4VVHdRBCdX1S3WXVD8+RyG9qeb1D5Sn1DeLiG2xfSpzellk5k54xbUERJ3M5DggQxes39UGOTP8CFrEGbg==
@@ -7670,6 +7660,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.2.tgz#f5376400695168f4cc694ac9393d0c9585eeea19"
     integrity sha512-M2ufzIiINKCuDfBSAUr1vWQ+vuVcA9kqx8JJUsbQi6yf1uGRyb7HfpdfUr5qLXf3B/t8dPvcjhKMmlfnP47EzQ==
   
+  nanoid@^3.1.23:
+    version "3.1.23"
+    resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.23.tgz#f744086ce7c2bc47ee0a8472574d5c78e4183a81"
+    integrity sha512-FiB0kzdP0FFVGDKlRLEQ1BgDzU87dy5NnzjeW9YZNt+/c3+q82EQDUwniSAUxp/F0gFNI1ZhKU1FqYsMuqZVnw==
+  
   nanomatch@^1.2.9:
     version "1.2.13"
     resolved "https://registry.yarnpkg.com/nanomatch/-/nanomatch-1.2.13.tgz#b87a8aa4fc0de8fe6be88895b38983ff265bd119"
@@ -9050,6 +9045,15 @@ Lockfile:
       source-map "^0.6.1"
       supports-color "^6.1.0"
   
+  postcss@^8.3.4:
+    version "8.3.4"
+    resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.3.4.tgz#41ece1c43f2f7c74dc7d90144047ce052757b822"
+    integrity sha512-/tZY0PXExXXnNhKv3TOvZAOUYRyuqcCbBm2c17YMDK0PlVII3K7/LKdt3ScHL+hhouddjUWi+1sKDf9xXW+8YA==
+    dependencies:
+      colorette "^1.2.2"
+      nanoid "^3.1.23"
+      source-map-js "^0.6.2"
+  
   prelude-ls@~1.1.2:
     version "1.1.2"
     resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
@@ -10279,6 +10283,11 @@ Lockfile:
     version "2.0.1"
     resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-2.0.1.tgz#3993bd873bfc48479cca9ea3a547835c7c154b34"
     integrity sha512-qnQ7gVMxGNxsiL4lEuJwe/To8UnK7fAnmbGEEH8RpLouuKbeEm0lhbQVFIrNSuB+G7tVrAlVsZgETT5nljf+Iw==
+  
+  source-map-js@^0.6.2:
+    version "0.6.2"
+    resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-0.6.2.tgz#0bb5de631b41cfbda6cfba8bd05a80efdfd2385e"
+    integrity sha512-/3GptzWzu0+0MBQFrDKzw/DvvMTUORvgY6k6jd/VS6iCR4RDTKWH6v6WPwQoUO8667uQEf9Oe38DxAYWY5F/Ug==
   
   source-map-resolve@^0.5.0:
     version "0.5.3"

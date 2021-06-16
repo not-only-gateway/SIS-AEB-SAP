@@ -1,12 +1,9 @@
 import PropTypes from 'prop-types'
 import {Avatar} from "@material-ui/core";
 import React, {useState} from "react";
-import Link from "next/link";
 import styles from '../styles/Navigation.module.css'
-import {AppsRounded, ExitToApp, ExtensionRounded, TimelineRounded, TuneRounded} from "@material-ui/icons";
 import AnimationFrame from "./AnimationFrame";
 import NavigationButton from "./NavigationButton";
-import Cookies from "universal-cookie/lib";
 
 export default function NavigationProfile(props) {
   const [open, setOpen] = useState(false)
@@ -59,7 +56,7 @@ export default function NavigationProfile(props) {
 
       </button>
       <AnimationFrame elementKey={'floating-profile'} children={
-        <div className={styles.floatingBoxContainer} style={{
+        <div className={styles.centeredFloatingBox} style={{
           width: '175px', transform: 'translateY(23%)', marginLeft: 'auto',
           marginRight: 'auto',
           left: 0,

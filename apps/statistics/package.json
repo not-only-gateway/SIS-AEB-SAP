@@ -15,16 +15,17 @@
     "axios": "^0.21.1",
     "express": "^4.17.1",
     "next": "^10.2.3",
-    "nprogress": "^0.2.0",
     "prop-types": "^15.7.2",
-    "public-ip": "^4.0.3",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-infinite-scroll-component": "^6.0.0",
-    "react-input-mask": "^2.0.4"
+    "react-input-mask": "^2.0.4",
+    "sis-aeb-alert": "../../packages/alert",
+    "sis-aeb-header": "../../packages/header",
+    "sis-aeb-inputs": "../../packages/inputs",
+    "sis-aeb-navigation": "../../packages/navigation"
   },
   "devDependencies": {
-    "@material-ui/pickers": "^3.3.10",
     "@material-ui/styles": "^4.11.3",
     "universal-cookie": "^4.0.4"
   }

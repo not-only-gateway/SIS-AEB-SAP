@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import axios from "axios";
 import Host from "../shared/Host";
 import Cookies from "universal-cookie/lib";

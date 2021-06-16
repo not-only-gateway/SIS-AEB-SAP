@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types'
 import styles from '../../../styles/Person.module.css'
-import {Avatar} from "@material-ui/core";
-import FetchImage from "../../../utils/shared/FetchImage";
 
 import PersonOverviewPT from "../../../packages/locales/person/PersonOverviewPT";
 import PersonAvatar from "../../shared/PersonAvatar";

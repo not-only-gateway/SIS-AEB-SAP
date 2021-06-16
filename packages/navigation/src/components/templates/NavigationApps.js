@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import styles from "../styles/Navigation.module.css";
-import {AppsRounded, ExtensionRounded, TimelineRounded} from "@material-ui/icons";
+import {AppsRounded} from "@material-ui/icons";
 import AnimationFrame from "./AnimationFrame";
 import PropTypes from 'prop-types'
 
@@ -24,8 +24,8 @@ export default function NavigationApps(props) {
         <AppsRounded/>
       </button>
       <AnimationFrame elementKey={'floating'} children={
-        <div className={styles.floatingBoxContainer}>
-          {props.apps.map(button => (
+        <div className={props.centered ? styles.centeredFloatingBox : styles.leftFloatingBox}>
+          {props.buttons.map(button => (
             <button
               className={styles.buttonContainer}
 
@@ -53,8 +53,9 @@ export default function NavigationApps(props) {
   )
 }
 NavigationApps.propTypes = {
+  centered: PropTypes.bool,
   lang: PropTypes.object,
-  apps: PropTypes.arrayOf([
+  buttons: PropTypes.arrayOf([
     PropTypes.shape({
       name: PropTypes.string,
       icon: PropTypes.any,

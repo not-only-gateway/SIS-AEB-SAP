@@ -37,3 +37,8 @@
   justify-content: flex-start;
 }
 
+
+.fadeIn {
+  position: relative;
+  animation: fadeIn ease-in-out 150ms forwards;
+}

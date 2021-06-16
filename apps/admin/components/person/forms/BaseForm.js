@@ -2,14 +2,14 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types'
 import CountryOptions from "../../../packages/options/CountryOptions";
 import StateOptions from "../../../packages/options/StateSelector";
-import ImageSelector from "../../shared/inputs/ImageField";
-import Selector from "../../shared/inputs/Selector";
-import TextField from "../../shared/inputs/TextField";
-import DateField from "../../shared/inputs/DateField";
-import DropDownField from "../../shared/inputs/DropDownField";
-import Alert from "../../../../../packages/alert/src/components/Alert";
+import {ImageField} from "sis-aeb-inputs"
+import {Selector} from "sis-aeb-inputs"
+import {TextField} from "sis-aeb-inputs"
+import {DateField} from "sis-aeb-inputs";
+import {DropDownField} from "sis-aeb-inputs"
+import {Alert} from "sis-aeb-alert"
 import shared from '../../../styles/shared/Shared.module.css'
-import Button from "../../shared/inputs/Button";
+import {Button} from "sis-aeb-inputs"
 import BaseFormPT from "../../../packages/locales/person/BaseFormPT";
 
 export default function BaseForm(props) {
@@ -68,7 +68,7 @@ export default function BaseForm(props) {
                     <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.personal}</h4></legend>
 
 
-                    <ImageSelector
+                    <ImageField
                         dark={true}
                         initialImage={props.person.image !== null ? props.person.image : null}
                         size={'100px'}

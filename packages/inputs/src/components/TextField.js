@@ -1,8 +1,8 @@
 import styles from './styles/Input.module.css'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import InputMask from 'react-input-mask'
-import { VisibilityOffRounded, VisibilityRounded } from '@material-ui/icons'
+import {VisibilityOffRounded, VisibilityRounded} from '@material-ui/icons'
 import LocalePT from './locales/LocalePT'
 
 export default function TextField(props) {

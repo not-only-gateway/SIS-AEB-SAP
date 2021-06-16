@@ -1,6 +1,5 @@
 module.exports = {
-    i18n: {
-        locales: ['en', 'pt'],
-        defaultLocale: 'pt'
-    },
+    devIndicators: {
+        buildActivity: false
+    }
 }

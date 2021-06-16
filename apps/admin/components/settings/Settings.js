@@ -2,12 +2,10 @@ import Cookies from "universal-cookie/lib";
 import {Selector} from "sis-aeb-inputs";
 import mapToSelect from "../../utils/shared/MapToSelect";
 import React, {useEffect, useState} from "react";
-
-
 import PropTypes from "prop-types";
 import styles from '../../styles/SettingsActivity.module.css'
 import submitCollaborationChange from "../../utils/submit/SubmitCollaborationChange";
-import Alert from "../../../../packages/alert/src/components/Alert";
+import {Alert} from "sis-aeb-alert";
 
 export default function Settings(props) {
     const [collaborations, setCollaborations] = useState([])

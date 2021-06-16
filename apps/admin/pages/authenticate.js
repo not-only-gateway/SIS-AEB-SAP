@@ -6,7 +6,7 @@ import styles from '../styles/Authenticate.module.css'
 import Head from "next/head";
 import {Button} from "@material-ui/core";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
-import Alert from "../../../packages/alert/src/components/Alert";
+import {Alert} from "sis-aeb-alert";
 import AuthenticatePT from "../packages/locales/authenticate/AuthenticatePT";
 import AuthenticationSubmitRequests from "../utils/submit/AuthenticationSubmitRequests";
 import {TextField} from "sis-aeb-inputs";

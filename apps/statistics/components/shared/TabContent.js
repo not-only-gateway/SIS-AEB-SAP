@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect, useState} from "react";
-import AnimationFrame from "./AnimationFrame";
+import React from "react";
 import animations from "../../styles/Animations.module.css";
 
 export default function TabContent(props) {

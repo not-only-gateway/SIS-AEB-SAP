@@ -2,12 +2,14 @@ import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
 import styles from '../styles/Person.module.css'
 import Profile from "../components/person/Profile";
-import TabContent from "../components/shared/TabContent";
+
 import PersonalForms from "../components/person/PersonalForms";
 import CorporateForms from "../components/person/CorporateForms";
 import Alert from "../../../packages/alert/src/components/Alert";
 import Head from 'next/head'
-import Tabs from "../components/shared/layout/Tabs";
+import {Header} from "sis-aeb-header";
+import {RenderTabs, Tabs} from "sis-aeb-navigation";
+
 import PersonPT from "../packages/locales/person/PersonPT";
 
 export default function person() {
@@ -97,7 +99,7 @@ export default function person() {
                         </div>
                         <div className={styles.profileContentContainer}>
 
-                            <TabContent
+                            <RenderTabs
                                 openTab={openTab}
                                 key={'person'}
                                 maintainTab={true}

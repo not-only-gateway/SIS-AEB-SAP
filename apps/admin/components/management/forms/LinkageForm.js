@@ -1,12 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 
 import mainStyles from '../../../styles/shared/Main.module.css'
 
-import Alert from "../../../../../packages/alert/src/components/Alert";
+import {Alert} from "sis-aeb-alert";
 import shared from "../../../styles/shared/Shared.module.css";
-import {Button} from "sis-aeb-inputs";
-import {TextField} from "sis-aeb-inputs";
+import {Button, TextField} from "sis-aeb-inputs";
 import {linkage} from "../../../packages/locales/management/SimpleFormsPT";
 
 

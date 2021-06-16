@@ -1,10 +1,12 @@
 import styles from '../../../styles/shared/Layout.module.css'
 import Cookies from 'universal-cookie/lib'
-import Navigation from "./Navigation";
-import React, {useEffect, useState} from "react";
+import {Navigation} from "sis-aeb-navigation";
+import React, {useState} from "react";
 import {useRouter} from "next/router";
 import "@fontsource/roboto"
 import PropTypes from "prop-types";
+import NavigationPT from "../../../packages/locales/others/NavigationPT";
+import {ExitToApp, ExtensionRounded, HomeRounded, TimelineRounded} from "@material-ui/icons";
 
 const cookies = new Cookies()
 
@@ -12,7 +14,7 @@ export default function PageLayout(props) {
     const router = useRouter()
     const [profile, setProfile] = useState(null)
     const [accessProfile, setAccessProfile] = useState(null)
-
+    const lang = NavigationPT
 
     //
     // useEffect(() => {
@@ -50,10 +52,29 @@ export default function PageLayout(props) {
 
     if (router.pathname !== '/authenticate')
         return (
-            <div style={{fontFamily: 'Roboto !important', backgroundColor: 'white', overflow: 'hidden', height: '100vh'}}>
-                <Navigation dark={false} path={router.pathname}
-                             query={router.query} profile={profile}
-                            accessProfile={accessProfile} loading={props.loading}/>
+            <div style={{
+                fontFamily: 'Roboto !important',
+                backgroundColor: 'white',
+                overflow: 'hidden',
+                height: '100vh'
+            }}>
+                <Navigation
+                    redirect={event => {
+                        router.push(event.pathname, event.pathname, event.options)
+                    }}
+                    profileButtons={[{
+                        name: lang.signout,
+                        path: '/authenticate',
+                        icon: <ExitToApp style={{transform: 'rotate(180deg)'}}/>
+                    }]} buttons={[{name: lang.title, icon: <HomeRounded/>, path: '/'}]}
+                    accessProfile={accessProfile} profile={profile} appName={lang.title}
+                    path={router.pathname}
+                    apps={[{name: lang.statistics, link: 'https://google.com', icon: <TimelineRounded/>}, {
+                        name: lang.extensions,
+                        link: 'https://google.com',
+                        icon: <ExtensionRounded/>
+                    }]} logo={'./dark.png'}
+                />
 
                 <div className={styles.pageContentContainer}
                      id={'scrollableDiv'} style={{
@@ -70,7 +91,7 @@ export default function PageLayout(props) {
             </>
         )
 }
-PageLayout.propTypes={
+PageLayout.propTypes = {
     loading: PropTypes.bool,
     children: PropTypes.object
 }

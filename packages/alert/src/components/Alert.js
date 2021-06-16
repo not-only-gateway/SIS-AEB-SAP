@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types'
-import styles from 'styles/Alert.module.css'
-import { CloseRounded } from '@material-ui/icons'
-import animations from '../../../../apps/admin/styles/shared/Animations.module.css'
-import React, { useEffect, useRef, useState } from 'react'
-import { Modal } from '@material-ui/core'
+import styles from './styles/Alert.module.css'
+import {CloseRounded} from '@material-ui/icons'
+import React, {useEffect, useRef, useState} from 'react'
+import {Modal} from '@material-ui/core'
 
 export default function Alert(props) {
   const counter = useRef(10)
@@ -55,7 +54,7 @@ export default function Alert(props) {
 
   return (
     <Modal open={props.render} onClose={() => props.handleClose()}>
-      <div className={[styles.alertContainer, animations.fadeIn].join(' ')}
+      <div className={[styles.alertContainer, styles.fadeIn].join(' ')}
            style={alertColor}>
         <div className={styles.alertContent}>
 

@@ -5,13 +5,13 @@
 
 .fadeIn {
     position: relative;
-    animation: fadeIn ease-in-out 150ms forwards;
+    animation: fadeIn ease-in-out 250ms forwards;
 
 }
 
 .fadeOutAnimation {
     position: relative;
-    animation: fadeOut ease-in-out 150ms forwards;
+    animation: fadeOut ease-in-out 250ms forwards;
 
 }
 

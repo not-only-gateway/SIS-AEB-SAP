@@ -1,7 +1,7 @@
 import styles from './styles/Input.module.css'
 import PropTypes from 'prop-types'
-import React, { useEffect, useState } from 'react'
-import { ArrowDropDownRounded } from '@material-ui/icons'
+import React, {useEffect, useState} from 'react'
+import {ArrowDropDownRounded} from '@material-ui/icons'
 import Button from './Button'
 import LocalePT from './locales/LocalePT'
 

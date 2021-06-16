@@ -10,11 +10,14 @@ cd scripts/builders
 
 # PRIMEIRO
 sudo bash inputs.sh
+sudo bash navigation.sh
+sudo bash alert.sh
+sudo bash header.sh
 
 # INDEPENDENTES
 sudo bash admin.sh
-sudo bash public.sh
-sudo bash statistics.sh
+#sudo bash public.sh
+#sudo bash statistics.sh
 
 echo "OK"
 

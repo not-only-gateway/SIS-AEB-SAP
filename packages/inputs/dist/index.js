@@ -41,11 +41,16 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = "/*TEXT FIELD*/\n\n.Input-module_visibilityContainer__dO7YR {\n    margin-left: auto;\n    cursor: pointer;\n    color: #555555;\n}\n\n.Input-module_visibilityContainer__dO7YR:hover {\n    color: #0095ff\n}\n\n.Input-module_fieldsContainer__3_nK0 {\n    display: flex;\n    align-items: center;\n    gap: 10px;\n    height: 56px;\n\n}\n\n.Input-module_inputContainer__37-nQ {\n    border-radius: 5px;\n    border: #ecedf2 1px solid;\n    box-shadow: unset;\n    transition: 250ms ease-in-out;\n    background: #f4f5fa;\n    width: 100%;\n    font-family: 'Roboto' !important;\n    height: 56px;\n\n    outline: none;\n    padding: 5px;\n    font-size: 1rem;\n\n    color: #555555;\n}\n\n.Input-module_selectContainer__2TdB2 {\n    font-family: 'Roboto' !important;\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    border: #ecedf2 1px solid;\n\n    box-shadow: unset;\n    transition: 250ms ease-in-out;\n    background: #f4f5fa;\n    width: 100%;\n    outline: none;\n    padding: 5px;\n    font-size: 1rem;\n    color: #555555;\n    cursor: pointer;\n    height: 40px;\n}\n\n.Input-module_dropDownContainer__fWQ4H {\n    display: grid;\n    gap: 8px;\n    height: auto;\n    position: relative;\n}\n\n.Input-module_dropDownChoicesContainer__22tVM {\n    display: grid;\n\n    background-color: white;\n\n    border-radius: 5px;\n    position: absolute;\n    z-index: 5;\n\n    box-shadow: 0 0 10px 2px rgba(0, 0, 0, .2);\n\n    padding: 5px;\n\n    top: -20%;\n    width: 100%;\n    max-height: 250px;\n    overflow: auto;\n}\n\n.Input-module_dropDownChoicesContainer__22tVM > button {\n    width: 100%;\n}\n\n.Input-module_labelContainer__c0PKr {\n    /*animation: slideUp ease-in-out 250ms both;*/\n    transition: visibility 300ms ease-in-out;\n    color: #262626;\n    font-size: .9rem;\n    margin-top: auto;\n    overflow: hidden;\n\n    text-transform: capitalize;\n\n}\n\n.Input-module_alertLabel__1Bmzu {\n    margin-left: auto;\n    font-weight: 550;\n    font-size: .8rem;\n}\n\n/*TEXT FIELD*/\n\n\n/*IMAGE FIELD*/\n.Input-module_uploadFormContainer__N7CfC {\n    border-radius: 5px;\n    border: #ecedf2 1px solid;\n\n    transition: 250ms ease-in-out;\n    background: white;\n    width: 45px;\n    height: 45px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    outline: none;\n\n    font-size: 1rem;\n    color: #555555;\n\n    cursor: pointer;\n}\n\n.Input-module_imageFieldContainer__2aEV6 {\n\n    height: 56px;\n\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n\n    padding: 4px;\n\n    border: #ecedf2 1px solid;\n    border-radius: 5px;\n    background: white;\n\n    overflow: hidden;\n\n    transition: 300ms ease-in-out;\n}\n\n\n.Input-module_selectContainer__2TdB2:hover, .Input-module_selectContainer__2TdB2:focus, .Input-module_selectContainer__2TdB2:focus-visible, .Input-module_selectContainer__2TdB2:focus-within, .Input-module_imageFieldContainer__2aEV6:hover, .Input-module_imageFieldContainer__2aEV6:focus, .Input-module_imageFieldContainer__2aEV6:focus-visible, .Input-module_imageFieldContainer__2aEV6:focus-within, .Input-module_inputContainer__37-nQ:hover, .Input-module_inputContainer__37-nQ:focus, .Input-module_inputContainer__37-nQ:focus-visible, .Input-module_inputContainer__37-nQ:focus-within  {\n    color: #262626;\n    box-shadow: 0 0 2px 1px #0095ff;\n    border: #0095ff 1px solid;\n    background: #E8F0FE;\n}\n\n\n.Input-module_modalContainer__1LpRz {\n    background: white;\n    border-radius: 8px;\n    width: clamp(500px, 75%, 1000px);\n    height: fit-content;\n\n    display: grid;\n\n    grid-template-rows: calc(100% - 64px) 64px;\n\n    overflow: hidden;\n\n    position: relative;\n    max-height: 80%;\n}\n\n.Input-module_modalContainer__1LpRz > div {\n    /*height: 100%;*/\n    width: 100%;\n}\n\n.Input-module_modalFooter__2yLT7 {\n    grid-row: 2;\n    background: #f4f5fa;\n    display: flex;\n    justify-content: flex-end;\n    align-items: center;\n\n    border-radius: 0 0 8px 8px;\n    padding: 24px 32px 24px 32px;\n    gap: 16px;\n    border-top: #ecedf2 1px solid;\n\n}\n\n.Input-module_modalContent__119pn {\n    grid-row: 1;\n    width: 100%;\n\n    overflow: auto;\n    padding: 32px clamp(32px, 10%, 64px);\n}\n\n.Input-module_rowContainer__2dvQs {\n    font-family: 'Roboto' !important;\n    background: #f4f5fa;\n    border: #ecedf2 1px solid;\n\n    transition: 300ms ease-in-out;\n\n    width: 100%;\n    height: 56px;\n\n    padding: 8px;\n\n    border-radius: 8px;\n\n    display: flex;\n\n    align-items: center;\n    justify-content: flex-start;\n\n    cursor: pointer;\n    outline: none;\n}\n\n.Input-module_rowContainer__2dvQs:hover {\n    /*border-color: #0095ff;*/\n    box-shadow: 0 0 4px 2px #0095ff;\n}\n";
-var styles = {"visibilityContainer":"Input-module_visibilityContainer__dO7YR","fieldsContainer":"Input-module_fieldsContainer__3_nK0","inputContainer":"Input-module_inputContainer__37-nQ","selectContainer":"Input-module_selectContainer__2TdB2","dropDownContainer":"Input-module_dropDownContainer__fWQ4H","dropDownChoicesContainer":"Input-module_dropDownChoicesContainer__22tVM","labelContainer":"Input-module_labelContainer__c0PKr","alertLabel":"Input-module_alertLabel__1Bmzu","uploadFormContainer":"Input-module_uploadFormContainer__N7CfC","imageFieldContainer":"Input-module_imageFieldContainer__2aEV6","modalContainer":"Input-module_modalContainer__1LpRz","modalFooter":"Input-module_modalFooter__2yLT7","modalContent":"Input-module_modalContent__119pn","rowContainer":"Input-module_rowContainer__2dvQs"};
+var css_248z = "/*TEXT FIELD*/\n\n.Input-module_visibilityContainer__dLrc_ {\n    margin-left: auto;\n    cursor: pointer;\n    color: #555555;\n}\n\n.Input-module_visibilityContainer__dLrc_:hover {\n    color: #0095ff\n}\n\n.Input-module_fieldsContainer__iM9Q7 {\n    display: flex;\n    align-items: center;\n    gap: 10px;\n    height: 56px;\n\n}\n\n.Input-module_inputContainer__2h9z6 {\n    border-radius: 5px;\n    border: #ecedf2 1px solid;\n    box-shadow: unset;\n    transition: 250ms ease-in-out;\n    background: #f4f5fa;\n    width: 100%;\n    font-family: 'Roboto' !important;\n    height: 56px;\n\n    outline: none;\n    padding: 5px;\n    font-size: 1rem;\n\n    color: #555555;\n}\n\n.Input-module_selectContainer__12gH0 {\n    font-family: 'Roboto' !important;\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    border: #ecedf2 1px solid;\n\n    box-shadow: unset;\n    transition: 250ms ease-in-out;\n    background: #f4f5fa;\n    width: 100%;\n    outline: none;\n    padding: 5px;\n    font-size: 1rem;\n    color: #555555;\n    cursor: pointer;\n    height: 40px;\n}\n\n.Input-module_dropDownContainer__3Rz2x {\n    display: grid;\n    gap: 8px;\n    height: auto;\n    position: relative;\n}\n\n.Input-module_dropDownChoicesContainer__kWPp2 {\n    display: grid;\n\n    background-color: white;\n\n    border-radius: 5px;\n    position: absolute;\n    z-index: 5;\n\n    box-shadow: 0 0 10px 2px rgba(0, 0, 0, .2);\n\n    padding: 5px;\n\n    top: -20%;\n    width: 100%;\n    max-height: 250px;\n    overflow: auto;\n}\n\n.Input-module_dropDownChoicesContainer__kWPp2 > button {\n    width: 100%;\n}\n\n.Input-module_labelContainer__6xKf5 {\n    /*animation: slideUp ease-in-out 250ms both;*/\n    transition: visibility 300ms ease-in-out;\n    color: #262626;\n    font-size: .9rem;\n    margin-top: auto;\n    overflow: hidden;\n\n    text-transform: capitalize;\n\n}\n\n.Input-module_alertLabel__3IRsW {\n    margin-left: auto;\n    font-weight: 550;\n    font-size: .8rem;\n}\n\n/*TEXT FIELD*/\n\n\n/*IMAGE FIELD*/\n.Input-module_uploadFormContainer__1Q3GZ {\n    border-radius: 5px;\n    border: #ecedf2 1px solid;\n\n    transition: 250ms ease-in-out;\n    background: white;\n    width: 45px;\n    height: 45px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    outline: none;\n\n    font-size: 1rem;\n    color: #555555;\n\n    cursor: pointer;\n}\n\n.Input-module_imageFieldContainer__21M-f {\n\n    height: 56px;\n\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n\n    padding: 4px;\n\n    border: #ecedf2 1px solid;\n    border-radius: 5px;\n    background: white;\n\n    overflow: hidden;\n\n    transition: 300ms ease-in-out;\n}\n\n\n.Input-module_selectContainer__12gH0:hover, .Input-module_selectContainer__12gH0:focus, .Input-module_selectContainer__12gH0:focus-visible, .Input-module_selectContainer__12gH0:focus-within, .Input-module_imageFieldContainer__21M-f:hover, .Input-module_imageFieldContainer__21M-f:focus, .Input-module_imageFieldContainer__21M-f:focus-visible, .Input-module_imageFieldContainer__21M-f:focus-within, .Input-module_inputContainer__2h9z6:hover, .Input-module_inputContainer__2h9z6:focus, .Input-module_inputContainer__2h9z6:focus-visible, .Input-module_inputContainer__2h9z6:focus-within  {\n    color: #262626;\n    box-shadow: 0 0 2px 1px #0095ff;\n    border: #0095ff 1px solid;\n    background: #E8F0FE;\n}\n\n\n.Input-module_modalContainer__1a6KS {\n    background: white;\n    border-radius: 8px;\n    width: clamp(500px, 75%, 1000px);\n    height: fit-content;\n\n    display: grid;\n\n    grid-template-rows: calc(100% - 64px) 64px;\n\n    overflow: hidden;\n\n    position: relative;\n    max-height: 80%;\n}\n\n.Input-module_modalContainer__1a6KS > div {\n    /*height: 100%;*/\n    width: 100%;\n}\n\n.Input-module_modalFooter__12Fir {\n    grid-row: 2;\n    background: #f4f5fa;\n    display: flex;\n    justify-content: flex-end;\n    align-items: center;\n\n    border-radius: 0 0 8px 8px;\n    padding: 24px 32px 24px 32px;\n    gap: 16px;\n    border-top: #ecedf2 1px solid;\n\n}\n\n.Input-module_modalContent__2A-bl {\n    grid-row: 1;\n    width: 100%;\n\n    overflow: auto;\n    padding: 32px clamp(32px, 10%, 64px);\n}\n\n.Input-module_rowContainer__2kCPs {\n    font-family: 'Roboto' !important;\n    background: #f4f5fa;\n    border: #ecedf2 1px solid;\n\n    transition: 300ms ease-in-out;\n\n    width: 100%;\n    height: 56px;\n\n    padding: 8px;\n\n    border-radius: 8px;\n\n    display: flex;\n\n    align-items: center;\n    justify-content: flex-start;\n\n    cursor: pointer;\n    outline: none;\n}\n\n.Input-module_rowContainer__2kCPs:hover {\n    /*border-color: #0095ff;*/\n    box-shadow: 0 0 4px 2px #0095ff;\n}\n";
+var styles = {"visibilityContainer":"Input-module_visibilityContainer__dLrc_","fieldsContainer":"Input-module_fieldsContainer__iM9Q7","inputContainer":"Input-module_inputContainer__2h9z6","selectContainer":"Input-module_selectContainer__12gH0","dropDownContainer":"Input-module_dropDownContainer__3Rz2x","dropDownChoicesContainer":"Input-module_dropDownChoicesContainer__kWPp2","labelContainer":"Input-module_labelContainer__6xKf5","alertLabel":"Input-module_alertLabel__3IRsW","uploadFormContainer":"Input-module_uploadFormContainer__1Q3GZ","imageFieldContainer":"Input-module_imageFieldContainer__21M-f","modalContainer":"Input-module_modalContainer__1a6KS","modalFooter":"Input-module_modalFooter__12Fir","modalContent":"Input-module_modalContent__2A-bl","rowContainer":"Input-module_rowContainer__2kCPs"};
 styleInject(css_248z);
 
+var LocalePT = {
+  required: 'Este campo é obrigatório.'
+};
+
 function DateField(props) {
+  var lang = LocalePT;
   return /*#__PURE__*/React__default['default'].createElement("div", {
     style: {
       width: props.width,
@@ -56,9 +61,9 @@ function DateField(props) {
     }
   }, /*#__PURE__*/React__default['default'].createElement("label", {
     htmlFor: 'input-' + props.label + '-date',
-    className: '.labelContainer'
+    className: styles.labelContainer
   }, props.label), /*#__PURE__*/React__default['default'].createElement("div", {
-    className: 'fieldsContainer'
+    className: styles.fieldsContainer
   }, /*#__PURE__*/React__default['default'].createElement("input", {
     disabled: props.disabled,
     id: 'input-' + props.label + '-date',
@@ -69,19 +74,19 @@ function DateField(props) {
       fontFamily: '\'Source Sans Pro\', sans-serif',
       cursor: props.disabled ? 'initial' : 'text'
     },
-    className: 'inputContainer',
+    className: styles.inputContainer,
     value: props.value,
     type: 'date',
     onChange: props.handleChange,
     maxLength: props.maxLength
   })), /*#__PURE__*/React__default['default'].createElement("label", {
     htmlFor: 'input-' + props.label + '-date',
-    className: '.alertLabel',
+    className: styles.alertLabel,
     style: {
       color: props.value === null || !props.value ? '#ff5555' : '#262626',
       visibility: props.required ? 'visible' : 'hidden'
     }
-  }, 'Este campo é obrigatório.'));
+  }, lang.required));
 }
 DateField.propTypes = {
   width: PropTypes__default['default'].string,
@@ -159,12 +164,7 @@ function TextField(props) {
       visible = _useState2[0],
       setVisible = _useState2[1];
 
-  function getLang(locale) {
-    var response = 'This field is required.';
-    if (locale === 'pt') response = 'Este campo é obrigatório.';
-    return response;
-  }
-
+  var lang = LocalePT;
   return /*#__PURE__*/React__default['default'].createElement("div", {
     style: {
       width: props.width,
@@ -231,7 +231,7 @@ function TextField(props) {
       color: props.value === null || !props.value || props.value.length === 0 ? '#ff5555' : '#262626',
       visibility: props.required ? 'visible' : 'hidden'
     }
-  }, getLang(props.locale)));
+  }, lang.required));
 }
 TextField.propTypes = {
   width: PropTypes__default['default'].string,
@@ -250,12 +250,7 @@ TextField.propTypes = {
 };
 
 function ImageField(props) {
-  function getLang(locale) {
-    var response = 'This field is required.';
-    if (locale === 'pt') response = 'Este campo é obrigatório.';
-    return response;
-  }
-
+  var lang = LocalePT;
   return /*#__PURE__*/React__default['default'].createElement("div", {
     style: {
       width: props.width,
@@ -267,16 +262,16 @@ function ImageField(props) {
     }
   }, /*#__PURE__*/React__default['default'].createElement("label", {
     htmlFor: 'upload-image',
-    className: '.labelContainer',
+    className: styles.labelContainer,
     style: {
       visibility: props.initialImage && props.initialImage.name ? 'visible' : 'hidden',
       opacity: props.initialImage ? '1' : '0',
       transition: 'visibility 0.2s ease,opacity 0.2s ease'
     }
   }, props.label), /*#__PURE__*/React__default['default'].createElement("form", {
-    className: '.imageFieldContainer, .highlight'
+    className: styles.imageFieldContainer
   }, props.initialImage && props.initialImage.name ? /*#__PURE__*/React__default['default'].createElement("p", {
-    className: '.labelContainer',
+    className: styles.labelContainer,
     style: {
       color: '#262626',
       margin: 'unset',
@@ -286,13 +281,13 @@ function ImageField(props) {
       whiteSpace: 'nowrap'
     }
   }, props.initialImage.name) : /*#__PURE__*/React__default['default'].createElement("p", {
-    className: '.labelContainer',
+    className: styles.labelContainer,
     style: {
       color: '#555555',
       margin: 'unset'
     }
   }, " ", props.label), props.initialImage ? /*#__PURE__*/React__default['default'].createElement("div", {
-    className: '.uploadFormContainer',
+    className: styles.uploadFormContainer,
     style: {
       cursor: 'pointer'
     },
@@ -302,7 +297,7 @@ function ImageField(props) {
     }
   }, /*#__PURE__*/React__default['default'].createElement(icons.CloseRounded, null)) : /*#__PURE__*/React__default['default'].createElement("label", {
     htmlFor: "upload-image",
-    className: '.uploadFormContainer',
+    className: styles.uploadFormContainer,
     onChange: function onChange(event) {
       props.setImage(event);
       props.setChanged(true);
@@ -320,12 +315,12 @@ function ImageField(props) {
     }
   })), /*#__PURE__*/React__default['default'].createElement("label", {
     htmlFor: 'input',
-    className: '.alertLabel',
+    className: styles.alertLabel,
     style: {
       color: props.value === null || !props.value || props.value.length === 0 ? '#ff5555' : '#262626',
       visibility: props.required ? 'visible' : 'hidden'
     }
-  }, getLang(props.locale)));
+  }, lang.required));
 }
 ImageField.propTypes = {
   setImage: PropTypes__default['default'].func,
@@ -443,12 +438,7 @@ function DropDownField(props) {
       value = _useState4[0],
       setValue = _useState4[1];
 
-  function getLang(locale) {
-    var response = 'This field is required.';
-    if (locale === 'pt') response = 'Este campo é obrigatório.';
-    return response;
-  }
-
+  var lang = LocalePT;
   React.useEffect(function () {
     var filtered = props.choices.filter(function (element) {
       if (element.key === props.value) return element;
@@ -520,7 +510,7 @@ function DropDownField(props) {
       color: props.value === null || props.value === undefined ? '#ff5555' : '#262626',
       visibility: props.required && !open ? 'visible' : 'hidden'
     }
-  }, getLang(props.locale)));
+  }, lang.required));
 }
 DropDownField.propTypes = {
   width: PropTypes__default['default'].string,
@@ -568,13 +558,13 @@ function Selector(props) {
         justifyContent: 'center'
       }
     }, /*#__PURE__*/React__default['default'].createElement("div", {
-      className: '.modalContainer',
+      className: styles.modalContainer,
       style: {
         height: 'clamp(500px, 75%, 1000px',
         alignContent: 'flex-start'
       }
     }, /*#__PURE__*/React__default['default'].createElement("div", {
-      className: '.modalContent'
+      className: styles.modalContent
     }, /*#__PURE__*/React__default['default'].createElement("h3", {
       style: {
         marginTop: 0,
@@ -643,7 +633,7 @@ function Selector(props) {
             setModal(false);
           }
         },
-        className: '.rowContainer',
+        className: styles.rowContainer,
         style: {
           backgroundColor: data.key === ((_props$selected2 = props.selected) === null || _props$selected2 === void 0 ? void 0 : _props$selected2.key) ? '#0095ff' : undefined,
           color: data.key === ((_props$selected3 = props.selected) === null || _props$selected3 === void 0 ? void 0 : _props$selected3.key) ? 'white' : undefined,
@@ -651,7 +641,7 @@ function Selector(props) {
         }
       }, data.value)) : null;
     }))), /*#__PURE__*/React__default['default'].createElement("div", {
-      className: '.modalFooter'
+      className: styles.modalFooter
     }, /*#__PURE__*/React__default['default'].createElement(Button, {
       width: 'fit-content',
       border: '#ecedf2 .7px solid',
@@ -680,14 +670,14 @@ function Selector(props) {
     }
   }, /*#__PURE__*/React__default['default'].createElement("label", {
     htmlFor: 'select-' + props.label,
-    className: '.labelContainer',
+    className: styles.labelContainer,
     style: {
       visibility: props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ? 'visible' : 'hidden',
       opacity: props.selected !== undefined && props.selected !== null && props.selected.key !== null && props.selected.key !== undefined ? '1' : '0',
       transition: 'visibility 0.2s ease,opacity 0.2s ease'
     }
   }, props.label), /*#__PURE__*/React__default['default'].createElement("div", {
-    className: '.dropDownContainer'
+    className: styles.dropDownContainer
   }, /*#__PURE__*/React__default['default'].createElement("button", {
     id: 'select-' + props.label,
     disabled: props.disabled,
@@ -696,7 +686,7 @@ function Selector(props) {
       borderRadius: '5px',
       cursor: props.disabled ? 'unset' : 'pointer'
     },
-    className: '.selectContainer',
+    className: styles.selectContainer,
     onClick: function onClick() {
       return setModal(true);
     }
@@ -715,7 +705,7 @@ function Selector(props) {
     }
   })))), /*#__PURE__*/React__default['default'].createElement("label", {
     htmlFor: 'select-' + props.label,
-    className: '.alertLabel',
+    className: styles.alertLabel,
     style: {
       color: ((_props$selected4 = props.selected) === null || _props$selected4 === void 0 ? void 0 : _props$selected4.key) === null || !((_props$selected5 = props.selected) !== null && _props$selected5 !== void 0 && _props$selected5.key) ? '#ff5555' : '#262626',
       visibility: props.required ? 'visible' : 'hidden'

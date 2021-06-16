@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import {Avatar} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
-import animations from '../../styles/shared/Animations.module.css'
 import PersonRequests from "../../utils/fetch/PersonRequests";
 
 export default function PersonAvatar(props) {

@@ -4,7 +4,6 @@ import Router from 'next/router';
 import {useEffect, useState} from "react"; //styles of nprogress
 
 
-// Router.events.on('routeChangeStart', () => NProgress.start()); Router.events.on('routeChangeComplete', () => NProgress.done()); Router.events.on('routeChangeError', () => NProgress.done());
 export default function SisAeb({Component, pageProps}) {
     const [loading, setLoading] = useState(false)
     useEffect(() => {

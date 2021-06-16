@@ -21,7 +21,10 @@
     "react-dom": "17.0.1",
     "react-infinite-scroll-component": "^6.0.0",
     "react-input-mask": "^2.0.4",
-    "sis-aeb-inputs": "../../packages/inputs"
+    "sis-aeb-alert": "../../packages/alert",
+    "sis-aeb-header": "../../packages/header",
+    "sis-aeb-inputs": "../../packages/inputs",
+    "sis-aeb-navigation": "../../packages/navigation"
   },
   "devDependencies": {
     "@material-ui/pickers": "^3.3.10",

@@ -1,7 +1,7 @@
 import styles from '../../styles/Layout.module.css'
 import Cookies from 'universal-cookie/lib'
 import Navigation from "./Navigation";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useRouter} from "next/router";
 import "@fontsource/roboto"
 import PropTypes from "prop-types";

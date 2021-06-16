@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import styles from '../../styles/Tabs.module.css'
 import {useState} from "react";
 import animations from '../../styles/Animations.module.css'
+
 export default function Tabs(props) {
     const [extended, setExtended] = useState(false)
     return (

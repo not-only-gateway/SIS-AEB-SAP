@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
 import PersonAvatar from "./PersonAvatar";
-import {ExitToApp, TuneRounded} from "@material-ui/icons";
+import {ExitToApp} from "@material-ui/icons";
 import AnimationFrame from "./AnimationFrame";
 import styles from '../../styles/Navigation.module.css'
 import NavigationButton from "./NavigationButton";

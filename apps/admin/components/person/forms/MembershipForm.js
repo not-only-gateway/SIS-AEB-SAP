@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types'
-import Selector from "../../shared/inputs/Selector";
+
 import mapToSelect from "../../../utils/shared/MapToSelect";
 
-import TextField from "../../shared/inputs/TextField";
-import DropDownField from "../../shared/inputs/DropDownField";
-import Alert from "../../../../../packages/alert/src/components/Alert";
+
+import {Alert} from "sis-aeb-alert";
+import {Button, TextField, DropDownField, DateField, Selector} from "sis-aeb-inputs";
 import shared from "../../../styles/shared/Shared.module.css";
-import Button from "../../shared/inputs/Button";
+
 import MembershipPT from "../../../packages/locales/person/MembershipPT";
 import StructuralRequests from "../../../utils/fetch/StructuralRequests";
 
@@ -25,7 +25,7 @@ export default function MembershipForm(props) {
         message: undefined
     })
 
-    useEffect( () => {
+    useEffect(() => {
 
         if (entities.length === 0)
             StructuralRequests.fetchEntities({

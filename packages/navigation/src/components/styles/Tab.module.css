@@ -1,0 +1,30 @@
+
+
+.tabsContainer {
+  position: sticky;
+  top: 0;
+  height: calc(100vh - 60px);
+  display: grid;
+  align-content: flex-start;
+  border-right: #ecedf2 1px solid;
+  transition: 300ms ease-in-out;
+  width: 220px;
+  padding-top: 32px;
+  gap: 16px;
+}
+
+
+.tabButtonContainer {
+  cursor: pointer;
+
+  outline: none;
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
+  border-left: none;
+  background-color: transparent;
+
+  box-shadow: none;
+  padding: 8px 8px 8px 24px;
+  text-align: left;
+}

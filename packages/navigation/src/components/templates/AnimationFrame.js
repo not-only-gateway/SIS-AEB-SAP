@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types'
 import {useEffect, useState} from "react";
 import animations from '../styles/Animations.module.css'

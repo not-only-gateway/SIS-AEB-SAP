@@ -1,6 +1,3 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import shared from '../styles/Shared.module.css'
 import HomePT from "../packages/locales/HomePT";
 import Tabs from '../components/shared/Tabs'
 import HeaderLayout from "../components/shared/HeaderLayout";
@@ -9,7 +6,6 @@ import {useState} from "react";
 import Status from "../components/home/Status";
 import Overview from "../components/home/Overview";
 import Usage from "../components/home/Usage";
-import {brown} from "@material-ui/core/colors";
 
 export default function Home() {
     const lang = HomePT

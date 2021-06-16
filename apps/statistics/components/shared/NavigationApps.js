@@ -1,11 +1,8 @@
-
 import styles from '../../styles/Navigation.module.css'
-import {AppsRounded, ExtensionRounded, PeopleRounded, TimelineRounded} from "@material-ui/icons";
+import {AppsRounded, ExtensionRounded, PeopleRounded} from "@material-ui/icons";
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
 import AnimationFrame from "./AnimationFrame";
-
-
 
 
 export default function NavigationApps(props) {

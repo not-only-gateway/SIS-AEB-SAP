@@ -1,6 +1,5 @@
 import React from 'react'
-import Cookies from 'universal-cookie/lib';
-import {AppsRounded, ExitToApp, HomeRounded, MenuOpenRounded, PersonAddRounded, TuneRounded} from '@material-ui/icons';
+import {HomeRounded} from '@material-ui/icons';
 import styles from '../../styles/Navigation.module.css'
 import PropTypes from 'prop-types'
 // import mainStyles from '../../styles/shared/Main.module.css'

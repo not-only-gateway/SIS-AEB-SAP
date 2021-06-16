@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styles from './styles/Input.module.css'
-import { CloseRounded, CloudUploadRounded } from '@material-ui/icons'
+import {CloseRounded, CloudUploadRounded} from '@material-ui/icons'
 import LocalePT from './locales/LocalePT'
 
 export default function ImageField(props) {

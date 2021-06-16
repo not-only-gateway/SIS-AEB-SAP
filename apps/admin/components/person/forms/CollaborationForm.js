@@ -1,14 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
-import Selector from "../../shared/inputs/Selector";
 
-import Alert from "../../../../../packages/alert/src/components/Alert";
+import {Alert} from "sis-aeb-alert";
+import {Button, TextField, DropDownField, DateField, Selector} from "sis-aeb-inputs";
 import styles from '../../../styles/component/Component.module.css'
 import shared from "../../../styles/shared/Shared.module.css";
-import Button from "../../shared/inputs/Button";
-import DropDownField from "../../shared/inputs/DropDownField";
-import TextField from "../../shared/inputs/TextField";
-import DateField from "../../shared/inputs/DateField";
+
 import CollaborationsFormPT from "../../../packages/locales/person/CollaborationsFormPT";
 
 export default function CollaborationForm(props) {

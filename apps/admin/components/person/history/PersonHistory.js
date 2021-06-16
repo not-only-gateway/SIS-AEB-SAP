@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types'
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import RecordRequests from "../../../utils/fetch/RecordRequests";
 import styles from '../../../styles/Person.module.css'
 import shared from '../../../styles/shared/Shared.module.css'
-import React from 'react'
 import {Modal} from "@material-ui/core";
 import PersonOverview from "../overview/PersonOverview";
 import Button from "../../shared/inputs/Button";

@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
-import HeaderLayout from "../components/shared/layout/HeaderLayout";
-import TabContent from "../components/shared/TabContent";
+import {Header} from "sis-aeb-header";
+import {RenderTabs, Tabs} from "sis-aeb-navigation";
 import AccessProfileList from "../components/management/list/AccessProfileList";
 import EffectiveRoleList from "../components/management/list/EffectiveRoleList";
 import CommissionedRoleList from "../components/management/list/CommissionedRoleList";
 import LinkageList from "../components/management/list/LinkageList";
 import PeopleList from "../components/management/list/PeopleList";
 import UnitList from "../components/management/list/UnitList";
-import Tabs from "../components/shared/layout/Tabs";
 import ManagementPT from "../packages/locales/management/ManagementPT";
 
 export default function management() {
@@ -66,14 +65,14 @@ export default function management() {
                 />
 
                 <div style={{width: 'calc(100% - 220px)', marginLeft: 'auto', overflowY: 'hidden'}}>
-                    <HeaderLayout
+                    <Header
                         width={'95%'}
                         title={
                             lang.title
                         }
                         pageTitle={lang.title}
                     />
-                    <TabContent
+                    <RenderTabs
                         openTab={openTab}
 
                         tabs={[
