@@ -1,0 +1,56 @@
+.overflowEllipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/*DISPLAY*/
+.displayWarp {
+  display: inline-flex;
+  flex-flow: row wrap;
+  gap: 16px;
+}
+
+
+
+.displayInlineStart {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+}
+
+.displayInlineEnd {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.displayInlineSpaced {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+
+.maxWidth > * {
+  width: 100%;
+}
+
+.filterContainer {
+  background-color: #f4f5fa;
+  width: clamp(50px, calc(25% - 12px), 150px);
+  border-radius: 32px;
+
+  border: #ecedf2 .7px solid;
+  height: 37px;
+  font-size: .8rem;
+  text-transform: uppercase;
+  font-weight: 550;
+
+  padding: 0 0 0 8px;
+
+  align-items: center;
+  justify-content: space-between;
+}

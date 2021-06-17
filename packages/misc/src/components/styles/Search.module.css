@@ -1,0 +1,20 @@
+.rowContainer {
+  display: flex;
+
+  width: 100%;
+
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 8px;
+
+  background: #f4f5fa;
+  margin-left: auto;
+
+}
+
+.displayInlineCenter {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+}

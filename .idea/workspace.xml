@@ -3,7 +3,32 @@
   <component name="ChangeListManager">
     <list default="true" id="51dde260-c9a2-44c5-b623-1f5a75384082" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/navigation/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/navigation/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/public/components/layout/navigation/TabContent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/public/components/layout/navigation/Tabs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/header/.babelrc" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/.babelrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/header/.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/header/.eslintignore" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/.eslintignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/header/.eslintrc" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/.eslintrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/header/.prettierrc" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/.prettierrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/header/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/.travis.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/header/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/header/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/header/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/rollup.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/header/src/.eslintrc" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/src/.eslintrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/header/src/components/FiltersComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/src/components/Filters.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/header/src/components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/src/components/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/header/src/components/SearchBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/src/components/SearchBox.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/header/src/components/styles/Header.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/src/components/styles/Header.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/header/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/header/yarn-error.log" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/yarn-error.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/header/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/navigation/src/components/RenderTabs.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/src/components/RenderTabs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/navigation/src/components/Tabs.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/src/components/Tabs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/navigation/src/components/styles/Animations.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/src/components/styles/Animations.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/navigation/src/components/styles/Tab.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/src/components/styles/Tab.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/navigation/src/components/templates/AnimationFrame.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/navigation/src/components/templates/TabContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/src/components/templates/TabContent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/navigation/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/navigation/src/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +68,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/packages/navigation/src/components" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/packages/navigation/src/components/styles" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -55,18 +80,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/packages/navigation/src/components/styles" />
+      <recent name="$PROJECT_DIR$/packages/misc/src/components" />
       <recent name="$PROJECT_DIR$/packages/navigation/src/components" />
       <recent name="$PROJECT_DIR$/packages/header/src/components" />
       <recent name="$PROJECT_DIR$/packages/header" />
-      <recent name="$PROJECT_DIR$/apps/statistics" />
-      <recent name="\\wsl$\Ubuntu\home\roque\projects\SIS-AEB-FRONTEND\packages\alert" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/packages/misc/src/components/styles" />
+      <recent name="$PROJECT_DIR$/packages/misc/src/components/templates" />
+      <recent name="$PROJECT_DIR$/packages/misc/src/components" />
       <recent name="$PROJECT_DIR$/packages/navigation/src/components/templates" />
       <recent name="$PROJECT_DIR$/packages/header/src/components" />
-      <recent name="\\wsl$\Ubuntu\home\roque\projects\SIS-AEB-FRONTEND\packages\alert\src\components" />
-      <recent name="\\wsl$\Ubuntu\home\roque\projects\SIS-AEB-FRONTEND\scripts\builders" />
-      <recent name="\\wsl$\Ubuntu\home\roque\projects\SIS-AEB-FRONTEND\apps" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -106,6 +131,7 @@
       <workItem from="1623767814958" duration="4659000" />
       <workItem from="1623842634673" duration="2743000" />
       <workItem from="1623846397409" duration="10381000" />
+      <workItem from="1623934244799" duration="3193000" />
     </task>
     <servers />
   </component>
