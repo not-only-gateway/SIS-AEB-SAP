@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
-import {Header} from "sis-aeb-header";
-import {RenderTabs, Tabs} from "sis-aeb-navigation";
+import {Header, RenderTabs, Tabs} from "sis-aeb-misc";
 import AccessProfileList from "../components/management/list/AccessProfileList";
 import EffectiveRoleList from "../components/management/list/EffectiveRoleList";
 import CommissionedRoleList from "../components/management/list/CommissionedRoleList";

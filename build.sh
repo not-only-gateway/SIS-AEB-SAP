@@ -12,7 +12,7 @@ cd scripts/builders
 sudo bash inputs.sh
 sudo bash navigation.sh
 sudo bash alert.sh
-sudo bash header.sh
+sudo bash misc.sh
 
 # INDEPENDENTES
 sudo bash admin.sh

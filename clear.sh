@@ -13,14 +13,14 @@ cd ../statistics
 sudo rm -r node_modules
 sudo rm -r .next
 
-cd ../../packages/inputs
+cd ../../packages/misc
 
 sudo rm -r dist
 mkdir dist
 sudo rm -r node_modules
 
 
-cd ../header
+cd ../inputs
 
 sudo rm -r dist
 mkdir dist

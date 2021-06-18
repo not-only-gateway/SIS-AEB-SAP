@@ -22,7 +22,7 @@
     "react-infinite-scroll-component": "^6.0.0",
     "react-input-mask": "^2.0.4",
     "sis-aeb-alert": "../../packages/alert",
-    "sis-aeb-header": "../../packages/header",
+    "sis-aeb-misc": "../../packages/misc",
     "sis-aeb-inputs": "../../packages/inputs",
     "sis-aeb-navigation": "../../packages/navigation"
   },

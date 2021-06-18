@@ -6,9 +6,9 @@ fi
 #yarn add @babel/preset-env
 #yarn add @babel/preset-react
 yarn >>../../logs/build/navigation.txt 2>>../../logs/build/navigation.txt
+yarn start >>../../logs/build/navigation.txt 2>>../../logs/build/navigation.txt &&
+echo "NAV OK"
 
-yarn start >>../../logs/build/navigation.txt 2>>../../logs/build/navigation.txt
 
-echo "INPUTS ARE OK"
 
 exit

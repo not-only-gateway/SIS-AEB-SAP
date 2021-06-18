@@ -2321,10 +2321,10 @@ shell-quote@1.7.2:
 sis-aeb-alert@../../packages/alert:
   version "1.0.0"
 
-sis-aeb-header@../../packages/header:
+sis-aeb-inputs@../../packages/inputs:
   version "1.0.0"
 
-sis-aeb-inputs@../../packages/inputs:
+sis-aeb-misc@../../packages/misc:
   version "1.0.0"
 
 sis-aeb-navigation@../../packages/navigation:
