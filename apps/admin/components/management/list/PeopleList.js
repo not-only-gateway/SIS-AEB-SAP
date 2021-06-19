@@ -6,21 +6,24 @@ import {Skeleton} from "@material-ui/lab";
 import mainStyles from "../../../styles/shared/Main.module.css";
 import Person from "../Person";
 import OrganizationalRequests from "../../../utils/fetch/OrganizationalRequests";
-
+import BaseForm from "../../person/forms/BaseForm";
+import handleObjectChange from "../../../utils/shared/HandleObjectChange";
+import PersonSubmitRequests from "../../../utils/submit/PersonSubmitRequests";
+import shared from '../../../styles/shared/Shared.module.css'
 
 export default function PeopleList(props) {
     const [data, setData] = useState([])
     const [maxID, setMaxID] = useState(null)
     const [lastFetchedSize, setLastFetchedSize] = useState(0)
     useEffect(() => {
-        OrganizationalRequests.fetchPeople({
-            setData: setData,
-            data: data,
-            maxID: null,
-            searchInput: props.searchInput,
-            setMaxID: setMaxID,
-            setLastFetchedSize: setLastFetchedSize
-        })
+        // OrganizationalRequests.fe({
+        //     setData: setData,
+        //     data: data,
+        //     maxID: null,
+        //     searchInput: props.searchInput,
+        //     setMaxID: setMaxID,
+        //     setLastFetchedSize: setLastFetchedSize
+        // })
     }, [props.searchInput])
 
     return (
@@ -62,6 +65,34 @@ export default function PeopleList(props) {
                         width: '100%',
                         gap: '8px'
                     }}>
+                        <div className={shared.rowContainer}>
+                            {/*<BaseForm*/}
+                            {/*    id={undefined}*/}
+                            {/*    setID={setID}*/}
+                            {/*    person={person}*/}
+                            {/*    handleChange={event => handleObjectChange({*/}
+                            {/*        event: event,*/}
+                            {/*        setData: setPerson*/}
+                            {/*    })}*/}
+                            {/*    handleSubmit={PersonSubmitRequests.submitPerson}*/}
+                            {/*    editable={accessProfile.can_update_person}*/}
+                            {/*    locale={router.locale}*/}
+                            {/*    create={true}*/}
+                            {/*    setAccepted={event => {*/}
+                            {/*        console.log(event)*/}
+
+                            {/*        handleObjectChange({*/}
+                            {/*            event: {name: 'base', value: event.status},*/}
+                            {/*            setData: setStatus*/}
+                            {/*        })*/}
+                            {/*        if (event.status) {*/}
+                            {/*            setID(event.id)*/}
+                            {/*            setStep(step + 1)*/}
+                            {/*            setOpenTab(openTab + 1)*/}
+                            {/*        }*/}
+                            {/*    }}*/}
+                            {/*/>*/}
+                        </div>
                         {data.map(person => (
                             <div key={person.id + ' - ' + person.name} style={{width: '100%'}}>
                                 <Person person={person} member={props.member} redirect={props.redirect}

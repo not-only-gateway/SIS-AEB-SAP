@@ -1,0 +1,114 @@
+.overflowEllipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.loading {
+
+    animation: loadingAnimation 2s ease-in-out infinite;
+}
+
+@keyframes loadingAnimation {
+    0% {
+        box-shadow: 0 2px 3px 2px rgba(0, 149, 255, 1);
+    }
+    50% {
+        box-shadow: 0 2px 4px 4px rgba(0, 149, 255, .5);
+    }
+    100% {
+        box-shadow: 0 2px 3px 2px rgba(0, 149, 255, 1);
+    }
+}
+
+.navigationContainer {
+    position: fixed;
+    top: 0;
+
+    z-index: 100;
+    overflow: visible;
+    height: 60px;
+    width: 100%;
+    justify-items: center;
+
+    transition: 250ms ease-in-out;
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: space-between;
+    background: white;
+    border-bottom: #ecedf2 1px solid;
+
+    padding: 8px;
+
+}
+
+.navigationContainer > div {
+    width: 100%;
+}
+
+.navigationButtonsHalf {
+
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logoContainer {
+    color: white;
+    display: flex;
+    font-size: .9rem;
+    gap: 16px;
+    align-items: center;
+    height: 100%;
+}
+
+
+.buttonContainer {
+    height: 100%;
+    width: auto;
+
+    display: flex;
+    align-items: center;
+
+
+    outline: none;
+    box-shadow: none;
+    background-color: transparent;
+    border-radius: 8px;
+    border: none;
+    color: #555555;
+    padding: 0 12px;
+    cursor: pointer;
+    transition: 300ms ease;
+    font-family: 'Roboto' !important;
+}
+
+.buttonContainer:hover {
+    background: #f4f5fa;
+    color: #0095ff;
+}
+
+.appsContainer {
+    position: relative;
+    height: 100%;
+
+}
+
+.floatingBox {
+    position: absolute;
+    height: auto;
+    width: 250px;
+    border: #ecedf2 2px solid;
+    background: white;
+    border-radius: 8px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 8px;
+}
+

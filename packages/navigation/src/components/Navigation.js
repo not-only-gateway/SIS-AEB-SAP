@@ -26,6 +26,9 @@ export default function Navigation(props) {
       <div className={styles.container} style={{justifyContent: 'flex-end', gap: '16px'}}>
         <div style={{width: 'fit-content', height: '100%'}}>
           {props.buttons.map(button => (
+            <React.fragment key={button.link}>
+
+
             <NavigationButton
               linkPath={button.link}
               linkQuery={button.linkProps}
@@ -34,6 +37,7 @@ export default function Navigation(props) {
                 button.icon
               }
             />
+            </React.fragment>
           ))}
         </div>
         <NavigationApps lang={lang} buttons={props.apps} centered={props.profile !== null && props.profile !== undefined}/>

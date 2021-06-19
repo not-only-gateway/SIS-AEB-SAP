@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import animations from '../styles/Animations.module.css'
-
+import React from 'react'
 export default function AnimationFrame(props) {
   const [animationClass, setAnimationClass] = useState(undefined)
   const [isInRender, setIsInRender] = useState(false)
@@ -10,13 +10,12 @@ export default function AnimationFrame(props) {
     if (isInRender && !props.render) {
       setAnimationClass(animations.fadeOutAnimation)
       const elementFound = document.querySelector('#content-' + props.elementKey + '\\:frame')
-      if (elementFound !== null && style === animations.fadeOutAnimation) {
+      if (elementFound !== null && animationClass === animations.fadeOutAnimation) {
         elementFound.addEventListener('animationend', () => {
           setIsInRender(false)
         });
       }
     } else if (!isInRender && props.render) {
-      props.setRendering(props.tab.buttonKey)
       setIsInRender(true)
       setAnimationClass(animations.fadeIn)
     }
@@ -35,11 +34,7 @@ export default function AnimationFrame(props) {
 }
 
 AnimationFrame.propTypes = {
-  type: PropTypes.oneOf([
-    'fade',
-    'slide_up',
-    'slide_down'
-  ]),
+
   render: PropTypes.bool,
   children: PropTypes.object,
   elementKey: PropTypes.any,

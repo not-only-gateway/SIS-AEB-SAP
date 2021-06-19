@@ -28,7 +28,7 @@ export default function NavigationApps(props) {
           {props.buttons.map(button => (
             <button
               className={styles.buttonContainer}
-
+              key={button.name}
               onClick={() => window.open(button.link)}
               style={{
                 display: 'grid',

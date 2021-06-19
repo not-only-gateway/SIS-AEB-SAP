@@ -20,7 +20,7 @@ export default class MemberRequests {
 
         await axios({
             method: 'get',
-            url: Host() + 'profile/member',
+            url: Host() + 'token/collaborator',
             headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         }).then(res => {
             response = res.data

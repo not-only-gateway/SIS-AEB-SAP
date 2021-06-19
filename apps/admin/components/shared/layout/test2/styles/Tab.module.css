@@ -1,0 +1,29 @@
+.tabsContainer {
+  position: sticky;
+  top: 0;
+  height: calc(100vh - 60px);
+  display: grid;
+  align-content: flex-start;
+  background: #f4f5fa;
+  transition: 300ms ease-in-out;
+  width: 200px;
+  padding: 16px 8px 8px;
+  gap: 16px;
+}
+
+
+.tabButtonContainer {
+  cursor: pointer;
+
+  font-family: 'Roboto' !important;
+  font-weight: 600;
+  outline: none;
+  border-radius: 8px;
+  background-color: transparent;
+
+  transition: 300ms ease-in-out;
+
+  box-shadow: none;
+  padding: 12px 12px 12px 24px;
+  text-align: left;
+}

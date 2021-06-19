@@ -1,25 +1,20 @@
 Arguments: 
-  /usr/bin/node /usr/local/bin/yarn add ../../packages/navigation
+  /home/roque/.nvm/versions/node/v12.22.1/bin/node /home/roque/.nvm/versions/node/v12.22.1/bin/yarn
 
 PATH: 
-  /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+  /home/roque/.nvm/versions/node/v12.22.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Users/Gustavo Roque/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/JetBrains/WebStorm 2021.1.1/bin:/snap/bin
 
 Yarn version: 
   1.22.10
 
 Node version: 
-  12.18.2
+  12.22.1
 
 Platform: 
   linux x64
 
 Trace: 
-  SyntaxError: /home/aeb/SIS-AEB-FRONTEND/packages/navigation/package.json: Unexpected token } in JSON at position 482
-      at JSON.parse (<anonymous>)
-      at /usr/local/lib/node_modules/yarn/lib/cli.js:1625:59
-      at Generator.next (<anonymous>)
-      at step (/usr/local/lib/node_modules/yarn/lib/cli.js:310:30)
-      at /usr/local/lib/node_modules/yarn/lib/cli.js:321:13
+  Error: EACCES: permission denied, unlink '/home/roque/projects/SIS-AEB-FRONTEND/apps/admin/node_modules/.yarn-integrity'
 
 npm manifest: 
   {
@@ -46,8 +41,9 @@ npm manifest:
       "react-infinite-scroll-component": "^6.0.0",
       "react-input-mask": "^2.0.4",
       "sis-aeb-alert": "../../packages/alert",
-      "sis-aeb-header": "../../packages/header",
-      "sis-aeb-inputs": "../../packages/inputs"
+      "sis-aeb-misc": "../../packages/misc",
+      "sis-aeb-inputs": "../../packages/inputs",
+      "sis-aeb-navigation": "../../packages/navigation"
     },
     "devDependencies": {
       "@material-ui/pickers": "^3.3.10",
@@ -1749,7 +1745,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.1.tgz#30a5864eb3ebb0a66f2ebe6d727af06a09d86e0a"
     integrity sha512-tgp+dl5cGk28utYktBsrFqA7HKgrhgPsg6Z/EfhWI4gl1Hwq8B/GmY/0oXZ6nF8hDVesS/FpnYaD/kOWhYQvyg==
   
-  nanoid@^3.1.22, nanoid@^3.1.23:
+  nanoid@^3.1.22:
     version "3.1.23"
     resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.23.tgz#f744086ce7c2bc47ee0a8472574d5c78e4183a81"
     integrity sha512-FiB0kzdP0FFVGDKlRLEQ1BgDzU87dy5NnzjeW9YZNt+/c3+q82EQDUwniSAUxp/F0gFNI1ZhKU1FqYsMuqZVnw==
@@ -2050,15 +2046,6 @@ Lockfile:
       colorette "^1.2.2"
       nanoid "^3.1.22"
       source-map "^0.6.1"
-  
-  postcss@^8.3.4:
-    version "8.3.4"
-    resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.3.4.tgz#41ece1c43f2f7c74dc7d90144047ce052757b822"
-    integrity sha512-/tZY0PXExXXnNhKv3TOvZAOUYRyuqcCbBm2c17YMDK0PlVII3K7/LKdt3ScHL+hhouddjUWi+1sKDf9xXW+8YA==
-    dependencies:
-      colorette "^1.2.2"
-      nanoid "^3.1.23"
-      source-map-js "^0.6.2"
   
   prepend-http@^2.0.0:
     version "2.0.0"
@@ -2391,23 +2378,15 @@ Lockfile:
   
   sis-aeb-alert@../../packages/alert:
     version "1.0.0"
-    dependencies:
-      postcss "^8.3.4"
-  
-  sis-aeb-header@../../packages/header:
-    version "1.0.0"
-    dependencies:
-      postcss "^8.3.4"
   
   sis-aeb-inputs@../../packages/inputs:
     version "1.0.0"
-    dependencies:
-      postcss "^8.3.4"
   
-  source-map-js@^0.6.2:
-    version "0.6.2"
-    resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-0.6.2.tgz#0bb5de631b41cfbda6cfba8bd05a80efdfd2385e"
-    integrity sha512-/3GptzWzu0+0MBQFrDKzw/DvvMTUORvgY6k6jd/VS6iCR4RDTKWH6v6WPwQoUO8667uQEf9Oe38DxAYWY5F/Ug==
+  sis-aeb-misc@../../packages/misc:
+    version "1.0.0"
+  
+  sis-aeb-navigation@../../packages/navigation:
+    version "1.0.0"
   
   source-map@0.7.3:
     version "0.7.3"

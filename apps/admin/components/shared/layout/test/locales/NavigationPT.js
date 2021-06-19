@@ -1,12 +1,9 @@
 export default {
-    title: 'Administração',
     extensions: 'Ramais',
     adjustments: 'Ajustes & Atividade',
     settings: 'Configurações',
     signout: 'Sair',
     signin: 'Entrar',
-
-
 
     loading: 'Carregando',
     units: 'Unidades',
@@ -18,9 +15,5 @@ export default {
     navigation: 'Navegação',
     hello: 'Bem vindo,',
 
-    statistics: 'Estatísticas',
-
-    collaborator: 'Colaboradores',
-    structural: 'Estrutural',
-    organizational: 'Organizacional'
+    statistics: 'Estatísticas'
 }
