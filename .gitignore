@@ -24,13 +24,6 @@ packages/navigation/dist
 packages/alert/dist
 packages/header/dist
 
-logs/build/admin.txt
-logs/build/inputs.txt
-logs/build/public.txt
-logs/build/statistics.txt
-
-logs/run/admin.txt
-logs/run/public.txt
-logs/run/statistics.txt
+logs
 
 

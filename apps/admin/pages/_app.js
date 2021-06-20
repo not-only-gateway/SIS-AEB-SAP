@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import PageLayout from "../components/shared/layout/PageLayout";
+import PageLayout from "../components/shared/PageLayout";
 import Router from 'next/router';
 import {useEffect, useState} from "react"; //styles of nprogress
 

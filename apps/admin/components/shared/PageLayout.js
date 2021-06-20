@@ -1,11 +1,11 @@
-import styles from '../../../styles/shared/Layout.module.css'
+import styles from '../../styles/shared/Layout.module.css'
 import Cookies from 'universal-cookie/lib'
-// import Navigation from "./components/Navigation";
+
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import "@fontsource/roboto"
 import PropTypes from "prop-types";
-import NavigationPT from "../../../packages/locales/others/NavigationPT";
+import NavigationPT from "../../packages/locales/others/NavigationPT";
 import {
     AccountTreeRounded,
     BusinessRounded,
@@ -14,8 +14,8 @@ import {
     PersonRounded,
     TimelineRounded
 } from "@material-ui/icons";
-import Navigation from "./test/Navigation";
-import MemberRequests from "../../../utils/fetch/MemberRequests";
+import Navigation from "sis-aeb-navigation";
+import MemberRequests from "../../utils/fetch/MemberRequests";
 
 const cookies = new Cookies()
 
