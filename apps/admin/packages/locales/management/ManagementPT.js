@@ -1,14 +1,10 @@
 export default {
-    title: 'Administração',
-    accessTitle: 'Perfis de acceso',
-    effectiveRoleTitle: 'Cargos efetivos',
-    commissionedRoleTitle: 'Cargos Comissionados',
-    linkagesTitle: 'Vínculos',
-    list: 'Listar',
-    create: 'Criar',
-    registered: 'Pessoas Registradas',
+    title: 'Corporativo',
+    contractualLinkages: 'Vínculos contratuais',
+    commissionedLinkages: 'Vínculos comissionados',
     end: 'Você chegou ao fim',
     nothingFound: 'Nada encontrado',
     member: 'Membro',
+    people: 'Pessoas',
     units: 'Unidades'
 }

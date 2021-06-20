@@ -18,6 +18,7 @@ export default function CommissionedRoleForm(props) {
 
     function disabled() {
         return (
+            props.data === null ||
             props.data.denomination === null || !props.data.denomination ||
             props.data.hierarchy_level === null || !props.data.hierarchy_level ||
             props.data.role_level === null || !props.data.role_level ||
@@ -46,7 +47,7 @@ export default function CommissionedRoleForm(props) {
                                 setChanged(true)
                                 props.handleChange({name: 'denomination', value: event.target.value})
                             }}
-                            locale={props.locale} value={props.data.denomination} required={true}
+                            locale={props.locale} value={props.data === null ? null : props.data.denomination} required={true}
                             width={'100%'}
                         />
 
@@ -60,7 +61,7 @@ export default function CommissionedRoleForm(props) {
                                 setChanged(true)
                                 props.handleChange({name: 'role_level', value: event.target.value})
                             }}
-                            locale={props.locale} value={props.data.role_level} required={true}
+                            locale={props.locale} value={props.data === null ? null : props.data.role_level} required={true}
                             width={'calc(33.333%  - 21.35px)'}
                         />
                         <TextField
@@ -70,7 +71,7 @@ export default function CommissionedRoleForm(props) {
                                 setChanged(true)
                                 props.handleChange({name: 'role_class', value: event.target.value})
                             }}
-                            locale={props.locale} value={props.data.role_class} required={true}
+                            locale={props.locale} value={props.data === null ? null : props.data.role_class} required={true}
                             width={'calc(33.333%  - 21.35px)'}
                         />
                         <TextField
@@ -80,7 +81,7 @@ export default function CommissionedRoleForm(props) {
                                 setChanged(true)
                                 props.handleChange({name: 'hierarchy_level', value: event.target.value})
                             }}
-                            locale={props.locale} value={props.data.hierarchy_level} required={true}
+                            locale={props.locale} value={props.data === null ? null : props.data.hierarchy_level} required={true}
                             width={'calc(33.333%  - 21.35px)'}
                         />
                     </fieldset>
@@ -95,7 +96,7 @@ export default function CommissionedRoleForm(props) {
                                 props.handleChange({name: 'das', value: event})
                             }}
                             locale={props.locale}
-                            value={props.data.das} required={true}
+                            value={props.data === null ? null : props.data.das} required={true}
                             width={'calc(50% - 16px)'}
                             choices={lang.options}/>
 
@@ -108,7 +109,7 @@ export default function CommissionedRoleForm(props) {
                                 props.handleChange({name: 'fcpe', value: event})
                             }}
                             locale={props.locale}
-                            value={props.data.fcpe} required={true}
+                            value={props.data === null ? null : props.data.fcpe} required={true}
                             width={'calc(50% - 16px)'}
                             choices={lang.options}/>
                     </fieldset>
@@ -131,7 +132,7 @@ export default function CommissionedRoleForm(props) {
                             handleClick={() => {
 
                                 props.handleSubmit({
-                                    pk: props.data.id,
+                                    pk: props.data === null ? null : props.data.id,
                                     data: props.data,
                                     create: props.create,
                                     setStatus: setStatus

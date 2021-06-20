@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useState} from "react";
-import AccessProfile from "../AccessProfile";
-import OrganizationalRequests from "../../../utils/fetch/OrganizationalRequests";
+import AccessProfile from "../management/AccessProfile";
+import OrganizationalRequests from "../../utils/fetch/OrganizationalRequests";
 
 export default function AccessProfileList(props) {
     const [data, setData] = useState([])

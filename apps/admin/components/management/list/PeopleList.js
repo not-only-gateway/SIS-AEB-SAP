@@ -5,10 +5,6 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import {Skeleton} from "@material-ui/lab";
 import mainStyles from "../../../styles/shared/Main.module.css";
 import Person from "../Person";
-import OrganizationalRequests from "../../../utils/fetch/OrganizationalRequests";
-import BaseForm from "../../person/forms/BaseForm";
-import handleObjectChange from "../../../utils/shared/HandleObjectChange";
-import PersonSubmitRequests from "../../../utils/submit/PersonSubmitRequests";
 import shared from '../../../styles/shared/Shared.module.css'
 
 export default function PeopleList(props) {

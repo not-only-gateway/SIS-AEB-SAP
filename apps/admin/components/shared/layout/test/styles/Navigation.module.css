@@ -11,13 +11,14 @@
 
 @keyframes loadingAnimation {
     0% {
-        box-shadow: 0 2px 3px 2px rgba(0, 149, 255, 1);
+        border-top: rgba(0, 149, 255, 1) 3px solid;
     }
     50% {
-        box-shadow: 0 2px 4px 4px rgba(0, 149, 255, .5);
+        border-top: rgba(0, 149, 255, .5) 3px solid;
     }
     100% {
-        box-shadow: 0 2px 3px 2px rgba(0, 149, 255, 1);
+        border-top: rgba(0, 149, 255, 1) 3px solid;
+
     }
 }
 
@@ -37,10 +38,30 @@
     display: flex;
     justify-content: space-between;
     background: white;
-    border-bottom: #e0e0e0 1.3px solid;
+    border-bottom: #e0e0e0 1px solid;
 
     padding: 8px;
 
+}
+
+.appsButtonContainer {
+    height: 100%;
+    width: auto;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    outline: none;
+    box-shadow: none;
+    background-color: transparent;
+    border-radius: 8px;
+    border: none;
+    color: #555555;
+    padding: 12px;
+    cursor: pointer;
+    transition: 300ms ease;
+    font-family: 'Roboto' !important;
 }
 
 .navigationContainer > div {
@@ -71,21 +92,21 @@
 
     display: flex;
     align-items: center;
-
+    gap: 8px;
 
     outline: none;
     box-shadow: none;
     background-color: transparent;
-    border-radius: 8px;
+    border-radius: 0 8px 8px 0;
     border: none;
     color: #555555;
-    padding: 0 12px;
+    padding: 12px 12px 12px 24px;
     cursor: pointer;
     transition: 300ms ease;
     font-family: 'Roboto' !important;
 }
 
-.buttonContainer:hover {
+.buttonContainer:hover, .appsButtonContainer:hover {
     background: #f4f5fa;
     color: #0095ff;
 }
@@ -112,11 +133,13 @@
     padding: 8px;
 }
 
-.modalContainer{
+.modalContainer {
     padding-top: 32px;
-    background: white;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 
+    padding-right: 16px;
+
+    background: white;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     position: absolute;
     left: 0;
     bottom: 0;
@@ -126,5 +149,5 @@
 
     display: grid;
     align-content: flex-start;
-    gap: 32px;
+    gap: 16px;
 }

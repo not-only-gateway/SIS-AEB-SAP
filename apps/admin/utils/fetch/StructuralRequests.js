@@ -11,7 +11,6 @@ const unitProps = {
     searchInput: PropTypes.string,
     maxID: PropTypes.number,
     setMaxID: PropTypes.func,
-    setLastFetchedSize: PropTypes.func
 }
 const entityProps = {
     data: PropTypes.array,
@@ -20,7 +19,6 @@ const entityProps = {
     searchInput: PropTypes.string,
     maxID: PropTypes.number,
     setMaxID: PropTypes.func,
-    setLastFetchedSize: PropTypes.func
 }
 const cookies = new Cookies()
 
@@ -43,8 +41,6 @@ export default class StructuralRequests {
 
             if (res.data.length > 0)
                 unitProps.setMaxID(res.data[res.data.length - 1].id)
-
-            unitProps.setLastFetchedSize(res.data.length)
         }).catch(error => {
             console.log(error)
         })
@@ -103,7 +99,6 @@ export default class StructuralRequests {
             if (res.data.length > 0)
                 entityProps.setMaxID(res.data[res.data.length - 1].id)
 
-            entityProps.setLastFetchedSize(res.data.length)
         }).catch(error => {
             console.log(error)
         })

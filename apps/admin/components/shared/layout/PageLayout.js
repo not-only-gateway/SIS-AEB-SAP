@@ -1,6 +1,6 @@
 import styles from '../../../styles/shared/Layout.module.css'
 import Cookies from 'universal-cookie/lib'
-// import Navigation from "./test/Navigation";
+// import Navigation from "./components/Navigation";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import "@fontsource/roboto"
@@ -11,13 +11,10 @@ import {
     BusinessRounded,
     ExitToApp,
     ExtensionRounded,
-    HomeRounded,
     PersonRounded,
-    TimelineRounded,
-    WorkRounded
+    TimelineRounded
 } from "@material-ui/icons";
 import Navigation from "./test/Navigation";
-import PersonRequests from "../../../utils/fetch/PersonRequests";
 import MemberRequests from "../../../utils/fetch/MemberRequests";
 
 const cookies = new Cookies()
@@ -50,6 +47,11 @@ export default function PageLayout(props) {
             })
         } else
             setProfile(JSON.parse(sessionStorage.getItem('profile')))
+
+        if (accessProfile === null || accessProfile === undefined) {
+            const access = sessionStorage.getItem('accessProfile')
+            setAccessProfile(access !== null ? JSON.parse(access) : null)
+        }
     }, [router.isReady, router.pathname])
 
     if (router.pathname !== '/authenticate')
@@ -61,18 +63,27 @@ export default function PageLayout(props) {
                 height: '100vh'
             }}>
                 <Navigation
+                    loading={props.loading}
                     redirect={event => {
                         router.push(event.pathname, event.pathname, event.options)
                     }}
                     profileButtons={[{
                         label: lang.signout,
-                        path: '/authenticate',
+                        link: '/authenticate',
                         icon: <ExitToApp style={{transform: 'rotate(180deg)'}}/>
                     }]}
                     buttons={[
                         {label: lang.collaborator, icon: <PersonRounded/>, link: '/'},
-                        {label: lang.organizational, icon: <BusinessRounded/>, link: '/organizational'},
-                        {label: lang.structural, icon: <AccountTreeRounded/>, link: '/structural'},
+                        accessProfile === null || !accessProfile.can_manage_structure ? null : {
+                            label: lang.organizational,
+                            icon: <BusinessRounded/>,
+                            link: '/organizational'
+                        },
+                        accessProfile === null || !accessProfile.can_manage_structure ? null : {
+                            label: lang.structural,
+                            icon: <AccountTreeRounded/>,
+                            link: '/structural'
+                        },
                     ]}
                     accessProfile={accessProfile} profile={profile} appName={lang.title}
                     path={router.pathname}

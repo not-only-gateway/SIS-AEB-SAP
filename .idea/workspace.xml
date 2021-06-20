@@ -33,7 +33,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/apps/admin" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/packages/misc/src/components" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -45,11 +45,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="\\wsl$\ubuntu\home\roque\projects\SIS-AEB-FRONTEND\packages\misc\src\components" />
+      <recent name="\\wsl$\ubuntu\home\roque\projects\SIS-AEB-FRONTEND\packages\misc\src\components\styles" />
+      <recent name="\\wsl$\ubuntu\home\roque\projects\SIS-AEB-FRONTEND\packages\misc\src\components\templates" />
+      <recent name="\\wsl$\ubuntu\home\roque\projects\SIS-AEB-FRONTEND\packages\navigation\src" />
       <recent name="\\wsl$\ubuntu\home\roque\projects\SIS-AEB-FRONTEND\apps\admin\components\shared\layout\test" />
-      <recent name="\\wsl$\Ubuntu\home\roque\projects\SIS-AEB-FRONTEND\packages\navigation\src\components\templates" />
-      <recent name="$PROJECT_DIR$/packages/navigation/src/components/styles" />
-      <recent name="$PROJECT_DIR$/packages/misc/src/components" />
-      <recent name="$PROJECT_DIR$/packages/navigation/src/components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/packages/misc/src/components/styles" />
@@ -109,6 +109,7 @@
       <workItem from="1624104355385" duration="657000" />
       <workItem from="1624130016201" duration="1349000" />
       <workItem from="1624144891783" duration="17000" />
+      <workItem from="1624224298660" duration="347000" />
     </task>
     <servers />
   </component>

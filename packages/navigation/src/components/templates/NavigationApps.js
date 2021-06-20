@@ -5,61 +5,64 @@ import AnimationFrame from "./AnimationFrame";
 import PropTypes from 'prop-types'
 
 export default function NavigationApps(props) {
-  const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false)
 
-  return (
-    <div className={styles.appsContainer} onBlur={event => {
-      if (!event.currentTarget.contains(event.relatedTarget))
-        setOpen(false)
-    }}>
-      <button
-        className={styles.buttonContainer}
-
-        onClick={() => setOpen(!open)}
-        style={{
-          backgroundColor: open ? '#0095ff' : null,
-          color: 'white'
+    return (
+        <div className={styles.appsContainer} onBlur={event => {
+            if (!event.currentTarget.contains(event.relatedTarget))
+                setOpen(false)
         }}>
-
-        <AppsRounded/>
-      </button>
-      <AnimationFrame elementKey={'floating'} children={
-        <div className={props.centered ? styles.centeredFloatingBox : styles.leftFloatingBox}>
-          {props.buttons.map(button => (
             <button
-              className={styles.buttonContainer}
-              key={button.name}
-              onClick={() => window.open(button.link)}
-              style={{
-                display: 'grid',
-                justifyItems: 'center',
-                justifyContent: 'center',
-                height: '80px',
-                width: "auto"
-              }}
-            >
+                className={styles.appsButtonContainer}
 
-              {button.icon}
+                onClick={() => setOpen(!open)}
+                style={{
+                    color: open ? '#0095ff' : undefined,
+                    backgroundColor: open ? '#E8F0FE' : null,
 
-              <div style={{
-                fontSize: '.9rem',
-              }}> {button.name}</div>
+                }}>
 
+                <AppsRounded/>
             </button>
-          ))}
+            <AnimationFrame elementKey={'floating'} children={
+                <div className={styles.floatingBox}
+                     style={{transform: props.centered ? 'translate(calc(-50% + 25px), 25%)' : 'translate(calc(-80% - 4px), 25%)'}}>
+                    {props.buttons.map(button => (
+                        <button
+                            className={styles.buttonContainer}
+                            key={button.name}
+                            onClick={() => window.open(button.link)}
+                            style={{
+                                display: 'grid',
+                                justifyItems: 'center',
+                                justifyContent: 'center',
+                                height: '80px',
+                                width: "auto"
+                            }}
+                        >
+
+                            {button.icon}
+
+                            <div style={{
+                                fontSize: '.9rem',
+                            }}> {button.label}</div>
+
+                        </button>
+                    ))}
+                </div>
+            } render={open}/>
         </div>
-      } render={open} type={"fade"}/>
-    </div>
-  )
+    )
 }
-NavigationApps.propTypes = {
-  centered: PropTypes.bool,
-  lang: PropTypes.object,
-  buttons: PropTypes.arrayOf([
-    PropTypes.shape({
-      name: PropTypes.string,
-      icon: PropTypes.any,
-      link: PropTypes.string,
-    })
-  ]),
+NavigationApps.propTypes =
+{
+    centered: PropTypes.bool,
+        lang: PropTypes.object,
+        buttons: PropTypes.arrayOf(
+        PropTypes.shape({
+            label: PropTypes.string,
+            icon: PropTypes.any,
+            link: PropTypes.string,
+        })
+    )
 }

@@ -1,9 +1,10 @@
-import React from 'react'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
 import styles from '../styles/Navigation.module.css'
+import React, {useState} from 'react'
 
 export default function NavigationButton(props) {
+    const [hovered, setHovered] = useState(false)
 
     return (
         <Link href={{
@@ -12,20 +13,27 @@ export default function NavigationButton(props) {
         }}>
 
             <button
+                id={'content-' + props.buttonKey + ':button'}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
                 className={styles.buttonContainer}
                 style={{
-                    backgroundColor: props.highlight ? '#0095ff' : null,
-                    color: props.highlight ? 'white' : null,
+                    width: props.extended ? '100%' : undefined,
+                    justifyContent: props.extended ? 'space-between' : undefined,
+                    backgroundColor: props.highlight ? '#E8F0FE' : undefined,
+                    transition: '300ms'
                 }}>
 
 
                 {props.icon}
 
-                <div style={{
-                    marginLeft: '8px',
-                    fontSize: '.9rem',
-                    display: !props.label ? 'none' : undefined
-                }}> {props.label}</div>
+                <div
+                    style={{
+                        marginLeft: '8px',
+                        fontSize: '.9rem',
+                        overflow: "hidden",
+                        fontWeight: 575
+                    }}> {props.label}</div>
 
             </button>
 
@@ -35,11 +43,12 @@ export default function NavigationButton(props) {
 }
 
 NavigationButton.propTypes = {
+    extended: PropTypes.bool,
     highlight: PropTypes.bool,
     linkPath: PropTypes.string,
     linkQuery: PropTypes.object,
     icon: PropTypes.element,
-
     label: PropTypes.any,
+    buttonKey: PropTypes.any,
     initialValue: PropTypes.bool,
 }

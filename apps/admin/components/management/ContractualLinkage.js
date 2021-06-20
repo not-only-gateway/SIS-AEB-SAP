@@ -7,14 +7,13 @@ import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import {AddRounded} from "@material-ui/icons";
 import {getIconStyle} from "../../styles/shared/MainStyles";
 
-import LinkageForm from "./forms/LinkageForm";
+import CommissionedLinkageForm from "./forms/LinkageForm";
 import submitLinkage from "../../utils/submit/SubmitLinkage";
 import shared from "../../styles/shared/Shared.module.css";
 
-export default function Linkage(props) {
+export default function ContractualLinkage(props) {
     const [linkage, setLinkage] = useState({})
     const [modal, setModal] = useState(false)
-    const [hovered, setHovered] = useState(false)
 
     useEffect(() => {
         if (props.linkage !== undefined || props.linkage === linkage)
@@ -27,15 +26,15 @@ export default function Linkage(props) {
                    style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
                    className={animations.fadeIn}>
                 <div className={shared.modalContainer}>
-                    <LinkageForm
+                    <CommissionedLinkageForm
                         closeModal={() => setModal(false)}
                         handleSubmit={submitLinkage}
-                                 handleChange={event => handleObjectChange({
-                                     event: event,
-                                     setData: setLinkage
-                                 })} create={props.create}
+                        handleChange={event => handleObjectChange({
+                            event: event,
+                            setData: setLinkage
+                        })} create={props.create}
 
-                                 data={linkage} locale={props.locale}/>
+                        data={linkage}/>
                 </div>
             </Modal>
         )
@@ -45,7 +44,7 @@ export default function Linkage(props) {
         <>
             {renderModal()}
             <button
-                className={[shared.rowContainer, animations.slideUpAnimation].join(' ')}
+                className={[shared.rowContainer, animations.fadeIn].join(' ')}
                 onClick={() => setModal(true)}
                 key={props.create ? 'create-linkage' : props.linkage.id}
             >
@@ -57,18 +56,15 @@ export default function Linkage(props) {
                 }}/>
 
                 <p className={mainStyles.secondaryParagraph}>
-                    {props.create ? 'Create' :
+                    {props.create ? props.lang.create :
                         <div className={mainStyles.displayInlineStart}>
-                            <div style={{display: 'flex'}}>
-                                <h5 style={{marginTop: "0", marginBottom: 0, marginRight: '5px'}}>Denomination:</h5>
+                            <div style={{display: 'flex', gap: '16px'}}>
                                 <h5 style={{
                                     color: '#555555',
                                     marginBottom: 0,
                                     marginTop: 0
                                 }}>{props.linkage.denomination}</h5>
-                            </div>
-                            <div style={{display: 'flex', marginLeft: '25px'}}>
-                                <h5 style={{marginTop: "0", marginBottom: 0, marginRight: '5px'}}>Description:</h5>
+
                                 <h5 style={{
                                     color: '#555555',
                                     marginBottom: 0,
@@ -76,16 +72,15 @@ export default function Linkage(props) {
                                 }}>{props.linkage.description}</h5>
                             </div>
                         </div>
-                        }
+                    }
                 </p>
             </button>
         </>
     )
 }
 
-Linkage.propTypes = {
+ContractualLinkage.propTypes = {
     linkage: PropTypes.object,
-    locale: PropTypes.object,
     create: PropTypes.bool,
-    index: PropTypes.number,
+    lang: PropTypes.object
 }

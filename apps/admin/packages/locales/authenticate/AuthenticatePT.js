@@ -5,5 +5,6 @@ export default {
     genericError: 'Algum erro ocorreu',
     unauthorized: 'Email ou senha invalidos',
     cancel: 'Cancelar',
-    welcome: 'Bem vindo'
+    welcome: 'Bem vindo',
+    title: 'Autenticação'
 }

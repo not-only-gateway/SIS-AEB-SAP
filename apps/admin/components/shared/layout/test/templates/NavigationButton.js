@@ -2,8 +2,8 @@
 import Link from 'next/link'
 import PropTypes from 'prop-types'
 import styles from '../styles/Navigation.module.css'
-import animations from '../styles/Animations.module.css'
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
+
 export default function NavigationButton(props) {
     const [hovered, setHovered] = useState(false)
 
@@ -21,9 +21,7 @@ export default function NavigationButton(props) {
                 style={{
                     width: props.extended ? '100%' : undefined,
                     justifyContent: props.extended ? 'space-between' : undefined,
-                    border:  props.highlight ? '#ecedf2 1px solid' : 'transparent 1px solid',
-                    backgroundColor:  props.highlight ? '#f4f5fa' : undefined,
-                    color: props.highlight ? '#555555' : undefined,
+                    backgroundColor: props.highlight ? '#E8F0FE' : undefined,
                     transition: '300ms'
                 }}>
 
@@ -36,7 +34,7 @@ export default function NavigationButton(props) {
                         fontSize: '.9rem',
                         overflow: "hidden",
                         fontWeight: 575
-                }}> {props.label}</div>
+                    }}> {props.label}</div>
 
             </button>
 

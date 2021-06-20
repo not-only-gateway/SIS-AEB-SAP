@@ -7,7 +7,6 @@ import PersonalForms from "../components/person/PersonalForms";
 import CorporateForms from "../components/person/CorporateForms";
 import Alert from "../../../packages/alert/src/components/Alert";
 import Head from 'next/head'
-import {Header} from "sis-aeb-header";
 import {RenderTabs, Tabs} from "sis-aeb-navigation";
 
 import PersonPT from "../packages/locales/person/PersonPT";

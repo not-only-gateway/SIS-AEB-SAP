@@ -20,6 +20,7 @@ export default function EffectiveRoleForm(props) {
 
     function disabled() {
         return (
+            props.data === null ||
             props.data.denomination === undefined ||
             props.data.hierarchy_level === undefined ||
             props.data.denomination.length === 0 ||
@@ -44,7 +45,7 @@ export default function EffectiveRoleForm(props) {
                                 setChanged(true)
                                 props.handleChange({name: 'denomination', value: event.target.value})
                             }}
-                            locale={props.locale} value={props.data.denomination} required={true}
+                            locale={props.locale} value={props.data === null ? null : props.data.denomination} required={true}
                             width={'calc(50% - 16px)'}
                         />
                         <TextField
@@ -54,7 +55,7 @@ export default function EffectiveRoleForm(props) {
                                 setChanged(true)
                                 props.handleChange({name: 'hierarchy_level', value: event.target.value})
                             }}
-                            locale={props.locale} value={props.data.hierarchy_level} required={true}
+                            locale={props.locale} value={props.data === null ? null : props.data.hierarchy_level} required={true}
                             width={'calc(50% - 16px)'}
                         />
 
@@ -76,7 +77,7 @@ export default function EffectiveRoleForm(props) {
                             fontColor={'white'} backgroundColor={'#0095ff'}
                             handleClick={() => {
                                 props.handleSubmit({
-                                    pk: props.data.id,
+                                    pk: props.data === null ? null : props.data.id,
                                     data: props.data,
                                     create: props.create,
                                     setStatus: setStatus

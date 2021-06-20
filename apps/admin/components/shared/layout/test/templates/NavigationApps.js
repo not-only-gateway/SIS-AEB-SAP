@@ -1,9 +1,8 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import styles from "../styles/Navigation.module.css";
 import {AppsRounded} from "@material-ui/icons";
 import AnimationFrame from "./AnimationFrame";
 import PropTypes from 'prop-types'
-import React from 'react'
 
 export default function NavigationApps(props) {
     const [open, setOpen] = useState(false)
@@ -14,12 +13,12 @@ export default function NavigationApps(props) {
                 setOpen(false)
         }}>
             <button
-                className={styles.buttonContainer}
+                className={styles.appsButtonContainer}
 
                 onClick={() => setOpen(!open)}
                 style={{
-                    border: open ? '#ecedf2 1px solid' : 'transparent 1px solid',
-                    backgroundColor: open ? '#f4f5fa' : null,
+                    color: open ? '#0095ff' : undefined,
+                    backgroundColor: open ? '#E8F0FE' : null,
 
                 }}>
 

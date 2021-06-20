@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 
-import {Button, TextField, DropDownField, DateField, Selector} from "sis-aeb-inputs";
+import {Button, TextField} from "sis-aeb-inputs";
 import shared from "../../../styles/shared/Shared.module.css";
 import ContactFormPT from "../../../packages/locales/person/ContactFormPT";
 

@@ -5,7 +5,7 @@ import mapToSelect from "../../../utils/shared/MapToSelect";
 
 
 import {Alert} from "sis-aeb-alert";
-import {Button, TextField, DropDownField, DateField, Selector} from "sis-aeb-inputs";
+import {Button, DropDownField, Selector, TextField} from "sis-aeb-inputs";
 import shared from "../../../styles/shared/Shared.module.css";
 
 import MembershipPT from "../../../packages/locales/person/MembershipPT";

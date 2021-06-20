@@ -12,6 +12,7 @@ const seniorsProps =  {
     unitID: PropTypes.number
 
 }
+
 const cookies = new Cookies()
 
 export default class CollaborationRequests{

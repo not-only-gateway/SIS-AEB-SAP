@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useState} from "react";
-
 import TabContent from "./templates/TabContent";
 
 export default function RenderTabs(props) {

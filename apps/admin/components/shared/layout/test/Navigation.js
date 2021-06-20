@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import styles from './styles/Navigation.module.css'
 import PropTypes from 'prop-types'
 
 import NavigationProfile from './templates/NavigationProfile'
-import NavigationButton from './templates/NavigationButton'
 import NavigationPT from './locales/NavigationPT'
 import NavigationApps from './templates/NavigationApps'
 import {MenuRounded} from "@material-ui/icons";
@@ -20,8 +19,8 @@ export default function Navigation(props) {
         <>
             <div className={[styles.navigationContainer, props.loading ? styles.loading : ''].join(' ')}>
                 <div className={styles.logoContainer} style={{color: '#555555', fontWeight: 600, fontSize: '.95rem'}}>
-                    <NavigationTabs open={modal} setOpen={setModal} buttons={props.buttons}/>
-                    <button className={styles.buttonContainer} onClick={() => setModal(true)}>
+                    <NavigationTabs open={modal} setOpen={setModal} buttons={props.buttons} path={props.path}/>
+                    <button className={styles.appsButtonContainer} onClick={() => setModal(true)}>
                         <MenuRounded/>
                     </button>
                     <img
@@ -64,6 +63,7 @@ Navigation.propTypes = {
     logo: PropTypes.any,
     profile: PropTypes.object,
     accessProfile: PropTypes.object,
+    loading: PropTypes.bool,
     buttons: PropTypes.arrayOf(
         PropTypes.shape({
             label: PropTypes.string,

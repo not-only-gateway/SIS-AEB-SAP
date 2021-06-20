@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types'
 import {Avatar} from "@material-ui/core";
-import React from 'react'
+import React, {useState} from 'react'
 import styles from '../styles/Navigation.module.css'
 import AnimationFrame from "./AnimationFrame";
 import NavigationButton from "./NavigationButton";
-import {useState} from "react";
 
 export default function NavigationProfile(props) {
     const [open, setOpen] = useState(false)
@@ -18,12 +17,12 @@ export default function NavigationProfile(props) {
         }}>
 
             <button
-                className={styles.buttonContainer}
+                className={styles.appsButtonContainer}
 
                 onClick={() => setOpen(!open)}
                 style={{
-                    border: open ? '#ecedf2 1px solid' : 'transparent 1px solid',
-                    backgroundColor: open ? '#f4f5fa' : undefined,
+
+                    backgroundColor: open ? '#E8F0FE' : null,
                     justifyContent: 'flex-end',
                     alignItems: 'center',
 
@@ -34,7 +33,7 @@ export default function NavigationProfile(props) {
                 }}
             >
                 <div style={{
-                    color: '#555555',
+                    color: open ? '#0095ff' : '#555555',
                     fontWeight: 620,
                     fontSize: '.85rem',
                     transition: '300ms ease-in',

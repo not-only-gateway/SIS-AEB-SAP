@@ -1,29 +1,41 @@
 .tabsContainer {
-  position: sticky;
-  top: 0;
-  height: calc(100vh - 60px);
-  display: grid;
-  align-content: flex-start;
-  background: #f4f5fa;
-  transition: 300ms ease-in-out;
-  width: 200px;
-  padding: 16px 8px 8px;
-  gap: 16px;
+
+    height: 60px;
+    width: fit-content;
+
+    margin: auto;
+
+    border-bottom: #e0e0e0 1px solid;
+
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+    justify-content: center;
+
+    background: white;
+    transition: 300ms ease-in-out;
 }
 
 
 .tabButtonContainer {
-  cursor: pointer;
+    cursor: pointer;
 
-  font-family: 'Roboto' !important;
-  font-weight: 600;
-  outline: none;
-  border-radius: 8px;
-  background-color: transparent;
+    font-family: 'Roboto' !important;
+    outline: none;
 
-  transition: 300ms ease-in-out;
+    transition: 300ms ease-in-out;
 
-  box-shadow: none;
-  padding: 12px 12px 12px 24px;
-  text-align: left;
+    box-shadow: none;
+    padding: 12px;
+    text-align: center;
+
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+
+    border: none;
+    background: transparent;
+}
+.tabButtonContainer:hover{
+    background: #E8F0FE;
+
 }
