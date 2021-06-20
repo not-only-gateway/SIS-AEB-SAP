@@ -5,6 +5,7 @@ body {
     /*font-family: 'Source Sans Pro', sans-serif !important;*/
     width: 100vw;
     font-family: 'Roboto' !important;
+    image-rendering: optimizeQuality ;
 }
 
 h2{

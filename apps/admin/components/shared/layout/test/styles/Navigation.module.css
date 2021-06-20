@@ -37,7 +37,7 @@
     display: flex;
     justify-content: space-between;
     background: white;
-    border-bottom: #ecedf2 1px solid;
+    border-bottom: #e0e0e0 1.3px solid;
 
     padding: 8px;
 
@@ -112,3 +112,19 @@
     padding: 8px;
 }
 
+.modalContainer{
+    padding-top: 32px;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    width: 15.5vw;
+    height: 100vh;
+
+    display: grid;
+    align-content: flex-start;
+    gap: 32px;
+}
