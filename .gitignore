@@ -3,8 +3,7 @@ apps/admin/node_modules
 apps/statistics/node_modules
 packages/inputs/node_modules
 packages/navigation/node_modules
-packages/alert/node_modules
-packages/header/node_modules
+packages/misc/node_modules
 
 
 apps/public/.next
@@ -17,12 +16,11 @@ apps/statistics/.idea
 
 packages/inputs/.idea
 packages/navigation/.idea
-packages/alert/.idea
+packages/misc/dist
 
 packages/inputs/dist
 packages/navigation/dist
-packages/alert/dist
-packages/header/dist
+packages/misc/dist
 
 logs
 
