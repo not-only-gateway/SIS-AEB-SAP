@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
 import UnitList from "../components/organizational/UnitList";
-import Tabs from "../components/shared/layout/test2/Tabs";
-import RenderTabs from "../components/shared/layout/test2/RenderTabs";
+import {Tabs, RenderTabs} from "sis-aeb-misc";
 import Head from "next/head";
 import StructuralPT from "../packages/locales/structural/StructuralPT";
 import EntityList from "../components/structural/EntityList";

@@ -14,7 +14,7 @@ import {
     PersonRounded,
     TimelineRounded
 } from "@material-ui/icons";
-import Navigation from "sis-aeb-navigation";
+import {Navigation} from "sis-aeb-navigation";
 import MemberRequests from "../../utils/fetch/MemberRequests";
 
 const cookies = new Cookies()
@@ -60,8 +60,11 @@ export default function PageLayout(props) {
                 fontFamily: 'Roboto !important',
                 backgroundColor: 'white',
                 overflow: 'hidden',
-                height: '100vh'
+                height: '100vh',
+                position: 'relative'
             }}>
+
+
                 <Navigation
                     loading={props.loading}
                     redirect={event => {
@@ -96,8 +99,9 @@ export default function PageLayout(props) {
 
                 <div className={styles.pageContentContainer}
                      id={'scrollableDiv'} style={{
-                    transition: '250ms ease-in-out', height: 'calc(100% - 60px)', transform: 'translateY(60px)'
+                    transition: '250ms ease-in-out', height: 'calc(100% - 60px)', marginTop: '60px'
                 }}>
+
                     {props.children}
                 </div>
             </div>

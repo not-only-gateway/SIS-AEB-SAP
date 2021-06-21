@@ -1,3 +1,4 @@
 export default {
-    create: 'Criar'
+  create: 'Criar',
+  end: 'Você chegou ao fim'
 }

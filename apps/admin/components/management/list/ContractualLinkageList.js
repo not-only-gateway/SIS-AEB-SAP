@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import List from "../../shared/layout/test3/List";
+import {List} from "sis-aeb-misc";
 import Cookies from "universal-cookie/lib";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import LinkageForm from "../forms/LinkageForm";

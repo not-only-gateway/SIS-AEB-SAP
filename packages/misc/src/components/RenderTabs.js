@@ -8,19 +8,15 @@ export default function RenderTabs(props) {
 
   useEffect(() => {
     setMounted(true)
-
   })
 
-
-  if (mounted)
-    return (
-      <>
-        {props.tabs.map(tab => (
-          <TabContent tab={tab} setRendering={setRendering} rendering={rendering} openTab={props.openTab}/>
-        ))}
-      </>
-    )
-  else return <></>
+  return (
+    <div style={{display: mounted ? undefined : 'none'}}>
+      {props.tabs.map(tab => (
+        <TabContent tab={tab} setRendering={setRendering} rendering={rendering} openTab={props.openTab}/>
+      ))}
+    </div>
+  )
 }
 
 RenderTabs.propTypes =

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Head from 'next/head';
 import { IconButton, Paper, ButtonBase, InputBase } from '@material-ui/core';
 import { ClearRounded, SearchRounded, CloseRounded, AddRounded, RemoveRounded } from '@material-ui/icons';
+import axios from 'axios';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -31,68 +32,13 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$5 = ".Header-module_HeaderLayout__1csS4 {\n  display: grid;\n  justify-items: center;\n  align-content: space-between;\n  margin: auto;\n  height: auto;\n  flex-direction: column;\n  transition: all 300ms ease-in-out;\n\n}\n\n.Header-module_firstRowContainer__3TvY8 {\n  width: 100%;\n  margin-top: 15px;\n  height: auto;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n\n.Header-module_titleContainer__1_vnZ {\n  height: 100%;\n  gap: .4rem;\n\n  display: grid;\n  align-items: center;\n  justify-content: flex-start;\n}\n";
-var styles$4 = {"HeaderLayout":"Header-module_HeaderLayout__1csS4","firstRowContainer":"Header-module_firstRowContainer__3TvY8","titleContainer":"Header-module_titleContainer__1_vnZ"};
-styleInject(css_248z$5);
-
-function HeaderLayout(props) {
-  return /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'sticky',
-      top: 0,
-      background: 'white',
-      transition: '300ms ease-in-out',
-      zIndex: '50'
-    }
-  }, /*#__PURE__*/React.createElement(Head, null, /*#__PURE__*/React.createElement("title", null, props.pageTitle), /*#__PURE__*/React.createElement("link", {
-    rel: "icon",
-    href: '/LOGO.png',
-    type: "image/x-icon"
-  })), /*#__PURE__*/React.createElement("div", {
-    className: styles$4.HeaderLayout,
-    style: {
-      width: props.width
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    className: styles$4.firstRowContainer
-  }, /*#__PURE__*/React.createElement("div", {
-    className: styles$4.titleContainer,
-    style: {
-      width: typeof props.title === 'string' ? 'initial' : '100%'
-    }
-  }, typeof props.title === 'string' ? /*#__PURE__*/React.createElement("h2", {
-    style: {
-      marginBottom: 'unset',
-      marginTop: 'unset'
-    }
-  }, props.title) : /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: '100%'
-    }
-  }, props.title), props.information !== undefined ? /*#__PURE__*/React.createElement("h5", {
-    style: {
-      color: '#555555',
-      marginBottom: '8px'
-    }
-  }, props.information) : null), props.searchComponent !== undefined ? props.searchComponent : null), props.activeFiltersComponent !== undefined ? props.activeFiltersComponent : null, props.tabs !== undefined ? props.tabs : null));
-}
-HeaderLayout.propTypes = {
-  title: PropTypes.any,
-  searchComponent: PropTypes.object,
-  tabs: PropTypes.object,
-  pageTitle: PropTypes.string,
-  information: PropTypes.string,
-  activeFiltersComponent: PropTypes.object,
-  width: PropTypes.string
-};
-
-var css_248z$4 = ".Filter-module_overflowEllipsis__2j9yZ {\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  overflow: hidden;\n}\n\n/*DISPLAY*/\n.Filter-module_displayWarp__2Yykw {\n  display: inline-flex;\n  flex-flow: row wrap;\n  gap: 16px;\n}\n\n\n\n.Filter-module_displayInlineStart__1EhJ6 {\n  display: flex;\n  align-items: center;\n  justify-content: flex-start;\n\n}\n\n.Filter-module_displayInlineEnd__FDMeQ {\n  display: flex;\n  align-items: center;\n  justify-content: flex-end;\n}\n\n.Filter-module_displayInlineSpaced__1MjuV {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n\n}\n\n\n.Filter-module_maxWidth__2bpRr > * {\n  width: 100%;\n}\n\n.Filter-module_filterContainer__2_m7s {\n  background-color: #f4f5fa;\n  width: clamp(50px, calc(25% - 12px), 150px);\n  border-radius: 32px;\n\n  border: #ecedf2 .7px solid;\n  height: 37px;\n  font-size: .8rem;\n  text-transform: uppercase;\n  font-weight: 550;\n\n  padding: 0 0 0 8px;\n\n  align-items: center;\n  justify-content: space-between;\n}\n";
-var styles$3 = {"overflowEllipsis":"Filter-module_overflowEllipsis__2j9yZ","displayWarp":"Filter-module_displayWarp__2Yykw","displayInlineStart":"Filter-module_displayInlineStart__1EhJ6","displayInlineEnd":"Filter-module_displayInlineEnd__FDMeQ","displayInlineSpaced":"Filter-module_displayInlineSpaced__1MjuV","maxWidth":"Filter-module_maxWidth__2bpRr","filterContainer":"Filter-module_filterContainer__2_m7s"};
-styleInject(css_248z$4);
+var css_248z$6 = ".Filter-module_overflowEllipsis__2j9yZ {\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  overflow: hidden;\n}\n\n/*DISPLAY*/\n.Filter-module_displayWarp__2Yykw {\n  display: inline-flex;\n  flex-flow: row wrap;\n  gap: 16px;\n}\n\n\n\n.Filter-module_displayInlineStart__1EhJ6 {\n  display: flex;\n  align-items: center;\n  justify-content: flex-start;\n\n}\n\n.Filter-module_displayInlineEnd__FDMeQ {\n  display: flex;\n  align-items: center;\n  justify-content: flex-end;\n}\n\n.Filter-module_displayInlineSpaced__1MjuV {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n\n}\n\n\n.Filter-module_maxWidth__2bpRr > * {\n  width: 100%;\n}\n\n.Filter-module_filterContainer__2_m7s {\n  background-color: #f4f5fa;\n  width: clamp(50px, calc(25% - 12px), 150px);\n  border-radius: 32px;\n\n  border: #ecedf2 .7px solid;\n  height: 37px;\n  font-size: .8rem;\n  text-transform: uppercase;\n  font-weight: 550;\n\n  padding: 0 0 0 8px;\n\n  align-items: center;\n  justify-content: space-between;\n}\n";
+var styles$5 = {"overflowEllipsis":"Filter-module_overflowEllipsis__2j9yZ","displayWarp":"Filter-module_displayWarp__2Yykw","displayInlineStart":"Filter-module_displayInlineStart__1EhJ6","displayInlineEnd":"Filter-module_displayInlineEnd__FDMeQ","displayInlineSpaced":"Filter-module_displayInlineSpaced__1MjuV","maxWidth":"Filter-module_maxWidth__2bpRr","filterContainer":"Filter-module_filterContainer__2_m7s"};
+styleInject(css_248z$6);
 
 function Filters(props) {
   return /*#__PURE__*/React.createElement("div", {
-    className: styles$3.displayWarp,
+    className: styles$5.displayWarp,
     style: {
       gap: '16px',
       width: '100%',
@@ -103,12 +49,12 @@ function Filters(props) {
   }, props.activeFilters.map(function (filter, index) {
     if (filter.value !== null) return /*#__PURE__*/React.createElement("div", {
       key: filter.key + '-filter-' + index,
-      className: styles$3.filterContainer,
+      className: styles$5.filterContainer,
       style: {
         display: props.changed ? 'none' : 'flex'
       }
     }, /*#__PURE__*/React.createElement("span", {
-      className: styles$3.overflowEllipsis,
+      className: styles$5.overflowEllipsis,
       style: {
         color: '#262626',
         maxWidth: '78%'
@@ -149,12 +95,60 @@ Filters.propTypes = {
   applyChanges: PropTypes.func
 };
 
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+  try {
+    var info = gen[key](arg);
+    var value = info.value;
+  } catch (error) {
+    reject(error);
+    return;
+  }
+
+  if (info.done) {
+    resolve(value);
+  } else {
+    Promise.resolve(value).then(_next, _throw);
+  }
+}
+
+function _asyncToGenerator(fn) {
+  return function () {
+    var self = this,
+        args = arguments;
+    return new Promise(function (resolve, reject) {
+      var gen = fn.apply(self, args);
+
+      function _next(value) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+      }
+
+      function _throw(err) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+      }
+
+      _next(undefined);
+    });
+  };
+}
+
 function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
 
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+}
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+}
+
 function _arrayWithHoles(arr) {
   if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
 }
 
 function _iterableToArrayLimit(arr, i) {
@@ -204,13 +198,17 @@ function _arrayLikeToArray(arr, len) {
   return arr2;
 }
 
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
 function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
-var css_248z$3 = ".Search-module_rowContainer__16M_B {\n  display: flex;\n\n  width: 100%;\n\n  justify-content: space-around;\n  align-items: center;\n  border-radius: 8px;\n\n  background: #f4f5fa;\n  margin-left: auto;\n\n}\n\n.Search-module_displayInlineCenter__1oW_E {\n  display: flex;\n  justify-content: center;\n  justify-items: center;\n  align-items: center;\n}\n";
-var styles$2 = {"rowContainer":"Search-module_rowContainer__16M_B","displayInlineCenter":"Search-module_displayInlineCenter__1oW_E"};
-styleInject(css_248z$3);
+var css_248z$5 = ".Search-module_rowContainer__16M_B {\n  display: flex;\n\n  width: 100%;\n\n  justify-content: space-around;\n  align-items: center;\n  border-radius: 8px;\n\n  background: #f4f5fa;\n  margin-left: auto;\n\n}\n\n.Search-module_displayInlineCenter__1oW_E {\n  display: flex;\n  justify-content: center;\n  justify-items: center;\n  align-items: center;\n}\n";
+var styles$4 = {"rowContainer":"Search-module_rowContainer__16M_B","displayInlineCenter":"Search-module_displayInlineCenter__1oW_E"};
+styleInject(css_248z$5);
 
 function SearchBox(props) {
   var _useState = useState(false),
@@ -250,7 +248,7 @@ function SearchBox(props) {
     onMouseLeave: function onMouseLeave() {
       return setHovered(false);
     },
-    className: styles$2.rowContainer,
+    className: styles$4.rowContainer,
     style: {
       boxShadow: hovered || focused ? '0 0 4px 2px #0095ff' : 'unset'
     }
@@ -268,7 +266,7 @@ function SearchBox(props) {
       width: '40px',
       height: '100%'
     },
-    className: styles$2.displayInlineCenter
+    className: styles$4.displayInlineCenter
   }, /*#__PURE__*/React.createElement(SearchRounded, {
     style: {
       color: searchHovered ? '#0095ff' : '#777777',
@@ -307,7 +305,7 @@ function SearchBox(props) {
       width: '56px',
       height: '100%'
     },
-    className: styles$2.displayInlineCenter,
+    className: styles$4.displayInlineCenter,
     onClick: function onClick() {
       props.setSearchInput('');
     }
@@ -325,9 +323,9 @@ SearchBox.propTypes = {
   applyChanges: PropTypes.func
 };
 
-var css_248z$2 = ".Canvas-module_fadeIn__3pjmb {\n  animation: Canvas-module_fadeIn__3pjmb ease-in-out 250ms forwards;\n}\n\n\n@keyframes Canvas-module_fadeIn__3pjmb {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 100%;\n  }\n\n}\n\n.Canvas-module_zoomContainer__3B_AN {\n  position: fixed;\n  bottom: 50px;\n  right: 50px;\n  height: 140px;\n\n  display: grid;\n\n  justify-items: center;\n  align-content: space-between;\n}\n\n.Canvas-module_zoomLevelContainer__2OYNK {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n\n  color: #555555;\n  padding: 5px;\n  border-radius: 8px;\n  border: #ecedf2 1px solid;\n}\n\n.Canvas-module_buttonContainer__2dF5d {\n  outline: none;\n  border: #ecedf2 1px solid;\n  display: flex;\n  align-items: center;\n  justify-items: center;\n  justify-content: center;\n  padding: 16px;\n\n  height: 50px;\n  width: 50px;\n  border-radius: 50%;\n  color: white;\n\n\n  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;\n}\n\n\n.Canvas-module_nav__3_fH6 {\n  margin: 20px auto;\n  width: 455px;\n  min-height: auto;\n}\n\n.Canvas-module_nav__3_fH6 ul {\n  position: relative;\n  padding-top: 35px;\n}\n\n.Canvas-module_nav__3_fH6 li {\n  position: relative;\n  padding: 35px 3px 0 3px;\n  float: left;\n  transition: 200ms ease-in-out;\n  text-align: center;\n  list-style-type: none;\n}\n\n.Canvas-module_nav__3_fH6 li::before, .Canvas-module_nav__3_fH6 li::after{\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 50%;\n  width: 50%;\n  height: 35px;\n  transition: 200ms ease-in-out;\n  border-top: 1px solid #ccc;\n}\n\n.Canvas-module_nav__3_fH6 li::after{\n  left: 50%;\n  right: auto;\n  transition: 200ms ease-in-out;\n  border-left: 1px solid #ccc;\n}\n\n.Canvas-module_nav__3_fH6 li:only-child::after, .Canvas-module_nav__3_fH6 li:only-child::before {\n  content: '';\n  display: none;\n}\n\n.Canvas-module_nav__3_fH6 li:only-child{ padding-top: 0;}\n.Canvas-module_nav__3_fH6 li:first-child::before, .Canvas-module_nav__3_fH6 li:last-child::after{\n  border: 0 none;\n}\n\n.Canvas-module_nav__3_fH6 li:last-child::before{\n  border-right: 1px solid #ccc;\n  border-radius: 0 5px 0 0;\n}\n\n.Canvas-module_nav__3_fH6 li:first-child::after{\n  border-radius: 5px 0 0 0;\n}\n.Canvas-module_nav__3_fH6 ul ul::before{\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 50%;\n  border-left: 1px solid #ccc;\n  width: 0;\n  height: 35px;\n\n}\n\n.Canvas-module_nav__3_fH6 li span{\n  display: inline-block;\n  /*padding: 5px 10px;*/\n\n  cursor: pointer;\n\n  background: #f4f5fa;\n  border:  #ecedf2 1px solid;\n  border-radius: 8px;\n\n\n  /*border: 1px solid #ccc;*/\n\n  transition: 200ms ease-in-out;\n}\n\n.Canvas-module_nav__3_fH6 li span:hover, .Canvas-module_nav__3_fH6 li a:hover+ul li a{\n\n\n  box-shadow: 0 0 4px 2px #0095ff;\n\n}\n.Canvas-module_nav__3_fH6 li span:hover+ul li::after,\n.Canvas-module_nav__3_fH6 li span:hover+ul li::before,\n.Canvas-module_nav__3_fH6 li span:hover+ul::before,\n.Canvas-module_nav__3_fH6 li span:hover+ul ul::before{\n  content: '';\n  border-color: #0095ff;\n}\n";
-var styles$1 = {"fadeIn":"Canvas-module_fadeIn__3pjmb","zoomContainer":"Canvas-module_zoomContainer__3B_AN","zoomLevelContainer":"Canvas-module_zoomLevelContainer__2OYNK","buttonContainer":"Canvas-module_buttonContainer__2dF5d","nav":"Canvas-module_nav__3_fH6"};
-styleInject(css_248z$2);
+var css_248z$4 = ".Canvas-module_fadeIn__3pjmb {\n  animation: Canvas-module_fadeIn__3pjmb ease-in-out 250ms forwards;\n}\n\n\n@keyframes Canvas-module_fadeIn__3pjmb {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 100%;\n  }\n\n}\n\n.Canvas-module_zoomContainer__3B_AN {\n  position: fixed;\n  bottom: 50px;\n  right: 50px;\n  height: 140px;\n\n  display: grid;\n\n  justify-items: center;\n  align-content: space-between;\n}\n\n.Canvas-module_zoomLevelContainer__2OYNK {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n\n  color: #555555;\n  padding: 5px;\n  border-radius: 8px;\n  border: #ecedf2 1px solid;\n}\n\n.Canvas-module_buttonContainer__2dF5d {\n  outline: none;\n  border: #ecedf2 1px solid;\n  display: flex;\n  align-items: center;\n  justify-items: center;\n  justify-content: center;\n  padding: 16px;\n\n  height: 50px;\n  width: 50px;\n  border-radius: 50%;\n  color: white;\n\n\n  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;\n}\n\n\n.Canvas-module_nav__3_fH6 {\n  margin: 20px auto;\n  width: 455px;\n  min-height: auto;\n}\n\n.Canvas-module_nav__3_fH6 ul {\n  position: relative;\n  padding-top: 35px;\n}\n\n.Canvas-module_nav__3_fH6 li {\n  position: relative;\n  padding: 35px 3px 0 3px;\n  float: left;\n  transition: 200ms ease-in-out;\n  text-align: center;\n  list-style-type: none;\n}\n\n.Canvas-module_nav__3_fH6 li::before, .Canvas-module_nav__3_fH6 li::after{\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 50%;\n  width: 50%;\n  height: 35px;\n  transition: 200ms ease-in-out;\n  border-top: 1px solid #ccc;\n}\n\n.Canvas-module_nav__3_fH6 li::after{\n  left: 50%;\n  right: auto;\n  transition: 200ms ease-in-out;\n  border-left: 1px solid #ccc;\n}\n\n.Canvas-module_nav__3_fH6 li:only-child::after, .Canvas-module_nav__3_fH6 li:only-child::before {\n  content: '';\n  display: none;\n}\n\n.Canvas-module_nav__3_fH6 li:only-child{ padding-top: 0;}\n.Canvas-module_nav__3_fH6 li:first-child::before, .Canvas-module_nav__3_fH6 li:last-child::after{\n  border: 0 none;\n}\n\n.Canvas-module_nav__3_fH6 li:last-child::before{\n  border-right: 1px solid #ccc;\n  border-radius: 0 5px 0 0;\n}\n\n.Canvas-module_nav__3_fH6 li:first-child::after{\n  border-radius: 5px 0 0 0;\n}\n.Canvas-module_nav__3_fH6 ul ul::before{\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 50%;\n  border-left: 1px solid #ccc;\n  width: 0;\n  height: 35px;\n\n}\n\n.Canvas-module_nav__3_fH6 li span{\n  display: inline-block;\n  /*padding: 5px 10px;*/\n\n  cursor: pointer;\n\n  background: #f4f5fa;\n  border:  #ecedf2 1px solid;\n  border-radius: 8px;\n\n\n  /*border: 1px solid #ccc;*/\n\n  transition: 200ms ease-in-out;\n}\n\n.Canvas-module_nav__3_fH6 li span:hover, .Canvas-module_nav__3_fH6 li a:hover+ul li a{\n\n\n  box-shadow: 0 0 4px 2px #0095ff;\n\n}\n.Canvas-module_nav__3_fH6 li span:hover+ul li::after,\n.Canvas-module_nav__3_fH6 li span:hover+ul li::before,\n.Canvas-module_nav__3_fH6 li span:hover+ul::before,\n.Canvas-module_nav__3_fH6 li span:hover+ul ul::before{\n  content: '';\n  border-color: #0095ff;\n}\n";
+var styles$3 = {"fadeIn":"Canvas-module_fadeIn__3pjmb","zoomContainer":"Canvas-module_zoomContainer__3B_AN","zoomLevelContainer":"Canvas-module_zoomLevelContainer__2OYNK","buttonContainer":"Canvas-module_buttonContainer__2dF5d","nav":"Canvas-module_nav__3_fH6"};
+styleInject(css_248z$4);
 
 function TreeNode(props) {
   var _useState = useState([]),
@@ -367,7 +365,7 @@ function TreeNode(props) {
       boxSizing: 'border-box',
       cursor: props.disabled ? 'unset' : 'pointer'
     },
-    className: styles$1.fadeIn
+    className: styles$3.fadeIn
   }, content), dependents.length > 0 ? /*#__PURE__*/React.createElement("ul", null, dependents.map(function (subject) {
     return /*#__PURE__*/React.createElement(TreeNode, {
       redirect: props.redirect,
@@ -413,7 +411,7 @@ function Canvas(props) {
       marginTop: zoom > 1 ? 'calc(8.3% * ' + (zoom - .25) + ')' : null
     }
   }, /*#__PURE__*/React.createElement("span", {
-    className: styles$1.nav,
+    className: styles$3.nav,
     style: {
       width: '100%',
       display: 'flex',
@@ -431,15 +429,15 @@ function Canvas(props) {
     redirect: props.redirect,
     hoveredParent: false
   })))), /*#__PURE__*/React.createElement("div", {
-    className: styles$1.zoomContainer
+    className: styles$3.zoomContainer
   }, /*#__PURE__*/React.createElement("span", {
-    className: styles$1.zoomLevelContainer
+    className: styles$3.zoomLevelContainer
   }, zoom, " : 1"), /*#__PURE__*/React.createElement("button", {
     disabled: zoom === 2,
     onClick: function onClick() {
       return setZoom(zoom + 0.25);
     },
-    className: styles$1.buttonContainer,
+    className: styles$3.buttonContainer,
     style: {
       cursor: zoom === 2 ? undefined : 'pointer',
       boxShadow: zoom === 2 ? 'none' : undefined
@@ -449,7 +447,7 @@ function Canvas(props) {
     onClick: function onClick() {
       return setZoom(zoom - 0.25);
     },
-    className: styles$1.buttonContainer,
+    className: styles$3.buttonContainer,
     style: {
       cursor: zoom === 0.5 ? undefined : 'pointer',
       boxShadow: zoom === 0.5 ? 'none' : undefined
@@ -465,22 +463,17 @@ Canvas.propTypes = {
   redirect: PropTypes.func
 };
 
-var css_248z$1 = "\n\n.Tab-module_tabsContainer__18VKu {\n  position: sticky;\n  top: 0;\n  height: calc(100vh - 60px);\n  display: grid;\n  align-content: flex-start;\n  border-right: #ecedf2 1px solid;\n  transition: 300ms ease-in-out;\n  width: 220px;\n  padding-top: 32px;\n  gap: 16px;\n}\n\n\n.Tab-module_tabButtonContainer__2HC5B {\n  cursor: pointer;\n\n  outline: none;\n  border-top: none;\n  border-bottom: none;\n  border-right: none;\n  border-left: none;\n  background-color: transparent;\n\n  box-shadow: none;\n  padding: 8px 8px 8px 24px;\n  text-align: left;\n}\n";
-var styles = {"tabsContainer":"Tab-module_tabsContainer__18VKu","tabButtonContainer":"Tab-module_tabButtonContainer__2HC5B"};
-styleInject(css_248z$1);
+var css_248z$3 = ".Tab-module_tabsContainer__18VKu {\n\n    height: 60px;\n    width: fit-content;\n\n    margin: auto;\n\n    border-bottom: #e0e0e0 1px solid;\n\n    display: flex;\n    align-items: flex-end;\n    gap: 16px;\n    justify-content: center;\n\n    background: white;\n    transition: 300ms ease-in-out;\n}\n\n\n.Tab-module_tabButtonContainer__2HC5B {\n    cursor: pointer;\n\n    font-family: 'Roboto' !important;\n    outline: none;\n\n    transition: 300ms ease-in-out;\n\n    box-shadow: none;\n    padding: 12px;\n    text-align: center;\n\n    border-top-left-radius: 8px;\n    border-top-right-radius: 8px;\n\n    border: none;\n    background: transparent;\n}\n.Tab-module_tabButtonContainer__2HC5B:hover{\n    background: #E8F0FE;\n\n}";
+var styles$2 = {"tabsContainer":"Tab-module_tabsContainer__18VKu","tabButtonContainer":"Tab-module_tabButtonContainer__2HC5B"};
+styleInject(css_248z$3);
 
-var css_248z = "\n.Animations-module_slideUpAnimation__3i0Sl {\n    animation: Animations-module_slideUp__1RZPp ease-in-out 250ms forwards;\n}\n\n.Animations-module_fadeIn__11vPQ {\n    position: relative;\n    animation: Animations-module_fadeIn__11vPQ ease-in-out 250ms forwards;\n\n}\n\n.Animations-module_fadeOutAnimation__1s3jt {\n    position: relative;\n    animation: Animations-module_fadeOut__2bXQx ease-in-out 250ms forwards;\n\n}\n\n.Animations-module_slideDownAnimation__6RJAK {\n    animation: Animations-module_slideDown__3Pia1 ease-in-out 250ms forwards;\n}\n\n@keyframes Animations-module_slideDown__3Pia1 {\n    0% {\n        opacity: 0;\n        transform: translateY(-10%);\n    }\n    100% {\n        opacity: 1;\n        transform: translateY(0%);\n    }\n}\n\n\n@keyframes Animations-module_fadeOut__2bXQx {\n\n    0% {\n        opacity: 1;\n        height: inherit;\n    }\n    50% {\n        opacity: .5;\n        height: inherit;\n    }\n    90% {\n        opacity: .1;\n        height: inherit;\n    }\n    100% {\n        opacity: 0;\n        display: none;\n        height: 0;\n        z-index: -1;\n    }\n}\n\n@keyframes Animations-module_fadeIn__11vPQ {\n    from {\n        opacity: 0;\n    }\n    to {\n        opacity: 100%;\n    }\n\n}\n\n@keyframes Animations-module_slideUp__1RZPp {\n    from {\n        opacity: 0;\n        transform: translateY(50%);\n    }\n    to {\n        opacity: 100%;\n        transform: translateY(0%);\n    }\n\n}\n";
+var css_248z$2 = "\n.Animations-module_slideUpAnimation__3i0Sl {\n    animation: Animations-module_slideUp__1RZPp ease-in-out 250ms forwards;\n}\n\n.Animations-module_fadeIn__11vPQ {\n    position: relative;\n    animation: Animations-module_fadeIn__11vPQ ease-in-out 250ms forwards;\n\n}\n\n.Animations-module_fadeOutAnimation__1s3jt {\n    position: relative;\n    animation: Animations-module_fadeOut__2bXQx ease-in-out 250ms forwards;\n\n}\n\n.Animations-module_slideDownAnimation__6RJAK {\n    animation: Animations-module_slideDown__3Pia1 ease-in-out 250ms forwards;\n}\n\n@keyframes Animations-module_slideDown__3Pia1 {\n    0% {\n        opacity: 0;\n        transform: translateY(-10%);\n    }\n    100% {\n        opacity: 1;\n        transform: translateY(0%);\n    }\n}\n\n\n@keyframes Animations-module_fadeOut__2bXQx {\n\n    0% {\n        opacity: 1;\n        height: inherit;\n    }\n    50% {\n        opacity: .5;\n        height: inherit;\n    }\n    90% {\n        opacity: .1;\n        height: inherit;\n    }\n    100% {\n        opacity: 0;\n        display: none;\n        height: 0;\n        z-index: -1;\n    }\n}\n\n@keyframes Animations-module_fadeIn__11vPQ {\n    from {\n        opacity: 0;\n    }\n    to {\n        opacity: 100%;\n    }\n\n}\n\n@keyframes Animations-module_slideUp__1RZPp {\n    from {\n        opacity: 0;\n        transform: translateY(50%);\n    }\n    to {\n        opacity: 100%;\n        transform: translateY(0%);\n    }\n\n}\n";
 var animations = {"slideUpAnimation":"Animations-module_slideUpAnimation__3i0Sl","slideUp":"Animations-module_slideUp__1RZPp","fadeIn":"Animations-module_fadeIn__11vPQ","fadeOutAnimation":"Animations-module_fadeOutAnimation__1s3jt","fadeOut":"Animations-module_fadeOut__2bXQx","slideDownAnimation":"Animations-module_slideDownAnimation__6RJAK","slideDown":"Animations-module_slideDown__3Pia1"};
-styleInject(css_248z);
+styleInject(css_248z$2);
 
 function Tabs(props) {
-  var _useState = useState(false),
-      _useState2 = _slicedToArray(_useState, 2);
-      _useState2[0];
-      _useState2[1];
-
   return /*#__PURE__*/React.createElement("div", {
-    className: styles.tabsContainer
+    className: styles$2.tabsContainer
   }, props.buttons.map(function (button) {
     return button !== null ? /*#__PURE__*/React.createElement("button", {
       key: button.key + ' - ' + button.value,
@@ -488,9 +481,9 @@ function Tabs(props) {
         return props.setOpenTab(button.key);
       },
       disabled: button.disabled,
-      className: [styles.tabButtonContainer, animations.slideUpAnimation].join(' '),
+      className: [styles$2.tabButtonContainer, animations.fadeIn].join(' '),
       style: {
-        borderLeft: props.openTab === button.key ? '#0095ff 3px solid' : 'transparent 3px solid',
+        borderBottom: props.openTab === button.key ? '#0095ff 2.5px solid' : 'white 2.5px solid',
         color: props.openTab === button.key ? '#0095ff' : undefined
       }
     }, button.value) : null;
@@ -560,14 +553,18 @@ function RenderTabs(props) {
   useEffect(function () {
     setMounted(true);
   });
-  if (mounted) return /*#__PURE__*/React.createElement(React.Fragment, null, props.tabs.map(function (tab) {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: mounted ? undefined : 'none'
+    }
+  }, props.tabs.map(function (tab) {
     return /*#__PURE__*/React.createElement(TabContent, {
       tab: tab,
       setRendering: setRendering,
       rendering: rendering,
       openTab: props.openTab
     });
-  }));else return /*#__PURE__*/React.createElement(React.Fragment, null);
+  }));
 }
 RenderTabs.propTypes = {
   tabs: PropTypes.arrayOf(PropTypes.shape({
@@ -578,4 +575,221 @@ RenderTabs.propTypes = {
   noContainer: PropTypes.bool
 };
 
-export { Canvas, Filters, HeaderLayout as Header, RenderTabs, SearchBox, Tabs };
+function Fetch(_x) {
+  return _Fetch.apply(this, arguments);
+}
+
+function _Fetch() {
+  _Fetch = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(props) {
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return axios({
+              method: 'get',
+              url: props.fetchUrl,
+              headers: {
+                'authorization': props.fetchToken
+              },
+              params: {
+                max_id: props.maxID,
+                searchInput: props.searchInput && props.searchInput.length > 0 ? props.searchInput : null
+              }
+            }).then(function (res) {
+              if (props.maxID === null) props.setData(res.data);else props.setData([].concat(_toConsumableArray(props.data), _toConsumableArray(res.data)));
+              if (res.data.length > 0) props.setMaxID(res.data[res.data.length - 1].id);
+              props.setLastFetchedSize(res.data.length);
+            })["catch"](function (error) {
+              console.log(error);
+            });
+
+          case 2:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return _Fetch.apply(this, arguments);
+}
+
+fetch.propTypes = {
+  data: PropTypes.array,
+  setData: PropTypes.func,
+  setLastFetchedSize: PropTypes.func,
+  searchInput: PropTypes.string,
+  maxID: PropTypes.number,
+  setMaxID: PropTypes.func,
+  host: PropTypes.string,
+  fetchUrl: PropTypes.string,
+  fetchToken: PropTypes.string
+};
+
+var css_248z$1 = "\r\n\r\n.List-module_rowContainer__19RRd {\r\n    font-family: 'Roboto' !important;\r\n    border: #e0e0e0 1px solid;\r\n    background: transparent;\r\n\r\n    width: 100%;\r\n    height: 56px;\r\n\r\n    padding: 8px;\r\n    border-radius: 8px;\r\n\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: flex-start;\r\n\r\n    cursor: pointer;\r\n    outline: none;\r\n\r\n    transition: 300ms ease-in-out;\r\n}\r\n\r\n.List-module_rowContainer__19RRd:hover {\r\n    /*box-shadow: 0 0 4px 2px #0095ff;*/\r\n    text-decoration: underline;\r\n}\r\n\r\n\r\n.List-module_fadeIn__fy89i {\r\n    position: relative;\r\n    animation: List-module_fadeIn__fy89i ease-in-out 150ms forwards;\r\n\r\n}\r\n\r\n.List-module_fadeOutAnimation__2W-VR {\r\n    position: relative;\r\n    animation: List-module_fadeOut__-Ptse ease-in-out 150ms forwards;\r\n\r\n}\r\n@keyframes List-module_fadeOut__-Ptse {\r\n\r\n    0% {\r\n        opacity: 1;\r\n        height: inherit;\r\n    }\r\n    50% {\r\n        opacity: .5;\r\n        height: inherit;\r\n    }\r\n    90% {\r\n        opacity: .1;\r\n        height: inherit;\r\n    }\r\n    100% {\r\n        opacity: 0;\r\n        display: none;\r\n        height: 0;\r\n        z-index: -1;\r\n    }\r\n}\r\n\r\n\r\n@keyframes List-module_fadeIn__fy89i {\r\n    from {\r\n        opacity: 0;\r\n    }\r\n    to {\r\n        opacity: 100%;\r\n    }\r\n\r\n}\r\n";
+var styles$1 = {"rowContainer":"List-module_rowContainer__19RRd","fadeIn":"List-module_fadeIn__fy89i","fadeOutAnimation":"List-module_fadeOutAnimation__2W-VR","fadeOut":"List-module_fadeOut__-Ptse"};
+styleInject(css_248z$1);
+
+function ListContent(props) {
+  return /*#__PURE__*/React.createElement("button", {
+    className: [styles$1.rowContainer, styles$1.fadeIn].join(' '),
+    onClick: function onClick() {
+      props.setEntity();
+      props.clickEvent();
+    },
+    key: props.index + '-list'
+  }, /*#__PURE__*/React.createElement(AddRounded, {
+    style: {
+      color: 'black',
+      display: !props.create ? 'none' : undefined
+    }
+  }), props.create ? props.lang.create : /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: '16px'
+    }
+  }, /*#__PURE__*/React.createElement("h5", {
+    style: {
+      color: '#555555',
+      marginBottom: 0,
+      marginTop: 0
+    }
+  }, props.entity[props.primaryLabel]), props.secondaryLabel !== undefined && props.secondaryLabel !== null ? /*#__PURE__*/React.createElement("h5", {
+    style: {
+      color: '#555555',
+      marginBottom: 0,
+      marginTop: 0
+    }
+  }, props.entity[props.secondaryLabel]) : null));
+}
+ListContent.propTypes = {
+  entity: PropTypes.any,
+  create: PropTypes.bool,
+  lang: PropTypes.object,
+  clickEvent: PropTypes.func,
+  primaryLabel: PropTypes.string,
+  secondaryLabel: PropTypes.string,
+  index: PropTypes.number
+};
+
+var ListsPT = {
+  create: 'Criar',
+  end: 'Você chegou ao fim'
+};
+
+var css_248z = ".Loader-module_loader__372Ft{\n  width: 100%;\n  height: 60px;\n\n  animation: Loader-module_pulse__2_rYl 2s ease-in-out infinite;\n}\n\n@keyframes Loader-module_pulse__2_rYl {\n  0% {\n    background-color: rgba(244, 245, 250, 1);\n  }\n  50% {\n    background-color: rgba(244, 245, 250, .4);\n  }\n  100% {\n    background-color: rgba(244, 245, 250, .7);\n  }\n}\n";
+var styles = {"loader":"Loader-module_loader__372Ft","pulse":"Loader-module_pulse__2_rYl"};
+styleInject(css_248z);
+
+function Loader() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: styles.loader
+  });
+}
+
+function List(props) {
+  var _useState = useState([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      data = _useState2[0],
+      setData = _useState2[1];
+
+  var _useState3 = useState(null),
+      _useState4 = _slicedToArray(_useState3, 2),
+      maxID = _useState4[0],
+      setMaxID = _useState4[1];
+
+  var _useState5 = useState(null),
+      _useState6 = _slicedToArray(_useState5, 2),
+      lastFetchedSize = _useState6[0],
+      setLastFetchedSize = _useState6[1];
+
+  var lang = ListsPT;
+  useEffect(function () {
+    Fetch({
+      setLastFetchedSize: setLastFetchedSize,
+      setData: setData,
+      data: data,
+      maxID: maxID,
+      searchInput: props.searchInput,
+      setMaxID: setMaxID,
+      fetchToken: props.fetchToken,
+      fetchUrl: props.fetchUrl
+    });
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      marginTop: '10px',
+      width: '100%',
+      gap: '16px'
+    }
+  }, props.createOption ? /*#__PURE__*/React.createElement(ListContent, {
+    create: true,
+    lang: lang,
+    setEntity: function setEntity() {
+      return props.setEntity(null);
+    },
+    clickEvent: function clickEvent() {
+      return props.clickEvent(true);
+    },
+    entity: null
+  }) : null, /*#__PURE__*/React.createElement(InfiniteScroll, {
+    dataLength: data.length,
+    next: function next() {
+      return Fetch({
+        setLastFetchedSize: setLastFetchedSize,
+        setData: setData,
+        data: data,
+        maxID: maxID,
+        searchInput: props.searchInput,
+        setMaxID: setMaxID,
+        fetchToken: props.fetchToken,
+        fetchUrl: props.fetchUrl
+      });
+    },
+    hasMore: lastFetchedSize === 15,
+    inverse: false,
+    scrollableTarget: "scrollableDiv",
+    loader: /*#__PURE__*/React.createElement(Loader, null),
+    style: {
+      overflow: 'visible'
+    },
+    endMessage: /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: '100%'
+      }
+    }, /*#__PURE__*/React.createElement("h5", {
+      style: {
+        textAlign: 'center',
+        color: '#555555'
+      }
+    }, lang.end))
+  }, data.map(function (entity, index) {
+    return /*#__PURE__*/React.createElement(ListContent, {
+      create: false,
+      lang: lang,
+      entity: entity,
+      index: index,
+      setEntity: function setEntity() {
+        return props.setEntity(entity);
+      },
+      secondaryLabel: props.secondaryLabel,
+      primaryLabel: props.primaryLabel,
+      clickEvent: function clickEvent() {
+        return props.clickEvent(true);
+      }
+    });
+  })));
+}
+List.propTypes = {
+  primaryLabel: PropTypes.string,
+  secondaryLabel: PropTypes.string,
+  setEntity: PropTypes.any,
+  createOption: PropTypes.bool,
+  clickEvent: PropTypes.func,
+  searchInput: PropTypes.string,
+  fetchUrl: PropTypes.string,
+  fetchToken: PropTypes.string
+};
+
+export { Canvas, Filters, List, Loader, RenderTabs, SearchBox, Tabs };

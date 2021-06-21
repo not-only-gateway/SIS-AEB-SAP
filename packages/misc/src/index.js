@@ -6,6 +6,8 @@ import Canvas from './components/Canvas'
 import Tabs from './components/Tabs'
 import RenderTabs from './components/RenderTabs'
 import List from './components/List'
+import Loader from './components/Loader'
+import Modal from './components/Modal'
 
-export {SearchBox, Filters, Canvas, Tabs, RenderTabs, List}
+export {SearchBox, Filters, Canvas, Tabs, RenderTabs, List, Loader, Modal}
 
