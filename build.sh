@@ -11,7 +11,6 @@ cd scripts/builders
 # PRIMEIRO
 sudo bash inputs.sh
 sudo bash navigation.sh
-sudo bash alert.sh
 sudo bash misc.sh
 
 # INDEPENDENTES

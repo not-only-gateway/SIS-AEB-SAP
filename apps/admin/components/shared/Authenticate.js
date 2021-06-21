@@ -8,10 +8,10 @@ import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 
 import animations from '../../styles/shared/Animations.module.css'
-import Alert from "../../../../packages/alert/src/components/Alert";
+import {Alert} from "sis-aeb-misc";
 import styles from '../../styles/component/Component.module.css'
-import TextField from "./inputs/TextField";
-import Button from "./inputs/Button";
+// import TextField from "./inputs/TextField";
+// import Button from "./inputs/Button";
 import AuthenticatePT from "../../packages/locales/authenticate/AuthenticatePT";
 
 const cookies = new Cookies()

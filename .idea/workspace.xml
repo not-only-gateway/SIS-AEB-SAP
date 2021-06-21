@@ -39,7 +39,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/apps/admin/components/shared/test" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -51,18 +51,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="\\wsl$\ubuntu\home\roque\projects\SIS-AEB-FRONTEND\apps\admin\components\shared" />
       <recent name="$PROJECT_DIR$/apps/admin/components/shared/test" />
       <recent name="$PROJECT_DIR$/packages/misc/src/components/styles" />
       <recent name="$PROJECT_DIR$/packages/misc/src/components" />
       <recent name="$PROJECT_DIR$/apps/admin/components/shared" />
-      <recent name="\\wsl$\ubuntu\home\roque\projects\SIS-AEB-FRONTEND\packages\misc\src\components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="\\wsl$\ubuntu\home\roque\projects\SIS-AEB-FRONTEND\packages\navigation\src" />
       <recent name="$PROJECT_DIR$/packages/misc/src/components/styles" />
       <recent name="$PROJECT_DIR$/packages/misc/src/components/templates" />
       <recent name="$PROJECT_DIR$/packages/misc/src/components" />
       <recent name="$PROJECT_DIR$/packages/navigation/src/components/templates" />
-      <recent name="$PROJECT_DIR$/packages/header/src/components" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -119,7 +119,9 @@
       <workItem from="1624225032340" duration="12000" />
       <workItem from="1624274981449" duration="15000" />
       <workItem from="1624277374810" duration="10147000" />
-      <workItem from="1624296773673" duration="174000" />
+      <workItem from="1624296773673" duration="859000" />
+      <workItem from="1624306183955" duration="664000" />
+      <workItem from="1624306880082" duration="124000" />
     </task>
     <servers />
   </component>

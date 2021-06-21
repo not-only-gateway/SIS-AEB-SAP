@@ -15,5 +15,7 @@ export default {
     navigation: 'Navegação',
     hello: 'Bem vindo,',
 
-    statistics: 'Estatísticas'
+    statistics: 'Estatísticas',
+
+    search: 'Pesquisar'
 }

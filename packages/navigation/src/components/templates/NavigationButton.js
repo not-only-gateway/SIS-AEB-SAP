@@ -4,7 +4,6 @@ import styles from '../styles/Navigation.module.css'
 import React, {useState} from 'react'
 
 export default function NavigationButton(props) {
-    const [hovered, setHovered] = useState(false)
 
     return (
         <Link href={{
@@ -14,8 +13,6 @@ export default function NavigationButton(props) {
 
             <button
                 id={'content-' + props.buttonKey + ':button'}
-                onMouseEnter={() => setHovered(true)}
-                onMouseLeave={() => setHovered(false)}
                 className={styles.buttonContainer}
                 style={{
                     width: props.extended ? '100%' : undefined,

@@ -11,6 +11,13 @@ export default function SisAeb({Component, pageProps}) {
         Router.events.on('routeChangeComplete', () => setLoading(false))
     })
     return (
-        <PageLayout children={<Component {...pageProps}/>} loading={loading}/>
+        <PageLayout loading={loading}>
+            {props => (
+                <div>
+                    <Component {...pageProps} searchInput={props.searchInput} notSearched={props.notSearched} setNotSearched={props.setNotSearched}/>
+                </div>
+
+                )}
+        </PageLayout>
     )
 }

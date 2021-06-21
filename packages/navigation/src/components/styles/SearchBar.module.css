@@ -1,0 +1,64 @@
+.inputContainer {
+
+    border: none;
+    box-shadow: unset;
+
+    background: transparent;
+    width: 100%;
+    font-family: 'Roboto' !important;
+    height: 44px;
+
+    outline: none;
+    padding: 5px 12px;
+    font-size: 1rem;
+
+}
+
+.fieldsContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    border-radius: 32px;
+    transition: 300ms ease-in-out;
+    color: #555555;
+    background: white;
+    gap: 0;
+    padding: 0 0 0 16px;
+    border: #e0e0e0 1px solid;
+}
+
+.fieldsContainer:hover {
+    box-shadow: #0095ff 0px 0px 1px 1.5px;
+}
+
+.fieldsContainer:focus, .fieldsContainer:focus-within {
+    color: black;
+    box-shadow: #0095ff 0px 0px 1px 1.5px;
+    background: #f4f5fa;
+}
+
+.searchButtonContainer {
+    padding: 0;
+    outline: 0;
+    height: 44px;
+    width: fit-content;
+    border: none;
+    color: #555555;
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+
+    background: transparent;
+    transition: 300ms ease-in-out;
+}
+
+.searchButtonContainer:hover {
+    color: #0095ff;
+}

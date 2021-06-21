@@ -26,11 +26,6 @@ sudo rm -r dist
 mkdir dist
 sudo rm -r node_modules
 
-cd ../alert
-
-sudo rm -r dist
-mkdir dist
-sudo rm -r node_modules
 
 cd ../navigation
 

@@ -6,7 +6,7 @@ import Head from "next/head";
 import StructuralPT from "../packages/locales/structural/StructuralPT";
 import EntityList from "../components/structural/EntityList";
 
-export default function structural() {
+export default function structural(props) {
 
     const router = useRouter()
     const lang = StructuralPT
@@ -54,11 +54,16 @@ export default function structural() {
                     tabs={[
                         {
                             buttonKey: 0,
-                            value: <UnitList/>
+                            value: <UnitList redirect={id => router.push('/unit/?id=' + id, undefined, {shallow: true})}
+                                             searchInput={props.searchInput} notSearched={props.notSearched}
+                                             setNotSearched={props.setNotSearched}/>
                         },
                         {
                             buttonKey: 1,
-                            value: <EntityList/>
+                            value: <EntityList
+                                redirect={id => router.push('/entity/?id=' + id, undefined, {shallow: true})}
+                                notSearched={props.notSearched} setNotSearched={props.setNotSearched}
+                                searchInput={props.searchInput}/>
                         }
                     ]}
                 />

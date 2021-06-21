@@ -14,6 +14,11 @@ export default function List(props) {
   const lang = ListsPT
 
   useEffect(() => {
+    if(props.notSearched) {
+      setData([])
+      setMaxID(null)
+      setLastFetchedSize(null)
+    }
 
     Fetch({
       setLastFetchedSize: setLastFetchedSize,
@@ -25,7 +30,9 @@ export default function List(props) {
       fetchToken: props.fetchToken,
       fetchUrl: props.fetchUrl
     })
-  }, [])
+
+    props.setNotSearched(false)
+  }, [props.notSearched])
 
 
   return (
@@ -53,7 +60,7 @@ export default function List(props) {
         })}
         hasMore={lastFetchedSize === 15}
         inverse={false}
-        scrollableTarget="scrollableDiv"
+        scrollableTarget={props.scrollableElement}
         loader={<Loader/>}
         style={{
           overflow: 'visible'
@@ -68,7 +75,7 @@ export default function List(props) {
         {(data).map((entity, index) =>
           <ListContent
             create={false} lang={lang} entity={entity} index={index} setEntity={() => props.setEntity(entity)}
-            secondaryLabel={props.secondaryLabel} primaryLabel={props.primaryLabel}
+            secondaryLabel={props.secondaryLabel} primaryLabel={props.primaryLabel} renderElement={props.renderElement}
             clickEvent={() => props.clickEvent(true)}
           />
         )}
@@ -85,7 +92,12 @@ List.propTypes = {
   createOption: PropTypes.bool,
   clickEvent: PropTypes.func,
   searchInput: PropTypes.string,
+  notSearched: PropTypes.bool,
+  setNotSearched: PropTypes.func,
 
   fetchUrl: PropTypes.string,
-  fetchToken: PropTypes.string
+  fetchToken: PropTypes.string,
+
+  scrollableElement: PropTypes.string,
+  renderElement: PropTypes.func
 }

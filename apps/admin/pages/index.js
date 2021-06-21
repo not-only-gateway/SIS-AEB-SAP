@@ -7,7 +7,7 @@ import Head from "next/head";
 import ContractualLinkageList from "../components/management/list/ContractualLinkageList";
 import CommissionedLinkageList from "../components/management/list/CommissionedLinkageList";
 
-export default function management() {
+export default function management(props) {
 
     const router = useRouter()
     const lang = ManagementPT
@@ -15,13 +15,13 @@ export default function management() {
     const [openTab, setOpenTab] = useState(0)
 
     useEffect(() => {
+
         if (accessProfile === null && sessionStorage.getItem('accessProfile') !== null) {
             const accessProfileSession = JSON.parse(sessionStorage.getItem('accessProfile'))
             if (accessProfileSession.can_manage_person || accessProfileSession.can_manage_structure) {
                 setAccessProfile(accessProfileSession)
                 setOpenTab(accessProfileSession.can_manage_person ? 0 : 1)
-            }
-            else
+            } else
                 router.push('/organizational', '/organizational', {locale: router.locale})
         }
     })
@@ -60,16 +60,21 @@ export default function management() {
                     tabs={[
                         {
                             buttonKey: 0,
-                            value: <PeopleList
-                                redirect={id => router.push('/person/?id=' + id, undefined, {shallow: true})}/>
+                            value: <PeopleList notSearched={props.notSearched} setNotSearched={props.setNotSearched}
+                                               searchInput={props.searchInput}
+                                               redirect={id => router.push('/person/?id=' + id, undefined, {shallow: true})}/>
                         },
                         {
                             buttonKey: 1,
-                            value: <CommissionedLinkageList/>
+                            value: <CommissionedLinkageList notSearched={props.notSearched}
+                                                            setNotSearched={props.setNotSearched}
+                                                            searchInput={props.searchInput}/>
                         },
                         {
                             buttonKey: 2,
-                            value: <ContractualLinkageList/>
+                            value: <ContractualLinkageList notSearched={props.notSearched}
+                                                           setNotSearched={props.setNotSearched}
+                                                           searchInput={props.searchInput}/>
 
                         },
                     ]}

@@ -8,13 +8,13 @@ import submitDocuments from "../../utils/submit/SubmitDocuments";
 import submitPerson from "../../utils/submit/SubmitPerson";
 import BaseForm from "./forms/BaseForm";
 import AddressForm from "./forms/AddressForm";
-import submitAddress from "../../utils/submit/SubmitAddress";
-import TabContent from "../shared/TabContent";
-import fetchDocuments from "../../utils/fetch/FetchDocuments";
-import fetchContacts from "../../utils/fetch/FetchContacts";
-import fetchAddress from "../../utils/fetch/FetchAddress";
-import fetchPerson from "../../utils/fetch/FetchPerson";
-import Alert from "../../../../packages/alert/src/components/Alert";
+// import submitAddress from "../../utils/submit/SubmitAddress";
+// import TabContent from "../shared/TabContent";
+// import fetchDocuments from "../../utils/fetch/FetchDocuments";
+// import fetchContacts from "../../utils/fetch/FetchContacts";
+// import fetchAddress from "../../utils/fetch/FetchAddress";
+// import fetchPerson from "../../utils/fetch/FetchPerson";
+// import Alert from "../../../../packages/alert/src/components/Alert";
 import shared from '../../styles/shared/Shared.module.css'
 import styles from '../../styles/Person.module.css'
 import {ArrowBackRounded} from "@material-ui/icons";

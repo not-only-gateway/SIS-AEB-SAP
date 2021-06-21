@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 
 import mapToSelect from "../../../utils/shared/MapToSelect";
 
-
-import {Alert} from "sis-aeb-alert";
+import {Alert} from "sis-aeb-misc";
 import {Button, DropDownField, Selector, TextField} from "sis-aeb-inputs";
 import shared from "../../../styles/shared/Shared.module.css";
 

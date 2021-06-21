@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-
-import {Alert} from "sis-aeb-alert";
+import {Alert} from "sis-aeb-misc";
 import {Button, DateField, DropDownField, Selector, TextField} from "sis-aeb-inputs";
 import styles from '../../../styles/component/Component.module.css'
 import shared from "../../../styles/shared/Shared.module.css";

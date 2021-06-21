@@ -3,9 +3,8 @@ import PropTypes from "prop-types";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import MembershipForm from "./forms/MembershipForm";
 import CollaborationList from "../management/list/CollaborationList";
-import TabContent from "../shared/TabContent";
-
-import Alert from "../../../../packages/alert/src/components/Alert";
+import {TabContent} from "sis-aeb-misc";
+import {Alert} from "sis-aeb-misc";
 import styles from "../../styles/Person.module.css";
 import OptionRow from "./OptionRow";
 import shared from "../../styles/shared/Shared.module.css";

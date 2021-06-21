@@ -3,8 +3,10 @@ import {List} from "sis-aeb-misc";
 import Cookies from "universal-cookie/lib";
 import animations from '../../styles/shared/Animations.module.css'
 import Host from "../../utils/shared/Host";
+import PropTypes from "prop-types";
+import ContractualLinkageList from "../management/list/ContractualLinkageList";
 
-export default function EntityList() {
+export default function EntityList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
 
@@ -27,9 +29,16 @@ export default function EntityList() {
                 <List clickEvent={() => setOpen(true)} createOption={true}
                       fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/entity'}
                       secondaryLabel={'acronym'} primaryLabel={'denomination'}
-                      setEntity={setCurrentEntity}/>
+                      setEntity={setCurrentEntity} searched={!props.notSearched} setNotSearched={props.setNotSearched}/>
             </div>
         </>
     )
 
+}
+EntityList.propTypes = {
+    notSearched: PropTypes.bool,
+    setNotSearched: PropTypes.func,
+
+    redirect: PropTypes.func,
+    searchInput: PropTypes.string
 }

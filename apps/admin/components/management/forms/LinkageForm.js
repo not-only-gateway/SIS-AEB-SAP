@@ -2,8 +2,7 @@ import React, {useState} from "react";
 import PropTypes from "prop-types";
 
 import mainStyles from '../../../styles/shared/Main.module.css'
-
-import {Alert} from "sis-aeb-alert";
+import {Alert} from "sis-aeb-misc";
 import shared from "../../../styles/shared/Shared.module.css";
 import {Button, TextField} from "sis-aeb-inputs";
 import {linkage} from "../../../packages/locales/management/SimpleFormsPT";

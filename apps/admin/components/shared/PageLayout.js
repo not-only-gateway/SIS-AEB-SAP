@@ -14,8 +14,9 @@ import {
     PersonRounded,
     TimelineRounded
 } from "@material-ui/icons";
-import {Navigation} from "sis-aeb-navigation";
+
 import MemberRequests from "../../utils/fetch/MemberRequests";
+import Navigation from "sis-aeb-navigation"
 
 const cookies = new Cookies()
 
@@ -24,7 +25,8 @@ export default function PageLayout(props) {
     const [profile, setProfile] = useState(null)
     const [accessProfile, setAccessProfile] = useState(null)
     const lang = NavigationPT
-
+    const [searchInput, setSearchInput] = useState('')
+    const [notSearched, setNotSearched] = useState(false)
 
     useEffect(() => {
 
@@ -66,6 +68,12 @@ export default function PageLayout(props) {
 
 
                 <Navigation
+                    searchBar={true}
+                    searchInput={searchInput}
+                    setSearchInput={event => {
+                        setNotSearched(true)
+                        setSearchInput(event.target.value)
+                    }}
                     loading={props.loading}
                     redirect={event => {
                         router.push(event.pathname, event.pathname, event.options)
@@ -102,7 +110,7 @@ export default function PageLayout(props) {
                     transition: '250ms ease-in-out', height: 'calc(100% - 60px)', marginTop: '60px'
                 }}>
 
-                    {props.children}
+                    {props.children({searchInput, notSearched, setNotSearched})}
                 </div>
             </div>
         )
@@ -114,6 +122,5 @@ export default function PageLayout(props) {
         )
 }
 PageLayout.propTypes = {
-    loading: PropTypes.bool,
-    children: PropTypes.object
+    loading: PropTypes.bool
 }

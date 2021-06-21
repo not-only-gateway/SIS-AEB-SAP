@@ -1,19 +1,17 @@
 import React, {useState} from 'react';
 import styles from './styles/Navigation.module.css'
 import PropTypes from 'prop-types'
-
 import NavigationProfile from './templates/NavigationProfile'
 import NavigationPT from './locales/NavigationPT'
 import NavigationApps from './templates/NavigationApps'
 import {MenuRounded} from "@material-ui/icons";
 import NavigationTabs from "./templates/NavigationTabs";
+import SearchBar from "./templates/SearchBar";
 
 
 export default function Navigation(props) {
     const lang = NavigationPT
     const [modal, setModal] = useState(false)
-
-
 
     return (
         <>
@@ -27,10 +25,10 @@ export default function Navigation(props) {
                         style={{height: '37px'}}
                         src={props.logo} alt={'logo'}/>
                     {props.appName}
-
-
                 </div>
-
+                <div className={styles.logoContainer} style={{alignContent: 'center', display: props.searchBar ? undefined : 'none'}}>
+                    <SearchBar lang={lang} setSearchInput={props.setSearchInput} searchInput={props.searchInput}/>
+                </div>
                 <div className={styles.logoContainer} style={{justifyContent: 'flex-end', gap: '8px'}}>
                     <NavigationApps lang={lang} buttons={props.apps}
                                     centered={props.profile !== null && props.profile !== undefined}/>
@@ -58,6 +56,9 @@ export default function Navigation(props) {
 }
 
 Navigation.propTypes = {
+    searchBar: PropTypes.bool,
+    setSearchInput: PropTypes.func,
+    searchInput: PropTypes.string,
     path: PropTypes.string,
     appName: PropTypes.string,
     logo: PropTypes.any,

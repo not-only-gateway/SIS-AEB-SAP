@@ -9,8 +9,6 @@ export default function NavigationProfile(props) {
     const [open, setOpen] = useState(false)
 
     return (
-        // <Link href={{pathname: '/person', query: {id: props.profile.id}}}>
-
         <div className={styles.appsContainer} onBlur={event => {
             if (!event.currentTarget.contains(event.relatedTarget))
                 setOpen(false)

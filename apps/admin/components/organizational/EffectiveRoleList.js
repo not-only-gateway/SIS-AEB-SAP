@@ -5,8 +5,9 @@ import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import animations from '../../styles/shared/Animations.module.css'
 import EffectiveRoleForm from "../management/forms/EffectiveRoleForm";
 import Host from "../../utils/shared/Host";
+import PropTypes from "prop-types";
 
-export default function EffectiveRoleList() {
+export default function EffectiveRoleList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
 
@@ -28,10 +29,24 @@ export default function EffectiveRoleList() {
             <div style={{display: open ? 'none' : undefined}}>
                 <List clickEvent={() => setOpen(true)} createOption={true}
                       fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/role_effective'}
-                      secondaryLabel={'description'} primaryLabel={'denomination'}
-                      setEntity={setCurrentEntity}/>
+                      renderElement={element => {
+                          return (
+                              <div style={{display: 'flex', gap: '16px'}}>
+                                  {element.denomination}
+                                  {element.description}
+                              </div>
+                          )
+                      }} searchInput={props.searchInput}
+                      setEntity={setCurrentEntity}
+                      searched={!props.notSearched} setNotSearched={props.setNotSearched}
+                />
             </div>
         </>
     )
+}
 
+EffectiveRoleList.propTypes = {
+    notSearched: PropTypes.bool,
+    setNotSearched: PropTypes.func,
+    searchInput: PropTypes.string
 }

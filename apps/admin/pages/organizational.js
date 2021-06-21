@@ -7,7 +7,7 @@ import Head from "next/head";
 import OrganizationalPT from "../packages/locales/organizational/OrganizationalPT";
 import ContractList from "../components/organizational/ContractList";
 
-export default function organizational() {
+export default function organizational(props) {
 
     const router = useRouter()
     const lang = OrganizationalPT
@@ -59,15 +59,15 @@ export default function organizational() {
                     tabs={[
                         {
                             buttonKey: 0,
-                            value: <ContractList/>
+                            value: <ContractList notSearched={props.notSearched} setNotSearched={props.setNotSearched} searchInput={props.searchInput} />
                         },
                         {
                             buttonKey: 1,
-                            value: <EffectiveRoleList/>
+                            value: <EffectiveRoleList notSearched={props.notSearched} setNotSearched={props.setNotSearched} searchInput={props.searchInput} />
                         },
                         {
                             buttonKey: 2,
-                            value: <CommissionedRoleList/>
+                            value: <CommissionedRoleList notSearched={props.notSearched} setNotSearched={props.setNotSearched} searchInput={props.searchInput} />
                         },
                     ]}
                 />

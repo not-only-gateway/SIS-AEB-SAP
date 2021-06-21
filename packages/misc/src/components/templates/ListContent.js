@@ -5,50 +5,38 @@ import styles from "../styles/List.module.css";
 
 
 export default function ListContent(props) {
-    return (
-        <button
-            className={[styles.rowContainer, styles.fadeIn].join(' ')}
-            onClick={() => {
-                props.setEntity()
-                props.clickEvent()
-            }}
-            key={props.index + '-list'}
-        >
-            <AddRounded style={{
-                color: 'black',
-                display: !props.create ? 'none' : undefined
-            }}/>
+  return (
+    <button
+      className={[styles.rowContainer, styles.fadeIn].join(' ')}
+      onClick={() => {
+        props.setEntity()
+        props.clickEvent()
+      }}
+      key={props.index + '-list'}
+    >
+      <AddRounded style={{
+        color: 'black',
+        display: !props.create ? 'none' : undefined
+      }}/>
 
-            {props.create ? props.lang.create :
+      {
+        props.create ?
+          props.lang.create
+          :
+          props.renderElement(props.entity)
+      }
+    </button>
 
-                <div style={{display: 'flex', gap: '16px'}}>
-                    <h5 style={{
-                        color: '#555555',
-                        marginBottom: 0,
-                        marginTop: 0
-                    }}>{props.entity[props.primaryLabel]}</h5>
-                    {props.secondaryLabel !== undefined && props.secondaryLabel !== null ?
-                        <h5 style={{
-                            color: '#555555',
-                            marginBottom: 0,
-                            marginTop: 0
-                        }}>{props.entity[props.secondaryLabel]}</h5>
-                        :
-                        null}
-                </div>
-            }
-        </button>
-
-    )
+  )
 }
 
 ListContent.propTypes = {
-    entity: PropTypes.any,
-    create: PropTypes.bool,
-    lang: PropTypes.object,
-    clickEvent: PropTypes.func,
-
-    primaryLabel: PropTypes.string,
-    secondaryLabel: PropTypes.string,
-    index: PropTypes.number,
+  entity: PropTypes.any,
+  create: PropTypes.bool,
+  lang: PropTypes.object,
+  clickEvent: PropTypes.func,
+  renderElement: PropTypes.func,
+  primaryLabel: PropTypes.string,
+  secondaryLabel: PropTypes.string,
+  index: PropTypes.number,
 }

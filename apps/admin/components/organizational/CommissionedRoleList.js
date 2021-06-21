@@ -5,8 +5,9 @@ import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import animations from '../../styles/shared/Animations.module.css'
 import CommissionedRoleForm from "../management/forms/CommissionedRoleForm";
 import Host from "../../utils/shared/Host";
+import PropTypes from "prop-types";
 
-export default function CommissionedRoleList() {
+export default function CommissionedRoleList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
 
@@ -28,9 +29,24 @@ export default function CommissionedRoleList() {
             <div style={{display: open ? 'none' : undefined}}>
                 <List clickEvent={() => setOpen(true)} createOption={true}
                       fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/role_commissioned'}
-                      primaryLabel={'id'}
-                      setEntity={setCurrentEntity}/>
+                      renderElement={element => {
+                          return (
+                              <div style={{display: 'flex', gap: '16px'}}>
+                                  {element.denomination}
+                              </div>
+                          )
+                      }} searchInput={props.searchInput}
+                      setEntity={setCurrentEntity}
+                      searched={!props.notSearched} setNotSearched={props.setNotSearched}
+                />
             </div>
         </>
     )
+}
+
+CommissionedRoleList.propTypes = {
+    notSearched: PropTypes.bool,
+    setNotSearched: PropTypes.func,
+
+    searchInput: PropTypes.string
 }

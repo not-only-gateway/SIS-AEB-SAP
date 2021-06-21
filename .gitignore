@@ -1,6 +1,7 @@
 apps/public/node_modules
 apps/admin/node_modules
 apps/statistics/node_modules
+
 packages/inputs/node_modules
 packages/navigation/node_modules
 packages/misc/node_modules
@@ -25,3 +26,4 @@ packages/misc/dist
 logs
 
 
+.idea
