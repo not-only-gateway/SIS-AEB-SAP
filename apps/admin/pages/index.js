@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
 import PeopleList from "../components/management/list/PeopleList";
 import ManagementPT from "../packages/locales/management/ManagementPT";
-import {Tabs, RenderTabs} from "sis-aeb-misc";
+import {RenderTabs, Tabs} from "sis-aeb-misc";
 import Head from "next/head";
 import ContractualLinkageList from "../components/management/list/ContractualLinkageList";
 import CommissionedLinkageList from "../components/management/list/CommissionedLinkageList";

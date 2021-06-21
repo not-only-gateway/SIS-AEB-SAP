@@ -1,11 +1,7 @@
 import React, {useState} from "react";
 import {List} from "sis-aeb-misc";
 import Cookies from "universal-cookie/lib";
-import handleObjectChange from "../../../utils/shared/HandleObjectChange";
-import LinkageForm from "../forms/LinkageForm";
 import Host from "../../../utils/shared/Host";
-import animations from "../../../styles/shared/Animations.module.css";
-import BaseForm from "../../person/forms/BaseForm";
 import PropTypes from "prop-types";
 import PersonAvatar from "../../shared/PersonAvatar";
 

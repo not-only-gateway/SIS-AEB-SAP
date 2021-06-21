@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
 import EffectiveRoleList from "../components/organizational/EffectiveRoleList";
 import CommissionedRoleList from "../components/organizational/CommissionedRoleList";
-import {Tabs, RenderTabs} from "sis-aeb-misc";
+import {RenderTabs, Tabs} from "sis-aeb-misc";
 import Head from "next/head";
 import OrganizationalPT from "../packages/locales/organizational/OrganizationalPT";
 import ContractList from "../components/organizational/ContractList";

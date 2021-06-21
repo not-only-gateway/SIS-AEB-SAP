@@ -4,7 +4,6 @@ import Cookies from "universal-cookie/lib";
 import animations from '../../styles/shared/Animations.module.css'
 import Host from "../../utils/shared/Host";
 import PropTypes from "prop-types";
-import ContractualLinkageList from "../management/list/ContractualLinkageList";
 
 export default function EntityList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)

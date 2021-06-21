@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import styles from './styles/Alert.module.css'
 import {CloseRounded} from '@material-ui/icons'
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Modal from './Modal'
 
 export default function Alert(props) {

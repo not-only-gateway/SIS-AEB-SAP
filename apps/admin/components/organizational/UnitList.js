@@ -6,7 +6,6 @@ import animations from '../../styles/shared/Animations.module.css'
 import Host from "../../utils/shared/Host";
 import UnitForm from "../management/forms/UnitForm";
 import PropTypes from "prop-types";
-import ContractualLinkageList from "../management/list/ContractualLinkageList";
 
 export default function UnitList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
