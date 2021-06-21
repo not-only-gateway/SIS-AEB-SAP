@@ -70,8 +70,8 @@ export default function PageLayout(props) {
                 <Navigation
                     searchBar={true}
                     searchInput={searchInput}
+                    applySearch={() => setNotSearched(true)}
                     setSearchInput={event => {
-                        setNotSearched(true)
                         setSearchInput(event.target.value)
                     }}
                     loading={props.loading}
