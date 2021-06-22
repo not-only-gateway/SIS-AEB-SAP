@@ -27,10 +27,10 @@ export default function NavigationApps(props) {
             <AnimationFrame elementKey={'floating'} children={
                 <div className={styles.floatingBox}
                      style={{transform: props.centered ? 'translate(calc(-50% + 25px), 25%)' : 'translate(calc(-80% - 4px), 25%)'}}>
-                    {props.buttons.map(button => (
+                    {props.buttons.map((button, index) => (
                         <button
                             className={styles.buttonContainer}
-                            key={button.name}
+                            key={button.label+ index}
                             onClick={() => window.open(button.link)}
                             style={{
                                 display: 'grid',

@@ -24,7 +24,7 @@ export default function CommissionedLinkageList(props) {
 
             }
             <div style={{display: open ? 'none' : undefined}}>
-                <List clickEvent={() => setOpen(true)} createOption={true}
+                <List listKey={'commissioned_linkage'} clickEvent={() => setOpen(true)} createOption={true}
                       fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/linkage/commissioned'}
                       renderElement={element => {
                           return (

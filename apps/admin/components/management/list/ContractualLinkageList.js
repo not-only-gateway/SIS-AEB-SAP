@@ -29,6 +29,7 @@ export default function ContractualLinkageList(props) {
 
             <div style={{display: open ? 'none' : undefined}}>
                 <List
+                    listKey={'contractual_linkage'}
                     renderElement={element => {
                         return (
                             <div style={{display: 'flex', gap: '16px'}}>

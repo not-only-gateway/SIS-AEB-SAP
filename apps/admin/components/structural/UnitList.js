@@ -27,10 +27,19 @@ export default function UnitList(props) {
                 </div>
             }
             <div style={{display: open ? 'none' : undefined}}>
-                <List clickEvent={() => setOpen(true)} createOption={true}
-                      fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/unit'}
-                      secondaryLabel={'acronym'} primaryLabel={'name'}
-                      setEntity={setCurrentEntity} searched={!props.notSearched} setNotSearched={props.setNotSearched}/>
+                <List
+                    listKey={'unit'}
+                    clickEvent={() => setOpen(true)} createOption={true}
+                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/unit'}
+                    renderElement={element => {
+                        return (
+                            <div style={{display: 'flex', gap: '16px'}}>
+                                {element.name}
+                                {element.acronym}
+                            </div>
+                        )
+                    }}
+                    setEntity={setCurrentEntity} searched={!props.notSearched} setNotSearched={props.setNotSearched}/>
             </div>
         </>
     )

@@ -25,10 +25,19 @@ export default function EntityList(props) {
                 </div>
             }
             <div style={{display: open ? 'none' : undefined}}>
-                <List clickEvent={() => setOpen(true)} createOption={true}
-                      fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/entity'}
-                      secondaryLabel={'acronym'} primaryLabel={'denomination'}
-                      setEntity={setCurrentEntity} searched={!props.notSearched} setNotSearched={props.setNotSearched}/>
+                <List
+                    listKey={'entity'}
+                    clickEvent={() => setOpen(true)} createOption={true}
+                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/entity'}
+                    renderElement={element => {
+                        return (
+                            <div style={{display: 'flex', gap: '16px'}}>
+                                {element.denomination}
+                                {element.acronym}
+                            </div>
+                        )
+                    }}
+                    setEntity={setCurrentEntity} searched={!props.notSearched} setNotSearched={props.setNotSearched}/>
             </div>
         </>
     )

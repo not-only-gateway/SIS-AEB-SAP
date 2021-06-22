@@ -611,12 +611,14 @@ function RenderTabs(props) {
       display: mounted ? undefined : 'none'
     }
   }, props.tabs.map(function (tab) {
-    return /*#__PURE__*/React.createElement(TabContent, {
+    return /*#__PURE__*/React.createElement(React.Fragment, {
+      key: tab.buttonKey + '-content'
+    }, /*#__PURE__*/React.createElement(TabContent, {
       tab: tab,
       setRendering: setRendering,
       rendering: rendering,
       openTab: props.openTab
-    });
+    }));
   }));
 }
 RenderTabs.propTypes = {
@@ -809,7 +811,9 @@ function List(props) {
       }
     }, lang.end))
   }, data.map(function (entity, index) {
-    return /*#__PURE__*/React.createElement(ListContent, {
+    return /*#__PURE__*/React.createElement(React.Fragment, {
+      key: index + props.listKey
+    }, /*#__PURE__*/React.createElement(ListContent, {
       create: false,
       lang: lang,
       entity: entity,
@@ -823,10 +827,11 @@ function List(props) {
       clickEvent: function clickEvent() {
         return props.clickEvent(true);
       }
-    });
+    }));
   })));
 }
 List.propTypes = {
+  listKey: PropTypes.any,
   primaryLabel: PropTypes.string,
   secondaryLabel: PropTypes.string,
   setEntity: PropTypes.any,

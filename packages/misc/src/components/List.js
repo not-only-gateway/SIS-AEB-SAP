@@ -14,7 +14,7 @@ export default function List(props) {
   const lang = ListsPT
 
   useEffect(() => {
-    if(props.notSearched) {
+    if (props.notSearched) {
       setData([])
       setMaxID(null)
       setLastFetchedSize(null)
@@ -73,11 +73,14 @@ export default function List(props) {
         }
       >
         {(data).map((entity, index) =>
-          <ListContent
-            create={false} lang={lang} entity={entity} index={index} setEntity={() => props.setEntity(entity)}
-            secondaryLabel={props.secondaryLabel} primaryLabel={props.primaryLabel} renderElement={props.renderElement}
-            clickEvent={() => props.clickEvent(true)}
-          />
+          <div key={index + props.listKey} style={{display: 'grid', gap: '16px'}}>
+            <ListContent
+              create={false} lang={lang} entity={entity} index={index} setEntity={() => props.setEntity(entity)}
+              secondaryLabel={props.secondaryLabel} primaryLabel={props.primaryLabel}
+              renderElement={props.renderElement}
+              clickEvent={() => props.clickEvent(true)}
+            />
+          </div>
         )}
 
       </InfiniteScroll>
@@ -85,6 +88,7 @@ export default function List(props) {
   )
 }
 List.propTypes = {
+  listKey: PropTypes.any,
   primaryLabel: PropTypes.string,
   secondaryLabel: PropTypes.string,
 

@@ -29,7 +29,7 @@
     justify-items: center;
     gap: 1px;
     height: clamp(400px, 75%, 500px);
-    width: clamp(300px, 25%, 500px);
+    width: 425px;
 
     border: #ecedf2 1px solid;
     border-radius: 8px;

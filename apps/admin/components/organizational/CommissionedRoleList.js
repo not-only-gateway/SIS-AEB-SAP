@@ -27,7 +27,9 @@ export default function CommissionedRoleList(props) {
                 </div>
             }
             <div style={{display: open ? 'none' : undefined}}>
-                <List clickEvent={() => setOpen(true)} createOption={true}
+                <List
+                    listKey={'commissioned_role'}
+                    clickEvent={() => setOpen(true)} createOption={true}
                       fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/role_commissioned'}
                       renderElement={element => {
                           return (

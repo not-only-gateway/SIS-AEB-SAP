@@ -6,6 +6,7 @@ import {RenderTabs, Tabs} from "sis-aeb-misc";
 import Head from "next/head";
 import OrganizationalPT from "../packages/locales/organizational/OrganizationalPT";
 import ContractList from "../components/organizational/ContractList";
+import AccessProfileList from "../components/organizational/AccessProfileList";
 
 export default function organizational(props) {
 
@@ -47,6 +48,10 @@ export default function organizational(props) {
                         {
                             key: 2,
                             value: lang.commissionedRoleTitle
+                        },
+                        {
+                            key: 3,
+                            value: lang.access
                         }
                     ]}
                     setOpenTab={setOpenTab}
@@ -68,6 +73,10 @@ export default function organizational(props) {
                         {
                             buttonKey: 2,
                             value: <CommissionedRoleList notSearched={props.notSearched} setNotSearched={props.setNotSearched} searchInput={props.searchInput} />
+                        },
+                        {
+                            buttonKey: 3,
+                            value: <AccessProfileList notSearched={props.notSearched} setNotSearched={props.setNotSearched} searchInput={props.searchInput} />
                         },
                     ]}
                 />

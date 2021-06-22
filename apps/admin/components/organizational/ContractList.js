@@ -14,7 +14,9 @@ export default function ContractList(props) {
             }
 
             <div style={{display: open ? 'none' : undefined}}>
-                <List clickEvent={() => setOpen(true)} createOption={true}
+                <List
+                    listKey={'contract_list'}
+                    clickEvent={() => setOpen(true)} createOption={true}
                       fetchToken={(new Cookies()).get('jwt')} fetchUrl={'list/contract'}
                       renderElement={element => {
                           return (

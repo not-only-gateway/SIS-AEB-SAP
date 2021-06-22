@@ -60,8 +60,8 @@ export default function NavigationProfile(props) {
                     gap: '8px'
                 }}>
 
-                    {props.buttons.map(button => (
-                        <div style={{height: '44px', width: '100%'}}>
+                    {props.buttons.map((button, index) => (
+                        <div style={{height: '44px', width: '100%'}}   key={button.label+ index}>
                             <NavigationButton
                                 extended={true}
 

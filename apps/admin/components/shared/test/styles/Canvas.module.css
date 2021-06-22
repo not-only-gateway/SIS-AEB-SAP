@@ -1,8 +1,60 @@
+.optionsContainer{
+  position: absolute;
+
+  height: auto;
+  width: 200px;
+  min-height: 30px;
+
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 8px;
+  border: #ecedf2 2px solid;
+  background-color: white;
+
+  display: grid;
+
+  transform: translate(85%, -100%);
+}
+.optionsContainer > button{
+  width: 100%;
+  outline: none;
+  border: none;
+  background-color: transparent;
+
+  height: 30px;
+  padding: 18px 8px;
+
+  display: flex;
+  align-items: center;
+
+
+  cursor: pointer;
+  justify-content: space-between;
+  transition: 150ms ease-in-out;
+  color: #555555;
+}
+.optionsContainer > button:hover{
+  background-color: #f4f5fa;
+}
 .fadeIn {
   animation: fadeIn ease-in-out 250ms forwards;
 }
+.fadeOutAnimation {
+  position: relative;
+  animation: fadeOut ease-in-out 150ms forwards;
 
+}
 
+@keyframes fadeOut {
+
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -127,23 +179,17 @@
   /*padding: 5px 10px;*/
 
   cursor: pointer;
+  background: white;
 
-  background: #f4f5fa;
-  border:  #ecedf2 1px solid;
+  border:  #e0e0e0 1px solid;
   border-radius: 8px;
 
 
   /*border: 1px solid #ccc;*/
 
-  transition: 200ms ease-in-out;
+  transition: 250ms ease-in-out;
 }
 
-.nav li span:hover, .nav li a:hover+ul li a{
-
-
-  box-shadow: 0 0 4px 2px #0095ff;
-
-}
 .nav li span:hover+ul li::after,
 .nav li span:hover+ul li::before,
 .nav li span:hover+ul::before,

@@ -9,7 +9,9 @@ export default function PeopleList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
 
     return (
-        <List clickEvent={() => props.redirect(currentEntity.id)} createOption={true}
+        <List
+            listKey={'people'}
+            clickEvent={() => props.redirect(currentEntity.id)} createOption={true}
               fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/people'}
               renderElement={element => {
                   return (

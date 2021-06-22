@@ -1,6 +1,6 @@
+import React from 'react'
 import styles from '../styles/SearchBar.module.css'
 import PropTypes from 'prop-types'
-import React from 'react'
 import {SearchRounded} from "@material-ui/icons";
 
 export default function SearchBar(props) {

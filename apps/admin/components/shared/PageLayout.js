@@ -5,8 +5,9 @@ import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import "@fontsource/roboto"
 import PropTypes from "prop-types";
-import NavigationPT from "../../packages/locales/others/NavigationPT";
+import LayoutPT from "../../packages/locales/others/LayoutPT";
 import {
+    AccountBalanceRounded,
     AccountTreeRounded,
     BusinessRounded,
     ExitToApp,
@@ -16,7 +17,7 @@ import {
 } from "@material-ui/icons";
 
 import MemberRequests from "../../utils/fetch/MemberRequests";
-import Navigation from "sis-aeb-navigation"
+import {Navigation} from "sis-aeb-navigation"
 
 const cookies = new Cookies()
 
@@ -24,7 +25,7 @@ export default function PageLayout(props) {
     const router = useRouter()
     const [profile, setProfile] = useState(null)
     const [accessProfile, setAccessProfile] = useState(null)
-    const lang = NavigationPT
+    const lang = LayoutPT
     const [searchInput, setSearchInput] = useState('')
     const [notSearched, setNotSearched] = useState(false)
 
@@ -65,8 +66,6 @@ export default function PageLayout(props) {
                 height: '100vh',
                 position: 'relative'
             }}>
-
-
                 <Navigation
                     searchBar={true}
                     searchInput={searchInput}
@@ -84,6 +83,7 @@ export default function PageLayout(props) {
                         icon: <ExitToApp style={{transform: 'rotate(180deg)'}}/>
                     }]}
                     buttons={[
+                        {label: lang.structure, icon: <AccountTreeRounded/>, link: '/structure'},
                         {label: lang.collaborator, icon: <PersonRounded/>, link: '/'},
                         accessProfile === null || !accessProfile.can_manage_structure ? null : {
                             label: lang.organizational,
@@ -92,7 +92,7 @@ export default function PageLayout(props) {
                         },
                         accessProfile === null || !accessProfile.can_manage_structure ? null : {
                             label: lang.structural,
-                            icon: <AccountTreeRounded/>,
+                            icon: <AccountBalanceRounded/>,
                             link: '/structural'
                         },
                     ]}
@@ -117,7 +117,7 @@ export default function PageLayout(props) {
     else
         return (
             <>
-                {props.children}
+                {props.children({searchInput, notSearched, setNotSearched})}
             </>
         )
 }

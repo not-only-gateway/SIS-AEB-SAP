@@ -13,7 +13,9 @@ export default function RenderTabs(props) {
   return (
     <div style={{display: mounted ? undefined : 'none'}}>
       {props.tabs.map(tab => (
+        <React.Fragment key={tab.buttonKey + '-content'}>
         <TabContent tab={tab} setRendering={setRendering} rendering={rendering} openTab={props.openTab}/>
+        </React.Fragment>
       ))}
     </div>
   )
