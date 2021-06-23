@@ -14,25 +14,33 @@ export default function List(props) {
   const lang = ListsPT
 
   useEffect(() => {
-    if (props.notSearched) {
+
+    if (props.applySearch && props.searchInput !== undefined && props.searchInput !== null) {
       setData([])
-      setMaxID(null)
-      setLastFetchedSize(null)
-    }
 
-    Fetch({
-      setLastFetchedSize: setLastFetchedSize,
-      setData: setData,
-      data: data,
-      maxID: maxID,
-      searchInput: props.searchInput,
-      setMaxID: setMaxID,
-      fetchToken: props.fetchToken,
-      fetchUrl: props.fetchUrl
-    })
-
-    props.setNotSearched(false)
-  }, [props.notSearched])
+      Fetch({
+        setLastFetchedSize: setLastFetchedSize,
+        setData: setData,
+        data: [],
+        maxID: null,
+        searchInput: props.searchInput,
+        setMaxID: setMaxID,
+        fetchToken: props.fetchToken,
+        fetchUrl: props.fetchUrl
+      })
+      props.setAppliedSearch(false)
+    } else if (props.searchInput === null || props.searchInput === undefined || props.searchInput.length === 0)
+      Fetch({
+        setLastFetchedSize: setLastFetchedSize,
+        setData: setData,
+        data: data,
+        maxID: maxID,
+        searchInput: null,
+        setMaxID: setMaxID,
+        fetchToken: props.fetchToken,
+        fetchUrl: props.fetchUrl
+      })
+  }, [props.applySearch])
 
 
   return (
@@ -40,50 +48,56 @@ export default function List(props) {
       display: 'grid',
       marginTop: '10px',
       width: '100%',
-      gap: '16px'
+      gap: '8px'
     }}>
       {props.createOption ? <ListContent create={true} lang={lang} setEntity={() => props.setEntity(null)}
                                          clickEvent={() => props.clickEvent(true)} entity={null}/> : null}
 
-
-      <InfiniteScroll
-        dataLength={data.length}
-        next={() => Fetch({
-          setLastFetchedSize: setLastFetchedSize,
-          setData: setData,
-          data: data,
-          maxID: maxID,
-          searchInput: props.searchInput,
-          setMaxID: setMaxID,
-          fetchToken: props.fetchToken,
-          fetchUrl: props.fetchUrl
-        })}
-        hasMore={lastFetchedSize === 15}
-        inverse={false}
-        scrollableTarget={props.scrollableElement}
-        loader={<Loader/>}
-        style={{
-          overflow: 'visible'
-        }}
-        endMessage={
-          <div style={{width: '100%'}}>
-            <h5
-              style={{textAlign: 'center', color: '#555555'}}>{lang.end}</h5>
+      {data.length > 0 ?
+        <InfiniteScroll
+          dataLength={data.length}
+          next={() => Fetch({
+            setLastFetchedSize: setLastFetchedSize,
+            setData: setData,
+            data: data,
+            maxID: maxID,
+            searchInput: props.searchInput.length === 0 ? null : props.searchInput,
+            setMaxID: setMaxID,
+            fetchToken: props.fetchToken,
+            fetchUrl: props.fetchUrl
+          })}
+          hasMore={lastFetchedSize === 15}
+          inverse={false}
+          scrollableTarget={props.scrollableElement}
+          loader={<Loader/>}
+          endMessage={
+            <div style={{width: '100%'}}>
+              <h5
+                style={{textAlign: 'center', color: '#555555'}}>{lang.end}</h5>
+            </div>
+          }
+        >
+          <div style={{display: 'grid', gap: '8px', overflow: 'hidden', height: 'auto'}}>
+            {data.map((entity, index) =>
+              <React.Fragment key={index + props.listKey}>
+                <ListContent
+                  create={false} lang={lang} entity={entity}
+                  setEntity={() => props.setEntity(entity)}
+                  secondaryLabel={props.secondaryLabel} primaryLabel={props.primaryLabel}
+                  renderElement={props.renderElement}
+                  clickEvent={() => props.clickEvent(true)}
+                />
+              </React.Fragment>
+            )}
           </div>
-        }
-      >
-        {(data).map((entity, index) =>
-          <div key={index + props.listKey} style={{display: 'grid', gap: '16px'}}>
-            <ListContent
-              create={false} lang={lang} entity={entity} index={index} setEntity={() => props.setEntity(entity)}
-              secondaryLabel={props.secondaryLabel} primaryLabel={props.primaryLabel}
-              renderElement={props.renderElement}
-              clickEvent={() => props.clickEvent(true)}
-            />
-          </div>
-        )}
 
-      </InfiniteScroll>
+        </InfiniteScroll>
+        :
+        <div style={{width: '100%'}}>
+          <h5
+            style={{textAlign: 'center', color: '#555555'}}>{lang.nothingFound}</h5>
+        </div>
+      }
     </div>
   )
 }
@@ -96,8 +110,8 @@ List.propTypes = {
   createOption: PropTypes.bool,
   clickEvent: PropTypes.func,
   searchInput: PropTypes.string,
-  notSearched: PropTypes.bool,
-  setNotSearched: PropTypes.func,
+  applySearch: PropTypes.bool,
+  setAppliedSearch: PropTypes.func,
 
   fetchUrl: PropTypes.string,
   fetchToken: PropTypes.string,

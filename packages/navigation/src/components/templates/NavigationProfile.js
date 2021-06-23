@@ -3,7 +3,8 @@ import {Avatar} from "@material-ui/core";
 import React, {useState} from 'react'
 import styles from '../styles/Navigation.module.css'
 import AnimationFrame from "./AnimationFrame";
-import NavigationButton from "./NavigationButton";
+
+import Link from "next/link";
 
 export default function NavigationProfile(props) {
     const [open, setOpen] = useState(false)
@@ -48,7 +49,7 @@ export default function NavigationProfile(props) {
                 }}>
                     {props.profile.name}
                 </div>
-                <Avatar  style={{width: '30px', height: '30px'}} src={props.profile.image}/>
+                <Avatar style={{width: '30px', height: '30px'}} src={props.profile.image}/>
 
             </button>
             <AnimationFrame elementKey={'floating-profile'} children={
@@ -61,18 +62,34 @@ export default function NavigationProfile(props) {
                 }}>
 
                     {props.buttons.map((button, index) => (
-                        <div style={{height: '44px', width: '100%'}}   key={button.label+ index}>
-                            <NavigationButton
-                                extended={true}
 
-                                linkPath={button.link}
-                                linkQuery={button.linkProps}
-                                highlight={false}
-                                icon={
-                                    button.icon
-                                } label={button.label}
-                            />
-                        </div>
+                        <Link href={{
+                            pathname: button.link,
+                            query: button.linkProps !== undefined ? button.linkProps : null
+                        }}>
+
+                            <button
+                                className={styles.appsButtonContainer}
+                                key={button.label + index}
+                                style={{
+                                    width: '100%',
+                                    justifyContent: 'space-between',
+                                    height: '44px'
+                                }}>
+                                {button.icon}
+
+                                <div
+                                    style={{
+                                        marginLeft: '8px',
+                                        fontSize: '.9rem',
+                                        overflow: "hidden",
+                                        color: '#111111',
+                                        fontWeight: 590
+                                    }}> {button.label}</div>
+
+                            </button>
+
+                        </Link>
                     ))}
                 </div>
             } render={open} type={"fade"}/>
@@ -90,5 +107,5 @@ NavigationProfile.propTypes = {
             link: PropTypes.string,
             linkProps: PropTypes.any
         })
-   )
+    )
 }

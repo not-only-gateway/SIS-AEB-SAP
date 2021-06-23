@@ -12,10 +12,11 @@ export default function ListContent(props) {
         props.setEntity()
         props.clickEvent()
       }}
-      key={props.index + '-list'}
+      style={{animationDuration: '250ms'}}
     >
+      {props.index}
       <AddRounded style={{
-        color: 'black',
+        color: '#555555',
         display: !props.create ? 'none' : undefined
       }}/>
 
@@ -38,5 +39,4 @@ ListContent.propTypes = {
   renderElement: PropTypes.func,
   primaryLabel: PropTypes.string,
   secondaryLabel: PropTypes.string,
-  index: PropTypes.number,
 }

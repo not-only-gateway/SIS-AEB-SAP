@@ -17,7 +17,7 @@ import {
 } from "@material-ui/icons";
 
 import MemberRequests from "../../utils/fetch/MemberRequests";
-import Navigation from "./components/Navigation"
+import {Navigation} from "sis-aeb-navigation"
 
 const cookies = new Cookies()
 

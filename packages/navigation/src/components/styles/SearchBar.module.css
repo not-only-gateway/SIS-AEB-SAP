@@ -19,8 +19,8 @@
     display: flex;
     align-items: center;
     height: 100%;
-    border-radius: 32px;
-    transition: 300ms ease-in-out;
+    border-radius: 8px;
+    transition: 150ms ease-in-out;
     color: #555555;
     background: white;
     gap: 0;

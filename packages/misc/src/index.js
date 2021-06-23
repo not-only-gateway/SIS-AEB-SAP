@@ -1,7 +1,6 @@
 import React from 'react'
 
 import Filters from './components/Filters'
-import SearchBox from './components/SearchBox'
 import Canvas from './components/Canvas'
 import Tabs from './components/Tabs'
 import RenderTabs from './components/RenderTabs'
@@ -11,5 +10,5 @@ import Modal from './components/Modal'
 import Alert from './components/Alert'
 
 
-export {SearchBox, Filters, Canvas, Tabs, RenderTabs, List, Loader, Modal, Alert}
+export {Filters, Canvas, Tabs, RenderTabs, List, Loader, Modal, Alert}
 

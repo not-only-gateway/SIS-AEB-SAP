@@ -18,12 +18,11 @@
     cursor: pointer;
     outline: none;
 
-    transition: 300ms ease-in-out;
+    transition: 200ms ease-in-out;
 }
 
 .rowContainer:hover {
-    /*box-shadow: 0 0 4px 2px #0095ff;*/
-    text-decoration: underline;
+    background-color: #f4f5fa;
 }
 
 

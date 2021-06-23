@@ -4,22 +4,6 @@
     overflow: hidden;
 }
 
-.loading {
-
-    animation: loadingAnimation 2s ease-in-out infinite;
-}
-
-@keyframes loadingAnimation {
-    0% {
-        border-top: rgba(0, 149, 255, 1) 3px solid;
-    }
-    50% {
-        border-top: rgba(0, 149, 255, .5) 3px solid;
-    }
-    100% {
-        border-top: rgba(0, 149, 255, 1) 3px solid;
-    }
-}
 
 .navigationContainer {
     position: fixed;
@@ -67,13 +51,6 @@
     width: 100%;
 }
 
-.navigationButtonsHalf {
-
-    padding: 0 8px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
 
 .logoContainer {
     color: white;
@@ -91,14 +68,14 @@
 
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 16px;
 
     outline: none;
     box-shadow: none;
     background-color: transparent;
-    border-radius: 0 8px 8px 0;
+    border-radius: 0 32px 32px 0;
     border: none;
-    color: #555555;
+    color: #666666;
     padding: 16px 12px 16px 24px;
     cursor: pointer;
     transition: 300ms ease;
@@ -107,7 +84,7 @@
 
 .buttonContainer:hover, .appsButtonContainer:hover {
     background: #f4f5fa;
-    color: #0095ff;
+
 }
 
 .appsContainer {
@@ -125,15 +102,15 @@
     border-radius: 8px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
+
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
     align-items: flex-start;
+    gap: 8px;
     padding: 8px;
 }
 
 .modalContainer {
-    padding-top: 32px;
+    padding-top: 16px;
 
     padding-right: 16px;
 
@@ -143,10 +120,21 @@
     left: 0;
     bottom: 0;
 
-    width: 375px;
+    width: 295px;
     height: 100vh;
 
     display: grid;
     align-content: flex-start;
-    gap: 16px;
+    gap: 4px;
+}
+
+.navigationTabsContainer {
+    width: 100vw;
+    position: fixed;
+    height: 100vh;
+
+    z-index: 100;
+    bottom: 0;
+    left: 0;
+    transition: 300ms ease-in-out;
 }

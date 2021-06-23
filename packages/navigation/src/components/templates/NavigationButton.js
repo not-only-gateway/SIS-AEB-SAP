@@ -18,7 +18,6 @@ export default function NavigationButton(props) {
                     width: props.extended ? '100%' : undefined,
                     justifyContent: props.extended ? 'space-between' : undefined,
                     backgroundColor: props.highlight ? '#E8F0FE' : undefined,
-                    transition: '300ms'
                 }}>
 
 
@@ -29,7 +28,8 @@ export default function NavigationButton(props) {
                         marginLeft: '8px',
                         fontSize: '.9rem',
                         overflow: "hidden",
-                        fontWeight: 575
+                        color: '#111111',
+                        fontWeight: 590
                     }}> {props.label}</div>
 
             </button>

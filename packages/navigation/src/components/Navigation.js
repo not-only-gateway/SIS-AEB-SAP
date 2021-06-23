@@ -7,6 +7,7 @@ import NavigationApps from './templates/NavigationApps'
 import {MenuRounded} from "@material-ui/icons";
 import NavigationTabs from "./templates/NavigationTabs";
 import SearchBar from "./templates/SearchBar";
+import Loading from "./Loading";
 
 
 export default function Navigation(props) {
@@ -15,8 +16,9 @@ export default function Navigation(props) {
 
   return (
 
-    <div className={[styles.navigationContainer, props.loading ? styles.loading : ''].join(' ')}>
-      <div className={styles.logoContainer} style={{color: '#555555', fontWeight: 600, fontSize: '.95rem'}}>
+    <div className={styles.navigationContainer}>
+      <Loading loading={props.loading}/>
+      <div className={styles.logoContainer} style={{color: '#666666', fontWeight: 600, fontSize: '16px'}}>
         <NavigationTabs open={modal} setOpen={setModal} buttons={props.buttons} path={props.path}/>
         <button className={styles.appsButtonContainer} onClick={() => setModal(true)}>
           <MenuRounded/>
@@ -24,12 +26,14 @@ export default function Navigation(props) {
         <img
           style={{height: '37px'}}
           src={props.logo} alt={'logo'}/>
+
         {props.appName}
       </div>
       <div className={styles.logoContainer}
            style={{alignContent: 'center', display: props.searchBar ? undefined : 'none'}}>
         <SearchBar lang={lang} applySearch={props.applySearch} setSearchInput={props.setSearchInput}
-                   searchInput={props.searchInput}/>
+                   searchInput={props.searchInput}
+        />
       </div>
       <div className={styles.logoContainer} style={{justifyContent: 'flex-end', gap: '8px'}}>
         <NavigationApps lang={lang} buttons={props.apps}

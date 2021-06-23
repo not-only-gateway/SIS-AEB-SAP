@@ -9,7 +9,7 @@ export default async function Fetch(props) {
     headers: {'authorization': props.fetchToken},
     params: {
       max_id: props.maxID,
-      searchInput: props.searchInput && props.searchInput.length > 0 ? props.searchInput : null
+      search_input: props.searchInput
     }
   }).then(res => {
     if (props.maxID === null)
