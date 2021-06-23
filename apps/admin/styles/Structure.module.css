@@ -1,24 +1,38 @@
-.unitContainer{
+.unitContainer {
     display: flex;
     align-items: center;
     align-content: center;
     justify-content: space-between;
     gap: 4px;
+    padding: 8px;
+    height: 100%;
+
 }
 
 
-.unitAcronymContainer{
+.unitAcronymContainer {
     writing-mode: vertical-rl;
     text-orientation: upright;
     font-weight: 600;
     color: #777777;
 }
-.unitNameContainer{
+
+.unitNameContainer {
     font-size: .9rem;
+
 }
 
 .overflowEllipsis {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+.vacancyContainer {
+    display: grid;
+    gap: 4px;
+    justify-content: center;
+    justify-items: center;
+    padding: 8px;
+    height: 100%;
 }

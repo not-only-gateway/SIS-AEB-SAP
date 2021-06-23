@@ -20,17 +20,17 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/logs/build/misc.txt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/kill.sh" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/packages/navigation/.babelrc" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/clear.sh" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/logs/build/alert.txt" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/packages/navigation/src/index.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/apps/admin/components/shared/test/Canvas.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/logs/build/navigation.txt" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/kill.sh" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/clear.sh" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/apps/admin/pages/index.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/build.sh" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/apps/public/components/layout/Canvas.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/apps/public/components/modules/structure/TreeNode.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/apps/admin/components/shared/test/Chart.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/logs/build/navigation.txt" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1tOWrMfojy03Of9kNa4zEJppCkk" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -44,7 +44,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/packages/misc/src/components/templates" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/apps/admin" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -134,7 +134,8 @@
       <workItem from="1624446858111" duration="221000" />
       <workItem from="1624447373984" duration="1480000" />
       <workItem from="1624454967016" duration="1220000" />
-      <workItem from="1624470309324" duration="754000" />
+      <workItem from="1624470309324" duration="1009000" />
+      <workItem from="1624477384819" duration="976000" />
     </task>
     <servers />
   </component>

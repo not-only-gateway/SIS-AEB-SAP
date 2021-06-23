@@ -86,9 +86,8 @@ export default function PageLayout(props) {
                         icon: <ExitToApp style={{transform: 'rotate(180deg)'}}/>
                     }]}
                     buttons={[
-
-                        {label: lang.collaborator, icon: <PersonRounded/>, link: '/'},
                         {label: lang.structure, icon: <AccountTreeRounded/>, link: '/structure'},
+                        {label: lang.collaborator, icon: <PersonRounded/>, link: '/'},
                         accessProfile === null || !accessProfile.can_manage_structure ? null : {
                             label: lang.organizational,
                             icon: <BusinessRounded/>,

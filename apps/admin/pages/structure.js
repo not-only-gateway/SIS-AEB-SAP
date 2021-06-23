@@ -2,12 +2,12 @@ import {useEffect, useState} from "react";
 import StructuralRequests from "../utils/fetch/StructuralRequests";
 import {useRouter} from "next/router";
 import StructurePT from "../packages/locales/structure/StructurePT";
-import Canvas from "../components/shared/test/Canvas";
 import Head from "next/head";
-import {EditRounded, PeopleRounded, RemoveCircleRounded} from "@material-ui/icons";
+import {EditRounded, PeopleRounded} from "@material-ui/icons";
 import styles from '../styles/Structure.module.css'
 import CollaborationRequests from "../utils/fetch/CollaborationRequests";
 import {Avatar} from "@material-ui/core";
+import Chart from "../components/shared/test/Chart";
 
 export default function structure() {
 
@@ -15,7 +15,6 @@ export default function structure() {
     const router = useRouter()
     const lang = StructurePT
     const [accessProfile, setAccessProfile] = useState(null)
-    const [openTab, setOpenTab] = useState(0)
 
 
     useEffect(() => {
@@ -37,7 +36,7 @@ export default function structure() {
                     {lang.title}
                 </title>
             </Head>
-            <Canvas
+            <Chart
                 firstEntity={unit} rowLimit={1}
                 fetchDependents={async function (unit) {
                     if (unit !== undefined && unit !== null && unit.id !== undefined) {
@@ -70,7 +69,7 @@ export default function structure() {
                     if (entity !== undefined && entity !== null)
                         return (
                             <div
-                                style={{display: 'grid', gap: '4px', justifyContent: 'center', justifyItems: 'center'}}>
+                                className={styles.vacancyContainer}>
                                 <Avatar src={entity.image}/>
                                 <div style={{fontSize: '.9rem', maxWidth: '95%', color: '#111111'}} className={styles.overflowEllipsis}>
                                     {entity.name}

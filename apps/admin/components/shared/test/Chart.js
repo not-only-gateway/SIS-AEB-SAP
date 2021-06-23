@@ -3,10 +3,9 @@ import Node from "./templates/Node";
 import {AddRounded, RemoveRounded} from "@material-ui/icons";
 import React, {useState} from "react";
 import PropTypes from 'prop-types'
-import StructuralRequests from "../../../utils/fetch/StructuralRequests";
 
 
-export default function Canvas(props) {
+export default function Chart(props) {
     const [zoom, setZoom] = useState(1)
     return (
         <div style={{position: 'relative', width: '100%', height: 'auto', minHeight: '100%', overflowX: 'auto'}}
@@ -62,7 +61,7 @@ export default function Canvas(props) {
     )
 }
 
-Canvas.propTypes = {
+Chart.propTypes = {
     baseWidth: PropTypes.number,
     extendedEntityWidth: PropTypes.number,
     rowLimit: PropTypes.number,
