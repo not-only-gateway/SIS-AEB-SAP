@@ -53,7 +53,7 @@ export default function person() {
             else
                 router.push('/', '/', {locale: router.locale})
         }
-    })
+    },[router.isReady])
 
 
     if (id !== undefined)

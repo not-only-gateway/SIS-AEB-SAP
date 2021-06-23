@@ -22,7 +22,7 @@ export default function structural(props) {
                 router.push('/', '/', {locale: router.locale})
 
         }
-    })
+    }, [])
 
 
     return (

@@ -9,23 +9,27 @@ import StructuralRequests from "../../../utils/fetch/StructuralRequests";
 export default function Canvas(props) {
     const [zoom, setZoom] = useState(1)
     return (
-        <div style={{position: 'relative', width: '100%', height: 'auto', minHeight: '100%'}} id={'canvas'}>
+        <div style={{position: 'relative', width: '100%', height: 'auto', minHeight: '100%', overflowX: 'auto'}}
+             id={'canvas'}>
             <div style={{
                 zoom: zoom,
                 transition: '.2s',
                 '-moz-transform': 'scale(' + zoom + ')',
-                marginTop: zoom > 1 ? 'calc(8.3% * ' + (zoom - .25) + ')' : null,
-
+                width: 'fit-content',
+                whiteSpace: 'nowrap',
+                overflowX: 'auto',
+                display: 'inline',
             }}>
-                <span className={styles.nav} style={{width: '100%', display: 'flex', placeContent: 'center'}}>
-
-                      <ul>
+                <span className={styles.nav} >
+                      <ul >
                         <Node
                             entity={props.firstEntity} fetchDependents={props.fetchDependents}
                             getEntityKey={props.getEntityKey} hoveredParent={false} row={0}
+                            extendLabel={props.extendLabel}
                             getExtendedEntityKey={props.getExtendedEntityKey} rowLimit={props.rowLimit}
                             fetchExtendedDependents={props.fetchExtendedDependents} hoverButtons={props.hoverButtons}
                             extendable={props.extendable} handleButtonClick={props.handleButtonClick}
+                            baseWidth={props.baseWidth} extendedEntityWidth={props.extendedEntityWidth}
                             renderEntity={props.renderEntity} renderExtendedEntity={props.renderExtendedEntity}
                         />
                       </ul>
@@ -59,6 +63,8 @@ export default function Canvas(props) {
 }
 
 Canvas.propTypes = {
+    baseWidth: PropTypes.number,
+    extendedEntityWidth: PropTypes.number,
     rowLimit: PropTypes.number,
     getEntityKey: PropTypes.func,
     getExtendedEntityKey: PropTypes.func,
@@ -71,7 +77,8 @@ Canvas.propTypes = {
         PropTypes.shape({
             icon: PropTypes.any,
             label: PropTypes.string,
-            key: PropTypes.number
+            key: PropTypes.number,
+            extendButton: PropTypes.bool
         })),
     handleButtonClick: PropTypes.func,
     fetchDependents: PropTypes.func

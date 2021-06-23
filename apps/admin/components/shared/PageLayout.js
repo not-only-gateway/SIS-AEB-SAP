@@ -17,7 +17,7 @@ import {
 } from "@material-ui/icons";
 
 import MemberRequests from "../../utils/fetch/MemberRequests";
-import {Navigation} from "sis-aeb-navigation"
+import Navigation from "./components/Navigation"
 
 const cookies = new Cookies()
 
@@ -69,9 +69,12 @@ export default function PageLayout(props) {
                 <Navigation
                     searchBar={true}
                     searchInput={searchInput}
-                    applySearch={() => setNotSearched(true)}
+                    applySearch={() => {
+                        setNotSearched(true)
+
+                    }}
                     setSearchInput={event => {
-                        setSearchInput(event.target.value)
+                        setSearchInput(event)
                     }}
                     loading={props.loading}
                     redirect={event => {
@@ -83,8 +86,9 @@ export default function PageLayout(props) {
                         icon: <ExitToApp style={{transform: 'rotate(180deg)'}}/>
                     }]}
                     buttons={[
-                        {label: lang.structure, icon: <AccountTreeRounded/>, link: '/structure'},
+
                         {label: lang.collaborator, icon: <PersonRounded/>, link: '/'},
+                        {label: lang.structure, icon: <AccountTreeRounded/>, link: '/structure'},
                         accessProfile === null || !accessProfile.can_manage_structure ? null : {
                             label: lang.organizational,
                             icon: <BusinessRounded/>,

@@ -16,20 +16,14 @@ const seniorsProps =  {
 const cookies = new Cookies()
 
 export default class CollaborationRequests{
-    static async fetchCollaboration(collaborationProps) {
-        let response = null
-
-        if(collaborationProps.setLoading !== undefined)
-            collaborationProps.setLoading(true)
-
+    static async fetchDependentCollaborators(pk) {
+        let response = []
         await axios({
             method: 'get',
-            url: Host() + 'collaboration/' + collaborationProps.collaborationID,
+            url: Host() + 'unit/collaborator/' + pk,
             headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         }).then(res => {
             response = res.data
-            if(collaborationProps.setLoading !== undefined)
-                collaborationProps.setLoading(false)
         }).catch(error => {
             console.log(error)
         })

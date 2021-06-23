@@ -12,18 +12,18 @@ export default function PeopleList(props) {
         <List
             listKey={'people'}
             clickEvent={() => props.redirect(currentEntity.id)} createOption={true}
-              fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/people'}
-              renderElement={element => {
-                  return (
-                      <div style={{display: 'flex', gap: '16px'}}>
-                          <PersonAvatar variant={'circular'} image={element.image}/>
-                          {element.name}
-                          {element.corporate_email}
-                      </div>
-                  )
-              }} searched={!props.notSearched} setNotSearched={props.setNotSearched}
-              searchInput={props.searchInput}
-              setEntity={setCurrentEntity}/>
+            fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/people'}
+            renderElement={element => {
+                return (
+                    <div style={{display: 'flex', gap: '16px'}}>
+                        <PersonAvatar variant={'circular'} image={element.image}/>
+                        {element.name}
+                        {element.corporate_email}
+                    </div>
+                )
+            }} applySearch={props.notSearched} setAppliedSearch={props.setNotSearched}
+            searchInput={props.searchInput}
+            setEntity={setCurrentEntity}/>
     )
 
 }

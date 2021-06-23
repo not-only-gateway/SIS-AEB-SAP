@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import React, {useEffect, useState} from "react";
-// import animations from '../styles/Animations.module.css'
 import styles from "./styles/Modal.module.css";
 
 export default function Modal(props) {

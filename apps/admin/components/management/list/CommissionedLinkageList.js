@@ -33,7 +33,7 @@ export default function CommissionedLinkageList(props) {
                                   {element.description}
                               </div>
                           )
-                      }}  searched={!props.notSearched} setNotSearched={props.setNotSearched}
+                      }}  applySearch={props.notSearched} setAppliedSearch={props.setNotSearched}
                       setEntity={setCurrentEntity} searchInput={props.searchInput}/>
             </div>
         </>

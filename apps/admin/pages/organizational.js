@@ -24,7 +24,7 @@ export default function organizational(props) {
                 router.push('/', '/', {locale: router.locale})
 
         }
-    })
+    }, [])
 
 
     return (

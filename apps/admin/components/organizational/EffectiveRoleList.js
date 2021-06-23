@@ -40,7 +40,7 @@ export default function EffectiveRoleList(props) {
                           )
                       }} searchInput={props.searchInput}
                       setEntity={setCurrentEntity}
-                      searched={!props.notSearched} setNotSearched={props.setNotSearched}
+                    applySearch={props.notSearched} setAppliedSearch={props.setNotSearched}
                 />
             </div>
         </>

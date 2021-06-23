@@ -31,14 +31,17 @@ export default function NodeButtons(props) {
             >
                 {props.buttons !== undefined ? props.buttons.map((button, index) => (
                     <button key={index + '-' + button.key} onClick={() => {
-                        props.handleButtonClick(props.entity, button.key)
+                        if(button.extendButton)
+                            props.setShowExtendedDependents(!props.showExtendedDependents)
+                        else
+                            props.handleButtonClick(props.entity, button.key)
 
                     }}>
                         {button.icon !== undefined ? button.icon : null}
                         {button.label}
                     </button>
                 )) : null}
-                {props.extendable ?
+                {props.dependentsSize > 0 ?
 
                     <button onClick={() => {
                         props.setExtended(!props.extended)
@@ -63,14 +66,12 @@ export default function NodeButtons(props) {
                     :
                     null}
 
-                {props.buttons !== undefined ? props.buttons.map((button, index) => (
-                    <button key={index + '-' + button.key} style={{color: '#ff5555'}} onClick={() => {
-                        props.setOpen(false)
-                    }}>
-                        <CloseRounded style={{fontSize: '1.3rem'}}/>
-                        {lang.close}
-                    </button>
-                )) : null}
+                <button style={{color: '#ff5555'}} onClick={() => {
+                    props.setOpen(false)
+                }}>
+                    <CloseRounded style={{fontSize: '1.3rem'}}/>
+                    {lang.close}
+                </button>
             </div>
         )
     else
@@ -78,6 +79,9 @@ export default function NodeButtons(props) {
 }
 
 NodeButtons.propTypes = {
+    setShowExtendedDependents: PropTypes.func,
+    showExtendedDependents: PropTypes.bool,
+    dependentsSize: PropTypes.number,
     elementHeight: PropTypes.number,
     entityKey: PropTypes.any,
     extendable: PropTypes.bool,
@@ -93,4 +97,5 @@ NodeButtons.propTypes = {
             label: PropTypes.string,
             key: PropTypes.number
         })),
+    extendLabel: PropTypes.string
 }

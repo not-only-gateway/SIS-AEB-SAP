@@ -24,7 +24,7 @@ export default function management(props) {
             } else
                 router.push('/organizational', '/organizational', {locale: router.locale})
         }
-    })
+    }, [])
 
 
     return (

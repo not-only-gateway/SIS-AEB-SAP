@@ -1,3 +1,3 @@
 export default function Host() {
-    return 'http://localhost:80/api/'
+    return 'http://192.168.0.211:80/api/'
 }

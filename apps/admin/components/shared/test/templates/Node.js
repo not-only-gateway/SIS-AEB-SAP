@@ -10,14 +10,17 @@ import {
     RemoveRounded
 } from "@material-ui/icons";
 import NodeButtons from "./NodeButtons";
+import Canvas from "../Canvas";
 
 export default function Node(props) {
     const [dependents, setDependents] = useState([])
     const [hovered, setHovered] = useState(false)
     const [open, setOpen] = useState(false)
     const [extended, setExtended] = useState(false)
+    const [showExtendedDependents, setShowExtendedDependents] = useState(false)
     const [extendedDependents, setExtendedDependents] = useState([])
     const [elementHeight, setElementHeight] = useState(undefined)
+
     useEffect(() => {
         const element = document.getElementById("node-" + props.getEntityKey(props.entity))
         if (element !== null && (elementHeight === undefined || elementHeight > element.offsetHeight)) {
@@ -25,15 +28,15 @@ export default function Node(props) {
             if (element !== null)
                 setElementHeight(element.offsetHeight)
         }
-        if (extendedDependents.length === 0 && extended && props.fetchExtendedDependents !== undefined && props.fetchExtendedDependents !== null)
+        if (extendedDependents.length === 0 && showExtendedDependents && props.fetchExtendedDependents !== undefined && props.fetchExtendedDependents !== null)
             props.fetchExtendedDependents(props.entity).then(res => {
                 setExtendedDependents(res)
             })
-        if (props.entity !== {} && dependents.length === 0)
+        if (props.entity !== {} && dependents.length === 0 && props.fetchDependents !== undefined && props.fetchDependents !== null)
             props.fetchDependents(props.entity).then(res => {
                 setDependents(res)
             })
-    }, [props.entity, extended])
+    }, [props.entity, showExtendedDependents])
 
 
     return (
@@ -41,7 +44,7 @@ export default function Node(props) {
             <div
                 id={"node-" + props.getEntityKey(props.entity)}
                 className={styles.nodeContainer} style={{
-                width: open ? '300px' : undefined,
+                width: open ? props.baseWidth * 2 + 'px' : undefined,
                 border: open ? '#0095ff 1px solid' : 'transparent 1px solid',
                 padding: open ? '8px' : '0',
             }}>
@@ -50,68 +53,61 @@ export default function Node(props) {
                       onMouseOver={() => setHovered(true)}
                       onMouseLeave={() => setHovered(false)}
                       style={{
-                          border: (hovered || props.hoveredParent) && !open ? '#0095ff 1px solid' : '#e0e0e0 1px solid',
-                          width: open ? '100%' : undefined,
-
-                          height: elementHeight !== undefined ? elementHeight + 'px' : undefined,
+                          border: hovered && !open ? '#0095ff 1px solid' : '#e0e0e0 1px solid',
+                          width: open ? '100%' : props.baseWidth + 'px',
+                          background: hovered || props.hoveredParent ? '#f4f5fa' : undefined,
+                          height: 'auto',
                           margin: 'auto'
                       }}
                       className={[styles.fadeIn, styles.nodeContentContainer].join(' ')}
                   >
                         {props.renderEntity(props.entity)}
-                      {/*<div style={{*/}
-                      {/*    display: hovered ? 'flex' : 'none',*/}
-                      {/*    alignItems: 'center',*/}
-                      {/*    justifyContent: 'center',*/}
-                      {/*    height: '100%',*/}
-                      {/*    position: 'relative'*/}
-                      {/*}} className={styles.fadeIn}>*/}
-                      {/*        {hovered ? open ? <CloseRounded/> :*/}
-                      {/*            <KeyboardArrowRightRounded style={{color: '#333333', fontSize: '2.2rem'}}/> : null}*/}
-                      {/*    </div>*/}
-
-
                     </span>
                 <NodeButtons
                     setOpen={setOpen} open={open} buttons={props.hoverButtons} extended={extended}
                     setExtended={setExtended} entity={props.entity} extendable={props.extendable}
                     handleButtonClick={props.handleButtonClick} entityKey={props.getEntityKey(props.entity)}
-                    elementHeight={elementHeight}
+                    elementHeight={elementHeight} dependentsSize={dependents.length}
+                    setShowExtendedDependents={setShowExtendedDependents}
+                    showExtendedDependents={showExtendedDependents}
                 />
             </div>
 
-            {(props.row < props.rowLimit || props.row > props.rowLimit) && dependents.length > 0 ?
+            {showExtendedDependents || ((props.row < props.rowLimit || props.row > props.rowLimit) || extended) && dependents.length > 0 ?
                 <ul>
-                    {dependents.map((subject, index) => (
-                        <React.Fragment key={props.getEntityKey(subject) + '-' + index}>
-                            <Node
-                                entity={subject} fetchDependents={props.fetchDependents}
-                                getEntityKey={props.getEntityKey} getExtendedEntityKey={props.getExtendedEntityKey}
-                                fetchExtendedDependents={props.fetchExtendedDependents}
-                                hoverButtons={props.hoverButtons}
-                                extendable={props.extendable} hoveredParent={hovered} row={props.row + 1}
-                                renderEntity={props.renderEntity} renderExtendedEntity={props.renderExtendedEntity}
-                                handleButtonClick={props.handleButtonClick} rowLimit={props.rowLimit}
-                            />
-                        </React.Fragment>
-                    ))}
-                </ul>
-                :
-                null
-            }
-            {extended && extendedDependents.length > 0 ?
-                <ul>
-                    {extendedDependents.map((subject, index) => (
-                        <React.Fragment key={props.getExtendedEntityKey(subject) + '- extended -' + index}>
-                            <Node
-                                entity={subject} fetchDependents={props.fetchExtendedDependents}
-                                getEntityKey={props.getExtendedEntityKey}
-                                hoverButtons={props.hoverButtons}
-                                extendable={null}
-                                renderEntity={props.renderExtendedEntity}
-                            />
-                        </React.Fragment>
-                    ))}
+                    {showExtendedDependents ?
+                        extendedDependents.map((subject, index) => (
+                            <React.Fragment key={props.getExtendedEntityKey(subject) + '-extended-' + index}>
+                                <Node
+                                    entity={subject} baseWidth={props.extendedEntityWidth}
+                                    getEntityKey={props.getExtendedEntityKey}
+                                    hoveredParent={hovered} row={props.row + 1}
+                                    renderEntity={props.renderExtendedEntity}
+                                    rowLimit={props.rowLimit}
+                                />
+                            </React.Fragment>
+                        ))
+                        :
+                        null}
+                    {((props.row < props.rowLimit || props.row > props.rowLimit) || extended) && dependents.length > 0 ?
+                        dependents.map((subject, index) => (
+                            <React.Fragment key={props.getEntityKey(subject) + '-' + index}>
+                                <Node
+                                    entity={subject} fetchDependents={props.fetchDependents}
+                                    getEntityKey={props.getEntityKey} baseWidth={props.baseWidth}
+                                    getExtendedEntityKey={props.getExtendedEntityKey}
+                                    extendedEntityWidth={props.extendedEntityWidth}
+                                    fetchExtendedDependents={props.fetchExtendedDependents}
+                                    hoverButtons={props.hoverButtons}
+                                    extendable={props.extendable} hoveredParent={hovered} row={props.row + 1}
+                                    renderEntity={props.renderEntity}
+                                    renderExtendedEntity={props.renderExtendedEntity}
+                                    handleButtonClick={props.handleButtonClick} rowLimit={props.rowLimit}
+                                />
+                            </React.Fragment>
+                        ))
+                        :
+                        null}
                 </ul>
                 :
                 null
@@ -121,7 +117,10 @@ export default function Node(props) {
 }
 
 Node.propTypes = {
+    baseWidth: PropTypes.number,
+    extendedEntityWidth: PropTypes.number,
     row: PropTypes.number,
+    isExtendedChild: PropTypes.bool,
     rowLimit: PropTypes.number,
     entity: PropTypes.object,
     getEntityKey: PropTypes.func,
@@ -132,11 +131,12 @@ Node.propTypes = {
         PropTypes.shape({
             icon: PropTypes.any,
             label: PropTypes.string,
-            key: PropTypes.number
+            key: PropTypes.number,
+            extendButton: PropTypes.bool
         })),
     renderEntity: PropTypes.func,
     renderExtendedEntity: PropTypes.func,
     hoveredParent: PropTypes.bool,
     handleButtonClick: PropTypes.func,
-    extendable: PropTypes.bool
+    extendable: PropTypes.bool,
 }

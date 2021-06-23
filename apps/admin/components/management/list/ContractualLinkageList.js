@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {List} from "sis-aeb-misc";
+import List from "../../../components/shared/list/List";
 import Cookies from "universal-cookie/lib";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import LinkageForm from "../forms/LinkageForm";
@@ -33,14 +33,18 @@ export default function ContractualLinkageList(props) {
                     renderElement={element => {
                         return (
                             <div style={{display: 'flex', gap: '16px'}}>
-                                {element.denomination}
-                                {element.description}
+                                <div>
+                                    {element.denomination}
+                                </div>
+                                <div>
+                                    {element.description}
+                                </div>
                             </div>
                         )
                     }} clickEvent={() => setOpen(true)} createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/linkage/contractual'}
                     setEntity={setCurrentEntity} searchInput={props.searchInput}
-                    searched={!props.notSearched} setNotSearched={props.setNotSearched}
+                    applySearch={props.notSearched} setAppliedSearch={props.setNotSearched}
                 />
             </div>
         </>

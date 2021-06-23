@@ -1,4 +1,5 @@
 export default {
+    title: 'Administração',
     structure: 'Estrutura organizacional',
     signout: 'Sair',
 
@@ -7,8 +8,10 @@ export default {
     hello: 'Bem vindo,',
 
     statistics: 'Estatísticas',
-
+    extensions: 'Ramais',
     collaborator: 'Colaboradores',
     structural: 'Estrutural',
     organizational: 'Organizacional'
+
+
 }

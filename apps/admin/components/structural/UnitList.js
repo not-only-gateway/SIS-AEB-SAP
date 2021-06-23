@@ -39,7 +39,7 @@ export default function UnitList(props) {
                             </div>
                         )
                     }}
-                    setEntity={setCurrentEntity} searched={!props.notSearched} setNotSearched={props.setNotSearched}/>
+                    setEntity={setCurrentEntity}  applySearch={props.notSearched} setAppliedSearch={props.setNotSearched}/>
             </div>
         </>
     )
