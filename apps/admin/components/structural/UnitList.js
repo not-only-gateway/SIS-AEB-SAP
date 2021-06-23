@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {List} from "sis-aeb-misc";
 import Cookies from "universal-cookie/lib";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
-import animations from '../../styles/shared/Animations.module.css'
+import animations from '../../styles/Animations.module.css'
 import Host from "../../utils/shared/Host";
 import UnitForm from "../management/forms/UnitForm";
 import PropTypes from "prop-types";

@@ -822,8 +822,12 @@ function List(props) {
       }
     }, lang.end))
   }, data.map(function (entity, index) {
-    return /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, {
-      key: index + props.listKey
+    return /*#__PURE__*/React__default['default'].createElement("div", {
+      key: index + props.listKey,
+      style: {
+        display: 'grid',
+        gap: '16px'
+      }
     }, /*#__PURE__*/React__default['default'].createElement(ListContent, {
       create: false,
       lang: lang,

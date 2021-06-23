@@ -4,7 +4,7 @@ import Cookies from "universal-cookie/lib";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import LinkageForm from "../forms/LinkageForm";
 import Host from "../../../utils/shared/Host";
-import animations from "../../../styles/shared/Animations.module.css";
+import animations from "../../../styles/Animations.module.css";
 import PropTypes from "prop-types";
 
 export default function ContractualLinkageList(props) {

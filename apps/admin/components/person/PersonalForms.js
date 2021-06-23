@@ -15,7 +15,7 @@ import AddressForm from "./forms/AddressForm";
 // import fetchAddress from "../../utils/fetch/FetchAddress";
 // import fetchPerson from "../../utils/fetch/FetchPerson";
 // import Alert from "../../../../packages/alert/src/components/Alert";
-import shared from '../../styles/shared/Shared.module.css'
+import shared from '../../styles/Shared.module.css'
 import styles from '../../styles/Person.module.css'
 import {ArrowBackRounded} from "@material-ui/icons";
 import OptionRow from "./OptionRow";

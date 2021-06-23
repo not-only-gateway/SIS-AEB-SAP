@@ -2,8 +2,8 @@ import React, {useState} from "react";
 import PropTypes from "prop-types";
 import {Alert} from "sis-aeb-misc";
 import {Button, DateField, DropDownField, Selector, TextField} from "sis-aeb-inputs";
-import styles from '../../../styles/component/Component.module.css'
-import shared from "../../../styles/shared/Shared.module.css";
+
+import shared from "../../../styles/Shared.module.css";
 
 import CollaborationsFormPT from "../../../packages/locales/person/CollaborationsFormPT";
 

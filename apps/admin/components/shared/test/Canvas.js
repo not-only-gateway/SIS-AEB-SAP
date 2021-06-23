@@ -9,20 +9,24 @@ import StructuralRequests from "../../../utils/fetch/StructuralRequests";
 export default function Canvas(props) {
     const [zoom, setZoom] = useState(1)
     return (
-        <div style={{position: 'relative', width: '100%', height: 'auto', minHeight: '100%'}}>
+        <div style={{position: 'relative', width: '100%', height: 'auto', minHeight: '100%'}} id={'canvas'}>
             <div style={{
                 zoom: zoom,
                 transition: '.2s',
                 '-moz-transform': 'scale(' + zoom + ')',
-                marginTop: zoom > 1 ? 'calc(8.3% * ' + (zoom - .25) + ')' : null
+                marginTop: zoom > 1 ? 'calc(8.3% * ' + (zoom - .25) + ')' : null,
+
             }}>
                 <span className={styles.nav} style={{width: '100%', display: 'flex', placeContent: 'center'}}>
 
                       <ul>
                         <Node
-                            entity={props.firstEntity} fetchDependents={props.fetchDependents} getEntityKey={props.getEntityKey} getExtendedEntityKey={props.getExtendedEntityKey}
-                              fetchExtendedDependets={props.fetchExtendedDependents} hoverButtons={props.hoverButtons} extendable={props.extendable}
-                              renderEntity={props.renderEntity} renderExtendedEntity={props.renderExtendedEntity} handleButtonClick={props.handleButtonClick}
+                            entity={props.firstEntity} fetchDependents={props.fetchDependents}
+                            getEntityKey={props.getEntityKey} hoveredParent={false} row={0}
+                            getExtendedEntityKey={props.getExtendedEntityKey} rowLimit={props.rowLimit}
+                            fetchExtendedDependents={props.fetchExtendedDependents} hoverButtons={props.hoverButtons}
+                            extendable={props.extendable} handleButtonClick={props.handleButtonClick}
+                            renderEntity={props.renderEntity} renderExtendedEntity={props.renderExtendedEntity}
                         />
                       </ul>
 
@@ -55,6 +59,7 @@ export default function Canvas(props) {
 }
 
 Canvas.propTypes = {
+    rowLimit: PropTypes.number,
     getEntityKey: PropTypes.func,
     getExtendedEntityKey: PropTypes.func,
     firstEntity: PropTypes.object,

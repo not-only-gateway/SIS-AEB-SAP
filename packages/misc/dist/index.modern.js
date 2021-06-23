@@ -811,8 +811,12 @@ function List(props) {
       }
     }, lang.end))
   }, data.map(function (entity, index) {
-    return /*#__PURE__*/React.createElement(React.Fragment, {
-      key: index + props.listKey
+    return /*#__PURE__*/React.createElement("div", {
+      key: index + props.listKey,
+      style: {
+        display: 'grid',
+        gap: '16px'
+      }
     }, /*#__PURE__*/React.createElement(ListContent, {
       create: false,
       lang: lang,

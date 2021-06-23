@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import PropTypes from "prop-types";
 
 import {Button, TextField} from "sis-aeb-inputs";
-import shared from "../../../styles/shared/Shared.module.css";
+import shared from "../../../styles/Shared.module.css";
 import ContactFormPT from "../../../packages/locales/person/ContactFormPT";
 
 export default function ContactForm(props) {

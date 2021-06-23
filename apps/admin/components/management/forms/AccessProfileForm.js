@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import mainStyles from '../../styles/shared/Main.module.css'
+import mainStyles from '../../../styles/shared/Main.module.css'
 
 import {Alert} from "sis-aeb-misc";
-import shared from "../../styles/shared/Shared.module.css";
+import shared from "../../../styles/Shared.module.css";
 import {Button, DropDownField, TextField} from "sis-aeb-inputs";
-import AccessProfilePT from "../../packages/locales/management/AccessProfilePT";
+import AccessProfilePT from "../../../packages/locales/management/AccessProfilePT";
 
 export default function AccessProfileForm(props) {
     const [changed, setChanged] = useState(false)

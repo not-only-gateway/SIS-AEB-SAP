@@ -31,34 +31,11 @@ export default class StructuralRequests {
             headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         }).then(res => {
             response = res.data
+            console.log(res.data)
         }).catch(error => {
             console.log(error)
         })
         return response
-    }
-
-    static async fetchUnits(unitProps) {
-
-        await axios({
-            method: 'get',
-            url: Host() + 'list/unit',
-            headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
-            params: {
-                max_id: unitProps.maxID,
-                search_input: unitProps.searchInput && unitProps.searchInput.length > 0 ? unitProps.searchInput : null
-            }
-        }).then(res => {
-            if (unitProps.maxID === null)
-                unitProps.setData(res.data)
-            else
-                unitProps.setData([...unitProps.data, ...res.data])
-
-            if (res.data.length > 0)
-                unitProps.setMaxID(res.data[res.data.length - 1].id)
-        }).catch(error => {
-            console.log(error)
-        })
-
     }
 
     static async fetchUnit(unitID) {

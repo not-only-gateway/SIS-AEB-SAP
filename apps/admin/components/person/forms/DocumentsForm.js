@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 
-import shared from "../../../styles/shared/Shared.module.css";
+import shared from "../../../styles/Shared.module.css";
 import {Alert} from "sis-aeb-misc";
 import {Button, DateField, TextField} from "sis-aeb-inputs";
 import DocumentsFormPT from "../../../packages/locales/person/DocumentsFormPT";

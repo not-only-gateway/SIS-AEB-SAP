@@ -1,4 +1,4 @@
-import styles from '../../styles/shared/Layout.module.css'
+import styles from '../../styles/Layout.module.css'
 import Cookies from 'universal-cookie/lib'
 
 import React, {useEffect, useState} from "react";

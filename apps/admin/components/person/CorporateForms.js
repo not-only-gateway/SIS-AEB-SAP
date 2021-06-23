@@ -6,7 +6,7 @@ import CollaborationList from "../management/list/CollaborationList";
 import {Alert, TabContent} from "sis-aeb-misc";
 import styles from "../../styles/Person.module.css";
 import OptionRow from "./OptionRow";
-import shared from "../../styles/shared/Shared.module.css";
+import shared from "../../styles/Shared.module.css";
 import {ArrowBackRounded} from "@material-ui/icons";
 import MemberOverview from "./overview/MemberOverview";
 import MemberRequests from "../../utils/fetch/MemberRequests";

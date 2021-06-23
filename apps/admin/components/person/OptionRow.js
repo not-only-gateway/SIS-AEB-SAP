@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import styles from "../../styles/Person.module.css";
-import shared from "../../styles/shared/Shared.module.css";
+import shared from "../../styles/Shared.module.css";
 import {AddRounded, EditRounded, HistoryRounded} from "@material-ui/icons";
 import React, {useState} from "react";
 import {Modal} from "@material-ui/core";

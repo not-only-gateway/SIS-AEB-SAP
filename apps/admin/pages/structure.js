@@ -5,7 +5,7 @@ import StructurePT from "../packages/locales/structure/StructurePT";
 import Canvas from "../components/shared/test/Canvas";
 import Head from "next/head";
 import {EditRounded} from "@material-ui/icons";
-
+import styles from '../styles/Structure.module.css'
 export default function structure() {
 
     const [unit, setUnit] = useState({})
@@ -23,9 +23,8 @@ export default function structure() {
                 </title>
             </Head>
             <Canvas
-                firstEntity={unit}
+                firstEntity={unit} rowLimit={2}
                 fetchDependents={async function (unit) {
-                    console.log('THIS IS UNIT - ' + unit.id)
                     if(unit.id !== undefined) {
                         return await StructuralRequests.fetchDependentUnits(unit.id)
                     }
@@ -35,8 +34,13 @@ export default function structure() {
                 fetchExtendedDependents={() => null}
                 renderEntity={unit => {
                     return (
-                        <div>
-                            {unit.id}
+                        <div className={styles.unitContainer}>
+                            <div className={[styles.unitNameContainer, styles.overflowEllipsis].join(' ')}>
+                                {unit.name}
+                            </div>
+                            <div className={styles.unitAcronymContainer} style={{textOverflow: 'ellipsis'}}>
+                                {unit.acronym}
+                            </div>
                         </div>
                     )
                 }}

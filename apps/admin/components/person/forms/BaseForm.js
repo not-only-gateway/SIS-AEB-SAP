@@ -4,7 +4,7 @@ import CountryOptions from "../../../packages/options/CountryOptions";
 import StateOptions from "../../../packages/options/StateSelector";
 import {Button, DateField, DropDownField, ImageField, Selector, TextField} from "sis-aeb-inputs"
 import {Alert} from "sis-aeb-misc";
-import shared from '../../../styles/shared/Shared.module.css'
+import shared from '../../../styles/Shared.module.css'
 import BaseFormPT from "../../../packages/locales/person/BaseFormPT";
 
 export default function BaseForm(props) {

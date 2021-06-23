@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import {List} from "sis-aeb-misc";
 import Cookies from "universal-cookie/lib";
-import animations from '../../styles/shared/Animations.module.css'
+import animations from '../../styles/Animations.module.css'
 import Host from "../../utils/shared/Host";
 import PropTypes from "prop-types";
-import AccessProfileForm from "../management/AccessProfileForm";
+import AccessProfileForm from "../management/forms/AccessProfileForm";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 
 export default function AccessProfileList(props) {
