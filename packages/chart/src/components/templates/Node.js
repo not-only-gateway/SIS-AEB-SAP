@@ -5,6 +5,7 @@ import NodeContent from "./NodeContent";
 import NodeCloseButton from "./NodeCloseButton";
 import ExtendedNodeContainer from "./ExtendedNodeContainer";
 import OpenNodeContainer from "./OpenNodeContainer";
+import styles from '../styles/Canvas.module.css'
 
 export default function Node(props) {
     const [dependents, setDependents] = useState([])
@@ -35,7 +36,7 @@ export default function Node(props) {
 
     return (
         <li>
-            <ExtendedNodeContainer showExtendedDependents={showExtendedDependents}>
+            <ExtendedNodeContainer showExtendedDependents={showExtendedDependents} row={props.row}>
                 <NodeCloseButton handleClose={() => setShowExtendedDependents(false)} visible={showExtendedDependents}/>
                 <OpenNodeContainer open={open} entityKey={props.getEntityKey(props.entity)}
                                    isExtendedChild={props.isExtendedChild}>
@@ -55,22 +56,29 @@ export default function Node(props) {
                         showExtendedDependents={showExtendedDependents}
                     />
                 </OpenNodeContainer>
+
+
                 {showExtendedDependents && extendedDependents.length > 0 ?
                     <ul>
-                        {extendedDependents.map((subject, index) => (
-                            <React.Fragment key={props.getExtendedEntityKey(subject) + '-extended-' + index}>
-                                <Node
-                                    entity={subject} baseWidth={props.extendedEntityWidth}
-                                    getEntityKey={props.getExtendedEntityKey}
-                                    hoveredParent={hovered} row={props.row + 1}
-                                    renderEntity={props.renderExtendedEntity}
-                                    rowLimit={props.rowLimit} isExtendedChild={true}
-                                />
-                            </React.Fragment>
-                        ))}
+                        <ul className={styles.transformExtendedElement}>
+                            {extendedDependents.map((subject, index) => (
+                                <React.Fragment key={props.getExtendedEntityKey(subject) + '-extended-' + index}>
+                                    <Node
+                                        entity={subject} baseWidth={props.extendedEntityWidth}
+                                        getEntityKey={props.getExtendedEntityKey}
+                                        hoveredParent={hovered} row={props.row + 1}
+                                        renderEntity={props.renderExtendedEntity}
+                                        rowLimit={props.rowLimit} isExtendedChild={true}
+                                    />
+                                </React.Fragment>
+                            ))}
+
+                        </ul>
                     </ul>
                     :
                     null}
+
+
             </ExtendedNodeContainer>
 
             {((props.row < props.rowLimit || props.row > props.rowLimit) || extended) && dependents.length > 0 ?
@@ -84,7 +92,7 @@ export default function Node(props) {
                                 extendedEntityWidth={props.extendedEntityWidth}
                                 fetchExtendedDependents={props.fetchExtendedDependents}
                                 hoverButtons={props.hoverButtons}
-                                extendable={props.extendable} hoveredParent={hovered} row={props.row + 1}
+                                extendable={props.extendable} hoveredParent={!showExtendedDependents && hovered} row={props.row + 1}
                                 renderEntity={props.renderEntity}
                                 renderExtendedEntity={props.renderExtendedEntity}
                                 handleButtonClick={props.handleButtonClick} rowLimit={props.rowLimit}
@@ -99,6 +107,7 @@ export default function Node(props) {
 
     )
 }
+
 
 Node.propTypes = {
     baseWidth: PropTypes.number,

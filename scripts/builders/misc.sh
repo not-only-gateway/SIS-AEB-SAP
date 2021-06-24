@@ -10,6 +10,6 @@ yarn >>../../logs/build/misc.txt 2>>../../logs/build/misc.txt
 yarn start >>../../logs/build/misc.txt 2>>../../logs/build/misc.txt
 
 
-echo "INPUTS ARE OK"
+echo "MISCS ARE OK"
 
 exit

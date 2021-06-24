@@ -23,7 +23,8 @@
     "react-input-mask": "^2.0.4",
     "sis-aeb-misc": "../../packages/misc",
     "sis-aeb-inputs": "../../packages/inputs",
-    "sis-aeb-navigation": "../../packages/navigation"
+    "sis-aeb-navigation": "../../packages/navigation",
+    "sis-aeb-chart": "../../packages/chart"
   },
   "devDependencies": {
     "@material-ui/pickers": "^3.3.10",

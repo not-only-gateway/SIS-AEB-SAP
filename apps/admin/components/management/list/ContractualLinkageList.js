@@ -6,6 +6,7 @@ import LinkageForm from "../forms/LinkageForm";
 import Host from "../../../utils/shared/Host";
 import animations from "../../../styles/Animations.module.css";
 import PropTypes from "prop-types";
+import PersonAvatar from "../../shared/PersonAvatar";
 
 export default function ContractualLinkageList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -32,12 +33,26 @@ export default function ContractualLinkageList(props) {
                     listKey={'contractual_linkage'}
                     renderElement={element => {
                         return (
-                            <div style={{display: 'flex', gap: '16px'}}>
-                                <div>
-                                    {element.denomination}
+
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                width: '100%'
+                            }}>
+
+                                <div style={{color: '#333333'}}>
+                                    {element.role}
                                 </div>
-                                <div>
-                                    {element.description}
+
+                                <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
+                                    <div>
+                                        {element.denomination}
+                                    </div>
+                                    <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
+                                    <div style={{color: '#333333'}}>
+                                        {element.description}
+                                    </div>
                                 </div>
                             </div>
                         )

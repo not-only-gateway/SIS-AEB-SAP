@@ -14,7 +14,7 @@ export default function organizational(props) {
     const lang = OrganizationalPT
     const [accessProfile, setAccessProfile] = useState(null)
     const [openTab, setOpenTab] = useState(0)
-
+    const [openForm, setOpenForm] = useState(false)
     useEffect(() => {
         if (accessProfile === null && sessionStorage.getItem('accessProfile') !== null) {
             const accessProfileSession = JSON.parse(sessionStorage.getItem('accessProfile'))
@@ -35,6 +35,7 @@ export default function organizational(props) {
             </Head>
 
             <div style={{width: '65%', margin: 'auto', overflowY: 'hidden'}}>
+                {openForm ? null :
                 <Tabs
                     buttons={[
                         {
@@ -57,7 +58,7 @@ export default function organizational(props) {
                     setOpenTab={setOpenTab}
                     openTab={openTab}
                 />
-
+                }
                 <RenderTabs
                     openTab={openTab}
 
@@ -68,7 +69,7 @@ export default function organizational(props) {
                         },
                         {
                             buttonKey: 1,
-                            value: <EffectiveRoleList notSearched={props.notSearched} setNotSearched={props.setNotSearched} searchInput={props.searchInput} />
+                            value: <EffectiveRoleList setOpen={setOpenForm} notSearched={props.notSearched} setNotSearched={props.setNotSearched} searchInput={props.searchInput} />
                         },
                         {
                             buttonKey: 2,

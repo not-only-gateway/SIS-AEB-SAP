@@ -23,12 +23,3 @@
         opacity: 1;
     }
 }
-.openNodeContainer {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    margin: auto;
-    border-radius: 8px;
-    transition: 300ms ease-in-out;
-    position: relative;
-}

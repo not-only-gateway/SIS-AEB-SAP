@@ -15,10 +15,25 @@ export default function PeopleList(props) {
             fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/people'}
             renderElement={element => {
                 return (
-                    <div style={{display: 'flex', gap: '16px'}}>
-                        <PersonAvatar variant={'circular'} image={element.image}/>
-                        {element.name}
-                        {element.corporate_email}
+                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
+                        <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
+                            <PersonAvatar variant={'circular'} image={element.image}/>
+                            <div>
+                                {element.name}
+                            </div>
+                            <div>
+                                {element.corporate_email}
+                            </div>
+                        </div>
+                        <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
+                            <div style={{color: '#333333'}}>
+                                {element.role}
+                            </div>
+                            <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
+                            <div style={{fontSize: '.9rem'}}>
+                                {element.unit}
+                            </div>
+                        </div>
                     </div>
                 )
             }} applySearch={props.notSearched} setAppliedSearch={props.setNotSearched}

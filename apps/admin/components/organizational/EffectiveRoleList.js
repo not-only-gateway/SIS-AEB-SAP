@@ -6,6 +6,7 @@ import animations from '../../styles/Animations.module.css'
 import EffectiveRoleForm from "../management/forms/EffectiveRoleForm";
 import Host from "../../utils/shared/Host";
 import PropTypes from "prop-types";
+import submitEffectiveRole from "../../utils/submit/SubmitEffectiveRole";
 
 export default function EffectiveRoleList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -16,8 +17,11 @@ export default function EffectiveRoleList(props) {
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <EffectiveRoleForm
-                        closeModal={() => setOpen(false)}
-                        // handleSubmit={submitLinkage}
+                        closeModal={() => {
+                            props.setOpen(false)
+                            setOpen(false)
+                        }}
+                        handleSubmit={submitEffectiveRole}
                         handleChange={event => handleObjectChange({
                             event: event,
                             setData: setCurrentEntity
@@ -29,17 +33,26 @@ export default function EffectiveRoleList(props) {
             <div style={{display: open ? 'none' : undefined}}>
                 <List
                     listKey={'effective_role'}
-                    clickEvent={() => setOpen(true)} createOption={true}
-                      fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/role_effective'}
-                      renderElement={element => {
-                          return (
-                              <div style={{display: 'flex', gap: '16px'}}>
-                                  {element.denomination}
-                                  {element.description}
-                              </div>
-                          )
-                      }} searchInput={props.searchInput}
-                      setEntity={setCurrentEntity}
+                    clickEvent={() => {
+                        props.setOpen(true)
+                        setOpen(true)
+                    }} createOption={true}
+                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/role_effective'}
+                    renderElement={element => {
+                        return (
+
+                            <div style={{display: 'flex', gap: '16px', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
+                                <div>
+                                    {element.denomination}
+                                </div>
+
+                                <div style={{color: '#333333'}}>
+                                    {element.hierarchy_level}
+                                </div>
+                            </div>
+                        )
+                    }} searchInput={props.searchInput}
+                    setEntity={setCurrentEntity}
                     applySearch={props.notSearched} setAppliedSearch={props.setNotSearched}
                 />
             </div>
@@ -48,6 +61,7 @@ export default function EffectiveRoleList(props) {
 }
 
 EffectiveRoleList.propTypes = {
+    setOpen: PropTypes.func,
     notSearched: PropTypes.bool,
     setNotSearched: PropTypes.func,
     searchInput: PropTypes.string

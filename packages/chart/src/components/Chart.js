@@ -1,14 +1,15 @@
 import styles from "./styles/Canvas.module.css";
 import Node from "./templates/Node";
 import {AddRounded, RemoveRounded} from "@material-ui/icons";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 
 
 export default function Chart(props) {
     const [zoom, setZoom] = useState(1)
+
     return (
-        <div style={{position: 'relative', width: '100%', height: 'auto', minHeight: '100%', overflowX: 'auto'}}
+        <div style={{position: 'relative', width: 'auto', height: 'auto', minHeight: '100%', display: 'flex'}}
              id={'canvas'}>
             <div style={{
                 zoom: zoom,
@@ -16,24 +17,22 @@ export default function Chart(props) {
                 '-moz-transform': 'scale(' + zoom + ')',
                 width: 'fit-content',
                 whiteSpace: 'nowrap',
-                overflowX: 'auto',
                 display: 'inline',
+                margin: 'auto'
             }}>
-                <span className={styles.nav} >
-                      <ul >
-                        <Node
-                            entity={props.firstEntity} fetchDependents={props.fetchDependents}
-                            getEntityKey={props.getEntityKey} hoveredParent={false} row={0}
-                            extendLabel={props.extendLabel}
-                            getExtendedEntityKey={props.getExtendedEntityKey} rowLimit={props.rowLimit}
-                            fetchExtendedDependents={props.fetchExtendedDependents} hoverButtons={props.hoverButtons}
-                            extendable={props.extendable} handleButtonClick={props.handleButtonClick}
-                            baseWidth={props.baseWidth} extendedEntityWidth={props.extendedEntityWidth}
-                            renderEntity={props.renderEntity} renderExtendedEntity={props.renderExtendedEntity}
-                        />
-                      </ul>
 
-                </span>
+                <ul className={styles.tree}>
+                    <Node
+                        entity={props.firstEntity} fetchDependents={props.fetchDependents}
+                        getEntityKey={props.getEntityKey} hoveredParent={false} row={0}
+                        extendLabel={props.extendLabel}
+                        getExtendedEntityKey={props.getExtendedEntityKey} rowLimit={props.rowLimit}
+                        fetchExtendedDependents={props.fetchExtendedDependents} hoverButtons={props.hoverButtons}
+                        extendable={props.extendable} handleButtonClick={props.handleButtonClick}
+                        baseWidth={props.baseWidth} extendedEntityWidth={props.extendedEntityWidth}
+                        renderEntity={props.renderEntity} renderExtendedEntity={props.renderExtendedEntity}
+                    />
+                </ul>
             </div>
             <div className={styles.zoomContainer}>
                 <span className={styles.zoomLevelContainer}>{zoom} : 1</span>

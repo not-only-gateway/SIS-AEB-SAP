@@ -2318,6 +2318,9 @@ shell-quote@1.7.2:
   resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.7.2.tgz#67a7d02c76c9da24f99d20808fcaded0e0e04be2"
   integrity sha512-mRz/m/JVscCrkMyPqHc/bczi3OQHkLTqXHEFu0zDhK/qfv3UcOA4SVmRCLmos4bhjr9ekVQubj/R7waKapmiQg==
 
+sis-aeb-chart@../../packages/chart:
+  version "1.0.0"
+
 sis-aeb-inputs@../../packages/inputs:
   version "1.0.0"
 

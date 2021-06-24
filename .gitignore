@@ -5,7 +5,7 @@ apps/statistics/node_modules
 packages/inputs/node_modules
 packages/navigation/node_modules
 packages/misc/node_modules
-
+packages/chart/node_modules
 
 apps/public/.next
 apps/admin/.next
@@ -22,7 +22,7 @@ packages/misc/dist
 packages/inputs/dist
 packages/navigation/dist
 packages/misc/dist
-
+packages/chart/dist
 logs
 
 

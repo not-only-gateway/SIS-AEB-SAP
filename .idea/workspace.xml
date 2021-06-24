@@ -1,7 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="51dde260-c9a2-44c5-b623-1f5a75384082" name="Default Changelist" comment="" />
+    <list default="true" id="51dde260-c9a2-44c5-b623-1f5a75384082" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/management/forms/EffectiveRoleForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/components/management/forms/EffectiveRoleForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/management/list/ContractualLinkageList.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/components/management/list/ContractualLinkageList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/management/list/PeopleList.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/components/management/list/PeopleList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/organizational/EffectiveRoleList.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/components/organizational/EffectiveRoleList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/shared/test/Chart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/shared/test/locale/NodePT.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/shared/test/styles/Canvas.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/shared/test/styles/NodeMisc.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/shared/test/templates/ExtendedNodeContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/shared/test/templates/Node.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/shared/test/templates/NodeCloseButton.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/shared/test/templates/NodeContent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/shared/test/templates/NodeOptions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/shared/test/templates/OpenNodeContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/pages/organizational.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/pages/organizational.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/pages/structure.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/pages/structure.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/styles/Shared.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/styles/Shared.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/styles/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/styles/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/utils/shared/Host.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/utils/shared/Host.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.sh" beforeDir="false" afterPath="$PROJECT_DIR$/build.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clear.sh" beforeDir="false" afterPath="$PROJECT_DIR$/clear.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/build/misc.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/build/misc.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/build/navigation.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/build/navigation.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/builders/misc.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/builders/misc.sh" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,19 +47,26 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/logs/build/alert.txt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/apps/admin/pages/index.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/clear.sh" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/build.sh" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/logs/build/misc.txt" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/kill.sh" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/packages/navigation/.babelrc" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/clear.sh" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/logs/build/alert.txt" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/packages/navigation/src/index.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/apps/admin/pages/index.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/build.sh" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/apps/public/components/layout/Canvas.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/apps/public/components/modules/structure/TreeNode.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/apps/admin/components/shared/test/Chart.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/packages/navigation/src/index.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/logs/build/navigation.txt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/packages/navigation/.babelrc" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/apps/public/components/layout/Canvas.js" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1tOWrMfojy03Of9kNa4zEJppCkk" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -44,7 +80,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/apps/admin" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/packages/inputs/src/components/locales" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -56,18 +92,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Gustavo Roque\SIS-AEB-FRONTEND\packages\misc\src\components\templates" />
-      <recent name="C:\Users\Gustavo Roque\SIS-AEB-FRONTEND\packages\misc\src\components" />
-      <recent name="$PROJECT_DIR$/apps/admin/components/shared" />
-      <recent name="\\wsl$\ubuntu\home\roque\projects\SIS-AEB-FRONTEND\apps\admin\components\shared" />
-      <recent name="$PROJECT_DIR$/apps/admin/components/shared/test" />
+      <recent name="$PROJECT_DIR$/packages/inputs/src/components/locales" />
+      <recent name="$PROJECT_DIR$/packages/inputs/src/components/styles" />
+      <recent name="$PROJECT_DIR$/packages/inputs/src/components" />
+      <recent name="$PROJECT_DIR$/scripts/builders" />
+      <recent name="$PROJECT_DIR$/packages/chart/src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/packages/chart/src" />
       <recent name="C:\Users\Gustavo Roque\SIS-AEB-FRONTEND\packages\navigation\src\components" />
       <recent name="C:\Users\Gustavo Roque\SIS-AEB-FRONTEND\packages\misc\src\components\locales" />
       <recent name="C:\Users\Gustavo Roque\SIS-AEB-FRONTEND\packages\misc\src\components\styles" />
       <recent name="C:\Users\Gustavo Roque\SIS-AEB-FRONTEND\packages\navigation\src" />
-      <recent name="$PROJECT_DIR$/apps/admin/components/structural" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -136,6 +172,7 @@
       <workItem from="1624454967016" duration="1220000" />
       <workItem from="1624470309324" duration="1009000" />
       <workItem from="1624477384819" duration="976000" />
+      <workItem from="1624532748914" duration="16812000" />
     </task>
     <servers />
   </component>

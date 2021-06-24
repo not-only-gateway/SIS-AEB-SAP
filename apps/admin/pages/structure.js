@@ -7,7 +7,7 @@ import {EditRounded, PeopleRounded} from "@material-ui/icons";
 import styles from '../styles/Structure.module.css'
 import CollaborationRequests from "../utils/fetch/CollaborationRequests";
 import {Avatar} from "@material-ui/core";
-import Chart from "../components/shared/test/Chart";
+import {Chart} from "sis-aeb-chart";
 
 export default function structure() {
 
