@@ -73,11 +73,11 @@ export default function organizational(props) {
                         },
                         {
                             buttonKey: 2,
-                            value: <CommissionedRoleList notSearched={props.notSearched} setNotSearched={props.setNotSearched} searchInput={props.searchInput} />
+                            value: <CommissionedRoleList setOpen={setOpenForm} notSearched={props.notSearched} setNotSearched={props.setNotSearched} searchInput={props.searchInput} />
                         },
                         {
                             buttonKey: 3,
-                            value: <AccessProfileList notSearched={props.notSearched} setNotSearched={props.setNotSearched} searchInput={props.searchInput} />
+                            value: <AccessProfileList setOpen={setOpenForm} notSearched={props.notSearched} setNotSearched={props.setNotSearched} searchInput={props.searchInput} />
                         },
                     ]}
                 />

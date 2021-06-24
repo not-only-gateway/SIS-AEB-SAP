@@ -8,7 +8,8 @@ export const commissioned ={
     create: 'Criar',
     appointment: 'Nomeação',
     additional: 'Informações adicionais',
-    close: 'Fechar'
+    close: 'Fechar',
+    title: 'Cargo Comissionado'
 }
 
 export const effective ={
@@ -16,8 +17,8 @@ export const effective ={
     hierarchyLevel: 'Nível hierárquico',
     save: 'Salvar',
     create: 'Criar',
-    close: 'Fechar'
-
+    close: 'Fechar',
+    title: 'Cargo Efetivo'
 }
 
 export const linkage ={

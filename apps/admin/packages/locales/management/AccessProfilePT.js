@@ -1,23 +1,11 @@
 export default {
     options: [{value: 'Sim', key: true}, {value: 'Não', key: false}],
     denomination: 'Denominação',
-    manage: 'Administrar',
-    create: 'Criar',
-    update: 'Atualizar',
-    delete: 'Deletar',
-    view: 'Visualizar',
-    person: 'Colaborador',
-    role: 'Cargo',
-    profile: 'Perfil de Acesso',
-    access: 'Log de Acesso',
+    structure: 'Estrutura',
+    title: 'Perfil de Acesso',
+    access: 'Permissões',
     activity: 'Log de Atividade',
     collaboration: 'Colaboração',
-    unit: 'Unidades',
-    documents: 'Documentos',
-    contacts: 'Contato',
-    location: 'Localização',
     membership: 'Filiação',
-    structure: 'Estrutura',
-    save: 'Salvar',
-    close: 'Fechar'
+    person: 'Pessoa'
 }

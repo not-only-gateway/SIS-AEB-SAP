@@ -16,7 +16,10 @@ export default function AccessProfileList(props) {
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <AccessProfileForm
-                        closeModal={() => setOpen(false)}
+                        closeModal={() => {
+                        setOpen(false)
+                        props.setOpen(false)
+                    }}
                         // handleSubmit={submitLinkage}
                         handleChange={event => handleObjectChange({
                             event: event,
@@ -29,7 +32,10 @@ export default function AccessProfileList(props) {
             <div style={{display: open ? 'none' : undefined}}>
                 <List
                     listKey={'access_profile'}
-                    clickEvent={() => setOpen(true)} createOption={true}
+                    clickEvent={() => {
+                        setOpen(true)
+                        props.setOpen(true)
+                    }} createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/access'}
                     renderElement={element => {
                         return (
@@ -45,6 +51,7 @@ export default function AccessProfileList(props) {
 
 }
 AccessProfileList.propTypes = {
+    setOpen: PropTypes.func,
     notSearched: PropTypes.bool,
     setNotSearched: PropTypes.func,
 

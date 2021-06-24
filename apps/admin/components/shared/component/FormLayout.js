@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import shared from "./styles/Form.module.css";
+import styles from "./styles/Form.module.css";
 import {ArrowBackRounded} from "@material-ui/icons";
 import {Alert} from "sis-aeb-misc";
 import React from "react";
@@ -24,7 +24,7 @@ export default function FormLayout(props) {
                         false)
                 )
                 console.log(i)
-                console.log(   (props.dependencies.fields[i].type === 'string' ?
+                console.log((props.dependencies.fields[i].type === 'string' ?
                     props.dependencies.entity[props.dependencies.fields[i].name].length === 0
                     :
                     false))
@@ -34,28 +34,34 @@ export default function FormLayout(props) {
     }
 
     return (
-        <div className={shared.formContainer}>
-            <button className={shared.returnButtonContainer} onClick={() => props.handleClose()}
-                    style={{display: props.returnButton ? undefined : 'none'}}>
-                <ArrowBackRounded/>
-                {lang.return}
-            </button>
-            <Alert
-                type={props.status.type} render={props.status.type !== undefined}
-                handleClose={() => props.status.resetStatus()} message={props.status.message}
-            />
+        <div className={styles.container}>
+            <div className={styles.labelContainer}>
+                <button className={styles.returnButtonContainer} onClick={() => props.handleClose()}
+                        style={{display: props.returnButton ? undefined : 'none'}}>
+                    <ArrowBackRounded/>
 
-            {props.forms.map((element, index) => (
-                <div style={{width: '100%', display: "grid", gap: '16px'}}>
-                    <fieldset className={[shared.fieldsetContainer, shared.formFieldsContainer].join(' ')}>
-                        {element.child}
-                    </fieldset>
+                </button>
+                {props.formLabel}
+            </div>
+            <div className={styles.formInfoContainer}
+                 style={{display: props.formInfo === undefined || props.formInfo === null ? 'none' : undefined}}>
+                {props.formInfo}
+            </div>
+            <div className={styles.formContainer}>
+
+                <div style={{width: '100%', display: "grid", gap: '64px'}}>
+                    {props.forms.map((element, index) => (
+
+                        <fieldset className={[styles.fieldsetContainer, styles.formFieldsContainer].join(' ')}>
+                            <legend style={{display: element.title === undefined || element.title === null ? 'none' : undefined}}>{element.title}</legend>
+                            {element.child}
+                        </fieldset>
+
+                    ))}
                 </div>
-            ))}
 
-            <div style={{width: '100%', padding: '16px 0'}}>
                 <button
-                    className={shared.saveButtonContainer}
+                    className={styles.saveButtonContainer}
                     onClick={() => props.handleSubmit()} disabled={isDisabled()}
                     style={{
                         color: isDisabled() ? '#777777' : 'white',
@@ -67,29 +73,26 @@ export default function FormLayout(props) {
                     {lang.save}
                 </button>
 
+
             </div>
         </div>
     )
 }
 FormLayout.propTypes = {
-    status: PropTypes.shape({
-        type: PropTypes.oneOf(['error', 'success', 'alert', undefined]),
-        resetStatus: PropTypes.func,
-        message: PropTypes.string,
-    }),
-
-
+    formInfo: PropTypes.object,
+    formLabel: PropTypes.string,
     returnButton: PropTypes.bool,
     forms: PropTypes.arrayOf(
         PropTypes.shape({
-            child: PropTypes.object
+            child: PropTypes.object,
+            title: PropTypes.string
         })
     ),
     handleSubmit: PropTypes.func,
     dependencies: PropTypes.shape({
         fields: PropTypes.arrayOf(PropTypes.shape({
             name: PropTypes.string,
-            type: PropTypes.oneOf(['string', 'number', 'object'])
+            type: PropTypes.oneOf(['string', 'number', 'object', 'bool'])
         })),
         entity: PropTypes.object,
         changed: PropTypes.bool

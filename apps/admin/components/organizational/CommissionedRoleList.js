@@ -16,7 +16,10 @@ export default function CommissionedRoleList(props) {
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <CommissionedRoleForm
-                        closeModal={() => setOpen(false)}
+                        closeModal={() => {
+                            setOpen(false)
+                            props.setOpen(false)
+                        }}
                         // handleSubmit={submitLinkage}
                         handleChange={event => handleObjectChange({
                             event: event,
@@ -29,7 +32,10 @@ export default function CommissionedRoleList(props) {
             <div style={{display: open ? 'none' : undefined}}>
                 <List
                     listKey={'commissioned_role'}
-                    clickEvent={() => setOpen(true)} createOption={true}
+                    clickEvent={() => {
+                        props.setOpen(true)
+                        setOpen(true)
+                    }} createOption={true}
                       fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/role_commissioned'}
                       renderElement={element => {
                           return (
@@ -47,6 +53,7 @@ export default function CommissionedRoleList(props) {
 }
 
 CommissionedRoleList.propTypes = {
+    setOpen: PropTypes.func,
     notSearched: PropTypes.bool,
     setNotSearched: PropTypes.func,
 

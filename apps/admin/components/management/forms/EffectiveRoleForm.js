@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 import {Alert} from "sis-aeb-misc";
-import {FormLayout, TextField} from "sis-aeb-inputs";
+import {TextField} from "sis-aeb-inputs";
 import {effective} from "../../../packages/locales/management/SimpleFormsPT";
+import FormLayout from "../../shared/component/FormLayout";
 
 export default function EffectiveRoleForm(props) {
 
@@ -21,6 +22,7 @@ export default function EffectiveRoleForm(props) {
             />
 
             <FormLayout
+                formLabel={lang.title}
                 dependencies={{
                     fields: [
                         {name: 'denomination', type: 'string'},
