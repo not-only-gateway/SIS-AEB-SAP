@@ -68,7 +68,7 @@ export default function management(props) {
                         },
                         {
                             buttonKey: 1,
-                            value: <CommissionedLinkageList notSearched={props.notSearched}
+                            value: <CommissionedLinkageList notSearched={props.notSearched} setOpen={setOpenForm}
                                                             setNotSearched={props.setNotSearched}
                                                             searchInput={props.searchInput}/>
                         },

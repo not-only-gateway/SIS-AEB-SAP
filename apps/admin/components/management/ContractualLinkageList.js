@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {List} from "sis-aeb-misc";
 import Cookies from "universal-cookie/lib";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
-import LinkageForm from "./LinkageForm";
+import ContractualLinkageForm from "./ContractualLinkageForm";
 import Host from "../../utils/shared/Host";
 import animations from "../../styles/Animations.module.css";
 import PropTypes from "prop-types";
@@ -15,7 +15,7 @@ export default function ContractualLinkageList(props) {
         <>
             {!open ? null :
                 <div className={animations.fadeIn}>
-                    <LinkageForm
+                    <ContractualLinkageForm
                         closeModal={() => {
                             props.setOpen(false)
                             setOpen(false)

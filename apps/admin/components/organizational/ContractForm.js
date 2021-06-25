@@ -5,9 +5,8 @@ import React, {useState} from "react";
 import ContractPT from "../../packages/locales/organizational/ContractPT";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import FormLayout from "../shared/components/FormLayout";
-import TextField from "../shared/components/TextField";
-import DateField from "../shared/components/DateField";
+import {FormLayout, TextField, DateField} from "sis-aeb-inputs";
+
 
 
 export default function ContractForm(props) {

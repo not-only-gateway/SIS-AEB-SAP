@@ -1,17 +1,14 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-
-import mainStyles from '../../styles/shared/Main.module.css'
 import {Alert, Selector} from "sis-aeb-misc";
-import shared from "../../styles/Shared.module.css";
-import {FormLayout, Button, TextField} from "sis-aeb-inputs";
+import {FormLayout, TextField} from "sis-aeb-inputs";
 import {linkage} from "../../packages/locales/management/SimpleFormsPT";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import DateField from "../shared/components/DateField";
 
 
-export default function LinkageForm(props) {
+
+export default function ContractualLinkageForm(props) {
 
     const [changed, setChanged] = useState(false)
     const lang = linkage
@@ -19,8 +16,6 @@ export default function LinkageForm(props) {
         type: undefined,
         message: undefined
     })
-
-
 
     return (
         <>
@@ -167,7 +162,7 @@ export default function LinkageForm(props) {
 
 }
 
-LinkageForm.propTypes = {
+ContractualLinkageForm.propTypes = {
     create: PropTypes.bool,
     closeModal: PropTypes.func,
     data: PropTypes.object,
