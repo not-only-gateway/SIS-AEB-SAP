@@ -65,7 +65,7 @@ export default function PageLayout(props) {
                 overflow: 'hidden',
                 height: '100vh',
                 position: 'relative'
-            }}>
+            }} >
                 <Navigation
                     searchBar={true}
                     searchInput={searchInput}
@@ -115,6 +115,7 @@ export default function PageLayout(props) {
 
                     {props.children({searchInput, notSearched, setNotSearched})}
                 </div>
+                <div id={'root'}/>
             </div>
         )
     else

@@ -65,7 +65,7 @@ export default function organizational(props) {
                     tabs={[
                         {
                             buttonKey: 0,
-                            value: <ContractList notSearched={props.notSearched} setNotSearched={props.setNotSearched} searchInput={props.searchInput} />
+                            value: <ContractList setOpen={setOpenForm} notSearched={props.notSearched} setNotSearched={props.setNotSearched} searchInput={props.searchInput} />
                         },
                         {
                             buttonKey: 1,

@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
+
+import {FormLayout, TextField} from "sis-aeb-inputs";
+import {effective} from "../../packages/locales/management/SimpleFormsPT";
 import {Alert} from "sis-aeb-misc";
-import {TextField} from "sis-aeb-inputs";
-import {effective} from "../../../packages/locales/management/SimpleFormsPT";
-import FormLayout from "../../shared/component/FormLayout";
+
 
 export default function EffectiveRoleForm(props) {
 
@@ -16,12 +17,11 @@ export default function EffectiveRoleForm(props) {
 
     return (
         <>
-            <Alert
-                type={status.type} render={status.type !== undefined}
-                handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
-            />
+            <Alert type={status.type} rootElementID={'root'} render={status.type !== undefined}
+                   handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}/>
 
             <FormLayout
+                create={props.create}
                 formLabel={lang.title}
                 dependencies={{
                     fields: [
@@ -31,15 +31,17 @@ export default function EffectiveRoleForm(props) {
                     ],
                     changed: changed,
                     entity: props.data
-                }} returnButton={true} handleSubmit={() =>
+                }} returnButton={true}
+                handleSubmit={() =>
                 props.handleSubmit({
                     pk: props.data === null ? null : props.data.id,
                     data: props.data,
-                    create: props.create,
+                    create:  props.data === null || props.data.id === undefined,
                     setStatus: setStatus
                 }).then(res => {
                     setChanged(!res)
-                })}
+                })
+            }
                 handleClose={() => props.closeModal()}
                 forms={[{
                     child: (

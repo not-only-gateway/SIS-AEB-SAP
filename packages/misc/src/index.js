@@ -8,6 +8,5 @@ import Loader from './components/Loader'
 import Modal from './components/Modal'
 import Alert from './components/Alert'
 
-
 export {Filters, Tabs, RenderTabs, List, Loader, Modal, Alert}
 

@@ -3,9 +3,10 @@ import {List} from "sis-aeb-misc";
 import Cookies from "universal-cookie/lib";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import animations from '../../styles/Animations.module.css'
-import CommissionedRoleForm from "../management/forms/CommissionedRoleForm";
+import CommissionedRoleForm from "./CommissionedRoleForm";
 import Host from "../../utils/shared/Host";
 import PropTypes from "prop-types";
+import submitCommissionedRole from "../../utils/submit/SubmitCommissionedRole";
 
 export default function CommissionedRoleList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -20,7 +21,7 @@ export default function CommissionedRoleList(props) {
                             setOpen(false)
                             props.setOpen(false)
                         }}
-                        // handleSubmit={submitLinkage}
+                        handleSubmit={submitCommissionedRole}
                         handleChange={event => handleObjectChange({
                             event: event,
                             setData: setCurrentEntity

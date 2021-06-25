@@ -1,7 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="51dde260-c9a2-44c5-b623-1f5a75384082" name="Default Changelist" comment="" />
+    <list default="true" id="51dde260-c9a2-44c5-b623-1f5a75384082" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/management/forms/AccessProfileForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/components/organizational/AccessProfileForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/management/forms/CommissionedRoleForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/components/organizational/CommissionedRoleForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/management/forms/EffectiveRoleForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/components/organizational/EffectiveRoleForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/management/forms/LinkageForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/components/management/forms/LinkageForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/organizational/AccessProfileList.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/components/organizational/AccessProfileList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/organizational/CommissionedRoleList.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/components/organizational/CommissionedRoleList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/organizational/ContractList.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/components/organizational/ContractList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/organizational/EffectiveRoleList.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/components/organizational/EffectiveRoleList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/shared/PageLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/components/shared/PageLayout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/shared/component/FormLayout.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/shared/component/locales/FormPT.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/components/shared/component/styles/Form.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/packages/locales/management/AccessProfilePT.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/packages/locales/management/AccessProfilePT.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/pages/_app.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/pages/_app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/pages/authenticate.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/pages/authenticate.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/pages/organizational.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/pages/organizational.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/utils/shared/Host.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/utils/shared/Host.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/utils/submit/MemberSubmitRequests.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/utils/submit/MemberSubmitRequests.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/utils/submit/SubmitAccessProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/utils/submit/SubmitAccessProfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/utils/submit/SubmitCommissionedRole.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/utils/submit/SubmitCommissionedRole.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/utils/submit/SubmitEffectiveRole.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/utils/submit/SubmitEffectiveRole.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/build/misc.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/build/misc.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/build/navigation.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/build/navigation.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/misc/src/components/Alert.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/src/components/Alert.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/misc/src/components/Modal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/misc/src/components/styles/Modal.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/misc/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/misc/src/index.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,17 +56,17 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/logs/build/misc.txt" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/kill.sh" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/clear.sh" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/packages/navigation/.babelrc" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/logs/build/alert.txt" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/apps/admin/pages/index.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/packages/navigation/src/index.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/clear.sh" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/build.sh" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/apps/public/components/layout/Canvas.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/logs/build/misc.txt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/kill.sh" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/apps/public/components/modules/structure/TreeNode.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/packages/navigation/src/index.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/logs/build/navigation.txt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/packages/navigation/.babelrc" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/apps/public/components/layout/Canvas.js" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1tOWrMfojy03Of9kNa4zEJppCkk" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -51,7 +80,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/packages/inputs/src/components/locales" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/apps/admin/components/shared/new" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -63,18 +92,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/packages/inputs/src/components/locales" />
-      <recent name="$PROJECT_DIR$/packages/inputs/src/components/styles" />
-      <recent name="$PROJECT_DIR$/packages/inputs/src/components" />
-      <recent name="$PROJECT_DIR$/scripts/builders" />
-      <recent name="$PROJECT_DIR$/packages/chart/src" />
+      <recent name="$PROJECT_DIR$/apps/admin/components/shared/new" />
+      <recent name="$PROJECT_DIR$/apps/admin/components/shared/components/styles" />
+      <recent name="$PROJECT_DIR$/apps/admin/components/shared/components/templates" />
+      <recent name="$PROJECT_DIR$/apps/admin/components/shared" />
+      <recent name="$PROJECT_DIR$/apps/admin/components/shared/component/styles" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/packages/chart/src" />
-      <recent name="C:\Users\Gustavo Roque\SIS-AEB-FRONTEND\packages\navigation\src\components" />
-      <recent name="C:\Users\Gustavo Roque\SIS-AEB-FRONTEND\packages\misc\src\components\locales" />
-      <recent name="C:\Users\Gustavo Roque\SIS-AEB-FRONTEND\packages\misc\src\components\styles" />
-      <recent name="C:\Users\Gustavo Roque\SIS-AEB-FRONTEND\packages\navigation\src" />
+      <recent name="$PROJECT_DIR$/packages/inputs/src" />
+      <recent name="$PROJECT_DIR$/apps/admin/components/shared/new/components/locales" />
+      <recent name="$PROJECT_DIR$/apps/admin/components/shared/new/components/templates" />
+      <recent name="$PROJECT_DIR$/apps/admin/components/shared/new/components" />
+      <recent name="$PROJECT_DIR$/packages/misc/src/components/styles" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -145,6 +174,7 @@
       <workItem from="1624477384819" duration="976000" />
       <workItem from="1624532748914" duration="16812000" />
       <workItem from="1624559255261" duration="4137000" />
+      <workItem from="1624619927573" duration="15622000" />
     </task>
     <servers />
   </component>

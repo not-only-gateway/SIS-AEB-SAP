@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import shared from "./styles/Form.module.css";
+import styles from "./styles/Form.module.css";
 import {ArrowBackRounded} from "@material-ui/icons";
 import React from "react";
 import FormPT from "./locales/FormPT";
@@ -23,29 +23,37 @@ export default function FormLayout(props) {
                         false)
                 )
 
-
         return response
     }
 
     return (
-        <div className={shared.formContainer}>
-            <button className={shared.returnButtonContainer} onClick={() => props.handleClose()}
-                    style={{display: props.returnButton ? undefined : 'none'}}>
-                <ArrowBackRounded/>
-                {lang.return}
-            </button>
+        <div className={styles.container}>
+            <div className={styles.labelContainer}>
+                <button className={styles.returnButtonContainer} onClick={() => props.handleClose()}
+                        style={{display: props.returnButton ? undefined : 'none'}}>
+                    <ArrowBackRounded/>
+                </button>
+                {props.formLabel}
+            </div>
+            <div className={styles.formInfoContainer}
+                 style={{display: props.formInfo === undefined || props.formInfo === null ? 'none' : undefined}}>
+                {props.formInfo}
+            </div>
+            <div className={styles.formContainer}>
 
-            {props.forms.map((element, index) => (
-                <div style={{width: '100%', display: "grid", gap: '16px'}}>
-                    <fieldset className={[shared.fieldsetContainer, shared.formFieldsContainer].join(' ')}>
-                        {element.child}
-                    </fieldset>
+                <div style={{width: '100%', display: "grid", gap: '64px'}}>
+                    {props.forms.map((element, index) => (
+
+                        <fieldset className={[styles.fieldsetContainer, styles.formFieldsContainer].join(' ')}>
+                            <legend style={{display: element.title === undefined || element.title === null ? 'none' : undefined}}>{element.title}</legend>
+                            {element.child}
+                        </fieldset>
+
+                    ))}
                 </div>
-            ))}
 
-            <div style={{width: '100%', padding: '16px 0'}}>
                 <button
-                    className={shared.saveButtonContainer}
+                    className={styles.saveButtonContainer}
                     onClick={() => props.handleSubmit()} disabled={isDisabled()}
                     style={{
                         color: isDisabled() ? '#777777' : 'white',
@@ -54,28 +62,34 @@ export default function FormLayout(props) {
                         boxShadow: isDisabled() ? 'none' : undefined,
                         background: isDisabled() ? undefined : '#0095ff',
                     }}>
-                    {lang.save}
+                    {props.create ? lang.create : lang.save}
                 </button>
+
 
             </div>
         </div>
     )
 }
 FormLayout.propTypes = {
+    create: PropTypes.bool,
+    formInfo: PropTypes.object,
+    formLabel: PropTypes.string,
     returnButton: PropTypes.bool,
     forms: PropTypes.arrayOf(
         PropTypes.shape({
-            child: PropTypes.object
+            child: PropTypes.object,
+            title: PropTypes.string
         })
     ),
     handleSubmit: PropTypes.func,
     dependencies: PropTypes.shape({
         fields: PropTypes.arrayOf(PropTypes.shape({
             name: PropTypes.string,
-            type: PropTypes.oneOf(['string', 'number', 'object'])
+            type: PropTypes.oneOf(['string', 'number', 'object', 'bool'])
         })),
         entity: PropTypes.object,
         changed: PropTypes.bool
     }),
     handleClose: PropTypes.func,
+
 }

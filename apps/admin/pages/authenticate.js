@@ -28,7 +28,6 @@ export default function authenticate() {
     useEffect(() => {
 
         (new Cookies()).remove('jwt')
-        console.log(JSON.stringify(TextField))
         sessionStorage.removeItem('profile')
         sessionStorage.removeItem('accessProfile')
     }, [])
@@ -36,7 +35,7 @@ export default function authenticate() {
     return (
         <>
             <Alert
-                type={'error'} message={error.message} render={error.error}
+                type={'error'} message={error.message} render={error.error}  rootElementID={'root'}
                 handleClose={() => setError({error: false, message: ''})}
             />
             <Head>

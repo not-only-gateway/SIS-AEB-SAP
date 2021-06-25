@@ -1,5 +1,5 @@
 export default {
     close: 'Fechar',
     search: 'Pesquisar',
-    required: 'Este campo é obrigatório.'
+    required: 'Este campo é obrigatório.',
 }

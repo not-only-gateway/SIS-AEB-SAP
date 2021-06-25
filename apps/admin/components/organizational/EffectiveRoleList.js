@@ -3,7 +3,7 @@ import {List} from "sis-aeb-misc";
 import Cookies from "universal-cookie/lib";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import animations from '../../styles/Animations.module.css'
-import EffectiveRoleForm from "../management/forms/EffectiveRoleForm";
+import EffectiveRoleForm from "./EffectiveRoleForm";
 import Host from "../../utils/shared/Host";
 import PropTypes from "prop-types";
 import submitEffectiveRole from "../../utils/submit/SubmitEffectiveRole";

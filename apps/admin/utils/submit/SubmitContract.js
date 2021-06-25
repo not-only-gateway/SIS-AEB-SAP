@@ -4,12 +4,16 @@ import PropTypes from "prop-types";
 import Cookies from "universal-cookie/lib";
 
 const cookies = new Cookies()
-export default async function submitCommissionedRole(props) {
+export default async function submitContract(props) {
     let response = false
-
+    let data = {}
+    data = Object.assign(data, props.data)
+    data.entity = data.entity !== null && data.entity !== undefined ? data.entity.id : null
+data.beginning_validity = data.beginning_validity.replaceAll('/', '-').replace(/(\d{2})-(\d{2})-(\d{4})/, "$3-$2-$1")
+    data.end_validity = data.end_validity.replaceAll('/', '-').replace(/(\d{2})-(\d{2})-(\d{4})/, "$3-$2-$1")
     await axios({
         method: props.create ? 'post' : 'put',
-        url: props.create ? Host() + 'role_commissioned' : Host() + 'role_commissioned/' + props.pk,
+        url: props.create ? Host() + 'contract' : Host() + 'contract/' + props.pk,
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         data: props.data
     }).then(res => {
@@ -21,13 +25,13 @@ export default async function submitCommissionedRole(props) {
     }).catch(error => {
         props.setStatus({
             type: 'error',
-            message: error.message
+            message: error.message,
         })
     })
     return response
 }
 
-submitCommissionedRole.propTypes = {
+submitContract.propTypes = {
     pk: PropTypes.number,
     data: PropTypes.object,
     create: PropTypes.bool,

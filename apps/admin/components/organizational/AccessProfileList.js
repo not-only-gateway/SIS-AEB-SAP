@@ -4,8 +4,9 @@ import Cookies from "universal-cookie/lib";
 import animations from '../../styles/Animations.module.css'
 import Host from "../../utils/shared/Host";
 import PropTypes from "prop-types";
-import AccessProfileForm from "../management/forms/AccessProfileForm";
+import AccessProfileForm from "./AccessProfileForm";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
+import submitAccessProfile from "../../utils/submit/SubmitAccessProfile";
 
 export default function AccessProfileList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -20,13 +21,14 @@ export default function AccessProfileList(props) {
                         setOpen(false)
                         props.setOpen(false)
                     }}
-                        // handleSubmit={submitLinkage}
+                        handleSubmit={submitAccessProfile}
                         handleChange={event => handleObjectChange({
                             event: event,
                             setData: setCurrentEntity
                         })}
                         create={open && currentEntity === null}
-                        data={currentEntity}/>
+                        data={currentEntity}
+                    />
                 </div>
             }
             <div style={{display: open ? 'none' : undefined}}>

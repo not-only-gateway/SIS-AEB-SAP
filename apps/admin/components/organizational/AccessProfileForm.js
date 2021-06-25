@@ -1,12 +1,9 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import mainStyles from '../../../styles/shared/Main.module.css'
-
 import {Alert} from "sis-aeb-misc";
-import shared from "../../../styles/Shared.module.css";
-import {Button, DropDownField, TextField} from "sis-aeb-inputs";
-import AccessProfilePT from "../../../packages/locales/management/AccessProfilePT";
-import FormLayout from "../../shared/component/FormLayout";
+import {FormLayout, DropDownField, TextField} from "sis-aeb-inputs";
+import AccessProfilePT from "../../packages/locales/management/AccessProfilePT";
+
 
 export default function AccessProfileForm(props) {
     const [changed, setChanged] = useState(false)
@@ -16,40 +13,22 @@ export default function AccessProfileForm(props) {
         message: undefined
     })
 
-
-    function disabled() {
-        return (
-            props.data.denomination === undefined ||
-
-            props.data.can_create_person === undefined ||
-            props.data.can_update_person === undefined ||
-            props.data.can_delete_person === undefined ||
-
-            props.data.can_manage_membership === undefined ||
-
-            props.data.can_manage_structure === undefined ||
-            !changed
-        )
-    }
-
     return (
         <>
             <Alert
-                type={status.type} render={status.type !== undefined}
+                type={status.type} render={status.type !== undefined} rootElementID={'root'}
                 handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
             />
 
             <FormLayout
+                create={props.create}
                 formLabel={lang.title}
                 dependencies={{
                     fields: [
-                        {name: 'denomination', type: 'string'},
-                        {name: 'hierarchy_level', type: 'string'},
-                        {name: 'role_level', type: 'string'},
-                        {name: 'fcpe', type: 'bool'},
-                        {name: 'das', type: 'bool'},
-                        {name: 'role_class', type: 'string'}
-
+                        {name: 'denomination', type: 'bool'},
+                        {name: 'can_manage_person', type: 'bool'},
+                        {name: 'can_manage_membership', type: 'bool'},
+                        {name: 'can_manage_structure', type: 'bool'}
                     ],
                     changed: changed,
                     entity: props.data
@@ -57,7 +36,7 @@ export default function AccessProfileForm(props) {
                 props.handleSubmit({
                     pk: props.data === null ? null : props.data.id,
                     data: props.data,
-                    create: props.create,
+                    create:  props.data === null || props.data.id === undefined,
                     setStatus: setStatus
                 }).then(res => {
                     setChanged(!res)

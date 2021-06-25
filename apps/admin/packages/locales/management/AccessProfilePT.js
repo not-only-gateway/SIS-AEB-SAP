@@ -1,11 +1,11 @@
 export default {
     options: [{value: 'Sim', key: true}, {value: 'Não', key: false}],
     denomination: 'Denominação',
-    structure: 'Estrutura',
+    structure: 'Estrutura organizacional',
     title: 'Perfil de Acesso',
-    access: 'Permissões',
+    access: 'Permissões de administração',
     activity: 'Log de Atividade',
     collaboration: 'Colaboração',
-    membership: 'Filiação',
-    person: 'Pessoa'
+    membership: 'Filiações',
+    person: 'Pessoas'
 }

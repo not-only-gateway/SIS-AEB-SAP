@@ -9,6 +9,7 @@ export default function Modal(props) {
 
     useEffect(() => {
         const element = document.getElementById('modal-frame')
+        const content = document.getElementById('modal-content')
 
         if (isInRender && !props.open) {
             setStyle(styles.fadeOutAnimation)
@@ -30,22 +31,22 @@ export default function Modal(props) {
 
         if (element !== null && props.open)
             element.addEventListener('mousedown', event => {
-                if (!event.target.contains(event.relatedTarget))
+                if (content !== null && event.target !== content && !content.contains(event.target))
                     props.handleClose(false)
             })
     })
 
-    let element =  isInRender ? (
+    let element = isInRender ? (
         <div id={'modal-frame'}
              className={style}
              style={{
-                 ...(props.componentStyle !== null && props.componentStyle !== undefined ? props.componentStyle : {}),
+                 ...props.componentStyle,
                  ...{
                      overflow: 'hidden',
-                     width: '100%',
+                     width: '100vw',
                      position: 'fixed',
                      background: 'rgba(0, 0, 0, .4)',
-                     height: '100%',
+                     height: '100vh',
                      zIndex: 300,
                      bottom: 0,
 
@@ -60,15 +61,13 @@ export default function Modal(props) {
     if (typeof window !== 'undefined' && isInRender) {
         const root = document.getElementById(props.rootElementID)
         if (root !== null) {
-            root.style.display = "initial";
-            const elementRendered = ReactDOM.render(
+            root.style.display = 'flex';
+            ReactDOM.render(
                 element,
                 root
             );
-            console.log(elementRendered)
         }
-    }
-    else{
+    } else {
         const root = document.getElementById(props.rootElementID)
         if (root !== null)
             root.style.display = "none";

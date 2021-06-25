@@ -1,12 +1,12 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import mainStyles from '../../../styles/shared/Main.module.css'
+import mainStyles from '../../styles/shared/Main.module.css'
 
 import {Alert} from "sis-aeb-misc";
-import {Button, DropDownField, TextField} from "sis-aeb-inputs";
-import shared from "../../../styles/Shared.module.css";
-import {commissioned} from "../../../packages/locales/management/SimpleFormsPT";
-import FormLayout from "../../shared/component/FormLayout";
+import {FormLayout, DropDownField, TextField} from "sis-aeb-inputs";
+import shared from "../../styles/Shared.module.css";
+import {commissioned} from "../../packages/locales/management/SimpleFormsPT";
+
 
 export default function CommissionedRoleForm(props) {
 
@@ -21,11 +21,12 @@ export default function CommissionedRoleForm(props) {
     return (
         <>
             <Alert
-                type={status.type} render={status.type !== undefined}
+                type={status.type} render={status.type !== undefined} rootElementID={'root'}
                 handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
             />
 
             <FormLayout
+                create={props.create}
                 formLabel={lang.title}
                 dependencies={{
                     fields: [
@@ -43,7 +44,7 @@ export default function CommissionedRoleForm(props) {
                 props.handleSubmit({
                     pk: props.data === null ? null : props.data.id,
                     data: props.data,
-                    create: props.create,
+                    create:  props.data === null || props.data.id === undefined,
                     setStatus: setStatus
                 }).then(res => {
                     setChanged(!res)

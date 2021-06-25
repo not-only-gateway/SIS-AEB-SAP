@@ -2,7 +2,6 @@ import styles from './styles/Input.module.css'
 import PropTypes from 'prop-types'
 import React, {useEffect, useState} from 'react'
 import {ArrowDropDownRounded} from '@material-ui/icons'
-import Button from './Button'
 import LocalePT from './locales/LocalePT'
 
 export default function DropDownField(props) {
@@ -28,7 +27,7 @@ export default function DropDownField(props) {
                 gap: '4px',
             }}
         >
-            <label htmlFor={'dropdown-'+props.label} className={styles.labelContainer}
+            <label htmlFor={'dropdown-' + props.label} className={styles.labelContainer}
                    style={{
                        visibility: (props.value !== undefined && props.value !== null) ? 'visible' : 'hidden',
                        opacity: (props.value !== undefined && props.value !== null) ? '1' : '0',
@@ -36,11 +35,11 @@ export default function DropDownField(props) {
                    }}>{props.label}</label>
 
             <div className={styles.dropDownContainer} onBlur={event => {
-                if(!event.currentTarget.contains(event.relatedTarget))
+                if (!event.currentTarget.contains(event.relatedTarget))
                     setOpen(false)
-            }} >
+            }}>
                 <button
-                    id={'dropdown-'+props.label}
+                    id={'dropdown-' + props.label}
                     disabled={props.disabled}
 
                     style={{
@@ -55,21 +54,23 @@ export default function DropDownField(props) {
                 </button>
                 <div className={styles.dropDownChoicesContainer} style={{display: open ? 'initial' : 'none'}}>
                     {open ? props.choices.map((choice, index) => (
-                        <Button key={index + '-choice-button'} width={'100%'} paddingType={"default"}
-                                justification={'flex-start'}
-                                handleClick={() => {
+                        <button key={index + '-choice-button'}
+                                style={{
+                                    color: choice.key === props.value ? 'white' : undefined,
+                                    background: choice.key === props.value ? '#0095ff' : 'transparent'
+                                }}
+                                onClick={() => {
                                     props.handleChange(choice.key)
                                     setOpen(false)
-                                }} content={choice.value}
-
-                                backgroundColor={choice.key === props.value ? '#0095ff' : 'transparent'}
-                                fontColor={choice.key === props.value ? 'white' : '#262626'}
-                                border={'transparent 1px solid'} elevation={false} hoverHighlight={choice.key !== props.value}/>
+                                }}
+                                className={styles.buttonContainer}>
+                            {choice.value}
+                        </button>
                     )) : null}
                 </div>
             </div>
 
-            <label htmlFor={'dropdown-'+props.label} className={styles.alertLabel}
+            <label htmlFor={'dropdown-' + props.label} className={styles.alertLabel}
                    style={{
                        color: props.value === null || props.value === undefined ? '#ff5555' : '#262626',
                        visibility: props.required && !open ? 'visible' : 'hidden',

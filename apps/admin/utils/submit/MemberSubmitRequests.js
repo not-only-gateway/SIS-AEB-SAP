@@ -19,10 +19,7 @@ export default class MemberSubmitRequests{
         }
         let data = {}
         data = Object.assign(data, memberProps.data)
-
-        data.authorization_token = cookies.get('authorization_token')
         data.person = memberProps.personID
-
         data.entity = memberProps.data.entity.key
 
         await axios({

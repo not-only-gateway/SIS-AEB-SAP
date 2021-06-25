@@ -1,8 +1,22 @@
+.formInfoContainer{
+    font-size: 1rem;
+    color: #555555;
+}
+
+.container{
+    margin-top: 32px;
+    display: grid;
+    align-items: center;
+    gap: 64px;
+}
+
+
 .formContainer{
     display: grid;
     gap: 16px;
     padding: 8px;
-
+    width: 85%;
+    margin: auto;
     border: #e0e0e0 1px solid;
 
 }
@@ -26,7 +40,6 @@
     border-radius: 8px;
     border: #e0e0e0 1px solid;
 
-    margin-top: 64px;
     position: relative;
 }
 .formContainer > {
@@ -41,7 +54,7 @@
     width: 100%;
 }
 .saveButtonContainer{
-    padding: 8px 24px;
+    padding: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -64,25 +77,39 @@
     box-shadow: none;
 }
 
+.labelContainer{
+    display: flex;
+    font-size: 1.5rem;
+    align-items: center;
+    justify-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    padding-bottom: 4px;
+    gap: 32px;
+    border-bottom: #e0e0e0 1px solid;
+}
 .returnButtonContainer {
-
-    padding: 8px 24px;
+    padding: 8px;
     display: flex;
     align-items: center;
     gap: 16px;
-
-    background-color: #f4f5fa;
-    border-radius: 8px;
-
+    font-size: .9rem;
+    color: #555555;
+    background: transparent;
     outline: none;
-    border: #e0e0e0 1px solid;
+    border: none;
     transition: 250ms ease-in-out;
     cursor: pointer;
-
-    margin-right: auto;
+    height: 40px;
+    width: 40px;
+    border-radius: 32px;
 }
 .returnButtonContainer:hover{
     color: #ff5555;
+}
+.returnButtonContainer:active{
+    color: #ff5555;
+    background: #f4f5fa;
 }
 
 
