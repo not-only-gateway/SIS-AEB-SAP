@@ -83,7 +83,6 @@ export default function List(props) {
                 <ListContent
                   create={false} lang={lang} entity={entity}
                   setEntity={() => props.setEntity(entity)}
-                  secondaryLabel={props.secondaryLabel} primaryLabel={props.primaryLabel}
                   renderElement={props.renderElement}
                   clickEvent={() => props.clickEvent(true)}
                 />
@@ -103,8 +102,6 @@ export default function List(props) {
 }
 List.propTypes = {
   listKey: PropTypes.any,
-  primaryLabel: PropTypes.string,
-  secondaryLabel: PropTypes.string,
 
   setEntity: PropTypes.any,
   createOption: PropTypes.bool,

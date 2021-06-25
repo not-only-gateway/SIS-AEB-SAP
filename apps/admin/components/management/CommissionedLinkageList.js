@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {List} from "sis-aeb-misc";
-import Host from "../../../utils/shared/Host";
+import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import PropTypes from "prop-types";
 

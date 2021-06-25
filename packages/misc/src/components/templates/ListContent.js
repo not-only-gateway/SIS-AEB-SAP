@@ -5,6 +5,7 @@ import styles from "../styles/List.module.css";
 
 
 export default function ListContent(props) {
+  const element = props.create ? null : props.renderElement(props.entity)
   return (
     <button
       className={[styles.rowContainer, styles.fadeIn].join(' ')}
@@ -12,7 +13,7 @@ export default function ListContent(props) {
         props.setEntity()
         props.clickEvent()
       }}
-      style={{animationDuration: '250ms'}}
+      style={{animationDuration: '250ms', display: (element === null || element === undefined) && !props.create? 'none' : undefined}}
     >
       {props.index}
       <AddRounded style={{
@@ -37,6 +38,4 @@ ListContent.propTypes = {
   lang: PropTypes.object,
   clickEvent: PropTypes.func,
   renderElement: PropTypes.func,
-  primaryLabel: PropTypes.string,
-  secondaryLabel: PropTypes.string,
 }

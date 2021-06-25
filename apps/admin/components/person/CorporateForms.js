@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import MembershipForm from "./forms/MembershipForm";
-import CollaborationList from "../management/list/CollaborationList";
+import CollaborationList from "../management/CollaborationList";
 import {Alert, TabContent} from "sis-aeb-misc";
 import styles from "../../styles/Person.module.css";
 import OptionRow from "./OptionRow";

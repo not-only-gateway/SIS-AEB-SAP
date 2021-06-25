@@ -10,7 +10,7 @@ export default function Selector(props) {
     const lang = SelectorsPT
 
     return (
-        <>
+        <React.Fragment key={props.selectorKey+'-container'}>
             <SelectorModal {...props} modal={modal} setModal={setModal} />
 
             <div
@@ -54,7 +54,7 @@ export default function Selector(props) {
                        }}>{lang.required}</label>
 
             </div>
-        </>
+        </React.Fragment>
     )
 }
 
@@ -64,7 +64,7 @@ Selector.propTypes = {
     elementRootID: PropTypes.string,
     fetchUrl: PropTypes.string,
     fetchToken: PropTypes.string,
-
+  selectorKey: PropTypes.any,
     handleChange: PropTypes.func,
     selected: PropTypes.any,
     label: PropTypes.string,

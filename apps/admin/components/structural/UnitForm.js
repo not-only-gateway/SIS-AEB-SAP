@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import {Button, DropDownField, Selector, TextField} from "sis-aeb-inputs";
-import shared from "../../../styles/Shared.module.css";
+import shared from "../../styles/Shared.module.css";
 import {Alert} from "sis-aeb-misc";
 
-import handleObjectChange from "../../../utils/shared/HandleObjectChange";
-import mapToSelect from "../../../utils/shared/MapToSelect";
-import UnitFormPT from "../../../packages/locales/unit/UnitFormPT";
+import handleObjectChange from "../../utils/shared/HandleObjectChange";
+import mapToSelect from "../../utils/shared/MapToSelect";
+import UnitFormPT from "../../packages/locales/unit/UnitFormPT";
 
 
 export default function UnitForm(props) {

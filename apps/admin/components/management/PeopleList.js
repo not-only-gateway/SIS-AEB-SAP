@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import {List} from "sis-aeb-misc";
 import Cookies from "universal-cookie/lib";
-import Host from "../../../utils/shared/Host";
+import Host from "../../utils/shared/Host";
 import PropTypes from "prop-types";
-import PersonAvatar from "../../shared/PersonAvatar";
+import PersonAvatar from "../shared/PersonAvatar";
 
 export default function PeopleList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)

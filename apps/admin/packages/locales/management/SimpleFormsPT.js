@@ -3,27 +3,28 @@ export const commissioned ={
     level: 'Nível do cargo',
     roleClass: 'Classe do cargo',
     hierarchyLevel: 'Nível hierárquico',
-    save: 'Salvar',
     options: [{key: true, value: 'Sim'}, {key: false, value: 'Não'}],
-    create: 'Criar',
+
     appointment: 'Nomeação',
     additional: 'Informações adicionais',
-    close: 'Fechar',
+
     title: 'Cargo Comissionado'
 }
 
 export const effective ={
     denomination: 'Denominação',
     hierarchyLevel: 'Nível hierárquico',
-    save: 'Salvar',
-    create: 'Criar',
-    close: 'Fechar',
+
     title: 'Cargo Efetivo'
 }
 
 export const linkage ={
+    title: 'Vínculo contratual',
+    effective: 'Cargo efetivo',
+    contract: 'Contrato',
     denomination: 'Denominação',
     description: 'Descrição',
+    entity: 'Entidade',
     save: 'Salvar',
     create: 'Criar',
     close: 'Fechar'

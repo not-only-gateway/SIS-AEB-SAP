@@ -1,11 +1,13 @@
 import PropTypes from "prop-types";
-import {Alert} from "sis-aeb-misc";
-import {DateField, FormLayout, TextField} from "sis-aeb-inputs";
+import {Alert, Selector} from "sis-aeb-misc";
+// import {DateField, FormLayout, TextField} from "sis-aeb-inputs";
 import React, {useState} from "react";
 import ContractPT from "../../packages/locales/organizational/ContractPT";
-import Selector from "../shared/new/components/Selector";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
+import FormLayout from "../shared/components/FormLayout";
+import TextField from "../shared/components/TextField";
+import DateField from "../shared/components/DateField";
 
 
 export default function ContractForm(props) {
@@ -142,9 +144,9 @@ export default function ContractForm(props) {
                                     handleChange={event => {
                                         setChanged(true)
                                         props.handleChange({
-                                            name: 'beginning_validity ',
+                                            name: 'beginning_validity',
                                             value:
-                                                event.target.value.replaceAll('/', '-').replace(/(\d{2})-(\d{2})-(\d{4})/, "$3-$2-$1")
+                                                event.target.value
                                         })
                                     }} locale={props.locale}
                                     value={
@@ -161,7 +163,7 @@ export default function ContractForm(props) {
                                     handleChange={event => {
                                         setChanged(true)
                                         props.handleChange({
-                                            name: 'end_validity ',
+                                            name: 'end_validity',
                                             value: event.target.value
                                         })
                                     }} locale={props.locale}

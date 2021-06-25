@@ -8,14 +8,16 @@ export default async function submitContract(props) {
     let response = false
     let data = {}
     data = Object.assign(data, props.data)
+
     data.entity = data.entity !== null && data.entity !== undefined ? data.entity.id : null
-data.beginning_validity = data.beginning_validity.replaceAll('/', '-').replace(/(\d{2})-(\d{2})-(\d{4})/, "$3-$2-$1")
-    data.end_validity = data.end_validity.replaceAll('/', '-').replace(/(\d{2})-(\d{2})-(\d{4})/, "$3-$2-$1")
+    data.beginning_validity = new Date(data.beginning_validity.replaceAll('/', '-').replace(/(\d{2})-(\d{2})-(\d{4})/, "$3-$2-$1")).getTime()
+    data.end_validity = new Date(data.end_validity.replaceAll('/', '-').replace(/(\d{2})-(\d{2})-(\d{4})/, "$3-$2-$1")).getTime()
+
     await axios({
         method: props.create ? 'post' : 'put',
         url: props.create ? Host() + 'contract' : Host() + 'contract/' + props.pk,
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
-        data: props.data
+        data: data
     }).then(res => {
         response = true
         props.setStatus({

@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
-import PeopleList from "../components/management/list/PeopleList";
+import PeopleList from "../components/management/PeopleList";
 import ManagementPT from "../packages/locales/management/ManagementPT";
 import {RenderTabs, Tabs} from "sis-aeb-misc";
 import Head from "next/head";
-import ContractualLinkageList from "../components/management/list/ContractualLinkageList";
-import CommissionedLinkageList from "../components/management/list/CommissionedLinkageList";
+import ContractualLinkageList from "../components/management/ContractualLinkageList";
+import CommissionedLinkageList from "../components/management/CommissionedLinkageList";
 
 export default function management(props) {
 
@@ -13,6 +13,7 @@ export default function management(props) {
     const lang = ManagementPT
     const [accessProfile, setAccessProfile] = useState(null)
     const [openTab, setOpenTab] = useState(0)
+    const [openForm, setOpenForm] = useState(false)
 
     useEffect(() => {
 
@@ -35,25 +36,26 @@ export default function management(props) {
             </Head>
 
             <div style={{width: '65%', margin: 'auto', overflowY: 'hidden'}}>
-                <Tabs
-                    buttons={[
-                        accessProfile !== null && accessProfile.can_manage_person ? {
-                            key: 0,
-                            value: lang.people
-                        } : null,
-                        accessProfile !== null && accessProfile.can_manage_structure ? {
-                            key: 1,
-                            value: lang.commissionedLinkages
-                        } : null,
-                        accessProfile !== null && accessProfile.can_manage_structure ? {
-                            key: 2,
-                            value: lang.contractualLinkages
-                        } : null
-                    ]}
-                    setOpenTab={setOpenTab}
-                    openTab={openTab}
-                />
-
+                {openForm ? null :
+                    <Tabs
+                        buttons={[
+                            accessProfile !== null && accessProfile.can_manage_person ? {
+                                key: 0,
+                                value: lang.people
+                            } : null,
+                            accessProfile !== null && accessProfile.can_manage_structure ? {
+                                key: 1,
+                                value: lang.commissionedLinkages
+                            } : null,
+                            accessProfile !== null && accessProfile.can_manage_structure ? {
+                                key: 2,
+                                value: lang.contractualLinkages
+                            } : null
+                        ]}
+                        setOpenTab={setOpenTab}
+                        openTab={openTab}
+                    />
+                }
                 <RenderTabs
                     openTab={openTab}
 
@@ -72,7 +74,7 @@ export default function management(props) {
                         },
                         {
                             buttonKey: 2,
-                            value: <ContractualLinkageList notSearched={props.notSearched}
+                            value: <ContractualLinkageList notSearched={props.notSearched} setOpen={setOpenForm}
                                                            setNotSearched={props.setNotSearched}
                                                            searchInput={props.searchInput}/>
 
