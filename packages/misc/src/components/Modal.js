@@ -8,6 +8,7 @@ export default function Modal(props) {
     const [style, setStyle] = useState('')
 
     useEffect(() => {
+        // console.log(props.open)
         const element = document.getElementById('modal-frame')
         const content = document.getElementById('modal-content')
 
@@ -22,6 +23,7 @@ export default function Modal(props) {
             element.addEventListener('animationend', () => {
                 if (!props.open && isInRender) {
                     setIsInRender(false)
+                    ReactDOM.unmountComponentAtNode(element);
                     setStyle(styles.fadeIn)
                 }
                 element.removeEventListener('animationend', null)
@@ -38,6 +40,7 @@ export default function Modal(props) {
 
     let element = isInRender ? (
         <div id={'modal-frame'}
+             key={'modal-frame'}
              className={style}
              style={{
                  ...props.componentStyle,
@@ -58,19 +61,14 @@ export default function Modal(props) {
         </div>
     ) : <></>
 
-    if (typeof window !== 'undefined' && isInRender) {
+    if (typeof window !== 'undefined' && process.browser && isInRender) {
         const root = document.getElementById(props.rootElementID)
         if (root !== null) {
-            root.style.display = 'flex';
             ReactDOM.render(
                 element,
                 root
             );
         }
-    } else {
-        const root = document.getElementById(props.rootElementID)
-        if (root !== null)
-            root.style.display = "none";
     }
     return null
 }

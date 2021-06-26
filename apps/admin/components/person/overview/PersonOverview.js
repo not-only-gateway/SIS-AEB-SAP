@@ -8,7 +8,7 @@ export default function PersonOverview(props) {
     const lang = PersonOverviewPT
 
     return (
-        <div className={styles.overviewContainer}>
+        <>
             <div className={styles.overviewRow}>
                 <p style={{fontWeight: 600, fontSize: '.9rem'}}>{lang.image}</p>
                 <PersonAvatar image={props.data.image} size={'42px'}/>
@@ -85,7 +85,7 @@ export default function PersonOverview(props) {
                     {props.data.nationality != null ? props.data.nationality : lang.unset}
                 </p>
             </div>
-        </div>
+        </>
     )
 
 }

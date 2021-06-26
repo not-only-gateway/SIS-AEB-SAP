@@ -10,8 +10,8 @@ export default function PeopleList(props) {
 
     return (
         <List
-            listKey={'people'}
-            clickEvent={() => props.redirect(currentEntity.id)} createOption={true}
+            listKey={'people'} scrollableElement={'scrollableDiv'}
+            clickEvent={entity => props.redirect(entity.id)} createOption={true}
             fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/people'}
             renderElement={element => {
                 return (

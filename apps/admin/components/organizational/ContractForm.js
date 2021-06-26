@@ -119,6 +119,7 @@ export default function ContractForm(props) {
                                     width={'calc(50% - 16px)'}
                                 />
                                 <Selector
+                                    getEntityKey={entity => entity.id}
                                     handleChange={entity => {
                                         setChanged(true)
                                         props.handleChange({name: 'entity', value: entity})
@@ -138,7 +139,6 @@ export default function ContractForm(props) {
                                     }} fetchUrl={Host() + 'list/entity'} fetchToken={(new Cookies()).get('jwt')}
                                     elementRootID={'root'}/>
                                 <DateField
-
                                     placeholder={lang.startValidity} label={lang.startValidity}
                                     handleChange={event => {
                                         setChanged(true)

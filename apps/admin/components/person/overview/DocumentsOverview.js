@@ -6,7 +6,7 @@ export default function DocumentsOverview(props){
     const lang = DocumentsFormPT
 
     return (
-        <div className={styles.overviewContainer}>
+        <>
             <div className={styles.overviewRow}>
                 <p style={{fontWeight: 600, fontSize: '.9rem'}}>CPF</p>
                 <p style={{fontSize: '.9rem'}}>
@@ -81,7 +81,7 @@ export default function DocumentsOverview(props){
                     {props.data.electoral_zone != null ? props.data.electoral_zone : lang.unset}
                 </p>
             </div>
-        </div>
+        </>
     )
 }
 

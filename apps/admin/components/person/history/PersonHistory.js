@@ -3,9 +3,9 @@ import React, {useEffect, useState} from "react";
 import RecordRequests from "../../../utils/fetch/RecordRequests";
 import styles from '../../../styles/Person.module.css'
 import shared from '../../../styles/Shared.module.css'
-import {Modal} from "@material-ui/core";
 import PersonOverview from "../overview/PersonOverview";
-import Button from "../../shared/inputs/Button";
+import {Modal} from "sis-aeb-misc";
+import {CloseRounded} from "@material-ui/icons";
 
 export default function PersonHistory(props) {
     const [data, setData] = useState([])
@@ -26,26 +26,19 @@ export default function PersonHistory(props) {
     }, [])
 
     function renderModal() {
-        console.log(modal.data)
         if (modal.data !== null)
-
             return (
-                <Modal open={modal.open} onClose={() => setModal({
+                <Modal open={modal.open} handleClose={() => setModal({
                     open: false,
                     data: null
-                })} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                    <div className={shared.modalContainer}>
-                        <div className={shared.modalContent}>
-                            <PersonOverview data={modal.data}/>
-                        </div>
-                        <div className={shared.modalFooter}>
-                            <Button width={'fit-content'} variant={'rounded'} padding={'8px 32px'} content={'Fechar'}
-                                    handleClick={() => setModal({
-                                        open: false,
-                                        data: null
-                                    })} backgroundColor={'white'} fontColor={'black'}
-                                    border={'none'}/>
-                        </div>
+                })} rootElementID={'root'}
+                       componentStyle={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <div className={styles.modalContainer}>
+                        <PersonOverview data={modal.data}/>
+
+                        <button className={styles.closeButton} onClick={() => setModal(false)}>
+                            <CloseRounded/>
+                        </button>
                     </div>
                 </Modal>
             )
@@ -98,7 +91,7 @@ export default function PersonHistory(props) {
 }
 
 PersonHistory.propTypes =
-{
-    id: PropTypes.number
-}
+    {
+        id: PropTypes.number
+    }
 

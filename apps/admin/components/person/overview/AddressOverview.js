@@ -5,7 +5,7 @@ import AddressOverviewPT from "../../../packages/locales/person/AddressOverviewP
 export default function AddressOverview(props){
     const lang = AddressOverviewPT
     return (
-        <div className={styles.overviewContainer}>
+        <>
             <div className={styles.overviewRow}>
                 <p style={{fontWeight: 600, fontSize: '.9rem'}}>{lang.zipCode}</p>
                 <p style={{fontSize: '.9rem'}}>
@@ -56,7 +56,7 @@ export default function AddressOverview(props){
                     {props.data.street != null ? props.data.street : lang.unset}
                 </p>
             </div>
-        </div>
+        </>
     )
 
 }

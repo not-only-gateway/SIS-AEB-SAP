@@ -5,7 +5,7 @@ import ContactsOverviewPT from "../../../packages/locales/person/ContactsOvervie
 export default function ContactsOverview(props){
     const lang = ContactsOverviewPT
     return (
-        <div className={styles.overviewContainer}>
+        <>
             <div className={styles.overviewRow}>
                 <p style={{fontWeight: 600, fontSize: '.9rem'}}>{lang.email}</p>
                 <p style={{fontSize: '.9rem'}}>
@@ -32,7 +32,7 @@ export default function ContactsOverview(props){
                 </p>
             </div>
 
-        </div>
+        </>
     )
 }
 

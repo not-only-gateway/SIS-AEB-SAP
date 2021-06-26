@@ -4,7 +4,7 @@ import Host from "../shared/Host";
 import Cookies from "universal-cookie/lib";
 
 const memberProps = {
-    memberID: PropTypes.number,
+    id: PropTypes.number,
     setStatus: PropTypes.func,
 }
 const byPersonProps = {
@@ -30,29 +30,11 @@ export default class MemberRequests {
         return response
     }
 
-    static async fetchMemberByPerson(byPersonProps) {
-        let response = null
-        await axios({
-            method: 'get',
-            url: Host() + 'person/member/' + props.personID,
-            headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
-        }).then(res => {
-            response = res.data
-        }).catch(error => {
-            if (byPersonProps.setStatus !== undefined)
-                byPersonProps.setStatus({
-                    error: true,
-                    message: error.message
-                })
-        })
-        return response
-    }
-
     static async fetchMember(memberProps) {
         let response = null
         await axios({
             method: 'get',
-            url: Host() + 'member/' + memberProps.memberID,
+            url: Host() + 'member/' + memberProps.id,
             headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         }).then(res => {
             response = res.data

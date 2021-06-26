@@ -1,27 +1,32 @@
 import PropTypes from 'prop-types'
 import styles from "../../styles/Person.module.css";
-import shared from "../../styles/Shared.module.css";
-import {AddRounded, EditRounded, HistoryRounded} from "@material-ui/icons";
+import {AddRounded, CloseRounded, EditRounded, HistoryRounded, LaunchRounded} from "@material-ui/icons";
 import React, {useState} from "react";
-import {Modal} from "@material-ui/core";
-import Button from "../shared/inputs/Button";
+import {Modal} from "sis-aeb-misc";
 
 export default function OptionRow(props) {
     const [modal, setModal] = useState(false)
 
     const renderModal = () => {
         return (
-            <Modal open={modal} onClose={() => setModal(false)}
-                   style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                <div className={shared.modalContainer}>
-                    <div className={shared.modalContent}>
-                        {props.modalContent}
+            <Modal open={modal} handleClose={() => setModal(false)} rootElementID={'root'}
+            >
+                <div style={{
+                    height: '100vh',
+                    width: '100vw',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                    <div className={styles.modalContainer}>
+                        <div style={{display: 'grid', gap: '16px', height: '100%', overflow: 'auto'}}>
+                                {props.modalContent}
+                        </div>
+                        <button className={styles.closeButton} onClick={() => setModal(false)}>
+                            <CloseRounded/>
+                        </button>
                     </div>
-                    <div className={shared.modalFooter}>
-                        <Button width={'fit-content'} variant={'rounded'} padding={'8px 32px'} content={'Fechar'}
-                                handleClick={() => setModal(false)} backgroundColor={'white'} fontColor={'black'}
-                                border={'none'}/>
-                    </div>
+
                 </div>
             </Modal>
         )
@@ -29,22 +34,33 @@ export default function OptionRow(props) {
     return (
         <div className={styles.optionContainer}>
             {renderModal()}
-            <button className={shared.rowContainer} disabled={props.modalContent === null}
-                    onClick={() => setModal(true)}
+            <button className={styles.rowContainer}
+                    onClick={() => props.modalContent === null? props.setOption() : setModal(true)}
                     style={{
                         width: '100%',
-                        justifyContent: "space-between",
-                        cursor: props.modalContent === null ? 'unset' : 'pointer',
-                        color: '#282828',
+                        justifyContent: props.modalContent !== null ? 'space-between' : undefined,
                         boxShadow: props.modalContent === null ? 'unset' : undefined
                     }}>
+                {props.modalContent === null ? <AddRounded/> : null}
                 {props.label}
+                {props.modalContent === null ? null : <LaunchRounded style={{fontSize: '1.2rem'}}/>}
             </button>
-            <button onClick={() => props.setOption()} className={shared.rowContainer}
-                    style={{width: '56px', justifyContent: 'center', color: '#555555'}}> {props.modalContent === null ? <AddRounded/> : <EditRounded/>}
+            <button onClick={() => props.setOption()} className={styles.choiceButtonContainer}
+                    style={{
+                        display: props.modalContent === null ? 'none' : undefined
+                    }}>
+                <EditRounded style={{fontSize: '1.2rem'}}/>
             </button>
-            <button className={shared.rowContainer} onClick={() => props.setHistory()}
-                    style={{width: '56px', justifyContent: 'center', display: props.modalContent === null ? 'none' : 'initial', color: '#555555'}}><HistoryRounded/>
+            <div style={{
+                background: '#e0e0e0',
+                width: '1px',
+                height: '100%',
+                display: props.modalContent === null ? 'none' : undefined
+            }}/>
+            <button className={styles.choiceButtonContainer} onClick={() => props.setHistory()}
+                    style={{
+                        display: props.modalContent === null ? 'none' : undefined,
+                    }}><HistoryRounded/>
             </button>
         </div>
     )

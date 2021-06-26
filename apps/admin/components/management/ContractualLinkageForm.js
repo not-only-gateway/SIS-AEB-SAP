@@ -1,29 +1,29 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import {Alert, Selector} from "sis-aeb-misc";
-import {FormLayout, TextField} from "sis-aeb-inputs";
+import {DateField, FormLayout, TextField} from "sis-aeb-inputs";
 import {linkage} from "../../packages/locales/management/SimpleFormsPT";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
+import {Alert, Selector} from "sis-aeb-misc";
 
 
-
+const cookies = new Cookies()
 export default function ContractualLinkageForm(props) {
 
     const [changed, setChanged] = useState(false)
     const lang = linkage
+    const [open, setOpen] = useState(false)
     const [status, setStatus] = useState({
         type: undefined,
         message: undefined
     })
-
+    console.log(props.data)
     return (
         <>
             <Alert
                 type={status.type} render={status.type !== undefined} rootElementID={'root'}
                 handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
             />
-
             <FormLayout
                 create={props.create}
                 formLabel={lang.title}
@@ -32,8 +32,14 @@ export default function ContractualLinkageForm(props) {
                         {name: 'denomination', type: 'string'},
 
                         {name: 'legal_document', type: 'string'},
-                        {name: 'contract', type: 'object'},
-                        {name: 'effective_role', type: 'object'},
+                        props.data === null || !props.data || props.data.effective_role === null || !props.data.effective_role || (props.data.contract !== null && props.data.contract !== undefined) ? {
+                            name: 'contract',
+                            type: 'object'
+                        } : null,
+                        props.data === null || !props.data || props.data.contract === null || !props.data.contract || (props.data.effective_role !== null && props.data.effective_role !== undefined) ? {
+                            name: 'effective_role',
+                            type: 'object'
+                        } : null,
                         {name: 'entity', type: 'object'},
                     ],
                     changed: changed,
@@ -79,52 +85,61 @@ export default function ContractualLinkageForm(props) {
                     )
                 },
                     {
-                        title: lang.additional,
+                        title: lang.dependencies,
                         child: (
                             <>
-                                {props.data === null || props.data === undefined || props.data.contract === null || props.data.contract === undefined || typeof props.data.effective_role === 'object' ?
+                                {props.data === null || !props.data || props.data.contract === null || !props.data.contract || (props.data.effective_role !== null && props.data.effective_role !== undefined) ?
                                     <Selector
+                                        getEntityKey={entity => entity.id}
                                         handleChange={entity => {
                                             setChanged(true)
                                             props.handleChange({name: 'effective_role', value: entity})
                                         }} selectorKey={'effective-selector'}
                                         selected={props.data === null ? null : props.data.effective_role}
-                                        setChanged={setChanged} required={true} label={lang.effective}
-                                        disabled={false} width={props.data && props.data.effective_role? 'calc(50% - 16px)' :'calc(33.333% - 21.5px)'}
+                                        setChanged={setChanged} required={false} label={lang.effective}
+                                        disabled={false}
+                                        width={!props.data || !props.data.effective_role ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
                                         renderEntity={entity => {
                                             if (entity !== undefined && entity !== null)
                                                 return (
-                                                    <div style={{display: 'flex', alignItems: 'center'}} key={entity.id}>
+                                                    <div style={{display: 'flex', alignItems: 'center'}}
+                                                         key={entity.id + '-effective-role'}>
                                                         {entity.denomination}
+                                                        {entity.id}
                                                     </div>
                                                 )
                                             else
                                                 return null
-                                        }} fetchUrl={Host() + 'list/role_effective'} fetchToken={(new Cookies()).get('jwt')}
+                                        }} fetchUrl={Host() + 'list/role_effective'}
+                                        fetchToken={(cookies).get('jwt')}
                                         elementRootID={'root'}/>
                                     :
                                     null
                                 }
 
-                                {props.data === null || props.data === undefined || props.data.effective_role === null || props.data.effective_role === undefined || typeof props.data.contract === 'object' ?
+                                {props.data === null || !props.data || props.data.effective_role === null || !props.data.effective_role || (props.data.contract !== null && props.data.contract !== undefined) ?
                                     <Selector
+                                        getEntityKey={entity => entity.id}
                                         handleChange={entity => {
                                             setChanged(true)
                                             props.handleChange({name: 'contract', value: entity})
                                         }} selectorKey={'contract-selector'}
                                         selected={props.data === null ? null : props.data.contract}
-                                        setChanged={setChanged} required={true} label={lang.contract}
-                                        disabled={false} width={props.data && props.data.contract? 'calc(50% - 16px)' :'calc(33.333% - 21.5px)'}
+                                        setChanged={setChanged} required={false} label={lang.contract}
+                                        disabled={false}
+                                        width={props.data && props.data.contract ? 'calc(50% - 16px)' : 'calc(33.333% - 21.5px)'}
                                         renderEntity={entity => {
                                             if (entity !== undefined && entity !== null)
                                                 return (
-                                                    <div style={{display: 'flex', alignItems: 'center'}} key={entity.id}>
+                                                    <div style={{display: 'flex', alignItems: 'center'}}
+                                                         key={entity.id + '-contract'}>
                                                         {entity.sei}
+                                                        {entity.id}
                                                     </div>
                                                 )
                                             else
                                                 return null
-                                        }} fetchUrl={Host() + 'list/contract'} fetchToken={(new Cookies()).get('jwt')}
+                                        }} fetchUrl={Host() + 'list/contract'} fetchToken={(cookies).get('jwt')}
                                         elementRootID={'root'}/>
                                     :
                                     null
@@ -132,6 +147,7 @@ export default function ContractualLinkageForm(props) {
 
 
                                 <Selector
+                                    getEntityKey={entity => entity.id}
                                     handleChange={entity => {
                                         setChanged(true)
                                         props.handleChange({name: 'entity', value: entity})
@@ -139,19 +155,93 @@ export default function ContractualLinkageForm(props) {
                                     selected={props.data === null ? null : props.data.entity}
                                     setChanged={setChanged} required={true} label={lang.entity}
                                     disabled={false}
-                                    width={props.data && (props.data.effective_role || props.data.contract)? 'calc(50% - 16px)' :'calc(33.333% - 21.5px)'}
+                                    width={props.data && (props.data.effective_role || props.data.contract) ? 'calc(50% - 16px)' : 'calc(33.333% - 21.5px)'}
                                     renderEntity={entity => {
-                                        console.log(entity)
+
                                         if (entity !== undefined && entity !== null)
                                             return (
-                                                <div style={{display: 'flex', alignItems: 'center'}} key={entity.id}>
+                                                <div style={{display: 'flex', alignItems: 'center'}} key={entity.id + '-entity'}>
                                                     {entity.acronym}
+                                                    {entity.id}
                                                 </div>
                                             )
                                         else
                                             return null
-                                    }} fetchUrl={Host() + 'list/entity'} fetchToken={(new Cookies()).get('jwt')}
-                                    elementRootID={'root'} />
+                                    }} fetchUrl={Host() + 'list/entity'} fetchToken={(cookies).get('jwt')}
+                                    elementRootID={'root'}/>
+
+                            </>
+                        )
+                    },
+                    {
+                        title: lang.occupancy,
+                        child: (
+                            <>
+                                <DateField
+                                    placeholder={lang.officialPublication} label={lang.officialPublication}
+                                    handleChange={event => {
+                                        setChanged(true)
+                                        props.handleChange({
+                                            name: 'official_publication_date',
+                                            value:
+                                            event.target.value
+                                        })
+                                    }} locale={props.locale}
+                                    value={
+                                        props.data !== null && typeof (props.data.official_publication_date) === 'number' ?
+                                            new Date(props.data.official_publication_date).toLocaleDateString().replaceAll('/', '-'
+                                            ).replace(/(\d{2})-(\d{2})-(\d{4})/, "$3-$2-$1")
+                                            :
+                                            props.data === null ? null : props.data.official_publication_date
+                                    }
+                                    required={true} width={'calc(33.333% - 21.5px)'}/>
+                                <DateField
+                                    placeholder={lang.admissionDate} label={lang.admissionDate}
+                                    handleChange={event => {
+                                        setChanged(true)
+                                        props.handleChange({
+                                            name: 'admission_date',
+                                            value:
+                                            event.target.value
+                                        })
+                                    }} locale={props.locale}
+                                    value={
+                                        props.data !== null && typeof (props.data.admission_date) === 'number' ?
+                                            new Date(props.data.admission_date).toLocaleDateString().replaceAll('/', '-'
+                                            ).replace(/(\d{2})-(\d{2})-(\d{4})/, "$3-$2-$1")
+                                            :
+                                            props.data === null ? null : props.data.admission_date
+                                    }
+                                    required={true} width={'calc(33.333% - 21.5px)'}/>
+                                <Selector
+                                    getEntityKey={entity => {
+                                        if(entity !== undefined && entity !== null)
+                                            return entity.id
+                                        else
+                                            return -1
+                                    }}
+                                    handleChange={entity => {
+                                        setChanged(true)
+                                        props.handleChange({name: 'unit', value: entity})
+                                    }}
+                                    selectorKey={'unit-selector'}
+                                    selected={props.data === null ? null : props.data.unit}
+                                    setChanged={setChanged} required={true} label={lang.unit}
+                                    disabled={false}
+                                    width={'calc(33.333% - 21.5px)'}
+                                    renderEntity={entity => {
+
+                                        if (entity !== undefined && entity !== null)
+                                            return (
+                                                <div style={{display: 'flex', alignItems: 'center'}} key={entity.id + '-unit'}>
+                                                    {entity.acronym}
+                                                    {entity.id}
+                                                </div>
+                                            )
+                                        else
+                                            return null
+                                    }} fetchUrl={Host() + 'list/unit'} fetchToken={(cookies).get('jwt')}
+                                    elementRootID={'root'}/>
 
                             </>
                         )

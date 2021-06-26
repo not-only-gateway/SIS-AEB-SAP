@@ -6,6 +6,7 @@ import ContractualLinkageForm from "./ContractualLinkageForm";
 import Host from "../../utils/shared/Host";
 import animations from "../../styles/Animations.module.css";
 import PropTypes from "prop-types";
+import submitContractualLinkage from "../../utils/submit/SubmitContractualLinkage";
 
 export default function ContractualLinkageList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -20,7 +21,7 @@ export default function ContractualLinkageList(props) {
                             props.setOpen(false)
                             setOpen(false)
                         }}
-                        // handleSubmit={submitLinkage}
+                        handleSubmit={submitContractualLinkage}
                         handleChange={event => handleObjectChange({
                             event: event,
                             setData: setCurrentEntity

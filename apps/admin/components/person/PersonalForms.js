@@ -2,19 +2,9 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import ContactForm from "./forms/ContactForm";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
-import submitContacts from "../../utils/submit/SubmitContacts";
 import DocumentsForm from "./forms/DocumentsForm";
-import submitDocuments from "../../utils/submit/SubmitDocuments";
-import submitPerson from "../../utils/submit/SubmitPerson";
 import BaseForm from "./forms/BaseForm";
 import AddressForm from "./forms/AddressForm";
-// import submitAddress from "../../utils/submit/SubmitAddress";
-// import TabContent from "../shared/TabContent";
-// import fetchDocuments from "../../utils/fetch/FetchDocuments";
-// import fetchContacts from "../../utils/fetch/FetchContacts";
-// import fetchAddress from "../../utils/fetch/FetchAddress";
-// import fetchPerson from "../../utils/fetch/FetchPerson";
-// import Alert from "../../../../packages/alert/src/components/Alert";
 import shared from '../../styles/Shared.module.css'
 import styles from '../../styles/Person.module.css'
 import {ArrowBackRounded} from "@material-ui/icons";
@@ -24,6 +14,8 @@ import ContactsOverview from "./overview/ContactsOverview";
 import DocumentsOverview from "./overview/DocumentsOverview";
 import PersonOverview from "./overview/PersonOverview";
 import PersonHistory from "./history/PersonHistory";
+import {Alert, RenderTabs} from "sis-aeb-misc";
+import PersonRequests from "../../utils/fetch/PersonRequests";
 
 export default function PersonalForms(props) {
     const [documents, setDocuments] = useState(null)
@@ -38,28 +30,28 @@ export default function PersonalForms(props) {
     const [openTab, setOpenTab] = useState(0)
 
     useEffect(() => {
-        fetchPerson(
-            {personID: props.personID, setStatus: setStatus}
+        PersonRequests.fetchPerson(
+            {personID: props.id, setStatus: setStatus}
         ).then(res => {
             setPerson(res)
             setLoading(false)
         })
 
-        fetchDocuments(
-            {personID: props.personID}
+        PersonRequests.fetchDocuments(
+            {personID: props.id}
         ).then(res => {
             setDocuments(res)
             setLoading(false)
         }).catch(() => setLoading(false))
 
-        fetchContacts(
-            {personID: props.personID}
+        PersonRequests.fetchContacts(
+            {personID: props.id}
         ).then(res => {
             setContact(res)
             setLoading(false)
         }).catch(() => setLoading(false))
-        fetchAddress(
-            {personID: props.personID}
+        PersonRequests.fetchAddress(
+            {personID: props.id}
         ).then(res => {
             setAddress(res)
             setLoading(false)
@@ -72,7 +64,7 @@ export default function PersonalForms(props) {
             <Alert type={'error'} message={status.message} handleClose={() => setStatus({
                 error: false,
                 message: undefined
-            })} render={status.error}/>
+            })} render={status.error} rootElementID={'root'}/>
 
             <div style={{width: '100%'}}>
                 <button className={shared.rowContainer} onClick={() => setOpenTab(0)}
@@ -80,7 +72,7 @@ export default function PersonalForms(props) {
                     <ArrowBackRounded/>
                     <p style={{fontSize: '.9rem'}}>{props.lang.returnLabel}</p>
                 </button>
-                <TabContent
+                <RenderTabs
                     openTab={openTab}
                     noContainer={true}
                     tabs={[
@@ -108,13 +100,13 @@ export default function PersonalForms(props) {
                             buttonKey: 1,
                             value: loading || person === null ? null : (
                                 <BaseForm
-                                    id={props.personID}
+                                    id={props.id}
                                     person={person}
                                     handleChange={event => handleObjectChange({
                                         event: event,
                                         setData: setPerson
                                     })}
-                                    handleSubmit={submitPerson}
+                                    handleSubmit={PersonRequests.submitPerson}
                                     editable={props.accessProfile.canUpdatePerson}
                                     locale={props.locale}
                                 />
@@ -124,13 +116,13 @@ export default function PersonalForms(props) {
                             buttonKey: 2,
                             value: loading ? null : (
                                 <DocumentsForm
-                                    id={props.personID}
+                                    id={props.id}
                                     documents={documents}
                                     handleChange={event => handleObjectChange({
                                         event: event,
                                         setData: setDocuments
                                     })}
-                                    handleSubmit={submitDocuments}
+                                    handleSubmit={PersonRequests.submitDocuments}
                                     editable={props.accessProfile.canUpdatePerson}
                                     locale={props.locale}
                                 />
@@ -140,14 +132,14 @@ export default function PersonalForms(props) {
                             buttonKey: 3,
                             value: loading ? null : (
                                 <ContactForm
-                                    id={props.personID}
+                                    id={props.id}
                                     contact={contact}
                                     locale={props.locale}
                                     handleChange={event => handleObjectChange({
                                         event: event,
                                         setData: setContact
                                     })}
-                                    handleSubmit={submitContacts}
+                                    handleSubmit={PersonRequests.submitContacts}
                                     editable={props.accessProfile.canUpdatePerson}
                                 />
                             )
@@ -155,14 +147,14 @@ export default function PersonalForms(props) {
                             buttonKey: 4,
                             value: loading ? null : (
                                 <AddressForm
-                                    id={props.personID}
+                                    id={props.id}
                                     dark={false}
                                     address={address}
                                     handleChange={event => handleObjectChange({
                                         event: event,
                                         setData: setAddress
                                     })}
-                                    handleSubmit={submitAddress}
+                                    handleSubmit={PersonRequests.submitAddress}
                                     locale={props.locale}
                                     editable={props.accessProfile.canUpdatePerson}
                                 />
@@ -171,21 +163,21 @@ export default function PersonalForms(props) {
                         {
                             buttonKey: 5,
                             value: (
-                                <PersonHistory id={props.personID}/>
+                                <PersonHistory id={props.id}/>
                             )
                         },
-                        {
-                            buttonKey: 6,
-                            value: (
-                                null
-                            )
-                        },
-                        {
-                            buttonKey: 7,
-                            value: (
-                                null
-                            )
-                        },
+                        // {
+                        //     buttonKey: 6,
+                        //     value: (
+                        //         null
+                        //     )
+                        // },
+                        // {
+                        //     buttonKey: 7,
+                        //     value: (
+                        //         null
+                        //     )
+                        // },
                     ]}/>
             </div>
         </div>
@@ -193,9 +185,7 @@ export default function PersonalForms(props) {
 }
 
 PersonalForms.propTypes = {
-        id: PropTypes.string,
-        personID: PropTypes.number,
-        memberID: PropTypes.number,
+        id: PropTypes.any,
         locale: PropTypes.string,
         accessProfile: PropTypes.object,
         lang: PropTypes.object

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import MembershipForm from "./forms/MembershipForm";
 import CollaborationList from "../management/CollaborationList";
-import {Alert, TabContent} from "sis-aeb-misc";
+import {Alert, RenderTabs} from "sis-aeb-misc";
 import styles from "../../styles/Person.module.css";
 import OptionRow from "./OptionRow";
 import shared from "../../styles/Shared.module.css";
@@ -26,8 +26,6 @@ export default function CorporateForms(props) {
             MemberRequests.fetchMember({memberID: props.id, setStatus: setStatus}).then(res => {
                 if (res !== null)
                     setMember(res.member)
-
-
             })
             setLoading(false)
         } else
@@ -36,16 +34,9 @@ export default function CorporateForms(props) {
 
     async function handleMemberSubmit(event) {
         let response = false
-        if (member === null || member.id === undefined) {
-            const submitMemberResponse = await MemberSubmitRequests.submitMember(event)
-            if (submitMemberResponse.status) {
-                const fetchMemberResponse = await MemberRequests.fetchMemberByPerson({personID: props.personID, setStatus: setStatus})
-                if (fetchMemberResponse !== null)
-                    setMember(fetchMemberResponse.member)
-
-                props.fetchMembership()
-                response = submitMemberResponse
-            }
+        if (member === null || member.person === undefined) {
+            event.person = props.id
+            MemberSubmitRequests.submitMember(event).then(() => props.fetchMembership())
         } else {
             response = await MemberSubmitRequests.submitMember(event)
         }
@@ -66,7 +57,7 @@ export default function CorporateForms(props) {
                     <ArrowBackRounded/>
                     <p style={{fontSize: '.9rem'}}>{props.lang.returnLabel}</p>
                 </button>
-                <TabContent
+                <RenderTabs
                     tabs={[
                         {
                             buttonKey: 0,
@@ -91,8 +82,7 @@ export default function CorporateForms(props) {
                             buttonKey: 1,
                             value: loading ? null : (
                                 <MembershipForm
-                                    personID={props.personID}
-                                    memberID={props.id}
+                                    id={props.id}
                                     member={member}
                                     handleChange={event => handleObjectChange({
                                         event: event,
@@ -108,12 +98,13 @@ export default function CorporateForms(props) {
                         {
                             buttonKey: 2,
                             value: (
-                                <CollaborationList
-                                    id={props.id}
-                                    dark={false}
-                                    editionMode={props.accessProfile !== null && props.accessProfile.can_manage_membership}
-                                    locale={props.locale}
-                                />
+                                null
+                                // <CollaborationList
+                                //     id={props.id}
+                                //     dark={false}
+                                //     editionMode={props.accessProfile !== null && props.accessProfile.can_manage_membership}
+                                //     locale={props.locale}
+                                // />
                             )
                         }
                     ]}
@@ -130,8 +121,5 @@ CorporateForms.propTypes = {
     accessProfile: PropTypes.object,
     locale: PropTypes.string,
     lang: PropTypes.object,
-
-    personID: PropTypes.number,
     fetchMembership: PropTypes.func
-
 }
