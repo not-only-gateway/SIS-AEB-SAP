@@ -25,7 +25,7 @@ export default function ListContent(props) {
         props.create ?
           props.lang.create
           :
-          props.renderElement(props.entity)
+          props.renderElement(props.entity, props.index)
       }
     </button>
 
@@ -33,6 +33,7 @@ export default function ListContent(props) {
 }
 
 ListContent.propTypes = {
+  index: PropTypes.number,
   entity: PropTypes.any,
   create: PropTypes.bool,
   lang: PropTypes.object,

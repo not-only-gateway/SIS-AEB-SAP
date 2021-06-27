@@ -34,11 +34,9 @@
 
 .profileHeader {
     width: 100%;
-    position: sticky;
-    top: 0;
 
     display: grid;
-    gap: 32px;
+    gap: 16px;
 
     justify-items: center;
     justify-content: center;
@@ -175,5 +173,5 @@
 }
 
 .choiceButtonContainer:hover {
-    color: #ff5555;
+    color: #0095ff;
 }

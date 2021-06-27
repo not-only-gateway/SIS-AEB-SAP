@@ -26,38 +26,40 @@ export default function PersonalForms(props) {
         error: undefined,
         message: undefined
     })
-    const [loading, setLoading] = useState(true)
+
     const [openTab, setOpenTab] = useState(0)
 
     useEffect(() => {
-        PersonRequests.fetchPerson(
-            {personID: props.id, setStatus: setStatus}
-        ).then(res => {
-            setPerson(res)
-            setLoading(false)
-        })
+        if (person === null && props.id !== undefined)
+            PersonRequests.fetchPerson(
+                {personID: props.id, setStatus: setStatus}
+            ).then(res => {
+                setPerson(res)
 
-        PersonRequests.fetchDocuments(
-            {personID: props.id}
-        ).then(res => {
-            setDocuments(res)
-            setLoading(false)
-        }).catch(() => setLoading(false))
+            })
+        if (documents === null && props.id !== undefined)
+            PersonRequests.fetchDocuments(
+                {personID: props.id}
+            ).then(res => {
+                setDocuments(res)
 
-        PersonRequests.fetchContacts(
-            {personID: props.id}
-        ).then(res => {
-            setContact(res)
-            setLoading(false)
-        }).catch(() => setLoading(false))
-        PersonRequests.fetchAddress(
-            {personID: props.id}
-        ).then(res => {
-            setAddress(res)
-            setLoading(false)
-        }).catch(() => setLoading(false))
+            })
+        if (contact === null && props.id !== undefined)
+            PersonRequests.fetchContacts(
+                {personID: props.id}
+            ).then(res => {
+                setContact(res)
 
-    }, [openTab])
+            })
+        if (address === null && props.id !== undefined)
+            PersonRequests.fetchAddress(
+                {personID: props.id}
+            ).then(res => {
+                setAddress(res)
+
+            })
+
+    }, [openTab, props.id])
 
     return (
         <div style={{width: '100%', display: 'grid', gap: '16px', alignItems: 'flex-start', placeItems: 'center'}}>
@@ -67,12 +69,8 @@ export default function PersonalForms(props) {
             })} render={status.error} rootElementID={'root'}/>
 
             <div style={{width: '100%'}}>
-                <button className={shared.rowContainer} onClick={() => setOpenTab(0)}
-                        style={{display: openTab !== 0 ? undefined : 'none', marginBottom: '32px', gap: '16px'}}>
-                    <ArrowBackRounded/>
-                    <p style={{fontSize: '.9rem'}}>{props.lang.returnLabel}</p>
-                </button>
                 <RenderTabs
+                    tabsKey={'person'}
                     openTab={openTab}
                     noContainer={true}
                     tabs={[
@@ -98,72 +96,79 @@ export default function PersonalForms(props) {
                             )
                         }, {
                             buttonKey: 1,
-                            value: loading || person === null ? null : (
+                            value: (
                                 <BaseForm
+                                    returnToMain={() =>
+                                        setOpenTab(0)
+                                    }
                                     id={props.id}
-                                    person={person}
+                                    data={person}
                                     handleChange={event => handleObjectChange({
                                         event: event,
                                         setData: setPerson
                                     })}
-                                    handleSubmit={PersonRequests.submitPerson}
-                                    editable={props.accessProfile.canUpdatePerson}
-                                    locale={props.locale}
+                                    editable={true}
+
                                 />
                             )
                         },
                         {
                             buttonKey: 2,
-                            value: loading ? null : (
+                            value: (
                                 <DocumentsForm
                                     id={props.id}
-                                    documents={documents}
+
+                                    data={documents}
                                     handleChange={event => handleObjectChange({
                                         event: event,
                                         setData: setDocuments
                                     })}
-                                    handleSubmit={PersonRequests.submitDocuments}
-                                    editable={props.accessProfile.canUpdatePerson}
-                                    locale={props.locale}
+                                    editable={true}
+                                    returnToMain={() =>
+                                        setOpenTab(0)
+                                    }
                                 />
                             )
                         },
                         {
                             buttonKey: 3,
-                            value: loading ? null : (
+                            value: (
                                 <ContactForm
                                     id={props.id}
-                                    contact={contact}
-                                    locale={props.locale}
+                                    data={contact}
+                                    returnToMain={() =>
+                                        setOpenTab(0)
+                                    }
                                     handleChange={event => handleObjectChange({
                                         event: event,
                                         setData: setContact
                                     })}
-                                    handleSubmit={PersonRequests.submitContacts}
-                                    editable={props.accessProfile.canUpdatePerson}
+
+                                    editable={true}
                                 />
                             )
                         }, {
                             buttonKey: 4,
-                            value: loading ? null : (
+                            value: (
                                 <AddressForm
                                     id={props.id}
                                     dark={false}
-                                    address={address}
+                                    data={address}
                                     handleChange={event => handleObjectChange({
                                         event: event,
                                         setData: setAddress
                                     })}
-                                    handleSubmit={PersonRequests.submitAddress}
-                                    locale={props.locale}
-                                    editable={props.accessProfile.canUpdatePerson}
+                                    returnToMain={() =>
+                                        setOpenTab(0)
+                                    }
+                                    editable={true}
                                 />
                             )
                         },
                         {
                             buttonKey: 5,
                             value: (
-                                <PersonHistory id={props.id}/>
+                                <PersonHistory id={props.id} entityType={'person'}/>
                             )
                         },
                         // {
@@ -185,8 +190,7 @@ export default function PersonalForms(props) {
 }
 
 PersonalForms.propTypes = {
-        id: PropTypes.any,
-        locale: PropTypes.string,
-        accessProfile: PropTypes.object,
-        lang: PropTypes.object
-    }
+    id: PropTypes.any,
+    accessProfile: PropTypes.object,
+    lang: PropTypes.object
+}

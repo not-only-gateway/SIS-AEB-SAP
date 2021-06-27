@@ -1,30 +1,26 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useState} from "react";
-import RecordRequests from "../../../utils/fetch/RecordRequests";
 import styles from '../../../styles/Person.module.css'
 import shared from '../../../styles/Shared.module.css'
 import PersonOverview from "../overview/PersonOverview";
-import {Modal} from "sis-aeb-misc";
+import {List, Modal} from "sis-aeb-misc";
 import {CloseRounded} from "@material-ui/icons";
+import Host from "../../../utils/shared/Host";
+import axios from "axios";
+import Cookies from "universal-cookie/lib";
 
 export default function PersonHistory(props) {
-    const [data, setData] = useState([])
-    const [maxID, setMaxID] = useState(null)
+    const [entityID, setEntityID] = useState(null)
     const [modal, setModal] = useState({
         open: false,
         data: null
     })
     useEffect(() => {
-        RecordRequests({
-            data: data,
-            setData: setData,
-            entityType: 'person',
-            maxID: maxID,
-            setMaxID: setMaxID,
-            id: props.id
-        })
+        axios({
+            method: 'get',
+            url: Host() + 'key/' + props.entityType,
+        }).then(res => setEntityID(res.data)).catch(error => console.log(error))
     }, [])
-
     function renderModal() {
         if (modal.data !== null)
             return (
@@ -47,16 +43,16 @@ export default function PersonHistory(props) {
     }
 
     function renderVersion(version, index) {
-        const previous = index > 0 ? data[index - 1] : null
+        // const previous = index > 0 ? data[index - 1] : null
 
         return (
-            <React.Fragment key={'person-history-content-' + version.creation_date}>
-                {previous === null || (version.creation_date - previous.creation_date) > 86400000 ?
+            <React.Fragment key={'history-content-' + version.creation_date}>
+                {/*{previous === null || (version.creation_date - previous.creation_date) > 86400000 ?*/}
                     <fieldset className={styles.historyFieldSetContainer}>
                         <legend>{(new Date(version.creation_date)).toDateString()}</legend>
                     </fieldset>
-                    : null
-                }
+                    {/*: null*/}
+                {/*}*/}
 
                 <button className={shared.rowContainer} onClick={() => setModal({
                     open: true,
@@ -74,24 +70,39 @@ export default function PersonHistory(props) {
         )
     }
 
+    if(entityID !== undefined && entityID !== null)
     return (
         <>
             {renderModal()}
 
-            <div className={styles.historyContainer}>
-                {data.map((version, index) => (
-                        <React.Fragment key={'person-history-' + version.creation_date}>
-                            {renderVersion(version, index)}
-                        </React.Fragment>
-                    )
-                )}
-            </div>
+            <List
+                fetchToken={(new Cookies()).get('jwt')}
+                fetchUrl={Host() + 'list/object/' + props.id}
+                clickEvent={() => null}
+                fetchParams={{
+                    entityType: 'person'
+                }}
+                scrollableElement={'scrollableElement'}
+                searchInput={''}
+                setAppliedSearch={() => null}
+                renderElement={(element, index) => {
+                    if(element !== undefined && element !== null)
+                        return renderVersion(element, index)
+                }}
+                setEntity={entity => setModal({
+                    data: entity,
+                    open: true
+                })}
+                applySearch={false}
+                listKey={props.id+'-entity-history-'+entityID}
+                createOption={false}/>
         </>
     )
+    else return null
 }
 
-PersonHistory.propTypes =
-    {
-        id: PropTypes.number
-    }
+PersonHistory.propTypes = {
+    id: PropTypes.number,
+    entityType: PropTypes.string,
+}
 

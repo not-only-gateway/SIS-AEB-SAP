@@ -10,5 +10,6 @@ export default {
     state: 'Estado',
     stateInitials: 'Iniciais do estado',
     street: 'Rua',
-    invalid: 'CEP inválido.'
+    invalid: 'CEP inválido.',
+    title: 'Endereço'
 }

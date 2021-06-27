@@ -11,7 +11,7 @@ export default function Alert(props) {
   useEffect(() => {
     if (props.render) {
       setAlertColor(getColor(props.type))
-      setTimeout(() => props.handleClose(false), 10000)
+      // setTimeout(() => props.handleClose(false), 10000)
     }
   }, [props.type, props.render])
 

@@ -173,79 +173,79 @@ export default function ContractualLinkageForm(props) {
                             </>
                         )
                     },
-                    {
-                        title: lang.occupancy,
-                        child: (
-                            <>
-                                <DateField
-                                    placeholder={lang.officialPublication} label={lang.officialPublication}
-                                    handleChange={event => {
-                                        setChanged(true)
-                                        props.handleChange({
-                                            name: 'official_publication_date',
-                                            value:
-                                            event.target.value
-                                        })
-                                    }} locale={props.locale}
-                                    value={
-                                        props.data !== null && typeof (props.data.official_publication_date) === 'number' ?
-                                            new Date(props.data.official_publication_date).toLocaleDateString().replaceAll('/', '-'
-                                            ).replace(/(\d{2})-(\d{2})-(\d{4})/, "$3-$2-$1")
-                                            :
-                                            props.data === null ? null : props.data.official_publication_date
-                                    }
-                                    required={true} width={'calc(33.333% - 21.5px)'}/>
-                                <DateField
-                                    placeholder={lang.admissionDate} label={lang.admissionDate}
-                                    handleChange={event => {
-                                        setChanged(true)
-                                        props.handleChange({
-                                            name: 'admission_date',
-                                            value:
-                                            event.target.value
-                                        })
-                                    }} locale={props.locale}
-                                    value={
-                                        props.data !== null && typeof (props.data.admission_date) === 'number' ?
-                                            new Date(props.data.admission_date).toLocaleDateString().replaceAll('/', '-'
-                                            ).replace(/(\d{2})-(\d{2})-(\d{4})/, "$3-$2-$1")
-                                            :
-                                            props.data === null ? null : props.data.admission_date
-                                    }
-                                    required={true} width={'calc(33.333% - 21.5px)'}/>
-                                <Selector
-                                    getEntityKey={entity => {
-                                        if(entity !== undefined && entity !== null)
-                                            return entity.id
-                                        else
-                                            return -1
-                                    }}
-                                    handleChange={entity => {
-                                        setChanged(true)
-                                        props.handleChange({name: 'unit', value: entity})
-                                    }}
-                                    selectorKey={'unit-selector'}
-                                    selected={props.data === null ? null : props.data.unit}
-                                    setChanged={setChanged} required={true} label={lang.unit}
-                                    disabled={false}
-                                    width={'calc(33.333% - 21.5px)'}
-                                    renderEntity={entity => {
-
-                                        if (entity !== undefined && entity !== null)
-                                            return (
-                                                <div style={{display: 'flex', alignItems: 'center'}} key={entity.id + '-unit'}>
-                                                    {entity.acronym}
-                                                    {entity.id}
-                                                </div>
-                                            )
-                                        else
-                                            return null
-                                    }} fetchUrl={Host() + 'list/unit'} fetchToken={(cookies).get('jwt')}
-                                    elementRootID={'root'}/>
-
-                            </>
-                        )
-                    },
+                    // {
+                    //     title: lang.occupancy,
+                    //     child: (
+                    //         <>
+                    //             <DateField
+                    //                 placeholder={lang.officialPublication} label={lang.officialPublication}
+                    //                 handleChange={event => {
+                    //                     setChanged(true)
+                    //                     props.handleChange({
+                    //                         name: 'official_publication_date',
+                    //                         value:
+                    //                         event.target.value
+                    //                     })
+                    //                 }} locale={props.locale}
+                    //                 value={
+                    //                     props.data !== null && typeof (props.data.official_publication_date) === 'number' ?
+                    //                         new Date(props.data.official_publication_date).toLocaleDateString().replaceAll('/', '-'
+                    //                         ).replace(/(\d{2})-(\d{2})-(\d{4})/, "$3-$2-$1")
+                    //                         :
+                    //                         props.data === null ? null : props.data.official_publication_date
+                    //                 }
+                    //                 required={true} width={'calc(33.333% - 21.5px)'}/>
+                    //             <DateField
+                    //                 placeholder={lang.admissionDate} label={lang.admissionDate}
+                    //                 handleChange={event => {
+                    //                     setChanged(true)
+                    //                     props.handleChange({
+                    //                         name: 'admission_date',
+                    //                         value:
+                    //                         event.target.value
+                    //                     })
+                    //                 }} locale={props.locale}
+                    //                 value={
+                    //                     props.data !== null && typeof (props.data.admission_date) === 'number' ?
+                    //                         new Date(props.data.admission_date).toLocaleDateString().replaceAll('/', '-'
+                    //                         ).replace(/(\d{2})-(\d{2})-(\d{4})/, "$3-$2-$1")
+                    //                         :
+                    //                         props.data === null ? null : props.data.admission_date
+                    //                 }
+                    //                 required={true} width={'calc(33.333% - 21.5px)'}/>
+                    //             <Selector
+                    //                 getEntityKey={entity => {
+                    //                     if(entity !== undefined && entity !== null)
+                    //                         return entity.id
+                    //                     else
+                    //                         return -1
+                    //                 }}
+                    //                 handleChange={entity => {
+                    //                     setChanged(true)
+                    //                     props.handleChange({name: 'unit', value: entity})
+                    //                 }}
+                    //                 selectorKey={'unit-selector'}
+                    //                 selected={props.data === null ? null : props.data.unit}
+                    //                 setChanged={setChanged} required={true} label={lang.unit}
+                    //                 disabled={false}
+                    //                 width={'calc(33.333% - 21.5px)'}
+                    //                 renderEntity={entity => {
+                    //
+                    //                     if (entity !== undefined && entity !== null)
+                    //                         return (
+                    //                             <div style={{display: 'flex', alignItems: 'center'}} key={entity.id + '-unit'}>
+                    //                                 {entity.acronym}
+                    //                                 {entity.id}
+                    //                             </div>
+                    //                         )
+                    //                     else
+                    //                         return null
+                    //                 }} fetchUrl={Host() + 'list/unit'} fetchToken={(cookies).get('jwt')}
+                    //                 elementRootID={'root'}/>
+                    //
+                    //         </>
+                    //     )
+                    // },
                 ]}/>
         </>
     )

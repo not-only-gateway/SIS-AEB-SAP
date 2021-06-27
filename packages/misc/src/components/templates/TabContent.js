@@ -10,7 +10,7 @@ export default function TabContent(props) {
     useEffect(() => {
         if (isInRender && props.openTab !== props.tab.buttonKey ) {
             setStyle(animations.fadeOutAnimation)
-            const elementFound = document.querySelector('#content-' + props.tab.buttonKey + '\\:tab')
+            const elementFound = document.querySelector('#content-' + props.tab.buttonKey + '\\:tab'+props.tabsKey)
             if (elementFound !== null && style === animations.fadeOutAnimation) {
                 elementFound.addEventListener('animationend', () => {
                     setIsInRender(false)
@@ -27,7 +27,7 @@ export default function TabContent(props) {
 
     if (isInRender)
         return (
-            <div key={props.tab.buttonKey + '-' + props.tab.value} id={'content-' + props.tab.buttonKey + ':tab'}
+            <div key={props.tab.buttonKey + '-' + props.tab.value} id={'content-' + props.tab.buttonKey + ':tab' + props.tabsKey}
                  className={style}>
                 {props.tab.value}
             </div>
@@ -37,6 +37,7 @@ export default function TabContent(props) {
 }
 
 TabContent.propTypes = {
+    tabsKey: PropTypes.any,
     tab: PropTypes.object,
     rendering: PropTypes.any,
     setRendering: PropTypes.func,

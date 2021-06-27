@@ -13,16 +13,16 @@ export default function RenderTabs(props) {
   return (
     <div style={{display: mounted ? undefined : 'none'}}>
       {props.tabs.map(tab => (
-        <React.Fragment key={tab.buttonKey + '-content'}>
-        <TabContent tab={tab} setRendering={setRendering} rendering={rendering} openTab={props.openTab}/>
+        <React.Fragment key={tab.buttonKey + '-list-fragment-'+props.tabsKey}>
+        <TabContent tab={tab} tabsKey={props.tabsKey} setRendering={setRendering} rendering={rendering} openTab={props.openTab}/>
         </React.Fragment>
       ))}
     </div>
   )
 }
 
-RenderTabs.propTypes =
-  {
+RenderTabs.propTypes = {
+    tabsKey: PropTypes.any,
     tabs: PropTypes.arrayOf(
       PropTypes.shape({
         buttonKey: PropTypes.number,

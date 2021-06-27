@@ -53,11 +53,9 @@ export default function CorporateForms(props) {
             })}
                    render={status.error}/>
             <div style={{width: '100%'}}>
-                <button className={shared.rowContainer} onClick={() => setOpenTab(0)} style={{display: openTab !== 0 ? undefined : 'none', marginBottom: '32px', gap: '16px'}}>
-                    <ArrowBackRounded/>
-                    <p style={{fontSize: '.9rem'}}>{props.lang.returnLabel}</p>
-                </button>
+
                 <RenderTabs
+                    tabsKey={'corporate'}
                     tabs={[
                         {
                             buttonKey: 0,
@@ -117,7 +115,7 @@ export default function CorporateForms(props) {
 }
 
 CorporateForms.propTypes = {
-    id: PropTypes.string,
+    id: PropTypes.any,
     accessProfile: PropTypes.object,
     locale: PropTypes.string,
     lang: PropTypes.object,

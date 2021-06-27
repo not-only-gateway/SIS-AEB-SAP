@@ -26,7 +26,8 @@ export default function List(props) {
         searchInput: props.searchInput,
         setMaxID: setMaxID,
         fetchToken: props.fetchToken,
-        fetchUrl: props.fetchUrl
+        fetchUrl: props.fetchUrl,
+        params: props.fetchParams
       })
       props.setAppliedSearch(false)
     } else if (props.searchInput === null || props.searchInput === undefined || props.searchInput.length === 0)
@@ -80,7 +81,7 @@ export default function List(props) {
           <div style={{display: 'grid', gap: '8px', overflow: 'hidden', height: 'auto'}}>
             {data.map((entity, index) =>
               <React.Fragment key={index + props.listKey}>
-                <ListContent
+                <ListContent index={index}
                   create={false} lang={lang} entity={entity}
                   setEntity={() => props.setEntity(entity)}
                   renderElement={props.renderElement}
@@ -112,6 +113,7 @@ List.propTypes = {
 
   fetchUrl: PropTypes.string,
   fetchToken: PropTypes.string,
+  fetchParams: PropTypes.object,
 
   scrollableElement: PropTypes.string,
   renderElement: PropTypes.func

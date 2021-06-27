@@ -2,239 +2,223 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types'
 import CountryOptions from "../../../packages/options/CountryOptions";
 import StateOptions from "../../../packages/options/StateSelector";
-import {Button, DateField, DropDownField, ImageField, Selector, TextField} from "sis-aeb-inputs"
-import {Alert} from "sis-aeb-misc";
-import shared from '../../../styles/Shared.module.css'
+import {DateField, DropDownField, FormLayout, ImageField, TextField} from "sis-aeb-inputs"
+import {Alert, Selector} from "sis-aeb-misc";
 import BaseFormPT from "../../../packages/locales/person/BaseFormPT";
+import Host from "../../../utils/shared/Host";
+import PersonRequests from "../../../utils/fetch/PersonRequests";
+import submitPerson from "../../../utils/submit/SubmitPerson";
 
 export default function BaseForm(props) {
 
 
     const [changed, setChanged] = useState(false)
-    const lang =BaseFormPT
+    const lang = BaseFormPT
     const [status, setStatus] = useState({
-        error: undefined,
+        type: undefined,
         message: undefined
     })
 
+    return (
+        <>
+            <Alert
+                type={status.type} render={status.type !== undefined} rootElementID={'root'}
+                handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
+            />
 
-    function handleNationalityChange(event) {
+            <FormLayout
+                create={props.create}
+                formLabel={lang.title}
+                dependencies={{
+                    fields: [
+                        {name: 'name', type: 'string'},
+                        {name: 'nationality', type: 'string'},
+                        {name: 'birth_place', type: 'string'},
+                        {name: 'birth', type: 'number'},
+                        {name: 'disabled_person', type: 'bool'},
+                        {name: 'education', type: 'object'},
+                        {name: 'gender', type: 'object'},
+                        {name: 'marital_status', type: 'object'},
+                    ],
+                    changed: changed,
+                    entity: props.data
+                }} returnButton={true}
+                handleSubmit={() =>
+                    submitPerson({
+                        pk: props.data === null ? null : props.data.id,
+                        data: props.data,
+                        setStatus: setStatus
+                    }).then(res => {
+                        setChanged(!res)
+                    })
+                }
+                handleClose={() => props.returnToMain()}
+                forms={[{
+                    title: lang.personal,
+                    child: (
+                        <>
+                            <ImageField
+                                dark={true}
+                                initialImage={props.data.image !== null ? props.data.image : null}
+                                size={'100px'}
+                                setImage={event => props.handleChange({
+                                    name: 'image',
+                                    value: event !== null ? event.target.files[0] : null
+                                })} label={lang.personImage}
+                                width={'calc(25% - 24px)'} setChanged={setChanged}/>
 
-        props.handleChange({name: 'nationality', value: event !== undefined ? event.value : null})
-    }
+                            <TextField
+                                dark={true}
+                                placeholder={lang.name} label={lang.name}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'name', value: event.target.value})
+                                }}
+                                value={props.data.name} required={true}
+                                width={'calc(75% - 12px)'}
+                                maxLength={undefined}/>
 
-    function handleBirthPlaceChange(event) {
-        props.handleChange({name: 'birth_place', value: event !== undefined ? event.value : null})
-    }
-
-
-    function disabled() {
-        return (
-            props.person.name === null ||
-            props.person.nationality === null ||
-            props.person.birth_place === null ||
-            props.person.birth === null ||
-            props.person.disabled_person === null ||
-            props.person.education === null ||
-            props.person.gender === null ||
-            props.person.marital_status === null ||
-            !props.person.name ||
-            !props.person.nationality ||
-            !props.person.birth_place ||
-            !props.person.birth ||
-            props.person.disabled_person === undefined ||
-            !props.person.education ||
-            !props.person.gender ||
-            !props.person.marital_status ||
-            changed === false
-        )
-    }
-
-        return (
-            <div style={{display: 'grid', rowGap: '32px', width: '100%'}}>
-                <Alert
-                    type={'error'} message={status.message}
-                    handleClose={() => setStatus({
-                        error: false,
-                        message: undefined
-                    })} render={status.error}/>
-
-                <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
-                    <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.personal}</h4></legend>
-
-
-                    <ImageField
-                        dark={true}
-                        initialImage={props.person.image !== null ? props.person.image : null}
-                        size={'100px'}
-                        setImage={event => props.handleChange({
-                            name: 'image',
-                            value: event !== null ? event.target.files[0] : null
-                        })} label={lang.personImage}
-                        width={'calc(25% - 24px)'} setChanged={setChanged}/>
-
-                    <TextField
-                        dark={true}
-                        placeholder={lang.name} label={lang.name}
-                               handleChange={event => {
-                                   setChanged(true)
-                                   props.handleChange({name: 'name', value: event.target.value})
-                               }}
-                               locale={props.locale} value={props.person.name} required={true}
-                               width={'calc(75% - 12px)'}
-                               maxLength={undefined}/>
-
-                    <DateField
-                        dark={true}
-                        placeholder={lang.birth} label={lang.birth}
-                        handleChange={event => {
-                            setChanged(true)
-                            props.handleChange({name: 'birth', value: event.target.value})
-                        }} locale={props.locale}
-                        value={
-                            typeof (props.person.birth) === 'number' ?
-                                new Date(props.person.birth).toLocaleDateString().replaceAll('/', '-'
-                                ).replace( /(\d{2})-(\d{2})-(\d{4})/, "$3-$2-$1")
-                                :
-                                props.person.birth
-                        }
-                        required={true} width={'calc(50% - 16px)'}/>
+                            <DateField
+                                dark={true}
+                                placeholder={lang.birth} label={lang.birth}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'birth', value: event.target.value})
+                                }}
+                                value={
+                                    typeof (props.data.birth) === 'number' ?
+                                        new Date(props.data.birth).toLocaleDateString().replaceAll('/', '-'
+                                        ).replace(/(\d{2})-(\d{2})-(\d{4})/, "$3-$2-$1")
+                                        :
+                                        props.data.birth
+                                }
+                                required={true} width={'calc(50% - 16px)'}/>
 
 
-                    <DropDownField
-                        dark={true}
-                        placeholder={lang.disabledPerson}
-                        label={lang.disabledPerson}
-                        handleChange={event => {
-                            setChanged(true)
-                            props.handleChange({name: 'disabled_person', value: event})
-                        }} locale={props.locale} value={props.person.disabled_person}
-                        required={true}
-                        width={'calc(50% - 16px)'} choices={lang.choice}/>
-                </fieldset>
-                <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
-                    <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.life}</h4></legend>
-                    <DropDownField
-                        dark={true}
-                        placeholder={lang.gender}
-                        label={lang.gender}
-                        handleChange={event => {
-                            setChanged(true)
-                            props.handleChange({name: 'gender', value: event})
-                        }} locale={props.locale} value={props.person.gender} required={true}
-                        width={'calc(33.333% - 21.35px)'} choices={lang.genderChoice}/>
+                            <DropDownField
+                                dark={true}
+                                placeholder={lang.disabledPerson}
+                                label={lang.disabledPerson}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'disabled_person', value: event})
+                                }} value={props.data.disabled_person}
+                                required={true}
+                                width={'calc(50% - 16px)'} choices={lang.choice}/>
+                        </>
+                    )
+                },
+                    {
+                        title: lang.life,
+                        child: (
+                            <>
+                                <DropDownField
+                                    dark={true}
+                                    placeholder={lang.gender}
+                                    label={lang.gender}
+                                    handleChange={event => {
+                                        setChanged(true)
+                                        props.handleChange({name: 'gender', value: event})
+                                    }} value={props.data.gender} required={true}
+                                    width={'calc(33.333% - 21.35px)'} choices={lang.genderChoice}/>
 
-                    <DropDownField
-                        dark={true}
-                        placeholder={lang.education}
-                        label={lang.education}
-                        handleChange={event => {
-                            setChanged(true)
-                            props.handleChange({name: 'education', value: event})
-                        }} locale={props.locale} value={props.person.education} required={true}
-                        width={'calc(33.333% - 21.35px)'} choices={lang.educationChoice}/>
+                                <DropDownField
+                                    dark={true}
+                                    placeholder={lang.education}
+                                    label={lang.education}
+                                    handleChange={event => {
+                                        setChanged(true)
+                                        props.handleChange({name: 'education', value: event})
+                                    }} value={props.data.education} required={true}
+                                    width={'calc(33.333% - 21.35px)'} choices={lang.educationChoice}/>
 
-                    <DropDownField
-                        dark={true}
-                        placeholder={lang.marital}
-                        label={lang.marital}
-                        handleChange={event => {
-                            setChanged(true)
-                            props.handleChange({name: 'marital_status', value: event})
-                        }}
-                        locale={props.locale}
-                        value={props.person.marital_status} required={true}
-                        width={'calc(33.333% - 21.35px)'}
-                        choices={lang.maritalChoice}/>
-                </fieldset>
+                                <DropDownField
+                                    dark={true}
+                                    placeholder={lang.marital}
+                                    label={lang.marital}
+                                    handleChange={event => {
+                                        setChanged(true)
+                                        props.handleChange({name: 'marital_status', value: event})
+                                    }}
 
-                <fieldset className={[shared.fieldsetContainer, shared.formContainer].join(' ')}>
-                    <legend><h4 style={{width: '100%', marginBottom: '16px'}}>{lang.parents}</h4></legend>
-                    <TextField
-                        dark={true}
-                        placeholder={lang.father} label={lang.father}
-                               handleChange={event => {
-                                   setChanged(true)
-                                   props.handleChange({
-                                       name: 'father_name',
-                                       value: event.target.value
-                                   })
-                               }} locale={props.locale} value={props.person.father_name}
-                               required={false}
-                               width={'calc(50% - 16px)'}/>
+                                    value={props.data.marital_status} required={true}
+                                    width={'calc(33.333% - 21.35px)'}
+                                    choices={lang.maritalChoice}/>
+                            </>
+                        )
+                    },
+                    {
+                        title: lang.parents,
+                        child: (
+                            <>
+                                <TextField
+                                    dark={true}
+                                    placeholder={lang.father} label={lang.father}
+                                    handleChange={event => {
+                                        setChanged(true)
+                                        props.handleChange({
+                                            name: 'father_name',
+                                            value: event.target.value
+                                        })
+                                    }} value={props.data.father_name}
+                                    required={false}
+                                    width={'calc(50% - 16px)'}/>
 
-                    <TextField
-                        dark={true}
-                        placeholder={lang.mother}
-                        label={lang.mother}
-                        handleChange={event => {
-                            setChanged(true)
-                            props.handleChange({name: 'mother_name', value: event.target.value})
-                        }}
-                        locale={props.locale}
-                        value={props.person.mother_name}
-                        required={false}
-                        width={'calc(50% - 16px)'}/>
+                                <TextField
+                                    dark={true}
+                                    placeholder={lang.mother}
+                                    label={lang.mother}
+                                    handleChange={event => {
+                                        setChanged(true)
+                                        props.handleChange({name: 'mother_name', value: event.target.value})
+                                    }}
+
+                                    value={props.data.mother_name}
+                                    required={false}
+                                    width={'calc(50% - 16px)'}/>
 
 
-                    <Selector
-                        dark={true}
-                        required={true}
-                              locale={props.locale}
-                              selected={{
-                                  key: props.person.birth_place,
-                                  value: props.person.birth_place
-                              }}
-                              handleChange={handleBirthPlaceChange}
-                              label={lang.birthPlace} key={'1-5-'} setChanged={setChanged}
-                              data={StateOptions} width={'calc(50% - 16px)'}/>
-                    <Selector
-                        dark={true}
-                        required={true}
-                              locale={props.locale}
-                              selected={{
-                                  key: props.person.nationality,
-                                  value: props.person.nationality
-                              }}
-                              handleChange={handleNationalityChange} setChanged={setChanged}
-                              label={lang.nationality} key={'1-6-'}
-                              data={CountryOptions} width={'calc(50% - 16px)'}/>
+                                <DropDownField
 
-                </fieldset>
-                <div className={shared.formSubmitContainer}>
-                    <Button width={'100%'} elevation={true} border={'none'} padding={'8px 32px 8px 32px'}
-                            fontColor={'white'} backgroundColor={'#0095ff'}
-                            handleClick={() => {
+                                    placeholder={lang.birthPlace}
+                                    label={lang.birthPlace}
+                                    handleChange={event => {
+                                        setChanged(true)
+                                        props.handleChange({name: 'birth_place', value: event})
+                                    }}
 
-                                props.handleSubmit({
-                                    person: props.person,
-                                    personID: props.id,
-                                    create: props.create,
-                                    setStatus: setStatus
-                                }).then(res => {
-                                    setChanged(!res)
-                                    if(props.setAccepted)
-                                        props.setAccepted(res)
-                                })
-                            }}
-                            disabled={disabled()} variant={'rounded'}
-                            content={
-                                props.create ? lang.create : lang.save
-                            } justification={'center'} hoverHighlight={false}
-                    />
-                </div>
-            </div>
-        )
+                                    value={props.data.birth_place} required={true}
+                                    width={'calc(50% - 16px)'}
+                                    choices={StateOptions}/>
+                                <DropDownField
+
+                                    placeholder={lang.nationality}
+                                    label={lang.nationality}
+                                    handleChange={event => {
+                                        setChanged(true)
+                                        props.handleChange({name: 'nationality', value: event})
+                                    }}
+
+                                    value={props.data.nationality} required={true}
+                                    width={'calc(50% - 16px)'}
+                                    choices={CountryOptions}/>
+
+
+                            </>
+                        )
+                    },
+                ]}/>
+        </>
+    )
 
 }
 
 BaseForm.propTypes = {
     id: PropTypes.number,
-    person: PropTypes.object,
+    data: PropTypes.object,
     handleChange: PropTypes.func,
-    handleSubmit: PropTypes.func,
     editable: PropTypes.bool,
-    locale: PropTypes.string,
+    returnToMain: PropTypes.func,
     setAccepted: PropTypes.func,
     create: PropTypes.bool,
     setID: PropTypes.func
