@@ -19,7 +19,7 @@ export default function management(props) {
 
         if (accessProfile === null && sessionStorage.getItem('accessProfile') !== null) {
             const accessProfileSession = JSON.parse(sessionStorage.getItem('accessProfile'))
-            if (accessProfileSession.can_manage_person ) {
+            if (accessProfileSession.can_manage_person) {
                 setAccessProfile(accessProfileSession)
                 setOpenTab(accessProfileSession.can_manage_person ? 0 : 1)
             } else
@@ -39,10 +39,14 @@ export default function management(props) {
                 {openForm ? null :
                     <Tabs
                         buttons={[
-                            accessProfile !== null && accessProfile.can_manage_person ? {
+                            {
                                 key: 0,
                                 value: lang.people
-                            } : null
+                            },
+                            {
+                                key: 1,
+                                value: lang.contractualLinkages
+                            }
                         ]}
                         setOpenTab={setOpenTab}
                         openTab={openTab}
@@ -57,6 +61,13 @@ export default function management(props) {
                             value: <PeopleList notSearched={props.notSearched} setNotSearched={props.setNotSearched}
                                                searchInput={props.searchInput} setOpen={setOpenForm}
                                                redirect={id => router.push('/person/?id=' + id, undefined, {shallow: true})}/>
+                        },
+                        {
+                            buttonKey: 1,
+                            value: <ContractualLinkageList
+                                notSearched={props.notSearched} setNotSearched={props.setNotSearched}
+                                searchInput={props.searchInput} setOpen={setOpenForm}
+                            />
                         }
                     ]}
                 />

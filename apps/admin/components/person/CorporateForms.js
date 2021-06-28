@@ -24,7 +24,7 @@ export default function CorporateForms(props) {
             CollaboratorRequests.fetchCollaborator({id: props.id}).then(res => {
                 if (res !== null) {
                     setCollaborator(res.collaborator)
-                    setContractualLinkage(res.occupancy)
+                    setContractualLinkage(res.collaborator.occupancy)
                 }
             })
             setLoading(false)

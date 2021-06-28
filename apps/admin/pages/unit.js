@@ -1,66 +1,69 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
-import {getLanguage} from "../utils/shared/PageLanguage";
 import styles from '../styles/Unit.module.css'
-import HeaderLayout from "../components/shared/layout/HeaderLayout";
-import TabContent from "../components/shared/TabContent";
-import fetchUnit from "../utils/fetch/FetchUnit";
 import submitUnit from "../utils/submit/SubmitUnit";
 import AddressForm from "../components/person/forms/AddressForm";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import submitUnitAddress from "../utils/submit/SubmitUnitAddress";
-import UnitForm from "../components/management/forms/UnitForm";
 import UnitPT from "../packages/locales/unit/UnitPT";
-import Tabs from "../components/shared/layout/Tabs";
+import ManagementPT from "../packages/locales/management/ManagementPT";
+import Head from "next/head";
+import {RenderTabs, Tabs} from "sis-aeb-misc";
+import PeopleList from "../components/management/PeopleList";
+import ContractualLinkageList from "../components/management/ContractualLinkageList";
+import UnitForm from "../components/structural/UnitForm";
+import StructuralRequests from "../utils/fetch/StructuralRequests";
 
 export default function unit() {
 
+
     const router = useRouter()
+
+
+    const [accessProfile, setAccessProfile] = useState(null)
+    const [openTab, setOpenTab] = useState(0)
+    const [openForm, setOpenForm] = useState(false)
     const [id, setId] = useState(undefined)
     const lang = UnitPT
-    const [accessProfile, setAccessProfile] = useState(null)
-    const [loading, setLoading] = useState(true)
     const [unit, setUnit] = useState({})
     const [unitAddress, setUnitAddress] = useState({})
-    const [openTab, setOpenTab] = useState(0)
+
 
     useEffect(() => {
-
-        if (router.isReady && id === undefined) {
+        if (id === undefined && router.query.id !== undefined) {
             setId(router.query.id)
-            fetchUnit(router.query.id).then(res => {
-                if (res !== null) {
-                    setUnit(res)
-                    setLoading(false)
-                    setUnitAddress(res.address)
-                }
-            })
+
+            StructuralRequests.fetchUnit(router.query.id).then(res => setUnit(res))
         }
 
-        if (accessProfile === null && sessionStorage.getItem('accessProfile') !== null)
-            setAccessProfile(JSON.parse(sessionStorage.getItem('accessProfile')))
+        if (accessProfile === null && sessionStorage.getItem('accessProfile') !== null) {
+            const accessProfileSession = JSON.parse(sessionStorage.getItem('accessProfile'))
+            if (accessProfileSession.can_manage_structure) {
+                setAccessProfile(accessProfileSession)
+                setOpenTab(accessProfileSession.can_manage_person ? 0 : 1)
+            } else
+                router.push('/structure', '/structure', {locale: router.locale})
+        }
+    }, [router.query])
 
-        if (lang === null)
-            setLang(getLanguage(router.locale, router.pathname))
-    })
 
-    if ( id !== undefined && !loading)
+    if (id !== undefined)
         return (
             <>
+                <Head>
+                    <title>{lang.title}</title>
+                    <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
+                </Head>
 
-                <HeaderLayout
-                    width={'75%'}
-                    tabs={
-
+                <div style={{width: '65%', margin: 'auto', overflowY: 'hidden'}}>
+                    {openForm ? null :
                         <Tabs
                             buttons={[
                                 {
-                                    disabled: false,
                                     key: 0,
                                     value: lang.base
                                 },
                                 {
-                                    disabled: false,
                                     key: 1,
                                     value: lang.location
                                 }
@@ -69,54 +72,38 @@ export default function unit() {
                             openTab={openTab}
                         />
                     }
-                    filterComponent={undefined}
-                    title={
-                        <div className={styles.titleContainer}>
-                            <h2 style={{
-                                marginBottom: 0,
-                            }}>
-                                {unit.acronym}
-                            </h2>
-                        </div>
-                    }
-                    pageTitle={unit.acronym}
-                    information={unit.name}
-                    searchComponent={undefined}
-                />
-                <div className={styles.contentContainer}>
-                    {accessProfile !== null && accessProfile.can_manage_structure ?
-                        <TabContent
-                            openTab={openTab.mainTab}
-                            tabs={[
-                                {
-                                    buttonKey: 0,
-                                    value: (
-                                        <UnitForm handleSubmit={submitUnit} data={unit} locale={router.locale}
-                                                  handleChange={event => handleObjectChange({
-                                                      event: event,
-                                                      setData: setUnit
-                                                  })}/>
-                                    )
-                                },
-                                {
-                                    buttonKey: 1,
-                                    value: (
-                                        <AddressForm data={unit} locale={router.locale}
-                                                     id={unit.id} address={unitAddress}
-                                                     handleChange={event => handleObjectChange({
-                                                         event: event,
-                                                         setData: setUnitAddress
-                                                     })} handleSubmit={submitUnitAddress}
-                                        />
-                                    )
-                                }
+                    <RenderTabs
+                        openTab={openTab}
 
-                            ]}/>
-                        :
-                        null
-                    }
+                        tabs={[
+                            {
+                                buttonKey: 0,
+                                value: (
+                                    <UnitForm handleSubmit={submitUnit} data={unit} locale={router.locale}
+                                              handleChange={event => handleObjectChange({
+                                                  event: event,
+                                                  setData: setUnit
+                                              })}/>
+                                )
+                            },
+                            {
+                                buttonKey: 1,
+                                value: (
+                                    <AddressForm data={unit} locale={router.locale}
+                                                 id={unit.id} address={unitAddress}
+                                                 handleChange={event => handleObjectChange({
+                                                     event: event,
+                                                     setData: setUnitAddress
+                                                 })} handleSubmit={submitUnitAddress}
+                                    />
+                                )
+                            }
+                        ]}
+                    />
                 </div>
             </>
+
+
         )
     else
         return <></>

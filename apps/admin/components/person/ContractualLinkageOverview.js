@@ -51,13 +51,13 @@ export default function ContractualLinkageOverview(props) {
             <div className={styles.overviewRow}>
                 <p style={{fontWeight: 600, fontSize: '.9rem'}}>{lang.publication}</p>
                 <p style={{fontSize: '.9rem'}}>
-                    {new Date(props.data.official_publication_date).getDate()}
+                    {new Date(props.data.official_publication_date).toLocaleDateString()}
                 </p>
             </div>
             <div className={styles.overviewRow}>
                 <p style={{fontWeight: 600, fontSize: '.9rem'}}>{lang.admission}</p>
                 <p style={{fontSize: '.9rem'}}>
-                    {new Date(props.data.admission_date ).getDate()}
+                    {new Date(props.data.admission_date ).toLocaleDateString()}
                 </p>
             </div>
 

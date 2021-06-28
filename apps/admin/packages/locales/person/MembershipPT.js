@@ -13,5 +13,7 @@ export default {
     work: 'Turno e local de trabalho',
     workShiftStart: 'Início do turno',
     workShiftEnd: 'Fim do turno',
-    access: 'Perfil de acesso'
+    access: 'Perfil de acesso',
+    contractualLinkage:'Vínculo contratual'
+
 }

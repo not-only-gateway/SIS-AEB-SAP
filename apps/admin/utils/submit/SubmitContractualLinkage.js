@@ -21,41 +21,16 @@ export default async function submitContractualLinkage(props) {
 
     await axios({
         method: props.create ? 'post' : 'put',
-        url: props.create ? Host() + 'linkage/contractual' : Host() + 'linkage/contractual/' + props.pk,
+        url: props.create ? (Host() + 'linkage/contractual') : (Host() + 'linkage/contractual/' + props.pk),
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         data: data
     }).then(async function (res) {
-        if (props.create)
-            await axios({
-                method: 'put',
-                url: Host() + 'collaborator/' + props.personID,
-                headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
-                data: {
-                    ...{
-                        occupancy: res.data.id
-                    },
-                    ...props.collaboratorData
-                }
-            }).then(res => {
+        props.setStatus({
+            type: 'success',
+            message: res.status + ' - ' + res.statusText,
+        })
+        response = true
 
-                props.setStatus({
-                    type: 'success',
-                    message: res.status + ' - ' + res.statusText,
-                })
-                response = true
-            }).catch(error => {
-                props.setStatus({
-                    type: 'error',
-                    message: error.message
-                })
-            })
-        else {
-            props.setStatus({
-                type: 'success',
-                message: res.status + ' - ' + res.statusText,
-            })
-            response = true
-        }
     }).catch(error => {
         props.setStatus({
             type: 'error',
@@ -71,5 +46,4 @@ submitContractualLinkage.propTypes = {
     collaboratorData: PropTypes.object,
     create: PropTypes.bool,
     setStatus: PropTypes.func,
-    personID: PropTypes.number,
 }

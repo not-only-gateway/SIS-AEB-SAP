@@ -8,44 +8,27 @@ import UnitForm from "../structural/UnitForm";
 import PropTypes from "prop-types";
 
 export default function UnitList(props) {
-    const [currentEntity, setCurrentEntity] = useState(null)
-    const [open, setOpen] = useState(false)
 
     return (
-        <>
-            {!open ? null :
-                <div className={animations.fadeIn}>
-                    <UnitForm
-                        closeModal={() => setOpen(false)}
-                        // handleSubmit={submitLinkage}
-                        handleChange={event => handleObjectChange({
-                            event: event,
-                            setData: setCurrentEntity
-                        })}
-                        create={open && currentEntity === null}
-                        data={currentEntity}/>
-                </div>
-            }
-            <div style={{display: open ? 'none' : undefined}}>
-                <List
-                    listKey={'unit'}
-                    clickEvent={() => setOpen(true)} createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/unit'}
-                    renderElement={element => {
-                        return (
-                            <div style={{display: 'flex', gap: '16px'}}>
-                                <div>
-                                    {element.name}
-                                </div>
-                                <div>
-                                    {element.acronym}
-                                </div>
-                            </div>
-                        )
-                    }}
-                    setEntity={setCurrentEntity}  applySearch={props.notSearched} setAppliedSearch={props.setNotSearched}/>
-            </div>
-        </>
+        <List
+            listKey={'unit'}
+            createOption={true}
+            fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/unit'}
+            renderElement={element => {
+                return (
+                    <div style={{display: 'flex', gap: '16px'}}>
+                        <div>
+                            {element.name}
+                        </div>
+                        <div>
+                            {element.acronym}
+                        </div>
+                    </div>
+                )
+            }}
+            clickEvent={() => null}
+            setEntity={entity => props.redirect(entity.id)} applySearch={props.notSearched}
+            setAppliedSearch={props.setNotSearched}/>
     )
 
 }

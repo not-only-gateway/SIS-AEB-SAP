@@ -44,16 +44,18 @@ export default function ContractualLinkageForm(props) {
                     ],
                     changed: changed,
                     entity: props.data
-                }} returnButton={true} handleSubmit={() =>
-                submitContractualLinkage({
-                    pk: props.data === null ? null : props.data.id,
-                    data: props.data,
-                    create: props.create,
-                    personID: props.personID,
-                    setStatus: setStatus
-                }).then(res => {
-                    setChanged(!res)
-                })}
+                }} returnButton={true}
+                handleSubmit={() =>
+                    submitContractualLinkage({
+                        pk: props.data === null ? null : props.data.id,
+                        data: props.data,
+                        create: props.data.id === undefined || props.data.id === null,
+                        personID: props.personID,
+                        setStatus: setStatus
+                    }).then(res => {
+                        setChanged(!res)
+                    })
+                }
                 handleClose={() => props.closeModal()}
                 forms={
                     [

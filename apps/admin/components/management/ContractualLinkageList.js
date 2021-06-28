@@ -46,9 +46,8 @@ export default function ContractualLinkageList(props) {
                             }}>
 
                                 <div style={{color: '#333333'}}>
-                                    {element.role}
+                                    {element.contract !== null ? element.contract.sei : element.effective_role.denomination}
                                 </div>
-
                                 <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
                                     <div>
                                         {element.denomination}
@@ -57,14 +56,27 @@ export default function ContractualLinkageList(props) {
                                     <div style={{color: '#333333'}}>
                                         {element.description}
                                     </div>
+                                    <div style={{
+                                        borderRight: '#e0e0e0 1px solid',
+                                        width: '1px',
+                                        height: '20px',
+                                        display: element.collaborator_email !== undefined && element.collaborator_email !== null ? undefined : 'none'
+                                    }}/>
+                                    <div style={{
+                                        color: '#333333',
+                                        display: element.collaborator_email !== undefined && element.collaborator_email !== null ? undefined : 'none'
+                                    }}>
+                                        {element.collaborator_email}
+                                    </div>
                                 </div>
+
                             </div>
                         )
                     }} clickEvent={() => {
                     props.setOpen(true)
                     setOpen(true)
                 }} createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/linkage/contractual'}
+                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/occupancy'}
                     setEntity={setCurrentEntity} searchInput={props.searchInput}
                     applySearch={props.notSearched} setAppliedSearch={props.setNotSearched}
                 />

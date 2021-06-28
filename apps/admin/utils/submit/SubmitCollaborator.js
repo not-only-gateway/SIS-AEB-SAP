@@ -11,6 +11,7 @@ export default async function submitCollaborator(props) {
     data = Object.assign(data, props.data)
 
     data.access_profile = props.data.access_profile.id
+    data.occupancy = data.occupancy.id
     await axios({
         method: 'put',
         url: props.create ? Host() + 'collaborator' : Host() + 'collaborator/' + props.pk,

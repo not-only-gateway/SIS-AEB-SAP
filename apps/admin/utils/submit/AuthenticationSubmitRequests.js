@@ -28,7 +28,6 @@ export default async function submitAuthentication(props) {
         response = true
 
     }).catch(error => {
-        alert('HERE')
         props.setError({
             error: true,
             message: error.message
