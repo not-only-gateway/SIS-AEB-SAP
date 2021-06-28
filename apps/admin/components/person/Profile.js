@@ -2,16 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styles from '../../styles/Person.module.css'
 import PersonPersona from "../shared/PersonAvatar";
+import {Avatar} from "@material-ui/core";
 
 export default function Profile(props) {
     return (
-        <div className={styles.profileContainer}
-             style={{paddingTop: props.padding ? '16px' : 0}}>
-            <PersonPersona
-                size={'120px'}
-                dark={false}
-                cakeDay={false}
-                image={props.person.image} elevation={false} variant={'circular'}/>
+        <div className={styles.profileContainer}>
+            <Avatar src={props.person.image} alt={'profile_pic'} style={{width: '80px', height: '80px',}}
+                    variant={'circle'}/>
 
             <div style={{
                 display: 'grid',
@@ -37,6 +34,5 @@ export default function Profile(props) {
 
 Profile.proptypes = {
     person: PropTypes.object,
-    member: PropTypes.object,
-    padding: PropTypes.bool
+    member: PropTypes.object
 }

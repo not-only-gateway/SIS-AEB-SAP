@@ -13,6 +13,7 @@ import PeopleList from "../components/management/PeopleList";
 import ContractualLinkageList from "../components/management/ContractualLinkageList";
 import UnitForm from "../components/structural/UnitForm";
 import StructuralRequests from "../utils/fetch/StructuralRequests";
+import Profile from "../components/person/Profile";
 
 export default function unit() {
 
@@ -55,8 +56,22 @@ export default function unit() {
                     <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
                 </Head>
 
-                <div style={{width: '65%', margin: 'auto', overflowY: 'hidden'}}>
-                    {openForm ? null :
+                <div className={styles.pageContainer}>
+                    <div className={styles.unitHeader}>
+                        <div className={styles.unitInfoHeader}>
+                            <div style={{
+                                fontSize: '1.3rem',
+                                color: '#333333'
+                            }}>
+                                {unit.name}
+                            </div>
+                            <div style={{
+                                fontSize: '.9rem',
+                                color: '#555555'
+                            }}>
+                                {unit.acronym}
+                            </div>
+                        </div>
                         <Tabs
                             buttons={[
                                 {
@@ -71,35 +86,38 @@ export default function unit() {
                             setOpenTab={setOpenTab}
                             openTab={openTab}
                         />
-                    }
-                    <RenderTabs
-                        openTab={openTab}
+                    </div>
 
-                        tabs={[
-                            {
-                                buttonKey: 0,
-                                value: (
-                                    <UnitForm handleSubmit={submitUnit} data={unit} locale={router.locale}
-                                              handleChange={event => handleObjectChange({
-                                                  event: event,
-                                                  setData: setUnit
-                                              })}/>
-                                )
-                            },
-                            {
-                                buttonKey: 1,
-                                value: (
-                                    <AddressForm data={unit} locale={router.locale}
-                                                 id={unit.id} address={unitAddress}
-                                                 handleChange={event => handleObjectChange({
-                                                     event: event,
-                                                     setData: setUnitAddress
-                                                 })} handleSubmit={submitUnitAddress}
-                                    />
-                                )
-                            }
-                        ]}
-                    />
+                    <div className={styles.unitContentContainer}>
+                        <RenderTabs
+                            openTab={openTab}
+
+                            tabs={[
+                                {
+                                    buttonKey: 0,
+                                    value: (
+                                        <UnitForm handleSubmit={submitUnit} data={unit} locale={router.locale}
+                                                  handleChange={event => handleObjectChange({
+                                                      event: event,
+                                                      setData: setUnit
+                                                  })}/>
+                                    )
+                                },
+                                {
+                                    buttonKey: 1,
+                                    value: (
+                                        <AddressForm data={unit} locale={router.locale}
+                                                     id={unit.id} address={unitAddress}
+                                                     handleChange={event => handleObjectChange({
+                                                         event: event,
+                                                         setData: setUnitAddress
+                                                     })} handleSubmit={submitUnitAddress}
+                                        />
+                                    )
+                                }
+                            ]}
+                        />
+                    </div>
                 </div>
             </>
 

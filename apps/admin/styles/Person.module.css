@@ -6,42 +6,40 @@
 }
 
 .profileContainer {
-    grid-row: 1;
-    width: 100%;
 
+
+    grid-row: 1;
+    width: 100vw;
+    background: #f4f5fa;
     display: flex;
     align-items: center;
+
     justify-content: flex-start;
     gap: 32px;
 
+    padding: 16px 16px 16px 12.5%;
     height: fit-content;
 
     overflow: hidden;
 }
 
 .profileContentContainer {
-    grid-row: 2;
+
     display: grid;
     align-items: flex-start;
     gap: 16px;
     position: relative;
-    z-index: 2;
-    padding-left: 13%;
-    padding-right: 13%;
 
-    margin-bottom: 15%;
+    width: 75%;
+    margin: auto auto 15%;
 }
 
 .profileHeader {
     width: 100%;
-
     display: grid;
-    gap: 16px;
-
+    background: white;
     justify-items: center;
     justify-content: center;
-
-    height: 210px;
 }
 
 .personOptionsContainer {

@@ -49,7 +49,14 @@ export default function person() {
         }
     }, [router.query])
 
+    const getElementHeight = () => {
+        const root = document.getElementById('scrollableDiv')
 
+        if (root !== null)
+            return root.scrollHeight - root.offsetHeight
+        else
+            return 0
+    }
     if (id !== undefined)
         return (
             <>
@@ -87,11 +94,11 @@ export default function person() {
                             openTab={openTab}
                             setOpenTab={setOpenTab}
                         />
+
                     </div>
 
                     <div className={styles.profileContentContainer}>
                         <RenderTabs
-
                             tabs={[
                                 {
                                     buttonKey: 0,
