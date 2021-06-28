@@ -19,7 +19,7 @@ export default function Navigation(props) {
     <div className={styles.navigationContainer}>
       <Loading loading={props.loading}/>
       <div className={styles.logoContainer} style={{color: '#666666', fontWeight: 600, fontSize: '16px'}}>
-        <NavigationTabs open={modal} setOpen={setModal} buttons={props.buttons} path={props.path}/>
+        <NavigationTabs open={modal} setOpen={setModal} buttons={props.buttons} path={props.path} logo={props.logo}/>
         <button className={styles.appsButtonContainer} onClick={() => setModal(true)}>
           <MenuRounded/>
         </button>

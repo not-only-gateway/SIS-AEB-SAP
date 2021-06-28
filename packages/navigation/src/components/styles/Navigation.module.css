@@ -76,7 +76,7 @@
     border-radius: 0 32px 32px 0;
     border: none;
     color: #666666;
-    padding: 16px 12px 16px 24px;
+    padding: 10px 12px 10px 24px;
     cursor: pointer;
     transition: 300ms ease;
     font-family: 'Roboto' !important;
@@ -110,9 +110,7 @@
 }
 
 .modalContainer {
-    padding-top: 16px;
 
-    padding-right: 16px;
 
     background: white;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -123,11 +121,15 @@
     width: 295px;
     height: 100vh;
 
+}
+.modalButtonsContainer{
+    padding-top: 16px;
+    width: calc(100% - 16px);
+    margin-left: 0;
     display: grid;
     align-content: flex-start;
     gap: 4px;
 }
-
 .navigationTabsContainer {
     width: 100vw;
     position: fixed;

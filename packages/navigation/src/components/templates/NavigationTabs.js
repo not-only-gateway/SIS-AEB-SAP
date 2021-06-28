@@ -45,20 +45,26 @@ export default function NavigationTabs(props) {
                  display: isInRender ? undefined : 'none',
              }}>
             <div className={[styles.modalContainer, style].join(' ')} id={'navigation-content'}>
-                {props.buttons.map((button, index) => button !== null ? (
-                    <React.Fragment key={button.label + index}>
-                        <NavigationButton
-                            buttonKey={index}
-                            linkPath={button.link}
-                            linkQuery={button.linkProps}
-                            highlight={props.path === button.link}
-                            icon={
-                                button.icon
-                            }
-                            label={button.label}
-                        />
-                    </React.Fragment>
-                ) : null)}
+                <div style={{borderBottom: '#e0e0e0 1px solid', height: '60px',paddingTop: '8px', paddingBottom: '8px', display: 'flex', alignItems:'center'}}>
+                    <img src={props.logo} alt={'logo'} style={{height: '40px', marginLeft: '24px'}}/>
+                </div>
+                <div className={styles.modalButtonsContainer}>
+                    {props.buttons.map((button, index) => button !== null ? (
+                        <React.Fragment key={button.label + index}>
+                            <NavigationButton
+                                buttonKey={index}
+                                linkPath={button.link}
+                                linkQuery={button.linkProps}
+                                highlight={props.path === button.link}
+                                icon={
+                                    button.icon
+                                }
+                                label={button.label}
+                            />
+                        </React.Fragment>
+                    ) : null)}
+                </div>
+
             </div>
         </div>
     )
@@ -66,6 +72,7 @@ export default function NavigationTabs(props) {
 }
 
 NavigationTabs.propTypes = {
+    logo: PropTypes.any,
     buttons: PropTypes.arrayOf(
         PropTypes.shape({
             label: PropTypes.string,
