@@ -5,7 +5,7 @@ import mainStyles from '../../styles/shared/Main.module.css'
 import {Alert} from "sis-aeb-misc";
 import {FormLayout, DropDownField, TextField} from "sis-aeb-inputs";
 import shared from "../../styles/Shared.module.css";
-import {commissioned} from "../../packages/locales/management/SimpleFormsPT";
+import {commissioned} from "../../packages/locales/organizational/SimpleFormsPT";
 
 
 export default function CommissionedRoleForm(props) {

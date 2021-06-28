@@ -10,6 +10,7 @@ import {Alert} from "sis-aeb-misc";
 import AuthenticatePT from "../packages/locales/authenticate/AuthenticatePT";
 import AuthenticationSubmitRequests from "../utils/submit/AuthenticationSubmitRequests";
 import {TextField} from "sis-aeb-inputs";
+import submitAuthentication from "../utils/submit/AuthenticationSubmitRequests";
 
 export default function authenticate() {
     const router = useRouter()
@@ -34,8 +35,9 @@ export default function authenticate() {
 
     return (
         <>
+            <div id={'authentication_root'}/>
             <Alert
-                type={'error'} message={error.message} render={error.error}  rootElementID={'root'}
+                type={'error'} message={error.message} render={error.error} rootElementID={'authentication_root'}
                 handleClose={() => setError({error: false, message: ''})}
             />
             <Head>
@@ -76,7 +78,7 @@ export default function authenticate() {
 
                     <Button
 
-                        onClick={() => AuthenticationSubmitRequests.authenticate({
+                        onClick={() => submitAuthentication({
                             email: data.email,
                             password: data.password,
                             setError: setError,

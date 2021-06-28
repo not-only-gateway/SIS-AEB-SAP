@@ -1,31 +1,31 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
-import MembershipForm from "./forms/MembershipForm";
-import CollaborationList from "../management/CollaborationList";
 import {Alert, RenderTabs} from "sis-aeb-misc";
 import styles from "../../styles/Person.module.css";
 import OptionRow from "./OptionRow";
-import shared from "../../styles/Shared.module.css";
-import {ArrowBackRounded} from "@material-ui/icons";
-import MemberOverview from "./overview/MemberOverview";
-import MemberRequests from "../../utils/fetch/MemberRequests";
+import CollaboratorRequests from "../../utils/fetch/MemberRequests";
 import MemberSubmitRequests from "../../utils/submit/MemberSubmitRequests";
+import ContractualLinkageForm from "../management/ContractualLinkageForm";
+import CollaboratorOverview from "./overview/CollaboratorOverview";
+import CollaboratorForm from "./forms/CollaboratorForm";
+import ContractualLinkageOverview from "./ContractualLinkageOverview";
 
 export default function CorporateForms(props) {
-    const [member, setMember] = useState(null)
-    const [status, setStatus] = useState({
-        error: undefined,
-        message: undefined
-    })
+    const [collaborator, setCollaborator] = useState(null)
+    const [contractualLinkage, setContractualLinkage] = useState(null)
+
     const [loading, setLoading] = useState(true)
     const [openTab, setOpenTab] = useState(0)
+
     useEffect(() => {
-        if (member === null && props.id !== null && props.id !== undefined) {
+        if (collaborator === null && props.id !== null && props.id !== undefined) {
             setLoading(true)
-            MemberRequests.fetchMember({memberID: props.id, setStatus: setStatus}).then(res => {
-                if (res !== null)
-                    setMember(res.member)
+            CollaboratorRequests.fetchCollaborator({id: props.id}).then(res => {
+                if (res !== null) {
+                    setCollaborator(res.collaborator)
+                    setContractualLinkage(res.occupancy)
+                }
             })
             setLoading(false)
         } else
@@ -34,7 +34,7 @@ export default function CorporateForms(props) {
 
     async function handleMemberSubmit(event) {
         let response = false
-        if (member === null || member.person === undefined) {
+        if (collaborator === null || collaborator.person === undefined) {
             event.person = props.id
             MemberSubmitRequests.submitMember(event).then(() => props.fetchMembership())
         } else {
@@ -46,12 +46,6 @@ export default function CorporateForms(props) {
 
     return (
         <div style={{width: '100%', display: 'grid', gap: '16px', alignItems: 'flex-start', justifyItems: 'center'}}>
-
-            <Alert type={'error'} message={status.message} handleClose={() => setStatus({
-                error: false,
-                message: undefined
-            })}
-                   render={status.error}/>
             <div style={{width: '100%'}}>
 
                 <RenderTabs
@@ -61,33 +55,49 @@ export default function CorporateForms(props) {
                             buttonKey: 0,
                             value: (
                                 <div className={styles.personOptionsContainer}>
-                                    <OptionRow setOption={() => setOpenTab(1)} label={props.lang.membership}
-                                               modalContent={member === null ? null : <MemberOverview data={member}/>}/>
-                                    <button className={shared.rowContainer} onClick={() => setOpenTab(2)}
-                                            style={{
-                                                width: '100%',
-                                                justifyContent: "space-between",
-                                                cursor: props.modalContent === null ? 'unset' : 'pointer',
-                                                color: '#282828',
-                                                boxShadow: props.modalContent === null ? 'unset' : undefined
-                                            }}>
-                                        {props.lang.collaborations}
-                                    </button>
+
+                                    <OptionRow setOption={() => setOpenTab(1)} setHistory={() => setOpenTab(4)}
+                                               label={props.lang.collaboration}
+                                               modalContent={collaborator === null ? null :
+                                                   <CollaboratorOverview data={collaborator}/>}/>
+                                    {collaborator === null ? null :
+                                        <>
+                                            <OptionRow setOption={() => setOpenTab(2)} setHistory={() => setOpenTab(4)}
+                                                       label={props.lang.contractualLinkage}
+                                                       modalContent={contractualLinkage === null ? null :
+                                                           <ContractualLinkageOverview data={contractualLinkage}/>}/>
+                                            <OptionRow setOption={() => setOpenTab(3)} setHistory={() => setOpenTab(4)}
+                                                       label={props.lang.commissionedLinkages}
+                                                       modalContent={null}/>
+                                        </>
+                                    }
+                                    {/*<button className={shared.rowContainer} onClick={() => setOpenTab(2)}*/}
+                                    {/*        style={{*/}
+                                    {/*            width: '100%',*/}
+                                    {/*            justifyContent: "space-between",*/}
+                                    {/*            cursor: props.modalContent === null ? 'unset' : 'pointer',*/}
+                                    {/*            color: '#282828',*/}
+                                    {/*            boxShadow: props.modalContent === null ? 'unset' : undefined*/}
+                                    {/*        }}>*/}
+                                    {/*    {props.lang.collaborations}*/}
+                                    {/*</button>*/}
                                 </div>
                             )
                         },
                         {
                             buttonKey: 1,
-                            value: loading ? null : (
-                                <MembershipForm
+                            value: (
+
+                                <CollaboratorForm
                                     id={props.id}
-                                    member={member}
+                                    data={collaborator}
                                     handleChange={event => handleObjectChange({
                                         event: event,
-                                        setData: setMember
+                                        setData: setCollaborator
                                     })}
+                                    create={(collaborator === null || collaborator === undefined || collaborator === {}) || collaborator.person === null || collaborator.person === undefined}
                                     handleSubmit={handleMemberSubmit}
-                                    create={member === null || member.id === undefined}
+                                    returnToMain={() => setOpenTab(0)}
                                     editable={props.accessProfile !== null && props.accessProfile.can_manage_membership}
                                     locale={props.locale}
                                 />
@@ -96,13 +106,14 @@ export default function CorporateForms(props) {
                         {
                             buttonKey: 2,
                             value: (
-                                null
-                                // <CollaborationList
-                                //     id={props.id}
-                                //     dark={false}
-                                //     editionMode={props.accessProfile !== null && props.accessProfile.can_manage_membership}
-                                //     locale={props.locale}
-                                // />
+                                <ContractualLinkageForm
+                                    create={contractualLinkage === null || contractualLinkage === undefined}
+                                    data={contractualLinkage}
+                                    handleChange={event => handleObjectChange({
+                                        event: event,
+                                        setData: setContractualLinkage
+                                    })}
+                                    closeModal={() => setOpenTab(0)}/>
                             )
                         }
                     ]}

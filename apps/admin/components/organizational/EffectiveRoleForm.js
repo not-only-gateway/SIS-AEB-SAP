@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import PropTypes from "prop-types";
 
 import {FormLayout, TextField} from "sis-aeb-inputs";
-import {effective} from "../../packages/locales/management/SimpleFormsPT";
+import {effective} from "../../packages/locales/organizational/SimpleFormsPT";
 import {Alert} from "sis-aeb-misc";
 
 

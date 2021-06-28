@@ -1,4 +1,5 @@
 export default {
+    title: 'Colaborador',
     corporateEmail: 'Email Corporativo',
     extension: 'Ramal',
     registration: 'Matrícula',
@@ -9,6 +10,8 @@ export default {
     create: 'Criar',
     altPhone: 'Telefone alternativo',
     general: 'Geral',
-    linkage: 'Vínculo & Posição de trabalho',
-    mainCollaboration: 'Colaboração principal'
+    work: 'Turno e local de trabalho',
+    workShiftStart: 'Início do turno',
+    workShiftEnd: 'Fim do turno',
+    access: 'Perfil de acesso'
 }

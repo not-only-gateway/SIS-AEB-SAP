@@ -7,5 +7,6 @@ export default {
     corporateEmail: 'Email corporativo',
     registration: 'Matrícula',
     unset: 'Não inserido',
-    getHomeOffice: (data) => data ? 'Sim' : 'Não'
+    getHomeOffice: (data) => data ? 'Sim' : 'Não',
+    access: 'Perfil de acesso'
 }

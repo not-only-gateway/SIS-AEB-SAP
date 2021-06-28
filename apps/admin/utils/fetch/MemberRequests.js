@@ -4,8 +4,7 @@ import Host from "../shared/Host";
 import Cookies from "universal-cookie/lib";
 
 const memberProps = {
-    id: PropTypes.number,
-    setStatus: PropTypes.func,
+    id: PropTypes.number
 }
 const byPersonProps = {
 
@@ -30,22 +29,21 @@ export default class MemberRequests {
         return response
     }
 
-    static async fetchMember(memberProps) {
+    static async fetchCollaborator(memberProps) {
         let response = null
         await axios({
             method: 'get',
-            url: Host() + 'member/' + memberProps.id,
+            url: Host() + 'collaborator/' + memberProps.id,
             headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         }).then(res => {
             response = res.data
         }).catch(error => {
-            memberProps.setStatus({
-                error: true,
-                message: error.message
-            })
+            console.log(error)
         })
         return response
     }
+
+
 }
 
 

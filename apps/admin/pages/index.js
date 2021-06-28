@@ -19,11 +19,11 @@ export default function management(props) {
 
         if (accessProfile === null && sessionStorage.getItem('accessProfile') !== null) {
             const accessProfileSession = JSON.parse(sessionStorage.getItem('accessProfile'))
-            if (accessProfileSession.can_manage_person || accessProfileSession.can_manage_structure) {
+            if (accessProfileSession.can_manage_person ) {
                 setAccessProfile(accessProfileSession)
                 setOpenTab(accessProfileSession.can_manage_person ? 0 : 1)
             } else
-                router.push('/organizational', '/organizational', {locale: router.locale})
+                router.push('/structure', '/structure', {locale: router.locale})
         }
     }, [])
 
@@ -42,14 +42,6 @@ export default function management(props) {
                             accessProfile !== null && accessProfile.can_manage_person ? {
                                 key: 0,
                                 value: lang.people
-                            } : null,
-                            accessProfile !== null && accessProfile.can_manage_structure ? {
-                                key: 1,
-                                value: lang.commissionedLinkages
-                            } : null,
-                            accessProfile !== null && accessProfile.can_manage_structure ? {
-                                key: 2,
-                                value: lang.contractualLinkages
                             } : null
                         ]}
                         setOpenTab={setOpenTab}
@@ -63,22 +55,9 @@ export default function management(props) {
                         {
                             buttonKey: 0,
                             value: <PeopleList notSearched={props.notSearched} setNotSearched={props.setNotSearched}
-                                               searchInput={props.searchInput}
+                                               searchInput={props.searchInput} setOpen={setOpenForm}
                                                redirect={id => router.push('/person/?id=' + id, undefined, {shallow: true})}/>
-                        },
-                        {
-                            buttonKey: 1,
-                            value: <CommissionedLinkageList notSearched={props.notSearched} setOpen={setOpenForm}
-                                                            setNotSearched={props.setNotSearched}
-                                                            searchInput={props.searchInput}/>
-                        },
-                        {
-                            buttonKey: 2,
-                            value: <ContractualLinkageList notSearched={props.notSearched} setOpen={setOpenForm}
-                                                           setNotSearched={props.setNotSearched}
-                                                           searchInput={props.searchInput}/>
-
-                        },
+                        }
                     ]}
                 />
             </div>

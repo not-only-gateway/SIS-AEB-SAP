@@ -49,7 +49,9 @@ export default function BaseForm(props) {
                         data: props.data,
                         setStatus: setStatus
                     }).then(res => {
-                        setChanged(!res)
+                        if (props.data !== null && props.data !== undefined && res.status && (props.data.id === undefined || props.data.id === null))
+                            props.redirect(res.id)
+                        setChanged(!res.status)
                     })
                 }
                 handleClose={() => props.returnToMain()}
@@ -74,7 +76,7 @@ export default function BaseForm(props) {
                                     setChanged(true)
                                     props.handleChange({name: 'name', value: event.target.value})
                                 }}
-                                value={props.data.name} required={true}
+                                value={props.data === null ? null : props.data.name} required={true}
                                 width={'calc(75% - 12px)'}
                                 maxLength={undefined}/>
 
@@ -86,11 +88,11 @@ export default function BaseForm(props) {
                                     props.handleChange({name: 'birth', value: event.target.value})
                                 }}
                                 value={
-                                    typeof (props.data.birth) === 'number' ?
-                                        new Date(props.data.birth).toLocaleDateString().replaceAll('/', '-'
+                                    typeof (props.data === null ? null : props.data.birth) === 'number' ?
+                                        new Date(props.data === null ? null : props.data.birth).toLocaleDateString().replaceAll('/', '-'
                                         ).replace(/(\d{2})-(\d{2})-(\d{4})/, "$3-$2-$1")
                                         :
-                                        props.data.birth
+                                        props.data === null ? null : props.data.birth
                                 }
                                 required={true} width={'calc(50% - 16px)'}/>
 
@@ -102,7 +104,7 @@ export default function BaseForm(props) {
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'disabled_person', value: event})
-                                }} value={props.data.disabled_person}
+                                }} value={props.data === null ? null : props.data.disabled_person}
                                 required={true}
                                 width={'calc(50% - 16px)'} choices={lang.choice}/>
                         </>
@@ -119,7 +121,7 @@ export default function BaseForm(props) {
                                     handleChange={event => {
                                         setChanged(true)
                                         props.handleChange({name: 'gender', value: event})
-                                    }} value={props.data.gender} required={true}
+                                    }} value={props.data === null ? null : props.data.gender} required={true}
                                     width={'calc(33.333% - 21.35px)'} choices={lang.genderChoice}/>
 
                                 <DropDownField
@@ -129,7 +131,7 @@ export default function BaseForm(props) {
                                     handleChange={event => {
                                         setChanged(true)
                                         props.handleChange({name: 'education', value: event})
-                                    }} value={props.data.education} required={true}
+                                    }} value={props.data === null ? null : props.data.education} required={true}
                                     width={'calc(33.333% - 21.35px)'} choices={lang.educationChoice}/>
 
                                 <DropDownField
@@ -141,7 +143,7 @@ export default function BaseForm(props) {
                                         props.handleChange({name: 'marital_status', value: event})
                                     }}
 
-                                    value={props.data.marital_status} required={true}
+                                    value={props.data === null ? null : props.data.marital_status} required={true}
                                     width={'calc(33.333% - 21.35px)'}
                                     choices={lang.maritalChoice}/>
                             </>
@@ -160,7 +162,7 @@ export default function BaseForm(props) {
                                             name: 'father_name',
                                             value: event.target.value
                                         })
-                                    }} value={props.data.father_name}
+                                    }} value={props.data === null ? null : props.data.father_name}
                                     required={false}
                                     width={'calc(50% - 16px)'}/>
 
@@ -173,7 +175,7 @@ export default function BaseForm(props) {
                                         props.handleChange({name: 'mother_name', value: event.target.value})
                                     }}
 
-                                    value={props.data.mother_name}
+                                    value={props.data === null ? null : props.data.mother_name}
                                     required={false}
                                     width={'calc(50% - 16px)'}/>
 
@@ -187,7 +189,7 @@ export default function BaseForm(props) {
                                         props.handleChange({name: 'birth_place', value: event})
                                     }}
 
-                                    value={props.data.birth_place} required={true}
+                                    value={props.data === null ? null : props.data.birth_place} required={true}
                                     width={'calc(50% - 16px)'}
                                     choices={StateOptions}/>
                                 <DropDownField
@@ -199,7 +201,7 @@ export default function BaseForm(props) {
                                         props.handleChange({name: 'nationality', value: event})
                                     }}
 
-                                    value={props.data.nationality} required={true}
+                                    value={props.data === null ? null : props.data.nationality} required={true}
                                     width={'calc(50% - 16px)'}
                                     choices={CountryOptions}/>
 
@@ -219,7 +221,6 @@ BaseForm.propTypes = {
     handleChange: PropTypes.func,
     editable: PropTypes.bool,
     returnToMain: PropTypes.func,
-    setAccepted: PropTypes.func,
     create: PropTypes.bool,
-    setID: PropTypes.func
+    redirect: PropTypes.func
 }

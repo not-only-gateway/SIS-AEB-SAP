@@ -4,7 +4,7 @@ import Cookies from "universal-cookie/lib";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import animations from '../../styles/Animations.module.css'
 import Host from "../../utils/shared/Host";
-import UnitForm from "../management/forms/UnitForm";
+import UnitForm from "../structural/UnitForm";
 import PropTypes from "prop-types";
 
 export default function UnitList(props) {
@@ -34,8 +34,12 @@ export default function UnitList(props) {
                     renderElement={element => {
                         return (
                             <div style={{display: 'flex', gap: '16px'}}>
-                                {element.name}
-                                {element.acronym}
+                                <div>
+                                    {element.name}
+                                </div>
+                                <div>
+                                    {element.acronym}
+                                </div>
                             </div>
                         )
                     }}

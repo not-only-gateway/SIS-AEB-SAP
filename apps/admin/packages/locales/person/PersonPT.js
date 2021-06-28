@@ -11,5 +11,10 @@ export default {
     address: 'Endereço',
     membership: 'Filiação',
     collaborations: 'Colaborações',
-    returnLabel: 'Retornar'
+    returnLabel: 'Retornar',
+
+
+    collaboration: 'Colaboração',
+    contractualLinkage: 'Vínculo contratual e lotação',
+    commissionedLinkages: 'Vínculos comissionados'
 }

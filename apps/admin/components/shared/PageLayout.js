@@ -65,7 +65,7 @@ export default function PageLayout(props) {
                 overflow: 'hidden',
                 height: '100vh',
                 position: 'relative'
-            }} >
+            }}>
                 <Navigation
                     searchBar={true}
                     searchInput={searchInput}
@@ -87,7 +87,11 @@ export default function PageLayout(props) {
                     }]}
                     buttons={[
                         {label: lang.structure, icon: <AccountTreeRounded/>, link: '/structure'},
-                        {label: lang.collaborator, icon: <PersonRounded/>, link: '/'},
+                        accessProfile === null || !accessProfile.can_manage_person ? null : {
+                            label: lang.collaborator,
+                            icon: <PersonRounded/>,
+                            link: '/'
+                        },
                         accessProfile === null || !accessProfile.can_manage_structure ? null : {
                             label: lang.organizational,
                             icon: <BusinessRounded/>,

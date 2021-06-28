@@ -15,7 +15,6 @@ export default function ListContent(props) {
       }}
       style={{animationDuration: '250ms', display: (element === null || element === undefined) && !props.create? 'none' : undefined}}
     >
-      {props.index}
       <AddRounded style={{
         color: '#555555',
         display: !props.create ? 'none' : undefined

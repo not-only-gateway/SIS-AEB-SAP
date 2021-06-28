@@ -1,4 +1,4 @@
-export const commissioned ={
+export const commissioned = {
     denomination: 'Denominação',
     level: 'Nível do cargo',
     roleClass: 'Classe do cargo',
@@ -11,14 +11,14 @@ export const commissioned ={
     title: 'Cargo Comissionado'
 }
 
-export const effective ={
+export const effective = {
     denomination: 'Denominação',
     hierarchyLevel: 'Nível hierárquico',
 
     title: 'Cargo Efetivo'
 }
 
-export const linkage ={
+export const linkage = {
     dependencies: 'Dependências',
     title: 'Vínculo contratual',
     effective: 'Cargo efetivo',
@@ -32,5 +32,7 @@ export const linkage ={
     occupancy: 'Lotação',
     officialPublication: 'Data de publicação oficial',
     admissionDate: 'Data de admissão',
-    unit: 'Unidade'
+    unit: 'Unidade',
+    linkage: 'Vínculo',
+    legalDocument: 'Documento legal'
 }

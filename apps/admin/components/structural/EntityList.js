@@ -32,8 +32,12 @@ export default function EntityList(props) {
                     renderElement={element => {
                         return (
                             <div style={{display: 'flex', gap: '16px'}}>
-                                {element.denomination}
-                                {element.acronym}
+                                <div>
+                                    {element.denomination}
+                                </div>
+                                <div>
+                                    {element.acronym}
+                                </div>
                             </div>
                         )
                     }}

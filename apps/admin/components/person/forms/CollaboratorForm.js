@@ -1,22 +1,31 @@
-import React, {useState} from "react";
-import PropTypes from "prop-types";
-import {DateField, FormLayout, TextField} from "sis-aeb-inputs";
-import {linkage} from "../../packages/locales/organizational/SimpleFormsPT";
-import Host from "../../utils/shared/Host";
-import Cookies from "universal-cookie/lib";
-import {Alert, Selector} from "sis-aeb-misc";
-import submitContractualLinkage from "../../utils/submit/SubmitContractualLinkage";
+import React, {useEffect, useState} from 'react';
+import PropTypes from 'prop-types'
 
+import mapToSelect from "../../../utils/shared/MapToSelect";
+
+import {Alert, Selector} from "sis-aeb-misc";
+import {DateField, DropDownField, FormLayout, TextField} from "sis-aeb-inputs";
+import shared from "../../../styles/Shared.module.css";
+
+import MembershipPT from "../../../packages/locales/person/MembershipPT";
+
+import submitCollaborator from "../../../utils/submit/SubmitCollaborator";
+import Host from "../../../utils/shared/Host";
+import Cookies from "universal-cookie/lib";
+import {linkage} from "../../../packages/locales/organizational/SimpleFormsPT";
+import submitContractualLinkage from "../../../utils/submit/SubmitContractualLinkage";
 
 const cookies = new Cookies()
-export default function ContractualLinkageForm(props) {
 
+export default function CollaboratorForm(props) {
+
+    const lang = {...MembershipPT, ...linkage}
     const [changed, setChanged] = useState(false)
-    const lang = linkage
     const [status, setStatus] = useState({
-        type: undefined,
+        error: undefined,
         message: undefined
     })
+
 
     return (
         <>
@@ -24,46 +33,198 @@ export default function ContractualLinkageForm(props) {
                 type={status.type} render={status.type !== undefined} rootElementID={'root'}
                 handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
             />
+
             <FormLayout
                 create={props.create}
                 formLabel={lang.title}
                 dependencies={{
                     fields: [
-                        {name: 'denomination', type: 'string'},
+                        ...[
+                            {name: 'extension', type: 'string'},
+                            {name: 'corporate_email', type: 'string'},
+                            {name: 'home_office', type: 'bool'}
+                        ],
+                        ...!props.create ? [] : [
+                            {name: 'denomination', type: 'string'},
 
-                        {name: 'legal_document', type: 'string'},
-                        props.data === null || !props.data || props.data.effective_role === null || !props.data.effective_role || (props.data.contract !== null && props.data.contract !== undefined) ? {
-                            name: 'contract',
-                            type: 'object'
-                        } : null,
-                        props.data === null || !props.data || props.data.contract === null || !props.data.contract || (props.data.effective_role !== null && props.data.effective_role !== undefined) ? {
-                            name: 'effective_role',
-                            type: 'object'
-                        } : null,
-                        {name: 'entity', type: 'object'},
+                            {name: 'legal_document', type: 'string'},
+                            props.data === null || !props.data || props.data.effective_role === null || !props.data.effective_role || (props.data.contract !== null && props.data.contract !== undefined) ? {
+                                name: 'contract',
+                                type: 'object'
+                            } : null,
+                            props.data === null || !props.data || props.data.contract === null || !props.data.contract || (props.data.effective_role !== null && props.data.effective_role !== undefined) ? {
+                                name: 'effective_role',
+                                type: 'object'
+                            } : null,
+                            {name: 'entity', type: 'object'}
+                        ]
                     ],
                     changed: changed,
                     entity: props.data
-                }} returnButton={true} handleSubmit={() =>
-                submitContractualLinkage({
-                    pk: props.data === null ? null : props.data.id,
-                    data: props.data,
-                    create: props.create,
-                    personID: props.personID,
-                    setStatus: setStatus
-                }).then(res => {
-                    setChanged(!res)
-                })}
-                handleClose={() => props.closeModal()}
-                forms={
-                    [
+                }} returnButton={true}
+
+                handleSubmit={() => {
+                    if (props.create)
+                        submitContractualLinkage({
+                            pk: null,
+                            data: props.data,
+                            setStatus: setStatus,
+                            create: props.create,personID: props.id
+                        }).then(res => {
+                            setChanged(!res)
+                        })
+
+                else
+                    submitCollaborator({
+                        pk: props.id,
+                        data: props.data,
+                        setStatus: setStatus,
+                        create: props.create
+                    }).then(res => {
+                        setChanged(!res)
+                    })
+                }}
+                handleClose={() => props.returnToMain()}
+                forms={[
+                    ...[
                         {
+                            title: lang.general,
+                            child: (
+                                <>
+                                    <TextField
+                                        dark={true}
+                                        placeholder={lang.registration} label={lang.registration}
+                                        handleChange={event => {
+                                            setChanged(true)
+                                            props.handleChange({name: 'registration', value: event.target.value})
+                                        }} locale={props.locale}
+                                        value={props.data === null ? null : props.data.registration}
+                                        required={false}
+                                        width={'calc(33.333% - 21.5px)'} maxLength={undefined}/>
+
+
+                                    <TextField
+                                        dark={true}
+                                        placeholder={lang.corporateEmail} label={lang.corporateEmail}
+                                        handleChange={event => {
+                                            setChanged(true)
+                                            props.handleChange({
+                                                name: 'corporate_email',
+                                                value: event.target.value
+                                            })
+                                        }} locale={props.locale}
+                                        value={props.data === null ? null : props.data.corporate_email}
+                                        required={true}
+                                        width={'calc(33.333% - 21.5px)'}
+                                        maxLength={undefined}/>
+                                    <Selector
+                                        getEntityKey={entity => {
+                                            if (entity !== null && entity !== undefined)
+                                                return entity.id
+                                            else return -1
+                                        }}
+                                        handleChange={entity => {
+                                            setChanged(true)
+                                            props.handleChange({name: 'access_profile', value: entity})
+                                        }}
+                                        selected={props.data === null ? null : props.data.access_profile}
+                                        setChanged={setChanged} required={true} label={lang.access}
+                                        disabled={false} width={'calc(33.333% - 21.5px)'}
+                                        renderEntity={entity => {
+                                            if (entity !== undefined && entity !== null)
+                                                return (
+                                                    <div style={{display: 'flex', alignItems: 'center'}}>
+                                                        {entity.denomination}
+                                                    </div>
+                                                )
+                                            else
+                                                return null
+                                        }} fetchUrl={Host() + 'list/access'} fetchToken={(new Cookies()).get('jwt')}
+                                        elementRootID={'root'}
+                                    />
+                                    <TextField
+                                        dark={true}
+                                        placeholder={lang.extension} label={lang.extension}
+                                        handleChange={event => {
+                                            setChanged(true)
+                                            props.handleChange({name: 'extension', value: event.target.value})
+                                        }} locale={props.locale}
+                                        value={props.data === null ? null : props.data.extension}
+                                        required={true}
+                                        width={'calc(50% - 16px)'}
+                                        maxLength={undefined} phoneMask={true}/>
+
+                                    <TextField
+                                        dark={true}
+                                        placeholder={lang.altPhone} label={lang.altPhone}
+                                        handleChange={event => {
+                                            setChanged(true)
+                                            props.handleChange({
+                                                name: 'alternative_phone',
+                                                value: event.target.value
+                                            })
+                                        }} locale={props.locale}
+                                        value={props.data === null ? null : props.data.alternative_phone}
+                                        required={false}
+                                        width={'calc(50% - 16px)'}
+                                        maxLength={undefined} phoneMask={true}/>
+
+
+                                </>
+                            )
+                        },
+                        {
+                            title: lang.work,
+                            child: (
+                                <>
+                                    <DropDownField
+                                        dark={true}
+                                        placeholder={lang.homeOffice}
+                                        label={lang.homeOffice}
+                                        handleChange={event => {
+                                            setChanged(true)
+                                            props.handleChange({name: 'home_office', value: event})
+                                        }} locale={props.locale}
+                                        value={props.data === null ? null : props.data.home_office}
+                                        required={true}
+                                        width={'calc(33.333% - 21.5px)'} choices={lang.options}/>
+
+                                    <TextField
+
+                                        placeholder={lang.workShiftStart} label={lang.workShiftStart}
+                                        handleChange={event => {
+                                            setChanged(true)
+                                            props.handleChange({name: 'work_shift_start', value: event.target.value})
+                                        }} type={'time'}
+                                        value={props.data === null ? null : props.data.work_shift_start}
+                                        required={false} width={'calc(33.333% - 21.5px)'}
+                                    />
+
+
+                                    <TextField
+
+                                        placeholder={lang.workShiftEnd} label={lang.workShiftEnd}
+                                        handleChange={event => {
+                                            setChanged(true)
+                                            props.handleChange({name: 'work_shift_end', value: event.target.value})
+                                        }} type={'time'}
+                                        value={props.data === null ? null : props.data.work_shift_end}
+                                        required={false} width={'calc(33.333% - 21.5px)'}
+                                    />
+                                </>
+                            )
+                        }
+                    ],
+                    ...!props.create ? [] : [
+                        {
+                            title: lang.linkage,
                             child: (
                                 <>
                                     <TextField
                                         dark={true}
                                         placeholder={lang.denomination} label={lang.denomination}
                                         handleChange={event => {
+
                                             setChanged(true)
                                             props.handleChange({name: 'denomination', value: event.target.value})
                                         }}
@@ -72,11 +233,11 @@ export default function ContractualLinkageForm(props) {
                                         required={true}
                                         width={'calc(33.333% - 21.5px)'}
                                     />
-
                                     <TextField
                                         dark={true}
                                         placeholder={lang.description} label={lang.description}
                                         handleChange={event => {
+
                                             setChanged(true)
                                             props.handleChange({name: 'description', value: event.target.value})
                                         }}
@@ -85,7 +246,6 @@ export default function ContractualLinkageForm(props) {
                                         required={true}
                                         width={'calc(33.333% - 21.5px)'}
                                     />
-
                                     <TextField
                                         dark={true}
                                         placeholder={lang.legalDocument} label={lang.legalDocument}
@@ -93,11 +253,11 @@ export default function ContractualLinkageForm(props) {
                                             setChanged(true)
                                             props.handleChange({name: 'legal_document', value: event.target.value})
                                         }}
-                                        locale={props.locale}
-                                        value={props.data === null ? null : props.data.legal_document}
+                                        locale={props.locale} value={props.data === null ? null : props.data.legal_document}
                                         required={true}
                                         width={'calc(33.333% - 21.5px)'}
                                     />
+
                                 </>
                             )
                         },
@@ -114,11 +274,16 @@ export default function ContractualLinkageForm(props) {
                                                     return -1
                                             }}
                                             handleChange={entity => {
+
                                                 setChanged(true)
                                                 props.handleChange({name: 'effective_role', value: entity})
                                             }} selectorKey={'effective-selector'}
                                             selected={props.data === null ? null : props.data.effective_role}
-                                            setChanged={setChanged} required={false} label={lang.effective}
+                                            setChanged={event => {
+
+                                                setChanged(event)
+                                            }}
+                                            required={false} label={lang.effective}
                                             disabled={false}
                                             width={!props.data || !props.data.effective_role ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
                                             renderEntity={entity => {
@@ -148,11 +313,16 @@ export default function ContractualLinkageForm(props) {
                                                     return -1
                                             }}
                                             handleChange={entity => {
+
                                                 setChanged(true)
                                                 props.handleChange({name: 'contract', value: entity})
                                             }} selectorKey={'contract-selector'}
                                             selected={props.data === null ? null : props.data.contract}
-                                            setChanged={setChanged} required={false} label={lang.contract}
+                                            setChanged={event => {
+
+                                                setChanged(event)
+                                            }}
+                                            required={false} label={lang.contract}
                                             disabled={false}
                                             width={props.data && props.data.contract ? 'calc(50% - 16px)' : 'calc(33.333% - 21.5px)'}
                                             renderEntity={entity => {
@@ -181,11 +351,16 @@ export default function ContractualLinkageForm(props) {
                                                 return -1
                                         }}
                                         handleChange={entity => {
+
                                             setChanged(true)
                                             props.handleChange({name: 'entity', value: entity})
                                         }} selectorKey={'entity-selector'}
                                         selected={props.data === null ? null : props.data.entity}
-                                        setChanged={setChanged} required={true} label={lang.entity}
+                                        setChanged={event => {
+
+                                            setChanged(event)
+                                        }}
+                                        required={true} label={lang.entity}
                                         disabled={false}
                                         width={props.data && (props.data.effective_role || props.data.contract) ? 'calc(50% - 16px)' : 'calc(33.333% - 21.5px)'}
                                         renderEntity={entity => {
@@ -213,6 +388,7 @@ export default function ContractualLinkageForm(props) {
                                     <DateField
                                         placeholder={lang.officialPublication} label={lang.officialPublication}
                                         handleChange={event => {
+
                                             setChanged(true)
                                             props.handleChange({
                                                 name: 'official_publication_date',
@@ -231,6 +407,7 @@ export default function ContractualLinkageForm(props) {
                                     <DateField
                                         placeholder={lang.admissionDate} label={lang.admissionDate}
                                         handleChange={event => {
+
                                             setChanged(true)
                                             props.handleChange({
                                                 name: 'admission_date',
@@ -254,12 +431,17 @@ export default function ContractualLinkageForm(props) {
                                                 return -1
                                         }}
                                         handleChange={entity => {
+
                                             setChanged(true)
                                             props.handleChange({name: 'unit', value: entity})
                                         }}
                                         selectorKey={'unit-selector'}
                                         selected={props.data === null ? null : props.data.unit}
-                                        setChanged={setChanged} required={true} label={lang.unit}
+                                        setChanged={event => {
+
+                                            setChanged(event)
+                                        }}
+                                        required={true} label={lang.unit}
                                         disabled={false}
                                         width={'calc(33.333% - 21.5px)'}
                                         renderEntity={entity => {
@@ -279,17 +461,21 @@ export default function ContractualLinkageForm(props) {
 
                                 </>
                             )
-                        },
-                    ]}/>
+                        }
+                    ]
+                ]}/>
         </>
     )
 
+
 }
 
-ContractualLinkageForm.propTypes = {
-    create: PropTypes.bool,
-    closeModal: PropTypes.func,
+CollaboratorForm.propTypes = {
+    id: PropTypes.number,
     data: PropTypes.object,
     handleChange: PropTypes.func,
-    personID: PropTypes.number,
+    editable: PropTypes.bool,
+
+    create: PropTypes.bool,
+    returnToMain: PropTypes.func
 }

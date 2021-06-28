@@ -119,7 +119,11 @@ export default function ContractForm(props) {
                                     width={'calc(50% - 16px)'}
                                 />
                                 <Selector
-                                    getEntityKey={entity => entity.id}
+                                    getEntityKey={entity => {
+                                        if(entity !== null && entity !== undefined)
+                                            return entity.id
+                                        else return -1
+                                    }}
                                     handleChange={entity => {
                                         setChanged(true)
                                         props.handleChange({name: 'entity', value: entity})

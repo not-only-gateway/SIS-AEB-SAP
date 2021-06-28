@@ -31,11 +31,9 @@ export default function person() {
             setId(router.query.id)
             PersonRequests.fetchPerson({personID: router.query.id, setStatus: setStatus}).then(res => {
                 if (res !== null) {
-                    MemberRequests.fetchMember({id: res.id, setStatus: () => null}).then(response => {
-                        if (response !== null) {
-                            setMember(response.member)
-
-                        }
+                    MemberRequests.fetchCollaborator({id: res.id, setStatus: () => null}).then(response => {
+                        if (response !== null)
+                            setMember(response.collaborator)
                     })
                     setPerson(res)
                 }

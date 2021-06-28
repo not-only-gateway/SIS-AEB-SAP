@@ -19,7 +19,7 @@ export default function OptionRow(props) {
                     justifyContent: 'center'
                 }}>
                     <div className={styles.modalContainer}>
-                        <div style={{display: 'grid', gap: '16px', height: '100%', overflow: 'auto'}}>
+                        <div style={{display: 'grid', gap: '16px', height: '100%', overflow: 'auto', alignContent: 'flex-start'}}>
                                 {props.modalContent}
                         </div>
                         <button className={styles.closeButton} onClick={() => setModal(false)}>

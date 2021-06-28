@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import PropTypes from "prop-types";
 import {Alert} from "sis-aeb-misc";
 import {FormLayout, DropDownField, TextField} from "sis-aeb-inputs";
-import AccessProfilePT from "../../packages/locales/management/AccessProfilePT";
+import AccessProfilePT from "../../packages/locales/organizational/AccessProfilePT";
 
 
 export default function AccessProfileForm(props) {
