@@ -4,7 +4,6 @@ import Cookies from "universal-cookie/lib";
 import Host from "../../utils/shared/Host";
 import PropTypes from "prop-types";
 import PersonAvatar from "../shared/PersonAvatar";
-import CommissionedLinkageForm from "./CommissionedLinkageForm";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import BaseForm from "../person/forms/BaseForm";
 

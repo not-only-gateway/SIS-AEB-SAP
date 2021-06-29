@@ -1,15 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import PropTypes from 'prop-types'
 import {DropDownField, FormLayout, TextField} from "sis-aeb-inputs";
-import shared from "../../styles/Shared.module.css";
 import {Alert, Selector} from "sis-aeb-misc";
-
-import handleObjectChange from "../../utils/shared/HandleObjectChange";
-import mapToSelect from "../../utils/shared/MapToSelect";
 import UnitFormPT from "../../packages/locales/unit/UnitFormPT";
-import submitContact from "../../utils/submit/SubmitContact";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
+import submitUnit from "../../utils/submit/SubmitUnit";
 
 
 export default function UnitForm(props) {
@@ -19,7 +15,6 @@ export default function UnitForm(props) {
     const [status, setStatus] = useState({
         type: undefined, message: undefined
     })
-
 
     return (
         <>
@@ -34,7 +29,7 @@ export default function UnitForm(props) {
                 dependencies={{
                     fields: [
                         {name: 'acronym', type: 'string'},
-                        {name: 'denomination', type: 'string'},
+                        {name: 'name', type: 'string'},
                         {name: 'is_decentralized', type: 'bool'},
                         {name: 'sphere', type: 'string'},
                         {name: 'power', type: 'string'},
@@ -42,16 +37,16 @@ export default function UnitForm(props) {
                         {name: 'change_type', type: 'string'},
                         {name: 'category', type: 'string'},
                         {name: 'parent_entity', type: 'object'},
-
                     ],
                     changed: changed,
                     entity: props.data
                 }} returnButton={true}
                 handleSubmit={() =>
-                    submitContact({
+                    submitUnit({
                         pk: props.id,
                         data: props.data,
-                        setStatus: setStatus
+                        setStatus: setStatus,
+                        create: props.create
                     }).then(res => {
                         setChanged(!res)
                     })}
@@ -87,7 +82,8 @@ export default function UnitForm(props) {
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'is_decentralized', value: event})
-                                }} locale={props.locale} value={props.data.is_decentralized}
+                                }} locale={props.locale}
+                                value={props.data === null ? null : props.data.is_decentralized}
                                 required={true}
                                 width={'calc(33.333% - 21.35px)'} choices={lang.choice}/>
 
@@ -112,17 +108,12 @@ export default function UnitForm(props) {
                                     selected={props.data === null ? null : props.data.parent_entity}
                                     setChanged={setChanged} required={false} label={lang.parentEntity}
                                     disabled={false}
-                                    width={!props.data || !props.data.parent_entity ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
+                                    width={'calc(50% - 16px)'}
                                     renderEntity={entity => {
                                         if (entity !== undefined && entity !== null)
                                             return (
-                                                <div style={{display: 'flex', alignItems: 'center'}}>
-                                                    <div>
-                                                        {entity.denomination}
-                                                    </div>
-                                                    <div>
-                                                        {entity.acronym}
-                                                    </div>
+                                                <div>
+                                                    {entity.denomination}
                                                 </div>
                                             )
                                         else
@@ -146,17 +137,12 @@ export default function UnitForm(props) {
                                     selected={props.data === null ? null : props.data.parent_unit}
                                     setChanged={setChanged} required={false} label={lang.parentUnit}
                                     disabled={false}
-                                    width={!props.data || !props.data.parent_unit ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
+                                    width={'calc(50% - 16px)'}
                                     renderEntity={entity => {
                                         if (entity !== undefined && entity !== null)
                                             return (
-                                                <div style={{display: 'flex', alignItems: 'center'}}>
-                                                    <div>
-                                                        {entity.name}
-                                                    </div>
-                                                    <div>
-                                                        {entity.acronym}
-                                                    </div>
+                                                <div>
+                                                    {entity.name}
                                                 </div>
                                             )
                                         else
@@ -285,7 +271,6 @@ UnitForm.propTypes = {
     id: PropTypes.number,
     data: PropTypes.object,
     handleChange: PropTypes.func,
-    handleSubmit: PropTypes.func,
-    setAccepted: PropTypes.func,
+    returnToMain: PropTypes.func,
     create: PropTypes.bool,
 }

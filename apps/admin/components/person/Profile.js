@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styles from '../../styles/Person.module.css'
-import PersonPersona from "../shared/PersonAvatar";
 import {Avatar} from "@material-ui/core";
+import PersonAvatar from "../shared/PersonAvatar";
 
 export default function Profile(props) {
     return (
         <div className={styles.profileContainer}>
-            <Avatar src={props.person.image} alt={'profile_pic'} style={{width: '80px', height: '80px',}}
-                    variant={'circle'}/>
+            <PersonAvatar image={props.person.image} size={'80px'}
+                          variant={'circle'}/>
 
             <div style={{
                 display: 'grid',

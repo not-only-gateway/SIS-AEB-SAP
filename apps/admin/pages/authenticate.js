@@ -8,9 +8,8 @@ import {Button} from "@material-ui/core";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import {Alert} from "sis-aeb-misc";
 import AuthenticatePT from "../packages/locales/authenticate/AuthenticatePT";
-import AuthenticationSubmitRequests from "../utils/submit/AuthenticationSubmitRequests";
-import {TextField} from "sis-aeb-inputs";
 import submitAuthentication from "../utils/submit/AuthenticationSubmitRequests";
+import {TextField} from "sis-aeb-inputs";
 
 export default function authenticate() {
     const router = useRouter()

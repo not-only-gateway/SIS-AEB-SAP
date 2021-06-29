@@ -9,11 +9,12 @@ export default async function submitAddress(props) {
     let response = false
     let data = {}
     data = Object.assign(data, props.data)
+    if (props.type === 'person')
+        data.person = props.pk
 
-    data.person = props.pk
     await axios({
         method: 'put',
-        url: Host() + 'address/person/'+props.pk,
+        url: Host() + 'address/' + props.type + '/' + props.pk,
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         data: data
     }).then(res => {
@@ -34,5 +35,6 @@ export default async function submitAddress(props) {
 submitAddress.propTypes = {
     pk: PropTypes.number,
     data: PropTypes.object,
-    setStatus: PropTypes.func
+    setStatus: PropTypes.func,
+    type: PropTypes.oneOf(['person', 'unit'])
 }

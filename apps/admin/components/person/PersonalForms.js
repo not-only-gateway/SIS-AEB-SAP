@@ -4,18 +4,16 @@ import ContactForm from "./forms/ContactForm";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import DocumentsForm from "./forms/DocumentsForm";
 import BaseForm from "./forms/BaseForm";
-import AddressForm from "./forms/AddressForm";
-import shared from '../../styles/Shared.module.css'
 import styles from '../../styles/Person.module.css'
-import {ArrowBackRounded} from "@material-ui/icons";
 import OptionRow from "./OptionRow";
-import AddressOverview from "./overview/AddressOverview";
 import ContactsOverview from "./overview/ContactsOverview";
 import DocumentsOverview from "./overview/DocumentsOverview";
 import PersonOverview from "./overview/PersonOverview";
 import PersonHistory from "./history/PersonHistory";
-import {Alert, RenderTabs} from "sis-aeb-misc";
+import {Alert, Overview, RenderTabs} from "sis-aeb-misc";
 import PersonRequests from "../../utils/fetch/PersonRequests";
+import AddressOverview from "../shared/AddressOverview";
+import AddressForm from "../shared/AddressForm";
 
 export default function PersonalForms(props) {
     const [documents, setDocuments] = useState(null)
@@ -80,18 +78,18 @@ export default function PersonalForms(props) {
                                 <div className={styles.personOptionsContainer}>
                                     <OptionRow setOption={() => setOpenTab(1)} setHistory={() => setOpenTab(5)}
                                                label={props.lang.personal}
-                                               modalContent={person === null ? null : <PersonOverview data={person}/>}/>
+                                               modalContent={person === null ? null :<Overview entity={person} fields={PersonOverview}/>}/>
                                     <OptionRow setOption={() => setOpenTab(2)} setHistory={() => setOpenTab(6)}
                                                label={props.lang.documents}
                                                modalContent={documents === null ? null :
-                                                   <DocumentsOverview data={documents}/>}/>
+                                                   <Overview entity={documents} fields={DocumentsOverview}/>}/>
                                     <OptionRow setOption={() => setOpenTab(3)} setHistory={() => setOpenTab(7)}
                                                label={props.lang.contacts}
                                                modalContent={contact === null ? null :
-                                                   <ContactsOverview data={contact}/>}/>
+                                                   <Overview entity={contact} fields={ContactsOverview}/>}/>
                                     <OptionRow setOption={() => setOpenTab(4)} label={props.lang.address}
                                                modalContent={address === null ? null :
-                                                   <AddressOverview data={address}/>}/>
+                                                   <Overview entity={address} fields={AddressOverview}/>}/>
                                 </div>
                             )
                         }, {
@@ -152,7 +150,7 @@ export default function PersonalForms(props) {
                             value: (
                                 <AddressForm
                                     id={props.id}
-                                    dark={false}
+                                    type={'person'}
                                     data={address}
                                     handleChange={event => handleObjectChange({
                                         event: event,

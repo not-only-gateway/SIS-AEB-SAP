@@ -12,7 +12,7 @@ export default function structural(props) {
     const lang = StructuralPT
     const [accessProfile, setAccessProfile] = useState(null)
     const [openTab, setOpenTab] = useState(0)
-
+    const [openForm, setOpenForm] = useState(false)
     useEffect(() => {
         if (accessProfile === null && sessionStorage.getItem('accessProfile') !== null) {
             const accessProfileSession = JSON.parse(sessionStorage.getItem('accessProfile'))
@@ -20,7 +20,6 @@ export default function structural(props) {
                 setAccessProfile(accessProfileSession)
             } else
                 router.push('/', '/', {locale: router.locale})
-
         }
     }, [])
 
@@ -33,21 +32,22 @@ export default function structural(props) {
             </Head>
 
             <div style={{width: '65%', margin: 'auto', overflowY: 'hidden'}}>
-                <Tabs
-                    buttons={[
-                        {
-                            key: 0,
-                            value: lang.units
-                        },
-                        {
-                            key: 1,
-                            value: lang.entities
-                        }
-                    ]}
-                    setOpenTab={setOpenTab}
-                    openTab={openTab}
-                />
-
+                {openForm ? null :
+                    <Tabs
+                        buttons={[
+                            {
+                                key: 0,
+                                value: lang.units
+                            },
+                            {
+                                key: 1,
+                                value: lang.entities
+                            }
+                        ]}
+                        setOpenTab={setOpenTab}
+                        openTab={openTab}
+                    />
+                }
                 <RenderTabs
                     openTab={openTab}
 
@@ -56,7 +56,7 @@ export default function structural(props) {
                             buttonKey: 0,
                             value: <UnitList redirect={id => router.push('/unit/?id=' + id, undefined, {shallow: true})}
                                              searchInput={props.searchInput} notSearched={props.notSearched}
-                                             setNotSearched={props.setNotSearched}/>
+                                             setNotSearched={props.setNotSearched} setOpen={setOpenForm}/>
                         },
                         {
                             buttonKey: 1,

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
-import {Alert, RenderTabs} from "sis-aeb-misc";
+import {Overview, RenderTabs} from "sis-aeb-misc";
 import styles from "../../styles/Person.module.css";
 import OptionRow from "./OptionRow";
 import CollaboratorRequests from "../../utils/fetch/MemberRequests";
@@ -14,22 +14,18 @@ import ContractualLinkageOverview from "./ContractualLinkageOverview";
 export default function CorporateForms(props) {
     const [collaborator, setCollaborator] = useState(null)
     const [contractualLinkage, setContractualLinkage] = useState(null)
+    const [commissionedLinkage, setCommissionedLinkage] = useState(null)
 
-    const [loading, setLoading] = useState(true)
     const [openTab, setOpenTab] = useState(0)
 
     useEffect(() => {
-        if (collaborator === null && props.id !== null && props.id !== undefined) {
-            setLoading(true)
+        if (collaborator === null && props.id !== null && props.id !== undefined)
             CollaboratorRequests.fetchCollaborator({id: props.id}).then(res => {
                 if (res !== null) {
                     setCollaborator(res.collaborator)
                     setContractualLinkage(res.collaborator.occupancy)
                 }
             })
-            setLoading(false)
-        } else
-            setLoading(false)
     }, [props])
 
     async function handleMemberSubmit(event) {
@@ -59,16 +55,23 @@ export default function CorporateForms(props) {
                                     <OptionRow setOption={() => setOpenTab(1)} setHistory={() => setOpenTab(4)}
                                                label={props.lang.collaboration}
                                                modalContent={collaborator === null ? null :
-                                                   <CollaboratorOverview data={collaborator}/>}/>
+                                                   <Overview entity={collaborator} fields={CollaboratorOverview}/>}/>
                                     {collaborator === null ? null :
                                         <>
-                                            <OptionRow setOption={() => setOpenTab(2)} setHistory={() => setOpenTab(4)}
-                                                       label={props.lang.contractualLinkage}
-                                                       modalContent={contractualLinkage === null ? null :
-                                                           <ContractualLinkageOverview data={contractualLinkage}/>}/>
-                                            <OptionRow setOption={() => setOpenTab(3)} setHistory={() => setOpenTab(4)}
-                                                       label={props.lang.commissionedLinkages}
-                                                       modalContent={null}/>
+
+                                            {contractualLinkage === null ? null :
+                                                <OptionRow setOption={() => setOpenTab(2)}
+                                                           setHistory={() => setOpenTab(4)}
+                                                           label={props.lang.contractualLinkage}
+                                                           modalContent={<Overview entity={contractualLinkage}
+                                                                                   fields={ContractualLinkageOverview}/>}/>
+                                            }
+                                            {commissionedLinkage === null ? null :
+                                                <OptionRow setOption={() => setOpenTab(3)}
+                                                           setHistory={() => setOpenTab(4)}
+                                                           label={props.lang.commissionedLinkages}
+                                                           modalContent={null}/>
+                                            }
                                         </>
                                     }
                                     {/*<button className={shared.rowContainer} onClick={() => setOpenTab(2)}*/}

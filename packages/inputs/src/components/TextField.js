@@ -36,6 +36,7 @@ export default function TextField(props) {
                             id={props.label + 'text_field'}
                             placeholder={props.placeholder}
                             className={styles.inputContainer}
+                            style={{background: props.disabled ? 'white' : undefined, border: props.disabled ? '#ecedf2 1px solid' : undefined, boxShadow: props.disabled ? 'none' : undefined }}
                             value={event.value}
                             onChange={event.onChange}
                             maxLength={props.maxLength}
@@ -51,6 +52,7 @@ export default function TextField(props) {
 
                         value={props.value}
                         className={styles.inputContainer}
+                        style={{background: props.disabled ? 'white' : undefined, border: props.disabled ? '#ecedf2 1px solid' : undefined, boxShadow: props.disabled ? 'none' : undefined }}
                         type={props.passwordMask && !visible ? 'password' : props.type ? props.type : 'text'}
                         onChange={props.handleChange}
                         maxLength={props.maxLength}

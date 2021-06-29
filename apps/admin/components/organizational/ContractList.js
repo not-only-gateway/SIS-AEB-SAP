@@ -4,7 +4,6 @@ import Cookies from "universal-cookie/lib";
 import PropTypes from "prop-types";
 import ContractForm from "./ContractForm";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
-import AccessProfileForm from "./AccessProfileForm";
 import submitContract from "../../utils/submit/SubmitContract";
 import Host from "../../../public/utils/shared/Host";
 

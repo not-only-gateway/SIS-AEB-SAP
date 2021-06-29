@@ -8,6 +8,7 @@ import styles from '../styles/Structure.module.css'
 import CollaborationRequests from "../utils/fetch/CollaborationRequests";
 import {Avatar} from "@material-ui/core";
 import {Chart} from "sis-aeb-chart";
+import PersonAvatar from "../components/shared/PersonAvatar";
 
 export default function structure() {
 
@@ -70,7 +71,7 @@ export default function structure() {
                         return (
                             <div
                                 className={styles.vacancyContainer}>
-                                <Avatar src={entity.image}/>
+                                <PersonAvatar size={'50px'} image={entity.image} variant={'circular'}/>
                                 <div style={{fontSize: '.9rem', maxWidth: '95%', color: '#111111'}} className={styles.overflowEllipsis}>
                                     {entity.name}
                                 </div>

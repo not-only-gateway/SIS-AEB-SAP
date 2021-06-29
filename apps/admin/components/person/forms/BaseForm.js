@@ -3,10 +3,8 @@ import PropTypes from 'prop-types'
 import CountryOptions from "../../../packages/options/CountryOptions";
 import StateOptions from "../../../packages/options/StateSelector";
 import {DateField, DropDownField, FormLayout, ImageField, TextField} from "sis-aeb-inputs"
-import {Alert, Selector} from "sis-aeb-misc";
+import {Alert} from "sis-aeb-misc";
 import BaseFormPT from "../../../packages/locales/person/BaseFormPT";
-import Host from "../../../utils/shared/Host";
-import PersonRequests from "../../../utils/fetch/PersonRequests";
 import submitPerson from "../../../utils/submit/SubmitPerson";
 
 export default function BaseForm(props) {

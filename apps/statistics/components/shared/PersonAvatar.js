@@ -8,7 +8,6 @@ export default function PersonAvatar(props) {
 
     useEffect(() => {
         PersonRequests.FetchImage(props.image).then(res => setImage(res))
-
     })
 
     return (

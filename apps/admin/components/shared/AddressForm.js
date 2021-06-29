@@ -1,11 +1,10 @@
 import React, {useState} from "react";
 import PropTypes from 'prop-types'
 import axios from "axios";
-import {Button, FormLayout, TextField} from "sis-aeb-inputs"
-import shared from "../../../styles/Shared.module.css";
+import {FormLayout, TextField} from "sis-aeb-inputs"
 import {Alert} from "sis-aeb-misc";
-import AddressPT from "../../../packages/locales/others/AddressPT";
-import submitAddress from "../../../utils/submit/SubmitAddress";
+import AddressPT from "../../packages/locales/others/AddressPT";
+import submitAddress from "../../utils/submit/SubmitAddress";
 
 export default function AddressForm(props) {
 
@@ -72,7 +71,8 @@ export default function AddressForm(props) {
                 submitAddress({
                     pk: props.id,
                     data: props.data,
-                    setStatus: setStatus
+                    setStatus: setStatus,
+                    type: props.type
                 }).then(res => {
                     setChanged(!res)
                 })}
@@ -198,7 +198,7 @@ AddressForm.propTypes = {
     id: PropTypes.number,
     data: PropTypes.object,
     handleChange: PropTypes.func,
+    returnToMain: PropTypes.func,
 
-    setAccepted: PropTypes.func,
-    create: PropTypes.bool,
+    type: PropTypes.oneOf(['person', 'unit'])
 }

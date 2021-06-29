@@ -21,7 +21,10 @@ export default {
     address: 'Endereço',
     decentralized: 'Descentralizada',
 
-    edit: 'Editar',
     base: 'Informações Básicas',
-    location: 'Localização'
+    location: 'Localização',
+
+    vacancies: 'Vagas',
+    forms: 'Editar',
+
 }

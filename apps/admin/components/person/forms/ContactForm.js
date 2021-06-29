@@ -1,12 +1,9 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 
-import {Button, DateField, DropDownField, FormLayout, ImageField, TextField} from "sis-aeb-inputs";
-import shared from "../../../styles/Shared.module.css";
+import {FormLayout, TextField} from "sis-aeb-inputs";
 import ContactFormPT from "../../../packages/locales/person/ContactFormPT";
 import {Alert} from "sis-aeb-misc";
-import StateOptions from "../../../packages/options/StateSelector";
-import CountryOptions from "../../../packages/options/CountryOptions";
 import submitContact from "../../../utils/submit/SubmitContact";
 
 export default function ContactForm(props) {

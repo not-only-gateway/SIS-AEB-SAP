@@ -6,10 +6,9 @@ import Profile from "../components/person/Profile";
 import PersonalForms from "../components/person/PersonalForms";
 import CorporateForms from "../components/person/CorporateForms";
 import Head from 'next/head'
-import {RenderTabs, Tabs} from "sis-aeb-misc";
+import {Alert, RenderTabs, Tabs} from "sis-aeb-misc";
 
 import PersonPT from "../packages/locales/person/PersonPT";
-import {Alert} from "sis-aeb-misc";
 import PersonRequests from "../utils/fetch/PersonRequests";
 import MemberRequests from "../utils/fetch/MemberRequests";
 

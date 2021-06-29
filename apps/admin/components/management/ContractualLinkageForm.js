@@ -107,72 +107,66 @@ export default function ContractualLinkageForm(props) {
                             title: lang.dependencies,
                             child: (
                                 <>
-                                    {props.data === null || !props.data || props.data.contract === null || !props.data.contract || (props.data.effective_role !== null && props.data.effective_role !== undefined) ?
-                                        <Selector
-                                            getEntityKey={entity => {
-                                                if (entity !== undefined && entity !== null)
-                                                    return entity.id
-                                                else
-                                                    return -1
-                                            }}
-                                            handleChange={entity => {
-                                                setChanged(true)
-                                                props.handleChange({name: 'effective_role', value: entity})
-                                            }} selectorKey={'effective-selector'}
-                                            selected={props.data === null ? null : props.data.effective_role}
-                                            setChanged={setChanged} required={false} label={lang.effective}
-                                            disabled={false}
-                                            width={!props.data || !props.data.effective_role ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
-                                            renderEntity={entity => {
-                                                if (entity !== undefined && entity !== null)
-                                                    return (
-                                                        <div style={{display: 'flex', alignItems: 'center'}}
-                                                             key={entity.id + '-effective-role'}>
-                                                            {entity.denomination}
-                                                            {entity.id}
-                                                        </div>
-                                                    )
-                                                else
-                                                    return null
-                                            }} fetchUrl={Host() + 'list/role_effective'}
-                                            fetchToken={(cookies).get('jwt')}
-                                            elementRootID={'root'}/>
-                                        :
-                                        null
-                                    }
 
-                                    {props.data === null || !props.data || props.data.effective_role === null || !props.data.effective_role || (props.data.contract !== null && props.data.contract !== undefined) ?
-                                        <Selector
-                                            getEntityKey={entity => {
-                                                if (entity !== undefined && entity !== null)
-                                                    return entity.id
-                                                else
-                                                    return -1
-                                            }}
-                                            handleChange={entity => {
-                                                setChanged(true)
-                                                props.handleChange({name: 'contract', value: entity})
-                                            }} selectorKey={'contract-selector'}
-                                            selected={props.data === null ? null : props.data.contract}
-                                            setChanged={setChanged} required={false} label={lang.contract}
-                                            disabled={false}
-                                            width={props.data && props.data.contract ? 'calc(50% - 16px)' : 'calc(33.333% - 21.5px)'}
-                                            renderEntity={entity => {
-                                                if (entity !== undefined && entity !== null)
-                                                    return (
-                                                        <div style={{display: 'flex', alignItems: 'center'}}
-                                                             key={entity.id + '-contract'}>
-                                                            {entity.sei}
-                                                            {entity.id}
-                                                        </div>
-                                                    )
-                                                else
-                                                    return null
-                                            }} fetchUrl={Host() + 'list/contract'} fetchToken={(cookies).get('jwt')}
-                                            elementRootID={'root'}/>
-                                        :
-                                        null
-                                    }
+                                    <Selector
+                                        getEntityKey={entity => {
+                                            if (entity !== undefined && entity !== null)
+                                                return entity.id
+                                            else
+                                                return -1
+                                        }}
+                                        handleChange={entity => {
+                                            setChanged(true)
+                                            props.handleChange({name: 'effective_role', value: entity})
+                                        }} selectorKey={'effective-selector'}
+                                        selected={props.data === null ? null : props.data.effective_role}
+                                        setChanged={setChanged} required={false} label={lang.effective}
+                                        disabled={!(props.data === null || !props.data || props.data.contract === null || !props.data.contract || (props.data.effective_role !== null && props.data.effective_role !== undefined))}
+                                        width={'calc(33.333% - 21.5px)'}
+                                        renderEntity={entity => {
+                                            if (entity !== undefined && entity !== null)
+                                                return (
+                                                    <div style={{display: 'flex', alignItems: 'center'}}
+                                                         key={entity.id + '-effective-role'}>
+                                                        {entity.denomination}
+                                                        {entity.id}
+                                                    </div>
+                                                )
+                                            else
+                                                return null
+                                        }} fetchUrl={Host() + 'list/role_effective'}
+                                        fetchToken={(cookies).get('jwt')}
+                                        elementRootID={'root'}/>
+
+
+                                    <Selector
+                                        getEntityKey={entity => {
+                                            if (entity !== undefined && entity !== null)
+                                                return entity.id
+                                            else
+                                                return -1
+                                        }}
+                                        handleChange={entity => {
+                                            setChanged(true)
+                                            props.handleChange({name: 'contract', value: entity})
+                                        }} selectorKey={'contract-selector'}
+                                        selected={props.data === null ? null : props.data.contract}
+                                        setChanged={setChanged} required={false} label={lang.contract}
+                                        disabled={!(props.data === null || !props.data || props.data.effective_role === null || !props.data.effective_role || (props.data.contract !== null && props.data.contract !== undefined))}
+                                        width={'calc(33.333% - 21.5px)'}
+                                        renderEntity={entity => {
+                                            if (entity !== undefined && entity !== null)
+                                                return (
+                                                    <div style={{display: 'flex', alignItems: 'center'}}
+                                                         key={entity.id + '-contract'}>
+                                                        {entity.sei}
+                                                        {entity.id}
+                                                    </div>
+                                                )
+                                            else
+                                                return null
+                                        }} fetchUrl={Host() + 'list/contract'} fetchToken={(cookies).get('jwt')}
+                                        elementRootID={'root'}/>
 
 
                                     <Selector

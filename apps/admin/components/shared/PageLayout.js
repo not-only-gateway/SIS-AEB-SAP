@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import LayoutPT from "../../packages/locales/others/LayoutPT";
 import {
     AccountBalanceRounded,
-    AccountTreeRounded,
+    AccountTreeRounded, AssignmentIndRounded, AssignmentReturned,
     BusinessRounded,
     ExitToApp,
     ExtensionRounded,
@@ -18,6 +18,7 @@ import {
 
 import MemberRequests from "../../utils/fetch/MemberRequests";
 import {Navigation} from "sis-aeb-navigation";
+import PersonRequests from "../../utils/fetch/PersonRequests";
 // import Navigation from "./components/Navigation";
 
 
@@ -38,20 +39,23 @@ export default function PageLayout(props) {
         if (cookies.get('jwt') !== undefined && sessionStorage.getItem('profile') === null) {
             MemberRequests.fetchMemberByToken().then(res => {
                 if (res !== null) {
-                    sessionStorage.setItem('profile', JSON.stringify({
-                        id: res.person.id,
-                        corporate_email: res.collaborator.corporate_email,
-                        member_id: res.collaborator.id,
-                        image: res.person.image,
-                        name: res.person.name
-                    }))
-                    setProfile(res.person)
-                    sessionStorage.setItem('accessProfile', JSON.stringify(res.access))
-                    setAccessProfile(res.access)
+                    PersonRequests.FetchImage(res.person.image).then(imageRes => {
+                        console.log(imageRes)
+                        res.person.image = imageRes
+                        sessionStorage.setItem('profile', JSON.stringify({
+                            id: res.person.id,
+                            corporate_email: res.collaborator.corporate_email,
+                            member_id: res.collaborator.id,
+                            image: imageRes,
+                            name: res.person.name
+                        }))
+                        setProfile(res.person)
+                        sessionStorage.setItem('accessProfile', JSON.stringify(res.access))
+                        setAccessProfile(res.access)
+                    })
                 }
             })
-        } else
-            setProfile(JSON.parse(sessionStorage.getItem('profile')))
+        } else setProfile(JSON.parse(sessionStorage.getItem('profile')))
 
         if (accessProfile === null || accessProfile === undefined) {
             const access = sessionStorage.getItem('accessProfile')
@@ -91,7 +95,7 @@ export default function PageLayout(props) {
                         {label: lang.structure, icon: <AccountTreeRounded/>, link: '/structure'},
                         accessProfile === null || !accessProfile.can_manage_person ? null : {
                             label: lang.collaborator,
-                            icon: <PersonRounded/>,
+                            icon: <AssignmentIndRounded/>,
                             link: '/'
                         },
                         accessProfile === null || !accessProfile.can_manage_structure ? null : {
@@ -116,7 +120,10 @@ export default function PageLayout(props) {
 
                 <div className={styles.pageContentContainer}
                      id={'scrollableDiv'} style={{
-                    transition: '250ms ease-in-out', height: 'calc(100% - 60px)', marginTop: '60px'
+                    transition: '250ms ease-in-out',
+                    height: 'calc(100% - 60px)',
+                    marginTop: '60px',
+                    overflowX: router.pathname === '/structure' ? 'auto' : 'hidden'
                 }}>
 
                     {props.children({searchInput, notSearched, setNotSearched})}

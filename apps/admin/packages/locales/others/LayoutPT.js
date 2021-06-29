@@ -9,7 +9,7 @@ export default {
 
     statistics: 'Estatísticas',
     extensions: 'Ramais',
-    collaborator: 'Colaboradores',
+    collaborator: 'Lotações e colaboradores',
     structural: 'Estrutural',
     organizational: 'Organizacional'
 

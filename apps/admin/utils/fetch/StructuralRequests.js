@@ -23,6 +23,21 @@ const entityProps = {
 const cookies = new Cookies()
 
 export default class StructuralRequests {
+
+    static async fetchUnitAddress(pk) {
+        let response = null
+        await axios({
+            method: 'get',
+            url: Host() + 'address/unit/' + pk,
+            headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
+        }).then(res => {
+            response = res.data
+        }).catch(error => {
+            console.log(error)
+        })
+        return response
+    }
+
     static async fetchDependentUnits(pk) {
         let response = []
         await axios({
@@ -31,7 +46,7 @@ export default class StructuralRequests {
             headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         }).then(res => {
             response = res.data
-            console.log(res.data)
+
         }).catch(error => {
             console.log(error)
         })
@@ -46,9 +61,6 @@ export default class StructuralRequests {
             headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         }).then(res => {
             response = res.data
-            response.parent_entity = {key: response.parent_entity.id, value: response.parent_entity.name}
-            if (response.parent_unit !== null)
-                response.parent_unit = {key: response.parent_unit.id, value: response.parent_unit.name}
         }).catch(error => {
             console.log(error)
         })

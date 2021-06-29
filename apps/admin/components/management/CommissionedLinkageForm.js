@@ -1,8 +1,6 @@
 import PropTypes from "prop-types";
-import {Alert, Selector} from "sis-aeb-misc";
-import {FormLayout, TextField} from "sis-aeb-inputs";
-import Host from "../../utils/shared/Host";
-import Cookies from "universal-cookie/lib";
+import {Alert} from "sis-aeb-misc";
+import {FormLayout} from "sis-aeb-inputs";
 import React from "react";
 
 export default function CommissionedLinkageForm(props) {

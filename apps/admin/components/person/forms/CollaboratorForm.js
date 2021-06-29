@@ -1,19 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types'
 
-import mapToSelect from "../../../utils/shared/MapToSelect";
-
 import {Alert, Selector} from "sis-aeb-misc";
-import {DateField, DropDownField, FormLayout, TextField} from "sis-aeb-inputs";
-import shared from "../../../styles/Shared.module.css";
+import {DropDownField, FormLayout, TextField} from "sis-aeb-inputs";
 
 import MembershipPT from "../../../packages/locales/person/MembershipPT";
 
 import submitCollaborator from "../../../utils/submit/SubmitCollaborator";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import {linkage} from "../../../packages/locales/organizational/SimpleFormsPT";
-import submitContractualLinkage from "../../../utils/submit/SubmitContractualLinkage";
 
 const cookies = new Cookies()
 
@@ -39,25 +34,9 @@ export default function CollaboratorForm(props) {
                 formLabel={lang.title}
                 dependencies={{
                     fields: [
-                        ...[
-                            {name: 'extension', type: 'string'},
-                            {name: 'corporate_email', type: 'string'},
-                            {name: 'home_office', type: 'bool'}
-                        ],
-                        ...!props.create ? [] : [
-                            {name: 'denomination', type: 'string'},
-
-                            {name: 'legal_document', type: 'string'},
-                            props.data === null || !props.data || props.data.effective_role === null || !props.data.effective_role || (props.data.contract !== null && props.data.contract !== undefined) ? {
-                                name: 'contract',
-                                type: 'object'
-                            } : null,
-                            props.data === null || !props.data || props.data.contract === null || !props.data.contract || (props.data.effective_role !== null && props.data.effective_role !== undefined) ? {
-                                name: 'effective_role',
-                                type: 'object'
-                            } : null,
-                            {name: 'entity', type: 'object'}
-                        ]
+                        {name: 'extension', type: 'string'},
+                        {name: 'corporate_email', type: 'string'},
+                        {name: 'home_office', type: 'bool'}
                     ],
                     changed: changed,
                     entity: props.data
@@ -187,7 +166,7 @@ export default function CollaboratorForm(props) {
                                             )
                                         else
                                             return <div/>
-                                    }} fetchUrl={Host() + 'list/occupancy'}
+                                    }} fetchUrl={Host() + 'list/empty/occupancy'}
                                     fetchToken={(cookies).get('jwt')}
                                     elementRootID={'root'}/>
                             </>

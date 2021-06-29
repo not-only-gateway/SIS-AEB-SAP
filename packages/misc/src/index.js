@@ -7,7 +7,7 @@ import Loader from './components/Loader'
 import Modal from './components/Modal'
 import Alert from './components/Alert'
 import Selector from './components/Selector'
+import Overview from './components/Overview'
 
-
-export {Filters, Tabs, RenderTabs, List, Loader, Modal, Alert, Selector}
+export {Filters, Tabs, RenderTabs, List, Loader, Modal, Alert, Selector, Overview}
 

@@ -1,4 +1,5 @@
 export default {
+    title: 'Unidade',
     additionalInformation: 'Informações adicionais',
     information: 'Informações estruturais',
     basic: 'Informações básicas',

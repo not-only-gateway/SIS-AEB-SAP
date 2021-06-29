@@ -11,9 +11,11 @@ export default async function submitCollaborator(props) {
     data = Object.assign(data, props.data)
 
     data.access_profile = props.data.access_profile.id
-    data.occupancy = data.occupancy.id
+    if (props.data.occupancy !== null && props.data.occupancy !== undefined)
+        data.occupancy = data.occupancy.id
+    data.person = props.pk
     await axios({
-        method: 'put',
+        method: props.create ? 'post' : 'put',
         url: props.create ? Host() + 'collaborator' : Host() + 'collaborator/' + props.pk,
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         data: data

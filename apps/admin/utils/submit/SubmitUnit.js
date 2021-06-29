@@ -4,23 +4,37 @@ import Cookies from "universal-cookie/lib";
 import PropTypes from 'prop-types'
 
 const cookies = new Cookies()
-export default async function submitUnit(props){
+export default async function submitUnit(props) {
     let response = false
-    props.data.authorization_token =  cookies.get('authorization_token')
+    let data = {}
+    data = Object.assign(data, props.data)
+    console.log(props.data)
+
+    data.parent_entity = props.data.parent_entity.id
+    data.parent_unit = props.data.parent_unit !== undefined && props.data.parent_unit !== null ? props.data.parent_unit.id : null
     await axios({
-        method: 'put',
-        url: Host() + 'contact/'+props.personID,
+        method: props.create ? 'post' : 'put',
+        url: props.create ? Host() + 'unit' : Host() + 'unit/' + props.pk,
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
-        data: props.data
-    }).then(() => {
+        data: data
+    }).then(res => {
+        props.setStatus({
+            type: 'success',
+            message: res.status + ' - ' + res.statusText,
+        })
         response = true
     }).catch(error => {
-        console.log(error)
+        props.setStatus({
+            type: 'error',
+            message: error.message
+        })
     })
     return response
 }
 
-submitUnit.propTypes={
-    unitID: PropTypes.number,
-    data: PropTypes.object
+submitUnit.propTypes = {
+    pk: PropTypes.number,
+    data: PropTypes.object,
+    setStatus: PropTypes.func,
+    create: PropTypes.bool
 }

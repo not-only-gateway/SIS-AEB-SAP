@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from 'react'
 import styles from '../styles/Canvas.module.css'
+
 export default function ExtendedNodeContainer(props) {
 
     return (

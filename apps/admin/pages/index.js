@@ -46,6 +46,10 @@ export default function management(props) {
                             {
                                 key: 1,
                                 value: lang.contractualLinkages
+                            },
+                            {
+                                key: 2,
+                                value: lang.commissionedLinkages
                             }
                         ]}
                         setOpenTab={setOpenTab}
@@ -58,13 +62,21 @@ export default function management(props) {
                     tabs={[
                         {
                             buttonKey: 0,
-                            value: <PeopleList notSearched={props.notSearched} setNotSearched={props.setNotSearched}
-                                               searchInput={props.searchInput} setOpen={setOpenForm}
-                                               redirect={id => router.push('/person/?id=' + id, undefined, {shallow: true})}/>
+                            value: <PeopleList
+                                notSearched={props.notSearched} setNotSearched={props.setNotSearched}
+                                searchInput={props.searchInput} setOpen={setOpenForm}
+                                redirect={id => router.push('/person/?id=' + id, undefined, {shallow: true})}/>
                         },
                         {
                             buttonKey: 1,
                             value: <ContractualLinkageList
+                                notSearched={props.notSearched} setNotSearched={props.setNotSearched}
+                                searchInput={props.searchInput} setOpen={setOpenForm}
+                            />
+                        },
+                        {
+                            buttonKey: 2,
+                            value: <CommissionedLinkageList
                                 notSearched={props.notSearched} setNotSearched={props.setNotSearched}
                                 searchInput={props.searchInput} setOpen={setOpenForm}
                             />

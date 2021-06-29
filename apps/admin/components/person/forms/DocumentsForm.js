@@ -1,9 +1,7 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-
-import shared from "../../../styles/Shared.module.css";
 import {Alert} from "sis-aeb-misc";
-import {Button, DateField, FormLayout, TextField} from "sis-aeb-inputs";
+import {DateField, FormLayout, TextField} from "sis-aeb-inputs";
 import DocumentsFormPT from "../../../packages/locales/person/DocumentsFormPT";
 import submitDocuments from "../../../utils/submit/SubmitDocuments";
 

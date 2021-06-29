@@ -1,5 +1,5 @@
 export default {
-    title: 'Básico',
+    title: 'Registro de pessoa',
     info: 'Informações básicas do colaborador',
     more: 'Mais',
     save: 'Salvar',
@@ -38,6 +38,6 @@ export default {
     ],
     personal: 'Informações Básicas',
     life: 'Vida & Educação',
-    parents: 'Pais & Nacionalidade',
+    parents: 'Outro',
     personImage: 'Imagem de perfil'
 }

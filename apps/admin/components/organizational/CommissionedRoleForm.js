@@ -1,10 +1,8 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import mainStyles from '../../styles/shared/Main.module.css'
 
 import {Alert} from "sis-aeb-misc";
-import {FormLayout, DropDownField, TextField} from "sis-aeb-inputs";
-import shared from "../../styles/Shared.module.css";
+import {DropDownField, FormLayout, TextField} from "sis-aeb-inputs";
 import {commissioned} from "../../packages/locales/organizational/SimpleFormsPT";
 
 
