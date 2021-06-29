@@ -1,20 +1,27 @@
 import PropTypes from "prop-types";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {linkage} from "../../packages/locales/organizational/SimpleFormsPT";
 import {Alert, Selector} from "sis-aeb-misc";
 import {DateField, FormLayout, TextField} from "sis-aeb-inputs";
 import submitContractualLinkage from "../../utils/submit/SubmitContractualLinkage";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
+import VacancyPT from "../../packages/locales/unit/VacancyPT";
+import submitUnitRole from "../../utils/submit/SubmitUnitRole";
 
+const cookies = new Cookies()
 export default function VacancyForm(props) {
     const [changed, setChanged] = useState(false)
-    const lang = linkage
+    const lang = VacancyPT
     const [status, setStatus] = useState({
         type: undefined,
         message: undefined
     })
 
+    useEffect(() => {
+        props.handleChange({name: 'unit', value: props.unit})
+
+    }, [])
     return (
         <>
             <Alert
@@ -31,22 +38,21 @@ export default function VacancyForm(props) {
                     changed: changed,
                     entity: props.data
                 }} returnButton={true}
-                handleSubmit={() => null
-                    // submitContractualLinkage({
-                    //     pk: props.data === null ? null : props.data.id,
-                    //     data: props.data,
-                    //     create: props.data.id === undefined || props.data.id === null,
-                    //     personID: props.personID,
-                    //     setStatus: setStatus
-                    // }).then(res => {
-                    //     setChanged(!res)
-                    // })
+                handleSubmit={() => submitUnitRole({
+                    pk: props.data === null ? null : props.data.id,
+                    data: props.data,
+                    create: props.data.id === undefined || props.data.id === null,
+                    personID: props.personID,
+                    setStatus: setStatus
+                }).then(res => {
+                    setChanged(!res)
+                })
                 }
-                handleClose={() => props.closeModal()}
+                handleClose={() => props.returnToMain()}
                 forms={
                     [
                         {
-                            title: lang.occupancy,
+                            title: lang.info,
                             child: (
                                 <>
                                     <Selector
@@ -54,17 +60,10 @@ export default function VacancyForm(props) {
                                             if (entity !== undefined && entity !== null)
                                                 return entity.id
                                             else
-                                                return -1
-                                        }}
-                                        handleChange={entity => {
-                                            setChanged(true)
-                                            props.handleChange({name: 'role', value: entity})
-                                        }}
-                                        selectorKey={'role-selector'}
-                                        selected={props.data === null ? null : props.data.unit}
-                                        setChanged={setChanged} label={lang.unit}
-                                        disabled={false} required={true}
-                                        width={'calc(33.333% - 21.5px)'}
+                                                return 0
+                                        }} selectorKey={'role_selector'}
+                                        fetchUrl={Host() + 'list/role_commissioned'}
+                                        fetchToken={cookies.get('jwt')}
                                         renderEntity={entity => {
                                             if (entity !== undefined && entity !== null)
                                                 return (
@@ -74,9 +73,14 @@ export default function VacancyForm(props) {
                                                 )
                                             else
                                                 return null
-                                        }} fetchUrl={Host() + 'list/role_commissioned'}
-                                        fetchToken={(new Cookies()).get('jwt')}
-                                        elementRootID={'root'}/>
+                                        }}
+                                        selected={props.data !== null ? props.data.role : null} width={'100%'}
+                                        label={lang.role} elementRootID={'root'}
+                                        handleChange={entity => {
+                                            setChanged(true)
+                                            props.handleChange({name: 'role', value: entity})
+                                        }}
+                                        setChanged={setChanged} required={true}/>
 
                                 </>
                             )
@@ -87,9 +91,9 @@ export default function VacancyForm(props) {
     )
 }
 VacancyForm.propTypes = {
+    unit: PropTypes.object,
     create: PropTypes.bool,
-    closeModal: PropTypes.func,
     data: PropTypes.object,
     handleChange: PropTypes.func,
-    personID: PropTypes.number,
+    returnToMain: PropTypes.func,
 }

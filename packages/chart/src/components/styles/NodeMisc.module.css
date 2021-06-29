@@ -2,18 +2,28 @@
     position: absolute;
 
     cursor: pointer;
-    border-radius: 50%;
+    border-radius: 5px;
+    border:transparent 2px solid;
 
-    background: #ff5555;
-    border: none;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    color: white;
+    color: #ff5555;
+    background: transparent;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
     animation: fadeIn 250ms ease-in-out forwards;
+
+    height: 25px;
+    width: 25px;
+    padding: 5px;
+    font-size: 1.1rem;
+
+    transition: 150ms ease-in-out;
+}
+.closeButton:hover{
+    background: #ff5555;
+    color: white
 }
 @keyframes fadeIn {
     0%{

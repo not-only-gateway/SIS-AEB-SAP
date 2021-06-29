@@ -9,11 +9,9 @@ export default function NodeCloseButton(props) {
             className={styles.closeButton}
             style={{
                 display: props.visible ? undefined : 'none',
-                height: props.smaller ? '28px' : '38px',
-                width: props.smaller ? '28px' : '38px',
-                right: props.smaller ? '-14px' : '-19px',
-                top: props.smaller ? '-14px' : '-19px',
-                zIndex: props.smaller ? '250' : '500'
+
+                right:  '0',
+                top: '0',
             }}
             onClick={() => props.handleClose()}>
             <CloseRounded style={{fontSize: props.smaller ? '1.1rem' : '1.4rem'}}/>

@@ -40,8 +40,12 @@ export default function Node(props) {
                 <NodeCloseButton handleClose={() => setShowExtendedDependents(false)} visible={showExtendedDependents}/>
                 <OpenNodeContainer open={open} entityKey={props.getEntityKey(props.entity)}
                                    isExtendedChild={props.isExtendedChild}>
-                    <NodeCloseButton handleClose={() => setOpen(false)} visible={open} smaller={true}/>
-                    <NodeContent open={open} setOpen={setOpen} hovered={hovered} setHovered={setHovered}
+
+                    <NodeContent open={open}
+                                 setOpen={() => {
+                                     if (!showExtendedDependents)
+                                         setOpen(!open)
+                                 }} hovered={hovered} setHovered={setHovered}
                                  renderEntity={props.renderEntity} isExtendedChild={props.isExtendedChild}
                                  hoveredParent={props.hoveredParent} showExtendedDependents={showExtendedDependents}
                                  entity={props.entity}
@@ -52,7 +56,10 @@ export default function Node(props) {
                         setExtended={setExtended} entity={props.entity} extendable={props.extendable}
                         handleButtonClick={props.handleButtonClick} entityKey={props.getEntityKey(props.entity)}
                         elementHeight={elementHeight} dependentsSize={dependents.length}
-                        setShowExtendedDependents={setShowExtendedDependents}
+                        setShowExtendedDependents={event => {
+                            setOpen(false)
+                            setShowExtendedDependents(event)
+                        }}
                         showExtendedDependents={showExtendedDependents}
                     />
                 </OpenNodeContainer>
@@ -66,6 +73,7 @@ export default function Node(props) {
                                     <Node
                                         entity={subject} baseWidth={props.extendedEntityWidth}
                                         getEntityKey={props.getExtendedEntityKey}
+                                        hoverButtons={props.extendedChildButtons}
                                         hoveredParent={hovered} row={props.row + 1}
                                         renderEntity={props.renderExtendedEntity}
                                         rowLimit={props.rowLimit} isExtendedChild={true}
@@ -92,7 +100,8 @@ export default function Node(props) {
                                 extendedEntityWidth={props.extendedEntityWidth}
                                 fetchExtendedDependents={props.fetchExtendedDependents}
                                 hoverButtons={props.hoverButtons}
-                                extendable={props.extendable} hoveredParent={!showExtendedDependents && hovered} row={props.row + 1}
+                                extendable={props.extendable} hoveredParent={!showExtendedDependents && hovered}
+                                row={props.row + 1}
                                 renderEntity={props.renderEntity}
                                 renderExtendedEntity={props.renderExtendedEntity}
                                 handleButtonClick={props.handleButtonClick} rowLimit={props.rowLimit}
@@ -132,4 +141,11 @@ Node.propTypes = {
     hoveredParent: PropTypes.bool,
     handleButtonClick: PropTypes.func,
     extendable: PropTypes.bool,
+    extendedChildButtons: PropTypes.arrayOf(
+        PropTypes.shape({
+            icon: PropTypes.any,
+            label: PropTypes.string,
+            key: PropTypes.number,
+            extendButton: PropTypes.bool
+        })),
 }

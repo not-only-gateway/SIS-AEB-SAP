@@ -10,7 +10,7 @@ export default function NodeOptions(props) {
 
     if (props.open)
         return (
-            <div id={'node_buttons-' + props.entityKey}
+            <div
                  className={[styles.optionsContainer, props.open ? styles.fadeIn : styles.fadeOutAnimation].join(' ')}
             >
                 {props.buttons !== undefined ? props.buttons.map((button, index) =>
@@ -20,7 +20,6 @@ export default function NodeOptions(props) {
                                 props.setShowExtendedDependents(!props.showExtendedDependents)
                             else
                                 props.handleButtonClick(props.entity, button.key)
-
                         }}>
                             {button.icon !== undefined ? button.icon : null}
                             {button.label}
@@ -34,14 +33,14 @@ export default function NodeOptions(props) {
                         {props.extended ?
                             (
                                 <>
-                                    <RemoveRounded style={{fontSize: '1.3rem', color: '#333333'}}/>
+                                    <RemoveRounded />
                                     {lang.less}
                                 </>
                             )
                             :
                             (
                                 <>
-                                    <AddRounded style={{fontSize: '1.3rem', color: '#333333'}}/>
+                                    <AddRounded />
                                     {lang.more}
                                 </>
                             )

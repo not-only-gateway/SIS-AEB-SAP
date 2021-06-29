@@ -26,7 +26,7 @@ export default function UnitVacancies(props) {
                         handleChange={event => handleObjectChange({
                             event: event,
                             setData: setCurrentEntity
-                        })}
+                        })} returnToMain={() => setOpen(false)}
                         unit={props.unit}
                         create={open && currentEntity === null}
                         data={currentEntity}
@@ -57,7 +57,11 @@ export default function UnitVacancies(props) {
                     fetchUrl={Host() + 'list/commissioned/vacancies/' + props.id}
                     setEntity={entity => setCurrentEntity(entity)} setAppliedSearch={props.setApplySearch}
                     scrollableElement={'scrollableDiv'} listKey={'vacancies'}
-                    createOption={true} clickEvent={() => setOpen(true)}/>
+                    createOption={true}
+                    clickEvent={() => {
+                        setOpen(true)
+                        props.setOpen(true)
+                    }}/>
             </div>
         </>
     )
@@ -67,5 +71,6 @@ UnitVacancies.propTypes = {
     id: PropTypes.number,
     applySearch: PropTypes.bool,
     search: PropTypes.string,
-    setApplySearch: PropTypes.func
+    setApplySearch: PropTypes.func,
+    setOpen: PropTypes.func
 }

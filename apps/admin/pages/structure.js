@@ -8,7 +8,8 @@ import styles from '../styles/Structure.module.css'
 import CollaborationRequests from "../utils/fetch/CollaborationRequests";
 
 import PersonAvatar from "../components/shared/PersonAvatar";
-import Chart from "../components/shared/components/Chart";
+import {Chart} from "sis-aeb-chart";
+
 
 export default function structure() {
 

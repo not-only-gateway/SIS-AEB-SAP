@@ -16,7 +16,7 @@ export default function unit(props) {
 
     const [accessProfile, setAccessProfile] = useState(null)
     const [openTab, setOpenTab] = useState(0)
-
+    const [openForm, setOpenForm] = useState(false)
     const [id, setId] = useState(undefined)
     const lang = UnitPT
     const [unit, setUnit] = useState({})
@@ -63,20 +63,22 @@ export default function unit(props) {
                                 {unit.acronym}
                             </div>
                         </div>
-                        <Tabs
-                            buttons={[
-                                {
-                                    key: 0,
-                                    value: lang.vacancies
-                                },
-                                {
-                                    key: 1,
-                                    value: lang.forms
-                                }
-                            ]}
-                            setOpenTab={setOpenTab}
-                            openTab={openTab}
-                        />
+                        {openForm ? null :
+                            <Tabs
+                                buttons={[
+                                    {
+                                        key: 0,
+                                        value: lang.vacancies
+                                    },
+                                    {
+                                        key: 1,
+                                        value: lang.forms
+                                    }
+                                ]}
+                                setOpenTab={setOpenTab}
+                                openTab={openTab}
+                            />
+                        }
                     </div>
 
                     <div className={styles.unitContentContainer}>
@@ -88,8 +90,8 @@ export default function unit(props) {
                                     buttonKey: 0,
                                     value: (
                                         <UnitVacancies
-                                            id={id} search={props.searchInput}
-                                            applySearch={props.notSearched}
+                                            id={id} search={props.searchInput} unit={unit}
+                                            applySearch={props.notSearched} setOpen={setOpenForm}
                                             setApplySearch={props.setNotSearched}
                                         />
                                     )

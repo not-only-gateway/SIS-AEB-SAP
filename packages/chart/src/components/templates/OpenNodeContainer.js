@@ -9,8 +9,8 @@ export default function OpenNodeContainer(props) {
             style={{
                 border: props.isExtendedChild ? 'none' : (props.open ? '#0095ff 1px solid' : 'transparent 1px solid'),
                 padding: props.open && !props.isExtendedChild ? '16px' : '0',
-                display: 'flex',
-                alignItems: 'flex-start',
+                display: 'grid',
+
                 gap: '16px',
                 borderRadius: '8px',
                 transition: '250ms ease-in-out',

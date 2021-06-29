@@ -13,7 +13,7 @@ export default function Chart(props) {
              id={'canvas'}>
             <div style={{
                 zoom: zoom,
-                transition: '.2s',
+                transition: '250ms ease-in-out',
                 '-moz-transform': 'scale(' + zoom + ')',
                 width: 'fit-content',
                 whiteSpace: 'nowrap',
@@ -79,5 +79,12 @@ Chart.propTypes = {
             extendButton: PropTypes.bool
         })),
     handleButtonClick: PropTypes.func,
-    fetchDependents: PropTypes.func
+    fetchDependents: PropTypes.func,
+    extendedChildButtons:PropTypes.arrayOf(
+        PropTypes.shape({
+            icon: PropTypes.any,
+            label: PropTypes.string,
+            key: PropTypes.number,
+            extendButton: PropTypes.bool
+        })),
 }

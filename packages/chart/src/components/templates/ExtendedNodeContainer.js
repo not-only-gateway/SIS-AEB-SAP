@@ -7,9 +7,9 @@ export default function ExtendedNodeContainer(props) {
     return (
 
         <div style={{
-            boxShadow: props.showExtendedDependents ? 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px' : undefined,
-            border: props.showExtendedDependents ? '#0095ff 1px solid' : 'none',
-            background: props.showExtendedDependents ? '#f4f5fa' : null,
+
+            border: props.showExtendedDependents ? '#e0e0e0 1px solid' : 'none',
+            background: 'white',
             padding: props.showExtendedDependents ? '16px' : undefined,
             display: 'grid',
             placeContent: 'center',

@@ -18,7 +18,6 @@
 
     height: auto;
     width: 100%;
-    min-height: 30px;
 
 
     display: grid;
@@ -31,13 +30,13 @@
 
     background-color: white;
 
-    height: 30px;
-    padding: 18px 8px;
+    height: 25px;
+    padding: 16px 8px;
 
     display: flex;
     align-items: center;
     border: #e0e0e0 1px solid;
-    border-radius: 32px;
+    border-radius: 8px;
 
     cursor: pointer;
     justify-content: space-between;
@@ -46,9 +45,8 @@
 }
 
 .optionsContainer > button:hover {
-    background-color: #f4f5fa;
-    border: transparent 1px solid;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    color: #0095ff;
+
 }
 
 .fadeIn {
@@ -148,13 +146,16 @@
 
 .tree li {
     display: table-cell;
-    padding: 32px 0;
+    padding: 31px 0;
     vertical-align: top;
 }
 
 .tree li:before {
-    outline: #e0e0e0 solid 0.01em;
+
     content: "";
+    /*outline: #e0e0e0 solid 0.01em;*/
+    background: #e0e0e0;
+    height: 1px;
     left: 0;
     position: absolute;
     right: 0;
@@ -172,7 +173,7 @@
 .tree code,
 .tree span {
     border: #e0e0e0 1px solid;
-    border-radius: 5px;
+    border-radius: 8px;
     display: inline-block;
     margin: 0 16px 24px;
 
@@ -183,8 +184,10 @@
 .tree ul:before,
 .tree code:before,
 .tree span:before {
-    outline: #e0e0e0 solid 0.01em;
+
     content: "";
+    background: #e0e0e0;
+    width: 1px;
     height: 24px;
     left: 50%;
     position: absolute;
@@ -195,7 +198,7 @@
 }
 
 .noOutline span:before{
-    outline: none;
+    background: none;
 }
 .tree code:before,
 .tree span:before {
@@ -212,8 +215,8 @@
 .transformExtendedElement span:before{
     top: -32px;
     height: 32px;
-
-    outline: #e0e0e0 solid 0.01em;
+    background: #e0e0e0;
+    width: 1px;
 }
 .tree > li {
     margin-top: 0;
@@ -225,106 +228,3 @@
 .tree > li > span:before {
     outline: none;
 }
-
-/*.nav {*/
-/*    display: flex;*/
-/*    place-content: center;*/
-/*    margin: auto;*/
-/*    width: 100%;*/
-/*    overflow-x: auto;*/
-/*    white-space: nowrap;*/
-
-/*    box-sizing: content-box;*/
-/*}*/
-
-
-/*.nav ul {*/
-
-/*    position: relative;*/
-/*    padding-top: 35px;*/
-/*}*/
-
-/*.nav li {*/
-
-/*    position: relative;*/
-/*    padding: 35px 12px 0 12px;*/
-/*    float: left;*/
-/*    transition: 200ms ease-in-out;*/
-/*    text-align: center;*/
-/*    list-style-type: none;*/
-/*}*/
-
-/*.nav li::before, .nav li::after {*/
-/*    content: '';*/
-/*    position: absolute;*/
-/*    top: 0;*/
-/*    right: 50%;*/
-/*    width: 50%;*/
-/*    height: 35px;*/
-/*    transition: 200ms ease-in-out;*/
-/*    border-top: 1px solid #ccc;*/
-/*}*/
-
-/*.nav li::after {*/
-/*    left: 50%;*/
-/*    right: auto;*/
-/*    transition: 200ms ease-in-out;*/
-/*    border-left: 1px solid #ccc;*/
-/*}*/
-
-/*.nav li:only-child::after, .nav li:only-child::before {*/
-/*    content: '';*/
-/*    display: none;*/
-/*}*/
-
-/*.nav li:only-child {*/
-/*    padding-top: 0;*/
-/*}*/
-
-/*.nav li:first-child::before, .nav li:last-child::after {*/
-/*    border: 0 none;*/
-/*}*/
-
-/*.nav li:last-child::before {*/
-/*    border-right: 1px solid #ccc;*/
-/*    border-radius: 0 5px 0 0;*/
-/*}*/
-
-/*.nav li:first-child::after {*/
-/*    border-radius: 5px 0 0 0;*/
-/*}*/
-
-/*.nav ul ul::before {*/
-/*    content: '';*/
-/*    position: absolute;*/
-/*    top: 0;*/
-/*    left: 50%;*/
-/*    border-left: 1px solid #ccc;*/
-/*    width: 0;*/
-/*    height: 35px;*/
-
-/*}*/
-
-/*.nav li span {*/
-/*    display: inline-block;*/
-/*    !*padding: 5px 10px;*!*/
-
-/*    cursor: pointer;*/
-/*    background: white;*/
-
-/*    border: #e0e0e0 1px solid;*/
-/*    border-radius: 8px;*/
-
-
-/*    !*border: 1px solid #ccc;*!*/
-
-/*    transition: 250ms ease-in-out;*/
-/*}*/
-
-/*.nav li span div:hover + ul li::after,*/
-/*.nav li span div:hover + ul li::before,*/
-/*.nav li span div:hover + ul::before,*/
-/*.nav li span div:hover + ul ul::before {*/
-/*    content: '';*/
-/*    border-color: #0095ff;*/
-/*}*/
