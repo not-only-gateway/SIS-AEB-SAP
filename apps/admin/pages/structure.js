@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import StructuralRequests from "../utils/fetch/StructuralRequests";
 import {useRouter} from "next/router";
 import StructurePT from "../packages/locales/structure/StructurePT";
@@ -6,9 +6,9 @@ import Head from "next/head";
 import {EditRounded, PeopleRounded} from "@material-ui/icons";
 import styles from '../styles/Structure.module.css'
 import CollaborationRequests from "../utils/fetch/CollaborationRequests";
-import {Avatar} from "@material-ui/core";
-import {Chart} from "sis-aeb-chart";
+
 import PersonAvatar from "../components/shared/PersonAvatar";
+import Chart from "../components/shared/components/Chart";
 
 export default function structure() {
 
@@ -36,6 +36,7 @@ export default function structure() {
                 <title>
                     {lang.title}
                 </title>
+                <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
             <Chart
                 firstEntity={unit} rowLimit={1}
@@ -72,10 +73,12 @@ export default function structure() {
                             <div
                                 className={styles.vacancyContainer}>
                                 <PersonAvatar size={'50px'} image={entity.image} variant={'circular'}/>
-                                <div style={{fontSize: '.9rem', maxWidth: '95%', color: '#111111'}} className={styles.overflowEllipsis}>
+                                <div style={{fontSize: '.9rem', maxWidth: '95%', color: '#111111'}}
+                                     className={styles.overflowEllipsis}>
                                     {entity.name}
                                 </div>
-                                <div style={{fontSize: '.75rem', maxWidth: '95%', color: '#555555'}} className={styles.overflowEllipsis}>
+                                <div style={{fontSize: '.75rem', maxWidth: '95%', color: '#555555'}}
+                                     className={styles.overflowEllipsis}>
                                     {entity.corporate_email}
                                 </div>
                             </div>
@@ -87,23 +90,33 @@ export default function structure() {
                 extendedEntityWidth={200}
                 hoverButtons={[
                     {
-                        icon: <EditRounded style={{fontSize: '1.3rem', color: '#333333'}}/>,
+                        icon: <EditRounded style={{fontSize: '1.3rem'}}/>,
                         label: lang.edit,
                         key: 0
                     },
                     {
-                        icon: <PeopleRounded style={{fontSize: '1.3rem', color: '#333333'}}/>,
+                        icon: <PeopleRounded style={{fontSize: '1.3rem'}}/>,
                         label: lang.vacancies,
                         key: 1,
                         extendButton: true
                     },
                 ]} extendable={true}
+                extendedChildButtons={[
+                    {
+                        icon: <EditRounded style={{fontSize: '1.3rem'}}/>,
+                        label: lang.edit,
+                        key: 0
+                    }
+                ]}
                 getExtendedEntityKey={entity => {
-                    return 1
+                    if (entity !== undefined && entity !== null)
+                        return entity.person
+                    else
+                        return undefined
                 }}
-                getEntityKey={unit => {
-                    if (unit !== undefined && unit !== null)
-                        return unit.id
+                getEntityKey={entity => {
+                    if (entity !== undefined && entity !== null)
+                        return entity.id
                     else
                         return undefined
                 }}

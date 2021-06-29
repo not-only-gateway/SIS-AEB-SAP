@@ -1,81 +1,152 @@
 import PropTypes from 'prop-types'
 import styles from './styles/Alert.module.css'
-import {CloseRounded} from '@material-ui/icons'
+import {CloseRounded, ReportProblemRounded, ErrorRounded, CheckCircleRounded} from '@material-ui/icons'
 import React, {useEffect, useState} from 'react'
 import Modal from './Modal'
-
+import ReactDOM from "react-dom";
+import AlertPT from "./locales/AlertPT";
 
 export default function Alert(props) {
 
-  const [alertColor, setAlertColor] = useState(undefined)
-  useEffect(() => {
-    if (props.render) {
-      setAlertColor(getColor(props.type))
-      // setTimeout(() => props.handleClose(false), 10000)
+    const [elements, setElements] = useState({
+        style: {},
+        icon: undefined,
+        message: undefined,
+        messageCode: undefined
+    })
+    const lang = AlertPT
+    useEffect(() => {
+        const root = document.getElementById(props.rootElementID)
+        if (props.render) {
+            setElements(getColor(props.type))
+        } else if (root !== null && !props.render)
+            ReactDOM.unmountComponentAtNode(root);
+    }, [props.type, props.render])
+
+    function getColor(type) {
+        let response = undefined
+        switch (type) {
+            case 'error':
+                response = {
+                    style: {
+                        background: '#ff5555',
+                        color: 'white'
+                    },
+                    icon: (
+                        <div style={{
+                            color: 'white',
+                            background: '#FF2626',
+                            width: '40px',
+                            height: '40px',
+                            padding: '8px',
+                            borderRadius: '8px'
+                        }} className={styles.alertContentContainer}>
+                            <ReportProblemRounded/>
+                        </div>
+                    ),
+                    message: lang.error,
+                    messageCode: props.statusCode
+
+                }
+                break
+            case 'alert':
+                response = {
+                    style: {
+                        background: '#FFFF3E',
+                        color: '#555555'
+                    },
+                    icon: (
+                        <div style={{
+                            color: 'white',
+                            background: '#F4F400',
+                            width: '40px',
+                            height: '40px',
+                            padding: '8px',
+                            borderRadius: '8px'
+                        }} className={styles.alertContentContainer}>
+                            <ErrorRounded/>
+                        </div>
+                    ),
+                    message: props.message,
+                    messageCode: props.statusCode
+                }
+                break
+            case 'success':
+                response = {
+                    style: {
+                        background: '#00F400',
+                        color: '#555555'
+                    },
+                    icon: (
+                        <div style={{
+                            color: 'white',
+                            background: '#00C300',
+                            width: '40px',
+                            height: '40px',
+                            padding: '8px',
+                            borderRadius: '8px'
+                        }} className={styles.alertContentContainer}>
+                            <CheckCircleRounded/>
+                        </div>
+                    ),
+                    message: props.statusCode === 201 ? lang.created : lang.success,
+                    messageCode: props.statusCode
+                }
+
+                break
+            default:
+                break
+        }
+
+        return response
     }
-  }, [props.type, props.render])
 
-  function getColor(type) {
-    let response = undefined
-    switch (type) {
-      case 'error':
-        response = {
-          background: '#ff5555',
-          color: 'white'
+    const element = (
+        <div className={[styles.alertContainer, styles.slideUp, styles.alertContent].join(' ')}
+             style={
+                 elements.style
+             }>
+
+            <div className={styles.alertContentContainer}>
+                {elements.icon}
+                <div>
+                    {elements.message}
+                </div>
+                {elements.messageCode !== undefined ?
+                    <div style={{fontSize: '.8rem'}}>
+                        ({elements.messageCode})
+                    </div>
+                    :
+                    null
+                }
+
+
+            </div>
+
+            <button className={styles.buttonContainer} onClick={() => props.handleClose()}>
+                <CloseRounded style={{fontSize: '1.15rem', color: elements.style.color}}/>
+            </button>
+
+        </div>
+
+    )
+    if (typeof window !== 'undefined' && process.browser && props.render) {
+        const root = document.getElementById(props.rootElementID)
+        if (root !== null) {
+            ReactDOM.render(
+                element,
+                root
+            );
         }
-        break
-      case 'alert':
-        response = {
-          background: '#FFFF57',
-          color: '#555555'
-        }
-        break
-      case 'success':
-        response = {
-          background: '#57FF57',
-          color: '#555555'
-        }
-        break
-      default:
-        break
     }
-
-    return response
-  }
-
-  return (
-    <Modal open={props.render} handleClose={() => props.handleClose()} rootElementID={props.rootElementID}
-           componentStyle={{display: 'grid', justifyContent: 'center', alignContent: 'flex-end'}}>
-      <div className={[styles.alertContainer, styles.fadeIn, styles.alertContent].join(' ')}
-           style={alertColor ? alertColor : {display: 'none'}}>
-
-
-        <button className={styles.buttonContainer} style={{
-          color: alertColor ? alertColor.color : '#262626',
-          background: alertColor ? alertColor.background : 'white'
-        }}>
-          {
-            props.message
-          }
-        </button>
-
-        <button className={styles.buttonContainer} onClick={() => props.handleClose()} style={{
-          color: alertColor ? alertColor.color : '#262626',
-          background: alertColor ? alertColor.background : 'white',
-          justifyContent: 'flex-end'
-        }}>
-          <CloseRounded/>
-        </button>
-
-      </div>
-    </Modal>
-  )
+    return null
 }
 
 Alert.propTypes = {
-  rootElementID: PropTypes.string,
-  message: PropTypes.string,
-  type: PropTypes.oneOf(['error', 'alert', 'success']),
-  handleClose: PropTypes.func,
-  render: PropTypes.bool
+    rootElementID: PropTypes.string,
+    statusCode: PropTypes.any,
+    message: PropTypes.string,
+    type: PropTypes.oneOf(['error', 'alert', 'success']),
+    handleClose: PropTypes.func,
+    render: PropTypes.bool,
 }

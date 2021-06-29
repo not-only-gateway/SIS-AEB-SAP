@@ -1,17 +1,17 @@
 .alertContainer {
   padding: 8px;
-  width: clamp(500px, 500px, 90%);
+  width: 500px;
+  height: 56px;
 
   position: fixed;
-  bottom: clamp(16px, 5%, 5%);
-  left: 50%;
+  bottom: 0;
+  margin: auto;
   transform: translateX(-50%);
   z-index: 25;
 
   border-radius: 8px;
 
-  box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
-
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .alertContent {
@@ -21,22 +21,49 @@
 }
 
 .buttonContainer {
-  width: 100%;
+  width: 40px;
+  height: 40px;
+
   border-radius: 8px;
   box-shadow: none;
-  padding: 8px;
-  height: auto;
+
   font-family: 'Roboto' !important;
   outline: none;
   border: none;
   transition: 200ms ease-in-out;
   cursor: pointer;
+
+  color: #555555;
+  background: transparent;
+
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+
+
 }
 
 
-.fadeIn {
+.slideUp {
   position: relative;
-  animation: fadeIn ease-in-out 150ms forwards;
+  animation: slideUp ease-in-out 150ms forwards;
+}
+
+@keyframes slideUp {
+  to{
+    transform: translateY(-100px);
+  }
+  from{
+    transform: translateY(0);
+  }
+}
+
+.alertContentContainer{
+  display: flex;
+  gap: 10px;
+  justify-items: flex-start;
+  align-items: center;
+
+
 }
