@@ -137,6 +137,14 @@ export default function CollaboratorForm(props) {
                                     width={'calc(50% - 16px)'}
                                     maxLength={undefined} phoneMask={true}/>
 
+
+                            </>
+                        )
+                    },
+                    {
+                        title: lang.linkages,
+                        child: (
+                            <>
                                 <Selector
                                     getEntityKey={entity => {
                                         if (entity !== undefined && entity !== null)
@@ -167,6 +175,52 @@ export default function CollaboratorForm(props) {
                                         else
                                             return <div/>
                                     }} fetchUrl={Host() + 'list/empty/occupancy'}
+                                    fetchToken={(cookies).get('jwt')}
+                                    elementRootID={'root'}/>
+
+                                <Selector
+                                    getEntityKey={entity => {
+                                        if (entity !== undefined && entity !== null)
+                                            return entity.id
+                                        else
+                                            return -1
+                                    }}
+                                    handleChange={entity => {
+
+                                        setChanged(true)
+                                        props.handleChange({name: 'main_commissioned_linkage', value: entity})
+                                    }} selectorKey={'vacancy-selector'}
+                                    selected={props.data === null ? null : props.data.main_commissioned_linkage}
+                                    setChanged={event => {
+
+                                        setChanged(event)
+                                    }}
+                                    required={false} label={lang.commissionedLinkage}
+                                    disabled={false}
+                                    width={'100%'}
+                                    renderEntity={entity => {
+
+                                        if (entity !== undefined && entity !== null)
+                                            return (
+                                                <div style={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'space-between',
+                                                    width: '100%'
+                                                }}>
+                                                    <div>
+                                                        {entity.unit_role.role.denomination}
+                                                    </div>
+                                                    <div style={{display: 'flex', alignItems: 'center', gap: '16px'}}>
+                                                        {entity.unit_role.unit.name}
+                                                        <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
+                                                        {entity.unit_role.unit.acronym}
+                                                    </div>
+                                                </div>
+                                            )
+                                        else
+                                            return <div/>
+                                    }} fetchUrl={Host() + 'list/empty/linkages/commissioned'}
                                     fetchToken={(cookies).get('jwt')}
                                     elementRootID={'root'}/>
                             </>

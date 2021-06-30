@@ -39,13 +39,14 @@ export default function UnitVacancies(props) {
                     renderElement={entity => {
                         if (entity !== null && entity !== undefined)
                             return (
-                                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                                    <div style={{display: 'flex', alignItems: 'center', gap: '16px'}}>
-                                        {entity.unit.acronym}
+                                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
+                                    <div>
                                         {entity.role.denomination}
                                     </div>
-                                    <div>
-
+                                    <div style={{display: 'flex', alignItems: 'center', gap: '16px'}}>
+                                        {entity.unit.name}
+                                        <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
+                                        {entity.unit.acronym}
                                     </div>
                                 </div>
                             )

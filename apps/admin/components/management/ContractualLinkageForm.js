@@ -1,18 +1,18 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import {DateField, FormLayout, TextField} from "sis-aeb-inputs";
-import {linkage} from "../../packages/locales/organizational/SimpleFormsPT";
+import {DateField, DropDownField, FormLayout, TextField} from "sis-aeb-inputs";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import {Alert, Selector} from "sis-aeb-misc";
 import submitContractualLinkage from "../../utils/submit/SubmitContractualLinkage";
+import ContractualLinkagePT from "../../packages/locales/person/ContractualLinkagePT";
 
 
 const cookies = new Cookies()
 export default function ContractualLinkageForm(props) {
 
     const [changed, setChanged] = useState(false)
-    const lang = linkage
+    const lang = ContractualLinkagePT
     const [status, setStatus] = useState({
         type: undefined,
         message: undefined
@@ -50,7 +50,6 @@ export default function ContractualLinkageForm(props) {
                         pk: props.data === null ? null : props.data.id,
                         data: props.data,
                         create: props.data.id === undefined || props.data.id === null,
-                        personID: props.personID,
                         setStatus: setStatus
                     }).then(res => {
                         setChanged(!res)
@@ -62,6 +61,7 @@ export default function ContractualLinkageForm(props) {
                         {
                             child: (
                                 <>
+
                                     <TextField
                                         dark={true}
                                         placeholder={lang.denomination} label={lang.denomination}
@@ -122,7 +122,7 @@ export default function ContractualLinkageForm(props) {
                                         selected={props.data === null ? null : props.data.effective_role}
                                         setChanged={setChanged} required={false} label={lang.effective}
                                         disabled={!(props.data === null || !props.data || props.data.contract === null || !props.data.contract || (props.data.effective_role !== null && props.data.effective_role !== undefined))}
-                                        width={'calc(33.333% - 21.5px)'}
+                                        width={'calc(50% - 16px)'}
                                         renderEntity={entity => {
                                             if (entity !== undefined && entity !== null)
                                                 return (
@@ -153,7 +153,7 @@ export default function ContractualLinkageForm(props) {
                                         selected={props.data === null ? null : props.data.contract}
                                         setChanged={setChanged} required={false} label={lang.contract}
                                         disabled={!(props.data === null || !props.data || props.data.effective_role === null || !props.data.effective_role || (props.data.contract !== null && props.data.contract !== undefined))}
-                                        width={'calc(33.333% - 21.5px)'}
+                                        width={'calc(50% - 16px)'}
                                         renderEntity={entity => {
                                             if (entity !== undefined && entity !== null)
                                                 return (
@@ -183,7 +183,7 @@ export default function ContractualLinkageForm(props) {
                                         selected={props.data === null ? null : props.data.entity}
                                         setChanged={setChanged} required={true} label={lang.entity}
                                         disabled={false}
-                                        width={props.data && (props.data.effective_role || props.data.contract) ? 'calc(50% - 16px)' : 'calc(33.333% - 21.5px)'}
+                                        width={'100%'}
                                         renderEntity={entity => {
 
                                             if (entity !== undefined && entity !== null)
@@ -207,7 +207,7 @@ export default function ContractualLinkageForm(props) {
                             child: (
                                 <>
                                     <DateField
-                                        placeholder={lang.officialPublication} label={lang.officialPublication}
+                                        placeholder={lang.publication} label={lang.publication}
                                         handleChange={event => {
                                             setChanged(true)
                                             props.handleChange({
@@ -225,7 +225,7 @@ export default function ContractualLinkageForm(props) {
                                         }
                                         required={true} width={'calc(33.333% - 21.5px)'}/>
                                     <DateField
-                                        placeholder={lang.admissionDate} label={lang.admissionDate}
+                                        placeholder={lang.admission} label={lang.admission}
                                         handleChange={event => {
                                             setChanged(true)
                                             props.handleChange({
@@ -262,10 +262,8 @@ export default function ContractualLinkageForm(props) {
 
                                             if (entity !== undefined && entity !== null)
                                                 return (
-                                                    <div style={{display: 'flex', alignItems: 'center'}}
-                                                         key={entity.id + '-unit'}>
+                                                    <div style={{display: 'flex', alignItems: 'center'}}>
                                                         {entity.acronym}
-                                                        {entity.id}
                                                     </div>
                                                 )
                                             else

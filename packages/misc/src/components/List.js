@@ -32,6 +32,7 @@ export default function List(props) {
       props.setAppliedSearch(false)
     } else if (props.searchInput === null || props.searchInput === undefined || props.searchInput.length === 0)
       Fetch({
+        fetchSize: props.fetchSize,
         setLastFetchedSize: setLastFetchedSize,
         setData: setData,
         data: data,
@@ -67,7 +68,7 @@ export default function List(props) {
             fetchToken: props.fetchToken,
             fetchUrl: props.fetchUrl
           })}
-          hasMore={lastFetchedSize === 15}
+          hasMore={props.fetchSize !== undefined && props.fetchSize !== null ? lastFetchedSize === props.fetchSize : lastFetchedSize === 15}
           inverse={false}
           scrollableTarget={props.scrollableElement}
           loader={<Loader/>}
@@ -82,10 +83,10 @@ export default function List(props) {
             {data.map((entity, index) =>
               <React.Fragment key={index + props.listKey}>
                 <ListContent index={index}
-                  create={false} lang={lang} entity={entity}
-                  setEntity={() => props.setEntity(entity)}
-                  renderElement={props.renderElement}
-                  clickEvent={() => props.clickEvent(true)}
+                             create={false} lang={lang} entity={entity}
+                             setEntity={() => props.setEntity(entity)}
+                             renderElement={props.renderElement}
+                             clickEvent={() => props.clickEvent(true)}
                 />
               </React.Fragment>
             )}
@@ -103,7 +104,7 @@ export default function List(props) {
 }
 List.propTypes = {
   listKey: PropTypes.any,
-
+  fetchSize: PropTypes.number,
   setEntity: PropTypes.any,
   createOption: PropTypes.bool,
   clickEvent: PropTypes.func,

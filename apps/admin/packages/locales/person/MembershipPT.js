@@ -14,6 +14,8 @@ export default {
     workShiftStart: 'Início do turno',
     workShiftEnd: 'Fim do turno',
     access: 'Perfil de acesso',
-    contractualLinkage:'Vínculo contratual'
+    contractualLinkage:'Vínculo contratual',
+    commissionedLinkage: 'Vínculo comissionado principal',
+    linkages: 'Vínculos'
 
 }

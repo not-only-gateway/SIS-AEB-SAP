@@ -8,7 +8,6 @@ export default async function submitUnit(props) {
     let response = false
     let data = {}
     data = Object.assign(data, props.data)
-    console.log(props.data)
 
     data.parent_entity = props.data.parent_entity.id
     data.parent_unit = props.data.parent_unit !== undefined && props.data.parent_unit !== null ? props.data.parent_unit.id : null

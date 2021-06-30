@@ -3,7 +3,7 @@ export const commissioned = {
     level: 'Nível do cargo',
     roleClass: 'Classe do cargo',
     hierarchyLevel: 'Nível hierárquico',
-    options: [{key: true, value: 'Sim'}, {key: false, value: 'Não'}],
+    options: [{key: 'DAS', value: 'DAS'}, {key: "FCPE", value: 'FCPE'}],
 
     appointment: 'Nomeação',
     additional: 'Informações adicionais',

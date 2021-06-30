@@ -42,26 +42,31 @@ export default function PeopleList(props) {
                                 justifyContent: 'space-between',
                                 width: '100%'
                             }}>
-                                <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
+                                <div style={{display: 'flex', gap: '8px', alignItems: 'center'}}>
                                     <PersonAvatar variant={'circular'} image={element.image}/>
                                     <div>
                                         {element.name}
                                     </div>
+                                    <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px',display: element.corporate_email !== null && element.corporate_email ? undefined : 'none'}}/>
                                     <div>
-                                        {element.collaborator === null || !element.collaborator ? null : element.collaborator.corporate_email}
+                                        {element.corporate_email}
+                                    </div>
+                                    <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px', display: element.extension !== null && element.extension ? undefined : 'none'}}/>
+                                    <div>
+                                        {element.extension}
                                     </div>
                                 </div>
                                 <div style={{
-                                    display: (element.commissioned_occupancy !== null && element.commissioned_occupancy) || element.occupancy !== null && element.occupancy ? 'flex' : 'none',
-                                    gap: '16px',
+                                    display: (element.main_commissioned_linkage !== null && element.main_commissioned_linkage) || element.occupancy !== null && element.occupancy ? 'flex' : 'none',
+                                    gap: '8px',
                                     alignItems: 'center'
                                 }}>
                                     <div style={{color: '#333333'}}>
-                                        {element.commissioned_occupancy !== null && element.commissioned_occupancy ? element.commissioned_occupancy.unit_role.role.denomination : (element.occupancy === null || !element.occupancy ? null : element.occupancy.contract === null ? element.occupancy.effective_role.denomination : element.occupancy.contract.sei)}
+                                        {element.main_commissioned_linkage !== null && element.main_commissioned_linkage ? element.main_commissioned_linkage.unit_role.role.denomination : (element.occupancy === null || !element.occupancy ? null : element.occupancy.contract === null ? element.occupancy.effective_role.denomination : element.occupancy.contract.sei)}
                                     </div>
                                     <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
                                     <div style={{fontSize: '.9rem'}}>
-                                        {element.commissioned_occupancy !== null && element.commissioned_occupancy ? element.commissioned_occupancy.unit_role.unit.acronym : (element.occupancy === null || !element.occupancy ? null : element.occupancy.unit.acronym)}
+                                        {element.main_commissioned_linkage !== null && element.main_commissioned_linkage ? element.main_commissioned_linkage.unit_role.unit.acronym : (element.occupancy === null || !element.occupancy ? null : element.occupancy.unit.acronym)}
                                     </div>
                                 </div>
                             </div>

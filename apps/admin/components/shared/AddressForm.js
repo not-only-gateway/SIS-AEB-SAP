@@ -82,7 +82,7 @@ export default function AddressForm(props) {
                     child: (
                         <>
                             <TextField
-                                dark={true}
+                                type={'number'}
                                 placeholder={lang.zipCode} label={lang.zipCode} handleChange={event => {
                                 if (event.target.value.length === 8) {
                                     props.handleChange({name: 'zip_code', value: event.target.value})

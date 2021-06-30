@@ -62,7 +62,7 @@ export default function structural(props) {
                             buttonKey: 1,
                             value: <EntityList
                                 redirect={id => router.push('/entity/?id=' + id, undefined, {shallow: true})}
-                                notSearched={props.notSearched} setNotSearched={props.setNotSearched}
+                                notSearched={props.notSearched} setNotSearched={props.setNotSearched} setOpen={setOpenForm}
                                 searchInput={props.searchInput}/>
                         }
                     ]}

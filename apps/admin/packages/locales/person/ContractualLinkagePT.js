@@ -7,6 +7,8 @@ export default {
     contract: 'Contrato',
     legalDocument: 'Documento legal',
     description: 'Descrição',
-    denomination: 'Denominação'
-
+    denomination: 'Denominação',
+    occupancy: 'Lotação',
+    dependencies: 'Ligações',
+    title: 'Vínculo contratual / Lotação'
 }

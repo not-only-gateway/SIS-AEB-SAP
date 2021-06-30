@@ -166,7 +166,7 @@ export default function PersonalForms(props) {
                         {
                             buttonKey: 5,
                             value: (
-                                <PersonHistory id={props.id} entityType={'person'}/>
+                                <PersonHistory overviewFields={PersonOverview} id={props.id} entityType={'person'} returnToMain={() => setOpenTab(0)}/>
                             )
                         },
                         // {

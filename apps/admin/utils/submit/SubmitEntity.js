@@ -1,26 +1,17 @@
 import axios from "axios";
 import Host from "../shared/Host";
 import Cookies from "universal-cookie/lib";
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types'
 
 const cookies = new Cookies()
-
-export default async function submitCollaborator(props) {
+export default async function submitEntity(props) {
     let response = false
     let data = {}
     data = Object.assign(data, props.data)
 
-    data.access_profile = props.data.access_profile.id
-    if (props.data.occupancy !== null && props.data.occupancy !== undefined)
-        data.occupancy = data.occupancy.id
-
-    if (props.data.main_commissioned_linkage !== null && props.data.main_commissioned_linkage !== undefined)
-        data.main_commissioned_linkage = data.main_commissioned_linkage.id
-
-    data.person = props.pk
     await axios({
         method: props.create ? 'post' : 'put',
-        url: props.create ? Host() + 'collaborator' : Host() + 'collaborator/' + props.pk,
+        url: props.create ? Host() + 'entity' : Host() + 'entity/' + props.pk,
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         data: data
     }).then(res => {
@@ -29,7 +20,6 @@ export default async function submitCollaborator(props) {
             message: res.status + ' - ' + res.statusText,
         })
         response = true
-
     }).catch(error => {
         props.setStatus({
             type: 'error',
@@ -38,7 +28,8 @@ export default async function submitCollaborator(props) {
     })
     return response
 }
-submitCollaborator.propTypes = {
+
+submitEntity.propTypes = {
     pk: PropTypes.number,
     data: PropTypes.object,
     setStatus: PropTypes.func,

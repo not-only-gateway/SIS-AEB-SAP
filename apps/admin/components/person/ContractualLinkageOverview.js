@@ -1,7 +1,3 @@
-import PropTypes from 'prop-types'
-import styles from '../../styles/Person.module.css'
-import ContractualLinkagePT from "../../packages/locales/person/ContractualLinkagePT";
-
 export default [
     {
         field: 'denomination',

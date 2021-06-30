@@ -51,8 +51,9 @@ export default function unit(props) {
                     <div className={styles.unitHeader}>
                         <div className={styles.unitInfoHeader}>
                             <div style={{
-                                fontSize: '1.3rem',
-                                color: '#333333'
+                                fontSize: '1.6rem',
+                                color: '#333333',
+                                textTransform: 'capitalize'
                             }}>
                                 {unit.name}
                             </div>

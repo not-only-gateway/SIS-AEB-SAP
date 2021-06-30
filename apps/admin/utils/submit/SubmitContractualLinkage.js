@@ -43,7 +43,6 @@ export default async function submitContractualLinkage(props) {
 submitContractualLinkage.propTypes = {
     pk: PropTypes.number,
     data: PropTypes.object,
-    collaboratorData: PropTypes.object,
     create: PropTypes.bool,
     setStatus: PropTypes.func,
 }

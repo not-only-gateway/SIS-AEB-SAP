@@ -88,7 +88,7 @@ FormLayout.propTypes = {
     dependencies: PropTypes.shape({
         fields: PropTypes.arrayOf(PropTypes.shape({
             name: PropTypes.string,
-            type: PropTypes.oneOf(['string', 'number', 'object', 'bool'])
+            type: PropTypes.oneOf(['string', 'number', 'object', 'bool', 'date'])
         })),
         entity: PropTypes.object,
         changed: PropTypes.bool

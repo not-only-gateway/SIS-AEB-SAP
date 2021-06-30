@@ -12,24 +12,10 @@
     align-items: center;
     justify-content: center;
 
-    animation: fadeIn 250ms ease-in-out forwards;
-
     height: 25px;
     width: 25px;
     padding: 5px;
     font-size: 1.1rem;
 
     transition: 150ms ease-in-out;
-}
-.closeButton:hover{
-    background: #ff5555;
-    color: white
-}
-@keyframes fadeIn {
-    0%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 1;
-    }
 }

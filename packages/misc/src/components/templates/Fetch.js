@@ -38,7 +38,6 @@ fetch.propTypes = {
   searchInput: PropTypes.string,
   maxID: PropTypes.number,
   setMaxID: PropTypes.func,
-
   host: PropTypes.string,
   fetchUrl: PropTypes.string,
   fetchToken: PropTypes.string

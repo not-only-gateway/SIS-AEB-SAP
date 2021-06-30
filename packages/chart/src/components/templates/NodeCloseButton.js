@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import styles from "../styles/NodeMisc.module.css";
-import {CloseRounded} from "@material-ui/icons";
+import {CancelRounded} from "@material-ui/icons";
 import React from "react";
 
 export default function NodeCloseButton(props) {
@@ -14,7 +14,7 @@ export default function NodeCloseButton(props) {
                 top: '0',
             }}
             onClick={() => props.handleClose()}>
-            <CloseRounded style={{fontSize: props.smaller ? '1.1rem' : '1.4rem'}}/>
+            <CancelRounded style={{fontSize: props.smaller ? '1.1rem' : '1.4rem'}}/>
         </button>
     )
 }

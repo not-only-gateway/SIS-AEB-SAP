@@ -35,10 +35,11 @@ export default function UnitList(props) {
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/unit'}
                     renderElement={element => {
                         return (
-                            <div style={{display: 'flex', gap: '16px'}}>
+                            <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
                                 <div>
                                     {element.name}
                                 </div>
+                                <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
                                 <div>
                                     {element.acronym}
                                 </div>

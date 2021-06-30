@@ -95,6 +95,9 @@
     border-radius: 8px;
 
     padding: 32px;
+
+    display: grid;
+    gap: 8px;
 }
 .closeButton {
     position: absolute;
@@ -172,4 +175,43 @@
 
 .choiceButtonContainer:hover {
     color: #0095ff;
+}
+
+
+.labelContainer {
+    display: flex;
+    font-size: 1.5rem;
+    align-items: center;
+    justify-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    padding-bottom: 4px;
+    gap: 32px;
+    border-bottom: #e0e0e0 1px solid;
+}
+
+.returnButtonContainer {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: .9rem;
+    color: #555555;
+    background: transparent;
+    outline: none;
+    border: none;
+    transition: 250ms ease-in-out;
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    border-radius: 32px;
+}
+
+.returnButtonContainer:hover {
+    color: #ff5555;
+}
+
+.returnButtonContainer:active {
+    color: #ff5555;
+    background: #f4f5fa;
 }

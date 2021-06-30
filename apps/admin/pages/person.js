@@ -32,7 +32,7 @@ export default function person() {
                 if (res !== null) {
                     MemberRequests.fetchCollaborator({id: res.id, setStatus: () => null}).then(response => {
                         if (response !== null)
-                            setMember(response.collaborator)
+                            setMember(response)
                     })
                     setPerson(res)
                 }
@@ -48,14 +48,6 @@ export default function person() {
         }
     }, [router.query])
 
-    const getElementHeight = () => {
-        const root = document.getElementById('scrollableDiv')
-
-        if (root !== null)
-            return root.scrollHeight - root.offsetHeight
-        else
-            return 0
-    }
     if (id !== undefined)
         return (
             <>
@@ -115,7 +107,7 @@ export default function person() {
                                         <CorporateForms
                                             lang={lang}
                                             fetchMembership={() =>
-                                                MemberRequests.fetchMember({
+                                                MemberRequests.fetchCollaborator({
                                                     id: person.id,
                                                     setStatus: () => null
                                                 }).then(response => {

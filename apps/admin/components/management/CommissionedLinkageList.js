@@ -14,15 +14,18 @@ export default function CommissionedLinkageList(props) {
     return (
         <>
             {!open ? null :
-                    <CommissionedLinkageForm
-                        closeModal={() => setOpen(false)}
-                        // handleSubmit={submitLinkage}
-                        handleChange={event => handleObjectChange({
-                            event: event,
-                            setData: setCurrentEntity
-                        })}
-                        create={open && currentEntity === null}
-                        data={currentEntity}/>
+                <CommissionedLinkageForm
+                    closeModal={() => {
+                        setOpen(false)
+                        props.setOpen(false)
+                    }}
+                    // handleSubmit={submitLinkage}
+                    handleChange={event => handleObjectChange({
+                        event: event,
+                        setData: setCurrentEntity
+                    })}
+                    create={open && currentEntity === null}
+                    data={currentEntity}/>
 
             }
             <div style={{display: open ? 'none' : undefined}}>
@@ -31,14 +34,25 @@ export default function CommissionedLinkageList(props) {
                     props.setOpen(true)
                 }} createOption={true}
                       fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/linkage/commissioned'}
-                      renderElement={element => {
+                      renderElement={entity => {
                           return (
-                              <div style={{display: 'flex', gap: '16px'}}>
-                                  {element.denomination}
-                                  {element.description}
+                              <div style={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'space-between',
+                                  width: '100%'
+                              }}>
+                                  <div>
+                                      {entity.unit_role.role.denomination}
+                                  </div>
+                                  <div style={{display: 'flex', alignItems: 'center', gap: '16px'}}>
+                                      {entity.unit_role.unit.name}
+                                      <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
+                                      {entity.unit_role.unit.acronym}
+                                  </div>
                               </div>
                           )
-                      }}  applySearch={props.notSearched} setAppliedSearch={props.setNotSearched}
+                      }} applySearch={props.notSearched} setAppliedSearch={props.setNotSearched}
                       setEntity={setCurrentEntity} searchInput={props.searchInput}/>
             </div>
         </>

@@ -28,7 +28,8 @@ export default function Selector(props) {
                style={{
                  visibility: props.selected !== null && props.selected !== undefined ? 'visible' : 'hidden',
                  opacity: props.selected !== null && props.selected !== undefined ? '1' : '0',
-                 transition: 'visibility 0.2s ease,opacity 0.2s ease'
+                 transition: 'visibility 0.2s ease,opacity 0.2s ease',
+                 textTransform: 'capitalize'
                }}>{props.label}</label>
 
         <div className={styles.dropDownContainer}>
@@ -38,9 +39,15 @@ export default function Selector(props) {
 
             style={{
               height: '56px', borderRadius: '5px',
-              cursor: props.disabled ? 'unset' : 'pointer'
+              cursor: props.disabled ? 'unset' : 'pointer',
+              textTransform: props.selected === null || !props.selected ? 'capitalize' : undefined,
+              boxShadow: props.disabled ? 'none' : undefined,
+              border:  props.disabled ? '#e0e0e0 1px solid' : undefined,
+              background: props.disabled ? 'white' : undefined
+
             }}
             className={styles.selectContainer}
+
             onClick={() => setModal(true)}
           >
 

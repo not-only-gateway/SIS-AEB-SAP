@@ -10,6 +10,8 @@ import ContractualLinkageForm from "../management/ContractualLinkageForm";
 import CollaboratorOverview from "./overview/CollaboratorOverview";
 import CollaboratorForm from "./forms/CollaboratorForm";
 import ContractualLinkageOverview from "./ContractualLinkageOverview";
+import CommissionedLinkageForm from "../management/CommissionedLinkageForm";
+import CommissionedLinkageOverview from "./overview/CommissionedLinkageOverview";
 
 export default function CorporateForms(props) {
     const [collaborator, setCollaborator] = useState(null)
@@ -22,8 +24,9 @@ export default function CorporateForms(props) {
         if (collaborator === null && props.id !== null && props.id !== undefined)
             CollaboratorRequests.fetchCollaborator({id: props.id}).then(res => {
                 if (res !== null) {
-                    setCollaborator(res.collaborator)
-                    setContractualLinkage(res.collaborator.occupancy)
+                    setCollaborator(res)
+                    setContractualLinkage(res.occupancy)
+                    setCommissionedLinkage(res.main_commissioned_linkage)
                 }
             })
     }, [props])
@@ -70,20 +73,12 @@ export default function CorporateForms(props) {
                                                 <OptionRow setOption={() => setOpenTab(3)}
                                                            setHistory={() => setOpenTab(4)}
                                                            label={props.lang.commissionedLinkages}
-                                                           modalContent={null}/>
+                                                           modalContent={<Overview entity={commissionedLinkage}
+                                                                                   fields={CommissionedLinkageOverview}/>}/>
                                             }
                                         </>
                                     }
-                                    {/*<button className={shared.rowContainer} onClick={() => setOpenTab(2)}*/}
-                                    {/*        style={{*/}
-                                    {/*            width: '100%',*/}
-                                    {/*            justifyContent: "space-between",*/}
-                                    {/*            cursor: props.modalContent === null ? 'unset' : 'pointer',*/}
-                                    {/*            color: '#282828',*/}
-                                    {/*            boxShadow: props.modalContent === null ? 'unset' : undefined*/}
-                                    {/*        }}>*/}
-                                    {/*    {props.lang.collaborations}*/}
-                                    {/*</button>*/}
+
                                 </div>
                             )
                         },
@@ -110,11 +105,24 @@ export default function CorporateForms(props) {
                             buttonKey: 2,
                             value: (
                                 <ContractualLinkageForm
-                                    create={contractualLinkage === null || contractualLinkage === undefined}
+                                    create={false}
                                     data={contractualLinkage}
                                     handleChange={event => handleObjectChange({
                                         event: event,
                                         setData: setContractualLinkage
+                                    })}
+                                    closeModal={() => setOpenTab(0)}/>
+                            )
+                        },
+                        {
+                            buttonKey: 3,
+                            value: (
+                                <CommissionedLinkageForm
+                                    create={false}
+                                    data={commissionedLinkage}
+                                    handleChange={event => handleObjectChange({
+                                        event: event,
+                                        setData: setCommissionedLinkage
                                     })}
                                     closeModal={() => setOpenTab(0)}/>
                             )

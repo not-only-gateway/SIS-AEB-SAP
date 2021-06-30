@@ -31,8 +31,8 @@ export default function CommissionedRoleForm(props) {
                         {name: 'denomination', type: 'string'},
                         {name: 'hierarchy_level', type: 'string'},
                         {name: 'role_level', type: 'string'},
-                        {name: 'fcpe', type: 'bool'},
-                        {name: 'das', type: 'bool'},
+                        props.data !== null && !props.data.das ? {name: 'fcpe', type: 'bool'} : null,
+                        props.data !== null && !props.data.fcpe ? {name: 'das', type: 'bool'} : null,
                         {name: 'role_class', type: 'string'}
 
                     ],
@@ -42,7 +42,7 @@ export default function CommissionedRoleForm(props) {
                 props.handleSubmit({
                     pk: props.data === null ? null : props.data.id,
                     data: props.data,
-                    create:  props.data === null || props.data.id === undefined,
+                    create: props.data === null || props.data.id === undefined,
                     setStatus: setStatus
                 }).then(res => {
                     setChanged(!res)
@@ -52,13 +52,13 @@ export default function CommissionedRoleForm(props) {
                     child: (
                         <>
                             <TextField
-                                dark={true}
+
                                 placeholder={lang.denomination} label={lang.denomination}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'denomination', value: event.target.value})
                                 }}
-                                locale={props.locale} value={props.data === null ? null : props.data.denomination}
+                                value={props.data === null ? null : props.data.denomination}
                                 required={true}
                                 width={'100%'}
                             />
@@ -71,69 +71,56 @@ export default function CommissionedRoleForm(props) {
                         child: (
                             <>
                                 <TextField
-                                    dark={true}
+
                                     placeholder={lang.level} label={lang.level}
                                     handleChange={event => {
                                         setChanged(true)
                                         props.handleChange({name: 'role_level', value: event.target.value})
                                     }}
-                                    locale={props.locale} value={props.data === null ? null : props.data.role_level}
+                                    value={props.data === null ? null : props.data.role_level}
                                     required={true}
                                     width={'calc(33.333%  - 21.35px)'}
                                 />
                                 <TextField
-                                    dark={true}
+
                                     placeholder={lang.roleClass} label={lang.roleClass}
                                     handleChange={event => {
                                         setChanged(true)
                                         props.handleChange({name: 'role_class', value: event.target.value})
                                     }}
-                                    locale={props.locale} value={props.data === null ? null : props.data.role_class}
+                                    value={props.data === null ? null : props.data.role_class}
                                     required={true}
                                     width={'calc(33.333%  - 21.35px)'}
                                 />
                                 <TextField
-                                    dark={true}
+
                                     placeholder={lang.hierarchyLevel} label={lang.hierarchyLevel}
                                     handleChange={event => {
                                         setChanged(true)
                                         props.handleChange({name: 'hierarchy_level', value: event.target.value})
                                     }}
-                                    locale={props.locale}
+
                                     value={props.data === null ? null : props.data.hierarchy_level} required={true}
                                     width={'calc(33.333%  - 21.35px)'}
                                 />
-                            </>
-                        )
-                    },
-                    {
-                        title: lang.appointment,
-                        child: (
-                            <>
                                 <DropDownField
-                                    dark={true}
-                                    placeholder={'DAS'}
-                                    label={'DAS'}
-                                    handleChange={event => {
-                                        setChanged(true)
-                                        props.handleChange({name: 'das', value: event})
-                                    }}
-                                    locale={props.locale}
-                                    value={props.data === null ? null : props.data.das} required={true}
-                                    width={'calc(50% - 16px)'}
-                                    choices={lang.options}/>
 
-                                <DropDownField
-                                    dark={true}
-                                    placeholder={'FCPE'}
-                                    label={'FCPE'}
+                                    placeholder={lang.appointment}
+                                    label={lang.appointment}
                                     handleChange={event => {
                                         setChanged(true)
-                                        props.handleChange({name: 'fcpe', value: event})
+                                        if (event === 'DAS') {
+                                            props.handleChange({name: 'das', value: true})
+                                            props.handleChange({name: 'fcpe', value: false})
+                                        } else {
+                                            props.handleChange({name: 'das', value: false})
+                                            props.handleChange({name: 'fcpe', value: true})
+                                        }
                                     }}
-                                    locale={props.locale}
-                                    value={props.data === null ? null : props.data.fcpe} required={true}
-                                    width={'calc(50% - 16px)'}
+
+                                    value={props.data === null ? null : props.data.das ? 'DAS' : 'FCPE'}
+                                    required={true}
+                                    width={'100%'}
                                     choices={lang.options}/>
                             </>
                         )

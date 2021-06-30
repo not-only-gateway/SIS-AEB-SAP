@@ -46,11 +46,12 @@ export default function ContractualLinkageList(props) {
                             }}>
 
                                 <div style={{color: '#333333'}}>
-                                    {element.contract !== null ? element.contract.sei : element.effective_role.denomination}
+                                    {element.denomination}
+
                                 </div>
                                 <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
                                     <div>
-                                        {element.denomination}
+                                        {element.contract !== null ? element.contract.sei : element.effective_role.denomination}
                                     </div>
                                     <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
                                     <div style={{color: '#333333'}}>
