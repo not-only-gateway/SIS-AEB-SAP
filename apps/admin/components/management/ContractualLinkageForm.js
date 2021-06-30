@@ -1,14 +1,16 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import {DateField, DropDownField, FormLayout, TextField} from "sis-aeb-inputs";
+import {DateField, TextField} from "sis-aeb-inputs";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import {Alert, Selector} from "sis-aeb-misc";
 import submitContractualLinkage from "../../utils/submit/SubmitContractualLinkage";
 import ContractualLinkagePT from "../../packages/locales/person/ContractualLinkagePT";
-
+import FormLayout from "../shared/components/templates/FormLayout";
+import EntityLayout from "../shared/components/EntityLayout";
 
 const cookies = new Cookies()
+
 export default function ContractualLinkageForm(props) {
 
     const [changed, setChanged] = useState(false)
@@ -20,13 +22,14 @@ export default function ContractualLinkageForm(props) {
 
     return (
         <>
+
             <Alert
                 type={status.type} render={status.type !== undefined} rootElementID={'root'}
                 handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
             />
-            <FormLayout
-                create={props.create}
-                formLabel={lang.title}
+            <EntityLayout
+                rootElementID={'root'} data={props.data}
+                create={props.create} label={lang.title}
                 dependencies={{
                     fields: [
                         {name: 'denomination', type: 'string'},
@@ -67,7 +70,10 @@ export default function ContractualLinkageForm(props) {
                                         placeholder={lang.denomination} label={lang.denomination}
                                         handleChange={event => {
                                             setChanged(true)
-                                            props.handleChange({name: 'denomination', value: event.target.value})
+                                            props.handleChange({
+                                                name: 'denomination',
+                                                value: event.target.value
+                                            })
                                         }}
                                         locale={props.locale}
                                         value={props.data === null ? null : props.data.denomination}
@@ -80,7 +86,10 @@ export default function ContractualLinkageForm(props) {
                                         placeholder={lang.description} label={lang.description}
                                         handleChange={event => {
                                             setChanged(true)
-                                            props.handleChange({name: 'description', value: event.target.value})
+                                            props.handleChange({
+                                                name: 'description',
+                                                value: event.target.value
+                                            })
                                         }}
                                         locale={props.locale}
                                         value={props.data === null ? null : props.data.description}
@@ -93,7 +102,10 @@ export default function ContractualLinkageForm(props) {
                                         placeholder={lang.legalDocument} label={lang.legalDocument}
                                         handleChange={event => {
                                             setChanged(true)
-                                            props.handleChange({name: 'legal_document', value: event.target.value})
+                                            props.handleChange({
+                                                name: 'legal_document',
+                                                value: event.target.value
+                                            })
                                         }}
                                         locale={props.locale}
                                         value={props.data === null ? null : props.data.legal_document}
@@ -165,7 +177,8 @@ export default function ContractualLinkageForm(props) {
                                                 )
                                             else
                                                 return null
-                                        }} fetchUrl={Host() + 'list/contract'} fetchToken={(cookies).get('jwt')}
+                                        }} fetchUrl={Host() + 'list/contract'}
+                                        fetchToken={(cookies).get('jwt')}
                                         elementRootID={'root'}/>
 
 

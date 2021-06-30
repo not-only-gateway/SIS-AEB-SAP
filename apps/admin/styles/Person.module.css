@@ -53,20 +53,6 @@
     gap: 8px;
 }
 
-
-.overviewRow {
-    height: 56px;
-    width: 100%;
-    background: #f4f5fa;
-    border-radius: 8px;
-    padding: 8px;
-
-    border: #ecedf2 .7px solid;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
 .historyContainer {
     display: grid;
     row-gap: 16px;
