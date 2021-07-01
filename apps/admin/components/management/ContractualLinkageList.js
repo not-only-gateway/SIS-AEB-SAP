@@ -27,7 +27,7 @@ export default function ContractualLinkageList(props) {
                             setData: setCurrentEntity
                         })}
 
-                        create={open && currentEntity === null}
+                        create={open && (currentEntity === null || currentEntity.id === undefined)}
                         data={currentEntity}/>
                 </div>
             }
