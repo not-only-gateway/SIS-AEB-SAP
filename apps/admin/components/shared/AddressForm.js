@@ -1,10 +1,17 @@
 import React, {useState} from "react";
 import PropTypes from 'prop-types'
 import axios from "axios";
-import {FormLayout, TextField} from "sis-aeb-inputs"
-import {Alert} from "sis-aeb-misc";
+import {TextField} from "sis-aeb-inputs"
+import {Alert, EntityLayout} from "sis-aeb-misc";
 import AddressPT from "../../packages/locales/others/AddressPT";
 import submitAddress from "../../utils/submit/SubmitAddress";
+import ContractualLinkageDescription from "../../packages/descriptions/ContractualLinkageDescription";
+import UnitOverview from "../../packages/overview/UnitOverview";
+import StructuralKeys from "../../packages/keys/StructuralKeys";
+import Cookies from "universal-cookie/lib";
+import Host from "../../utils/shared/Host";
+import PersonalKeys from "../../packages/keys/PersonalKeys";
+import AddressOverview from "../../packages/overview/AddressOverview";
 
 export default function AddressForm(props) {
 
@@ -53,9 +60,10 @@ export default function AddressForm(props) {
                 handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
             />
 
-            <FormLayout
-                create={props.create}
-                formLabel={lang.title}
+            <EntityLayout
+                information={ContractualLinkageDescription}
+                rootElementID={'root'} entity={props.data}
+                create={props.create} label={lang.title}
                 dependencies={{
                     fields: [
                         {name: 'zip_code', type: 'string'},
@@ -65,8 +73,7 @@ export default function AddressForm(props) {
                         {name: 'state_initials', type: 'string'},
                         {name: 'valid_zip_code', type: 'bool'},
                     ],
-                    changed: changed,
-                    entity: props.data
+                    changed: changed
                 }} returnButton={true} handleSubmit={() =>
                 submitAddress({
                     pk: props.id,

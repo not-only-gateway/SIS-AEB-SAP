@@ -2,10 +2,17 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types'
 import CountryOptions from "../../../packages/options/CountryOptions";
 import StateOptions from "../../../packages/options/StateSelector";
-import {DateField, DropDownField, FormLayout, ImageField, TextField} from "sis-aeb-inputs"
-import {Alert} from "sis-aeb-misc";
+import {DateField, DropDownField, ImageField, TextField} from "sis-aeb-inputs"
+import {Alert, EntityLayout} from "sis-aeb-misc";
 import BaseFormPT from "../../../packages/locales/person/BaseFormPT";
 import submitPerson from "../../../utils/submit/SubmitPerson";
+import ContractualLinkageDescription from "../../../packages/descriptions/ContractualLinkageDescription";
+import UnitOverview from "../../../packages/overview/UnitOverview";
+import StructuralKeys from "../../../packages/keys/StructuralKeys";
+import Cookies from "universal-cookie/lib";
+import Host from "../../../utils/shared/Host";
+import PersonalKeys from "../../../packages/keys/PersonalKeys";
+import PersonOverview from "../../../packages/overview/PersonOverview";
 
 export default function BaseForm(props) {
 
@@ -24,9 +31,12 @@ export default function BaseForm(props) {
                 handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
             />
 
-            <FormLayout
-                create={props.create}
-                formLabel={lang.title}
+            <EntityLayout
+                information={ContractualLinkageDescription}
+                fields={PersonOverview} entityID={props.create ? undefined : props.data.id}
+                rootElementID={'root'} entity={props.data}
+                create={props.create} label={lang.title} entityKey={PersonalKeys.person} fetchToken={(new Cookies()).get('jwt')}
+                fetchUrl={Host() + 'list/object'} exists={true} fetchSize={15} setVersion={() => null}
                 dependencies={{
                     fields: [
                         {name: 'name', type: 'string'},

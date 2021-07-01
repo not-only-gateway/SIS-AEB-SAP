@@ -1,15 +1,12 @@
-import {Overview, RenderTabs} from "sis-aeb-misc";
+import { RenderTabs} from "sis-aeb-misc";
 import UnitForm from "../structural/UnitForm";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import AddressForm from "../shared/AddressForm";
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import styles from "../../styles/Person.module.css";
-import OptionRow from "../person/OptionRow";
-
 import UnitPT from "../../packages/locales/unit/UnitPT";
-import AddressOverview from "../shared/AddressOverview";
-import UnitOverview from "./UnitOverview";
+import shared from '../../styles/Shared.module.css'
 import StructuralRequests from "../../utils/fetch/StructuralRequests";
 
 export default function UnitForms(props) {
@@ -19,10 +16,8 @@ export default function UnitForms(props) {
     const lang = UnitPT
 
     useEffect(() => {
-        console.log(unitAddress)
         StructuralRequests.fetchUnit(props.id).then(res => setUnit(res))
         StructuralRequests.fetchUnitAddress(props.id).then(res => setUnitAddress(res))
-        console.log(unitAddress)
     }, [])
 
     return (
@@ -33,15 +28,13 @@ export default function UnitForms(props) {
                     {
                         buttonKey: 0,
                         value: (
-                            <div className={styles.personOptionsContainer}>
-                                <OptionRow setOption={() => setOpenTab(1)} setHistory={() => null}
-                                           label={lang.base}
-                                           modalContent={unit === null || unit === undefined ? null :
-                                               <Overview entity={unit} fields={UnitOverview}/>
-                                           }/>
-                                <OptionRow setOption={() => setOpenTab(2)} label={lang.address} setHistory={() => null}
-                                           modalContent={unitAddress === null || unitAddress === undefined ? null :
-                                               <Overview entity={unitAddress} fields={AddressOverview}/>}/>
+                            <div className={styles.personOptionsContainer} onClick={() => setOpenTab(1)}>
+                                <button className={shared.buttonContainer}>
+                                    {lang.base}
+                                </button>
+                                <button className={shared.buttonContainer} onClick={() => setOpenTab(2)}>
+                                    {lang.address}
+                                </button>
                             </div>
                         )
                     },
@@ -64,7 +57,7 @@ export default function UnitForms(props) {
                                 handleChange={event => handleObjectChange({
                                     event: event,
                                     setData: setUnitAddress
-                                })}
+                                })} create={unitAddress === null || unitAddress.id === undefined}
                             />
                         )
                     }

@@ -1,9 +1,14 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 
-import {Alert} from "sis-aeb-misc";
-import {DropDownField, FormLayout, TextField} from "sis-aeb-inputs";
+import {Alert, EntityLayout} from "sis-aeb-misc";
+import {DropDownField, TextField} from "sis-aeb-inputs";
 import {commissioned} from "../../packages/locales/organizational/SimpleFormsPT";
+import CommissionedLinkageOverview from "../../packages/overview/CommissionedLinkageOverview";
+import OrganizationalKeys from "../../packages/keys/OrganizationalKeys";
+import Cookies from "universal-cookie/lib";
+import Host from "../../utils/shared/Host";
+import ContractualLinkageDescription from "../../packages/descriptions/ContractualLinkageDescription";
 
 
 export default function CommissionedRoleForm(props) {
@@ -23,9 +28,11 @@ export default function CommissionedRoleForm(props) {
                 handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
             />
 
-            <FormLayout
-                create={props.create}
-                formLabel={lang.title}
+            <EntityLayout
+                fields={CommissionedLinkageOverview} entityID={props.create ? undefined : props.data.id}
+                rootElementID={'root'} entity={props.data}             information={ContractualLinkageDescription}
+                create={props.create} label={lang.title} entityKey={OrganizationalKeys.commissioned} fetchToken={(new Cookies()).get('jwt')}
+                fetchUrl={Host() + 'list/object'} exists={true} fetchSize={15} setVersion={() => null}
                 dependencies={{
                     fields: [
                         {name: 'denomination', type: 'string'},

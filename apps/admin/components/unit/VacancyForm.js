@@ -1,13 +1,12 @@
 import PropTypes from "prop-types";
 import React, {useEffect, useState} from "react";
-import {linkage} from "../../packages/locales/organizational/SimpleFormsPT";
 import {Alert, Selector} from "sis-aeb-misc";
-import {DateField, FormLayout, TextField} from "sis-aeb-inputs";
-import submitContractualLinkage from "../../utils/submit/SubmitContractualLinkage";
+import {FormLayout} from "sis-aeb-inputs";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import VacancyPT from "../../packages/locales/unit/VacancyPT";
 import submitUnitRole from "../../utils/submit/SubmitUnitRole";
+import {EntityLayout} from "sis-aeb-misc";
 
 const cookies = new Cookies()
 export default function VacancyForm(props) {
@@ -28,8 +27,8 @@ export default function VacancyForm(props) {
                 type={status.type} render={status.type !== undefined} rootElementID={'root'}
                 handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
             />
-            <FormLayout
-                create={props.create}
+            <EntityLayout
+                create={true}
                 formLabel={lang.title}
                 dependencies={{
                     fields: [

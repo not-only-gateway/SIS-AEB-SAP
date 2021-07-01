@@ -25,7 +25,7 @@ export default function PeopleList(props) {
                         event: event,
                         setData: setCurrentEntity
                     })}
-                    create={open && currentEntity === null}
+                    create={open && (currentEntity === null || currentEntity.id === undefined)}
                     data={currentEntity}/>
 
             }

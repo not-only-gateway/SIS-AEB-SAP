@@ -5,15 +5,12 @@ import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import DocumentsForm from "./forms/DocumentsForm";
 import BaseForm from "./forms/BaseForm";
 import styles from '../../styles/Person.module.css'
-import OptionRow from "./OptionRow";
-import ContactsOverview from "./overview/ContactsOverview";
-import DocumentsOverview from "./overview/DocumentsOverview";
-import PersonOverview from "./overview/PersonOverview";
-import PersonHistory from "./history/PersonHistory";
-import {Alert, Overview, RenderTabs} from "sis-aeb-misc";
+
+import shared from '../../styles/Shared.module.css'
+import {Alert, RenderTabs} from "sis-aeb-misc";
 import PersonRequests from "../../utils/fetch/PersonRequests";
-import AddressOverview from "../shared/AddressOverview";
 import AddressForm from "../shared/AddressForm";
+import {AddRounded} from "@material-ui/icons";
 
 export default function PersonalForms(props) {
     const [documents, setDocuments] = useState(null)
@@ -76,20 +73,22 @@ export default function PersonalForms(props) {
                             buttonKey: 0,
                             value: (
                                 <div className={styles.personOptionsContainer}>
-                                    <OptionRow setOption={() => setOpenTab(1)} setHistory={() => setOpenTab(5)}
-                                               label={props.lang.personal}
-                                               modalContent={person === null ? null :<Overview entity={person} fields={PersonOverview}/>}/>
-                                    <OptionRow setOption={() => setOpenTab(2)} setHistory={() => setOpenTab(6)}
-                                               label={props.lang.documents}
-                                               modalContent={documents === null ? null :
-                                                   <Overview entity={documents} fields={DocumentsOverview}/>}/>
-                                    <OptionRow setOption={() => setOpenTab(3)} setHistory={() => setOpenTab(7)}
-                                               label={props.lang.contacts}
-                                               modalContent={contact === null ? null :
-                                                   <Overview entity={contact} fields={ContactsOverview}/>}/>
-                                    <OptionRow setOption={() => setOpenTab(4)} label={props.lang.address}
-                                               modalContent={address === null ? null :
-                                                   <Overview entity={address} fields={AddressOverview}/>}/>
+                                    <button className={shared.buttonContainer} onClick={() => setOpenTab(1)}>
+
+                                        {props.lang.personal}
+                                    </button>
+                                    <button className={shared.buttonContainer} onClick={() => setOpenTab(2)}>
+                                        <AddRounded style={{display: documents === null || documents.person === undefined ? undefined : 'none'}}/>
+                                        {props.lang.documents}
+                                    </button>
+                                    <button className={shared.buttonContainer} onClick={() => setOpenTab(3)}>
+                                        <AddRounded style={{display: contact === null || contact.person === undefined ? undefined : 'none'}}/>
+                                        {props.lang.contacts}
+                                    </button>
+                                    <button className={shared.buttonContainer} onClick={() => setOpenTab(4)}>
+                                        <AddRounded style={{display: address === null || address.person === undefined ? undefined : 'none'}}/>
+                                        {props.lang.address}
+                                    </button>
                                 </div>
                             )
                         }, {
@@ -156,31 +155,14 @@ export default function PersonalForms(props) {
                                         event: event,
                                         setData: setAddress
                                     })}
+                                    create={address === null || address.person === undefined}
                                     returnToMain={() =>
                                         setOpenTab(0)
                                     }
                                     editable={true}
                                 />
                             )
-                        },
-                        {
-                            buttonKey: 5,
-                            value: (
-                                <PersonHistory overviewFields={PersonOverview} id={props.id} entityType={'person'} returnToMain={() => setOpenTab(0)}/>
-                            )
-                        },
-                        // {
-                        //     buttonKey: 6,
-                        //     value: (
-                        //         null
-                        //     )
-                        // },
-                        // {
-                        //     buttonKey: 7,
-                        //     value: (
-                        //         null
-                        //     )
-                        // },
+                        }
                     ]}/>
             </div>
         </div>

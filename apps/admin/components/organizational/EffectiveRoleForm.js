@@ -1,9 +1,14 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 
-import {FormLayout, TextField} from "sis-aeb-inputs";
+import {TextField} from "sis-aeb-inputs";
 import {effective} from "../../packages/locales/organizational/SimpleFormsPT";
-import {Alert} from "sis-aeb-misc";
+import {Alert, EntityLayout} from "sis-aeb-misc";
+import CommissionedLinkageOverview from "../../packages/overview/CommissionedLinkageOverview";
+import OrganizationalKeys from "../../packages/keys/OrganizationalKeys";
+import Cookies from "universal-cookie/lib";
+import Host from "../../utils/shared/Host";
+import ContractualLinkageDescription from "../../packages/descriptions/ContractualLinkageDescription";
 
 
 export default function EffectiveRoleForm(props) {
@@ -20,9 +25,12 @@ export default function EffectiveRoleForm(props) {
             <Alert type={status.type} rootElementID={'root'} render={status.type !== undefined}
                    handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}/>
 
-            <FormLayout
-                create={props.create}
-                formLabel={lang.title}
+            <EntityLayout
+                fields={CommissionedLinkageOverview} entityID={props.create ? undefined : props.data.id}
+                rootElementID={'root'} entity={props.data} information={ContractualLinkageDescription}
+                create={props.create} label={lang.title} entityKey={OrganizationalKeys.effective}
+                fetchToken={(new Cookies()).get('jwt')}
+                fetchUrl={Host() + 'list/object'} exists={true} fetchSize={15} setVersion={() => null}
                 dependencies={{
                     fields: [
                         {name: 'denomination', type: 'string'},

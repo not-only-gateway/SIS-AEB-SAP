@@ -1,11 +1,14 @@
 import PropTypes from "prop-types";
-import {Alert, Selector} from "sis-aeb-misc";
+import {Alert, EntityLayout, Selector} from "sis-aeb-misc";
 // import {DateField, FormLayout, TextField} from "sis-aeb-inputs";
 import React, {useState} from "react";
 import ContractPT from "../../packages/locales/organizational/ContractPT";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import {DateField, FormLayout, TextField} from "sis-aeb-inputs";
+import {DateField, TextField} from "sis-aeb-inputs";
+import CommissionedLinkageOverview from "../../packages/overview/CommissionedLinkageOverview";
+import ContractualLinkageDescription from "../../packages/descriptions/ContractualLinkageDescription";
+import OrganizationalKeys from "../../packages/keys/OrganizationalKeys";
 
 
 export default function ContractForm(props) {
@@ -23,9 +26,12 @@ export default function ContractForm(props) {
                 handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
             />
 
-            <FormLayout
-                create={props.create}
-                formLabel={lang.title}
+            <EntityLayout
+                fields={CommissionedLinkageOverview} entityID={props.create ? undefined : props.data.id}
+                rootElementID={'root'} entity={props.data} information={ContractualLinkageDescription}
+                create={props.create} label={lang.title} entityKey={OrganizationalKeys.contract}
+                fetchToken={(new Cookies()).get('jwt')}
+                fetchUrl={Host() + 'list/object'} exists={true} fetchSize={15} setVersion={() => null}
                 dependencies={{
                     fields: [
                         {name: 'year_number', type: 'string'},
@@ -119,7 +125,7 @@ export default function ContractForm(props) {
                                 />
                                 <Selector
                                     getEntityKey={entity => {
-                                        if(entity !== null && entity !== undefined)
+                                        if (entity !== null && entity !== undefined)
                                             return entity.id
                                         else return -1
                                     }}
@@ -148,7 +154,7 @@ export default function ContractForm(props) {
                                         props.handleChange({
                                             name: 'beginning_validity',
                                             value:
-                                                event.target.value
+                                            event.target.value
                                         })
                                     }} locale={props.locale}
                                     value={

@@ -1,13 +1,14 @@
 import React, {useState} from "react";
 import PropTypes from 'prop-types'
-import {DropDownField, FormLayout, TextField} from "sis-aeb-inputs";
-import {Alert, Selector} from "sis-aeb-misc";
-import UnitFormPT from "../../packages/locales/unit/UnitFormPT";
-import Host from "../../utils/shared/Host";
-import Cookies from "universal-cookie/lib";
-import submitUnit from "../../utils/submit/SubmitUnit";
+import { TextField} from "sis-aeb-inputs";
+import {Alert, EntityLayout} from "sis-aeb-misc";
 import EntityFormPT from "../../packages/locales/structural/EntityFormPT";
 import submitEntity from "../../utils/submit/SubmitEntity";
+import ContractualLinkageDescription from "../../packages/descriptions/ContractualLinkageDescription";
+import UnitOverview from "../../packages/overview/UnitOverview";
+import StructuralKeys from "../../packages/keys/StructuralKeys";
+import Cookies from "universal-cookie/lib";
+import Host from "../../utils/shared/Host";
 
 
 export default function EntityForm(props) {
@@ -25,9 +26,12 @@ export default function EntityForm(props) {
                 handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
             />
 
-            <FormLayout
-                create={props.create}
-                formLabel={lang.title}
+            <EntityLayout
+                information={ContractualLinkageDescription}
+                fields={UnitOverview} entityID={props.create ? undefined : props.data.id}
+                rootElementID={'root'} entity={props.data}
+                create={props.create} label={lang.title} entityKey={StructuralKeys.entity} fetchToken={(new Cookies()).get('jwt')}
+                fetchUrl={Host() + 'list/object'} exists={true} fetchSize={15} setVersion={() => null}
                 dependencies={{
                     fields: [
                         {name: 'acronym', type: 'string'},

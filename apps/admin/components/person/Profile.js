@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styles from '../../styles/Person.module.css'
-import {Avatar} from "@material-ui/core";
 import PersonAvatar from "../shared/PersonAvatar";
 
 export default function Profile(props) {

@@ -1,9 +1,16 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import {Alert} from "sis-aeb-misc";
-import {DateField, FormLayout, TextField} from "sis-aeb-inputs";
+import {Alert, EntityLayout} from "sis-aeb-misc";
+import {DateField, TextField} from "sis-aeb-inputs";
 import DocumentsFormPT from "../../../packages/locales/person/DocumentsFormPT";
 import submitDocuments from "../../../utils/submit/SubmitDocuments";
+import ContractualLinkageDescription from "../../../packages/descriptions/ContractualLinkageDescription";
+import UnitOverview from "../../../packages/overview/UnitOverview";
+import StructuralKeys from "../../../packages/keys/StructuralKeys";
+import Cookies from "universal-cookie/lib";
+import Host from "../../../utils/shared/Host";
+import DocumentsOverview from "../../../packages/overview/DocumentsOverview";
+import PersonalKeys from "../../../packages/keys/PersonalKeys";
 
 
 export default function DocumentsForm(props) {
@@ -22,9 +29,13 @@ export default function DocumentsForm(props) {
                 handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
             />
 
-            <FormLayout
-                create={props.create}
-                formLabel={lang.title}
+            <EntityLayout
+                information={ContractualLinkageDescription}
+                fields={DocumentsOverview} entityID={props.id}
+                rootElementID={'root'} entity={props.data}
+                create={props.data === null || props.data === undefined || props.data.id === undefined}
+                label={lang.title} entityKey={PersonalKeys.documents} fetchToken={(new Cookies()).get('jwt')}
+                fetchUrl={Host() + 'list/object'} exists={true} fetchSize={15} setVersion={() => null}
                 dependencies={{
                     fields: [
                         {name: 'cpf', type: 'string'},
@@ -37,8 +48,7 @@ export default function DocumentsForm(props) {
                         {name: 'electoral_section', type: 'string'},
                         {name: 'pis', type: 'string'},
                     ],
-                    changed: changed,
-                    entity: props.data
+                    changed: changed
                 }} returnButton={true} handleSubmit={() =>
                 submitDocuments({
                     pk: props.id,

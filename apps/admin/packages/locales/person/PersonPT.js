@@ -10,7 +10,7 @@ export default {
     contacts: 'Contatos',
     address: 'Endereço',
     membership: 'Filiação',
-    collaborations: 'Colaborações',
+    collaborator: 'Dados do colaborador',
     returnLabel: 'Retornar',
 
 

@@ -1,12 +1,15 @@
 import PropTypes from "prop-types";
-import {Alert, Selector} from "sis-aeb-misc";
-import {DateField, DropDownField, FormLayout, TextField} from "sis-aeb-inputs";
+import {Alert, Selector,EntityLayout} from "sis-aeb-misc";
+import {DateField, DropDownField, TextField} from "sis-aeb-inputs";
 import React, {useState} from "react";
-import {linkage} from "../../packages/locales/organizational/SimpleFormsPT";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import CommissionedLinkagePT from "../../packages/locales/management/CommissionedLinkagePT";
 import submitCommissionedLinkage from "../../utils/submit/SubmitCommissionedLinkage";
+import ContractualLinkageDescription from "../../packages/descriptions/ContractualLinkageDescription";
+import ContractualLinkageOverview from "../../packages/overview/ContractualLinkageOverview";
+import CorporateKeys from "../../packages/keys/CorporateKeys";
+import CommissionedLinkageOverview from "../../packages/overview/CommissionedLinkageOverview";
 
 export default function CommissionedLinkageForm(props) {
     const [changed, setChanged] = useState(false)
@@ -23,9 +26,12 @@ export default function CommissionedLinkageForm(props) {
                 handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
             />
 
-            <FormLayout
-                create={props.create}
-                formLabel={lang.title}
+            <EntityLayout
+                information={ContractualLinkageDescription}
+                fields={CommissionedLinkageOverview} entityID={props.create ? undefined : props.data.id}
+                rootElementID={'root'} entity={props.data}
+                create={props.create} label={lang.title} entityKey={CorporateKeys.commissionedLinkage} fetchToken={(new Cookies()).get('jwt')}
+                fetchUrl={Host() + 'list/object'} exists={true} fetchSize={15} setVersion={() => null}
                 dependencies={{
                     fields: [
                         {name: 'unit_role', type: 'object'},

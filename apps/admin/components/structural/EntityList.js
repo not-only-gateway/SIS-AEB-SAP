@@ -4,7 +4,6 @@ import Cookies from "universal-cookie/lib";
 import animations from '../../styles/Animations.module.css'
 import Host from "../../utils/shared/Host";
 import PropTypes from "prop-types";
-import UnitForm from "./UnitForm";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import EntityForm from "./EntityForm";
 
@@ -25,7 +24,7 @@ export default function EntityList(props) {
                             event: event,
                             setData: setCurrentEntity
                         })}
-                        create={true}
+                        create={open && (currentEntity === null || currentEntity.id === undefined)}
                         data={currentEntity}/>
                 </div>
             }

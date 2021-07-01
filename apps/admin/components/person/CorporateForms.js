@@ -1,17 +1,18 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
-import {Overview, RenderTabs} from "sis-aeb-misc";
+import {RenderTabs} from "sis-aeb-misc";
 import styles from "../../styles/Person.module.css";
-import OptionRow from "./OptionRow";
 import CollaboratorRequests from "../../utils/fetch/MemberRequests";
 import MemberSubmitRequests from "../../utils/submit/MemberSubmitRequests";
 import ContractualLinkageForm from "../management/ContractualLinkageForm";
-import CollaboratorOverview from "./overview/CollaboratorOverview";
+
 import CollaboratorForm from "./forms/CollaboratorForm";
-import ContractualLinkageOverview from "./ContractualLinkageOverview";
+
 import CommissionedLinkageForm from "../management/CommissionedLinkageForm";
-import CommissionedLinkageOverview from "./overview/CommissionedLinkageOverview";
+import shared from "../../styles/Shared.module.css";
+import {AddRounded} from "@material-ui/icons";
+
 
 export default function CorporateForms(props) {
     const [collaborator, setCollaborator] = useState(null)
@@ -55,26 +56,23 @@ export default function CorporateForms(props) {
                             value: (
                                 <div className={styles.personOptionsContainer}>
 
-                                    <OptionRow setOption={() => setOpenTab(1)} setHistory={() => setOpenTab(4)}
-                                               label={props.lang.collaboration}
-                                               modalContent={collaborator === null ? null :
-                                                   <Overview entity={collaborator} fields={CollaboratorOverview}/>}/>
+                                    <button className={shared.buttonContainer} onClick={() => setOpenTab(1)}>
+
+                                        {props.lang.collaborator}
+                                    </button>
                                     {collaborator === null ? null :
                                         <>
-
                                             {contractualLinkage === null ? null :
-                                                <OptionRow setOption={() => setOpenTab(2)}
-                                                           setHistory={() => setOpenTab(4)}
-                                                           label={props.lang.contractualLinkage}
-                                                           modalContent={<Overview entity={contractualLinkage}
-                                                                                   fields={ContractualLinkageOverview}/>}/>
+                                                <button className={shared.buttonContainer}
+                                                        onClick={() => setOpenTab(2)}>
+                                                    {props.lang.contractualLinkage}
+                                                </button>
                                             }
                                             {commissionedLinkage === null ? null :
-                                                <OptionRow setOption={() => setOpenTab(3)}
-                                                           setHistory={() => setOpenTab(4)}
-                                                           label={props.lang.commissionedLinkages}
-                                                           modalContent={<Overview entity={commissionedLinkage}
-                                                                                   fields={CommissionedLinkageOverview}/>}/>
+                                                <button className={shared.buttonContainer}
+                                                        onClick={() => setOpenTab(3)}>
+                                                    {props.lang.commissionedLinkages}
+                                                </button>
                                             }
                                         </>
                                     }

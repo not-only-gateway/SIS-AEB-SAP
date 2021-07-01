@@ -1,14 +1,19 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types'
 
-import {Alert, Selector} from "sis-aeb-misc";
-import {DropDownField, FormLayout, TextField} from "sis-aeb-inputs";
+import {Alert, EntityLayout, Selector} from "sis-aeb-misc";
+import {DropDownField, TextField} from "sis-aeb-inputs";
 
 import MembershipPT from "../../../packages/locales/person/MembershipPT";
 
 import submitCollaborator from "../../../utils/submit/SubmitCollaborator";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
+import CommissionedLinkageOverview from "../../../packages/overview/CommissionedLinkageOverview";
+import ContractualLinkageDescription from "../../../packages/descriptions/ContractualLinkageDescription";
+import OrganizationalKeys from "../../../packages/keys/OrganizationalKeys";
+import CorporateKeys from "../../../packages/keys/CorporateKeys";
+import CollaboratorOverview from "../../../packages/overview/CollaboratorOverview";
 
 const cookies = new Cookies()
 
@@ -29,9 +34,14 @@ export default function CollaboratorForm(props) {
                 handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
             />
 
-            <FormLayout
-                create={props.create}
-                formLabel={lang.title}
+            <EntityLayout
+                fields={CollaboratorOverview} entityID={props.create ? undefined : props.data.person}
+                rootElementID={'root'} entity={props.data} information={ContractualLinkageDescription}
+                create={props.create} label={lang.title} entityKey={CorporateKeys.collaborator}
+                fetchToken={(new Cookies()).get('jwt')}
+                fetchUrl={Host() + 'list/object'} exists={true} fetchSize={15} setVersion={() => null}
+
+
                 dependencies={{
                     fields: [
                         {name: 'extension', type: 'string'},
@@ -213,7 +223,11 @@ export default function CollaboratorForm(props) {
                                                     </div>
                                                     <div style={{display: 'flex', alignItems: 'center', gap: '16px'}}>
                                                         {entity.unit_role.unit.name}
-                                                        <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
+                                                        <div style={{
+                                                            borderRight: '#e0e0e0 1px solid',
+                                                            width: '1px',
+                                                            height: '20px'
+                                                        }}/>
                                                         {entity.unit_role.unit.acronym}
                                                     </div>
                                                 </div>

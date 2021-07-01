@@ -8,11 +8,11 @@ import PropTypes from "prop-types";
 import LayoutPT from "../../packages/locales/others/LayoutPT";
 import {
     AccountBalanceRounded,
-    AccountTreeRounded, AssignmentIndRounded, AssignmentReturned,
+    AccountTreeRounded,
+    AssignmentIndRounded,
     BusinessRounded,
     ExitToApp,
     ExtensionRounded,
-    PersonRounded,
     TimelineRounded
 } from "@material-ui/icons";
 
@@ -41,7 +41,6 @@ export default function PageLayout(props) {
             MemberRequests.fetchMemberByToken().then(res => {
                 if (res !== null) {
                     PersonRequests.FetchImage(res.person.image).then(imageRes => {
-                        console.log(imageRes)
                         res.person.image = imageRes
                         sessionStorage.setItem('profile', JSON.stringify({
                             id: res.person.id,

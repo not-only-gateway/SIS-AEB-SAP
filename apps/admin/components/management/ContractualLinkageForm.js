@@ -3,11 +3,13 @@ import PropTypes from "prop-types";
 import {DateField, TextField} from "sis-aeb-inputs";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import {Alert, Selector} from "sis-aeb-misc";
+import {Alert, Selector, EntityLayout} from "sis-aeb-misc";
 import submitContractualLinkage from "../../utils/submit/SubmitContractualLinkage";
 import ContractualLinkagePT from "../../packages/locales/person/ContractualLinkagePT";
-import FormLayout from "../shared/components/templates/FormLayout";
-import EntityLayout from "../shared/components/EntityLayout";
+import ContractualLinkageOverview from "../../packages/overview/ContractualLinkageOverview";
+import ContractualLinkageDescription from "../../packages/descriptions/ContractualLinkageDescription";
+import CorporateKeys from "../../packages/keys/CorporateKeys";
+
 
 const cookies = new Cookies()
 
@@ -28,12 +30,14 @@ export default function ContractualLinkageForm(props) {
                 handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
             />
             <EntityLayout
-                rootElementID={'root'} data={props.data}
-                create={props.create} label={lang.title}
+                information={ContractualLinkageDescription}
+                fields={ContractualLinkageOverview} entityID={props.create ? undefined : props.data.id}
+                rootElementID={'root'} entity={props.data}
+                create={props.create} label={lang.title} entityKey={CorporateKeys.contractualLinkage} fetchToken={(new Cookies()).get('jwt')}
+                fetchUrl={Host() + 'list/object'} exists={true} fetchSize={15} setVersion={() => null}
                 dependencies={{
                     fields: [
                         {name: 'denomination', type: 'string'},
-
                         {name: 'legal_document', type: 'string'},
                         props.data === null || !props.data || props.data.effective_role === null || !props.data.effective_role || (props.data.contract !== null && props.data.contract !== undefined) ? {
                             name: 'contract',
@@ -45,8 +49,7 @@ export default function ContractualLinkageForm(props) {
                         } : null,
                         {name: 'entity', type: 'object'},
                     ],
-                    changed: changed,
-                    entity: props.data
+                    changed: changed
                 }} returnButton={true}
                 handleSubmit={() =>
                     submitContractualLinkage({
