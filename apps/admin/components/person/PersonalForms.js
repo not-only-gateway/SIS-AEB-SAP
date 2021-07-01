@@ -10,7 +10,7 @@ import shared from '../../styles/Shared.module.css'
 import {Alert, RenderTabs} from "sis-aeb-misc";
 import PersonRequests from "../../utils/fetch/PersonRequests";
 import AddressForm from "../shared/AddressForm";
-import {AddRounded} from "@material-ui/icons";
+import {AddRounded, MenuOpenRounded} from "@material-ui/icons";
 
 export default function PersonalForms(props) {
     const [documents, setDocuments] = useState(null)
@@ -74,20 +74,53 @@ export default function PersonalForms(props) {
                             value: (
                                 <div className={styles.personOptionsContainer}>
                                     <button className={shared.buttonContainer} onClick={() => setOpenTab(1)}>
-
                                         {props.lang.personal}
+                                        <MenuOpenRounded/>
                                     </button>
                                     <button className={shared.buttonContainer} onClick={() => setOpenTab(2)}>
-                                        <AddRounded style={{display: documents === null || documents.person === undefined ? undefined : 'none'}}/>
-                                        {props.lang.documents}
+
+                                        <div style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'flex-start',
+                                            gap: '8px'
+                                        }}>
+                                            <AddRounded
+                                                style={{display: documents === null || documents.person === undefined ? undefined : 'none'}}/>
+                                            {props.lang.documents}
+                                        </div>
+                                        <MenuOpenRounded
+                                            style={{display: documents === null || documents.person === undefined ? 'none' : undefined}}/>
                                     </button>
                                     <button className={shared.buttonContainer} onClick={() => setOpenTab(3)}>
-                                        <AddRounded style={{display: contact === null || contact.person === undefined ? undefined : 'none'}}/>
-                                        {props.lang.contacts}
+
+                                        <div style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'flex-start',
+                                            gap: '8px'
+                                        }}>
+                                            <AddRounded
+                                                style={{display: contact === null || contact.person === undefined ? undefined : 'none'}}/>
+                                            {props.lang.contacts}
+                                        </div>
+                                        <MenuOpenRounded
+                                            style={{display: contact === null || contact.person === undefined ? 'none' : undefined}}/>
                                     </button>
                                     <button className={shared.buttonContainer} onClick={() => setOpenTab(4)}>
-                                        <AddRounded style={{display: address === null || address.person === undefined ? undefined : 'none'}}/>
-                                        {props.lang.address}
+
+                                        <div style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'flex-start',
+                                            gap: '8px'
+                                        }}>
+                                            <AddRounded
+                                                style={{display: address === null || address.person === undefined ? undefined : 'none'}}/>
+                                            {props.lang.address}
+                                        </div>
+                                        <MenuOpenRounded
+                                            style={{display: address === null || address.person === undefined ? 'none' : undefined}}/>
                                     </button>
                                 </div>
                             )

@@ -11,7 +11,7 @@ import CollaboratorForm from "./forms/CollaboratorForm";
 
 import CommissionedLinkageForm from "../management/CommissionedLinkageForm";
 import shared from "../../styles/Shared.module.css";
-import {AddRounded} from "@material-ui/icons";
+import {AddRounded, MenuOpenRounded} from "@material-ui/icons";
 
 
 export default function CorporateForms(props) {
@@ -57,8 +57,16 @@ export default function CorporateForms(props) {
                                 <div className={styles.personOptionsContainer}>
 
                                     <button className={shared.buttonContainer} onClick={() => setOpenTab(1)}>
-
-                                        {props.lang.collaborator}
+                                        <div style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'flex-start',
+                                            gap: '8px'
+                                        }}>
+                                            <AddRounded style={{display: collaborator === null ? undefined : 'none'}}/>
+                                            {props.lang.collaborator}
+                                        </div>
+                                        <MenuOpenRounded style={{display: collaborator === null ? 'none' : undefined}}/>
                                     </button>
                                     {collaborator === null ? null :
                                         <>
@@ -66,12 +74,14 @@ export default function CorporateForms(props) {
                                                 <button className={shared.buttonContainer}
                                                         onClick={() => setOpenTab(2)}>
                                                     {props.lang.contractualLinkage}
+                                                    <MenuOpenRounded/>
                                                 </button>
                                             }
                                             {commissionedLinkage === null ? null :
                                                 <button className={shared.buttonContainer}
                                                         onClick={() => setOpenTab(3)}>
                                                     {props.lang.commissionedLinkages}
+                                                    <MenuOpenRounded/>
                                                 </button>
                                             }
                                         </>

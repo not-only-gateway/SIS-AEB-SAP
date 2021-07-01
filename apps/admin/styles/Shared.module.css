@@ -4,8 +4,11 @@
     border-radius: 8px;
     padding: 16px;
     height: 56px;
+
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    width: 100%;
     background: white;
     cursor: pointer;
     transition: 150ms ease-in-out;
