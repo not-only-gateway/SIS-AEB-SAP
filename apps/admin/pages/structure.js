@@ -5,7 +5,6 @@ import StructurePT from "../packages/locales/structure/StructurePT";
 import Head from "next/head";
 import {EditRounded, PeopleRounded} from "@material-ui/icons";
 import styles from '../styles/Structure.module.css'
-import CollaborationRequests from "../utils/fetch/CollaborationRequests";
 
 import PersonAvatar from "../components/shared/PersonAvatar";
 import {Chart} from "sis-aeb-chart";
@@ -49,7 +48,7 @@ export default function structure() {
                 }}
                 fetchExtendedDependents={async function (unit) {
                     if (unit.id !== undefined) {
-                        return await CollaborationRequests.fetchDependentCollaborators(unit.id)
+                        return await StructuralRequests.fetchDependentCollaborators(unit.id)
                     } else
                         return []
                 }}

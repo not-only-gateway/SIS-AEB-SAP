@@ -3,33 +3,32 @@ import PropTypes from "prop-types";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import {RenderTabs} from "sis-aeb-misc";
 import styles from "../../styles/Person.module.css";
-import CollaboratorRequests from "../../utils/fetch/MemberRequests";
+import CollaboratorRequests from "../../utils/fetch/CollaboratorRequests";
 import MemberSubmitRequests from "../../utils/submit/MemberSubmitRequests";
-import ContractualLinkageForm from "../management/ContractualLinkageForm";
-
 import CollaboratorForm from "./forms/CollaboratorForm";
-
-import CommissionedLinkageForm from "../management/CommissionedLinkageForm";
 import shared from "../../styles/Shared.module.css";
 import {AddRounded, MenuOpenRounded} from "@material-ui/icons";
+import LinkageForm from "../management/LinkageForm";
 
 
 export default function CorporateForms(props) {
     const [collaborator, setCollaborator] = useState(null)
-    const [contractualLinkage, setContractualLinkage] = useState(null)
-    const [commissionedLinkage, setCommissionedLinkage] = useState(null)
-
+    const [linkage, setLinkage] = useState(null)
     const [openTab, setOpenTab] = useState(0)
 
     useEffect(() => {
-        if (collaborator === null && props.id !== null && props.id !== undefined)
+        if (collaborator === null && props.id !== null && props.id !== undefined) {
             CollaboratorRequests.fetchCollaborator({id: props.id}).then(res => {
                 if (res !== null) {
                     setCollaborator(res)
-                    setContractualLinkage(res.occupancy)
-                    setCommissionedLinkage(res.main_commissioned_linkage)
                 }
             })
+            CollaboratorRequests.fetchLinkage(props.id).then(res => {
+                if (res !== null) {
+                    setLinkage(res)
+                }
+            })
+        }
     }, [props])
 
     async function handleMemberSubmit(event) {
@@ -68,25 +67,18 @@ export default function CorporateForms(props) {
                                         </div>
                                         <MenuOpenRounded style={{display: collaborator === null ? 'none' : undefined}}/>
                                     </button>
-                                    {collaborator === null ? null :
-                                        <>
-                                            {contractualLinkage === null ? null :
-                                                <button className={shared.buttonContainer}
-                                                        onClick={() => setOpenTab(2)}>
-                                                    {props.lang.contractualLinkage}
-                                                    <MenuOpenRounded/>
-                                                </button>
-                                            }
-                                            {commissionedLinkage === null ? null :
-                                                <button className={shared.buttonContainer}
-                                                        onClick={() => setOpenTab(3)}>
-                                                    {props.lang.commissionedLinkages}
-                                                    <MenuOpenRounded/>
-                                                </button>
-                                            }
-                                        </>
-                                    }
-
+                                    <button className={shared.buttonContainer} onClick={() => setOpenTab(2)} style={{display: collaborator !== null ? undefined : 'none'}}>
+                                        <div style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'flex-start',
+                                            gap: '8px'
+                                        }}>
+                                            <AddRounded style={{display: linkage === null ? undefined : 'none'}}/>
+                                            {props.lang.linkage}
+                                        </div>
+                                        <MenuOpenRounded style={{display: linkage === null ? 'none' : undefined}}/>
+                                    </button>
                                 </div>
                             )
                         },
@@ -112,29 +104,19 @@ export default function CorporateForms(props) {
                         {
                             buttonKey: 2,
                             value: (
-                                <ContractualLinkageForm
-                                    create={false}
-                                    data={contractualLinkage}
+                                <LinkageForm
+                                    id={props.id} collaboratorID={props.id}
+                                    data={linkage}
                                     handleChange={event => handleObjectChange({
                                         event: event,
-                                        setData: setContractualLinkage
+                                        setData: setLinkage
                                     })}
-                                    closeModal={() => setOpenTab(0)}/>
+                                    create={linkage === null || linkage === undefined || linkage.id === undefined}
+                                    returnToMain={() => setOpenTab(0)}
+                                />
                             )
                         },
-                        {
-                            buttonKey: 3,
-                            value: (
-                                <CommissionedLinkageForm
-                                    create={false}
-                                    data={commissionedLinkage}
-                                    handleChange={event => handleObjectChange({
-                                        event: event,
-                                        setData: setCommissionedLinkage
-                                    })}
-                                    closeModal={() => setOpenTab(0)}/>
-                            )
-                        }
+
                     ]}
                     openTab={openTab}
 

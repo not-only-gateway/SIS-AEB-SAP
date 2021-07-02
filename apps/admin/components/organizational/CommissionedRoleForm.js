@@ -30,21 +30,17 @@ export default function CommissionedRoleForm(props) {
 
             <EntityLayout
                 fields={CommissionedLinkageOverview} entityID={props.create ? undefined : props.data.id}
-                rootElementID={'root'} entity={props.data}             information={ContractualLinkageDescription}
-                create={props.create} label={lang.title} entityKey={OrganizationalKeys.commissioned} fetchToken={(new Cookies()).get('jwt')}
+                rootElementID={'root'} entity={props.data} information={ContractualLinkageDescription}
+                create={props.create} label={lang.title} entityKey={OrganizationalKeys.commissioned}
+                fetchToken={(new Cookies()).get('jwt')}
                 fetchUrl={Host() + 'list/object'} exists={true} fetchSize={15} setVersion={() => null}
                 dependencies={{
                     fields: [
                         {name: 'denomination', type: 'string'},
-                        {name: 'hierarchy_level', type: 'string'},
-                        {name: 'role_level', type: 'string'},
-                        props.data !== null && !props.data.das ? {name: 'fcpe', type: 'bool'} : null,
-                        props.data !== null && !props.data.fcpe ? {name: 'das', type: 'bool'} : null,
-                        {name: 'role_class', type: 'string'}
-
+                        {name: 'acronym', type: 'string'},
+                        {name: 'quantity', type: 'number'}
                     ],
                     changed: changed,
-                    entity: props.data
                 }} returnButton={true} handleSubmit={() =>
                 props.handleSubmit({
                     pk: props.data === null ? null : props.data.id,
@@ -69,69 +65,31 @@ export default function CommissionedRoleForm(props) {
                                 required={true}
                                 width={'100%'}
                             />
+                            <TextField
 
+                                placeholder={lang.acronym} label={lang.acronym}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'acronym', value: event.target.value})
+                                }}
+
+                                value={props.data === null ? null : props.data.acronym} required={true}
+                                width={'calc(50%  - 16px)'}
+                            />
+                            <TextField
+                                type={'number'}
+                                placeholder={lang.quantity} label={lang.quantity}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'quantity', value: event.target.value})
+                                }}
+
+                                value={props.data === null ? null : props.data.quantity} required={true}
+                                width={'calc(50%  - 16px)'}
+                            />
                         </>
                     )
-                },
-                    {
-                        title: lang.additional,
-                        child: (
-                            <>
-                                <TextField
-
-                                    placeholder={lang.level} label={lang.level}
-                                    handleChange={event => {
-                                        setChanged(true)
-                                        props.handleChange({name: 'role_level', value: event.target.value})
-                                    }}
-                                    value={props.data === null ? null : props.data.role_level}
-                                    required={true}
-                                    width={'calc(33.333%  - 21.35px)'}
-                                />
-                                <TextField
-
-                                    placeholder={lang.roleClass} label={lang.roleClass}
-                                    handleChange={event => {
-                                        setChanged(true)
-                                        props.handleChange({name: 'role_class', value: event.target.value})
-                                    }}
-                                    value={props.data === null ? null : props.data.role_class}
-                                    required={true}
-                                    width={'calc(33.333%  - 21.35px)'}
-                                />
-                                <TextField
-
-                                    placeholder={lang.hierarchyLevel} label={lang.hierarchyLevel}
-                                    handleChange={event => {
-                                        setChanged(true)
-                                        props.handleChange({name: 'hierarchy_level', value: event.target.value})
-                                    }}
-
-                                    value={props.data === null ? null : props.data.hierarchy_level} required={true}
-                                    width={'calc(33.333%  - 21.35px)'}
-                                />
-                                <DropDownField
-
-                                    placeholder={lang.appointment}
-                                    label={lang.appointment}
-                                    handleChange={event => {
-                                        setChanged(true)
-                                        if (event === 'DAS') {
-                                            props.handleChange({name: 'das', value: true})
-                                            props.handleChange({name: 'fcpe', value: false})
-                                        } else {
-                                            props.handleChange({name: 'das', value: false})
-                                            props.handleChange({name: 'fcpe', value: true})
-                                        }
-                                    }}
-
-                                    value={props.data === null ? null : props.data.das ? 'DAS' : 'FCPE'}
-                                    required={true}
-                                    width={'100%'}
-                                    choices={lang.options}/>
-                            </>
-                        )
-                    }
+                }
                 ]}/>
         </>
     )

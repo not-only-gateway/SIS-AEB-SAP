@@ -12,7 +12,7 @@ export default async function submitUnitRole(props) {
     data.role = props.data.role.id
     await axios({
         method: props.create ? 'post' : 'put',
-        url: props.create ? Host() + 'unit_commissioned' : Host() + 'unit_commissioned/' + props.pk,
+        url: props.create ? Host() + 'vacancy' : Host() + 'vacancy/' + props.pk,
         headers: {'authorization': (new Cookies()).get('jwt')},
         data: data
     }).then(res => {

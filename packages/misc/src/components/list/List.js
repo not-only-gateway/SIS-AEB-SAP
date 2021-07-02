@@ -55,7 +55,7 @@ export default function List(props) {
       {props.createOption ? <ListContent create={true} lang={lang} setEntity={() => props.setEntity(null)}
                                          clickEvent={() => props.clickEvent(true)} entity={null}/> : null}
 
-      {data.length > 0 ?
+      {data !== undefined && Array.isArray(data) && data.length > 0 ?
         <InfiniteScroll
           dataLength={data.length}
           next={() => Fetch({

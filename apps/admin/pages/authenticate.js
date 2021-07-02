@@ -34,9 +34,8 @@ export default function authenticate() {
 
     return (
         <>
-            <div id={'authentication_root'}/>
             <Alert
-                type={'error'} message={error.message} render={error.error} rootElementID={'authentication_root'}
+                type={'error'} message={error.message} render={error.error} rootElementID={'root'}
                 handleClose={() => setError({error: false, message: ''})}
             />
             <Head>

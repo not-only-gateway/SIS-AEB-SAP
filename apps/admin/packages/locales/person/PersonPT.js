@@ -15,6 +15,5 @@ export default {
 
 
     collaboration: 'Colaboração',
-    contractualLinkage: 'Vínculo contratual e lotação',
-    commissionedLinkages: 'Vínculos comissionados'
+    linkage: 'Vínculo',
 }

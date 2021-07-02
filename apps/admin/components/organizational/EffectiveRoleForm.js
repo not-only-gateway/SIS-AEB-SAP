@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 
-import {TextField} from "sis-aeb-inputs";
+import {DropDownField, TextField} from "sis-aeb-inputs";
 import {effective} from "../../packages/locales/organizational/SimpleFormsPT";
 import {Alert, EntityLayout} from "sis-aeb-misc";
 import CommissionedLinkageOverview from "../../packages/overview/CommissionedLinkageOverview";
@@ -34,7 +34,8 @@ export default function EffectiveRoleForm(props) {
                 dependencies={{
                     fields: [
                         {name: 'denomination', type: 'string'},
-                        {name: 'hierarchy_level', type: 'string'},
+                        {name: 'licence', type: 'bool'},
+
                         {name: 'hierarchy_level', type: 'string'}
                     ],
                     changed: changed,
@@ -77,6 +78,21 @@ export default function EffectiveRoleForm(props) {
                                 required={true}
                                 width={'calc(50% - 16px)'}
                             />
+                            <DropDownField
+
+                                placeholder={lang.license}
+                                label={lang.license}
+                                handleChange={event => {
+                                    setChanged(true)
+
+                                    props.handleChange({name: 'license', value: event})
+
+                                }}
+
+                                value={props.data === null ? null : props.data.license}
+                                required={true}
+                                width={'100%'}
+                                choices={lang.options}/>
                         </>
                     )
                 }]}/>

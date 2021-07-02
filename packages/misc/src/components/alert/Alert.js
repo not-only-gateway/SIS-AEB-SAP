@@ -23,6 +23,11 @@ export default function Alert(props) {
       setElements(getColor(props.type))
     } else if (root !== null && !props.render)
       ReactDOM.unmountComponentAtNode(root);
+
+    return () => {
+      if (root !== null)
+        ReactDOM.unmountComponentAtNode(root);
+    }
   }, [props.type, props.render])
 
   function getColor(type) {

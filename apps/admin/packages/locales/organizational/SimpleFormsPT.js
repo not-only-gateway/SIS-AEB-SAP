@@ -8,7 +8,10 @@ export const commissioned = {
     appointment: 'Nomeação',
     additional: 'Informações adicionais',
 
-    title: 'Cargo Comissionado'
+    title: 'Cargo Comissionado',
+
+    acronym: 'Sigla',
+    quantity: 'Quantidade'
 }
 
 export const effective = {
@@ -18,21 +21,3 @@ export const effective = {
     title: 'Cargo Efetivo'
 }
 
-export const linkage = {
-    dependencies: 'Dependências',
-    title: 'Vínculo contratual',
-    effective: 'Cargo efetivo',
-    contract: 'Contrato',
-    denomination: 'Denominação',
-    description: 'Descrição',
-    entity: 'Entidade',
-    save: 'Salvar',
-    create: 'Criar',
-    close: 'Fechar',
-    occupancy: 'Lotação',
-    officialPublication: 'Data de publicação oficial',
-    admissionDate: 'Data de admissão',
-    unit: 'Unidade',
-    linkage: 'Vínculo',
-    legalDocument: 'Documento legal'
-}

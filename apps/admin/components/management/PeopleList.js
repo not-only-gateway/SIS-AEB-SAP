@@ -18,7 +18,6 @@ export default function PeopleList(props) {
                 <BaseForm
                     returnToMain={() => {
                         setOpen(false)
-                        props.setOpen(false)
                     }}
                     redirect={props.redirect}
                     handleChange={event => handleObjectChange({
@@ -47,11 +46,21 @@ export default function PeopleList(props) {
                                     <div>
                                         {element.name}
                                     </div>
-                                    <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px',display: element.corporate_email !== null && element.corporate_email ? undefined : 'none'}}/>
+                                    <div style={{
+                                        borderRight: '#e0e0e0 1px solid',
+                                        width: '1px',
+                                        height: '20px',
+                                        display: element.corporate_email !== null && element.corporate_email ? undefined : 'none'
+                                    }}/>
                                     <div>
                                         {element.corporate_email}
                                     </div>
-                                    <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px', display: element.extension !== null && element.extension ? undefined : 'none'}}/>
+                                    <div style={{
+                                        borderRight: '#e0e0e0 1px solid',
+                                        width: '1px',
+                                        height: '20px',
+                                        display: element.extension !== null && element.extension ? undefined : 'none'
+                                    }}/>
                                     <div>
                                         {element.extension}
                                     </div>
@@ -77,7 +86,7 @@ export default function PeopleList(props) {
                         if (entity !== null) {
                             props.redirect(entity.id)
                         } else {
-                            props.setOpen(true)
+
                             setOpen(true)
                         }
                     }}/>
@@ -88,7 +97,7 @@ export default function PeopleList(props) {
 PeopleList.propTypes = {
     notSearched: PropTypes.bool,
     setNotSearched: PropTypes.func,
-    setOpen: PropTypes.func,
+
     redirect: PropTypes.func,
     searchInput: PropTypes.string
 }

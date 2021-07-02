@@ -2,18 +2,14 @@ import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
 import PeopleList from "../components/management/PeopleList";
 import ManagementPT from "../packages/locales/management/ManagementPT";
-import {RenderTabs, Tabs} from "sis-aeb-misc";
 import Head from "next/head";
-import ContractualLinkageList from "../components/management/ContractualLinkageList";
-import CommissionedLinkageList from "../components/management/CommissionedLinkageList";
+
 
 export default function management(props) {
 
     const router = useRouter()
     const lang = ManagementPT
     const [accessProfile, setAccessProfile] = useState(null)
-    const [openTab, setOpenTab] = useState(0)
-    const [openForm, setOpenForm] = useState(false)
 
     useEffect(() => {
 
@@ -21,7 +17,6 @@ export default function management(props) {
             const accessProfileSession = JSON.parse(sessionStorage.getItem('accessProfile'))
             if (accessProfileSession.can_manage_person) {
                 setAccessProfile(accessProfileSession)
-                setOpenTab(accessProfileSession.can_manage_person ? 0 : 1)
             } else
                 router.push('/structure', '/structure', {locale: router.locale})
         }
@@ -35,53 +30,11 @@ export default function management(props) {
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
 
-            <div style={{width: '65%', margin: 'auto', overflowY: 'hidden'}}>
-                {openForm ? null :
-                    <Tabs
-                        buttons={[
-                            {
-                                key: 0,
-                                value: lang.people
-                            },
-                            {
-                                key: 1,
-                                value: lang.contractualLinkages
-                            },
-                            {
-                                key: 2,
-                                value: lang.commissionedLinkages
-                            }
-                        ]}
-                        setOpenTab={setOpenTab}
-                        openTab={openTab}
-                    />
-                }
-                <RenderTabs
-                    openTab={openTab}
-
-                    tabs={[
-                        {
-                            buttonKey: 0,
-                            value: <PeopleList
-                                notSearched={props.notSearched} setNotSearched={props.setNotSearched}
-                                searchInput={props.searchInput} setOpen={setOpenForm}
-                                redirect={id => router.push('/person/?id=' + id, undefined, {shallow: true})}/>
-                        },
-                        {
-                            buttonKey: 1,
-                            value: <ContractualLinkageList
-                                notSearched={props.notSearched} setNotSearched={props.setNotSearched}
-                                searchInput={props.searchInput} setOpen={setOpenForm}
-                            />
-                        },
-                        {
-                            buttonKey: 2,
-                            value: <CommissionedLinkageList
-                                notSearched={props.notSearched} setNotSearched={props.setNotSearched}
-                                searchInput={props.searchInput} setOpen={setOpenForm}
-                            />
-                        }
-                    ]}
+            <div style={{width: '65%', margin: 'auto', overflowY: 'hidden', marginTop: '32px'}}>
+                <PeopleList
+                    notSearched={props.notSearched} setNotSearched={props.setNotSearched}
+                    searchInput={props.searchInput}
+                    redirect={id => router.push('/person/?id=' + id, undefined, {shallow: true})}
                 />
             </div>
         </>

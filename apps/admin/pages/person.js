@@ -10,7 +10,7 @@ import {Alert, RenderTabs, Tabs} from "sis-aeb-misc";
 
 import PersonPT from "../packages/locales/person/PersonPT";
 import PersonRequests from "../utils/fetch/PersonRequests";
-import MemberRequests from "../utils/fetch/MemberRequests";
+import CollaboratorRequests from "../utils/fetch/CollaboratorRequests";
 
 export default function person() {
     const router = useRouter()
@@ -30,7 +30,7 @@ export default function person() {
             setId(router.query.id)
             PersonRequests.fetchPerson({personID: router.query.id, setStatus: setStatus}).then(res => {
                 if (res !== null) {
-                    MemberRequests.fetchCollaborator({id: res.id, setStatus: () => null}).then(response => {
+                    CollaboratorRequests.fetchCollaborator({id: res.id, setStatus: () => null}).then(response => {
                         if (response !== null)
                             setMember(response)
                     })
@@ -107,7 +107,7 @@ export default function person() {
                                         <CorporateForms
                                             lang={lang}
                                             fetchMembership={() =>
-                                                MemberRequests.fetchCollaborator({
+                                                CollaboratorRequests.fetchCollaborator({
                                                     id: person.id,
                                                     setStatus: () => null
                                                 }).then(response => {

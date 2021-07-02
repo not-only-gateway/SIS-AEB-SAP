@@ -12,11 +12,11 @@ import {
     AssignmentIndRounded,
     BusinessRounded,
     ExitToApp,
-    ExtensionRounded,
+    ExtensionRounded, PersonRounded,
     TimelineRounded
 } from "@material-ui/icons";
 
-import MemberRequests from "../../utils/fetch/MemberRequests";
+import CollaboratorRequests from "../../utils/fetch/CollaboratorRequests";
 import {Navigation} from "sis-aeb-navigation";
 import PersonRequests from "../../utils/fetch/PersonRequests";
 // import Alert from "./components/Alert";
@@ -38,7 +38,7 @@ export default function PageLayout(props) {
         if (cookies.get('jwt') === undefined)
             router.push('/authenticate')
         if (cookies.get('jwt') !== undefined && sessionStorage.getItem('profile') === null) {
-            MemberRequests.fetchMemberByToken().then(res => {
+            CollaboratorRequests.fetchMemberByToken().then(res => {
                 if (res !== null) {
                     PersonRequests.FetchImage(res.person.image).then(imageRes => {
                         res.person.image = imageRes
@@ -63,15 +63,15 @@ export default function PageLayout(props) {
         }
     }, [router.isReady, router.pathname])
 
-    if (router.pathname !== '/authenticate')
-        return (
-            <div style={{
-                fontFamily: 'Roboto !important',
-                backgroundColor: 'white',
-                overflow: 'hidden',
-                height: '100vh',
-                position: 'relative'
-            }}>
+    return (
+        <div style={{
+            fontFamily: 'Roboto !important',
+            backgroundColor: 'white',
+            overflow: 'hidden',
+            height: '100vh',
+            position: 'relative'
+        }}>
+            {router.pathname !== '/authenticate' ?
                 <Navigation
                     searchBar={true}
                     searchInput={searchInput}
@@ -95,7 +95,7 @@ export default function PageLayout(props) {
                         {label: lang.structure, icon: <AccountTreeRounded/>, link: '/structure'},
                         accessProfile === null || !accessProfile.can_manage_person ? null : {
                             label: lang.collaborator,
-                            icon: <AssignmentIndRounded/>,
+                            icon: <PersonRounded/>,
                             link: '/'
                         },
                         accessProfile === null || !accessProfile.can_manage_structure ? null : {
@@ -117,26 +117,21 @@ export default function PageLayout(props) {
                         icon: <ExtensionRounded/>
                     }]} logo={'./light.png'}
                 />
-
-                <div className={styles.pageContentContainer}
-                     id={'scrollableDiv'} style={{
-                    transition: '250ms ease-in-out',
-                    height: 'calc(100% - 60px)',
-                    marginTop: '60px',
-                    overflowX: router.pathname === '/structure' ? 'auto' : 'hidden'
-                }}>
-
-                    {props.children({searchInput, notSearched, setNotSearched})}
-                </div>
-                <div id={'root'}/>
-            </div>
-        )
-    else
-        return (
-            <>
+                :
+                null
+            }
+            <div className={styles.pageContentContainer}
+                 id={'scrollableDiv'} style={{
+                transition: '250ms ease-in-out',
+                height: router.pathname !== '/authenticate' ? 'calc(100% - 60px)' : '100vh',
+                marginTop: router.pathname !== '/authenticate' ? '60px' : undefined,
+                overflowX: router.pathname === '/structure' ? 'auto' : 'hidden'
+            }}>
                 {props.children({searchInput, notSearched, setNotSearched})}
-            </>
-        )
+            </div>
+            <div id={'root'}/>
+        </div>
+    )
 }
 PageLayout.propTypes = {
     loading: PropTypes.bool

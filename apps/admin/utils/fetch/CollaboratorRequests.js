@@ -13,7 +13,7 @@ const byPersonProps = {
 }
 const cookies = new Cookies()
 
-export default class MemberRequests {
+export default class CollaboratorRequests {
     static async fetchMemberByToken() {
         let response = null
 
@@ -43,6 +43,19 @@ export default class MemberRequests {
         return response
     }
 
+    static async fetchLinkage(collaboratorID){
+        let response = null
+        await axios({
+            method: 'get',
+            url: Host() + 'linkage/'+collaboratorID,
+            headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null
+        }).then(res => {
+            response = res.data
+        }).catch(error => {
+            console.log(error)
+        })
+        return response
+    }
 
 }
 

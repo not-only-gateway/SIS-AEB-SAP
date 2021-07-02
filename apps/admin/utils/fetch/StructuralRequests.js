@@ -23,7 +23,19 @@ const entityProps = {
 const cookies = new Cookies()
 
 export default class StructuralRequests {
-
+    static async fetchDependentCollaborators(pk) {
+        let response = []
+        await axios({
+            method: 'get',
+            url: Host() + 'unit/collaborator/' + pk,
+            headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
+        }).then(res => {
+            response = res.data
+        }).catch(error => {
+            console.log(error)
+        })
+        return response
+    }
     static async fetchUnitAddress(pk) {
         let response = null
         await axios({
