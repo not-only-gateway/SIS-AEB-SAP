@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import PropTypes from "prop-types";
 
 import {Alert, EntityLayout} from "sis-aeb-misc";
-import {DropDownField, TextField} from "sis-aeb-inputs";
+import {TextField} from "sis-aeb-inputs";
 import {commissioned} from "../../packages/locales/organizational/SimpleFormsPT";
 import CommissionedLinkageOverview from "../../packages/overview/CommissionedLinkageOverview";
 import OrganizationalKeys from "../../packages/keys/OrganizationalKeys";

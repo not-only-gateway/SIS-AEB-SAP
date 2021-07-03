@@ -12,7 +12,7 @@ import PersonPT from "../packages/locales/person/PersonPT";
 import PersonRequests from "../utils/fetch/PersonRequests";
 import CollaboratorRequests from "../utils/fetch/CollaboratorRequests";
 
-export default function person() {
+export default function person(props) {
     const router = useRouter()
     const [id, setId] = useState(undefined)
     const lang = PersonPT
@@ -117,8 +117,11 @@ export default function person() {
                                                     }
                                                 })
                                             }
-                                            locale={router.locale}
                                             id={person.id}
+
+                                            notSearched={props.notSearched}
+                                            setNotSearched={props.setNotSearched}
+                                            searchInput={props.searchInput}
                                             accessProfile={accessProfile}
                                         />
                                 }

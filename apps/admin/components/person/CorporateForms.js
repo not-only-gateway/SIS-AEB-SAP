@@ -7,8 +7,9 @@ import CollaboratorRequests from "../../utils/fetch/CollaboratorRequests";
 import MemberSubmitRequests from "../../utils/submit/MemberSubmitRequests";
 import CollaboratorForm from "./forms/CollaboratorForm";
 import shared from "../../styles/Shared.module.css";
-import {AddRounded, MenuOpenRounded} from "@material-ui/icons";
-import LinkageForm from "../management/LinkageForm";
+import {AddRounded, ListRounded, MenuOpenRounded} from "@material-ui/icons";
+import LinkageForm from "./LinkageForm";
+import ProgressionList from "./ProgressionList";
 
 
 export default function CorporateForms(props) {
@@ -67,7 +68,8 @@ export default function CorporateForms(props) {
                                         </div>
                                         <MenuOpenRounded style={{display: collaborator === null ? 'none' : undefined}}/>
                                     </button>
-                                    <button className={shared.buttonContainer} onClick={() => setOpenTab(2)} style={{display: collaborator !== null ? undefined : 'none'}}>
+                                    <button className={shared.buttonContainer} onClick={() => setOpenTab(2)}
+                                            style={{display: collaborator !== null ? undefined : 'none'}}>
                                         <div style={{
                                             display: 'flex',
                                             alignItems: 'center',
@@ -76,6 +78,19 @@ export default function CorporateForms(props) {
                                         }}>
                                             <AddRounded style={{display: linkage === null ? undefined : 'none'}}/>
                                             {props.lang.linkage}
+                                        </div>
+                                        <MenuOpenRounded style={{display: linkage === null ? 'none' : undefined}}/>
+                                    </button>
+                                    <button className={shared.buttonContainer} onClick={() => setOpenTab(3)}
+                                            style={{display: collaborator === null || linkage === null || linkage.id === undefined || linkage.effective_role === undefined || linkage.effective_role === null ? 'none' : undefined}}>
+                                        <div style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'flex-start',
+                                            gap: '8px'
+                                        }}>
+                                            <ListRounded style={{display: linkage === null ? undefined : 'none'}}/>
+                                            {props.lang.progression}
                                         </div>
                                         <MenuOpenRounded style={{display: linkage === null ? 'none' : undefined}}/>
                                     </button>
@@ -116,7 +131,20 @@ export default function CorporateForms(props) {
                                 />
                             )
                         },
+                        {
+                            buttonKey: 3,
+                            value: linkage !== null && linkage !== undefined && linkage.id !== undefined ? (
+                                    <ProgressionList
+                                        linkageID={linkage.id}
+                                        notSearched={props.notSearched}
+                                        setNotSearched={props.setNotSearched}
+                                        searchInput={props.searchInput}
+                                    />
+                                )
+                                :
+                                null
 
+                        },
                     ]}
                     openTab={openTab}
 
@@ -131,5 +159,7 @@ CorporateForms.propTypes = {
     accessProfile: PropTypes.object,
     locale: PropTypes.string,
     lang: PropTypes.object,
-    fetchMembership: PropTypes.func
+    fetchMembership: PropTypes.func,
+
+    notSearched: PropTypes.bool, searchInput: PropTypes.string, setNotSearched: PropTypes.func
 }

@@ -31,15 +31,15 @@ export default function EffectiveRoleForm(props) {
                 create={props.create} label={lang.title} entityKey={OrganizationalKeys.effective}
                 fetchToken={(new Cookies()).get('jwt')}
                 fetchUrl={Host() + 'list/object'} exists={true} fetchSize={15} setVersion={() => null}
+
                 dependencies={{
                     fields: [
                         {name: 'denomination', type: 'string'},
-                        {name: 'licence', type: 'bool'},
+                        {name: 'license', type: 'bool'},
 
                         {name: 'hierarchy_level', type: 'string'}
                     ],
-                    changed: changed,
-                    entity: props.data
+                    changed: changed
                 }} returnButton={true}
                 handleSubmit={() =>
                 props.handleSubmit({
@@ -84,7 +84,6 @@ export default function EffectiveRoleForm(props) {
                                 label={lang.license}
                                 handleChange={event => {
                                     setChanged(true)
-
                                     props.handleChange({name: 'license', value: event})
 
                                 }}

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import PropTypes from 'prop-types'
-import { TextField} from "sis-aeb-inputs";
+import {TextField} from "sis-aeb-inputs";
 import {Alert, EntityLayout} from "sis-aeb-misc";
 import EntityFormPT from "../../packages/locales/structural/EntityFormPT";
 import submitEntity from "../../utils/submit/SubmitEntity";

@@ -6,8 +6,6 @@ import ContactFormPT from "../../../packages/locales/person/ContactFormPT";
 import {Alert, EntityLayout} from "sis-aeb-misc";
 import submitContact from "../../../utils/submit/SubmitContact";
 import ContractualLinkageDescription from "../../../packages/descriptions/ContractualLinkageDescription";
-import DocumentsOverview from "../../../packages/overview/DocumentsOverview";
-import StructuralKeys from "../../../packages/keys/StructuralKeys";
 import Cookies from "universal-cookie/lib";
 import Host from "../../../utils/shared/Host";
 import ContactsOverview from "../../../packages/overview/ContactsOverview";

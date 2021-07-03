@@ -3,6 +3,11 @@ cd apps/admin
 sudo rm -r node_modules
 sudo rm -r .next
 
+cd ../forums
+
+sudo rm -r node_modules
+sudo rm -r .next
+
 cd ../public
 
 sudo rm -r node_modules

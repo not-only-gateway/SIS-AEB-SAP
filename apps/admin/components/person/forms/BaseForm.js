@@ -7,8 +7,6 @@ import {Alert, EntityLayout} from "sis-aeb-misc";
 import BaseFormPT from "../../../packages/locales/person/BaseFormPT";
 import submitPerson from "../../../utils/submit/SubmitPerson";
 import ContractualLinkageDescription from "../../../packages/descriptions/ContractualLinkageDescription";
-import UnitOverview from "../../../packages/overview/UnitOverview";
-import StructuralKeys from "../../../packages/keys/StructuralKeys";
 import Cookies from "universal-cookie/lib";
 import Host from "../../../utils/shared/Host";
 import PersonalKeys from "../../../packages/keys/PersonalKeys";

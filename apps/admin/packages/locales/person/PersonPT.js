@@ -1,6 +1,5 @@
 export default {
     edit: 'Editar',
-    authenticate: 'Autenticar',
     visualize: 'Visualizar',
     overview: 'Visão Geral',
     personal: 'Pessoal',
@@ -11,7 +10,7 @@ export default {
     address: 'Endereço',
     membership: 'Filiação',
     collaborator: 'Dados do colaborador',
-    returnLabel: 'Retornar',
+    progression: 'Progressão do cargo',
 
 
     collaboration: 'Colaboração',

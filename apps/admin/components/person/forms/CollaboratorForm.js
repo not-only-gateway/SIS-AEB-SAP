@@ -9,9 +9,7 @@ import MembershipPT from "../../../packages/locales/person/MembershipPT";
 import submitCollaborator from "../../../utils/submit/SubmitCollaborator";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import CommissionedLinkageOverview from "../../../packages/overview/CommissionedLinkageOverview";
 import ContractualLinkageDescription from "../../../packages/descriptions/ContractualLinkageDescription";
-import OrganizationalKeys from "../../../packages/keys/OrganizationalKeys";
 import CorporateKeys from "../../../packages/keys/CorporateKeys";
 import CollaboratorOverview from "../../../packages/overview/CollaboratorOverview";
 

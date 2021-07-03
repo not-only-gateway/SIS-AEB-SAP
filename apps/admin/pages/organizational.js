@@ -7,6 +7,7 @@ import Head from "next/head";
 import OrganizationalPT from "../packages/locales/organizational/OrganizationalPT";
 import ContractList from "../components/organizational/ContractList";
 import AccessProfileList from "../components/organizational/AccessProfileList";
+import Header from "../components/shared/header/Header";
 
 export default function organizational(props) {
 
@@ -35,6 +36,7 @@ export default function organizational(props) {
             </Head>
 
             <div style={{width: '65%', margin: 'auto', overflowY: 'hidden'}}>
+                <Header title={lang.title} marginTop={true}/>
                 {openForm ? null :
                 <Tabs
                     buttons={[

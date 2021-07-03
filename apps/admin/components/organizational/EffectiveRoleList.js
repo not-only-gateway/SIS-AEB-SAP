@@ -16,6 +16,7 @@ export default function EffectiveRoleList(props) {
         <>
             {!open ? null :
                 <div className={animations.fadeIn}>
+
                     <EffectiveRoleForm
                         closeModal={() => {
                             props.setOpen(false)
@@ -26,7 +27,7 @@ export default function EffectiveRoleList(props) {
                             event: event,
                             setData: setCurrentEntity
                         })}
-                        create={open && (currentEntity === null || currentEntity.id === undefined)}
+                        create={open && (currentEntity === null || currentEntity === undefined || currentEntity.id === undefined)}
                         data={currentEntity}/>
                 </div>
             }
@@ -41,7 +42,13 @@ export default function EffectiveRoleList(props) {
                     renderElement={element => {
                         return (
 
-                            <div style={{display: 'flex', gap: '16px', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
+                            <div style={{
+                                display: 'flex',
+                                gap: '16px',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                width: '100%'
+                            }}>
                                 <div>
                                     {element.denomination}
                                 </div>
@@ -52,7 +59,7 @@ export default function EffectiveRoleList(props) {
                             </div>
                         )
                     }} searchInput={props.searchInput}
-                    setEntity={setCurrentEntity}
+                    setEntity={setCurrentEntity} scrollableElement={'scrollableDiv'}
                     applySearch={props.notSearched} setAppliedSearch={props.setNotSearched}
                 />
             </div>

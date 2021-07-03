@@ -5,6 +5,7 @@ import {RenderTabs, Tabs} from "sis-aeb-misc";
 import Head from "next/head";
 import StructuralPT from "../packages/locales/structural/StructuralPT";
 import EntityList from "../components/structural/EntityList";
+import Header from "../components/shared/header/Header";
 
 export default function structural(props) {
 
@@ -32,6 +33,7 @@ export default function structural(props) {
             </Head>
 
             <div style={{width: '65%', margin: 'auto', overflowY: 'hidden'}}>
+                <Header title={lang.title} marginTop={true}/>
                 {openForm ? null :
                     <Tabs
                         buttons={[
@@ -62,7 +64,10 @@ export default function structural(props) {
                             buttonKey: 1,
                             value: <EntityList
                                 redirect={id => router.push('/entity/?id=' + id, undefined, {shallow: true})}
-                                notSearched={props.notSearched} setNotSearched={props.setNotSearched} setOpen={setOpenForm}
+                                setOpen={setOpenForm}
+
+                                notSearched={props.notSearched}
+                                setNotSearched={props.setNotSearched}
                                 searchInput={props.searchInput}/>
                         }
                     ]}

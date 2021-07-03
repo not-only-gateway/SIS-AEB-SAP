@@ -1,0 +1,126 @@
+
+
+.header {
+    width: 100%;
+    display: grid;
+    justify-items: center;
+    justify-content: center;
+}
+
+.infoHeader {
+    grid-row: 1;
+    width: 100vw;
+    background: white;
+    border-bottom: #e0e0e0 1px solid;
+    display: grid;
+    justify-content: flex-start;
+
+    gap: 16px;
+
+    padding: 16px 16px 16px 12.5%;
+    height: fit-content;
+
+    overflow: hidden;
+}
+
+.infoHeader:first-child {
+    font-size: 1.1rem;
+    color: #333333;
+}
+
+.pageContainer {
+    display: grid;
+    width: 100%;
+    gap: 16px;
+
+}
+
+.content {
+    display: grid;
+    align-items: flex-start;
+    gap: 16px;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    margin: auto auto 15%;
+}
+
+
+.popContainer {
+
+    width: 500px;
+    height: 500px;
+    position: relative;
+
+    border-radius: 8px;
+    padding: 0;
+    display: grid;
+
+}
+.popHeader{
+    display: grid;
+    justify-content: flex-start;
+    justify-items: flex-start;
+    gap: 8px;
+    padding: 8px;
+    margin-bottom: auto;
+    width: 100%;
+    border-bottom: #e0e0e0 1px solid;
+    height: 62px;
+}
+.title{
+    font-size: 1.1rem;
+    color: #333333;
+}
+.description{
+    font-size: .85rem;
+    color: #555555;
+}
+.closeButton {
+    width: 100%;
+    border-radius: 0 0 8px 8px;
+
+    padding: 5px;
+    cursor: pointer;
+
+    background: #f4f5fa;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 34px;
+    color: #555555;
+    gap: 8px;
+    outline: none;
+    border: none;
+    border-top: #e0e0e0 1px solid;
+}
+.closeButton:hover{
+    color: #ff5555;
+}
+
+.popBody{
+    padding: 8px;
+    display: grid;
+    align-content: flex-start;
+    height: 404px;
+
+    overflow-y: auto;
+    white-space: pre-line;
+
+    gap: 8px;
+    text-align: left;
+
+    font-size: .85rem;
+    color: #333333;
+}
+.popImage{
+    width: 100%;
+    border-radius: 8px;
+}
+
+.overflowEllipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    box-sizing: border-box;
+}

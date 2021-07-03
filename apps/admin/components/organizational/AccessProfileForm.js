@@ -5,7 +5,6 @@ import {DropDownField, TextField} from "sis-aeb-inputs";
 import AccessProfilePT from "../../packages/locales/organizational/AccessProfilePT";
 import ContractualLinkageDescription from "../../packages/descriptions/ContractualLinkageDescription";
 import CommissionedLinkageOverview from "../../packages/overview/CommissionedLinkageOverview";
-import CorporateKeys from "../../packages/keys/CorporateKeys";
 import Cookies from "universal-cookie/lib";
 import Host from "../../utils/shared/Host";
 import OrganizationalKeys from "../../packages/keys/OrganizationalKeys";

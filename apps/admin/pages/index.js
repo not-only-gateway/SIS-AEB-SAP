@@ -3,6 +3,7 @@ import {useRouter} from "next/router";
 import PeopleList from "../components/management/PeopleList";
 import ManagementPT from "../packages/locales/management/ManagementPT";
 import Head from "next/head";
+import Header from "../components/shared/header/Header";
 
 
 export default function management(props) {
@@ -31,6 +32,7 @@ export default function management(props) {
             </Head>
 
             <div style={{width: '65%', margin: 'auto', overflowY: 'hidden', marginTop: '32px'}}>
+                <Header title={lang.title}/>
                 <PeopleList
                     notSearched={props.notSearched} setNotSearched={props.setNotSearched}
                     searchInput={props.searchInput}

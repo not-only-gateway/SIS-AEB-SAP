@@ -9,10 +9,10 @@ import LayoutPT from "../../packages/locales/others/LayoutPT";
 import {
     AccountBalanceRounded,
     AccountTreeRounded,
-    AssignmentIndRounded,
     BusinessRounded,
     ExitToApp,
-    ExtensionRounded, PersonRounded,
+    ExtensionRounded,
+    PersonRounded,
     TimelineRounded
 } from "@material-ui/icons";
 
@@ -66,7 +66,7 @@ export default function PageLayout(props) {
     return (
         <div style={{
             fontFamily: 'Roboto !important',
-            backgroundColor: 'white',
+            backgroundColor: router.pathname !== '/structure' ? 'white' : '#f4f5fa',
             overflow: 'hidden',
             height: '100vh',
             position: 'relative'

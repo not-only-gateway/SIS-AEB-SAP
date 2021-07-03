@@ -1,15 +1,12 @@
 import PropTypes from "prop-types";
 import React, {useEffect, useState} from "react";
-import {Alert, Selector} from "sis-aeb-misc";
-import {FormLayout, TextField} from "sis-aeb-inputs";
+import {Alert, EntityLayout, Selector} from "sis-aeb-misc";
+import {TextField} from "sis-aeb-inputs";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import VacancyPT from "../../packages/locales/unit/VacancyPT";
 import submitUnitRole from "../../utils/submit/SubmitUnitRole";
-import {EntityLayout} from "sis-aeb-misc";
 import ContractualLinkageDescription from "../../packages/descriptions/ContractualLinkageDescription";
-import UnitOverview from "../../packages/overview/UnitOverview";
-import StructuralKeys from "../../packages/keys/StructuralKeys";
 
 const cookies = new Cookies()
 export default function VacancyForm(props) {

@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import {DateField, TextField} from "sis-aeb-inputs";
+import {TextField} from "sis-aeb-inputs";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import {Alert, Selector, EntityLayout} from "sis-aeb-misc";
+import {Alert, EntityLayout, Selector} from "sis-aeb-misc";
 import LinkagePT from "../../packages/locales/person/LinkagePT";
 import ContractualLinkageOverview from "../../packages/overview/ContractualLinkageOverview";
 import ContractualLinkageDescription from "../../packages/descriptions/ContractualLinkageDescription";

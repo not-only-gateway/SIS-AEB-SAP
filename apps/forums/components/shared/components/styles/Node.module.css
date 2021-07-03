@@ -1,0 +1,149 @@
+@keyframes fadeOut {
+
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+
+}
+
+.nodeContainer {
+    border: #e0e0e0 1px solid;
+    display: grid;
+    margin: auto;
+    background: white;
+
+    padding: 0;
+
+    box-sizing: border-box;
+    animation: fadeIn 1s ease forwards;
+
+    border-radius: 8px;
+    transition: 150ms ease-in-out;
+
+}
+.nodeContainer:hover{
+    box-shadow: 0 0 3px 2px #0095ff;
+}
+
+
+.tree,
+.tree ul,
+.tree li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.tree {
+    text-align: center;
+}
+
+.tree,
+.tree ul {
+    display: table;
+}
+
+.tree ul {
+    width: 100%;
+}
+
+.tree li {
+    display: table-cell;
+    padding: 31px 0;
+    vertical-align: top;
+}
+
+.tree li:before {
+
+    content: "";
+    /*outline: #e0e0e0 solid 0.01em;*/
+    background: #e0e0e0;
+    height: 1px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.tree li:first-child:before {
+    left: 50%;
+}
+
+.tree li:last-child:before {
+    right: 50%;
+}
+
+.tree code,
+.tree span {
+    border: #e0e0e0 1px solid;
+    border-radius: 8px;
+    display: inline-block;
+    margin: 0 16px 24px;
+    position: relative;
+    transition: 250ms ease-in-out;
+}
+
+.tree ul:before,
+.tree code:before,
+.tree span:before {
+
+    content: "";
+    background: #e0e0e0;
+    width: 1px;
+    height: 24px;
+    left: 50%;
+    position: absolute;
+}
+
+.tree ul:before {
+    top: -24px;
+}
+
+.noOutline span:before {
+    background: none;
+}
+
+.tree code:before,
+.tree span:before {
+    height: 31px;
+    top: -31px;
+
+}
+
+.transformElement code:before,
+.transformElement span:before {
+    top: -49px;
+}
+
+.transformExtendedElement code:before,
+.transformExtendedElement span:before {
+    top: -32px;
+    height: 32px;
+    background: #e0e0e0;
+    width: 1px;
+}
+
+.tree > li {
+    margin-top: 0;
+}
+
+.tree > li:before,
+.tree > li:after,
+.tree > li > code:before,
+.tree > li > span:before {
+    outline: none;
+}

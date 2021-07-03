@@ -5,8 +5,6 @@ import {DateField, TextField} from "sis-aeb-inputs";
 import DocumentsFormPT from "../../../packages/locales/person/DocumentsFormPT";
 import submitDocuments from "../../../utils/submit/SubmitDocuments";
 import ContractualLinkageDescription from "../../../packages/descriptions/ContractualLinkageDescription";
-import UnitOverview from "../../../packages/overview/UnitOverview";
-import StructuralKeys from "../../../packages/keys/StructuralKeys";
 import Cookies from "universal-cookie/lib";
 import Host from "../../../utils/shared/Host";
 import DocumentsOverview from "../../../packages/overview/DocumentsOverview";
