@@ -1,7 +1,7 @@
 import styles from '../../styles/Layout.module.css'
 import Cookies from 'universal-cookie/lib'
 
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useRouter} from "next/router";
 import "@fontsource/roboto"
 import PropTypes from "prop-types";
@@ -31,6 +31,7 @@ export default function PageLayout(props) {
     const lang = LayoutPT
     const [searchInput, setSearchInput] = useState('')
     const [notSearched, setNotSearched] = useState(false)
+    const ref = useRef()
 
     useEffect(() => {
         if (cookies.get('jwt') !== undefined && sessionStorage.getItem('profile') === null) {
@@ -50,12 +51,14 @@ export default function PageLayout(props) {
                 }
             })
         } else setProfile(JSON.parse(sessionStorage.getItem('profile')))
-    }, [router.isReady, router.pathname])
+
+
+    }, [])
 
     return (
-        <div style={{
+        <div ref={ref} style={{
             fontFamily: 'Roboto !important',
-            backgroundColor: router.pathname !== '/subject' ? 'white' : '#f4f5fa',
+            background: 'white',
             overflow: 'hidden',
             height: '100vh',
             position: 'relative'

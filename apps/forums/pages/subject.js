@@ -19,6 +19,7 @@ export default function subject(props) {
             setId(router.query.id)
             ForumRequests.fetchSubject(router.query.id).then(res => setSubject(res))
         }
+
     }, [router.query])
 
     if (id !== undefined)
@@ -35,6 +36,7 @@ export default function subject(props) {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'space-between',
+
                         }}>
                             <div className={styles.infoHeader}>
                                 <div style={{

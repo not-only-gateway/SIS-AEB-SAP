@@ -23,11 +23,12 @@ const entityProps = {
 const cookies = new Cookies()
 
 export default class ForumRequests {
-    static async fetchTopPops(pk) {
+
+    static async listPops(pk) {
         let response = []
         await axios({
             method: 'get',
-            url: Host() + 'top/pop/' + pk,
+            url: Host() + 'list/pop/' + pk,
             headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         }).then(res => {
             response = res.data
@@ -37,19 +38,6 @@ export default class ForumRequests {
         return response
     }
 
-    static async fetchDependentPops(pk) {
-        let response = []
-        await axios({
-            method: 'get',
-            url: Host() + 'dependents/pop/' + pk,
-            headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
-        }).then(res => {
-            response = res.data
-        }).catch(error => {
-            console.log(error)
-        })
-        return response
-    }
     static async fetchSubject(pk) {
         let response = null
         await axios({
