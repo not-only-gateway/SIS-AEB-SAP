@@ -28,6 +28,17 @@ export default function adjustLine(props) {
     }
     top -= H / 2;
 
+    let radius = props.to.offsetWidth/2
+    console.log(ANG)
+    console.log(props.lineObjective)
+    if(ANG < 0) {
+        props.lineObjective.style.bottom = (radius -4) + 'px'
+    }
+    else {
+        props.lineObjective.style.top = (radius - 4) + 'px'
+    }
+
+
     props.line.style["-webkit-transform"] = 'rotate(' + ANG + 'deg)';
     props.line.style["-moz-transform"] = 'rotate(' + ANG + 'deg)';
     props.line.style["-ms-transform"] = 'rotate(' + ANG + 'deg)';
@@ -37,18 +48,14 @@ export default function adjustLine(props) {
     props.line.style.left = left + 'px';
     props.line.style.height = H + 'px';
 
-    let sourceWidth = props.from.offsetWidth
-    let sourceHeight = props.from.offsetHeight
-    let objectiveWidth = props.to.offsetWidth
-    let objectiveHeight = props.to.offsetHeight
 
 
-    props.lineSource.style.bottom = ((sourceHeight + sourceWidth)/3) + 'px'
+
     // else
     //     props.lineSource.style.bottom =(sourceWidth / 2 ) + 'px'
 
     // if(props.line.getBoundingClientRect().left < props.from.getBoundingClientRect().left)
-    props.lineObjective.style.top = ((sourceHeight + sourceWidth)/3) + 'px'
+
     // else
     //     props.lineObjective.style.top =(objectiveWidth / 2 ) + 'px'
 
@@ -58,6 +65,6 @@ adjustLine.propTypes = {
     from: PropTypes.object,
     to: PropTypes.object,
     line: PropTypes.object,
-    lineSource: PropTypes.object,
+
     lineObjective: PropTypes.object
 }

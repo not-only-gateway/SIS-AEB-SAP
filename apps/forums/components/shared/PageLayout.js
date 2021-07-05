@@ -56,7 +56,7 @@ export default function PageLayout(props) {
     }, [])
 
     return (
-        <div ref={ref} style={{
+        <div style={{
             fontFamily: 'Roboto !important',
             background: 'white',
             overflow: 'hidden',

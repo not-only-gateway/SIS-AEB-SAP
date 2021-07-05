@@ -7,6 +7,7 @@ import Move from "./Element";
 
 export default function RenderNode(props) {
     const ref = useRef()
+    const elementRef = useRef()
     const [parents, setParents] = useState([])
     const [fetched, setFetched] = useState(false)
     const entity = useRef({})
@@ -16,10 +17,20 @@ export default function RenderNode(props) {
             props.updateEntity(entity.current)
         }
         if (!fetched) {
+
             entity.current = props.entity
             setParents(props.getParentKeys(props.entity))
             setFetched(true)
+
+            if (elementRef.current.offsetWidth > elementRef.current.offsetHeight) {
+                ref.current.style.width = (elementRef.current.offsetWidth+ 16) + 'px'
+                ref.current.style.height = (elementRef.current.offsetWidth+16) + 'px'
+            } else {
+                ref.current.style.width = elementRef.current.offsetHeight + 'px'
+                ref.current.style.height = elementRef.current.offsetHeight + 'px'
+            }
         }
+
         if (ref.current !== null) {
             Move({
                 entity: entity.current,
@@ -36,7 +47,7 @@ export default function RenderNode(props) {
         for (i = 0; i < parents.length; i++) {
             let line = document.getElementById(parents[i] + '-line-' + props.entityKey)
             let objective = document.getElementById(parents[i] + '-node')
-            let lineSource = document.getElementById(parents[i] + '-line-indicator-source-' + props.entityKey)
+
             let lineObjective = document.getElementById(parents[i] + '-line-indicator-objective-' + props.entityKey)
 
             if (objective !== null)
@@ -44,7 +55,7 @@ export default function RenderNode(props) {
                     from: ref.current,
                     to: objective,
                     line: line,
-                    lineSource: lineSource,
+
                     lineObjective: lineObjective
                 })
         }
@@ -67,34 +78,25 @@ export default function RenderNode(props) {
 
                             borderRadius: '50%'
                         }}/>
-                        <div id={parent + '-line-indicator-source-' + props.entityKey} style={{
-                            background: 'red',
-                            width: '10px',
-                            height: '10px',
-                            position: 'absolute',
-
-                            left: '-5px',
-
-                            margin: 'auto',
-                            borderRadius: '50%'
-                        }}/>
                     </div>
                 ))}
+                <div id={props.entityKey + '-node'} style={{
+                    borderRadius: '50%',
+                    background: '#f4f5fa', border: '#e0e0e0 1px solid', position: 'absolute', cursor: 'move',
+                    zIndex: 9,
+                    top: entity.current.y,
+                    left: entity.current.x,
+                    transform: 'translate(' + entity.current.x + ',' + entity.current.y + ')',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
 
-                <div id={props.entityKey + '-node'} ref={ref}
-                     style={{
-                         width: 'fit-content',
-                         height: 'fit-content',
-                         top: entity.current.y,
-                         left: entity.current.x,
-                         transform: 'translate(' + entity.current.x + ',' + entity.current.y + ')',
-                         position: 'absolute',
-                         zIndex: 9,
-                         cursor: 'move'
-                     }}>
+                }} ref={ref}>
+                    <div ref={elementRef} style={{width: 'fit-content', height: 'fit-content'}}>
 
-                    {props.renderNode(props.entity)}
 
+                        {props.renderNode(props.entity)}
+                    </div>
                 </div>
             </>
         )

@@ -14,7 +14,7 @@ export default function Node(props) {
             root.style.background = '#f4f5fa radial-gradient(#0095ff 5%, transparent 0)'
             root.style.backgroundSize = '30px 30px'
         }
-        
+
         return () => {
             const root = document.getElementById(props.rootElementID)
             if (root !== null) {
