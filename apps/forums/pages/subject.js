@@ -12,7 +12,7 @@ import Pops from "../components/subjects/Pops";
 export default function subject(props) {
     const router = useRouter()
     const [id, setId] = useState(undefined)
-    const [subject, setSubject] = useState({})
+    const [subject, setSubject] = useState(null)
 
     useEffect(() => {
         if (id === undefined && router.query.id !== undefined) {
@@ -22,7 +22,7 @@ export default function subject(props) {
 
     }, [router.query])
 
-    if (id !== undefined)
+    if (id !== undefined && subject !== undefined && subject !== null)
         return (
             <>
                 <Head>
@@ -39,5 +39,5 @@ export default function subject(props) {
 
         )
     else
-        return <></>
+        return <>{JSON.stringify(subject)}</>
 }

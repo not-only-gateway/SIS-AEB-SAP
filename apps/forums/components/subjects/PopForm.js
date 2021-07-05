@@ -2,15 +2,10 @@ import React, {useState} from "react";
 import PropTypes from "prop-types";
 
 import {ImageField, TextField} from "sis-aeb-inputs";
-import {Alert, Modal} from "sis-aeb-misc";
-
-
-import submitSubject from "../../utils/submit/SubmitSubject";
-import SubjectFormPT from "../../packages/locales/SubjectFormPT";
-import EntityLayout from "../components/form/EntityLayout";
+import {Alert, Modal, EntityLayout} from "sis-aeb-misc";
 import PopFormPT from "../../packages/locales/PopFormPT";
 import submitPop from "../../utils/submit/SubmitPop";
-import styles from "../components/form/styles/Overview.module.css";
+import styles from "../../styles/Pop.module.css";
 import {CloseRounded} from "@material-ui/icons";
 
 export default function PopForm(props) {
@@ -110,7 +105,6 @@ export default function PopForm(props) {
                                                 required={false} width={'100%'}
                                             />
                                             <TextField
-
                                                 placeholder={lang.body} label={lang.body} handleChange={event => {
                                                 setChanged(true)
                                                 props.handleChange({name: 'body', value: event.target.value})

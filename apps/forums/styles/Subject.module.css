@@ -33,6 +33,7 @@
 .buttonContainer:disabled {
     color: #555555;
     background-color: white;
+    cursor: unset;
     border: #e0e0e0 1px solid;
 }
 

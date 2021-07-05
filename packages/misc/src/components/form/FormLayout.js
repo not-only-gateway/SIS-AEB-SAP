@@ -31,7 +31,7 @@ export default function FormLayout(props) {
     return (
         <div className={styles.container}>
             <div className={styles.headerContainer}>
-                <button className={styles.returnButton} onClick={() => props.handleClose()}>
+                <button className={styles.returnButton} onClick={() => props.handleClose()} style={{display: props.returnButton ? undefined : 'none'}}>
                     <ArrowBackRounded/>
                 </button>
                 {props.label}

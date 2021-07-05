@@ -10,7 +10,7 @@
 }
 
 .modalContainer {
-    height: 75%;
+    height: auto;
     width: 45%;
     background: white;
     position: relative;

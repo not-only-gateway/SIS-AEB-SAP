@@ -2,12 +2,11 @@ import React, {useState} from "react";
 import PropTypes from "prop-types";
 
 import {TextField} from "sis-aeb-inputs";
-import {Alert} from "sis-aeb-misc";
+import {Alert, EntityLayout} from "sis-aeb-misc";
 
 
 import submitSubject from "../../utils/submit/SubmitSubject";
 import SubjectFormPT from "../../packages/locales/SubjectFormPT";
-import EntityLayout from "../components/form/EntityLayout";
 
 export default function SubjectForm(props) {
 

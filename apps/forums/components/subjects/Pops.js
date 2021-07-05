@@ -8,7 +8,7 @@ import styles from '../../styles/Pop.module.css'
 import SubjectPT from "../../packages/locales/SubjectPT";
 import Chart from "../shared/components/Chart";
 import PopOverview from "./PopOverview";
-import Node from "../shared/canvas/Node";
+import Canvas from "../shared/canvas/Canvas";
 import SubmitPop from "../../utils/submit/SubmitPop";
 import {AvatarGroup} from "@material-ui/lab";
 import PersonAvatar from "../shared/PersonAvatar";
@@ -79,12 +79,15 @@ export default function Pops(props) {
 
                     </div>
                     <div className={subjectStyles.buttons}>
-                        <button className={subjectStyles.buttonContainer} onClick={() => setOpenForm(true)}
-                                disabled={(new Cookies()).get('jwt') === undefined}>
+                        <button className={subjectStyles.buttonContainer}
+                                style={{display: (new Cookies()).get('jwt') !== undefined ? 'none' : undefined}}
+                                onClick={() => setOpenForm(true)}
+                                >
                             <AddRounded style={{color: '#555555'}}/>
                             {lang.create}
                         </button>
-                        <button className={subjectStyles.buttonContainer}>
+                        <button style={{display: (new Cookies()).get('jwt') === undefined ? 'none' : undefined}}
+                                className={subjectStyles.buttonContainer}>
                             <SaveRounded style={{color: '#555555'}}/>
                             {lang.updatePop}
                         </button>
@@ -93,9 +96,14 @@ export default function Pops(props) {
             </div>
 
 
-            <Node
+            <Canvas
 
                 rootElementID={'scrollableDiv'}
+                options={{
+                    move: (new Cookies()).get('jwt') !== undefined,
+                    edit: (new Cookies()).get('jwt') !== undefined,
+                    show: true
+                }}
 
                 renderNode={entity => {
                     if (entity !== undefined && !entity.create) {

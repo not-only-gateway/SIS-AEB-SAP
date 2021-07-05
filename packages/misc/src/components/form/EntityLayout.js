@@ -18,10 +18,14 @@ export default function EntityLayout(props) {
 
     return (
         <>
-            <Description handleClose={() => setInfoModal(false)} open={infoModal} information={props.information}
-                         rootElementID={props.rootElementID}/>
+            {!props.onlyEdit && Array.isArray(props.information) ?
+                <Description handleClose={() => setInfoModal(false)} open={infoModal} information={props.information}
+                             rootElementID={props.rootElementID}/>
+                :
+                null
+            }
 
-            {props.create || openForm ?
+            {props.create || openForm || props.onlyEdit ?
 
                 <FormLayout
                     {...props}
@@ -35,7 +39,8 @@ export default function EntityLayout(props) {
                     }}/>
                 :
                 openHistory ?
-                    <History {...props} handleClose={() => setOpenHistory(false)}/>
+                    props.fetchUrl !== undefined ?
+                        <History {...props} handleClose={() => setOpenHistory(false)}/> : null
                     :
                     <>
                         <Overview
@@ -45,7 +50,7 @@ export default function EntityLayout(props) {
                         />
                         <div className={styles.container}>
                             <div className={styles.headerContainer}>
-                                <button className={[styles.returnButton, styles.buttonContainer].join(' ')}
+                                <button className={[styles.returnButton, styles.buttonContainer].join(' ')} style={{display: props.returnButton ? undefined : 'none'}}
                                         onClick={() => props.handleClose()}>
                                     <ArrowBackRounded/>
                                 </button>
@@ -58,7 +63,7 @@ export default function EntityLayout(props) {
                                     : null
                                 }
                             </div>
-                            {props.create ? null :
+                            {props.create || props.onlyEdit ? null :
                                 <>
                                     <button className={styles.buttonContainer} onClick={() => setOverviewModal(true)}>
                                         {lang.overview}
@@ -83,6 +88,8 @@ export default function EntityLayout(props) {
     )
 }
 EntityLayout.propTypes = {
+    returnButton: PropTypes.bool,
+    onlyEdit: PropTypes.bool,
     label: PropTypes.string,
     information: PropTypes.arrayOf(
         PropTypes.shape({
