@@ -5,5 +5,6 @@ export default {
     administration: 'Administração',
     pops: 'Base de conhecimento',
     forums: 'Fóruns',
-    authenticate: 'Entrar'
+    authenticate: 'Entrar',
+    signout: 'Sair',
 }

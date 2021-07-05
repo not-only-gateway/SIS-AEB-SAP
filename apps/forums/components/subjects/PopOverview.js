@@ -2,7 +2,7 @@ import {Modal} from "sis-aeb-misc";
 import PropTypes from 'prop-types'
 import styles from "../../styles/Subject.module.css";
 import {AddRounded, CloseRounded} from "@material-ui/icons";
-import UnitPT from "../../packages/locales/unit/UnitPT";
+import UnitPT from "../../packages/locales/SubjectPT";
 import {useEffect, useState} from "react";
 import ForumRequests from "../../utils/fetch/ForumRequests";
 

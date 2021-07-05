@@ -1,108 +1,146 @@
 import PropTypes from 'prop-types'
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Head from "next/head";
-import {AddRounded, EditRounded, Forum, PeopleRounded, VisibilityRounded} from "@material-ui/icons";
+import {AddRounded, EditRounded, Forum, PeopleRounded, SaveRounded, VisibilityRounded} from "@material-ui/icons";
 import ForumRequests from "../../utils/fetch/ForumRequests";
-import styles from '../../styles/Subject.module.css'
-import UnitPT from "../../packages/locales/unit/UnitPT";
+import subjectStyles from '../../styles/Subject.module.css'
+import styles from '../../styles/Pop.module.css'
+import SubjectPT from "../../packages/locales/SubjectPT";
 import Chart from "../shared/components/Chart";
 import PopOverview from "./PopOverview";
 import Node from "../shared/canvas/Node";
 import SubmitPop from "../../utils/submit/SubmitPop";
+import {AvatarGroup} from "@material-ui/lab";
+import PersonAvatar from "../shared/PersonAvatar";
+import PopForm from "./PopForm";
+import handleObjectChange from "../../utils/shared/HandleObjectChange";
+import SubjectForm from "./SubjectForm";
+import Cookies from "universal-cookie/lib";
 
 
 export default function Pops(props) {
     const [pops, setPops] = useState([])
-    const lang = UnitPT
+    const lang = SubjectPT
     const [currentEntity, setCurrentEntity] = useState(null)
     const [update, setUpdate] = useState(false)
+    const [openForm, setOpenForm] = useState(false)
     useEffect(() => {
         ForumRequests.listPops(props.subjectID).then(res => setPops(res))
     }, [])
 
     return (
         <>
-            <Head>
-                <title>
-                    {lang.title}
-                </title>
-                <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
-            </Head>
-            <button onClick={() => setUpdate(!update)}>
-                update
-            </button>
-            <Node offsetTop={120} rootElementID={'scrollableDiv'}
-                  renderNode={entity => {
-                      if (entity !== undefined && !entity.create) {
-                          if (entity !== currentEntity)
-                              return (
-                                  <div style={{
-                                      padding: '8px',
-                                      borderRadius: '8px',
-                                      display: 'flex',
-                                      maxWidth: '200px',
-                                      height: '73px',
-                                      minHeight: '75px',
-                                      minWidth: '110px',
-                                      alignItems: 'center',
 
-                                      background: 'white',
-                                      border: '#e0e0e0 1px solid'
-                                  }}>
-                                      <div style={{
-                                          margin: 'auto', overflow: 'hidden',
-                                          whiteSpace: 'nowrap',
-                                          textOverflow: 'ellipsis',
-                                      }}>
-                                          {entity.id}
-                                      </div>
-                                  </div>
-                              )
-                          else
-                              return (
-                                  <PopOverview data={currentEntity} handleClose={() => setCurrentEntity(null)}/>)
-                      } else if (entity !== undefined && entity.create) {
-                          return (
-                              <div style={{
-                                  padding: '8px',
-                                  borderRadius: '8px',
-                                  display: 'flex',
-                                  maxWidth: '200px',
-                                  height: '73px',
-                                  minHeight: '75px',
-                                  minWidth: '110px',
-                                  justifyContent: 'center',
-                                  alignItems: 'center',
-                                  background: 'white',
-                                  border: '#e0e0e0 1px solid'
-                              }}>
-                                  <AddRounded/>
-                              </div>
-                          )
-                      } else
-                          return null
-                  }}
-                  getEntityKey={entity => {
-                      if (entity !== undefined)
-                          return entity.id
-                      else
-                          return '-1'
-                  }}
-                  entities={pops}
-                  triggerUpdate={update}
-                  updateEntity={(entity) => {
-                      setUpdate(false)
-                      SubmitPop({
-                          pk: entity.id,
-                          data: entity,
-                          setStatus: () => null
-                      })
-                  }}
-                  level={0} getParentKeys={entity => entity.parents}
+            <PopForm
+                handleClose={() => {
+                    setCurrentEntity(null)
+                    setOpenForm(false)
+                }}
+                handleChange={event => handleObjectChange({
+                    event: event,
+                    setData: setCurrentEntity
+                })}
+                id={currentEntity !== null && currentEntity !== undefined ? currentEntity.id : null}
+                data={currentEntity} subjectID={props.subjectID}
+                fetchPops={() => ForumRequests.listPops(props.subjectID).then(res => setPops(res))}
+                open={openForm}/>
+
+            <div className={subjectStyles.infoHeader}>
+                <div style={{display: 'grid', gap: '8px'}}>
+                    <div style={{
+                        fontSize: '1.6rem',
+                        color: '#333333',
+                        textTransform: 'capitalize'
+                    }}>
+                        {props.data.title}
+                    </div>
+                    <div style={{
+                        fontSize: '.9rem',
+                        color: '#555555',
+                        textTransform: 'capitalize'
+                    }}>
+                        {props.data.description}
+                    </div>
+                </div>
+                <div>
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px'
+                    }}>
+                        <AvatarGroup>
+                            {props.data.collaborators !== undefined ? props.data.collaborators.map(collaborator =>
+                                <PersonAvatar image={collaborator.image} variant={'circular'}
+                                              elevation={'false'}>
+                                    {collaborator.name}
+                                </PersonAvatar>
+                            ) : null}
+                        </AvatarGroup>
+
+                    </div>
+                    <div className={subjectStyles.buttons}>
+                        <button className={subjectStyles.buttonContainer} onClick={() => setOpenForm(true)}
+                                disabled={(new Cookies()).get('jwt') === undefined}>
+                            <AddRounded style={{color: '#555555'}}/>
+                            {lang.create}
+                        </button>
+                        <button className={subjectStyles.buttonContainer}>
+                            <SaveRounded style={{color: '#555555'}}/>
+                            {lang.updatePop}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+            <Node
+
+                rootElementID={'scrollableDiv'}
+
+                renderNode={entity => {
+                    if (entity !== undefined && !entity.create) {
+                        if (entity !== currentEntity)
+                            return (
+                                <div className={styles.popContainer}>
+                                    <div style={{
+                                        margin: 'auto', overflow: 'hidden',
+                                        whiteSpace: 'nowrap',
+                                        textOverflow: 'ellipsis',
+                                    }}>
+                                        {entity.id}
+                                    </div>
+                                </div>
+                            )
+                        else
+                            return (
+                                <PopOverview data={currentEntity} handleClose={() => setCurrentEntity(null)}/>)
+                    } else
+                        return null
+                }}
+                getEntityKey={entity => {
+                    if (entity !== undefined)
+                        return entity.id
+                    else
+                        return '-1'
+                }}
+                entities={pops}
+                triggerUpdate={update}
+                updateEntity={(entity) => {
+                    setUpdate(false)
+                    SubmitPop({
+                        pk: entity.id,
+                        data: entity,
+                        create: false,
+                        subjectID: props.subjectID,
+                        setStatus: () => null
+                    })
+                }}
+                level={0} getParentKeys={entity => entity.parents}
             />
         </>
     )
 }
 Pops.propTypes = {
-    subjectID: PropTypes.number
+    subjectID: PropTypes.number,
+    data: PropTypes.object
 }

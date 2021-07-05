@@ -3,19 +3,19 @@ import PropTypes from 'prop-types'
 export default function adjustLine(props) {
 
     var fT = props.from.offsetTop + props.from.offsetHeight / 2;
-    var tT = props.to.offsetTop + props.to.offsetHeight / 2;
+    var objectiveTop = props.to.offsetTop + props.to.offsetHeight / 2;
     var fL = props.from.offsetLeft + props.from.offsetWidth / 2;
     var tL = props.to.offsetLeft + props.to.offsetWidth / 2;
 
-    var CA = Math.abs(tT - fT);
+    var CA = Math.abs(objectiveTop - fT);
     var CO = Math.abs(tL - fL);
     var H = Math.sqrt(CA * CA + CO * CO);
     var ANG = 180 / Math.PI * Math.acos(CA / H);
 
-    if (tT > fT) {
-        var top = (tT - fT) / 2 + fT;
+    if (objectiveTop > fT) {
+        var top = (objectiveTop - fT) / 2 + fT;
     } else {
-        var top = (fT - tT) / 2 + tT;
+        var top = (fT - objectiveTop) / 2 + objectiveTop;
     }
     if (tL > fL) {
         var left = (tL - fL) / 2 + fL;
@@ -23,20 +23,13 @@ export default function adjustLine(props) {
         var left = (fL - tL) / 2 + tL;
     }
 
-    if ((fT < tT && fL < tL) || (tT < fT && tL < fL) || (fT > tT && fL > tL) || (tT > fT && tL > fL)) {
+    if ((fT < objectiveTop && fL < tL) || (objectiveTop < fT && tL < fL) || (fT > objectiveTop && fL > tL) || (objectiveTop > fT && tL > fL)) {
         ANG *= -1;
     }
     top -= H / 2;
 
-    let radius = props.to.offsetWidth/2
-    console.log(ANG)
-    console.log(props.lineObjective)
-    if(ANG < 0) {
-        props.lineObjective.style.bottom = (radius -4) + 'px'
-    }
-    else {
-        props.lineObjective.style.top = (radius - 4) + 'px'
-    }
+
+
 
 
     props.line.style["-webkit-transform"] = 'rotate(' + ANG + 'deg)';
@@ -47,8 +40,6 @@ export default function adjustLine(props) {
     props.line.style.top = top + 'px';
     props.line.style.left = left + 'px';
     props.line.style.height = H + 'px';
-
-
 
 
     // else

@@ -3,12 +3,11 @@ import PropTypes from 'prop-types'
 export default function Move(props) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
-    props.element.addEventListener('mousedown', e => {
+    props.button.addEventListener('mousedown', e => {
 
         e.preventDefault();
 
         pos3 = e.clientX;
-        console.log(props.element.offsetTop)
 
         if (props.element.offsetTop < 0) {
             props.element.style.top = 0
@@ -71,7 +70,7 @@ export default function Move(props) {
 Move.propTypes = {
     entity: PropTypes.object,
     setEntity: PropTypes.func,
-
+    button: PropTypes.object,
     element: PropTypes.object,
     root: PropTypes.object,
     refreshLinks: PropTypes.func

@@ -8,7 +8,7 @@ import {Button} from "@material-ui/core";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import {Alert} from "sis-aeb-misc";
 import AuthenticatePT from "../packages/locales/authenticate/AuthenticatePT";
-import submitAuthentication from "../utils/submit/AuthenticationSubmitRequests";
+import submitAuthentication from "../utils/submit/SubmitAuthentication";
 import {TextField} from "sis-aeb-inputs";
 
 export default function authenticate() {
@@ -89,7 +89,7 @@ export default function authenticate() {
                         disabled={data.email.length < 12 || data.password.length < 8 || loading}
                         style={{
                             textTransform: 'none',
-                            backgroundColor: data.email.length < 12 || data.password.length < 8 || loading? '#f4f5fa' : '#0095ff',
+                            backgroundColor: data.email.length < 12 || data.password.length < 8 || loading ? '#f4f5fa' : '#0095ff',
                             color: data.email.length < 12 || data.password.length < 8 || loading ? null : 'white',
                             width: '100%'
                         }}>{lang.authenticate}</Button>

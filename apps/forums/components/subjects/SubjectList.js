@@ -7,6 +7,10 @@ import styles from '../../styles/Index.module.css'
 import {AvatarGroup} from "@material-ui/lab";
 import {Avatar} from "@material-ui/core";
 import PersonAvatar from "../shared/PersonAvatar";
+import SubjectFormPT from "../../packages/locales/SubjectFormPT";
+import SubjectForm from "./SubjectForm";
+import handleObjectChange from "../../utils/shared/HandleObjectChange";
+
 
 export default function SubjectList(props) {
 
@@ -15,23 +19,23 @@ export default function SubjectList(props) {
 
     return (
         <>
-            {!open ? null : null
-                // <BaseForm
-                //     returnToMain={() => {
-                //         setOpen(false)
-                //     }}
-                //     redirect={props.redirect}
-                //     handleChange={event => handleObjectChange({
-                //         event: event,
-                //         setData: setCurrentEntity
-                //     })}
-                //     create={open && (currentEntity === null || currentEntity.id === undefined)}
-                //     data={currentEntity}/>
+            {!open ? null :
+                <SubjectForm
+                    returnToMain={() => {
+                        setOpen(false)
+                        props.setOpen(false)
+                    }}
+                    redirect={props.redirect}
+                    handleChange={event => handleObjectChange({
+                        event: event,
+                        setData: setCurrentEntity
+                    })}
+                    data={currentEntity}/>
 
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'pop-list'} scrollableElement={'scrollableDiv'}
+                    listKey={'subject-list'} scrollableElement={'scrollableDiv'}
                     clickEvent={() => null} createOption={(new Cookies()).get('jwt') !== undefined}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/subject'}
                     renderElement={element => {
@@ -82,8 +86,11 @@ export default function SubjectList(props) {
                     setEntity={entity => {
                         if(entity !== null)
                             props.redirect(entity.id)
-                        else
-                        setCurrentEntity(entity)
+                        else {
+                            setOpen(true)
+                            props.setOpen(true)
+                            setCurrentEntity(entity)
+                        }
                     }}/>
             </div>
         </>
@@ -92,7 +99,7 @@ export default function SubjectList(props) {
 SubjectList.propTypes = {
     notSearched: PropTypes.bool,
     setNotSearched: PropTypes.func,
-
+    setOpen: PropTypes.func,
     redirect: PropTypes.func,
     searchInput: PropTypes.string
 }
