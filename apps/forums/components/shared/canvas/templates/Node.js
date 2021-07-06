@@ -7,29 +7,29 @@ import {
     ArrowBackRounded, ArrowForwardIos, ArrowForwardIosRounded, ArrowForwardRounded, ArrowRightAlt,
     DragIndicatorRounded,
     EditRounded, LinkOffRounded, LinkRounded,
-    MoreRounded, MoreVertRounded,
-    OpenWithRounded,
-    Visibility,
     VisibilityRounded
 } from "@material-ui/icons";
+
 
 
 export default function Node(props) {
     const ref = useRef()
     const moveRef = useRef()
     const elementRef = useRef()
+
     const [parents, setParents] = useState([])
+    const [children, setChildren] = useState([])
+
     const [fetched, setFetched] = useState(false)
     const entity = useRef({})
     const [link, setLink] = useState(false)
-    const [open, setOpen] = useState(false)
     const [notAvailable, setNotAvailable] = useState(false)
-
     useEffect(() => {
         if (props.linkable !== link) {
             setLink(props.linkable)
             if (props.linkable && props.getEntityKey(props.toBeLinked) !== props.getEntityKey(entity.current)) {
-                setOpen(false)
+                if(props.openMenu === props.entityKey)
+                    props.setOpenMenu(null)
 
                 const entity = document.getElementById(props.getEntityKey(props.toBeLinked) + '-node')
                 if (entity !== null && entity.getBoundingClientRect().top >= ref.current.getBoundingClientRect().top || parents.includes(props.getEntityKey(props.toBeLinked)))
@@ -43,18 +43,16 @@ export default function Node(props) {
             props.updateEntity(entity.current)
         }
         if (link && parents.length !== props.getParentKeys(entity.current)) {
-            const newParents = props.getParentKeys(entity.current)
-
-            setParents(newParents)
+            setChildren(props.getChildrenKeys(entity.current))
+            setParents(props.getParentKeys(entity.current))
 
 
         }
         if (!fetched) {
             entity.current = props.entity
 
-            const newParents = props.getParentKeys(props.entity)
-
-            setParents(newParents)
+            setParents(props.getParentKeys(props.entity))
+            setChildren(props.getChildrenKeys(props.entity))
 
             setFetched(true)
 
@@ -73,12 +71,15 @@ export default function Node(props) {
                 setEntity: newEntity => entity.current = newEntity,
                 button: moveRef.current,
                 element: ref.current,
+                contentElement: elementRef.current,
                 root: props.root,
+                children: children,
                 refreshLinks: refresh,
                 parents: parents
             })
         }
     })
+
     const refresh = () => {
         let i
 
@@ -97,6 +98,7 @@ export default function Node(props) {
                 })
         }
     }
+
     if (props.entity !== undefined && props.entity !== null)
         return (
 
@@ -104,7 +106,7 @@ export default function Node(props) {
                 {parents.map(parent => (
                     <div
                         style={{
-                            transition: '200ms ease',
+                            // transition: '200ms ease',
                             width: '2px',
                             background: '#777777',
                             position: 'absolute',
@@ -135,7 +137,7 @@ export default function Node(props) {
 
                      }} ref={ref}>
                     <div className={styles.options}
-                         style={{display: open ? undefined : 'none'}}>
+                         style={{display: props.openMenu === props.entityKey ? undefined : 'none'}}>
                         <button className={styles.optionButton} ref={moveRef}
                                 style={{cursor: 'grab', display: props.options.move ? undefined : 'none'}}>
                             <DragIndicatorRounded/>
@@ -165,7 +167,12 @@ export default function Node(props) {
                              if (props.linkable && !notAvailable)
                                  props.handleLink(entity.current, setLink)
                              else if (!props.linkable)
-                                 setOpen(!open)
+                             {
+                                 if(props.openMenu === props.entityKey)
+                                     props.setOpenMenu(null)
+                                 else
+                                     props.setOpenMenu(props.entityKey)
+                             }
                          }}>
                         {props.renderNode(props.entity)}
                     </div>
@@ -176,6 +183,8 @@ export default function Node(props) {
 }
 
 Node.propTypes = {
+    setOpenMenu: PropTypes.func,
+    openMenu: PropTypes.number,
     show: PropTypes.func,
     edit: PropTypes.func,
 
@@ -197,5 +206,6 @@ Node.propTypes = {
     renderNode: PropTypes.func,
 
     entityKey: PropTypes.any,
-    getEntityKey: PropTypes.func
+    getEntityKey: PropTypes.func,
+    getChildrenKeys: PropTypes.func
 }

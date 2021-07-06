@@ -1,150 +1,74 @@
 import PropTypes from 'prop-types'
-import AdjustChild from "./AdjustChild";
-import AdjustParent from "./AdjustParent";
 
 export default function Move(props) {
-    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    let holding = false
+    let i
+    let limitTopOffset = undefined
+    let limitBottomOffset = undefined
+    let initialTopOffset = props.root.getBoundingClientRect().top - 20
+    let initialLeftOffset = props.button.offsetWidth + Math.abs(props.element.offsetWidth) + props.button.offsetLeft
 
-    props.button.addEventListener('mousedown', e => {
+    if (props.element.offsetTop === 0) {
+        initialLeftOffset = props.button.getBoundingClientRect().left + 20
+        initialTopOffset = props.button.getBoundingClientRect().top + 20
+    }
 
-        e.preventDefault();
-        props.element.style.opacity = '50%'
-        pos3 = e.clientX;
 
-        if (props.element.offsetTop < 0) {
-            props.element.style.top = 0
-            closeDragElement()
-            document.onmousemove = null;
-            removeListeners()
-        } else {
-            pos4 = e.clientY
-
-            closeDragElement()
-            document.onmousemove = elementDrag;
-        }
+    props.button.addEventListener('mousedown', () => {
+        holding = true
     })
-    props.root.addEventListener('mouseup', () => {
-        let i
-        let repositioned = false
+
+
+    document.addEventListener("mousemove", handleMouseMove, false);
+    document.addEventListener("mouseup", () => {
+        if (props.element.offsetTop < 0)
+            props.element.style.top = '20px';
+
+        limitTopOffset = undefined
+        limitBottomOffset = undefined
+
         for (i = 0; i < props.parents.length; i++) {
-            let objective = document.getElementById(props.parents[i] + '-node')
+            const parent = document.getElementById(props.parents[i] + '-node')
+            if (parent !== null && (limitTopOffset === undefined || parent.offsetTop > limitTopOffset)) {
+                limitTopOffset = parent.offsetTop
 
-            if (objective !== null) {
-                AdjustChild({
-                    child: props.element,
-                    parent: objective,
-                    triggerRemove: () => {
-                        repositioned = true
-                    }
-                })
-                // AdjustParent({
-                //     parent: props.element,
-                //     child: objective,
-                //     triggerRemove: () => {
-                //         repositioned = true
-                //     }
-                // })
             }
-
         }
-
-        if (repositioned) {
-            closeDragElement()
-            document.onmousemove = null;
+        for (i = 0; i < props.children.length; i++) {
+            const child = document.getElementById(props.children[i] + '-node')
+            if (child !== null && (child.offsetTop < limitBottomOffset || limitBottomOffset === undefined))
+                limitBottomOffset = child.offsetTop
         }
+        if (limitTopOffset !== undefined && props.element.offsetTop <= (limitTopOffset)) {
+            props.element.style.top = (limitTopOffset + props.element.offsetHeight / 2) + 'px'
+        } else if (limitBottomOffset !== undefined && props.element.offsetTop >= limitBottomOffset)
+            props.element.style.top = (limitBottomOffset - props.element.offsetHeight / 2)  + 'px'
 
-        if (props.element.offsetTop < 0) {
-            props.element.style.top = 0
-            closeDragElement()
-            document.onmousemove = null;
-        } else
-            document.onmousemove = null;
 
-        removeListeners()
-        props.element.style.opacity = '1'
+        props.element.style.opacity = '1';
+        props.element.style.border = '#e0e0e0 1px solid';
+        holding = false
+
         props.refreshLinks()
-    })
+    });
 
-    props.element.addEventListener('mouseup', e => {
 
-        let i
-        let repositioned = false
-        for (i = 0; i < props.parents.length; i++) {
-            let objective = document.getElementById(props.parents[i] + '-node')
+    function handleMouseMove(mouse) {
 
-            if (objective !== null) {
-                AdjustChild({
-                    child: props.element,
-                    parent: objective,
-                    triggerRemove: () => {
-                        repositioned = true
-                    }
-                })
-                // AdjustParent({
-                //     parent: props.element,
-                //     child: objective,
-                //     triggerRemove: () => {
-                //         repositioned = true
-                //     }
-                // })
-            }
-
-        }
-
-        if (repositioned) {
-            closeDragElement()
-            document.onmousemove = null;
-
-            let newEntry = props.entity
-
-            newEntry.x = props.element.offsetLeft
-            newEntry.y = props.element.offsetTop
-
-            props.setEntity(newEntry)
-        } else {
+        if (holding) {
+            props.refreshLinks()
             if (props.element.offsetTop < 0) {
-                props.element.style.top = 0
-                closeDragElement()
-
-                document.onmousemove = null;
-            } else {
-                document.onmousemove = null;
+                props.element.style.border = '#ff5555 1px solid';
+                props.element.style.opacity = '.5';
             }
-
-            let newEntry = props.entity
-            newEntry.x = props.element.offsetLeft
-            newEntry.y = props.element.offsetTop
-
-            props.setEntity(newEntry)
+            if (props.element.offsetTop > 0) {
+                props.element.style.opacity = '1';
+                props.element.style.border = '#e0e0e0 1px solid';
+            }
+            props.element.style.left = (mouse.clientX - initialLeftOffset) + "px";
+            props.element.style.top = (mouse.clientY - initialTopOffset) + "px";
         }
 
-        removeListeners()
-        props.element.style.opacity = '50%'
-        props.refreshLinks()
-    })
-
-
-    function elementDrag(e) {
-        e = e || window.event;
-        e.preventDefault();
-        pos1 = pos3 - e.clientX;
-        pos2 = pos4 - e.clientY;
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        props.element.style.top = (props.element.offsetTop - pos2) + "px";
-        props.element.style.left = (props.element.offsetLeft - pos1) + "px";
-    }
-
-    function closeDragElement() {
-        // stop moving when mouse button is released:
-        document.onmouseup = null;
-        document.onmousemove = null;
-    }
-
-    function removeListeners() {
-        props.element.removeEventListener('mouseup', () => null)
-        props.root.removeEventListener('mouseup', () => null)
-        props.button.removeEventListener('mousedown', () => null)
     }
 }
 
@@ -152,6 +76,7 @@ Move.propTypes = {
     parents: PropTypes.arrayOf(
         PropTypes.number
     ),
+    contentElement: PropTypes.object,
     entity: PropTypes.object,
     setEntity: PropTypes.func,
     button: PropTypes.object,

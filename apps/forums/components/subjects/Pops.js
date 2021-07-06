@@ -92,7 +92,7 @@ export default function Pops(props) {
                     </div>
                     <div className={subjectStyles.buttons}>
                         <button className={subjectStyles.buttonContainer}
-                                style={{display: (new Cookies()).get('jwt') !== undefined ? 'none' : undefined}}
+                                style={{display: (new Cookies()).get('jwt') === undefined ? 'none' : undefined}}
                                 onClick={() => setOpenForm(true)}
                         >
                             <AddRounded style={{color: '#555555'}}/>
@@ -110,7 +110,6 @@ export default function Pops(props) {
             <Canvas
                 rootElementID={'scrollableDiv'}
                 show={entity => {
-                    console.log(entity)
                     setCurrentEntity(entity)
                     setShow(true)
                 }}
@@ -119,10 +118,9 @@ export default function Pops(props) {
                     setOpenForm(true)
                 }}
                 options={{
-                    // move: (new Cookies()).get('jwt') !== undefined,
-                    // edit: (new Cookies()).get('jwt') !== undefined,
-                    move: true,
-                    edit: true,
+                    move: (new Cookies()).get('jwt') !== undefined,
+                    edit: (new Cookies()).get('jwt') !== undefined,
+
                     show: true
                 }}
 
@@ -135,7 +133,7 @@ export default function Pops(props) {
                                     whiteSpace: 'nowrap',
                                     textOverflow: 'ellipsis',
                                 }}>
-                                    {entity.title}
+                                    {entity.id}
                                 </div>
                             </div>
                         )
@@ -159,7 +157,7 @@ export default function Pops(props) {
                         subjectID: props.subjectID,
                         setStatus: () => null
                     })
-                }}
+                }} getChildrenKeys={entity => entity.children}
                 level={0} getParentKeys={entity => entity.parents}
             />
         </>
