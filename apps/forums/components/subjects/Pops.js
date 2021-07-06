@@ -3,8 +3,8 @@ import React, {useEffect, useState} from "react";
 import Head from "next/head";
 import {AddRounded, EditRounded, Forum, PeopleRounded, SaveRounded, VisibilityRounded} from "@material-ui/icons";
 import ForumRequests from "../../utils/fetch/ForumRequests";
-import subjectStyles from '../../styles/Subject.module.css'
-import styles from '../../styles/Pop.module.css'
+import subjectStyles from '../../styles/subject/Subject.module.css'
+import styles from '../../styles/subject/Pop.module.css'
 import SubjectPT from "../../packages/locales/SubjectPT";
 import Chart from "../shared/components/Chart";
 import PopOverview from "./PopOverview";
@@ -32,29 +32,28 @@ export default function Pops(props) {
 
     return (
         <>
+            <PopOverview
+                data={currentEntity}
+                handleClose={() => {
+                    setCurrentEntity(null)
+                    setShow(false)
+                }}
+                open={show}/>
 
-                <PopOverview
-                    data={currentEntity}
-                    handleClose={() => {
-                        setCurrentEntity(null)
-                        setShow(false)
-                    }}
-                    open={show}/>
 
-
-                <PopForm
-                    handleClose={() => {
-                        setCurrentEntity(null)
-                        setOpenForm(false)
-                    }}
-                    handleChange={event => handleObjectChange({
-                        event: event,
-                        setData: setCurrentEntity
-                    })}
-                    id={currentEntity !== null && currentEntity !== undefined ? currentEntity.id : null}
-                    data={currentEntity} subjectID={props.subjectID}
-                    fetchPops={() => ForumRequests.listPops(props.subjectID).then(res => setPops(res))}
-                    open={openForm}/>
+            <PopForm
+                handleClose={() => {
+                    setCurrentEntity(null)
+                    setOpenForm(false)
+                }}
+                handleChange={event => handleObjectChange({
+                    event: event,
+                    setData: setCurrentEntity
+                })}
+                id={currentEntity !== null && currentEntity !== undefined ? currentEntity.id : null}
+                data={currentEntity} subjectID={props.subjectID}
+                fetchPops={() => ForumRequests.listPops(props.subjectID).then(res => setPops(res))}
+                open={openForm}/>
 
 
             <div className={subjectStyles.infoHeader}>
@@ -92,14 +91,14 @@ export default function Pops(props) {
                     </div>
                     <div className={subjectStyles.buttons}>
                         <button className={subjectStyles.buttonContainer}
-                                style={{display: (new Cookies()).get('jwt') === undefined ? 'none' : undefined}}
+                                style={{display: (new Cookies()).get('jwt') !== undefined ? 'none' : undefined}}
                                 onClick={() => setOpenForm(true)}
                         >
                             <AddRounded style={{color: '#555555'}}/>
                             {lang.create}
                         </button>
-                        <button style={{display: (new Cookies()).get('jwt') === undefined ? 'none' : undefined}}
-                                className={subjectStyles.buttonContainer}>
+                        <button style={{display: (new Cookies()).get('jwt') !== undefined ? 'none' : undefined}}
+                                className={subjectStyles.buttonContainer} onClick={() => setUpdate(true)}>
                             <SaveRounded style={{color: '#555555'}}/>
                             {lang.updatePop}
                         </button>
@@ -118,9 +117,10 @@ export default function Pops(props) {
                     setOpenForm(true)
                 }}
                 options={{
-                    move: (new Cookies()).get('jwt') !== undefined,
-                    edit: (new Cookies()).get('jwt') !== undefined,
-
+                    // move: (new Cookies()).get('jwt') !== undefined,
+                    // edit: (new Cookies()).get('jwt') !== undefined,
+                    move: true,
+                    edit: true,
                     show: true
                 }}
 
@@ -133,7 +133,7 @@ export default function Pops(props) {
                                     whiteSpace: 'nowrap',
                                     textOverflow: 'ellipsis',
                                 }}>
-                                    {entity.id}
+                                    {entity.title}
                                 </div>
                             </div>
                         )
@@ -150,6 +150,7 @@ export default function Pops(props) {
                 triggerUpdate={update}
                 updateEntity={(entity) => {
                     setUpdate(false)
+
                     SubmitPop({
                         pk: entity.id,
                         data: entity,

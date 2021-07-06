@@ -29,7 +29,7 @@ export default function adjustLine(props) {
     top -= H / 2;
 
     let radius = props.to.offsetWidth / 2
-    props.lineObjective.style.top = (radius - 9) + 'px'
+    props.lineObjective.style.top = (radius - 10) + 'px'
 
 
     props.line.style["-webkit-transform"] = 'rotate(' + ANG + 'deg)';

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import {Alert, Modal, EntityLayout} from "sis-aeb-misc";
 import PopFormPT from "../../packages/locales/PopFormPT";
 import submitPop from "../../utils/submit/SubmitPop";
-import styles from "../../styles/Pop.module.css";
+import styles from "../../styles/subject/Pop.module.css";
 import {CloseRounded} from "@material-ui/icons";
 import {Overview} from 'sis-aeb-misc'
 import ForumRequests from "../../utils/fetch/ForumRequests";
@@ -43,6 +43,7 @@ export default function PopForm(props) {
                 alignItems: 'center',
                 justifyContent: 'center'
             }}>
+
                 <div className={styles.modalContainer}>
                     <div style={{
                         display: 'grid',

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
-import styles from '../styles/Subject.module.css'
+import styles from '../styles/subject/Subject.module.css'
 import UnitPT from "../packages/locales/SubjectPT";
 import Head from "next/head";
 import {RenderTabs, Tabs} from "sis-aeb-misc";

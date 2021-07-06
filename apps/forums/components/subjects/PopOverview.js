@@ -1,12 +1,12 @@
 import {Modal, Overview} from "sis-aeb-misc";
 import PropTypes from 'prop-types'
-import styles from "../../styles/Pop.module.css";
-import {AddRounded, CloseRounded} from "@material-ui/icons";
-import UnitPT from "../../packages/locales/SubjectPT";
+import styles from "../../styles/subject/PopOverview.module.css";
+
 import {useEffect, useState} from "react";
 import ForumRequests from "../../utils/fetch/ForumRequests";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import PopFormPT from "../../packages/locales/PopFormPT";
+import {CloseRounded} from "@material-ui/icons";
 
 export default function PopOverview(props) {
     const lang = PopFormPT
@@ -36,37 +36,54 @@ export default function PopOverview(props) {
     }, [props])
 
     return (
-        <Overview
-            entity={entity}
-            open={props.open}
-            handleClose={() => props.handleClose()}
-            rootElementID={'root'}
-            fields={[
-                {
-                    label: lang.title,
-                    field: 'title',
-                    type: 'string'
-                },
-                {
-                    label: lang.description,
-                    field: 'description',
-                    type: 'string'
-                },
-                {
-                    label: lang.body,
-                    field: 'body',
-                    type: 'string'
-                },
-                {
-                    label: lang.image,
-                    field: 'image',
-                    type: 'object',
-                    renderObjectField: field => {
-                        return (<img src={field}/>)
+        <Modal open={props.open} handleClose={() => props.handleClose()} rootElementID={'root'}>
+            <div className={styles.modalContainer}>
+                <div className={styles.modalContent}>
+                    <button className={styles.closeButton} onClick={() => props.handleClose()}>
+                        <CloseRounded/>
+                    </button>
+
+                    {entity !== null && entity !== undefined ?
+                        <>
+                            <div className={styles.titleContainer}>
+                                <div style={{fontSize: '1.2rem'}}>
+                                    {entity.title}
+                                </div>
+                                <div style={{fontSize: '.85rem', color: '#333333'}}>
+                                    {entity.description}
+                                </div>
+                            </div>
+                            <div className={styles.bodyContainer}>
+                                <div style={{maxHeight: '65%', overflow: 'hidden', borderRadius: '8px', border: '#e0e0e0 1px solid'}}>
+                                    <img style={{width: '100%'}} src={entity.image}/>
+                                </div>
+
+                                <div style={{fontSize: '.9rem', color: '#333333'}}>
+                                    {entity.body}
+                                </div>
+                            </div>
+                            <div className={styles.footerContainer}>
+                                <div style={{fontSize: '1.05rem', display: 'grid', gap: '8px'}}>
+                                    Criado em:
+                                    <div style={{fontSize: '.9rem', color: '#555555'}}>
+                                        - {(new Date(entity.creation_date)).toDateString()}
+                                    </div>
+                                </div>
+                                <div style={{fontSize: '1.05rem', display: 'grid', gap: '8px'}}>
+                                    Atualizado em:
+                                    <div style={{fontSize: '.9rem', color: '#555555'}}>
+                                        - {entity.last_update !== null ? (new Date(entity.last_update)).toDateString() : 'Não atualizado'}
+                                    </div>
+                                </div>
+                            </div>
+                        </>
+                        :
+                        null
                     }
-                }
-            ]}
-            applyHistory={null}/>
+                </div>
+            </div>
+        </Modal>
+
     )
 }
 PopOverview.propTypes = {

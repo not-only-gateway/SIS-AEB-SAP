@@ -1,6 +1,6 @@
 export default {
     overview: 'Visão global',
-    updatePop: 'Salvar todos os passos',
+    updatePop: 'Salvar layout e conexões',
     create: 'Criar novo passo'
     // base: 'Informações Básicas',
     // close: 'Fechar',

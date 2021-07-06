@@ -22,8 +22,8 @@
   border-radius: 5px;
   border: #ecedf2 1px solid;
   box-shadow: unset;
-  transition: 250ms ease-in-out;
-  background: #f4f5fa;
+  transition: 150ms ease-in-out;
+  background: white;
   width: 100%;
   font-family: 'Roboto' !important;
   height: 56px;
@@ -43,8 +43,8 @@
   border: #ecedf2 1px solid;
 
   box-shadow: unset;
-  transition: 250ms ease-in-out;
-  background: #f4f5fa;
+  transition: 150ms ease-in-out;
+  background: white;
   width: 100%;
   outline: none;
   padding: 5px;
@@ -87,7 +87,7 @@
 
 .labelContainer {
   /*animation: slideUp ease-in-out 250ms both;*/
-  transition: visibility 300ms ease-in-out;
+  transition: visibility 150ms ease-in-out;
   color: #262626;
   font-size: .9rem;
   margin-top: auto;
@@ -112,7 +112,7 @@
   border-radius: 5px;
   border: #ecedf2 1px solid;
 
-  transition: 250ms ease-in-out;
+  transition: 150ms ease-in-out;
   background: white;
   width: 45px;
   height: 45px;
@@ -126,7 +126,9 @@
 
   cursor: pointer;
 }
-
+.uploadFormContainer:hover{
+  color: #0095ff;
+}
 .imageFieldContainer {
 
   height: 56px;
@@ -139,15 +141,21 @@
 
   border: #ecedf2 1px solid;
   border-radius: 5px;
-  background: #f4f5fa;
+  background: white;
 
   overflow: hidden;
 
-  transition: 300ms ease-in-out;
+  transition: 150ms ease-in-out;
 }
 
 
-.selectContainer:hover, .imageFieldContainer:hover, .imageFieldContainer:focus, .imageFieldContainer:focus-visible, .imageFieldContainer:focus-within, .inputContainer:hover, .inputContainer:focus, .inputContainer:focus-visible, .inputContainer:focus-within {
+.selectContainer:hover, .imageFieldContainer:hover,  .inputContainer:hover{
+  color: #262626;
+  box-shadow: 0 0 2px 1px #0095ff;
+  border: #0095ff 1px solid;
+}
+
+.imageFieldContainer:focus, .imageFieldContainer:focus-visible, .imageFieldContainer:focus-within, .inputContainer:focus, .inputContainer:focus-visible, .inputContainer:focus-within {
   color: #262626;
   box-shadow: 0 0 2px 1px #0095ff;
   border: #0095ff 1px solid;

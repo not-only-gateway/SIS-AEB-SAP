@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styles from './styles/Input.module.css'
-import {CloseRounded, CloudUploadRounded} from '@material-ui/icons'
+import {CloseRounded, CloudUploadRounded, GetApp, GetAppRounded} from '@material-ui/icons'
 import LocalePT from './locales/LocalePT'
 
 export default function ImageField(props) {
@@ -25,7 +25,11 @@ export default function ImageField(props) {
                        transition: 'visibility 0.2s ease,opacity 0.2s ease'
                    }}>{props.label}</label>
 
-            <form className={styles.imageFieldContainer} style={{background: props.disabled ? 'white' : undefined, border: props.disabled ? '#ecedf2 1px solid' : undefined, boxShadow: props.disabled ? 'none' : undefined }}>
+            <form className={styles.imageFieldContainer} style={{
+                background: props.disabled ? 'white' : undefined,
+                border: props.disabled ? '#ecedf2 1px solid' : undefined,
+                boxShadow: props.disabled ? 'none' : undefined
+            }}>
                 {props.initialImage && props.initialImage.name ?
                     <p
                         className={styles.labelContainer}
@@ -57,11 +61,11 @@ export default function ImageField(props) {
                            onChange={event => {
                                props.setImage(event)
                                props.setChanged(true)
-                           }}><CloudUploadRounded/></label>
+                           }}><GetAppRounded style={{transform: 'rotate(180deg)'}}/></label>
 
                 }
                 <input id="upload-image" type="file" style={{display: 'none'}}
-                        disabled={props.disabled}
+                       disabled={props.disabled}
                        onChange={event => {
                            props.setImage(event)
                            props.setChanged(true)

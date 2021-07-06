@@ -99,3 +99,39 @@
     border-radius: 50%;
     position: absolute;
 }
+
+.limitContainer{
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    background: transparent;
+    z-index: 0; height: 3px;  border: transparent 2px dashed;
+}
+
+.entityContainer{
+    user-select: none;
+
+    border-radius: 50%;
+    border: #e0e0e0 1px solid;
+    position: absolute;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f4f5fa;
+    z-index: 9;
+    transition: background 300ms ease, box-shadow 300ms ease;
+    box-shadow: none;
+}
+
+.lineContainer{
+    width: 2px;
+    background: #777777;
+    position: absolute;
+    box-sizing: content-box;
+    color: #777777;
+}
+.limitContainer:hover{
+    background: #ff5555;
+    color: #ff5555;
+}

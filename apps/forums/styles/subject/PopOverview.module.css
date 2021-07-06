@@ -1,0 +1,75 @@
+.modalContainer {
+    width: 100vw;
+    height: 100vh;
+
+}
+
+.modalContent {
+    width: 25%;
+    height: 100%;
+    background: white;
+    border-radius: 8px 0 0 8px;
+
+    margin-left: auto;
+    border: #e0e0e0 1px solid;
+    position: relative;
+    padding: 16px;
+
+
+}
+
+.closeButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #777777;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: white;
+    border: none;
+    padding: 12px;
+    outline: none;
+
+    cursor: pointer;
+
+    transition: 150ms ease;
+}
+
+.closeButton:hover {
+    color: #ff5555;
+}
+
+.titleContainer {
+    height: 10%;
+    display: grid;
+    justify-content: flex-start;
+    align-content: flex-start;
+    gap: 16px;
+    width: 100%;
+}
+
+.bodyContainer {
+    border-top: #e0e0e0 1px solid;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    height: 75%;
+
+    gap: 16px;
+    width: 100%;
+
+}
+
+.footerContainer {
+    height: 15%;
+    display: grid;
+    align-content: flex-start;
+    border: #e0e0e0 1px solid;
+    border-radius: 8px;
+    padding: 16px;
+
+    gap: 16px;
+    width: 100%;
+    justify-content: flex-start;
+}

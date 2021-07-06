@@ -4,9 +4,8 @@
     border-radius: 8px;
     display: flex;
     max-width: 200px;
-    height: 73px;
-    min-height: 75px;
-    min-width: 110px;
+    height: 75px;
+    width: 110px;
     align-items: center;
 
     background: white;
