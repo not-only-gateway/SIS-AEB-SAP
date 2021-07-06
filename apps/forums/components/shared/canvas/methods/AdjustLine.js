@@ -29,7 +29,7 @@ export default function adjustLine(props) {
     top -= H / 2;
 
     let radius = props.to.offsetWidth / 2
-    props.lineObjective.style.top = (radius - 10) + 'px'
+    props.lineObjective.style.top = (radius - 9) + 'px'
 
 
     props.line.style["-webkit-transform"] = 'rotate(' + ANG + 'deg)';
@@ -39,16 +39,7 @@ export default function adjustLine(props) {
     props.line.style["-transform"] = 'rotate(' + ANG + 'deg)';
     props.line.style.top = top + 'px';
     props.line.style.left = left + 'px';
-    props.line.style.height = H + 'px';
-
-
-    // else
-    //     props.lineSource.style.bottom =(sourceWidth / 2 ) + 'px'
-
-    // if(props.line.getBoundingClientRect().left < props.from.getBoundingClientRect().left)
-
-    // else
-    //     props.lineObjective.style.top =(objectiveWidth / 2 ) + 'px'
+    props.line.style.height = (H) + 'px';
 
 }
 
@@ -56,6 +47,5 @@ adjustLine.propTypes = {
     from: PropTypes.object,
     to: PropTypes.object,
     line: PropTypes.object,
-
     lineObjective: PropTypes.object
 }

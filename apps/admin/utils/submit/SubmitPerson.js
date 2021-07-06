@@ -13,17 +13,17 @@ export default async function submitPerson(props) {
         reader.onload = () => resolve(reader.result);
         reader.onerror = error => reject(error);
     });
-
+    if (typeof (data.image) !== 'string' && data.image !== null && data.image !== undefined) {
+        data.image = await toBase64(data.image).catch(e => Error(e))
+    } else
+        data.removed_image = true
     let response = {
         status: false,
         id: undefined
     }
     if (typeof (data.birth) === 'string')
         data.birth = new Date(data.birth.replaceAll('/', '-').replace(/(\d{2})-(\d{2})-(\d{4})/, "$3-$2-$1")).getTime()
-    if (typeof (data.image) !== 'string' && data.image !== null && data.image !== undefined) {
-        data.image = await toBase64(data.image).catch(e => Error(e))
-    } else
-        data.removed_image = true
+
 
     await axios({
         method: data.id === undefined || data.id === null ? 'post' : 'put',

@@ -51,17 +51,15 @@ export default class ForumRequests {
         })
         return response
     }
-    static async fetchImage(image) {
+    static async fetchContent(pk) {
         let response = null
         await axios({
             method: 'get',
-            url: Host() + 'pop/image',
+            url: Host() + 'pop/content/'+pk,
             headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
-            params: {
-                image: image
-            }
+
         }).then(res => {
-            response = res.data.image
+            response = res.data
         }).catch(error => {
             console.log(error)
         })

@@ -24,6 +24,8 @@ export default function Pops(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [update, setUpdate] = useState(false)
     const [openForm, setOpenForm] = useState(false)
+    const [show, setShow] = useState(false)
+
     useEffect(() => {
         ForumRequests.listPops(props.subjectID).then(res => setPops(res))
     }, [])
@@ -31,19 +33,29 @@ export default function Pops(props) {
     return (
         <>
 
-            <PopForm
-                handleClose={() => {
-                    setCurrentEntity(null)
-                    setOpenForm(false)
-                }}
-                handleChange={event => handleObjectChange({
-                    event: event,
-                    setData: setCurrentEntity
-                })}
-                id={currentEntity !== null && currentEntity !== undefined ? currentEntity.id : null}
-                data={currentEntity} subjectID={props.subjectID}
-                fetchPops={() => ForumRequests.listPops(props.subjectID).then(res => setPops(res))}
-                open={openForm}/>
+                <PopOverview
+                    data={currentEntity}
+                    handleClose={() => {
+                        setCurrentEntity(null)
+                        setShow(false)
+                    }}
+                    open={show}/>
+
+
+                <PopForm
+                    handleClose={() => {
+                        setCurrentEntity(null)
+                        setOpenForm(false)
+                    }}
+                    handleChange={event => handleObjectChange({
+                        event: event,
+                        setData: setCurrentEntity
+                    })}
+                    id={currentEntity !== null && currentEntity !== undefined ? currentEntity.id : null}
+                    data={currentEntity} subjectID={props.subjectID}
+                    fetchPops={() => ForumRequests.listPops(props.subjectID).then(res => setPops(res))}
+                    open={openForm}/>
+
 
             <div className={subjectStyles.infoHeader}>
                 <div style={{display: 'grid', gap: '8px'}}>
@@ -82,7 +94,7 @@ export default function Pops(props) {
                         <button className={subjectStyles.buttonContainer}
                                 style={{display: (new Cookies()).get('jwt') !== undefined ? 'none' : undefined}}
                                 onClick={() => setOpenForm(true)}
-                                >
+                        >
                             <AddRounded style={{color: '#555555'}}/>
                             {lang.create}
                         </button>
@@ -95,33 +107,38 @@ export default function Pops(props) {
                 </div>
             </div>
 
-
             <Canvas
-
                 rootElementID={'scrollableDiv'}
+                show={entity => {
+                    console.log(entity)
+                    setCurrentEntity(entity)
+                    setShow(true)
+                }}
+                edit={entity => {
+                    setCurrentEntity(entity)
+                    setOpenForm(true)
+                }}
                 options={{
-                    move: (new Cookies()).get('jwt') !== undefined,
-                    edit: (new Cookies()).get('jwt') !== undefined,
+                    // move: (new Cookies()).get('jwt') !== undefined,
+                    // edit: (new Cookies()).get('jwt') !== undefined,
+                    move: true,
+                    edit: true,
                     show: true
                 }}
 
                 renderNode={entity => {
-                    if (entity !== undefined && !entity.create) {
-                        if (entity !== currentEntity)
-                            return (
-                                <div className={styles.popContainer}>
-                                    <div style={{
-                                        margin: 'auto', overflow: 'hidden',
-                                        whiteSpace: 'nowrap',
-                                        textOverflow: 'ellipsis',
-                                    }}>
-                                        {entity.id}
-                                    </div>
+                    if (entity !== undefined) {
+                        return (
+                            <div className={styles.popContainer}>
+                                <div style={{
+                                    margin: 'auto', overflow: 'hidden',
+                                    whiteSpace: 'nowrap',
+                                    textOverflow: 'ellipsis',
+                                }}>
+                                    {entity.title}
                                 </div>
-                            )
-                        else
-                            return (
-                                <PopOverview data={currentEntity} handleClose={() => setCurrentEntity(null)}/>)
+                            </div>
+                        )
                     } else
                         return null
                 }}
@@ -149,6 +166,6 @@ export default function Pops(props) {
     )
 }
 Pops.propTypes = {
-    subjectID: PropTypes.number,
+    subjectID: PropTypes.any,
     data: PropTypes.object
 }

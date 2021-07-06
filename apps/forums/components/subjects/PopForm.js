@@ -1,12 +1,16 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 
-import {ImageField, TextField} from "sis-aeb-inputs";
 import {Alert, Modal, EntityLayout} from "sis-aeb-misc";
 import PopFormPT from "../../packages/locales/PopFormPT";
 import submitPop from "../../utils/submit/SubmitPop";
 import styles from "../../styles/Pop.module.css";
 import {CloseRounded} from "@material-ui/icons";
+import {Overview} from 'sis-aeb-misc'
+import ForumRequests from "../../utils/fetch/ForumRequests";
+import handleObjectChange from "../../utils/shared/HandleObjectChange";
+import TextField from "../shared/inputs/TextField";
+import ImageField from "../shared/inputs/ImageField";
 
 export default function PopForm(props) {
 
@@ -16,7 +20,17 @@ export default function PopForm(props) {
         error: undefined,
         message: undefined
     })
-
+    useEffect(() => {
+        if (props.open && props.data !== null && props.data !== undefined && props.id !== undefined) {
+            ForumRequests.fetchContent(props.id).then(res => {
+                if (res !== null) {
+                    props.handleChange({name: 'body', value: res.body})
+                    props.handleChange({name: 'description', value: res.description})
+                    props.handleChange({name: 'image', value: res.image})
+                }
+            })
+        }
+    }, [props.open])
 
     return (
         <Modal handleClose={() => props.handleClose()}
@@ -100,8 +114,8 @@ export default function PopForm(props) {
                                                 setImage={event => props.handleChange({
                                                     name: 'image',
                                                     value: event !== null ? event.target.files[0] : null
-                                                })} label={lang.image}
-
+                                                })}
+                                                label={lang.image}
                                                 required={false} width={'100%'}
                                             />
                                             <TextField
@@ -130,7 +144,7 @@ export default function PopForm(props) {
 }
 
 PopForm.propTypes = {
-    subjectID: PropTypes.number,
+    subjectID: PropTypes.any,
     open: PropTypes.bool,
     id: PropTypes.number,
     data: PropTypes.object,

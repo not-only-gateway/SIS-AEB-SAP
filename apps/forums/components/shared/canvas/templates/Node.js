@@ -4,7 +4,7 @@ import adjustLine from "../methods/AdjustLine";
 import Move from "../methods/MoveElement";
 import styles from "../styles/Styles.module.css";
 import {
-    ArrowBackRounded, ArrowForwardIos, ArrowForwardRounded,
+    ArrowBackRounded, ArrowForwardIos, ArrowForwardIosRounded, ArrowForwardRounded, ArrowRightAlt,
     DragIndicatorRounded,
     EditRounded, LinkOffRounded, LinkRounded,
     MoreRounded, MoreVertRounded,
@@ -88,7 +88,6 @@ export default function Node(props) {
 
             let lineObjective = document.getElementById(parents[i] + '-line-indicator-objective-' + props.entityKey)
 
-
             if (objective !== null && ref.current !== null)
                 adjustLine({
                     from: ref.current,
@@ -107,24 +106,13 @@ export default function Node(props) {
                         style={{
                             transition: '200ms ease',
                             width: '2px',
-                            background: '#0095ff',
+                            background: '#777777',
                             position: 'absolute',
                         }}
                         id={parent + '-line-' + props.entityKey}>
-                        <div id={parent + '-line-indicator-objective-' + props.entityKey} style={{
-                            height: '30px',
-                            width: '30px',
-                            borderRadius: '50%',
-                            top: 0,
-                            left: '-15px',
-                            background: '#f4f5fa',
-                            border: '#0095ff 1px solid',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            position: 'absolute'
-                        }}>
-                            <ArrowForwardIos style={{transform: 'rotate(-90deg)', color: '#0095ff'}}/>
+                        <div id={parent + '-line-indicator-objective-' + props.entityKey}
+                             className={styles.indicatorContainer}>
+                            <ArrowForwardIosRounded style={{transform: 'rotate(-90deg)', color: '#777777'}}/>
                         </div>
                     </div>
                 ))}
@@ -152,9 +140,9 @@ export default function Node(props) {
                                 style={{cursor: 'grab', display: props.options.move ? undefined : 'none'}}>
                             <DragIndicatorRounded/>
                         </button>
-                        <button className={styles.optionButton}
+                        <button className={styles.optionButton} onClick={() => props.show(entity.current)}
                                 style={{display: props.options.show ? undefined : 'none'}}><VisibilityRounded/></button>
-                        <button className={styles.optionButton}
+                        <button className={styles.optionButton} onClick={() => props.edit(entity.current)}
                                 style={{display: props.options.edit ? undefined : 'none'}}><EditRounded/></button>
                         <button className={styles.optionButton}
                                 onClick={() => {
@@ -188,6 +176,9 @@ export default function Node(props) {
 }
 
 Node.propTypes = {
+    show: PropTypes.func,
+    edit: PropTypes.func,
+
     handleLink: PropTypes.func,
     options: PropTypes.shape({
         edit: PropTypes.bool,
@@ -200,11 +191,9 @@ Node.propTypes = {
     toBeLinked: PropTypes.object,
 
     updateEntity: PropTypes.func,
-    triggerUpdate: PropTypes.func,
-    offsetTop: PropTypes.number,
+    triggerUpdate: PropTypes.bool,
     entity: PropTypes.object,
     root: PropTypes.object,
-    index: PropTypes.number,
     renderNode: PropTypes.func,
 
     entityKey: PropTypes.any,

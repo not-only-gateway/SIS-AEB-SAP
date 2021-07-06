@@ -52,7 +52,7 @@ export default function Canvas(props) {
                                 setLinkable(value)
                                 if (!value)
                                     setLinkedEntities(null)
-                            }}
+                            }} show={props.show} edit={props.edit}
                             toBeLinked={linkedEntities}
                             entity={entity} root={ref.current} options={props.options} getEntityKey={props.getEntityKey}
                             getParentKeys={props.getParentKeys} triggerUpdate={props.triggerUpdate}
@@ -67,6 +67,9 @@ export default function Canvas(props) {
         return null
 }
 Canvas.propTypes = {
+    show: PropTypes.func,
+    edit: PropTypes.func,
+
     options: PropTypes.shape({
         edit: PropTypes.bool,
         move: PropTypes.bool,

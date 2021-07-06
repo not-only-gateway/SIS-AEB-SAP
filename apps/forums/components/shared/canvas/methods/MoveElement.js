@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import AdjustChild from "./AdjustChild";
+import AdjustParent from "./AdjustParent";
 
 export default function Move(props) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -28,14 +29,22 @@ export default function Move(props) {
         for (i = 0; i < props.parents.length; i++) {
             let objective = document.getElementById(props.parents[i] + '-node')
 
-            if (objective !== null)
+            if (objective !== null) {
                 AdjustChild({
-                    from: props.element,
-                    to: objective,
+                    child: props.element,
+                    parent: objective,
                     triggerRemove: () => {
                         repositioned = true
                     }
                 })
+                // AdjustParent({
+                //     parent: props.element,
+                //     child: objective,
+                //     triggerRemove: () => {
+                //         repositioned = true
+                //     }
+                // })
+            }
 
         }
 
@@ -63,14 +72,22 @@ export default function Move(props) {
         for (i = 0; i < props.parents.length; i++) {
             let objective = document.getElementById(props.parents[i] + '-node')
 
-            if (objective !== null)
+            if (objective !== null) {
                 AdjustChild({
-                    from: props.element,
-                    to: objective,
+                    child: props.element,
+                    parent: objective,
                     triggerRemove: () => {
                         repositioned = true
                     }
                 })
+                // AdjustParent({
+                //     parent: props.element,
+                //     child: objective,
+                //     triggerRemove: () => {
+                //         repositioned = true
+                //     }
+                // })
+            }
 
         }
 
@@ -123,7 +140,8 @@ export default function Move(props) {
         document.onmouseup = null;
         document.onmousemove = null;
     }
-    function removeListeners(){
+
+    function removeListeners() {
         props.element.removeEventListener('mouseup', () => null)
         props.root.removeEventListener('mouseup', () => null)
         props.button.removeEventListener('mousedown', () => null)
