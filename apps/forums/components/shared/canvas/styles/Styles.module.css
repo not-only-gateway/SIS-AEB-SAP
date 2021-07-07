@@ -49,10 +49,11 @@
     color: #555555;
     font-size: 1.1rem;
     transition: 150ms ease;
+
 }
 .optionButton:hover{
     color: #0095ff;
-    background-color: #E8F0FE;
+    transform: scale(1.1)
 }
 .pulse {
      display: block;
@@ -109,6 +110,7 @@
 }
 
 .entityContainer{
+
     user-select: none;
 
     border-radius: 50%;
@@ -123,7 +125,6 @@
     transition: background 300ms ease, box-shadow 300ms ease, transform 300ms ease;
     box-shadow: none;
 }
-
 .lineContainer{
     width: 2px;
     background: #777777;

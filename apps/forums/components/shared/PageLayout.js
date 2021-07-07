@@ -96,7 +96,7 @@ export default function PageLayout(props) {
                         {
                             label: lang.authenticate,
                             icon: <ExitToAppRounded style={{transform: 'rotate(180deg)'}}/>,
-                            link: '/autheticate'
+                            link: '/authenticate'
                         },
                     ]}
                     profile={profile} appName={lang.title}

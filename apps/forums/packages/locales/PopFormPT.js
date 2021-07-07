@@ -5,5 +5,6 @@ export default {
     image: 'Imagem',
     body: 'Corpo do processo',
     bodyImage: 'Corpo e imagem',
-    basic: 'Básico'
+    basic: 'Básico',
+    highlight: 'Cor de highlight'
 }

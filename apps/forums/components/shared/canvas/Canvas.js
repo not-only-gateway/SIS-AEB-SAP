@@ -33,7 +33,7 @@ export default function Canvas(props) {
                     <React.Fragment key={props.level + ':level - index:' + index}>
                         <Node
                             renderNode={props.renderNode} entityKey={props.getEntityKey(entity)}
-                            updateEntity={props.updateEntity}
+                            updateEntity={props.updateEntity} getNodeColor={props.getNodeColor}
                             setOpenMenu={setOpenMenu}
                             openMenu={openMenu} getChildrenKeys={props.getChildrenKeys}
                             handleLink={(entity) => {
@@ -60,7 +60,7 @@ export default function Canvas(props) {
                                 if (!value)
                                     setToBeLinked(null)
                             }} show={props.show} edit={props.edit}
-                            toBeLinked={toBeLinked}
+                            toBeLinked={toBeLinked} handleDelete={props.handleDelete}
                             entity={entity} root={ref.current} options={props.options} getEntityKey={props.getEntityKey}
                             getParentKeys={props.getParentKeys} triggerUpdate={props.triggerUpdate}
                             entitiesLength={props.entities.length}/>
@@ -92,5 +92,7 @@ Canvas.propTypes = {
     getEntityKey: PropTypes.func,
 
     getParentKeys: PropTypes.func,
-    getChildrenKeys: PropTypes.func
+    getChildrenKeys: PropTypes.func,
+
+    handleDelete: PropTypes.func
 }

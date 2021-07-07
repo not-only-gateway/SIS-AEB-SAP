@@ -39,48 +39,51 @@ export default function SubjectList(props) {
                     clickEvent={() => null} createOption={(new Cookies()).get('jwt') !== undefined}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/subject'}
                     renderElement={element => {
-                        return (
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-between',
-                                width: '100%'
-                            }}>
+                        if(element !== null && element !== undefined)
+                            return (
                                 <div style={{
                                     display: 'flex',
                                     alignItems: 'center',
-                                    gap: '8px',
-                                    maxWidth: '50%'
+                                    justifyContent: 'space-between',
+                                    width: '100%'
                                 }}>
-                                    <div>
-                                        {element.title}
+                                    <div style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '8px',
+                                        maxWidth: '50%'
+                                    }}>
+                                        <div>
+                                            {element.title}
+                                        </div>
+                                        <div style={{
+                                            borderRight: '#e0e0e0 1px solid',
+                                            width: '1px',
+                                            height: '20px'
+                                        }}/>
+                                        <div className={styles.overflowEllipsis} style={{maxWidth: '75%'}}>
+                                            {element.description}
+                                        </div>
                                     </div>
                                     <div style={{
-                                        borderRight: '#e0e0e0 1px solid',
-                                        width: '1px',
-                                        height: '20px'
-                                    }}/>
-                                    <div className={styles.overflowEllipsis} style={{maxWidth: '75%'}}>
-                                        {element.description}
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '8px',
+                                        maxWidth: '50%'
+                                    }}>
+                                        <AvatarGroup>
+                                            {element.collaborators !== undefined ? element.collaborators.map(collaborator =>
+                                                <PersonAvatar image={collaborator.image} variant={'circular'}
+                                                              elevation={'false'}>
+                                                    {collaborator.name}
+                                                </PersonAvatar>
+                                            ) : null}
+                                        </AvatarGroup>
                                     </div>
                                 </div>
-                                <div style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '8px',
-                                    maxWidth: '50%'
-                                }}>
-                                    <AvatarGroup>
-                                        {element.collaborators !== undefined ? element.collaborators.map(collaborator =>
-                                            <PersonAvatar image={collaborator.image} variant={'circular'}
-                                                          elevation={'false'}>
-                                                {collaborator.name}
-                                            </PersonAvatar>
-                                        ) : null}
-                                    </AvatarGroup>
-                                </div>
-                            </div>
-                        )
+                            )
+                        else
+                            return null
                     }} applySearch={props.notSearched} setAppliedSearch={props.setNotSearched}
                     searchInput={props.searchInput}
                     setEntity={entity => {

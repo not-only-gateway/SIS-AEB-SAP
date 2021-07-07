@@ -2,31 +2,42 @@ import PropTypes from "prop-types";
 
 export default function StartEvent(props){
     let i
-    // props.root
-    // let x= props.element.getBoundingClientRect().left + props.element.offsetLeft
-    // let y = props.element.getBoundingClientRect().top - props.element.offsetTop
-    //
-    // props.element.style.position = 'fixed'
-    // props.element.style.top = y
-    // props.element.style.left = x
+    if(props.color !== undefined && props.color !== null)
+        props.element.animate([
+            {
+                boxShadow: '0 0 0 0 '+props.color,
+            },
+            {
+                boxShadow: '0 0 0 7px '+props.color,
+            },
+            {
+                boxShadow: '0 0 0 0 '+props.color,
+            }
+        ], {duration: 500, iterations: 1})
+    else
+        props.element.animate([
+            {
 
-    props.element.animate([
-        {
+                boxShadow: '0 0 0 0 #0095ff',
 
-            boxShadow: '0 0 0 0 rgba(0, 149, 255, .4)',
+            },
+            {
+                boxShadow: '0 0 0 7px #0095ff',
+            },
+            {
 
-        },
-        {
-            boxShadow: '0 0 0 10px rgba(0, 149, 255, 0)',
-        },
-        {
-
-            boxShadow: '0 0 0 0 rgba(0, 149, 255, 0)',
-        }
-    ], {duration: 1500, iterations: 1})
-
+                boxShadow: '0 0 0 0 #0095ff',
+            }
+        ], {duration: 500, iterations: 1})
     props.element.style.cursor = 'move'
     props.element.style.transform = 'scale(1.2)'
+
+    if(props.color !== undefined && props.color !== null) {
+        props.element.style.boxShadow = '0 0 10px .1px ' + props.color;
+    }
+    else
+        props.element.style.boxShadow = '0 0 10px .1px #0095ff';
+
     props.setLimitTopOffset(undefined)
     props.setLimitBottomOffset(undefined)
     props.setLimitTop(undefined)
@@ -62,15 +73,15 @@ export default function StartEvent(props){
         }
 
     }
-    if (props.limitBottom !== undefined) {
-        props.bottomElement.style.top = (props.limitBottom) + 'px'
-        props.bottomElement.style.borderTop = '#ff5555 2px dashed'
-    }
-    if (props.limitTop !== undefined) {
-        props.topElement.style.top = (props.limitTop) + 'px'
-        props.topElement.style.borderTop = '#ff5555 2px dashed'
-
-    }
+    // if (props.limitBottom !== undefined) {
+    //     props.bottomElement.style.top = (props.limitBottom) + 'px'
+    //     props.bottomElement.style.borderTop = '#ff5555 2px dashed'
+    // }
+    // if (props.limitTop !== undefined) {
+    //     props.topElement.style.top = (props.limitTop) + 'px'
+    //     // props.topElement.style.borderTop = '#ff5555 2px dashed'
+    //
+    // }
 
     props.setHolding()
 }
@@ -80,9 +91,9 @@ StartEvent.propTypes= {
     setLimitTop: PropTypes.func,
     setLimitTopOffset: PropTypes.func,
 
-
-    topElement: PropTypes.object,
-    bottomElement: PropTypes.object,
+    color: PropTypes.string,
+    // topElement: PropTypes.object,
+    // bottomElement: PropTypes.object,
 
     element: PropTypes.object,
     refreshLinks: PropTypes.func,

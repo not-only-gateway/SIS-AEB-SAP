@@ -15,7 +15,6 @@ export default function Move(props) {
     props.element.addEventListener('mousedown', () => {
         timeoutAnim = setTimeout(() => {
             props.element.style.transform = 'scale(1.075)'
-            props.element.style.background = '#E8F0FE'
         }, 500)
 
 
@@ -30,8 +29,8 @@ export default function Move(props) {
                 setLimitTop: e => limitTop = e,
                 setLimitTopOffset: e => limitTopOffset = e,
 
-                topElement: props.topElement,
-                bottomElement: props.bottomElement,
+                // topElement: props.topElement,
+                // bottomElement: props.bottomElement,
 
                 element: props.element,
                 refreshLinks: props.refreshLinks,
@@ -39,7 +38,7 @@ export default function Move(props) {
                 limitTopOffset: limitTopOffset,
                 limitBottom: limitBottom,
                 limitTop: limitTop,
-
+                color: props.color,
                 parents: props.parents,
                 children: props.children
             })
@@ -55,10 +54,11 @@ export default function Move(props) {
 
         if(timeoutAnim)
             clearTimeout(timeoutAnim)
-        props.element.style.background = '#f4f5fa'
+        props.element.style.opacity = '1';
+        props.element.style.boxShadow = 'none'
         EndEvent({
-            bottomElement: props.bottomElement,
-            topElement: props.topElement,
+            // bottomElement: props.bottomElement,
+            // topElement: props.topElement,
             setTimeout: () => {
                 timeout = undefined
             },
@@ -79,9 +79,17 @@ export default function Move(props) {
         if (holding) {
 
             if (props.element.offsetTop < 0 || (limitTopOffset !== undefined && props.element.offsetTop <= (limitTopOffset)) || (limitBottomOffset !== undefined && props.element.offsetTop >= limitBottomOffset)) {
-                props.element.style.border = '#ff5555 2px solid';
+                // props.element.style.border = '#ff5555 2px solid';
+                props.element.style.boxShadow = 'none'
+                props.element.style.opacity = '.5';
+                // props.element.style.borderStyle='dashed'
             } else {
-                props.element.style.border = '#0095ff 2px solid';
+                if(props.color !== undefined && props.color !== null) {
+                    props.element.style.boxShadow = '0 0 10px .1px ' + props.color;
+                }
+                else
+                    props.element.style.boxShadow = '0 0 10px .1px #0095ff';
+                props.element.style.opacity = '1';
             }
 
             props.element.style.left = (mouse.clientX - props.element.offsetWidth / 2) + "px";
@@ -101,7 +109,8 @@ Move.propTypes = {
     ),
     element: PropTypes.object,
     refreshLinks: PropTypes.func,
-    topElement: PropTypes.object,
-    bottomElement: PropTypes.object,
-    root: PropTypes.object
+    // topElement: PropTypes.object,
+    // bottomElement: PropTypes.object,
+    root: PropTypes.object,
+    color: PropTypes.string
 }

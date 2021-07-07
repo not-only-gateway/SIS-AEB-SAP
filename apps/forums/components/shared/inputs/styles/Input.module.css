@@ -196,3 +196,11 @@
 .hidden{
     display: none
 }
+
+.toolbarContainer{
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    border:none;
+    border-bottom: #e0e0e0 1px solid;
+}

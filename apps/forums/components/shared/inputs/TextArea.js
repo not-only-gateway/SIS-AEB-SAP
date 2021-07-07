@@ -48,9 +48,10 @@ export default function TextArea(props) {
                             if(typeof props.handleChange === 'function')
                                 props.handleChange(JSON.stringify(convertToRaw(editorState.getCurrentContent())))
                         }}
-                        toolbarClassName={props.disabled ? styles.hidden : 'toolbarClassName'}
+                        toolbarClassName={props.disabled ? styles.hidden : styles.toolbarContainer}
                         wrapperClassName="wrapperClassName"
                         editorClassName="editorClassName"
+
                     />
                 </div>
             </div>

@@ -8,7 +8,6 @@ import styles from '../../styles/subject/Pop.module.css'
 import SubjectPT from "../../packages/locales/SubjectPT";
 import Chart from "../shared/components/Chart";
 import PopOverview from "./PopOverview";
-import {Canvas} from "sis-aeb-misc";
 import SubmitPop from "../../utils/submit/SubmitPop";
 import {AvatarGroup} from "@material-ui/lab";
 import PersonAvatar from "../shared/PersonAvatar";
@@ -18,6 +17,8 @@ import SubjectForm from "./SubjectForm";
 import Cookies from "universal-cookie/lib";
 import submitSubjectLayout from "../../utils/submit/SubmitSubjectLayout";
 import {Alert} from "sis-aeb-misc";
+import Canvas from "../shared/canvas/Canvas";
+import deletePop from "../../utils/submit/DeletePop";
 
 
 export default function Pops(props) {
@@ -138,6 +139,9 @@ export default function Pops(props) {
                                     margin: 'auto', overflow: 'hidden',
                                     whiteSpace: 'nowrap',
                                     textOverflow: 'ellipsis',
+                                    color: entity.highlight_color !== null && entity.highlight_color !== undefined ? entity.highlight_color : 'black',
+                                    fontSize: '1.1rem',
+                                    fontWeight: 585
                                 }}>
                                     {entity.title}
                                 </div>
@@ -145,7 +149,16 @@ export default function Pops(props) {
                         )
                     } else
                         return null
-                }}
+                }} handleDelete={entity => {
+                    deletePop({
+                        id: entity.id,
+                        setStatus: setStatus
+                    }).then(res => {
+                        if (res)
+                            ForumRequests.listPops(props.subjectID).then(res => setPops(res))
+                    })
+
+            }}
                 getEntityKey={entity => {
                     if (entity !== undefined)
                         return entity.id
@@ -153,6 +166,7 @@ export default function Pops(props) {
                         return '-1'
                 }}
                 entities={pops}
+                getNodeColor={entity => entity.highlight_color}
                 triggerUpdate={update}
                 updateEntity={(entity) => {
                     setUpdate(false)

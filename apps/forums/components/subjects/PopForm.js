@@ -12,6 +12,7 @@ import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import TextField from "../shared/inputs/TextField";
 import ImageField from "../shared/inputs/ImageField";
 import TextArea from "../shared/inputs/TextArea";
+import {BlockPicker, CirclePicker} from "react-color";
 
 export default function PopForm(props) {
 
@@ -82,7 +83,6 @@ export default function PopForm(props) {
                                         setChanged(!res.status)
                                     })}
                                 forms={[{
-                                    title: lang.basic,
                                     child: (
                                         <>
                                             <TextField
@@ -96,14 +96,13 @@ export default function PopForm(props) {
                                                 required={true} width={'calc(50% - 16px)'}/>
 
                                             <TextField
-
                                                 placeholder={lang.description} label={lang.description}
                                                 handleChange={event => {
                                                     setChanged(true)
                                                     props.handleChange({name: 'description', value: event.target.value})
                                                 }}
                                                 value={props.data === null ? null : props.data.description}
-                                                required={false} width={'calc(50% - 16px)'}/>
+                                                required={true} width={'calc(50% - 16px)'}/>
 
 
                                             <ImageField
@@ -124,7 +123,26 @@ export default function PopForm(props) {
                                                     props.handleChange({name: 'body', value: event})
                                                 }} label={lang.body} width={'100%'} disabled={false} maxHeight={'200px'}
                                                 required={false} value={props.data === null ? null : props.data.body}/>
-
+                                            <div style={{
+                                                border: '#e0e0e0 1px solid',
+                                                borderRadius: '8px',
+                                                padding: '8px',
+                                                width: '100%',
+                                                display: 'flex',
+                                                justifyContent: 'space-between',
+                                                alignItems: 'flex-start'
+                                            }}>
+                                                <div style={{fontStyle: '.85rem', color: '#333333'}}>
+                                                    {lang.highlight}
+                                                </div>
+                                                <CirclePicker width={'75%'}
+                                                    color={props.data === null ? {hex: null} : {hex: props.data.highlight_color}}
+                                                    onChangeComplete={event => {
+                                                        setChanged(true)
+                                                        console.log(event)
+                                                        props.handleChange({name: 'highlight_color', value: event.hex})
+                                                    }}/>
+                                            </div>
                                         </>
                                     )
                                 }
