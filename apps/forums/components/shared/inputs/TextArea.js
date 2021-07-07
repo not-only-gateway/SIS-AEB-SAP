@@ -16,12 +16,14 @@ export default function TextArea(props) {
         EditorState.createEmpty()
     );
     useEffect(() => {
-        try{
-            setEditorState(EditorState.createWithContent(
-                convertFromRaw(JSON.parse(props.value))
-            ))
-        }catch(error){
-            console.log(error)
+       if (!editorState.getCurrentContent().hasText()) {
+            try {
+                setEditorState(EditorState.createWithContent(
+                    convertFromRaw(JSON.parse(props.value))
+                ))
+            } catch (error) {
+                console.log(error)
+            }
         }
 
     }, [props.value])
