@@ -4,5 +4,6 @@ export default {
     level: 'Nivel do cargo',
     class: 'Classe do cargo',
     info: 'Informações adicionais',
-    title: 'Progressão do cargo'
+    title: 'Progressão do cargo',
+    return: 'Voltar'
 }

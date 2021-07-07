@@ -77,7 +77,8 @@ export default function Node(props) {
                 refreshLinks: refresh,
                 parents: parents,
                 bottomElement: bottomRef.current,
-                topElement: topRef.current
+                topElement: topRef.current,
+                root: props.root
             })
         }
 
@@ -91,13 +92,32 @@ export default function Node(props) {
             let objective = document.getElementById(parents[i] + '-node')
 
             let lineObjective = document.getElementById(parents[i] + '-line-indicator-objective-' + props.entityKey)
+            // let top = document.getElementById(props.entityKey + '-node-connection-top')
+            // let left = document.getElementById(props.entityKey + '-node-connection-left')
+            // let right = document.getElementById(props.entityKey + '-node-connection-right')
+            //
+            // let leftParent = document.getElementById(parents[i] + '-node-connection-left')
+            // let rightParent = document.getElementById(parents[i] + '-node-connection-right')
+            // let bottomParent = document.getElementById(parents[i] + '-node-connection-bottom')
 
             if (objective !== null && ref.current !== null)
+                // && top !== null && left !== null && right !== null && rightParent !== null && leftParent !== null && bottomParent !== null)
                 adjustLine({
                     from: ref.current,
                     to: objective,
                     line: line,
-                    lineObjective: lineObjective
+                    lineObjective: lineObjective,
+                    // rootOffset: props.root.offsetTop,
+                    // childConnections: {
+                    //     top: top,
+                    //     left: left,
+                    //     right: right,
+                    // },
+                    // parentConnections: {
+                    //     left: leftParent,
+                    //     right: rightParent,
+                    //     bottom: bottomParent
+                    // },
                 })
         }
     }
@@ -108,42 +128,80 @@ export default function Node(props) {
             <>
                 <div ref={topRef} className={styles.limitContainer}/>
                 <div ref={bottomRef} className={styles.limitContainer}/>
-                {parents.map(parent => <Connection parent={parent} editable={props.options.edit} entityKey={props.entityKey}/>)}
+                {parents.map(parent => <Connection parent={parent} editable={props.options.edit}
+                                                   entityKey={props.entityKey}/>)}
                 <div id={props.entityKey + '-node'}
                      className={[props.linkable && props.getEntityKey(props.toBeLinked) !== props.getEntityKey(entity.current) && !notAvailable ? styles.pulse : '', styles.entityContainer].join(' ')}
                      style={{
                          cursor: props.linkable ? (notAvailable ? 'default' : 'pointer') : 'pointer',
-
+                         // overflow: props.openMenu === props.entityKey ? 'visible' : 'hidden',
                          top: entity.current.y,
                          left: entity.current.x,
                          transform: 'translate(' + entity.current.x + ',' + entity.current.y + ')',
                          opacity: notAvailable ? .5 : undefined
 
                      }} ref={ref}>
+                    {/*<div id={props.entityKey + '-node-connection-top'} style={{*/}
+                    {/*    position: 'absolute',*/}
+                    {/*    left: '50%',*/}
+                    {/*    top: 0,*/}
+                    {/*    background: 'red',*/}
+                    {/*    width: '10px',*/}
+                    {/*    height: '10px'*/}
+                    {/*}}/>*/}
 
-                    <div className={styles.options}
-                         style={{display: props.openMenu === props.entityKey ? undefined : 'none'}}>
-                        <button className={styles.optionButton} onClick={() => props.show(entity.current)}
-                                style={{display: props.options.show ? undefined : 'none'}}><VisibilityRounded/></button>
-                        <button className={styles.optionButton} onClick={() => props.edit(entity.current)}
-                                style={{display: props.options.edit ? undefined : 'none'}}><EditRounded/></button>
-                        <button
-                            className={styles.optionButton}
-                            onClick={() => {
-                                if (props.linkable && props.getEntityKey(props.toBeLinked) === props.getEntityKey(entity.current)) {
-                                    props.setLinkable(false)
-                                } else if (!props.linkable) {
-                                    props.setLinkable(true)
-                                    props.handleLink(entity.current)
-                                    setLink(true)
-                                }
-                            }} style={{
-                            color: link ? '#ff5555' : '#0095ff',
-                            display: props.options.edit ? undefined : 'none'
-                        }}>
-                            {<LinkRounded/>}
-                        </button>
-                    </div>
+                    {/*<div id={props.entityKey + '-node-connection-left'} style={{*/}
+                    {/*    position: 'absolute',*/}
+                    {/*    left: 0,*/}
+                    {/*    top: '50%',*/}
+                    {/*    background: 'blue',*/}
+                    {/*    width: '10px',*/}
+                    {/*    height: '10px'*/}
+                    {/*}}/>*/}
+                    {/*<div id={props.entityKey + '-node-connection-right'} style={{*/}
+                    {/*    position: 'absolute',*/}
+                    {/*    right: 0,*/}
+                    {/*    top: '50%',*/}
+                    {/*    background: 'green',*/}
+                    {/*    width: '10px',*/}
+                    {/*    height: '10px'*/}
+                    {/*}}/>*/}
+
+                    {/*<div id={props.entityKey + '-node-connection-bottom'} style={{*/}
+                    {/*    position: 'absolute',*/}
+                    {/*    right: '50%',*/}
+                    {/*    bottom: 0,*/}
+                    {/*    background: 'purple',*/}
+                    {/*    width: '10px',*/}
+                    {/*    height: '10px'*/}
+                    {/*}}/>*/}
+                    {props.openMenu === props.entityKey ?
+                        <div className={styles.options}>
+                            <button className={styles.optionButton} onClick={() => props.show(entity.current)}
+                                    style={{display: props.options.show ? undefined : 'none'}}><VisibilityRounded/>
+                            </button>
+                            <button className={styles.optionButton} onClick={() => props.edit(entity.current)}
+                                    style={{display: props.options.edit ? undefined : 'none'}}><EditRounded/></button>
+                            <button
+                                className={styles.optionButton}
+                                onClick={() => {
+                                    if (props.linkable && props.getEntityKey(props.toBeLinked) === props.getEntityKey(entity.current)) {
+                                        props.setLinkable(false)
+                                    } else if (!props.linkable) {
+                                        props.setLinkable(true)
+                                        props.handleLink(entity.current)
+                                        setLink(true)
+                                    }
+                                }} style={{
+                                color: link ? '#ff5555' : '#0095ff',
+                                display: props.options.edit ? undefined : 'none'
+                            }}>
+                                {<LinkRounded/>}
+                            </button>
+                        </div>
+                        :
+                        null
+                    }
                     <div ref={elementRef}
                          style={{width: 'fit-content', height: 'fit-content'}}
                          onDoubleClick={() => {
@@ -158,7 +216,7 @@ export default function Node(props) {
                              if (props.linkable && !notAvailable)
                                  props.handleLink(entity.current, setLink)
                              if (props.openMenu === props.entityKey)
-                                props.setOpenMenu(null)
+                                 props.setOpenMenu(null)
                          }}>
 
                         {props.renderNode(props.entity)}

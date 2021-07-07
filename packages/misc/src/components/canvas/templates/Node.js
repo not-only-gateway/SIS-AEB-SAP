@@ -1,35 +1,36 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useRef, useState} from "react";
 import adjustLine from "../methods/AdjustLine";
-import Move from "../methods/MoveElement";
+import Move from "../methods/move/MoveElement";
 import styles from "../styles/Styles.module.css";
 import {
-    ArrowBackRounded, ArrowForwardIos, ArrowForwardRounded,
+    ArrowBackRounded, ArrowForwardIos, ArrowForwardIosRounded, ArrowForwardRounded, ArrowRightAlt,
     DragIndicatorRounded,
-    EditRounded, LinkOffRounded, LinkRounded,
-    MoreRounded, MoreVertRounded,
-    OpenWithRounded,
-    Visibility,
+    EditRounded, LinkOffRounded, LinkRounded, OpenWithRounded,
     VisibilityRounded
 } from "@material-ui/icons";
+import Connection from "./Connection";
 
 
 export default function Node(props) {
     const ref = useRef()
-    const moveRef = useRef()
     const elementRef = useRef()
-    const [parents, setParents] = useState([])
-    const [fetched, setFetched] = useState(false)
+    const topRef = useRef()
+    const bottomRef = useRef()
     const entity = useRef({})
+
+    const [parents, setParents] = useState([])
+    const [children, setChildren] = useState([])
+    const [fetched, setFetched] = useState(false)
     const [link, setLink] = useState(false)
-    const [open, setOpen] = useState(false)
     const [notAvailable, setNotAvailable] = useState(false)
 
     useEffect(() => {
         if (props.linkable !== link) {
             setLink(props.linkable)
             if (props.linkable && props.getEntityKey(props.toBeLinked) !== props.getEntityKey(entity.current)) {
-                setOpen(false)
+                if (props.openMenu === props.entityKey)
+                    props.setOpenMenu(null)
 
                 const entity = document.getElementById(props.getEntityKey(props.toBeLinked) + '-node')
                 if (entity !== null && entity.getBoundingClientRect().top >= ref.current.getBoundingClientRect().top || parents.includes(props.getEntityKey(props.toBeLinked)))
@@ -40,21 +41,23 @@ export default function Node(props) {
         refresh()
         if (props.triggerUpdate) {
             setLink(false)
-            props.updateEntity(entity.current)
+            props.updateEntity({
+                id: props.entityKey,
+                x: ref.current.offsetLeft,
+                y: ref.current.offsetTop,
+                parents: props.getParentKeys(entity.current)
+            })
         }
         if (link && parents.length !== props.getParentKeys(entity.current)) {
-            const newParents = props.getParentKeys(entity.current)
-
-            setParents(newParents)
-
+            setChildren(props.getChildrenKeys(entity.current))
+            setParents(props.getParentKeys(entity.current))
 
         }
         if (!fetched) {
             entity.current = props.entity
 
-            const newParents = props.getParentKeys(props.entity)
-
-            setParents(newParents)
+            setParents(props.getParentKeys(props.entity))
+            setChildren(props.getChildrenKeys(props.entity))
 
             setFetched(true)
 
@@ -69,94 +72,66 @@ export default function Node(props) {
 
         if (ref.current !== null) {
             Move({
-                entity: entity.current,
-                setEntity: newEntity => entity.current = newEntity,
-                button: moveRef.current,
                 element: ref.current,
-                root: props.root,
+                children: children,
                 refreshLinks: refresh,
-                parents: parents
+                parents: parents,
+                bottomElement: bottomRef.current,
+                topElement: topRef.current,
+                root: props.root
             })
         }
+
     })
+
     const refresh = () => {
         let i
 
         for (i = 0; i < parents.length; i++) {
             let line = document.getElementById(parents[i] + '-line-' + props.entityKey)
             let objective = document.getElementById(parents[i] + '-node')
-
             let lineObjective = document.getElementById(parents[i] + '-line-indicator-objective-' + props.entityKey)
 
-
             if (objective !== null && ref.current !== null)
+
                 adjustLine({
                     from: ref.current,
                     to: objective,
                     line: line,
-                    lineObjective: lineObjective
+                    lineObjective: lineObjective,
+
                 })
         }
     }
+
     if (props.entity !== undefined && props.entity !== null)
         return (
 
             <>
-                {parents.map(parent => (
-                    <div
-                        style={{
-                            transition: '200ms ease',
-                            width: '2px',
-                            background: '#0095ff',
-                            position: 'absolute',
-                        }}
-                        id={parent + '-line-' + props.entityKey}>
-                        <div id={parent + '-line-indicator-objective-' + props.entityKey} style={{
-                            height: '30px',
-                            width: '30px',
-                            borderRadius: '50%',
-                            top: 0,
-                            left: '-15px',
-                            background: '#f4f5fa',
-                            border: '#0095ff 1px solid',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            position: 'absolute'
-                        }}>
-                            <ArrowForwardIos style={{transform: 'rotate(-90deg)', color: '#0095ff'}}/>
-                        </div>
-                    </div>
-                ))}
+                <div ref={topRef} className={styles.limitContainer}/>
+                <div ref={bottomRef} className={styles.limitContainer}/>
+                {parents.map(parent => <Connection parent={parent} editable={props.options.edit}
+                                                   entityKey={props.entityKey}/>)}
                 <div id={props.entityKey + '-node'}
-                     className={props.linkable && props.getEntityKey(props.toBeLinked) !== props.getEntityKey(entity.current) && !notAvailable ? styles.pulse : ''}
+                     className={[props.linkable && props.getEntityKey(props.toBeLinked) !== props.getEntityKey(entity.current) && !notAvailable ? styles.pulse : '', styles.entityContainer].join(' ')}
                      style={{
-                         borderRadius: '50%',
-                         border: '#e0e0e0 1px solid',
-                         position: 'absolute',
-                         cursor: notAvailable ? 'default' : 'pointer',
-                         display: 'flex',
-                         alignItems: 'center',
-                         justifyContent: 'center',
-                         background: '#f4f5fa',
-                         zIndex: 9,
+                         cursor: props.linkable ? (notAvailable ? 'default' : 'pointer') : 'pointer',
+
                          top: entity.current.y,
                          left: entity.current.x,
                          transform: 'translate(' + entity.current.x + ',' + entity.current.y + ')',
                          opacity: notAvailable ? .5 : undefined
 
                      }} ref={ref}>
-                    <div className={styles.options}
-                         style={{display: open ? undefined : 'none'}}>
-                        <button className={styles.optionButton} ref={moveRef}
-                                style={{cursor: 'grab', display: props.options.move ? undefined : 'none'}}>
-                            <DragIndicatorRounded/>
-                        </button>
-                        <button className={styles.optionButton}
-                                style={{display: props.options.show ? undefined : 'none'}}><VisibilityRounded/></button>
-                        <button className={styles.optionButton}
-                                style={{display: props.options.edit ? undefined : 'none'}}><EditRounded/></button>
-                        <button className={styles.optionButton}
+                    {props.openMenu === props.entityKey ?
+                        <div className={styles.options}>
+                            <button className={styles.optionButton} onClick={() => props.show(entity.current)}
+                                    style={{display: props.options.show ? undefined : 'none'}}><VisibilityRounded/>
+                            </button>
+                            <button className={styles.optionButton} onClick={() => props.edit(entity.current)}
+                                    style={{display: props.options.edit ? undefined : 'none'}}><EditRounded/></button>
+                            <button
+                                className={styles.optionButton}
                                 onClick={() => {
                                     if (props.linkable && props.getEntityKey(props.toBeLinked) === props.getEntityKey(entity.current)) {
                                         props.setLinkable(false)
@@ -166,19 +141,32 @@ export default function Node(props) {
                                         setLink(true)
                                     }
                                 }} style={{
-                            color: link ? '#ff5555' : '#0095ff',
-                            display: props.options.edit ? undefined : 'none'
-                        }}>
-                            {<LinkRounded/>}
-                        </button>
-                    </div>
-                    <div ref={elementRef} style={{width: 'fit-content', height: 'fit-content'}}
+                                color: link ? '#ff5555' : '#0095ff',
+                                display: props.options.edit ? undefined : 'none'
+                            }}>
+                                {<LinkRounded/>}
+                            </button>
+                        </div>
+                        :
+                        null
+                    }
+                    <div ref={elementRef}
+                         style={{width: 'fit-content', height: 'fit-content'}}
+                         onDoubleClick={() => {
+                             if (!props.linkable) {
+                                 if (props.openMenu === props.entityKey)
+                                     props.setOpenMenu(null)
+                                 else
+                                     props.setOpenMenu(props.entityKey)
+                             }
+                         }}
                          onClick={() => {
                              if (props.linkable && !notAvailable)
                                  props.handleLink(entity.current, setLink)
-                             else if (!props.linkable)
-                                 setOpen(!open)
+                             if (props.openMenu === props.entityKey)
+                                 props.setOpenMenu(null)
                          }}>
+
                         {props.renderNode(props.entity)}
                     </div>
                 </div>
@@ -188,6 +176,11 @@ export default function Node(props) {
 }
 
 Node.propTypes = {
+    setOpenMenu: PropTypes.func,
+    openMenu: PropTypes.number,
+    show: PropTypes.func,
+    edit: PropTypes.func,
+
     handleLink: PropTypes.func,
     options: PropTypes.shape({
         edit: PropTypes.bool,
@@ -200,13 +193,12 @@ Node.propTypes = {
     toBeLinked: PropTypes.object,
 
     updateEntity: PropTypes.func,
-    triggerUpdate: PropTypes.func,
-    offsetTop: PropTypes.number,
+    triggerUpdate: PropTypes.bool,
     entity: PropTypes.object,
     root: PropTypes.object,
-    index: PropTypes.number,
     renderNode: PropTypes.func,
 
     entityKey: PropTypes.any,
-    getEntityKey: PropTypes.func
+    getEntityKey: PropTypes.func,
+    getChildrenKeys: PropTypes.func
 }

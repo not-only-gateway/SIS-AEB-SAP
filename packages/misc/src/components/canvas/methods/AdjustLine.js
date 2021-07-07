@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 
 export default function adjustLine(props) {
-
     var fT = props.from.offsetTop + props.from.offsetHeight / 2;
     var objectiveTop = props.to.offsetTop + props.to.offsetHeight / 2;
     var fL = props.from.offsetLeft + props.from.offsetWidth / 2;
@@ -39,16 +38,7 @@ export default function adjustLine(props) {
     props.line.style["-transform"] = 'rotate(' + ANG + 'deg)';
     props.line.style.top = top + 'px';
     props.line.style.left = left + 'px';
-    props.line.style.height = H + 'px';
-
-
-    // else
-    //     props.lineSource.style.bottom =(sourceWidth / 2 ) + 'px'
-
-    // if(props.line.getBoundingClientRect().left < props.from.getBoundingClientRect().left)
-
-    // else
-    //     props.lineObjective.style.top =(objectiveWidth / 2 ) + 'px'
+    props.line.style.height = (H) + 'px';
 
 }
 
@@ -56,6 +46,5 @@ adjustLine.propTypes = {
     from: PropTypes.object,
     to: PropTypes.object,
     line: PropTypes.object,
-
     lineObjective: PropTypes.object
 }

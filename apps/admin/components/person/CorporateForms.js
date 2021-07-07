@@ -135,7 +135,7 @@ export default function CorporateForms(props) {
                             buttonKey: 3,
                             value: linkage !== null && linkage !== undefined && linkage.id !== undefined ? (
                                     <ProgressionList
-                                        linkageID={linkage.id}
+                                        linkageID={linkage.id} returnToMain={() => setOpenTab(0)}
                                         notSearched={props.notSearched}
                                         setNotSearched={props.setNotSearched}
                                         searchInput={props.searchInput}

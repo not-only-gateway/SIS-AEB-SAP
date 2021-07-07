@@ -28,7 +28,7 @@ export default function UnitForm(props) {
 
             <EntityLayout
                 information={ContractualLinkageDescription}
-                fields={UnitOverview} entityID={props.create ? undefined : props.data.id}
+                fields={UnitOverview} entityID={props.data !== null && props.data !== undefined ? props.data.id : undefined}
                 rootElementID={'root'} entity={props.data}
                 create={props.create} label={lang.title} entityKey={StructuralKeys.unit} fetchToken={(new Cookies()).get('jwt')}
                 fetchUrl={Host() + 'list/object'} exists={true} fetchSize={15} setVersion={() => null}

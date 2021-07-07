@@ -120,7 +120,7 @@
     justify-content: center;
     background: #f4f5fa;
     z-index: 9;
-    transition: background 300ms ease, box-shadow 300ms ease;
+    transition: background 300ms ease, box-shadow 300ms ease, transform 300ms ease;
     box-shadow: none;
 }
 
@@ -130,8 +130,9 @@
     position: absolute;
     box-sizing: content-box;
     color: #777777;
+    transition: background 150ms ease;
 }
-.limitContainer:hover{
+.lineContainer:hover{
     background: #ff5555;
     color: #ff5555;
 }

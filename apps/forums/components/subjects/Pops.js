@@ -8,7 +8,7 @@ import styles from '../../styles/subject/Pop.module.css'
 import SubjectPT from "../../packages/locales/SubjectPT";
 import Chart from "../shared/components/Chart";
 import PopOverview from "./PopOverview";
-import Canvas from "../shared/canvas/Canvas";
+import {Canvas} from "sis-aeb-misc";
 import SubmitPop from "../../utils/submit/SubmitPop";
 import {AvatarGroup} from "@material-ui/lab";
 import PersonAvatar from "../shared/PersonAvatar";
@@ -16,6 +16,8 @@ import PopForm from "./PopForm";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import SubjectForm from "./SubjectForm";
 import Cookies from "universal-cookie/lib";
+import submitSubjectLayout from "../../utils/submit/SubmitSubjectLayout";
+import {Alert} from "sis-aeb-misc";
 
 
 export default function Pops(props) {
@@ -25,6 +27,7 @@ export default function Pops(props) {
     const [update, setUpdate] = useState(false)
     const [openForm, setOpenForm] = useState(false)
     const [show, setShow] = useState(false)
+    const [status, setStatus] = useState({type: undefined, message: undefined})
 
     useEffect(() => {
         ForumRequests.listPops(props.subjectID).then(res => setPops(res))
@@ -32,6 +35,10 @@ export default function Pops(props) {
 
     return (
         <>
+            <Alert
+                type={status.type} render={status.type !== undefined} rootElementID={'root'}
+                handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
+            />
             <PopOverview
                 data={currentEntity}
                 handleClose={() => {
@@ -91,13 +98,13 @@ export default function Pops(props) {
                     </div>
                     <div className={subjectStyles.buttons}>
                         <button className={subjectStyles.buttonContainer}
-                                style={{display: (new Cookies()).get('jwt') !== undefined ? 'none' : undefined}}
+                                style={{display: (new Cookies()).get('jwt') === undefined ? 'none' : undefined}}
                                 onClick={() => setOpenForm(true)}
                         >
                             <AddRounded style={{color: '#555555'}}/>
                             {lang.create}
                         </button>
-                        <button style={{display: (new Cookies()).get('jwt') !== undefined ? 'none' : undefined}}
+                        <button style={{display: (new Cookies()).get('jwt') === undefined ? 'none' : undefined}}
                                 className={subjectStyles.buttonContainer} onClick={() => setUpdate(true)}>
                             <SaveRounded style={{color: '#555555'}}/>
                             {lang.updatePop}
@@ -117,10 +124,9 @@ export default function Pops(props) {
                     setOpenForm(true)
                 }}
                 options={{
-                    // move: (new Cookies()).get('jwt') !== undefined,
-                    // edit: (new Cookies()).get('jwt') !== undefined,
-                    move: true,
-                    edit: true,
+                    move: (new Cookies()).get('jwt') !== undefined,
+                    edit: (new Cookies()).get('jwt') !== undefined,
+
                     show: true
                 }}
 
@@ -150,13 +156,11 @@ export default function Pops(props) {
                 triggerUpdate={update}
                 updateEntity={(entity) => {
                     setUpdate(false)
-
-                    SubmitPop({
-                        pk: entity.id,
+                    submitSubjectLayout({
                         data: entity,
                         create: false,
                         subjectID: props.subjectID,
-                        setStatus: () => null
+                        setStatus: setStatus
                     })
                 }} getChildrenKeys={entity => entity.children}
                 level={0} getParentKeys={entity => entity.parents}

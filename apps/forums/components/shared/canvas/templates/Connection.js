@@ -8,14 +8,17 @@ export default function Connection(props) {
         <div className={styles.lineContainer}
              style={{
                  cursor: props.editable ? 'pointer' : 'default',
-                 // background: props.editable ? undefined : 'red'
+                 // background: props.editable ? undefined : 'red',
              }}
              id={props.parent + '-line-' + props.entityKey}>
+
+            {/*<div style={{position: 'absolute', boxSizing: 'content-box'}}/>*/}
             <div id={props.parent + '-line-indicator-objective-' + props.entityKey}
                  className={styles.indicatorContainer}>
                 <ArrowForwardIosRounded
                     style={{transform: 'rotate(-90deg)', color: props.editable ? undefined : '#777777'}}/>
             </div>
+            {/*<div style={{position: 'absolute', boxSizing: 'content-box'}}/>*/}
         </div>
     )
 }

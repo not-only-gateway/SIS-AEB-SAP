@@ -31,7 +31,7 @@ export default function BaseForm(props) {
 
             <EntityLayout
                 information={ContractualLinkageDescription}
-                fields={PersonOverview} entityID={props.create ? undefined : props.data.id}
+                fields={PersonOverview} entityID={props.data !== null && props.data !== undefined ? props.data.id : undefined}
                 rootElementID={'root'} entity={props.data}
                 create={props.create} label={lang.title} entityKey={PersonalKeys.person} fetchToken={(new Cookies()).get('jwt')}
                 fetchUrl={Host() + 'list/object'} exists={true} fetchSize={15} setVersion={() => null}
@@ -67,7 +67,7 @@ export default function BaseForm(props) {
                         <>
                             <ImageField
                                 dark={true}
-                                initialImage={props.data.image !== null ? props.data.image : null}
+                                initialImage={props.data !== null && props.data !== undefined && props.data.image !== null ? props.data.image : null}
                                 size={'100px'}
                                 setImage={event => props.handleChange({
                                     name: 'image',

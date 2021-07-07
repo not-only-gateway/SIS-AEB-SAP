@@ -20,6 +20,7 @@
     "public-ip": "^4.0.3",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-draft-wysiwyg": "^1.14.7",
     "react-infinite-scroll-component": "^6.0.0",
     "react-input-mask": "^2.0.4",
     "sis-aeb-chart": "../../packages/chart",

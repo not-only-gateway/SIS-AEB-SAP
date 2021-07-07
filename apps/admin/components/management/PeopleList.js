@@ -31,7 +31,7 @@ export default function PeopleList(props) {
             <div style={{display: open ? 'none' : undefined}}>
                 <List
                     listKey={'people'} scrollableElement={'scrollableDiv'}
-                    clickEvent={() => null} createOption={true}
+                    clickEvent={() => null} createOption={(new Cookies()).get('jwt') !== undefined}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/person'}
                     renderElement={element => {
                         return (

@@ -25,7 +25,8 @@ export default function Canvas(props) {
             <div ref={ref} style={{
                 position: 'relative',
                 width: '100vw',
-                marginTop: '0'
+                marginTop: '0',
+                marginBottom: '50%'
             }}>
 
                 {props.entities.map((entity, index) => (

@@ -6,6 +6,9 @@ import PropTypes from "prop-types";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import ProgressionForm from "./ProgressionForm";
 import ProgressionPT from "../../packages/locales/person/ProgressionPT";
+import styles from "../../styles/Person.module.css";
+
+import {ArrowBackRounded} from "@material-ui/icons";
 
 export default function ProgressionList(props) {
 
@@ -29,8 +32,14 @@ export default function ProgressionList(props) {
 
             }
             <div style={{display: open ? 'none' : undefined}}>
+                <div style={{borderBottom: '#e0e0e0 1px solid', marginBottom: '32px'}}>
+                    <button className={styles.returnButtonContainer} onClick={() => props.returnToMain()}>
+                        <ArrowBackRounded/>
+                        {lang.return}
+                    </button>
+                </div>
                 <List
-                    listKey={'people'} scrollableElement={'scrollableDiv'}
+                    listKey={'progression'} scrollableElement={'scrollableDiv'}
                     clickEvent={() => setOpen(true)} createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/progression/' + props.linkageID}
                     renderElement={element => {
@@ -96,6 +105,7 @@ export default function ProgressionList(props) {
     )
 }
 ProgressionList.propTypes = {
+    returnToMain: PropTypes.func,
     notSearched: PropTypes.bool,
     setNotSearched: PropTypes.func,
     linkageID: PropTypes.number,

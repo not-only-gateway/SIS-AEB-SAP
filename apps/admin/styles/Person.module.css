@@ -177,6 +177,7 @@
 }
 
 .returnButtonContainer {
+
     padding: 8px;
     display: flex;
     align-items: center;
@@ -186,6 +187,7 @@
     background: transparent;
     outline: none;
     border: none;
+
     transition: 250ms ease-in-out;
     cursor: pointer;
     height: 40px;
@@ -201,3 +203,4 @@
     color: #ff5555;
     background: #f4f5fa;
 }
+

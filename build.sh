@@ -15,7 +15,7 @@ sudo bash misc.sh
 sudo bash chart.sh
 
 # INDEPENDENTES
-#sudo bash admin.sh
+sudo bash admin.sh
 sudo bash forums.sh
 #sudo bash public.sh
 #sudo bash statistics.sh

@@ -11,6 +11,7 @@ import ForumRequests from "../../utils/fetch/ForumRequests";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import TextField from "../shared/inputs/TextField";
 import ImageField from "../shared/inputs/ImageField";
+import TextArea from "../shared/inputs/TextArea";
 
 export default function PopForm(props) {
 
@@ -33,81 +34,78 @@ export default function PopForm(props) {
     }, [props.open])
 
     return (
-        <Modal handleClose={() => props.handleClose()}
-               open={props.open}
-               rootElementID={'root'}>
-            <div style={{
-                height: '100vh',
-                width: '100vw',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}>
+        <>
 
-                <div className={styles.modalContainer}>
-                    <div style={{
-                        display: 'grid',
-                        height: '100%',
-                        overflow: 'auto',
-                        alignContent: 'flex-start'
-                    }}>
-                        <EntityLayout
-                            entityID={props.id} onlyEdit={true}
-                            rootElementID={'root'} entity={props.data}
-                            create={props.data === null || props.data === undefined || props.data.id === undefined}
-                            label={lang.header}
+            <Modal handleClose={() => props.handleClose()}
+                   open={props.open}
+                   rootElementID={'root'}>
+                <div style={{
+                    height: '100vh',
+                    width: '100vw',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
 
-                            dependencies={{
-                                fields: [
-                                    {name: 'title', type: 'string'},
-                                    {name: 'description', type: 'string'},
-                                ],
-                                changed: changed
-                            }} returnButton={false}
-                            handleSubmit={() =>
-                                submitPop({
-                                    subjectID: props.subjectID,
-                                    pk: props.data !== null && props.data !== undefined ? props.data.id : undefined,
-                                    data: props.data,
-                                    setStatus: setStatus,
-                                    create: props.data === null || props.data === undefined || props.data.id === undefined
-                                }).then(res => {
-                                    if (res.status) {
-                                        props.handleClose()
-                                        props.fetchPops()
-                                    }
-                                    setChanged(!res.status)
-                                })}
-                            forms={[{
-                                title: lang.basic,
-                                child: (
-                                    <>
-                                        <TextField
+                    <div className={styles.modalContainer}>
+                        <div style={{
+                            display: 'grid',
+                            height: '100%',
+                            overflow: 'auto',
+                            alignContent: 'flex-start'
+                        }}>
+                            <EntityLayout
+                                entityID={props.id} onlyEdit={true}
+                                rootElementID={'root'} entity={props.data}
+                                create={props.data === null || props.data === undefined || props.data.id === undefined}
+                                label={lang.header}
 
-                                            placeholder={lang.title} label={lang.title}
-                                            handleChange={event => {
-                                                setChanged(true)
-                                                props.handleChange({name: 'title', value: event.target.value})
-                                            }}
-                                            value={props.data === null ? null : props.data.title}
-                                            required={true} width={'calc(50% - 16px)'}/>
-
-                                        <TextField
-
-                                            placeholder={lang.description} label={lang.description}
-                                            handleChange={event => {
-                                                setChanged(true)
-                                                props.handleChange({name: 'description', value: event.target.value})
-                                            }}
-                                            value={props.data === null ? null : props.data.description}
-                                            required={false} width={'calc(50% - 16px)'}/>
-                                    </>
-                                )
-                            },
-                                {
-                                    title: lang.bodyImage,
+                                dependencies={{
+                                    fields: [
+                                        {name: 'title', type: 'string'},
+                                        {name: 'description', type: 'string'},
+                                    ],
+                                    changed: changed
+                                }} returnButton={false}
+                                handleSubmit={() =>
+                                    submitPop({
+                                        subjectID: props.subjectID,
+                                        pk: props.data !== null && props.data !== undefined ? props.data.id : undefined,
+                                        data: props.data,
+                                        setStatus: setStatus,
+                                        create: props.data === null || props.data === undefined || props.data.id === undefined
+                                    }).then(res => {
+                                        if (res.status) {
+                                            props.handleClose()
+                                            props.fetchPops()
+                                        }
+                                        setChanged(!res.status)
+                                    })}
+                                forms={[{
+                                    title: lang.basic,
                                     child: (
                                         <>
+                                            <TextField
+
+                                                placeholder={lang.title} label={lang.title}
+                                                handleChange={event => {
+                                                    setChanged(true)
+                                                    props.handleChange({name: 'title', value: event.target.value})
+                                                }}
+                                                value={props.data === null ? null : props.data.title}
+                                                required={true} width={'calc(50% - 16px)'}/>
+
+                                            <TextField
+
+                                                placeholder={lang.description} label={lang.description}
+                                                handleChange={event => {
+                                                    setChanged(true)
+                                                    props.handleChange({name: 'description', value: event.target.value})
+                                                }}
+                                                value={props.data === null ? null : props.data.description}
+                                                required={false} width={'calc(50% - 16px)'}/>
+
+
                                             <ImageField
                                                 disabled={false} setChanged={setChanged}
                                                 initialImage={props.data !== null && props.data !== undefined ? (props.data.image !== null ? props.data.image : null) : null}
@@ -119,27 +117,28 @@ export default function PopForm(props) {
                                                 label={lang.image}
                                                 required={false} width={'100%'}
                                             />
-                                            <TextField
-                                                placeholder={lang.body} label={lang.body} handleChange={event => {
-                                                setChanged(true)
-                                                props.handleChange({name: 'body', value: event.target.value})
-                                            }}
-                                                value={props.data === null ? null : props.data.body}
-                                                required={false} width={'100%'}/>
+
+                                            <TextArea
+                                                handleChange={event => {
+                                                    setChanged(true)
+                                                    props.handleChange({name: 'body', value: event})
+                                                }} label={lang.body} width={'100%'} disabled={false} maxHeight={'200px'}
+                                                required={false} value={props.data === null ? null : props.data.body}/>
 
                                         </>
                                     )
                                 }
 
-                            ]}/>
+                                ]}/>
+                        </div>
+                        <button className={styles.closeButton} onClick={() => props.handleClose()}>
+                            <CloseRounded/>
+                        </button>
                     </div>
-                    <button className={styles.closeButton} onClick={() => props.handleClose()}>
-                        <CloseRounded/>
-                    </button>
                 </div>
-            </div>
 
-        </Modal>
+            </Modal>
+        </>
     )
 
 }

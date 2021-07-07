@@ -2,11 +2,12 @@ import {Modal, Overview} from "sis-aeb-misc";
 import PropTypes from 'prop-types'
 import styles from "../../styles/subject/PopOverview.module.css";
 
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import ForumRequests from "../../utils/fetch/ForumRequests";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import PopFormPT from "../../packages/locales/PopFormPT";
 import {CloseRounded} from "@material-ui/icons";
+import TextArea from "../shared/inputs/TextArea";
 
 export default function PopOverview(props) {
     const lang = PopFormPT
@@ -54,13 +55,20 @@ export default function PopOverview(props) {
                                 </div>
                             </div>
                             <div className={styles.bodyContainer}>
-                                <div style={{maxHeight: '65%', overflow: 'hidden', borderRadius: '8px', border: '#e0e0e0 1px solid'}}>
+                                <div style={{
+                                    maxHeight: '65%',
+                                    overflow: 'hidden',
+                                    borderRadius: '8px',
+                                    border: '#e0e0e0 1px solid',
+                                    display: entity.image === undefined || entity.image === null ? 'none' : undefined
+                                }}>
                                     <img style={{width: '100%'}} src={entity.image}/>
                                 </div>
 
-                                <div style={{fontSize: '.9rem', color: '#333333'}}>
-                                    {entity.body}
-                                </div>
+                                <TextArea
+                                    width={'100%'} disabled={true} maxHeight={'100%'}
+                                    required={false} value={entity.body}/>
+
                             </div>
                             <div className={styles.footerContainer}>
                                 <div style={{fontSize: '1.05rem', display: 'grid', gap: '8px'}}>
