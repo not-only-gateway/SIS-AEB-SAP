@@ -1,15 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useState} from "react";
-import Head from "next/head";
-import {
-    AddRounded,
-    EditRounded,
-    Forum,
-    PeopleRounded,
-    PrintRounded,
-    SaveRounded,
-    VisibilityRounded
-} from "@material-ui/icons";
+import {AddRounded, EditRounded, SaveRounded} from "@material-ui/icons";
 import ForumRequests from "../../utils/fetch/ForumRequests";
 import subjectStyles from '../../styles/subject/Subject.module.css'
 import styles from '../../styles/subject/Pop.module.css'
@@ -25,6 +16,7 @@ import {Alert} from "sis-aeb-misc";
 import Canvas from "../shared/canvas/Canvas";
 import deletePop from "../../utils/submit/DeletePop";
 import SubjectEditModal from "./SubjectEditModal";
+import LinkForm from "./LinkForm";
 
 
 export default function Pops(props) {
@@ -42,8 +34,11 @@ export default function Pops(props) {
     })
 
     useEffect(() => {
-        if(update === false)
+        if (update === false){
+            setPops([])
             ForumRequests.listPops(props.subjectID).then(res => setPops(res))
+        }
+
     }, [update])
 
     return (
@@ -60,22 +55,16 @@ export default function Pops(props) {
                 }}
                 open={show}/>
 
-            {/*<PopLinkForm*/}
-            {/*    handleClose={() => {*/}
-            {/*        setCurrentEntity(null)*/}
-            {/*        setOpenForm(false)*/}
-            {/*    }}*/}
-            {/*    handleChange={event => handleObjectChange({*/}
-            {/*        event: event,*/}
-            {/*        setData: setLinkEntity*/}
-            {/*    })}*/}
-            {/*    id={currentEntity !== null && currentEntity !== undefined ? currentEntity.id : null}*/}
-            {/*    data={currentEntity} subjectID={props.subjectID}*/}
-            {/*    fetchPops={() => {*/}
-            {/*        setUpdate(true)*/}
-            {/*    }}*/}
-            {/*    open={openForm}*/}
-            {/*/>*/}
+            <LinkForm
+                parent={linkEntity.parent} child={linkEntity.child}
+                handleClose={success => {
+                    setLinkEntity({
+                        child: null,
+                        parent: null
+                    })
+                    if (success)
+                        setUpdate(true)
+                }}/>
             <PopForm
                 handleClose={() => {
                     setCurrentEntity(null)
@@ -171,6 +160,12 @@ export default function Pops(props) {
                         parent: parent
                     })
                 }}
+                getLinkChild={link => {
+                    return link.child
+                }}
+                getLinkParent={link => {
+                    return link.parent
+                }}
                 renderNode={entity => {
                     if (entity !== undefined) {
                         return (
@@ -207,9 +202,8 @@ export default function Pops(props) {
                 }}
                 entities={pops}
                 getNodeColor={entity => entity.highlight_color}
-                triggerUpdate={update}
+                triggerUpdate={update} getLinkType={link => link.strong} getLinkContent={link => link.description}
                 updateEntity={(entity) => {
-
                     submitSubjectLayout({
                         data: entity,
                         create: false,
@@ -223,7 +217,7 @@ export default function Pops(props) {
         </>
     )
 }
-Pops.propTypes ={
+Pops.propTypes = {
     subjectID: PropTypes.any,
     data: PropTypes.object,
     handleChange: PropTypes.func

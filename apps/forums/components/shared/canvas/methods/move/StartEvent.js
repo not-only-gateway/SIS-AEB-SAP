@@ -45,7 +45,7 @@ export default function StartEvent(props){
 
 
     for (i = 0; i < props.parents.length; i++) {
-        const parent = document.getElementById(props.parents[i] + '-node')
+        const parent = document.getElementById(props.getLinkParent(props.parents[i]) + '-node')
         if (parent !== null && (props.limitTopOffset === undefined || parent.offsetTop > props.limitTopOffset)) {
             props.setLimitTopOffset(parent.offsetTop)
         }
@@ -59,8 +59,7 @@ export default function StartEvent(props){
     }
 
     for (i = 0; i < props.children.length; i++) {
-        const child = document.getElementById(props.children[i] + '-node')
-
+        const child = document.getElementById(props.getLinkChild(props.children[i]) + '-node')
 
         if (child !== null && (child.offsetTop < props.limitBottomOffset || props.limitBottomOffset === undefined))
             props.setLimitBottomOffset(child.offsetTop)
@@ -73,15 +72,7 @@ export default function StartEvent(props){
         }
 
     }
-    // if (props.limitBottom !== undefined) {
-    //     props.bottomElement.style.top = (props.limitBottom) + 'px'
-    //     props.bottomElement.style.borderTop = '#ff5555 2px dashed'
-    // }
-    // if (props.limitTop !== undefined) {
-    //     props.topElement.style.top = (props.limitTop) + 'px'
-    //     // props.topElement.style.borderTop = '#ff5555 2px dashed'
-    //
-    // }
+
 
     props.setHolding()
 }
@@ -104,9 +95,12 @@ StartEvent.propTypes= {
     setHolding: PropTypes.func,
 
     parents: PropTypes.arrayOf(
-        PropTypes.number
+        PropTypes.object
     ),
+    getLinkParent: PropTypes.func,
+
     children: PropTypes.arrayOf(
-        PropTypes.number
+        PropTypes.object
     ),
+    getLinkChild: PropTypes.func,
 }

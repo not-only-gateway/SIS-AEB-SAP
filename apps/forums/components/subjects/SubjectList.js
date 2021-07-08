@@ -5,9 +5,7 @@ import Host from "../../utils/shared/Host";
 import PropTypes from "prop-types";
 import styles from '../../styles/Index.module.css'
 import {AvatarGroup} from "@material-ui/lab";
-import {Avatar} from "@material-ui/core";
 import PersonAvatar from "../shared/PersonAvatar";
-import SubjectFormPT from "../../packages/locales/SubjectFormPT";
 import SubjectForm from "./SubjectForm";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 

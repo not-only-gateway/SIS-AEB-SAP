@@ -1,18 +1,18 @@
 import styles from '../../styles/Layout.module.css'
 import Cookies from 'universal-cookie/lib'
 
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import "@fontsource/roboto"
 import PropTypes from "prop-types";
 import LayoutPT from "../../packages/locales/LayoutPT";
 import {
-    AccountBalanceRounded,
-    AccountTreeRounded,
-    BusinessRounded,
-    ExitToApp, ExitToAppRounded,
-    ExtensionRounded, ForumRounded, GroupRounded, LocalLibraryRounded,
-    PersonRounded,
+    ExitToApp,
+    ExitToAppRounded,
+    ExtensionRounded,
+    ForumRounded,
+    GroupRounded,
+    LocalLibraryRounded,
     TimelineRounded
 } from "@material-ui/icons";
 

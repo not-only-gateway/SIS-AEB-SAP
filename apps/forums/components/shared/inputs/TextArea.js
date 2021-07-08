@@ -1,13 +1,13 @@
-import {EditorState} from 'draft-js';
+import {convertFromRaw, convertToRaw, EditorState} from 'draft-js';
 import React, {useEffect, useState} from "react";
 import dynamic from 'next/dynamic';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { convertFromRaw, convertToRaw  } from 'draft-js';
+import styles from './styles/Input.module.css'
+import PropTypes from "prop-types";
+
 const Editor = dynamic(() => import('react-draft-wysiwyg').then(res => res.Editor),
     { ssr: false }
 )
-import styles from './styles/Input.module.css'
-import PropTypes from "prop-types";
 
 
 export default function TextArea(props) {

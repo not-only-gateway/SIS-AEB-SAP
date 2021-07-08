@@ -3,20 +3,13 @@ import React, {useEffect, useRef, useState} from "react";
 import adjustLine from "../methods/AdjustLine";
 import Move from "../methods/move/MoveElement";
 import styles from "../styles/Styles.module.css";
-import {
-    ArrowBackRounded, ArrowForwardIos, ArrowForwardIosRounded, ArrowForwardRounded, ArrowRightAlt, DeleteForeverRounded,
-    DragIndicatorRounded,
-    EditRounded, LinkOffRounded, LinkRounded, OpenWithRounded,
-    VisibilityRounded
-} from "@material-ui/icons";
+import {DeleteForeverRounded, EditRounded, LinkRounded, VisibilityRounded} from "@material-ui/icons";
 import Connection from "./Connection";
 
 
 export default function Node(props) {
     const ref = useRef()
     const elementRef = useRef()
-    // const topRef = useRef()
-    // const bottomRef = useRef()
     const entity = useRef({})
     const [nodeColor, setNodeColor] = useState(null)
     const [parents, setParents] = useState([])
@@ -26,15 +19,19 @@ export default function Node(props) {
     const [notAvailable, setNotAvailable] = useState(false)
 
     useEffect(() => {
-        // if(props.entity !== entity.current){
-        //     if (elementRef.current.offsetWidth > elementRef.current.offsetHeight) {
-        //         ref.current.style.width = (elementRef.current.offsetWidth + 16) + 'px'
-        //         ref.current.style.height = (elementRef.current.offsetWidth + 16) + 'px'
-        //     } else {
-        //         ref.current.style.width = elementRef.current.offsetHeight + 'px'
-        //         ref.current.style.height = elementRef.current.offsetHeight + 'px'
-        //     }
-        // }
+        if(ref.current !== null)
+            ref.current.addEventListener('contextmenu', function (e) {
+                if (!props.linkable) {
+                    if (props.openMenu === props.entityKey)
+                        props.setOpenMenu(null)
+                    else
+                        props.setOpenMenu(props.entityKey)
+                }
+
+                e.preventDefault();
+            }, false);
+
+
         setNodeColor(props.getNodeColor(props.entity))
         if (props.linkable !== link) {
             setLink(props.linkable)
@@ -54,8 +51,7 @@ export default function Node(props) {
             props.updateEntity({
                 id: props.entityKey,
                 x: ref.current.offsetLeft,
-                y: ref.current.offsetTop,
-                parents: props.getParentKeys(entity.current)
+                y: ref.current.offsetTop
             })
         }
         if (link && parents.length !== props.getParentKeys(entity.current)) {
@@ -84,8 +80,10 @@ export default function Node(props) {
             Move({
                 element: ref.current,
                 children: children,
+                getLinkChild: props.getLinkChild,
                 refreshLinks: refresh,
                 parents: parents,
+                getLinkParent: props.getLinkParent,
                 root: props.root,
                 color: nodeColor
             })
@@ -97,11 +95,11 @@ export default function Node(props) {
         let i
 
         for (i = 0; i < parents.length; i++) {
-            let line = document.getElementById(parents[i] + '-line-' + props.entityKey)
-            let objective = document.getElementById(parents[i] + '-node')
-            let lineObjective = document.getElementById(parents[i] + '-line-indicator-objective-' + props.entityKey)
+            let line = document.getElementById(props.getLinkParent(parents[i]) + '-line-' + props.entityKey)
+            let objective = document.getElementById(props.getLinkParent(parents[i]) + '-node')
+            let lineObjective = document.getElementById(props.getLinkParent(parents[i]) + '-line-indicator-objective-' + props.entityKey)
 
-            let lineContent = document.getElementById(parents[i] + '-line-content-' + props.entityKey)
+            let lineContent = document.getElementById(props.getLinkParent(parents[i]) + '-line-content-' + props.entityKey)
             if (objective !== null && ref.current !== null)
                 adjustLine({
                     lineContent: lineContent,
@@ -117,8 +115,11 @@ export default function Node(props) {
         return (
 
             <>
-                {parents.map(parent => <Connection
-                    parent={parent} editable={props.options.edit}
+                {parents.map(link => <Connection
+                    getLinkType={props.getLinkType}
+                    getLinkContent={props.getLinkContent}
+                    color={nodeColor} getLinkParent={props.getLinkParent}
+                    link={link} editable={props.options.edit}
                     entityKey={props.entityKey} canDelete={props.options.edit}/>)}
                 <div id={props.entityKey + '-node'}
                      className={[props.linkable && props.getEntityKey(props.toBeLinked) !== props.getEntityKey(entity.current) && !notAvailable ? styles.pulse : '', styles.entityContainer].join(' ')}
@@ -135,9 +136,11 @@ export default function Node(props) {
                         <div className={styles.options}>
                             <button className={styles.optionButton} onClick={() => props.show(entity.current)}
                                     style={{display: props.options.show ? undefined : 'none'}}><VisibilityRounded/>
+                                Visualizar
                             </button>
                             <button className={styles.optionButton} onClick={() => props.edit(entity.current)}
                                     style={{display: props.options.edit ? undefined : 'none'}}><EditRounded/>
+                                Editar
                             </button>
 
                             <button
@@ -154,15 +157,17 @@ export default function Node(props) {
                                 color: link ? '#ff5555' : '#0095ff',
                                 display: props.options.edit ? undefined : 'none'
                             }}>
-                                {<LinkRounded/>}
+                                <LinkRounded/>
+                                Criar conexão
                             </button>
                             <button className={styles.optionButton} onClick={() => props.handleDelete(entity.current)}
                                     style={{
                                         display: props.options.edit ? undefined : 'none',
-                                        color: 'white',
-                                        background: '#ff5555',
+                                        color: '#ff5555',
                                         border: 'none'
-                                    }}><DeleteForeverRounded/>
+                                    }}>
+                                <DeleteForeverRounded/>
+                                Deletar modulo
                             </button>
                         </div>
                         :
@@ -170,14 +175,6 @@ export default function Node(props) {
                     }
                     <div ref={elementRef}
                          style={{width: 'fit-content', height: 'fit-content'}}
-                         onDoubleClick={() => {
-                             if (!props.linkable) {
-                                 if (props.openMenu === props.entityKey)
-                                     props.setOpenMenu(null)
-                                 else
-                                     props.setOpenMenu(props.entityKey)
-                             }
-                         }}
                          onClick={() => {
                              if (props.linkable && !notAvailable)
                                  props.handleLink(entity.current, setLink)
@@ -215,11 +212,16 @@ Node.propTypes = {
     entity: PropTypes.object,
     root: PropTypes.object,
     renderNode: PropTypes.func,
-
     entityKey: PropTypes.any,
     getEntityKey: PropTypes.func,
     getChildrenKeys: PropTypes.func,
     getNodeColor: PropTypes.func,
 
-    handleDelete: PropTypes.func
+    handleDelete: PropTypes.func,
+
+    getLinkParent: PropTypes.func,
+    getLinkChild: PropTypes.func,
+
+    getLinkType: PropTypes.func,
+    getLinkContent: PropTypes.func,
 }

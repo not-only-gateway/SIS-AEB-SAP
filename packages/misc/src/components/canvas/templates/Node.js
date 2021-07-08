@@ -3,12 +3,7 @@ import React, {useEffect, useRef, useState} from "react";
 import adjustLine from "../methods/AdjustLine";
 import Move from "../methods/move/MoveElement";
 import styles from "../styles/Styles.module.css";
-import {
-    ArrowBackRounded, ArrowForwardIos, ArrowForwardIosRounded, ArrowForwardRounded, ArrowRightAlt,
-    DragIndicatorRounded,
-    EditRounded, LinkOffRounded, LinkRounded, OpenWithRounded,
-    VisibilityRounded
-} from "@material-ui/icons";
+import {EditRounded, LinkRounded, VisibilityRounded} from "@material-ui/icons";
 import Connection from "./Connection";
 
 

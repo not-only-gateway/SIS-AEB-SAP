@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
 import UnitList from "../components/structural/UnitList";
-import {RenderTabs, Tabs} from "sis-aeb-misc";
+import {Header, Tabs} from "sis-aeb-misc";
 import Head from "next/head";
 import StructuralPT from "../packages/locales/structural/StructuralPT";
 import EntityList from "../components/structural/EntityList";
-import {Header} from "sis-aeb-misc";
 
 export default function structural(props) {
 

@@ -1,6 +1,6 @@
 import styles from './styles/Input.module.css'
 import PropTypes from 'prop-types'
-import React, {useState} from 'react'
+import React from 'react'
 import LocalePT from './locales/LocalePT'
 
 export default function DateField(props) {

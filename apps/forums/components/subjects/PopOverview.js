@@ -1,4 +1,4 @@
-import {Modal, Overview} from "sis-aeb-misc";
+import {Modal} from "sis-aeb-misc";
 import PropTypes from 'prop-types'
 import styles from "../../styles/subject/PopOverview.module.css";
 

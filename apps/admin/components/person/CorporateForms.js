@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
-import {RenderTabs} from "sis-aeb-misc";
 import styles from "../../styles/Person.module.css";
 import CollaboratorRequests from "../../utils/fetch/CollaboratorRequests";
 import MemberSubmitRequests from "../../utils/submit/MemberSubmitRequests";

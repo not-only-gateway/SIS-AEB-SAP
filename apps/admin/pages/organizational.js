@@ -6,8 +6,7 @@ import Head from "next/head";
 import OrganizationalPT from "../packages/locales/organizational/OrganizationalPT";
 import ContractList from "../components/organizational/ContractList";
 import AccessProfileList from "../components/organizational/AccessProfileList";
-import {Header} from "sis-aeb-misc";
-import {Tabs} from "sis-aeb-misc";
+import {Header, Tabs} from "sis-aeb-misc";
 
 export default function organizational(props) {
 

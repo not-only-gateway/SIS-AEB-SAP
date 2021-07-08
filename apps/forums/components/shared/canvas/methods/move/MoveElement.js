@@ -40,7 +40,10 @@ export default function Move(props) {
                 limitTop: limitTop,
                 color: props.color,
                 parents: props.parents,
-                children: props.children
+
+                getLinkParent: props.getLinkParent,
+                children: props.children,
+                getLinkChild: props.getLinkChild
             })
         }, 1000)
 
@@ -79,10 +82,9 @@ export default function Move(props) {
         if (holding) {
 
             if (props.element.offsetTop < 0 || (limitTopOffset !== undefined && props.element.offsetTop <= (limitTopOffset)) || (limitBottomOffset !== undefined && props.element.offsetTop >= limitBottomOffset)) {
-                // props.element.style.border = '#ff5555 2px solid';
                 props.element.style.boxShadow = 'none'
                 props.element.style.opacity = '.5';
-                // props.element.style.borderStyle='dashed'
+
             } else {
                 if(props.color !== undefined && props.color !== null) {
                     props.element.style.boxShadow = '0 0 10px .1px ' + props.color;
@@ -102,15 +104,15 @@ export default function Move(props) {
 Move.propTypes = {
 
     parents: PropTypes.arrayOf(
-        PropTypes.number
+        PropTypes.object
     ),
     children: PropTypes.arrayOf(
-        PropTypes.number
+        PropTypes.object
     ),
     element: PropTypes.object,
     refreshLinks: PropTypes.func,
-    // topElement: PropTypes.object,
-    // bottomElement: PropTypes.object,
+    getLinkParent: PropTypes.func,
     root: PropTypes.object,
-    color: PropTypes.string
+    color: PropTypes.string,
+    getLinkChild: PropTypes.func,
 }

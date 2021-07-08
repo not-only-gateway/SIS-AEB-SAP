@@ -15,11 +15,6 @@ export default function EndEvent(props) {
         props.element.style.top = (props.limitBottomOffset - props.element.offsetHeight / 2) + 'px'
 
 
-    // props.topElement.style.borderTop = 'transparent 2px solid'
-    // props.bottomElement.style.borderTop = 'transparent 2px solid'
-    // props.topElement.style.top = '0'
-    // props.bottomElement.style.bottom = '0'
-
     props.refreshLinks()
 }
 EndEvent.propTypes = {

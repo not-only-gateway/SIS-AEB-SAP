@@ -1,4 +1,3 @@
-import {RenderTabs} from "sis-aeb-misc";
 import UnitForm from "../structural/UnitForm";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import AddressForm from "../shared/AddressForm";

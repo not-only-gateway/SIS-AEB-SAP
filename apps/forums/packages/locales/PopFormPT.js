@@ -7,5 +7,7 @@ export default {
     bodyImage: 'Corpo e imagem',
     basic: 'Básico',
     highlight: 'Cor de destaque',
-    choices: [{key:true,value: 'Forte'}]
+    choices: [{key:true,value: 'Forte'}, {key:false,value: 'Fraca'}],
+    type: 'Tipo de conexão',
+    linkHeader: 'Relação'
 }

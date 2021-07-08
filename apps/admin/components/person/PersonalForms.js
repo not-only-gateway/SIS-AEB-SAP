@@ -7,7 +7,7 @@ import BaseForm from "./forms/BaseForm";
 import styles from '../../styles/Person.module.css'
 
 import shared from '../../styles/Shared.module.css'
-import {Alert, RenderTabs} from "sis-aeb-misc";
+import {Alert} from "sis-aeb-misc";
 import PersonRequests from "../../utils/fetch/PersonRequests";
 import AddressForm from "../shared/AddressForm";
 import {AddRounded, MenuOpenRounded} from "@material-ui/icons";

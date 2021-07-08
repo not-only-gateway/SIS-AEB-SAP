@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
-import {useEffect, useRef, useState} from "react";
-import React from 'react'
+import React, {useRef, useState} from "react";
 import Node from "./templates/Node";
 
 export default function Canvas(props) {

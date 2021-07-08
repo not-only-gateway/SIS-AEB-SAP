@@ -3,7 +3,7 @@ import {useRouter} from "next/router";
 import styles from '../styles/Unit.module.css'
 import UnitPT from "../packages/locales/unit/UnitPT";
 import Head from "next/head";
-import {RenderTabs, Tabs} from "sis-aeb-misc";
+import {Tabs} from "sis-aeb-misc";
 import StructuralRequests from "../utils/fetch/StructuralRequests";
 import UnitVacancies from "../components/unit/UnitVacancies";
 import UnitForms from "../components/unit/UnitForms";

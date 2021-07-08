@@ -86,7 +86,7 @@ export default function SubjectForm(props) {
 }
 
 SubjectForm.propTypes = {
-    id: PropTypes.number,
+    id: PropTypes.any,
     data: PropTypes.object,
     handleChange: PropTypes.func,
     returnToMain: PropTypes.func,

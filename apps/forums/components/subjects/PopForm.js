@@ -1,18 +1,15 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 
-import {Alert, Modal, EntityLayout} from "sis-aeb-misc";
+import {EntityLayout, Modal} from "sis-aeb-misc";
 import PopFormPT from "../../packages/locales/PopFormPT";
 import submitPop from "../../utils/submit/SubmitPop";
 import styles from "../../styles/subject/Pop.module.css";
 import {CloseRounded} from "@material-ui/icons";
-import {Overview} from 'sis-aeb-misc'
 import ForumRequests from "../../utils/fetch/ForumRequests";
-import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import TextField from "../shared/inputs/TextField";
 import ImageField from "../shared/inputs/ImageField";
 import TextArea from "../shared/inputs/TextArea";
-import {BlockPicker, CirclePicker} from "react-color";
 import ColorField from "../shared/inputs/ColorField";
 
 export default function PopForm(props) {
