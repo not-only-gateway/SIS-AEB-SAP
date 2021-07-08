@@ -14,8 +14,9 @@ import ImageField from "../shared/inputs/ImageField";
 import TextArea from "../shared/inputs/TextArea";
 import {BlockPicker, CirclePicker} from "react-color";
 import ColorField from "../shared/inputs/ColorField";
+import {DropDownField} from "sis-aeb-inputs";
 
-export default function PopForm(props) {
+export default function LinkForm(props) {
 
     const [changed, setChanged] = useState(false)
     const lang = PopFormPT
@@ -86,13 +87,13 @@ export default function PopForm(props) {
                                 forms={[{
                                     child: (
                                         <>
-                                            <TextField
+                                            <DropDownField
 
                                                 placeholder={lang.title} label={lang.title}
                                                 handleChange={event => {
                                                     setChanged(true)
-                                                    props.handleChange({name: 'title', value: event.target.value})
-                                                }}
+                                                    props.handleChange({name: 'I', value: event.target.value})
+                                                }} choices={lang.choices}
                                                 value={props.data === null ? null : props.data.title}
                                                 required={true} width={'calc(50% - 16px)'}/>
 
@@ -105,32 +106,6 @@ export default function PopForm(props) {
                                                 value={props.data === null ? null : props.data.description}
                                                 required={true} width={'calc(50% - 16px)'}/>
 
-
-                                            <ImageField
-                                                disabled={false} setChanged={setChanged}
-                                                initialImage={props.data !== null && props.data !== undefined ? (props.data.image !== null ? props.data.image : null) : null}
-                                                size={'100px'}
-                                                setImage={event => props.handleChange({
-                                                    name: 'image',
-                                                    value: event !== null ? event.target.files[0] : null
-                                                })}
-                                                label={lang.image}
-                                                required={false} width={'100%'}
-                                            />
-
-                                            <TextArea
-                                                handleChange={event => {
-                                                    setChanged(true)
-                                                    props.handleChange({name: 'body', value: event})
-                                                }} label={lang.body} width={'100%'} disabled={false} maxHeight={'200px'}
-                                                required={false} value={props.data === null ? null : props.data.body}/>
-                                            <ColorField
-                                                required={false} width={'100%'}
-                                                        value={props.data === null ? null : props.data.highlight_color}
-                                                        handleChange={event => {
-                                                            setChanged(true)
-                                                            props.handleChange({name: 'highlight_color', value: event})
-                                                        }} label={lang.highlight}/>
                                         </>
                                     )
                                 }
@@ -149,12 +124,7 @@ export default function PopForm(props) {
 
 }
 
-PopForm.propTypes = {
-    subjectID: PropTypes.any,
-    open: PropTypes.bool,
-    id: PropTypes.number,
-    data: PropTypes.object,
-    handleChange: PropTypes.func,
-    handleClose: PropTypes.func,
-    fetchPops: PropTypes.func,
+LinkForm.propTypes = {
+    parent: PropTypes.object,
+    child: PropTypes.object
 }

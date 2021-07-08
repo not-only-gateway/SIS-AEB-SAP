@@ -2,17 +2,19 @@ import PropTypes from 'prop-types'
 import {useEffect, useRef, useState} from "react";
 import React from 'react'
 import Node from "./templates/Node";
+import subjectStyles from "../../../styles/subject/Subject.module.css";
+import {PrintRounded} from "@material-ui/icons";
 
 export default function Canvas(props) {
     const [toBeLinked, setToBeLinked] = useState(null)
     const ref = useRef()
     const [linkable, setLinkable] = useState(false)
     const [openMenu, setOpenMenu] = useState(null)
-
-    useState(() => {
-
+    const [updated, setUpdated] = useState([])
+    useEffect(() => {
+        if (updated.length === props.entities.length && props.triggerUpdate)
+            props.endUpdate()
         const root = document.getElementById(props.rootElementID)
-
         if (root !== null) {
             root.style.background = '#f4f5fa radial-gradient(#0095ff 5%, transparent 0)'
             root.style.backgroundSize = '30px 30px'
@@ -24,28 +26,29 @@ export default function Canvas(props) {
         return (
             <div ref={ref} style={{
                 position: 'relative',
-                width: '100vw',
+                width: '100%',
                 marginTop: '0',
                 marginBottom: '50%'
             }}>
-
                 {props.entities.map((entity, index) => (
                     <React.Fragment key={props.level + ':level - index:' + index}>
                         <Node
                             renderNode={props.renderNode} entityKey={props.getEntityKey(entity)}
-                            updateEntity={props.updateEntity} getNodeColor={props.getNodeColor}
+                            updateEntity={event => {
+                                props.updateEntity(event)
+                                setUpdated([...updated, ...[props.getEntityKey(event)]])
+                            }} getNodeColor={props.getNodeColor}
                             setOpenMenu={setOpenMenu}
                             openMenu={openMenu} getChildrenKeys={props.getChildrenKeys}
                             handleLink={(entity) => {
+
                                 if (entity === null)
                                     setToBeLinked(entity)
 
                                 if (toBeLinked === null) {
                                     setToBeLinked(entity)
                                 } else if (entity !== toBeLinked && !props.getParentKeys(entity).includes(props.getEntityKey(toBeLinked))) {
-
-                                    entity.parents = [...props.getParentKeys(entity), ...[props.getEntityKey(toBeLinked)]]
-                                    toBeLinked.children = [...props.getChildrenKeys(toBeLinked), ...[props.getEntityKey(entity)]]
+                                    props.triggerLink(entity, toBeLinked)
 
                                     setToBeLinked(null)
                                     setLinkable(false)
@@ -62,7 +65,8 @@ export default function Canvas(props) {
                             }} show={props.show} edit={props.edit}
                             toBeLinked={toBeLinked} handleDelete={props.handleDelete}
                             entity={entity} root={ref.current} options={props.options} getEntityKey={props.getEntityKey}
-                            getParentKeys={props.getParentKeys} triggerUpdate={props.triggerUpdate}
+                            getParentKeys={props.getParentKeys}
+                            triggerUpdate={props.triggerUpdate}
                             entitiesLength={props.entities.length}/>
 
                     </React.Fragment>
@@ -76,13 +80,13 @@ export default function Canvas(props) {
 Canvas.propTypes = {
     show: PropTypes.func,
     edit: PropTypes.func,
-
+    triggerLink: PropTypes.func,
     options: PropTypes.shape({
         edit: PropTypes.bool,
         move: PropTypes.bool,
         show: PropTypes.bool
     }),
-
+    endUpdate: PropTypes.func,
     updateEntity: PropTypes.func,
     triggerUpdate: PropTypes.bool,
     rootElementID: PropTypes.string,

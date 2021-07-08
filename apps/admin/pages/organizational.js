@@ -2,12 +2,12 @@ import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
 import EffectiveRoleList from "../components/organizational/EffectiveRoleList";
 import CommissionedRoleList from "../components/organizational/CommissionedRoleList";
-import {RenderTabs, Tabs} from "sis-aeb-misc";
 import Head from "next/head";
 import OrganizationalPT from "../packages/locales/organizational/OrganizationalPT";
 import ContractList from "../components/organizational/ContractList";
 import AccessProfileList from "../components/organizational/AccessProfileList";
-import Header from "../components/shared/header/Header";
+import {Header} from "sis-aeb-misc";
+import {Tabs} from "sis-aeb-misc";
 
 export default function organizational(props) {
 
@@ -42,51 +42,29 @@ export default function organizational(props) {
                     buttons={[
                         {
                             key: 0,
-                            value: lang.contractTitle
+                            value: lang.contractTitle,
+                            content: <ContractList setOpen={setOpenForm} notSearched={props.notSearched} setNotSearched={props.setNotSearched} searchInput={props.searchInput} />
                         },
                         {
                             key: 1,
-                            value: lang.effectiveRoleTitle
+                            value: lang.effectiveRoleTitle,
+                            content: <EffectiveRoleList setOpen={setOpenForm} notSearched={props.notSearched} setNotSearched={props.setNotSearched} searchInput={props.searchInput} />
                         },
                         {
                             key: 2,
-                            value: lang.commissionedRoleTitle
+                            value: lang.commissionedRoleTitle,
+                            content: <CommissionedRoleList setOpen={setOpenForm} notSearched={props.notSearched} setNotSearched={props.setNotSearched} searchInput={props.searchInput} />
                         },
                         {
                             key: 3,
-                            value: lang.access
+                            value: lang.access,
+                            content: <AccessProfileList setOpen={setOpenForm} notSearched={props.notSearched} setNotSearched={props.setNotSearched} searchInput={props.searchInput} />
                         }
                     ]}
                     setOpenTab={setOpenTab}
                     openTab={openTab}
-                />
-                }
-                <RenderTabs
-                    openTab={openTab}
-
-                    tabs={[
-                        {
-                            buttonKey: 0,
-                            value: <ContractList setOpen={setOpenForm} notSearched={props.notSearched} setNotSearched={props.setNotSearched} searchInput={props.searchInput} />
-                        },
-                        {
-                            buttonKey: 1,
-                            value: <EffectiveRoleList setOpen={setOpenForm} notSearched={props.notSearched} setNotSearched={props.setNotSearched} searchInput={props.searchInput} />
-                        },
-                        {
-                            buttonKey: 2,
-                            value: <CommissionedRoleList setOpen={setOpenForm} notSearched={props.notSearched} setNotSearched={props.setNotSearched} searchInput={props.searchInput} />
-                        },
-                        {
-                            buttonKey: 3,
-                            value: <AccessProfileList setOpen={setOpenForm} notSearched={props.notSearched} setNotSearched={props.setNotSearched} searchInput={props.searchInput} />
-                        },
-                    ]}
-                />
+                />}
             </div>
         </>
-
-
     )
-
 }

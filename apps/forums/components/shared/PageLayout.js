@@ -29,7 +29,6 @@ export default function PageLayout(props) {
     const lang = LayoutPT
     const [searchInput, setSearchInput] = useState('')
     const [notSearched, setNotSearched] = useState(false)
-    const ref = useRef()
 
     useEffect(() => {
         if (cookies.get('jwt') !== undefined && sessionStorage.getItem('profile') === null) {
@@ -127,7 +126,7 @@ export default function PageLayout(props) {
                 transition: '250ms ease-in-out',
                 height: router.pathname !== '/authenticate' ? 'calc(100% - 60px)' : '100vh',
                 marginTop: router.pathname !== '/authenticate' ? '60px' : undefined,
-                overflowX: router.pathname === '/structure' ? 'auto' : 'hidden'
+                overflowX: 'hidden'
             }}>
                 {props.children({searchInput, notSearched, setNotSearched})}
             </div>

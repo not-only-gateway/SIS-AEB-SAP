@@ -8,7 +8,7 @@
     width: 100%;
 }
 
-.options{
+.options {
     display: grid;
     align-content: space-between;
     justify-items: center;
@@ -24,15 +24,15 @@
 }
 
 @keyframes pop {
-    0%{
+    0% {
         opacity: 0;
     }
-    100%{
+    100% {
         opacity: 1;
     }
 }
 
-.optionButton{
+.optionButton {
     cursor: pointer;
     outline: none;
     border: #e0e0e0 1px solid;
@@ -51,22 +51,24 @@
     transition: 150ms ease;
 
 }
-.optionButton:hover{
+
+.optionButton:hover {
     color: #0095ff;
     transform: scale(1.1)
 }
+
 .pulse {
-     display: block;
+    display: block;
 
-     border-radius: 50%;
+    border-radius: 50%;
 
-     cursor: pointer;
-        border: #e0e0e0 1px solid;
+    cursor: pointer;
+    border: #e0e0e0 1px solid;
     /*box-shadow: 0 0 5px 5px rgba(0 ,0 ,0, .1);*/
-     animation: pulse 1.5s infinite;
+    animation: pulse 1.5s infinite;
 
 
- }
+}
 
 
 @keyframes pulse {
@@ -83,7 +85,7 @@
     }
 }
 
-.indicatorContainer{
+.indicatorContainer {
     height: 30px;
     width: 30px;
     border-radius: 50%;
@@ -94,22 +96,25 @@
     justify-content: center;
     position: absolute;
 }
-.placeHolder{
+
+.placeHolder {
     background: white;
     border: #e0e0e0 1px solid;
     border-radius: 50%;
     position: absolute;
 }
 
-.limitContainer{
+.limitContainer {
     position: fixed;
     bottom: 0;
     width: 100vw;
     background: transparent;
-    z-index: 0; height: 3px;  border: transparent 2px dashed;
+    z-index: 0;
+    height: 3px;
+    border: transparent 2px dashed;
 }
 
-.entityContainer{
+.entityContainer {
 
     user-select: none;
 
@@ -125,15 +130,32 @@
     transition: background 300ms ease, box-shadow 300ms ease, transform 300ms ease;
     box-shadow: none;
 }
-.lineContainer{
+
+.lineContainer {
     width: 2px;
     background: #777777;
     position: absolute;
     box-sizing: content-box;
     color: #777777;
     transition: background 150ms ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
 }
-.lineContainer:hover{
+
+.lineContainer:hover {
     background: #ff5555;
     color: #ff5555;
+}
+
+.lineContentContainer {
+    background: white;
+    border: #777777 2px solid;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

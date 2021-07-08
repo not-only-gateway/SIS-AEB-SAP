@@ -38,7 +38,7 @@ export default function NavigationApps(props) {
                                 justifyItems: 'center',
                                 justifyContent: 'center',
                                 height: '80px',
-                                width: "100%"
+                                width:  'calc(50% - 8px)'
                             }}
                         >
 

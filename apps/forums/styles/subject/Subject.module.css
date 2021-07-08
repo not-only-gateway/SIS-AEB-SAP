@@ -1,7 +1,10 @@
 .buttons{
-    display: grid;
+    display: inline-flex;
+    flex-wrap: wrap;
+    flex-flow: row;
     justify-content: flex-end;
     align-content: space-between;
+
     gap: 8px;
 }
 
@@ -39,8 +42,8 @@
 
 
 .infoHeader {
-    grid-row: 1;
-    width: 100vw;
+
+    width: 100%;
     background: white;
     border-bottom: #e0e0e0 1px solid;
     display: flex;
@@ -51,7 +54,8 @@
     padding: 24px 64px;
     height: fit-content;
 
-    overflow: hidden;
+
+    overflow:auto;
 }
 
 .infoHeader:first-child {

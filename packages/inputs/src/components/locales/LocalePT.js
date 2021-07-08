@@ -1,3 +1,4 @@
 export default {
-  required: 'Este campo é obrigatório.'
+  required: 'Este campo é obrigatório.',
+  highlight: 'Cor de destaque'
 }

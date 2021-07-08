@@ -26,6 +26,15 @@ export default function Node(props) {
     const [notAvailable, setNotAvailable] = useState(false)
 
     useEffect(() => {
+        // if(props.entity !== entity.current){
+        //     if (elementRef.current.offsetWidth > elementRef.current.offsetHeight) {
+        //         ref.current.style.width = (elementRef.current.offsetWidth + 16) + 'px'
+        //         ref.current.style.height = (elementRef.current.offsetWidth + 16) + 'px'
+        //     } else {
+        //         ref.current.style.width = elementRef.current.offsetHeight + 'px'
+        //         ref.current.style.height = elementRef.current.offsetHeight + 'px'
+        //     }
+        // }
         setNodeColor(props.getNodeColor(props.entity))
         if (props.linkable !== link) {
             setLink(props.linkable)
@@ -77,8 +86,6 @@ export default function Node(props) {
                 children: children,
                 refreshLinks: refresh,
                 parents: parents,
-                // bottomElement: bottomRef.current,
-                // topElement: topRef.current,
                 root: props.root,
                 color: nodeColor
             })
@@ -93,8 +100,11 @@ export default function Node(props) {
             let line = document.getElementById(parents[i] + '-line-' + props.entityKey)
             let objective = document.getElementById(parents[i] + '-node')
             let lineObjective = document.getElementById(parents[i] + '-line-indicator-objective-' + props.entityKey)
+
+            let lineContent = document.getElementById(parents[i] + '-line-content-' + props.entityKey)
             if (objective !== null && ref.current !== null)
                 adjustLine({
+                    lineContent: lineContent,
                     from: ref.current,
                     to: objective,
                     line: line,
@@ -107,13 +117,15 @@ export default function Node(props) {
         return (
 
             <>
-                {parents.map(parent => <Connection parent={parent} editable={props.options.edit}
-                                                   entityKey={props.entityKey}/>)}
+                {parents.map(parent => <Connection
+                    parent={parent} editable={props.options.edit}
+                    entityKey={props.entityKey} canDelete={props.options.edit}/>)}
                 <div id={props.entityKey + '-node'}
                      className={[props.linkable && props.getEntityKey(props.toBeLinked) !== props.getEntityKey(entity.current) && !notAvailable ? styles.pulse : '', styles.entityContainer].join(' ')}
                      style={{
                          cursor: props.linkable ? (notAvailable ? 'default' : 'pointer') : 'pointer',
                          background: 'white',
+                         border: nodeColor !== undefined && nodeColor !== null ? nodeColor + ' 2px solid' : '#e0e0e0 2px solid',
                          top: entity.current.y,
                          left: entity.current.x,
                          transform: 'translate(' + entity.current.x + ',' + entity.current.y + ')',

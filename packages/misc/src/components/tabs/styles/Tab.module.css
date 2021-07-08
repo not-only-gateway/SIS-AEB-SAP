@@ -1,41 +1,57 @@
 .tabsContainer {
+  display: grid;
+  align-items: flex-start;
+  gap: 16px;
+  justify-content: flex-start;
 
-    height: 60px;
-    width: fit-content;
-
-    margin: auto;
-
-    border-bottom: #e0e0e0 1px solid;
-
-    display: flex;
-    align-items: flex-end;
-    gap: 16px;
-    justify-content: center;
-
-    background: white;
-    transition: 300ms ease-in-out;
+  background: white;
+  transition: 300ms ease-in-out;
 }
 
 
 .tabButtonContainer {
-    cursor: pointer;
+  cursor: pointer;
 
-    font-family: 'Roboto' !important;
-    outline: none;
+  font-family: 'Roboto' !important;
+  outline: none;
 
-    transition: 300ms ease-in-out;
+  transition: 300ms ease-in-out;
 
-    box-shadow: none;
-    padding: 12px;
-    text-align: center;
+  box-shadow: none;
+  padding: 12px 24px;
+  text-align: center;
 
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+  border-radius: 5px;
 
-    border: none;
-    background: transparent;
+  border: none;
+  background: transparent;
+
+  animation: fadeIn ease-in-out 250ms forwards;
 }
-.tabButtonContainer:hover{
-    background: #E8F0FE;
+
+.tabButtonContainer:hover {
+  background: #E8F0FE;
+}
+
+
+.container {
+  display: flex;
+  align-items: flex-start;
+  gap: 128px;
+  width: 100%;
+}
+
+.contentContainer {
+  width: 100%;
+  animation: fadeIn ease-in-out 750ms forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100%;
+  }
 
 }

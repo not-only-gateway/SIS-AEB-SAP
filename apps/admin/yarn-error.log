@@ -1,20 +1,30 @@
 Arguments: 
-  /home/roque/.nvm/versions/node/v12.22.1/bin/node /home/roque/.nvm/versions/node/v12.22.1/bin/yarn
+  /usr/bin/node /usr/local/bin/yarn add draftjs
 
 PATH: 
-  /home/roque/.nvm/versions/node/v12.22.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Users/Gustavo Roque/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/JetBrains/WebStorm 2021.1.1/bin:/snap/bin
+  /sbin:/bin:/usr/bin:/usr/local/bin
 
 Yarn version: 
   1.22.10
 
-Canvas version:
-  12.22.1
+Node version: 
+  12.18.2
 
 Platform: 
   linux x64
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/home/roque/projects/SIS-AEB-FRONTEND/apps/admin/node_modules/.yarn-integrity'
+  Error: https://registry.yarnpkg.com/draftjs: Not found
+      at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:66988:18)
+      at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:140662:22)
+      at Request.emit (events.js:315:20)
+      at Request.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141634:10)
+      at Request.emit (events.js:315:20)
+      at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141556:12)
+      at Object.onceWrapper (events.js:421:28)
+      at IncomingMessage.emit (events.js:327:22)
+      at endReadableNT (_stream_readable.js:1221:12)
+      at processTicksAndRejections (internal/process/task_queues.js:84:21)
 
 npm manifest: 
   {
@@ -40,10 +50,10 @@ npm manifest:
       "react-dom": "17.0.1",
       "react-infinite-scroll-component": "^6.0.0",
       "react-input-mask": "^2.0.4",
-      "sis-aeb-alert": "../../packages/alert",
       "sis-aeb-misc": "../../packages/misc",
       "sis-aeb-inputs": "../../packages/inputs",
-      "sis-aeb-navigation": "../../packages/navigation"
+      "sis-aeb-navigation": "../../packages/navigation",
+      "sis-aeb-chart": "../../packages/chart"
     },
     "devDependencies": {
       "@material-ui/pickers": "^3.3.10",
@@ -2376,7 +2386,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.7.2.tgz#67a7d02c76c9da24f99d20808fcaded0e0e04be2"
     integrity sha512-mRz/m/JVscCrkMyPqHc/bczi3OQHkLTqXHEFu0zDhK/qfv3UcOA4SVmRCLmos4bhjr9ekVQubj/R7waKapmiQg==
   
-  sis-aeb-alert@../../packages/alert:
+  sis-aeb-chart@../../packages/chart:
     version "1.0.0"
   
   sis-aeb-inputs@../../packages/inputs:

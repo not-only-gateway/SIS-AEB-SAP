@@ -103,9 +103,12 @@
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
 
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
+    display: inline-flex;
+
+    flex-flow: row;
+    flex-wrap: wrap;
+
+    gap: 16px;
     padding: 8px;
 }
 

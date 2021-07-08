@@ -8,6 +8,7 @@ import ForumRequests from "../utils/fetch/ForumRequests";
 import {AvatarGroup} from "@material-ui/lab";
 import PersonAvatar from "../components/shared/PersonAvatar";
 import Pops from "../components/subjects/Pops";
+import handleObjectChange from "../utils/shared/HandleObjectChange";
 
 export default function subject(props) {
     const router = useRouter()
@@ -32,7 +33,10 @@ export default function subject(props) {
 
 
                 <div className={styles.content}>
-                    <Pops subjectID={id} data={subject}/>
+                    <Pops subjectID={id} data={subject} handleChange={event => handleObjectChange({
+                        event: event,
+                        setData: setSubject
+                    })}/>
                 </div>
             </>
 

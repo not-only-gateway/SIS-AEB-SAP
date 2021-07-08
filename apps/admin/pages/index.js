@@ -3,7 +3,7 @@ import {useRouter} from "next/router";
 import PeopleList from "../components/management/PeopleList";
 import ManagementPT from "../packages/locales/management/ManagementPT";
 import Head from "next/head";
-import Header from "../components/shared/header/Header";
+import {Header} from "sis-aeb-misc";
 
 
 export default function management(props) {

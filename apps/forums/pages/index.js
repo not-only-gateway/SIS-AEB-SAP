@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import {useRouter} from "next/router";
 import Head from "next/head";
-import AuthenticatePT from "../packages/locales/authenticate/AuthenticatePT";
 import IndexPT from "../packages/locales/IndexPT";
 import {Header} from 'sis-aeb-misc'
 import SubjectList from "../components/subjects/SubjectList";

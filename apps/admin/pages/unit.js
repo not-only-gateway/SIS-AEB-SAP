@@ -64,47 +64,33 @@ export default function unit(props) {
                                 {unit.acronym}
                             </div>
                         </div>
+
+                    </div>
+
+                    <div className={styles.unitContentContainer}>
                         {openForm ? null :
                             <Tabs
                                 buttons={[
                                     {
                                         key: 0,
-                                        value: lang.vacancies
+                                        value: lang.vacancies,
+                                        content: <UnitVacancies
+                                            id={id} search={props.searchInput} unit={unit}
+                                            applySearch={props.notSearched} setOpen={setOpenForm}
+                                            setApplySearch={props.setNotSearched}
+                                        />,
+
                                     },
                                     {
                                         key: 1,
-                                        value: lang.forms
+                                        value: lang.forms,
+                                        content: <UnitForms id={id}/>,
                                     }
                                 ]}
                                 setOpenTab={setOpenTab}
                                 openTab={openTab}
                             />
                         }
-                    </div>
-
-                    <div className={styles.unitContentContainer}>
-                        <RenderTabs
-                            openTab={openTab}
-
-                            tabs={[
-                                {
-                                    buttonKey: 0,
-                                    value: (
-                                        <UnitVacancies
-                                            id={id} search={props.searchInput} unit={unit}
-                                            applySearch={props.notSearched} setOpen={setOpenForm}
-                                            setApplySearch={props.setNotSearched}
-                                        />
-                                    )
-                                },
-                                {
-                                    buttonKey: 1,
-                                    value: (
-                                        <UnitForms id={id}/>
-                                    )
-                                }
-                            ]}
-                        />
                     </div>
                 </div>
             </>

@@ -20,10 +20,10 @@ export default function SubjectForm(props) {
 
     return (
         <>
-            <Alert
+            {props.id === undefined || props.id === null ? <Alert
                 type={status.type} render={status.type !== undefined} rootElementID={'root'}
                 handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
-            />
+            /> : null}
 
             <EntityLayout
                 entityID={props.id} onlyEdit={true}
@@ -37,7 +37,7 @@ export default function SubjectForm(props) {
                         {name: 'description', type: 'string'},
                     ],
                     changed: changed
-                }} returnButton={true}
+                }} returnButton={props.id === undefined || props.id === null}
                 handleSubmit={() =>
                     submitSubject({
                         pk: props.id,
@@ -45,10 +45,14 @@ export default function SubjectForm(props) {
                         setStatus: setStatus,
                         create: props.id === undefined || props.id === null
                     }).then(res => {
-                        if(res.status)
+                        if(res.status && (props.id === undefined || props.id === null))
                             props.redirect(res.id)
+                        else if(res.status)
+                            props.returnToMain()
+
                         setChanged(!res.status)
-                    })}
+                    })
+                }
                 handleClose={() => props.returnToMain()}
                 forms={[{
                     title: lang.emails,

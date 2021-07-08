@@ -22,47 +22,39 @@ export default function UnitForms(props) {
 
     return (
         <>
-            <RenderTabs
-                openTab={openTab}
-                tabs={[
-                    {
-                        buttonKey: 0,
-                        value: (
-                            <div className={styles.personOptionsContainer} onClick={() => setOpenTab(1)}>
-                                <button className={shared.buttonContainer}>
-                                    {lang.base}
-                                </button>
-                                <button className={shared.buttonContainer} onClick={() => setOpenTab(2)}>
-                                    {lang.address}
-                                </button>
-                            </div>
-                        )
-                    },
-                    {
-                        buttonKey: 1,
-                        value: (
-                            <UnitForm data={unit} create={false} id={props.id} returnToMain={() => setOpenTab(0)}
-                                      handleChange={event => handleObjectChange({
-                                          event: event,
-                                          setData: setUnit
-                                      })}
-                            />
-                        )
-                    },
-                    {
-                        buttonKey: 2,
-                        value: (
-                            <AddressForm
-                                id={props.id} data={unitAddress} type={'unit'} returnToMain={() => setOpenTab(0)}
-                                handleChange={event => handleObjectChange({
-                                    event: event,
-                                    setData: setUnitAddress
-                                })} create={unitAddress === null || unitAddress.id === undefined}
-                            />
-                        )
-                    }
-                ]}
-            />
+            {openTab === 0 ?
+                <div className={styles.personOptionsContainer} onClick={() => setOpenTab(1)}>
+                    <button className={shared.buttonContainer}>
+                        {lang.base}
+                    </button>
+                    <button className={shared.buttonContainer} onClick={() => setOpenTab(2)}>
+                        {lang.address}
+                    </button>
+                </div>
+                : null}
+
+            {openTab === 1 ?
+                <UnitForm
+                    data={unit} create={false} id={props.id} returnToMain={() => setOpenTab(0)}
+                    handleChange={event => handleObjectChange({
+                        event: event,
+                        setData: setUnit
+                    })}
+                />
+                : null}
+
+
+            {openTab === 2 ?
+                <AddressForm
+                    id={props.id} data={unitAddress} type={'unit'} returnToMain={() => setOpenTab(0)}
+                    handleChange={event => handleObjectChange({
+                        event: event,
+                        setData: setUnitAddress
+                    })} create={unitAddress === null || unitAddress.id === undefined}
+                />
+                : null}
+
+
         </>
     )
 }

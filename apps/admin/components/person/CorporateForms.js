@@ -48,107 +48,96 @@ export default function CorporateForms(props) {
         <div style={{width: '100%', display: 'grid', gap: '16px', alignItems: 'flex-start', justifyItems: 'center'}}>
             <div style={{width: '100%'}}>
 
-                <RenderTabs
-                    tabsKey={'corporate'}
-                    tabs={[
-                        {
-                            buttonKey: 0,
-                            value: (
-                                <div className={styles.personOptionsContainer}>
+                {openTab === 0 ?
+                    <div className={styles.personOptionsContainer}>
 
-                                    <button className={shared.buttonContainer} onClick={() => setOpenTab(1)}>
-                                        <div style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'flex-start',
-                                            gap: '8px'
-                                        }}>
-                                            <AddRounded style={{display: collaborator === null ? undefined : 'none'}}/>
-                                            {props.lang.collaborator}
-                                        </div>
-                                        <MenuOpenRounded style={{display: collaborator === null ? 'none' : undefined}}/>
-                                    </button>
-                                    <button className={shared.buttonContainer} onClick={() => setOpenTab(2)}
-                                            style={{display: collaborator !== null ? undefined : 'none'}}>
-                                        <div style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'flex-start',
-                                            gap: '8px'
-                                        }}>
-                                            <AddRounded style={{display: linkage === null ? undefined : 'none'}}/>
-                                            {props.lang.linkage}
-                                        </div>
-                                        <MenuOpenRounded style={{display: linkage === null ? 'none' : undefined}}/>
-                                    </button>
-                                    <button className={shared.buttonContainer} onClick={() => setOpenTab(3)}
-                                            style={{display: collaborator === null || linkage === null || linkage.id === undefined || linkage.effective_role === undefined || linkage.effective_role === null ? 'none' : undefined}}>
-                                        <div style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'flex-start',
-                                            gap: '8px'
-                                        }}>
-                                            <ListRounded style={{display: linkage === null ? undefined : 'none'}}/>
-                                            {props.lang.progression}
-                                        </div>
-                                        <MenuOpenRounded style={{display: linkage === null ? 'none' : undefined}}/>
-                                    </button>
-                                </div>
-                            )
-                        },
-                        {
-                            buttonKey: 1,
-                            value: (
+                        <button className={shared.buttonContainer} onClick={() => setOpenTab(1)}>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'flex-start',
+                                gap: '8px'
+                            }}>
+                                <AddRounded style={{display: collaborator === null ? undefined : 'none'}}/>
+                                {props.lang.collaborator}
+                            </div>
+                            <MenuOpenRounded style={{display: collaborator === null ? 'none' : undefined}}/>
+                        </button>
+                        <button className={shared.buttonContainer} onClick={() => setOpenTab(2)}
+                                style={{display: collaborator !== null ? undefined : 'none'}}>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'flex-start',
+                                gap: '8px'
+                            }}>
+                                <AddRounded style={{display: linkage === null ? undefined : 'none'}}/>
+                                {props.lang.linkage}
+                            </div>
+                            <MenuOpenRounded style={{display: linkage === null ? 'none' : undefined}}/>
+                        </button>
+                        <button className={shared.buttonContainer} onClick={() => setOpenTab(3)}
+                                style={{display: collaborator === null || linkage === null || linkage.id === undefined || linkage.effective_role === undefined || linkage.effective_role === null ? 'none' : undefined}}>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'flex-start',
+                                gap: '8px'
+                            }}>
+                                <ListRounded style={{display: linkage === null ? undefined : 'none'}}/>
+                                {props.lang.progression}
+                            </div>
+                            <MenuOpenRounded style={{display: linkage === null ? 'none' : undefined}}/>
+                        </button>
+                    </div>
+                    :
+                    null
+                }
+                {openTab === 1 ?
+                    <CollaboratorForm
+                        id={props.id}
+                        data={collaborator}
+                        handleChange={event => handleObjectChange({
+                            event: event,
+                            setData: setCollaborator
+                        })}
+                        create={(collaborator === null || collaborator === undefined || collaborator === {}) || collaborator.person === null || collaborator.person === undefined}
+                        handleSubmit={handleMemberSubmit}
+                        returnToMain={() => setOpenTab(0)}
+                        editable={props.accessProfile !== null && props.accessProfile.can_manage_membership}
+                        locale={props.locale}
+                    />
+                    :
+                    null
+                }
+                {openTab === 2 ?
+                    <LinkageForm
+                        id={props.id} collaboratorID={props.id}
+                        data={linkage}
+                        handleChange={event => handleObjectChange({
+                            event: event,
+                            setData: setLinkage
+                        })}
+                        create={linkage === null || linkage === undefined || linkage.id === undefined}
+                        returnToMain={() => setOpenTab(0)}
+                    />
 
-                                <CollaboratorForm
-                                    id={props.id}
-                                    data={collaborator}
-                                    handleChange={event => handleObjectChange({
-                                        event: event,
-                                        setData: setCollaborator
-                                    })}
-                                    create={(collaborator === null || collaborator === undefined || collaborator === {}) || collaborator.person === null || collaborator.person === undefined}
-                                    handleSubmit={handleMemberSubmit}
-                                    returnToMain={() => setOpenTab(0)}
-                                    editable={props.accessProfile !== null && props.accessProfile.can_manage_membership}
-                                    locale={props.locale}
-                                />
-                            )
-                        },
-                        {
-                            buttonKey: 2,
-                            value: (
-                                <LinkageForm
-                                    id={props.id} collaboratorID={props.id}
-                                    data={linkage}
-                                    handleChange={event => handleObjectChange({
-                                        event: event,
-                                        setData: setLinkage
-                                    })}
-                                    create={linkage === null || linkage === undefined || linkage.id === undefined}
-                                    returnToMain={() => setOpenTab(0)}
-                                />
-                            )
-                        },
-                        {
-                            buttonKey: 3,
-                            value: linkage !== null && linkage !== undefined && linkage.id !== undefined ? (
-                                    <ProgressionList
-                                        linkageID={linkage.id} returnToMain={() => setOpenTab(0)}
-                                        notSearched={props.notSearched}
-                                        setNotSearched={props.setNotSearched}
-                                        searchInput={props.searchInput}
-                                    />
-                                )
-                                :
-                                null
+                    :
+                    null
+                }
 
-                        },
-                    ]}
-                    openTab={openTab}
+                {openTab === 3 && linkage !== null && linkage !== undefined && linkage.id !== undefined ? (
+                        <ProgressionList
+                            linkageID={linkage.id} returnToMain={() => setOpenTab(0)}
+                            notSearched={props.notSearched}
+                            setNotSearched={props.setNotSearched}
+                            searchInput={props.searchInput}
+                        />
+                    )
+                    :
+                    null
 
-                />
+                },
             </div>
         </div>
     )

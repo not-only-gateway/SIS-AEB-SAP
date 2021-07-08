@@ -1,8 +1,9 @@
 import {EditorState} from 'draft-js';
 import React, {useEffect, useState} from "react";
 import dynamic from 'next/dynamic';
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import draftStyles from './styles/Draft.module.css'
 import { convertFromRaw, convertToRaw  } from 'draft-js';
+
 const Editor = dynamic(() => import('react-draft-wysiwyg').then(res => res.Editor),
     { ssr: false }
 )
@@ -49,9 +50,6 @@ export default function TextArea(props) {
                                 props.handleChange(JSON.stringify(convertToRaw(editorState.getCurrentContent())))
                         }}
                         toolbarClassName={props.disabled ? styles.hidden : styles.toolbarContainer}
-                        wrapperClassName="wrapperClassName"
-                        editorClassName="editorClassName"
-
                     />
                 </div>
             </div>

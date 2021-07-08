@@ -6,5 +6,6 @@ export default {
     body: 'Corpo do processo',
     bodyImage: 'Corpo e imagem',
     basic: 'Básico',
-    highlight: 'Cor de highlight'
+    highlight: 'Cor de destaque',
+    choices: [{key:true,value: 'Forte'}]
 }

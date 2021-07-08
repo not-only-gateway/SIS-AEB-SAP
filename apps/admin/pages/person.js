@@ -6,7 +6,7 @@ import Profile from "../components/person/Profile";
 import PersonalForms from "../components/person/PersonalForms";
 import CorporateForms from "../components/person/CorporateForms";
 import Head from 'next/head'
-import {Alert, RenderTabs, Tabs} from "sis-aeb-misc";
+import {Alert, Tabs} from "sis-aeb-misc";
 
 import PersonPT from "../packages/locales/person/PersonPT";
 import PersonRequests from "../utils/fetch/PersonRequests";
@@ -71,39 +71,27 @@ export default function person(props) {
                 <div className={styles.pageContainer}>
                     <div className={styles.profileHeader}>
                         <Profile person={person} member={member} padding={true}/>
-                        <Tabs
-                            buttons={[
-                                {
-                                    key: 0,
-                                    value: lang.personal
-                                },
-                                {
-                                    key: 1,
-                                    value: lang.corporate
-                                }
-                            ]}
-                            openTab={openTab}
-                            setOpenTab={setOpenTab}
-                        />
+
 
                     </div>
 
                     <div className={styles.profileContentContainer}>
-                        <RenderTabs
-                            tabs={[
+                        <Tabs
+                            buttons={[
                                 {
-                                    buttonKey: 0,
-                                    value: accessProfile === null || !accessProfile.can_manage_person ? null :
-                                        <PersonalForms
-                                            lang={lang}
-                                            accessProfile={accessProfile}
-                                            locale={router.locale}
-                                            id={person.id}
-                                        />
+                                    key: 0,
+                                    value: lang.personal,
+                                    content:  accessProfile === null || !accessProfile.can_manage_person ? null : <PersonalForms
+                                        lang={lang}
+                                        accessProfile={accessProfile}
+                                        locale={router.locale}
+                                        id={person.id}
+                                    />
                                 },
                                 {
-                                    buttonKey: 1,
-                                    value: accessProfile === null || !accessProfile.can_manage_membership ? null :
+                                    key: 1,
+                                    value: lang.corporate,
+                                    content: accessProfile === null || !accessProfile.can_manage_membership ? null :
                                         <CorporateForms
                                             lang={lang}
                                             fetchMembership={() =>
@@ -125,9 +113,10 @@ export default function person(props) {
                                             accessProfile={accessProfile}
                                         />
                                 }
-                            ]} openTab={openTab} tabsKey={0}
+                            ]}
+                            openTab={openTab}
+                            setOpenTab={setOpenTab}
                         />
-
                     </div>
                 </div>
             </>

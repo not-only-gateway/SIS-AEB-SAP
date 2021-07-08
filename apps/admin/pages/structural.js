@@ -5,7 +5,7 @@ import {RenderTabs, Tabs} from "sis-aeb-misc";
 import Head from "next/head";
 import StructuralPT from "../packages/locales/structural/StructuralPT";
 import EntityList from "../components/structural/EntityList";
-import Header from "../components/shared/header/Header";
+import {Header} from "sis-aeb-misc";
 
 export default function structural(props) {
 
@@ -39,39 +39,27 @@ export default function structural(props) {
                         buttons={[
                             {
                                 key: 0,
-                                value: lang.units
+                                value: lang.units,
+                                content: <UnitList redirect={id => router.push('/unit/?id=' + id, undefined, {shallow: true})}
+                                                   searchInput={props.searchInput} notSearched={props.notSearched}
+                                                   setNotSearched={props.setNotSearched} setOpen={setOpenForm}/>
                             },
                             {
                                 key: 1,
-                                value: lang.entities
+                                value: lang.entities,
+                                content: <EntityList
+                                    redirect={id => router.push('/entity/?id=' + id, undefined, {shallow: true})}
+                                    setOpen={setOpenForm}
+
+                                    notSearched={props.notSearched}
+                                    setNotSearched={props.setNotSearched}
+                                    searchInput={props.searchInput}/>
                             }
                         ]}
                         setOpenTab={setOpenTab}
                         openTab={openTab}
                     />
                 }
-                <RenderTabs
-                    openTab={openTab}
-
-                    tabs={[
-                        {
-                            buttonKey: 0,
-                            value: <UnitList redirect={id => router.push('/unit/?id=' + id, undefined, {shallow: true})}
-                                             searchInput={props.searchInput} notSearched={props.notSearched}
-                                             setNotSearched={props.setNotSearched} setOpen={setOpenForm}/>
-                        },
-                        {
-                            buttonKey: 1,
-                            value: <EntityList
-                                redirect={id => router.push('/entity/?id=' + id, undefined, {shallow: true})}
-                                setOpen={setOpenForm}
-
-                                notSearched={props.notSearched}
-                                setNotSearched={props.setNotSearched}
-                                searchInput={props.searchInput}/>
-                        }
-                    ]}
-                />
             </div>
         </>
 

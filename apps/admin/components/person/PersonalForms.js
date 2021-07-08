@@ -64,139 +64,130 @@ export default function PersonalForms(props) {
             })} render={status.error} rootElementID={'root'}/>
 
             <div style={{width: '100%'}}>
-                <RenderTabs
-                    tabsKey={'person'}
-                    openTab={openTab}
-                    noContainer={true}
-                    tabs={[
-                        {
-                            buttonKey: 0,
-                            value: (
-                                <div className={styles.personOptionsContainer}>
-                                    <button className={shared.buttonContainer} onClick={() => setOpenTab(1)}>
-                                        {props.lang.personal}
-                                        <MenuOpenRounded/>
-                                    </button>
-                                    <button className={shared.buttonContainer} onClick={() => setOpenTab(2)}>
 
-                                        <div style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'flex-start',
-                                            gap: '8px'
-                                        }}>
-                                            <AddRounded
-                                                style={{display: documents === null || documents.person === undefined ? undefined : 'none'}}/>
-                                            {props.lang.documents}
-                                        </div>
-                                        <MenuOpenRounded
-                                            style={{display: documents === null || documents.person === undefined ? 'none' : undefined}}/>
-                                    </button>
-                                    <button className={shared.buttonContainer} onClick={() => setOpenTab(3)}>
+                {openTab === 0 ? <div className={styles.personOptionsContainer}>
+                        <button className={shared.buttonContainer} onClick={() => setOpenTab(1)}>
+                            {props.lang.personal}
+                            <MenuOpenRounded/>
+                        </button>
+                        <button className={shared.buttonContainer} onClick={() => setOpenTab(2)}>
 
-                                        <div style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'flex-start',
-                                            gap: '8px'
-                                        }}>
-                                            <AddRounded
-                                                style={{display: contact === null || contact.person === undefined ? undefined : 'none'}}/>
-                                            {props.lang.contacts}
-                                        </div>
-                                        <MenuOpenRounded
-                                            style={{display: contact === null || contact.person === undefined ? 'none' : undefined}}/>
-                                    </button>
-                                    <button className={shared.buttonContainer} onClick={() => setOpenTab(4)}>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'flex-start',
+                                gap: '8px'
+                            }}>
+                                <AddRounded
+                                    style={{display: documents === null || documents.person === undefined ? undefined : 'none'}}/>
+                                {props.lang.documents}
+                            </div>
+                            <MenuOpenRounded
+                                style={{display: documents === null || documents.person === undefined ? 'none' : undefined}}/>
+                        </button>
+                        <button className={shared.buttonContainer} onClick={() => setOpenTab(3)}>
 
-                                        <div style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'flex-start',
-                                            gap: '8px'
-                                        }}>
-                                            <AddRounded
-                                                style={{display: address === null || address.person === undefined ? undefined : 'none'}}/>
-                                            {props.lang.address}
-                                        </div>
-                                        <MenuOpenRounded
-                                            style={{display: address === null || address.person === undefined ? 'none' : undefined}}/>
-                                    </button>
-                                </div>
-                            )
-                        }, {
-                            buttonKey: 1,
-                            value: (
-                                <BaseForm
-                                    returnToMain={() =>
-                                        setOpenTab(0)
-                                    }
-                                    id={props.id}
-                                    data={person}
-                                    handleChange={event => handleObjectChange({
-                                        event: event,
-                                        setData: setPerson
-                                    })}
-                                    editable={true}
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'flex-start',
+                                gap: '8px'
+                            }}>
+                                <AddRounded
+                                    style={{display: contact === null || contact.person === undefined ? undefined : 'none'}}/>
+                                {props.lang.contacts}
+                            </div>
+                            <MenuOpenRounded
+                                style={{display: contact === null || contact.person === undefined ? 'none' : undefined}}/>
+                        </button>
+                        <button className={shared.buttonContainer} onClick={() => setOpenTab(4)}>
 
-                                />
-                            )
-                        },
-                        {
-                            buttonKey: 2,
-                            value: (
-                                <DocumentsForm
-                                    id={props.id}
-
-                                    data={documents}
-                                    handleChange={event => handleObjectChange({
-                                        event: event,
-                                        setData: setDocuments
-                                    })}
-                                    editable={true}
-                                    returnToMain={() =>
-                                        setOpenTab(0)
-                                    }
-                                />
-                            )
-                        },
-                        {
-                            buttonKey: 3,
-                            value: (
-                                <ContactForm
-                                    id={props.id}
-                                    data={contact}
-                                    returnToMain={() =>
-                                        setOpenTab(0)
-                                    }
-                                    handleChange={event => handleObjectChange({
-                                        event: event,
-                                        setData: setContact
-                                    })}
-
-                                    editable={true}
-                                />
-                            )
-                        }, {
-                            buttonKey: 4,
-                            value: (
-                                <AddressForm
-                                    id={props.id}
-                                    type={'person'}
-                                    data={address}
-                                    handleChange={event => handleObjectChange({
-                                        event: event,
-                                        setData: setAddress
-                                    })}
-                                    create={address === null || address.person === undefined}
-                                    returnToMain={() =>
-                                        setOpenTab(0)
-                                    }
-                                    editable={true}
-                                />
-                            )
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'flex-start',
+                                gap: '8px'
+                            }}>
+                                <AddRounded
+                                    style={{display: address === null || address.person === undefined ? undefined : 'none'}}/>
+                                {props.lang.address}
+                            </div>
+                            <MenuOpenRounded
+                                style={{display: address === null || address.person === undefined ? 'none' : undefined}}/>
+                        </button>
+                    </div>
+                    :
+                    null}
+                {openTab === 1 ?
+                    <BaseForm
+                        returnToMain={() =>
+                            setOpenTab(0)
                         }
-                    ]}/>
+                        id={props.id}
+                        data={person}
+                        handleChange={event => handleObjectChange({
+                            event: event,
+                            setData: setPerson
+                        })}
+                        editable={true}
+
+                    />
+                    :
+                    null
+                }
+
+                {openTab === 2 ?
+                    <DocumentsForm
+                        id={props.id}
+
+                        data={documents}
+                        handleChange={event => handleObjectChange({
+                            event: event,
+                            setData: setDocuments
+                        })}
+                        editable={true}
+                        returnToMain={() =>
+                            setOpenTab(0)
+                        }
+                    />
+                    :
+                    null
+                }
+                {openTab === 3 ?
+                    <ContactForm
+                        id={props.id}
+                        data={contact}
+                        returnToMain={() =>
+                            setOpenTab(0)
+                        }
+                        handleChange={event => handleObjectChange({
+                            event: event,
+                            setData: setContact
+                        })}
+
+                        editable={true}
+                    />
+                    :
+                    null
+                }
+                {openTab === 4 ?
+                    <AddressForm
+                        id={props.id}
+                        type={'person'}
+                        data={address}
+                        handleChange={event => handleObjectChange({
+                            event: event,
+                            setData: setAddress
+                        })}
+                        create={address === null || address.person === undefined}
+                        returnToMain={() =>
+                            setOpenTab(0)
+                        }
+                        editable={true}
+                    />
+                    :
+                    null
+                }
             </div>
         </div>
     )
