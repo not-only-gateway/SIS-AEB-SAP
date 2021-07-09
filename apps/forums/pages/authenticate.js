@@ -7,7 +7,7 @@ import Head from "next/head";
 import {Button} from "@material-ui/core";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import {Alert} from "sis-aeb-misc";
-import AuthenticatePT from "../packages/locales/authenticate/AuthenticatePT";
+import AuthenticatePT from "../packages/locales/AuthenticatePT";
 import submitAuthentication from "../utils/submit/SubmitAuthentication";
 import {TextField} from "sis-aeb-inputs";
 

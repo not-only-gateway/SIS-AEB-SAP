@@ -59,8 +59,13 @@
 .optionButton:hover {
     color: #0095ff;
     background: #E8F0FE;
-}
 
+}
+.optionButton:disabled {
+    color: #e0e0e0;
+    background: white;
+    cursor: unset;
+}
 .pulse {
     display: block;
 
@@ -177,6 +182,7 @@
     border: #e0e0e0 1px solid;
     border-radius: 8px;
     width: 180px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 
     height: auto;
     margin: auto;

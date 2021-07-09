@@ -4,17 +4,32 @@ import {ArrowForwardIosRounded, CloseRounded, DeleteForeverRounded, EditRounded}
 import React, {useEffect, useRef, useState} from "react";
 
 export default function Connection(props) {
-    const [open, setOpen] = useState(false)
     const ref = useRef()
-
+    const menu = (
+        <div className={styles.lineOptionsContainer}>
+            <button className={styles.optionButton}>
+                <EditRounded/>
+                Editar conexão
+            </button>
+            <button className={styles.optionButton} style={{color: '#ff5555'}}>
+                <DeleteForeverRounded/>
+                Deletar conexão
+            </button>
+            <button className={styles.optionButton} onClick={() =>           props.renderOnRoot(null, null, null)}>
+                <CloseRounded/>
+                Fechar
+            </button>
+        </div>
+    )
 
     useEffect(() => {
         if (ref.current !== null)
             ref.current.addEventListener('contextmenu', function (e) {
                 if (props.editable) {
-                    setOpen(!open)
+                    props.renderOnRoot(menu, (e.clientX), (e.clientY - props.root.offsetTop))
+                } else if (props.editable) {
+                    props.renderOnRoot(null, null, null)
                 }
-
                 e.preventDefault();
             }, false);
 
@@ -23,6 +38,7 @@ export default function Connection(props) {
                 ref.current.removeEventListener('contextmenu', () => null)
         }
     })
+
     return (
         <div
             ref={ref}
@@ -36,6 +52,9 @@ export default function Connection(props) {
                 if (props.canDelete)
                     setOpen(!open)
             }}>
+
+
+
             <div id={props.getLinkParent(props.link) + '-line-indicator-objective-' + props.entityKey}
                  className={styles.indicatorContainer} style={{
                 background: props.color !== undefined && props.color !== null ? props.color : '#777777',
@@ -47,28 +66,12 @@ export default function Connection(props) {
                     }}/>
             </div>
             <div id={props.getLinkParent(props.link) + '-line-content-' + props.entityKey}
-                 className={open ? styles.lineOptionsContainer : styles.lineContentContainer}
-                 style={open ? null : {
-                     color: props.color !== undefined && props.color !== null && !open ? props.color : undefined,
+                 className={styles.lineContentContainer}
+                 style={{
+                     color: props.color !== undefined && props.color !== null ? props.color : undefined,
                      border: props.color !== undefined && props.color !== null ? props.color + ' 2px solid' : '#777777 2px solid'
                  }} onBlur={() => setOpen(false)}>
-                {open ?
-                    <>
-
-                        <button className={styles.optionButton}>
-                            <EditRounded/>
-                            Editar conexão
-                        </button>
-                        <button className={styles.optionButton} style={{color: '#ff5555'}}>
-                            <DeleteForeverRounded/>
-                            Deletar conexão
-                        </button>
-                        <button className={styles.optionButton} onClick={() => setOpen(false)}>
-                            <CloseRounded/>
-                            Fechar
-                        </button>
-                    </>
-                    : props.getLinkContent(props.link)}
+                {props.getLinkContent(props.link)}
             </div>
         </div>
     )
@@ -82,5 +85,8 @@ Connection.propTypes = {
     entityKey: PropTypes.number,
     editable: PropTypes.bool,
     color: PropTypes.string,
-    getLinkParent: PropTypes.func
+    getLinkParent: PropTypes.func,
+
+    renderOnRoot: PropTypes.func,
+    root: PropTypes.object
 }

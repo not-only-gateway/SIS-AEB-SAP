@@ -17,15 +17,53 @@ export default function Node(props) {
     const [fetched, setFetched] = useState(false)
     const [link, setLink] = useState(false)
     const [notAvailable, setNotAvailable] = useState(false)
+    const menu = (
+        <div className={styles.options}>
+            <button className={styles.optionButton} onClick={() => props.show(entity.current)}
+                    style={{display: props.options.show ? undefined : 'none'}}><VisibilityRounded/>
+                Visualizar
+            </button>
+            <button className={styles.optionButton} onClick={() => props.edit(entity.current)}
+                    style={{display: props.options.edit ? undefined : 'none'}}><EditRounded/>
+                Editar
+            </button>
 
+            <button
+                className={styles.optionButton}
+                onClick={() => {
+                    if (props.linkable && props.getEntityKey(props.toBeLinked) === props.getEntityKey(entity.current)) {
+                        props.setLinkable(false)
+                    } else if (!props.linkable) {
+                        props.setLinkable(true)
+                        props.handleLink(entity.current)
+                        setLink(true)
+                    }
+                }} style={{
+                color: link ? '#ff5555' : '#0095ff',
+                display: props.options.edit ? undefined : 'none'
+            }}>
+                <LinkRounded/>
+                Criar conexão
+            </button>
+            <button className={styles.optionButton} onClick={() => props.handleDelete(entity.current)}
+                    style={{
+                        display: props.options.edit ? undefined : 'none',
+                        color: '#ff5555',
+                        border: 'none'
+                    }}>
+                <DeleteForeverRounded/>
+                Deletar modulo
+            </button>
+        </div>
+    )
     useEffect(() => {
         if(ref.current !== null)
             ref.current.addEventListener('contextmenu', function (e) {
                 if (!props.linkable) {
                     if (props.openMenu === props.entityKey)
-                        props.setOpenMenu(null)
+                        props.setOpenMenu(null, null, null, null)
                     else
-                        props.setOpenMenu(props.entityKey)
+                        props.setOpenMenu(menu, (e.clientX), (e.clientY - props.root.offsetTop - ref.current.offsetHeight/2), props.entityKey)
                 }
 
                 e.preventDefault();
@@ -37,7 +75,7 @@ export default function Node(props) {
             setLink(props.linkable)
             if (props.linkable && props.getEntityKey(props.toBeLinked) !== props.getEntityKey(entity.current)) {
                 if (props.openMenu === props.entityKey)
-                    props.setOpenMenu(null)
+                    props.setOpenMenu(null, null, null, null)
 
                 const entity = document.getElementById(props.getEntityKey(props.toBeLinked) + '-node')
                 if (entity !== null && entity.getBoundingClientRect().top >= ref.current.getBoundingClientRect().top || parents.includes(props.getEntityKey(props.toBeLinked)))
@@ -86,6 +124,7 @@ export default function Node(props) {
                 getLinkParent: props.getLinkParent,
                 root: props.root,
                 color: nodeColor
+
             })
         }
 
@@ -116,8 +155,8 @@ export default function Node(props) {
 
             <>
                 {parents.map(link => <Connection
-                    getLinkType={props.getLinkType}
-                    getLinkContent={props.getLinkContent}
+                    getLinkType={props.getLinkType} renderOnRoot={props.renderOnRoot}
+                    getLinkContent={props.getLinkContent} root={props.root}
                     color={nodeColor} getLinkParent={props.getLinkParent}
                     link={link} editable={props.options.edit}
                     entityKey={props.entityKey} canDelete={props.options.edit}/>)}
@@ -132,54 +171,13 @@ export default function Node(props) {
                          transform: 'translate(' + entity.current.x + ',' + entity.current.y + ')',
                          opacity: notAvailable ? .5 : undefined
                      }} ref={ref}>
-                    {props.openMenu === props.entityKey ?
-                        <div className={styles.options}>
-                            <button className={styles.optionButton} onClick={() => props.show(entity.current)}
-                                    style={{display: props.options.show ? undefined : 'none'}}><VisibilityRounded/>
-                                Visualizar
-                            </button>
-                            <button className={styles.optionButton} onClick={() => props.edit(entity.current)}
-                                    style={{display: props.options.edit ? undefined : 'none'}}><EditRounded/>
-                                Editar
-                            </button>
-
-                            <button
-                                className={styles.optionButton}
-                                onClick={() => {
-                                    if (props.linkable && props.getEntityKey(props.toBeLinked) === props.getEntityKey(entity.current)) {
-                                        props.setLinkable(false)
-                                    } else if (!props.linkable) {
-                                        props.setLinkable(true)
-                                        props.handleLink(entity.current)
-                                        setLink(true)
-                                    }
-                                }} style={{
-                                color: link ? '#ff5555' : '#0095ff',
-                                display: props.options.edit ? undefined : 'none'
-                            }}>
-                                <LinkRounded/>
-                                Criar conexão
-                            </button>
-                            <button className={styles.optionButton} onClick={() => props.handleDelete(entity.current)}
-                                    style={{
-                                        display: props.options.edit ? undefined : 'none',
-                                        color: '#ff5555',
-                                        border: 'none'
-                                    }}>
-                                <DeleteForeverRounded/>
-                                Deletar modulo
-                            </button>
-                        </div>
-                        :
-                        null
-                    }
                     <div ref={elementRef}
                          style={{width: 'fit-content', height: 'fit-content'}}
                          onClick={() => {
                              if (props.linkable && !notAvailable)
                                  props.handleLink(entity.current, setLink)
                              if (props.openMenu === props.entityKey)
-                                 props.setOpenMenu(null)
+                                 props.setOpenMenu(null, null, null, null)
                          }}>
 
                         {props.renderNode(props.entity)}
@@ -224,4 +222,5 @@ Node.propTypes = {
 
     getLinkType: PropTypes.func,
     getLinkContent: PropTypes.func,
+    renderOnRoot: PropTypes.func
 }

@@ -76,7 +76,10 @@ export default function Pops(props) {
                 })}
                 id={currentEntity !== null && currentEntity !== undefined ? currentEntity.id : null}
                 data={currentEntity} subjectID={props.subjectID}
-                fetchPops={() => ForumRequests.listPops(props.subjectID).then(res => setPops(res))}
+                fetchPops={() => {
+                    setPops([])
+                    ForumRequests.listPops(props.subjectID).then(res => setPops(res))
+                }}
                 open={openForm}
             />
 
@@ -120,26 +123,11 @@ export default function Pops(props) {
                         </AvatarGroup>
 
                     </div>
-                    <div className={subjectStyles.buttons}>
-                        <button className={subjectStyles.buttonContainer}
-                                style={{display: (new Cookies()).get('jwt') === undefined ? 'none' : undefined}}
-                                onClick={() => setOpenForm(true)}
-                        >
-                            <AddRounded style={{color: '#555555'}}/>
-                            {lang.create}
-                        </button>
-                        <button style={{display: (new Cookies()).get('jwt') === undefined ? 'none' : undefined}}
-                                className={subjectStyles.buttonContainer} onClick={() => setUpdate(true)}>
-                            <SaveRounded style={{color: '#555555'}}/>
-                            {lang.updatePop}
-                        </button>
-
-                    </div>
                 </div>
             </div>
 
             <Canvas
-                rootElementID={'scrollableDiv'}
+                rootElementID={'scrollableDiv'} handleTriggerUpdate={() => setUpdate(true)} handleCreate={() => setOpenForm(true)}
                 show={entity => {
                     setCurrentEntity(entity)
                     setShow(true)

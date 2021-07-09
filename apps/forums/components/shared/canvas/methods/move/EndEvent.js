@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 
 export default function EndEvent(props) {
-    props.setTimeout()
+
     props.setHolding()
     props.element.style.cursor = 'pointer'
     props.element.style.transform = 'scale(1)'
@@ -24,6 +24,6 @@ EndEvent.propTypes = {
     refreshLinks: PropTypes.func,
     limitBottomOffset: PropTypes.number,
     limitTopOffset: PropTypes.number,
-    setTimeout: PropTypes.func,
+
     setHolding: PropTypes.func
 }
