@@ -48,10 +48,7 @@ export default function Connection(props) {
                 background: props.color !== undefined && props.color !== null ? props.color : '#777777'
             }}
             id={props.getLinkParent(props.link) + '-line-' + props.entityKey}
-            onClick={() => {
-                if (props.canDelete)
-                    setOpen(!open)
-            }}>
+            >
 
 
 
@@ -70,7 +67,7 @@ export default function Connection(props) {
                  style={{
                      color: props.color !== undefined && props.color !== null ? props.color : undefined,
                      border: props.color !== undefined && props.color !== null ? props.color + ' 2px solid' : '#777777 2px solid'
-                 }} onBlur={() => setOpen(false)}>
+                 }}>
                 {props.getLinkContent(props.link)}
             </div>
         </div>
