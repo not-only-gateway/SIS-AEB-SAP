@@ -1,17 +1,17 @@
 import PropTypes from "prop-types";
 
-export default function StartEvent(props){
+export default function StartEvent(props) {
     let i
-    if(props.color !== undefined && props.color !== null)
+    if (props.color !== undefined && props.color !== null)
         props.element.animate([
             {
-                boxShadow: '0 0 0 0 '+props.color,
+                boxShadow: '0 0 0 0 ' + props.color,
             },
             {
-                boxShadow: '0 0 0 7px '+props.color,
+                boxShadow: '0 0 0 7px ' + props.color,
             },
             {
-                boxShadow: '0 0 0 0 '+props.color,
+                boxShadow: '0 0 0 0 ' + props.color,
             }
         ], {duration: 500, iterations: 1})
     else
@@ -32,59 +32,34 @@ export default function StartEvent(props){
     props.element.style.cursor = 'move'
     props.element.style.transform = 'scale(1.2)'
 
-    if(props.color !== undefined && props.color !== null) {
+    if (props.color !== undefined && props.color !== null) {
         props.element.style.boxShadow = '0 0 10px .1px ' + props.color;
-    }
-    else
+    } else
         props.element.style.boxShadow = '0 0 10px .1px #0095ff';
 
     props.setLimitTopOffset(undefined)
     props.setLimitBottomOffset(undefined)
-    props.setLimitTop(undefined)
-    props.setLimitBottom(undefined)
-
 
     for (i = 0; i < props.parents.length; i++) {
         const parent = document.getElementById(props.getLinkParent(props.parents[i]) + '-node')
-        if (parent !== null && (props.limitTopOffset === undefined || parent.offsetTop > props.limitTopOffset)) {
+        if (parent !== null)
             props.setLimitTopOffset(parent.offsetTop)
-        }
-
-        if (parent !== null) {
-            const parentOffset = (parent.getBoundingClientRect().top + parent.offsetHeight / 2)
-            if (props.limitTop === undefined || parentOffset > props.limitTop)
-                props.setLimitTop(parentOffset)
-        }
-
     }
-
     for (i = 0; i < props.children.length; i++) {
         const child = document.getElementById(props.getLinkChild(props.children[i]) + '-node')
-
-        if (child !== null && (child.offsetTop < props.limitBottomOffset || props.limitBottomOffset === undefined))
+        if (child !== null)
             props.setLimitBottomOffset(child.offsetTop)
-
-        if (child !== null) {
-            const childOffset = (child.getBoundingClientRect().top + child.offsetHeight)
-            if (childOffset < props.limitBottom || props.limitBottom === undefined)
-                props.setLimitBottom(childOffset)
-
-        }
-
     }
-
 
     props.setHolding()
 }
-StartEvent.propTypes= {
-    setLimitBottom: PropTypes.func,
+StartEvent.propTypes = {
+
     setLimitBottomOffset: PropTypes.func,
-    setLimitTop: PropTypes.func,
+
     setLimitTopOffset: PropTypes.func,
 
     color: PropTypes.string,
-    // topElement: PropTypes.object,
-    // bottomElement: PropTypes.object,
 
     element: PropTypes.object,
     refreshLinks: PropTypes.func,
@@ -97,10 +72,12 @@ StartEvent.propTypes= {
     parents: PropTypes.arrayOf(
         PropTypes.object
     ),
-    getLinkParent: PropTypes.func,
+
 
     children: PropTypes.arrayOf(
         PropTypes.object
     ),
+
+    getLinkParent: PropTypes.func,
     getLinkChild: PropTypes.func,
 }

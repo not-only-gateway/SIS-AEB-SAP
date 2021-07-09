@@ -48,7 +48,6 @@ export default function Canvas(props) {
             root.style.backgroundSize = '30px 30px'
         }
         document.addEventListener('mousedown', (event) => {
-            console.log(event.target.className)
             if (menuRef.current !== null && menuRef.current.firstChild && event.button === 0 && event.target.className !== 'Pop_popContainer__1N8Wc' && event.target.className !== 'Styles_lineContentContainer__1xCXK' && event.target.className !== 'Styles_optionButton__2v96u' && event.target.className !== 'Styles_lineContentContainer__1xCXK') {
                 ReactDOM.unmountComponentAtNode(menuRef.current)
                 setOpenMenu(null)
@@ -63,7 +62,6 @@ export default function Canvas(props) {
                     menu,
                     menuRef.current
                 )
-                console.log(ref.current)
                 menuRef.current.style.top = (event.clientY  - ref.current.offsetTop - (contextMenuRef.current.offsetHeight*1.5)) + 'px'
                 menuRef.current.style.left = event.clientX + 'px'
             }
@@ -78,11 +76,6 @@ export default function Canvas(props) {
 
     if (Array.isArray(props.entities))
         return (
-            // <svg style={{
-            //     height: '100%', width: '100%',
-            //     marginBottom: '50%'
-            // }}>
-            //     <foreignObject style={{ height: '100vh', width: '100%', top: 0}}>
             <div ref={ref} style={{
                 position: 'relative',
                 width: '100%',
@@ -119,7 +112,6 @@ export default function Canvas(props) {
                             }}
 
                             renderOnRoot={(event, x, y) => {
-                                console.log(event)
                                 if (event === null)
                                     ReactDOM.unmountComponentAtNode(menuRef.current)
                                 else {
