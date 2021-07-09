@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useRef, useState} from "react";
-import Node from "./templates/Node";
+import Node from "./templates/ node/Node";
 import ReactDOM from 'react-dom'
 import styles from "./styles/Styles.module.css";
 import {
@@ -11,6 +11,7 @@ import {
     LinkRounded, SaveRounded,
     VisibilityRounded
 } from "@material-ui/icons";
+import Line from "./templates/connection/Line";
 
 export default function Canvas(props) {
     const [toBeLinked, setToBeLinked] = useState(null)
@@ -18,7 +19,6 @@ export default function Canvas(props) {
     const menuRef = useRef()
     const [linkable, setLinkable] = useState(false)
     const [openMenu, setOpenMenu] = useState(null)
-    const [updated, setUpdated] = useState([])
     const contextMenuRef = useRef()
     const menu = (
         <div className={styles.options} ref={contextMenuRef}>
@@ -62,7 +62,7 @@ export default function Canvas(props) {
                     menu,
                     menuRef.current
                 )
-                menuRef.current.style.top = (event.clientY  - ref.current.offsetTop - (contextMenuRef.current.offsetHeight*1.5)) + 'px'
+                menuRef.current.style.top = (event.clientY - ref.current.offsetTop - (contextMenuRef.current.offsetHeight * 1.5)) + 'px'
                 menuRef.current.style.left = event.clientX + 'px'
             }
             event.preventDefault();
