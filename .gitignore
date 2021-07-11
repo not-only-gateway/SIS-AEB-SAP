@@ -1,6 +1,7 @@
 apps/public/node_modules
 apps/admin/node_modules
 apps/statistics/node_modules
+apps/forums/node_modules
 
 packages/inputs/node_modules
 packages/navigation/node_modules

@@ -123,8 +123,8 @@
 .entityContainer {
     position: absolute;
 
-    border-radius: 50%;
-    border: #e0e0e0 1px solid;
+    border-radius: 0 5px 5px 0;
+    border:none;
 
     display: flex;
     align-items: center;
@@ -132,8 +132,12 @@
     background: #f4f5fa;
     z-index: 9;
 
-    box-shadow: none;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    user-select: none;
 
+    transition: box-shadow 250ms ease;
+
+    cursor: move;
 }
 
 .lineContainer {

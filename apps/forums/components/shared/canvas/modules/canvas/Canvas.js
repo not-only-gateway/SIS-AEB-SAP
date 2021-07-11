@@ -38,7 +38,7 @@ export default function Canvas(props) {
                         props.updateEntity(event)
                         if (index === (props.entities.length - 1))
                             props.endUpdate()
-                    }}
+                    }} overflowRef={props.overflowRef}
                     setOpenMenu={(event, x, y, id) => {
                         if (event === null) {
                             ReactDOM.unmountComponentAtNode(props.contextMenuRef.current)

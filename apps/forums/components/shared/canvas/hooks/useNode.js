@@ -40,13 +40,14 @@ export default function useNode(props) {
         } else if (!props.linkable)
             props.setNotAvailable(false)
     }
-    if (props.triggerUpdate) {
+    if (props.triggerUpdate && !props.updated) {
         props.setLink(false)
         props.updateEntity({
             id: props.entity.id,
             x: props.ref.current.offsetLeft,
             y: props.ref.current.offsetTop
         })
+        props.setUpdated(false)
     }
     if (props.link && props.parents.length !== props.containerRef.current.parents) {
         props.setChildren(props.containerRef.current.children)
@@ -63,12 +64,11 @@ export default function useNode(props) {
 
         if (props.elementRef.current.offsetWidth > props.elementRef.current.offsetHeight) {
             props.ref.current.style.width = (Math.ceil((props.elementRef.current.offsetWidth) / 30) * 30) + 'px'
-            props.ref.current.style.height = (Math.ceil((props.elementRef.current.offsetWidth) / 30) * 30) + 'px'
-
-        } else {
-            props.ref.current.style.width = (Math.ceil((props.elementRef.current.offsetHeight) / 30) * 30) + 'px'
             props.ref.current.style.height = (Math.ceil((props.elementRef.current.offsetHeight) / 30) * 30) + 'px'
-        }
+
+        } else
+            props.ref.current.style.width = (Math.ceil((props.elementRef.current.offsetHeight) / 30) * 30) + 'px'
+
     }
 
     if (props.ref.current !== null) {
@@ -79,15 +79,18 @@ export default function useNode(props) {
             parents: props.parents,
             root: props.root,
             color: props.entity.highlight_color,
-            scale: props.scale,
-            entityKey: props.entity.id
+            overflowRef: props.overflowRef,
+            entityKey: props.entity.id,
+            updated: props.updated, setUpdated: props.setUpdated,
+            canvasRef: props.canvasRef
         })
     }
 
 }
 useNode.propTypes = {
+    canvasRef: PropTypes.object,
+    overflowRef: PropTypes.object,
     ref: PropTypes.object,
-    scale: PropTypes.number,
     parents: PropTypes.array,
     root: PropTypes.object,
     nodeColor: PropTypes.string,
@@ -105,4 +108,5 @@ useNode.propTypes = {
     setOpenMenu: PropTypes.func,
     openMenu: PropTypes.bool,
     setNodeColor: PropTypes.func,
+    updated: PropTypes.bool, setUpdated: PropTypes.func
 }

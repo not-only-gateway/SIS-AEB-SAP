@@ -7,19 +7,20 @@
     grid-row: 2;
     height: 100%;
     display: grid;
-    grid-template-columns: 12.5% 87.5%;
+    grid-template-columns: 100%;
     background: #f4f5fa;
+    overflow: auto;
 }
 
 .canvasContainer {
-    grid-column: 2;
-    overflow: auto;
+    grid-column: 1;
     height: 100%;
     width: 100%;
     transition: 150ms ease;
-    background: #f4f5fa radial-gradient(#0095ff 1px, transparent 0);
-    background-size: 30px 30px;
+    background: #f4f5fa radial-gradient(#C4C9E4 1.2px, transparent 0);
+    background-size: 20px 20px;
     position: relative;
+    overflow: auto;
 }
 
 .header {
@@ -68,6 +69,8 @@
     cursor: pointer;
     color: #555555;
     transition: 150ms ease;
+    position: sticky;
+    top: 0;
 }
 
 .buttonContainer:hover {

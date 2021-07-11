@@ -1,0 +1,14 @@
+.lineContent{
+    position: relative;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    width: 75px;
+    height: 40px;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: .85rem;
+    color: #555555;
+}

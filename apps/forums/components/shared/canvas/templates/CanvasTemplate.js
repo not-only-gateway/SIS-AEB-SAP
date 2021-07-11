@@ -23,6 +23,5 @@ export default {
     handleCreate: PropTypes.func,
     handleTriggerUpdate: PropTypes.func,
     root: PropTypes.object,
-    scale: PropTypes.number,
     canvasRoot: PropTypes.object
 }

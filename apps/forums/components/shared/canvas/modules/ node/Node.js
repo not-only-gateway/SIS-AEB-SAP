@@ -16,6 +16,7 @@ export default function Node(props) {
     const [fetched, setFetched] = useState(false)
     const [link, setLink] = useState(false)
     const [notAvailable, setNotAvailable] = useState(false)
+    const [updated, setUpdated] = useState(true)
 
     useEffect(() => useNode({
         ...props, ...{
@@ -25,24 +26,20 @@ export default function Node(props) {
             notAvailable: notAvailable, setNotAvailable: setNotAvailable,
             ref: ref, elementRef: elementRef, containerRef: entity,
             fetched: fetched, setFetched: setFetched,
-            link: link, setLink: setLink
+            link: link, setLink: setLink, updated: updated, setUpdated: setUpdated
         }
     }))
 
 
     if (props.entity !== undefined && props.entity !== null)
         return (
-            <>
-                {parents.map(link => <Connection source={ref.current}
-                    entity={props.entity} link={link} root={props.root} renderOnRoot={props.renderOnRoot}
-                    canEdit={props.options.edit} canDelete={props.options.edit}/>)}
 
-                <div id={props.entity.id + '-node'} draggable={true}
+                <div id={props.entity.id + '-node'}
                      className={[props.linkable && props.toBeLinked.id !== entity.current.id && !notAvailable ? styles.pulse : '', styles.entityContainer].join(' ')}
                      style={{
                          cursor: props.options.edit ? (props.linkable ? (notAvailable ? 'default' : 'pointer') : 'pointer') : 'unset',
                          background: 'white',
-                         border: nodeColor !== undefined && nodeColor !== null ? nodeColor + ' 2px solid' : '#e0e0e0 2px solid',
+                         borderLeft: nodeColor !== undefined && nodeColor !== null ? nodeColor + ' 3px solid' : '#e0e0e0 3px solid',
                          top: entity.current.y,
                          left: entity.current.x,
                          opacity: notAvailable ? .5 : undefined
@@ -83,12 +80,12 @@ export default function Node(props) {
                                 fontSize: '1.1rem',
                                 fontWeight: 585
                             }}>
-                                {props.entity.id}
+                                {props.entity.title}
                             </div>
                         </div>
                     </div>
                 </div>
-            </>
+
         )
     else return null
 }
