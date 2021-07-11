@@ -1,12 +1,9 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useRef, useState} from "react";
-import adjustLine from "../../methods/AdjustLine";
-import Move from "../../methods/move/MoveElement";
-import styles from "../../styles/Styles.module.css";
-import {DeleteForeverRounded, EditRounded, LinkRounded, VisibilityRounded} from "@material-ui/icons";
+import styles from "../../styles/Canvas.module.css";
 import Connection from "../connection/Connection";
-import NodeContextMenu from "./NodeContextMenu";
-import UseNode from "./UseNode";
+import useNode from "../../hooks/useNode";
+import EntityTemplate from "../../templates/EntityTemplate";
 
 
 export default function Node(props) {
@@ -20,7 +17,7 @@ export default function Node(props) {
     const [link, setLink] = useState(false)
     const [notAvailable, setNotAvailable] = useState(false)
 
-    useEffect(() => UseNode({
+    useEffect(() => useNode({
         ...props, ...{
             nodeColor: nodeColor, setNodeColor: setNodeColor,
             setParents: setParents, parents: parents,
@@ -35,52 +32,39 @@ export default function Node(props) {
 
     if (props.entity !== undefined && props.entity !== null)
         return (
-
             <>
-                {parents.map(link => <Connection
-                    getLinkType={props.getLinkType} renderOnRoot={props.renderOnRoot}
-                    getLinkContent={props.getLinkContent} root={props.root}
-                    color={nodeColor} getLinkParent={props.getLinkParent}
-                    link={link} editable={props.options.edit}
-                    entityKey={props.entityKey} canDelete={props.options.edit}/>)}
-                <div id={props.entityKey + '-node'}
-                     className={[props.linkable && props.getEntityKey(props.toBeLinked) !== props.getEntityKey(entity.current) && !notAvailable ? styles.pulse : '', styles.entityContainer].join(' ')}
+                {parents.map(link => <Connection source={ref.current}
+                    entity={props.entity} link={link} root={props.root} renderOnRoot={props.renderOnRoot}
+                    canEdit={props.options.edit} canDelete={props.options.edit}/>)}
+
+                <div id={props.entity.id + '-node'} draggable={true}
+                     className={[props.linkable && props.toBeLinked.id !== entity.current.id && !notAvailable ? styles.pulse : '', styles.entityContainer].join(' ')}
                      style={{
-                         cursor: props.linkable ? (notAvailable ? 'default' : 'pointer') : 'pointer',
+                         cursor: props.options.edit ? (props.linkable ? (notAvailable ? 'default' : 'pointer') : 'pointer') : 'unset',
                          background: 'white',
                          border: nodeColor !== undefined && nodeColor !== null ? nodeColor + ' 2px solid' : '#e0e0e0 2px solid',
                          top: entity.current.y,
                          left: entity.current.x,
-                         transform: 'translate(' + entity.current.x + ',' + entity.current.y + ')',
                          opacity: notAvailable ? .5 : undefined
                      }} ref={ref}>
                     {ref.current !== undefined && ref.current !== null ?
 
-                        <div id={props.entityKey + '-bottom-connector'}
+                        <div id={props.entity.id + '-bottom-connector'}
                              style={{
                                  position: 'absolute',
                                  bottom: 0,
                                  left: (ref.current.offsetWidth / 2) + 'px',
-                                 // background: 'blue',
-                                 // width: '20px',
-                                 // height: '20px'
                              }}/>
-
                         :
                         null}
                     {ref.current !== undefined && ref.current !== null ?
 
-                        <div id={props.entityKey + '-top-connector'}
+                        <div id={props.entity.id + '-top-connector'}
                              style={{
                                  position: 'absolute',
                                  top: 0,
                                  left: (ref.current.offsetWidth / 2) + 'px',
-                                 // background: 'red',
-                                 // width: '20px',
-                                 // height: '20px'
                              }}/>
-
-
                         :
                         null}
                     <div ref={elementRef}
@@ -88,11 +72,20 @@ export default function Node(props) {
                          onClick={() => {
                              if (props.linkable && !notAvailable)
                                  props.handleLink(entity.current, setLink)
-                             if (props.openMenu === props.entityKey)
+                             if (props.openMenu === props.entity.id)
                                  props.setOpenMenu(null, null, null, null)
                          }}>
-
-                        {props.renderNode(props.entity)}
+                        <div className={styles.nodeContent}>
+                            <div style={{
+                                margin: 'auto', overflow: 'hidden',
+                                whiteSpace: 'nowrap',
+                                textOverflow: 'ellipsis',
+                                fontSize: '1.1rem',
+                                fontWeight: 585
+                            }}>
+                                {props.entity.id}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </>
@@ -109,20 +102,14 @@ Node.propTypes = {
     options: PropTypes.shape({edit: PropTypes.bool, move: PropTypes.bool, show: PropTypes.bool,}),
     linkable: PropTypes.bool,
     setLinkable: PropTypes.func,
-    toBeLinked: PropTypes.object,
+    toBeLinked: EntityTemplate,
     updateEntity: PropTypes.func,
     triggerUpdate: PropTypes.bool,
-    entity: PropTypes.object,
+
     root: PropTypes.object,
-    renderNode: PropTypes.func,
-    entityKey: PropTypes.any,
-    getEntityKey: PropTypes.func,
-    getChildrenKeys: PropTypes.func,
-    getNodeColor: PropTypes.func,
+    entity: EntityTemplate,
+
     handleDelete: PropTypes.func,
-    getLinkParent: PropTypes.func,
-    getLinkChild: PropTypes.func,
-    getLinkType: PropTypes.func,
-    getLinkContent: PropTypes.func,
+    scale: PropTypes.number,
     renderOnRoot: PropTypes.func
 }

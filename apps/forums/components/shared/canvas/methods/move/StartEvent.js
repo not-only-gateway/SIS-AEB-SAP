@@ -30,7 +30,6 @@ export default function StartEvent(props) {
             }
         ], {duration: 500, iterations: 1})
     props.element.style.cursor = 'move'
-    props.element.style.transform = 'scale(1.2)'
 
     if (props.color !== undefined && props.color !== null) {
         props.element.style.boxShadow = '0 0 10px .1px ' + props.color;
@@ -41,17 +40,16 @@ export default function StartEvent(props) {
     props.setLimitBottomOffset(undefined)
 
     for (i = 0; i < props.parents.length; i++) {
-        const parent = document.getElementById(props.getLinkParent(props.parents[i]) + '-node')
+        const parent = document.getElementById(props.parents[i].parent + '-node')
         if (parent !== null)
             props.setLimitTopOffset(parent.offsetTop)
     }
     for (i = 0; i < props.children.length; i++) {
-        const child = document.getElementById(props.getLinkChild(props.children[i]) + '-node')
+        const child = document.getElementById(props.children[i].child + '-node')
         if (child !== null)
             props.setLimitBottomOffset(child.offsetTop)
     }
 
-    props.setHolding()
 }
 StartEvent.propTypes = {
 
@@ -62,13 +60,10 @@ StartEvent.propTypes = {
     color: PropTypes.string,
 
     element: PropTypes.object,
-    refreshLinks: PropTypes.func,
     limitBottomOffset: PropTypes.number,
     limitTopOffset: PropTypes.number,
     limitBottom: PropTypes.number,
     limitTop: PropTypes.number,
-    setHolding: PropTypes.func,
-
     parents: PropTypes.arrayOf(
         PropTypes.object
     ),
@@ -78,6 +73,4 @@ StartEvent.propTypes = {
         PropTypes.object
     ),
 
-    getLinkParent: PropTypes.func,
-    getLinkChild: PropTypes.func,
 }

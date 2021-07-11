@@ -1,6 +1,5 @@
-import PropTypes from "prop-types";
-import styles from "../../styles/Styles.module.css";
-import {CloseRounded, DeleteForeverRounded, EditRounded} from "@material-ui/icons";
+import styles from "../../styles/Canvas.module.css";
+import {DeleteForeverRounded, EditRounded} from "@material-ui/icons";
 import React from "react";
 
 export default function ConnectionContextMenu(props){

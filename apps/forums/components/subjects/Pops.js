@@ -13,10 +13,11 @@ import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import Cookies from "universal-cookie/lib";
 import submitSubjectLayout from "../../utils/submit/SubmitSubjectLayout";
 import {Alert} from "sis-aeb-misc";
-import Canvas from "../shared/canvas/Canvas";
+import Canvas from "../shared/canvas/modules/canvas/Canvas";
 import deletePop from "../../utils/submit/DeletePop";
 import SubjectEditModal from "./SubjectEditModal";
 import LinkForm from "./LinkForm";
+import Frame from "../shared/canvas/Frame";
 
 
 export default function Pops(props) {
@@ -34,7 +35,7 @@ export default function Pops(props) {
     })
 
     useEffect(() => {
-        if (update === false){
+        if (update === false) {
             setPops([])
             ForumRequests.listPops(props.subjectID).then(res => setPops(res))
         }
@@ -42,7 +43,7 @@ export default function Pops(props) {
     }, [update])
 
     return (
-        <>
+        <div  style={{display: 'grid', }}>
             <Alert
                 type={status.type} render={status.type !== undefined} rootElementID={'root'}
                 handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
@@ -85,124 +86,100 @@ export default function Pops(props) {
 
             <SubjectEditModal handleChange={props.handleChange} data={props.data} id={props.subjectID}
                               handleClose={() => setOpenSubjectForm(false)} open={openSubjectForm}/>
-            <div className={subjectStyles.infoHeader}>
-                <div style={{display: 'grid', gap: '8px'}}>
-                    <div style={{
-                        fontSize: '1.6rem',
-                        color: '#333333',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px'
-                    }}>
-                        {props.data.title}
-                        <button style={{display: (new Cookies()).get('jwt') === undefined ? 'none' : undefined}}
-                                className={subjectStyles.buttonContainer} onClick={() => setOpenSubjectForm(true)}>
-                            <EditRounded style={{color: '#555555'}}/>
-                        </button>
-                    </div>
-                    <div style={{
-                        fontSize: '.9rem',
-                        color: '#555555'
-                    }}>
-                        {props.data.description}
-                    </div>
-                </div>
-                <div>
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px'
-                    }}>
-                        <AvatarGroup>
-                            {props.data.collaborators !== undefined ? props.data.collaborators.map(collaborator =>
-                                <PersonAvatar image={collaborator.image} variant={'circular'}
-                                              elevation={'false'}>
-                                    {collaborator.name}
-                                </PersonAvatar>
-                            ) : null}
-                        </AvatarGroup>
 
-                    </div>
-                </div>
-            </div>
+            {/*<div className={subjectStyles.infoHeader}>*/}
+            {/*    <div style={{display: 'grid', gap: '8px'}}>*/}
+            {/*        <div style={{*/}
+            {/*            fontSize: '1.6rem',*/}
+            {/*            color: '#333333',*/}
+            {/*            display: 'flex',*/}
+            {/*            alignItems: 'center',*/}
+            {/*            gap: '8px'*/}
+            {/*        }}>*/}
+            {/*            {props.data.title}*/}
+            {/*            <button style={{display: (new Cookies()).get('jwt') === undefined ? 'none' : undefined}}*/}
+            {/*                    className={subjectStyles.buttonContainer} onClick={() => setOpenSubjectForm(true)}>*/}
+            {/*                <EditRounded style={{color: '#555555'}}/>*/}
+            {/*            </button>*/}
+            {/*        </div>*/}
+            {/*        <div style={{*/}
+            {/*            fontSize: '.9rem',*/}
+            {/*            color: '#555555'*/}
+            {/*        }}>*/}
+            {/*            {props.data.description}*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*    <div>*/}
+            {/*        <div style={{*/}
+            {/*            display: 'flex',*/}
+            {/*            alignItems: 'center',*/}
+            {/*            gap: '8px'*/}
+            {/*        }}>*/}
+            {/*            <AvatarGroup>*/}
+            {/*                {props.data.collaborators !== undefined ? props.data.collaborators.map(collaborator =>*/}
+            {/*                    <PersonAvatar image={collaborator.image} variant={'circular'}*/}
+            {/*                                  elevation={'false'}>*/}
+            {/*                        {collaborator.name}*/}
+            {/*                    </PersonAvatar>*/}
+            {/*                ) : null}*/}
+            {/*            </AvatarGroup>*/}
 
-            <Canvas
-                rootElementID={'scrollableDiv'} handleTriggerUpdate={() => setUpdate(true)} handleCreate={() => setOpenForm(true)}
-                show={entity => {
-                    setCurrentEntity(entity)
-                    setShow(true)
-                }}
-                edit={entity => {
-                    setCurrentEntity(entity)
-                    setOpenForm(true)
-                }}
-                options={{
-                    move: (new Cookies()).get('jwt') !== undefined,
-                    edit: (new Cookies()).get('jwt') !== undefined,
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
 
-                    show: true
-                }}
-                triggerLink={(child, parent) => {
-                    setLinkEntity({
-                        child: child,
-                        parent: parent
-                    })
-                }}
-                getLinkChild={link => {
-                    return link.child
-                }}
-                getLinkParent={link => {
-                    return link.parent
-                }}
-                renderNode={entity => {
-                    if (entity !== undefined) {
-                        return (
-                            <div className={styles.popContainer}>
-                                <div style={{
-                                    margin: 'auto', overflow: 'hidden',
-                                    whiteSpace: 'nowrap',
-                                    textOverflow: 'ellipsis',
-                                    color: entity.highlight_color !== null && entity.highlight_color !== undefined ? entity.highlight_color : 'black',
-                                    fontSize: '1.1rem',
-                                    fontWeight: 585
-                                }}>
-                                    {entity.title}
-                                </div>
-                            </div>
-                        )
-                    } else
-                        return null
-                }} handleDelete={entity => {
-                deletePop({
-                    id: entity.id,
-                    setStatus: setStatus
-                }).then(res => {
-                    if (res)
-                        ForumRequests.listPops(props.subjectID).then(res => setPops(res))
-                })
+            <Frame
+                canvas={{
+                    handleTriggerUpdate: () => setUpdate(true),
+                    handleCreate: () => setOpenForm(true),
+                    show: entity => {
+                        setCurrentEntity(entity)
+                        setShow(true)
+                    },
+                    edit: entity => {
+                        setCurrentEntity(entity)
+                        setOpenForm(true)
+                    },
+                    options: {
+                        move: (new Cookies()).get('jwt') !== undefined,
+                        edit: (new Cookies()).get('jwt') !== undefined,
+                        show: true
+                    },
+                    triggerLink: (child, parent) => {
+                        setLinkEntity({
+                            child: child,
+                            parent: parent
+                        })
+                    },
+                    handleDelete: entity => {
+                        deletePop({
+                            id: entity.id,
+                            setStatus: setStatus
+                        }).then(res => {
+                            if (res)
+                                ForumRequests.listPops(props.subjectID).then(res => setPops(res))
+                        })
 
-            }}
-                getEntityKey={entity => {
-                    if (entity !== undefined)
-                        return entity.id
-                    else
-                        return '-1'
-                }}
-                entities={pops}
-                getNodeColor={entity => entity.highlight_color}
-                triggerUpdate={update} getLinkType={link => link.strong} getLinkContent={link => link.description}
-                updateEntity={(entity) => {
-                    submitSubjectLayout({
-                        data: entity,
-                        create: false,
-                        subjectID: props.subjectID,
-                        setStatus: setStatus
-                    })
+                    },
+                    entities: pops,
+                    triggerUpdate: update,
+                    updateEntity: (entity) => {
+                        submitSubjectLayout({
+                            data: entity,
+                            create: false,
+                            subjectID: props.subjectID,
+                            setStatus: setStatus
+                        })
 
-                }} endUpdate={() => setUpdate(false)} getChildrenKeys={entity => entity.children}
-                level={0} getParentKeys={entity => entity.parents}
+                    },
+                    endUpdate: () => setUpdate(false)
+                }}
+                style={{
+                    width: '100vw'
+                }}
+                subject={props.data}
             />
-        </>
+        </div>
     )
 }
 Pops.propTypes = {

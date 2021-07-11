@@ -1,36 +1,33 @@
-import PropTypes from 'prop-types'
-import EndEvent from "./EndEvent";
+import PropTypes, {func} from 'prop-types'
 import StartEvent from "./StartEvent";
+import LinkTemplate from "../../templates/LinkTemplate";
+
+import RefreshLink from "../line/RefreshLink";
 
 export default function Move(props) {
-    let holding = false
+
     let limitTopOffset = undefined
     let limitBottomOffset = undefined
 
-    props.element.addEventListener('mousedown', (mouse) => {
-        if (typeof mouse === 'object' && mouse.button === 0)
+    props.element.addEventListener('dragstart', (event) => {
+        event.dataTransfer.effectAllowed = "copy";
+        if (typeof event === 'object' && event.button === 0)
             StartEvent({
-                setHolding: () => {
-                    holding = true
-                },
                 setLimitBottomOffset: e => {
                     if (e < limitBottomOffset || limitBottomOffset === undefined)
                         limitBottomOffset = e
                 },
                 setLimitTopOffset: e => {
                     if (e > limitTopOffset || limitTopOffset === undefined)
-                    limitTopOffset = e
+                        limitTopOffset = e
                 },
                 element: props.element,
-                refreshLinks: props.refreshLinks,
                 limitBottomOffset: limitBottomOffset,
                 limitTopOffset: limitTopOffset,
                 color: props.color,
                 parents: props.parents,
 
-                getLinkParent: props.getLinkParent,
                 children: props.children,
-                getLinkChild: props.getLinkChild
             })
         if (limitBottomOffset !== undefined)
             limitBottomOffset = limitBottomOffset - props.element.offsetHeight / 2
@@ -38,53 +35,56 @@ export default function Move(props) {
             limitTopOffset = limitTopOffset + props.element.offsetHeight / 2
     })
 
-    document.addEventListener("mousemove", handleMouseMove, false);
-    document.addEventListener("mouseup", () => {
+    document.addEventListener("dragover", function (event) {
+        event.preventDefault();
+    }, false);
+
+    props.element.addEventListener("dragend", event => {
+        console.log(limitBottomOffset)
+        console.log(limitTopOffset)
+        event.preventDefault();
+
         props.element.style.opacity = '1';
         props.element.style.boxShadow = 'none'
+
+        moveElement(event.clientX, event.clientY)
+        handleOverflow(event.clientX, event.clientY)
+
+        if (props.element.offsetTop < 0)
+            props.element.style.top = '20px';
+        if (props.element.offsetLeft < 0)
+            props.element.style.left = '20px';
+    });
+
+
+    function handleOverflow(x, y) {
+        if (x < props.root.scrollWidth || y < props.root.scrollHeight)
+            console.log('OVERFLOWING')
+    }
+
+    function moveElement(x, y) {
+        let unscaledX = (x / props.scale - (props.root.offsetLeft + (props.element.offsetWidth / props.scale) / 2))
+        let unscaledY
+
+        if (props.scale !== 1)
+            unscaledY = (y / props.scale - (props.root.offsetTop + (props.element.offsetHeight * 1.5 / props.scale)))
+        else
+            unscaledY = (y / props.scale - (props.root.offsetTop + (props.element.offsetHeight * 0.5 / props.scale)))
+
+
+        props.element.style.top = Math.ceil((unscaledY) / 30) * 30 + 'px'
+        props.element.style.left = Math.ceil((unscaledX) / 30) * 30 + 'px'
+
+
         if (limitTopOffset !== undefined) {
             if (limitTopOffset > props.element.offsetTop)
-                props.element.style.top = (limitTopOffset) + "px";
+                props.element.style.top = Math.ceil((limitTopOffset) / 30) * 30 + "px";
             limitTopOffset = undefined
         }
         if (limitBottomOffset !== undefined) {
             if (limitBottomOffset < props.element.offsetTop)
-                props.element.style.top = (limitBottomOffset) + "px";
+                props.element.style.top = Math.floor((limitBottomOffset) / 30) * 30 + "px";
             limitBottomOffset = undefined
-        }
-        EndEvent({
-
-            element: props.element,
-            refreshLinks: props.refreshLinks,
-            limitBottomOffset: limitBottomOffset,
-            limitTopOffset: limitTopOffset,
-            setHolding: () => {
-                holding = false
-            }
-        })
-    });
-
-
-    function handleMouseMove(mouse) {
-
-        if (props.children.length > 0 || props.parents.length > 0)
-            props.refreshLinks()
-        if (holding) {
-
-            if (props.element.offsetTop < 0 || (limitTopOffset !== undefined && props.element.offsetTop <= (limitTopOffset)) || (limitBottomOffset !== undefined && props.element.offsetTop >= limitBottomOffset)) {
-                props.element.style.boxShadow = 'none'
-                props.element.style.opacity = '.5';
-
-            } else {
-                if (props.color !== undefined && props.color !== null) {
-                    props.element.style.boxShadow = '0 0 10px .1px ' + props.color;
-                } else
-                    props.element.style.boxShadow = '0 0 10px .1px #0095ff';
-                props.element.style.opacity = '1';
-            }
-
-            props.element.style.left = (mouse.clientX - props.element.offsetWidth / 2) + "px";
-            props.element.style.top = (mouse.clientY - (props.root.offsetTop + props.element.offsetHeight)) + "px";
         }
 
     }
@@ -93,15 +93,14 @@ export default function Move(props) {
 Move.propTypes = {
 
     parents: PropTypes.arrayOf(
-        PropTypes.object
+        LinkTemplate
     ),
     children: PropTypes.arrayOf(
-        PropTypes.object
+        LinkTemplate
     ),
     element: PropTypes.object,
-    refreshLinks: PropTypes.func,
-    getLinkParent: PropTypes.func,
     root: PropTypes.object,
     color: PropTypes.string,
-    getLinkChild: PropTypes.func
+    canvasRoot: PropTypes.object,
+    entityKey: PropTypes.number
 }

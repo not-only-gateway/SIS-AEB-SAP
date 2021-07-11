@@ -1,11 +1,6 @@
-.background {
-    background: #f4f5fa radial-gradient(#0095ff 5%, transparent 0);
-    background-size: 30px 30px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
+.canvas{
     width: 100%;
+    height: 100%;
 }
 
 .options {
@@ -61,14 +56,14 @@
     background: #E8F0FE;
 
 }
+
 .optionButton:disabled {
     color: #e0e0e0;
     background: white;
     cursor: unset;
 }
-.pulse {
-    display: block;
 
+.pulse {
     border-radius: 50%;
 
     cursor: pointer;
@@ -126,20 +121,19 @@
 }
 
 .entityContainer {
-
-    user-select: none;
+    position: absolute;
 
     border-radius: 50%;
     border: #e0e0e0 1px solid;
-    position: absolute;
 
     display: flex;
     align-items: center;
     justify-content: center;
     background: #f4f5fa;
     z-index: 9;
-    transition: background 300ms ease, box-shadow 300ms ease, transform 300ms ease;
+
     box-shadow: none;
+
 }
 
 .lineContainer {
@@ -155,7 +149,7 @@
     justify-content: center;
     align-content: center;
 
-    transition: box-shadow 300ms ease;
+    /*transition: 150ms ease;*/
 }
 
 .lineContainer:hover {
@@ -177,7 +171,8 @@
 .lineContentContainer:hover {
     color: #ff5555;
 }
-.lineOptionsContainer{
+
+.lineOptionsContainer {
     background: white;
     border: #e0e0e0 1px solid;
     border-radius: 8px;
@@ -192,4 +187,13 @@
     overflow: hidden;
     animation: pop 250ms ease-in-out forwards;
 }
-/*.lineOptionsContainer*/
+
+.nodeContent {
+    padding: 8px;
+    border-radius: 8px;
+    display: flex;
+    min-width: 110px;
+    height: 75px;
+    align-items: center;
+    background: transparent;
+}

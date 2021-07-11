@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {useRouter} from "next/router";
 import styles from '../styles/subject/Subject.module.css'
 import Head from "next/head";
@@ -10,7 +10,6 @@ export default function subject(props) {
     const router = useRouter()
     const [id, setId] = useState(undefined)
     const [subject, setSubject] = useState(null)
-
     useEffect(() => {
         if (id === undefined && router.query.id !== undefined) {
             setId(router.query.id)
@@ -28,12 +27,12 @@ export default function subject(props) {
                 </Head>
 
 
-                <div className={styles.content}>
+
                     <Pops subjectID={id} data={subject} handleChange={event => handleObjectChange({
                         event: event,
                         setData: setSubject
                     })}/>
-                </div>
+
             </>
 
 

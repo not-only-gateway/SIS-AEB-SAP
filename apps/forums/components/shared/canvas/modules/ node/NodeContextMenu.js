@@ -1,7 +1,8 @@
-import styles from "../../styles/Styles.module.css";
+import styles from "../../styles/Canvas.module.css";
 import {DeleteForeverRounded, EditRounded, LinkRounded, VisibilityRounded} from "@material-ui/icons";
 import React from "react";
 import PropTypes from 'prop-types'
+
 export default function NodeContextMenu(props){
  return(
      <div className={styles.options}>
