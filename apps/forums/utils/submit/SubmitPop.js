@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 const cookies = new Cookies()
 export default async function submitPop(props) {
-    let response ={
+    let response = {
         id: props.pk,
         status: false
     }
@@ -21,7 +21,8 @@ export default async function submitPop(props) {
     if (typeof (data.image) !== 'string' && data.image !== null && data.image !== undefined) {
         data.image = await toBase64(data.image).catch(e => Error(e))
     }
-
+    data.current = null
+    data.children = null
     console.log(data)
     await axios({
         method: props.create ? 'post' : 'put',
@@ -29,7 +30,7 @@ export default async function submitPop(props) {
         headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         data: data
     }).then(res => {
-        response ={
+        response = {
             id: res.data.data,
             status: true
         }

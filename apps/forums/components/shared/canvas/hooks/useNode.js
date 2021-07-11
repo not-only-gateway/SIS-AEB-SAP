@@ -40,21 +40,12 @@ export default function useNode(props) {
         } else if (!props.linkable)
             props.setNotAvailable(false)
     }
-    if (props.triggerUpdate && !props.updated) {
-        props.setLink(false)
-        props.updateEntity({
-            id: props.entity.id,
-            x: props.ref.current.offsetLeft,
-            y: props.ref.current.offsetTop
-        })
-        props.setUpdated(false)
-    }
+
     if (props.link && props.parents.length !== props.containerRef.current.parents) {
         props.setChildren(props.containerRef.current.children)
         props.setParents(props.containerRef.current.parents)
     }
     if (!props.fetched) {
-
         props.containerRef.current = props.entity
 
         props.setParents(props.entity.parents)
@@ -73,6 +64,7 @@ export default function useNode(props) {
 
     if (props.ref.current !== null) {
         Move({
+            handleChange: props.handleChange,
             element: props.ref.current,
             children: props.children,
             getLinkChild: props.getLinkChild,
@@ -81,13 +73,15 @@ export default function useNode(props) {
             color: props.entity.highlight_color,
             overflowRef: props.overflowRef,
             entityKey: props.entity.id,
-            updated: props.updated, setUpdated: props.setUpdated,
-            canvasRef: props.canvasRef
+            canvasRef: props.canvasRef,
+            index: props.index
         })
     }
 
 }
 useNode.propTypes = {
+    index: PropTypes.number,
+    handleChange: PropTypes.func,
     canvasRef: PropTypes.object,
     overflowRef: PropTypes.object,
     ref: PropTypes.object,
@@ -108,5 +102,4 @@ useNode.propTypes = {
     setOpenMenu: PropTypes.func,
     openMenu: PropTypes.bool,
     setNodeColor: PropTypes.func,
-    updated: PropTypes.bool, setUpdated: PropTypes.func
 }

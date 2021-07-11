@@ -6,19 +6,27 @@ import PropTypes from 'prop-types'
 const cookies = new Cookies()
 export default async function submitSubjectLayout(props) {
     let response = false
-    console.log(props.data)
+    let data = []
+
+    props.data.map(pop => data = [...data, ...[{x: pop.x,y: pop.y,id: pop.id}]])
+    console.log({
+        subject: props.subject,
+        pops: data
+    })
     await axios({
         method:  'put',
-        url: Host() + 'layout/subject/' + props.data.id,
-        headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
-        data: props.data
+        url: Host() + 'layout/subject',
+        headers: {'authorization': cookies.get('jwt')},
+        data: {
+            subject: props.subject,
+            pops: data
+        }
     }).then(res => {
         response = true
         props.setStatus({
             type: 'success',
             message: res.status + ' - ' + res.statusText,
         })
-
     }).catch(error => {
         props.setStatus({
             type: 'error',
@@ -29,7 +37,7 @@ export default async function submitSubjectLayout(props) {
 }
 
 submitSubjectLayout.propTypes = {
-    data: PropTypes.object,
-    setStatus: PropTypes.func,
-    create: PropTypes.bool
+    subject: PropTypes.any,
+    data: PropTypes.array,
+    setStatus: PropTypes.func
 }

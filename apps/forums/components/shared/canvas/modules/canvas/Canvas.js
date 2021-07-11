@@ -1,9 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import Node from "../ node/Node";
 import ReactDOM from 'react-dom'
-import styles from "../../styles/Canvas.module.css";
-import {AddRounded, GetAppRounded, SaveRounded} from "@material-ui/icons";
-import EntityTemplate from "../../templates/EntityTemplate";
 import useCanvas from "../../hooks/useCanvas";
 import CanvasTemplate from "../../templates/CanvasTemplate";
 
@@ -19,8 +16,9 @@ export default function Canvas(props) {
             contextMenuRef: props.contextMenuRef,
             setOpenMenu: setOpenMenu,
             options: props.options,
-            handleTriggerUpdate: props.handleTriggerUpdate,
-            handleCreate: props.handleCreate, root: props.root
+            triggerUpdate: props.triggerUpdate,
+            handleCreate: props.handleCreate, root: props.root,
+            handlePrint: props.handlePrint
         })
         return () => {
             document.removeEventListener('mousedown', () => null)
@@ -30,15 +28,10 @@ export default function Canvas(props) {
 
 
     return (
-
         props.entities.map((entity, index) => (
             <React.Fragment key={entity.id + '-' + index}>
                 <Node
-                    updateEntity={event => {
-                        props.updateEntity(event)
-                        if (index === (props.entities.length - 1))
-                            props.endUpdate()
-                    }} overflowRef={props.overflowRef}
+                    overflowRef={props.overflowRef}
                     setOpenMenu={(event, x, y, id) => {
                         if (event === null) {
                             ReactDOM.unmountComponentAtNode(props.contextMenuRef.current)
@@ -55,7 +48,7 @@ export default function Canvas(props) {
                             props.contextMenuRef.current.style.left = x + 'px'
                         }
                     }}
-
+                    index={index}
                     renderOnRoot={(event, x, y) => {
                         if (event === null)
                             ReactDOM.unmountComponentAtNode(props.contextMenuRef.current)

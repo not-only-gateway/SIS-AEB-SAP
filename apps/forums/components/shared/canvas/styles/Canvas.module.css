@@ -195,9 +195,8 @@
 .nodeContent {
     padding: 8px;
     border-radius: 8px;
-    display: flex;
+    display: grid;
     min-width: 110px;
     height: 75px;
     align-items: center;
-    background: transparent;
 }

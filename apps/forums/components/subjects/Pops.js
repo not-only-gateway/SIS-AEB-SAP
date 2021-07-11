@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {AddRounded, EditRounded, SaveRounded} from "@material-ui/icons";
 import ForumRequests from "../../utils/fetch/ForumRequests";
 import subjectStyles from '../../styles/subject/Subject.module.css'
@@ -18,13 +18,18 @@ import deletePop from "../../utils/submit/DeletePop";
 import SubjectEditModal from "./SubjectEditModal";
 import LinkForm from "./LinkForm";
 import Frame from "../shared/canvas/Frame";
+import HandleChange from "../shared/canvas/methods/HandleChange";
+import submitPop from "../../utils/submit/SubmitPop";
+import axios from "axios";
+import Host from "../../utils/shared/Host";
 
 
 export default function Pops(props) {
     const [pops, setPops] = useState([])
-    const lang = SubjectPT
+    const changed = useRef(false)
+    const popsRef = useRef([])
     const [currentEntity, setCurrentEntity] = useState(null)
-    const [update, setUpdate] = useState(false)
+
     const [openForm, setOpenForm] = useState(false)
     const [openSubjectForm, setOpenSubjectForm] = useState(false)
     const [show, setShow] = useState(false)
@@ -33,17 +38,27 @@ export default function Pops(props) {
         child: null,
         parent: null
     })
+    const updatePops = () => {
+        changed.current = false
+        console.log(popsRef.current[1])
+        console.log(pops[1])
+        submitSubjectLayout({
+            setStatus: setStatus,
+            data: popsRef.current,
+            subject: props.subjectID
+        })
 
+
+    }
     useEffect(() => {
-        if (update === false) {
-            setPops([])
-            ForumRequests.listPops(props.subjectID).then(res => setPops(res))
-        }
-
-    }, [update])
+        ForumRequests.listPops(props.subjectID).then(res => {
+            setPops(res)
+            popsRef.current = res
+        })
+    }, [])
 
     return (
-        <div  style={{display: 'grid', }}>
+        <div style={{display: 'grid',}}>
             <Alert
                 type={status.type} render={status.type !== undefined} rootElementID={'root'}
                 handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
@@ -58,13 +73,11 @@ export default function Pops(props) {
 
             <LinkForm
                 parent={linkEntity.parent} child={linkEntity.child}
-                handleClose={success => {
+                handleClose={() => {
                     setLinkEntity({
                         child: null,
                         parent: null
                     })
-                    if (success)
-                        setUpdate(true)
                 }}/>
             <PopForm
                 handleClose={() => {
@@ -79,7 +92,11 @@ export default function Pops(props) {
                 data={currentEntity} subjectID={props.subjectID}
                 fetchPops={() => {
                     setPops([])
-                    ForumRequests.listPops(props.subjectID).then(res => setPops(res))
+                    popsRef.current = []
+                    ForumRequests.listPops(props.subjectID).then(res => {
+                        setPops(res)
+                        popsRef.current = res
+                    })
                 }}
                 open={openForm}
             />
@@ -87,92 +104,49 @@ export default function Pops(props) {
             <SubjectEditModal handleChange={props.handleChange} data={props.data} id={props.subjectID}
                               handleClose={() => setOpenSubjectForm(false)} open={openSubjectForm}/>
 
-            {/*<div className={subjectStyles.infoHeader}>*/}
-            {/*    <div style={{display: 'grid', gap: '8px'}}>*/}
-            {/*        <div style={{*/}
-            {/*            fontSize: '1.6rem',*/}
-            {/*            color: '#333333',*/}
-            {/*            display: 'flex',*/}
-            {/*            alignItems: 'center',*/}
-            {/*            gap: '8px'*/}
-            {/*        }}>*/}
-            {/*            {props.data.title}*/}
-            {/*            <button style={{display: (new Cookies()).get('jwt') === undefined ? 'none' : undefined}}*/}
-            {/*                    className={subjectStyles.buttonContainer} onClick={() => setOpenSubjectForm(true)}>*/}
-            {/*                <EditRounded style={{color: '#555555'}}/>*/}
-            {/*            </button>*/}
-            {/*        </div>*/}
-            {/*        <div style={{*/}
-            {/*            fontSize: '.9rem',*/}
-            {/*            color: '#555555'*/}
-            {/*        }}>*/}
-            {/*            {props.data.description}*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*    <div>*/}
-            {/*        <div style={{*/}
-            {/*            display: 'flex',*/}
-            {/*            alignItems: 'center',*/}
-            {/*            gap: '8px'*/}
-            {/*        }}>*/}
-            {/*            <AvatarGroup>*/}
-            {/*                {props.data.collaborators !== undefined ? props.data.collaborators.map(collaborator =>*/}
-            {/*                    <PersonAvatar image={collaborator.image} variant={'circular'}*/}
-            {/*                                  elevation={'false'}>*/}
-            {/*                        {collaborator.name}*/}
-            {/*                    </PersonAvatar>*/}
-            {/*                ) : null}*/}
-            {/*            </AvatarGroup>*/}
-
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
-
             <Frame
-                canvas={{
-                    handleTriggerUpdate: () => setUpdate(true),
-                    handleCreate: () => setOpenForm(true),
-                    show: entity => {
-                        setCurrentEntity(entity)
-                        setShow(true)
-                    },
-                    edit: entity => {
-                        setCurrentEntity(entity)
-                        setOpenForm(true)
-                    },
-                    options: {
-                        move: (new Cookies()).get('jwt') !== undefined,
-                        edit: (new Cookies()).get('jwt') !== undefined,
-                        show: true
-                    },
-                    triggerLink: (child, parent) => {
-                        setLinkEntity({
-                            child: child,
-                            parent: parent
-                        })
-                    },
-                    handleDelete: entity => {
-                        deletePop({
-                            id: entity.id,
-                            setStatus: setStatus
-                        }).then(res => {
-                            if (res)
-                                ForumRequests.listPops(props.subjectID).then(res => setPops(res))
-                        })
-
-                    },
-                    entities: pops,
-                    triggerUpdate: update,
-                    updateEntity: (entity) => {
-                        submitSubjectLayout({
-                            data: entity,
-                            create: false,
-                            subjectID: props.subjectID,
-                            setStatus: setStatus
-                        })
-
-                    },
-                    endUpdate: () => setUpdate(false)
+                handleChange={event => {
+                    if (!changed.current)
+                        changed.current = true
+                    HandleChange({
+                        event: event, entities: pops, setState: newValue => {
+                            popsRef.current = newValue
+                        }
+                    })
+                }}
+                handleCreate={() => setOpenForm(true)}
+                show={entity => {
+                    setCurrentEntity(entity)
+                    setShow(true)
+                }}
+                edit={entity => {
+                    setCurrentEntity(entity)
+                    setOpenForm(true)
+                }}
+                options={{
+                    move: (new Cookies()).get('jwt') !== undefined,
+                    edit: (new Cookies()).get('jwt') !== undefined,
+                    show: true
+                }}
+                triggerLink={(child, parent) => {
+                    setLinkEntity({
+                        child: child,
+                        parent: parent
+                    })
+                }}
+                handleDelete={entity => {
+                    deletePop({
+                        id: entity.id,
+                        setStatus: setStatus
+                    }).then(res => {
+                        if (res)
+                            ForumRequests.listPops(props.subjectID).then(res => setPops(res))
+                    })
+                }}
+                entities={pops}
+                triggerUpdate={() => {
+                    if (changed.current)
+                        updatePops()
                 }}
                 style={{
                     width: '100vw'

@@ -10,18 +10,17 @@ export default {
         move: PropTypes.bool,
         show: PropTypes.bool
     }),
-    endUpdate: PropTypes.func,
-    updateEntity: PropTypes.func,
-    triggerUpdate: PropTypes.bool,
 
     entities: PropTypes.arrayOf(
         EntityTemplate
     ),
-
+    triggerUpdate: PropTypes.func,
     handleDelete: PropTypes.func,
 
     handleCreate: PropTypes.func,
-    handleTriggerUpdate: PropTypes.func,
+
     root: PropTypes.object,
-    canvasRoot: PropTypes.object
+    canvasRoot: PropTypes.object,
+    handleChange: PropTypes.func,
+    handlePrint: PropTypes.func
 }

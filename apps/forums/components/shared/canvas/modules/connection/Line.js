@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import {useEffect, useState} from "react";
 import {ArrowBackIos} from "@material-ui/icons";
 import styles from '../../styles/Node.module.css'
+
 export default function Line(props) {
     const [target, setTarget] = useState(null)
     const [source, setSource] = useState(null)
@@ -45,17 +46,22 @@ export default function Line(props) {
                     d={`M${source.offsetLeft},${(source.offsetTop > target.offsetTop ? (source.offsetTop - source.offsetHeight) : (source.offsetTop))} C${source.offsetLeft},${(source.offsetTop > target.offsetTop ? (source.offsetTop - (source.offsetTop - target.offsetTop) / 2) : (target.offsetTop - (target.offsetTop - source.offsetTop) / 2))} ${target.offsetLeft},${(source.offsetTop > target.offsetTop ? (source.offsetTop - (source.offsetTop - target.offsetTop) / 2) : (target.offsetTop - (target.offsetTop - source.offsetTop) / 2))} ${target.offsetLeft},${target.offsetTop}`}>
 
                 </path>
-                <foreignObject width={'75'} height={'40'}
-                               y={(target.offsetTop + source.offsetTop) / 2 - 40}
-                               x={(target.offsetLeft + source.offsetLeft) / 2 - 37.5}>
-                    <div className={styles.lineContent} style={{
-                        border: `${props.color} 2px`,
-                        borderStyle: props.type === 'strong' ? 'solid' : 'dashed',
+                {props.type === 'strong' ?
+                    <foreignObject width={'75'} height={'40'}
+                                   y={(target.offsetTop + source.offsetTop) / 2 - 40}
+                                   x={(target.offsetLeft + source.offsetLeft) / 2 - 37.5}>
+                        <div className={styles.lineContent} style={{
+                            border: `${props.color} 2px`,
+                            borderStyle: 'solid',
 
-                    }}>
-                        {props.description}
-                    </div>
-                </foreignObject>
+                        }}>
+                            {props.description}
+                        </div>
+                    </foreignObject>
+                    :
+                    null
+                }
+
             </svg>
         )
     else return null

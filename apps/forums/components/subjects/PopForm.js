@@ -79,7 +79,8 @@ export default function PopForm(props) {
                                             props.fetchPops()
                                         }
                                         setChanged(!res.status)
-                                    })}
+                                    })
+                                }
                                 forms={[{
                                     child: (
                                         <>

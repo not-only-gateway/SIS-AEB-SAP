@@ -14,9 +14,8 @@
     "@material-ui/lab": "^4.0.0-alpha.57",
     "axios": "^0.21.1",
     "draft-js": "^0.11.7",
-    "next": "^10.2.3",
     "express": "^4.17.1",
-
+    "next": "^10.2.3",
     "prop-types": "^15.7.2",
     "public-ip": "^4.0.3",
     "react": "17.0.1",
@@ -25,6 +24,7 @@
     "react-draft-wysiwyg": "^1.14.7",
     "react-infinite-scroll-component": "^6.0.0",
     "react-input-mask": "^2.0.4",
+    "react-to-print": "^2.12.6",
     "sis-aeb-chart": "../../packages/chart",
     "sis-aeb-inputs": "../../packages/inputs",
     "sis-aeb-misc": "../../packages/misc",
