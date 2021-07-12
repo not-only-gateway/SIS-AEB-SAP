@@ -13,6 +13,7 @@ import LinkForm from "./LinkForm";
 import Canvas from "../shared/canvas/Canvas";
 import HandleChange from "../shared/canvas/methods/HandleChange";
 import submitPop from "../../utils/submit/SubmitPop";
+import DataModel from "../shared/canvas/DataModel";
 
 
 export default function Pops(props) {
@@ -159,7 +160,7 @@ export default function Pops(props) {
                             ForumRequests.listPops(props.subjectID).then(res => setPops(res))
                     })
                 }}
-                entities={pops}
+                data={DataModel}
                 triggerUpdate={() => {
                     if (changed.current)
                         updatePops()

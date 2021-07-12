@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import EntityTemplate from "../templates/EntityTemplate";
+import EntityTemplate from "../templates/NodeTemplate";
 
 export default function HandleChange(props) {
 

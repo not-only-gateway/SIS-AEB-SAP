@@ -3,73 +3,65 @@ import LinkTemplate from "../../templates/LinkTemplate";
 
 export default function Move(props) {
     let moving = false
-    props.element.addEventListener('mousedown', (event) => {
-        if (typeof event === 'object' && event.button === 0) {
-            props.element.style.transition = 'box-shadow 150ms ease';
+    let nodeRef = document.getElementById(props.node.id+'-node')
+
+    if(nodeRef !== null){
+
+            nodeRef.style.transition = 'box-shadow 150ms ease';
             moving = true
-            props.element.style.cursor = 'move'
+            nodeRef.style.cursor = 'move'
             if (props.color !== undefined && props.color !== null) {
-                props.element.style.boxShadow = '0 0 10px 2px ' + props.color;
+                nodeRef.style.boxShadow = '0 0 10px 2px ' + props.color;
             } else
-                props.element.style.boxShadow = '0 0 10px 2px #0095ff';
+                nodeRef.style.boxShadow = '0 0 10px 2px #0095ff';
 
 
-            // }, 250)
-
-
-        }
-        props.element.removeEventListener('mousedown', () => null)
-    }, false)
-    document.addEventListener('mousemove', event => {
-
-        if (moving) {
-            move(event, false)
-            handleOverflow(event.clientX, event.clientY)
-        }
-    })
-    document.addEventListener("mouseup", event => {
-        if (moving) {
-            moving = false
-            props.element.style.transition = '150ms ease';
-            props.element.style.opacity = '1';
-            props.element.style.boxShadow = 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px'
-
-            move(event, true)
-
-
-        }
-    }, false);
+        document.addEventListener('mousemove', event => {
+            if (moving) {
+                move(event, false)
+                handleOverflow(event.clientX, event.clientY)
+            }
+        })
+        document.addEventListener("mouseup", event => {
+            if (moving) {
+                moving = false
+                nodeRef.style.transition = '150ms ease';
+                nodeRef.style.opacity = '1';
+                nodeRef.style.boxShadow = 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px'
+                move(event, true)
+            }
+        }, false);
+    }
 
     function move(event, save) {
-        let placementX = (event.clientX + props.overflowRef.scrollLeft - props.element.offsetWidth * 0.5)
-        let placementY = (event.clientY - props.root.offsetTop + props.overflowRef.scrollTop - props.element.offsetHeight * 0.5)
+        let placementX = (event.clientX + props.overflowRef.scrollLeft - nodeRef.offsetWidth * 0.5)
+        let placementY = (event.clientY - props.root.offsetTop + props.overflowRef.scrollTop - nodeRef.offsetHeight * 0.5)
 
-        props.element.style.top = placementY + 'px'
+        nodeRef.style.top = placementY + 'px'
 
-        props.element.style.left = placementX + 'px'
+        nodeRef.style.left = placementX + 'px'
 
         if (save) {
             props.handleChange({
                 x: placementX,
                 y: placementY,
-                id: props.entityKey
+                id: props.node.id
             })
         }
     }
 
     function handleOverflow(x, y) {
-
         switch (true) {
             case (y < props.root.offsetTop): {
-                const newHeight = props.root.offsetHeight + props.element.offsetHeight
-                const newOffset = ((props.root.offsetHeight + props.element.offsetHeight) / props.root.offsetHeight - 1) * 100
+                const newHeight = props.root.offsetHeight + nodeRef.offsetHeight
+                const newOffset = ((props.root.offsetHeight + nodeRef.offsetHeight) / props.root.offsetHeight - 1) * 100
                 props.root.style.height = newHeight + 'px'
                 let children = props.canvasRef.childNodes
                 let i
 
                 let adjustedHeight = newHeight
                 for (i = 0; i < children.length; i++) {
-                    if (children[i].id !== props.element.id) {
+                    if (children[i].id !== nodeRef.id) {
                         if ((children[i].offsetTop + newOffset) > newHeight) {
                             adjustedHeight = ((children[i].offsetTop + newOffset) - newHeight) + newHeight
                             const adjustedOffset = ((children[i].offsetTop + newOffset) - newHeight)
@@ -88,8 +80,8 @@ export default function Move(props) {
             }
             case (x < props.root.offsetLeft): {
                 console.log('OVERFLOWING X LEFT')
-                const newOffset = ((props.root.offsetWidth + props.element.offsetWidth) / props.root.offsetWidth - 1) * 100
-                props.root.style.width = (props.root.offsetWidth + props.element.offsetWidth) + 'px'
+                const newOffset = ((props.root.offsetWidth + nodeRef.offsetWidth) / props.root.offsetWidth - 1) * 100
+                props.root.style.width = (props.root.offsetWidth + nodeRef.offsetWidth) + 'px'
                 let children = props.canvasRef.childNodes
                 let i
                 for (i = 0; i < children.length; i++) {
@@ -111,18 +103,16 @@ export default function Move(props) {
 }
 
 Move.propTypes = {
-    index: PropTypes.number,
+    node: PropTypes.shape({
+        id: PropTypes.number,
+        color: PropTypes.string,
+    }),
+    nodes: PropTypes.array,
+
+
     overflowRef: PropTypes.object,
-    parents: PropTypes.arrayOf(
-        LinkTemplate
-    ),
-    children: PropTypes.arrayOf(
-        LinkTemplate
-    ),
     element: PropTypes.object,
     root: PropTypes.object,
-    color: PropTypes.string,
     canvasRoot: PropTypes.object,
-    entityKey: PropTypes.number,
     canvasRef: PropTypes.object,
 }

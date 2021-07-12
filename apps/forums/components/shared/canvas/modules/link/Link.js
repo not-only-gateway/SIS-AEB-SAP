@@ -58,10 +58,10 @@ export default function Link(props) {
                 <circle r={'10'}
                         cy={props.followMouse ? target.offsetTop : (source.offsetTop > target.offsetTop ? (source.offsetTop - source.offsetHeight) : (source.offsetTop - 5))}
                         cx={props.followMouse ? target.offsetLeft: source.offsetLeft}
-                        fill={props.color} style={{position: 'absolute', zIndex: '2'}}/>
+                        fill={'#ccc'} style={{position: 'absolute', zIndex: '2'}}/>
 
                 <path
-                    stroke={props.color} strokeWidth={'2'} fill={'none'}
+                    stroke={'#ccc'} strokeWidth={'2'} fill={'none'}
                     strokeDasharray={props.type === 'weak' ? '5,5' : undefined}
                     style={{position: 'absolute', zIndex: '1'}}
                     d={
@@ -80,7 +80,7 @@ export default function Link(props) {
                         <button
                             className={styles.lineContent}
                             style={{
-                                border: `${props.color} 2px solid`
+                                border: `#ccc 2px solid`
                             }}>
                             {props.description}
                         </button>
@@ -96,7 +96,7 @@ export default function Link(props) {
 
 Link.propTypes = {
     renderMenu: PropTypes.func,
-    color: PropTypes.string,
+
     source: PropTypes.string,
     target: PropTypes.string,
     description: PropTypes.string,
