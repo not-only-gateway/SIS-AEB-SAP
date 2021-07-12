@@ -6,11 +6,11 @@ import PropTypes from 'prop-types'
 export default function NodeContextMenu(props){
  return(
      <div className={styles.options}>
-         <button className={styles.optionButton} onClick={() => props.show(props.entity.current)}>
+         <button className={styles.optionButton} onClick={() => props.show(props.entity)}>
              <VisibilityRounded/>
              Visualizar
          </button>
-         <button className={styles.optionButton} onClick={() => props.edit(props.entity.current)}
+         <button className={styles.optionButton} onClick={() => props.edit(props.entity)}
                  style={{display: props.editable ? undefined : 'none'}}><EditRounded/>
              Editar
          </button>
@@ -18,11 +18,11 @@ export default function NodeContextMenu(props){
          <button
              className={styles.optionButton}
              onClick={() => {
-                 if (props.linkable && props.getEntityKey(props.toBeLinked) === props.getEntityKey(props.entity.current)) {
+                 if (props.linkable && props.toBeLinked.id === props.entity.id) {
                      props.setLinkable(false)
                  } else if (!props.linkable) {
                      props.setLinkable(true)
-                     props.handleLink(props.entity.current)
+                     props.handleLink(props.entity)
                      props.setLink(true)
                  }
              }} style={{
@@ -32,7 +32,7 @@ export default function NodeContextMenu(props){
              <LinkRounded/>
              Criar conexão
          </button>
-         <button className={styles.optionButton} onClick={() => props.handleDelete(props.entity.current)}
+         <button className={styles.optionButton} onClick={() => props.handleDelete(props.entity)}
                  style={{
                      display: props.editable ? undefined : 'none',
                      color: '#ff5555',

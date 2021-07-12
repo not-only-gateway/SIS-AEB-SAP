@@ -40,10 +40,8 @@ export default function Pops(props) {
     })
     const updatePops = () => {
         changed.current = false
-        console.log(popsRef.current[1])
-        console.log(pops[1])
         submitSubjectLayout({
-            setStatus: setStatus,
+            setStatus: () => null,
             data: popsRef.current,
             subject: props.subjectID
         })
@@ -73,11 +71,20 @@ export default function Pops(props) {
 
             <LinkForm
                 parent={linkEntity.parent} child={linkEntity.child}
-                handleClose={() => {
+                handleClose={status => {
                     setLinkEntity({
                         child: null,
                         parent: null
                     })
+
+                    if (status) {
+                        popsRef.current = []
+                        setPops([])
+                        ForumRequests.listPops(props.subjectID).then(res => {
+                            setPops(res)
+                            popsRef.current = res
+                        })
+                    }
                 }}/>
             <PopForm
                 handleClose={() => {
@@ -114,6 +121,25 @@ export default function Pops(props) {
                         }
                     })
                 }}
+                updateEntity={entity => {
+                    submitPop({
+                        subjectID: props.subjectID,
+                        pk: entity.id,
+                        data: entity,
+                        setStatus: setStatus,
+                        create: false
+                    }).then(res => {
+                        if (res) {
+                            popsRef.current = []
+                            setPops([])
+                            ForumRequests.listPops(props.subjectID).then(res => {
+                                setPops(res)
+                                popsRef.current = res
+                            })
+                        }
+
+                    })
+                }} scrollableDivID={'scrollableDiv'}
                 handleCreate={() => setOpenForm(true)}
                 show={entity => {
                     setCurrentEntity(entity)

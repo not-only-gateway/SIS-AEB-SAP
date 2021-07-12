@@ -4,35 +4,12 @@ import React from "react";
 import PropTypes from "prop-types";
 
 export default function useNode(props) {
-
-
-    if (props.ref.current !== null)
-        props.ref.current.addEventListener('contextmenu', function (e) {
-            if (!props.linkable) {
-                if (props.openMenu === props.entity.id)
-                    props.setOpenMenu(null, null, null, null)
-                else
-                    props.setOpenMenu(
-                        <NodeContextMenu setLink={props.setLink} link={props.link}
-                                         entity={props.containerRef} editable={props.options.edit}
-                                         edit={props.edit} linkable={props.linkable}
-                                         show={props.show} handleLink={props.handleLink}
-                                         setLinkable={props.setLinkable}/>,
-                        (e.clientX - props.root.offsetLeft),
-                        (e.clientY - props.root.offsetTop),
-                        props.entity.id)
-            }
-
-            e.preventDefault();
-        }, false);
-
-
     props.setNodeColor(props.entity.highlight_color)
     if (props.linkable !== props.link) {
         props.setLink(props.linkable)
-        if (props.linkable && props.toBeLinked.id !== props.containerRef.current.id) {
+        if (props.linkable && props.toBeLinked.id !== props.entity.id) {
             if (props.openMenu === props.entity.id)
-                props.setOpenMenu(null, null, null, null)
+                props.setOpenContext(null, null, null, null)
 
             const entity = document.getElementById(props.toBeLinked.id + '-node')
             if (entity !== null && entity.getBoundingClientRect().top >= props.ref.current.getBoundingClientRect().top || props.parents.includes(props.toBeLinked.id))
@@ -41,13 +18,11 @@ export default function useNode(props) {
             props.setNotAvailable(false)
     }
 
-    if (props.link && props.parents.length !== props.containerRef.current.parents) {
-        props.setChildren(props.containerRef.current.children)
-        props.setParents(props.containerRef.current.parents)
+    if (props.link && props.parents.length !== props.entity.parents) {
+        props.setChildren(props.entity.children)
+        props.setParents(props.entity.parents)
     }
     if (!props.fetched) {
-        props.containerRef.current = props.entity
-
         props.setParents(props.entity.parents)
         props.setChildren(props.entity.children)
 
@@ -74,12 +49,14 @@ export default function useNode(props) {
             overflowRef: props.overflowRef,
             entityKey: props.entity.id,
             canvasRef: props.canvasRef,
-            index: props.index
+            index: props.index,
+            scrollableDivID: props.scrollableDivID
         })
     }
 
 }
 useNode.propTypes = {
+    scrollableDivID: PropTypes.any,
     index: PropTypes.number,
     handleChange: PropTypes.func,
     canvasRef: PropTypes.object,
@@ -93,13 +70,11 @@ useNode.propTypes = {
     setParents: PropTypes.func,
     setChildren: PropTypes.func,
     setFetched: PropTypes.func,
-    containerRef: PropTypes.object,
     link: PropTypes.bool,
     updateEntity: PropTypes.func,
     setLink: PropTypes.func,
     triggerUpdate: PropTypes.bool,
 
-    setOpenMenu: PropTypes.func,
     openMenu: PropTypes.bool,
     setNodeColor: PropTypes.func,
 }

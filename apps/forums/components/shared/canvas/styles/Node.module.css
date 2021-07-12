@@ -11,4 +11,11 @@
     padding: 5px;
     font-size: .85rem;
     color: #555555;
+
+    outline: none;
+    box-shadow: none;
+    transition: background-color 150ms ease;
+}
+.lineContent:hover{
+    background-color: #E8F0FE;
 }

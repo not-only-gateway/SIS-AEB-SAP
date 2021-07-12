@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 import EntityTemplate from "./EntityTemplate";
+import Canvas from "../modules/canvas/Canvas";
+import React from "react";
 
 export default {
     show: PropTypes.func,
@@ -22,5 +24,9 @@ export default {
     root: PropTypes.object,
     canvasRoot: PropTypes.object,
     handleChange: PropTypes.func,
-    handlePrint: PropTypes.func
+    handlePrint: PropTypes.func,
+    setOpenMenu: PropTypes.func,
+    openMenu: PropTypes.number,
+
+    scrollableDivID: PropTypes.any
 }

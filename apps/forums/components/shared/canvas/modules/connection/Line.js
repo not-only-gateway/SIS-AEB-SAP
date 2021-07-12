@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import {useEffect, useState} from "react";
-import {ArrowBackIos} from "@material-ui/icons";
 import styles from '../../styles/Node.module.css'
 
 export default function Line(props) {
@@ -33,9 +32,12 @@ export default function Line(props) {
     }, [])
     if (target !== null && source !== null)
         return (
-            <svg>
+            <svg onContextMenu={event => {
+                if (props.canEdit)
+                    props.renderMenu(event)
+            }}>
                 <circle r={'10'}
-                        cy={(source.offsetTop > target.offsetTop ? (source.offsetTop - source.offsetHeight + 5) : (source.offsetTop - 5))}
+                        cy={(source.offsetTop > target.offsetTop ? (source.offsetTop - source.offsetHeight) : (source.offsetTop - 5))}
                         cx={source.offsetLeft}
                         fill={props.color} style={{position: 'absolute', zIndex: '2'}}/>
 
@@ -44,19 +46,20 @@ export default function Line(props) {
                     strokeDasharray={props.type === 'weak' ? '5,5' : undefined}
                     style={{position: 'absolute', zIndex: '1'}}
                     d={`M${source.offsetLeft},${(source.offsetTop > target.offsetTop ? (source.offsetTop - source.offsetHeight) : (source.offsetTop))} C${source.offsetLeft},${(source.offsetTop > target.offsetTop ? (source.offsetTop - (source.offsetTop - target.offsetTop) / 2) : (target.offsetTop - (target.offsetTop - source.offsetTop) / 2))} ${target.offsetLeft},${(source.offsetTop > target.offsetTop ? (source.offsetTop - (source.offsetTop - target.offsetTop) / 2) : (target.offsetTop - (target.offsetTop - source.offsetTop) / 2))} ${target.offsetLeft},${target.offsetTop}`}>
-
                 </path>
                 {props.type === 'strong' ?
-                    <foreignObject width={'75'} height={'40'}
-                                   y={(target.offsetTop + source.offsetTop) / 2 - 40}
-                                   x={(target.offsetLeft + source.offsetLeft) / 2 - 37.5}>
-                        <div className={styles.lineContent} style={{
-                            border: `${props.color} 2px`,
-                            borderStyle: 'solid',
+                    <foreignObject
+                        width={'75'} height={'40'}
 
-                        }}>
+                        y={(target.offsetTop + source.offsetTop) / 2 - 40}
+                        x={(target.offsetLeft + source.offsetLeft) / 2 - 37.5}>
+                        <button
+                            className={styles.lineContent}
+                            style={{
+                                border: `${props.color} 2px solid`
+                            }}>
                             {props.description}
-                        </div>
+                        </button>
                     </foreignObject>
                     :
                     null
@@ -68,6 +71,7 @@ export default function Line(props) {
 }
 
 Line.propTypes = {
+    renderMenu: PropTypes.func,
     color: PropTypes.string,
     source: PropTypes.string,
     target: PropTypes.string,
@@ -76,5 +80,6 @@ Line.propTypes = {
     rootOffset: PropTypes.shape({
         x: PropTypes.number,
         y: PropTypes.number
-    })
+    }),
+    canEdit: PropTypes.bool
 }

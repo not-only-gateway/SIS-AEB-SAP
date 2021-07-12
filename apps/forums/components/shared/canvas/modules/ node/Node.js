@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useRef, useState} from "react";
 import styles from "../../styles/Canvas.module.css";
-import Connection from "../connection/Connection";
 import useNode from "../../hooks/useNode";
 import EntityTemplate from "../../templates/EntityTemplate";
+import NodeContextMenu from "./NodeContextMenu";
 
 
 export default function Node(props) {
@@ -24,7 +24,7 @@ export default function Node(props) {
                 setParents: setParents, parents: parents,
                 children: children, setChildren: setChildren,
                 notAvailable: notAvailable, setNotAvailable: setNotAvailable,
-                ref: ref, elementRef: elementRef, containerRef: props.entity,
+                ref: ref, elementRef: elementRef,
                 fetched: fetched, setFetched: setFetched,
                 link: link, setLink: setLink
             }
@@ -36,6 +36,24 @@ export default function Node(props) {
         return (
 
             <div id={props.entity.id + '-node'}
+
+                 onContextMenu={e => {
+                     if (!props.linkable) {
+                         if (props.openMenu === props.entity.id)
+                             props.setOpenContext(null, null, null, null)
+                         else
+                             props.setOpenContext(
+                                 <NodeContextMenu
+                                     setLink={setLink} link={link}
+                                     entity={props.entity} editable={props.options.edit}
+                                     edit={props.edit} linkable={props.linkable}
+                                     show={props.show} handleLink={props.handleLink}
+                                     setLinkable={props.setLinkable}/>,
+                                 (e.clientX - props.root.offsetLeft),
+                                 (e.clientY - props.root.offsetTop),
+                                 props.entity.id)
+                     }
+                 }}
                  className={[props.linkable && props.toBeLinked.id !== props.entity.id && !notAvailable ? styles.pulse : '', styles.entityContainer].join(' ')}
                  style={{
                      cursor: props.options.edit ? (props.linkable ? (notAvailable ? 'default' : 'pointer') : 'pointer') : 'unset',
@@ -85,13 +103,12 @@ export default function Node(props) {
                     </div>
                 </div>
             </div>
-
         )
     else return null
 }
 
 Node.propTypes = {
-    setOpenMenu: PropTypes.func,
+    setOpenContext: PropTypes.func,
     openMenu: PropTypes.number,
     show: PropTypes.func,
     edit: PropTypes.func,
@@ -108,5 +125,7 @@ Node.propTypes = {
     scale: PropTypes.number,
     renderOnRoot: PropTypes.func,
     index: PropTypes.number,
-    handleChange: PropTypes.func
+    handleChange: PropTypes.func,
+
+    scrollableDivID: PropTypes.any
 }

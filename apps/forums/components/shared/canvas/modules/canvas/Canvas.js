@@ -6,25 +6,7 @@ import CanvasTemplate from "../../templates/CanvasTemplate";
 
 export default function Canvas(props) {
     const [toBeLinked, setToBeLinked] = useState(null)
-
     const [linkable, setLinkable] = useState(false)
-    const [openMenu, setOpenMenu] = useState(null)
-
-
-    useEffect(() => {
-        useCanvas({
-            contextMenuRef: props.contextMenuRef,
-            setOpenMenu: setOpenMenu,
-            options: props.options,
-            triggerUpdate: props.triggerUpdate,
-            handleCreate: props.handleCreate, root: props.root,
-            handlePrint: props.handlePrint
-        })
-        return () => {
-            document.removeEventListener('mousedown', () => null)
-            document.removeEventListener('contextmenu', () => null)
-        }
-    })
 
 
     return (
@@ -32,18 +14,16 @@ export default function Canvas(props) {
             <React.Fragment key={entity.id + '-' + index}>
                 <Node
                     overflowRef={props.overflowRef}
-                    setOpenMenu={(event, x, y, id) => {
+                    setOpenContext={(event, x, y, id) => {
                         if (event === null) {
                             ReactDOM.unmountComponentAtNode(props.contextMenuRef.current)
-                            setOpenMenu(null)
+                            props.setOpenMenu(null)
                         } else {
                             ReactDOM.render(
                                 event,
                                 props.contextMenuRef.current
                             )
-
-                            setOpenMenu(id)
-
+                            props.setOpenMenu(id)
                             props.contextMenuRef.current.style.top = y + 'px'
                             props.contextMenuRef.current.style.left = x + 'px'
                         }
@@ -71,6 +51,7 @@ export default function Canvas(props) {
                         if (toBeLinked === null) {
                             setToBeLinked(entity)
                         } else if (entity.id !== toBeLinked.id && !entity.parents.includes(toBeLinked.id)) {
+                            props.triggerUpdate()
                             props.triggerLink(entity, toBeLinked)
                             setToBeLinked(null)
                             setLinkable(false)
@@ -89,7 +70,7 @@ export default function Canvas(props) {
                     entity={entity}
                     toBeLinked={toBeLinked}
                     linkable={linkable}
-                    openMenu={openMenu}
+                    openMenu={props.openMenu}
                     {...props}
                 />
 

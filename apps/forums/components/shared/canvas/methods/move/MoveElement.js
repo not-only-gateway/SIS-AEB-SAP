@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types'
+import PropTypes, {func} from 'prop-types'
 import LinkTemplate from "../../templates/LinkTemplate";
 
 export default function Move(props) {
     let moving = false
-    var handleMove = function (event){
-        moveElement(event.x, event.y, event.last)
-    }
+    let div = null
     props.element.addEventListener('mousedown', (event) => {
         if (typeof event === 'object' && event.button === 0) {
+            div = document.getElementById(props.scrollableDivID)
+            props.element.style.transition = 'box-shadow 150ms ease';
             moving = true
             props.element.style.cursor = 'move'
             if (props.color !== undefined && props.color !== null) {
@@ -15,46 +15,53 @@ export default function Move(props) {
             } else
                 props.element.style.boxShadow = '0 0 10px 2px #0095ff';
 
+
+            // }, 250)
+
+
         }
         props.element.removeEventListener('mousedown', () => null)
     }, false)
     document.addEventListener('mousemove', event => {
+
         if (moving) {
-            let placementX = (event.clientX - (props.root.offsetLeft + (props.element.offsetWidth) * 0.5))
-            let placementY = (event.clientY - (props.root.offsetTop + (props.element.offsetHeight * 0.5)))
-
-            props.element.style.top = (placementY + props.root.offsetTop + props.overflowRef.scrollTop - props.element.offsetHeight * 1.2) + 'px'
-            props.element.style.left = (placementX + props.root.offsetLeft + props.overflowRef.scrollLeft) + 'px'
-
-
+            move(event, false)
             handleOverflow(event.clientX, event.clientY)
         }
     })
-    props.element.addEventListener("mouseup", event => {
+    document.addEventListener("mouseup", event => {
         if (moving) {
             moving = false
+            props.element.style.transition = '150ms ease';
             props.element.style.opacity = '1';
             props.element.style.boxShadow = 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px'
 
-            let placementX = (event.clientX - (props.root.offsetLeft + (props.element.offsetWidth) * 0.5))
-            let placementY = (event.clientY - (props.root.offsetTop + (props.element.offsetHeight * 0.5)))
+            move(event, true)
 
-            props.element.style.top = (Math.ceil((placementY + props.root.offsetTop + props.overflowRef.scrollTop - props.element.offsetHeight * 1.2) / 30) * 30) + 'px'
-            props.element.style.left = Math.ceil((placementX + props.root.offsetLeft + props.overflowRef.scrollLeft) / 30) * 30 + 'px'
 
-            props.handleChange({
-                x: (placementX + props.root.offsetLeft + props.overflowRef.scrollLeft),
-                y: (placementY + props.root.offsetTop + props.overflowRef.scrollTop - props.element.offsetHeight * 1.2),
-                id: props.entityKey
-            })
-
-            if (props.element.offsetTop < 0)
-                props.element.style.top = '20px';
-            if (props.element.offsetLeft < 0)
-                props.element.style.left = '20px';
         }
     }, false);
 
+    function move(event, save) {
+        if (div !== null) {
+
+            let placementX = (event.clientX + props.overflowRef.scrollLeft - props.element.offsetWidth * 0.5)
+            let placementY = (event.clientY - props.root.offsetTop + props.overflowRef.scrollTop - props.element.offsetHeight * 0.5)
+
+            props.element.style.top = placementY + 'px'
+
+            props.element.style.left = placementX + 'px'
+
+            if (save) {
+                props.handleChange({
+                    x: placementX,
+                    y: placementY,
+                    id: props.entityKey
+                })
+            }
+        }
+
+    }
 
     function handleOverflow(x, y) {
 
@@ -124,4 +131,6 @@ Move.propTypes = {
     canvasRoot: PropTypes.object,
     entityKey: PropTypes.number,
     canvasRef: PropTypes.object,
+
+    scrollableDivID: PropTypes.any
 }
