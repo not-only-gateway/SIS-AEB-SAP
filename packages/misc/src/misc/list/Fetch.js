@@ -5,7 +5,7 @@ import React from "react";
 export default async function Fetch(props) {
   let params = {
     max_id: props.maxID,
-    search_input: props.searchInput
+    [props.searchFieldName]: props.searchInput
   }
 
   if (props.params !== null && props.params !== undefined)
@@ -40,5 +40,6 @@ fetch.propTypes = {
   setMaxID: PropTypes.func,
   host: PropTypes.string,
   fetchUrl: PropTypes.string,
-  fetchToken: PropTypes.string
+  fetchToken: PropTypes.string,
+  searchFieldName: PropTypes.string,
 }

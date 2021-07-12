@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import styles from '../styles/Frame.module.css'
-import {AddRounded, RemoveRedEye, RemoveRounded} from "@material-ui/icons";
+import {AddRounded, RemoveRounded} from "@material-ui/icons";
 
 export default function Scale(props) {
     return (

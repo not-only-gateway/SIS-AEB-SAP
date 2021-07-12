@@ -6,7 +6,6 @@ import NavigationPT from './locales/NavigationPT'
 import NavigationApps from './templates/NavigationApps'
 import {MenuRounded} from "@material-ui/icons";
 import NavigationTabs from "./templates/NavigationTabs";
-import SearchBar from "./templates/SearchBar";
 import Loading from "./Loading";
 
 
@@ -31,9 +30,6 @@ export default function Navigation(props) {
       </div>
       <div className={styles.logoContainer}
            style={{alignContent: 'center', display: props.searchBar ? undefined : 'none'}}>
-        <SearchBar lang={lang} applySearch={props.applySearch} setSearchInput={props.setSearchInput}
-                   searchInput={props.searchInput}
-        />
       </div>
       <div className={styles.logoContainer} style={{justifyContent: 'flex-end', gap: '8px'}}>
         <NavigationApps lang={lang} buttons={props.apps}
@@ -62,10 +58,6 @@ export default function Navigation(props) {
 }
 
 Navigation.propTypes = {
-  applySearch: PropTypes.func,
-  searchBar: PropTypes.bool,
-  setSearchInput: PropTypes.func,
-  searchInput: PropTypes.string,
   path: PropTypes.string,
   appName: PropTypes.string,
   logo: PropTypes.any,

@@ -32,7 +32,6 @@ export default function management(props) {
             </Head>
 
             <div style={{width: '65%', margin: 'auto', overflowY: 'hidden', marginTop: '32px'}}>
-                <Header title={lang.title}/>
                 <PeopleList
                     notSearched={props.notSearched} setNotSearched={props.setNotSearched}
                     searchInput={props.searchInput}

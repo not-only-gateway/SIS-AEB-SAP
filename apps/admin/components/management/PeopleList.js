@@ -1,14 +1,16 @@
 import React, {useState} from "react";
-import {List} from "sis-aeb-misc";
+
 import Cookies from "universal-cookie/lib";
 import Host from "../../utils/shared/Host";
 import PropTypes from "prop-types";
 import PersonAvatar from "../shared/PersonAvatar";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import BaseForm from "../person/forms/BaseForm";
+import List from "../../../../packages/misc/src/misc/list/List";
+import ManagementPT from "../../packages/locales/management/ManagementPT";
 
 export default function PeopleList(props) {
-
+    const lang = ManagementPT
     const [currentEntity, setCurrentEntity] = useState({})
     const [open, setOpen] = useState(false)
 
@@ -30,7 +32,7 @@ export default function PeopleList(props) {
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'people'} scrollableElement={'scrollableDiv'}
+                    listKey={'people'} scrollableElement={'scrollableDiv'} title={lang.title} searchFieldName={'search_input'}
                     clickEvent={() => null} createOption={(new Cookies()).get('jwt') !== undefined}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/person'}
                     renderElement={element => {

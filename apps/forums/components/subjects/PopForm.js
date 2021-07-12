@@ -7,10 +7,8 @@ import submitPop from "../../utils/submit/SubmitPop";
 import styles from "../../styles/subject/Pop.module.css";
 import {CloseRounded} from "@material-ui/icons";
 import ForumRequests from "../../utils/fetch/ForumRequests";
-import TextField from "../shared/inputs/TextField";
-import ImageField from "../shared/inputs/ImageField";
-import TextArea from "../shared/inputs/TextArea";
-import ColorField from "../shared/inputs/ColorField";
+import {ColorField, ImageField, TextArea, TextField} from "sis-aeb-inputs";
+
 
 export default function PopForm(props) {
 

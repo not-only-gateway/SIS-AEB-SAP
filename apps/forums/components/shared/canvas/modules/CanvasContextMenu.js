@@ -1,13 +1,17 @@
-import styles from "../../styles/Canvas.module.css";
+import styles from "../styles/Canvas.module.css";
 import {AddRounded, GetAppRounded, SaveRounded} from "@material-ui/icons";
-import React, {useRef, useState} from "react";
+import React from "react";
 import PropTypes from 'prop-types'
 
 export default function CanvasContextMenu(props) {
 
     return (
         <div className={styles.options}>
-            <button className={styles.optionButton} onClick={() => props.triggerUpdate()}>
+            <button className={styles.optionButton} onClick={() => {
+
+                props.triggerUpdate()
+                props.handleClose()
+            }}>
                 <SaveRounded/>
                 Salvar layout
             </button>
@@ -16,7 +20,9 @@ export default function CanvasContextMenu(props) {
             <button
                 className={styles.optionButton}
                 onClick={() => {
+
                     props.handleCreate()
+                    props.handleClose()
                 }}>
                 <AddRounded/>
                 Criar modulo
@@ -24,6 +30,7 @@ export default function CanvasContextMenu(props) {
             <div style={{background: '#e0e0e0', width: '100%', height: '1px'}}/>
             <button className={styles.optionButton} onClick={() => {
                 props.handlePrint()
+                props.handleClose()
             }}>
                 <GetAppRounded/>
                 Download
@@ -35,4 +42,5 @@ CanvasContextMenu.propTypes = {
     handlePrint: PropTypes.func,
     triggerUpdate: PropTypes.func,
     handleCreate: PropTypes.func,
+    handleClose: PropTypes.func
 }

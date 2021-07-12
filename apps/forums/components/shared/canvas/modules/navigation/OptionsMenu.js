@@ -1,5 +1,5 @@
 import styles from '../../styles/Frame.module.css'
-import {AddRounded, GetApp, GetAppRounded, SaveRounded} from "@material-ui/icons";
+import {AddRounded, GetAppRounded, SaveRounded} from "@material-ui/icons";
 
 export default function OptionsMenu(props) {
     return (

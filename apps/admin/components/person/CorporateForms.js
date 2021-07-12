@@ -44,7 +44,7 @@ export default function CorporateForms(props) {
     }
 
     return (
-        <div style={{width: '100%', display: 'grid', gap: '16px', alignItems: 'flex-start', justifyItems: 'center'}}>
+        <div style={{width: '100%', display: 'grid', gap: '8px', alignItems: 'flex-start', justifyItems: 'center'}}>
             <div style={{width: '100%'}}>
 
                 {openTab === 0 ?

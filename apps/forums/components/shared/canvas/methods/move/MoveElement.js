@@ -1,12 +1,10 @@
-import PropTypes, {func} from 'prop-types'
+import PropTypes from 'prop-types'
 import LinkTemplate from "../../templates/LinkTemplate";
 
 export default function Move(props) {
     let moving = false
-    let div = null
     props.element.addEventListener('mousedown', (event) => {
         if (typeof event === 'object' && event.button === 0) {
-            div = document.getElementById(props.scrollableDivID)
             props.element.style.transition = 'box-shadow 150ms ease';
             moving = true
             props.element.style.cursor = 'move'
@@ -43,24 +41,20 @@ export default function Move(props) {
     }, false);
 
     function move(event, save) {
-        if (div !== null) {
+        let placementX = (event.clientX + props.overflowRef.scrollLeft - props.element.offsetWidth * 0.5)
+        let placementY = (event.clientY - props.root.offsetTop + props.overflowRef.scrollTop - props.element.offsetHeight * 0.5)
 
-            let placementX = (event.clientX + props.overflowRef.scrollLeft - props.element.offsetWidth * 0.5)
-            let placementY = (event.clientY - props.root.offsetTop + props.overflowRef.scrollTop - props.element.offsetHeight * 0.5)
+        props.element.style.top = placementY + 'px'
 
-            props.element.style.top = placementY + 'px'
+        props.element.style.left = placementX + 'px'
 
-            props.element.style.left = placementX + 'px'
-
-            if (save) {
-                props.handleChange({
-                    x: placementX,
-                    y: placementY,
-                    id: props.entityKey
-                })
-            }
+        if (save) {
+            props.handleChange({
+                x: placementX,
+                y: placementY,
+                id: props.entityKey
+            })
         }
-
     }
 
     function handleOverflow(x, y) {
@@ -131,6 +125,4 @@ Move.propTypes = {
     canvasRoot: PropTypes.object,
     entityKey: PropTypes.number,
     canvasRef: PropTypes.object,
-
-    scrollableDivID: PropTypes.any
 }

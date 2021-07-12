@@ -6,9 +6,9 @@ import PopFormPT from "../../packages/locales/PopFormPT";
 import styles from "../../styles/subject/Pop.module.css";
 import {CloseRounded} from "@material-ui/icons";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
-import TextField from "../shared/inputs/TextField";
 import {DropDownField} from "sis-aeb-inputs";
 import submitPopLink from "../../utils/submit/SubmitPopLink";
+import {TextField} from "../../../../packages/inputs";
 
 export default function LinkForm(props) {
 

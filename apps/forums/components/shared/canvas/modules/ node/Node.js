@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useRef, useState} from "react";
-import styles from "../../styles/Canvas.module.css";
+import styles from "../../styles/Node.module.css";
 import useNode from "../../hooks/useNode";
 import EntityTemplate from "../../templates/EntityTemplate";
 import NodeContextMenu from "./NodeContextMenu";
@@ -36,7 +36,6 @@ export default function Node(props) {
         return (
 
             <div id={props.entity.id + '-node'}
-
                  onContextMenu={e => {
                      if (!props.linkable) {
                          if (props.openMenu === props.entity.id)
@@ -44,7 +43,7 @@ export default function Node(props) {
                          else
                              props.setOpenContext(
                                  <NodeContextMenu
-                                     setLink={setLink} link={link}
+                                     setLink={setLink} link={link} handleClose={() => props.setOpenContext(null, null, null, null)}
                                      entity={props.entity} editable={props.options.edit}
                                      edit={props.edit} linkable={props.linkable}
                                      show={props.show} handleLink={props.handleLink}

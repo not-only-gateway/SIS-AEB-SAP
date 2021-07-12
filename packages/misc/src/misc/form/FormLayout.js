@@ -30,21 +30,6 @@ export default function FormLayout(props) {
 
     return (
         <div className={styles.container}>
-            <div className={styles.headerContainer}>
-                <button className={styles.returnButton} onClick={() => props.handleClose()} style={{display: props.returnButton ? undefined : 'none'}}>
-                    <ArrowBackRounded/>
-                </button>
-                {props.label}
-                {props.hasInfo ?
-                    <button className={entityStyles.buttonContainer}
-                            onClick={() => props.openFormInfo()}
-                            style={{border: 'none', borderRadius: '8px', padding: '8px'}}>
-                        <InfoRounded style={{color: '#555555'}}/>
-                    </button>
-                    :
-                    null
-                }
-            </div>
             <div className={styles.formInfoContainer}
                  style={{display: props.formInfo === undefined || props.formInfo === null ? 'none' : undefined}}>
                 {props.formInfo}

@@ -7,7 +7,7 @@ import ForumRequests from "../../utils/fetch/ForumRequests";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import PopFormPT from "../../packages/locales/PopFormPT";
 import {CloseRounded} from "@material-ui/icons";
-import TextArea from "../shared/inputs/TextArea";
+import {TextArea} from "sis-aeb-inputs";
 
 export default function PopOverview(props) {
     const lang = PopFormPT

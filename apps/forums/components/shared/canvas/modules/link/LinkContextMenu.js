@@ -3,7 +3,7 @@ import {DeleteForeverRounded, EditRounded} from "@material-ui/icons";
 import React, {useState} from "react";
 import PropTypes from 'prop-types'
 
-export default function LineContextMenu(props) {
+export default function LinkContextMenu(props) {
     const [openModal, setOpenModal] = useState(false)
     const renderModal = () => {
         return (
@@ -30,7 +30,7 @@ export default function LineContextMenu(props) {
     )
 
 }
-LineContextMenu.propTypes = {
+LinkContextMenu.propTypes = {
     triggerLinkChange: PropTypes.func,
     parent: PropTypes.number,
     child: PropTypes.number

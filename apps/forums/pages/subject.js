@@ -1,6 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
-import styles from '../styles/subject/Subject.module.css'
 import Head from "next/head";
 import ForumRequests from "../utils/fetch/ForumRequests";
 import Pops from "../components/subjects/Pops";

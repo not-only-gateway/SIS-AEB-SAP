@@ -12,12 +12,7 @@ export default function SisAeb({Component, pageProps}) {
     })
     return (
         <PageLayout loading={loading}>
-            {props => (
-                <div >
-                    <Component {...pageProps} searchInput={props.searchInput} notSearched={props.notSearched} setNotSearched={props.setNotSearched}/>
-                </div>
-
-                )}
+            <Component {...pageProps}/>
         </PageLayout>
     )
 }

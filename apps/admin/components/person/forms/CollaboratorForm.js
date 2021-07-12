@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types'
 
-import {Alert, EntityLayout, Selector} from "sis-aeb-misc";
-import {DropDownField, TextField} from "sis-aeb-inputs";
 
 import MembershipPT from "../../../packages/locales/person/MembershipPT";
 
@@ -12,8 +10,10 @@ import Cookies from "universal-cookie/lib";
 import ContractualLinkageDescription from "../../../packages/descriptions/ContractualLinkageDescription";
 import CorporateKeys from "../../../packages/keys/CorporateKeys";
 import CollaboratorOverview from "../../../packages/overview/CollaboratorOverview";
+import {Alert, EntityLayout, Selector} from "sis-aeb-misc";
+import {DropDownField, TextField} from "sis-aeb-inputs";
 
-const cookies = new Cookies()
+
 
 export default function CollaboratorForm(props) {
 
@@ -38,8 +38,6 @@ export default function CollaboratorForm(props) {
                 create={props.create} label={lang.title} entityKey={CorporateKeys.collaborator}
                 fetchToken={(new Cookies()).get('jwt')}
                 fetchUrl={Host() + 'list/object'} exists={true} fetchSize={15} setVersion={() => null}
-
-
                 dependencies={{
                     fields: [
                         {name: 'extension', type: 'string'},

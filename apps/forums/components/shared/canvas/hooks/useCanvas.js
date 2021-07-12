@@ -1,6 +1,4 @@
 import PropTypes from "prop-types";
-import ReactDOM from "react-dom";
-import CanvasContextMenu from "../modules/canvas/CanvasContextMenu";
 
 export default function useCanvas(props) {
 

@@ -72,3 +72,22 @@
     }
 
 }
+
+
+.headerContainer{
+    display: flex;
+
+    align-items: flex-end;
+    border-bottom: #e0e0e0 1px solid;
+    padding-bottom: 8px;
+
+    margin-bottom: 8px;
+}
+
+.titleContainer{
+    font-size: 1.4rem;
+    font-weight: 590;
+    font-family: 'Roboto' !important;
+    margin-right: auto;
+
+}

@@ -1,4 +1,3 @@
-import NodeContextMenu from "../modules/ node/NodeContextMenu";
 import Move from "../methods/move/MoveElement";
 import React from "react";
 import PropTypes from "prop-types";

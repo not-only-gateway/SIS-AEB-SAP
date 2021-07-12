@@ -17,8 +17,8 @@ import {
 } from "@material-ui/icons";
 
 import CollaboratorRequests from "../../utils/fetch/CollaboratorRequests";
-import {Navigation} from "sis-aeb-navigation";
 import PersonRequests from "../../utils/fetch/PersonRequests";
+import Navigation from "../../../../packages/navigation/src/nav/Navigation";
 // import Alert from "./components/Alert";
 // import Navigation from "./components/Navigation";
 
@@ -37,25 +37,24 @@ export default function PageLayout(props) {
 
         if (cookies.get('jwt') === undefined)
             router.push('/authenticate')
-        if (cookies.get('jwt') !== undefined && sessionStorage.getItem('profile') === null) {
-            CollaboratorRequests.fetchMemberByToken().then(res => {
-                if (res !== null) {
-                    PersonRequests.FetchImage(res.person.image).then(imageRes => {
-                        res.person.image = imageRes
-                        sessionStorage.setItem('profile', JSON.stringify({
-                            id: res.person.id,
-                            corporate_email: res.collaborator.corporate_email,
-                            member_id: res.collaborator.id,
-                            image: imageRes,
-                            name: res.person.name
-                        }))
-                        setProfile(res.person)
-                        sessionStorage.setItem('accessProfile', JSON.stringify(res.access))
-                        setAccessProfile(res.access)
-                    })
-                }
-            })
-        } else setProfile(JSON.parse(sessionStorage.getItem('profile')))
+
+        CollaboratorRequests.fetchMemberByToken().then(res => {
+            if (res !== null) {
+                PersonRequests.FetchImage(res.person.image).then(imageRes => {
+                    res.person.image = imageRes
+                    sessionStorage.setItem('profile', JSON.stringify({
+                        id: res.person.id,
+                        corporate_email: res.collaborator.corporate_email,
+                        member_id: res.collaborator.id,
+                        image: imageRes,
+                        name: res.person.name
+                    }))
+                    setProfile(res.person)
+                    sessionStorage.setItem('accessProfile', JSON.stringify(res.access))
+                    setAccessProfile(res.access)
+                })
+            }
+        })
 
         if (accessProfile === null || accessProfile === undefined) {
             const access = sessionStorage.getItem('accessProfile')
@@ -73,15 +72,7 @@ export default function PageLayout(props) {
         }}>
             {router.pathname !== '/authenticate' ?
                 <Navigation
-                    searchBar={true}
-                    searchInput={searchInput}
-                    applySearch={() => {
-                        setNotSearched(true)
 
-                    }}
-                    setSearchInput={event => {
-                        setSearchInput(event)
-                    }}
                     loading={props.loading}
                     redirect={event => {
                         router.push(event.pathname, event.pathname, event.options)
@@ -127,7 +118,7 @@ export default function PageLayout(props) {
                 marginTop: router.pathname !== '/authenticate' ? '60px' : undefined,
                 overflowX: router.pathname === '/structure' ? 'auto' : 'hidden'
             }}>
-                {props.children({searchInput, notSearched, setNotSearched})}
+                {props.children}
             </div>
             <div id={'root'}/>
         </div>

@@ -1,27 +1,18 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useRef, useState} from "react";
-import {AddRounded, EditRounded, SaveRounded} from "@material-ui/icons";
 import ForumRequests from "../../utils/fetch/ForumRequests";
-import subjectStyles from '../../styles/subject/Subject.module.css'
-import styles from '../../styles/subject/Pop.module.css'
-import SubjectPT from "../../packages/locales/SubjectPT";
 import PopOverview from "./PopOverview";
-import {AvatarGroup} from "@material-ui/lab";
-import PersonAvatar from "../shared/PersonAvatar";
 import PopForm from "./PopForm";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import Cookies from "universal-cookie/lib";
 import submitSubjectLayout from "../../utils/submit/SubmitSubjectLayout";
 import {Alert} from "sis-aeb-misc";
-import Canvas from "../shared/canvas/modules/canvas/Canvas";
 import deletePop from "../../utils/submit/DeletePop";
 import SubjectEditModal from "./SubjectEditModal";
 import LinkForm from "./LinkForm";
-import Frame from "../shared/canvas/Frame";
+import Canvas from "../shared/canvas/Canvas";
 import HandleChange from "../shared/canvas/methods/HandleChange";
 import submitPop from "../../utils/submit/SubmitPop";
-import axios from "axios";
-import Host from "../../utils/shared/Host";
 
 
 export default function Pops(props) {
@@ -111,7 +102,7 @@ export default function Pops(props) {
             <SubjectEditModal handleChange={props.handleChange} data={props.data} id={props.subjectID}
                               handleClose={() => setOpenSubjectForm(false)} open={openSubjectForm}/>
 
-            <Frame
+            <Canvas
                 handleChange={event => {
                     if (!changed.current)
                         changed.current = true
@@ -126,8 +117,7 @@ export default function Pops(props) {
                         subjectID: props.subjectID,
                         pk: entity.id,
                         data: entity,
-                        setStatus: setStatus,
-                        create: false
+                        setStatus: () => null
                     }).then(res => {
                         if (res) {
                             popsRef.current = []
@@ -139,7 +129,7 @@ export default function Pops(props) {
                         }
 
                     })
-                }} scrollableDivID={'scrollableDiv'}
+                }}
                 handleCreate={() => setOpenForm(true)}
                 show={entity => {
                     setCurrentEntity(entity)

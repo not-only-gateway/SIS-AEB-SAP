@@ -1,23 +1,23 @@
 import CanvasTemplate from "./templates/CanvasTemplate";
 import FrameTemplate from "./templates/FrameTemplate";
 import styles from './styles/Frame.module.css'
-import Canvas from "./modules/canvas/Canvas";
-import OptionsMenu from "./modules/navigation/OptionsMenu";
+
 import React, {useEffect, useRef, useState} from "react";
 import PropTypes from 'prop-types'
 import Header from "./modules/Header";
-import Scale from "./modules/Scale";
-import Line from "./modules/connection/Line";
-import ReactToPrint, {useReactToPrint} from "react-to-print";
+import Link from "./modules/link/Link";
+import {useReactToPrint} from "react-to-print";
 import ReactDOM from "react-dom";
-import CanvasContextMenu from "./modules/canvas/CanvasContextMenu";
-import LineContextMenu from "./modules/connection/LineContextMenu";
-import EntityTemplate from "./templates/EntityTemplate";
+import CanvasContextMenu from "./modules/CanvasContextMenu";
+import LinkContextMenu from "./modules/link/LinkContextMenu";
 import HandleLinkChange from "./methods/HandleLinkChange";
+import Node from "./modules/ node/Node";
 
-export default function Frame(props) {
+export default function Canvas(props) {
     const [offsetTop, setOffsetTop] = useState(-1)
     const [openMenu, setOpenMenu] = useState(null)
+    const [toBeLinked, setToBeLinked] = useState(null)
+    const [linkable, setLinkable] = useState(false)
     const root = useRef()
     const contextMenuRef = useRef()
     const overflowRef = useRef()
@@ -43,6 +43,7 @@ export default function Frame(props) {
             if (contextMenuRef.current !== null && contextMenuRef.current.firstChild && event.button === 0 && event.target.className !== 'Pop_popContainer__1N8Wc' && event.target.className !== 'Styles_lineContentContainer__1xCXK' && event.target.className !== 'Canvas_optionButton__1K9rT' && event.target.className !== 'Canvas_lineContentContainer__1xCXK') {
                 ReactDOM.unmountComponentAtNode(contextMenuRef.current)
                 setOpenMenu(null)
+
             }
         })
         document.addEventListener('contextmenu', (event) => {
@@ -52,6 +53,7 @@ export default function Frame(props) {
                 ReactDOM.render(
                     <CanvasContextMenu
                         handlePrint={handlePrint}
+                        handleClose={() => ReactDOM.unmountComponentAtNode(contextMenuRef.current)}
                         triggerUpdate={props.triggerUpdate}
                         handleCreate={props.handleCreate}/>,
                     contextMenuRef.current
@@ -100,14 +102,87 @@ export default function Frame(props) {
                         top: '0',
                         left: '0'
                     }}>
-
+                        {toBeLinked !== null && toBeLinked !== undefined ?
+                            <Link followMouse={true} source={`${toBeLinked.id}-node`}
+                                  color={'#0095ff'} type={'weak'} canEdit={false}
+                                  rootOffset={root.current !== undefined && root.current !== null ? {
+                                      x: overflowRef.current.offsetLeft,
+                                      y: overflowRef.current.offsetTop
+                                  } : null}/>
+                            :
+                            null
+                        }
                         <foreignObject width="100%" height="100%" ref={canvasRef} id={'canvas'}>
-                            <Canvas handlePrint={handlePrint} {...props} root={root.current}
-                                    canvasRef={canvasRef.current} setOpenMenu={setOpenMenu} openMenu={openMenu}
-                                    contextMenuRef={contextMenuRef} overflowRef={overflowRef.current}/>
+                            {props.entities.map((entity, index) => (
+                                <React.Fragment key={entity.id + '-' + index}>
+                                    <Node
+                                        overflowRef={overflowRef.current}
+                                        setOpenContext={(event, x, y, id) => {
+                                            if (event === null) {
+                                                ReactDOM.unmountComponentAtNode(contextMenuRef.current)
+                                                setOpenMenu(null)
+                                            } else {
+                                                ReactDOM.render(
+                                                    event,
+                                                    contextMenuRef.current
+                                                )
+                                                setOpenMenu(id)
+                                                contextMenuRef.current.style.top = y + 'px'
+                                                contextMenuRef.current.style.left = x + 'px'
+                                            }
+                                        }}
+                                        index={index} root={root.current}
+                                        renderOnRoot={(event, x, y) => {
+                                            if (event === null)
+                                                ReactDOM.unmountComponentAtNode(contextMenuRef.current)
+                                            else {
+                                                if (contextMenuRef.current.firstChild)
+                                                    ReactDOM.unmountComponentAtNode(contextMenuRef.current)
+
+                                                ReactDOM.render(
+                                                    event,
+                                                    contextMenuRef.current
+                                                )
+
+                                                contextMenuRef.current.style.top = (y - contextMenuRef.current.firstChild.offsetHeight) + 'px'
+                                                contextMenuRef.current.style.left = x + 'px'
+                                            }
+                                        }}
+                                        canvasRef={canvasRef.current}
+                                        handleLink={(entity) => {
+                                            if (entity === null)
+                                                setToBeLinked(entity)
+                                            if (toBeLinked === null) {
+                                                setToBeLinked(entity)
+                                            } else if (entity.id !== toBeLinked.id && !entity.parents.includes(toBeLinked.id)) {
+                                                props.triggerUpdate()
+                                                props.triggerLink(entity, toBeLinked)
+                                                setToBeLinked(null)
+                                                setLinkable(false)
+                                            } else {
+                                                setToBeLinked(null)
+                                                setLinkable(false)
+                                            }
+                                        }}
+
+                                        setLinkable={value => {
+                                            setLinkable(value)
+                                            if (!value)
+                                                setToBeLinked(null)
+                                        }}
+
+                                        entity={entity}
+                                        toBeLinked={toBeLinked}
+                                        linkable={linkable}
+                                        openMenu={openMenu}
+                                        {...props}
+                                    />
+                                </React.Fragment>
+                            ))}
                         </foreignObject>
+
                         {props.entities.map(entity => (
-                            entity.parents.map(link => <Line
+                            entity.parents.map(link => <Link
                                 target={`${link.parent}-node`} source={`${entity.id}-node`}
                                 color={entity.highlight_color !== undefined ? entity.highlight_color : '#777777'}
                                 type={link.strong ? 'strong' : 'weak'}
@@ -121,7 +196,7 @@ export default function Frame(props) {
                                         ReactDOM.unmountComponentAtNode(contextMenuRef.current)
 
                                     ReactDOM.render(
-                                        <LineContextMenu
+                                        <LinkContextMenu
                                             child={link.child}
                                             parent={link.parent}
                                             triggerLinkChange={event => {
@@ -140,23 +215,11 @@ export default function Frame(props) {
                                 }}
                                 description={link.description}/>)
                         ))}
+
                     </svg>
                 </div>
             </div>
         </div>
     )
 }
-Frame.propTypes = {
-    ...CanvasTemplate,
-    ...{
-        style: FrameTemplate,
-        subject: PropTypes.shape({
-            title: PropTypes.string,
-            description: PropTypes.string,
-            collaborators: PropTypes.arrayOf(
-                PropTypes.object
-            ),
-            updateEntity: PropTypes.func
-        })
-    }
-}
+Canvas.propTypes = CanvasTemplate

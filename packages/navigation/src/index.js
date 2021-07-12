@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Navigation from './components/Navigation'
-import Loading from './components/Loading'
+import Navigation from './nav/Navigation'
+import Loading from './nav/Loading'
 
 export {Navigation, Loading}
 

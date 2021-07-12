@@ -57,7 +57,7 @@ export default function PersonalForms(props) {
     }, [openTab, props.id])
 
     return (
-        <div style={{width: '100%', display: 'grid', gap: '16px', alignItems: 'flex-start', placeItems: 'center'}}>
+        <div style={{width: '100%', display: 'grid', gap: '8px', alignItems: 'flex-start', placeItems: 'center'}}>
             <Alert type={'error'} message={status.message} handleClose={() => setStatus({
                 error: false,
                 message: undefined

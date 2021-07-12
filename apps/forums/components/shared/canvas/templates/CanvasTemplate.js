@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import EntityTemplate from "./EntityTemplate";
-import Canvas from "../modules/canvas/Canvas";
 import React from "react";
+import FrameTemplate from "./FrameTemplate";
 
 export default {
     show: PropTypes.func,
@@ -28,5 +28,15 @@ export default {
     setOpenMenu: PropTypes.func,
     openMenu: PropTypes.number,
 
-    scrollableDivID: PropTypes.any
+    scrollableDivID: PropTypes.any,
+
+    style: FrameTemplate,
+    subject: PropTypes.shape({
+        title: PropTypes.string,
+        description: PropTypes.string,
+        collaborators: PropTypes.arrayOf(
+            PropTypes.object
+        ),
+        updateEntity: PropTypes.func
+    })
 }
