@@ -16,7 +16,7 @@ import Move from "./methods/move/MoveElement";
 
 export default function Canvas(props) {
     const [offsetTop, setOffsetTop] = useState(-1)
-    const [data, setData] = useState({dimensions: {width: '100%', height: '100%'}, nodes: []})
+    const [data, setData] = useState({dimensions: {width: '100%', height: '100%'}, nodes: [], links: [], groups: []})
     const [toBeLinked, setToBeLinked] = useState(null)
     const root = useRef()
     const contextMenuRef = useRef()
@@ -28,8 +28,10 @@ export default function Canvas(props) {
     });
 
     useEffect(() => {
-        if (data.id === undefined && props.data !== undefined && props.data.id !== undefined)
+        if (data.id === undefined && props.data !== undefined && props.data.id !== undefined) {
+            console.log(props.data)
             setData(props.data)
+        }
         if (offsetTop === -1) {
             const element = document.getElementById('frame')
             if (element !== null)
@@ -61,9 +63,8 @@ export default function Canvas(props) {
 
     return (
         <div className={styles.container} style={{...props.style, ...{height: 'calc(100vh - ' + offsetTop + 'px)'}}}
-
              id={'frame'}>
-            <Header {...props.subject}/>
+            <Header data={data}/>
 
             <div className={styles.content} ref={overflowRef}>
                 <div ref={contextMenuRef} style={{position: 'absolute'}}/>
@@ -88,10 +89,21 @@ export default function Canvas(props) {
                             null
                         }
                         <foreignObject width="100%" height="100%" ref={canvasRef} id={'canvas'}>
-                            {data.nodes.map((entity, index) => (
-                                <React.Fragment key={entity.id + '-' + index}>
+                            {data.nodes.map((node, index) => (
+                                <React.Fragment key={node.id + '-' + index}>
                                     <Node
-                                        data={data} move={Move}
+                                        node={node}
+                                        move={node => Move({
+                                            ...node,
+                                            ...{
+                                                nodes: data.nodes,
+                                                overflowRef: overflowRef.current,
+                                                root: root.current,
+                                                canvasRoot: canvasRef.current,
+                                                canvasRef: canvasRef.current
+                                            }
+                                        })}
+                                        options={props.options}
                                     />
                                 </React.Fragment>
                             ))}

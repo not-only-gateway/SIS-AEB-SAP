@@ -14,23 +14,24 @@ export default function Header(props) {
                     {props.description}
                 </div>
             </div>
-            <div className={styles.headerContent}>
-                <AvatarGroup >
-                    {props.contributors.map(entity => (
-                        <Avatar src={entity.image}/>
-                    ))}
-                </AvatarGroup>
-            </div>
+            {/*<div className={styles.headerContent}>*/}
+            {/*    <AvatarGroup >*/}
+            {/*        {props.contributors.map(entity => (*/}
+            {/*            <Avatar src={entity.image}/>*/}
+            {/*        ))}*/}
+            {/*    </AvatarGroup>*/}
+            {/*</div>*/}
 
         </div>
     )
 }
 Header.propTypes = {
-
-    title: PropTypes.string,
-    description: PropTypes.string,
-    contributors: PropTypes.arrayOf(
-        PropTypes.object
-    )
+    data: PropTypes.object
+    //
+    // title: PropTypes.string,
+    // description: PropTypes.string,
+    // contributors: PropTypes.arrayOf(
+    //     PropTypes.object
+    // )
 
 }

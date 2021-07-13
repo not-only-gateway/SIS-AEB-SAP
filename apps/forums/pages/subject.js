@@ -17,25 +17,20 @@ export default function subject(props) {
 
     }, [router.query])
 
-    if (id !== undefined && subject !== undefined && subject !== null)
-        return (
-            <>
-                <Head>
-                    <title>{subject.title}</title>
-                    <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
-                </Head>
+
+    return (
+        <>
+            <Head>
+                {/*<title>{subject.title}</title>*/}
+                <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
+            </Head>
 
 
+            <Pops subjectID={id} data={subject} handleChange={event => handleObjectChange({
+                event: event,
+                setData: setSubject
+            })}/>
 
-                    <Pops subjectID={id} data={subject} handleChange={event => handleObjectChange({
-                        event: event,
-                        setData: setSubject
-                    })}/>
-
-            </>
-
-
-        )
-    else
-        return <>{JSON.stringify(subject)}</>
+        </>
+    )
 }

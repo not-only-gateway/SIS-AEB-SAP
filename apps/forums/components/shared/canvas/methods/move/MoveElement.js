@@ -40,14 +40,14 @@ export default function Move(props) {
         nodeRef.style.top = placementY + 'px'
 
         nodeRef.style.left = placementX + 'px'
-
-        if (save) {
-            props.handleChange({
-                x: placementX,
-                y: placementY,
-                id: props.node.id
-            })
-        }
+        //
+        // if (save) {
+        //     props.handleChange({
+        //         x: placementX,
+        //         y: placementY,
+        //         id: props.node.id
+        //     })
+        // }
     }
 
     function handleOverflow(x, y) {
@@ -111,8 +111,6 @@ Move.propTypes = {
 
 
     overflowRef: PropTypes.object,
-    element: PropTypes.object,
     root: PropTypes.object,
-    canvasRoot: PropTypes.object,
     canvasRef: PropTypes.object,
 }

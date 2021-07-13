@@ -26,7 +26,9 @@ export default function Node(props) {
             id={props.node.id + '-node'}
             onMouseDown={event => {
                 if (typeof event === 'object' && event.button === 0) {
-                    props.move(props.node)
+                    props.move({
+                        node: props.node
+                    })
                 }
             }}
             onContextMenu={e => {

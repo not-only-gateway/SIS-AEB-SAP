@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useRef, useState} from "react";
 import ForumRequests from "../../utils/fetch/ForumRequests";
-import PopOverview from "./PopOverview";
-import PopForm from "./PopForm";
-import handleObjectChange from "../../utils/shared/HandleObjectChange";
+// import PopOverview from "./PopOverview";
+// import PopForm from "./PopForm";
+// import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import Cookies from "universal-cookie/lib";
 import submitSubjectLayout from "../../utils/submit/SubmitSubjectLayout";
 import {Alert} from "sis-aeb-misc";
 import deletePop from "../../utils/submit/DeletePop";
-import SubjectEditModal from "./SubjectEditModal";
-import LinkForm from "./LinkForm";
+// import SubjectEditModal from "./SubjectEditModal";
+// import LinkForm from "./LinkForm";
 import Canvas from "../shared/canvas/Canvas";
 import HandleChange from "../shared/canvas/methods/HandleChange";
 import submitPop from "../../utils/submit/SubmitPop";
@@ -53,55 +53,55 @@ export default function Pops(props) {
                 type={status.type} render={status.type !== undefined} rootElementID={'root'}
                 handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
             />
-            <PopOverview
-                data={currentEntity}
-                handleClose={() => {
-                    setCurrentEntity(null)
-                    setShow(false)
-                }}
-                open={show}/>
+            {/*<PopOverview*/}
+            {/*    data={currentEntity}*/}
+            {/*    handleClose={() => {*/}
+            {/*        setCurrentEntity(null)*/}
+            {/*        setShow(false)*/}
+            {/*    }}*/}
+            {/*    open={show}/>*/}
 
-            <LinkForm
-                parent={linkEntity.parent} child={linkEntity.child}
-                handleClose={status => {
-                    setLinkEntity({
-                        child: null,
-                        parent: null
-                    })
+            {/*<LinkForm*/}
+            {/*    parent={linkEntity.parent} child={linkEntity.child}*/}
+            {/*    handleClose={status => {*/}
+            {/*        setLinkEntity({*/}
+            {/*            child: null,*/}
+            {/*            parent: null*/}
+            {/*        })*/}
 
-                    if (status) {
-                        popsRef.current = []
-                        setPops([])
-                        ForumRequests.listPops(props.subjectID).then(res => {
-                            setPops(res)
-                            popsRef.current = res
-                        })
-                    }
-                }}/>
-            <PopForm
-                handleClose={() => {
-                    setCurrentEntity(null)
-                    setOpenForm(false)
-                }}
-                handleChange={event => handleObjectChange({
-                    event: event,
-                    setData: setCurrentEntity
-                })}
-                id={currentEntity !== null && currentEntity !== undefined ? currentEntity.id : null}
-                data={currentEntity} subjectID={props.subjectID}
-                fetchPops={() => {
-                    setPops([])
-                    popsRef.current = []
-                    ForumRequests.listPops(props.subjectID).then(res => {
-                        setPops(res)
-                        popsRef.current = res
-                    })
-                }}
-                open={openForm}
-            />
+            {/*        if (status) {*/}
+            {/*            popsRef.current = []*/}
+            {/*            setPops([])*/}
+            {/*            ForumRequests.listPops(props.subjectID).then(res => {*/}
+            {/*                setPops(res)*/}
+            {/*                popsRef.current = res*/}
+            {/*            })*/}
+            {/*        }*/}
+            {/*    }}/>*/}
+            {/*<PopForm*/}
+            {/*    handleClose={() => {*/}
+            {/*        setCurrentEntity(null)*/}
+            {/*        setOpenForm(false)*/}
+            {/*    }}*/}
+            {/*    handleChange={event => handleObjectChange({*/}
+            {/*        event: event,*/}
+            {/*        setData: setCurrentEntity*/}
+            {/*    })}*/}
+            {/*    id={currentEntity !== null && currentEntity !== undefined ? currentEntity.id : null}*/}
+            {/*    data={currentEntity} subjectID={props.subjectID}*/}
+            {/*    fetchPops={() => {*/}
+            {/*        setPops([])*/}
+            {/*        popsRef.current = []*/}
+            {/*        ForumRequests.listPops(props.subjectID).then(res => {*/}
+            {/*            setPops(res)*/}
+            {/*            popsRef.current = res*/}
+            {/*        })*/}
+            {/*    }}*/}
+            {/*    open={openForm}*/}
+            {/*/>*/}
 
-            <SubjectEditModal handleChange={props.handleChange} data={props.data} id={props.subjectID}
-                              handleClose={() => setOpenSubjectForm(false)} open={openSubjectForm}/>
+            {/*<SubjectEditModal handleChange={props.handleChange} data={props.data} id={props.subjectID}*/}
+            {/*                  handleClose={() => setOpenSubjectForm(false)} open={openSubjectForm}/>*/}
 
             <Canvas
                 handleChange={event => {

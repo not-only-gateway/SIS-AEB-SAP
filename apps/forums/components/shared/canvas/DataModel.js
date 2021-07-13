@@ -3,18 +3,49 @@ export default {
     subject: 'Title',
     description: 'Cafe',
     dimensions: {
-      width: 100,
-      height: 100
+        width: '100%',
+        height: '100%'
     },
     nodes: [
+        {
+            id: 1,
+            title: 'Cafe',
+            description: 'Teste',
+            color: 'red',
+            placement: {
+                x: 100,
+                y: 100
+            }
+        },
+        {
+            id: 3,
+            title: 'Cafe',
+            description: 'Teste',
+            color: 'blue',
+            placement: {
+                x: 300,
+                y: 300
+            }
+        },
+        {
+            id: 2,
+            title: 'Cafe',
+            description: 'Teste',
+            color: 'green',
+            placement: {
+                x: 200,
+                y: 200
+            }
+        },
+
         {
             id: 4,
             title: 'Cafe',
             description: 'Teste',
             color: '#0095ff',
             placement: {
-                x: 100,
-                y: 100
+                x: 400,
+                y: 400
             }
         }
     ],
@@ -54,13 +85,13 @@ export default {
             denomination: 'Cafe',
             type: 'Strong',
             parent: 3,
-            child: 3
+            child: 1
         },
         {
             denomination: 'Cafe',
             type: 'Strong',
             parent: 3,
-            child: 5
+            child: 4
         },
     ]
 }
