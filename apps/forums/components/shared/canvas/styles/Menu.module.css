@@ -18,8 +18,8 @@
 
 .buttonContainer {
     width: 100%;
-    border: #e0e0e0 1px solid;
-    border-radius: 8px;
+    border: #ecedf2 1px solid;
+    border-radius: 5px;
     background: white;
     outline: none;
     display: flex;
@@ -28,7 +28,7 @@
     padding: 8px 16px;
     cursor: pointer;
     color: #555555;
-    transition: 150ms ease;
+    transition: 150ms linear;
     position: sticky;
     top: 0;
 }
@@ -37,6 +37,12 @@
     color: #0095ff;
     background: #E8F0FE;
     border: #0095ff 1px solid;
+}
+.buttonContainer:disabled {
+    color: #999999;
+    background: white;
+    border: #ecedf2 1px solid;
+    cursor: unset;
 }
 .header{
     font-weight: bold;
@@ -95,4 +101,39 @@
 .searchButton:hover{
     color: #0095ff;
     background: #E8F0FE;
+}
+
+.tabsContainer{
+    width: 100%;
+}
+.tabNavigation{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    border-bottom: #e0e0e0 1px solid;
+}
+
+.tabButtonContainer{
+    outline: none;
+    background: transparent;
+    width: 100%;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px 5px 0 0;
+    font-size: .95rem;
+    font-weight: bold;
+    color: #666666;
+    transition: 200ms linear;
+}
+.tabButtonContainer:hover{
+    background: #E8F0FE;
+}
+
+.contentContainer{
+    margin-top: 16px;
+    width: 100%;
+}
+.options{
+    display: grid;
+    gap: 4px;
 }

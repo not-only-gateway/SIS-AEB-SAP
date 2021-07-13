@@ -2,8 +2,8 @@ import PropTypes from 'prop-types'
 import React, {useEffect, useRef, useState} from "react";
 import styles from "../../styles/Node.module.css";
 import useNode from "../../hooks/useNode";
-import EntityTemplate from "../../templates/NodeTemplate";
 import NodeContextMenu from "./NodeContextMenu";
+import NodeTemplate from "../../templates/NodeTemplate";
 
 
 export default function Node(props) {
@@ -26,6 +26,11 @@ export default function Node(props) {
 
         <div
             id={props.node.id + '-node'}
+            onClick={() => {
+                if (props.linkable)
+                    props.handleLink(props.node, setLink)
+                props.openOverview()
+            }}
             onMouseDown={event => {
                 if (typeof event === 'object' && event.button === 0 && !props.inGroup) {
                     props.move({
@@ -35,65 +40,36 @@ export default function Node(props) {
             }}
             onContextMenu={e => {
                 if (!props.linkable) {
-                    if (props.openMenu === props.node.id)
-                        props.setOpenContext(null, null, null, null)
-                    else
-                        props.setOpenContext(
-                            <NodeContextMenu
-                                setLink={setLink} link={link}
-                                handleClose={() => props.setOpenContext(null, null, null, null)}
-                                entity={props.node} editable={props.options.edit}
-                                edit={props.edit} linkable={props.linkable}
-                                show={props.show} handleLink={props.handleLink}
-                                setLinkable={props.setLinkable}/>,
-                            (e.clientX - props.root.offsetLeft),
-                            (e.clientY - props.root.offsetTop),
-                            props.node.id)
+                    props.setOpenContext(
+                        <NodeContextMenu
+                            setLink={setLink} link={link}
+                            handleClose={() => props.setOpenContext(null, null, null, null)}
+                            entity={props.node} editable={props.options.edit}
+                            edit={props.edit} linkable={props.linkable}
+                            show={props.show} handleLink={props.handleLink}
+                            setLinkable={props.setLinkable}/>,
+                        (e.clientX - props.root.offsetLeft),
+                        (e.clientY - props.root.offsetTop),
+                        props.index)
                 }
             }}
             className={styles.entityContainer}
             style={{
-                cursor: props.options.edit && !props.inGroup  ? 'move' : "unset",
-                background: 'white',
-                border: props.inGroup || props.node.shape === 'circle' ?  props.node.color !== undefined && props.node.color !== null ? props.node.color + ' 2px solid' : '#e0e0e0 2px solid' : undefined,
-                borderLeft: props.node.color !== undefined && props.node.color !== null ? props.node.color + ' 2px solid' : '#e0e0e0 2px solid',
+                cursor: props.options.edit && !props.inGroup ? 'move' : "unset",
+                border: props.node.color !== undefined && props.node.color !== null ? props.node.color + ' 2px solid' : '#e0e0e0 2px solid',
                 left: props.inGroup ? undefined : `${props.node.placement.x}px`,
                 top: props.inGroup ? undefined : `${props.node.placement.y}px`,
                 position: props.inGroup ? 'relative' : undefined,
-                borderRadius: props.inGroup || props.node.shape === 'circle' ? '50%' : undefined,
+                borderRadius: props.inGroup || props.node.shape === 'circle' ? '50%' : '5px',
                 width: props.inGroup || props.node.shape === 'circle' ? size + 'px' : undefined,
                 height: props.inGroup || props.node.shape === 'circle' ? size + 'px' : '80px',
                 boxShadow: props.inGroup ? 'none' : undefined,
-                minWidth: props.inGroup || props.node.shape === 'circle' ? undefined : '100px',
+                minWidth: props.inGroup || props.node.shape === 'circle' ? undefined : '160px',
             }} ref={ref}>
-            {ref.current !== undefined && ref.current !== null ?
 
-                <div id={props.node.id + '-bottom-connector'}
-                     style={{
-                         position: 'absolute',
-                         bottom: 0,
-                         left: (ref.current.offsetWidth / 2) + 'px',
-                     }}/>
-                :
-                null}
-            {ref.current !== undefined && ref.current !== null ?
-
-                <div id={props.node.id + '-top-connector'}
-                     style={{
-                         position: 'absolute',
-                         top: 0,
-                         left: (ref.current.offsetWidth / 2) + 'px',
-                     }}/>
-                :
-                null}
             <div ref={elementRef}
                  style={{width: 'fit-content', height: 'fit-content'}}
-                 onClick={() => {
-                     if (props.linkable)
-                         props.handleLink(props.node, setLink)
-                     if (props.openMenu === props.node.id)
-                         props.setOpenMenu(null, null, null, null)
-                 }}>
+            >
                 <div className={styles.nodeContent}>
                     <div style={{
                         margin: 'auto', overflow: 'hidden',
@@ -121,5 +97,6 @@ Node.propTypes = {
     linkable: PropTypes.bool,
     setLinkable: PropTypes.func,
     root: PropTypes.object,
-    node: EntityTemplate,
+    node: NodeTemplate,
+    openOverview: PropTypes.func
 }

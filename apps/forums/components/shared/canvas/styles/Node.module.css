@@ -30,7 +30,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f4f5fa;
+    background: white;
     z-index: 9;
 
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;

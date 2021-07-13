@@ -6,10 +6,12 @@ import GetCurve from "./GetCurve";
 export default function Link(props) {
     const [target, setTarget] = useState(null)
     const [source, setSource] = useState(null)
+    const [color, setColor] = useState('transparent')
     const update = (event) => {
         if (props.followMouse && event !== null && props.rootOffset !== null && props.rootOffset !== undefined) {
             const s = document.getElementById(props.source)
             if (s !== null) {
+                setColor(s.style.borderColor)
                 setTarget({
                     offsetTop: event.clientY - props.rootOffset.y,
                     offsetLeft: event.clientX - props.rootOffset.x,
@@ -27,14 +29,15 @@ export default function Link(props) {
             const t = document.getElementById(props.target)
             const s = document.getElementById(props.source)
             if (t !== null && s !== null) {
+                setColor(s.style.borderColor)
                 setTarget({
-                    offsetTop: t.getBoundingClientRect().top + t.offsetHeight - props.rootOffset.y,
+                    offsetTop: t.getBoundingClientRect().top + t.offsetHeight - props.rootOffset.y + 3,
                     offsetLeft: t.getBoundingClientRect().left + t.offsetWidth / 2 - props.rootOffset.x,
                     offsetHeight: t.offsetHeight,
                     offsetWidth: t.offsetWidth,
                 })
                 setSource({
-                    offsetTop: s.getBoundingClientRect().top + s.offsetHeight - props.rootOffset.y,
+                    offsetTop: s.getBoundingClientRect().top + s.offsetHeight - props.rootOffset.y + 3,
                     offsetLeft: s.getBoundingClientRect().left + s.offsetWidth / 2 - props.rootOffset.x,
                     offsetHeight: s.offsetHeight,
                     offsetWidth: s.offsetWidth,
@@ -60,13 +63,13 @@ export default function Link(props) {
                     props.renderMenu(event)
             }}>
 
-                <circle r={'10'}
-                        cy={props.followMouse ? target.offsetTop : (source.offsetTop > target.offsetTop ? (source.offsetTop - source.offsetHeight) : (source.offsetTop - 5))}
+                <circle r={'7'}
+                        cy={props.followMouse ? target.offsetTop : (source.offsetTop > target.offsetTop ? (source.offsetTop - source.offsetHeight) : (source.offsetTop))}
                         cx={props.followMouse ? target.offsetLeft: source.offsetLeft}
-                        fill={'#ccc'} style={{position: 'absolute', zIndex: '2'}}/>
+                        fill={color} style={{position: 'absolute', zIndex: '2'}}/>
 
                 <path
-                    stroke={'#ccc'} strokeWidth={'2'} fill={'none'}
+                    stroke={color} strokeWidth={'2'} fill={'none'}
                     strokeDasharray={props.type === 'weak' ? '5,5' : undefined}
                     style={{position: 'absolute', zIndex: '1'}}
                     d={

@@ -53,122 +53,21 @@ export default function Pops(props) {
                 type={status.type} render={status.type !== undefined} rootElementID={'root'}
                 handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
             />
-            {/*<PopOverview*/}
-            {/*    data={currentEntity}*/}
-            {/*    handleClose={() => {*/}
-            {/*        setCurrentEntity(null)*/}
-            {/*        setShow(false)*/}
-            {/*    }}*/}
-            {/*    open={show}/>*/}
-
-            {/*<LinkForm*/}
-            {/*    parent={linkEntity.parent} child={linkEntity.child}*/}
-            {/*    handleClose={status => {*/}
-            {/*        setLinkEntity({*/}
-            {/*            child: null,*/}
-            {/*            parent: null*/}
-            {/*        })*/}
-
-            {/*        if (status) {*/}
-            {/*            popsRef.current = []*/}
-            {/*            setPops([])*/}
-            {/*            ForumRequests.listPops(props.subjectID).then(res => {*/}
-            {/*                setPops(res)*/}
-            {/*                popsRef.current = res*/}
-            {/*            })*/}
-            {/*        }*/}
-            {/*    }}/>*/}
-            {/*<PopForm*/}
-            {/*    handleClose={() => {*/}
-            {/*        setCurrentEntity(null)*/}
-            {/*        setOpenForm(false)*/}
-            {/*    }}*/}
-            {/*    handleChange={event => handleObjectChange({*/}
-            {/*        event: event,*/}
-            {/*        setData: setCurrentEntity*/}
-            {/*    })}*/}
-            {/*    id={currentEntity !== null && currentEntity !== undefined ? currentEntity.id : null}*/}
-            {/*    data={currentEntity} subjectID={props.subjectID}*/}
-            {/*    fetchPops={() => {*/}
-            {/*        setPops([])*/}
-            {/*        popsRef.current = []*/}
-            {/*        ForumRequests.listPops(props.subjectID).then(res => {*/}
-            {/*            setPops(res)*/}
-            {/*            popsRef.current = res*/}
-            {/*        })*/}
-            {/*    }}*/}
-            {/*    open={openForm}*/}
-            {/*/>*/}
-
-            {/*<SubjectEditModal handleChange={props.handleChange} data={props.data} id={props.subjectID}*/}
-            {/*                  handleClose={() => setOpenSubjectForm(false)} open={openSubjectForm}/>*/}
-
             <Canvas
-                handleChange={event => {
-                    if (!changed.current)
-                        changed.current = true
-                    HandleChange({
-                        event: event, entities: pops, setState: newValue => {
-                            popsRef.current = newValue
-                        }
-                    })
-                }}
-                updateEntity={entity => {
-                    submitPop({
-                        subjectID: props.subjectID,
-                        pk: entity.id,
-                        data: entity,
-                        setStatus: () => null
-                    }).then(res => {
-                        if (res) {
-                            popsRef.current = []
-                            setPops([])
-                            ForumRequests.listPops(props.subjectID).then(res => {
-                                setPops(res)
-                                popsRef.current = res
-                            })
-                        }
-
-                    })
-                }}
-                handleCreate={() => setOpenForm(true)}
-                show={entity => {
-                    setCurrentEntity(entity)
-                    setShow(true)
-                }}
-                edit={entity => {
-                    setCurrentEntity(entity)
-                    setOpenForm(true)
-                }}
                 options={{
                     move: (new Cookies()).get('jwt') !== undefined,
                     edit: (new Cookies()).get('jwt') !== undefined,
                     show: true
-                }}
-                triggerLink={(child, parent) => {
-                    setLinkEntity({
-                        child: child,
-                        parent: parent
-                    })
-                }}
-                handleDelete={entity => {
-                    deletePop({
-                        id: entity.id,
-                        setStatus: setStatus
-                    }).then(res => {
-                        if (res)
-                            ForumRequests.listPops(props.subjectID).then(res => setPops(res))
-                    })
-                }}
+                }} onSave={data => {
+                let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
+                let downloadAnchorNode = document.createElement('a');
+                downloadAnchorNode.setAttribute("href", dataStr);
+                downloadAnchorNode.setAttribute("download","Canvas.json");
+                document.body.appendChild(downloadAnchorNode)
+                downloadAnchorNode.click()
+                downloadAnchorNode.remove()
+            }}
                 data={DataModel}
-                triggerUpdate={() => {
-                    if (changed.current)
-                        updatePops()
-                }}
-                style={{
-                    width: '100vw'
-                }}
-                subject={props.data}
             />
         </div>
     )

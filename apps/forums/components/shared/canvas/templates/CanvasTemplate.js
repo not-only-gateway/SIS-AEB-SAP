@@ -6,8 +6,7 @@ import NodeTemplate from "./NodeTemplate";
 import LinkTemplate from "./LinkTemplate";
 
 export default {
-    handlePrint: PropTypes.func,
-    setState: PropTypes.func,
+    onSave: PropTypes.func,
     options: PropTypes.shape({
         edit: PropTypes.bool,
         move: PropTypes.bool,

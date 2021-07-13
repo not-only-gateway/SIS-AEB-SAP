@@ -8,7 +8,6 @@ export default function CanvasContextMenu(props) {
     return (
         <div className={styles.options}>
             <button className={styles.optionButton} onClick={() => {
-
                 props.triggerUpdate()
                 props.handleClose()
             }}>

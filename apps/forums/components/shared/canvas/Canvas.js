@@ -16,6 +16,7 @@ import Move from "./methods/move/MoveNode";
 import Group from "./modules/Group";
 import MoveGroup from "./methods/move/MoveGroup";
 import OptionsMenu from "./modules/navigation/OptionsMenu";
+import NodeOverview from "./modules/ node/NodeOverview";
 
 export default function Canvas(props) {
     const [offsetTop, setOffsetTop] = useState(-1)
@@ -42,6 +43,7 @@ export default function Canvas(props) {
                 setOffsetTop(element.offsetTop)
         }
         document.addEventListener('mousedown', (event) => {
+            console.log(event.target.id)
             if (contextMenuRef.current !== null && contextMenuRef.current.firstChild && event.button === 0 && event.target.className !== 'Pop_popContainer__1N8Wc' && event.target.className !== 'Styles_lineContentContainer__1xCXK' && event.target.className !== 'Canvas_optionButton__1K9rT' && event.target.className !== 'Canvas_lineContentContainer__1xCXK')
                 ReactDOM.unmountComponentAtNode(contextMenuRef.current)
 
@@ -71,7 +73,9 @@ export default function Canvas(props) {
             <Header data={data}/>
 
             <div className={styles.content} ref={overflowRef}>
-                <OptionsMenu />
+                <OptionsMenu
+                    root={root.current} canvasRef={canvasRef.current} overflowRef={overflowRef.current}
+                    data={data} setState={setData} onSave={props.onSave} handlePrint={handlePrint}/>
                 <div ref={contextMenuRef} style={{position: 'absolute'}}/>
                 <div className={styles.canvasContainer} ref={root} style={{
                     height: data.dimensions.height + 'px',
@@ -99,6 +103,16 @@ export default function Canvas(props) {
                                     <React.Fragment key={node.id + '-' + index}>
                                         <Node
                                             node={node}
+                                            openOverview={() => {
+                                            if (contextMenuRef.current.firstChild)
+                                                ReactDOM.unmountComponentAtNode(contextMenuRef.current)
+                                            ReactDOM.render(
+                                                <NodeOverview
+                                                    node={node} setState={setData} data={data}
+                                                />,
+                                                contextMenuRef.current
+                                            )
+                                        }}
                                             move={node => {
                                                 Move({
                                                     ...node,
@@ -132,7 +146,7 @@ export default function Canvas(props) {
                                     </React.Fragment>
                                 ))}
                                 {data.groups.map((group, groupIndex) => (
-                                    <Group group={group} index={groupIndex}  move={data => {
+                                    <Group group={group} index={groupIndex} move={data => {
                                         MoveGroup({
                                             ...data,
                                             ...{

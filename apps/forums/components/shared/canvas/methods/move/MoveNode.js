@@ -73,7 +73,6 @@ export default function Move(props) {
     }
 
     function move(event, save) {
-        console.log(event.target.className)
         const closest = event.target.closest('.Frame_group__3mVSW')
         if (closest !== null) {
             if (changed.indexOf(closest.id.charAt(6)) === -1) {
