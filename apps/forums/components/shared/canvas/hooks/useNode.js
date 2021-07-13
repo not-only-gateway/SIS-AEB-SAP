@@ -12,12 +12,12 @@ export default function useNode(props) {
     // }
 
 
-    if (props.elementRef.current.offsetWidth > props.elementRef.current.offsetHeight) {
-        props.ref.current.style.width = (Math.ceil((props.elementRef.current.offsetWidth) / 30) * 30) + 'px'
-        props.ref.current.style.height = (Math.ceil((props.elementRef.current.offsetHeight) / 30) * 30) + 'px'
+    if (props.ref.current.offsetWidth > props.ref.current.offsetHeight) {
+        props.ref.current.style.width = (Math.ceil((props.ref.current.offsetWidth) / 30) * 30) + 'px'
+        props.ref.current.style.height = (Math.ceil((props.ref.current.offsetHeight) / 30) * 30) + 'px'
 
     } else
-        props.ref.current.style.width = (Math.ceil((props.elementRef.current.offsetHeight) / 30) * 30) + 'px'
+        props.ref.current.style.width = (Math.ceil((props.ref.current.offsetHeight) / 30) * 30) + 'px'
 
 
 }
@@ -27,8 +27,6 @@ useNode.propTypes = {
     overflowRef: PropTypes.object,
     ref: PropTypes.object,
     root: PropTypes.object,
-
-    elementRef: PropTypes.object,
 
     link: PropTypes.bool,
     updateEntity: PropTypes.func,

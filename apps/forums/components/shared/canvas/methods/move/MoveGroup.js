@@ -16,7 +16,6 @@ export default function MoveGroup(props) {
                 groupRef.childNodes[i].style.display = 'none'
         }
 
-
         document.addEventListener('mousemove', event => {
             if (moving) {
                 move(event, false)

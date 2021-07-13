@@ -1,4 +1,7 @@
 .menuContainer {
+    position: sticky;
+    top: 0;
+
     width: 450px;
 
     height: 100%;

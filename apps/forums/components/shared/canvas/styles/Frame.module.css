@@ -1,7 +1,4 @@
-.container {
-    display: grid;
-    grid-template-rows: 10% 90%;
-}
+
 
 .content {
     grid-row: 2;
@@ -34,12 +31,12 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    border: #ccc 2px dashed;
+    border: #333333 2px dashed;
     padding: 6px;
 
     background-color: transparent;
 
-    border-radius: 64px;
+    border-radius: 5px;
 
     position: absolute;
     z-index: 999;
@@ -108,6 +105,9 @@
     justify-content: center;
     border: #e0e0e0 2px solid;
     color: #777777;
-    background: #f4f5fa;
-    border-radius: 50%;
+    background: white;
+    border-radius: 8px;
+
+    height: 50px;
+    width: 50px;
 }

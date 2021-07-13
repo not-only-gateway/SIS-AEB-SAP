@@ -68,10 +68,7 @@ export default function Canvas(props) {
     }, [props.data])
 
     return (
-        <div className={styles.container} style={{...props.style, ...{height: 'calc(100vh - ' + offsetTop + 'px)'}}}
-             id={'frame'}>
-            <Header data={data}/>
-
+        <div style={{height: 'calc(100vh - ' + offsetTop + 'px)', width: '100%'}} id={'frame'}>
             <div className={styles.content} ref={overflowRef}>
                 <OptionsMenu
                     root={root.current} canvasRef={canvasRef.current} overflowRef={overflowRef.current}
@@ -104,15 +101,15 @@ export default function Canvas(props) {
                                         <Node
                                             node={node}
                                             openOverview={() => {
-                                            if (contextMenuRef.current.firstChild)
-                                                ReactDOM.unmountComponentAtNode(contextMenuRef.current)
-                                            ReactDOM.render(
-                                                <NodeOverview
-                                                    node={node} setState={setData} data={data}
-                                                />,
-                                                contextMenuRef.current
-                                            )
-                                        }}
+                                                if (contextMenuRef.current.firstChild)
+                                                    ReactDOM.unmountComponentAtNode(contextMenuRef.current)
+                                                ReactDOM.render(
+                                                    <NodeOverview
+                                                        node={node} setState={setData} data={data}
+                                                    />,
+                                                    contextMenuRef.current
+                                                )
+                                            }}
                                             move={node => {
                                                 Move({
                                                     ...node,

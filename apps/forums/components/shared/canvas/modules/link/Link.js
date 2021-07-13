@@ -11,7 +11,7 @@ export default function Link(props) {
         if (props.followMouse && event !== null && props.rootOffset !== null && props.rootOffset !== undefined) {
             const s = document.getElementById(props.source)
             if (s !== null) {
-                setColor(s.style.borderColor)
+                setColor('#0095ff')
                 setTarget({
                     offsetTop: event.clientY - props.rootOffset.y,
                     offsetLeft: event.clientX - props.rootOffset.x,
@@ -29,7 +29,7 @@ export default function Link(props) {
             const t = document.getElementById(props.target)
             const s = document.getElementById(props.source)
             if (t !== null && s !== null) {
-                setColor(s.style.borderColor)
+                setColor(t.style.borderColor)
                 setTarget({
                     offsetTop: t.getBoundingClientRect().top + t.offsetHeight - props.rootOffset.y + 3,
                     offsetLeft: t.getBoundingClientRect().left + t.offsetWidth / 2 - props.rootOffset.x,

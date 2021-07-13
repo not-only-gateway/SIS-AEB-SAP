@@ -56,9 +56,9 @@ export default function Move(props) {
                             element.childNodes[i].style.opacity = '1'
 
                         else {
-                            element.childNodes[i].style.border = '#e0e0e0 2px dashed'
+                            element.childNodes[i].style.border = '#e0e0e0 2px solid'
                             element.childNodes[i].style.color = '#777777'
-                            element.childNodes[i].style.background = '#f4f5fa'
+                            element.childNodes[i].style.background = 'white'
                         }
                     }
                 })
@@ -98,9 +98,9 @@ export default function Move(props) {
                         element.childNodes[i].style.opacity = '1'
 
                     else {
-                        element.childNodes[i].style.border = '#e0e0e0 2px dashed'
+                        element.childNodes[i].style.border = '#e0e0e0 2px solid'
                         element.childNodes[i].style.color = '#777777'
-                        element.childNodes[i].style.background = '#f4f5fa'
+                        element.childNodes[i].style.background = 'white'
                     }
                 }
             })

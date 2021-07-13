@@ -8,7 +8,6 @@ import NodeTemplate from "../../templates/NodeTemplate";
 
 export default function Node(props) {
     const ref = useRef()
-    const elementRef = useRef()
     const [link, setLink] = useState(false)
     const [size, setSize] = useState(undefined)
     useEffect(() => {
@@ -16,7 +15,7 @@ export default function Node(props) {
 
         useNode({
             ...props, ...{
-                ref: ref, elementRef: elementRef,
+                ref: ref,
                 link: link, setLink: setLink
             }
         })
@@ -60,26 +59,19 @@ export default function Node(props) {
                 left: props.inGroup ? undefined : `${props.node.placement.x}px`,
                 top: props.inGroup ? undefined : `${props.node.placement.y}px`,
                 position: props.inGroup ? 'relative' : undefined,
-                borderRadius: props.inGroup || props.node.shape === 'circle' ? '50%' : '5px',
-                width: props.inGroup || props.node.shape === 'circle' ? size + 'px' : undefined,
-                height: props.inGroup || props.node.shape === 'circle' ? size + 'px' : '80px',
+                borderRadius: props.node.shape === 'circle' ? '50%' : '5px',
+                width: props.node.shape === 'circle' ? size + 'px' : undefined,
+                height: props.node.shape === 'circle' ? size + 'px' : '80px',
                 boxShadow: props.inGroup ? 'none' : undefined,
-                minWidth: props.inGroup || props.node.shape === 'circle' ? undefined : '160px',
-            }} ref={ref}>
-
-            <div ref={elementRef}
-                 style={{width: 'fit-content', height: 'fit-content'}}
-            >
-                <div className={styles.nodeContent}>
-                    <div style={{
-                        margin: 'auto', overflow: 'hidden',
-                        whiteSpace: 'nowrap',
-                        textOverflow: 'ellipsis',
-                        fontWeight: 585
-                    }}>
-                        {props.node.title}
-                    </div>
-                </div>
+                minWidth: props.node.shape === 'circle' ? '80px' : '230px',
+            }}
+            ref={ref}
+        >
+            <div className={props.node.shape === 'circle' ? styles.headerCircle :styles.header}>
+                {props.node.title}
+            </div>
+            <div  className={styles.body} style={{display: props.node.shape === 'circle' ? 'none' : undefined}}>
+                {props.node.description}
             </div>
         </div>
     )

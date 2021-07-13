@@ -78,13 +78,13 @@ export default function OptionsMenu(props) {
     return (
         <div className={styles.menuContainer}>
             <div className={styles.header}>
-                Módulos
+                {props.data.subject}
             </div>
             <div className={styles.inputContainer}>
                 <button className={styles.searchButton}>
                     <SearchRounded/>
                 </button>
-                <input className={styles.textField} placeholder={'Pesquisar módulos'}/>
+                <input className={styles.textField} placeholder={'Pesquisar'}/>
             </div>
             <Tabs
                 buttons={[
@@ -116,7 +116,7 @@ export default function OptionsMenu(props) {
                                 <div className={styles.buttonContainer} style={{cursor: 'move', fontSize: '.9rem'}}
                                      draggable={props.root !== undefined ? 'true' : false}>
                                     <DragIndicatorRounded/>
-                                    Adicionar modulo
+                                    Adicionar módulo
                                 </div>
                             </>
                         )
