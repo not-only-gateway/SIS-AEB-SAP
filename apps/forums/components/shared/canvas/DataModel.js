@@ -35,7 +35,8 @@ export default {
             placement: {
                 x: 200,
                 y: 200
-            }
+            },
+            shape: 'rect',
         },
 
         {
@@ -46,50 +47,51 @@ export default {
             placement: {
                 x: 400,
                 y: 400
-            }
+            },
+            shape: 'circle',
         }
     ],
     groups: [
-        {
-            id: 1,
+        {  placement: {
+                x: 200,
+                y: 600
+            },
             nodes: [
-                1,
-                2,
-                3]
-        },
-        {
-            id: 2,
-            nodes: [
-                4,
-                5,
-                6
-            ]
-        },
-        {
-            id: 3,
-            nodes: [
-                7,
-                8,
-                9
+                {
+                    id: 5,
+                    title: 'Cafe',
+                    description: 'Teste',
+                    color: 'pink',
+
+                    shape: 'circle',
+                },
+                {
+                    id: 6,
+                    title: 'Cafe',
+                    description: 'Teste',
+                    color: '#ccc',
+
+                    shape: 'circle',
+                }
             ]
         }
     ],
     links: [
         {
             denomination: 'Cafe',
-            type: 'Strong',
+            type: 'strong',
             parent: 3,
             child: 2
         },
         {
             denomination: 'Cafe',
-            type: 'Strong',
+            type: 'strong',
             parent: 3,
             child: 1
         },
         {
             denomination: 'Cafe',
-            type: 'Strong',
+            type: 'weak',
             parent: 3,
             child: 4
         },

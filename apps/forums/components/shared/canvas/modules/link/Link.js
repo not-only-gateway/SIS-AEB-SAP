@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import {useEffect, useState} from "react";
 import styles from '../../styles/Node.module.css'
+import GetCurve from "./GetCurve";
 
 export default function Link(props) {
     const [target, setTarget] = useState(null)
@@ -12,12 +13,14 @@ export default function Link(props) {
                 setTarget({
                     offsetTop: event.clientY - props.rootOffset.y,
                     offsetLeft: event.clientX - props.rootOffset.x,
-                    offsetHeight: 1
+                    offsetHeight: 1,
+                    offsetWidth: 1,
                 })
                 setSource({
                     offsetTop: s.offsetTop + s.offsetHeight,
                     offsetLeft: s.offsetLeft + s.offsetWidth / 2,
-                    offsetHeight: s.offsetHeight
+                    offsetHeight: s.offsetHeight,
+                    offsetWidth: s.offsetWidth,
                 })
             }
         } else {
@@ -25,14 +28,16 @@ export default function Link(props) {
             const s = document.getElementById(props.source)
             if (t !== null && s !== null) {
                 setTarget({
-                    offsetTop: t.offsetTop + t.offsetHeight,
-                    offsetLeft: t.offsetLeft + t.offsetWidth / 2,
-                    offsetHeight: t.offsetHeight
+                    offsetTop: t.getBoundingClientRect().top + t.offsetHeight - props.rootOffset.y,
+                    offsetLeft: t.getBoundingClientRect().left + t.offsetWidth / 2 - props.rootOffset.x,
+                    offsetHeight: t.offsetHeight,
+                    offsetWidth: t.offsetWidth,
                 })
                 setSource({
-                    offsetTop: s.offsetTop + s.offsetHeight,
-                    offsetLeft: s.offsetLeft + s.offsetWidth / 2,
-                    offsetHeight: s.offsetHeight
+                    offsetTop: s.getBoundingClientRect().top + s.offsetHeight - props.rootOffset.y,
+                    offsetLeft: s.getBoundingClientRect().left + s.offsetWidth / 2 - props.rootOffset.x,
+                    offsetHeight: s.offsetHeight,
+                    offsetWidth: s.offsetWidth,
                 })
             }
         }
@@ -65,30 +70,22 @@ export default function Link(props) {
                     strokeDasharray={props.type === 'weak' ? '5,5' : undefined}
                     style={{position: 'absolute', zIndex: '1'}}
                     d={
-                       source.offsetTop > target.offsetTop ?
-                            `M${source.offsetLeft},${( (source.offsetTop - source.offsetHeight))} C${source.offsetLeft},${((source.offsetTop - (source.offsetTop - target.offsetTop) / 2))} ${target.offsetLeft},${(source.offsetTop - (source.offsetTop - target.offsetTop) / 2)} ${target.offsetLeft},${target.offsetTop}`
-                            :
-                            `M${target.offsetLeft},${( (target.offsetTop - target.offsetHeight))} C${target.offsetLeft},${((target.offsetTop - (target.offsetTop - source.offsetTop) / 2))} ${source.offsetLeft},${(target.offsetTop - (target.offsetTop - source.offsetTop) / 2)} ${source.offsetLeft},${source.offsetTop}`
+                     GetCurve({
+                         target: {
+                             x:target.offsetLeft,
+                             y:target.offsetTop,
+                             height:target.offsetHeight,
+                             width: target.offsetWidth
+                         },
+                         source: {
+                             x:source.offsetLeft,
+                             y:source.offsetTop,
+                             height:source.offsetHeight,
+                             width: source.offsetWidth
+                         }
+                     })
                     }>
                 </path>
-                {props.type === 'strong' ?
-                    <foreignObject
-                        width={'75'} height={'40'}
-
-                        y={(target.offsetTop + source.offsetTop) / 2 - 40}
-                        x={(target.offsetLeft + source.offsetLeft) / 2 - 37.5}>
-                        <button
-                            className={styles.lineContent}
-                            style={{
-                                border: `#ccc 2px solid`
-                            }}>
-                            {props.description}
-                        </button>
-                    </foreignObject>
-                    :
-                    null
-                }
-
             </svg>
         )
     else return null

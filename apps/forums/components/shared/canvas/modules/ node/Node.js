@@ -10,8 +10,10 @@ export default function Node(props) {
     const ref = useRef()
     const elementRef = useRef()
     const [link, setLink] = useState(false)
-
+    const [size, setSize] = useState(undefined)
     useEffect(() => {
+        setSize(ref.current.offsetHeight > ref.current.offsetWidth ? ref.current.offsetHeight : ref.current.offsetWidth)
+
         useNode({
             ...props, ...{
                 ref: ref, elementRef: elementRef,
@@ -25,7 +27,7 @@ export default function Node(props) {
         <div
             id={props.node.id + '-node'}
             onMouseDown={event => {
-                if (typeof event === 'object' && event.button === 0) {
+                if (typeof event === 'object' && event.button === 0 && !props.inGroup) {
                     props.move({
                         node: props.node
                     })
@@ -51,11 +53,18 @@ export default function Node(props) {
             }}
             className={styles.entityContainer}
             style={{
-                cursor: props.options.edit ? 'move' : "unset",
+                cursor: props.options.edit && !props.inGroup  ? 'move' : "unset",
                 background: 'white',
-                borderLeft: props.node.color !== undefined && props.node.color !== null ? props.node.color + ' 3px solid' : '#e0e0e0 3px solid',
-                left: `${props.node.placement.x}px`,
-                top: `${props.node.placement.y}px`,
+                border: props.inGroup || props.node.shape === 'circle' ?  props.node.color !== undefined && props.node.color !== null ? props.node.color + ' 2px solid' : '#e0e0e0 2px solid' : undefined,
+                borderLeft: props.node.color !== undefined && props.node.color !== null ? props.node.color + ' 2px solid' : '#e0e0e0 2px solid',
+                left: props.inGroup ? undefined : `${props.node.placement.x}px`,
+                top: props.inGroup ? undefined : `${props.node.placement.y}px`,
+                position: props.inGroup ? 'relative' : undefined,
+                borderRadius: props.inGroup || props.node.shape === 'circle' ? '50%' : undefined,
+                width: props.inGroup || props.node.shape === 'circle' ? size + 'px' : undefined,
+                height: props.inGroup || props.node.shape === 'circle' ? size + 'px' : '80px',
+                boxShadow: props.inGroup ? 'none' : undefined,
+                minWidth: props.inGroup || props.node.shape === 'circle' ? undefined : '100px',
             }} ref={ref}>
             {ref.current !== undefined && ref.current !== null ?
 
@@ -102,6 +111,7 @@ export default function Node(props) {
 }
 
 Node.propTypes = {
+    inGroup: PropTypes.bool,
     setOpenContext: PropTypes.func,
     openMenu: PropTypes.number,
     show: PropTypes.func,

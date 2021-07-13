@@ -12,12 +12,16 @@ import CanvasContextMenu from "./modules/CanvasContextMenu";
 import LinkContextMenu from "./modules/link/LinkContextMenu";
 import HandleLinkChange from "./methods/HandleLinkChange";
 import Node from "./modules/ node/Node";
-import Move from "./methods/move/MoveElement";
+import Move from "./methods/move/MoveNode";
+import Group from "./modules/Group";
+import MoveGroup from "./methods/move/MoveGroup";
+import OptionsMenu from "./modules/navigation/OptionsMenu";
 
 export default function Canvas(props) {
     const [offsetTop, setOffsetTop] = useState(-1)
     const [data, setData] = useState({dimensions: {width: '100%', height: '100%'}, nodes: [], links: [], groups: []})
     const [toBeLinked, setToBeLinked] = useState(null)
+
     const root = useRef()
     const contextMenuRef = useRef()
     const overflowRef = useRef()
@@ -67,6 +71,7 @@ export default function Canvas(props) {
             <Header data={data}/>
 
             <div className={styles.content} ref={overflowRef}>
+                <OptionsMenu />
                 <div ref={contextMenuRef} style={{position: 'absolute'}}/>
                 <div className={styles.canvasContainer} ref={root} style={{
                     height: data.dimensions.height + 'px',
@@ -89,24 +94,88 @@ export default function Canvas(props) {
                             null
                         }
                         <foreignObject width="100%" height="100%" ref={canvasRef} id={'canvas'}>
-                            {data.nodes.map((node, index) => (
-                                <React.Fragment key={node.id + '-' + index}>
-                                    <Node
-                                        node={node}
-                                        move={node => Move({
-                                            ...node,
+                            <>
+                                {data.nodes.map((node, index) => (
+                                    <React.Fragment key={node.id + '-' + index}>
+                                        <Node
+                                            node={node}
+                                            move={node => {
+                                                Move({
+                                                    ...node,
+                                                    ...{
+                                                        nodes: data.nodes,
+                                                        overflowRef: overflowRef.current,
+                                                        root: root.current,
+                                                        canvasRoot: canvasRef.current,
+                                                        canvasRef: canvasRef.current,
+                                                        groups: data.groups,
+                                                        setState: setData,
+                                                        data: data
+                                                    }
+                                                })
+                                            }} root={root.current}
+                                            options={props.options} setOpenContext={(event, x, y, id) => {
+                                            if (event === null) {
+                                                ReactDOM.unmountComponentAtNode(contextMenuRef.current)
+
+                                            } else {
+                                                ReactDOM.render(
+                                                    event,
+                                                    contextMenuRef.current
+                                                )
+
+                                                contextMenuRef.current.style.top = y + 'px'
+                                                contextMenuRef.current.style.left = x + 'px'
+                                            }
+                                        }}
+                                        />
+                                    </React.Fragment>
+                                ))}
+                                {data.groups.map((group, groupIndex) => (
+                                    <Group group={group} index={groupIndex}  move={data => {
+                                        MoveGroup({
+                                            ...data,
                                             ...{
-                                                nodes: data.nodes,
                                                 overflowRef: overflowRef.current,
                                                 root: root.current,
                                                 canvasRoot: canvasRef.current,
-                                                canvasRef: canvasRef.current
+                                                canvasRef: canvasRef.current,
                                             }
-                                        })}
-                                        options={props.options}
-                                    />
-                                </React.Fragment>
-                            ))}
+                                        })
+                                    }}>
+                                        {group.nodes.map((node, index) => (
+                                            <React.Fragment key={'group-' + groupIndex + '-' + node.id + '-' + index}>
+                                                <Node
+                                                    node={node}
+                                                    move={node => Move({
+                                                        ...node,
+                                                        ...{
+                                                            nodes: data.nodes,
+                                                            overflowRef: overflowRef.current,
+                                                            root: root.current,
+                                                            canvasRoot: canvasRef.current,
+                                                            canvasRef: canvasRef.current
+                                                        }
+                                                    })} root={root.current} inGroup={true}
+                                                    options={props.options} setOpenContext={(event, x, y, id) => {
+                                                    if (event === null) {
+                                                        ReactDOM.unmountComponentAtNode(contextMenuRef.current)
+
+                                                    } else {
+                                                        ReactDOM.render(
+                                                            event,
+                                                            contextMenuRef.current
+                                                        )
+                                                        contextMenuRef.current.style.top = y + 'px'
+                                                        contextMenuRef.current.style.left = x + 'px'
+                                                    }
+                                                }}
+                                                />
+                                            </React.Fragment>
+                                        ))}
+                                    </Group>
+                                ))}
+                            </>
                         </foreignObject>
 
 
