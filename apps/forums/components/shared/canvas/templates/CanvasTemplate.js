@@ -1,8 +1,6 @@
 import PropTypes from "prop-types";
-import EntityTemplate from "./NodeTemplate";
-import React from "react";
-import FrameTemplate from "./FrameTemplate";
 import NodeTemplate from "./NodeTemplate";
+import React from "react";
 import LinkTemplate from "./LinkTemplate";
 
 export default {

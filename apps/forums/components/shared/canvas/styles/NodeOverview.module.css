@@ -1,4 +1,4 @@
-.overviewContainer{
+.overviewContainer {
     background: white;
     position: fixed;
     right: 0;
@@ -12,8 +12,20 @@
 
     display: grid;
     align-content: space-between;
+
+    animation: slideRight 300ms ease;
 }
-.header{
+
+@keyframes slideRight {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: unset;
+    }
+}
+
+.header {
     border-bottom: #e0e0e0 1px solid;
     width: 100%;
     padding-bottom: 16px;
@@ -23,17 +35,109 @@
     display: grid;
     gap: 8px;
 }
-.body{
-    display: grid;
-    gap: 16px;
-    justify-content: flex-start;
-}
-.footer{
+
+
+.footer {
     border-top: #e0e0e0 1px solid;
-    border-bottom: #e0e0e0 1px solid;
     display: grid;
     justify-content: flex-start;
-padding-bottom: 16px;
+    padding-bottom: 16px;
     padding-top: 16px;
     gap: 8px;
+}
+
+.closeButtonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    outline: none;
+    background: white;
+    color: #777777;
+
+    border: none;
+    position: absolute;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    top: 16px;
+    right: 16px;
+    transition: 150ms linear;
+}
+
+.closeButtonContainer:hover {
+    color: #ff5555
+}
+
+
+.buttonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    outline: none;
+    background: white;
+    color: #777777;
+    border-radius: 50%;
+    border: none;
+
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    transition: 150ms linear;
+}
+
+.buttonContainer:hover {
+    color: #0095ff;
+    background: #E8F0FE;
+}
+
+.formContainer {
+    background: white;
+    position: fixed;
+    right: 0;
+    top: 60px;
+    width: 450px;
+    height: calc(100vh - 60px);
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    border-left: #E8F0EF 1px solid;
+    z-index: 999;
+    padding: 64px 16px 16px;
+
+    animation: slideRight 300ms ease;
+}
+
+
+.saveButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    outline: none;
+    background: #0095ff;
+    color: white;
+    border-radius: 5px;
+    border: none;
+
+    cursor: pointer;
+
+    height: 35px;
+    margin-top: 16px;
+    transition: 150ms linear;
+}
+
+.saveButton:hover {
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.saveButton:active {
+    box-shadow: none;
+}
+
+.saveButton:disabled {
+    cursor: unset;
+    color: #999999;
+    background: white;
+    box-shadow: none;
+    border: #ecedf2 1px solid;
 }

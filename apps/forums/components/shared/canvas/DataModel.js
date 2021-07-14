@@ -60,7 +60,8 @@ export default {
         }
     ],
     groups: [
-        {  placement: {
+        {
+            placement: {
                 x: 200,
                 y: 600
             },

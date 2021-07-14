@@ -25,7 +25,7 @@ export default function Node(props) {
 
         <div
             id={props.node.id + '-node'}
-            onClick={() => {
+            onDoubleClick={() => {
                 if (props.linkable)
                     props.handleLink(props.node, setLink)
                 props.openOverview()
@@ -54,7 +54,7 @@ export default function Node(props) {
             }}
             className={styles.entityContainer}
             style={{
-                cursor: props.options.edit && !props.inGroup ? 'move' : "unset",
+                cursor: "pointer",
                 border: props.node.color !== undefined && props.node.color !== null ? props.node.color + ' 2px solid' : '#e0e0e0 2px solid',
                 left: props.inGroup ? undefined : `${props.node.placement.x}px`,
                 top: props.inGroup ? undefined : `${props.node.placement.y}px`,
@@ -67,10 +67,10 @@ export default function Node(props) {
             }}
             ref={ref}
         >
-            <div className={props.node.shape === 'circle' ? styles.headerCircle :styles.header}>
+            <div className={props.node.shape === 'circle' ? styles.headerCircle : styles.header}>
                 {props.node.title}
             </div>
-            <div  className={styles.body} style={{display: props.node.shape === 'circle' ? 'none' : undefined}}>
+            <div className={styles.body} style={{display: props.node.shape === 'circle' ? 'none' : undefined}}>
                 {props.node.description}
             </div>
         </div>

@@ -140,3 +140,18 @@
     display: grid;
     gap: 4px;
 }
+.helpContainer{
+    width: 100%;
+    border: #ecedf2 1px solid;
+    border-radius: 5px;
+    background: white;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 8px 8px 16px;
+    color: #555555;
+    transition: 150ms linear;
+
+    font-size: .9rem;
+}

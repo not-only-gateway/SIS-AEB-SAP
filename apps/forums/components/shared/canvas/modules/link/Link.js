@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import {useEffect, useState} from "react";
-import styles from '../../styles/Node.module.css'
 import GetCurve from "./GetCurve";
 
 export default function Link(props) {
@@ -69,7 +68,7 @@ export default function Link(props) {
                         fill={color} style={{position: 'absolute', zIndex: '2'}}/>
 
                 <path
-                    stroke={color} strokeWidth={'2'} fill={'none'}
+                    stroke={color} strokeWidth={'2'} fill={'none'} opacity={props.type === 'weak' ? '.7' : '1'}
                     strokeDasharray={props.type === 'weak' ? '5,5' : undefined}
                     style={{position: 'absolute', zIndex: '1'}}
                     d={

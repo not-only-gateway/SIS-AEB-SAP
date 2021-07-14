@@ -12,15 +12,7 @@ export default async function submitPop(props) {
     let data = {}
     data = Object.assign(data, props.data)
     data.subject = props.subjectID
-    const toBase64 = file => new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
-    });
-    if (typeof (data.image) !== 'string' && data.image !== null && data.image !== undefined) {
-        data.image = await toBase64(data.image).catch(e => Error(e))
-    }
+
     data.current = null
     data.children = null
     console.log(data)

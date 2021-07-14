@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import LinkTemplate from "./LinkTemplate";
 
 export default  PropTypes.shape({
     id: PropTypes.number,

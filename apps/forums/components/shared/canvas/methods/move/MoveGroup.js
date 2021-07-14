@@ -1,6 +1,4 @@
-import PropTypes, {node} from 'prop-types'
-import LinkTemplate from "../../templates/LinkTemplate";
-import handleObjectChange from "../../../../../utils/shared/HandleObjectChange";
+import PropTypes from 'prop-types'
 
 export default function MoveGroup(props) {
     let moving = false

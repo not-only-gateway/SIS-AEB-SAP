@@ -1,15 +1,18 @@
 import styles from '../../styles/Menu.module.css'
 import {
-    AddRounded,
     DragIndicatorRounded,
-    GetAppRounded, PictureAsPdfRounded,
+    MoreVertRounded,
+    PictureAsPdfRounded,
     PublishRounded,
     SaveRounded,
-    SearchRounded
+    SearchRounded,
+    VisibilityRounded
 } from "@material-ui/icons";
 import Tabs from "./Tabs";
 import PropTypes from "prop-types";
 import {useEffect, useState} from "react";
+import HandleDownload from "../../methods/HandleDownload";
+import HandleUpload from "../../methods/HandleUpload";
 
 export default function OptionsMenu(props) {
     const [openTab, setOpenTab] = useState(0)
@@ -20,8 +23,11 @@ export default function OptionsMenu(props) {
         }, false);
 
         document.addEventListener("dragstart", function (event) {
-            dragged = event.target;
-            event.target.style.opacity = 1;
+
+            if(event.target.className === 'Menu_buttonContainer__3oHbi') {
+                dragged = event.target;
+                event.target.style.opacity = 1;
+            }
         }, false);
 
         document.addEventListener("dragend", function (event) {
@@ -93,11 +99,29 @@ export default function OptionsMenu(props) {
                         value: 'Controle',
                         content: (
                             <div className={styles.options}>
-                                <button className={styles.buttonContainer} disabled={true}>
+                                <input type="file" id="upload_file_input" style={{display: 'none'}} multiple={false}
+                                       onChange={event => HandleUpload({
+                                           file: event,
+                                           setData: props.setState
+                                       })}
+                                       accept={'.json'}/>
+
+                                <button
+                                    onClick={() => {
+                                        const input = document.getElementById('upload_file_input')
+                                        if (input !== null)
+                                            input.click()
+                                    }} id="upload_file" className={styles.buttonContainer}>
                                     <PublishRounded/>
                                     Importar
                                 </button>
-                                <button className={styles.buttonContainer} onClick={() => props.onSave(props.data)}>
+                                <button
+                                    className={styles.buttonContainer}
+                                    onClick={() => HandleDownload({
+                                        handleDownload: props.onSave,
+                                        data: props.data,
+                                        root: props.root
+                                    })}>
                                     <SaveRounded/>
                                     Salvar
                                 </button>
@@ -123,8 +147,23 @@ export default function OptionsMenu(props) {
                     },
                     {
                         key: 2,
-                        value: 'Outro',
-                        content: '1'
+                        value: 'Ajuda',
+                        content: (
+                            <div className={styles.options}>
+                                <div className={styles.helpContainer}>
+                                    <VisibilityRounded style={{transform: 'rotate(180deg)'}}/>
+                                    Clique duplo para abrir overview.
+                                </div>
+                                <div className={styles.helpContainer}>
+                                    <DragIndicatorRounded/>
+                                    Clique e segure para mover módulo.
+                                </div>
+                                <div className={styles.helpContainer}>
+                                    <MoreVertRounded/>
+                                    Botão direito para menu de contexto.
+                                </div>
+                            </div>
+                        )
                     }
 
                 ]}

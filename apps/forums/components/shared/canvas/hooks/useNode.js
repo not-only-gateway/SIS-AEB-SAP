@@ -1,4 +1,3 @@
-import Move from "../methods/move/MoveNode";
 import React from "react";
 import PropTypes from "prop-types";
 

@@ -7,12 +7,9 @@ import ForumRequests from "../../utils/fetch/ForumRequests";
 import Cookies from "universal-cookie/lib";
 import submitSubjectLayout from "../../utils/submit/SubmitSubjectLayout";
 import {Alert} from "sis-aeb-misc";
-import deletePop from "../../utils/submit/DeletePop";
 // import SubjectEditModal from "./SubjectEditModal";
 // import LinkForm from "./LinkForm";
 import Canvas from "../shared/canvas/Canvas";
-import HandleChange from "../shared/canvas/methods/HandleChange";
-import submitPop from "../../utils/submit/SubmitPop";
 import DataModel from "../shared/canvas/DataModel";
 
 

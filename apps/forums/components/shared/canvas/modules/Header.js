@@ -1,7 +1,5 @@
 import PropTypes from "prop-types";
 import styles from '../styles/Frame.module.css'
-import {AvatarGroup} from "@material-ui/lab";
-import {Avatar} from "@material-ui/core";
 
 export default function Header(props) {
     return (
