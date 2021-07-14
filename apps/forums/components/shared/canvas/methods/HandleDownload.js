@@ -32,9 +32,19 @@ export default function HandleDownload(props){
 
     newData.groups = newGroups
     newData.nodes = newNodes
+
     const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(newData), 'sdaoi213@*#78&*&*Edsah&(821j3kbkdas*((').toString();
 
+    let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(ciphertext);
+    let downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", `${props.data.subject}.json`);
+    document.body.appendChild(downloadAnchorNode)
+    downloadAnchorNode.click()
+    downloadAnchorNode.remove()
+
     props.handleDownload(ciphertext)
+
 }
 HandleDownload.propTypes={
     data: PropTypes.object,

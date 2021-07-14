@@ -21,7 +21,7 @@ export default function subject(props) {
     return (
         <>
             <Head>
-                {/*<title>{subject.title}</title>*/}
+                <title>Canvas</title>
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
 

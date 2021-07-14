@@ -145,36 +145,6 @@ export default function Canvas(props) {
                             :
                             null
                         }
-                        <foreignObject width="100%" height="100%" ref={canvasRef} id={'canvas'}>
-                            <>
-                                {data.nodes.map((node, index) => (
-                                    <React.Fragment key={node.id + '-' + index}>
-                                        {renderNode(node, false)}
-                                    </React.Fragment>
-                                ))}
-                                {data.groups.map((group, groupIndex) => (
-                                    <Group group={group} index={groupIndex} move={data => {
-                                        MoveGroup({
-                                            ...data,
-                                            ...{
-                                                overflowRef: overflowRef.current,
-                                                root: root.current,
-                                                canvasRoot: canvasRef.current,
-                                                canvasRef: canvasRef.current,
-                                            }
-                                        })
-                                    }}>
-                                        {group.nodes.map((node, index) => (
-                                            <React.Fragment key={'group-' + groupIndex + '-' + node.id + '-' + index}>
-                                                {renderNode(node, true)}
-                                            </React.Fragment>
-                                        ))}
-                                    </Group>
-                                ))}
-                            </>
-                        </foreignObject>
-
-
                         {data.links.map(link => (
                             <Link
                                 target={`${link.parent}-node`} source={`${link.child}-node`}
@@ -209,6 +179,37 @@ export default function Canvas(props) {
                                 description={link.description}
                             />
                         ))}
+                        <foreignObject width="100%" height="100%" ref={canvasRef} id={'canvas'}>
+                            <>
+                                {data.nodes.map((node, index) => (
+                                    <React.Fragment key={node.id + '-' + index}>
+                                        {renderNode(node, false)}
+                                    </React.Fragment>
+                                ))}
+                                {data.groups.map((group, groupIndex) => (
+                                    <Group group={group} index={groupIndex} move={data => {
+                                        MoveGroup({
+                                            ...data,
+                                            ...{
+                                                overflowRef: overflowRef.current,
+                                                root: root.current,
+                                                canvasRoot: canvasRef.current,
+                                                canvasRef: canvasRef.current,
+                                            }
+                                        })
+                                    }}>
+                                        {group.nodes.map((node, index) => (
+                                            <React.Fragment key={'group-' + groupIndex + '-' + node.id + '-' + index}>
+                                                {renderNode(node, true)}
+                                            </React.Fragment>
+                                        ))}
+                                    </Group>
+                                ))}
+                            </>
+                        </foreignObject>
+
+
+
 
                     </svg>
                 </div>

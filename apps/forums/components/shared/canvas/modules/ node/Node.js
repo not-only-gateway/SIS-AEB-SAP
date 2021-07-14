@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
-import React, {useEffect, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import styles from "../../styles/Node.module.css";
-import useNode from "../../hooks/useNode";
+
 import NodeContextMenu from "./NodeContextMenu";
 import NodeTemplate from "../../templates/NodeTemplate";
 
@@ -9,17 +9,6 @@ import NodeTemplate from "../../templates/NodeTemplate";
 export default function Node(props) {
     const ref = useRef()
     const [link, setLink] = useState(false)
-    const [size, setSize] = useState(undefined)
-    useEffect(() => {
-        setSize(ref.current.offsetHeight > ref.current.offsetWidth ? ref.current.offsetHeight : ref.current.offsetWidth)
-
-        useNode({
-            ...props, ...{
-                ref: ref,
-                link: link, setLink: setLink
-            }
-        })
-    }, [])
 
     return (
 
@@ -31,6 +20,7 @@ export default function Node(props) {
                 props.openOverview()
             }}
             onMouseDown={event => {
+
                 if (typeof event === 'object' && event.button === 0 && !props.inGroup) {
                     props.move({
                         node: props.node
@@ -52,23 +42,27 @@ export default function Node(props) {
                         props.index)
                 }
             }}
-            className={styles.entityContainer}
+            className={[styles.entityContainer, props.node.shape === 'circle' ? styles.circleContainer : ''].join(' ')}
             style={{
                 cursor: "pointer",
-                border: props.node.color !== undefined && props.node.color !== null ? props.node.color + ' 2px solid' : '#e0e0e0 2px solid',
                 left: props.inGroup ? undefined : `${props.node.placement.x}px`,
                 top: props.inGroup ? undefined : `${props.node.placement.y}px`,
                 position: props.inGroup ? 'relative' : undefined,
                 borderRadius: props.node.shape === 'circle' ? '50%' : '5px',
-                width: props.node.shape === 'circle' ? size + 'px' : undefined,
-                height: props.node.shape === 'circle' ? size + 'px' : '80px',
-                boxShadow: props.inGroup ? 'none' : undefined,
-                minWidth: props.node.shape === 'circle' ? '80px' : '230px',
+                width: props.node.shape === 'circle' ? '80px' : undefined,
+                minWidth: props.node.shape === 'circle' ? 'unset' : '230px',
+                background: props.node.shape === 'circle' ? props.node.color : undefined
             }}
             ref={ref}
         >
-            <div className={props.node.shape === 'circle' ? styles.headerCircle : styles.header}>
+
+            <div className={props.node.shape === 'circle' ? styles.headerCircle : styles.header}
+                 style={{color: props.node.shape === 'circle' ? 'white' : undefined}}>
                 {props.node.title}
+                <div className={styles.colorIndicator} style={{
+                    display: props.node.shape === 'circle' ? 'none' : undefined,
+                    background: props.node.color
+                }}/>
             </div>
             <div className={styles.body} style={{display: props.node.shape === 'circle' ? 'none' : undefined}}>
                 {props.node.description}

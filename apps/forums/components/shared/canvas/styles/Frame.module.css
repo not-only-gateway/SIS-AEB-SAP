@@ -13,7 +13,7 @@
     height: 100%;
     width: 100%;
     transition: 150ms ease;
-    background: #f4f5fa radial-gradient(#C4C9E4 1.2px, transparent 0);
+    background: #fbfbfb radial-gradient(#e4e4e4 1.2px, transparent 0);
     background-size: 20px 20px;
     position: relative;
     overflow: auto;

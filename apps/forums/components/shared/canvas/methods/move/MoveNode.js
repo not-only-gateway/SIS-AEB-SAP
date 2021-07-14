@@ -4,36 +4,41 @@ export default function Move(props) {
     let moving = false
     let nodeRef = document.getElementById(props.node.id + '-node')
     let changed = []
+    let changedNodes = []
     if (nodeRef !== null) {
-
-        nodeRef.style.transition = 'box-shadow 150ms ease';
+        nodeRef.style.transition = 'box-shadow 250ms ease';
         moving = true
+        nodeRef.style.border = props.node.color + ' 2px solid'
         nodeRef.style.cursor = 'move'
-        if (props.color !== undefined && props.color !== null) {
-            nodeRef.style.boxShadow = '0 0 10px 2px ' + props.color;
-        } else
-            nodeRef.style.boxShadow = '0 0 10px 2px #0095ff';
-
-
+        nodeRef.style.boxShadow = '0 0 2px 1px ' + props.node.color;
+        nodeRef.style.zIndex = '4'
         document.addEventListener('mousemove', event => {
 
             if (moving) {
-
-                move(event, false)
+                move(event)
+                hoverOnNode(event)
+                hoverOnGroup(event)
                 handleOverflow(event.clientX, event.clientY)
             }
         })
         document.addEventListener("mouseup", event => {
-            console.log(event.target.className)
             if (moving) {
                 handleGroup(event)
                 handleGroupCreation(event)
+                changedNodes.map(id => {
+                    const element = document.getElementById(id)
+                    if (element !== null) {
+                        element.style.opacity = '1'
+                    }
+                })
+                changedNodes = []
                 moving = false
                 nodeRef.style.zIndex = '5'
+                nodeRef.style.border ='transparent 2px solid'
                 nodeRef.style.opacity = '1';
-                nodeRef.style.boxShadow = 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px'
+                nodeRef.style.boxShadow = '0px 4px 30px rgb(22 33 74 / 5%)'
                 nodeRef.style.cursor = 'pointer'
-                move(event, true)
+                move(event)
 
             }
         }, false);
@@ -44,15 +49,15 @@ export default function Move(props) {
         const asHeader = event.target.closest('.Node_headerCircle__1yS6F')
         const asNode = event.target.closest('.Node_entityContainer__3-Msx')
 
-        if (asHeader !== null || asNode !== null ) {
+        if (asHeader !== null || asNode !== null) {
             let nodeID = asHeader !== null ? asHeader.parentNode.id : asNode.id
-            nodeID = parseInt(nodeID.replace('-node', ''))
+            nodeID = nodeID.replace('-node', '')
             let nodeParent
             let nodeParentIndex
             let nodeChild
             let nodeChildIndex
 
-
+            console.log('Node found => ' + (nodeID))
             props.nodes.map((el, i) => {
                 if (el.id === nodeID) {
                     nodeParent = el
@@ -64,7 +69,7 @@ export default function Move(props) {
                     nodeChildIndex = i
                 }
             })
-            if(nodeParent !== undefined && nodeChild !== undefined && nodeChild.id !== nodeParent.id){
+            if (nodeParent !== undefined && nodeChild !== undefined && nodeChild.id !== nodeParent.id) {
                 let newGroup = {
                     nodes: [nodeChild, nodeParent],
                     placement: {
@@ -77,16 +82,20 @@ export default function Move(props) {
                 let linkIndex
 
                 props.data.links.map((link, i) => {
-                    if((link.parent === nodeID && link.child === props.node.id) || (link.child === nodeID && link.parent === props.node.id))
+                    console.log((link.parent === nodeID && link.child === props.node.id))
+                    console.log((link.child === nodeID && link.parent === props.node.id))
+                    if ((link.parent === nodeID && link.child === props.node.id) || (link.child === nodeID && link.parent === props.node.id))
                         linkIndex = i
 
                 })
+
                 let newLinks = [...props.data.links]
-                if(linkIndex !== undefined)
-                    newLinks.splice(linkIndex, 1)
+
+                if (linkIndex !== undefined)
+                    newLinks = newLinks.splice(linkIndex, 1)
 
                 newNodes.splice(nodeParentIndex, 1)
-                newNodes.splice(nodeChildIndex, 1)
+                newNodes.splice((nodeChildIndex - 1), 1)
 
                 props.setState(({
                     ...props.data,
@@ -111,6 +120,28 @@ export default function Move(props) {
                 }
             }
         })
+    }
+
+    function hoverOnNode(event) {
+        const asHeader = event.target.closest('.Node_headerCircle__1yS6F')
+        const asNode = event.target.closest('.Node_entityContainer__3-Msx')
+
+        if (asHeader !== null || asNode !== null) {
+            let nodeFound = asNode !== null ? asNode : asHeader.parentNode
+            if (nodeFound.id !== (props.node.id + '-node')) {
+                changedNodes = [...changedNodes, ...[nodeFound.id]]
+                nodeFound.style.opacity = '.5'
+            }
+
+        } else {
+            changedNodes.map(id => {
+                const element = document.getElementById(id)
+                if (element !== null) {
+                    element.style.opacity = '1'
+                }
+            })
+            changedNodes = []
+        }
     }
 
     function handleGroup(event) {
@@ -153,7 +184,7 @@ export default function Move(props) {
         })
     }
 
-    function move(event, save) {
+    function hoverOnGroup(event) {
         const closest = event.target.closest('.Frame_group__3mVSW')
         if (closest !== null) {
             if (changed.indexOf(closest.id.charAt(6)) === -1) {
@@ -187,20 +218,14 @@ export default function Move(props) {
             })
             changed = []
         }
+    }
+
+    function move(event) {
+        // hoverOnGroup(event)
         let placementX = (event.clientX - props.root.offsetLeft + props.overflowRef.scrollLeft - nodeRef.offsetWidth * 0.5)
         let placementY = (event.clientY - props.root.offsetTop + props.overflowRef.scrollTop - nodeRef.offsetHeight * 0.5)
-
         nodeRef.style.top = placementY + 'px'
-
         nodeRef.style.left = placementX + 'px'
-        //
-        // if (save) {
-        //     props.handleChange({
-        //         x: placementX,
-        //         y: placementY,
-        //         id: props.node.id
-        //     })
-        // }
     }
 
     function handleOverflow(x, y) {

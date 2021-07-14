@@ -13,12 +13,12 @@ import PropTypes from "prop-types";
 import {useEffect, useState} from "react";
 import HandleDownload from "../../methods/HandleDownload";
 import HandleUpload from "../../methods/HandleUpload";
+import {v4 as uuid4} from 'uuid';
 
 export default function OptionsMenu(props) {
     const [openTab, setOpenTab] = useState(0)
     useEffect(() => {
         let dragged
-
         document.addEventListener("drag", function (event) {
         }, false);
 
@@ -41,19 +41,12 @@ export default function OptionsMenu(props) {
 
         document.addEventListener("drop", function (event) {
             event.preventDefault();
-            console.log(props.root)
             if (event.target.id === "canvas" && props.root !== undefined) {
                 event.target.style.background = "";
+                let newNodes = [...props.data.nodes]
 
-                let id = 0
-
-                props.data.nodes.map((elem, index) => {
-                    if (elem.id > id)
-                        id = elem.id + 1
-                })
-
-                const newNodes = [...props.data.nodes, ...[{
-                    id: id + 1,
+                newNodes.push({
+                    id: uuid4().toString(),
                     title: 'Em branco',
                     description: null,
                     color: '#0095ff',
@@ -63,8 +56,7 @@ export default function OptionsMenu(props) {
                     },
                     shape: 'circle',
                     creationDate: (new Date()).getTime()
-                }]]
-
+                })
 
                 props.setState(({
                     ...props.data,
@@ -79,7 +71,7 @@ export default function OptionsMenu(props) {
             document.removeEventListener('dragstart', () => null)
             document.removeEventListener('drag', () => null)
         }
-    }, [props.root])
+    }, [props])
 
     return (
         <div className={styles.menuContainer}>

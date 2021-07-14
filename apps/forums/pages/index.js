@@ -3,7 +3,6 @@ import {useRouter} from "next/router";
 import Head from "next/head";
 import IndexPT from "../packages/locales/IndexPT";
 import {Header} from 'sis-aeb-misc'
-import SubjectList from "../components/subjects/SubjectList";
 
 export default function index(props) {
     const lang = IndexPT
@@ -20,11 +19,6 @@ export default function index(props) {
                 {openForm ? null :
                     <Header title={lang.title}/>
                 }
-                <SubjectList
-                    notSearched={props.notSearched} setNotSearched={props.setNotSearched}
-                    searchInput={props.searchInput} setOpen={setOpenForm}
-                    redirect={id => router.push('/subject/?id=' + id, undefined, {shallow: true})}
-                />
             </div>
         </>
     )

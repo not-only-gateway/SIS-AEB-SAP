@@ -5,7 +5,7 @@ import GetCurve from "./GetCurve";
 export default function Link(props) {
     const [target, setTarget] = useState(null)
     const [source, setSource] = useState(null)
-    const [color, setColor] = useState('transparent')
+    const [color, setColor] = useState(undefined)
     const update = (event) => {
         if (props.followMouse && event !== null && props.rootOffset !== null && props.rootOffset !== undefined) {
             const s = document.getElementById(props.source)
@@ -62,30 +62,32 @@ export default function Link(props) {
                     props.renderMenu(event)
             }}>
 
-                <circle r={'7'}
-                        cy={props.followMouse ? target.offsetTop : (source.offsetTop > target.offsetTop ? (source.offsetTop - source.offsetHeight) : (source.offsetTop))}
-                        cx={props.followMouse ? target.offsetLeft: source.offsetLeft}
-                        fill={color} style={{position: 'absolute', zIndex: '2'}}/>
+                <circle
+                    r={'10'}
+                    cy={props.followMouse ? target.offsetTop : (source.offsetTop > target.offsetTop ? (source.offsetTop - source.offsetHeight - 13) : (source.offsetTop + 10))}
+                    cx={props.followMouse ? target.offsetLeft : source.offsetLeft}
+                    fill={color === 'transparent' || !color ? '#e0e0e0' : color}
+                />
 
                 <path
-                    stroke={color} strokeWidth={'2'} fill={'none'} opacity={props.type === 'weak' ? '.7' : '1'}
+                    stroke={color === 'transparent' || !color ? '#e0e0e0' : color} strokeWidth={'2'} fill={'none'}
+                    opacity={props.type === 'weak' ? '.7' : '1'}
                     strokeDasharray={props.type === 'weak' ? '5,5' : undefined}
-                    style={{position: 'absolute', zIndex: '1'}}
                     d={
-                     GetCurve({
-                         target: {
-                             x:target.offsetLeft,
-                             y:target.offsetTop,
-                             height:target.offsetHeight,
-                             width: target.offsetWidth
-                         },
-                         source: {
-                             x:source.offsetLeft,
-                             y:source.offsetTop,
-                             height:source.offsetHeight,
-                             width: source.offsetWidth
-                         }
-                     })
+                        GetCurve({
+                            target: {
+                                x: target.offsetLeft,
+                                y: target.offsetTop,
+                                height: target.offsetHeight,
+                                width: target.offsetWidth
+                            },
+                            source: {
+                                x: source.offsetLeft,
+                                y: source.offsetTop,
+                                height: source.offsetHeight,
+                                width: source.offsetWidth
+                            }
+                        })
                     }>
                 </path>
             </svg>

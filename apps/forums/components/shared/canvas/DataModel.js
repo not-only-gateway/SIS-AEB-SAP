@@ -8,7 +8,7 @@ export default {
     },
     nodes: [
         {
-            id: 1,
+            id: '1',
             title: 'Cafe',
             description: 'Teste',
             color: 'red',
@@ -20,7 +20,7 @@ export default {
             creationDate: 0
         },
         {
-            id: 3,
+            id: '3',
             title: 'Cafe',
             description: 'Teste',
             color: 'blue',
@@ -32,7 +32,7 @@ export default {
             creationDate: 0
         },
         {
-            id: 2,
+            id: '2',
             title: 'Cafe',
             description: 'Teste',
             color: 'green',
@@ -46,7 +46,7 @@ export default {
         },
 
         {
-            id: 4,
+            id: '4',
             title: 'Cafe',
             description: 'Teste',
             body: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
@@ -67,7 +67,7 @@ export default {
             },
             nodes: [
                 {
-                    id: 5,
+                    id: '5',
                     title: 'Cafe',
                     description: 'Teste',
                     color: 'pink',
@@ -76,7 +76,7 @@ export default {
                     creationDate: 0
                 },
                 {
-                    id: 6,
+                    id: '6',
                     title: 'Cafe',
                     description: 'Teste',
                     color: '#ccc',
@@ -91,20 +91,20 @@ export default {
         {
             denomination: 'Cafe',
             type: 'strong',
-            parent: 3,
-            child: 2
+            parent: '3',
+            child: '2'
         },
         {
             denomination: 'Cafe',
             type: 'strong',
-            parent: 3,
-            child: 1
+            parent: '3',
+            child: '1'
         },
         {
             denomination: 'Cafe',
             type: 'weak',
-            parent: 3,
-            child: 4
+            parent: '3',
+            child: '4'
         },
     ]
 }

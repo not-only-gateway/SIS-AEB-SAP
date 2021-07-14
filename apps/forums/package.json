@@ -29,7 +29,8 @@
     "sis-aeb-chart": "../../packages/chart",
     "sis-aeb-inputs": "../../packages/inputs",
     "sis-aeb-misc": "../../packages/misc",
-    "sis-aeb-navigation": "../../packages/navigation"
+    "sis-aeb-navigation": "../../packages/navigation",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@material-ui/pickers": "^3.3.10",

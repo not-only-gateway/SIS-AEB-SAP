@@ -117,6 +117,7 @@
 }
 
 .tabButtonContainer{
+    cursor: pointer;
     outline: none;
     background: transparent;
     width: 100%;
