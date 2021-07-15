@@ -4,27 +4,28 @@ import styles from "../../styles/Node.module.css";
 
 import NodeContextMenu from "./NodeContextMenu";
 import NodeTemplate from "../../templates/NodeTemplate";
+import NodeMenu from "./NodeMenu";
 
 
 export default function Node(props) {
     const ref = useRef()
     const [link, setLink] = useState(false)
 
+
     return (
 
         <div
             id={props.node.id + '-node'}
-            onDoubleClick={() => {
-                props.openOverview()
-            }}
             onMouseDown={event => {
-
-                if (typeof event === 'object' && event.button === 0 && !props.inGroup) {
+                if (props.selected === props.node.id && typeof event === 'object' && event.button === 0 && !props.inGroup) {
                     props.move({
                         node: props.node
                     })
                 }
             }}
+            onDoubleClick={() => {
+                props.openOverview()
+            }} onClick={() => props.setSelected(props.node.id)}
             onContextMenu={e => {
 
                 props.setOpenContext(
@@ -40,37 +41,41 @@ export default function Node(props) {
                     props.index)
 
             }}
-                className={[styles.entityContainer, props.node.shape === 'circle' ? styles.circleContainer : ''].join(' ')}
-                style={{
-                cursor: "pointer",
+            className={[styles.entityContainer, props.node.shape === 'circle' ? styles.circleContainer : ''].join(' ')}
+            style={{
+                cursor: props.selected === props.node.id ? 'move' : "pointer",
                 left: props.inGroup ? undefined : `${props.node.placement.x}px`,
                 top: props.inGroup ? undefined : `${props.node.placement.y}px`,
                 position: props.inGroup ? 'relative' : undefined,
                 borderRadius: props.node.shape === 'circle' ? '50%' : '5px',
+
+                border: props.selected === props.node.id ? `${props.node.color} 2px dashed` : 'transparent 2px dashed',
+
                 height: props.node.shape === 'circle' ? '90px' : undefined,
                 width: props.node.shape === 'circle' ? '90px' : undefined,
                 padding: props.node.shape === 'circle' ? '4px' : undefined,
                 minWidth: props.node.shape === 'circle' ? 'unset' : '230px',
                 background: props.node.shape === 'circle' ? props.node.color : undefined
-            }}
-                ref={ref}
-                >
-                <div
+            }} ref={ref}
+        >
+            <div
                 className={props.node.shape === 'circle' ? styles.headerCircle : styles.header}
                 style={{color: props.node.shape === 'circle' ? 'white' : undefined}}>
-            {props.node.title}
+                {props.node.title}
                 <div className={styles.colorIndicator} style={{
-                display: props.node.shape === 'circle' ? 'none' : undefined,
-                background: props.node.color
-            }}/>
-                </div>
-                <div className={styles.body} style={{display: props.node.shape === 'circle' ? 'none' : undefined}}>
-            {props.node.description}
-                </div>
-                </div>
-                )
+                    display: props.node.shape === 'circle' ? 'none' : undefined,
+                    background: props.node.color
+                }}/>
+            </div>
+            <div className={styles.body} style={{display: props.node.shape === 'circle' ? 'none' : undefined}}>
+                {props.node.description}
+            </div>
 
-            }
+        </div>
+
+    )
+
+}
 
 Node.propTypes = {
     inGroup: PropTypes.bool,
@@ -82,5 +87,7 @@ Node.propTypes = {
     options: PropTypes.shape({edit: PropTypes.bool, move: PropTypes.bool, show: PropTypes.bool,}),
     root: PropTypes.object,
     node: NodeTemplate,
-    openOverview: PropTypes.func
+    openOverview: PropTypes.func,
+    selected: PropTypes.string,
+    setSelected: PropTypes.func,
 }

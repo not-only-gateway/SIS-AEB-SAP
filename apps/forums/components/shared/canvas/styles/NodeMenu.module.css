@@ -1,0 +1,41 @@
+.buttonMenu{
+    width: 30px;
+    height: 30px;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    inset: -38px 0 0 calc(50% - 15px);
+    border: none;
+    background: #0095ff;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+
+}
+
+.selectedHighlight{
+    transition: 250ms ease;
+    position: absolute;
+    top: -8px;
+    left: -8px;
+}
+
+.closeButtonMenu{
+    width: 30px;
+    height: 30px;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    inset: -38px 0 0 100%;
+    border: none;
+    background: #ff5555;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+
+
+}

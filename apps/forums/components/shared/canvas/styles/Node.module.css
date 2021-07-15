@@ -36,7 +36,7 @@
     box-shadow: 0px 4px 30px rgb(22 33 74 / 5%);
     user-select: none;
 
-    transition: box-shadow 250ms ease;
+    transition: box-shadow 250ms ease, border 250ms ease;
 
     cursor: move;
 

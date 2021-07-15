@@ -23,6 +23,8 @@ export default function Canvas(props) {
     const root = useRef()
     const contextMenuRef = useRef()
     const canvasRef = useRef()
+    const [selectedNode, setSelectedNode] = useState(undefined)
+
 
     const handlePrint = useReactToPrint({
         content: () => root.current
@@ -41,7 +43,8 @@ export default function Canvas(props) {
     const renderNode = (node, inGroup, index, groupIndex) => {
         return (
             <Node
-                node={node} inGroup={inGroup} index={index} handleLink={id => setToBeLinked(id)}
+                node={node} inGroup={inGroup} index={index} handleLink={id => setToBeLinked(id)} selected={selectedNode}
+                setSelected={setSelectedNode}
                 handleDelete={(index, id) => {
                     if (!inGroup) {
                         let newNodes = [...data.nodes]
@@ -125,7 +128,10 @@ export default function Canvas(props) {
             style={{height: 'calc(100vh - ' + offsetTop + 'px)', width: '100%'}}
             id={'frame'}
             onMouseDown={event => {
-                if (!openNodeOverview && contextMenuRef.current !== null && contextMenuRef.current.firstChild && event.button === 0 && event.target.className !== 'Pop_popContainer__1N8Wc' && event.target.className !== 'Styles_lineContentContainer__1xCXK' && event.target.className !== 'Canvas_optionButton__1K9rT' && event.target.className !== 'Canvas_lineContentContainer__1xCXK')
+                const className = event.target.className
+                if (selectedNode && className !== 'Node_body__1O9a2' && className !== 'Node_headerCircle__1yS6F' && className !== 'Node_header__2yhU5' && className !== 'Node_colorIndicator__3KoTI')
+                    setSelectedNode(undefined)
+                if (!openNodeOverview && contextMenuRef.current !== null && contextMenuRef.current.firstChild && event.button === 0 && className !== 'Canvas_optionButton__1K9rT' && className !== 'Canvas_lineContentContainer__1xCXK')
                     ReactDOM.unmountComponentAtNode(contextMenuRef.current)
             }}>
             <div
@@ -223,7 +229,7 @@ export default function Canvas(props) {
                         ))}
                         <foreignObject
                             width={'100%'} height={'100%'}
-                                       ref={canvasRef} id={'canvas'}
+                            ref={canvasRef} id={'canvas'}
                         >
 
                             {data.nodes.map((node, index) => (
