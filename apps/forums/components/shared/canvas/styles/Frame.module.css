@@ -1,22 +1,24 @@
 
 
 .content {
-    grid-row: 2;
     height: 100%;
-    display: flex;
-
+    width: 100%;
+    /*display: flex;*/
     background: #f4f5fa;
-    overflow: auto;
+    overflow: hidden;
+    position: relative;
 }
 
 .canvasContainer {
-    height: 100%;
-    width: 100%;
-    transition: 150ms ease;
     background: #fbfbfb radial-gradient(#e4e4e4 1.2px, transparent 0);
     background-size: 20px 20px;
-    position: relative;
     overflow: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: calc(100% - 450px);
+    cursor: grab;
 }
 
 .header {

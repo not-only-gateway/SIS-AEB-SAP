@@ -39,8 +39,8 @@ export default function MoveGroup(props) {
 
     function move(event, save) {
 
-        let placementX = (event.clientX  - props.root.offsetLeft+ props.overflowRef.scrollLeft - groupRef.offsetWidth * 0.5)
-        let placementY = (event.clientY - props.root.offsetTop + props.overflowRef.scrollTop - groupRef.offsetHeight * 0.5)
+        let placementX = (event.clientX  - props.root.offsetLeft+ props.root.scrollLeft - groupRef.offsetWidth * 0.5)
+        let placementY = (event.clientY - props.root.offsetTop + props.root.scrollTop - groupRef.offsetHeight)
         groupRef.style.top = placementY + 'px'
         groupRef.style.left = placementX + 'px'
         //
@@ -109,7 +109,6 @@ MoveGroup.propTypes = {
     id: PropTypes.any,
 
 
-    overflowRef: PropTypes.object,
     root: PropTypes.object,
     canvasRef: PropTypes.object,
 

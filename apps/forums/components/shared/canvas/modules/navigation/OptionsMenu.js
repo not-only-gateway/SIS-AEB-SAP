@@ -14,64 +14,10 @@ import {useEffect, useState} from "react";
 import HandleDownload from "../../methods/HandleDownload";
 import HandleUpload from "../../methods/HandleUpload";
 import {v4 as uuid4} from 'uuid';
+import MoveNewNode from "../../methods/move/MoveNewNode";
 
 export default function OptionsMenu(props) {
     const [openTab, setOpenTab] = useState(0)
-    useEffect(() => {
-        let dragged
-        document.addEventListener("drag", function (event) {
-        }, false);
-
-        document.addEventListener("dragstart", function (event) {
-
-            if(event.target.className === 'Menu_buttonContainer__3oHbi') {
-                dragged = event.target;
-                event.target.style.opacity = 1;
-            }
-        }, false);
-
-        document.addEventListener("dragend", function (event) {
-            // reset the transparency
-            event.target.style.opacity = "";
-        }, false);
-
-        document.addEventListener('dragover', function (event) {
-            event.preventDefault();
-        })
-
-        document.addEventListener("drop", function (event) {
-            event.preventDefault();
-            if (event.target.id === "canvas" && props.root !== undefined) {
-                event.target.style.background = "";
-                let newNodes = [...props.data.nodes]
-
-                newNodes.push({
-                    id: uuid4().toString(),
-                    title: 'Em branco',
-                    description: null,
-                    color: '#0095ff',
-                    placement: {
-                        x: (event.clientX - props.root.offsetLeft + props.overflowRef.scrollLeft),
-                        y: (event.clientY - props.root.offsetTop + props.overflowRef.scrollTop)
-                    },
-                    shape: 'circle',
-                    creationDate: (new Date()).getTime()
-                })
-
-                props.setState(({
-                    ...props.data,
-                    nodes: newNodes
-                }))
-            }
-        }, false);
-        return () => {
-            document.removeEventListener('drop', () => null)
-            document.removeEventListener('dragover', () => null)
-            document.removeEventListener('dragend', () => null)
-            document.removeEventListener('dragstart', () => null)
-            document.removeEventListener('drag', () => null)
-        }
-    }, [props])
 
     return (
         <div className={styles.menuContainer}>
@@ -130,7 +76,7 @@ export default function OptionsMenu(props) {
                         content: (
                             <>
                                 <div className={styles.buttonContainer} style={{cursor: 'move', fontSize: '.9rem'}}
-                                     draggable={props.root !== undefined ? 'true' : false}>
+                                     draggable={props.root !== undefined ? 'true' : false} onDragStart={() => MoveNewNode(props)}>
                                     <DragIndicatorRounded/>
                                     Adicionar módulo
                                 </div>
@@ -167,7 +113,7 @@ export default function OptionsMenu(props) {
 OptionsMenu.propTypes = {
     data: PropTypes.object,
     setState: PropTypes.func,
-    overflowRef: PropTypes.object,
+
     root: PropTypes.object,
     canvasRef: PropTypes.object,
     onSave: PropTypes.func,

@@ -17,7 +17,7 @@ export default function NodeContextMenu(props){
              props.edit(props.entity)
              props.handleClose()
          }}
-                 style={{display: props.editable ? undefined : 'none'}}><EditRounded/>
+               ><EditRounded/>
              Editar
          </button>
 
@@ -33,19 +33,16 @@ export default function NodeContextMenu(props){
                  }
                  props.handleClose()
              }} style={{
-             color: props.link ? '#ff5555' : '#0095ff',
-             display: props.editable ? undefined : 'none'
+             color: props.link ? '#ff5555' : '#0095ff'
          }}>
              <LinkRounded/>
              Criar conexão
          </button>
          <button className={styles.optionButton} onClick={() => {
-
              props.handleDelete(props.entity)
              props.handleClose()
          }}
                  style={{
-                     display: props.editable ? undefined : 'none',
                      color: '#ff5555',
                      border: 'none'
                  }}>
@@ -57,13 +54,11 @@ export default function NodeContextMenu(props){
 }
 NodeContextMenu.propTypes={
     entity:PropTypes.object,
-    editable: PropTypes.bool,
     handleLink:PropTypes.func,
-    linkable:PropTypes.bool,
-    setLinkable:PropTypes.func,
     show:PropTypes.func,
     edit: PropTypes.func,
     link: PropTypes.bool,
     setLink: PropTypes.func,
-    handleClose: PropTypes.func
+    handleClose: PropTypes.func,
+    handleDelete:PropTypes.func
 }

@@ -5,6 +5,7 @@ export default function Move(props) {
     let nodeRef = document.getElementById(props.node.id + '-node')
     let changed = []
     let changedNodes = []
+    // const timeout = setTimeout(() => {
     if (nodeRef !== null) {
         nodeRef.style.transition = 'box-shadow 250ms ease';
         moving = true
@@ -18,11 +19,11 @@ export default function Move(props) {
                 move(event)
                 hoverOnNode(event)
                 hoverOnGroup(event)
-                handleOverflow(event.clientX, event.clientY)
             }
         })
         document.addEventListener("mouseup", event => {
             if (moving) {
+                console.log('FINISHING')
                 handleGroup(event)
                 handleGroupCreation(event)
                 changedNodes.map(id => {
@@ -34,7 +35,7 @@ export default function Move(props) {
                 changedNodes = []
                 moving = false
                 nodeRef.style.zIndex = '5'
-                nodeRef.style.border ='transparent 2px solid'
+                nodeRef.style.border = 'transparent 2px solid'
                 nodeRef.style.opacity = '1';
                 nodeRef.style.boxShadow = '0px 4px 30px rgb(22 33 74 / 5%)'
                 nodeRef.style.cursor = 'pointer'
@@ -43,6 +44,8 @@ export default function Move(props) {
             }
         }, false);
     }
+
+    // }, 200)
 
 
     function handleGroupCreation(event) {
@@ -73,8 +76,8 @@ export default function Move(props) {
                 let newGroup = {
                     nodes: [nodeChild, nodeParent],
                     placement: {
-                        x: (event.clientX - props.root.offsetLeft + props.overflowRef.scrollLeft),
-                        y: (event.clientY - props.root.offsetTop + props.overflowRef.scrollTop)
+                        x: (event.clientX - props.root.offsetLeft + props.root.scrollLeft),
+                        y: (event.clientY - props.root.offsetTop + props.root.scrollTop)
                     }
                 }
                 let newGroups = [...props.groups, ...[newGroup]]
@@ -222,62 +225,19 @@ export default function Move(props) {
 
     function move(event) {
         // hoverOnGroup(event)
-        let placementX = (event.clientX - props.root.offsetLeft + props.overflowRef.scrollLeft - nodeRef.offsetWidth * 0.5)
-        let placementY = (event.clientY - props.root.offsetTop + props.overflowRef.scrollTop - nodeRef.offsetHeight * 0.5)
+        let placementX = (event.clientX - props.root.offsetLeft + props.root.scrollLeft - nodeRef.offsetWidth * 0.5)
+        let placementY = (event.clientY - props.root.offsetTop + props.root.scrollTop - nodeRef.offsetHeight)
         nodeRef.style.top = placementY + 'px'
         nodeRef.style.left = placementX + 'px'
     }
 
-    function handleOverflow(x, y) {
-        switch (true) {
-            case (y < props.root.offsetTop): {
-                const newHeight = props.root.offsetHeight + nodeRef.offsetHeight
-                const newOffset = ((props.root.offsetHeight + nodeRef.offsetHeight) / props.root.offsetHeight - 1) * 100
-                props.root.style.height = newHeight + 'px'
-                let children = props.canvasRef.childNodes
-                let i
 
-                let adjustedHeight = newHeight
-                for (i = 0; i < children.length; i++) {
-                    if (children[i].id !== nodeRef.id) {
-                        if ((children[i].offsetTop + newOffset) > newHeight) {
-                            adjustedHeight = ((children[i].offsetTop + newOffset) - newHeight) + newHeight
-                            const adjustedOffset = ((children[i].offsetTop + newOffset) - newHeight)
-                            children[i].style.top = (children[i].offsetTop - children[i].offsetHeight * 2 - adjustedOffset) + 'px'
-                        } else
-                            children[i].style.top = (children[i].offsetTop + newOffset) + 'px'
-                    }
-                }
-
-                break
-            }
-
-            case((y + 1) >= (props.root.offsetHeight + props.root.offsetTop)): {
-                console.log('OVERFLOWING BOTTOM')
-                break
-            }
-            case (x < props.root.offsetLeft): {
-                console.log('OVERFLOWING X LEFT')
-                const newOffset = ((props.root.offsetWidth + nodeRef.offsetWidth) / props.root.offsetWidth - 1) * 100
-                props.root.style.width = (props.root.offsetWidth + nodeRef.offsetWidth) + 'px'
-                let children = props.canvasRef.childNodes
-                let i
-                for (i = 0; i < children.length; i++) {
-                    children[i].style.left = (children[i].offsetLeft + newOffset) + 'px'
-                }
-                break
-            }
-
-            case((x + 1) >= (props.root.offsetWidth + props.root.offsetLeft)): {
-                console.log('OVERFLOWING X RIGHT')
-                break
-            }
-            default:
-                break
-        }
-
+    return () => {
+        // if(timeout)
+        //     clearTimeout(timeout)
+        document.removeEventListener('mouseup', () => null)
+        document.removeEventListener('mousemove', () => null)
     }
-
 }
 
 Move.propTypes = {
@@ -286,7 +246,6 @@ Move.propTypes = {
     nodes: PropTypes.array,
     groups: PropTypes.array,
 
-    overflowRef: PropTypes.object,
     root: PropTypes.object,
     canvasRef: PropTypes.object,
 

@@ -18,7 +18,7 @@ export default function Link(props) {
                     offsetWidth: 1,
                 })
                 setSource({
-                    offsetTop: s.offsetTop + s.offsetHeight,
+                    offsetTop: s.offsetTop + s.offsetHeight / 2,
                     offsetLeft: s.offsetLeft + s.offsetWidth / 2,
                     offsetHeight: s.offsetHeight,
                     offsetWidth: s.offsetWidth,
@@ -30,14 +30,14 @@ export default function Link(props) {
             if (t !== null && s !== null) {
                 setColor(t.style.borderColor)
                 setTarget({
-                    offsetTop: t.getBoundingClientRect().top + t.offsetHeight - props.rootOffset.y + 3,
-                    offsetLeft: t.getBoundingClientRect().left + t.offsetWidth / 2 - props.rootOffset.x,
+                    offsetTop: t.offsetTop,
+                    offsetLeft: t.offsetLeft,
                     offsetHeight: t.offsetHeight,
                     offsetWidth: t.offsetWidth,
                 })
                 setSource({
-                    offsetTop: s.getBoundingClientRect().top + s.offsetHeight - props.rootOffset.y + 3,
-                    offsetLeft: s.getBoundingClientRect().left + s.offsetWidth / 2 - props.rootOffset.x,
+                    offsetTop: s.offsetTop,
+                    offsetLeft: s.offsetLeft,
                     offsetHeight: s.offsetHeight,
                     offsetWidth: s.offsetWidth,
                 })
@@ -57,39 +57,44 @@ export default function Link(props) {
     }, [])
     if (target !== null && source !== null)
         return (
-            <svg onContextMenu={event => {
-                if (props.canEdit)
-                    props.renderMenu(event)
-            }}>
 
-                <circle
-                    r={'10'}
-                    cy={props.followMouse ? target.offsetTop : (source.offsetTop > target.offsetTop ? (source.offsetTop - source.offsetHeight - 13) : (source.offsetTop + 10))}
-                    cx={props.followMouse ? target.offsetLeft : source.offsetLeft}
-                    fill={color === 'transparent' || !color ? '#e0e0e0' : color}
-                />
+            <svg>
+                <defs>
+
+                    <marker
+                        id={`${props.source}-indicator-${props.target}`}
+                        viewBox="0 0 20 20" refX="10" refY="10"
+                        markerWidth="10" markerHeight="10"
+                    >
+                        <circle cx="10" cy="10" r="10" fill={color === 'transparent' || !color ? '#e0e0e0' : color}/>
+                    </marker>
+                </defs>
 
                 <path
-                    stroke={color === 'transparent' || !color ? '#e0e0e0' : color} strokeWidth={'2'} fill={'none'}
-                    opacity={props.type === 'weak' ? '.7' : '1'}
+                    stroke={color === 'transparent' || !color ? '#e0e0e0' : color} strokeWidth={'2'}
+                    fill={'none'}
                     strokeDasharray={props.type === 'weak' ? '5,5' : undefined}
                     d={
-                        GetCurve({
-                            target: {
-                                x: target.offsetLeft,
-                                y: target.offsetTop,
-                                height: target.offsetHeight,
-                                width: target.offsetWidth
-                            },
-                            source: {
-                                x: source.offsetLeft,
-                                y: source.offsetTop,
-                                height: source.offsetHeight,
-                                width: source.offsetWidth
-                            }
-                        })
-                    }>
-                </path>
+                        `M${source.offsetLeft + source.offsetWidth / 2},${(source.offsetTop + source.offsetHeight / 2)} C${source.offsetLeft},${((source.offsetTop - (source.offsetTop - target.offsetTop) / 2))} ${target.offsetLeft},${(source.offsetTop - (source.offsetTop - target.offsetTop) / 2)} ${target.offsetLeft + target.offsetWidth/2},${target.offsetTop - 10}`
+                        // GetCurve({
+                        //     target: {
+                        //         x: target.offsetLeft,
+                        //         y: target.offsetTop,
+                        //         height: target.offsetHeight,
+                        //         width: target.offsetWidth
+                        //     },
+                        //     source: {
+                        //         x: source.offsetLeft,
+                        //         y: source.offsetTop,
+                        //         height: source.offsetHeight,
+                        //         width: source.offsetWidth
+                        //     }
+                        // })
+                    }
+                    // markerStart={`url(#${props.source}-indicator-${props.target})`}
+                    markerEnd={`url(#${props.source}-indicator-${props.target})`}
+                />
+
             </svg>
         )
     else return null

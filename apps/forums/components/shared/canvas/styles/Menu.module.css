@@ -1,9 +1,7 @@
 .menuContainer {
-    position: sticky;
-    top: 0;
-
     width: 450px;
-
+    margin-right: auto;
+    margin-top: auto;
     height: 100%;
     background: white;
     border-right: #E8E8EF 1px solid;

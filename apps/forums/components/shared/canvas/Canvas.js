@@ -13,6 +13,7 @@ import Group from "./modules/Group";
 import MoveGroup from "./methods/move/MoveGroup";
 import OptionsMenu from "./modules/navigation/OptionsMenu";
 import NodeOverview from "./modules/ node/NodeOverview";
+import ScrollCanvas from "./methods/move/ScrollCanvas";
 
 export default function Canvas(props) {
     const [offsetTop, setOffsetTop] = useState(-1)
@@ -21,7 +22,6 @@ export default function Canvas(props) {
     const [openNodeOverview, setOpenNodeOverview] = useState(false)
     const root = useRef()
     const contextMenuRef = useRef()
-    const overflowRef = useRef()
     const canvasRef = useRef()
 
     const handlePrint = useReactToPrint({
@@ -37,31 +37,39 @@ export default function Canvas(props) {
             if (element !== null)
                 setOffsetTop(element.offsetTop)
         }
-        document.addEventListener('contextmenu', (event) => {
-            if (event.target.id === 'canvas' && props.options.edit && contextMenuRef.current !== null && contextMenuRef.current !== undefined && root.current !== undefined) {
-                if (contextMenuRef.current.firstChild)
-                    ReactDOM.unmountComponentAtNode(contextMenuRef.current)
-                ReactDOM.render(
-                    <CanvasContextMenu
-                        handlePrint={handlePrint}
-                        handleClose={() => ReactDOM.unmountComponentAtNode(contextMenuRef.current)}
-                        triggerUpdate={props.triggerUpdate}
-                        handleCreate={props.handleCreate}/>,
-                    contextMenuRef.current
-                )
-                contextMenuRef.current.style.top = (event.clientY - root.current.offsetTop) + 'px'
-                contextMenuRef.current.style.left = (event.clientX - root.current.offsetLeft) + 'px'
-            }
-            event.preventDefault();
-        })
-        return () => {
-            document.removeEventListener('contextmenu', () => null)
-        }
     }, [props.data])
-    const renderNode = (node, inGroup) => {
+    const renderNode = (node, inGroup, index, groupIndex) => {
         return (
             <Node
-                node={node} inGroup={inGroup}
+                node={node} inGroup={inGroup} index={index} handleLink={id => setToBeLinked(id)}
+                handleDelete={(index, id) => {
+                    if (!inGroup) {
+                        let newNodes = [...data.nodes]
+                        let linksToRemove = []
+                        let newLinks = [...data.links]
+                        newNodes.splice(index, 1)
+
+                        data.links.map((link, lIndex) => {
+                            if (link.parent === id || link.child === id)
+                                linksToRemove = [...linksToRemove, ...[lIndex]]
+                        })
+                        linksToRemove.map(i => {
+                            newLinks.splice(i, 1)
+                        })
+                        setData({
+                            ...data,
+                            nodes: newNodes,
+                            links: newLinks
+                        })
+                    } else {
+                        const groups = [...data.groups]
+                        groups[groupIndex].nodes.splice(index, 1)
+                        setData({
+                            ...data,
+                            groups: groups
+                        })
+                    }
+                }}
                 openOverview={() => {
 
                     if (!openNodeOverview) {
@@ -86,16 +94,15 @@ export default function Canvas(props) {
                         ...node,
                         ...{
                             nodes: data.nodes,
-                            overflowRef: overflowRef.current,
                             root: root.current,
-                            canvasRoot: canvasRef.current,
                             canvasRef: canvasRef.current,
                             groups: data.groups,
                             setState: setData,
                             data: data
                         }
                     })
-                }} root={root.current}
+                }}
+                root={root.current}
                 options={props.options} setOpenContext={(event, x, y, id) => {
                 if (event === null) {
                     ReactDOM.unmountComponentAtNode(contextMenuRef.current)
@@ -114,33 +121,68 @@ export default function Canvas(props) {
         )
     }
     return (
-        <div style={{height: 'calc(100vh - ' + offsetTop + 'px)', width: '100%'}}
-             id={'frame'}
-             onMouseDown={event => {
-            if (!openNodeOverview && contextMenuRef.current !== null && contextMenuRef.current.firstChild && event.button === 0 && event.target.className !== 'Pop_popContainer__1N8Wc' && event.target.className !== 'Styles_lineContentContainer__1xCXK' && event.target.className !== 'Canvas_optionButton__1K9rT' && event.target.className !== 'Canvas_lineContentContainer__1xCXK')
-                ReactDOM.unmountComponentAtNode(contextMenuRef.current)
-        }}>
-            <div className={styles.content} ref={overflowRef}>
-                <OptionsMenu
-                    root={root.current} canvasRef={canvasRef.current} overflowRef={overflowRef.current}
-                    data={data} setState={setData} onSave={props.onSave} handlePrint={handlePrint}/>
+        <div
+            style={{height: 'calc(100vh - ' + offsetTop + 'px)', width: '100%'}}
+            id={'frame'}
+            onMouseDown={event => {
+                if (!openNodeOverview && contextMenuRef.current !== null && contextMenuRef.current.firstChild && event.button === 0 && event.target.className !== 'Pop_popContainer__1N8Wc' && event.target.className !== 'Styles_lineContentContainer__1xCXK' && event.target.className !== 'Canvas_optionButton__1K9rT' && event.target.className !== 'Canvas_lineContentContainer__1xCXK')
+                    ReactDOM.unmountComponentAtNode(contextMenuRef.current)
+            }}>
+            <div
+                className={styles.content}>
+                < OptionsMenu
+                    root={root.current}
+                    canvasRef={canvasRef.current}
+                    data={data}
+                    setState={setData}
+                    onSave={props.onSave}
+                    handlePrint={handlePrint}
+                />
                 <div ref={contextMenuRef} style={{position: 'absolute'}}/>
-                <div className={styles.canvasContainer} ref={root} style={{
-                    height: data.dimensions.height + 'px',
-                    width: data.dimensions.width + 'px'
+                <div ref={root} className={styles.canvasContainer} onMouseDown={event => {
+                    if (typeof event.target.className === 'object')
+                        ScrollCanvas({canvas: root.current, event: event})
                 }}>
-                    <svg width="100%" height="100%" style={{
-                        position: 'absolute',
-                        overflow: 'hidden',
-                        top: '0',
-                        left: '0'
-                    }}>
+                    <svg
+                        onContextMenu={event => {
+                            event.preventDefault()
+                            const classname = event.target.className
+                            if (classname !== 'Node_entityContainer__3-Msx Node_circleContainer__1Rgcz' &&
+                                classname !== 'Node_body__1O9a2' &&
+                                classname !== 'Node_header__2yhU5' &&
+                                classname !== 'Node_entityContainer__3-Msx' &&
+                                classname !== 'Frame_group__3mVSW' && classname !== "Node_headerCircle__1yS6F") {
+
+                                if (contextMenuRef.current.firstChild)
+                                    ReactDOM.unmountComponentAtNode(contextMenuRef.current)
+                                ReactDOM.render(
+                                    <CanvasContextMenu
+                                        handlePrint={handlePrint}
+                                        handleClose={() => ReactDOM.unmountComponentAtNode(contextMenuRef.current)}
+                                        triggerUpdate={props.triggerUpdate}
+                                        handleCreate={props.handleCreate}/>,
+                                    contextMenuRef.current
+                                )
+                                contextMenuRef.current.style.top = (event.clientY - 210) + 'px'
+                                contextMenuRef.current.style.left = (event.clientX - 13) + 'px'
+                            }
+
+                        }}
+                        style={{
+                            minWidth: root.current !== undefined ? (root.current.offsetWidth * 2 + 'px') : '100%',
+                            minHeight: root.current !== undefined ? (root.current.offsetHeight * 2 + 'px') : '100%',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0
+                        }}
+
+                    >
                         {toBeLinked !== null && toBeLinked !== undefined ?
                             <Link followMouse={true} source={`${toBeLinked.id}-node`}
                                   color={'#0095ff'} type={'weak'} canEdit={false}
-                                  rootOffset={root.current !== undefined && root.current !== null ? {
-                                      x: overflowRef.current.offsetLeft,
-                                      y: overflowRef.current.offsetTop
+                                  rootOffset={root.current !== undefined ? {
+                                      x: root.current.offsetLeft + root.current.scrollLeft,
+                                      y: root.current.offsetTop + root.current.scrollTop
                                   } : null}/>
                             :
                             null
@@ -150,10 +192,10 @@ export default function Canvas(props) {
                                 target={`${link.parent}-node`} source={`${link.child}-node`}
                                 type={link.type}
                                 canEdit={props.options.edit}
-                                rootOffset={{
+                                rootOffset={root.current !== undefined ? {
                                     x: root.current.offsetLeft,
                                     y: root.current.offsetTop
-                                }}
+                                } : null}
                                 renderMenu={event => {
                                     if (contextMenuRef.current.firstChild)
                                         ReactDOM.unmountComponentAtNode(contextMenuRef.current)
@@ -179,38 +221,35 @@ export default function Canvas(props) {
                                 description={link.description}
                             />
                         ))}
-                        <foreignObject width="100%" height="100%" ref={canvasRef} id={'canvas'}>
-                            <>
-                                {data.nodes.map((node, index) => (
-                                    <React.Fragment key={node.id + '-' + index}>
-                                        {renderNode(node, false)}
-                                    </React.Fragment>
-                                ))}
-                                {data.groups.map((group, groupIndex) => (
-                                    <Group group={group} index={groupIndex} move={data => {
-                                        MoveGroup({
-                                            ...data,
-                                            ...{
-                                                overflowRef: overflowRef.current,
-                                                root: root.current,
-                                                canvasRoot: canvasRef.current,
-                                                canvasRef: canvasRef.current,
-                                            }
-                                        })
-                                    }}>
-                                        {group.nodes.map((node, index) => (
-                                            <React.Fragment key={'group-' + groupIndex + '-' + node.id + '-' + index}>
-                                                {renderNode(node, true)}
-                                            </React.Fragment>
-                                        ))}
-                                    </Group>
-                                ))}
-                            </>
+                        <foreignObject
+                            width={'100%'} height={'100%'}
+                                       ref={canvasRef} id={'canvas'}
+                        >
+
+                            {data.nodes.map((node, index) => (
+                                <React.Fragment key={node.id + '-' + index}>
+                                    {renderNode(node, false, index, -1)}
+                                </React.Fragment>
+                            ))}
+                            {data.groups.map((group, groupIndex) => (
+                                <Group group={group} index={groupIndex} move={data => {
+                                    MoveGroup({
+                                        ...data,
+                                        ...{
+                                            root: root.current,
+                                            canvasRoot: canvasRef.current,
+                                            canvasRef: canvasRef.current,
+                                        }
+                                    })
+                                }}>
+                                    {group.nodes.map((node, index) => (
+                                        <React.Fragment key={'group-' + groupIndex + '-' + node.id + '-' + index}>
+                                            {renderNode(node, true, index, groupIndex)}
+                                        </React.Fragment>
+                                    ))}
+                                </Group>
+                            ))}
                         </foreignObject>
-
-
-
-
                     </svg>
                 </div>
             </div>
