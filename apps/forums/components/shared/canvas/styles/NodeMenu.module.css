@@ -18,8 +18,8 @@
 .selectedHighlight{
     transition: 250ms ease;
     position: absolute;
-    top: -8px;
-    left: -8px;
+    top: -12px;
+    left: -12px;
 }
 
 .closeButtonMenu{
@@ -38,4 +38,38 @@
     cursor: pointer;
 
 
+}
+
+.indicator{
+    position: absolute;
+    background: white;
+
+    border-radius: 50%;
+
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border:#ecedf2 1px solid;
+    color: #777777;
+
+    transition: 150ms ease;
+
+    animation: popIn 250ms ease;
+
+    cursor: pointer;
+}
+@keyframes popIn {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+.indicator:hover{
+    color: #0095ff;
+    transform: scale(1.15);
 }

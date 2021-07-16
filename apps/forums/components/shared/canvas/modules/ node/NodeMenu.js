@@ -1,39 +1,138 @@
 import PropTypes from 'prop-types'
-import React from "react";
+import React, {useEffect, useState} from "react";
 import NodeTemplate from "../../templates/NodeTemplate";
-import {CloseRounded, DragIndicatorRounded} from "@material-ui/icons";
+import {
+    ArrowDownward,
+    ArrowDownwardRounded,
+    ArrowDropDownRounded,
+    CloseRounded,
+    DragIndicatorRounded
+} from "@material-ui/icons";
 import styles from '../../styles/NodeMenu.module.css'
+import LinkTemplate from "../../templates/LinkTemplate";
+
 export default function NodeMenu(props) {
+    const [links, setLinks] = useState({
+        top: [],
+        bottom: [],
+        left: [],
+        right: []
+    })
+
+    useEffect(() => {
+        setLinks({
+            top: props.links.filter(el => {
+                if (el.parent.indicator === 'top')
+                    return el
+                else
+                    return null
+            }),
+            bottom: props.links.filter(el => {
+                if (el.parent.indicator === 'bottom')
+                    return el
+                else
+                    return null
+            }),
+            left: props.links.filter(el => {
+                if (el.parent.indicator === 'left')
+                    return el
+                else
+                    return null
+            }),
+            right: props.links.filter(el => {
+                if (el.parent.indicator === 'right')
+                    return el
+                else
+                    return null
+            })
+        })
+    }, [props.links])
     return (
         <>
             <div style={{
-                opacity: props.selected === props.node.id ? '1' : '0',
-                border: (props.node.color + ' 2px solid'),
+                opacity: (props.selected === props.node.id || (props.toBeLinked !== null && props.toBeLinked?.id !== props.node.id)) ? '1' : '0',
+                border: (props.node.color + ' 2px dashed'),
                 borderRadius: props.node.shape === 'circle' ? '50%' : '5px',
-                width: props.nodeRef !== undefined ? (props.nodeRef.offsetWidth + 12) + 'px' : 'unset',
-                height: props.nodeRef !== undefined ? (props.nodeRef.offsetHeight + 12) + 'px' : 'unset'
-            }} className={styles.selectedHighlight}/>
-            {/*<button className={styles.buttonMenu}*/}
-            {/*    style={{opacity: props.selected === props.node.id ? '1' : '0'}}*/}
+                width: props.nodeRef !== undefined ? (props.nodeRef.offsetWidth + 18) + 'px' : 'unset',
+                height: props.nodeRef !== undefined ? (props.nodeRef.offsetHeight + 18) + 'px' : 'unset'
+            }} className={styles.selectedHighlight} id={`${props.node.id}-selected`}/>
+            <button id={`${props.node.id}-left`} className={styles.indicator}
+                    disabled={!(props.selected === props.node.id || (props.toBeLinked !== null && props.toBeLinked?.id !== props.node.id))}
+                    onClick={() => {
+                        if (links.left.length > 0)
+                            props.handleLinkDelete(links.left[0])
+                        else
+                            props.handleLink(props.node.id, 'left')
+                    }}
+                    style={{
+                        inset: `calc(50% - 15px) 0 0 -50px`,
+                        opacity: (props.selected === props.node.id || (props.toBeLinked !== null && props.toBeLinked?.id !== props.node.id)) ? '1' : '0',
+                        background: links.left.length > 0 ? '#ff5555' : undefined,
+                        color: links.left.length > 0 ? 'white' : undefined,
+                    }}>
+                {links.left.length > 0 ? <CloseRounded/> :
+                    <ArrowDropDownRounded style={{fontSize: '2rem', transform: 'rotate(90deg)'}}/>}
+            </button>
+            <button id={`${props.node.id}-right`} className={styles.indicator}
+                    disabled={!(props.selected === props.node.id || (props.toBeLinked !== null && props.toBeLinked?.id !== props.node.id))}
+                    onClick={() => {
+                        if (links.right.length > 0)
+                            props.handleLinkDelete(links.right[0])
+                        else
+                            props.handleLink(props.node.id, 'right')
+                    }}
+                    style={{
+                        inset: `calc(50% - 15px) 0 0 calc(100% + 15px)`,
+                        opacity: (props.selected === props.node.id || (props.toBeLinked !== null && props.toBeLinked?.id !== props.node.id)) ? '1' : '0',
+                        background: links.right.length > 0 ? '#ff5555' : undefined,
+                        color: links.right.length > 0 ? 'white' : undefined,
+                    }}>
+                {links.right.length > 0 ? <CloseRounded/> :
+                    <ArrowDropDownRounded style={{fontSize: '2rem', transform: 'rotate(-90deg)'}}/>}
+            </button>
+            <button id={`${props.node.id}-bottom`} className={styles.indicator}
+                    disabled={!(props.selected === props.node.id || (props.toBeLinked !== null && props.toBeLinked?.id !== props.node.id))}
+                    onClick={() => {
+                        if (links.bottom.length > 0)
+                            props.handleLinkDelete(links.bottom[0])
+                        else
+                            props.handleLink(props.node.id, 'bottom')
+                    }}
+                    style={{
+                        inset: `calc(100% + 15px)0 0 calc(50% - 15px)`,
+                        opacity: (props.selected === props.node.id || (props.toBeLinked !== null && props.toBeLinked?.id !== props.node.id)) ? '1' : '0',
+                        background: links.bottom.length > 0 ? '#ff5555' : undefined,
+                        color: links.bottom.length > 0 ? 'white' : undefined,
+                    }}>
+                {links.bottom.length > 0 ? <CloseRounded/> : <ArrowDropDownRounded style={{fontSize: '2rem'}}/>}
+            </button>
+            <button id={`${props.node.id}-top`} className={styles.indicator}
+                    disabled={!(props.selected === props.node.id || (props.toBeLinked !== null && props.toBeLinked?.id !== props.node.id))}
+                    onClick={() => {
+                        if (links.top.length > 0)
+                            props.handleLinkDelete(links.top[0])
+                        else
+                            props.handleLink(props.node.id, 'top')
+                    }}
+                    style={{
+                        inset: `calc(-100% + 30px) 0 0 calc(50% - 15px)`,
+                        opacity: (props.selected === props.node.id || (props.toBeLinked !== null && props.toBeLinked?.id !== props.node.id)) ? '1' : '0',
+                        background: links.top.length > 0 ? '#ff5555' : undefined,
+                        color: links.top.length > 0 ? 'white' : undefined,
+                    }}>
+                {links.top.length > 0 ? <CloseRounded/> :
+                    <ArrowDropDownRounded style={{fontSize: '2rem', transform: 'rotate(180deg)'}}/>}
 
-            {/*}}>*/}
-            {/*    <DragIndicatorRounded/>*/}
-            {/*</button>*/}
-
-            <button onClick={() => props.setSelected(undefined)} className={styles.closeButtonMenu}
-                    style={{opacity: props.selected === props.node.id ? '1' : '0'}}>
-                <CloseRounded/>
             </button>
         </>
     )
 }
 NodeMenu.propTypes = {
     selected: PropTypes.string,
-    setSelected: PropTypes.func,
 
     nodeRef: PropTypes.object,
-
+    handleLinkDelete: PropTypes.func,
     node: NodeTemplate,
-
-    move: PropTypes.func
+    handleLink: PropTypes.func,
+    links: PropTypes.arrayOf(LinkTemplate)
 }

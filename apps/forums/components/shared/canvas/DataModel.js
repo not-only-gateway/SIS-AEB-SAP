@@ -73,7 +73,8 @@ export default {
                     color: 'pink',
                     body: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
                     shape: 'circle',
-                    creationDate: 0
+                    creationDate: 0,
+
                 },
                 {
                     id: '6',
@@ -82,7 +83,7 @@ export default {
                     color: '#ccc',
                     body: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
                     shape: 'circle',
-                    creationDate: 0
+                    creationDate: 0,
                 }
             ]
         }
@@ -90,21 +91,15 @@ export default {
     links: [
         {
             denomination: 'Cafe',
-            type: 'strong',
-            parent: '3',
-            child: '2'
-        },
-        {
-            denomination: 'Cafe',
-            type: 'strong',
-            parent: '3',
-            child: '1'
-        },
-        {
-            denomination: 'Cafe',
             type: 'weak',
-            parent: '3',
-            child: '4'
+            parent: {
+                id: '3',
+                indicator: 'bottom'
+            },
+            child: {
+                id: '4',
+                indicator: 'top'
+            }
         },
     ]
 }

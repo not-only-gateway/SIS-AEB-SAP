@@ -43,8 +43,39 @@ export default function Canvas(props) {
     const renderNode = (node, inGroup, index, groupIndex) => {
         return (
             <Node
-                node={node} inGroup={inGroup} index={index} handleLink={id => setToBeLinked(id)} selected={selectedNode}
-                setSelected={setSelectedNode}
+                node={node} inGroup={inGroup} index={index}
+                handleLinkDelete={(link) => {
+                    let newLinks = [...data.links]
+                    const index = newLinks.indexOf(link)
+
+                    if(index > -1) {
+                        newLinks.splice(index, 1)
+                        setData({
+                            ...data,
+                            links: newLinks
+                        })
+                    }
+                }}
+                handleLink={(id, indicator) => {
+                    if (toBeLinked !== null) {
+                        let newLink = {
+                            parent: toBeLinked,
+                            child: {
+                                id: id,
+                                indicator: indicator
+                            }
+                        }
+                        let newLinks = [...data.links, ...[newLink]]
+                        setData({...data, links: newLinks})
+
+                        setToBeLinked(null)
+                    } else
+                        setToBeLinked({
+                            id: id,
+                            indicator: indicator
+                        })
+                }} selected={selectedNode}
+                setSelected={setSelectedNode} toBeLinked={toBeLinked}
                 handleDelete={(index, id) => {
                     if (!inGroup) {
                         let newNodes = [...data.nodes]
@@ -53,7 +84,7 @@ export default function Canvas(props) {
                         newNodes.splice(index, 1)
 
                         data.links.map((link, lIndex) => {
-                            if (link.parent === id || link.child === id)
+                            if (link.parent.id === id || link.child.id === id)
                                 linksToRemove = [...linksToRemove, ...[lIndex]]
                         })
                         linksToRemove.map(i => {
@@ -73,16 +104,29 @@ export default function Canvas(props) {
                         })
                     }
                 }}
+                links={data.links.filter(l => {
+                    if(l.parent.id === node.id)
+                        return l
+                })}
                 openOverview={() => {
 
                     if (!openNodeOverview) {
                         setOpenNodeOverview(true)
                         if (contextMenuRef.current.firstChild)
                             ReactDOM.unmountComponentAtNode(contextMenuRef.current)
+
+                        const nodeEl = document.getElementById(node.id + '-node')
+                        if (nodeEl !== null)
+                            nodeEl.style.border = node.color + ' 2px solid'
+
+                        setSelectedNode(null)
                         ReactDOM.render(
                             <NodeOverview
                                 node={node} setState={setData} data={data}
                                 handleClose={() => {
+                                    setSelectedNode(node.id)
+                                    if (nodeEl !== null)
+                                        nodeEl.style.border =  'transparent 2px solid'
                                     setOpenNodeOverview(false)
                                     ReactDOM.unmountComponentAtNode(contextMenuRef.current)
                                 }}
@@ -129,8 +173,9 @@ export default function Canvas(props) {
             id={'frame'}
             onMouseDown={event => {
                 const className = event.target.className
-                if (selectedNode && className !== 'Node_body__1O9a2' && className !== 'Node_headerCircle__1yS6F' && className !== 'Node_header__2yhU5' && className !== 'Node_colorIndicator__3KoTI')
+                if (selectedNode && className !== 'NodeMenu_selectedHighlight__jWe4i')
                     setSelectedNode(undefined)
+                console.log(className)
                 if (!openNodeOverview && contextMenuRef.current !== null && contextMenuRef.current.firstChild && event.button === 0 && className !== 'Canvas_optionButton__1K9rT' && className !== 'Canvas_lineContentContainer__1xCXK')
                     ReactDOM.unmountComponentAtNode(contextMenuRef.current)
             }}>
@@ -152,15 +197,20 @@ export default function Canvas(props) {
                     <svg
                         onContextMenu={event => {
                             event.preventDefault()
+
+                            if (openNodeOverview)
+                                setOpenNodeOverview(false)
+
                             const classname = event.target.className
                             if (classname !== 'Node_entityContainer__3-Msx Node_circleContainer__1Rgcz' &&
-                                classname !== 'Node_body__1O9a2' &&
+                                classname !== 'Node_body__1O9a2' && classname !== 'NodeMenu_selectedHighlight__jWe4i' &&
                                 classname !== 'Node_header__2yhU5' &&
                                 classname !== 'Node_entityContainer__3-Msx' &&
                                 classname !== 'Frame_group__3mVSW' && classname !== "Node_headerCircle__1yS6F") {
 
                                 if (contextMenuRef.current.firstChild)
                                     ReactDOM.unmountComponentAtNode(contextMenuRef.current)
+
                                 ReactDOM.render(
                                     <CanvasContextMenu
                                         handlePrint={handlePrint}
@@ -183,29 +233,24 @@ export default function Canvas(props) {
                         }}
 
                     >
+
+
                         {toBeLinked !== null && toBeLinked !== undefined ?
                             <Link followMouse={true} source={`${toBeLinked.id}-node`}
                                   color={'#0095ff'} type={'weak'} canEdit={false}
-                                  rootOffset={root.current !== undefined ? {
-                                      x: root.current.offsetLeft + root.current.scrollLeft,
-                                      y: root.current.offsetTop + root.current.scrollTop
-                                  } : null}/>
+                                  rootOffset={root.current}/>
                             :
                             null
                         }
                         {data.links.map(link => (
                             <Link
-                                target={`${link.parent}-node`} source={`${link.child}-node`}
+                                target={link.parent} source={link.child}
                                 type={link.type}
                                 canEdit={props.options.edit}
-                                rootOffset={root.current !== undefined ? {
-                                    x: root.current.offsetLeft,
-                                    y: root.current.offsetTop
-                                } : null}
+                                rootOffset={root.current}
                                 renderMenu={event => {
                                     if (contextMenuRef.current.firstChild)
                                         ReactDOM.unmountComponentAtNode(contextMenuRef.current)
-
                                     ReactDOM.render(
                                         <LinkContextMenu
                                             child={link.child}
@@ -227,6 +272,7 @@ export default function Canvas(props) {
                                 description={link.description}
                             />
                         ))}
+
                         <foreignObject
                             width={'100%'} height={'100%'}
                             ref={canvasRef} id={'canvas'}
@@ -256,6 +302,7 @@ export default function Canvas(props) {
                                 </Group>
                             ))}
                         </foreignObject>
+
                     </svg>
                 </div>
             </div>

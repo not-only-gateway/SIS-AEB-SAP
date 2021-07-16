@@ -5,6 +5,7 @@ import styles from "../../styles/Node.module.css";
 import NodeContextMenu from "./NodeContextMenu";
 import NodeTemplate from "../../templates/NodeTemplate";
 import NodeMenu from "./NodeMenu";
+import LinkTemplate from "../../templates/LinkTemplate";
 
 
 export default function Node(props) {
@@ -17,7 +18,8 @@ export default function Node(props) {
         <div
             id={props.node.id + '-node'}
             onMouseDown={event => {
-                if (props.selected === props.node.id && typeof event === 'object' && event.button === 0 && !props.inGroup) {
+                if (typeof event === 'object' && event.button === 0 && !props.inGroup) {
+                    props.setSelected(props.node.id)
                     props.move({
                         node: props.node
                     })
@@ -25,7 +27,7 @@ export default function Node(props) {
             }}
             onDoubleClick={() => {
                 props.openOverview()
-            }} onClick={() => props.setSelected(props.node.id)}
+            }}
             onContextMenu={e => {
 
                 props.setOpenContext(
@@ -43,13 +45,12 @@ export default function Node(props) {
             }}
             className={[styles.entityContainer, props.node.shape === 'circle' ? styles.circleContainer : ''].join(' ')}
             style={{
-                cursor: props.selected === props.node.id ? 'move' : "pointer",
+                cursor: props.selected === props.node.id ? 'move' : props.node.id === props.toBeLinked?.id ? 'unset' : "pointer",
                 left: props.inGroup ? undefined : `${props.node.placement.x}px`,
                 top: props.inGroup ? undefined : `${props.node.placement.y}px`,
                 position: props.inGroup ? 'relative' : undefined,
                 borderRadius: props.node.shape === 'circle' ? '50%' : '5px',
-
-                border: props.selected === props.node.id ? `${props.node.color} 2px dashed` : 'transparent 2px dashed',
+                opacity: props.toBeLinked !== null && props.node.id === props.toBeLinked.id ? '.5' : '1',
 
                 height: props.node.shape === 'circle' ? '90px' : undefined,
                 width: props.node.shape === 'circle' ? '90px' : undefined,
@@ -58,6 +59,8 @@ export default function Node(props) {
                 background: props.node.shape === 'circle' ? props.node.color : undefined
             }} ref={ref}
         >
+            <NodeMenu selected={props.selected} node={props.node} nodeRef={ref.current} handleLink={props.handleLink}
+                      toBeLinked={props.toBeLinked} links={props.links} handleLinkDelete={props.handleLinkDelete}/>
             <div
                 className={props.node.shape === 'circle' ? styles.headerCircle : styles.header}
                 style={{color: props.node.shape === 'circle' ? 'white' : undefined}}>
@@ -74,7 +77,6 @@ export default function Node(props) {
         </div>
 
     )
-
 }
 
 Node.propTypes = {
@@ -90,4 +92,7 @@ Node.propTypes = {
     openOverview: PropTypes.func,
     selected: PropTypes.string,
     setSelected: PropTypes.func,
+    toBeLinked: PropTypes.object,
+    links: PropTypes.arrayOf(LinkTemplate),
+    handleLinkDelete: PropTypes.func
 }

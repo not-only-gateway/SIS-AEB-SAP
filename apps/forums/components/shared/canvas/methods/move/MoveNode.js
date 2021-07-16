@@ -9,21 +9,21 @@ export default function Move(props) {
     if (nodeRef !== null) {
         nodeRef.style.transition = 'box-shadow 250ms ease';
         moving = true
-        nodeRef.style.border = props.node.color + ' 2px solid'
+        // nodeRef.style.border = props.node.color + ' 2px solid'
         nodeRef.style.cursor = 'move'
-        nodeRef.style.boxShadow = '0 0 2px 1px ' + props.node.color;
+        // nodeRef.style.boxShadow = '0 0 2px 1px ' + props.node.color;
         nodeRef.style.zIndex = '4'
         document.addEventListener('mousemove', event => {
 
             if (moving) {
-                move(event)
+                move(event, false)
                 hoverOnNode(event)
                 hoverOnGroup(event)
             }
         })
         document.addEventListener("mouseup", event => {
             if (moving) {
-                console.log('FINISHING')
+
                 handleGroup(event)
                 handleGroupCreation(event)
                 changedNodes.map(id => {
@@ -35,11 +35,13 @@ export default function Move(props) {
                 changedNodes = []
                 moving = false
                 nodeRef.style.zIndex = '5'
-                nodeRef.style.border = 'transparent 2px solid'
+                // nodeRef.style.border = 'transparent 2px solid'
                 nodeRef.style.opacity = '1';
-                nodeRef.style.boxShadow = '0px 4px 30px rgb(22 33 74 / 5%)'
+                // nodeRef.style.boxShadow = '0px 4px 30px rgb(22 33 74 / 5%)'
                 nodeRef.style.cursor = 'pointer'
-                move(event)
+
+
+                move(event, true)
 
             }
         }, false);
@@ -60,7 +62,6 @@ export default function Move(props) {
             let nodeChild
             let nodeChildIndex
 
-            console.log('Node found => ' + (nodeID))
             props.nodes.map((el, i) => {
                 if (el.id === nodeID) {
                     nodeParent = el
@@ -223,12 +224,14 @@ export default function Move(props) {
         }
     }
 
-    function move(event) {
+    function move(event, save) {
         // hoverOnGroup(event)
         let placementX = (event.clientX - props.root.offsetLeft + props.root.scrollLeft - nodeRef.offsetWidth * 0.5)
         let placementY = (event.clientY - props.root.offsetTop + props.root.scrollTop - nodeRef.offsetHeight)
         nodeRef.style.top = placementY + 'px'
         nodeRef.style.left = placementX + 'px'
+
+        if((event.clientX - props.root.offsetLeft + props.root.scrollLeft - nodeRef.offsetWidth * 0.5) < 0)
     }
 
 
