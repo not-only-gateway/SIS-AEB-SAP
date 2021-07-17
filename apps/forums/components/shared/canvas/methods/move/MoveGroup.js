@@ -3,7 +3,10 @@ import PropTypes from 'prop-types'
 export default function MoveGroup(props) {
     let moving = false
     let groupRef = document.getElementById(props.id)
-    let changed = []
+    let lastPlacement = {
+        x: props.event.clientX,
+        y: props.event.clientY
+    }
     if (groupRef !== null) {
         moving = true
 
@@ -15,10 +18,8 @@ export default function MoveGroup(props) {
         }
 
         document.addEventListener('mousemove', event => {
-            if (moving) {
+            if (moving)
                 move(event, false)
-                handleOverflow(event.clientX, event.clientY)
-            }
         })
         document.addEventListener("mouseup", event => {
             if (moving) {
@@ -38,67 +39,28 @@ export default function MoveGroup(props) {
     }
 
     function move(event, save) {
+        let newPlacement = {
+            x: lastPlacement.x - event.clientX,
+            y: lastPlacement.y - event.clientY
+        }
 
-        let placementX = (event.clientX  - props.root.offsetLeft+ props.root.scrollLeft - groupRef.offsetWidth * 0.5)
-        let placementY = (event.clientY - props.root.offsetTop + props.root.scrollTop - groupRef.offsetHeight)
+        lastPlacement = {
+            x: event.clientX,
+            y: event.clientY
+        }
+
+        let placementX = groupRef.offsetLeft - newPlacement.x;
+        let placementY = groupRef.offsetTop - newPlacement.y;
+
         groupRef.style.top = placementY + 'px'
         groupRef.style.left = placementX + 'px'
-        //
-        // if (save) {
-        //     props.handleChange({
-        //         x: placementX,
-        //         y: placementY,
-        //         id: props.node.id
-        //     })
-        // }
-    }
 
-    function handleOverflow(x, y) {
-        switch (true) {
-            case (y < props.root.offsetTop): {
-                const newHeight = props.root.offsetHeight + groupRef.offsetHeight
-                const newOffset = ((props.root.offsetHeight + groupRef.offsetHeight) / props.root.offsetHeight - 1) * 100
-                props.root.style.height = newHeight + 'px'
-                let children = props.canvasRef.childNodes
-                let i
+        if(save){
+            if (placementX < 0)
+                groupRef.style.left = '20px'
 
-                let adjustedHeight = newHeight
-                for (i = 0; i < children.length; i++) {
-                    if (children[i].id !== groupRef.id) {
-                        if ((children[i].offsetTop + newOffset) > newHeight) {
-                            adjustedHeight = ((children[i].offsetTop + newOffset) - newHeight) + newHeight
-                            const adjustedOffset = ((children[i].offsetTop + newOffset) - newHeight)
-                            children[i].style.top = (children[i].offsetTop - children[i].offsetHeight * 2 - adjustedOffset) + 'px'
-                        } else
-                            children[i].style.top = (children[i].offsetTop + newOffset) + 'px'
-                    }
-                }
-
-                break
-            }
-
-            case((y + 1) >= (props.root.offsetHeight + props.root.offsetTop)): {
-                console.log('OVERFLOWING BOTTOM')
-                break
-            }
-            case (x < props.root.offsetLeft): {
-                console.log('OVERFLOWING X LEFT')
-                const newOffset = ((props.root.offsetWidth + groupRef.offsetWidth) / props.root.offsetWidth - 1) * 100
-                props.root.style.width = (props.root.offsetWidth + groupRef.offsetWidth) + 'px'
-                let children = props.canvasRef.childNodes
-                let i
-                for (i = 0; i < children.length; i++) {
-                    children[i].style.left = (children[i].offsetLeft + newOffset) + 'px'
-                }
-                break
-            }
-
-            case((x + 1) >= (props.root.offsetWidth + props.root.offsetLeft)): {
-                console.log('OVERFLOWING X RIGHT')
-                break
-            }
-            default:
-                break
+            if (placementY < 0)
+                groupRef.style.top = '20px'
         }
 
     }
@@ -108,7 +70,7 @@ export default function MoveGroup(props) {
 MoveGroup.propTypes = {
     id: PropTypes.any,
 
-
+    event: PropTypes.object,
     root: PropTypes.object,
     canvasRef: PropTypes.object,
 

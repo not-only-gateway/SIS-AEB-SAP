@@ -12,16 +12,15 @@ export default function Node(props) {
     const ref = useRef()
     const [link, setLink] = useState(false)
 
-
     return (
-
         <div
             id={props.node.id + '-node'}
             onMouseDown={event => {
-                if (typeof event === 'object' && event.button === 0 && !props.inGroup) {
+                if (typeof event === 'object' && event.button === 0 && !props.inGroup && typeof event.target.className !== 'object') {
                     props.setSelected(props.node.id)
                     props.move({
-                        node: props.node
+                        node: props.node,
+                        event: event
                     })
                 }
             }}
@@ -29,20 +28,19 @@ export default function Node(props) {
                 props.openOverview()
             }}
             onContextMenu={e => {
-
                 props.setOpenContext(
                     <NodeContextMenu
                         setLink={setLink} link={link}
                         handleClose={() => props.setOpenContext(null, null, null, null)}
                         entity={props.node}
-                        edit={props.edit} handleDelete={() => props.handleDelete(props.index, props.node.id)}
-                        show={props.show} handleLink={props.handleLink}
+                        handleDelete={() => props.handleDelete(props.index, props.node.id)}
+                        show={props.openOverview}
                     />,
                     (e.clientX),
                     (e.clientY - ref.current.offsetHeight),
                     props.index)
 
-            }}
+            }} 
             className={[styles.entityContainer, props.node.shape === 'circle' ? styles.circleContainer : ''].join(' ')}
             style={{
                 cursor: props.selected === props.node.id ? 'move' : props.node.id === props.toBeLinked?.id ? 'unset' : "pointer",

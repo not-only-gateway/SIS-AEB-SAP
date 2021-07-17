@@ -21,8 +21,6 @@ export default function MoveNewNode(props) {
     }, false);
 
     document.addEventListener('dragover', function (event) {
-        console.log('Over => ' + event.target.className)
-        console.log('Parent  => ' + event.target.parentNode.className)
         event.preventDefault();
     })
 
@@ -39,8 +37,8 @@ export default function MoveNewNode(props) {
 
                 color: '#0095ff',
                 placement: {
-                    x: (event.clientX - props.root.offsetLeft + props.root.scrollLeft),
-                    y: (event.clientY - props.root.offsetTop + props.root.scrollTop)
+                    x: (event.clientX - props.root.getBoundingClientRect().left + props.root.scrollLeft - 40),
+                    y: (event.clientY - props.root.getBoundingClientRect().top + props.root.scrollTop - 40)
                 },
                 shape: 'circle',
                 creationDate: (new Date()).getTime()

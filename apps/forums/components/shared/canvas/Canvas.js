@@ -14,26 +14,28 @@ import MoveGroup from "./methods/move/MoveGroup";
 import OptionsMenu from "./modules/navigation/OptionsMenu";
 import NodeOverview from "./modules/ node/NodeOverview";
 import ScrollCanvas from "./methods/move/ScrollCanvas";
+import Scale from "./modules/Scale";
+import {v4 as uuid4} from 'uuid';
+
 
 export default function Canvas(props) {
     const [offsetTop, setOffsetTop] = useState(-1)
-    const [data, setData] = useState({dimensions: {width: '100%', height: '100%'}, nodes: [], links: [], groups: []})
+    const [data, setData] = useState({id: uuid4().toString(), subject: 'Sem título', nodes: [], links: [], groups: []})
     const [toBeLinked, setToBeLinked] = useState(null)
     const [openNodeOverview, setOpenNodeOverview] = useState(false)
     const root = useRef()
     const contextMenuRef = useRef()
     const canvasRef = useRef()
     const [selectedNode, setSelectedNode] = useState(undefined)
-
-
+    const [scale, setScale] = useState(1)
+    const printRef = useRef()
     const handlePrint = useReactToPrint({
-        content: () => root.current
+        content: () => printRef.current
     });
 
     useEffect(() => {
-        if (data.id === undefined && props.data !== undefined && props.data.id !== undefined) {
+        if (props.data !== undefined && props.data.id !== undefined)
             setData(props.data)
-        }
         if (offsetTop === -1) {
             const element = document.getElementById('frame')
             if (element !== null)
@@ -48,7 +50,7 @@ export default function Canvas(props) {
                     let newLinks = [...data.links]
                     const index = newLinks.indexOf(link)
 
-                    if(index > -1) {
+                    if (index > -1) {
                         newLinks.splice(index, 1)
                         setData({
                             ...data,
@@ -105,36 +107,38 @@ export default function Canvas(props) {
                     }
                 }}
                 links={data.links.filter(l => {
-                    if(l.parent.id === node.id)
+                    if (l.parent.id === node.id)
                         return l
                 })}
                 openOverview={() => {
-
-                    if (!openNodeOverview) {
-                        setOpenNodeOverview(true)
-                        if (contextMenuRef.current.firstChild)
-                            ReactDOM.unmountComponentAtNode(contextMenuRef.current)
-
-                        const nodeEl = document.getElementById(node.id + '-node')
+                    console.log('OPen')
+                    if (openNodeOverview !== node.id) {
+                        const nodeEl = document.getElementById(openNodeOverview + '-node')
                         if (nodeEl !== null)
-                            nodeEl.style.border = node.color + ' 2px solid'
-
-                        setSelectedNode(null)
-                        ReactDOM.render(
-                            <NodeOverview
-                                node={node} setState={setData} data={data}
-                                handleClose={() => {
-                                    setSelectedNode(node.id)
-                                    if (nodeEl !== null)
-                                        nodeEl.style.border =  'transparent 2px solid'
-                                    setOpenNodeOverview(false)
-                                    ReactDOM.unmountComponentAtNode(contextMenuRef.current)
-                                }}
-                            />,
-                            contextMenuRef.current
-                        )
+                            nodeEl.style.border = 'transparent 2px solid'
                     }
+                    setOpenNodeOverview(node.id)
+                    if (contextMenuRef.current.firstChild)
+                        ReactDOM.unmountComponentAtNode(contextMenuRef.current)
 
+                    const nodeEl = document.getElementById(node.id + '-node')
+                    if (nodeEl !== null)
+                        nodeEl.style.border = node.color + ' 2px solid'
+
+                    setSelectedNode(null)
+                    ReactDOM.render(
+                        <NodeOverview
+                            node={node} setState={setData} data={data}
+                            handleClose={() => {
+                                setSelectedNode(node.id)
+                                if (nodeEl !== null)
+                                    nodeEl.style.border = 'transparent 2px solid'
+                                setOpenNodeOverview(false)
+                                ReactDOM.unmountComponentAtNode(contextMenuRef.current)
+                            }}
+                        />,
+                        contextMenuRef.current
+                    )
                 }}
                 move={node => {
                     Move({
@@ -150,20 +154,21 @@ export default function Canvas(props) {
                     })
                 }}
                 root={root.current}
-                options={props.options} setOpenContext={(event, x, y, id) => {
-                if (event === null) {
-                    ReactDOM.unmountComponentAtNode(contextMenuRef.current)
+                options={props.options}
+                setOpenContext={(event, x, y, id) => {
+                    if (event === null) {
+                        ReactDOM.unmountComponentAtNode(contextMenuRef.current)
 
-                } else {
-                    ReactDOM.render(
-                        event,
-                        contextMenuRef.current
-                    )
+                    } else {
+                        ReactDOM.render(
+                            event,
+                            contextMenuRef.current
+                        )
 
-                    contextMenuRef.current.style.top = y + 'px'
-                    contextMenuRef.current.style.left = x + 'px'
-                }
-            }}
+                        contextMenuRef.current.style.top = y + 'px'
+                        contextMenuRef.current.style.left = x + 'px'
+                    }
+                }}
             />
         )
     }
@@ -173,14 +178,16 @@ export default function Canvas(props) {
             id={'frame'}
             onMouseDown={event => {
                 const className = event.target.className
-                if (selectedNode && className !== 'NodeMenu_selectedHighlight__jWe4i')
+                if (selectedNode && event.target.closest('.NodeMenu_selectedHighlight__jWe4i') === null) {
                     setSelectedNode(undefined)
-                console.log(className)
-                if (!openNodeOverview && contextMenuRef.current !== null && contextMenuRef.current.firstChild && event.button === 0 && className !== 'Canvas_optionButton__1K9rT' && className !== 'Canvas_lineContentContainer__1xCXK')
+                }
+                if (!openNodeOverview && contextMenuRef.current !== null && contextMenuRef.current.firstChild && event.button === 0 && className !== 'Canvas_optionButton__1K9rT' && className !== 'Canvas_lineContentContainer__1xCXK') {
                     ReactDOM.unmountComponentAtNode(contextMenuRef.current)
+                }
             }}>
             <div
                 className={styles.content}>
+                <Scale scale={scale} setScale={setScale}/>
                 < OptionsMenu
                     root={root.current}
                     canvasRef={canvasRef.current}
@@ -197,7 +204,6 @@ export default function Canvas(props) {
                     <svg
                         onContextMenu={event => {
                             event.preventDefault()
-
                             if (openNodeOverview)
                                 setOpenNodeOverview(false)
 
@@ -228,10 +234,11 @@ export default function Canvas(props) {
                             minWidth: root.current !== undefined ? (root.current.offsetWidth * 2 + 'px') : '100%',
                             minHeight: root.current !== undefined ? (root.current.offsetHeight * 2 + 'px') : '100%',
                             position: 'absolute',
+                            scale: scale,
                             top: 0,
                             left: 0
                         }}
-
+                        ref={printRef}
                     >
 
 

@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 import {useEffect, useState} from "react";
 import HandleDownload from "../../methods/HandleDownload";
 import HandleUpload from "../../methods/HandleUpload";
-import {v4 as uuid4} from 'uuid';
+
 import MoveNewNode from "../../methods/move/MoveNewNode";
 
 export default function OptionsMenu(props) {
@@ -74,13 +74,12 @@ export default function OptionsMenu(props) {
                         key: 1,
                         value: 'Ações',
                         content: (
-                            <>
+
                                 <div className={styles.buttonContainer} style={{cursor: 'move', fontSize: '.9rem'}}
                                      draggable={props.root !== undefined ? 'true' : false} onDragStart={() => MoveNewNode(props)}>
                                     <DragIndicatorRounded/>
                                     Adicionar módulo
                                 </div>
-                            </>
                         )
                     },
                     {

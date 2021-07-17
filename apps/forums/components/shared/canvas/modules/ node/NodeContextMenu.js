@@ -7,37 +7,15 @@ export default function NodeContextMenu(props){
  return(
      <div className={styles.options}>
          <button className={styles.optionButton} onClick={() => {
-             props.show(props.entity)
              props.handleClose()
+             props.show()
+             console.log('HERE')
+
          }}>
              <VisibilityRounded/>
              Visualizar
          </button>
-         <button className={styles.optionButton} onClick={() => {
-             props.edit(props.entity)
-             props.handleClose()
-         }}
-               ><EditRounded/>
-             Editar
-         </button>
 
-         <button
-             className={styles.optionButton}
-             onClick={() => {
-                 if (props.linkable && props.toBeLinked.id === props.entity.id) {
-                     props.setLinkable(false)
-                 } else if (!props.linkable) {
-                     props.setLinkable(true)
-                     props.handleLink(props.entity)
-                     props.setLink(true)
-                 }
-                 props.handleClose()
-             }} style={{
-             color: props.link ? '#ff5555' : '#0095ff'
-         }}>
-             <LinkRounded/>
-             Criar conexão
-         </button>
          <button className={styles.optionButton} onClick={() => {
              props.handleDelete(props.entity)
              props.handleClose()
@@ -56,9 +34,6 @@ NodeContextMenu.propTypes={
     entity:PropTypes.object,
     handleLink:PropTypes.func,
     show:PropTypes.func,
-    edit: PropTypes.func,
-    link: PropTypes.bool,
-    setLink: PropTypes.func,
     handleClose: PropTypes.func,
     handleDelete:PropTypes.func
 }

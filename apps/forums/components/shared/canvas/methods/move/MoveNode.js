@@ -5,13 +5,14 @@ export default function Move(props) {
     let nodeRef = document.getElementById(props.node.id + '-node')
     let changed = []
     let changedNodes = []
-    // const timeout = setTimeout(() => {
+    let lastPlacement = {
+        x: props.event.clientX,
+        y: props.event.clientY
+    }
     if (nodeRef !== null) {
         nodeRef.style.transition = 'box-shadow 250ms ease';
         moving = true
-        // nodeRef.style.border = props.node.color + ' 2px solid'
         nodeRef.style.cursor = 'move'
-        // nodeRef.style.boxShadow = '0 0 2px 1px ' + props.node.color;
         nodeRef.style.zIndex = '4'
         document.addEventListener('mousemove', event => {
 
@@ -23,7 +24,6 @@ export default function Move(props) {
         })
         document.addEventListener("mouseup", event => {
             if (moving) {
-
                 handleGroup(event)
                 handleGroupCreation(event)
                 changedNodes.map(id => {
@@ -46,8 +46,6 @@ export default function Move(props) {
             }
         }, false);
     }
-
-    // }, 200)
 
 
     function handleGroupCreation(event) {
@@ -225,13 +223,29 @@ export default function Move(props) {
     }
 
     function move(event, save) {
-        // hoverOnGroup(event)
-        let placementX = (event.clientX - props.root.offsetLeft + props.root.scrollLeft - nodeRef.offsetWidth * 0.5)
-        let placementY = (event.clientY - props.root.offsetTop + props.root.scrollTop - nodeRef.offsetHeight)
+        let newPlacement = {
+            x: lastPlacement.x - event.clientX,
+            y: lastPlacement.y - event.clientY
+        }
+
+        lastPlacement = {
+            x: event.clientX,
+            y: event.clientY
+        }
+
+        let placementX = nodeRef.offsetLeft - newPlacement.x;
+        let placementY = nodeRef.offsetTop - newPlacement.y ;
+
         nodeRef.style.top = placementY + 'px'
         nodeRef.style.left = placementX + 'px'
 
-        if((event.clientX - props.root.offsetLeft + props.root.scrollLeft - nodeRef.offsetWidth * 0.5) < 0)
+        if (save) {
+            if (placementX < 0)
+                nodeRef.style.left = '20px'
+
+            if (placementY < 0)
+                nodeRef.style.top = '20px'
+        }
     }
 
 
@@ -252,5 +266,6 @@ Move.propTypes = {
     root: PropTypes.object,
     canvasRef: PropTypes.object,
 
-    setState: PropTypes.func
+    setState: PropTypes.func,
+    event: PropTypes.object
 }

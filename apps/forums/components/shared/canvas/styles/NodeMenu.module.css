@@ -41,6 +41,7 @@
 }
 
 .indicator{
+    z-index: 999;
     position: absolute;
     background: white;
 

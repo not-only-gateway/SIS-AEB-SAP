@@ -16,7 +16,8 @@ export default function Group(props) {
             onMouseDown={event => {
                 if (typeof event === 'object' && event.button === 0 && !props.inGroup) {
                     props.move({
-                        id: ('group-' + props.index)
+                        id: ('group-' + props.index),
+                        event: event
                     })
                 }
             }}

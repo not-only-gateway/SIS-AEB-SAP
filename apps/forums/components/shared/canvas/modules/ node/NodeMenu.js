@@ -48,14 +48,14 @@ export default function NodeMenu(props) {
         })
     }, [props.links])
     return (
-        <>
-            <div style={{
-                opacity: (props.selected === props.node.id || (props.toBeLinked !== null && props.toBeLinked?.id !== props.node.id)) ? '1' : '0',
-                border: (props.node.color + ' 2px dashed'),
-                borderRadius: props.node.shape === 'circle' ? '50%' : '5px',
-                width: props.nodeRef !== undefined ? (props.nodeRef.offsetWidth + 18) + 'px' : 'unset',
-                height: props.nodeRef !== undefined ? (props.nodeRef.offsetHeight + 18) + 'px' : 'unset'
-            }} className={styles.selectedHighlight} id={`${props.node.id}-selected`}/>
+        <div style={{
+            opacity: (props.selected === props.node.id || (props.toBeLinked !== null && props.toBeLinked?.id !== props.node.id)) ? '1' : '0',
+            border: (props.node.color + ' 2px dashed'),
+            borderRadius: props.node.shape === 'circle' ? '50%' : '5px',
+            width: props.nodeRef !== undefined ? (props.nodeRef.offsetWidth + 20) + 'px' : 'unset',
+            height: props.nodeRef !== undefined ? (props.nodeRef.offsetHeight + 20) + 'px' : 'unset'
+        }} className={styles.selectedHighlight} id={`${props.node.id}-selected`}>
+
             <button id={`${props.node.id}-left`} className={styles.indicator}
                     disabled={!(props.selected === props.node.id || (props.toBeLinked !== null && props.toBeLinked?.id !== props.node.id))}
                     onClick={() => {
@@ -65,7 +65,8 @@ export default function NodeMenu(props) {
                             props.handleLink(props.node.id, 'left')
                     }}
                     style={{
-                        inset: `calc(50% - 15px) 0 0 -50px`,
+                        top: 'calc(50% - 15px)',
+                        left: '-34px',
                         opacity: (props.selected === props.node.id || (props.toBeLinked !== null && props.toBeLinked?.id !== props.node.id)) ? '1' : '0',
                         background: links.left.length > 0 ? '#ff5555' : undefined,
                         color: links.left.length > 0 ? 'white' : undefined,
@@ -82,7 +83,8 @@ export default function NodeMenu(props) {
                             props.handleLink(props.node.id, 'right')
                     }}
                     style={{
-                        inset: `calc(50% - 15px) 0 0 calc(100% + 15px)`,
+                        top: 'calc(50% - 15px)',
+                        right: '-34px',
                         opacity: (props.selected === props.node.id || (props.toBeLinked !== null && props.toBeLinked?.id !== props.node.id)) ? '1' : '0',
                         background: links.right.length > 0 ? '#ff5555' : undefined,
                         color: links.right.length > 0 ? 'white' : undefined,
@@ -99,7 +101,8 @@ export default function NodeMenu(props) {
                             props.handleLink(props.node.id, 'bottom')
                     }}
                     style={{
-                        inset: `calc(100% + 15px)0 0 calc(50% - 15px)`,
+                        bottom: '-34px',
+                        right: 'calc(50% - 15px)',
                         opacity: (props.selected === props.node.id || (props.toBeLinked !== null && props.toBeLinked?.id !== props.node.id)) ? '1' : '0',
                         background: links.bottom.length > 0 ? '#ff5555' : undefined,
                         color: links.bottom.length > 0 ? 'white' : undefined,
@@ -115,7 +118,8 @@ export default function NodeMenu(props) {
                             props.handleLink(props.node.id, 'top')
                     }}
                     style={{
-                        inset: `calc(-100% + 30px) 0 0 calc(50% - 15px)`,
+                        top: '-34px',
+                        right: 'calc(50% - 15px)',
                         opacity: (props.selected === props.node.id || (props.toBeLinked !== null && props.toBeLinked?.id !== props.node.id)) ? '1' : '0',
                         background: links.top.length > 0 ? '#ff5555' : undefined,
                         color: links.top.length > 0 ? 'white' : undefined,
@@ -124,7 +128,7 @@ export default function NodeMenu(props) {
                     <ArrowDropDownRounded style={{fontSize: '2rem', transform: 'rotate(180deg)'}}/>}
 
             </button>
-        </>
+        </div>
     )
 }
 NodeMenu.propTypes = {
