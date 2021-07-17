@@ -106,10 +106,6 @@ export default function Canvas(props) {
                         })
                     }
                 }}
-                links={data.links.filter(l => {
-                    if (l.parent.id === node.id)
-                        return l
-                })}
                 openOverview={() => {
                     console.log('OPen')
                     if (openNodeOverview !== node.id) {
@@ -271,14 +267,6 @@ export default function Canvas(props) {
                             ))}
                         </foreignObject>
 
-
-                        {toBeLinked !== null && toBeLinked !== undefined ?
-                            <Link followMouse={true} source={`${toBeLinked.id}-node`}
-                                  color={'#0095ff'} type={'weak'} canEdit={false}
-                                  rootOffset={root.current}/>
-                            :
-                            null
-                        }
                         {data.links.map(link => (
                             <Link
                                 target={link.parent} source={link.child}

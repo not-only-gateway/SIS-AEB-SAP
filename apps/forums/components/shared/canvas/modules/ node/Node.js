@@ -16,7 +16,7 @@ export default function Node(props) {
         <div
             id={props.node.id + '-node'}
             onMouseDown={event => {
-                if (typeof event === 'object' && event.button === 0 && !props.inGroup && typeof event.target.className !== 'object') {
+                if (typeof event === 'object' && event.button === 0 && !props.inGroup && typeof event.target.className !== 'object' && (props.toBeLinked === null || props.node.id !== props.toBeLinked.id)) {
                     props.setSelected(props.node.id)
                     props.move({
                         node: props.node,
@@ -43,7 +43,7 @@ export default function Node(props) {
             }} 
             className={[styles.entityContainer, props.node.shape === 'circle' ? styles.circleContainer : ''].join(' ')}
             style={{
-                cursor: props.selected === props.node.id ? 'move' : props.node.id === props.toBeLinked?.id ? 'unset' : "pointer",
+                cursor: props.selected === props.node.id && props.toBeLinked === null ? 'move' : props.toBeLinked !== null && props.node.id === props.toBeLinked.id ? 'unset' : "pointer",
                 left: props.inGroup ? undefined : `${props.node.placement.x}px`,
                 top: props.inGroup ? undefined : `${props.node.placement.y}px`,
                 position: props.inGroup ? 'relative' : undefined,
@@ -58,7 +58,7 @@ export default function Node(props) {
             }} ref={ref}
         >
             <NodeMenu selected={props.selected} node={props.node} nodeRef={ref.current} handleLink={props.handleLink}
-                      toBeLinked={props.toBeLinked} links={props.links} handleLinkDelete={props.handleLinkDelete}/>
+                      toBeLinked={props.toBeLinked} handleLinkDelete={props.handleLinkDelete}/>
             <div
                 className={props.node.shape === 'circle' ? styles.headerCircle : styles.header}
                 style={{color: props.node.shape === 'circle' ? 'white' : undefined}}>
@@ -90,7 +90,5 @@ Node.propTypes = {
     openOverview: PropTypes.func,
     selected: PropTypes.string,
     setSelected: PropTypes.func,
-    toBeLinked: PropTypes.object,
-    links: PropTypes.arrayOf(LinkTemplate),
-    handleLinkDelete: PropTypes.func
+    toBeLinked: PropTypes.object
 }

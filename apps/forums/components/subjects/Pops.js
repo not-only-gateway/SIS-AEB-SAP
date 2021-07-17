@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import React from "react";
 import Cookies from "universal-cookie/lib";
 import Canvas from "../shared/canvas/Canvas";
-import DataModel from "../shared/canvas/DataModel";
 
 
 export default function Pops(props) {
@@ -18,7 +17,6 @@ export default function Pops(props) {
                 onSave={data => {
                     null
                 }}
-                data={DataModel}
             />
         </div>
     )
