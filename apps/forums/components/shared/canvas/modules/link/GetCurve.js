@@ -37,10 +37,11 @@ export default function GetCurve(props) {
             break
         }
         case (props.target.y === props.source.y): {
+            if(props.target.x >= props.source.x)
             pivots = {
                 x1: props.source.x,
                 y1: props.source.y,
-                x2: props.target.x,
+                x2: props.target.x ,
                 y2: props.target.y
             }
             break

@@ -27,7 +27,7 @@ export default function Tabs(props) {
             </div>
 
             {props.buttons.map((button) => (button !== null && props.openTab === button.key ?
-                    <div className={styles.contentContainer}>
+                    <div className={styles.contentContainer} key={button.key + '-content'}>
                         {button.content}
                     </div>
                     :

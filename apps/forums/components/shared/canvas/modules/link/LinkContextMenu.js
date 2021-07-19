@@ -4,24 +4,16 @@ import React, {useState} from "react";
 import PropTypes from 'prop-types'
 
 export default function LinkContextMenu(props) {
-    const [openModal, setOpenModal] = useState(false)
-    const renderModal = () => {
-        return (
-            null
-        )
-    }
+
     return (
         <div className={styles.options}>
-            <button className={styles.optionButton} onClick={() => setOpenModal(true)}>
+            <button className={styles.optionButton} onClick={() => props.changeType()}>
                 <EditRounded/>
-                Editar conexão
+                Mudar para {props.type === 'weak' ? 'forte' : 'fraca'}
             </button>
-            <button className={styles.optionButton} style={{color: '#ff5555'}}
-                    onClick={() => props.triggerLinkChange({
-                        childID: props.child,
-                        parentID: props.parent,
-                        action: 'delete'
-                    })}
+            <button
+                className={styles.optionButton} style={{color: '#ff5555'}}
+                onClick={() => props.deleteLink()}
             >
                 <DeleteForeverRounded/>
                 Deletar conexão
@@ -31,7 +23,9 @@ export default function LinkContextMenu(props) {
 
 }
 LinkContextMenu.propTypes = {
-    triggerLinkChange: PropTypes.func,
+    deleteLink: PropTypes.func,
+    changeType: PropTypes.func,
     parent: PropTypes.number,
-    child: PropTypes.number
+    child: PropTypes.number,
+    type: PropTypes.string
 }

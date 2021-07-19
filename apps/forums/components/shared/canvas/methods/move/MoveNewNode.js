@@ -30,6 +30,17 @@ export default function MoveNewNode(props) {
             event.target.style.background = "";
             let newNodes = [...props.data.nodes]
 
+            newNodes.map((node, index) => {
+                const element = document.getElementById(node.id+'-node')
+                let newNode = {...node}
+
+                if(element !== null) {
+                    newNode.placement.x = element.offsetLeft
+                    newNode.placement.y = element.offsetTop
+                    newNodes[index] = newNode
+                }
+            })
+
             newNodes.push({
                 id: uuid4().toString(),
                 title: 'Em branco',

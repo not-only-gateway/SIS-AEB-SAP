@@ -1,126 +1,164 @@
 import PropTypes from "prop-types";
-import {useEffect, useState} from "react";
-import GetCurve from "./GetNewCurve";
-import {ArrowDownward} from "@material-ui/icons";
+import React, {useEffect, useRef, useState} from "react";
+import GetCurve from "./GetCurve";
+import styles from '../../styles/Link.module.css'
+import NodeContextMenu from "../ node/NodeContextMenu";
+import LinkContextMenu from "./LinkContextMenu";
 
 export default function Link(props) {
-    const [target, setTarget] = useState(null)
-    const [source, setSource] = useState(null)
     const [color, setColor] = useState(undefined)
-    const [selected, setSelected] = useState(false)
-
-
     let mouseDown = false
-    let started = false
-    const update = () => {
-        const t = document.getElementById(props.target.id + '-node')
-        const s = document.getElementById(props.source.id + '-node')
-        if (t !== null && s !== null) {
-            const child = t.childNodes.item(props.target.id + '-selector').style
-            setColor(child.opacity === '1' ? child.borderColor : undefined)
-            setTarget({
-                offsetTop: t.offsetTop,
-                offsetLeft: t.offsetLeft,
-                offsetHeight: t.offsetHeight,
-                offsetWidth: t.offsetWidth,
-            })
-            setSource({
-                offsetTop: s.offsetTop,
-                offsetLeft: s.offsetLeft,
-                offsetHeight: s.offsetHeight,
-                offsetWidth: s.offsetWidth,
-            })
-        }
-    }
+    const pathRef = useRef()
+    const descriptionRef = useRef()
 
     useEffect(() => {
-        document.addEventListener('mousedown', event => {
-            if (event.target.id === `${props.source.id}-node` || event.target.id === `${props.source.id}-selected` || event.target.id === `${props.target.id}-node` || event.target.id === `${props.target.id}-selected`) {
-                update()
-                mouseDown = true
-            }
-            else
-                setColor(undefined)
+        const t = document.getElementById(props.target.id + '-node')
+        const s = document.getElementById(props.source.id + '-node')
+        handleMouseDown(t, s)
+
+
+        t.addEventListener('mousedown', event => {
+            handleMouseDown(t, s)
+        })
+        s.addEventListener('mousedown', event => {
+            handleMouseDown(t, s)
         })
         document.addEventListener('mouseup', () => {
-            if (mouseDown)
+            if (mouseDown) {
+                document.removeEventListener('mousemove', () => null)
+                setColor(undefined)
                 mouseDown = false
-
-        })
-
-        document.addEventListener('mousemove', () => {
-            if (mouseDown || !started) {
-                started = true
-                update()
             }
         })
 
+
         return () => {
-            document.removeEventListener('mousedown', () => null)
+            t.removeEventListener('mousedown', () => null)
+            s.removeEventListener('mousedown', () => null)
             document.removeEventListener('mouseup', () => null)
             document.removeEventListener('mousemove', () => null)
         }
-    }, [])
-    if (target !== null && source !== null)
-        return (
-            <svg onClick={() => setSelected(true)}>
-                <defs>
+    }, [props])
+    const handleMouseDown = (t, s) => {
+        update(t, s)
+        mouseDown = true
+        const selected = t.childNodes.item(props.target.id + '-selector')
+        setColor(selected.style.opacity === '1' ? selected.style.borderColor : undefined)
+        document.addEventListener('mousemove', () => {
+            update(t, s)
+        })
+    }
+    const update = (t, s) => {
+        if (pathRef.current !== null)
+            pathRef.current.setAttribute('d', GetCurve({
+                target: {
+                    x: t.offsetLeft,
+                    y: t.offsetTop,
+                    height: t.offsetHeight,
+                    width: t.offsetWidth
+                },
+                source: {
+                    x: s.offsetLeft,
+                    y: s.offsetTop,
+                    height: s.offsetHeight,
+                    width: s.offsetWidth
+                }
+            }))
 
-                    <marker
-                        id={`${props.source.id}-end-${props.target.id}`}
-                        viewBox="0 0 20 20" refX="10" refY="10"
-                        markerWidth="10" markerHeight="10"
-                    >
-                        <circle cx="10" cy="10" r="10" fill={color === 'transparent' || !color ? '#e0e0e0' : color}/>
-                    </marker>
-                    <marker
-                        id={`${props.source.id}-start-${props.target.id}`}
-                        viewBox="0 0 10 10" refX={'5'} refY={'5'}
-                        markerWidth="5" markerHeight="5"
-                    >
+        if(descriptionRef.current !== null && descriptionRef.current !== undefined){
+            descriptionRef.current.setAttribute('x', (t.offsetLeft + t.offsetWidth / 2 + s.offsetWidth / 2 + s.offsetLeft) / 2 - 32.5)
+            descriptionRef.current.setAttribute('y', (t.offsetTop + t.offsetHeight / 2 + s.offsetHeight / 2 + s.offsetTop) / 2 - 20)
+        }
+    }
 
-                        <circle cx="5" cy="5" r="5" fill={color === 'transparent' || !color ? '#e0e0e0' : color}/>
-                    </marker>
-                </defs>
+    return (
+        <svg
+            onDoubleClick={() => {
+                if (props.type !== 'weak')
+                    props.setSelected({
+                        child: props.source.id,
+                        parent: props.target.id
+                    })
+            }}
+            style={{cursor: "pointer"}}
+            onContextMenu={e => {
+                props.setSelected({
+                    child: props.source.id,
+                    parent: props.target.id
+                })
+                props.openContextMenu(
+                    <LinkContextMenu
+                        child={props.child} parent={props.parent} type={props.type} deleteLink={props.deleteLink}
+                        changeType={() => {
+                            props.handleChange({name: 'type', value: props.type === 'weak' ? 'strong' : 'weak'})
+                        }}/>,
+                    (e.clientX),
+                    (e.clientY - 40)
+                )
+            }}>
+            <defs>
+                <marker
+                    id={`${props.source.id}-end-${props.target.id}`}
+                    viewBox="0 0 20 20" refX="10" refY="10"
+                    markerWidth="10" markerHeight="10"
+                >
+                    <circle cx="10" cy="10" r="10" fill={color === 'transparent' || !color ? '#e0e0e0' : color}/>
+                </marker>
+                <marker
+                    id={`${props.source.id}-start-${props.target.id}`}
+                    viewBox="0 0 10 10" refX={'5'} refY={'5'}
+                    markerWidth="5" markerHeight="5"
+                >
 
-                <path
-                    stroke={color === 'transparent' || !color ? '#e0e0e0' : color} strokeWidth={'2'}
-                    fill={'none'}
-                    strokeDasharray={props.type === 'weak' ? '5,5' : undefined}
-                    d={
-                        GetCurve({
-                            target: {
-                                x: target.offsetLeft,
-                                y: target.offsetTop,
-                                height: target.offsetHeight,
-                                width: target.offsetWidth
-                            },
-                            source: {
-                                x: source.offsetLeft,
-                                y: source.offsetTop,
-                                height: source.offsetHeight,
-                                width: source.offsetWidth
-                            }
-                        })
-                    }
-                    // markerStart={`url(#${props.source}-indicator-${props.target})`}
-                    markerStart={`url(#${props.source.id}-end-${props.target.id})`}
-                    markerEnd={`url(#${props.source.id}-start-${props.target.id})`}
-                />
+                    <circle cx="5" cy="5" r="5" fill={color === 'transparent' || !color ? '#e0e0e0' : color}/>
+                </marker>
+            </defs>
 
-            </svg>
-        )
-    else return null
+
+            <path
+                stroke={
+                    color === 'transparent' || !color ? '#e0e0e0' : color
+                } strokeWidth={'2'}
+                fill={'none'} ref={pathRef}
+                strokeDasharray={props.type === 'weak' ? '5,5' : undefined}
+                d={'M 0,0'}
+                markerStart={`url(#${props.source.id}-end-${props.target.id})`}
+                markerEnd={`url(#${props.source.id}-start-${props.target.id})`}
+            />
+            <foreignObject
+                width={'75'} height={'40'} ref={descriptionRef}
+                style={{display: (props.description !== undefined && props.description.length > 0) || (props.selectedLink !== null && props.selectedLink && props.selectedLink.parent === props.target.id && props.selectedLink.child === props.source.id) ? undefined : 'none'}}
+                y={
+                    0
+                }
+                x={
+                    0
+                }>
+                <input className={styles.input}
+                       style={{border: color === 'transparent' || !color ? '#e0e0e0 2px solid' : color + ' 2px solid'}}
+                       onChange={event => props.handleChange({name: 'description', value: event.target.value})}
+                       value={props.description}/>
+            </foreignObject>
+        </svg>
+    )
 }
 
 Link.propTypes = {
-    renderMenu: PropTypes.func,
+    deleteLink: PropTypes.func,
+    openContextMenu: PropTypes.func,
 
-    source: PropTypes.string,
-    target: PropTypes.string,
+    source: PropTypes.object,
+    target: PropTypes.object,
     description: PropTypes.string,
     type: PropTypes.oneOf(['strong', 'weak']),
     rootOffset: PropTypes.object,
     canEdit: PropTypes.bool,
-    followMouse: PropTypes.bool
+
+    handleChange: PropTypes.func,
+
+    selectedLink: PropTypes.shape({
+        child: PropTypes.string,
+        parent: PropTypes.string
+    }),
+    setSelected: PropTypes.func
 }

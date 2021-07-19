@@ -1,9 +1,9 @@
 import styles from '../../styles/Menu.module.css'
 import {
-    DragIndicatorRounded,
+    DragIndicatorRounded, FileCopy, FileCopyRounded, LocalLibraryRounded,
     MoreVertRounded,
     PictureAsPdfRounded,
-    PublishRounded,
+    PublishRounded, SaveAltRounded,
     SaveRounded,
     SearchRounded,
     VisibilityRounded
@@ -37,7 +37,7 @@ export default function OptionsMenu(props) {
                                            file: event,
                                            setData: props.setState
                                        })}
-                                       accept={'.json'}/>
+                                       accept={'.canvas'}/>
 
                                 <button
                                     onClick={() => {
@@ -46,21 +46,48 @@ export default function OptionsMenu(props) {
                                             input.click()
                                     }} id="upload_file" className={styles.buttonContainer}>
                                     <PublishRounded/>
-                                    Importar
+                                    Importar modelo (.canvas)
+                                </button>
+                                <div className={styles.optionsDivider}>
+                                    Salvar
+                                    <div className={styles.divider}/>
+                                </div>
+                                <button
+                                    className={styles.buttonContainer}
+                                    disabled={true}>
+                                    <LocalLibraryRounded/>
+                                    Salvar base de conhecimento
                                 </button>
                                 <button
                                     className={styles.buttonContainer}
-                                    onClick={() => HandleDownload({
-                                        handleDownload: props.onSave,
-                                        data: props.data,
-                                        root: props.root
-                                    })}>
-                                    <SaveRounded/>
-                                    Salvar
+                                    onClick={() => {
+                                        console.log(props.data)
+                                        HandleDownload({
+                                            handleDownload: props.onSave,
+                                            data: props.data,
+                                            root: props.root
+                                        })
+                                    }} disabled={props.data.nodes.length === 0}>
+                                    <SaveAltRounded/>
+                                    Baixar modelo
                                 </button>
-                                <button className={styles.buttonContainer} onClick={() => props.handlePrint()}>
+                                <div className={styles.optionsDivider}>
+                                    Exportar
+                                    <div className={styles.divider}/>
+                                </div>
+                                <button className={styles.buttonContainer} onClick={() => props.handlePrint()} disabled={props.data.nodes.length === 0}>
                                     <PictureAsPdfRounded/>
                                     Exportar PDF
+                                </button>
+                                <button className={styles.buttonContainer}
+                                        onClick={() => HandleDownload({
+                                            handleDownload: props.onSave,
+                                            data: props.data,
+                                            root: props.root,
+                                            asJson: true
+                                        })} disabled={props.data.nodes.length === 0}>
+                                    <FileCopyRounded/>
+                                    Exportar JSON
                                 </button>
                             </div>
                         )
