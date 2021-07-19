@@ -6,8 +6,8 @@ import PropTypes from "prop-types";
 import PersonAvatar from "../shared/PersonAvatar";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import BaseForm from "../person/forms/BaseForm";
-import List from "../../../../packages/misc/src/misc/list/List";
 import ManagementPT from "../../packages/locales/management/ManagementPT";
+import List from "../shared/misc/list/List";
 
 export default function PeopleList(props) {
     const lang = ManagementPT

@@ -16,7 +16,6 @@
 }
 
 
-
 .buttonContainer {
     width: 100%;
     border: #ecedf2 1px solid;
@@ -39,36 +38,43 @@
     background: #E8F0FE;
     border: #0095ff 1px solid;
 }
+
 .buttonContainer:disabled {
     color: #999999;
     background: white;
     border: #ecedf2 1px solid;
     cursor: unset;
 }
-.header{
+
+.header {
     font-weight: bold;
     font-size: 20px;
     font-family: Roboto;
-    color:#393C44;
+    color: #393C44;
 
 }
 
-.textField{
+.textField {
+    border-radius: 8px 8px 0 0;
+    font-size: 20px;
+    border: none;
+    border-bottom: #ecedf2 1px solid;
     font-family: Roboto;
     width: 100%;
     padding: 8px;
     background-color: white;
     outline: none;
 
-    transition: 150ms ease;
+    transition: 150ms linear;
     height: 50px;
     display: flex;
     align-items: center;
-    border: none;
 
-    font-size: .9rem;
 }
-.inputContainer{
+.textField:hover{
+    border-bottom: #0095ff 1px solid;
+}
+.inputContainer {
     width: 100%;
     border: #ecedf2 1px solid;
     display: flex;
@@ -78,13 +84,16 @@
     overflow: hidden;
     transition: 150ms ease;
 }
-.inputContainer:hover{
+
+.inputContainer:hover {
     border: #0095ff 1px solid;
 }
-.textField:focus, .textField:focus-within{
+
+.textField:focus, .textField:focus-within {
     background: #E8F0FE;
 }
-.searchButton{
+
+.searchButton {
     height: 50px;
     width: 50px;
     outline: none;
@@ -99,22 +108,23 @@
     transition: 150ms ease;
 }
 
-.searchButton:hover{
+.searchButton:hover {
     color: #0095ff;
     background: #E8F0FE;
 }
 
-.tabsContainer{
+.tabsContainer {
     width: 100%;
 }
-.tabNavigation{
+
+.tabNavigation {
     display: flex;
     width: 100%;
     justify-content: space-between;
     border-bottom: #e0e0e0 1px solid;
 }
 
-.tabButtonContainer{
+.tabButtonContainer {
     cursor: pointer;
     outline: none;
     background: transparent;
@@ -127,19 +137,22 @@
     color: #666666;
     transition: 200ms linear;
 }
-.tabButtonContainer:hover{
+
+.tabButtonContainer:hover {
     background: #E8F0FE;
 }
 
-.contentContainer{
+.contentContainer {
     margin-top: 16px;
     width: 100%;
 }
-.options{
+
+.options {
     display: grid;
     gap: 4px;
 }
-.helpContainer{
+
+.helpContainer {
     width: 100%;
     border: #ecedf2 1px solid;
     border-radius: 5px;

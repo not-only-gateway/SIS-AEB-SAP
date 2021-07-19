@@ -18,18 +18,13 @@ import MoveNewNode from "../../methods/move/MoveNewNode";
 
 export default function OptionsMenu(props) {
     const [openTab, setOpenTab] = useState(0)
-
     return (
         <div className={styles.menuContainer}>
-            <div className={styles.header}>
-                {props.data.subject}
-            </div>
-            <div className={styles.inputContainer}>
-                <button className={styles.searchButton}>
-                    <SearchRounded/>
-                </button>
-                <input className={styles.textField} placeholder={'Pesquisar'}/>
-            </div>
+            <input className={[styles.textField, styles.header].join(' ')}
+                   placeholder={'Pesquisar'}
+                   value={props.data.subject}
+                   onChange={event => props.setState({...props.data, subject: event.target.value})}/>
+
             <Tabs
                 buttons={[
                     {
@@ -74,12 +69,22 @@ export default function OptionsMenu(props) {
                         key: 1,
                         value: 'Ações',
                         content: (
+                            <div className={styles.options}>
+                                <div className={styles.buttonContainer} style={{cursor: 'move', fontSize: '.9rem'}}
+                                     draggable={props.root !== undefined ? 'true' : false}
+                                     onDragStart={() => MoveNewNode(props)}>
+                                    <DragIndicatorRounded/>
+                                    Adicionar módulo (padrão).
+                                </div>
 
                                 <div className={styles.buttonContainer} style={{cursor: 'move', fontSize: '.9rem'}}
-                                     draggable={props.root !== undefined ? 'true' : false} onDragStart={() => MoveNewNode(props)}>
+                                     draggable={props.root !== undefined ? 'true' : false}
+                                     onDragStart={() => MoveNewNode(props)}>
                                     <DragIndicatorRounded/>
-                                    Adicionar módulo
+                                    Adicionar módulo (círculo).
                                 </div>
+
+                            </div>
                         )
                     },
                     {

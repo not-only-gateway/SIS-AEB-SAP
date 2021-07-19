@@ -18,7 +18,7 @@ import {
 
 import CollaboratorRequests from "../../utils/fetch/CollaboratorRequests";
 import PersonRequests from "../../utils/fetch/PersonRequests";
-import Navigation from "../../../../packages/navigation/src/nav/Navigation";
+import Navigation from "./nav/Navigation";
 // import Alert from "./components/Alert";
 // import Navigation from "./components/Navigation";
 
@@ -72,7 +72,6 @@ export default function PageLayout(props) {
         }}>
             {router.pathname !== '/authenticate' ?
                 <Navigation
-
                     loading={props.loading}
                     redirect={event => {
                         router.push(event.pathname, event.pathname, event.options)
@@ -107,19 +106,25 @@ export default function PageLayout(props) {
                         link: 'https://google.com',
                         icon: <ExtensionRounded/>
                     }]} logo={'./light.png'}
-                />
+                >
+                    <div className={styles.pageContentContainer}
+                         id={'scrollableDiv'} style={{
+                        transition: '250ms ease-in-out',
+                        overflowX: router.pathname === '/structure' ? 'auto' : 'hidden'
+                    }}>
+                        {props.children}
+                    </div>
+                </Navigation>
                 :
-                null
+                <div className={styles.pageContentContainer}
+                     id={'scrollableDiv'} style={{
+                    transition: '250ms ease-in-out',
+                    overflowX: router.pathname === '/structure' ? 'auto' : 'hidden'
+                }}>
+                    {props.children}
+                </div>
             }
-            <div className={styles.pageContentContainer}
-                 id={'scrollableDiv'} style={{
-                transition: '250ms ease-in-out',
-                height: router.pathname !== '/authenticate' ? 'calc(100% - 60px)' : '100vh',
-                marginTop: router.pathname !== '/authenticate' ? '60px' : undefined,
-                overflowX: router.pathname === '/structure' ? 'auto' : 'hidden'
-            }}>
-                {props.children}
-            </div>
+
             <div id={'root'}/>
         </div>
     )
