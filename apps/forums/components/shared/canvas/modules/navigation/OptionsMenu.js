@@ -1,5 +1,6 @@
 import styles from '../../styles/Menu.module.css'
 import {
+    ControlCameraRounded,
     DragIndicatorRounded, FileCopy, FileCopyRounded, LocalLibraryRounded,
     MoreVertRounded,
     PictureAsPdfRounded,
@@ -131,6 +132,10 @@ export default function OptionsMenu(props) {
                                     <MoreVertRounded/>
                                     Botão direito para menu de contexto.
                                 </div>
+                                <div className={styles.helpContainer}>
+                                    <ControlCameraRounded/>
+                                    Botão direito e segure para mover canvas.
+                                </div>
                             </div>
                         )
                     }
@@ -146,7 +151,6 @@ OptionsMenu.propTypes = {
     setState: PropTypes.func,
 
     root: PropTypes.object,
-    canvasRef: PropTypes.object,
     onSave: PropTypes.func,
     handlePrint: PropTypes.func
 }

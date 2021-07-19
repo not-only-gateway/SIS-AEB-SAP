@@ -72,7 +72,7 @@ export default function Link(props) {
     }
 
     return (
-        <svg
+        <g
             onDoubleClick={() => {
                 if (props.type !== 'weak')
                     props.setSelected({
@@ -139,7 +139,7 @@ export default function Link(props) {
                        onChange={event => props.handleChange({name: 'description', value: event.target.value})}
                        value={props.description}/>
             </foreignObject>
-        </svg>
+        </g>
     )
 }
 

@@ -67,7 +67,6 @@ Move.propTypes = {
     nodes: PropTypes.array,
 
     root: PropTypes.object,
-    canvasRef: PropTypes.object,
 
     setState: PropTypes.func,
     event: PropTypes.object

@@ -23,7 +23,7 @@ export default function ScrollCanvas(props) {
         }
     })
     document.addEventListener('mouseup', () => {
-        props.canvas.style.cursor = 'grab'
+        props.canvas.style.cursor = 'default'
         if(frame !== null)
             frame.style.removeProperty('user-select');
         scrolling = false

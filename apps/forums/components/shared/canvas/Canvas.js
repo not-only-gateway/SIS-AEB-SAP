@@ -5,8 +5,6 @@ import React, {useEffect, useRef, useState} from "react";
 import Link from "./modules/link/Link";
 import {useReactToPrint} from "react-to-print";
 import ReactDOM from "react-dom";
-import CanvasContextMenu from "./modules/CanvasContextMenu";
-import LinkContextMenu from "./modules/link/LinkContextMenu";
 import Node from "./modules/ node/Node";
 import Move from "./methods/move/MoveNode";
 import OptionsMenu from "./modules/navigation/OptionsMenu";
@@ -18,12 +16,18 @@ import {v4 as uuid4} from 'uuid';
 
 export default function Canvas(props) {
     const [offsetTop, setOffsetTop] = useState(-1)
-    const [data, setData] = useState({id: uuid4().toString(), subject: 'Sem título', nodes: [], links: [], groups: [], dimensions: {}})
+    const [data, setData] = useState({
+        id: uuid4().toString(),
+        subject: 'Sem título',
+        nodes: [],
+        links: [],
+        groups: [],
+        dimensions: {}
+    })
     const [toBeLinked, setToBeLinked] = useState(null)
     const [openNodeOverview, setOpenNodeOverview] = useState(false)
     const root = useRef()
     const contextMenuRef = useRef()
-    const canvasRef = useRef()
     const [selectedNode, setSelectedNode] = useState(undefined)
     const [scale, setScale] = useState(1)
     const printRef = useRef()
@@ -31,6 +35,7 @@ export default function Canvas(props) {
         content: () => printRef.current
     });
     const [selectedLink, setSelectedLink] = useState(null)
+
     useEffect(() => {
         if (props.data !== undefined && props.data.id !== undefined)
             setData(props.data)
@@ -40,6 +45,7 @@ export default function Canvas(props) {
                 setOffsetTop(element.offsetTop)
         }
     }, [props.data])
+
     const renderNode = (node, index) => {
         return (
             <Node
@@ -131,7 +137,6 @@ export default function Canvas(props) {
                         ...{
                             nodes: data.nodes,
                             root: root.current,
-                            canvasRef: canvasRef.current,
                             setState: setData,
                             data: data,
                             scale: scale
@@ -157,9 +162,10 @@ export default function Canvas(props) {
             />
         )
     }
+
     return (
         <div
-            style={{height: 'calc(100vh - ' + offsetTop + 'px)', width: '100%'}}
+            style={{height: '100%', width: '100%'}}
             id={'frame'}
             onMouseDown={event => {
                 const className = event.target.className
@@ -177,7 +183,6 @@ export default function Canvas(props) {
                 <Scale scale={scale} setScale={setScale}/>
                 < OptionsMenu
                     root={root.current}
-                    canvasRef={canvasRef.current}
                     data={data}
                     setState={setData}
                     onSave={props.onSave}
@@ -185,7 +190,7 @@ export default function Canvas(props) {
                 />
                 <div ref={contextMenuRef} style={{position: 'absolute'}}/>
                 <div ref={root} className={styles.canvasContainer} onMouseDown={event => {
-                    if (typeof event.target.className === 'object')
+                    if (typeof event.target.className === 'object' && event.button === 2)
                         ScrollCanvas({canvas: root.current, event: event})
                 }}>
                     <svg
@@ -208,7 +213,7 @@ export default function Canvas(props) {
 
                         <foreignObject
                             width={'100%'} height={'100%'}
-                            ref={canvasRef} id={'canvas'}
+                            id={'canvas'}
                         >
 
                             {data.nodes.map((node, index) => (
@@ -219,7 +224,7 @@ export default function Canvas(props) {
                         </foreignObject>
 
                         {data.links.map((link, index) => (
-                            <svg key={link.child.id + '-link-' + link.parent.id}>
+                            <g key={link.child.id + '-link-' + link.parent.id}>
 
                                 <Link
                                     target={link.parent} source={link.child}
@@ -260,7 +265,7 @@ export default function Canvas(props) {
                                     }}
                                     description={link.description}
                                 />
-                            </svg>
+                            </g>
                         ))}
 
                     </svg>

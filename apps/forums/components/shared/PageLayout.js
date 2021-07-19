@@ -128,7 +128,7 @@ export default function PageLayout(props) {
                 marginTop: router.pathname !== '/authenticate' ? '60px' : undefined,
                 overflowX: 'hidden'
             }}>
-                {props.children({searchInput, notSearched, setNotSearched})}
+                {props.children}
             </div>
             <div id={'root'}/>
         </div>
