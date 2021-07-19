@@ -12,12 +12,14 @@ export default function Move(props) {
         moving = true
         nodeRef.style.cursor = 'move'
         nodeRef.style.zIndex = '4'
+
         document.addEventListener('mousemove', event => {
             if (moving)
                 move(event, false)
         })
         document.addEventListener("mouseup", event => {
             if (moving) {
+                document.removeEventListener('mousemove', () => null)
                 moving = false
                 nodeRef.style.zIndex = '5'
                 nodeRef.style.opacity = '1';
@@ -28,6 +30,7 @@ export default function Move(props) {
     }
 
     function move(event, save) {
+
         let newPlacement = {
             x: lastPlacement.x - event.clientX,
             y: lastPlacement.y - event.clientY

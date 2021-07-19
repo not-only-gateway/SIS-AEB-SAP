@@ -2,8 +2,9 @@ import PropTypes from "prop-types";
 import React, {useEffect, useRef, useState} from "react";
 import GetCurve from "./GetCurve";
 import styles from '../../styles/Link.module.css'
-import NodeContextMenu from "../ node/NodeContextMenu";
+import NodeContextMenu from "../node/NodeContextMenu";
 import LinkContextMenu from "./LinkContextMenu";
+import AdjustLink from "../../methods/move/AdjustLink";
 
 export default function Link(props) {
     const [color, setColor] = useState(undefined)
@@ -14,62 +15,45 @@ export default function Link(props) {
     useEffect(() => {
         const t = document.getElementById(props.target.id + '-node')
         const s = document.getElementById(props.source.id + '-node')
-        handleMouseDown(t, s)
 
+        pathRef.current.setAttribute('d', GetCurve({
+            target: {
+                x: t.offsetLeft,
+                y: t.offsetTop,
+                height: t.offsetHeight,
+                width: t.offsetWidth
+            },
+            source: {
+                x: s.offsetLeft,
+                y: s.offsetTop,
+                height: s.offsetHeight,
+                width: s.offsetWidth
+            }
+        }))
 
         t.addEventListener('mousedown', event => {
-            handleMouseDown(t, s)
+            handleMouseDown(t)
+            AdjustLink({
+                pathRef: pathRef.current,
+                descriptionRef: descriptionRef.current,
+                description: props.description,
+                source: s,
+                target: t
+            })
+            document.removeEventListener('mousemove', () => null)
+            document.removeEventListener('mouseup', () => null)
         })
-        s.addEventListener('mousedown', event => {
-            handleMouseDown(t, s)
-        })
-        document.addEventListener('mouseup', () => {
-            if (mouseDown) {
-                document.removeEventListener('mousemove', () => null)
-                setColor(undefined)
-                mouseDown = false
-            }
-        })
-
-
         return () => {
             t.removeEventListener('mousedown', () => null)
             s.removeEventListener('mousedown', () => null)
-            document.removeEventListener('mouseup', () => null)
-            document.removeEventListener('mousemove', () => null)
         }
-    }, [props])
-    const handleMouseDown = (t, s) => {
-        update(t, s)
-        mouseDown = true
+    }, [])
+
+    const handleMouseDown = (t) => {
         const selected = t.childNodes.item(props.target.id + '-selector')
         setColor(selected.style.opacity === '1' ? selected.style.borderColor : undefined)
-        document.addEventListener('mousemove', () => {
-            update(t, s)
-        })
     }
-    const update = (t, s) => {
-        if (pathRef.current !== null)
-            pathRef.current.setAttribute('d', GetCurve({
-                target: {
-                    x: t.offsetLeft,
-                    y: t.offsetTop,
-                    height: t.offsetHeight,
-                    width: t.offsetWidth
-                },
-                source: {
-                    x: s.offsetLeft,
-                    y: s.offsetTop,
-                    height: s.offsetHeight,
-                    width: s.offsetWidth
-                }
-            }))
 
-        if(descriptionRef.current !== null && descriptionRef.current !== undefined){
-            descriptionRef.current.setAttribute('x', (t.offsetLeft + t.offsetWidth / 2 + s.offsetWidth / 2 + s.offsetLeft) / 2 - 32.5)
-            descriptionRef.current.setAttribute('y', (t.offsetTop + t.offsetHeight / 2 + s.offsetHeight / 2 + s.offsetTop) / 2 - 20)
-        }
-    }
 
     return (
         <g

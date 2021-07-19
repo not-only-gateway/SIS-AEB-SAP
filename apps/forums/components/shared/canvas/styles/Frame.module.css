@@ -19,6 +19,7 @@
     height: 100%;
     width: calc(100% - 450px);
     cursor: default;
+    scroll-behavior: auto;
 }
 
 .header {

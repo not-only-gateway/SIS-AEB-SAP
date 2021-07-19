@@ -3,10 +3,7 @@ import PropTypes from 'prop-types'
 export default function ScrollCanvas(props) {
     let scrolling = true
     let pos = { top: 0, left: 0, x: 0, y: 0 };
-    const frame = document.getElementById('frame')
-    if(frame !== null)
-        frame.style.userSelect = 'none';
-    props.canvas.style.scrollBehavior = 'auto'
+
     pos = {
         left: props.canvas.scrollLeft,
         top: props.canvas.scrollTop,
@@ -26,6 +23,8 @@ export default function ScrollCanvas(props) {
         props.canvas.style.cursor = 'default'
         if(frame !== null)
             frame.style.removeProperty('user-select');
+
+        document.removeEventListener('mousemove', () => null)
         scrolling = false
     })
 

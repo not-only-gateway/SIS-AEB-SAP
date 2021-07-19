@@ -5,12 +5,12 @@ import React, {useEffect, useRef, useState} from "react";
 import Link from "./modules/link/Link";
 import {useReactToPrint} from "react-to-print";
 import ReactDOM from "react-dom";
-import Node from "./modules/ node/Node";
+import Node from "./modules/node/Node";
 import Move from "./methods/move/MoveNode";
 import OptionsMenu from "./modules/navigation/OptionsMenu";
-import NodeOverview from "./modules/ node/NodeOverview";
+import NodeOverview from "./modules/node/NodeOverview";
 import ScrollCanvas from "./methods/move/ScrollCanvas";
-import Scale from "./modules/Scale";
+import Scale from "./modules/navigation/Scale";
 import {v4 as uuid4} from 'uuid';
 
 
@@ -165,7 +165,7 @@ export default function Canvas(props) {
 
     return (
         <div
-            style={{height: '100%', width: '100%'}}
+            style={{height: '100%', width: '100%', userSelect: 'none', scrollBehavior: 'auto'}}
             id={'frame'}
             onMouseDown={event => {
                 const className = event.target.className
@@ -178,10 +178,9 @@ export default function Canvas(props) {
                 if (!openNodeOverview && contextMenuRef.current !== null && contextMenuRef.current.firstChild && className !== 'Canvas_optionButton__1K9rT' && className !== 'Canvas_lineContentContainer__1xCXK')
                     ReactDOM.unmountComponentAtNode(contextMenuRef.current)
             }}>
-            <div
-                className={styles.content}>
+            <div className={styles.content}>
                 <Scale scale={scale} setScale={setScale}/>
-                < OptionsMenu
+                <OptionsMenu
                     root={root.current}
                     data={data}
                     setState={setData}
