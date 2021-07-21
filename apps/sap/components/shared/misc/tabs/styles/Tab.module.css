@@ -1,0 +1,56 @@
+.tabsContainer {
+  display: grid;
+  align-items: flex-start;
+  gap: 16px;
+  justify-content: flex-start;
+
+  background: white;
+  transition: 300ms ease-in-out;
+}
+
+
+.tabButtonContainer {
+  cursor: pointer;
+
+  font-family: 'Roboto' !important;
+  outline: none;
+
+  transition: 300ms ease-in-out;
+
+  box-shadow: none;
+  padding: 12px 24px;
+  text-align: center;
+
+  border-radius: 5px;
+
+  border: none;
+  background: transparent;
+
+  animation: fadeIn ease-in-out 250ms forwards;
+}
+
+.tabButtonContainer:hover {
+  background: #E8F0FE;
+}
+
+.container {
+  display: flex;
+  align-items: flex-start;
+  gap: 128px;
+  width: 100%;
+}
+
+.contentContainer {
+  width: 100%;
+  animation: fadeIn 500ms linear forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100%;
+  }
+
+}

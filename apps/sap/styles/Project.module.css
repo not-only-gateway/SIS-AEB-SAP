@@ -1,0 +1,44 @@
+.pageContainer{
+
+    display: grid;
+}
+.header{
+    display: flex;
+    background: #f4f5fa;
+    border-bottom: #e0e0e0 1px solid;
+    padding: 16px 7%;
+}
+
+.info{
+    display: grid;
+    justify-content: flex-start;
+    gap: 8px;
+}
+.content{
+    width: 55%;
+    margin: 32px auto auto;
+}
+
+.buttonContainer{
+    width: 100%;
+    padding: 16px;
+    border-radius: 8px;
+    border: #e0e0e0 1px solid;
+    background: white;
+    outline: none;
+
+    transition: 150ms linear;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+    color: #555555;
+    cursor: pointer;
+    font-family: Roboto;
+    font-size: .8rem;
+}
+
+.buttonContainer:hover{
+    background: #f4f5fa;
+}

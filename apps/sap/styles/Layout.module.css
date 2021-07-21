@@ -1,0 +1,16 @@
+.pageContentContainer{
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+}
+.pageContentContainer:first-child{
+    height: auto;
+}
+
+.container{
+    font-family: Roboto !important;
+    background: white;
+    overflow: hidden;
+    height: 100vh;
+    position: relative;
+}

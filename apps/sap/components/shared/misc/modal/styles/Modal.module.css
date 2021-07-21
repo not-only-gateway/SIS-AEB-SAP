@@ -1,0 +1,49 @@
+
+.modalContainer {
+    width: 100%;
+    height: 100%;
+}
+
+.fadeIn {
+    position: relative;
+    animation: fadeIn ease-in-out 250ms forwards;
+
+}
+
+.fadeOutAnimation {
+    position: relative;
+    animation: fadeOut ease-in-out 250ms forwards;
+
+}
+
+
+@keyframes fadeOut {
+
+    0% {
+        opacity: 1;
+        height: inherit;
+    }
+    50% {
+        opacity: .5;
+        height: inherit;
+    }
+    90% {
+        opacity: .1;
+        height: inherit;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+        height: 0;
+        z-index: -1;
+    }
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+
+}
