@@ -1,11 +1,11 @@
 .tabsContainer {
-  display: grid;
-  align-items: flex-start;
+  display: flex;
   gap: 16px;
   justify-content: flex-start;
 
   background: white;
-  transition: 300ms ease-in-out;
+  transition: 150ms linear;
+  border-bottom: #e0e0e0 1px solid;
 }
 
 
@@ -21,7 +21,7 @@
   padding: 12px 24px;
   text-align: center;
 
-  border-radius: 5px;
+  border-radius: 5px 5px 0 0;
 
   border: none;
   background: transparent;
@@ -34,9 +34,9 @@
 }
 
 .container {
-  display: flex;
+  display: grid;
   align-items: flex-start;
-  gap: 128px;
+  gap: 32px;
   width: 100%;
 }
 

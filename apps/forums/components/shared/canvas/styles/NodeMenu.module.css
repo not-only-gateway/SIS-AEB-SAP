@@ -18,8 +18,8 @@
 .selectedHighlight{
     transition: 250ms ease;
     position: absolute;
-    top: -12px;
-    left: -12px;
+    top: -5px;
+    left: -5px;
 }
 
 .closeButtonMenu{

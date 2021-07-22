@@ -14,8 +14,7 @@ export default function Tabs(props) {
                             disabled={button.disabled}
                             className={styles.tabButtonContainer}
                             style={{
-                                border: props.openTab === button.key ? '#0095ff 2.5px solid' : 'transparent 2.5px solid',
-                                background: props.openTab === button.key ? '#E8F0FE' : undefined,
+                                borderBottom: props.openTab === button.key ? '#0095ff 2px solid' : 'transparent 2px solid'
                             }}
                         >
                             {button.value}

@@ -4,19 +4,29 @@
 }
 .header{
     display: flex;
-    background: #f4f5fa;
-    border-bottom: #e0e0e0 1px solid;
     padding: 16px 7%;
 }
 
 .info{
-    display: grid;
-    justify-content: flex-start;
+    display: flex;
+
     gap: 8px;
 }
+.headerButton{
+    font-size: 1.2rem;
+    outline: none;
+    border: none;
+    border-bottom: transparent 1px solid;
+    background: transparent;
+    color: #555555;
+    cursor: pointer;
+}
+.headerButton:hover{
+    border-bottom: #e0e0e0 1px solid;
+}
 .content{
-    width: 55%;
-    margin: 32px auto auto;
+    width: 86%;
+    margin: 16px auto auto;
 }
 
 .buttonContainer{

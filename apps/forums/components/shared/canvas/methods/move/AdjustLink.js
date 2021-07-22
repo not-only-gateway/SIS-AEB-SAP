@@ -16,6 +16,7 @@ export default function AdjustLink(props) {
                 moving = false
                 document.removeEventListener('mousemove', () => null)
                 event.currentTarget.removeEventListener('mousemove', up);
+                props.setColor(undefined)
             }
         }, {
             once: true
@@ -54,5 +55,6 @@ AdjustLink.propTypes = {
     target: PropTypes.object,
     pathRef: PropTypes.object,
     descriptionRef: PropTypes.object,
-    description: PropTypes.string
+    description: PropTypes.string,
+    setColor: PropTypes.func
 }

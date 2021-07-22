@@ -10,7 +10,7 @@ export default function ColorField(props){
         <div style={{display: 'grid', gap: '3px'}}>
             <div className={styles.labelContainer}>{props.label}</div>
             <div style={{
-                border: '#e0e0e0 1px solid',
+                border: '#ecedf2 1px solid',
                 borderRadius: '8px',
                 padding: '8px',
                 width: props.width,

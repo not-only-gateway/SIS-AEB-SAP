@@ -11,18 +11,23 @@ import {
     MoreRounded,
     MoreVertRounded
 } from "@material-ui/icons";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Overview from "./Overview";
 import Description from "./Description";
 import History from "./History";
 
 export default function EntityLayout(props) {
     const lang = EntityLayoutPT
-
+    const ref = useRef()
     const [openHistory, setOpenHistory] = useState(false)
     const [infoModal, setInfoModal] = useState(false)
     const [openOptions, setOpenOptions] = useState(false)
+    const [height, setHeight] = useState(undefined)
+
     useEffect(() => {
+        const newHeight = document.documentElement.offsetHeight - ref.current.offsetTop - 32
+        if (ref.current.offsetHeight > newHeight)
+            setHeight(newHeight)
         document.addEventListener('mousedown', event => {
             const target = event.target.className
             if (target !== 'EntityLayout_optionsContainer__1uQvl' && target !== 'EntityLayout_buttonContainer__NhngH' && target !== 'EntityLayout-module_buttonContainer__DCckt' && typeof target !== 'object')
@@ -32,69 +37,71 @@ export default function EntityLayout(props) {
             document.removeEventListener('mousedown', () => null)
         }
     }, [])
+
     return (
-        <>
-            {!props.onlyEdit && Array.isArray(props.information) ?
-                <Description handleClose={() => setInfoModal(false)} open={infoModal} information={props.information}
-                             rootElementID={props.rootElementID}/>
-                :
-                null
-            }
+        // <div >
+        //     {!props.onlyEdit && Array.isArray(props.information) ?
+        //         <Description handleClose={() => setInfoModal(false)} open={infoModal} information={props.information}
+        //                      rootElementID={props.rootElementID}/>
+        //         :
+        //         null
+        //     }
 
-            <div className={styles.container}>
-                <div className={styles.headerContainer}>
-                    <div className={styles.header}>
-                        <button className={[styles.returnButton, styles.buttonContainer].join(' ')}
-                                style={{display: props.returnButton ? undefined : 'none'}}
-                                onClick={() => props.handleClose()}>
-                            <ArrowBackRounded/>
-                        </button>
-                        {props.label}
-
-                    </div>
-
-                    <button className={styles.buttonContainer} onClick={() => setOpenOptions(!openOptions)}
-                            style={{
-                                border: 'none',
-                                borderRadius: '8px',
-                                padding: '8px',
-                                color: openOptions ? '#0095ff' : undefined,
-                                background: openOptions ? '#E8F0FE' : undefined
-                            }}>
-                        <MoreVertRounded/>
+        <div ref={ref} className={styles.container} style={{height: height !== undefined ? height + 'px' : 'auto'}}>
+            <div className={styles.headerContainer} style={{display: props.noHeader ? 'none' : undefined}}>
+                <div className={styles.header}>
+                    <button className={[styles.returnButton, styles.buttonContainer].join(' ')}
+                            style={{display: props.returnButton ? undefined : 'none'}}
+                            onClick={() => props.handleClose()}>
+                        <ArrowBackRounded/>
                     </button>
-                    {openOptions ?
-                        <div className={styles.optionsContainer}>
+                    {props.label}
 
-                            <button className={styles.buttonContainer}
-                                    onClick={() => setOpenHistory(true)} disabled={true}>
-                                <HistoryRounded/>
-                                {lang.history}
-
-                            </button>
-                            <button className={styles.buttonContainer} disabled={true}>
-                                <InfoRounded/>
-                                {lang.info}
-                            </button>
-                        </div>
-                        :
-                        null
-                    }
                 </div>
-                {openHistory && props.fetchUrl !== undefined ?
-                    <History {...props} handleClose={() => setOpenHistory(false)}/>
+
+                <button className={styles.buttonContainer} onClick={() => setOpenOptions(!openOptions)}
+                        style={{
+                            border: 'none',
+                            borderRadius: '8px',
+                            padding: '8px',
+                            color: openOptions ? '#0095ff' : undefined,
+                            background: openOptions ? '#E8F0FE' : undefined
+                        }}>
+                    <MoreVertRounded/>
+                </button>
+                {openOptions ?
+                    <div className={styles.optionsContainer}>
+
+                        <button className={styles.buttonContainer}
+                                onClick={() => setOpenHistory(true)} disabled={true}>
+                            <HistoryRounded/>
+                            {lang.history}
+
+                        </button>
+                        <button className={styles.buttonContainer} disabled={true}>
+                            <InfoRounded/>
+                            {lang.info}
+                        </button>
+                    </div>
                     :
-                    <FormLayout
-                        {...props}
-                        hasInfo={props.information !== null && props.information !== undefined}
-                        handleClose={() => props.handleClose()}
-                    />
+                    null
                 }
             </div>
-        </>
+            {openHistory && props.fetchUrl !== undefined ?
+                <History {...props} handleClose={() => setOpenHistory(false)}/>
+                :
+                <FormLayout
+                    {...props}
+                    hasInfo={props.information !== null && props.information !== undefined}
+                    handleClose={() => props.handleClose()}
+                />
+            }
+        </div>
+        // </div>
     )
 }
 EntityLayout.propTypes = {
+    noHeader: PropTypes.bool,
     returnButton: PropTypes.bool,
     onlyEdit: PropTypes.bool,
     label: PropTypes.string,

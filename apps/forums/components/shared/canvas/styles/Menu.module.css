@@ -1,5 +1,5 @@
 .menuContainer {
-    width: 450px;
+    width: 400px;
     margin-right: auto;
     margin-top: auto;
     height: 100%;
@@ -31,6 +31,7 @@
     transition: 150ms linear;
     position: sticky;
     top: 0;
+    font-size: .8rem;
 }
 
 .buttonContainer:hover {

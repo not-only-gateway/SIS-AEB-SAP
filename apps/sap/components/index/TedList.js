@@ -1,71 +1,74 @@
-import PropTypes from 'prop-types'
 import React, {useState} from "react";
-import animations from "../../styles/Animations.module.css";
-import ProjectForm from "../index/ProjectForm";
-import handleObjectChange from "../../utils/shared/HandleObjectChange";
-import List from "../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";
 import Host from "../../utils/shared/Host";
-import ObjectiveForm from "./ObjectiveForm";
-import RiskForm from "./RiskForm";
-import {EditRounded} from "@material-ui/icons";
+import PropTypes from "prop-types";
+import animations from "../../styles/Animations.module.css";
+import handleObjectChange from "../../utils/shared/HandleObjectChange";
+import List from "../shared/misc/list/List";
+import ProjectForm from "./ProjectForm";
+import TedForm from "./TedForm";
 
-export default function Risks(props) {
+export default function TedList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
 
     return (
         <>
             {!open ? null :
-                <div className={animations.fadeIn}>
-                    <RiskForm
+                <div className={animations.fadeIn} style={{marginTop: '32px', marginBottom: '32px'}}>
+                    <TedForm
                         returnToMain={() => {
                             setOpen(false)
-                        }}
+                            props.setOpen(false)
+                        }} redirect={props.redirect}
                         handleChange={event => handleObjectChange({
                             event: event,
                             setData: setCurrentEntity
                         })}
-                        create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                        data={currentEntity} project={props.project}/>
+                        create={true}
+                        data={currentEntity}/>
                 </div>
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'project'}
+                    listKey={'teds'}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/risk'}
+                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/ted'}
                     renderElement={element => {
                         return (
-                            <div style={{display: 'flex', gap: '16px', justifyContent: 'space-between', width: '100%'}}>
+                            <div style={{display: 'flex',justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
+
                                 <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
                                     <div>
-                                        {element.description}
+                                        {element.number}
                                     </div>
                                     <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
                                     <div>
-                                        {element.analysis}
+                                        {element.responsible}
                                     </div>
                                 </div>
-                                <EditRounded style={{fontSize: '1.3rem', color: '#555555'}}/>
+                                <div>
+                                    {element.process}
+                                </div>
 
                             </div>
                         )
                     }}
-                    clickEvent={() => setOpen(true)}
+                    clickEvent={() => null}
                     setEntity={entity => {
-                        setCurrentEntity(entity)
-                    }} searchFieldName={'search_input'} title={'Riscos'} scrollableElement={'scrollableDiv'}
+                        if (entity === null || entity === undefined) {
+                            setOpen(true)
+                            props.setOpen(true)
+                        } else
+                            props.redirect(entity.id)
+                    }} searchFieldName={'search_input'} title={'Termos de Execução Descentralizada'} scrollableElement={'scrollableDiv'}
                     fetchSize={15}
-                    fetchParams={{
-                        project: props.project.id
-                    }}
                     applySearch={props.notSearched}
                     setAppliedSearch={props.setNotSearched}/>
             </div>
         </>
     )
 }
-Risks.propTypes = {
-    project: PropTypes.object
+TedList.propTypes = {
+    redirect: PropTypes.func
 }

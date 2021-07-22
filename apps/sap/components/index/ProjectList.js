@@ -14,12 +14,12 @@ export default function ProjectList(props) {
     return (
         <>
             {!open ? null :
-                <div className={animations.fadeIn}>
+                <div className={animations.fadeIn} style={{marginTop: '32px', marginBottom: '32px'}}>
                     <ProjectForm
                         returnToMain={() => {
                             setOpen(false)
                             props.setOpen(false)
-                        }}
+                        }} redirect={props.redirect}
                         handleChange={event => handleObjectChange({
                             event: event,
                             setData: setCurrentEntity
@@ -62,7 +62,6 @@ export default function ProjectList(props) {
                             props.redirect(entity.id)
                     }} searchFieldName={'search_input'} title={'Projetos'} scrollableElement={'scrollableDiv'}
                     fetchSize={15}
-                    fetchParams={{}}
                     applySearch={props.notSearched}
                     setAppliedSearch={props.setNotSearched}/>
             </div>

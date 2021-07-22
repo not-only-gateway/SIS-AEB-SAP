@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import PropTypes from 'prop-types'
-import {DropDownField, TextField} from "sis-aeb-inputs";
+import { TextField} from "sis-aeb-inputs";
 import {Alert} from "sis-aeb-misc";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
@@ -43,8 +43,8 @@ export default function ProjectForm(props) {
                         {name: 'responsible', type: 'string'},
                     ],
                     changed: changed
-                }}
-                returnButton={true}
+                }} noHeader={!props.create}
+                returnButton={props.create}
                 handleSubmit={() =>
                     submitProject({
                         pk: props.id,
@@ -52,7 +52,11 @@ export default function ProjectForm(props) {
                         setStatus: setStatus,
                         create: props.create
                     }).then(res => {
-                        setChanged(!res)
+                        if(res !== null && props.create)
+                            props.redirect(res)
+
+                        if(!props.create && res)
+                            setChanged(false)
                     })}
                 handleClose={() => props.returnToMain()}
                 forms={[{
@@ -70,7 +74,7 @@ export default function ProjectForm(props) {
 
 
                             <TextField
-                                type={'string'}
+
                                 placeholder={lang.description} label={lang.description}
                                 handleChange={event => {
                                     setChanged(true)

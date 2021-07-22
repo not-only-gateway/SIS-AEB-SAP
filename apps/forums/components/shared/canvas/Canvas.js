@@ -113,23 +113,30 @@ export default function Canvas(props) {
                         ReactDOM.unmountComponentAtNode(contextMenuRef.current)
 
                     const nodeEl = document.getElementById(node.id + '-node')
-                    if (nodeEl !== null)
+                    if (nodeEl !== null) {
                         nodeEl.style.border = node.color + ' 2px solid'
 
-                    setSelectedNode(null)
-                    ReactDOM.render(
-                        <NodeOverview
-                            node={node} setState={setData} data={data}
-                            handleClose={() => {
-                                setSelectedNode(node.id)
-                                if (nodeEl !== null)
-                                    nodeEl.style.border = 'transparent 2px solid'
-                                setOpenNodeOverview(false)
-                                ReactDOM.unmountComponentAtNode(contextMenuRef.current)
-                            }}
-                        />,
-                        contextMenuRef.current
-                    )
+                        setSelectedNode(null)
+                        ReactDOM.render(
+                            <NodeOverview
+                                node={node} setState={setData} data={data}
+                                contextMenuRef={contextMenuRef.current}
+                                root={root.current} nodeIndex={index}
+                                handleClose={() => {
+                                    setSelectedNode(node.id)
+                                    if (nodeEl !== null)
+                                        nodeEl.style.border = 'transparent 2px solid'
+                                    setOpenNodeOverview(false)
+                                    ReactDOM.unmountComponentAtNode(contextMenuRef.current)
+                                }}
+                            />,
+                            contextMenuRef.current
+                        )
+
+                        contextMenuRef.current.style.top = nodeEl.top + 'px'
+                        contextMenuRef.current.style.left = nodeEl.left + 'px'
+                    }
+
                 }}
                 move={node => {
                     Move({
@@ -227,7 +234,10 @@ export default function Canvas(props) {
 
                                 <Link
                                     target={link.parent} source={link.child}
-                                    type={link.type}
+                                    type={link.type} color={() => data.nodes.find(node => {
+                                    if (node.id === link.parent.id)
+                                        return node
+                                })}
                                     setSelected={setSelectedLink}
                                     selectedLink={selectedLink}
                                     handleChange={event => {

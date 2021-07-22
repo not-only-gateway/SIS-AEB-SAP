@@ -8,6 +8,9 @@ import ProjectRequests from "../utils/fetch/ProjectRequests";
 import {EditRounded, ListRounded} from "@material-ui/icons";
 import Objectives from "../components/project/Objectives";
 import Risks from "../components/project/Risks";
+import Link from 'next/link'
+import ProjectForm from "../components/index/ProjectForm";
+import handleObjectChange from "../utils/shared/HandleObjectChange";
 
 export default function project(props) {
     const lang = ProjectPT
@@ -25,28 +28,30 @@ export default function project(props) {
 
     if (project !== undefined)
         return (
-            <>
+            <div style={{width: '85%', margin: 'auto'}}>
                 <Head>
-                    <title>{lang.title}</title>
+                    <title>{project.name}</title>
                     <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
                 </Head>
 
                 <div className={styles.pageContainer}>
                     <div className={styles.header}>
-                        <div className={styles.info}>
+                        <div className={styles.info} style={{color: '#555555', fontSize: '1.2rem'}}>
+                            <Link href={'/'}>
+                                <button className={styles.headerButton}>
+                                    {lang.projects}
+                                </button>
+                            </Link>
+                            /
                             <div style={{
-                                fontSize: '1.6rem',
+
                                 color: '#333333',
                                 textTransform: 'capitalize'
                             }}>
                                 {project.name}
                             </div>
-                            <div style={{
-                                fontSize: '.9rem',
-                                color: '#555555'
-                            }}>
-                                {project.description}
-                            </div>
+
+
                         </div>
 
                     </div>
@@ -59,25 +64,31 @@ export default function project(props) {
                                     key: 0,
                                     value: lang.project,
                                     content: (
-                                        <div style={{display: 'grid', gap: '8px'}}>
-                                            <button className={styles.buttonContainer} onClick={() => setOpenTab(0)}>
-                                                <EditRounded/>
-                                                {lang.edit}
-                                            </button>
-                                            <button className={styles.buttonContainer} onClick={() => setOpenTab(0)}>
-                                                <ListRounded/>
-                                                {lang.teds}
-                                            </button>
-                                        </div>
+                                        <ProjectForm
+                                            returnToMain={() => {
+                                                null
+                                            }}
+                                            handleChange={event => handleObjectChange({
+                                                event: event,
+                                                setData: setProject
+                                            })} id={project.id}
+                                            create={false}
+                                            data={project}/>
                                     )
                                 },
+
                                 {
                                     key: 1,
+                                    value: lang.teds,
+                                    content: null
+                                },
+                                {
+                                    key: 2,
                                     value: lang.objectives,
                                     content: <Objectives project={project}/>
                                 },
                                 {
-                                    key: 2,
+                                    key: 3,
                                     value: lang.risks,
                                     content: <Risks project={project}/>
                                 }
@@ -87,7 +98,7 @@ export default function project(props) {
                         />
                     </div>
                 </div>
-            </>
+            </div>
         )
     else
         return null

@@ -3,9 +3,9 @@
     background: white;
     border-radius: 10px;
 
-    padding: 16px;
+    padding: 16px 16px 0;
     display: grid;
-
+    overflow-y: auto;
 }
 
 .headerContainer {
@@ -42,6 +42,7 @@
 .buttonContainer:hover {
     background: #f4f5fa;
 }
+
 .buttonContainer:disabled {
     background: white;
     color: #999999;
@@ -86,17 +87,18 @@
     right: 0px;
     animation: popIn 250ms ease;
 }
+
 @keyframes popIn {
-    0%{
+    0% {
         opacity: 0;
     }
-    100%{
+    100% {
         opacity: 1;
     }
 }
 
-.header{
-    display:flex;
+.header {
+    display: flex;
     gap: 24px;
     align-items: center;
     font-size: 22px;

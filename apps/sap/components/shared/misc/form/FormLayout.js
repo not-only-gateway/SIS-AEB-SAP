@@ -52,19 +52,21 @@ export default function FormLayout(props) {
                     ))}
                 </div>
 
-                <button
-                    className={styles.saveButtonContainer}
-                    onClick={() => props.handleSubmit()} disabled={isDisabled()}
-                    style={{
-                        color: isDisabled() ? '#777777' : 'white',
-                        cursor: isDisabled() ? 'auto' : 'pointer',
-                        border: isDisabled() ? undefined : 'none',
-                        boxShadow: isDisabled() ? 'none' : undefined,
-                        background: isDisabled() ? undefined : '#0095ff',
-                    }}>
-                    {props.create ? lang.create : lang.save}
-                </button>
+                <div className={styles.saveButtonContainer}>
 
+                    <button
+                        className={styles.saveButton}
+                        onClick={() => props.handleSubmit()} disabled={isDisabled()}
+                        style={{
+                            color: isDisabled() ? '#777777' : 'white',
+                            cursor: isDisabled() ? 'auto' : 'pointer',
+                            border: isDisabled() ? undefined : 'none',
+                            boxShadow: isDisabled() ? 'none' : undefined,
+                            background: isDisabled() ? undefined : '#0095ff',
+                        }}>
+                        {props.create ? lang.create : lang.save}
+                    </button>
+                </div>
 
             </div>
         </div>

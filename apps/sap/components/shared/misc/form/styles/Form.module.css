@@ -61,7 +61,17 @@
     width: 100%;
 }
 
-.saveButtonContainer {
+.saveButtonContainer{
+    position: sticky;
+    bottom: 0;
+    z-index: 999;
+    width: 100%;
+    background: white;
+    padding-bottom: 16px;
+    border-top: #e0e0e0 1px solid;
+}
+.saveButton {
+
     padding: 8px;
     display: flex;
     align-items: center;
@@ -75,15 +85,15 @@
     border: #e0e0e0 1px solid;
     transition: 250ms ease-in-out;
     cursor: pointer;
-
     width: 100%;
+
 }
 
-.saveButtonContainer:hover {
+.saveButton:hover {
     box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }
 
-.saveButtonContainer:active {
+.saveButton:active {
     box-shadow: none;
 }
 

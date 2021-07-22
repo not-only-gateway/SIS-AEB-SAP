@@ -1,48 +1,77 @@
 import PropTypes from 'prop-types'
 import NodeTemplate from "../../templates/NodeTemplate";
 import styles from '../../styles/NodeOverview.module.css'
-import {CloseRounded, EditRounded} from "@material-ui/icons";
+import {
+    AttachFile, AttachFileRounded,
+    CloseRounded,
+    DragIndicatorRounded,
+    EditRounded,
+    FileCopyRounded,
+    ImageRounded,
+    PictureAsPdfRounded
+} from "@material-ui/icons";
 import {useState} from "react";
-import NodeForm from "./NodeForm";
+import MoveOverview from "../../methods/move/MoveOverview";
+import {ColorField} from "sis-aeb-inputs";
 
 export default function NodeOverview(props) {
-    const [openForm, setOpenForm] = useState(false)
-    return openForm || props.node.description === undefined || props.node.description === null ? <NodeForm node={props.node} data={props.data} setState={props.setState} handleClose={props.handleClose}/> : (
-        <div className={styles.overviewContainer} id={'node-overview'}>
-            <button className={styles.closeButtonContainer} onClick={() => props.handleClose()}>
-                <CloseRounded/>
-            </button>
-            <div className={styles.body}>
-                <div className={styles.header}>
-                    <div style={{
-                        fontSize: '20px',
-                        fontWeight: 'bold',
-                        fontFamily: 'Roboto',
-                        color: '#393C44',
-                        display: 'flex',
-                        gap: '16px',
-                        alignItems: 'center'
-                    }}>
-                        {props.node.title}
-                        <button className={styles.buttonContainer} onClick={() => setOpenForm(true)}>
-                            <EditRounded/>
-                        </button>
-                    </div>
-                    <div style={{fontSize: '.9rem', fontFamily: 'Roboto', color: '#393C44'}}>
-                        {props.node.description}
-                    </div>
-                </div>
+    const [node, setNode] = useState(props.node)
+    const handleChange = (name, value) => {
+        const newNodes = [...props.data.nodes]
+        const newNode = {...node}
 
-                <div style={{fontSize: '.9rem', fontFamily: 'Roboto', color: '#393C44'}}>
-                    {props.node.body}
-                </div>
+        newNode[name] = value
+        newNodes[props.nodeIndex] = newNode
+        setNode(newNode)
+        props.setState(({
+            ...props.data,
+            nodes: newNodes
+        }))
+    }
+    return (
+        <div className={styles.container} id={'node-overview'}>
+            <div className={styles.dragHeader} onMouseDown={event => MoveOverview({
+                contextMenuRef: props.contextMenuRef,
+                root: props.root,
+                event: event
+            })}>
+                <DragIndicatorRounded/>
+                <button className={styles.closeButtonContainer} onClick={() => props.handleClose()}>
+                    <CloseRounded style={{fontSize: '1.3rem'}}/>
+                </button>
             </div>
+
+            <div className={styles.header}>
+                <input className={[styles.input, styles.inputTitle].join(' ')} value={node.title}
+                       placeholder={'Título'} onChange={event => handleChange('title', event.target.value)}/>
+
+                <input className={[styles.input, styles.inputBody].join(' ')} value={node.description}
+                       placeholder={'Descrição'}
+                       onChange={event => handleChange('description', event.target.value)}/>
+            </div>
+
+            <textarea className={[styles.input, styles.inputBody].join(' ')} value={node.body}
+                      placeholder={'Corpo'} style={{marginTop: '32px'}}
+                      onChange={event => handleChange('body', event.target.value)}/>
+            <ColorField
+                required={false} width={'100%'}
+                value={node.color}
+                handleChange={event => {
+                    handleChange('color', event)
+                }} label={'Cor de destaque'}/>
+            <button className={styles.uploadButton} disabled={true}>
+                <AttachFileRounded/>
+                <div>
+                    Anexar arquivo
+                </div>
+            </button>
+
             <div className={styles.footer}>
                 <div style={{fontFamily: 'Roboto'}}>
                     Criado em:
                 </div>
                 <div style={{fontSize: '.9rem', fontFamily: 'Roboto', color: '#393C44'}}>
-                    {new Date(props.node.creationDate).toDateString()}
+                    {new Date(node.creationDate).toDateString()}
                 </div>
 
             </div>
@@ -55,4 +84,7 @@ NodeOverview.propTypes = {
     setState: PropTypes.func,
     data: PropTypes.object,
     handleClose: PropTypes.func,
+    contextMenuRef: PropTypes.object,
+    root: PropTypes.object,
+    nodeIndex: PropTypes.number
 }

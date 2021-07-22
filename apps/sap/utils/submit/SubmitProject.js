@@ -6,9 +6,8 @@ import PropTypes from 'prop-types'
 const jwt = (new Cookies()).get('jwt')
 
 export default async function submitProject(props) {
-    let response = false
+    let response = props.create ? null : false
 
-    console.log(props.data)
     await axios({
         method: props.create ? 'post' : 'put',
         url: props.create ? Host() + 'project' : Host() + 'project/' + props.pk,
@@ -19,7 +18,7 @@ export default async function submitProject(props) {
             type: 'success',
             message: res.status + ' - ' + res.statusText,
         })
-        response = true
+        response = props.create ? res.data : true
     }).catch(error => {
         props.setStatus({
             type: 'error',

@@ -1,36 +1,34 @@
-.overviewContainer {
+.container {
     background: white;
-    position: fixed;
-    right: 0;
-    top: 60px;
-    width: 450px;
-    height: calc(100vh - 60px);
+    position: absolute;
+    overflow-x: hidden;
+    width: 500px;
+    height: 500px;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     border-left: #E8F0EF 1px solid;
     z-index: 999;
-    padding: 16px;
+    padding: 64px 16px 16px;
 
-    display: grid;
-    align-content: space-between;
+    animation: fadeIn 300ms ease;
 
-    animation: slideRight 300ms ease;
+    border-radius: 8px;
+    overflow-y: auto;
+    display: block;
+    /*align-content: space-between;*/
+
 }
 
-@keyframes slideRight {
+@keyframes fadeIn {
     0% {
-        transform: translateX(100%);
+        opacity: 0;
     }
     100% {
-        transform: unset;
+        opacity: 1;
     }
 }
 
 .header {
-    border-bottom: #e0e0e0 1px solid;
     width: 100%;
-    padding-bottom: 16px;
-    padding-top: 16px;
-    margin-top: 0;
 
     display: grid;
     gap: 8px;
@@ -41,32 +39,13 @@
     border-top: #e0e0e0 1px solid;
     display: grid;
     justify-content: flex-start;
-    padding-bottom: 16px;
-    padding-top: 16px;
+    padding: 16px;
     gap: 8px;
-}
-
-.closeButtonContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    outline: none;
-    background: white;
-    color: #777777;
-
-    border: none;
     position: absolute;
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-    top: 16px;
-    right: 16px;
-    transition: 150ms linear;
-}
-
-.closeButtonContainer:hover {
-    color: #ff5555
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
 }
 
 
@@ -90,21 +69,6 @@
 .buttonContainer:hover {
     color: #0095ff;
     background: #E8F0FE;
-}
-
-.formContainer {
-    background: white;
-    position: fixed;
-    right: 0;
-    top: 60px;
-    width: 450px;
-    height: calc(100vh - 60px);
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    border-left: #E8F0EF 1px solid;
-    z-index: 999;
-    padding: 64px 16px 16px;
-
-    animation: slideRight 300ms ease;
 }
 
 
@@ -140,4 +104,104 @@
     background: white;
     box-shadow: none;
     border: #ecedf2 1px solid;
+}
+
+.dragHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 8px;
+    background: #f4f5fa;
+    border-radius: 8px 8px 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    cursor: move;
+    color: #555555;
+    transition: 150ms linear;
+}
+.dragHeader:active{
+    color: #0095ff;
+}
+.closeButtonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    outline: none;
+    background: transparent;
+    color: #777777;
+
+    border: none;
+    cursor: pointer;
+    transition: 150ms linear;
+}
+
+.closeButtonContainer:hover {
+    color: #ff5555
+}
+
+.input {
+    font-family: Roboto;
+    border: none;
+    outline: none;
+    background: transparent;
+    border-bottom: #ecedf2 1px solid;
+    border-radius: 5px 5px 0 0;
+    transition: 150ms linear;
+    padding: 8px 4px;
+    resize: vertical;
+}
+
+.input:hover {
+    border-bottom: #0095ff 1px solid;
+}
+
+.input:focus-within, .input:focus {
+    border-bottom: #0095ff 1px solid;
+    background: #E8F0FE;
+}
+
+.inputTitle {
+    font-size: 20px;
+    font-weight: bold;
+    color: #393C44;
+}
+
+.inputBody {
+    border: #ecedf2 1px solid;
+    border-radius: 5px;
+    width: 100%;
+    font-size: .9rem;
+    font-family: Roboto;
+    color: #393C44;
+}
+
+.uploadButton{
+    width: 100%;
+    border-radius:5px;
+    border: #ecedf2 1px solid;
+    background: white;
+    font-family: Roboto;
+    color: #393C44;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 8px;
+
+}
+
+.uploadButton:hover{
+    border: #0095ff 1px solid;
+    background: #E8F0FE;
+}
+.uploadButton:disabled{
+    border: #ecedf2 1px solid;
+    background: white;
+    cursor: unset;
+    color: #777777;
 }

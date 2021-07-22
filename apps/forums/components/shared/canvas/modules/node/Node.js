@@ -41,8 +41,7 @@ export default function Node(props) {
                 }
             }}
             onDoubleClick={() => {
-                if (props.toBeLinked === null)
-                    props.openOverview()
+                props.openOverview()
             }}
             onContextMenu={e => {
                 if (props.toBeLinked === null)

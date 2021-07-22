@@ -98,14 +98,14 @@ export default function OptionsMenu(props) {
                         value: 'Ações',
                         content: (
                             <div className={styles.options}>
-                                <div className={styles.buttonContainer} style={{cursor: 'move', fontSize: '.9rem'}}
+                                <div className={styles.buttonContainer} style={{cursor: 'move', fontSize: '.8rem'}}
                                      draggable={props.root !== undefined ? 'true' : false}
                                      onDragStart={() => MoveNewNode(props)}>
                                     <DragIndicatorRounded/>
                                     Adicionar módulo (padrão).
                                 </div>
 
-                                <div className={styles.buttonContainer} style={{cursor: 'move', fontSize: '.9rem'}}
+                                <div className={styles.buttonContainer} style={{cursor: 'move', fontSize: '.8rem'}}
                                      draggable={props.root !== undefined ? 'true' : false}
                                      onDragStart={() => MoveNewNode(props)}>
                                     <DragIndicatorRounded/>
