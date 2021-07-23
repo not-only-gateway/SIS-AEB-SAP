@@ -60,8 +60,7 @@ export default function AddendumList(props) {
                     fetchParams={{
                         ted: props.ted.id
                     }}
-                    applySearch={props.notSearched}
-                    setAppliedSearch={props.setNotSearched}/>
+                    />
             </div>
         </>
     )

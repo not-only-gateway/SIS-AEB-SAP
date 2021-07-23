@@ -7,6 +7,12 @@ export default function MoveOverview(props) {
         x: props.event.clientX,
         y: props.event.clientY
     }
+    const stickyZone = document.getElementById('canvas-sticky-zone')
+    if (props.contextMenuRef.offsetHeight <= 500)
+        stickyZone.style.display = 'block'
+
+    props.contextMenuRef.style.height = 'auto'
+    props.contextMenuRef.childNodes[0].style.height = '500px'
 
     document.addEventListener('mousemove', event => {
         if (moving)
@@ -14,11 +20,24 @@ export default function MoveOverview(props) {
     })
     document.addEventListener("mouseup", event => {
         if (moving) {
+            const closest = event.target.closest('.Shapes_stickyZone__2gH6s')
+
+            if (closest !== null) {
+                props.contextMenuRef.style.top = '0'
+                props.contextMenuRef.style.left = (stickyZone.offsetLeft - 100) + 'px'
+                props.contextMenuRef.style.height = (stickyZone.offsetHeight + 32) + 'px'
+                props.contextMenuRef.childNodes[0].style.height = '100%'
+            }
+
             document.removeEventListener('mousemove', () => null)
             moving = false
+            stickyZone.style.display = 'none'
+
             move(event, true)
         }
-    }, false);
+    }, {
+        once: true
+    });
 
 
     function move(event, save) {

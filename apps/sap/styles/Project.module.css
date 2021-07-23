@@ -52,3 +52,26 @@
 .buttonContainer:hover{
     background: #f4f5fa;
 }
+
+.modalFrame{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modalContainer{
+    height: auto;
+    width: 500px;
+    align-content: flex-start;
+    background: white;
+    position: relative;
+
+    border: #e0e0e0 1px solid;
+    border-radius: 8px;
+
+    padding: 16px;
+
+    display: grid;
+    gap: 8px;
+}

@@ -1,4 +1,5 @@
 export default {
+    pageTitle: 'SIS-AEB / SAP',
     name: 'Nome',
     project: 'Projeto',
     objectives: 'Objetivos',
@@ -26,5 +27,7 @@ export default {
     other: 'Patrocinadores',
     title: 'Novo projeto',
 
-    projects: 'Projetos'
+    projects: 'Projetos',
+
+    workPlan: 'Planos de trabalho'
 }

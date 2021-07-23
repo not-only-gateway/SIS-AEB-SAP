@@ -9,6 +9,7 @@ import handleObjectChange from "../utils/shared/HandleObjectChange";
 import Objectives from "../components/project/Objectives";
 import Risks from "../components/project/Risks";
 import TedList from "../components/index/TedList";
+import WorkPlanList from "../components/index/WorkPlanList";
 
 export default function index(props) {
     const lang = IndexPT
@@ -18,7 +19,7 @@ export default function index(props) {
     return (
         <>
             <Head>
-                <title>{lang.title}</title>
+                <title>{lang.pageTitle}</title>
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
             <div style={{width: '73%', margin: '32px auto auto auto'}}>
@@ -40,7 +41,13 @@ export default function index(props) {
                                 <TedList redirect={id => router.push('/ted/?id=' + id, undefined, {shallow: true})} setOpen={() => null}/>
                             )
                         },
-
+                        {
+                            key: 2,
+                            value: lang.workPlan,
+                            content: (
+                                <WorkPlanList redirect={id => router.push('/workplan/?id=' + id, undefined, {shallow: true})} setOpen={() => null}/>
+                            )
+                        },
                     ]}
                     setOpenTab={setOpenTab}
                     openTab={openTab}

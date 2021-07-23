@@ -12,6 +12,7 @@ import NodeOverview from "./modules/node/NodeOverview";
 import ScrollCanvas from "./methods/move/ScrollCanvas";
 import Scale from "./modules/navigation/Scale";
 import {v4 as uuid4} from 'uuid';
+import StickyZone from "./modules/placeholder/StickyZone";
 
 
 export default function Canvas(props) {
@@ -127,6 +128,8 @@ export default function Canvas(props) {
                                     if (nodeEl !== null)
                                         nodeEl.style.border = 'transparent 2px solid'
                                     setOpenNodeOverview(false)
+                                    contextMenuRef.current.style.right = 'unset'
+
                                     ReactDOM.unmountComponentAtNode(contextMenuRef.current)
                                 }}
                             />,
@@ -185,7 +188,9 @@ export default function Canvas(props) {
                 if (!openNodeOverview && contextMenuRef.current !== null && contextMenuRef.current.firstChild && className !== 'Canvas_optionButton__1K9rT' && className !== 'Canvas_lineContentContainer__1xCXK')
                     ReactDOM.unmountComponentAtNode(contextMenuRef.current)
             }}>
+
             <div className={styles.content}>
+
                 <Scale scale={scale} setScale={setScale}/>
                 <OptionsMenu
                     root={root.current}
@@ -195,6 +200,7 @@ export default function Canvas(props) {
                     handlePrint={handlePrint}
                 />
                 <div ref={contextMenuRef} style={{position: 'absolute'}}/>
+                <StickyZone/>
                 <div ref={root} className={styles.canvasContainer} onMouseDown={event => {
                     if (typeof event.target.className === 'object' && event.button === 2)
                         ScrollCanvas({canvas: root.current, event: event})

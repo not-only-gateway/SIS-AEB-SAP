@@ -60,8 +60,7 @@ export default function Risks(props) {
                     fetchParams={{
                         project: props.project.id
                     }}
-                    applySearch={props.notSearched}
-                    setAppliedSearch={props.setNotSearched}/>
+          />
             </div>
         </>
     )

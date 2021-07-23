@@ -30,16 +30,16 @@ export default function MoveNewNode(props) {
             event.target.style.background = "";
             let newNodes = [...props.data.nodes]
 
-            newNodes.map((node, index) => {
-                const element = document.getElementById(node.id+'-node')
-                let newNode = {...node}
-
-                if(element !== null) {
-                    newNode.placement.x = element.offsetLeft
-                    newNode.placement.y = element.offsetTop
-                    newNodes[index] = newNode
-                }
-            })
+            // newNodes.map((node, index) => {
+            //     const element = document.getElementById(node.id+'-node')
+            //     let newNode = {...node}
+            //
+            //     if(element !== null) {
+            //         newNode.placement.x = element.offsetLeft
+            //         newNode.placement.y = element.offsetTop
+            //         newNodes[index] = newNode
+            //     }
+            // })
 
             newNodes.push({
                 id: uuid4().toString(),
@@ -51,7 +51,7 @@ export default function MoveNewNode(props) {
                     x: (event.clientX - props.root.getBoundingClientRect().left + props.root.scrollLeft - 40),
                     y: (event.clientY - props.root.getBoundingClientRect().top + props.root.scrollTop - 40)
                 },
-                shape: 'circle',
+                shape: props.type,
                 creationDate: (new Date()).getTime()
             })
 
@@ -72,5 +72,6 @@ export default function MoveNewNode(props) {
 MoveNewNode.propTypes = {
     data: PropTypes.object,
     setState: PropTypes.func,
-    root: PropTypes.object
+    root: PropTypes.object,
+    type: PropTypes.oneOf(['circle', 'rect'])
 }

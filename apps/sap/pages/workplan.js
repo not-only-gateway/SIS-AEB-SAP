@@ -1,37 +1,39 @@
-import React, {useEffect, useState} from 'react'
-import {useRouter} from "next/router";
-import Head from "next/head";
 import ProjectPT from "../packages/locales/ProjectPT";
-import styles from "../styles/Project.module.css";
-import Tabs from "../components/shared/misc/tabs/Tabs";
+import React, {useEffect, useState} from "react";
+import {useRouter} from "next/router";
 import ProjectRequests from "../utils/fetch/ProjectRequests";
-import {EditRounded, ListRounded} from "@material-ui/icons";
-import Objectives from "../components/project/Objectives";
-import Risks from "../components/project/Risks";
-import Link from 'next/link'
+import Head from "next/head";
+import styles from "../styles/WorkPlan.module.css";
+import Link from "next/link";
+import Tabs from "../components/shared/misc/tabs/Tabs";
 import ProjectForm from "../components/index/ProjectForm";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
-import ProjectTeds from "../components/project/ProjectTeds";
+import WorkPlanPT from "../packages/locales/WorkPlanPT";
+import WorkPlanForm from "../components/index/WorkPlanForm";
+import WorkPlanRequests from "../utils/fetch/WorkPlanRequests";
+import InfrastructureList from "../components/workplan/InfrastructureList";
+import StatusList from "../components/workplan/StatusList";
+import GoalList from "../components/workplan/GoalList";
 
-export default function project(props) {
-    const lang = ProjectPT
-    const [project, setProject] = useState(undefined)
+export default function WorkPlan(){
+    const lang = WorkPlanPT
+    const [workPlan, setWorkPlan] = useState(undefined)
     const [openTab, setOpenTab] = useState(0)
     const router = useRouter()
     useEffect(() => {
         if (router.isReady) {
-            ProjectRequests.fetchProject(router.query.id).then(res => {
+            WorkPlanRequests.fetchWorkPlan(router.query.id).then(res => {
                 if (res !== null)
-                    setProject(res)
+                    setWorkPlan(res)
             })
         }
     }, [router.isReady])
 
-    if (project !== undefined)
+    if (workPlan !== undefined)
         return (
             <div style={{width: '85%', margin: 'auto'}}>
                 <Head>
-                    <title>{project.name}</title>
+                    <title>{workPlan.name}</title>
                     <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
                 </Head>
 
@@ -40,7 +42,7 @@ export default function project(props) {
                         <div className={styles.info} style={{color: '#555555', fontSize: '1.2rem'}}>
                             <Link href={'/'}>
                                 <button className={styles.headerButton}>
-                                    {lang.projects}
+                                    {lang.workPlans}
                                 </button>
                             </Link>
                             /
@@ -49,7 +51,7 @@ export default function project(props) {
                                 color: '#333333',
                                 textTransform: 'capitalize'
                             }}>
-                                {project.name}
+                                {workPlan.object}
                             </div>
 
 
@@ -63,36 +65,36 @@ export default function project(props) {
                             buttons={[
                                 {
                                     key: 0,
-                                    value: lang.project,
+                                    value: lang.workPlan,
                                     content: (
-                                        <ProjectForm
+                                        <WorkPlanForm
                                             returnToMain={() => {
                                                 null
                                             }}
                                             handleChange={event => handleObjectChange({
                                                 event: event,
-                                                setData: setProject
-                                            })} id={project.id}
+                                                setData: setWorkPlan
+                                            })} id={workPlan.id}
                                             create={false}
-                                            data={project}
+                                            data={workPlan}
                                         />
                                     )
                                 },
 
                                 {
                                     key: 1,
-                                    value: lang.teds,
-                                    content: <ProjectTeds project={project}/>
+                                    value: lang.infrastructure,
+                                    content: <InfrastructureList workPlan={workPlan}/>
                                 },
                                 {
                                     key: 2,
-                                    value: lang.objectives,
-                                    content: <Objectives project={project}/>
+                                    value: lang.status,
+                                    content: <StatusList workPlan={workPlan}/>
                                 },
                                 {
                                     key: 3,
-                                    value: lang.risks,
-                                    content: <Risks project={project}/>
+                                    value: lang.goal,
+                                    content: <GoalList workPlan={workPlan}/>
                                 }
                             ]}
                             setOpenTab={setOpenTab}

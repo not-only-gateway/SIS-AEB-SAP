@@ -16,6 +16,7 @@ import HandleDownload from "../../methods/HandleDownload";
 import HandleUpload from "../../methods/HandleUpload";
 
 import MoveNewNode from "../../methods/move/MoveNewNode";
+import Shapes from "../placeholder/Shapes";
 
 export default function OptionsMenu(props) {
     const [openTab, setOpenTab] = useState(0)
@@ -97,22 +98,7 @@ export default function OptionsMenu(props) {
                         key: 1,
                         value: 'Ações',
                         content: (
-                            <div className={styles.options}>
-                                <div className={styles.buttonContainer} style={{cursor: 'move', fontSize: '.8rem'}}
-                                     draggable={props.root !== undefined ? 'true' : false}
-                                     onDragStart={() => MoveNewNode(props)}>
-                                    <DragIndicatorRounded/>
-                                    Adicionar módulo (padrão).
-                                </div>
-
-                                <div className={styles.buttonContainer} style={{cursor: 'move', fontSize: '.8rem'}}
-                                     draggable={props.root !== undefined ? 'true' : false}
-                                     onDragStart={() => MoveNewNode(props)}>
-                                    <DragIndicatorRounded/>
-                                    Adicionar módulo (círculo).
-                                </div>
-
-                            </div>
+                          <Shapes onDragStart={type => MoveNewNode({...props, ...{type: type}})}/>
                         )
                     },
                     {

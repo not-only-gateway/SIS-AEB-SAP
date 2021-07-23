@@ -36,7 +36,12 @@ export default function TedList(props) {
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/ted'}
                     renderElement={element => {
                         return (
-                            <div style={{display: 'flex',justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
+                            <div style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                width: '100%'
+                            }}>
 
                                 <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
                                     <div>
@@ -61,10 +66,9 @@ export default function TedList(props) {
                             props.setOpen(true)
                         } else
                             props.redirect(entity.id)
-                    }} searchFieldName={'search_input'} title={'Termos de Execução Descentralizada'} scrollableElement={'scrollableDiv'}
-                    fetchSize={15}
-                    applySearch={props.notSearched}
-                    setAppliedSearch={props.setNotSearched}/>
+                    }} searchFieldName={'search_input'} title={'Termos de Execução Descentralizada'}
+                    scrollableElement={'scrollableDiv'}
+                    fetchSize={15}/>
             </div>
         </>
     )

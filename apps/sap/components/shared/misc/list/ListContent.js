@@ -10,9 +10,9 @@ export default function ListContent(props) {
     <button
       disabled={!props.create && props.onlyCreate}
       className={[styles.rowContainer, styles.fadeIn].join(' ')}
-      onClick={() => {
+      onClick={event => {
         props.setEntity()
-        props.clickEvent()
+        props.clickEvent(event, props.create)
       }}
       style={{animationDuration: '250ms', display: (element === null || element === undefined) && !props.create? 'none' : undefined}}
     >
@@ -23,7 +23,7 @@ export default function ListContent(props) {
 
       {
         props.create ?
-          props.lang.create
+          (props.createOptionLabel !== undefined ? props.createOptionLabel : props.lang.create)
           :
           props.renderElement(props.entity, props.index)
       }
@@ -33,6 +33,7 @@ export default function ListContent(props) {
 }
 
 ListContent.propTypes = {
+  createOptionLabel: PropTypes.string,
   onlyCreate: PropTypes.bool,
   index: PropTypes.number,
   entity: PropTypes.any,

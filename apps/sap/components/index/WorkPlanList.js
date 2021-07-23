@@ -6,8 +6,9 @@ import animations from "../../styles/Animations.module.css";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import List from "../shared/misc/list/List";
 import ProjectForm from "./ProjectForm";
+import WorkPlanForm from "./WorkPlanForm";
 
-export default function ProjectList(props) {
+export default function WorkPlanList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
 
@@ -15,7 +16,7 @@ export default function ProjectList(props) {
         <>
             {!open ? null :
                 <div className={animations.fadeIn} style={{marginTop: '32px', marginBottom: '32px'}}>
-                    <ProjectForm
+                    <WorkPlanForm
                         returnToMain={() => {
                             setOpen(false)
                             props.setOpen(false)
@@ -32,27 +33,22 @@ export default function ProjectList(props) {
                 <List
                     listKey={'project'}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/project'}
+                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/work_plan'}
                     renderElement={element => {
                         return (
-                            <div style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                width: '100%'
-                            }}>
+                            <div style={{display: 'flex',justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
 
                                 <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
                                     <div>
-                                        {element.name}
+                                        {element.object}
                                     </div>
                                     <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
                                     <div>
-                                        {element.description}
+                                        {element.responsible}
                                     </div>
                                 </div>
                                 <div>
-                                    R$ {element.estimated_value}
+                                    {element.additive}
                                 </div>
 
                             </div>
@@ -65,13 +61,13 @@ export default function ProjectList(props) {
                             props.setOpen(true)
                         } else
                             props.redirect(entity.id)
-                    }} searchFieldName={'search_input'} title={'Projetos'} scrollableElement={'scrollableDiv'}
+                    }} searchFieldName={'search_input'} title={'Planos de trabalho'} scrollableElement={'scrollableDiv'}
                     fetchSize={15}
-                />
+                    />
             </div>
         </>
     )
 }
-ProjectList.propTypes = {
+WorkPlanList.propTypes = {
     redirect: PropTypes.func
 }

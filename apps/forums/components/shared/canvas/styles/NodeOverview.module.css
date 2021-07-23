@@ -6,7 +6,7 @@
     height: 500px;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     border-left: #E8F0EF 1px solid;
-    z-index: 999;
+    z-index: 90;
     padding: 64px 16px 16px;
 
     animation: fadeIn 300ms ease;
@@ -14,7 +14,7 @@
     border-radius: 8px;
     overflow-y: auto;
     display: block;
-    /*align-content: space-between;*/
+    user-select: none;
 
 }
 
@@ -29,7 +29,6 @@
 
 .header {
     width: 100%;
-
     display: grid;
     gap: 8px;
 }
