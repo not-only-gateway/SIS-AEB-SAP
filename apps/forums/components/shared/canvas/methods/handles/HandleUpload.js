@@ -7,7 +7,9 @@ export default function HandleUpload(props) {
         let reader = new FileReader()
         reader.onload = newData => {
             const response = CryptoJS.AES.decrypt(newData.target.result, 'sdaoi213@*#78&*&*Edsah&(821j3kbkdas*((')
-            props.setData(JSON.parse(response.toString(CryptoJS.enc.Utf8)))
+            const data = JSON.parse(response.toString(CryptoJS.enc.Utf8))
+            props.setData(data)
+
         };
         reader.readAsText(props.file.target.files[0]);
     } catch (error) {
@@ -17,6 +19,7 @@ export default function HandleUpload(props) {
 }
 HandleUpload.propTypes = {
     file: PropTypes.object,
-    setData: PropTypes.func
+    setData: PropTypes.func,
+    renderNodes: PropTypes.func
 }
 

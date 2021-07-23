@@ -7,7 +7,7 @@ export default function GetCurve(props) {
         left: props.source.x - props.source.width / 2,
         right: props.source.x + props.source.width / 2
     }
-
+    let response
     let pivots = {}
     let target = {
         x: undefined,
@@ -16,38 +16,6 @@ export default function GetCurve(props) {
     let source = {
         x: undefined,
         y: undefined
-    }
-    switch (true) {
-        case (props.source.y > props.target.y): {
-            pivots = {
-                x1: props.source.x + props.source.width / 2,
-                y1: props.source.height / 2 + props.source.y - (props.source.y - props.target.y) / 2,
-                x2: props.target.x + props.target.width / 2,
-                y2: props.source.height / 2 + props.source.y - (props.source.y - props.target.y) / 2
-            }
-            break
-        }
-        case (props.target.y > props.source.y): {
-            pivots = {
-                x1: props.source.x + props.source.width / 2,
-                y1: props.target.height / 2 + props.target.y - (props.target.y - props.source.y) / 2,
-                x2: props.target.x + props.target.width / 2,
-                y2: props.target.height / 2 + props.target.y - (props.target.y - props.source.y) / 2
-            }
-            break
-        }
-        case (props.target.y === props.source.y): {
-            if(props.target.x >= props.source.x)
-            pivots = {
-                x1: props.source.x,
-                y1: props.source.y,
-                x2: props.target.x ,
-                y2: props.target.y
-            }
-            break
-        }
-        default:
-            break
     }
 
     switch (true) {
@@ -98,8 +66,45 @@ export default function GetCurve(props) {
         default:
             break
     }
+    if (props.type.includes('-path')) {
+        switch (true) {
+            case (props.source.y > props.target.y): {
+                pivots = {
+                    x1: props.source.x + props.source.width / 2,
+                    y1: props.source.height / 2 + props.source.y - (props.source.y - props.target.y) / 2,
+                    x2: props.target.x + props.target.width / 2,
+                    y2: props.source.height / 2 + props.source.y - (props.source.y - props.target.y) / 2
+                }
+                break
+            }
+            case (props.target.y > props.source.y): {
+                pivots = {
+                    x1: props.source.x + props.source.width / 2,
+                    y1: props.target.height / 2 + props.target.y - (props.target.y - props.source.y) / 2,
+                    x2: props.target.x + props.target.width / 2,
+                    y2: props.target.height / 2 + props.target.y - (props.target.y - props.source.y) / 2
+                }
+                break
+            }
+            case (props.target.y === props.source.y): {
+                if (props.target.x >= props.source.x)
+                    pivots = {
+                        x1: props.source.x,
+                        y1: props.source.y,
+                        x2: props.target.x,
+                        y2: props.target.y
+                    }
+                break
+            }
+            default:
+                break
+        }
 
-    return `M${source.x},${source.y} C${pivots.x1},${pivots.y1} ${pivots.x2},${pivots.y2} ${target.x},${target.y}`
+
+        response = `M${source.x},${source.y} C${pivots.x1},${pivots.y1} ${pivots.x2},${pivots.y2} ${target.x},${target.y}`
+    } else
+        response = `M${source.x},${source.y} ${target.x},${target.y}`
+    return response
 }
 GetCurve.propTypes = {
     source: PropTypes.shape({
@@ -113,5 +118,6 @@ GetCurve.propTypes = {
         y: PropTypes.number,
         height: PropTypes.number,
         width: PropTypes.number
-    })
+    }),
+    type: PropTypes.oneOf(['strong-path', 'strong-line', 'dashed-path', 'dashed-line'])
 }

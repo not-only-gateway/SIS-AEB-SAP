@@ -11,7 +11,6 @@ import {LinkRounded} from "@material-ui/icons";
 
 export default function Node(props) {
     const ref = useRef()
-
     const [linkable, setLinkable] = useState(false)
 
     useEffect(() => {
@@ -47,7 +46,6 @@ export default function Node(props) {
                 if (props.toBeLinked === null)
                     props.setOpenContext(
                         <NodeContextMenu
-
                             handleClose={() => props.setOpenContext(null, null, null)}
                             entity={props.node}
                             handleDelete={() => props.handleDelete(props.index, props.node.id)}
@@ -61,14 +59,9 @@ export default function Node(props) {
             className={[styles.entityContainer, props.node.shape === 'circle' ? styles.circleContainer : ''].join(' ')}
             style={{
                 cursor: props.selected === props.node.id && props.toBeLinked === null ? 'move' : linkable === false ? 'unset' : "pointer",
-                left: `${props.node.placement.x}px`,
-                top: `${props.node.placement.y}px`,
-                borderRadius: props.node.shape === 'circle' ? '50%' : '5px',
                 opacity: linkable === false ? '.5' : '1',
-
-                height: props.node.shape === 'circle' ? '90px' : undefined,
-                width: props.node.shape === 'circle' ? '90px' : undefined,
-                padding: props.node.shape === 'circle' ? '4px' : undefined,
+                left: props.node.placement.x + 'px',
+                top: props.node.placement.y + 'px',
                 minWidth: props.node.shape === 'circle' ? 'unset' : '230px',
                 background: props.node.shape === 'circle' ? props.node.color : undefined
             }} ref={ref}
@@ -104,5 +97,6 @@ Node.propTypes = {
     openOverview: PropTypes.func,
     selected: PropTypes.string,
     setSelected: PropTypes.func,
-    toBeLinked: PropTypes.object
+    toBeLinked: PropTypes.object,
+    asStep: PropTypes.bool
 }

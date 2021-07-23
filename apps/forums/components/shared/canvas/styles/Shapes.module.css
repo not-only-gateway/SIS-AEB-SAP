@@ -7,7 +7,9 @@
     gap: 36px;
     border-radius: 5px;
     padding: 26px;
+    transition: 150ms linear;
 }
+
 .rect {
     border: #e0e0e0 1px solid;
     border-radius: 5px;
@@ -25,6 +27,7 @@
     padding-right: 8px;
     align-items: center;
 }
+
 .circle {
     cursor: grab;
     border: #e0e0e0 1px solid;
@@ -39,19 +42,22 @@
     justify-content: center;
     align-items: center;
 }
-.circle:active, .rect:active{
+
+.circle:active, .rect:active {
     color: #0095ff;
     border-color: #0095ff;
     background: #fbfbfb;
     border-style: dashed;
     cursor: grabbing;
 }
-.circle:hover, .rect:hover{
+
+.circle:hover, .rect:hover {
     border-color: #0095ff;
 }
 
 
 .optionsDivider {
+    cursor: pointer;
     font-size: .9rem;
     font-family: Roboto;
     color: #333333;
@@ -70,7 +76,7 @@
     width: 100%;
 }
 
-.stickyZone{
+.stickyZone {
     display: none;
     position: absolute;
     top: 16px;
@@ -84,19 +90,20 @@
     border-radius: 8px;
     transition: 150ms linear;
 }
-.stickyZone:hover,.stickyZone:focus{
+
+.stickyZone:hover, .stickyZone:focus {
     background: rgba(0, 149, 255, .5);
     border: #0095ff 4px solid;
 }
 
-.linkType{
+.linkType {
     border: #e0e0e0 1px solid;
     border-radius: 5px;
     width: 80px;
     height: 80px;
-    background: transparent;
+
     color: #555555;
-    transition: color 150ms linear, border 150ms linear;
+    transition: 150ms linear;
     cursor: pointer;
     font-size: .8rem;
 
@@ -106,4 +113,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.linkType:hover{
+    border-color: #0095ff;
+}
+
+.stepRounded{
+
+}
+.stepRect{
+
+}
+.step{
+
 }

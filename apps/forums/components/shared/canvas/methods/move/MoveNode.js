@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import index from "../../../../../pages";
 
 export default function Move(props) {
     let moving = false
@@ -53,6 +54,22 @@ export default function Move(props) {
 
             if (placementY < 0)
                 nodeRef.style.top = '20px'
+            // let newNodes = [...props.data.nodes]
+            // console.log('before => ' + JSON.stringify(newNodes[props.index].placement))
+            // newNodes[props.index] = {
+            //     ...props.node,
+            //     placement: {
+            //         x: nodeRef.offsetLeft,
+            //         y: nodeRef.offsetTop
+            //     }
+            // }
+            // console.log(newNodes)
+            // console.log('after => ' + JSON.stringify(newNodes[props.index].placement))
+            // props.setState({
+            //     ...props.data,
+            //     nodes: newNodes
+            // })
+            // console.log(props.data)
         }
     }
 
@@ -67,10 +84,10 @@ Move.propTypes = {
     scale: PropTypes.number,
     node: PropTypes.object,
     data: PropTypes.object,
-    nodes: PropTypes.array,
 
     root: PropTypes.object,
 
     setState: PropTypes.func,
-    event: PropTypes.object
+    event: PropTypes.object,
+    index: PropTypes.number
 }

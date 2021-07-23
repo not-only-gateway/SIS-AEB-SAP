@@ -27,7 +27,7 @@
 
     position: absolute;
     height: 80px;
-    border-radius: 0 5px 5px 0;
+    border-radius: 5px;
     border: transparent 2px solid;
 
     padding: 16px;
@@ -57,7 +57,10 @@
 .circleContainer{
     display: flex;
     align-items: center;
-
+    height: 90px;
+    width: 90px;
+    padding: 4px;
+    border-radius: 50%;
     justify-content: center;
 }
 

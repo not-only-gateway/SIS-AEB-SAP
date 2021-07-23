@@ -4,7 +4,7 @@ import GetCurve from "../../modules/link/GetCurve";
 export default function AdjustLink(props) {
     let moving = true
     if (moving) {
-        document.addEventListener('mousemove', function move(event){
+        document.addEventListener('mousemove', function move(event) {
             if (moving)
                 update()
             else
@@ -36,13 +36,9 @@ export default function AdjustLink(props) {
                     y: props.source.offsetTop,
                     height: props.source.offsetHeight,
                     width: props.source.offsetWidth
-                }
+                },
+                type: props.type
             }))
-
-        if (props.description !== undefined && props.description.length > 0 && props.descriptionRef !== null && props.descriptionRef !== undefined) {
-            props.descriptionRef.setAttribute('x', (t.offsetLeft + t.offsetWidth / 2 + s.offsetWidth / 2 + s.offsetLeft) / 2 - 32.5)
-            props.descriptionRef.setAttribute('y', (t.offsetTop + t.offsetHeight / 2 + s.offsetHeight / 2 + s.offsetTop) / 2 - 20)
-        }
     }
     return () => {
         document.removeEventListener('mouseup', () => null)
@@ -54,7 +50,8 @@ AdjustLink.propTypes = {
     source: PropTypes.object,
     target: PropTypes.object,
     pathRef: PropTypes.object,
-    descriptionRef: PropTypes.object,
-    description: PropTypes.string,
-    setColor: PropTypes.func
+    // descriptionRef: PropTypes.object,
+    // description: PropTypes.string,
+    setColor: PropTypes.func,
+    type: PropTypes.oneOf(['strong-path', 'strong-line', 'dashed-path', 'dashed-line'])
 }

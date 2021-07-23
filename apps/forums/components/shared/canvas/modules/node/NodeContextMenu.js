@@ -9,20 +9,11 @@ export default function NodeContextMenu(props) {
             <button className={styles.optionButton}
                     onClick={() => {
                         props.handleClose()
-                        props.handleLink("weak")
+                        props.handleLink()
                     }}
             >
                 <LinkRounded/>
-                Conexão fraca
-            </button>
-            <button className={styles.optionButton}
-                    onClick={() => {
-                        props.handleClose()
-                        props.handleLink("strong")
-                    }}
-            >
-                <LinkRounded/>
-                Conexão forte
+                Conexão
             </button>
             <button className={styles.optionButton} onClick={() => {
                 props.handleClose()

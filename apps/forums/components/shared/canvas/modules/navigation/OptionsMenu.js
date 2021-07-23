@@ -12,10 +12,10 @@ import {
 import Tabs from "./Tabs";
 import PropTypes from "prop-types";
 import {useEffect, useState} from "react";
-import HandleDownload from "../../methods/HandleDownload";
-import HandleUpload from "../../methods/HandleUpload";
+import HandleDownload from "../../methods/handles/HandleDownload";
+import HandleUpload from "../../methods/handles/HandleUpload";
 
-import MoveNewNode from "../../methods/move/MoveNewNode";
+import MoveNewElement from "../../methods/move/MoveNewElement";
 import Shapes from "../placeholder/Shapes";
 
 export default function OptionsMenu(props) {
@@ -37,7 +37,7 @@ export default function OptionsMenu(props) {
                                 <input type="file" id="upload_file_input" style={{display: 'none'}} multiple={false}
                                        onChange={event => HandleUpload({
                                            file: event,
-                                           setData: props.setState
+                                           setData: props.setState,
                                        })}
                                        accept={'.canvas'}/>
 
@@ -63,7 +63,6 @@ export default function OptionsMenu(props) {
                                 <button
                                     className={styles.buttonContainer}
                                     onClick={() => {
-                                        console.log(props.data)
                                         HandleDownload({
                                             handleDownload: props.onSave,
                                             data: props.data,
@@ -77,7 +76,8 @@ export default function OptionsMenu(props) {
                                     Exportar
                                     <div className={styles.divider}/>
                                 </div>
-                                <button className={styles.buttonContainer} onClick={() => props.handlePrint()} disabled={props.data.nodes.length === 0}>
+                                <button className={styles.buttonContainer} onClick={() => props.handlePrint()}
+                                        disabled={props.data.nodes.length === 0}>
                                     <PictureAsPdfRounded/>
                                     Exportar PDF
                                 </button>
@@ -98,7 +98,8 @@ export default function OptionsMenu(props) {
                         key: 1,
                         value: 'Ações',
                         content: (
-                          <Shapes onDragStart={type => MoveNewNode({...props, ...{type: type}})}/>
+                            <Shapes onDragStart={type => MoveNewElement({...props, ...{type: type}})}
+                                    data={props.data} setData={props.setState} />
                         )
                     },
                     {
@@ -135,7 +136,7 @@ export default function OptionsMenu(props) {
 OptionsMenu.propTypes = {
     data: PropTypes.object,
     setState: PropTypes.func,
-
+    renderNodes: PropTypes.func,
     root: PropTypes.object,
     onSave: PropTypes.func,
     handlePrint: PropTypes.func

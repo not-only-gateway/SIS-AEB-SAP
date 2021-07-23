@@ -9,10 +9,11 @@ import Node from "./modules/node/Node";
 import Move from "./methods/move/MoveNode";
 import OptionsMenu from "./modules/navigation/OptionsMenu";
 import NodeOverview from "./modules/node/NodeOverview";
-import ScrollCanvas from "./methods/move/ScrollCanvas";
+import ScrollCanvas from "./methods/misc/ScrollCanvas";
 import Scale from "./modules/navigation/Scale";
 import {v4 as uuid4} from 'uuid';
 import StickyZone from "./modules/placeholder/StickyZone";
+import RenderNode from "./methods/render/RenderNode";
 
 
 export default function Canvas(props) {
@@ -22,9 +23,11 @@ export default function Canvas(props) {
         subject: 'Sem título',
         nodes: [],
         links: [],
-        groups: [],
-        dimensions: {}
+        dimensions: {},
+        connectionType: 'strong-path',
+        steps: []
     })
+
     const [toBeLinked, setToBeLinked] = useState(null)
     const [openNodeOverview, setOpenNodeOverview] = useState(false)
     const root = useRef()
@@ -38,140 +41,16 @@ export default function Canvas(props) {
     const [selectedLink, setSelectedLink] = useState(null)
 
     useEffect(() => {
-        if (props.data !== undefined && props.data.id !== undefined)
+        if (props.data !== undefined && props.data.id !== undefined) {
             setData(props.data)
+        }
         if (offsetTop === -1) {
             const element = document.getElementById('frame')
             if (element !== null)
                 setOffsetTop(element.offsetTop)
         }
-    }, [props.data])
+    }, [])
 
-    const renderNode = (node, index) => {
-        return (
-            <Node
-                node={node} index={index}
-                handleLinkDelete={(link) => {
-                    let newLinks = [...data.links]
-                    const index = newLinks.indexOf(link)
-
-                    if (index > -1) {
-                        newLinks.splice(index, 1)
-                        setData({
-                            ...data,
-                            links: newLinks
-                        })
-                    }
-                }}
-                handleLink={(id, type) => {
-                    if (toBeLinked !== null) {
-                        let newLink = {
-                            type: toBeLinked.type,
-                            parent: {id: toBeLinked.id},
-                            child: {
-                                id: id
-                            }
-                        }
-                        let newLinks = [...data.links, ...[newLink]]
-                        setData({...data, links: newLinks})
-
-                        setToBeLinked(null)
-                    } else
-                        setToBeLinked({
-                            id: id,
-                            type: type
-                        })
-                }}
-                selected={selectedNode} links={data.links}
-                setSelected={setSelectedNode} toBeLinked={toBeLinked}
-                handleDelete={(index, id) => {
-                    let newNodes = [...data.nodes]
-                    let linksToRemove = []
-                    let newLinks = [...data.links]
-                    newNodes.splice(index, 1)
-
-                    data.links.map((link, lIndex) => {
-                        if (link.parent.id === id || link.child.id === id)
-                            linksToRemove = [...linksToRemove, ...[lIndex]]
-                    })
-                    linksToRemove.map(i => {
-                        newLinks.splice(i, 1)
-                    })
-                    setData({
-                        ...data,
-                        nodes: newNodes,
-                        links: newLinks
-                    })
-                }}
-                openOverview={() => {
-                    if (openNodeOverview !== node.id) {
-                        const nodeEl = document.getElementById(openNodeOverview + '-node')
-                        if (nodeEl !== null)
-                            nodeEl.style.border = 'transparent 2px solid'
-                    }
-                    setOpenNodeOverview(node.id)
-                    if (contextMenuRef.current.firstChild)
-                        ReactDOM.unmountComponentAtNode(contextMenuRef.current)
-
-                    const nodeEl = document.getElementById(node.id + '-node')
-                    if (nodeEl !== null) {
-                        nodeEl.style.border = node.color + ' 2px solid'
-
-                        setSelectedNode(null)
-                        ReactDOM.render(
-                            <NodeOverview
-                                node={node} setState={setData} data={data}
-                                contextMenuRef={contextMenuRef.current}
-                                root={root.current} nodeIndex={index}
-                                handleClose={() => {
-                                    setSelectedNode(node.id)
-                                    if (nodeEl !== null)
-                                        nodeEl.style.border = 'transparent 2px solid'
-                                    setOpenNodeOverview(false)
-                                    contextMenuRef.current.style.right = 'unset'
-
-                                    ReactDOM.unmountComponentAtNode(contextMenuRef.current)
-                                }}
-                            />,
-                            contextMenuRef.current
-                        )
-
-                        contextMenuRef.current.style.top = nodeEl.top + 'px'
-                        contextMenuRef.current.style.left = nodeEl.left + 'px'
-                    }
-
-                }}
-                move={node => {
-                    Move({
-                        ...node,
-                        ...{
-                            nodes: data.nodes,
-                            root: root.current,
-                            setState: setData,
-                            data: data,
-                            scale: scale
-                        }
-                    })
-                }}
-                root={root.current}
-                options={props.options}
-                setOpenContext={(event, x, y) => {
-                    if (event === null) {
-                        ReactDOM.unmountComponentAtNode(contextMenuRef.current)
-
-                    } else {
-                        ReactDOM.render(
-                            event,
-                            contextMenuRef.current
-                        )
-
-                        contextMenuRef.current.style.top = y + 'px'
-                        contextMenuRef.current.style.left = x + 'px'
-                    }
-                }}
-            />
-        )
-    }
 
     return (
         <div
@@ -227,23 +106,42 @@ export default function Canvas(props) {
                             width={'100%'} height={'100%'}
                             id={'canvas'}
                         >
-
+                            {data.steps.map((node, index) => (
+                                <RenderNode {...props} contextMenuRef={contextMenuRef.current} root={root.current}
+                                            scale={scale}
+                                            index={index} setData={setData} data={data}
+                                            setOpenNodeOverview={setOpenNodeOverview}
+                                            openNodeOverview={openNodeOverview} setSelectedNode={setSelectedNode}
+                                            selectedNode={selectedNode} node={node} toBeLinked={toBeLinked}
+                                            setToBeLinked={setToBeLinked}
+                                            asStep={true}
+                                />
+                            ))}
                             {data.nodes.map((node, index) => (
-                                <React.Fragment key={node.id + '-' + index}>
-                                    {renderNode(node, index)}
-                                </React.Fragment>
+                                <RenderNode {...props} contextMenuRef={contextMenuRef.current} root={root.current}
+                                            scale={scale}
+                                            index={index} setData={setData} data={data}
+                                            setOpenNodeOverview={setOpenNodeOverview}
+                                            openNodeOverview={openNodeOverview} setSelectedNode={setSelectedNode}
+                                            selectedNode={selectedNode} node={node} toBeLinked={toBeLinked}
+                                            setToBeLinked={setToBeLinked}
+                                            asStep={false}
+                                />
                             ))}
                         </foreignObject>
-
                         {data.links.map((link, index) => (
                             <g key={link.child.id + '-link-' + link.parent.id}>
-
                                 <Link
                                     target={link.parent} source={link.child}
-                                    type={link.type} color={() => data.nodes.find(node => {
-                                    if (node.id === link.parent.id)
-                                        return node
-                                })}
+                                    type={link.type} color={() => {
+                                    const color = data.nodes.find(node => {
+                                        if (node.id === link.parent.id)
+                                            return node
+                                    })
+                                    if (color !== undefined)
+                                        return color.color
+                                    else return undefined
+                                }}
                                     setSelected={setSelectedLink}
                                     selectedLink={selectedLink}
                                     handleChange={event => {
