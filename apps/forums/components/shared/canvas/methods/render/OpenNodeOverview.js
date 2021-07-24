@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
 import NodeOverview from "../../modules/node/NodeOverview";
 import React from "react";
-import CanvasTemplate from "../../templates/CanvasTemplate";
+import CanvasTemplate from "../../templates/CanvasPropsTemplate";
 import PropTypes from "prop-types";
 
 export default function OpenNodeOverview(props){

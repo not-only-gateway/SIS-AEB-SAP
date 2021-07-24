@@ -5,8 +5,8 @@ import styles from "../../styles/Node.module.css";
 import NodeContextMenu from "./NodeContextMenu";
 import NodeTemplate from "../../templates/NodeTemplate";
 import NodeMenu from "./NodeMenu";
-import LinkTemplate from "../../templates/LinkTemplate";
-import {LinkRounded} from "@material-ui/icons";
+import NodePropsTemplate from "../../templates/NodePropsTemplate";
+
 
 
 export default function Node(props) {
@@ -85,18 +85,4 @@ export default function Node(props) {
     )
 }
 
-Node.propTypes = {
-    setOpenContext: PropTypes.func,
-    openMenu: PropTypes.number,
-    show: PropTypes.func,
-    edit: PropTypes.func,
-    handleLink: PropTypes.func,
-    options: PropTypes.shape({edit: PropTypes.bool, move: PropTypes.bool, show: PropTypes.bool,}),
-    root: PropTypes.object,
-    node: NodeTemplate,
-    openOverview: PropTypes.func,
-    selected: PropTypes.string,
-    setSelected: PropTypes.func,
-    toBeLinked: PropTypes.object,
-    asStep: PropTypes.bool
-}
+Node.propTypes = NodePropsTemplate

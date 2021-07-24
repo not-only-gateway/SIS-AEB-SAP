@@ -43,13 +43,7 @@
     align-items: center;
 }
 
-.circle:active, .rect:active {
-    color: #0095ff;
-    border-color: #0095ff;
-    background: #fbfbfb;
-    border-style: dashed;
-    cursor: grabbing;
-}
+
 
 .circle:hover, .rect:hover {
     border-color: #0095ff;
@@ -119,11 +113,22 @@
 }
 
 .stepRounded{
-
+    cursor: grab;
+    border-radius: 5px;
+    width: 80px;
+    height: 30px;
+    border: #e0e0e0 1px solid;
 }
 .stepRect{
-
+    cursor: grab;
+    width: 80px;
+    height: 30px;
+    border: #e0e0e0 1px solid;
 }
-.step{
-
+.circle:active, .rect:active, .stepRect:active, .stepRounded:active {
+    color: #0095ff;
+    border-color: #0095ff;
+    background: #fbfbfb;
+    border-style: dashed;
+    cursor: grabbing;
 }

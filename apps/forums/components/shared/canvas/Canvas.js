@@ -1,4 +1,4 @@
-import CanvasTemplate from "./templates/CanvasTemplate";
+import CanvasTemplate from "./templates/CanvasPropsTemplate";
 import styles from './styles/Frame.module.css'
 
 import React, {useEffect, useRef, useState} from "react";
@@ -13,7 +13,8 @@ import ScrollCanvas from "./methods/misc/ScrollCanvas";
 import Scale from "./modules/navigation/Scale";
 import {v4 as uuid4} from 'uuid';
 import StickyZone from "./modules/placeholder/StickyZone";
-import RenderNode from "./methods/render/RenderNode";
+import RenderNodes from "./methods/render/RenderNodes";
+import RenderLinks from "./methods/render/RenderLinks";
 
 
 export default function Canvas(props) {
@@ -27,7 +28,6 @@ export default function Canvas(props) {
         connectionType: 'strong-path',
         steps: []
     })
-
     const [toBeLinked, setToBeLinked] = useState(null)
     const [openNodeOverview, setOpenNodeOverview] = useState(false)
     const root = useRef()
@@ -55,8 +55,7 @@ export default function Canvas(props) {
     return (
         <div
             style={{height: '100%', width: '100%', userSelect: 'none', scrollBehavior: 'auto'}}
-            id={'frame'}
-            onMouseDown={event => {
+            id={'frame'} onMouseDown={event => {
                 const className = event.target.className
                 if (selectedLink && event.target.closest('.Link_input__3SQkm') === null)
                     setSelectedLink(undefined)
@@ -69,7 +68,6 @@ export default function Canvas(props) {
             }}>
 
             <div className={styles.content}>
-
                 <Scale scale={scale} setScale={setScale}/>
                 <OptionsMenu
                     root={root.current}
@@ -101,86 +99,21 @@ export default function Canvas(props) {
                         }}
                         ref={printRef}
                     >
-
-                        <foreignObject
-                            width={'100%'} height={'100%'}
-                            id={'canvas'}
-                        >
-                            {data.steps.map((node, index) => (
-                                <RenderNode {...props} contextMenuRef={contextMenuRef.current} root={root.current}
-                                            scale={scale}
-                                            index={index} setData={setData} data={data}
-                                            setOpenNodeOverview={setOpenNodeOverview}
-                                            openNodeOverview={openNodeOverview} setSelectedNode={setSelectedNode}
-                                            selectedNode={selectedNode} node={node} toBeLinked={toBeLinked}
-                                            setToBeLinked={setToBeLinked}
-                                            asStep={true}
-                                />
-                            ))}
-                            {data.nodes.map((node, index) => (
-                                <RenderNode {...props} contextMenuRef={contextMenuRef.current} root={root.current}
-                                            scale={scale}
-                                            index={index} setData={setData} data={data}
-                                            setOpenNodeOverview={setOpenNodeOverview}
-                                            openNodeOverview={openNodeOverview} setSelectedNode={setSelectedNode}
-                                            selectedNode={selectedNode} node={node} toBeLinked={toBeLinked}
-                                            setToBeLinked={setToBeLinked}
-                                            asStep={false}
-                                />
-                            ))}
-                        </foreignObject>
-                        {data.links.map((link, index) => (
-                            <g key={link.child.id + '-link-' + link.parent.id}>
-                                <Link
-                                    target={link.parent} source={link.child}
-                                    type={link.type} color={() => {
-                                    const color = data.nodes.find(node => {
-                                        if (node.id === link.parent.id)
-                                            return node
-                                    })
-                                    if (color !== undefined)
-                                        return color.color
-                                    else return undefined
-                                }}
-                                    setSelected={setSelectedLink}
-                                    selectedLink={selectedLink}
-                                    handleChange={event => {
-                                        let newLink = {...link}
-                                        newLink[event.name] = event.value
-                                        let newLinks = [...data.links]
-
-                                        newLinks[index] = newLink
-                                        setData({...data, links: newLinks})
-                                    }}
-                                    canEdit={props.options.edit}
-                                    rootOffset={root.current}
-                                    openContextMenu={(event, x, y) => {
-                                        if (event === null) {
-                                            ReactDOM.unmountComponentAtNode(contextMenuRef.current)
-
-                                        } else {
-                                            ReactDOM.render(
-                                                event,
-                                                contextMenuRef.current
-                                            )
-
-                                            contextMenuRef.current.style.top = y + 'px'
-                                            contextMenuRef.current.style.left = x + 'px'
-                                        }
-                                    }}
-                                    deleteLink={() => {
-                                        let newLinks = []
-                                        data.links.map(l => {
-                                            if (!(l.parent.id === link.parent.id && l.child.id === link.child.id))
-                                                newLinks.push(l)
-                                        })
-                                        setData({...data, links: newLinks})
-                                    }}
-                                    description={link.description}
-                                />
-                            </g>
-                        ))}
-
+                        <RenderNodes
+                            {...props} contextMenuRef={contextMenuRef.current}
+                            scale={scale} root={root.current}
+                            setData={setData} data={data}
+                            setOpenNodeOverview={setOpenNodeOverview}
+                            openNodeOverview={openNodeOverview}
+                            selectedNode={selectedNode} toBeLinked={toBeLinked}
+                            setToBeLinked={setToBeLinked}
+                            asStep={false} setSelectedNode={setSelectedNode}
+                        />
+                        <RenderLinks
+                            {...props} data={data} setData={setData} selectedLink={selectedLink}
+                            setSelectedLink={setSelectedLink} root={root.current}
+                            contextMenuRef={contextMenuRef.current}
+                        />
                     </svg>
                 </div>
             </div>

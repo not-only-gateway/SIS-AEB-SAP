@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 import OptionsMenu from "../../modules/navigation/OptionsMenu";
 
 export default function MoveNewElement(props) {
-    let dragged
+    let dragged = true
+
     document.addEventListener("drag", function (event) {
     }, false);
 
     document.addEventListener("dragstart", function (event) {
 
         if (event.target.className === 'Menu_buttonContainer__3oHbi') {
-            dragged = event.target;
             event.target.style.opacity = 1;
         }
     }, false);
@@ -26,51 +26,50 @@ export default function MoveNewElement(props) {
 
     document.addEventListener("drop", function (event) {
         event.preventDefault();
-        if (event.target.id === "canvas" && props.root !== undefined) {
+
+        if (event.target.id === "canvas" && props.root !== undefined && dragged) {
+            dragged = false
+
             event.target.style.background = "";
-            if (props.type.includes()) {
-                let newSteps = [...props.data.steps]
-                newSteps.push({
-                    id: uuid4().toString(),
-                    description: null,
-                    placement: {
-                        x: (event.clientX - props.root.getBoundingClientRect().left + props.root.scrollLeft - 40),
-                        y: (event.clientY - props.root.getBoundingClientRect().top + props.root.scrollTop - 40)
-                    },
-                    shape: props.type.replace('step-', ''),
-
-                })
-
+            const rootBounding = {
+                x: props.root.getBoundingClientRect().left,
+                y: props.root.getBoundingClientRect().top
+            }
+            if (props.type.includes('step')) {
                 props.setState(({
                     ...props.data,
-                    steps: newSteps
+                    steps: [...props.data.steps, ...[{
+                        id: uuid4().toString(),
+                        description: null,
+                        placement: {
+                            x: (event.clientX - rootBounding.x + props.root.scrollLeft - 40),
+                            y: (event.clientY - rootBounding.y + props.root.scrollTop - 40)
+                        },
+                        shape: props.type.replace('step-', '')
+                    }]]
                 }))
             } else {
-                let newNodes = [...props.data.nodes]
-                const rootBounding = {
-                    x: props.root.getBoundingClientRect().left,
-                    y: props.root.getBoundingClientRect().top
-                }
-                const newNode = {
-                    id: uuid4().toString(),
-                    title: 'Em branco',
-                    description: null,
-
-                    color: '#0095ff',
-                    placement: {
-                        x: (event.clientX - rootBounding.x + props.root.scrollLeft - 40),
-                        y: (event.clientY - rootBounding.y + props.root.scrollTop - 40)
-                    },
-                    shape: props.type,
-                    creationDate: (new Date()).getTime()
-                }
-                newNodes.push()
                 props.setState(({
                     ...props.data,
-                    nodes: [...props.data.nodes, ...[newNode]]
+                    nodes: [...props.data.nodes, ...[{
+                        id: uuid4().toString(),
+                        title: 'Em branco',
+                        description: null,
+
+                        color: '#0095ff',
+                        placement: {
+                            x: (event.clientX - rootBounding.x + props.root.scrollLeft - 40),
+                            y: (event.clientY - rootBounding.y + props.root.scrollTop - 40)
+                        },
+                        shape: props.type,
+                        creationDate: (new Date()).getTime()
+                    }]]
                 }))
             }
         }
+
+    }, {
+        once: true
     })
     return () => {
         document.removeEventListener('drop')

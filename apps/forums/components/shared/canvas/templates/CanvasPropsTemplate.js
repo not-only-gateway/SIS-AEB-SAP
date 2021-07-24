@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import NodeTemplate from "./NodeTemplate";
 import React from "react";
-import LinkTemplate from "./LinkTemplate";
 
 export default {
     onSave: PropTypes.func,
@@ -32,7 +31,12 @@ export default {
             })
         ),
         links: PropTypes.arrayOf(
-            LinkTemplate
+            PropTypes.shape({
+                denomination: PropTypes.string,
+                type: PropTypes.string,
+                parent: PropTypes.number,
+                child: PropTypes.number
+            })
         )
     }),
 }

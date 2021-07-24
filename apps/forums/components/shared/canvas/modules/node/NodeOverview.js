@@ -46,11 +46,11 @@ export default function NodeOverview(props) {
                        placeholder={'Título'} onChange={event => handleChange('title', event.target.value)}/>
 
                 <input className={[styles.input, styles.inputBody].join(' ')} value={node.description}
-                       placeholder={'Descrição'}
+                       placeholder={'Descrição'} maxLength={'150'}
                        onChange={event => handleChange('description', event.target.value)}/>
             </div>
 
-            <textarea className={[styles.input, styles.inputBody].join(' ')} value={node.body}
+            <textarea className={[styles.input, styles.inputBody].join(' ')} maxLength={'300'} value={node.body}
                       placeholder={'Corpo'} style={{marginTop: '32px'}}
                       onChange={event => handleChange('body', event.target.value)}/>
             <ColorField

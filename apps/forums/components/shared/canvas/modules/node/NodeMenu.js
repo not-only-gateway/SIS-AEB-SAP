@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, {useEffect, useState} from "react";
 import NodeTemplate from "../../templates/NodeTemplate";
 import styles from '../../styles/NodeMenu.module.css'
-import LinkTemplate from "../../templates/LinkTemplate";
+
 
 export default function NodeMenu(props) {
 

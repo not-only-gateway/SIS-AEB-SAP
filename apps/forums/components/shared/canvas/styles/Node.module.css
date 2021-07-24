@@ -127,9 +127,10 @@
 }
 
 .body {
-    display: grid;
-    align-items: center;
-    align-content: center;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: #808292;
     font-family: Roboto;
     white-space: nowrap;

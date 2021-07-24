@@ -76,11 +76,6 @@ export default function Shapes(props) {
                         draggable={true}
                         onDragStart={() => props.onDragStart('step-rect')}
                     />
-                    <div
-                        className={styles.stepRhombus}
-                        draggable={true}
-                        onDragStart={() => props.onDragStart('step-rhombus')}
-                    />
                 </div>
             </Elements>
         </div>
