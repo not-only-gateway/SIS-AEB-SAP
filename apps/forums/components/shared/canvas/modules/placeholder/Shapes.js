@@ -9,16 +9,66 @@ export default function Shapes(props) {
             <Elements {...props} label={'Elementos:'}>
 
                 <div className={styles.shapes}>
+
                     <div
-                        className={styles.rect}
+                        className={styles.shapeContainer}
                         draggable={true}
                         onDragStart={() => props.onDragStart('rect')}
-                    />
+                    >
+                        <svg overflow={'hidden'} width={'90'} height={'45'}>
+                            <rect fill={'transparent'} width={'90'} height={'45'} stroke={"#333333"}
+                                  strokeWidth={'1'}/>
+                        </svg>
+                    </div>
                     <div
-                        className={styles.circle}
+                        className={styles.shapeContainer}
+                        draggable={true}
+                        onDragStart={() => props.onDragStart('rounded-rect')}
+                    >
+                        <svg overflow={'hidden'} width={'90'} height={'45'}>
+                            <rect fill={'transparent'} width={'90'} height={'45'} ry={'5'} rx={'5'} stroke={"#333333"}
+                                  strokeWidth={'1'}/>
+                        </svg>
+                    </div>
+                    <div
+                        className={styles.shapeContainer}
+                        draggable={true}
+                        onDragStart={() => props.onDragStart('square')}
+                    >
+                        <svg overflow={'hidden'} width={'45'} height={'45'}>
+                            <rect fill={'transparent'} width={45} height={45} stroke={"#333333"} strokeWidth={'1'}/>
+                        </svg>
+                    </div>
+                    <div
+                        className={styles.shapeContainer}
+                        draggable={true}
+                        onDragStart={() => props.onDragStart('rounded-square')}
+                    >
+                        <svg overflow={'hidden'} width={'45'} height={'45'}>
+                            <rect fill={'transparent'} width={45} height={45} rx={'5'} ry={'5'} stroke={"#333333"} strokeWidth={'1'}/>
+                        </svg>
+                    </div>
+                    <div
+                        className={styles.shapeContainer}
                         draggable={true}
                         onDragStart={() => props.onDragStart('circle')}
-                    />
+                    >
+                        <svg overflow={'visible'} width={'45'} height={'45'}>
+                            <circle fill={'transparent'} cx={'22.5'} cy={'22.5'} r={'22.5'} stroke={"#333333"}
+                                    strokeWidth={'.8'}/>
+                        </svg>
+                    </div>
+
+                    <div
+                        className={styles.shapeContainer}
+                        draggable={true}
+                        onDragStart={() => props.onDragStart('trapezoid')}
+                    >
+                        <svg overflow={'visible'} width={'80'} height={'80'}>
+
+
+                        </svg>
+                    </div>
                 </div>
             </Elements>
 

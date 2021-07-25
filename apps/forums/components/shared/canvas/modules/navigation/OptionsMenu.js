@@ -21,7 +21,7 @@ import Shapes from "../placeholder/Shapes";
 export default function OptionsMenu(props) {
     const [openTab, setOpenTab] = useState(0)
     return (
-        <div className={styles.menuContainer}>
+        <div className={styles.menuContainer} onContextMenu={event => event.preventDefault()}>
             <input className={[styles.textField, styles.header].join(' ')}
                    placeholder={'Pesquisar'}
                    value={props.data.subject}

@@ -31,7 +31,8 @@ export default function Move(props) {
     }
 
     function move(event, save) {
-
+        const wrapper = nodeRef.firstChild.childNodes[0]
+        const content = nodeRef.firstChild.childNodes[1]
         let newPlacement = {
             x: lastPlacement.x - event.clientX,
             y: lastPlacement.y - event.clientY
@@ -41,35 +42,25 @@ export default function Move(props) {
             x: event.clientX,
             y: event.clientY
         }
+        let placementX = wrapper.getBBox().x - newPlacement.x / props.scale;
+        let placementY = wrapper.getBBox().y - newPlacement.y / props.scale;
 
-        let placementX = nodeRef.offsetLeft - newPlacement.x / props.scale;
-        let placementY = nodeRef.offsetTop - newPlacement.y / props.scale;
-
-        nodeRef.style.top = placementY + 'px'
-        nodeRef.style.left = placementX + 'px'
+        content.setAttribute('x', placementX.toString())
+        content.setAttribute('y', placementY.toString())
+        wrapper.setAttribute('y', placementY.toString())
+        wrapper.setAttribute('x', placementX.toString())
 
         if (save) {
-            if (placementX < 0)
-                nodeRef.style.left = '20px'
+            if (placementX < 0) {
+                content.setAttribute('x', '20')
+                wrapper.setAttribute('x', '20')
+            }
 
-            if (placementY < 0)
-                nodeRef.style.top = '20px'
-            // let newNodes = [...props.data.nodes]
-            // console.log('before => ' + JSON.stringify(newNodes[props.index].placement))
-            // newNodes[props.index] = {
-            //     ...props.node,
-            //     placement: {
-            //         x: nodeRef.offsetLeft,
-            //         y: nodeRef.offsetTop
-            //     }
-            // }
-            // console.log(newNodes)
-            // console.log('after => ' + JSON.stringify(newNodes[props.index].placement))
-            // props.setState({
-            //     ...props.data,
-            //     nodes: newNodes
-            // })
-            // console.log(props.data)
+
+            if (placementY < 0) {
+                content.setAttribute('y', '20')
+                wrapper.setAttribute('y', '20')
+            }
         }
     }
 

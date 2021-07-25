@@ -10,22 +10,9 @@
     transition: 150ms linear;
 }
 
-.rect {
-    border: #e0e0e0 1px solid;
-    border-radius: 5px;
-    width: 197px;
-    height: 80px;
+.shapeContainer{
     background: transparent;
-    color: #555555;
-    transition: color 150ms linear, border 150ms linear;
     cursor: grab;
-    font-size: .8rem;
-
-    display: flex;
-    justify-content: space-between;
-    padding-left: 8px;
-    padding-right: 8px;
-    align-items: center;
 }
 
 .circle {

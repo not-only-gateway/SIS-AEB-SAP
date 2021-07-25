@@ -85,12 +85,9 @@ export default function RenderNodes(props) {
     }
 
     return (
-        <foreignObject
-            width={'100%'} height={'100%'}
-            id={'canvas'}
-        >
+        <g id={'canvas'}>
             {props.data.nodes.map((node, index) => (
-                <React.Fragment key={`${node.id}-node-${index}`}>
+                <g key={`${node.id}-node-${index}`} x={node.placement.x} y={node.placement.y}>
                     <Node
                         node={node} index={index} asStep={false}
                         handleLinkDelete={handleLinkDelete}
@@ -103,10 +100,10 @@ export default function RenderNodes(props) {
                         root={props.root} options={props.options}
                         setOpenContext={handleContextMenu}
                     />
-                </React.Fragment>
+                </g>
             ))}
             {props.data.steps.map((node, index) => (
-                <React.Fragment key={`${node.id}-step-${index}`}>
+                <g key={`${node.id}-step-${index}`}>
                     <Node
                         node={node} index={index} asStep={true}
                         handleLinkDelete={handleLinkDelete}
@@ -119,9 +116,9 @@ export default function RenderNodes(props) {
                         root={props.root} options={props.options}
                         setOpenContext={handleContextMenu}
                     />
-                </React.Fragment>
+                </g>
             ))}
-        </foreignObject>
+        </g>
     )
 }
 RenderNodes.propTypes = {

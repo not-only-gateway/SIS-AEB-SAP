@@ -6,6 +6,9 @@ import NodeContextMenu from "./NodeContextMenu";
 import NodeTemplate from "../../templates/NodeTemplate";
 import NodeMenu from "./NodeMenu";
 import NodePropsTemplate from "../../templates/NodePropsTemplate";
+import Circle from "./shapes/Circle";
+import Rect from "./shapes/Rect";
+import RenderNodeShape from "./shapes/RenderNodeShape";
 
 
 
@@ -25,8 +28,9 @@ export default function Node(props) {
         } else
             setLinkable(undefined)
     }, [props.toBeLinked])
+
     return (
-        <div
+        <g
             id={props.node.id + '-node'}
             onMouseDown={event => {
                 if (event.button === 0 && props.toBeLinked !== null && props.toBeLinked.id !== props.node.id)
@@ -56,31 +60,19 @@ export default function Node(props) {
                         (e.clientY - ref.current.offsetHeight)
                     )
             }}
-            className={[styles.entityContainer, props.node.shape === 'circle' ? styles.circleContainer : ''].join(' ')}
+            // className={[styles.entityContainer, props.node.shape === 'circle' ? styles.circleContainer : ''].join(' ')}
             style={{
                 cursor: props.selected === props.node.id && props.toBeLinked === null ? 'move' : linkable === false ? 'unset' : "pointer",
                 opacity: linkable === false ? '.5' : '1',
-                left: props.node.placement.x + 'px',
-                top: props.node.placement.y + 'px',
-                minWidth: props.node.shape === 'circle' ? 'unset' : '230px',
-                background: props.node.shape === 'circle' ? props.node.color : undefined
-            }} ref={ref}
+                // minWidth: props.node.shape === 'circle' ? 'unset' : '230px',
+                // background: props.node.shape === 'circle' ? props.node.color : undefined
+            }}
+            ref={ref}
         >
-            <NodeMenu selected={props.selected} node={props.node} nodeRef={ref.current} linkable={linkable}/>
-            <div
-                className={props.node.shape === 'circle' ? styles.headerCircle : styles.header}
-                style={{color: props.node.shape === 'circle' ? 'white' : undefined}}>
-                {props.node.title}
-                <div className={styles.colorIndicator} style={{
-                    display: props.node.shape === 'circle' ? 'none' : undefined,
-                    background: props.node.color
-                }}/>
-            </div>
-            <div className={styles.body} style={{display: props.node.shape === 'circle' ? 'none' : undefined}}>
-                {props.node.description}
-            </div>
-
-        </div>
+            {/*<NodeMenu selected={props.selected} node={props.node} nodeRef={ref.current} linkable={linkable}/>*/}
+            {/*<Circle node={props.node}/>*/}
+            <RenderNodeShape node={props.node}/>
+        </g>
 
     )
 }

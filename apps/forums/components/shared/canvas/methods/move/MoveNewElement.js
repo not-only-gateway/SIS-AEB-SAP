@@ -27,7 +27,7 @@ export default function MoveNewElement(props) {
     document.addEventListener("drop", function (event) {
         event.preventDefault();
 
-        if (event.target.id === "canvas" && props.root !== undefined && dragged) {
+        if (typeof event.target.className === 'object' && props.root !== undefined && dragged) {
             dragged = false
 
             event.target.style.background = "";
@@ -36,6 +36,7 @@ export default function MoveNewElement(props) {
                 y: props.root.getBoundingClientRect().top
             }
             if (props.type.includes('step')) {
+                console.log('HERE IF')
                 props.setState(({
                     ...props.data,
                     steps: [...props.data.steps, ...[{
@@ -49,6 +50,7 @@ export default function MoveNewElement(props) {
                     }]]
                 }))
             } else {
+                console.log('HERE')
                 props.setState(({
                     ...props.data,
                     nodes: [...props.data.nodes, ...[{

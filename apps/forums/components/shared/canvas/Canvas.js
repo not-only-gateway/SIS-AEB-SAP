@@ -15,6 +15,9 @@ import {v4 as uuid4} from 'uuid';
 import StickyZone from "./modules/placeholder/StickyZone";
 import RenderNodes from "./methods/render/RenderNodes";
 import RenderLinks from "./methods/render/RenderLinks";
+import Triangle from "./modules/node/shapes/Triangle";
+import Circle from "./modules/node/shapes/Circle";
+import Rect from "./modules/node/shapes/Rect";
 
 
 export default function Canvas(props) {
@@ -56,16 +59,16 @@ export default function Canvas(props) {
         <div
             style={{height: '100%', width: '100%', userSelect: 'none', scrollBehavior: 'auto'}}
             id={'frame'} onMouseDown={event => {
-                const className = event.target.className
-                if (selectedLink && event.target.closest('.Link_input__3SQkm') === null)
-                    setSelectedLink(undefined)
-                if (selectedNode && event.target.closest('.NodeMenu_selectedHighlight__jWe4i') === null)
-                    setSelectedNode(undefined)
-                if (toBeLinked !== null && event.target.closest('.NodeMenu_selectedHighlight__jWe4i') === null)
-                    setToBeLinked(null)
-                if (!openNodeOverview && contextMenuRef.current !== null && contextMenuRef.current.firstChild && className !== 'Canvas_optionButton__1K9rT' && className !== 'Canvas_lineContentContainer__1xCXK')
-                    ReactDOM.unmountComponentAtNode(contextMenuRef.current)
-            }}>
+            const className = event.target.className
+            if (selectedLink && event.target.closest('.Link_input__3SQkm') === null)
+                setSelectedLink(undefined)
+            if (selectedNode && event.target.closest('.NodeMenu_selectedHighlight__jWe4i') === null)
+                setSelectedNode(undefined)
+            if (toBeLinked !== null && event.target.closest('.NodeMenu_selectedHighlight__jWe4i') === null)
+                setToBeLinked(null)
+            if (!openNodeOverview && contextMenuRef.current !== null && contextMenuRef.current.firstChild && className !== 'Canvas_optionButton__1K9rT' && className !== 'Canvas_lineContentContainer__1xCXK')
+                ReactDOM.unmountComponentAtNode(contextMenuRef.current)
+        }}>
 
             <div className={styles.content}>
                 <Scale scale={scale} setScale={setScale}/>
@@ -99,6 +102,7 @@ export default function Canvas(props) {
                         }}
                         ref={printRef}
                     >
+
                         <RenderNodes
                             {...props} contextMenuRef={contextMenuRef.current}
                             scale={scale} root={root.current}
