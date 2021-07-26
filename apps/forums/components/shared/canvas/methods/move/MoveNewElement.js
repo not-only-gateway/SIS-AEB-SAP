@@ -1,6 +1,5 @@
 import {v4 as uuid4} from "uuid";
 import PropTypes from "prop-types";
-import OptionsMenu from "../../modules/navigation/OptionsMenu";
 
 export default function MoveNewElement(props) {
     let dragged = true

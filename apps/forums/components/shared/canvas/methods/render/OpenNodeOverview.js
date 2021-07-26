@@ -37,8 +37,8 @@ export default function OpenNodeOverview(props){
             props.contextMenuRef
         )
 
-        props.contextMenuRef.style.top = nodeEl.top + 'px'
-        props.contextMenuRef.style.left = nodeEl.left + 'px'
+        props.contextMenuRef.style.top = nodeEl.getBBox().y + 'px'
+        props.contextMenuRef.style.left = (nodeEl.getBBox().x + 520)+ 'px'
     }
 }
 

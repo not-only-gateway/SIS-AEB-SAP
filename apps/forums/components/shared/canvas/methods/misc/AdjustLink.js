@@ -26,16 +26,16 @@ export default function AdjustLink(props) {
         if (props.pathRef !== null)
             props.pathRef.setAttribute('d', GetCurve({
                 target: {
-                    x: props.target.offsetLeft,
-                    y: props.target.offsetTop,
-                    height: props.target.offsetHeight,
-                    width: props.target.offsetWidth
+                    x: props.target.getBBox().x,
+                    y: props.target.getBBox().y,
+                    height: props.target.getBBox().height,
+                    width: props.target.getBBox().width
                 },
                 source: {
-                    x: props.source.offsetLeft,
-                    y: props.source.offsetTop,
-                    height: props.source.offsetHeight,
-                    width: props.source.offsetWidth
+                    x: props.source.getBBox().x,
+                    y: props.source.getBBox().y,
+                    height: props.source.getBBox().height,
+                    width: props.source.getBBox().width
                 },
                 type: props.type
             }))

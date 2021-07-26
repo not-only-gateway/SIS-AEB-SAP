@@ -1,16 +1,31 @@
-import NodeTemplate from "../../../templates/NodeTemplate";
 import styles from "../../../styles/Node.module.css";
 import React from "react";
+import NodePropsTemplate from "../../../templates/NodePropsTemplate";
+import PropTypes from 'prop-types'
+import NodeContentWrapper from "../NodeContentWrapper";
+import SelectedMenu from "../SelectedMenu";
 
 export default function Square(props) {
     return (
         <g>
-            <rect rx={'5'} ry={'5'} width={'200'} height={'200'} fill={'white'} strokeWidth={'1'}
-                  x={props.node.placement.x} y={props.node.placement.y} stroke={'#e0e0e0'}
+            <SelectedMenu selected={props.selected} nodeRef={props.reference} node={props.node} linkable={true}/>
+            <rect
+                rx={props.node.shape.includes('rounded') ? '5' : undefined}
+                ry={props.node.shape.includes('rounded') ? '5' : undefined}
+
+                width={'200'} height={'200'}
+                fill={'white'} strokeWidth={'2'}
+                x={props.node.placement.x} y={props.node.placement.y} stroke={props.node.color}
             />
-            <foreignObject x={props.node.placement.x} y={props.node.placement.y}
-                           width={'250'} height={'110'}>
-                <div style={{background: 'transparent', width: '100%', height: '100%', padding: '8px'}}>
+            <foreignObject
+                x={props.node.placement.x} y={props.node.placement.y}
+                width={'200'} height={'200'}
+                style={{
+                    boxShadow: props.selected === props.node.id ? ('0 0 10px ' + props.node.color) : '0 4px 30px rgb(22 33 74 / 5%)',
+                    transition: 'box-shadow 150ms linear',
+                    borderRadius: props.node.shape.includes('rounded') ? '5px' : undefined
+                }}>
+                <NodeContentWrapper {...props}>
                     <div className={styles.header}>
                         {props.node.title}
                         <div className={styles.colorIndicator} style={{
@@ -20,11 +35,9 @@ export default function Square(props) {
                     <div className={styles.body}>
                         {props.node.description}
                     </div>
-                </div>
+                </NodeContentWrapper>
             </foreignObject>
         </g>
     )
 }
-Square.propTypes = {
-    node: NodeTemplate
-}
+Square.propTypes = {...NodePropsTemplate, ...{reference: PropTypes.object}}

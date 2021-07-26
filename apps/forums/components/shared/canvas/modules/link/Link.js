@@ -1,8 +1,6 @@
 import PropTypes from "prop-types";
 import React, {useEffect, useRef, useState} from "react";
 import GetCurve from "./GetCurve";
-import styles from '../../styles/Link.module.css'
-import NodeContextMenu from "../node/NodeContextMenu";
 import LinkContextMenu from "./LinkContextMenu";
 import AdjustLink from "../../methods/misc/AdjustLink";
 
@@ -32,16 +30,16 @@ export default function Link(props) {
 
         pathRef.current.setAttribute('d', GetCurve({
             target: {
-                x: t.offsetLeft,
-                y: t.offsetTop,
-                height: t.offsetHeight,
-                width: t.offsetWidth
+                x: t.getBBox().x,
+                y: t.getBBox().y,
+                height: t.getBBox().height,
+                width: t.getBBox().width
             },
             source: {
-                x: s.offsetLeft,
-                y: s.offsetTop,
-                height: s.offsetHeight,
-                width: s.offsetWidth
+                x: s.getBBox().x,
+                y: s.getBBox().y,
+                height: s.getBBox().height,
+                width: s.getBBox().width
             },
             type: props.type
         }))
@@ -74,11 +72,13 @@ export default function Link(props) {
                         child={props.child} parent={props.parent} type={props.type} deleteLink={props.deleteLink}
                         changeType={() => {
                             props.handleChange({name: 'type', value: props.type === 'weak' ? 'strong' : 'weak'})
-                        }}/>,
+                        }} handleClose={props.handleContextClose}/>,
                     (e.clientX),
                     (e.clientY - 40)
                 )
-            }}>
+            }}
+            onDoubleClick={event => props.handleStepCreation(event, props.target.id, props.source.id)}
+        >
             <defs>
                 <marker
                     id={`${props.source.id}-end-${props.target.id}`}
@@ -98,7 +98,13 @@ export default function Link(props) {
                             style={{transition: 'fill 250ms linear', transitionDelay: '250ms'}}/>
                 </marker>
             </defs>
-
+            <path
+                stroke={
+                    'transparent'
+                } strokeWidth={'20'}
+                fill={'none'}
+                d={pathRef.current !== undefined ? pathRef.current.getAttribute("d") : undefined}
+            />
 
             <path
                 stroke={
@@ -131,5 +137,8 @@ Link.propTypes = {
         parent: PropTypes.string
     }),
     setSelected: PropTypes.func,
-    color: PropTypes.func
+    color: PropTypes.func,
+    handleContextClose: PropTypes.func,
+
+    handleStepCreation: PropTypes.func
 }

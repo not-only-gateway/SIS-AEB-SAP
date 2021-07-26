@@ -1,15 +1,6 @@
-import PropTypes from 'prop-types'
 import React, {useEffect, useRef, useState} from "react";
-import styles from "../../styles/Node.module.css";
-
-import NodeContextMenu from "./NodeContextMenu";
-import NodeTemplate from "../../templates/NodeTemplate";
-import NodeMenu from "./NodeMenu";
 import NodePropsTemplate from "../../templates/NodePropsTemplate";
-import Circle from "./shapes/Circle";
-import Rect from "./shapes/Rect";
 import RenderNodeShape from "./shapes/RenderNodeShape";
-
 
 
 export default function Node(props) {
@@ -32,46 +23,14 @@ export default function Node(props) {
     return (
         <g
             id={props.node.id + '-node'}
-            onMouseDown={event => {
-                if (event.button === 0 && props.toBeLinked !== null && props.toBeLinked.id !== props.node.id)
-                    props.handleLink(props.node.id, undefined)
-                if (typeof event === 'object' && event.button === 0 && typeof event.target.className !== 'object' && (props.toBeLinked === null || props.node.id !== props.toBeLinked.id)) {
-                    props.setSelected(props.node.id)
-                    props.move({
-                        node: props.node,
-                        event: event
-                    })
-                }
-            }}
-            onDoubleClick={() => {
-                props.openOverview()
-            }}
-            onContextMenu={e => {
-                if (props.toBeLinked === null)
-                    props.setOpenContext(
-                        <NodeContextMenu
-                            handleClose={() => props.setOpenContext(null, null, null)}
-                            entity={props.node}
-                            handleDelete={() => props.handleDelete(props.index, props.node.id)}
-                            show={props.openOverview}
-                            handleLink={type => props.handleLink(props.node.id, type)}
-                        />,
-                        (e.clientX),
-                        (e.clientY - ref.current.offsetHeight)
-                    )
-            }}
-            // className={[styles.entityContainer, props.node.shape === 'circle' ? styles.circleContainer : ''].join(' ')}
             style={{
                 cursor: props.selected === props.node.id && props.toBeLinked === null ? 'move' : linkable === false ? 'unset' : "pointer",
                 opacity: linkable === false ? '.5' : '1',
-                // minWidth: props.node.shape === 'circle' ? 'unset' : '230px',
-                // background: props.node.shape === 'circle' ? props.node.color : undefined
             }}
             ref={ref}
         >
-            {/*<NodeMenu selected={props.selected} node={props.node} nodeRef={ref.current} linkable={linkable}/>*/}
-            {/*<Circle node={props.node}/>*/}
-            <RenderNodeShape node={props.node}/>
+            {/*<SelectedMenu selected={props.selected} node={props.node} nodeRef={ref.current} linkable={linkable}/>*/}
+            <RenderNodeShape {...props} reference={ref.current}/>
         </g>
 
     )

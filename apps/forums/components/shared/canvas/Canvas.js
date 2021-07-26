@@ -2,22 +2,15 @@ import CanvasTemplate from "./templates/CanvasPropsTemplate";
 import styles from './styles/Frame.module.css'
 
 import React, {useEffect, useRef, useState} from "react";
-import Link from "./modules/link/Link";
 import {useReactToPrint} from "react-to-print";
 import ReactDOM from "react-dom";
-import Node from "./modules/node/Node";
-import Move from "./methods/move/MoveNode";
 import OptionsMenu from "./modules/navigation/OptionsMenu";
-import NodeOverview from "./modules/node/NodeOverview";
 import ScrollCanvas from "./methods/misc/ScrollCanvas";
 import Scale from "./modules/navigation/Scale";
 import {v4 as uuid4} from 'uuid';
 import StickyZone from "./modules/placeholder/StickyZone";
 import RenderNodes from "./methods/render/RenderNodes";
 import RenderLinks from "./methods/render/RenderLinks";
-import Triangle from "./modules/node/shapes/Triangle";
-import Circle from "./modules/node/shapes/Circle";
-import Rect from "./modules/node/shapes/Rect";
 
 
 export default function Canvas(props) {
@@ -117,6 +110,7 @@ export default function Canvas(props) {
                             {...props} data={data} setData={setData} selectedLink={selectedLink}
                             setSelectedLink={setSelectedLink} root={root.current}
                             contextMenuRef={contextMenuRef.current}
+                            handleContextClose={() => ReactDOM.unmountComponentAtNode(contextMenuRef.current)}
                         />
                     </svg>
                 </div>

@@ -1,17 +1,18 @@
 import styles from '../../styles/Menu.module.css'
 import {
     ControlCameraRounded,
-    DragIndicatorRounded, FileCopy, FileCopyRounded, LocalLibraryRounded,
+    DragIndicatorRounded,
+    FileCopyRounded,
+    LocalLibraryRounded,
     MoreVertRounded,
     PictureAsPdfRounded,
-    PublishRounded, SaveAltRounded,
-    SaveRounded,
-    SearchRounded,
+    PublishRounded,
+    SaveAltRounded,
     VisibilityRounded
 } from "@material-ui/icons";
 import Tabs from "./Tabs";
 import PropTypes from "prop-types";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import HandleDownload from "../../methods/handles/HandleDownload";
 import HandleUpload from "../../methods/handles/HandleUpload";
 

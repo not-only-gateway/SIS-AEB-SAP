@@ -13,6 +13,7 @@
 .shapeContainer{
     background: transparent;
     cursor: grab;
+    height: fit-content;
 }
 
 .circle {

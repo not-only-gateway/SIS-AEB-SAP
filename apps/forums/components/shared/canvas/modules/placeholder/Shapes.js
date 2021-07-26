@@ -1,5 +1,4 @@
 import styles from '../../styles/Shapes.module.css'
-import {ArrowBackIos, DragIndicatorRounded} from "@material-ui/icons";
 import PropTypes from 'prop-types'
 import Elements from "./Elements";
 
@@ -9,7 +8,6 @@ export default function Shapes(props) {
             <Elements {...props} label={'Elementos:'}>
 
                 <div className={styles.shapes}>
-
                     <div
                         className={styles.shapeContainer}
                         draggable={true}
@@ -58,7 +56,16 @@ export default function Shapes(props) {
                                     strokeWidth={'.8'}/>
                         </svg>
                     </div>
+                    <div
+                        className={styles.shapeContainer}
+                        draggable={true}
+                        onDragStart={() => props.onDragStart('ellipse')}
+                    >
+                        <svg overflow={'hidden'} width={'71.5'} height={'41.5'}>
 
+                            <ellipse cx={'36'} cy={'21'} rx={'35'} ry={'20'} stroke={'#333333'} fill={'transparent'}/>
+                        </svg>
+                    </div>
                     <div
                         className={styles.shapeContainer}
                         draggable={true}
@@ -66,7 +73,16 @@ export default function Shapes(props) {
                     >
                         <svg overflow={'visible'} width={'80'} height={'80'}>
 
-
+                            <path d={'M0,0 L 10,45 35,45 45,0 Z'} stroke={'#333333'} fill={'transparent'}/>
+                        </svg>
+                    </div>
+                    <div
+                        className={styles.shapeContainer}
+                        draggable={true}
+                        onDragStart={() => props.onDragStart('triangle')}
+                    >
+                        <svg overflow={'hidden'} width={'45'} height={'45'}>
+                            <path d={'M 0 45 L 45 45 22.5 0 Z'} stroke={'#333333'} fill={'transparent'}/>
                         </svg>
                     </div>
                 </div>

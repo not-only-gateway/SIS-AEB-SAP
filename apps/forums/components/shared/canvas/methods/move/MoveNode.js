@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
-import index from "../../../../../pages";
 
 export default function Move(props) {
     let moving = false
     let nodeRef = document.getElementById(props.node.id + '-node')
+    console.log(props.event.clientX)
     let lastPlacement = {
         x: props.event.clientX,
         y: props.event.clientY
@@ -31,8 +31,10 @@ export default function Move(props) {
     }
 
     function move(event, save) {
-        const wrapper = nodeRef.firstChild.childNodes[0]
-        const content = nodeRef.firstChild.childNodes[1]
+        const selector = nodeRef.firstChild.childNodes[0]
+        const wrapper = nodeRef.firstChild.childNodes[1]
+        const content = nodeRef.firstChild.childNodes[2]
+
         let newPlacement = {
             x: lastPlacement.x - event.clientX,
             y: lastPlacement.y - event.clientY
@@ -42,6 +44,7 @@ export default function Move(props) {
             x: event.clientX,
             y: event.clientY
         }
+
         let placementX = wrapper.getBBox().x - newPlacement.x / props.scale;
         let placementY = wrapper.getBBox().y - newPlacement.y / props.scale;
 
@@ -49,19 +52,23 @@ export default function Move(props) {
         content.setAttribute('y', placementY.toString())
         wrapper.setAttribute('y', placementY.toString())
         wrapper.setAttribute('x', placementX.toString())
-
+        selector.setAttribute('y', (placementY - 10))
+        selector.setAttribute('x', (placementX - 10))
         if (save) {
             if (placementX < 0) {
                 content.setAttribute('x', '20')
                 wrapper.setAttribute('x', '20')
+                selector.setAttribute('x', '10')
             }
 
 
             if (placementY < 0) {
                 content.setAttribute('y', '20')
                 wrapper.setAttribute('y', '20')
+                selector.setAttribute('y', '10')
             }
         }
+
     }
 
 

@@ -3,9 +3,20 @@ import ReactDOM from "react-dom";
 import React from "react";
 import CanvasTemplate from "../../templates/CanvasPropsTemplate";
 import PropTypes from "prop-types";
-import RenderNodes from "./RenderNodes";
+import {v4 as uuid4} from 'uuid';
 
 export default function RenderLinks(props) {
+
+    const handleStepCreation = (event, target, source) => {
+        // const newSteps = [...props.data.links]
+        // newSteps.push({
+        //     id: uuid4().toString(),
+        //     description: '',
+        //     target: v,
+        //     source: source
+        // })
+    }
+
     return (
         props.data.links.map((link, index) => (
             <g key={`${link.child.id}-link-${link.parent.id}`}>
@@ -30,8 +41,8 @@ export default function RenderLinks(props) {
                         newLinks[index] = newLink
                         props.setData({...props.data, links: newLinks})
                     }}
-                    canEdit={props.options.edit}
-                    rootOffset={props.root}
+                    canEdit={props.options.edit} handleContextClose={props.handleContextClose}
+                    rootOffset={props.root} handleStepCreation={handleStepCreation}
                     openContextMenu={(event, x, y) => {
                         if (event === null) {
                             ReactDOM.unmountComponentAtNode(props.contextMenuRef)
@@ -68,6 +79,7 @@ RenderLinks.propTypes = {
         setData: PropTypes.func,
         data: PropTypes.object,
         selectedLink: PropTypes.string,
-        setSelectedLink: PropTypes.func
+        setSelectedLink: PropTypes.func,
+        handleContextClose: PropTypes.func
     }
 }

@@ -1,15 +1,7 @@
 import PropTypes from 'prop-types'
 import NodeTemplate from "../../templates/NodeTemplate";
 import styles from '../../styles/NodeOverview.module.css'
-import {
-    AttachFile, AttachFileRounded,
-    CloseRounded,
-    DragIndicatorRounded,
-    EditRounded,
-    FileCopyRounded,
-    ImageRounded,
-    PictureAsPdfRounded
-} from "@material-ui/icons";
+import {AttachFileRounded, CloseRounded, DragIndicatorRounded} from "@material-ui/icons";
 import {useState} from "react";
 import MoveOverview from "../../methods/move/MoveOverview";
 import {ColorField} from "sis-aeb-inputs";
@@ -30,11 +22,14 @@ export default function NodeOverview(props) {
     }
     return (
         <div className={styles.container} id={'node-overview'}>
-            <div className={styles.dragHeader} onMouseDown={event => MoveOverview({
-                contextMenuRef: props.contextMenuRef,
-                root: props.root,
-                event: event
-            })}>
+            <div className={styles.dragHeader} onMouseDown={event => {
+                if (typeof event.target.className !== 'object' && event.target.className !== 'NodeOverview_closeButtonContainer__2RYF9')
+                    MoveOverview({
+                        contextMenuRef: props.contextMenuRef,
+                        root: props.root,
+                        event: event
+                    })
+            }}>
                 <DragIndicatorRounded/>
                 <button className={styles.closeButtonContainer} onClick={() => props.handleClose()}>
                     <CloseRounded style={{fontSize: '1.3rem'}}/>

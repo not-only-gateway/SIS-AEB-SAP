@@ -1,10 +1,8 @@
 import Node from "../../modules/node/Node";
 import ReactDOM from "react-dom";
-import NodeOverview from "../../modules/node/NodeOverview";
 import Move from "../move/MoveNode";
 import React from "react";
 import CanvasTemplate from "../../templates/CanvasPropsTemplate";
-import Canvas from "../../Canvas";
 import PropTypes from 'prop-types'
 import OpenNodeOverview from "./OpenNodeOverview";
 
@@ -71,6 +69,10 @@ export default function RenderNodes(props) {
         })
     }
     const handleContextMenu = (event, x, y) => {
+        console.log('OPENING CONTEXT')
+        console.log(event)
+        console.log(x)
+        console.log(y)
         if (event === null)
             ReactDOM.unmountComponentAtNode(props.contextMenuRef)
         else {
