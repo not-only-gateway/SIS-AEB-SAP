@@ -6,8 +6,9 @@ import PropTypes from 'prop-types'
 
 
 export default function NodeContentWrapper(props){
+    console.log(props.linkable)
     return(
-        <div className={styles.nodeShapeContainer}
+        <div className={[styles.nodeShapeContainer, props.linkable ? styles.pulse : ''].join(' ')}
             onMouseDown={event => {
                 if (event.button === 0 && props.toBeLinked !== null && props.toBeLinked.id !== props.node.id)
                     props.handleLink(props.node.id, undefined)
@@ -23,7 +24,6 @@ export default function NodeContentWrapper(props){
                 props.openOverview()
             }}
             onContextMenu={e => {
-                console.log(props.reference.offsetTop)
                 if (props.toBeLinked === null)
                     props.setOpenContext(
                         <NodeContextMenu
@@ -43,4 +43,4 @@ export default function NodeContentWrapper(props){
     )
 }
 
-Node.propTypes = {...NodePropsTemplate, ...{reference: PropTypes.object}}
+NodeContentWrapper.propTypes = {...NodePropsTemplate, ...{reference: PropTypes.object}}

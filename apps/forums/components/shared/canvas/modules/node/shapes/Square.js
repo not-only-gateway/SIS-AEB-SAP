@@ -8,7 +8,7 @@ import SelectedMenu from "../SelectedMenu";
 export default function Square(props) {
     return (
         <g>
-            <SelectedMenu selected={props.selected} nodeRef={props.reference} node={props.node} linkable={true}/>
+
             <rect
                 rx={props.node.shape.includes('rounded') ? '5' : undefined}
                 ry={props.node.shape.includes('rounded') ? '5' : undefined}
@@ -28,9 +28,6 @@ export default function Square(props) {
                 <NodeContentWrapper {...props}>
                     <div className={styles.header}>
                         {props.node.title}
-                        <div className={styles.colorIndicator} style={{
-                            background: props.node.color
-                        }}/>
                     </div>
                     <div className={styles.body}>
                         {props.node.description}

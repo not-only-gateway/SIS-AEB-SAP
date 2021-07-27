@@ -7,23 +7,16 @@ import ReactDOM from "react-dom";
 import OptionsMenu from "./modules/navigation/OptionsMenu";
 import ScrollCanvas from "./methods/misc/ScrollCanvas";
 import Scale from "./modules/navigation/Scale";
-import {v4 as uuid4} from 'uuid';
-import StickyZone from "./modules/placeholder/StickyZone";
+
+import StickyZone from "./modules/misc/StickyZone";
 import RenderNodes from "./methods/render/RenderNodes";
 import RenderLinks from "./methods/render/RenderLinks";
+import NewProjectTemplate from "./templates/NewProjectTemplate";
 
 
 export default function Canvas(props) {
     const [offsetTop, setOffsetTop] = useState(-1)
-    const [data, setData] = useState({
-        id: uuid4().toString(),
-        subject: 'Sem título',
-        nodes: [],
-        links: [],
-        dimensions: {},
-        connectionType: 'strong-path',
-        steps: []
-    })
+    const [data, setData] = useState(NewProjectTemplate)
     const [toBeLinked, setToBeLinked] = useState(null)
     const [openNodeOverview, setOpenNodeOverview] = useState(false)
     const root = useRef()
@@ -51,17 +44,19 @@ export default function Canvas(props) {
     return (
         <div
             style={{height: '100%', width: '100%', userSelect: 'none', scrollBehavior: 'auto'}}
-            id={'frame'} onMouseDown={event => {
-            const className = event.target.className
-            if (selectedLink && event.target.closest('.Link_input__3SQkm') === null)
-                setSelectedLink(undefined)
-            if (selectedNode && event.target.closest('.NodeMenu_selectedHighlight__jWe4i') === null)
-                setSelectedNode(undefined)
-            if (toBeLinked !== null && event.target.closest('.NodeMenu_selectedHighlight__jWe4i') === null)
-                setToBeLinked(null)
-            if (!openNodeOverview && contextMenuRef.current !== null && contextMenuRef.current.firstChild && className !== 'Canvas_optionButton__1K9rT' && className !== 'Canvas_lineContentContainer__1xCXK')
-                ReactDOM.unmountComponentAtNode(contextMenuRef.current)
-        }}>
+            id={'frame'}
+            onMouseDown={event => {
+                const className = event.target.className
+                console.log(className)
+                if (selectedLink && event.target.closest('.Link_input__3SQkm') === null)
+                    setSelectedLink(undefined)
+                if (selectedNode && event.target.closest('.Node_body__1O9a2') === null && event.target.closest('.Node_nodeShapeContainer__3-69M') === null && event.target.id === '')
+                    setSelectedNode(undefined)
+                if (toBeLinked !== null && event.target.closest('.Node_body__1O9a2') === null && event.target.closest('.Node_nodeShapeContainer__3-69M') === null && event.target.id === '')
+                    setToBeLinked(null)
+                if (!openNodeOverview && contextMenuRef.current !== null && contextMenuRef.current.firstChild && className !== 'Canvas_optionButton__1K9rT' && className !== 'Canvas_lineContentContainer__1xCXK')
+                    ReactDOM.unmountComponentAtNode(contextMenuRef.current)
+            }}>
 
             <div className={styles.content}>
                 <Scale scale={scale} setScale={setScale}/>

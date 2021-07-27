@@ -14,8 +14,8 @@ export default function Link(props) {
 
         AdjustLink({
             pathRef: pathRef.current,
-            source: s,
-            target: t,
+            source: {reference: s, connectionPoint: props.source.connectionPoint, nodeShape: props.source.nodeShape},
+            target: {reference: t, connectionPoint: props.target.connectionPoint, nodeShape: props.target.nodeShape},
             setColor: setColor,
             type: props.type
         })
@@ -33,13 +33,15 @@ export default function Link(props) {
                 x: t.getBBox().x,
                 y: t.getBBox().y,
                 height: t.getBBox().height,
-                width: t.getBBox().width
+                width: t.getBBox().width,
+                connectionPoint: props.target.connectionPoint
             },
             source: {
                 x: s.getBBox().x,
                 y: s.getBBox().y,
                 height: s.getBBox().height,
-                width: s.getBBox().width
+                width: s.getBBox().width,
+                connectionPoint: props.source.connectionPoint
             },
             type: props.type
         }))
@@ -62,6 +64,7 @@ export default function Link(props) {
     return (
         <g
             style={{cursor: "pointer"}}
+
             onContextMenu={e => {
                 props.setSelected({
                     child: props.source.id,
@@ -79,6 +82,7 @@ export default function Link(props) {
             }}
             onDoubleClick={event => props.handleStepCreation(event, props.target.id, props.source.id)}
         >
+
             <defs>
                 <marker
                     id={`${props.source.id}-end-${props.target.id}`}
@@ -86,7 +90,8 @@ export default function Link(props) {
                     markerWidth="10" markerHeight="10"
                 >
                     <circle cx="10" cy="10" r="10" fill={color === 'transparent' || !color ? '#e0e0e0' : color}
-                            style={{transition: 'fill 250ms linear', transitionDelay: '250ms'}}/>
+                            style={{transition: 'fill 250ms linear', transitionDelay: '250ms'}}
+                    />
                 </marker>
                 <marker
                     id={`${props.source.id}-start-${props.target.id}`}
@@ -100,22 +105,23 @@ export default function Link(props) {
             </defs>
             <path
                 stroke={
+                    color === 'transparent' || !color ? '#e0e0e0' : color
+                } strokeWidth={'2'} style={{transition: 'stroke 250ms linear', transitionDelay: '250ms'}}
+                fill={'none'} ref={pathRef}
+                strokeDasharray={props.type.includes('dashed') ? '5,5' : undefined}
+                d={'M 0,0'}
+                markerStart={`url(#${props.source.id}-end-${props.target.id})`}
+                markerEnd={`url(#${props.source.id}-start-${props.target.id})`}
+            />
+
+            <path
+                stroke={
                     'transparent'
                 } strokeWidth={'20'}
                 fill={'none'}
                 d={pathRef.current !== undefined ? pathRef.current.getAttribute("d") : undefined}
             />
 
-            <path
-                stroke={
-                    color === 'transparent' || !color ? '#e0e0e0' : color
-                } strokeWidth={'2'} style={{transition: 'stroke 250ms linear', transitionDelay: '250ms'}}
-                fill={'none'} ref={pathRef}
-                strokeDasharray={props.type.includes('dashed')? '5,5' : undefined}
-                d={'M 0,0'}
-                markerStart={`url(#${props.source.id}-end-${props.target.id})`}
-                markerEnd={`url(#${props.source.id}-start-${props.target.id})`}
-            />
         </g>
     )
 }
@@ -124,21 +130,22 @@ Link.propTypes = {
     deleteLink: PropTypes.func,
     openContextMenu: PropTypes.func,
 
-    source: PropTypes.object,
-    target: PropTypes.object,
+    source: PropTypes.shape({
+        id: PropTypes.string,
+        nodeShape: PropTypes.string,
+        connectionPoint: PropTypes.oneOf(['a', 'b', 'c', 'd'])
+    }),
+    target: PropTypes.shape({
+        id: PropTypes.string,
+        nodeShape: PropTypes.string,
+        connectionPoint: PropTypes.oneOf(['a', 'b', 'c', 'd'])
+    }),
     type: PropTypes.oneOf(['strong-path', 'strong-line', 'dashed-path', 'dashed-line']),
     rootOffset: PropTypes.object,
     canEdit: PropTypes.bool,
 
     handleChange: PropTypes.func,
-
-    selectedLink: PropTypes.shape({
-        child: PropTypes.string,
-        parent: PropTypes.string
-    }),
-    setSelected: PropTypes.func,
     color: PropTypes.func,
     handleContextClose: PropTypes.func,
-
     handleStepCreation: PropTypes.func
 }

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import React from "react";
 
 export default function GetCurve(props) {
     let limits = {
@@ -9,6 +10,7 @@ export default function GetCurve(props) {
     }
     let response
     let pivots = {}
+
     let target = {
         x: undefined,
         y: undefined
@@ -18,48 +20,64 @@ export default function GetCurve(props) {
         y: undefined
     }
 
-    switch (true) {
-        case (props.target.y <= limits.top): {  // TOP
-            source = {
-                x: props.source.x + props.source.width / 2,
-                y: props.source.y
-            }
+    switch (props.target.connectionPoint) {
+        case 'a': {
             target = {
                 x: props.target.x + props.target.width / 2,
-                y: props.target.y + props.target.height
+                y: props.target.y - 10
             }
             break
         }
-        case (props.target.y >= limits.bottom): {  // BOTTOM
-            source = {
-                x: props.source.x + props.source.width / 2,
-                y: props.source.y + props.source.height
-            }
+        case 'b': {
             target = {
-                x: props.target.x + props.target.width / 2,
-                y: props.target.y
-            }
-            break
-        }
-        case (props.target.y > limits.top && props.target.y < limits.bottom && props.target.x <= limits.left): { // MID LEFT
-            source = {
-                x: props.source.x,
-                y: props.source.y + props.source.height / 2
-            }
-            target = {
-                x: props.target.x + props.target.width,
+                x: props.target.x + props.target.width + 10,
                 y: props.target.y + props.target.height / 2
             }
             break
         }
-        case (props.target.y > limits.top && props.target.y < limits.bottom && props.target.x >= limits.right): { // MID RIGHT
+        case 'c': {
+            target = {
+                x: props.target.x + props.target.width / 2,
+                y: props.target.y + props.target.height + 10
+            }
+            break
+        }
+        case 'd': {
+            target = {
+                x: props.target.x - 10,
+                y: props.target.y + props.target.height / 2
+            }
+            break
+        }
+        default:
+            break
+    }
+    switch (props.source.connectionPoint) {
+        case 'a': {
             source = {
-                x: props.source.x + props.source.width,
+                x: props.source.x + props.source.width / 2,
+                y: props.source.y - 10
+            }
+            break
+        }
+        case 'b': {
+            source = {
+                x: props.source.x + props.source.width + 10,
                 y: props.source.y + props.source.height / 2
             }
-            target = {
-                x: props.target.x,
-                y: props.target.y + props.target.height / 2
+            break
+        }
+        case 'c': {
+            source = {
+                x: props.source.x + props.source.width / 2,
+                y: props.source.y + props.source.height + 10
+            }
+            break
+        }
+        case 'd': {
+            source = {
+                x: props.source.x - 10,
+                y: props.source.y + props.source.height / 2
             }
             break
         }
@@ -68,31 +86,31 @@ export default function GetCurve(props) {
     }
     if (props.type.includes('-path')) {
         switch (true) {
-            case (props.source.y > props.target.y): {
+            case (source.y > target.y): {
                 pivots = {
-                    x1: props.source.x + props.source.width / 2,
-                    y1: props.source.height / 2 + props.source.y - (props.source.y - props.target.y) / 2,
-                    x2: props.target.x + props.target.width / 2,
-                    y2: props.source.height / 2 + props.source.y - (props.source.y - props.target.y) / 2
+                    x1: source.x,
+                    y1: source.y - (source.y - target.y) / 2,
+                    x2: target.x,
+                    y2: source.y - (source.y - target.y) / 2
                 }
                 break
             }
-            case (props.target.y > props.source.y): {
+            case (target.y > source.y): {
                 pivots = {
-                    x1: props.source.x + props.source.width / 2,
-                    y1: props.target.height / 2 + props.target.y - (props.target.y - props.source.y) / 2,
-                    x2: props.target.x + props.target.width / 2,
-                    y2: props.target.height / 2 + props.target.y - (props.target.y - props.source.y) / 2
+                    x1: source.x,
+                    y1: target.y - (target.y - source.y) / 2,
+                    x2: target.x,
+                    y2: target.y - (target.y - source.y) / 2
                 }
                 break
             }
-            case (props.target.y === props.source.y): {
-                if (props.target.x >= props.source.x)
+            case (target.y === source.y): {
+                if (target.x >= source.x)
                     pivots = {
-                        x1: props.source.x,
-                        y1: props.source.y,
-                        x2: props.target.x,
-                        y2: props.target.y
+                        x1: source.x,
+                        y1: source.y,
+                        x2: target.x,
+                        y2: target.y
                     }
                 break
             }
@@ -111,13 +129,17 @@ GetCurve.propTypes = {
         x: PropTypes.number,
         y: PropTypes.number,
         height: PropTypes.number,
-        width: PropTypes.number
+        width: PropTypes.number,
+        connectionPoint: PropTypes.oneOf(['a', 'b', 'c', 'd']),
+        nodeShape: PropTypes.string
     }),
     target: PropTypes.shape({
         x: PropTypes.number,
         y: PropTypes.number,
         height: PropTypes.number,
-        width: PropTypes.number
+        width: PropTypes.number,
+        connectionPoint: PropTypes.oneOf(['a', 'b', 'c', 'd']),
+        nodeShape: PropTypes.string
     }),
     type: PropTypes.oneOf(['strong-path', 'strong-line', 'dashed-path', 'dashed-line'])
 }

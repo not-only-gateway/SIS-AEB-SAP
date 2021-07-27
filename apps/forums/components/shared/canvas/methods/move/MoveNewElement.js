@@ -25,8 +25,7 @@ export default function MoveNewElement(props) {
 
     document.addEventListener("drop", function (event) {
         event.preventDefault();
-
-        if (typeof event.target.className === 'object' && props.root !== undefined && dragged) {
+        if (event.target.childNodes.length === 1 && event.target.childNodes[0].id === 'canvas' && props.root !== undefined && dragged) {
             dragged = false
 
             event.target.style.background = "";
@@ -34,41 +33,25 @@ export default function MoveNewElement(props) {
                 x: props.root.getBoundingClientRect().left,
                 y: props.root.getBoundingClientRect().top
             }
-            if (props.type.includes('step')) {
-                console.log('HERE IF')
-                props.setState(({
-                    ...props.data,
-                    steps: [...props.data.steps, ...[{
-                        id: uuid4().toString(),
-                        description: null,
-                        placement: {
-                            x: (event.clientX - rootBounding.x + props.root.scrollLeft - 40),
-                            y: (event.clientY - rootBounding.y + props.root.scrollTop - 40)
-                        },
-                        shape: props.type.replace('step-', '')
-                    }]]
-                }))
-            } else {
-                console.log('HERE')
-                props.setState(({
-                    ...props.data,
-                    nodes: [...props.data.nodes, ...[{
-                        id: uuid4().toString(),
-                        title: 'Em branco',
-                        description: null,
 
-                        color: '#0095ff',
-                        placement: {
-                            x: (event.clientX - rootBounding.x + props.root.scrollLeft - 40),
-                            y: (event.clientY - rootBounding.y + props.root.scrollTop - 40)
-                        },
-                        shape: props.type,
-                        creationDate: (new Date()).getTime()
-                    }]]
-                }))
-            }
+            props.setState(({
+                ...props.data,
+                nodes: [...props.data.nodes, ...[{
+                    id: uuid4().toString(),
+                    title: 'Em branco',
+                    description: null,
+
+                    color: '#0095ff',
+                    placement: {
+                        x: (event.clientX - rootBounding.x + props.root.scrollLeft - 40),
+                        y: (event.clientY - rootBounding.y + props.root.scrollTop - 40)
+                    },
+                    shape: props.type,
+                    creationDate: (new Date()).getTime(),
+                    links: []
+                }]]
+            }))
         }
-
     }, {
         once: true
     })

@@ -26,16 +26,20 @@ export default function AdjustLink(props) {
         if (props.pathRef !== null)
             props.pathRef.setAttribute('d', GetCurve({
                 target: {
-                    x: props.target.getBBox().x,
-                    y: props.target.getBBox().y,
-                    height: props.target.getBBox().height,
-                    width: props.target.getBBox().width
+                    x: props.target.reference.getBBox().x,
+                    y: props.target.reference.getBBox().y,
+                    height: props.target.reference.getBBox().height,
+                    width: props.target.reference.getBBox().width,
+                    connectionPoint: props.target.connectionPoint,
+                    nodeShape: props.target.nodeShape
                 },
                 source: {
-                    x: props.source.getBBox().x,
-                    y: props.source.getBBox().y,
-                    height: props.source.getBBox().height,
-                    width: props.source.getBBox().width
+                    x: props.source.reference.getBBox().x,
+                    y: props.source.reference.getBBox().y,
+                    height: props.source.reference.getBBox().height,
+                    width: props.source.reference.getBBox().width,
+                    connectionPoint: props.source.connectionPoint,
+                    nodeShape: props.source.nodeShape
                 },
                 type: props.type
             }))
@@ -47,11 +51,17 @@ export default function AdjustLink(props) {
 }
 
 AdjustLink.propTypes = {
-    source: PropTypes.object,
-    target: PropTypes.object,
+    source: PropTypes.shape({
+        reference: PropTypes.object,
+        connectionPoint: PropTypes.oneOf(['a', 'b', 'c', 'd']),
+        nodeShape: PropTypes.string
+    }),
+    target: PropTypes.shape({
+        reference: PropTypes.object,
+        connectionPoint: PropTypes.oneOf(['a', 'b', 'c', 'd']),
+        nodeShape: PropTypes.string
+    }),
     pathRef: PropTypes.object,
-    // descriptionRef: PropTypes.object,
-    // description: PropTypes.string,
     setColor: PropTypes.func,
     type: PropTypes.oneOf(['strong-path', 'strong-line', 'dashed-path', 'dashed-line'])
 }

@@ -41,4 +41,4 @@ export default function RenderNodeShape(props){
         shape
     )
 }
-RenderNodeShape.propTypes = {...NodePropsTemplate, ...{reference: PropTypes.object}}
+RenderNodeShape.propTypes = {...NodePropsTemplate, ...{reference: PropTypes.object, linkable: PropTypes.bool}}

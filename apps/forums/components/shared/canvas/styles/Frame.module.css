@@ -63,7 +63,7 @@
     border-radius: 32px;
     overflow: hidden;
     bottom: 30px;
-    left: 480px;
+    left: 430px;
     z-index: 999;
     border: #ecedf2 1px solid;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
@@ -85,11 +85,10 @@
 
     cursor: pointer;
 
-    transition: 150ms ease;
+    transition: 150ms linear;
 }
 
 .scaleButton:hover {
-    border: #0095ff 1px solid;
     background: #E8F0FE;
     color: #0095ff;
 }

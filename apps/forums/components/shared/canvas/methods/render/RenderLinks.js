@@ -7,30 +7,74 @@ import {v4 as uuid4} from 'uuid';
 
 export default function RenderLinks(props) {
 
-    const handleStepCreation = (event, target, source) => {
-        // const newSteps = [...props.data.links]
-        // newSteps.push({
-        //     id: uuid4().toString(),
-        //     description: '',
-        //     target: v,
-        //     source: source
-        // })
+    const handleStepCreation = (event, link) => {
+        const stepID = uuid4().toString()
+        let newLinkA = {
+            type: props.data.connectionType,
+            parent: link.parent,
+            child: {
+                id: stepID,
+                connectionPoint: 'c',
+                nodeShape: 'rect',
+                index: props.data.steps.length
+            },
+        }
+        let newLinkB = {
+            type: link.type,
+            parent: {
+                id: stepID,
+                connectionPoint: 'c',
+                nodeShape: 'rect',
+                index: props.data.steps.length
+            },
+            child: link.child
+        }
+        let newNodes = [...props.data.nodes]
+        
+        let newSteps = [...props.data.steps, ...[{
+            id: stepID,
+            description: '',
+            links: [newLinkB, newLinkA],
+            placement: {x: event.clientX - props.root.offsetLeft, y: event.clientY - props.root.offsetTop},
+            shape: 'rect'
+        }]]
+        let newLinks = [...props.data.links]
+        newLinks.splice(props.data.links.indexOf(link), 1)
+        newLinks.push(newLinkB)
+        newLinks.push(newLinkA)
+        newNodes[link.child.index].links[newNodes[link.child.index].links.find((l, index) => {
+            if (l === link)
+                return index
+        })] = newLinkB
+        newNodes[link.parent.index].links[newNodes[link.parent.index].links.find((l, index) => {
+            if (l === link)
+                return index
+        })] = newLinkA
+
+        props.setData({
+            ...props.data,
+            links: newLinks,
+            nodes: newNodes,
+            steps: newSteps
+        })
     }
 
     return (
         props.data.links.map((link, index) => (
             <g key={`${link.child.id}-link-${link.parent.id}`}>
                 <Link
-                    target={link.parent} source={link.child}
-                    type={link.type} color={() => {
-                    const color = props.data.nodes.find(node => {
-                        if (node.id === link.parent.id)
-                            return node
-                    })
-                    if (color !== undefined)
-                        return color.color
-                    else return undefined
-                }}
+                    target={link.parent}
+                    source={link.child}
+                    type={link.type}
+                    color={() => {
+                        const color = props.data.nodes.find(node => {
+                            if (node.id === link.parent.id)
+                                return node
+                        })
+                        if (color !== undefined)
+                            return color.color
+                        else return undefined
+                    }}
                     setSelected={props.setSelectedLink}
                     selectedLink={props.selectedLink}
                     handleChange={event => {
@@ -42,7 +86,7 @@ export default function RenderLinks(props) {
                         props.setData({...props.data, links: newLinks})
                     }}
                     canEdit={props.options.edit} handleContextClose={props.handleContextClose}
-                    rootOffset={props.root} handleStepCreation={handleStepCreation}
+                    rootOffset={props.root} handleStepCreation={event => handleStepCreation(event, link)}
                     openContextMenu={(event, x, y) => {
                         if (event === null) {
                             ReactDOM.unmountComponentAtNode(props.contextMenuRef)
@@ -58,12 +102,27 @@ export default function RenderLinks(props) {
                         }
                     }}
                     deleteLink={() => {
-                        let newLinks = []
-                        props.data.links.map(l => {
-                            if (!(l.parent.id === link.parent.id && l.child.id === link.child.id))
-                                newLinks.push(l)
-                        })
-                        props.setData({...props.data, links: newLinks})
+                        let newLinks = [...props.data.links]
+                        const index = newLinks.indexOf(link)
+                        let newNodes = [...props.data.nodes]
+                        console.log(newNodes)
+                        newNodes[link.child.index].links.splice(newNodes[link.child.index].links.find((l, index) => {
+                            if (l === link)
+                                return index
+                        }), 1)
+                        newNodes[link.parent.index].links.splice(newNodes[link.parent.index].links.find((l, index) => {
+                            if (l === link)
+                                return index
+                        }), 1)
+                        console.log(newNodes)
+                        if (index > -1) {
+                            newLinks.splice(index, 1)
+                            props.setData({
+                                ...props.data,
+                                links: newLinks,
+                                nodes: newNodes
+                            })
+                        }
                     }}
                     description={link.description}
                 />

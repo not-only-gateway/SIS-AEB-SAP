@@ -6,15 +6,6 @@ import PropTypes from 'prop-types'
 export default function NodeContextMenu(props) {
     return (
         <div className={styles.options}>
-            <button className={styles.optionButton}
-                    onClick={() => {
-                        props.handleClose()
-                        props.handleLink()
-                    }}
-            >
-                <LinkRounded/>
-                Conexão
-            </button>
             <button className={styles.optionButton} onClick={() => {
                 props.handleClose()
                 props.show()
@@ -40,7 +31,6 @@ export default function NodeContextMenu(props) {
 }
 NodeContextMenu.propTypes = {
     entity: PropTypes.object,
-    handleLink: PropTypes.func,
     show: PropTypes.func,
     handleClose: PropTypes.func,
     handleDelete: PropTypes.func

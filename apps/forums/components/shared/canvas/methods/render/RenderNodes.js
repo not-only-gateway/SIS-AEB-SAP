@@ -7,53 +7,75 @@ import PropTypes from 'prop-types'
 import OpenNodeOverview from "./OpenNodeOverview";
 
 export default function RenderNodes(props) {
-    const handleLink = (id) => {
+    const handleLink = (node, connection, index) => {
+
         if (props.toBeLinked !== null) {
+            props.setSelectedNode(undefined)
             let newLink = {
                 type: props.data.connectionType,
-                parent: {id: props.toBeLinked.id},
+                parent: {
+                    id: props.toBeLinked.id,
+                    connectionPoint: props.toBeLinked.connectionPoint,
+                    nodeShape: props.toBeLinked.nodeShape,
+                    index: props.toBeLinked.index
+                },
                 child: {
-                    id: id
+                    id: node.id,
+                    connectionPoint: connection,
+                    nodeShape: node.shape,
+                    index: index
                 }
             }
             let newLinks = [...props.data.links, ...[newLink]]
-            props.setData({...props.data, links: newLinks})
+            let newNodes = [...props.data.nodes]
+            newNodes[props.toBeLinked.index].links = [...newNodes[props.toBeLinked.index].links, ...[newLink]]
+            newNodes[index].links = [...newNodes[index].links, ...[newLink]]
 
+            props.setData({...props.data, links: newLinks, nodes: newNodes})
             props.setToBeLinked(null)
-        } else
+        } else {
+            props.setSelectedNode(undefined)
             props.setToBeLinked({
-                id: id
+                id: node.id,
+                connectionPoint: connection,
+                nodeShape: node.shape,
+                index: index
             })
+        }
     }
     const handleLinkDelete = (link) => {
         let newLinks = [...props.data.links]
         const index = newLinks.indexOf(link)
-
+        let newNodes = [...props.data.nodes]
+        newNodes[link.child.index].links.splice(newNodes[link.child.index].links.find((l, index) => {
+            if (l === link)
+                return index
+        }), 1)
+        newNodes[link.parent.index].links.splice(newNodes[link.parent.index].links.find((l, index) => {
+            if (l === link)
+                return index
+        }), 1)
         if (index > -1) {
             newLinks.splice(index, 1)
             props.setData({
                 ...props.data,
-                links: newLinks
+                links: newLinks,
+                nodes: newNodes
             })
         }
     }
     const handleDelete = (index, id) => {
         let newNodes = [...props.data.nodes]
-        let linksToRemove = []
-        let newLinks = [...props.data.links]
         newNodes.splice(index, 1)
 
-        props.data.links.map((link, lIndex) => {
+        props.data.links.map(link => {
             if (link.parent.id === id || link.child.id === id)
-                linksToRemove = [...linksToRemove, ...[lIndex]]
+                handleLinkDelete(link)
         })
-        linksToRemove.map(i => {
-            newLinks.splice(i, 1)
-        })
+
         props.setData({
             ...props.data,
-            nodes: newNodes,
-            links: newLinks
+            nodes: newNodes
         })
     }
     const handleMove = (node, index) => {
@@ -64,15 +86,12 @@ export default function RenderNodes(props) {
                 setState: props.setData,
                 data: props.data,
                 scale: props.scale,
-                index: index
+                index: index,
+                setSelectedNode: props.setSelectedNode
             }
         })
     }
     const handleContextMenu = (event, x, y) => {
-        console.log('OPENING CONTEXT')
-        console.log(event)
-        console.log(x)
-        console.log(y)
         if (event === null)
             ReactDOM.unmountComponentAtNode(props.contextMenuRef)
         else {
@@ -93,7 +112,8 @@ export default function RenderNodes(props) {
                     <Node
                         node={node} index={index} asStep={false}
                         handleLinkDelete={handleLinkDelete}
-                        handleLink={handleLink} toBeLinked={props.toBeLinked}
+                        handleLink={(node, connection) => handleLink(node, connection, index)}
+                        toBeLinked={props.toBeLinked}
                         selected={props.selectedNode} links={props.data.links}
                         setSelected={props.setSelectedNode}
                         handleDelete={handleDelete}
@@ -109,7 +129,8 @@ export default function RenderNodes(props) {
                     <Node
                         node={node} index={index} asStep={true}
                         handleLinkDelete={handleLinkDelete}
-                        handleLink={handleLink} toBeLinked={props.toBeLinked}
+                        handleLink={(node, connection) => handleLink(node, connection, index)}
+                        toBeLinked={props.toBeLinked}
                         selected={props.selectedNode} links={props.data.links}
                         setSelected={props.setSelectedNode}
                         handleDelete={handleDelete}

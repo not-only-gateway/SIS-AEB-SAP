@@ -7,7 +7,7 @@ import SelectedMenu from "../SelectedMenu";
 export default function Circle(props) {
     return (
         <g>
-            <SelectedMenu selected={props.selected} nodeRef={props.reference} node={props.node} linkable={true}/>
+
             <rect
                 rx={'50%'} ry={'50%'} fill={'white'} width={props.node.shape.includes('ellipse') ? 150 : 100}
                 height={100}

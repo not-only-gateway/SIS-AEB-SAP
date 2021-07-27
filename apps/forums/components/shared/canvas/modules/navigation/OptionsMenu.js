@@ -17,7 +17,7 @@ import HandleDownload from "../../methods/handles/HandleDownload";
 import HandleUpload from "../../methods/handles/HandleUpload";
 
 import MoveNewElement from "../../methods/move/MoveNewElement";
-import Shapes from "../placeholder/Shapes";
+import Shapes from "../misc/Shapes";
 
 export default function OptionsMenu(props) {
     const [openTab, setOpenTab] = useState(0)
