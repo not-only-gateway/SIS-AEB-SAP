@@ -23,22 +23,23 @@ export default function LinkIndicator(props) {
         }
     })
 
-    if (props.source !== null && props.source !== undefined)
+    if (props.source !== null && props.source !== undefined) {
+
         return (
-            <g>
+            <g style={{cursor: 'grabbing'}}>
                 <defs>
                     <marker
                         id={`${props.source.id}-end`}
-                        viewBox="0 0 20 20" refX="10" refY="10"
-                        markerWidth="10" markerHeight="10"
+                        viewBox="0 0 10 10" refX={'5'} refY={'5'}
+                        markerWidth="5" markerHeight="5"
                     >
-                        <circle cx="10" cy="10" r="10" fill={'#0095ff'}
-                                style={{transition: 'fill 250ms linear', transitionDelay: '250ms'}}
-                        />
+
+                        <circle cx="5" cy="5" r="5" fill={'#0095ff'}
+                                style={{transition: 'fill 250ms linear', transitionDelay: '250ms'}}/>
                     </marker>
                     <marker
                         id={`${props.source.id}-start`}
-                        viewBox="0 0 10 10" refX={'5'} refY={'10'}
+                        viewBox="0 0 10 10" refX={'5'} refY={'5'}
                         markerWidth="5" markerHeight="5"
                     >
 
@@ -57,16 +58,9 @@ export default function LinkIndicator(props) {
                     markerEnd={`url(#${props.source.id}-start)`}
                 />
 
-                <path
-                    stroke={
-                        'transparent'
-                    } strokeWidth={'20'}
-                    fill={'none'}
-                    d={pathRef.current !== undefined ? pathRef.current.getAttribute("d") : undefined}
-                />
-
             </g>
         )
+    }
     else
         return null
 }

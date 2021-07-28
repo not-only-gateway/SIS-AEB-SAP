@@ -8,7 +8,6 @@ import OpenNodeOverview from "./OpenNodeOverview";
 
 export default function RenderNodes(props) {
     const handleLink = (node, connection, index) => {
-
         if (props.toBeLinked !== null) {
             props.setSelectedNode(undefined)
             let newLink = {

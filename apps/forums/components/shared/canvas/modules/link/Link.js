@@ -119,7 +119,7 @@ export default function Link(props) {
                     'transparent'
                 } strokeWidth={'20'}
                 fill={'none'}
-                d={pathRef.current !== undefined ? pathRef.current.getAttribute("d") : undefined}
+                d={pathRef.current !== undefined && pathRef.current !== null ? pathRef.current.getAttribute("d") : undefined}
             />
 
         </g>

@@ -3,10 +3,18 @@ import GetCurve from "./GetCurve";
 
 export default function FollowMouse(props) {
     let moving = true
+    const frame = document.getElementById('frame')
+    const markerEnd = document.getElementById(props.pathRef.getAttribute('marker-end').replace('url(#', '').replace(')', ''))
+    if(markerEnd !== null)
+        markerEnd.setAttribute('visibility', 'hidden')
     if (moving) {
+
         document.addEventListener('mousemove', function move(event) {
-            if (moving)
+            if (moving) {
+                if(markerEnd !== null)
+                    markerEnd.setAttribute('visibility', 'visible')
                 update(event)
+            }
             else
                 event.currentTarget.removeEventListener('mousemove', move);
         })
@@ -16,21 +24,20 @@ export default function FollowMouse(props) {
                 moving = false
                 document.removeEventListener('mousemove', () => null)
                 event.currentTarget.removeEventListener('mousemove', up);
-                props.setColor(undefined)
             }
         }, {
             once: true
         });
     }
     const update = (event) => {
-        if (props.pathRef !== null)
+        if (props.pathRef !== null && frame !== null)
             props.pathRef.setAttribute('d', GetCurve({
                 target: {
                     x: event.clientX - props.root.offsetLeft,
-                    y: event.clientY - props.root.offsetTop,
-                    height: 5,
-                    width: 5,
-                    connectionPoint: 'd',
+                    y: event.clientY - frame.offsetTop - 10,
+                    height: 0,
+                    width: 0,
+                    connectionPoint: 'c',
                     nodeShape: 'circle'
                 },
                 source: {

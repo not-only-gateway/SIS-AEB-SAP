@@ -31,15 +31,26 @@ export default function Canvas(props) {
     const [selectedLink, setSelectedLink] = useState(null)
 
     useEffect(() => {
-        if (props.data !== undefined && props.data.id !== undefined) {
-            setData(props.data)
-        }
+        document.addEventListener('mouseup', event => {
+            const closest = event.target.closest('circle')
+            if(toBeLinked !== null && closest === null)
+                setToBeLinked(null)
+
+
+        }, {once: true})
+
         if (offsetTop === -1) {
             const element = document.getElementById('frame')
             if (element !== null)
                 setOffsetTop(element.offsetTop)
+
+            if (props.data !== undefined && props.data.id !== undefined)
+                setData(props.data)
         }
-    }, [])
+        return () => {
+            document.removeEventListener('mouseup', () => null)
+        }
+    }, [toBeLinked])
 
 
     return (
@@ -48,7 +59,6 @@ export default function Canvas(props) {
             id={'frame'}
             onMouseDown={event => {
                 const className = event.target.className
-                console.log(className)
                 if (selectedLink && event.target.closest('.Link_input__3SQkm') === null)
                     setSelectedLink(undefined)
                 if (selectedNode && event.target.closest('.Node_body__1O9a2') === null && event.target.closest('.Node_nodeShapeContainer__3-69M') === null && event.target.id === '')
@@ -91,7 +101,7 @@ export default function Canvas(props) {
                         }}
                         ref={printRef}
                     >
-
+                        <LinkIndicator source={toBeLinked} type={data.connectionType} root={root.current}/>
                         <RenderNodes
                             {...props} contextMenuRef={contextMenuRef.current}
                             scale={scale} root={root.current}
@@ -108,7 +118,7 @@ export default function Canvas(props) {
                             contextMenuRef={contextMenuRef.current}
                             handleContextClose={() => ReactDOM.unmountComponentAtNode(contextMenuRef.current)}
                         />
-                        <LinkIndicator source={toBeLinked} type={data.connectionType} root={root.current}/>
+
                     </svg>
                 </div>
             </div>

@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useState} from "react";
 import NodeTemplate from "../../templates/NodeTemplate";
-
+import styles from '../../styles/Node.module.css'
 
 export default function NodeConnection(props) {
     const [canRender, setCanRender] = useState(true)
+    const [hovered, setHovered] = useState(false)
     useEffect(() => {
         props.node.links.map((entity) => {
             if ((entity.parent.id === props.node.id && entity.parent.connectionPoint === props.connectionPoint) || (entity.child.id === props.node.id && entity.child.connectionPoint === props.connectionPoint))
@@ -54,7 +55,11 @@ export default function NodeConnection(props) {
         const placement = getPlacement()
         return (
             <circle
-                onClick={() => props.handleLink(props.node, props.connectionPoint)}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+                scale={hovered ? 2 : 1}
+                onMouseDown={() => props.handleLink(props.node, props.connectionPoint)}
+                onMouseUp={() => props.handleLink(props.node, props.connectionPoint)}
                 id={props.node.id + '-' + props.connectionPoint}
                 cx={placement.x}
                 cy={placement.y}
