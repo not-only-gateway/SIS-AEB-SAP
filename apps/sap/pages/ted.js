@@ -1,15 +1,10 @@
-import ProjectPT from "../packages/locales/ProjectPT";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import ProjectRequests from "../utils/fetch/ProjectRequests";
 import Head from "next/head";
 import styles from "../styles/Project.module.css";
 import Link from "next/link";
 import Tabs from "../components/shared/misc/tabs/Tabs";
-import ProjectForm from "../components/index/ProjectForm";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
-import Objectives from "../components/project/Objectives";
-import Risks from "../components/project/Risks";
 import TedPT from "../packages/locales/TedPT";
 import TedRequests from "../utils/fetch/TedRequests";
 import TedForm from "../components/index/TedForm";

@@ -4,7 +4,6 @@ import animations from "../../styles/Animations.module.css";
 import List from "../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";
 import Host from "../../utils/shared/Host";
-import ProjectForm from "../index/ProjectForm";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import ObjectiveForm from "./ObjectiveForm";
 import {EditRounded} from "@material-ui/icons";

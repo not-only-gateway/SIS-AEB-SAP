@@ -4,10 +4,6 @@ import Head from "next/head";
 import IndexPT from "../packages/locales/ProjectPT";
 import ProjectList from "../components/index/ProjectList";
 import Tabs from "../components/shared/misc/tabs/Tabs";
-import ProjectForm from "../components/index/ProjectForm";
-import handleObjectChange from "../utils/shared/HandleObjectChange";
-import Objectives from "../components/project/Objectives";
-import Risks from "../components/project/Risks";
 import TedList from "../components/index/TedList";
 import WorkPlanList from "../components/index/WorkPlanList";
 

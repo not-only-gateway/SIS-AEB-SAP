@@ -1,19 +1,16 @@
-import ProjectPT from "../packages/locales/ProjectPT";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import ProjectRequests from "../utils/fetch/ProjectRequests";
 import Head from "next/head";
 import styles from "../styles/WorkPlan.module.css";
 import Link from "next/link";
 import Tabs from "../components/shared/misc/tabs/Tabs";
-import ProjectForm from "../components/index/ProjectForm";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import WorkPlanPT from "../packages/locales/WorkPlanPT";
 import WorkPlanForm from "../components/index/WorkPlanForm";
 import WorkPlanRequests from "../utils/fetch/WorkPlanRequests";
-import InfrastructureList from "../components/workplan/InfrastructureList";
+import InfrastructureList from "../components/workplan/infrastructure/InfrastructureList";
 import StatusList from "../components/workplan/StatusList";
-import GoalList from "../components/workplan/GoalList";
+import GoalList from "../components/workplan/goal/GoalList";
 
 export default function WorkPlan(){
     const lang = WorkPlanPT
@@ -33,7 +30,7 @@ export default function WorkPlan(){
         return (
             <div style={{width: '85%', margin: 'auto'}}>
                 <Head>
-                    <title>{workPlan.name}</title>
+                    <title>{workPlan.object}</title>
                     <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
                 </Head>
 

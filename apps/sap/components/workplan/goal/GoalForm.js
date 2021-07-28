@@ -1,16 +1,14 @@
 import React, {useEffect, useState} from "react";
-import ProjectPT from "../../packages/locales/ProjectPT";
 import {Alert} from "sis-aeb-misc";
-import EntityLayout from "../shared/misc/form/EntityLayout";
-import submitProject from "../../utils/submit/SubmitProject";
+import EntityLayout from "../../shared/misc/form/EntityLayout";
 import {TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
-import ProjectRequests from "../../utils/fetch/ProjectRequests";
-import WorkPlanRequests from "../../utils/fetch/WorkPlanRequests";
+import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
+import GoalPT from "../../../packages/locales/GoalPT";
 
 export default function GoalForm(props) {
     const [changed, setChanged] = useState(false)
-    const lang = ProjectPT
+    const lang = GoalPT
     const [status, setStatus] = useState({
         type: undefined, message: undefined
     })
@@ -25,7 +23,7 @@ export default function GoalForm(props) {
             />
             <EntityLayout
                 rootElementID={'root'} entity={props.data}
-                create={props.create} label={lang.risksTitle}
+                create={props.create} label={props.create ? lang.newGoal : lang.goal}
                 dependencies={{
                     fields: [
                         {name: 'goal_number', type: 'string'},
@@ -41,7 +39,7 @@ export default function GoalForm(props) {
                 returnButton={true}
                 handleSubmit={() =>
                     WorkPlanRequests.submitGoal({
-                        pk: props.id,
+                        pk: props.data.id,
                         data: props.data,
                         setStatus: setStatus,
                         create: props.create
@@ -54,7 +52,7 @@ export default function GoalForm(props) {
                         <>
                             <TextField
 
-                                placeholder={lang.number} label={lang.number}
+                                placeholder={lang.goalNumber} label={lang.goalNumber}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'goal_number', value: event.target.value})

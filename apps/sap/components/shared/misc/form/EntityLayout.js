@@ -2,18 +2,8 @@ import PropTypes from 'prop-types'
 import FormLayout from "./FormLayout";
 import styles from './styles/EntityLayout.module.css'
 import EntityLayoutPT from "./locales/EntityLayoutPT";
-import {
-    ArrowBackRounded,
-    EditRounded,
-    HistoryRounded,
-    InfoRounded,
-    ListRounded,
-    MoreRounded,
-    MoreVertRounded
-} from "@material-ui/icons";
+import {ArrowBackRounded, HistoryRounded, InfoRounded, MoreVertRounded} from "@material-ui/icons";
 import React, {useEffect, useRef, useState} from "react";
-import Overview from "./Overview";
-import Description from "./Description";
 import History from "./History";
 
 export default function EntityLayout(props) {

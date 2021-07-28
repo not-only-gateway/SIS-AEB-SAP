@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import NodePropsTemplate from "../../templates/NodePropsTemplate";
 import RenderNodeShape from "./shapes/RenderNodeShape";
-import SelectedMenu from "./SelectedMenu";
+import NodeConnection from "./NodeConnection";
 import RenderStep from "./RenderStep";
 
 
@@ -21,7 +21,7 @@ export default function Node(props) {
                 el = false
             setLinkable(el)
         } else
-            setLinkable(undefined)
+            setLinkable(false)
     }, [props.toBeLinked])
 
     return (
@@ -34,15 +34,19 @@ export default function Node(props) {
             }}
             ref={ref}
         >
-            {props.asStep ? null :
-                <SelectedMenu
-                    selected={props.selected} nodeRef={ref.current}
-                    toBeLinked={props.toBeLinked !== null ? props.toBeLinked.id : null}
-                    node={props.node} linkable={linkable} handleLink={props.handleLink}
-                />
+            {props.asStep ?
+                <RenderStep {...props} reference={ref.current}/>
+                :
+                <RenderNodeShape {...props} reference={ref.current} linkable={linkable}/>
             }
-            {props.asStep ? <RenderStep {...props} reference={ref.current}/> : <RenderNodeShape {...props} reference={ref.current} linkable={linkable}/>}
-
+            <NodeConnection node={props.node} selected={props.selected} connectionPoint={'a'} reference={ref.current}
+                            handleLink={props.handleLink} linkable={linkable}/>
+            <NodeConnection node={props.node} selected={props.selected} connectionPoint={'b'} reference={ref.current}
+                            handleLink={props.handleLink} linkable={linkable}/>
+            <NodeConnection node={props.node} selected={props.selected} connectionPoint={'c'} reference={ref.current}
+                            handleLink={props.handleLink} linkable={linkable}/>
+            <NodeConnection node={props.node} selected={props.selected} connectionPoint={'d'} reference={ref.current}
+                            handleLink={props.handleLink} linkable={linkable}/>
         </g>
 
     )

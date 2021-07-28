@@ -1,16 +1,14 @@
 import React, {useEffect, useState} from "react";
-import ProjectPT from "../../packages/locales/ProjectPT";
 import {Alert} from "sis-aeb-misc";
-import EntityLayout from "../shared/misc/form/EntityLayout";
-import submitProject from "../../utils/submit/SubmitProject";
+import EntityLayout from "../../shared/misc/form/EntityLayout";
 import {TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
-import ProjectRequests from "../../utils/fetch/ProjectRequests";
-import WorkPlanRequests from "../../utils/fetch/WorkPlanRequests";
+import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
+import InfrastructurePT from "../../../packages/locales/InfrastructurePT";
 
 export default function InfrastructureForm(props){
     const [changed, setChanged] = useState(false)
-    const lang = ProjectPT
+    const lang = InfrastructurePT
     const [status, setStatus] = useState({
         type: undefined, message: undefined
     })
@@ -33,10 +31,10 @@ export default function InfrastructureForm(props){
                     ],
                     changed: changed
                 }}
-                returnButton={true}
+                returnButton={true} noHeader={!props.create}
                 handleSubmit={() =>
                     WorkPlanRequests.submitInfrastructure({
-                        pk: props.id,
+                        pk: props.data.id,
                         data: props.data,
                         setStatus: setStatus,
                         create: props.create
@@ -84,7 +82,6 @@ export default function InfrastructureForm(props){
 }
 
 InfrastructureForm.propTypes = {
-    id: PropTypes.number,
     data: PropTypes.object,
     handleChange: PropTypes.func,
     returnToMain: PropTypes.func,

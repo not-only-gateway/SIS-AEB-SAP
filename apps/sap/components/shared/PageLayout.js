@@ -6,15 +6,7 @@ import {useRouter} from "next/router";
 import "@fontsource/roboto"
 import PropTypes from "prop-types";
 import LayoutPT from "../../packages/locales/LayoutPT";
-import {
-    ExitToApp,
-    ExitToAppRounded,
-    ExtensionRounded,
-    ForumRounded,
-    GroupRounded,
-    LocalLibraryRounded,
-    TimelineRounded
-} from "@material-ui/icons";
+import {ExitToApp, ExtensionRounded, GroupRounded, TimelineRounded} from "@material-ui/icons";
 
 import CollaboratorRequests from "../../utils/fetch/CollaboratorRequests";
 import PersonRequests from "../../utils/fetch/PersonRequests";

@@ -1,0 +1,30 @@
+.container {
+    display: flex;
+    /*justify-content: space-between;*/
+    gap: 32px;
+    align-items: flex-start;
+}
+
+.button {
+    outline: none;
+    border: none;
+    border-left: #e0e0e0 2px solid;
+    background: white;
+    font-family: Roboto;
+
+    padding: 16px 32px;
+    cursor: pointer;
+    transition: 150ms linear;
+    border-radius: 0 5px 5px 0;
+}
+
+.button:hover {
+    background: #E8F0FE;
+}
+
+
+.buttons {
+    display: grid;
+    gap: 16px;
+    justify-content: flex-start;
+}

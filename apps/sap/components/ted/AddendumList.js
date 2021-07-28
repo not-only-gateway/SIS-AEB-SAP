@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
 import animations from "../../styles/Animations.module.css";
-import ProjectForm from "../index/ProjectForm";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import List from "../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";

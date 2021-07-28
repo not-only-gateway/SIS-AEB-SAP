@@ -1,11 +1,8 @@
 import React, {useEffect, useState} from "react";
-import ProjectPT from "../../packages/locales/ProjectPT";
 import {Alert} from "sis-aeb-misc";
 import EntityLayout from "../shared/misc/form/EntityLayout";
-import submitProject from "../../utils/submit/SubmitProject";
 import {DateField, TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
-import ProjectRequests from "../../utils/fetch/ProjectRequests";
 import TedRequests from "../../utils/fetch/TedRequests";
 import TedPT from "../../packages/locales/TedPT";
 
@@ -26,7 +23,7 @@ export default function AddendumForm(props) {
             />
             <EntityLayout
                 rootElementID={'root'} entity={props.data}
-                create={props.create} label={lang.risksTitle} noHeader={true}
+                create={props.create} label={props.create ? lang.newAddendum : lang.eAddendum}
                 dependencies={{
                     fields: [
                         {name: 'number', type: 'string'},

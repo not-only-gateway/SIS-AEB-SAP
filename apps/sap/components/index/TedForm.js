@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import PropTypes from 'prop-types'
 import {DateField, TextField} from "sis-aeb-inputs";
 import {Alert} from "sis-aeb-misc";
-import submitProject from "../../utils/submit/SubmitProject";
 import EntityLayout from "../shared/misc/form/EntityLayout";
 import TedPT from "../../packages/locales/TedPT";
 import TedRequests from "../../utils/fetch/TedRequests";

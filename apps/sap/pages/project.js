@@ -5,7 +5,6 @@ import ProjectPT from "../packages/locales/ProjectPT";
 import styles from "../styles/Project.module.css";
 import Tabs from "../components/shared/misc/tabs/Tabs";
 import ProjectRequests from "../utils/fetch/ProjectRequests";
-import {EditRounded, ListRounded} from "@material-ui/icons";
 import Objectives from "../components/project/Objectives";
 import Risks from "../components/project/Risks";
 import Link from 'next/link'

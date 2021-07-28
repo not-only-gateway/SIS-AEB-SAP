@@ -3,7 +3,7 @@ import React from "react";
 import NodePropsTemplate from "../../../templates/NodePropsTemplate";
 import PropTypes from 'prop-types'
 import NodeContentWrapper from "../NodeContentWrapper";
-import SelectedMenu from "../SelectedMenu";
+import NodeConnection from "../NodeConnection";
 
 export default function Square(props) {
     return (

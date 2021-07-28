@@ -1,4 +1,4 @@
-import Host from "../../../admin/utils/shared/Host";
+import Host from "../shared/Host";
 import axios from "axios";
 import Cookies from "universal-cookie/lib";
 import PropTypes from 'prop-types'
@@ -22,7 +22,7 @@ export default async function submitWorkPlan(props) {
             type: 'success',
             message: res.status + ' - ' + res.statusText,
         })
-        response = props.create ? res.data : true
+        response = props.create ? res.data.id : true
     }).catch(error => {
         props.setStatus({
             type: 'error',

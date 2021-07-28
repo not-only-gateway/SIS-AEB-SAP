@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types'
 import styles from "./styles/Form.module.css";
-import {ArrowBackRounded, InfoRounded} from "@material-ui/icons";
 import React from "react";
 import FormPT from "./locales/FormPT";
-import entityStyles from './styles/EntityLayout.module.css'
 
 export default function FormLayout(props) {
     const lang = FormPT

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, {useEffect, useRef, useState} from "react";
-import GetCurve from "./GetCurve";
+import GetCurve from "../../methods/misc/GetCurve";
 import LinkContextMenu from "./LinkContextMenu";
 import AdjustLink from "../../methods/misc/AdjustLink";
 
@@ -95,7 +95,7 @@ export default function Link(props) {
                 </marker>
                 <marker
                     id={`${props.source.id}-start-${props.target.id}`}
-                    viewBox="0 0 10 10" refX={'5'} refY={'5'}
+                    viewBox="0 0 10 10" refX={'5'} refY={'10'}
                     markerWidth="5" markerHeight="5"
                 >
 

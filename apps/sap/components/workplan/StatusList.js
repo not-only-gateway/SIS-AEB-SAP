@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
 import animations from "../../styles/Animations.module.css";
-import ProjectForm from "../index/ProjectForm";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import List from "../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";
@@ -33,17 +32,17 @@ export default function StatusList(props) {
                 <List
                     listKey={'project'}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/risk'}
+                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/work_plan_status'}
                     renderElement={element => {
                         return (
                             <div style={{display: 'flex', gap: '16px', justifyContent: 'space-between', width: '100%'}}>
                                 <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
                                     <div>
-                                        {element.description}
+                                        {element.status}
                                     </div>
                                     <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
                                     <div>
-                                        {element.analysis}
+                                        {element.update_date}
                                     </div>
                                 </div>
                                 <EditRounded style={{fontSize: '1.3rem', color: '#555555'}}/>

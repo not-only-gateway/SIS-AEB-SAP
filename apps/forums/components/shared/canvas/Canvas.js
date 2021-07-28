@@ -12,6 +12,7 @@ import StickyZone from "./modules/misc/StickyZone";
 import RenderNodes from "./methods/render/RenderNodes";
 import RenderLinks from "./methods/render/RenderLinks";
 import NewProjectTemplate from "./templates/NewProjectTemplate";
+import LinkIndicator from "./modules/link/LinkIndicator";
 
 
 export default function Canvas(props) {
@@ -107,6 +108,7 @@ export default function Canvas(props) {
                             contextMenuRef={contextMenuRef.current}
                             handleContextClose={() => ReactDOM.unmountComponentAtNode(contextMenuRef.current)}
                         />
+                        <LinkIndicator source={toBeLinked} type={data.connectionType} root={root.current}/>
                     </svg>
                 </div>
             </div>

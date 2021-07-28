@@ -6,9 +6,9 @@ import PropTypes from 'prop-types'
 
 
 export default function NodeContentWrapper(props){
-    console.log(props.linkable)
+
     return(
-        <div className={[styles.nodeShapeContainer, props.linkable ? styles.pulse : ''].join(' ')}
+        <div className={styles.nodeShapeContainer}
             onMouseDown={event => {
                 if (event.button === 0 && props.toBeLinked !== null && props.toBeLinked.id !== props.node.id)
                     props.handleLink(props.node.id, undefined)

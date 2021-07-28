@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import GetCurve from "../../modules/link/GetCurve";
+import GetCurve from "./GetCurve";
 
 export default function AdjustLink(props) {
     let moving = true

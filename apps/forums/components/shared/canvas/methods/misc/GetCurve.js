@@ -24,13 +24,13 @@ export default function GetCurve(props) {
         case 'a': {
             target = {
                 x: props.target.x + props.target.width / 2,
-                y: props.target.y - 10
+                y: props.target.y - 12
             }
             break
         }
         case 'b': {
             target = {
-                x: props.target.x + props.target.width + 10,
+                x: props.target.x + props.target.width + 12,
                 y: props.target.y + props.target.height / 2
             }
             break
@@ -38,13 +38,13 @@ export default function GetCurve(props) {
         case 'c': {
             target = {
                 x: props.target.x + props.target.width / 2,
-                y: props.target.y + props.target.height + 10
+                y: props.target.y + props.target.height + 12
             }
             break
         }
         case 'd': {
             target = {
-                x: props.target.x - 10,
+                x: props.target.x - 12,
                 y: props.target.y + props.target.height / 2
             }
             break
@@ -56,13 +56,13 @@ export default function GetCurve(props) {
         case 'a': {
             source = {
                 x: props.source.x + props.source.width / 2,
-                y: props.source.y - 10
+                y: props.source.y - 12
             }
             break
         }
         case 'b': {
             source = {
-                x: props.source.x + props.source.width + 10,
+                x: props.source.x + props.source.width + 12,
                 y: props.source.y + props.source.height / 2
             }
             break
@@ -70,13 +70,13 @@ export default function GetCurve(props) {
         case 'c': {
             source = {
                 x: props.source.x + props.source.width / 2,
-                y: props.source.y + props.source.height + 10
+                y: props.source.y + props.source.height + 12
             }
             break
         }
         case 'd': {
             source = {
-                x: props.source.x - 10,
+                x: props.source.x - 12,
                 y: props.source.y + props.source.height / 2
             }
             break

@@ -1,16 +1,14 @@
 import React, {useEffect, useState} from "react";
-import ProjectPT from "../../packages/locales/ProjectPT";
 import {Alert} from "sis-aeb-misc";
 import EntityLayout from "../shared/misc/form/EntityLayout";
-import submitProject from "../../utils/submit/SubmitProject";
 import {DateField, TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
-import ProjectRequests from "../../utils/fetch/ProjectRequests";
 import WorkPlanRequests from "../../utils/fetch/WorkPlanRequests";
+import StatusPT from "../../packages/locales/StatusPT";
 
 export default function StatusForm(props){
     const [changed, setChanged] = useState(false)
-    const lang = ProjectPT
+    const lang = StatusPT
     const [status, setStatus] = useState({
         type: undefined, message: undefined
     })
@@ -25,7 +23,7 @@ export default function StatusForm(props){
             />
             <EntityLayout
                 rootElementID={'root'} entity={props.data}
-                create={props.create} label={lang.risksTitle}
+                create={props.create} label={props.create ? lang.newStatus : lang.status}
                 dependencies={{
                     fields: [
                         {name: 'status', type: 'string'},
@@ -37,7 +35,7 @@ export default function StatusForm(props){
                 returnButton={true}
                 handleSubmit={() =>
                     WorkPlanRequests.submitStatus({
-                        pk: props.id,
+                        pk: props.data.id,
                         data: props.data,
                         setStatus: setStatus,
                         create: props.create

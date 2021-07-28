@@ -5,7 +5,6 @@ import SelectorsPT from "./locales/SelectorsPT";
 import Modal from "../modal/Modal";
 import List from "../list/List";
 import PropTypes from "prop-types";
-import SelectorSearch from "./SelectorSearch";
 
 
 export default function SelectorModal(props) {

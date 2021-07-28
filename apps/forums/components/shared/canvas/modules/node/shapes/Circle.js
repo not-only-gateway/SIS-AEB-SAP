@@ -2,7 +2,8 @@ import React from "react";
 import NodeContentWrapper from "../NodeContentWrapper";
 import NodePropsTemplate from "../../../templates/NodePropsTemplate";
 import PropTypes from 'prop-types'
-import SelectedMenu from "../SelectedMenu";
+import NodeConnection from "../NodeConnection";
+import styles from "../../../styles/Node.module.css";
 
 export default function Circle(props) {
     return (
@@ -17,6 +18,7 @@ export default function Circle(props) {
             <foreignObject
                 x={props.node.placement.x} y={props.node.placement.y}
                 width={props.node.shape.includes('ellipse') ? 150 : 100} height={'100'}
+                className={props.linkable ? styles.pulse : ' '}
                 style={{
                     boxShadow: props.selected === props.node.id ? ('0 0 10px ' + props.node.color) : '0 4px 30px rgb(22 33 74 / 5%)',
                     transition: 'box-shadow 150ms linear',

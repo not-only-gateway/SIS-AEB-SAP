@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
 import animations from "../../styles/Animations.module.css";
-import ProjectForm from "../index/ProjectForm";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import List from "../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";
 import Host from "../../utils/shared/Host";
-import ObjectiveForm from "./ObjectiveForm";
 import RiskForm from "./RiskForm";
 import {EditRounded} from "@material-ui/icons";
 

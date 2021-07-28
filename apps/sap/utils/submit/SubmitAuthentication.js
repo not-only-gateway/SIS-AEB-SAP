@@ -2,7 +2,7 @@ import axios from "axios";
 import PropTypes from 'prop-types'
 import Cookies from "universal-cookie/lib";
 import publicIp from "public-ip";
-import Host from '../../utils/shared/Host'
+import Host from "../shared/Host";
 
 
 const cookies = new Cookies()

@@ -99,10 +99,9 @@
 
 .header {
     display: flex;
-    gap: 24px;
+    gap: 16px;
     align-items: center;
     font-size: 22px;
     font-family: Roboto;
-    font-weight: bold;
     color: #333333;
 }

@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import animations from "../../styles/Animations.module.css";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import List from "../shared/misc/list/List";
-import ProjectForm from "./ProjectForm";
 import WorkPlanForm from "./WorkPlanForm";
 
 export default function WorkPlanList(props) {

@@ -1,9 +1,7 @@
 import React, {useState} from "react";
 import PropTypes from 'prop-types'
-import { TextField} from "sis-aeb-inputs";
+import {TextField} from "sis-aeb-inputs";
 import {Alert} from "sis-aeb-misc";
-import Host from "../../utils/shared/Host";
-import Cookies from "universal-cookie/lib";
 import ProjectPT from "../../packages/locales/ProjectPT";
 import submitProject from "../../utils/submit/SubmitProject";
 import EntityLayout from "../shared/misc/form/EntityLayout";

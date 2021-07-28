@@ -40,7 +40,6 @@ export default function MoveNewElement(props) {
                     id: uuid4().toString(),
                     title: 'Em branco',
                     description: null,
-
                     color: '#0095ff',
                     placement: {
                         x: (event.clientX - rootBounding.x + props.root.scrollLeft - 40),

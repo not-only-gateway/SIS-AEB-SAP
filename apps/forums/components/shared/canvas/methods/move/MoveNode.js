@@ -31,8 +31,8 @@ export default function Move(props) {
 
     function move(event, save) {
 
-        const wrapper = nodeRef.childNodes[1].childNodes[0]
-        const content = nodeRef.childNodes[1].childNodes[1]
+        const wrapper = nodeRef.childNodes[0].childNodes[0]
+        const content = nodeRef.childNodes[0].childNodes[1]
 
         let newPlacement = {
             x: lastPlacement.x - event.clientX,

@@ -51,7 +51,7 @@ export default class WorkPlanRequests {
 
         await axios({
             method: submitProps.create ? 'post' : 'put',
-            url: submitProps.create ? Host() + 'status' : Host() + 'status/' + submitProps.pk,
+            url: submitProps.create ? Host() + 'work_plan_status' : Host() + 'work_plan_status/' + submitProps.pk,
             headers: {'authorization': jwt},
             data: submitProps.data
         }).then(res => {
@@ -73,7 +73,52 @@ export default class WorkPlanRequests {
 
         await axios({
             method: submitProps.create ? 'post' : 'put',
-            url: submitProps.create ? Host() + 'goal' : Host() + 'goal/' + submitProps.pk,
+            url: submitProps.create ? Host() + 'work_plan_goal' : Host() + 'work_plan_goal/' + submitProps.pk,
+            headers: {'authorization': jwt},
+            data: submitProps.data
+        }).then(res => {
+            submitProps.setStatus({
+                type: 'success',
+                message: res.status + ' - ' + res.statusText,
+            })
+            response = true
+        }).catch(error => {
+            submitProps.setStatus({
+                type: 'error',
+                message: error.message
+            })
+        })
+        return response
+    }
+    static async submitComponent(submitProps) {
+        let response = false
+
+        await axios({
+            method: submitProps.create ? 'post' : 'put',
+            url: submitProps.create ? Host() + 'component' : Host() + 'component/' + submitProps.pk,
+            headers: {'authorization': jwt},
+            data: submitProps.data
+        }).then(res => {
+            submitProps.setStatus({
+                type: 'success',
+                message: res.status + ' - ' + res.statusText,
+            })
+            response = true
+        }).catch(error => {
+            submitProps.setStatus({
+                type: 'error',
+                message: error.message
+            })
+        })
+        return response
+    }
+
+    static async submitStage(submitProps) {
+        let response = false
+
+        await axios({
+            method: submitProps.create ? 'post' : 'put',
+            url: submitProps.create ? Host() + 'activity' : Host() + 'activity/' + submitProps.pk,
             headers: {'authorization': jwt},
             data: submitProps.data
         }).then(res => {

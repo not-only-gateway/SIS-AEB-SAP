@@ -15,5 +15,8 @@ export default {
     teds: 'TEDs',
     addendum: 'Termos aditivos',
 
+    newAddendum: 'Novo Termo aditivo',
+    eAddendum: 'Termo aditivo',
+
     changes: 'Mudanças'
 }
