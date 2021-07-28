@@ -33,8 +33,8 @@ export default function FollowMouse(props) {
         if (props.pathRef !== null && frame !== null)
             props.pathRef.setAttribute('d', GetCurve({
                 target: {
-                    x: event.clientX - props.root.offsetLeft,
-                    y: event.clientY - frame.offsetTop - 10,
+                    x: event.clientX - props.root.offsetLeft + props.root.scrollLeft,
+                    y: event.clientY - frame.offsetTop - 10+ props.root.scrollTop,
                     height: 0,
                     width: 0,
                     connectionPoint: 'c',

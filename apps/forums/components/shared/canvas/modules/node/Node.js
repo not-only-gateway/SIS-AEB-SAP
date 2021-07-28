@@ -3,7 +3,7 @@ import NodePropsTemplate from "../../templates/NodePropsTemplate";
 import RenderNodeShape from "./shapes/RenderNodeShape";
 import NodeConnection from "./NodeConnection";
 import RenderStep from "./RenderStep";
-
+import styles from '../../styles/Node.module.css'
 
 export default function Node(props) {
     const ref = useRef()
@@ -32,6 +32,7 @@ export default function Node(props) {
                 opacity: !linkable && props.toBeLinked !== null ? '.5' : '1',
                 position: 'relative'
             }}
+            className={styles.entityContainer}
             ref={ref}
         >
             {props.asStep ?

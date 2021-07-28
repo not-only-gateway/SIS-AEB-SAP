@@ -22,7 +22,7 @@ import Shapes from "../misc/Shapes";
 export default function OptionsMenu(props) {
     const [openTab, setOpenTab] = useState(0)
     return (
-        <div className={styles.menuContainer} onContextMenu={event => event.preventDefault()}>
+        <div className={styles.menuContainer} style={{width: props.reduced ? '80px' : '400px'}} onContextMenu={event => event.preventDefault()}>
             <input className={[styles.textField, styles.header].join(' ')}
                    placeholder={'Pesquisar'}
                    value={props.data.subject}
@@ -140,5 +140,7 @@ OptionsMenu.propTypes = {
     renderNodes: PropTypes.func,
     root: PropTypes.object,
     onSave: PropTypes.func,
-    handlePrint: PropTypes.func
+    handlePrint: PropTypes.func,
+    reduced: PropTypes.bool,
+    setReduced: PropTypes.func
 }

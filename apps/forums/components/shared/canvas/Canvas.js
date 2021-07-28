@@ -16,6 +16,7 @@ import LinkIndicator from "./modules/link/LinkIndicator";
 
 
 export default function Canvas(props) {
+    const [reduced, setReduced] = useState(false)
     const [offsetTop, setOffsetTop] = useState(-1)
     const [data, setData] = useState(NewProjectTemplate)
     const [toBeLinked, setToBeLinked] = useState(null)
@@ -33,7 +34,7 @@ export default function Canvas(props) {
     useEffect(() => {
         document.addEventListener('mouseup', event => {
             const closest = event.target.closest('circle')
-            if(toBeLinked !== null && closest === null)
+            if (toBeLinked !== null && closest === null)
                 setToBeLinked(null)
 
 
@@ -72,6 +73,8 @@ export default function Canvas(props) {
             <div className={styles.content}>
                 <Scale scale={scale} setScale={setScale}/>
                 <OptionsMenu
+                    reduced={reduced}
+                    setReduced={setReduced}
                     root={root.current}
                     data={data}
                     setState={setData}
@@ -80,10 +83,13 @@ export default function Canvas(props) {
                 />
                 <div ref={contextMenuRef} style={{position: 'absolute'}}/>
                 <StickyZone/>
-                <div ref={root} className={styles.canvasContainer} onMouseDown={event => {
-                    if (typeof event.target.className === 'object' && event.button === 2)
-                        ScrollCanvas({canvas: root.current, event: event})
-                }}>
+                <div
+                    ref={root} className={styles.canvasContainer}
+                    onMouseDown={event => {
+                        if (typeof event.target.className === 'object' && event.button === 2)
+                            ScrollCanvas({canvas: root.current, event: event})
+                    }}
+                    style={{width: reduced ? `calc(100% - 80px)` : 'calc(100% - 400px)'}}>
                     <svg
                         onContextMenu={event => {
                             event.preventDefault()
@@ -99,6 +105,7 @@ export default function Canvas(props) {
                             top: 0,
                             left: 0
                         }}
+                        className={styles.canvasBackground}
                         ref={printRef}
                     >
                         <LinkIndicator source={toBeLinked} type={data.connectionType} root={root.current}/>

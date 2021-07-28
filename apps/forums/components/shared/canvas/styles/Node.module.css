@@ -1,32 +1,14 @@
 .entityContainer {
-    max-width: 250px;
-
-    position: absolute;
-    height: 80px;
-    border-radius: 5px;
-    border: transparent 2px solid;
-
-    padding: 16px;
-    background: white;
-    z-index: 5;
-    box-shadow: 0px 4px 30px rgb(22 33 74 / 5%);
-    user-select: none;
-
-    transition: box-shadow 250ms ease, border 250ms ease;
-
-    cursor: move;
-
-    animation: popIn 512ms ease;
+    animation: popIn 1s linear;
 }
 
 @keyframes popIn {
     0% {
         opacity: 0;
-        transform: scale(.5);
+
     }
     100% {
         opacity: 1;
-        transform: scale(1);
     }
 }
 
@@ -43,11 +25,7 @@
 
 .pulse {
     border-radius: 0 5px 5px 0;
-
-    /*box-shadow: 0 0 5px 5px rgba(0 ,0 ,0, .1);*/
     animation: pulse 1s infinite;
-
-
 }
 
 
@@ -128,4 +106,14 @@
 
 .connectionPoint:hover{
     transform: scale(2);
+}
+
+.indicator{
+    fill: #e0e0e0;
+    stroke: none;
+    transition: 150ms linear;
+    animation: popIn 256ms ease;
+}
+.indicator:hover{
+    fill: #0095ff;
 }
