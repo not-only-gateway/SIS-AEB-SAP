@@ -2,7 +2,6 @@
     display: inline-flex;
     flex-wrap: wrap;
 
-    border: #ecedf2 1px solid;
     width: 100%;
     gap: 36px;
     border-radius: 5px;
@@ -40,18 +39,22 @@
 
 .optionsDivider {
     cursor: pointer;
+    height: 40px;
+
     font-size: .9rem;
     font-family: Roboto;
     color: #333333;
     display: flex;
     gap: 6px;
     align-items: center;
-    align-content: center;
-
-    margin-top: 16px;
-    margin-bottom: 4px;
+    justify-content: space-between;
+    padding: 4px;
+    border-radius: 5px;
+    transition: 150ms linear;
 }
-
+.optionsDivider:hover{
+    background: #E8F0FE;
+}
 .divider {
     background: #ecedf2;
     height: 1px;

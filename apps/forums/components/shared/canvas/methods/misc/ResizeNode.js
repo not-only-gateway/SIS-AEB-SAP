@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 export default function ResizeNode(props) {
     const el = document.getElementById(props.nodeID + '-node-resize')
     let lastPlacement = {
-        x: props.event.clientX/props.scale,
-        y: props.event.clientY/props.scale
+        x: props.event.clientX / props.scale,
+        y: props.event.clientY / props.scale
     }
     let newDimensions = {
         width: undefined,
@@ -12,7 +12,6 @@ export default function ResizeNode(props) {
     }
     let resizing = true
     if (el !== null) {
-        console.log(props.scale)
         el.setAttribute('cursor', 'default')
         el.setAttribute('stroke-dasharray', '5,5')
         document.addEventListener('mousemove', function resize(event) {
@@ -20,15 +19,21 @@ export default function ResizeNode(props) {
             if (resizing) {
                 const bBox = el.getBBox()
                 const newPlacement = {
-                    x: event.clientX/props.scale,
-                    y: event.clientY/props.scale
+                    x: event.clientX / props.scale,
+                    y: event.clientY / props.scale
                 }
 
-                el.setAttribute('width', (bBox.width + (newPlacement.x- lastPlacement.x)))
+                el.setAttribute('width', (bBox.width + (newPlacement.x - lastPlacement.x)))
                 el.setAttribute('height', (bBox.height + (newPlacement.y - lastPlacement.y)))
-                newDimensions = {
-                    width: bBox.width + (newPlacement.x - lastPlacement.x),
-                    height: bBox.height + (newPlacement.y - lastPlacement.y)
+                if ((bBox.height + (newPlacement.y - lastPlacement.y)) >= 400 || (bBox.width + (newPlacement.x - lastPlacement.x)) >= 400)
+                    el.setAttribute('stroke', '#ff5555')
+                else {
+                    if(el.getAttribute('stroke') === '#ff5555')
+                        el.setAttribute('stroke', props.nodeColor)
+                    newDimensions = {
+                        width: bBox.width + (newPlacement.x - lastPlacement.x),
+                        height: bBox.height + (newPlacement.y - lastPlacement.y)
+                    }
                 }
                 lastPlacement = newPlacement
             } else
@@ -44,23 +49,22 @@ export default function ResizeNode(props) {
             el.setAttribute('stroke-dasharray', undefined)
             if (newDimensions.width && newDimensions.height) {
                 el.setAttribute('cursor', 'crosshair')
-                if(props.nodeShape === 'circle'){
-                    if(newDimensions.width > newDimensions.height){
+                if (props.nodeShape === 'circle') {
+                    if (newDimensions.width > newDimensions.height) {
                         content[0].setAttribute('width', newDimensions.width)
                         content[0].setAttribute('height', newDimensions.width)
 
                         content[1].setAttribute('width', newDimensions.width)
                         content[1].setAttribute('height', newDimensions.width)
 
-                    }
-                    else{
+                    } else {
                         content[0].setAttribute('width', newDimensions.height)
                         content[0].setAttribute('height', newDimensions.height)
 
                         content[1].setAttribute('width', newDimensions.height)
                         content[1].setAttribute('height', newDimensions.height)
                     }
-                }else{
+                } else {
                     content[0].setAttribute('width', newDimensions.width)
                     content[0].setAttribute('height', newDimensions.height)
 
@@ -78,6 +82,7 @@ export default function ResizeNode(props) {
     }
 }
 ResizeNode.propTypes = {
+    nodeColor: PropTypes.string,
     nodeID: PropTypes.string,
     nodeShape: PropTypes.string,
     event: PropTypes.object,

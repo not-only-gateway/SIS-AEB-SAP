@@ -24,7 +24,8 @@ export default function ResizeIndicator(props) {
                           event: event,
                           scale: props.scale,
                           nodeShape: props.node.shape,
-                          setSelected: props.setSelected
+                          setSelected: props.setSelected,
+                          nodeColor: props.node.color
                       })
                   }}
             />
