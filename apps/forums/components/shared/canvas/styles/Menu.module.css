@@ -1,10 +1,12 @@
 .menuContainer {
     margin-right: auto;
+
     margin-top: auto;
     height: 100%;
+
     background: white;
-    border-right: #E8E8EF 1px solid;
     user-select: none;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 
     display: grid;
     gap: 16px;
@@ -12,13 +14,16 @@
     justify-items: flex-start;
     align-content: flex-start;
 
+    transition: 150ms ease-in-out;
+    position: relative;
 }
 
 
 .buttonContainer {
     width: 100%;
-    border: #ecedf2 1px solid;
-    border-radius: 5px;
+    border: none;
+    border-left: #e0e0e0 2px solid;
+    border-radius: 0 5px 5px 0;
     background: white;
     outline: none;
     display: flex;
@@ -36,13 +41,14 @@
 .buttonContainer:hover {
     color: #0095ff;
     background: #E8F0FE;
-    border: #0095ff 1px solid;
+    border-left: #0095ff 2px solid;
 }
 
 .buttonContainer:disabled {
     color: #999999;
     background: white;
-    border: #ecedf2 1px solid;
+
+    border-left: #ecedf2 2px solid;
     cursor: unset;
 }
 
@@ -55,7 +61,7 @@
 }
 
 .textField {
-    border-radius: 8px 8px 0 0;
+    border-radius: 5px 5px 0 0;
     font-size: 20px;
     border: none;
     border-bottom: #ecedf2 1px solid;
@@ -171,20 +177,36 @@
 }
 
 .optionsDivider {
-    font-size: .9rem;
-    font-family: Roboto;
-    color: #333333;
+    background: #ecedf2;
+    height: 1px;
+    width: 100%;
     display: flex;
     gap: 6px;
     align-items: center;
     align-content: center;
 
     margin-top: 16px;
-    margin-bottom: 4px;
+    margin-bottom: 16px;
 }
-
-.divider {
-    background: #ecedf2;
-    height: 1px;
+.extendButton{
+    min-width: 40px;
     width: 100%;
+    border-radius: 5px;
+    outline: none;
+    border: #ecedf2 1px solid;
+    /*box-shadow: 0 0 3px 1px #e0e0e0;*/
+    background: white;
+    color: #555555;
+    transition: 150ms linear;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+
+}
+.extendButton:hover{
+    background: #0095ff;
+    color: white;
 }

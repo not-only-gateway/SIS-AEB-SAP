@@ -1,5 +1,5 @@
 .entityContainer {
-    animation: popIn 1s linear;
+    animation: popIn 250ms linear;
 }
 
 @keyframes popIn {
@@ -104,16 +104,12 @@
     user-select: none;
 }
 
-.connectionPoint:hover{
-    transform: scale(2);
-}
-
 .indicator{
-    fill: #e0e0e0;
+
     stroke: none;
     transition: 150ms linear;
-    animation: popIn 256ms ease;
+    opacity: .5;
 }
 .indicator:hover{
-    fill: #0095ff;
+    opacity: 1;
 }

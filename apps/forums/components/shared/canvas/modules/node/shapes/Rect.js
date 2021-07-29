@@ -20,7 +20,7 @@ export default function Rect(props) {
                 x={props.node.placement.x} y={props.node.placement.y}
                 width={'250'} height={'90'}
                 style={{
-                    boxShadow: props.selected === props.node.id ? ('0 0 10px ' + props.node.color) : '0 4px 30px rgb(22 33 74 / 5%)',
+                    boxShadow: '0 4px 30px rgb(22 33 74 / 5%)',
                     transition: 'box-shadow 150ms linear',
                     borderRadius: props.node.shape.includes('rounded') ? '5px' : undefined
                 }}

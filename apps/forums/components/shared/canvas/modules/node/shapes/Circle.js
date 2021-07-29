@@ -20,7 +20,7 @@ export default function Circle(props) {
                 width={props.node.shape.includes('ellipse') ? 150 : 100} height={'100'}
                 className={props.linkable ? styles.pulse : ' '}
                 style={{
-                    boxShadow: props.selected === props.node.id ? ('0 0 10px ' + props.node.color) : '0 4px 30px rgb(22 33 74 / 5%)',
+                    boxShadow: '0 4px 30px rgb(22 33 74 / 5%)',
                     transition: 'box-shadow 150ms linear',
                     borderRadius: '50%'
                 }}>

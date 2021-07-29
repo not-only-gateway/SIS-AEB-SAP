@@ -4,6 +4,7 @@ import RenderNodeShape from "./shapes/RenderNodeShape";
 import NodeConnection from "./NodeConnection";
 import RenderStep from "./RenderStep";
 import styles from '../../styles/Node.module.css'
+import ResizeIndicator from "./ResizeIndicator";
 
 export default function Node(props) {
     const ref = useRef()
@@ -35,11 +36,16 @@ export default function Node(props) {
             className={styles.entityContainer}
             ref={ref}
         >
+
             {props.asStep ?
                 <RenderStep {...props} reference={ref.current}/>
                 :
                 <RenderNodeShape {...props} reference={ref.current} linkable={linkable}/>
             }
+
+            <ResizeIndicator reference={ref.current} selected={props.selected} node={props.node} scale={props.scale}
+                             setSelected={props.setSelected}/>
+
             <NodeConnection node={props.node} selected={props.selected} connectionPoint={'a'} reference={ref.current}
                             handleLink={props.handleLink} linkable={linkable}/>
             <NodeConnection node={props.node} selected={props.selected} connectionPoint={'b'} reference={ref.current}
@@ -48,6 +54,7 @@ export default function Node(props) {
                             handleLink={props.handleLink} linkable={linkable}/>
             <NodeConnection node={props.node} selected={props.selected} connectionPoint={'d'} reference={ref.current}
                             handleLink={props.handleLink} linkable={linkable}/>
+
         </g>
 
     )

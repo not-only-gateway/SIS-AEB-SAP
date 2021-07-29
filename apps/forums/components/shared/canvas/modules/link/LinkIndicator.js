@@ -26,7 +26,7 @@ export default function LinkIndicator(props) {
     if (props.source !== null && props.source !== undefined) {
 
         return (
-            <g style={{cursor: 'grabbing'}}>
+            <g>
                 <defs>
                     <marker
                         id={`${props.source.id}-end`}

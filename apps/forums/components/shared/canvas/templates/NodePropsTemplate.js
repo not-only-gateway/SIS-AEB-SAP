@@ -12,7 +12,8 @@ export default  {
     node: NodeTemplate,
     openOverview: PropTypes.func,
     selected: PropTypes.string,
-    setSelected: PropTypes.func,
     toBeLinked: PropTypes.object,
-    asStep: PropTypes.bool
+    asStep: PropTypes.bool,
+    scale: PropTypes.number,
+    setSelected: PropTypes.func
 }

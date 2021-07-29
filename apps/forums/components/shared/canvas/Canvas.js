@@ -16,7 +16,7 @@ import LinkIndicator from "./modules/link/LinkIndicator";
 
 
 export default function Canvas(props) {
-    const [reduced, setReduced] = useState(false)
+    const [reduced, setReduced] = useState(true)
     const [offsetTop, setOffsetTop] = useState(-1)
     const [data, setData] = useState(NewProjectTemplate)
     const [toBeLinked, setToBeLinked] = useState(null)
@@ -29,15 +29,36 @@ export default function Canvas(props) {
     const handlePrint = useReactToPrint({
         content: () => printRef.current
     });
-    const [selectedLink, setSelectedLink] = useState(null)
 
     useEffect(() => {
+
+        if (selectedNode !== undefined) {
+            let listen = true
+            document.addEventListener('keydown', function keyDown(event) {
+                if (listen && event.key === 'Delete') {
+                    // let index
+                    // data.nodes.find((node, i) => {
+                    //     if (node.id === selectedNode)
+                    //         index = i
+                    // })
+                    // console.log(index)
+                    // let newNodes = [...data.nodes]
+                    // newNodes.splice(index, 1)
+                    // setData({
+                    //     ...data,
+                    //     nodes: newNodes
+                    // })
+                    listen = false
+                } else
+                    event.currentTarget.removeEventListener('keydown', keyDown);
+            })
+        }
+
         document.addEventListener('mouseup', event => {
+
             const closest = event.target.closest('circle')
             if (toBeLinked !== null && closest === null)
                 setToBeLinked(null)
-
-
         }, {once: true})
 
         if (offsetTop === -1) {
@@ -50,8 +71,9 @@ export default function Canvas(props) {
         }
         return () => {
             document.removeEventListener('mouseup', () => null)
+            document.removeEventListener('keydown', () => null)
         }
-    }, [toBeLinked])
+    }, [toBeLinked, selectedNode])
 
 
     return (
@@ -60,8 +82,6 @@ export default function Canvas(props) {
             id={'frame'}
             onMouseDown={event => {
                 const className = event.target.className
-                if (selectedLink && event.target.closest('.Link_input__3SQkm') === null)
-                    setSelectedLink(undefined)
                 if (selectedNode && event.target.closest('.Node_body__1O9a2') === null && event.target.closest('.Node_nodeShapeContainer__3-69M') === null && event.target.id === '')
                     setSelectedNode(undefined)
                 if (toBeLinked !== null && event.target.closest('.Node_body__1O9a2') === null && event.target.closest('.Node_nodeShapeContainer__3-69M') === null && event.target.id === '')
@@ -71,7 +91,7 @@ export default function Canvas(props) {
             }}>
 
             <div className={styles.content}>
-                <Scale scale={scale} setScale={setScale}/>
+                <Scale scale={scale} setScale={setScale} reduced={reduced}/>
                 <OptionsMenu
                     reduced={reduced}
                     setReduced={setReduced}
@@ -120,8 +140,8 @@ export default function Canvas(props) {
                             asStep={false} setSelectedNode={setSelectedNode}
                         />
                         <RenderLinks
-                            {...props} data={data} setData={setData} selectedLink={selectedLink}
-                            setSelectedLink={setSelectedLink} root={root.current}
+                            {...props} data={data} setData={setData}
+                            root={root.current}
                             contextMenuRef={contextMenuRef.current}
                             handleContextClose={() => ReactDOM.unmountComponentAtNode(contextMenuRef.current)}
                         />

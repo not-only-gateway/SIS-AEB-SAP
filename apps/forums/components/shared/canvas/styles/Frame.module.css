@@ -64,6 +64,7 @@
     z-index: 999;
     border: #ecedf2 1px solid;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    transition: 150ms ease-in-out;
 }
 
 .scaleButton {

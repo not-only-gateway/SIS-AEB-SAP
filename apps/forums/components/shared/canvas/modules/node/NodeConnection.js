@@ -19,13 +19,13 @@ export default function NodeConnection(props) {
             case 'a': {
                 response = {
                     x: bBox.x + bBox.width / 2,
-                    y: bBox.y
+                    y: bBox.y - 15
                 }
                 break
             }
             case 'b': {
                 response = {
-                    x: bBox.x + bBox.width,
+                    x: bBox.x + bBox.width + 15,
                     y: bBox.y + bBox.height / 2
                 }
                 break
@@ -34,13 +34,13 @@ export default function NodeConnection(props) {
 
                 response = {
                     x: bBox.x + bBox.width / 2,
-                    y: bBox.y + bBox.height
+                    y: bBox.y + bBox.height + 15
                 }
                 break
             }
             case 'd': {
                 response = {
-                    x: bBox.x,
+                    x: bBox.x - 15,
                     y: bBox.y + bBox.height / 2
                 }
                 break
@@ -64,9 +64,8 @@ export default function NodeConnection(props) {
                 id={props.node.id + '-' + props.connectionPoint}
                 cx={placement.x}
                 cy={placement.y}
-                stroke={'red'}
                 r={'5'} className={styles.indicator}
-                fill={'red'}
+                fill={props.node.color}
             />
         )
     } else {

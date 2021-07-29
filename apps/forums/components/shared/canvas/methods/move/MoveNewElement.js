@@ -25,7 +25,7 @@ export default function MoveNewElement(props) {
 
     document.addEventListener("drop", function (event) {
         event.preventDefault();
-        if (event.target.childNodes.length === 1 && event.target.childNodes[0].id === 'canvas' && props.root !== undefined && dragged) {
+        if (typeof event.target.className === 'object' && event.target.className.animVal === 'Frame_canvasBackground__3fnpp' && props.root !== undefined && dragged) {
             dragged = false
 
             event.target.style.background = "";

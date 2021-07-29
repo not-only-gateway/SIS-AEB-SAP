@@ -115,7 +115,7 @@ export default function RenderNodes(props) {
                         toBeLinked={props.toBeLinked}
                         selected={props.selectedNode} links={props.data.links}
                         setSelected={props.setSelectedNode}
-                        handleDelete={handleDelete}
+                        handleDelete={handleDelete} scale={props.scale}
                         openOverview={() => OpenNodeOverview({...props, ...{node: node, index: index}})}
                         move={nodeProps => handleMove(nodeProps, index)}
                         root={props.root} options={props.options}
@@ -132,7 +132,7 @@ export default function RenderNodes(props) {
                         toBeLinked={props.toBeLinked}
                         selected={props.selectedNode} links={props.data.links}
                         setSelected={props.setSelectedNode}
-                        handleDelete={handleDelete}
+                        handleDelete={handleDelete} scale={props.scale}
                         openOverview={() => OpenNodeOverview({...props, ...{node: node, index: index}})}
                         move={nodeProps => handleMove(nodeProps, index)}
                         root={props.root} options={props.options}
