@@ -1,36 +1,23 @@
-import PropTypes from 'prop-types'
 import React, {useState} from "react";
-import Cookies from "universal-cookie/lib";
-import {EditRounded} from "@material-ui/icons";
-import Host from "../../../../utils/shared/Host";
-import List from "../../../shared/misc/list/List";
-import handleObjectChange from "../../../../utils/shared/HandleObjectChange";
 import Stage from "./Stage";
+import handleObjectChange from "../../../../utils/shared/HandleObjectChange";
+import List from "../../../shared/misc/list/List";
+import Cookies from "universal-cookie/lib";
+import Host from "../../../../utils/shared/Host";
+import {EditRounded} from "@material-ui/icons";
+import PropTypes from "prop-types";
 
-
-export default function StageList(props) {
+export default function OperationList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
 
     return (
         <>
-            <Stage
-                returnToMain={() => {
-                    setOpen(false)
-                    setCurrentEntity(null)
-                }} open={open}
-                handleChange={event => handleObjectChange({
-                    event: event,
-                    setData: setCurrentEntity
-                })}
-                create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                data={currentEntity} goal={props.goal}
-            />
             <div>
                 <List
-                    listKey={'project'}
+                    listKey={'operation_phase'}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/activity'}
+                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/operation_phase'}
                     renderElement={element => {
                         return (
                             <div style={{display: 'flex', gap: '16px', justifyContent: 'space-between', width: '100%'}}>
@@ -51,16 +38,16 @@ export default function StageList(props) {
                     setEntity={entity => {
                         setOpen(true)
                         setCurrentEntity(entity)
-                    }} searchFieldName={'search_input'} title={'Etapas'} scrollableElement={'scrollableDiv'}
-                    fetchSize={15}
+                    }} searchFieldName={'search_input'} title={'Fases de operação'}
+                    scrollableElement={'scrollableDiv'} fetchSize={15}
                     fetchParams={{
-                        goal: props.goal.id
+                        stage: props.stage.id
                     }}
                 />
             </div>
         </>
     )
 }
-StageList.propTypes = {
-    goal: PropTypes.object
+OperationList.propTypes = {
+    stage: PropTypes.object
 }

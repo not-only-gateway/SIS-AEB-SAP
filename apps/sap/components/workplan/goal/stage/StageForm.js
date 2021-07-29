@@ -19,11 +19,11 @@ export default function StageForm(props) {
     }, [])
     return (
         <>
-            <Alert
-                type={status.type} render={status.type !== undefined} rootElementID={'root'}
-                handleClose={() => setStatus({type: undefined, message: undefined})}
-                message={status.message}
-            />
+            {/*<Alert*/}
+            {/*    type={status.type} render={status.type !== undefined} rootElementID={'root'}*/}
+            {/*    handleClose={() => setStatus({type: undefined, message: undefined})}*/}
+            {/*    message={status.message}*/}
+            {/*/>*/}
             <EntityLayout
                 rootElementID={'root'} entity={props.data}
                 create={props.create} label={props.create ? lang.newStage : lang.stage}
@@ -35,7 +35,8 @@ export default function StageForm(props) {
                     ],
                     changed: changed
                 }}
-                returnButton={true}
+                returnButton={false}
+                noHeader={true}
                 handleSubmit={() =>
                     WorkPlanRequests.submitStage({
                         pk: props.data.id,

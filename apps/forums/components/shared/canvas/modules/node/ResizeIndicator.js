@@ -4,29 +4,12 @@ import ResizeNode from "../../methods/misc/ResizeNode";
 
 export default function ResizeIndicator(props) {
     const getPlacement = () => {
-        let response = {
+        return {
             x: props.reference.getBBox().x - 1,
             y: props.reference.getBBox().y - 1,
             width: props.reference.getBBox().width + 2,
             height: props.reference.getBBox().height + 2
         }
-        // if(props.node.shape === 'circle' || props.node.shape === 'ellipse'){
-        //     response = {
-        //         x: props.reference.getBBox().x -1,
-        //         y:props.reference.getBBox().y -1,
-        //         width: props.reference.getBBox().width + 2,
-        //         height:props.reference.getBBox().height + 2
-        //     }
-        // }
-        // else
-        //     response = {
-        //         x: props.reference.getBBox().x - 8,
-        //         y:props.reference.getBBox().y - 8 ,
-        //         width: props.reference.getBBox().width + 16,
-        //         height:props.reference.getBBox().height+ 16
-        //     }
-
-        return response
     }
     if (props.reference !== undefined && props.selected === props.node.id) {
         const placement = getPlacement()
