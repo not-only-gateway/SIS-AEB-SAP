@@ -50,7 +50,7 @@ export default function Modal(props) {
              overflow: 'hidden',
              width: '100vw',
              position: 'fixed',
-             background: 'rgba(0, 0, 0, .4)',
+             background: `rgba(0, 0, 0, ${props.noBlur ? .2 : .4})`,
              height: '100vh',
              zIndex: 300,
              bottom: 0,
@@ -76,6 +76,7 @@ export default function Modal(props) {
 }
 
 Modal.propTypes = {
+  noBlur: PropTypes.bool,
   componentStyle: PropTypes.object,
   rootElementID: PropTypes.string,
   open: PropTypes.bool,

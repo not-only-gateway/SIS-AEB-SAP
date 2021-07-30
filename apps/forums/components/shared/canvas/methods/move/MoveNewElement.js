@@ -33,12 +33,12 @@ export default function MoveNewElement(props) {
                 x: props.root.getBoundingClientRect().left,
                 y: props.root.getBoundingClientRect().top
             }
-
+            const dimensions = getDimensions()
             props.setState(({
                 ...props.data,
                 nodes: [...props.data.nodes, ...[{
                     id: uuid4().toString(),
-                    title: 'Em branco',
+                    title: '',
                     description: null,
                     color: '#0095ff',
                     placement: {
@@ -47,13 +47,51 @@ export default function MoveNewElement(props) {
                     },
                     shape: props.type,
                     creationDate: (new Date()).getTime(),
-                    links: []
+                    links: [],
+                    dimensions: dimensions
                 }]]
             }))
         }
     }, {
         once: true
     })
+
+    const getDimensions = () => {
+        let res = {}
+        switch (true) {
+            case props.type.includes('circle'): {
+                res = {
+                    width: 80,
+                    height: 80
+                }
+                break
+            }
+            case props.type.includes('ellipse') : {
+                res = {
+                    width: 120,
+                    height: 80
+                }
+                break
+            }
+            case props.type.includes('rect') : {
+                res = {
+                    width: 150,
+                    height: 80
+                }
+                break
+            }
+            case props.type.includes('square'): {
+                res = {
+                    width: 80,
+                    height: 80
+                }
+                break
+            }
+            default:
+                break
+        }
+        return res
+    }
     return () => {
         document.removeEventListener('drop')
         document.removeEventListener('dragover')

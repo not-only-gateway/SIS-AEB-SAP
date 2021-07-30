@@ -6,7 +6,9 @@ import AdjustLink from "../../methods/misc/AdjustLink";
 
 export default function Link(props) {
     const [color, setColor] = useState(undefined)
+    const [selected, setSelected] = useState(false)
     const pathRef = useRef()
+
 
     const handleMouseDown = (t, s, isSource) => {
         if (color === undefined && !isSource)
@@ -23,36 +25,86 @@ export default function Link(props) {
         document.removeEventListener('mouseup', () => null)
     }
 
+    const renderRemove = () => {
+        if (selected) {
+            let target = {}
+            const t = document.getElementById(props.source.id + '-node').getBBox()
+            switch (props.source.connectionPoint) {
+                case 'a': {
+                    target = {
+                        x: t.x + t.width / 2,
+                        y: t.y - 12
+                    }
+                    break
+                }
+                case 'b': {
+                    target = {
+                        x: t.x + t.width + 12,
+                        y: t.y + t.height / 2
+                    }
+                    break
+                }
+                case 'c': {
+                    target = {
+                        x: t.x + t.width / 2,
+                        y: t.y + t.height + 12
+                    }
+                    break
+                }
+                case 'd': {
+                    target = {
+                        x: t.x - 12,
+                        y: t.y + t.height / 2
+                    }
+                    break
+                }
+                default:
+                    break
+            }
+
+            return (
+                <image width={'20'} height={'20'} x={target.x - 10} y={target.y - 10} onClick={() => props.deleteLink()}
+                       href={'./remove.svg'} fill={'white'}/>
+                // <circle r={10} cx={target.x} cy={target.y} fill={'red'} onClick={() => props.deleteLink()}/>
+            )
+        } else return null
+
+    }
 
     useEffect(() => {
         const t = document.getElementById(props.target.id + '-node')
         const s = document.getElementById(props.source.id + '-node')
-
+        const sBBox = s.getBBox()
+        const tBBox = t.getBBox()
         pathRef.current.setAttribute('d', GetCurve({
             target: {
-                x: t.getBBox().x,
-                y: t.getBBox().y,
-                height: t.getBBox().height,
-                width: t.getBBox().width,
+                x: tBBox.x,
+                y: tBBox.y,
+                height: tBBox.height,
+                width: tBBox.width,
                 connectionPoint: props.target.connectionPoint
             },
             source: {
-                x: s.getBBox().x,
-                y: s.getBBox().y,
-                height: s.getBBox().height,
-                width: s.getBBox().width,
+                x: sBBox.x,
+                y: sBBox.y,
+                height: sBBox.height,
+                width: sBBox.width,
                 connectionPoint: props.source.connectionPoint
             },
             type: props.type
         }))
 
         s.addEventListener('mousedown', event => {
-            if (event.button === 0)
+            if (event.button === 0) {
+                setSelected(false)
                 handleMouseDown(t, s, true)
+            }
         })
         t.addEventListener('mousedown', event => {
-            if (event.button === 0)
+            if (event.button === 0) {
+                setSelected(false)
                 handleMouseDown(t, s, false)
+            }
         })
         return () => {
             t.removeEventListener('mousedown', () => null)
@@ -64,45 +116,9 @@ export default function Link(props) {
     return (
         <g
             style={{cursor: "pointer"}}
-
-            onContextMenu={e => {
-                props.setSelected({
-                    child: props.source.id,
-                    parent: props.target.id
-                })
-                props.openContextMenu(
-                    <LinkContextMenu
-                        child={props.child} parent={props.parent} type={props.type} deleteLink={props.deleteLink}
-                        changeType={() => {
-                            props.handleChange({name: 'type', value: props.type === 'weak' ? 'strong' : 'weak'})
-                        }} handleClose={props.handleContextClose}/>,
-                    (e.clientX),
-                    (e.clientY - 40)
-                )
-            }}
+            onClick={() => setSelected(!selected)}
             onDoubleClick={event => props.handleStepCreation(event, props.target.id, props.source.id)}
         >
-
-            <defs>
-                <marker
-                    id={`${props.source.id}-end-${props.target.id}`}
-                    viewBox="0 0 20 20" refX="10" refY="10"
-                    markerWidth="10" markerHeight="10"
-                >
-                    <circle cx="10" cy="10" r="10" fill={color === 'transparent' || !color ? '#e0e0e0' : color}
-                            style={{transition: 'fill 250ms linear', transitionDelay: '250ms'}}
-                    />
-                </marker>
-                <marker
-                    id={`${props.source.id}-start-${props.target.id}`}
-                    viewBox="0 0 10 10" refX={'5'} refY={'10'}
-                    markerWidth="5" markerHeight="5"
-                >
-
-                    <circle cx="5" cy="5" r="5" fill={color === 'transparent' || !color ? '#e0e0e0' : color}
-                            style={{transition: 'fill 250ms linear', transitionDelay: '250ms'}}/>
-                </marker>
-            </defs>
             <path
                 stroke={
                     color === 'transparent' || !color ? '#e0e0e0' : color
@@ -110,7 +126,7 @@ export default function Link(props) {
                 fill={'none'} ref={pathRef}
                 strokeDasharray={props.type.includes('dashed') ? '5,5' : undefined}
                 d={'M 0,0'}
-                markerStart={`url(#${props.source.id}-end-${props.target.id})`}
+                markerStart={selected ? null : `url(#${props.source.id}-end-${props.target.id})`}
                 markerEnd={`url(#${props.source.id}-start-${props.target.id})`}
             />
 
@@ -121,12 +137,37 @@ export default function Link(props) {
                 fill={'none'}
                 d={pathRef.current !== undefined && pathRef.current !== null ? pathRef.current.getAttribute("d") : undefined}
             />
+            <defs>
+                {selected ? null :
+                    <marker
+                        id={`${props.source.id}-end-${props.target.id}`}
+                        viewBox="0 0 20 20" refX="10" refY="10"
+                        markerWidth="10" markerHeight="10"
+                    >
+                        <circle cx="10" cy="10" r="10" fill={color === 'transparent' || !color ? '#e0e0e0' : color}
+                                style={{transition: 'fill 250ms linear', transitionDelay: '250ms'}}
+                        />
+                    </marker>
+                }
+                <marker
+                    id={`${props.source.id}-start-${props.target.id}`}
+                    viewBox="0 0 10 10" refX={'5'} refY={'10'}
+                    markerWidth="5" markerHeight="5"
+                >
 
+                    <circle cx="5" cy="5" r="5" fill={color === 'transparent' || !color ? '#e0e0e0' : color}
+                            style={{transition: 'fill 250ms linear', transitionDelay: '250ms'}}/>
+                </marker>
+            </defs>
+
+            {renderRemove()}
         </g>
     )
 }
 
 Link.propTypes = {
+
+
     deleteLink: PropTypes.func,
     openContextMenu: PropTypes.func,
 

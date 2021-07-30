@@ -13,8 +13,13 @@ export default function HandleDownload(props){
         let newNode = {...node}
 
         if(element !== null) {
-            newNode.placement.x = element.offsetLeft
-            newNode.placement.y = element.offsetTop
+            const bBox = element.getBBox()
+
+            newNode.dimensions.width = bBox.width
+            newNode.dimensions.height = bBox.height
+            newNode.placement.x = bBox.x
+            newNode.placement.y = bBox.y
+
             newNodes.push(newNode)
         }
     })

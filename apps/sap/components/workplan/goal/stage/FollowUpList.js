@@ -9,8 +9,9 @@ import PropTypes from "prop-types";
 import animations from "../../../../styles/Animations.module.css";
 import Goal from "../Goal";
 import Operation from "./Operation";
+import FollowUpForm from "./FollowUpForm";
 
-export default function OperationList(props) {
+export default function FollowUpList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
 
@@ -18,7 +19,7 @@ export default function OperationList(props) {
         <>
             {!open ? null :
                 <div className={animations.fadeIn}>
-                    <Operation
+                    <FollowUpForm
                         returnToMain={() => {
                             setOpen(false)
                         }}
@@ -27,14 +28,14 @@ export default function OperationList(props) {
                             setData: setCurrentEntity
                         })}
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                        data={currentEntity} stage={props.stage}/>
+                        data={currentEntity} operation={props.operation}/>
                 </div>
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'operation_phase'}
+                    listKey={'follow_up_goal'}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/operation_phase'}
+                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/follow_up_goal'}
                     renderElement={element => {
                         return (
                             <div style={{display: 'flex', gap: '16px', justifyContent: 'space-between', width: '100%'}}>
@@ -55,16 +56,16 @@ export default function OperationList(props) {
                     setEntity={entity => {
                         setOpen(true)
                         setCurrentEntity(entity)
-                    }} searchFieldName={'search_input'} title={'Fases de operação'}
+                    }} searchFieldName={'search_input'} title={'Objetivos de acompanhamento'}
                     scrollableElement={'scrollableDiv'} fetchSize={15}
                     fetchParams={{
-                        stage: props.stage.id
+                        operation: props.operation.id
                     }}
                 />
             </div>
         </>
     )
 }
-OperationList.propTypes = {
-    stage: PropTypes.object
+FollowUpList.propTypes = {
+    operation: PropTypes.object
 }

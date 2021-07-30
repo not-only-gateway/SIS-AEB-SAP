@@ -5,6 +5,7 @@ import styles from '../../styles/Node.module.css'
 export default function NodeConnection(props) {
     const [canRender, setCanRender] = useState(true)
     useEffect(() => {
+        setCanRender(true)
         props.node.links.map((entity) => {
             if ((entity.parent.id === props.node.id && entity.parent.connectionPoint === props.connectionPoint) || (entity.child.id === props.node.id && entity.child.connectionPoint === props.connectionPoint)) {
                 setCanRender(false)
@@ -50,7 +51,7 @@ export default function NodeConnection(props) {
         return response
     }
 
-    if (props.reference !== undefined && (props.selected === props.node.id || props.linkable)) {
+    if (canRender && props.reference !== undefined && (props.selected === props.node.id || props.linkable)) {
         const placement = getPlacement()
         return (
             // <image

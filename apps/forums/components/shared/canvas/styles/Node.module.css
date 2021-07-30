@@ -60,10 +60,11 @@
     text-overflow: ellipsis;
     overflow: hidden;
     font-weight: bold;
-    width: 100%;
-    border-bottom: #e0e0e0 1px solid;
-    padding-bottom: 4px;
-    height: 50%;
+
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
+    margin: auto;
 }
 
 
@@ -96,20 +97,33 @@
 
 }
 
-.nodeShapeContainer{
+.nodeShapeContainer {
     background: transparent;
     width: 100%;
     height: 100%;
     padding: 8px;
     user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.indicator{
+.indicator {
 
     stroke: none;
     transition: 150ms linear;
     opacity: .5;
 }
-.indicator:hover{
+
+.indicator:hover {
     opacity: 1;
+}
+.stepInput{
+    user-select: none;
+    outline: none;
+    border: none;
+    width: 100%;
+    height: 100%;
+    background:transparent;
+
 }

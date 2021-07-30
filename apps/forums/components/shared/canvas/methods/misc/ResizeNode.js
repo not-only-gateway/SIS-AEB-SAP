@@ -15,24 +15,29 @@ export default function ResizeNode(props) {
         el.setAttribute('cursor', 'default')
         el.setAttribute('stroke-dasharray', '5,5')
         document.addEventListener('mousemove', function resize(event) {
-            console.log('RUNNIng')
             if (resizing) {
                 const bBox = el.getBBox()
                 const newPlacement = {
                     x: event.clientX / props.scale,
                     y: event.clientY / props.scale
                 }
-
-                el.setAttribute('width', (bBox.width + (newPlacement.x - lastPlacement.x)))
-                el.setAttribute('height', (bBox.height + (newPlacement.y - lastPlacement.y)))
-                if ((bBox.height + (newPlacement.y - lastPlacement.y)) >= 400 || (bBox.width + (newPlacement.x - lastPlacement.x)) >= 400)
+                const newHeight = (bBox.height + (newPlacement.y - lastPlacement.y))
+                const newWidth = (bBox.width + (newPlacement.x - lastPlacement.x))
+                el.setAttribute('width', newWidth)
+                el.setAttribute('height', newHeight)
+                if (newHeight >= 400 || newWidth >= 400 || newHeight < 50 || newWidth < 50) {
                     el.setAttribute('stroke', '#ff5555')
+                    newDimensions = {
+                        width: newWidth >= 400  || newWidth < 50 ? newDimensions.width : newWidth,
+                        height: newHeight >= 400  || newHeight < 50 ? newDimensions.height : newHeight
+                    }
+                }
                 else {
-                    if(el.getAttribute('stroke') === '#ff5555')
+                    if (el.getAttribute('stroke') === '#ff5555')
                         el.setAttribute('stroke', props.nodeColor)
                     newDimensions = {
-                        width: bBox.width + (newPlacement.x - lastPlacement.x),
-                        height: bBox.height + (newPlacement.y - lastPlacement.y)
+                        width: newWidth,
+                        height: newHeight
                     }
                 }
                 lastPlacement = newPlacement

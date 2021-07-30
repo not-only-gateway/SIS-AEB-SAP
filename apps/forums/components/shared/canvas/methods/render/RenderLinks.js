@@ -14,7 +14,7 @@ export default function RenderLinks(props) {
             parent: link.parent,
             child: {
                 id: stepID,
-                connectionPoint: 'c',
+                connectionPoint: 'a',
                 nodeShape: 'rect',
                 index: props.data.steps.length
             },
@@ -29,32 +29,22 @@ export default function RenderLinks(props) {
             },
             child: link.child
         }
-        let newNodes = [...props.data.nodes]
+
         
         let newSteps = [...props.data.steps, ...[{
             id: stepID,
             description: '',
             links: [newLinkB, newLinkA],
-            placement: {x: event.clientX - props.root.offsetLeft, y: event.clientY - props.root.offsetTop},
+            placement: {x: event.clientX - props.root.offsetLeft, y: event.clientY - props.root.offsetTop - 80},
             shape: 'rect'
         }]]
         let newLinks = [...props.data.links]
         newLinks.splice(props.data.links.indexOf(link), 1)
         newLinks.push(newLinkB)
         newLinks.push(newLinkA)
-        newNodes[link.child.index].links[newNodes[link.child.index].links.find((l, index) => {
-            if (l === link)
-                return index
-        })] = newLinkB
-        newNodes[link.parent.index].links[newNodes[link.parent.index].links.find((l, index) => {
-            if (l === link)
-                return index
-        })] = newLinkA
-
         props.setData({
             ...props.data,
             links: newLinks,
-            nodes: newNodes,
             steps: newSteps
         })
     }

@@ -31,7 +31,8 @@ export default function Node(props) {
             style={{
                 cursor: props.selected === props.node.id && props.toBeLinked === null ? 'move' : !linkable && props.toBeLinked !== null ? 'unset' : "pointer",
                 opacity: !linkable && props.toBeLinked !== null ? '.5' : '1',
-                position: 'relative'
+                position: 'relative',
+
             }}
             className={styles.entityContainer}
             ref={ref}
@@ -46,14 +47,18 @@ export default function Node(props) {
             <ResizeIndicator reference={ref.current} selected={props.selected} node={props.node} scale={props.scale}
                              setSelected={props.setSelected}/>
 
-            <NodeConnection node={props.node} selected={props.selected} connectionPoint={'a'} reference={ref.current}
-                            handleLink={props.handleLink} linkable={linkable}/>
-            <NodeConnection node={props.node} selected={props.selected} connectionPoint={'b'} reference={ref.current}
-                            handleLink={props.handleLink} linkable={linkable}/>
-            <NodeConnection node={props.node} selected={props.selected} connectionPoint={'c'} reference={ref.current}
-                            handleLink={props.handleLink} linkable={linkable}/>
-            <NodeConnection node={props.node} selected={props.selected} connectionPoint={'d'} reference={ref.current}
-                            handleLink={props.handleLink} linkable={linkable}/>
+            {props.asStep ? null : <NodeConnection node={props.node} selected={props.selected} connectionPoint={'a'}
+                                                   reference={ref.current}
+                                                   handleLink={props.handleLink} linkable={linkable}/>}
+            {props.asStep ? null : <NodeConnection node={props.node} selected={props.selected} connectionPoint={'b'}
+                                                   reference={ref.current}
+                                                   handleLink={props.handleLink} linkable={linkable}/>}
+            {props.asStep ? null : <NodeConnection node={props.node} selected={props.selected} connectionPoint={'c'}
+                                                   reference={ref.current}
+                                                   handleLink={props.handleLink} linkable={linkable}/>}
+            {props.asStep ? null : <NodeConnection node={props.node} selected={props.selected} connectionPoint={'d'}
+                                                   reference={ref.current}
+                                                   handleLink={props.handleLink} linkable={linkable}/>}
 
         </g>
 

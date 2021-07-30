@@ -92,7 +92,7 @@ export default function OptionsMenu(props) {
                        value={props.data.subject} style={{display: props.reduced ? 'none' : undefined}}
                        onChange={event => props.setState({...props.data, subject: event.target.value})}/>
                 <button onClick={() => props.setReduced(!props.reduced)} className={styles.extendButton} style={{height: !props.reduced ? '100%' : undefined, width: props.reduced ? undefined : '30px'}}>
-                    <KeyboardArrowRightRounded style={{transform: props.reduced ? 'rotate(180deg)' : undefined}}/>
+                    <KeyboardArrowRightRounded style={{transform: !props.reduced ? 'rotate(180deg)' : undefined}}/>
                 </button>
             </div>
 

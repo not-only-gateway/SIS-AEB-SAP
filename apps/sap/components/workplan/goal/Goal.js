@@ -11,29 +11,29 @@ export default function Goal(props) {
     const lang = GoalPT
     const [openTab, setOpenTab] = useState(0)
     return (
-
-        <Tabs
-            type={'vertical'}
-            buttons={[
-                {
-                    key: 0,
-                    value: props.data.goal_number,
-                    content: (
-                        <div style={{width: '100%'}}>
-                            <GoalForm {...props}/>
+        props.create ? <GoalForm {...props}/> :
+            <Tabs
+                type={'vertical'}
+                buttons={[
+                    {
+                        key: 0,
+                        value: props.data.goal_number,
+                        content: (
+                            <div style={{width: '100%'}}>
+                                <GoalForm {...props}/>
+                            </div>
+                        )
+                    }, {
+                        key: 1,
+                        value: lang.stages,
+                        content: <div style={{width: '100%'}}>
+                            <StageList goal={props.data}/>
                         </div>
-                    )
-                }, {
-                    key: 1,
-                    value: lang.stages,
-                    content: <div style={{width: '100%'}}>
-                        <StageList goal={props.data}/>
-                    </div>
-                }
-            ]}
-            setOpenTab={setOpenTab}
-            openTab={openTab}
-        />
+                    }
+                ]}
+                setOpenTab={setOpenTab}
+                openTab={openTab}
+            />
     )
 }
 Goal.propTypes = {

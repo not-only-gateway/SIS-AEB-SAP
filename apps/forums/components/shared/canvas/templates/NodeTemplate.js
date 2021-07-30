@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export default  PropTypes.shape({
+export default PropTypes.shape({
     id: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.string,
@@ -8,5 +8,9 @@ export default  PropTypes.shape({
     placement: PropTypes.shape({
         x: PropTypes.number,
         y: PropTypes.number
+    }),
+    dimensions: PropTypes.shape({
+        width: PropTypes.number,
+        height: PropTypes.number
     })
 })
