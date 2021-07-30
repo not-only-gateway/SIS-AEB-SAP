@@ -28,7 +28,7 @@ export default function OptionsMenu(props) {
                        file: event,
                        setData: props.setState,
                    })}
-                   accept={'.canvas'}/>
+                   accept={'.json'}/>
 
             <button
                 onClick={() => {
@@ -38,7 +38,7 @@ export default function OptionsMenu(props) {
                 }} id="upload_file"
                 className={styles.buttonContainer}>
                 <PublishRounded/>
-                {props.reduced ? null : 'Importar modelo (.canvas)'}
+                {props.reduced ? null : 'Importar modelo'}
             </button>
 
             <div className={styles.optionsDivider}/>
@@ -55,7 +55,8 @@ export default function OptionsMenu(props) {
                     HandleDownload({
                         handleDownload: props.onSave,
                         data: props.data,
-                        root: props.root
+                        root: props.root,
+                        asJson: true
                     })
                 }} disabled={props.data.nodes.length === 0}>
                 <SaveAltRounded/>
@@ -67,17 +68,6 @@ export default function OptionsMenu(props) {
                     disabled={props.data.nodes.length === 0}>
                 <PictureAsPdfRounded/>
                 {props.reduced ? null : 'Exportar PDF'}
-
-            </button>
-            <button className={styles.buttonContainer}
-                    onClick={() => HandleDownload({
-                        handleDownload: props.onSave,
-                        data: props.data,
-                        root: props.root,
-                        asJson: true
-                    })} disabled={props.data.nodes.length === 0}>
-                <FileCopyRounded/>
-                {props.reduced ? null : 'Exportar JSON'}
 
             </button>
         </div>

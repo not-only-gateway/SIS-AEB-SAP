@@ -6,10 +6,11 @@ export default function HandleUpload(props) {
     try {
         let reader = new FileReader()
         reader.onload = newData => {
-            const response = CryptoJS.AES.decrypt(newData.target.result, 'sdaoi213@*#78&*&*Edsah&(821j3kbkdas*((')
-            const data = JSON.parse(response.toString(CryptoJS.enc.Utf8))
-            props.setData(data)
+            // const response = CryptoJS.AES.decrypt(newData.target.result, 'sdaoi213@*#78&*&*Edsah&(821j3kbkdas*((')
+            // response.toString(CryptoJS.enc.Utf8)
+            const data = JSON.parse(newData.target.result)
 
+            props.setData(data)
         };
         reader.readAsText(props.file.target.files[0]);
     } catch (error) {

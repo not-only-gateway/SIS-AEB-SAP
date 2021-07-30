@@ -34,10 +34,10 @@ export default function HandleDownload(props){
         dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(ciphertext)
     }
     else
-        dataStr = JSON.stringify(newData)
-
+        dataStr =  "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(newData))
+    console.log(dataStr)
     downloadAnchorNode.setAttribute("href", dataStr);
-    downloadAnchorNode.setAttribute("download", `${props.data.subject}.${props.asJson ? 'json' : 'canvas'}`);
+    downloadAnchorNode.setAttribute("download", `${props.data.subject}.json`);
     document.body.appendChild(downloadAnchorNode)
     downloadAnchorNode.click()
     downloadAnchorNode.remove()
