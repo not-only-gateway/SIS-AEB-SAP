@@ -2,7 +2,7 @@ import React from "react";
 import NodeContentWrapper from "../NodeContentWrapper";
 import NodePropsTemplate from "../../../templates/NodePropsTemplate";
 import PropTypes from 'prop-types'
-import NodeConnection from "../NodeConnection";
+import ConnectionIndicator from "../ConnectionIndicator";
 import styles from "../../../styles/Node.module.css";
 
 export default function Circle(props) {

@@ -12,8 +12,9 @@ export default function ResizeNode(props) {
     }
     let resizing = true
     if (el !== null) {
+        el.setAttribute('stroke-width', '2')
         el.setAttribute('cursor', 'default')
-        el.setAttribute('stroke-dasharray', '5,5')
+        el.setAttribute('stroke-dasharray', '3,3')
         document.addEventListener('mousemove', function resize(event) {
             if (resizing) {
                 const bBox = el.getBBox()
@@ -23,22 +24,12 @@ export default function ResizeNode(props) {
                 }
                 const newHeight = (bBox.height + (newPlacement.y - lastPlacement.y))
                 const newWidth = (bBox.width + (newPlacement.x - lastPlacement.x))
-                el.setAttribute('width', newWidth)
-                el.setAttribute('height', newHeight)
-                if (newHeight >= 400 || newWidth >= 400 || newHeight < 50 || newWidth < 50) {
-                    el.setAttribute('stroke', '#ff5555')
-                    newDimensions = {
-                        width: newWidth >= 400  || newWidth < 50 ? newDimensions.width : newWidth,
-                        height: newHeight >= 400  || newHeight < 50 ? newDimensions.height : newHeight
-                    }
-                }
-                else {
-                    if (el.getAttribute('stroke') === '#ff5555')
-                        el.setAttribute('stroke', props.nodeColor)
-                    newDimensions = {
-                        width: newWidth,
-                        height: newHeight
-                    }
+                el.setAttribute('width', newWidth.toString())
+                el.setAttribute('height', newHeight.toString())
+
+                newDimensions = {
+                    width: newWidth,
+                    height: newHeight
                 }
                 lastPlacement = newPlacement
             } else
@@ -52,6 +43,8 @@ export default function ResizeNode(props) {
             const content = el.parentNode.firstChild.childNodes
             props.setSelected(undefined)
             el.setAttribute('stroke-dasharray', undefined)
+            el.setAttribute('stroke-width', '3')
+
             if (newDimensions.width && newDimensions.height) {
                 el.setAttribute('cursor', 'crosshair')
                 if (props.nodeShape === 'circle') {

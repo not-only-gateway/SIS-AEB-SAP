@@ -117,8 +117,8 @@ export default function Canvas(props) {
                                 setOpenNodeOverview(false)
                         }}
                         style={{
-                            minWidth: root.current !== undefined ? (root.current.offsetWidth * 2 + 'px') : '100%',
-                            minHeight: root.current !== undefined ? (root.current.offsetHeight * 2 + 'px') : '100%',
+                            minWidth: data.dimensions.width + 'px',
+                            minHeight: data.dimensions.height + 'px',
                             position: 'absolute',
                             transform: `scale(${scale})`,
                             transformOrigin: scale !== 1 ? 'top left' : undefined,

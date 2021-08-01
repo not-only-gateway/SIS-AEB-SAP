@@ -7,7 +7,7 @@
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     border-left: #E8F0EF 1px solid;
     z-index: 90;
-    padding: 64px 16px 16px;
+    padding: 38px 16px 16px;
 
     animation: fadeIn 300ms ease;
 
@@ -15,7 +15,7 @@
     overflow-y: auto;
     display: block;
     user-select: none;
-
+    resize: vertical;
 }
 
 @keyframes fadeIn {
@@ -30,7 +30,7 @@
 .header {
     width: 100%;
     display: grid;
-    gap: 8px;
+    gap: 16px;
 }
 
 
@@ -163,7 +163,7 @@
 }
 
 .inputTitle {
-    font-size: 20px;
+    font-size: 1.05rem;
     font-weight: bold;
     color: #393C44;
 }
@@ -183,7 +183,7 @@
     border: #ecedf2 1px solid;
     background: white;
     font-family: Roboto;
-    color: #393C44;
+    color: #777777;
     cursor: pointer;
 
     display: flex;
@@ -192,15 +192,66 @@
     gap: 8px;
     padding: 8px;
 
+    transition: 150ms linear;
+
 }
 
-.uploadButton:hover{
+.uploadButtonWFile:hover{
+    border: #ff5555 1px solid;
+    background: #E8F0FE;
+    color: #ff5555;
+}
+.uploadButtonNoFile:hover{
     border: #0095ff 1px solid;
     background: #E8F0FE;
+    color: #0095ff;
 }
 .uploadButton:disabled{
     border: #ecedf2 1px solid;
     background: white;
     cursor: unset;
     color: #777777;
+}
+
+.fieldSetContainer{
+    outline: none;
+    border-radius: 5px;
+    border: #ecedf2 1px solid;
+    display: grid;
+    gap: 16px;
+    padding-top: 0;
+}
+.fieldSetContainer > legend{
+    padding-left: 8px;
+    padding-right: 8px;
+    color: #393C44;
+
+}
+.fieldContainer{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    width: 100%;
+}
+
+.dropdown{
+    border-radius: 5px;
+    border: #ecedf2 1px solid;
+    width: 100%;
+
+}
+.dropdown:focus,.dropdown:focus-within, .dropdown:active{
+    background: #E8F0FE;
+    border: #ecedf2 1px solid;
+}
+
+.dropdown > option{
+    position: absolute;
+    background-color: white;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    border-radius: 5px;
+    border: #ecedf2 1px solid;
 }

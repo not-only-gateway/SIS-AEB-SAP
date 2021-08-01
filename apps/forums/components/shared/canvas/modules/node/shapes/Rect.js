@@ -3,7 +3,7 @@ import React from "react";
 import PropTypes from 'prop-types'
 import NodePropsTemplate from "../../../templates/NodePropsTemplate";
 import NodeContentWrapper from "../NodeContentWrapper";
-import NodeConnection from "../NodeConnection";
+import ConnectionIndicator from "../ConnectionIndicator";
 
 export default function Rect(props) {
     return (

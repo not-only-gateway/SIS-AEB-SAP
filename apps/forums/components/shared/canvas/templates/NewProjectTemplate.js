@@ -5,7 +5,10 @@ export default {
     subject: 'Sem título',
     nodes: [],
     links: [],
-    dimensions: {},
+    dimensions: {
+        width: 10000,
+        height: 10000
+    },
     connectionType: 'strong-path',
     steps: []
 }

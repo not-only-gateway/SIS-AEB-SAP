@@ -97,13 +97,13 @@ export default function Link(props) {
         s.addEventListener('mousedown', event => {
             if (event.button === 0) {
                 setSelected(false)
-                handleMouseDown(t, s, true)
+                handleMouseDown(t.firstChild, s.firstChild, true)
             }
         })
         t.addEventListener('mousedown', event => {
             if (event.button === 0) {
                 setSelected(false)
-                handleMouseDown(t, s, false)
+                handleMouseDown(t.firstChild, s.firstChild, false)
             }
         })
         return () => {
@@ -122,7 +122,7 @@ export default function Link(props) {
             <path
                 stroke={
                     color === 'transparent' || !color ? '#e0e0e0' : color
-                } strokeWidth={'2'} style={{transition: 'stroke 250ms linear', transitionDelay: '250ms'}}
+                } strokeWidth={'2'} style={{transition: 'stroke 150ms linear'}}
                 fill={'none'} ref={pathRef}
                 strokeDasharray={props.type.includes('dashed') ? '5,5' : undefined}
                 d={'M 0,0'}
@@ -145,18 +145,18 @@ export default function Link(props) {
                         markerWidth="10" markerHeight="10"
                     >
                         <circle cx="10" cy="10" r="10" fill={color === 'transparent' || !color ? '#e0e0e0' : color}
-                                style={{transition: 'fill 250ms linear', transitionDelay: '250ms'}}
+                                style={{transition: 'fill 150ms linear'}}
                         />
                     </marker>
                 }
                 <marker
                     id={`${props.source.id}-start-${props.target.id}`}
-                    viewBox="0 0 10 10" refX={'5'} refY={'10'}
+                    viewBox="0 0 10 10" refX={'5'} refY={'5'}
                     markerWidth="5" markerHeight="5"
                 >
 
                     <circle cx="5" cy="5" r="5" fill={color === 'transparent' || !color ? '#e0e0e0' : color}
-                            style={{transition: 'fill 250ms linear', transitionDelay: '250ms'}}/>
+                            style={{transition: 'fill 150ms linear'}}/>
                 </marker>
             </defs>
 

@@ -32,10 +32,11 @@
     padding: 8px 16px;
     cursor: pointer;
     color: #555555;
+    font-size: .8rem;
     transition: 150ms linear;
     position: sticky;
     top: 0;
-    font-size: .8rem;
+
 }
 
 .buttonContainer:hover {
