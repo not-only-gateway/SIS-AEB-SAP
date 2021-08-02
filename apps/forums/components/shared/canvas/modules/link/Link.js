@@ -3,6 +3,8 @@ import React, {useEffect, useRef, useState} from "react";
 import GetCurve from "../../methods/misc/GetCurve";
 import LinkContextMenu from "./LinkContextMenu";
 import AdjustLink from "../../methods/misc/AdjustLink";
+import Node from "../node/Node";
+import OpenNodeOverview from "../../methods/misc/OpenNodeOverview";
 
 export default function Link(props) {
     const [color, setColor] = useState(undefined)
@@ -119,6 +121,16 @@ export default function Link(props) {
             onClick={() => setSelected(!selected)}
             onDoubleClick={event => props.handleStepCreation(event, props.target.id, props.source.id)}
         >
+            {props.step === null || props.step === undefined || props.step.id === undefined ?
+                null
+                :
+                <Node
+                    node={props.step} asStep={true}
+                    scale={props.scale}
+                    move={nodeProps => null}
+                    root={props.root} options={props.options}
+                />
+            }
             <path
                 stroke={
                     color === 'transparent' || !color ? '#e0e0e0' : color

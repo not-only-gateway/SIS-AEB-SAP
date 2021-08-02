@@ -9,6 +9,5 @@ export default {
         width: 10000,
         height: 10000
     },
-    connectionType: 'strong-path',
-    steps: []
+    connectionType: 'strong-path'
 }

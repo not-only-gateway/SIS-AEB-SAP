@@ -25,17 +25,13 @@ export default function RenderStep(props) {
                 style={{
                     boxShadow: '0 4px 30px rgb(22 33 74 / 5%)',
                     transition: 'box-shadow 150ms linear',
-                    borderRadius: props.node.shape.includes('rounded') ? '5px' : undefined
+                    borderRadius: '5px'
                 }}
             >
                 <NodeContentWrapper {...props}>
                     <input value={props.node.title} className={styles.stepInput}
                            onFocus={() => setFill('#E8F0FE')}
                            onBlur={() => setFill('white')}/>
-
-                    {/*<div className={styles.header}>*/}
-                    {/*    {props.node.title}*/}
-                    {/*</div>*/}
                 </NodeContentWrapper>
             </foreignObject>
         </g>

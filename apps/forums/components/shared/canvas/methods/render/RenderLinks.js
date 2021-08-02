@@ -8,44 +8,22 @@ import {v4 as uuid4} from 'uuid';
 export default function RenderLinks(props) {
 
     const handleStepCreation = (event, link) => {
-        const stepID = uuid4().toString()
-        let newLinkA = {
-            type: props.data.connectionType,
-            parent: link.parent,
-            child: {
-                id: stepID,
-                connectionPoint: 'a',
-                nodeShape: 'rect',
-                index: props.data.steps.length
-            },
+        let newSteps = {
+            id: uuid4().toString(),
+            description: '',
+            placement: {x: event.clientX - props.root.offsetLeft, y: event.clientY - props.root.offsetTop - 80}
         }
-        let newLinkB = {
-            type: link.type,
-            parent: {
-                id: stepID,
-                connectionPoint: 'c',
-                nodeShape: 'rect',
-                index: props.data.steps.length
-            },
-            child: link.child
+        let newLinks = [...props.data.links]
+        newLinks[newLinks.indexOf(link)] = {
+            ...newLinks[newLinks.indexOf(link)],
+            ...{
+                step: newSteps
+            }
         }
 
-        
-        let newSteps = [...props.data.steps, ...[{
-            id: stepID,
-            description: '',
-            links: [newLinkB, newLinkA],
-            placement: {x: event.clientX - props.root.offsetLeft, y: event.clientY - props.root.offsetTop - 80},
-            shape: 'rect'
-        }]]
-        let newLinks = [...props.data.links]
-        newLinks.splice(props.data.links.indexOf(link), 1)
-        newLinks.push(newLinkB)
-        newLinks.push(newLinkA)
         props.setData({
             ...props.data,
-            links: newLinks,
-            steps: newSteps
+            links: newLinks
         })
     }
 

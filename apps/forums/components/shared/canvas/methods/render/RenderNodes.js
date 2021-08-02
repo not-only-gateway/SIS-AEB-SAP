@@ -4,7 +4,7 @@ import Move from "../move/MoveNode";
 import React from "react";
 import CanvasTemplate from "../../templates/CanvasPropsTemplate";
 import PropTypes from 'prop-types'
-import OpenNodeOverview from "./OpenNodeOverview";
+import OpenNodeOverview from "../misc/OpenNodeOverview";
 
 export default function RenderNodes(props) {
     const handleLink = (node, connection, index) => {
@@ -110,23 +110,6 @@ export default function RenderNodes(props) {
                 <g key={`${node.id}-node-${index}`} x={node.placement.x} y={node.placement.y}>
                     <Node
                         node={node} index={index} asStep={false}
-                        handleLinkDelete={handleLinkDelete}
-                        handleLink={(node, connection) => handleLink(node, connection, index)}
-                        toBeLinked={props.toBeLinked}
-                        selected={props.selectedNode} links={props.data.links}
-                        setSelected={props.setSelectedNode}
-                        handleDelete={handleDelete} scale={props.scale}
-                        openOverview={() => OpenNodeOverview({...props, ...{node: node, index: index}})}
-                        move={nodeProps => handleMove(nodeProps, index)}
-                        root={props.root} options={props.options}
-                        setOpenContext={handleContextMenu}
-                    />
-                </g>
-            ))}
-            {props.data.steps.map((node, index) => (
-                <g key={`${node.id}-step-${index}`}>
-                    <Node
-                        node={node} index={index} asStep={true}
                         handleLinkDelete={handleLinkDelete}
                         handleLink={(node, connection) => handleLink(node, connection, index)}
                         toBeLinked={props.toBeLinked}

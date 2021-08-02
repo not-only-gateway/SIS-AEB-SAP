@@ -38,27 +38,29 @@ export default function Node(props) {
             ref={ref}
         >
 
-            {props.asStep ?
-                <RenderStep {...props} reference={ref.current}/>
-                :
-                <RenderNodeShape {...props} reference={ref.current} linkable={linkable}/>
-            }
+
+            <RenderNodeShape {...props} reference={ref.current} linkable={linkable}/>
+
 
             <ResizeIndicator reference={ref.current} selected={props.selected} node={props.node} scale={props.scale}
                              setSelected={props.setSelected}/>
 
-            {props.asStep ? null : <ConnectionIndicator node={props.node} selected={props.selected} connectionPoint={'a'}
-                                                        reference={ref.current}
-                                                        handleLink={props.handleLink} linkable={linkable}/>}
-            {props.asStep ? null : <ConnectionIndicator node={props.node} selected={props.selected} connectionPoint={'b'}
-                                                        reference={ref.current}
-                                                        handleLink={props.handleLink} linkable={linkable}/>}
-            {props.asStep ? null : <ConnectionIndicator node={props.node} selected={props.selected} connectionPoint={'c'}
-                                                        reference={ref.current}
-                                                        handleLink={props.handleLink} linkable={linkable}/>}
-            {props.asStep ? null : <ConnectionIndicator node={props.node} selected={props.selected} connectionPoint={'d'}
-                                                        reference={ref.current}
-                                                        handleLink={props.handleLink} linkable={linkable}/>}
+            <ConnectionIndicator
+                node={props.node} selected={props.selected} connectionPoint={'a'}
+                reference={ref.current}
+                handleLink={props.handleLink} linkable={linkable}/>
+            <ConnectionIndicator
+                node={props.node} selected={props.selected} connectionPoint={'b'}
+                reference={ref.current}
+                handleLink={props.handleLink} linkable={linkable}/>
+            <ConnectionIndicator
+                node={props.node} selected={props.selected} connectionPoint={'c'}
+                reference={ref.current}
+                handleLink={props.handleLink} linkable={linkable}/>
+            <ConnectionIndicator
+                node={props.node} selected={props.selected} connectionPoint={'d'}
+                reference={ref.current}
+                handleLink={props.handleLink} linkable={linkable}/>
 
             <g id={props.node.id + '-node-slot'}/>
         </g>
