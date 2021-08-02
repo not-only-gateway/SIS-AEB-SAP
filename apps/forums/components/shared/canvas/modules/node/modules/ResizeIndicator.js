@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
-import NodeTemplate from "../../templates/NodeTemplate";
-import ResizeNode from "../../methods/misc/ResizeNode";
+import NodeTemplate from "../../../templates/NodeTemplate";
+import ResizeNode from "../../../methods/misc/ResizeNode";
 
 export default function ResizeIndicator(props) {
     const getPlacement = () => {

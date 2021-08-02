@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
-import styles from "../../styles/Node.module.css";
+import styles from "../../../styles/Node.module.css";
 import React, {useEffect, useState} from "react";
 
-export default function PositionIndicator(props) {
+export default function Placement(props) {
     const [placement, setPlacement] = useState({
         x: props.x,
         y: props.y
@@ -58,7 +58,7 @@ export default function PositionIndicator(props) {
     )
 }
 
-PositionIndicator.propTypes = {
+Placement.propTypes = {
     x: PropTypes.number,
     y: PropTypes.number,
     nodeRef: PropTypes.object,

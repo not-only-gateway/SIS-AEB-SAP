@@ -1,4 +1,4 @@
-import styles from '../../styles/Shapes.module.css'
+import styles from '../../../styles/Shapes.module.css'
 import PropTypes from 'prop-types'
 import Elements from "./Elements";
 

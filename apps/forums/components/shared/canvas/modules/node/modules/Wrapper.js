@@ -1,11 +1,10 @@
-import NodeContextMenu from "./NodeContextMenu";
-import styles from "../../styles/Node.module.css";
-import NodePropsTemplate from "../../templates/NodePropsTemplate";
-import Node from "./Node";
+import ContextMenu from "../misc/ContextMenu";
+import styles from "../../../styles/Node.module.css";
+import NodePropsTemplate from "../../../templates/NodePropsTemplate";
 import PropTypes from 'prop-types'
 
 
-export default function NodeContentWrapper(props) {
+export default function Wrapper(props) {
 
     return (
         <div className={styles.nodeShapeContainer}
@@ -26,7 +25,7 @@ export default function NodeContentWrapper(props) {
              onContextMenu={e => {
                  if (props.toBeLinked === null && !props.asStep)
                      props.setOpenContext(
-                         <NodeContextMenu
+                         <ContextMenu
                              handleClose={() => props.setOpenContext(null, null, null)}
                              entity={props.node}
                              handleDelete={() => props.handleDelete(props.index, props.node.id)}
@@ -43,4 +42,4 @@ export default function NodeContentWrapper(props) {
     )
 }
 
-NodeContentWrapper.propTypes = {...NodePropsTemplate, ...{reference: PropTypes.object}}
+Wrapper.propTypes = {...NodePropsTemplate, ...{reference: PropTypes.object}}

@@ -5,7 +5,7 @@ import HandleUpload from "../../methods/handles/HandleUpload";
 import {LocalLibraryRounded, PictureAsPdfRounded, PublishRounded, SaveAltRounded} from "@material-ui/icons";
 import HandleDownload from "../../methods/handles/HandleDownload";
 
-export default function Navigation(props) {
+export default function Header(props) {
 
     return (
         <div className={styles.navigation}>
@@ -67,7 +67,7 @@ export default function Navigation(props) {
         </div>
     )
 }
-Navigation.propTypes = {
+Header.propTypes = {
     data: PropTypes.object,
     setData: PropTypes.func,
 

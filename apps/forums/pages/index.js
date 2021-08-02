@@ -1,5 +1,4 @@
-import React, {useState} from 'react'
-import {useRouter} from "next/router";
+import React from 'react'
 import Head from "next/head";
 import IndexPT from "../packages/locales/IndexPT";
 

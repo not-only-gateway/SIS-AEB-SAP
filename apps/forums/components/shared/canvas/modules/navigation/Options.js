@@ -1,31 +1,21 @@
 import styles from '../../styles/Menu.module.css'
 import {
     ArrowBackIos,
-    ArrowDropDown,
-    CloseRounded,
     ControlCameraRounded,
     DragIndicatorRounded,
-    FileCopyRounded, KeyboardArrowRight, KeyboardArrowRightRounded,
-    LocalLibraryRounded, MenuRounded,
     MoreVertRounded,
-    PictureAsPdfRounded,
-    PublishRounded,
-    SaveAltRounded,
     VisibilityRounded
 } from "@material-ui/icons";
-import Tabs from "./Tabs";
+import Tabs from "./misc/Tabs";
 import PropTypes from "prop-types";
 import {useEffect, useRef, useState} from "react";
-import HandleDownload from "../../methods/handles/HandleDownload";
-import HandleUpload from "../../methods/handles/HandleUpload";
 import nodeStyles from '../../styles/NodeOverview.module.css'
 import MoveNewElement from "../../methods/move/MoveNewElement";
-import Shapes from "../misc/Shapes";
-import MoveOverview from "../../methods/move/MoveOverview";
+import Shapes from "./misc/Shapes";
 import MoveOptions from "../../methods/move/MoveOptions";
 import DragHandleRoundedIcon from '@material-ui/icons/DragHandleRounded';
 
-export default function OptionsMenu(props) {
+export default function Options(props) {
     const [openTab, setOpenTab] = useState(0)
     const [reduced, setReduced] = useState(false)
     const ref = useRef()
@@ -35,6 +25,7 @@ export default function OptionsMenu(props) {
             if (frame !== null) {
                 ref.current.style.height = 'calc(100vh - ' + (frame.offsetTop + 60) + 'px)'
                 ref.current.style.top = '50px'
+                ref.current.style.left = '10px'
             }
         }
     }, [])
@@ -122,7 +113,7 @@ export default function OptionsMenu(props) {
         </div>
     )
 }
-OptionsMenu.propTypes = {
+Options.propTypes = {
     data: PropTypes.object,
     setState: PropTypes.func,
     root: PropTypes.object,

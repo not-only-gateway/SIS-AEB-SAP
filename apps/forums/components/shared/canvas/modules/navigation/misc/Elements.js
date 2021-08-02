@@ -1,6 +1,6 @@
 import {useState} from "react";
-import styles from "../../styles/Shapes.module.css";
-import {ArrowBackIos, ArrowDropDown} from "@material-ui/icons";
+import styles from "../../../styles/Shapes.module.css";
+import {ArrowDropDown} from "@material-ui/icons";
 import PropTypes from "prop-types";
 
 export default function Elements(props) {

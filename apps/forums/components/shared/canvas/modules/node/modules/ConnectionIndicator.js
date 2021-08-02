@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useState} from "react";
-import NodeTemplate from "../../templates/NodeTemplate";
-import styles from '../../styles/Node.module.css'
+import NodeTemplate from "../../../templates/NodeTemplate";
+
 export default function ConnectionIndicator(props) {
     const [canRender, setCanRender] = useState(true)
     useEffect(() => {

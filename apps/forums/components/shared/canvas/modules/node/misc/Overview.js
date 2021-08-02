@@ -1,22 +1,15 @@
 import PropTypes from 'prop-types'
-import NodeTemplate from "../../templates/NodeTemplate";
-import styles from '../../styles/NodeOverview.module.css'
-import {
-    ArrowBackIos,
-    AttachFileRounded,
-    CloseRounded,
-    DeleteForeverRounded,
-    DragIndicatorRounded
-} from "@material-ui/icons";
+import NodeTemplate from "../../../templates/NodeTemplate";
+import styles from '../../../styles/NodeOverview.module.css'
+import nodeStyles from '../../../styles/NodeOverview.module.css'
+import {AttachFileRounded, CloseRounded, DeleteForeverRounded} from "@material-ui/icons";
 import {useEffect, useRef, useState} from "react";
-import MoveOverview from "../../methods/move/MoveOverview";
+import MoveOverview from "../../../methods/move/MoveOverview";
 import {ColorField} from "sis-aeb-inputs";
-import Tabs from "../navigation/Tabs";
-import HandleUpload from "../../methods/handles/HandleUpload";
-import nodeStyles from "../../styles/NodeOverview.module.css";
+import Tabs from "../../navigation/misc/Tabs";
 import DragHandleRoundedIcon from "@material-ui/icons/DragHandleRounded";
 
-export default function NodeOverview(props) {
+export default function Overview(props) {
     const [node, setNode] = useState(props.node)
     const [openTab, setOpenTab] = useState(0)
     const nodeRef = document.getElementById(props.node.id + '-node')
@@ -231,7 +224,7 @@ export default function NodeOverview(props) {
     )
 }
 
-NodeOverview.propTypes = {
+Overview.propTypes = {
     node: NodeTemplate,
     setState: PropTypes.func,
     data: PropTypes.object,

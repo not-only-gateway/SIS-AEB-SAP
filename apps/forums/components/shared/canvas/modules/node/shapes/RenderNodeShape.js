@@ -1,8 +1,8 @@
-import Rect from "./Rect";
+import Rect from "../templates/Rect";
 import React from "react";
-import Circle from "./Circle";
-import Triangle from "./Triangle";
-import Square from "./Square";
+import Circle from "../templates/Circle";
+import Triangle from "../templates/Triangle";
+import Square from "../templates/Square";
 import NodePropsTemplate from "../../../templates/NodePropsTemplate";
 import PropTypes from 'prop-types'
 

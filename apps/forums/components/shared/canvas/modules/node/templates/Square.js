@@ -1,38 +1,38 @@
+import styles from "../../../styles/Node.module.css";
 import React from "react";
-import NodeContentWrapper from "../NodeContentWrapper";
 import NodePropsTemplate from "../../../templates/NodePropsTemplate";
 import PropTypes from 'prop-types'
-import ConnectionIndicator from "../ConnectionIndicator";
-import styles from "../../../styles/Node.module.css";
+import Wrapper from "../modules/Wrapper";
 
-export default function Circle(props) {
+export default function Square(props) {
     return (
         <g>
 
             <rect
-                rx={'50%'} ry={'50%'} fill={'white'}
+                rx={props.node.shape.includes('rounded') ? '5' : undefined}
+                ry={props.node.shape.includes('rounded') ? '5' : undefined}
+
                 width={props.node.dimensions.width}
                 height={props.node.dimensions.height}
-                x={props.node.placement.x} y={props.node.placement.y}
-                stroke={props.node.color} strokeWidth={'2'}
+                fill={'white'} strokeWidth={'2'}
+                x={props.node.placement.x} y={props.node.placement.y} stroke={props.node.color}
             />
             <foreignObject
                 x={props.node.placement.x} y={props.node.placement.y}
                 width={props.node.dimensions.width}
                 height={props.node.dimensions.height}
-                className={props.linkable ? styles.pulse : ' '}
                 style={{
                     boxShadow: '0 4px 30px rgb(22 33 74 / 5%)',
                     transition: 'box-shadow 150ms linear',
-                    borderRadius: '50%'
+                    borderRadius: props.node.shape.includes('rounded') ? '5px' : undefined
                 }}>
-                <NodeContentWrapper {...props}>
+                <Wrapper {...props}>
                     <div className={styles.header}>
                         {props.node.title}
                     </div>
-                </NodeContentWrapper>
+                </Wrapper>
             </foreignObject>
         </g>
     )
 }
-Circle.propTypes = {...NodePropsTemplate, ...{reference: PropTypes.object}}
+Square.propTypes = {...NodePropsTemplate, ...{reference: PropTypes.object}}

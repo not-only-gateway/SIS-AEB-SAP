@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import NodeOverview from "../../modules/node/NodeOverview";
+import Overview from "../../modules/node/misc/Overview";
 import React from "react";
 import CanvasTemplate from "../../templates/CanvasPropsTemplate";
 import PropTypes from "prop-types";
@@ -20,7 +20,7 @@ export default function OpenNodeOverview(props){
 
         props.setSelectedNode(null)
         ReactDOM.render(
-            <NodeOverview
+            <Overview
                 node={props.node} setState={props.setData} data={props.data}
                 contextMenuRef={props.contextMenuRef}
                 root={props.root} nodeIndex={props.index}

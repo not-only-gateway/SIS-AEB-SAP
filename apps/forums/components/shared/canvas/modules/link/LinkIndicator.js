@@ -1,8 +1,5 @@
 import PropTypes from "prop-types";
-import React, {useEffect, useRef, useState} from "react";
-import GetCurve from "../../methods/misc/GetCurve";
-import LinkContextMenu from "./LinkContextMenu";
-import AdjustLink from "../../methods/misc/AdjustLink";
+import React, {useEffect, useRef} from "react";
 import FollowMouse from "../../methods/misc/FollowMouse";
 
 export default function LinkIndicator(props) {

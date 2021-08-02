@@ -1,9 +1,9 @@
 import React, {useEffect, useRef, useState} from "react";
 import NodePropsTemplate from "../../templates/NodePropsTemplate";
 import RenderNodeShape from "./shapes/RenderNodeShape";
-import ConnectionIndicator from "./ConnectionIndicator";
+import ConnectionIndicator from "./modules/ConnectionIndicator";
 import styles from '../../styles/Node.module.css'
-import ResizeIndicator from "./ResizeIndicator";
+import ResizeIndicator from "./modules/ResizeIndicator";
 
 export default function Node(props) {
     const ref = useRef()

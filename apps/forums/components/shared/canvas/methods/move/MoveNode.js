@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
-import PositionIndicator from "../../modules/node/PositionIndicator";
+import Placement from "../../modules/node/misc/Placement";
 import ReactDOM from 'react-dom'
+
 export default function Move(props) {
     let moving = false
     let nodeRef = document.getElementById(props.node.id + '-node')
@@ -16,7 +17,7 @@ export default function Move(props) {
         nodeRef.style.cursor = 'move'
         const wrapper = nodeRef.childNodes[0].childNodes[0].getBBox()
         ReactDOM.render(
-            <PositionIndicator y={wrapper.y +  wrapper.height + 30} x={wrapper.x} nodeRef={nodeRef} nodeSlotRef={nodeSlotRef}/>,
+            <Placement y={wrapper.y +  wrapper.height + 30} x={wrapper.x} nodeRef={nodeRef} nodeSlotRef={nodeSlotRef}/>,
             nodeSlotRef
         )
         nodeSlotRef.setAttribute('visibility', 'hidden')

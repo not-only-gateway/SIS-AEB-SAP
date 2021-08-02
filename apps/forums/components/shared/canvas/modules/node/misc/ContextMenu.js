@@ -1,9 +1,9 @@
-import styles from "../../styles/Canvas.module.css";
-import {DeleteForeverRounded, LinkRounded, VisibilityRounded} from "@material-ui/icons";
+import styles from "../../../styles/Canvas.module.css";
+import {DeleteForeverRounded, VisibilityRounded} from "@material-ui/icons";
 import React from "react";
 import PropTypes from 'prop-types'
 
-export default function NodeContextMenu(props) {
+export default function ContextMenu(props) {
     return (
         <div className={styles.options}>
             <button className={styles.optionButton} onClick={() => {
@@ -29,7 +29,7 @@ export default function NodeContextMenu(props) {
         </div>
     )
 }
-NodeContextMenu.propTypes = {
+ContextMenu.propTypes = {
     entity: PropTypes.object,
     show: PropTypes.func,
     handleClose: PropTypes.func,

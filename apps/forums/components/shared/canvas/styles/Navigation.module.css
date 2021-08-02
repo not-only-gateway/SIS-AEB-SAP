@@ -1,4 +1,4 @@
-.navigation{
+.navigation {
     height: 40px;
     width: 100%;
     background: white;
@@ -9,7 +9,8 @@
 
     align-items: center;
 }
-.column{
+
+.column {
     display: flex;
     gap: 8px;
     width: 100%;
@@ -24,10 +25,10 @@
     font-size: 20px;
     font-family: Roboto;
     color: #393C44;
-    border: #ecedf2 1px solid;
+    border: none;
     width: 40%;
     padding: 4px;
-    background-color: white;
+    background: #f4f5fa;
     outline: none;
 
     transition: 150ms linear;
@@ -35,14 +36,11 @@
     align-items: center;
 
 }
-.textField:hover {
-    border: #0095ff 1px solid;
-}
-
 .textField:focus, .textField:focus-within {
     background: #E8F0FE;
 }
-.buttonContainer{
+
+.buttonContainer {
     height: 100%;
     outline: none;
     border: transparent 1px solid;
@@ -56,12 +54,13 @@
     transition: 150ms linear;
     border-radius: 5px;
 }
-.buttonContainer:hover{
+
+.buttonContainer:hover {
     background: #E8F0FE;
 
 }
 
-.buttonContainer:disabled{
+.buttonContainer:disabled {
     background: white;
 
     color: #999999;

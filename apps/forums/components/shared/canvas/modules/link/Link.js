@@ -1,10 +1,8 @@
 import PropTypes from "prop-types";
 import React, {useEffect, useRef, useState} from "react";
 import GetCurve from "../../methods/misc/GetCurve";
-import LinkContextMenu from "./LinkContextMenu";
 import AdjustLink from "../../methods/misc/AdjustLink";
-import styles from "../../styles/Node.module.css";
-import Step from "./Step";
+import Step from "./modules/Step";
 
 export default function Link(props) {
     const [color, setColor] = useState(undefined)

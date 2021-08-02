@@ -4,7 +4,7 @@ import styles from './styles/Frame.module.css'
 import React, {useEffect, useRef, useState} from "react";
 import {useReactToPrint} from "react-to-print";
 import ReactDOM from "react-dom";
-import OptionsMenu from "./modules/navigation/OptionsMenu";
+import Options from "./modules/navigation/Options";
 import ScrollCanvas from "./methods/misc/ScrollCanvas";
 import Scale from "./modules/navigation/Scale";
 
@@ -13,7 +13,7 @@ import RenderNodes from "./methods/render/RenderNodes";
 import RenderLinks from "./methods/render/RenderLinks";
 import NewProjectTemplate from "./templates/NewProjectTemplate";
 import LinkIndicator from "./modules/link/LinkIndicator";
-import Navigation from "./modules/navigation/Navigation";
+import Header from "./modules/navigation/Header";
 
 
 export default function Canvas(props) {
@@ -92,7 +92,7 @@ export default function Canvas(props) {
             }}>
 
             <div className={styles.content}>
-                <Navigation
+                <Header
                     root={root.current}
                     data={data}
                     setData={setData}
@@ -102,7 +102,7 @@ export default function Canvas(props) {
                 <Scale
                     scale={scale} setScale={setScale} reduced={false}
                 />
-                <OptionsMenu
+                <Options
                     root={root.current}
                     data={data}
                     setState={setData}

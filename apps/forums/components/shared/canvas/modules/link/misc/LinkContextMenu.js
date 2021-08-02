@@ -1,5 +1,5 @@
-import styles from "../../styles/Canvas.module.css";
-import {DeleteForeverRounded, EditRounded} from "@material-ui/icons";
+import styles from "../../../styles/Canvas.module.css";
+import {DeleteForeverRounded} from "@material-ui/icons";
 import React from "react";
 import PropTypes from 'prop-types'
 
