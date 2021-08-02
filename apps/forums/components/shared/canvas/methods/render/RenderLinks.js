@@ -40,7 +40,7 @@ export default function RenderLinks(props) {
                                 return node
                         })
                         if (color !== undefined)
-                            return color.color
+                            return color.styling.color
                         else return undefined
                     }}
                     setSelected={props.setSelectedLink}

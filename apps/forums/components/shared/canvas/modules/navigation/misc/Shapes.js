@@ -21,31 +21,13 @@ export default function Shapes(props) {
                     <div
                         className={styles.shapeContainer}
                         draggable={true}
-                        onDragStart={() => props.onDragStart('rounded-rect')}
-                    >
-                        <svg overflow={'hidden'} width={'90'} height={'45'}>
-                            <rect fill={'transparent'} width={'90'} height={'45'} ry={'5'} rx={'5'} stroke={"#333333"}
-                                  strokeWidth={'1'}/>
-                        </svg>
-                    </div>
-                    <div
-                        className={styles.shapeContainer}
-                        draggable={true}
                         onDragStart={() => props.onDragStart('square')}
                     >
                         <svg overflow={'hidden'} width={'45'} height={'45'}>
                             <rect fill={'transparent'} width={45} height={45} stroke={"#333333"} strokeWidth={'1'}/>
                         </svg>
                     </div>
-                    <div
-                        className={styles.shapeContainer}
-                        draggable={true}
-                        onDragStart={() => props.onDragStart('rounded-square')}
-                    >
-                        <svg overflow={'hidden'} width={'45'} height={'45'}>
-                            <rect fill={'transparent'} width={45} height={45} rx={'5'} ry={'5'} stroke={"#333333"} strokeWidth={'1'}/>
-                        </svg>
-                    </div>
+
                     <div
                         className={styles.shapeContainer}
                         draggable={true}

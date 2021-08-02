@@ -91,10 +91,9 @@ export default function Overview(props) {
                                       onChange={event => handleChange('description', event.target.value)}/>
 
                             <input type="file" id="upload_node_file" style={{display: 'none'}} multiple={false}
-                                   onChange={event => {
-                                       console.log(event.target.files)
+                                   onChange={event =>
                                        handleChange('file', event.target.files[0])
-                                   }}/>
+                                   }/>
 
 
                             <button
@@ -131,16 +130,90 @@ export default function Overview(props) {
                     key: 1,
                     value: 'Estilo',
                     content: (
-                        <>
+                        <div style={{display: "grid", gap: '16px'}}>
                             <ColorField
                                 required={false} width={'100%'}
-                                value={node.color}
+                                value={node.styling.color}
                                 handleChange={event => {
-                                    handleChange('color', event)
+                                    handleChange('styling', {color: event, border: node.styling.border})
                                 }} label={'Cor de destaque'}
                             />
+                            <div className={styles.fieldContainer}>
+                                <label htmlFor={'border-radius'}>Raio borda (px):</label>
+                                <input id={'border-radius'}
+                                       className={[styles.input, styles.inputBody].join(' ')}
+                                       style={{fontSize: '.9rem', width: 'auto', marginLeft: 'auto'}}
+                                       onChange={event => {
+                                           handleChange('styling', {
+                                               color: node.styling.color,
+                                               border: event.target.value
+                                           })
+                                       }}
+                                       value={node.styling.border}
+                                       placeholder={'Borda'} type={'number'}
+                                />
+                            </div>
+                            <div className={styles.fieldContainer}>
+                                <label htmlFor={'stroke-width'}>Largura borda (px):</label>
+                                <input id={'stroke-width'}
+                                       className={[styles.input, styles.inputBody].join(' ')}
+                                       style={{fontSize: '.9rem', width: 'auto', marginLeft: 'auto'}}
+                                       onChange={event => {
+                                           // handleChange('styling', {
+                                           //     color: node.styling.color,
+                                           //     border: event.target.value
+                                           // })
+                                       }}
+                                       value={node.styling.border}
+                                       placeholder={'Largura'} type={'number'}
+                                />
+                            </div>
 
-                        </>
+                            <fieldset className={styles.fieldSetContainer}>
+                                <legend>Tipo borda:</legend>
+                                <form id={'stroke-type'} style={{display: 'grid', gap: '8px'}}>
+                                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
+                                        <label
+                                            style={{
+                                                fontSize: '.85rem',
+                                                color: '#333333'
+                                            }}
+                                            htmlFor={'dashed'}>Dashed:</label>
+                                        <input id={'dashed'}
+                                               className={[styles.input, styles.inputBody].join(' ')}
+                                               onChange={event => {
+                                                   // handleChange('styling', {
+                                                   //     color: node.styling.color,
+                                                   //     border: event.target.value
+                                                   // })
+                                               }}
+                                               value={node.styling.border}
+                                               placeholder={'Largura'} type={'checkbox'}
+                                        />
+                                    </div>
+                                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
+                                        <label
+                                            style={{
+                                                fontSize: '.85rem',
+                                                color: '#333333'
+                                            }}
+                                            htmlFor={'dashed'}>Solid:</label>
+                                        <input id={'dashed'}
+                                               className={[styles.input, styles.inputBody].join(' ')}
+                                               onChange={event => {
+                                                   // handleChange('styling', {
+                                                   //     color: node.styling.color,
+                                                   //     border: event.target.value
+                                                   // })
+                                               }}
+                                               value={node.styling.border}
+                                               placeholder={'Largura'} type={'checkbox'}
+                                        />
+                                    </div>
+                                </form>
+
+                            </fieldset>
+                        </div>
                     )
                 },
                 {

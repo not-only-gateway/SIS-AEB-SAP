@@ -77,8 +77,9 @@ export default function Options(props) {
                             key: 0,
                             value: 'Ações',
                             content: (
-                                <Shapes onDragStart={type => MoveNewElement({...props, ...{type: type}})}
-                                        data={props.data} setData={props.setState}/>
+                                <Shapes
+                                    onDragStart={type => MoveNewElement({...props, ...{type: type}})}
+                                    data={props.data} setData={props.setState}/>
                             )
                         },
                         {

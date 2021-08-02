@@ -26,8 +26,6 @@ export default function Step(props) {
 
     }, [props.onMove])
     return (
-
-        // !showForm || props.description === undefined || props.description === null || props.description.length === 0
         props.pathRef !== null && props.pathRef !== undefined && ((props.description !== undefined && props.description.length > 0) || props.show) ?
             <foreignObject
                 width={'100'} height={'30'}
@@ -39,7 +37,7 @@ export default function Step(props) {
                     borderRadius: '5px',
                     background: 'white',
                     padding: '4px',
-                    border: props.pathRef.getAttribute('stroke') + ' 1px solid'
+                    border: props.pathRef.getAttribute('stroke') + ' 2px solid'
 
                 }}
             >

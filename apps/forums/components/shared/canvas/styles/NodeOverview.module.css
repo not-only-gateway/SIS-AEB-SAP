@@ -240,7 +240,10 @@
     align-items: center;
     width: 100%;
 }
-
+.fieldContainer > label{
+    font-size: .85rem;
+    color: #333333;
+}
 .dropdown{
     border-radius: 5px;
     border: #ecedf2 1px solid;

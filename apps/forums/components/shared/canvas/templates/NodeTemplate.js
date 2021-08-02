@@ -5,7 +5,7 @@ export default PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
     file: PropTypes.object,
-    color: PropTypes.string,
+
     placement: PropTypes.shape({
         x: PropTypes.number,
         y: PropTypes.number
@@ -13,5 +13,9 @@ export default PropTypes.shape({
     dimensions: PropTypes.shape({
         width: PropTypes.number,
         height: PropTypes.number
-    })
+    }),
+    styling: PropTypes.shape({
+            border: PropTypes.number,
+            color: PropTypes.string
+        })
 })

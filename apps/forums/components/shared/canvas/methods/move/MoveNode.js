@@ -15,9 +15,9 @@ export default function Move(props) {
         nodeRef.style.transition = 'box-shadow 250ms ease';
         moving = true
         nodeRef.style.cursor = 'move'
-        const wrapper = nodeRef.childNodes[0].childNodes[0].getBBox()
+        const wrapper = nodeRef.firstChild.getBBox()
         ReactDOM.render(
-            <Placement y={wrapper.y +  wrapper.height + 30} x={wrapper.x} nodeRef={nodeRef} nodeSlotRef={nodeSlotRef}/>,
+            <Placement y={wrapper.y + wrapper.height + 30} x={wrapper.x} nodeRef={nodeRef} nodeSlotRef={nodeSlotRef}/>,
             nodeSlotRef
         )
         nodeSlotRef.setAttribute('visibility', 'hidden')
@@ -40,8 +40,8 @@ export default function Move(props) {
     function move(event, save) {
 
         nodeSlotRef.setAttribute('visibility', 'visible')
-        const wrapper = nodeRef.childNodes[0].childNodes[0]
-        const content = nodeRef.childNodes[0].childNodes[1]
+        const wrapper = nodeRef.firstChild
+        const content = nodeRef.childNodes[1]
 
         let newPlacement = {
             x: lastPlacement.x - event.clientX,
@@ -69,12 +69,10 @@ export default function Move(props) {
             if (placementY < 0) {
                 content.setAttribute('y', '15')
                 wrapper.setAttribute('y', '15')
-
             }
             props.setSelectedNode(props.node.id)
-        }
-        else{
-            nodeSlotRef.firstChild.setAttribute('x', (placementX + wrapper.getBBox().width/2 - nodeSlotRef.getBBox().width/2).toString())
+        } else {
+            nodeSlotRef.firstChild.setAttribute('x', (placementX + wrapper.getBBox().width / 2 - nodeSlotRef.getBBox().width / 2).toString())
             nodeSlotRef.firstChild.setAttribute('y', (placementY + wrapper.getBBox().height + 30).toString())
         }
     }

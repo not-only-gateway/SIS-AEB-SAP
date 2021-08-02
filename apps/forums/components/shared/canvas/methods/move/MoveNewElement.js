@@ -40,7 +40,6 @@ export default function MoveNewElement(props) {
                     id: uuid4().toString(),
                     title: '',
                     description: null,
-                    color: '#0095ff',
                     placement: {
                         x: (event.clientX - rootBounding.x + props.root.scrollLeft - 40),
                         y: (event.clientY - rootBounding.y + props.root.scrollTop - 40)
@@ -48,7 +47,11 @@ export default function MoveNewElement(props) {
                     shape: props.type,
                     creationDate: (new Date()).getTime(),
                     links: [],
-                    dimensions: dimensions
+                    dimensions: dimensions,
+                    styling: {
+                        border: 0,
+                        color: '#0095ff'
+                    }
                 }]]
             }))
         }

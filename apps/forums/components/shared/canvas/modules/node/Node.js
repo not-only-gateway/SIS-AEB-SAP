@@ -1,9 +1,10 @@
 import React, {useEffect, useRef, useState} from "react";
 import NodePropsTemplate from "../../templates/NodePropsTemplate";
-import RenderNodeShape from "./shapes/RenderNodeShape";
+import RenderNodeShape from "./misc/RenderNodeShape";
 import ConnectionIndicator from "./modules/ConnectionIndicator";
 import styles from '../../styles/Node.module.css'
 import ResizeIndicator from "./modules/ResizeIndicator";
+import Wrapper from "./modules/Wrapper";
 
 export default function Node(props) {
     const ref = useRef()
@@ -39,6 +40,22 @@ export default function Node(props) {
 
             <RenderNodeShape {...props} reference={ref.current} linkable={linkable}/>
 
+            <foreignObject
+                x={props.node.placement.x} y={props.node.placement.y}
+                width={props.node.dimensions.width}
+                height={props.node.dimensions.height}
+                className={props.linkable ? styles.pulse : ' '}
+                style={{
+                    boxShadow: '0 4px 30px rgb(22 33 74 / 5%)',
+                    transition: 'box-shadow 150ms linear',
+                    borderRadius: props.node.styling.border + 'px'
+                }}>
+                <Wrapper {...props}>
+                    <div className={styles.header}>
+                        {props.node.title}
+                    </div>
+                </Wrapper>
+            </foreignObject>
 
             <ResizeIndicator reference={ref.current} selected={props.selected} node={props.node} scale={props.scale}
                              setSelected={props.setSelected}/>
