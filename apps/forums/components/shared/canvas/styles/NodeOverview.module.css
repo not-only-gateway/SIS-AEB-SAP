@@ -2,16 +2,16 @@
     background: white;
     position: absolute;
     overflow-x: hidden;
-    width: 500px;
-    height: 500px;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    border-left: #E8F0EF 1px solid;
+    width: 350px;
+    height: auto;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
     z-index: 90;
     padding: 38px 16px 16px;
 
     animation: fadeIn 300ms ease;
 
-    border-radius: 8px;
+    border-radius: 5px;
     overflow-y: auto;
     display: block;
     user-select: none;
@@ -106,16 +106,19 @@
 }
 
 .dragHeader {
+    font-family: Roboto;
+    font-weight: bold;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 4px 8px;
-    background: #f4f5fa;
-    border-radius: 8px 8px 0 0;
+    background: #F8F8FC;
+    border-radius: 5px 5px 0 0;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
+    height: 35px;
     cursor: move;
     color: #555555;
     transition: 150ms linear;
@@ -125,20 +128,24 @@
 }
 .closeButtonContainer {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 
     outline: none;
     background: transparent;
     color: #777777;
 
     border: none;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
     cursor: pointer;
     transition: 150ms linear;
 }
 
 .closeButtonContainer:hover {
-    color: #ff5555
+    color: #0095ff;
+    background: #D4D7ED;
 }
 
 .input {
@@ -255,3 +262,27 @@
     border-radius: 5px;
     border: #ecedf2 1px solid;
 }
+.overflowEllipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+}
+/*.toolTip{*/
+/*    position: absolute;*/
+/*    background: white;*/
+/*    border: #e0e0e0 1px solid;*/
+/*    border-radius: 5px;*/
+/*    text-align: center;*/
+/*    width: auto;*/
+/*    height: 30px;*/
+/*    !*display: none;*!*/
+/*    opacity: 0;*/
+/*    !*top: 30px;*!*/
+/*    z-index: 999;*/
+
+/*}*/
+/*.toolTip:hover{*/
+/*    opacity: 1;*/
+
+/*}*/

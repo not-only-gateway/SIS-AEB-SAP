@@ -13,10 +13,11 @@ import RenderNodes from "./methods/render/RenderNodes";
 import RenderLinks from "./methods/render/RenderLinks";
 import NewProjectTemplate from "./templates/NewProjectTemplate";
 import LinkIndicator from "./modules/link/LinkIndicator";
+import Navigation from "./modules/navigation/Navigation";
 
 
 export default function Canvas(props) {
-    const [reduced, setReduced] = useState(true)
+
     const [offsetTop, setOffsetTop] = useState(-1)
     const [data, setData] = useState(NewProjectTemplate)
     const [toBeLinked, setToBeLinked] = useState(null)
@@ -91,15 +92,20 @@ export default function Canvas(props) {
             }}>
 
             <div className={styles.content}>
-                <Scale scale={scale} setScale={setScale} reduced={reduced}/>
+                <Navigation
+                    root={root.current}
+                    data={data}
+                    setData={setData}
+                    onSave={props.onSave}
+                    handlePrint={handlePrint}
+                />
+                <Scale
+                    scale={scale} setScale={setScale} reduced={false}
+                />
                 <OptionsMenu
-                    reduced={reduced}
-                    setReduced={setReduced}
                     root={root.current}
                     data={data}
                     setState={setData}
-                    onSave={props.onSave}
-                    handlePrint={handlePrint}
                 />
                 <div ref={contextMenuRef} style={{position: 'absolute'}}/>
                 <StickyZone/>
@@ -109,7 +115,7 @@ export default function Canvas(props) {
                         if (typeof event.target.className === 'object' && event.button === 2)
                             ScrollCanvas({canvas: root.current, event: event})
                     }}
-                    style={{width: reduced ? `calc(100% - 80px)` : 'calc(100% - 400px)'}}>
+                    style={{width: '100%', height: 'calc(100% - 40px)'}}>
                     <svg
                         onContextMenu={event => {
                             event.preventDefault()

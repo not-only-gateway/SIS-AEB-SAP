@@ -1,17 +1,26 @@
 import PropTypes from 'prop-types'
 import NodeTemplate from "../../templates/NodeTemplate";
 import styles from '../../styles/NodeOverview.module.css'
-import {AttachFileRounded, CloseRounded, DeleteForeverRounded, DragIndicatorRounded} from "@material-ui/icons";
-import {useEffect, useState} from "react";
+import {
+    ArrowBackIos,
+    AttachFileRounded,
+    CloseRounded,
+    DeleteForeverRounded,
+    DragIndicatorRounded
+} from "@material-ui/icons";
+import {useEffect, useRef, useState} from "react";
 import MoveOverview from "../../methods/move/MoveOverview";
 import {ColorField} from "sis-aeb-inputs";
 import Tabs from "../navigation/Tabs";
 import HandleUpload from "../../methods/handles/HandleUpload";
+import nodeStyles from "../../styles/NodeOverview.module.css";
+import DragHandleRoundedIcon from "@material-ui/icons/DragHandleRounded";
 
 export default function NodeOverview(props) {
     const [node, setNode] = useState(props.node)
     const [openTab, setOpenTab] = useState(0)
     const nodeRef = document.getElementById(props.node.id + '-node')
+    const ref = useRef()
     const handleChange = (name, value) => {
         const newNodes = [...props.data.nodes]
         const newNode = {...node}
@@ -37,7 +46,7 @@ export default function NodeOverview(props) {
         handleChange('dimensions', newDimensions)
     }, [])
     return (
-        <div className={styles.container} id={'node-overview'}>
+        <div className={styles.container} id={'node-overview'} ref={ref}>
             <div className={styles.dragHeader} onMouseDown={event => {
                 if (typeof event.target.className !== 'object' && event.target.className !== 'NodeOverview_closeButtonContainer__2RYF9')
                     MoveOverview({
@@ -46,7 +55,29 @@ export default function NodeOverview(props) {
                         event: event
                     })
             }}>
-                <DragIndicatorRounded/>
+                <button className={nodeStyles.closeButtonContainer} onClick={() => {
+
+                    props.contextMenuRef.style.top = '50px'
+                    props.contextMenuRef.style.left = 'calc(100vw - 360px)'
+                    const frame = document.getElementById('frame')
+                    if (frame !== null) {
+                        props.contextMenuRef.style.height = 'auto'
+                        props.contextMenuRef.childNodes[0].style.height = 'calc(100vh - ' + (frame.offsetTop + 60) + 'px)'
+
+                    }
+
+                }}>
+                    <DragHandleRoundedIcon style={{
+                        fontSize: '1.2rem',
+                        transition: '150ms linear'
+                    }}/>
+                </button>
+                <div className={styles.overflowEllipsis} style={{maxWidth: '40%'}}>
+                    {props.node.id}
+                    {/*<div class={styles.toolTip}>*/}
+                    {/*    {props.node.id}*/}
+                    {/*</div>*/}
+                </div>
                 <button className={styles.closeButtonContainer} onClick={() => props.handleClose()}>
                     <CloseRounded style={{fontSize: '1.3rem'}}/>
                 </button>

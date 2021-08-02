@@ -11,7 +11,7 @@
 
     overflow: auto;
     position: absolute;
-    top: 0;
+    bottom: 0;
     right: 0;
     height: 100%;
     cursor: default;
@@ -60,7 +60,7 @@
     border-radius: 32px;
     overflow: hidden;
     bottom: 30px;
-    left: 430px;
+    left: 30px;
     z-index: 999;
     border: #ecedf2 1px solid;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;

@@ -1,22 +1,3 @@
-.menuContainer {
-    margin-right: auto;
-
-    margin-top: auto;
-    height: 100%;
-
-    background: white;
-    user-select: none;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-
-    display: grid;
-    gap: 16px;
-    padding: 16px;
-    justify-items: flex-start;
-    align-content: flex-start;
-
-    transition: 150ms ease-in-out;
-    position: relative;
-}
 
 
 .buttonContainer {
@@ -53,74 +34,8 @@
     cursor: unset;
 }
 
-.header {
-    font-weight: bold;
-    font-size: 20px;
-    font-family: Roboto;
-    color: #393C44;
 
-}
 
-.textField {
-    border-radius: 5px 5px 0 0;
-    font-size: 20px;
-    border: none;
-    border-bottom: #ecedf2 1px solid;
-    font-family: Roboto;
-    width: 100%;
-    padding: 8px;
-    background-color: white;
-    outline: none;
-
-    transition: 150ms linear;
-    height: 50px;
-    display: flex;
-    align-items: center;
-
-}
-
-.textField:hover {
-    border-bottom: #0095ff 1px solid;
-}
-
-.inputContainer {
-    width: 100%;
-    border: #ecedf2 1px solid;
-    display: flex;
-    align-items: center;
-
-    border-radius: 5px;
-    overflow: hidden;
-    transition: 150ms ease;
-}
-
-.inputContainer:hover {
-    border: #0095ff 1px solid;
-}
-
-.textField:focus, .textField:focus-within {
-    background: #E8F0FE;
-}
-
-.searchButton {
-    height: 50px;
-    width: 50px;
-    outline: none;
-    border: none;
-    background: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: #777777;
-    cursor: pointer;
-    transition: 150ms ease;
-}
-
-.searchButton:hover {
-    color: #0095ff;
-    background: #E8F0FE;
-}
 
 .tabsContainer {
     width: 100%;
@@ -189,25 +104,25 @@
     margin-top: 16px;
     margin-bottom: 16px;
 }
-.extendButton{
-    min-width: 40px;
-    width: 100%;
-    border-radius: 5px;
-    outline: none;
-    border: #ecedf2 1px solid;
-    /*box-shadow: 0 0 3px 1px #e0e0e0;*/
-    background: white;
-    color: #555555;
-    transition: 150ms linear;
-    min-height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+/*.extendButton{*/
+/*    min-width: 40px;*/
+/*    width: 100%;*/
+/*    border-radius: 5px;*/
+/*    outline: none;*/
+/*    border: #ecedf2 1px solid;*/
+/*    !*box-shadow: 0 0 3px 1px #e0e0e0;*!*/
+/*    background: white;*/
+/*    color: #555555;*/
+/*    transition: 150ms linear;*/
+/*    min-height: 40px;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    cursor: pointer;*/
 
 
-}
-.extendButton:hover{
-    background: #0095ff;
-    color: white;
-}
+/*}*/
+/*.extendButton:hover{*/
+/*    background: #0095ff;*/
+/*    color: white;*/
+/*}*/

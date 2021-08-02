@@ -3,14 +3,18 @@ import React, {useEffect, useRef, useState} from "react";
 import GetCurve from "../../methods/misc/GetCurve";
 import LinkContextMenu from "./LinkContextMenu";
 import AdjustLink from "../../methods/misc/AdjustLink";
-import Node from "../node/Node";
-import OpenNodeOverview from "../../methods/misc/OpenNodeOverview";
+import styles from "../../styles/Node.module.css";
+import Step from "./Step";
 
 export default function Link(props) {
     const [color, setColor] = useState(undefined)
     const [selected, setSelected] = useState(false)
+    const [showForm, setShowForm] = useState(false)
     const pathRef = useRef()
-
+    const [onMove, setOnMove] = useState(false)
+    const linkRef = useRef()
+    const t = document.getElementById(props.target.id + '-node')
+    const s = document.getElementById(props.source.id + '-node')
 
     const handleMouseDown = (t, s, isSource) => {
         if (color === undefined && !isSource)
@@ -21,7 +25,7 @@ export default function Link(props) {
             source: {reference: s, connectionPoint: props.source.connectionPoint, nodeShape: props.source.nodeShape},
             target: {reference: t, connectionPoint: props.target.connectionPoint, nodeShape: props.target.nodeShape},
             setColor: setColor,
-            type: props.type
+            type: props.type, setOnMove: setOnMove
         })
         document.removeEventListener('mousemove', () => null)
         document.removeEventListener('mouseup', () => null)
@@ -74,8 +78,7 @@ export default function Link(props) {
     }
 
     useEffect(() => {
-        const t = document.getElementById(props.target.id + '-node')
-        const s = document.getElementById(props.source.id + '-node')
+
         const sBBox = s.getBBox()
         const tBBox = t.getBBox()
         pathRef.current.setAttribute('d', GetCurve({
@@ -117,20 +120,11 @@ export default function Link(props) {
 
     return (
         <g
-            style={{cursor: "pointer"}}
+            style={{cursor: "pointer"}} ref={linkRef}
             onClick={() => setSelected(!selected)}
-            onDoubleClick={event => props.handleStepCreation(event, props.target.id, props.source.id)}
+            onDoubleClick={() => setShowForm(true)}
         >
-            {props.step === null || props.step === undefined || props.step.id === undefined ?
-                null
-                :
-                <Node
-                    node={props.step} asStep={true}
-                    scale={props.scale}
-                    move={nodeProps => null}
-                    root={props.root} options={props.options}
-                />
-            }
+
             <path
                 stroke={
                     color === 'transparent' || !color ? '#e0e0e0' : color
@@ -149,6 +143,13 @@ export default function Link(props) {
                 fill={'none'}
                 d={pathRef.current !== undefined && pathRef.current !== null ? pathRef.current.getAttribute("d") : undefined}
             />
+            <Step
+                description={props.description}
+                handleChange={event => {
+                    props.handleChange(event)
+                }}
+                pathRef={pathRef.current} onMove={onMove} setShow={setShowForm} show={showForm}/>
+
             <defs>
                 {selected ? null :
                     <marker
@@ -173,13 +174,12 @@ export default function Link(props) {
             </defs>
 
             {renderRemove()}
+
         </g>
     )
 }
 
 Link.propTypes = {
-
-
     deleteLink: PropTypes.func,
     openContextMenu: PropTypes.func,
 
@@ -193,10 +193,10 @@ Link.propTypes = {
         nodeShape: PropTypes.string,
         connectionPoint: PropTypes.oneOf(['a', 'b', 'c', 'd'])
     }),
+    description: PropTypes.string,
     type: PropTypes.oneOf(['strong-path', 'strong-line', 'dashed-path', 'dashed-line']),
     rootOffset: PropTypes.object,
     canEdit: PropTypes.bool,
-
     handleChange: PropTypes.func,
     color: PropTypes.func,
     handleContextClose: PropTypes.func,

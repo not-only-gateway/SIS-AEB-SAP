@@ -1,5 +1,8 @@
 import styles from '../../styles/Menu.module.css'
 import {
+    ArrowBackIos,
+    ArrowDropDown,
+    CloseRounded,
     ControlCameraRounded,
     DragIndicatorRounded,
     FileCopyRounded, KeyboardArrowRight, KeyboardArrowRightRounded,
@@ -12,91 +15,75 @@ import {
 } from "@material-ui/icons";
 import Tabs from "./Tabs";
 import PropTypes from "prop-types";
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import HandleDownload from "../../methods/handles/HandleDownload";
 import HandleUpload from "../../methods/handles/HandleUpload";
-
+import nodeStyles from '../../styles/NodeOverview.module.css'
 import MoveNewElement from "../../methods/move/MoveNewElement";
 import Shapes from "../misc/Shapes";
+import MoveOverview from "../../methods/move/MoveOverview";
+import MoveOptions from "../../methods/move/MoveOptions";
+import DragHandleRoundedIcon from '@material-ui/icons/DragHandleRounded';
 
 export default function OptionsMenu(props) {
     const [openTab, setOpenTab] = useState(0)
-    const menu = (
-        <div className={styles.options}>
-            <input type="file" id="upload_file_input" style={{display: 'none'}} multiple={false}
-                   onChange={event => HandleUpload({
-                       file: event,
-                       setData: props.setState,
-                   })}
-                   accept={'.json'}/>
-
-            <button
-                onClick={() => {
-                    const input = document.getElementById('upload_file_input')
-                    if (input !== null)
-                        input.click()
-                }} id="upload_file"
-                className={styles.buttonContainer}>
-                <PublishRounded/>
-                {props.reduced ? null : 'Importar modelo'}
-            </button>
-
-            <div className={styles.optionsDivider}/>
-            <button
-                className={styles.buttonContainer}
-                disabled={true}>
-                <LocalLibraryRounded/>
-                {props.reduced ? null : 'Salvar base de conhecimento'}
-
-            </button>
-            <button
-                className={styles.buttonContainer}
-                onClick={() => {
-                    HandleDownload({
-                        handleDownload: props.onSave,
-                        data: props.data,
-                        root: props.root,
-                        asJson: true
-                    })
-                }} disabled={props.data.nodes.length === 0}>
-                <SaveAltRounded/>
-                {props.reduced ? null : 'Baixar modelo'}
-
-            </button>
-            <div className={styles.optionsDivider}/>
-            <button className={styles.buttonContainer} onClick={() => props.handlePrint()}
-                    disabled={props.data.nodes.length === 0}>
-                <PictureAsPdfRounded/>
-                {props.reduced ? null : 'Exportar PDF'}
-
-            </button>
-        </div>
-    )
+    const [reduced, setReduced] = useState(false)
+    const ref = useRef()
+    useEffect(() => {
+        if (ref.current !== undefined && ref.current !== null) {
+            const frame = document.getElementById('frame')
+            if (frame !== null) {
+                ref.current.style.height = 'calc(100vh - ' + (frame.offsetTop + 60) + 'px)'
+                ref.current.style.top = '50px'
+            }
+        }
+    }, [])
     return (
-        <div className={styles.menuContainer}
-             style={{width: props.reduced ? '80px' : '400px', padding: props.reduced ? '8px' : undefined, justifyContent: props.reduced ? 'center': undefined}}
-             onContextMenu={event => event.preventDefault()}>
-            <div style={{display: 'flex', alignItems: 'center', width: '100%', gap: '16px'}}>
+        <div className={nodeStyles.container} style={{
+            width: '350px',
+            resize: reduced ? 'none' : 'both',
+            height: reduced ? '35px' : 'auto',
+            padding: reduced ? '0' : undefined
+        }} ref={ref}>
+            <div className={nodeStyles.dragHeader} onMouseDown={event => {
+                if (typeof event.target.className !== 'object' && event.target.className !== 'NodeOverview_closeButtonContainer__2RYF9')
+                    MoveOptions({
+                        reference: ref.current,
+                        root: props.root,
+                        event: event,
 
-                <input className={[styles.textField, styles.header].join(' ')}
-                       value={props.data.subject} style={{display: props.reduced ? 'none' : undefined}}
-                       onChange={event => props.setState({...props.data, subject: event.target.value})}/>
-                <button onClick={() => props.setReduced(!props.reduced)} className={styles.extendButton} style={{height: !props.reduced ? '100%' : undefined, width: props.reduced ? undefined : '30px'}}>
-                    <KeyboardArrowRightRounded style={{transform: !props.reduced ? 'rotate(180deg)' : undefined}}/>
+                    })
+            }}>
+                <button className={nodeStyles.closeButtonContainer} onClick={() => {
+                    setReduced(false)
+                    const frame = document.getElementById('frame')
+                    ref.current.style.top = '50px'
+                    ref.current.style.left = '10px'
+                    if (frame !== null)
+                        ref.current.style.height = 'calc(100vh - ' + (frame.offsetTop + 60) + 'px)'
+
+
+                }}>
+                    <DragHandleRoundedIcon style={{
+                        fontSize: '1.2rem',
+                        transition: '150ms linear'
+                    }}/>
+                </button>
+                Opções
+                <button className={nodeStyles.closeButtonContainer} onClick={() => setReduced(!reduced)}>
+                    <ArrowBackIos style={{
+                        fontSize: '1.2rem',
+                        transform: reduced ? 'translateY(-.3rem) rotate(-90deg)' : 'translateY(.3rem) rotate(90deg)',
+                        transition: '150ms linear'
+                    }}/>
                 </button>
             </div>
 
-
-            {props.reduced ? menu :
+            {reduced ? null :
                 <Tabs
                     buttons={[
                         {
                             key: 0,
-                            value: 'Controle',
-                            content: menu
-                        },
-                        {
-                            key: 1,
                             value: 'Ações',
                             content: (
                                 <Shapes onDragStart={type => MoveNewElement({...props, ...{type: type}})}
@@ -104,7 +91,7 @@ export default function OptionsMenu(props) {
                             )
                         },
                         {
-                            key: 2,
+                            key: 1,
                             value: 'Ajuda',
                             content: (
                                 <div className={styles.options}>
@@ -138,10 +125,5 @@ export default function OptionsMenu(props) {
 OptionsMenu.propTypes = {
     data: PropTypes.object,
     setState: PropTypes.func,
-    renderNodes: PropTypes.func,
     root: PropTypes.object,
-    onSave: PropTypes.func,
-    handlePrint: PropTypes.func,
-    reduced: PropTypes.bool,
-    setReduced: PropTypes.func
 }

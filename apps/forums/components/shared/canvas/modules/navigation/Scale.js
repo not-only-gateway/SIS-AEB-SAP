@@ -4,7 +4,7 @@ import {AddRounded, RemoveRounded} from "@material-ui/icons";
 
 export default function Scale(props) {
     return (
-        <div className={styles.scaleContainer} style={{left: props.reduced ? '110px' : undefined}}  onContextMenu={event => event.preventDefault()}>
+        <div className={styles.scaleContainer}   onContextMenu={event => event.preventDefault()}>
             <button className={styles.scaleButton} disabled={props.scale === 2} onClick={() => {
                 if(props.scale < 2)
                 props.setScale(props.scale + .25)

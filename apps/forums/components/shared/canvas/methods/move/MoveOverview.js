@@ -8,11 +8,9 @@ export default function MoveOverview(props) {
         y: props.event.clientY
     }
     const stickyZone = document.getElementById('canvas-sticky-zone')
-    if (props.contextMenuRef.offsetHeight <= 500)
-        stickyZone.style.display = 'block'
+    stickyZone.style.display = 'block'
 
-    props.contextMenuRef.style.height = 'auto'
-    props.contextMenuRef.childNodes[0].style.height = '500px'
+
 
     document.addEventListener('mousemove', event => {
         if (moving)
@@ -21,12 +19,14 @@ export default function MoveOverview(props) {
     document.addEventListener("mouseup", event => {
         if (moving) {
             const closest = event.target.closest('.Shapes_stickyZone__2gH6s')
+            const frame = document.getElementById('frame')
+            if (closest !== null && frame !== null) {
+                props.contextMenuRef.style.top = '50px'
+                props.contextMenuRef.style.left = 'calc(100vw - 360px)'
+                props.contextMenuRef.style.height = (stickyZone.offsetHeight) + 'px'
+                props.contextMenuRef.style.height = 'auto'
+                props.contextMenuRef.childNodes[0].style.height = 'calc(100vh - ' + (frame.offsetTop + 60) + 'px)'
 
-            if (closest !== null) {
-                props.contextMenuRef.style.top = '0'
-                props.contextMenuRef.style.left = (stickyZone.offsetLeft - 100) + 'px'
-                props.contextMenuRef.style.height = (stickyZone.offsetHeight + 32) + 'px'
-                props.contextMenuRef.childNodes[0].style.height = '100%'
             }
 
             document.removeEventListener('mousemove', () => null)

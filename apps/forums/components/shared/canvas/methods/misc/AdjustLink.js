@@ -4,6 +4,7 @@ import GetCurve from "./GetCurve";
 export default function AdjustLink(props) {
     let moving = true
     if (moving) {
+        props.setOnMove(true)
         document.addEventListener('mousemove', function move(event) {
             if (moving)
                 update()
@@ -14,6 +15,7 @@ export default function AdjustLink(props) {
         document.addEventListener("mouseup", function up(event) {
             if (moving) {
                 moving = false
+                props.setOnMove(false)
                 document.removeEventListener('mousemove', () => null)
                 event.currentTarget.removeEventListener('mousemove', up);
                 props.setColor(undefined)
@@ -63,5 +65,6 @@ AdjustLink.propTypes = {
     }),
     pathRef: PropTypes.object,
     setColor: PropTypes.func,
+    setOnMove: PropTypes.func,
     type: PropTypes.oneOf(['strong-path', 'strong-line', 'dashed-path', 'dashed-line'])
 }

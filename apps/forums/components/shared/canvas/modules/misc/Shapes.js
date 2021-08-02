@@ -66,25 +66,25 @@ export default function Shapes(props) {
                             <ellipse cx={'36'} cy={'21'} rx={'35'} ry={'20'} stroke={'#333333'} fill={'transparent'}/>
                         </svg>
                     </div>
-                    <div
-                        className={styles.shapeContainer}
-                        draggable={true}
-                        onDragStart={() => props.onDragStart('trapezoid')}
-                    >
-                        <svg overflow={'visible'} width={'80'} height={'80'}>
+                    {/*<div*/}
+                    {/*    className={styles.shapeContainer}*/}
+                    {/*    draggable={true}*/}
+                    {/*    onDragStart={() => props.onDragStart('trapezoid')}*/}
+                    {/*>*/}
+                    {/*    <svg overflow={'visible'} width={'80'} height={'80'}>*/}
 
-                            <path d={'M0,0 L 10,45 35,45 45,0 Z'} stroke={'#333333'} fill={'transparent'}/>
-                        </svg>
-                    </div>
-                    <div
-                        className={styles.shapeContainer}
-                        draggable={true}
-                        onDragStart={() => props.onDragStart('triangle')}
-                    >
-                        <svg overflow={'hidden'} width={'45'} height={'45'}>
-                            <path d={'M 0 45 L 45 45 22.5 0 Z'} stroke={'#333333'} fill={'transparent'}/>
-                        </svg>
-                    </div>
+                    {/*        <path d={'M0,0 L 10,45 35,45 45,0 Z'} stroke={'#333333'} fill={'transparent'}/>*/}
+                    {/*    </svg>*/}
+                    {/*</div>*/}
+                    {/*<div*/}
+                    {/*    className={styles.shapeContainer}*/}
+                    {/*    draggable={true}*/}
+                    {/*    onDragStart={() => props.onDragStart('triangle')}*/}
+                    {/*>*/}
+                    {/*    <svg overflow={'hidden'} width={'45'} height={'45'}>*/}
+                    {/*        <path d={'M 0 45 L 45 45 22.5 0 Z'} stroke={'#333333'} fill={'transparent'}/>*/}
+                    {/*    </svg>*/}
+                    {/*</div>*/}
                 </div>
             </Elements>
 
@@ -130,20 +130,7 @@ export default function Shapes(props) {
                     </div>
                 </div>
             </Elements>
-            <Elements {...props} label={'Passos:'}>
-                <div className={styles.shapes}>
-                    <div
-                        className={styles.stepRounded}
-                        draggable={true}
-                        onDragStart={() => props.onDragStart('step-rounded')}
-                    />
-                    <div
-                        className={styles.stepRect}
-                        draggable={true}
-                        onDragStart={() => props.onDragStart('step-rect')}
-                    />
-                </div>
-            </Elements>
+
         </div>
     )
 
