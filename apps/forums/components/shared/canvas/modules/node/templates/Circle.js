@@ -11,7 +11,7 @@ export default function Circle(props) {
                 rx={'50%'} ry={'50%'} fill={'white'}
                 width={props.node.dimensions.width}
                 height={props.node.dimensions.height}
-                x={props.node.placement.x} y={props.node.placement.y}
+                x={0} y={0}
                 stroke={props.node.styling.color} strokeWidth={'2'}
             />
 

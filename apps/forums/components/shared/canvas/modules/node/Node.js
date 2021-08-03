@@ -37,26 +37,26 @@ export default function Node(props) {
             ref={ref}
         >
 
+            <svg x={props.node.placement.x} y={props.node.placement.y} overflow={'visible'}>
+                <RenderNodeShape {...props} reference={ref.current} linkable={linkable}/>
 
-            <RenderNodeShape {...props} reference={ref.current} linkable={linkable}/>
-
-            <foreignObject
-                x={props.node.placement.x} y={props.node.placement.y}
-                width={props.node.dimensions.width}
-                height={props.node.dimensions.height}
-                className={props.linkable ? styles.pulse : ' '}
-                style={{
-                    boxShadow: '0 4px 30px rgb(22 33 74 / 5%)',
-                    transition: 'box-shadow 150ms linear',
-                    borderRadius: props.node.styling.border + 'px'
-                }}>
-                <Wrapper {...props}>
-                    <div className={styles.header}>
-                        {props.node.title}
-                    </div>
-                </Wrapper>
-            </foreignObject>
-
+                <foreignObject
+                    x={0} y={0}
+                    width={props.node.dimensions.width}
+                    height={props.node.dimensions.height}
+                    className={props.linkable ? styles.pulse : ' '}
+                    style={{
+                        boxShadow: '0 4px 30px rgb(22 33 74 / 5%)',
+                        transition: 'box-shadow 150ms linear',
+                        borderRadius: props.node.styling.border + 'px'
+                    }}>
+                    <Wrapper {...props}>
+                        <div className={styles.header}>
+                            {props.node.title}
+                        </div>
+                    </Wrapper>
+                </foreignObject>
+            </svg>
             <ResizeIndicator reference={ref.current} selected={props.selected} node={props.node} scale={props.scale}
                              setSelected={props.setSelected}/>
 

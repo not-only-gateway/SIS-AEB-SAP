@@ -15,9 +15,10 @@ export default function Move(props) {
         nodeRef.style.transition = 'box-shadow 250ms ease';
         moving = true
         nodeRef.style.cursor = 'move'
-        const wrapper = nodeRef.firstChild.getBBox()
+        const wrapper = nodeRef.firstChild
         ReactDOM.render(
-            <Placement y={wrapper.y + wrapper.height + 30} x={wrapper.x} nodeRef={nodeRef} nodeSlotRef={nodeSlotRef}/>,
+            <Placement y={parseInt(wrapper.getAttribute('y')) + wrapper.getBBox().height + 30}
+                       x={parseInt(wrapper.getAttribute('x'))} nodeRef={nodeRef} nodeSlotRef={nodeSlotRef}/>,
             nodeSlotRef
         )
         nodeSlotRef.setAttribute('visibility', 'hidden')
@@ -41,7 +42,6 @@ export default function Move(props) {
 
         nodeSlotRef.setAttribute('visibility', 'visible')
         const wrapper = nodeRef.firstChild
-        const content = nodeRef.childNodes[1]
 
         let newPlacement = {
             x: lastPlacement.x - event.clientX,
@@ -52,22 +52,19 @@ export default function Move(props) {
             x: event.clientX,
             y: event.clientY
         }
-        let placementX = wrapper.getBBox().x - newPlacement.x / props.scale
-        let placementY = wrapper.getBBox().y - newPlacement.y / props.scale
+        let placementX = wrapper.getAttribute('x') - newPlacement.x / props.scale
+        let placementY = wrapper.getAttribute('y') - newPlacement.y / props.scale
 
-        content.setAttribute('x', placementX.toString())
-        content.setAttribute('y', placementY.toString())
         wrapper.setAttribute('y', placementY.toString())
         wrapper.setAttribute('x', placementX.toString())
 
         if (save) {
             if (placementX < 0) {
-                content.setAttribute('x', '15')
                 wrapper.setAttribute('x', '15')
             }
 
             if (placementY < 0) {
-                content.setAttribute('y', '15')
+                // content.setAttribute('y', '15')
                 wrapper.setAttribute('y', '15')
             }
             props.setSelectedNode(props.node.id)

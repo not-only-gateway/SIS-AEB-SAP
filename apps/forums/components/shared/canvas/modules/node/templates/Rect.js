@@ -12,7 +12,7 @@ export default function Rect(props) {
             width={props.node.dimensions.width}
             height={props.node.dimensions.height}
             fill={'white'} strokeWidth={'2'}
-            x={props.node.placement.x} y={props.node.placement.y}
+            x={0} y={0}
             stroke={props.node.styling.color}
         />
     )
