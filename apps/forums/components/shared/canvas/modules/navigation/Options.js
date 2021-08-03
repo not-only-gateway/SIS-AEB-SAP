@@ -79,7 +79,9 @@ export default function Options(props) {
                             content: (
                                 <Shapes
                                     onDragStart={type => MoveNewElement({...props, ...{type: type}})}
-                                    data={props.data} setData={props.setState}/>
+                                    data={props.data} setData={props.setState} scale={props.scale} root={props.root}
+                                    contextMenuRef={props.contextMenuRef}
+                                />
                             )
                         },
                         {
@@ -118,4 +120,5 @@ Options.propTypes = {
     data: PropTypes.object,
     setState: PropTypes.func,
     root: PropTypes.object,
+    contextMenuRef: PropTypes.object
 }

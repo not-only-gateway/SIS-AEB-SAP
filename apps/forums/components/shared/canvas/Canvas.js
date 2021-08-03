@@ -102,12 +102,13 @@ export default function Canvas(props) {
                 <Scale
                     scale={scale} setScale={setScale} reduced={false}
                 />
+
+                <div ref={contextMenuRef} style={{position: 'absolute'}}/>
                 <Options
                     root={root.current}
-                    data={data}
-                    setState={setData}
+                    data={data} scale={scale}
+                    setState={setData} contextMenuRef={contextMenuRef.current}
                 />
-                <div ref={contextMenuRef} style={{position: 'absolute'}}/>
                 <StickyZone/>
                 <div
                     ref={root} className={styles.canvasContainer}

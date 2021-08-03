@@ -10,7 +10,7 @@
 }
 
 .shapeContainer{
-    background: transparent;
+    background: none;
     cursor: grab;
     height: fit-content;
 }

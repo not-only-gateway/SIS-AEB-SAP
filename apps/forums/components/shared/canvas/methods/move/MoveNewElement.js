@@ -9,9 +9,6 @@ export default function MoveNewElement(props) {
 
     document.addEventListener("dragstart", function (event) {
 
-        if (event.target.className === 'Menu_buttonContainer__3oHbi') {
-            event.target.style.opacity = 1;
-        }
     }, false);
 
     document.addEventListener("dragend", function (event) {
