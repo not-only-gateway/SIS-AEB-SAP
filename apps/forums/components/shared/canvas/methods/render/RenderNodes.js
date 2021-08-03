@@ -103,7 +103,16 @@ export default function RenderNodes(props) {
             props.contextMenuRef.style.left = x + 'px'
         }
     }
-
+    const handleSizeChange = (index, node, dimensions) => {
+        let newNodes = [...props.data.nodes]
+        let newNode = {...node}
+        newNode.dimensions = dimensions
+        newNodes[index] = newNode
+        props.setData({
+            ...props.data,
+            nodes: newNodes
+        })
+    }
     return (
         <g id={'canvas'}>
             {props.data.nodes.map((node, index) => (
@@ -112,7 +121,7 @@ export default function RenderNodes(props) {
                         node={node} index={index} asStep={false}
                         handleLinkDelete={handleLinkDelete}
                         handleLink={(node, connection) => handleLink(node, connection, index)}
-                        toBeLinked={props.toBeLinked}
+                        toBeLinked={props.toBeLinked} handleSizeChange={dimensions => handleSizeChange(index,node,dimensions)}
                         selected={props.selectedNode} links={props.data.links}
                         setSelected={props.setSelectedNode}
                         handleDelete={handleDelete} scale={props.scale}

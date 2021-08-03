@@ -135,22 +135,48 @@ export default function Overview(props) {
                                 required={false} width={'100%'}
                                 value={node.styling.color}
                                 handleChange={event => {
-                                    handleChange('styling', {color: event, border: node.styling.border})
+                                    handleChange('styling',
+                                        {
+                                            ...props.node.styling, ...{
+                                                color: event
+                                            }
+                                        }
+                                    )
                                 }} label={'Cor de destaque'}
                             />
-                            <div className={styles.fieldContainer}>
+                            <div className={styles.fieldContainer}
+                                 style={{display: props.node.shape === 'triangle' ? 'none' : undefined}}>
                                 <label htmlFor={'border-radius'}>Raio borda (px):</label>
                                 <input id={'border-radius'}
                                        className={[styles.input, styles.inputBody].join(' ')}
                                        style={{fontSize: '.9rem', width: 'auto', marginLeft: 'auto'}}
                                        onChange={event => {
-                                           handleChange('styling', {
-                                               color: node.styling.color,
-                                               border: event.target.value
-                                           })
+
+                                           handleChange('styling',
+                                               {
+                                                   ...props.node.styling, ...{
+                                                       border: event.target.value,
+                                                   }
+                                               })
                                        }}
                                        value={node.styling.border}
                                        placeholder={'Borda'} type={'number'}
+                                />
+                            </div>
+                            <div className={styles.fieldContainer}>
+                                <label htmlFor={'skew'}>Ângulo de enviesamento:</label>
+                                <input id={'skew'}
+                                       className={[styles.input, styles.inputBody].join(' ')}
+                                       style={{fontSize: '.9rem', width: 'auto', marginLeft: 'auto'}}
+                                       onChange={event => {
+                                           handleChange('styling', {
+                                               ...props.node.styling, ...{
+                                                   skew: event.target.value,
+                                               }
+                                           })
+                                       }}
+                                       value={node.styling.skew}
+                                       placeholder={'skew'} type={'number'}
                                 />
                             </div>
                             <div className={styles.fieldContainer}>
@@ -159,26 +185,23 @@ export default function Overview(props) {
                                        className={[styles.input, styles.inputBody].join(' ')}
                                        style={{fontSize: '.9rem', width: 'auto', marginLeft: 'auto'}}
                                        onChange={event => {
-                                           // handleChange('styling', {
-                                           //     color: node.styling.color,
-                                           //     border: event.target.value
-                                           // })
+                                           handleChange('styling',
+                                               {
+                                                   ...props.node.styling, ...{
+                                                       borderWidth: event.target.value
+                                                   }
+                                               })
                                        }}
-                                       value={node.styling.border}
+                                       value={node.styling.borderWidth}
                                        placeholder={'Largura'} type={'number'}
                                 />
                             </div>
 
                             <fieldset className={styles.fieldSetContainer}>
                                 <legend>Tipo borda:</legend>
-                                <form id={'stroke-type'} style={{display: 'grid', gap: '8px'}}>
-                                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
-                                        <label
-                                            style={{
-                                                fontSize: '.85rem',
-                                                color: '#333333'
-                                            }}
-                                            htmlFor={'dashed'}>Dashed:</label>
+                                <form id={'stroke-type'} style={{display: 'flex', flexFlow: 'wrap', gap: '16px'}}>
+                                    <div style={{display: 'flex', alignItems: 'center', gap: '4px'}}>
+
                                         <input id={'dashed'}
                                                className={[styles.input, styles.inputBody].join(' ')}
                                                onChange={event => {
@@ -186,18 +209,19 @@ export default function Overview(props) {
                                                    //     color: node.styling.color,
                                                    //     border: event.target.value
                                                    // })
-                                               }}
+                                               }} style={{width: 'fit-content'}}
                                                value={node.styling.border}
                                                placeholder={'Largura'} type={'checkbox'}
                                         />
+                                        <label
+                                            style={{
+                                                fontSize: '.85rem',
+                                                color: '#333333'
+                                            }}
+                                            htmlFor={'dashed'}>Dashed</label>
                                     </div>
-                                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
-                                        <label
-                                            style={{
-                                                fontSize: '.85rem',
-                                                color: '#333333'
-                                            }}
-                                            htmlFor={'dashed'}>Solid:</label>
+                                    <div style={{display: 'flex', alignItems: 'center', gap: '4px'}}>
+
                                         <input id={'dashed'}
                                                className={[styles.input, styles.inputBody].join(' ')}
                                                onChange={event => {
@@ -205,10 +229,16 @@ export default function Overview(props) {
                                                    //     color: node.styling.color,
                                                    //     border: event.target.value
                                                    // })
-                                               }}
+                                               }} style={{width: 'fit-content'}}
                                                value={node.styling.border}
                                                placeholder={'Largura'} type={'checkbox'}
                                         />
+                                        <label
+                                            style={{
+                                                fontSize: '.85rem',
+                                                color: '#333333'
+                                            }}
+                                            htmlFor={'dashed'}>Solid</label>
                                     </div>
                                 </form>
 

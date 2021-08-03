@@ -58,15 +58,33 @@ export default function Shapes(props) {
                     {/*        <path d={'M0,0 L 10,45 35,45 45,0 Z'} stroke={'#333333'} fill={'transparent'}/>*/}
                     {/*    </svg>*/}
                     {/*</div>*/}
-                    {/*<div*/}
-                    {/*    className={styles.shapeContainer}*/}
-                    {/*    draggable={true}*/}
-                    {/*    onDragStart={() => props.onDragStart('triangle')}*/}
-                    {/*>*/}
-                    {/*    <svg overflow={'hidden'} width={'45'} height={'45'}>*/}
-                    {/*        <path d={'M 0 45 L 45 45 22.5 0 Z'} stroke={'#333333'} fill={'transparent'}/>*/}
-                    {/*    </svg>*/}
-                    {/*</div>*/}
+                    <div
+                        className={styles.shapeContainer}
+                        draggable={true}
+                        onDragStart={() => props.onDragStart('trapezoid')}
+                    >
+                        <svg overflow={'visible'} width={'90'} height={'45'}>
+                            <polygon points={'90,40 0,40 20,0, 70,0'} stroke={'#333333'} strokeWidth={2} fill={'transparent'}/>
+                        </svg>
+                    </div>
+                    <div
+                        className={styles.shapeContainer}
+                        draggable={true}
+                        onDragStart={() => props.onDragStart('parallelogram')}
+                    >
+                        <svg overflow={'visible'} width={'90'} height={'45'}>
+                            <rect x="0" y="0" width="90" height="40" fill={'none'} stroke={'#333333'} strokeWidth={2} transform="skewX(-25)" />
+                        </svg>
+                    </div>
+                    <div
+                        className={styles.shapeContainer}
+                        draggable={true}
+                        onDragStart={() => props.onDragStart('triangle')}
+                    >
+                        <svg overflow={'visible'} width={'45'} height={'45'}>
+                            <polygon points={'40,40 0,40 20,0'} stroke={'#333333'} strokeWidth={2} fill={'transparent'}/>
+                        </svg>
+                    </div>
                 </div>
             </Elements>
 

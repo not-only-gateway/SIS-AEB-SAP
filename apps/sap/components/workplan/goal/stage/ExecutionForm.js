@@ -17,20 +17,20 @@ export default function ExecutionForm(props) {
     }, [])
     return (
         <>
-            {/*<Alert*/}
-            {/*    type={status.type} render={status.type !== undefined} rootElementID={'root'}*/}
-            {/*    handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}*/}
-            {/*/>*/}
+            <Alert
+                type={status.type} render={status.type !== undefined} rootElementID={'root'}
+                handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
+            />
             <EntityLayout
                 rootElementID={'root'} entity={props.data}
-                create={props.create} label={props.create ? lang.newOperation : lang.operation}
+                create={props.create} label={props.create ? lang.newExecution : lang.execution}
                 dependencies={{
                     fields: [
-                        {name: 'current_execution ', type: 'number'},
+                        {name: 'current_execution', type: 'number'},
 
-                        {name: 'committed ', type: 'number'},
-                        {name: 'liquidated ', type: 'number'},
-                        {name: 'paid ', type: 'number'},
+                        {name: 'committed', type: 'number'},
+                        {name: 'liquidated', type: 'number'},
+                        {name: 'paid', type: 'number'},
 
                         {name: 'execution_date', type: 'date'},
                     ],
@@ -38,14 +38,13 @@ export default function ExecutionForm(props) {
                 }}
                 returnButton={true}
                 handleSubmit={() =>
-                    OperationRequests.submitOperation({
+                    OperationRequests.submitExecution({
                         pk: props.data.id,
                         data: props.data,
                         setStatus: setStatus,
                         create: props.create
                     }).then(res => {
-                        if (res)
-                            props.returnToMain()
+                        setChanged(false)
                     })
 
                 }
@@ -61,16 +60,16 @@ export default function ExecutionForm(props) {
                                     props.handleChange({name: 'current_execution', value: event.target.value})
                                 }} locale={props.locale}
                                 value={props.data === null ? null : props.data.current_execution}
-                                required={true}
+                                required={true} type={'number'}
                                 width={'calc(50% - 16px)'}/>
 
 
                             <TextField
-                                placeholder={lang.commited} label={lang.commited}
+                                placeholder={lang.committed} label={lang.committed}
                                 handleChange={event => {
                                     setChanged(true)
-                                    props.handleChange({name: 'commited', value: event.target.value})
-                                }} locale={props.locale} value={props.data === null ? null : props.data.commited}
+                                    props.handleChange({name: 'committed', value: event.target.value})
+                                }} locale={props.locale} value={props.data === null ? null : props.data.committed}
                                 required={true} type={'number'}
                                 width={'calc(50% - 16px)'}/>
 
@@ -101,7 +100,7 @@ export default function ExecutionForm(props) {
                                 value={
                                     props.data === null ? null : props.data.execution_date
                                 }
-                                required={true} width={'calc(50% - 16px)'}/>
+                                required={true} width={'100%'}/>
                         </>
                     )
                 }]}/>

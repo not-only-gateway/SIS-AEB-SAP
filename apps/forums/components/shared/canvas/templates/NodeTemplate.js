@@ -15,7 +15,10 @@ export default PropTypes.shape({
         height: PropTypes.number
     }),
     styling: PropTypes.shape({
-            border: PropTypes.number,
-            color: PropTypes.string
-        })
+        border: PropTypes.any,
+        color: PropTypes.any,
+        borderWidth: PropTypes.any,
+        borderStyling: PropTypes.shape({type: PropTypes.oneOf(['dashed', 'solid']), dashArray: PropTypes.number}),
+        skew: PropTypes.any
+    })
 })

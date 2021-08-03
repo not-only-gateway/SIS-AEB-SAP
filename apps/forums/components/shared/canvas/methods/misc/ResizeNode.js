@@ -48,27 +48,22 @@ export default function ResizeNode(props) {
             if (newDimensions.width && newDimensions.height) {
                 el.setAttribute('cursor', 'crosshair')
                 if (props.nodeShape === 'circle') {
-                    if (newDimensions.width > newDimensions.height) {
-                        content[0].setAttribute('width', newDimensions.width)
-                        content[0].setAttribute('height', newDimensions.width)
+                    if (newDimensions.width > newDimensions.height)
+                        props.handleSizeChange({
+                            width: newDimensions.width,
+                            height: newDimensions.width
+                        })
+                    else
+                        props.handleSizeChange({
+                            width: newDimensions.height,
+                            height: newDimensions.height
+                        })
+                } else
+                    props.handleSizeChange({
+                        width: newDimensions.width,
+                        height: newDimensions.height
+                    })
 
-                        content[1].setAttribute('width', newDimensions.width)
-                        content[1].setAttribute('height', newDimensions.width)
-
-                    } else {
-                        content[0].setAttribute('width', newDimensions.height)
-                        content[0].setAttribute('height', newDimensions.height)
-
-                        content[1].setAttribute('width', newDimensions.height)
-                        content[1].setAttribute('height', newDimensions.height)
-                    }
-                } else {
-                    content[0].setAttribute('width', newDimensions.width)
-                    content[0].setAttribute('height', newDimensions.height)
-
-                    content[1].setAttribute('width', newDimensions.width)
-                    content[1].setAttribute('height', newDimensions.height)
-                }
 
             }
             props.setSelected(props.nodeID)
@@ -85,5 +80,6 @@ ResizeNode.propTypes = {
     nodeShape: PropTypes.string,
     event: PropTypes.object,
     scale: PropTypes.number,
-    setSelected: PropTypes.func
+    setSelected: PropTypes.func,
+    handleSizeChange: PropTypes.func
 }

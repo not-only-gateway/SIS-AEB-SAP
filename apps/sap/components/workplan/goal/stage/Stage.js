@@ -12,15 +12,13 @@ export default function Stage(props) {
     const lang = GoalPT
     const [openTab, setOpenTab] = useState(0)
     return (
-        <Modal open={props.open && !props.create} handleClose={() => props.returnToMain()} rootElementID={'root'} noBlur={true}>
-            <div style={{
-                height: '100vh',
-                width: '100vw',
-                display: 'flex',
-                justifyContent: 'flex-end'
+        props.open && !props.create ?
+            <div className={styles.modal} onMouseDown={event => {
+                if (event.target.className === 'WorkPlan_modal__-sRn3')
+                    props.returnToMain()
             }}>
                 <div className={styles.stageModal}>
-                    <button class={styles.closeButton} onClick={() => props.returnToMain()}>
+                    <button className={styles.closeButton} onClick={() => props.returnToMain()}>
                         <CloseRounded/>
                     </button>
                     {props.data !== null && props.data !== undefined ? <Tabs
@@ -46,8 +44,7 @@ export default function Stage(props) {
                     /> : null}
                 </div>
             </div>
-        </Modal>
-
+            : null
     )
 }
 Stage.propTypes = {

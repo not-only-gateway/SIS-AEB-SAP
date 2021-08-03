@@ -63,7 +63,7 @@ export default function ConnectionIndicator(props) {
                 onMouseUp={() => props.handleLink(props.node, props.connectionPoint)}
                 id={props.node.id + '-' + props.connectionPoint}
                 cx={placement.x}
-                cy={placement.y} stroke={props.node.color} strokeWidth={'2'}
+                cy={placement.y} stroke={props.node.styling.color} strokeWidth={'2'}
                 r={'5'}
                 // className={styles.indicator}
                 fill={'transparent'}

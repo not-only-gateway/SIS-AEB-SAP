@@ -13,8 +13,12 @@ export default function RenderNodeShape(props){
             shape = <Circle  {...props}/>
             break
         }
-        case (props.node.shape === 'rect' || props.node.shape === 'square'):{
+        case (props.node.shape === 'rect' || props.node.shape === 'square' || props.node.shape === 'parallelogram'):{
             shape = <Rect  {...props}/>
+            break
+        }
+        case props.node.shape === 'triangle':{
+            shape = <Triangle  {...props}/>
             break
         }
         default:

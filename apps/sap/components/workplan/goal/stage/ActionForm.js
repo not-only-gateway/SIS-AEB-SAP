@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Alert} from "sis-aeb-misc";
-import {DateField, TextField} from "sis-aeb-inputs";
+import {DateField, DropDownField, TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
 import OperationPT from "../../../../packages/locales/OperationPT";
 import EntityLayout from "../../../shared/misc/form/EntityLayout";
@@ -18,13 +18,13 @@ export default function ActionForm(props) {
 
     return (
         <>
-            {/*<Alert*/}
-            {/*    type={status.type} render={status.type !== undefined} rootElementID={'root'}*/}
-            {/*    handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}*/}
-            {/*/>*/}
+            <Alert
+                type={status.type} render={status.type !== undefined} rootElementID={'root'}
+                handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
+            />
             <EntityLayout
                 rootElementID={'root'} entity={props.data}
-                create={props.create} label={props.create ? lang.newOperation : lang.operation}
+                create={props.create} label={props.create ? lang.newAction : lang.action}
                 dependencies={{
                     fields: [
                         {name: 'detailing', type: 'string'},
@@ -40,8 +40,7 @@ export default function ActionForm(props) {
                         setStatus: setStatus,
                         create: props.create
                     }).then(res => {
-                        if(res)
-                            props.returnToMain()
+                        setChanged(false)
                     })
 
                 }
@@ -49,15 +48,6 @@ export default function ActionForm(props) {
                 forms={[{
                     child: (
                         <>
-                            <TextField
-
-                                placeholder={lang.phase} label={lang.phase}
-                                handleChange={event => {
-                                    setChanged(true)
-                                    props.handleChange({name: 'phase', value: event.target.value})
-                                }} locale={props.locale} value={props.data === null ? null : props.data.phase}
-                                required={true}
-                                width={'calc(50% - 16px)'}/>
 
 
                             <TextField
@@ -68,6 +58,15 @@ export default function ActionForm(props) {
                                 }} locale={props.locale} value={props.data === null ? null : props.data.detailing}
                                 required={true}
                                 width={'calc(50% - 16px)'}/>
+                            <DropDownField
+                                dark={true}
+                                placeholder={lang.accomplished}
+                                label={lang.accomplished}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'accomplished', value: event})
+                                }} value={props.data === null ? null : props.data.accomplished} required={true}
+                                width={'calc(50% - 16px)'} choices={lang.options}/>
                         </>
                     )
                 }]}/>

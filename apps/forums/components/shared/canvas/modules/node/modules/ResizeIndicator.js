@@ -5,22 +5,20 @@ import ResizeNode from "../../../methods/misc/ResizeNode";
 export default function ResizeIndicator(props) {
     const getPlacement = () => {
         return {
-            x: props.reference.getBBox().x,
-            y: props.reference.getBBox().y,
-            width: props.reference.getBBox().width,
-            height: props.reference.getBBox().height
+            x: props.reference.getBBox().x - 2,
+            y: props.reference.getBBox().y -2,
+            width: props.reference.getBBox().width + 4,
+            height: props.reference.getBBox().height + 4
         }
     }
     if (props.reference !== undefined && props.selected === props.node.id) {
         const placement = getPlacement()
-        const radius = props.node.shape === 'circle' || props.node.shape === 'ellipse' ? '50%' : (props.node.shape.includes('rounded') ? '5' : undefined)
-
         return (
             <rect width={placement.width} height={placement.height} fill={'none'}
-                  stroke={props.node.color} strokeWidth={'3'} id={props.node.id + '-node-resize'}
-                  x={placement.x} cursor={'crosshair'}
+                  stroke={'#777777'} strokeWidth={'2'} id={props.node.id + '-node-resize'}
+                  x={placement.x} cursor={'crosshair'} strokeDasharray={'3,3'}
                   y={placement.y} style={{position: 'absolute', transition: 'fill 150ms linear'}}
-                  rx={radius} ry={radius}
+                  rx={props.node.styling.border} ry={props.node.styling.border}
                   onMouseDown={event => {
                       ResizeNode({
                           nodeID: props.node.id,
@@ -28,7 +26,9 @@ export default function ResizeIndicator(props) {
                           scale: props.scale,
                           nodeShape: props.node.shape,
                           setSelected: props.setSelected,
-                          nodeColor: props.node.color
+                          nodeColor: props.node.color,
+                          handleSizeChange: props.handleSizeChange
+
                       })
                   }}
             />
@@ -41,5 +41,6 @@ ResizeIndicator.propTypes = {
     reference: PropTypes.object,
     selected: PropTypes.string,
     node: NodeTemplate,
-    scale: PropTypes.number
+    scale: PropTypes.number,
+    handleSizeChange: PropTypes.func
 }

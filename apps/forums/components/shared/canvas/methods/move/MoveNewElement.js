@@ -50,7 +50,9 @@ export default function MoveNewElement(props) {
                     dimensions: dimensions,
                     styling: {
                         border: 0,
-                        color: '#0095ff'
+                        color: '#0095ff',
+                        borderWidth: 2,
+                        skew: props.type === 'parallelogram' ? 20 : 0
                     }
                 }]]
             }))
@@ -83,7 +85,7 @@ export default function MoveNewElement(props) {
                 }
                 break
             }
-            case props.type.includes('square'): {
+            case props.type.includes('square') || props.type.includes('triangle'): {
                 res = {
                     width: 80,
                     height: 80

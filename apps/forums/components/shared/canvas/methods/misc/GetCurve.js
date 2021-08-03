@@ -184,6 +184,7 @@ export default function GetCurve(props) {
         response = `M${source.x},${source.y} C${pivots.x1},${pivots.y1} ${pivots.x2},${pivots.y2} ${target.x},${target.y}`
     } else
         response = `M${source.x},${source.y} ${target.x},${target.y}`
+
     return response
 }
 GetCurve.propTypes = {

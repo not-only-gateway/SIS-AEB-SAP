@@ -41,14 +41,14 @@ export default function Node(props) {
                 <RenderNodeShape {...props} reference={ref.current} linkable={linkable}/>
 
                 <foreignObject
-                    x={0} y={0}
-                    width={props.node.dimensions.width}
+                    x={(props.node.shape === 'triangle' ? props.node.dimensions.width/4 : 0)} y={0}
+                    width={props.node.dimensions.width/(props.node.shape === 'triangle' ? 2 : 1)}
                     height={props.node.dimensions.height}
                     className={props.linkable ? styles.pulse : ' '}
                     style={{
-                        boxShadow: '0 4px 30px rgb(22 33 74 / 5%)',
                         transition: 'box-shadow 150ms linear',
-                        borderRadius: props.node.styling.border + 'px'
+                        borderRadius: props.node.styling.border + 'px',
+
                     }}>
                     <Wrapper {...props}>
                         <div className={styles.header}>
@@ -58,7 +58,7 @@ export default function Node(props) {
                 </foreignObject>
             </svg>
             <ResizeIndicator reference={ref.current} selected={props.selected} node={props.node} scale={props.scale}
-                             setSelected={props.setSelected}/>
+                             setSelected={props.setSelected} handleSizeChange={props.handleSizeChange} />
 
             <ConnectionIndicator
                 node={props.node} selected={props.selected} connectionPoint={'a'}

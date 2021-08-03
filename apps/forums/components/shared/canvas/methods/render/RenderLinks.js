@@ -4,6 +4,7 @@ import React from "react";
 import CanvasTemplate from "../../templates/CanvasPropsTemplate";
 import PropTypes from "prop-types";
 import {v4 as uuid4} from 'uuid';
+import {colors} from "@material-ui/core";
 
 export default function RenderLinks(props) {
 
@@ -39,9 +40,10 @@ export default function RenderLinks(props) {
                             if (node.id === link.parent.id)
                                 return node
                         })
+                        console.log(color)
                         if (color !== undefined)
                             return color.styling.color
-                        else return undefined
+                        else return 'transparent'
                     }}
                     setSelected={props.setSelectedLink}
                     selectedLink={props.selectedLink}
@@ -73,7 +75,7 @@ export default function RenderLinks(props) {
                         let newLinks = [...props.data.links]
                         const index = newLinks.indexOf(link)
                         let newNodes = [...props.data.nodes]
-                        console.log(newNodes)
+
                         newNodes[link.child.index].links.splice(newNodes[link.child.index].links.find((l, index) => {
                             if (l === link)
                                 return index
@@ -82,7 +84,6 @@ export default function RenderLinks(props) {
                             if (l === link)
                                 return index
                         }), 1)
-                        console.log(newNodes)
                         if (index > -1) {
                             newLinks.splice(index, 1)
                             props.setData({

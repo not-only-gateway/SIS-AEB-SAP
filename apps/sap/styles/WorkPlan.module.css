@@ -1,18 +1,20 @@
-.pageContainer{
+.pageContainer {
 
     display: grid;
 }
-.header{
+
+.header {
     display: flex;
     padding: 16px 7%;
 }
 
-.info{
+.info {
     display: flex;
 
     gap: 8px;
 }
-.headerButton{
+
+.headerButton {
     font-size: 1.2rem;
     outline: none;
     border: none;
@@ -21,26 +23,29 @@
     color: #555555;
     cursor: pointer;
 }
-.headerButton:hover{
+
+.headerButton:hover {
     border-bottom: #e0e0e0 1px solid;
 }
-.content{
+
+.content {
     width: 86%;
     margin: 16px auto auto;
 }
-.stageModal{
+
+.stageModal {
     height: 100%;
     width: 65%;
     align-content: flex-start;
     background: white;
     position: relative;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
-    border: #e0e0e0 1px solid;
     border-radius: 5px 0 0 5px;
     padding: 16px 32px;
 }
 
-.closeButton{
+.closeButton {
     color: #777777;
 
     background: transparent;
@@ -55,6 +60,18 @@
     justify-content: center;
     cursor: pointer;
 }
-.closeButton:hover{
+
+.closeButton:hover {
     color: #ff5555;
+}
+
+.modal {
+    z-index: 999;
+    position: fixed;
+    top: 56px;
+    left: 0;
+    height: 100%;
+    width: 100vw;
+    display: flex;
+    justify-content: flex-end;
 }

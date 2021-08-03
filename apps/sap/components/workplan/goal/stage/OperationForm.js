@@ -17,10 +17,10 @@ export default function OperationForm(props) {
     }, [])
     return (
         <>
-            {/*<Alert*/}
-            {/*    type={status.type} render={status.type !== undefined} rootElementID={'root'}*/}
-            {/*    handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}*/}
-            {/*/>*/}
+            <Alert
+                type={status.type} render={status.type !== undefined} rootElementID={'root'}
+                handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
+            />
             <EntityLayout
                 rootElementID={'root'} entity={props.data}
                 create={props.create} label={props.create ? lang.newOperation : lang.operation}
@@ -48,8 +48,7 @@ export default function OperationForm(props) {
                         setStatus: setStatus,
                         create: props.create
                     }).then(res => {
-                        if(res)
-                            props.returnToMain()
+                        setChanged(false)
                     })
 
                 }
@@ -114,7 +113,7 @@ export default function OperationForm(props) {
                                     width={'calc(33.333% - 21.5px)'}/>
                                 <TextField
                                     type={'number'}
-                                    placeholder={lang.initialSituation } label={lang.initialSituation}
+                                    placeholder={lang.initialSituation} label={lang.initialSituation}
                                     handleChange={event => {
                                         setChanged(true)
                                         props.handleChange({name: 'initial_situation', value: event.target.value})
@@ -124,7 +123,7 @@ export default function OperationForm(props) {
                                     width={'calc(50% - 16px)'}/>
                                 <TextField
                                     type={'number'}
-                                    placeholder={lang.estimatedCost } label={lang.estimatedCost}
+                                    placeholder={lang.estimatedCost} label={lang.estimatedCost}
                                     handleChange={event => {
                                         setChanged(true)
                                         props.handleChange({name: 'estimated_cost', value: event.target.value})

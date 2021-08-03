@@ -19,15 +19,13 @@ export default function StageForm(props) {
     }, [])
     return (
         <>
-            {props.create ?
+
                 <Alert
                     type={status.type} render={status.type !== undefined} rootElementID={'root'}
                     handleClose={() => setStatus({type: undefined, message: undefined})}
                     message={status.message}
                 />
-                :
-                null
-            }
+
             <EntityLayout
                 rootElementID={'root'} entity={props.data}
                 create={props.create} label={props.create ? lang.newStage : lang.stage}

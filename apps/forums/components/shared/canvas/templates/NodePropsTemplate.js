@@ -15,5 +15,6 @@ export default  {
     toBeLinked: PropTypes.object,
     asStep: PropTypes.bool,
     scale: PropTypes.number,
-    setSelected: PropTypes.func
+    setSelected: PropTypes.func,
+    handleSizeChange: PropTypes.func
 }

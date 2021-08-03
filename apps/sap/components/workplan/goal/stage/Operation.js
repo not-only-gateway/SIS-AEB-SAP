@@ -30,14 +30,14 @@ export default function Operation(props) {
                         )
                     }, {
                         key: 1,
-                        value: lang.action,
+                        value: lang.actions,
                         content: <div style={{width: '100%'}}>
                             <ActionList operation={props.data}/>
                         </div>
                     },
                     {
                         key: 2,
-                        value: lang.execution,
+                        value: lang.executions,
                         content: <div style={{width: '100%'}}>
                             <ExecutionList operation={props.data}/>
                         </div>

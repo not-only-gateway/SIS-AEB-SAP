@@ -11,8 +11,7 @@ export default function Link(props) {
     const pathRef = useRef()
     const [onMove, setOnMove] = useState(false)
     const linkRef = useRef()
-    const t = document.getElementById(props.target.id + '-node')
-    const s = document.getElementById(props.source.id + '-node')
+
 
     const handleMouseDown = (t, s, isSource) => {
         if (color === undefined && !isSource)
@@ -67,8 +66,12 @@ export default function Link(props) {
             }
 
             return (
-                <image width={'20'} height={'20'} x={target.x - 10} y={target.y - 10} onClick={() => props.deleteLink()}
-                       href={'./remove.svg'} fill={'white'}/>
+                <image
+                    width={'20'} height={'20'}
+                    x={target.x - 10} y={target.y - 10}
+                    onClick={() => props.deleteLink()}
+                    href={'./remove.svg'} fill={'white'}
+                />
                 // <circle r={10} cx={target.x} cy={target.y} fill={'red'} onClick={() => props.deleteLink()}/>
             )
         } else return null
@@ -77,21 +80,21 @@ export default function Link(props) {
 
     useEffect(() => {
 
-        const sBBox = s.getBBox()
-        const tBBox = t.getBBox()
+        const t = document.getElementById(props.target.id + '-node')
+        const s = document.getElementById(props.source.id + '-node')
         pathRef.current.setAttribute('d', GetCurve({
             target: {
-                x: tBBox.x,
-                y: tBBox.y,
-                height: tBBox.height,
-                width: tBBox.width,
+                x: parseInt(t.firstChild.getAttribute('x')),
+                y: parseInt(t.firstChild.getAttribute('y')),
+                height: t.firstChild.getBBox().height,
+                width: t.firstChild.getBBox().width,
                 connectionPoint: props.target.connectionPoint
             },
             source: {
-                x: sBBox.x,
-                y: sBBox.y,
-                height: sBBox.height,
-                width: sBBox.width,
+                x: parseInt(s.firstChild.getAttribute('x')),
+                y: parseInt(s.firstChild.getAttribute('y')),
+                height: s.firstChild.getBBox().height,
+                width: s.firstChild.getBBox().width,
                 connectionPoint: props.source.connectionPoint
             },
             type: props.type

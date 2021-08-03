@@ -28,16 +28,16 @@ export default function AdjustLink(props) {
         if (props.pathRef !== null)
             props.pathRef.setAttribute('d', GetCurve({
                 target: {
-                    x: props.target.reference.getBBox().x,
-                    y: props.target.reference.getBBox().y,
+                    x: parseInt(props.target.reference.getAttribute('x')),
+                    y: parseInt(props.target.reference.getAttribute('y')),
                     height: props.target.reference.getBBox().height,
                     width: props.target.reference.getBBox().width,
                     connectionPoint: props.target.connectionPoint,
                     nodeShape: props.target.nodeShape
                 },
                 source: {
-                    x: props.source.reference.getBBox().x,
-                    y: props.source.reference.getBBox().y,
+                    x: parseInt(props.source.reference.getAttribute('x')),
+                    y: parseInt(props.source.reference.getAttribute('y')),
                     height: props.source.reference.getBBox().height,
                     width: props.source.reference.getBBox().width,
                     connectionPoint: props.source.connectionPoint,
