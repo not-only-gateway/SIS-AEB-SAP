@@ -23,7 +23,7 @@ export default function DragNew(props) {
                 }
                 break
             }
-            case props.type.includes('rect') : {
+            case props.type.includes('rect') ||  props.type.includes('parallelogram') ||  props.type.includes('trapezoid'): {
                 res = {
                     width: 150,
                     height: 80
@@ -51,7 +51,7 @@ export default function DragNew(props) {
 
     props.contextMenuRef.appendChild(element)
     props.contextMenuRef.style.zIndex = '999'
-
+    console.log(props.contextMenuRef.firstChild.firstChild)
     props.contextMenuRef.style.top = (props.event.clientY - (props.root.offsetTop + dimensions.height/2 + 20)) + 'px'
     props.contextMenuRef.style.left = (props.event.clientX - (props.root.offsetLeft + dimensions.width/2)) + 'px'
     props.contextMenuRef.firstChild.firstChild.setAttribute('width', dimensions.width)
@@ -100,7 +100,7 @@ export default function DragNew(props) {
                             border: 0,
                             color: '#0095ff',
                             borderWidth: 2,
-                            skew: props.type === 'parallelogram' ? 20 : 0
+                            skew: props.type === 'parallelogram' ? -25 : 0
                         }
                     }]]
                 }))

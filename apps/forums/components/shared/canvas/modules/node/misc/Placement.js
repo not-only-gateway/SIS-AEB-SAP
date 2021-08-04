@@ -51,7 +51,7 @@ export default function Placement(props) {
                 }}
             >
                 <div className={styles.header} style={{fontSize: '.9rem', textAlign: 'center', wordSpacing: '2px'}}>
-                    {placement.x}, {placement.y}
+                    {Math.ceil(placement.x)}, {Math.ceil(placement.y)}
                 </div>
             </foreignObject>
         </svg>
@@ -62,5 +62,6 @@ Placement.propTypes = {
     x: PropTypes.number,
     y: PropTypes.number,
     nodeRef: PropTypes.object,
-    nodeSlotRef: PropTypes.object
+    nodeSlotRef: PropTypes.object,
+    shape: PropTypes.string
 }

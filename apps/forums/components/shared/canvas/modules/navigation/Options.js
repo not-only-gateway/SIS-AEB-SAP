@@ -10,7 +10,6 @@ import Tabs from "./misc/Tabs";
 import PropTypes from "prop-types";
 import {useEffect, useRef, useState} from "react";
 import nodeStyles from '../../styles/NodeOverview.module.css'
-import MoveNewElement from "../../methods/move/MoveNewElement";
 import Shapes from "./misc/Shapes";
 import MoveOptions from "../../methods/move/MoveOptions";
 import DragHandleRoundedIcon from '@material-ui/icons/DragHandleRounded';

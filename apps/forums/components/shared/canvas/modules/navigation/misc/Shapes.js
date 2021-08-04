@@ -86,16 +86,7 @@ export default function Shapes(props) {
                                  strokeWidth={2}/>
                     </svg>
                 </div>
-                {/*<div*/}
-                {/*    className={styles.shapeContainer}*/}
-                {/*    draggable={true}*/}
-                {/*    onDragStart={() => props.onDragStart('trapezoid')}*/}
-                {/*>*/}
-                {/*    <svg overflow={'visible'} width={'80'} height={'80'}>*/}
 
-                {/*        <path d={'M0,0 L 10,45 35,45 45,0 Z'} stroke={'#333333'} fill={'white'}/>*/}
-                {/*    </svg>*/}
-                {/*</div>*/}
                 <div
                     className={styles.shapeContainer}
                     id={'trapezoid-draggable'}
@@ -110,8 +101,9 @@ export default function Shapes(props) {
                         setData: props.setData
                     })}
                 >
-                    <svg overflow={'visible'} width={'90'} height={'45'}>
-                        <polygon points={'90,40 0,40 20,0, 70,0'} stroke={'#0095ff'} strokeWidth={2}
+                    <svg overflow={'visible'} width={'90px'} height={'45px'} viewBox="0 0 100 100">
+                        <polygon points={'100,100 0,100 25,0 75,0'} stroke={'#0095ff'} strokeWidth={'2px'}
+                                 vectorEffect="non-scaling-stroke"
                                  fill={'white'}/>
                     </svg>
                 </div>
@@ -129,8 +121,8 @@ export default function Shapes(props) {
                         setData: props.setData
                     })}
                 >
-                    <svg overflow={'visible'} width={'90'} height={'45'}>
-                        <rect x="0" y="0" width="90" height="40" fill={'none'} stroke={'#0095ff'} strokeWidth={2}
+                    <svg overflow={'visible'} width={'90'} height={'45'} >
+                        <rect x="25" y="0" width="100%" height="100%" fill={'white'} stroke={'#0095ff'} strokeWidth={2}
                               transform="skewX(-25)"/>
                     </svg>
                 </div>
@@ -148,8 +140,9 @@ export default function Shapes(props) {
                         setData: props.setData
                     })}
                 >
-                    <svg overflow={'visible'} width={'45'} height={'45'}>
-                        <polygon points={'40,40 0,40 20,0'} stroke={'#0095ff'} strokeWidth={2} fill={'white'}/>
+                    <svg overflow={'visible'} width={'45'} height={'45'} viewBox="0 0 100 100">
+                        <polygon points={'100,100 0,100 50,0'} stroke={'#0095ff'} strokeWidth={'2px'}
+                                 vectorEffect="non-scaling-stroke" fill={'white'}/>
                     </svg>
                 </div>
             </div>

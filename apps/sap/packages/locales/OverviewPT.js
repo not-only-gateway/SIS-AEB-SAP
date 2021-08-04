@@ -1,0 +1,18 @@
+export default{
+    overview: 'Visão geral',
+    projects: 'Projetos',
+    teds: 'TEDS',
+    workPlan: 'Planos de trabalho',
+    action: 'Items / Ações',
+    activity: 'Atividades',
+    components: 'Componentes',
+    execution: 'Execução',
+    followupGoal: 'Objetivos de acompanhamento',
+    goal: 'Objetivos',
+    infrastructure: 'Infrastrutura',
+    operation: 'Operação',
+    status: 'Status',
+    addendum: 'Termos aditivos',
+    projectGoal: 'Marcos projeto',
+    risks: 'Riscos',
+}

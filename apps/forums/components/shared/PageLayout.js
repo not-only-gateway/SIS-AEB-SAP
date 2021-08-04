@@ -62,15 +62,6 @@ export default function PageLayout(props) {
         }}>
             {router.pathname !== '/authenticate' ?
                 <Navigation
-                    searchBar={true}
-                    searchInput={searchInput}
-                    applySearch={() => {
-                        setNotSearched(true)
-
-                    }}
-                    setSearchInput={event => {
-                        setSearchInput(event)
-                    }}
                     loading={props.loading}
                     redirect={event => {
                         router.push(event.pathname, event.pathname, event.options)

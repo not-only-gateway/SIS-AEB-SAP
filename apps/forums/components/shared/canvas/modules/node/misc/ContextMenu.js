@@ -9,7 +9,6 @@ export default function ContextMenu(props) {
             <button className={styles.optionButton} onClick={() => {
                 props.handleClose()
                 props.show()
-
             }}>
                 <VisibilityRounded/>
                 Visualizar

@@ -29,5 +29,6 @@ export default {
 
     projects: 'Projetos',
 
-    workPlan: 'Planos de trabalho'
+    workPlan: 'Planos de trabalho',
+
 }
