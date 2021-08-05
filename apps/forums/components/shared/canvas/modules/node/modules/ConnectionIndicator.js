@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useState} from "react";
 import NodeTemplate from "../../../templates/NodeTemplate";
-
+import styles from '../../../styles/Node.module.css'
 export default function ConnectionIndicator(props) {
     const [canRender, setCanRender] = useState(true)
     useEffect(() => {
@@ -62,7 +62,7 @@ export default function ConnectionIndicator(props) {
                 onMouseDown={() => props.handleLink(props.node, props.connectionPoint)}
                 onMouseUp={() => props.handleLink(props.node, props.connectionPoint)}
                 id={props.node.id + '-' + props.connectionPoint}
-                cx={placement.x}
+                cx={placement.x} className={styles.entityContainer}
                 cy={placement.y} stroke={props.node.styling.color} strokeWidth={'2'}
                 r={'5'}
                 // className={styles.indicator}

@@ -31,7 +31,7 @@ export default function SideBar(props) {
                         <Shapes
                             onDragStart={type => MoveNewElement({...props, ...{type: type}})}
                             data={props.data} setData={props.setState} scale={props.scale} root={props.root}
-                            contextMenuRef={props.contextMenuRef}
+                            contextMenuRef={props.contextMenuRef} setOpenNodeOverview={props.setOpenNodeOverview}
                         />
                     )
                     break
@@ -77,7 +77,8 @@ export default function SideBar(props) {
                         background: openTab === 0 && !reduced ? '#E8F0FE' : undefined
                     }}
                     onClick={() => {
-                        setReduced(!reduced)
+                        if (openTab === 0)
+                            setReduced(!reduced)
                         setOpenTab(0)
                     }}>
 
@@ -92,7 +93,8 @@ export default function SideBar(props) {
                         background: openTab === 1 && !reduced ? '#E8F0FE' : undefined
                     }}
                     onClick={() => {
-                        setReduced(!reduced)
+                        if (openTab === 1)
+                            setReduced(!reduced)
                         setOpenTab(1)
                     }}>
                     <HelpRounded style={{fontSize: '1.3rem'}}/>
@@ -103,6 +105,7 @@ export default function SideBar(props) {
     )
 }
 SideBar.propTypes = {
+    setOpenNodeOverview: PropTypes.func,
     data: PropTypes.object,
     setState: PropTypes.func,
     root: PropTypes.object,

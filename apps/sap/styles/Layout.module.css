@@ -9,8 +9,10 @@
 
 .container{
     font-family: Roboto !important;
-    background: white;
-    overflow: hidden;
-    height: 100vh;
-    position: relative;
+    justify-self: stretch;
+    align-self: stretch;
+    /*background: white;*/
+    /*overflow: hidden;*/
+    /*height: 100vh;*/
+    /*position: relative;*/
 }

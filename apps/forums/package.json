@@ -26,10 +26,10 @@
     "react-infinite-scroll-component": "^6.0.0",
     "react-input-mask": "^2.0.4",
     "react-to-print": "^2.12.6",
-    "sis-aeb-chart": "../../packages/chart",
     "sis-aeb-inputs": "../../packages/inputs",
     "sis-aeb-misc": "../../packages/misc",
     "sis-aeb-navigation": "../../packages/navigation",
+    "typeface-roboto": "^1.1.13",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

@@ -23,18 +23,18 @@ export default function Wrapper(props) {
                      props.openOverview()
              }}
              onContextMenu={e => {
-                 if (props.toBeLinked === null && !props.asStep)
-                     props.setOpenContext(
-                         <ContextMenu
-                             handleClose={() => props.setOpenContext(null, null, null)}
-                             entity={props.node}
-                             handleDelete={() => props.handleDelete(props.index, props.node.id)}
-                             show={props.openOverview}
-                             handleLink={type => props.handleLink(props.node.id, type)}
-                         />,
-                         (e.clientX),
-                         (e.clientY - 40)
-                     )
+                 // if (props.toBeLinked === null && !props.asStep)
+                     // props.setOpenContext(
+                     //     <ContextMenu
+                     //         handleClose={() => props.setOpenContext(null, null, null)}
+                     //         entity={props.node}
+                     //         handleDelete={() => props.handleDelete(props.index, props.node.id)}
+                     //         show={props.openOverview}
+                     //         handleLink={type => props.handleLink(props.node.id, type)}
+                     //     />,
+                     //     (e.clientX),
+                     //     (e.clientY - 40)
+                     // )
              }}
         >
             {props.children}

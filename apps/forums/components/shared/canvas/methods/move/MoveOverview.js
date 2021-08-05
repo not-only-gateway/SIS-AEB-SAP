@@ -18,14 +18,12 @@ export default function MoveOverview(props) {
     })
     document.addEventListener("mouseup", event => {
         if (moving) {
-            const closest = event.target.closest('.Shapes_stickyZone__2gH6s')
+            const closest = event.target.closest('.Styles_stickyZone__2KROh')
             const frame = document.getElementById('frame')
             if (closest !== null && frame !== null) {
-                props.contextMenuRef.style.top = '50px'
-                props.contextMenuRef.style.left = 'calc(100vw - 360px)'
-                props.contextMenuRef.style.height = (stickyZone.offsetHeight) + 'px'
-                props.contextMenuRef.style.height = 'auto'
-                props.contextMenuRef.childNodes[0].style.height = 'calc(100vh - ' + (frame.offsetTop + 60) + 'px)'
+                props.contextMenuRef.style.top = '40px'
+                props.contextMenuRef.style.left = 'calc(100vw - 350px)'
+                props.contextMenuRef.childNodes[0].style.height = 'calc(100vh - ' + (frame.offsetTop + 75) + 'px)'
 
             }
 

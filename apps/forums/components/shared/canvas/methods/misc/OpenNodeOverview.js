@@ -17,8 +17,6 @@ export default function OpenNodeOverview(props){
     const nodeEl = document.getElementById(props.node.id + '-node')
     if (nodeEl !== null) {
         nodeEl.style.border = props.node.color + ' 2px solid'
-
-        props.setSelectedNode(null)
         ReactDOM.render(
             <Overview
                 node={props.node} setState={props.setData} data={props.data}

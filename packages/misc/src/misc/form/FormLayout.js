@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types'
 import styles from "./styles/Form.module.css";
-import {ArrowBackRounded, InfoRounded} from "@material-ui/icons";
 import React from "react";
 import FormPT from "./locales/FormPT";
-import entityStyles from './styles/EntityLayout.module.css'
 
 export default function FormLayout(props) {
     const lang = FormPT
@@ -52,19 +50,21 @@ export default function FormLayout(props) {
                     ))}
                 </div>
 
-                <button
-                    className={styles.saveButtonContainer}
-                    onClick={() => props.handleSubmit()} disabled={isDisabled()}
-                    style={{
-                        color: isDisabled() ? '#777777' : 'white',
-                        cursor: isDisabled() ? 'auto' : 'pointer',
-                        border: isDisabled() ? undefined : 'none',
-                        boxShadow: isDisabled() ? 'none' : undefined,
-                        background: isDisabled() ? undefined : '#0095ff',
-                    }}>
-                    {props.create ? lang.create : lang.save}
-                </button>
+                <div className={styles.saveButtonContainer}>
 
+                    <button
+                        className={styles.saveButton}
+                        onClick={() => props.handleSubmit()} disabled={isDisabled()}
+                        style={{
+                            color: isDisabled() ? '#777777' : 'white',
+                            cursor: isDisabled() ? 'auto' : 'pointer',
+                            border: isDisabled() ? undefined : 'none',
+                            boxShadow: isDisabled() ? 'none' : undefined,
+                            background: isDisabled() ? undefined : '#0095ff',
+                        }}>
+                        {props.create ? lang.create : lang.save}
+                    </button>
+                </div>
 
             </div>
         </div>

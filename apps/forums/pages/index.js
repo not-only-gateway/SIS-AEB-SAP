@@ -4,7 +4,7 @@ import IndexPT from "../packages/locales/IndexPT";
 
 import Canvas from "../components/shared/canvas/Canvas";
 import Cookies from "universal-cookie/lib";
-
+import 'typeface-roboto'
 export default function index(props) {
     const lang = IndexPT
 

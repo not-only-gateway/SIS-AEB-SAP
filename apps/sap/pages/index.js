@@ -44,7 +44,7 @@ export default function index(props) {
                                 <WorkPlanList redirect={id => router.push('/workplan/?id=' + id, undefined, {shallow: true})} setOpen={() => null}/>
                             )
                         },
-                    ]}
+                    ]} type={'horizontal'}
                     setOpenTab={setOpenTab}
                     openTab={openTab}
                 />

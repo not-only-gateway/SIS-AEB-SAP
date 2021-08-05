@@ -50,25 +50,27 @@ a {
 
 /* width */
 ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+
+    width: 7px;
+    height: 7px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 8px;
+    background: transparent;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #888;
+    transition: 150ms linear;
+    background: rgba(0, 0, 0, .2);
     border-radius: 8px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
+    background: rgba(0, 0, 0, .4);
     border-radius: 8px;
 }
+
 

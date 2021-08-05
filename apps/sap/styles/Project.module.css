@@ -1,35 +1,73 @@
-.pageContainer{
-
+.pageContainer {
+    width: 100%;
     display: grid;
 }
-.header{
+
+.header {
     display: flex;
-    padding: 16px 7%;
+    margin-top: 16px;
+    padding-top: 16px;
+    padding-bottom: 24px;
+    border-radius: 5px 5px 0 0;
+    background-color: white;
+    padding-left: 8px;
+
 }
 
-.info{
+.info {
     display: flex;
-
+    align-items: center;
     gap: 8px;
+
 }
-.headerButton{
-    font-size: 1.2rem;
+.homeButton{
+    padding: 8px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    border: none;
+    transition: 150ms linear;
+}
+.homeButton:hover{
+    background-color: #f4f5fa;
+    border: none;
+
+}
+.homeButton:active{
+    background-color: #E8F0FE;
+    color: #0095ff;
+
+}
+.headerButton {
+    font-weight: bold;
+    font-family: Roboto;
+    font-size: .9rem;
+
     outline: none;
     border: none;
     border-bottom: transparent 1px solid;
     background: transparent;
-    color: #555555;
+    color: #777777;
     cursor: pointer;
 }
-.headerButton:hover{
+
+.headerButton:hover {
     border-bottom: #e0e0e0 1px solid;
 }
-.content{
-    width: 86%;
-    margin: 16px auto auto;
+.title{
+    font-weight: bold;
+    font-family: Roboto;
+    font-size: .9rem;
+
+    outline: none;
+    border: none;
+    color: #555555;
 }
 
-.buttonContainer{
+
+.buttonContainer {
     width: 100%;
     padding: 16px;
     border-radius: 8px;
@@ -49,18 +87,19 @@
     font-size: .8rem;
 }
 
-.buttonContainer:hover{
+.buttonContainer:hover {
     background: #f4f5fa;
 }
 
-.modalFrame{
+.modalFrame {
     height: 100vh;
     width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.modalContainer{
+
+.modalContainer {
     height: auto;
     width: 500px;
     align-content: flex-start;

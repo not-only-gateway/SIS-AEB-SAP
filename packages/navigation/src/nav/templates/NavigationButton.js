@@ -15,22 +15,18 @@ export default function NavigationButton(props) {
                 id={'content-' + props.buttonKey + ':button'}
                 className={styles.buttonContainer}
                 style={{
-                    width: props.extended ? '100%' : undefined,
-                    justifyContent: props.extended ? 'space-between' : undefined,
+                    justifyContent: props.extended ? 'space-between' : 'center',
                     backgroundColor: props.highlight ? '#E8F0FE' : undefined,
+                    padding: props.extended ? '8px 16px' : undefined
                 }}>
 
 
                 {props.icon}
 
-                <div
+                <div className={styles.buttonLabel}
                     style={{
-                        marginLeft: '8px',
-                        fontSize: '.9rem',
-                        overflow: "hidden",
-                        color: '#111111',
-                        fontWeight: 590
-                    }}> {props.label}</div>
+                        display: props.extended ? undefined : 'none',
+                    }}>{props.label}</div>
 
             </button>
 

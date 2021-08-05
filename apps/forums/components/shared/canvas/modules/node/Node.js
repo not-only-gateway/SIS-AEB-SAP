@@ -30,8 +30,8 @@ export default function Node(props) {
             id={props.node.id + '-node'}
             style={{
                 cursor: !linkable && props.toBeLinked !== null ? 'unset' : "pointer",
-                opacity: !linkable && props.toBeLinked !== null ? '.5' : '1',
-                position: 'relative'
+                opacity: !linkable && props.toBeLinked !== null || (props.selected !== undefined && props.node.id !== props.selected) ? '.5' : '1',
+                position: 'relative',
             }}
             className={styles.entityContainer}
             ref={ref}

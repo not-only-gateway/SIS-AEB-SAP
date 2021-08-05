@@ -16,12 +16,15 @@
     height: auto;
     position: relative;
 }
-
-.selectContainer:hover, .selectContainer:focus, .selectContainer:focus-visible, .selectContainer:focus-within {
+.selectContainer:hover{
+    border-color: #0095ff;
+    box-shadow: 0 0 2px 1px #0095ff;
+}
+.selectContainer:focus, .selectContainer:focus-visible, .selectContainer:focus-within {
 
     color: #262626;
     box-shadow: 0 0 2px 1px #0095ff;
-    border: #0095ff 1px solid;
+    border-color: #0095ff;
     background: #E8F0FE;
 }
 
@@ -34,7 +37,7 @@
 
     box-shadow: unset;
     transition: 250ms ease-in-out;
-    background: #f4f5fa;
+    background: white;
     width: 100%;
     outline: none;
     padding: 5px;
@@ -67,21 +70,24 @@
     position: absolute;
     width: 40px;
     height: 40px;
-    border-radius: 32px;
-    top: -20px;
-    right: -20px;
+    top: 5px;
+    right: 5px;
 
     outline: none;
     cursor: pointer;
     border: none;
-    background: #ff5555;
-    color: white;
+    background: transparent;
+    color: #555555;
 
     display: flex;
     align-items: center;
     justify-content: center;
-}
 
+    transition: 150ms linear;
+}
+.closeButton:hover{
+    color: #ff5555;
+}
 .inputContainer {
 
     border: none;

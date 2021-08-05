@@ -11,6 +11,7 @@ import Link from 'next/link'
 import ProjectForm from "../components/index/ProjectForm";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import ProjectTeds from "../components/project/ProjectTeds";
+import {ArrowBackIos, HomeRounded} from "@material-ui/icons";
 
 export default function project(props) {
     const lang = ProjectPT
@@ -28,7 +29,7 @@ export default function project(props) {
 
     if (project !== undefined)
         return (
-            <div style={{width: '85%', margin: 'auto'}}>
+            <div style={{width: '75%', margin: 'auto'}}>
                 <Head>
                     <title>{project.name}</title>
                     <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
@@ -36,18 +37,19 @@ export default function project(props) {
 
                 <div className={styles.pageContainer}>
                     <div className={styles.header}>
+                        <Link href={'/'}>
+                            <button className={[styles.homeButton, styles.headerButton].join(' ')} style={{border: 'none'}}>
+                                <HomeRounded/>
+                            </button>
+                        </Link>
                         <div className={styles.info} style={{color: '#555555', fontSize: '1.2rem'}}>
                             <Link href={'/'}>
                                 <button className={styles.headerButton}>
                                     {lang.projects}
                                 </button>
                             </Link>
-                            /
-                            <div style={{
-
-                                color: '#333333',
-                                textTransform: 'capitalize'
-                            }}>
+                            <ArrowBackIos style={{fontSize: '.9rem', color: '#666666', transform: 'rotate(180deg) translateX(.35rem)'}}/>
+                            <div className={styles.title}>
                                 {project.name}
                             </div>
 
@@ -56,48 +58,45 @@ export default function project(props) {
 
                     </div>
 
-                    <div className={styles.content}>
+                    <Tabs
+                        buttons={[
+                            {
+                                key: 0,
+                                value: lang.project,
+                                content: (
+                                    <ProjectForm
+                                        returnToMain={() => {
+                                            null
+                                        }}
+                                        handleChange={event => handleObjectChange({
+                                            event: event,
+                                            setData: setProject
+                                        })} id={project.id}
+                                        create={false}
+                                        data={project}
+                                    />
+                                )
+                            },
 
-                        <Tabs
-                            buttons={[
-                                {
-                                    key: 0,
-                                    value: lang.project,
-                                    content: (
-                                        <ProjectForm
-                                            returnToMain={() => {
-                                                null
-                                            }}
-                                            handleChange={event => handleObjectChange({
-                                                event: event,
-                                                setData: setProject
-                                            })} id={project.id}
-                                            create={false}
-                                            data={project}
-                                        />
-                                    )
-                                },
-
-                                {
-                                    key: 1,
-                                    value: lang.teds,
-                                    content: <ProjectTeds project={project}/>
-                                },
-                                {
-                                    key: 2,
-                                    value: lang.objectives,
-                                    content: <Objectives project={project}/>
-                                },
-                                {
-                                    key: 3,
-                                    value: lang.risks,
-                                    content: <Risks project={project}/>
-                                }
-                            ]}
-                            setOpenTab={setOpenTab}
-                            openTab={openTab}
-                        />
-                    </div>
+                            {
+                                key: 1,
+                                value: lang.teds,
+                                content: <ProjectTeds project={project}/>
+                            },
+                            {
+                                key: 2,
+                                value: lang.objectives,
+                                content: <Objectives project={project}/>
+                            },
+                            {
+                                key: 3,
+                                value: lang.risks,
+                                content: <Risks project={project}/>
+                            }
+                        ]}
+                        setOpenTab={setOpenTab}
+                        openTab={openTab}
+                    />
                 </div>
             </div>
         )

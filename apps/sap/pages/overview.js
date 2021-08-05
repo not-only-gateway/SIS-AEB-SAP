@@ -4,6 +4,13 @@ import React, {useState} from "react";
 import Head from "next/head";
 import Tabs from "../components/shared/misc/tabs/Tabs";
 import OverviewPT from "../packages/locales/OverviewPT";
+import ProjectList from "../components/index/ProjectList";
+import TedList from "../components/index/TedList";
+import WorkPlanList from "../components/index/WorkPlanList";
+import Project from "../components/overview/Project";
+
+import WorkPlan from "../components/overview/WorkPlan";
+import Ted from "../components/overview/Ted";
 
 
 export default function overview(){
@@ -24,7 +31,7 @@ export default function overview(){
                             key: 0,
                             value: lang.projects,
                             content: (
-                              null
+                                <Project redirect={id => router.push('/project/?id=' + id, undefined, {shallow: true})} setOpen={() => null}/>
                             )
                         },
 
@@ -32,108 +39,22 @@ export default function overview(){
                             key: 1,
                             value: lang.teds,
                             content: (
-                                null
+                                <Ted redirect={id => router.push('/ted/?id=' + id, undefined, {shallow: true})} setOpen={() => null}/>
                             )
                         },
                         {
                             key: 2,
                             value: lang.workPlan,
                             content: (
-                                null
+                                <WorkPlan redirect={id => router.push('/workplan/?id=' + id, undefined, {shallow: true})} setOpen={() => null}/>
                             )
                         },
-
-                        {
-                            key: 3,
-                            value: lang.action,
-                            content: (
-                                null
-                            )
-                        },
-
-                        {
-                            key: 4,
-                            value: lang.activity,
-                            content: (
-                                null
-                            )
-                        },
-
-                        {
-                            key: 5,
-                            value: lang.infrastructure,
-                            content: (
-                                null
-                            )
-                        },
-
-                        {
-                            key: 6,
-                            value: lang.components,
-                            content: (
-                                null
-                            )
-                        },
-
-                        {
-                            key: 7,
-                            value: lang.execution,
-                            content: (
-                                null
-                            )
-                        },
-
-                        {
-                            key: 8,
-                            value: lang.followupGoal,
-                            content: (
-                                null
-                            )
-                        },
-                        {
-                            key: 9,
-                            value: lang.goal,
-                            content: (
-                                null
-                            )
-                        },
-                        {
-                            key: 10,
-                            value: lang.operation,
-                            content: (
-                                null
-                            )
-                        },
-                        {
-                            key: 11,
-                            value: lang.status,
-                            content: (
-                                null
-                            )
-                        },
-                        {
-                            key: 12,
-                            value: lang.addendum,
-                            content: (
-                                null
-                            )
-                        }, {
-                            key: 13,
-                            value: lang.projectGoal,
-                            content: (
-                                null
-                            )
-                        }, {
-                            key: 14,
-                            value: lang.risks,
-                            content: (
-                                null
-                            )
-                        }
-                    ]}
+                    ]} type={'horizontal'}
                     setOpenTab={setOpenTab}
                     openTab={openTab}
                 />
+
+
             </div>
         </>
     )

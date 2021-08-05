@@ -5,6 +5,7 @@ import DragNew from "../../../methods/move/DragNew";
 
 export default function Shapes(props) {
     const drag = (event, shape) => {
+        props.setOpenNodeOverview(null)
         DragNew({
             event: event,
             scale: props.scale,
@@ -148,6 +149,8 @@ export default function Shapes(props) {
 }
 
 Shapes.propTypes = {
+    setOpenNodeOverview: PropTypes.func,
+
     onDragStart: PropTypes.func,
     setData: PropTypes.func,
     data: PropTypes.object,

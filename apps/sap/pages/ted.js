@@ -9,8 +9,9 @@ import TedPT from "../packages/locales/TedPT";
 import TedRequests from "../utils/fetch/TedRequests";
 import TedForm from "../components/index/TedForm";
 import AddendumList from "../components/ted/AddendumList";
+import {ArrowBackIos, HomeRounded} from "@material-ui/icons";
 
-export default function Ted() {
+export default function ted() {
     const lang = TedPT
     const [ted, setTed] = useState(undefined)
     const [openTab, setOpenTab] = useState(0)
@@ -26,66 +27,71 @@ export default function Ted() {
 
     if (ted !== undefined)
         return (
-            <div style={{width: '85%', margin: 'auto'}}>
+            <div style={{width: '75%', margin: 'auto'}}>
                 <Head>
                     <title>{ted.name}</title>
                     <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
                 </Head>
 
                 <div className={styles.pageContainer}>
+
                     <div className={styles.header}>
+                        <Link href={'/'}>
+                            <button className={[styles.homeButton, styles.headerButton].join(' ')}
+                                    style={{border: 'none'}}>
+                                <HomeRounded/>
+                            </button>
+                        </Link>
                         <div className={styles.info} style={{color: '#555555', fontSize: '1.2rem'}}>
                             <Link href={'/'}>
                                 <button className={styles.headerButton}>
                                     {lang.teds}
                                 </button>
                             </Link>
-                            /
-                            <div style={{
-
-                                color: '#333333',
-                                textTransform: 'capitalize'
-                            }}>
+                            <ArrowBackIos style={{
+                                fontSize: '.9rem',
+                                color: '#666666',
+                                transform: 'rotate(180deg) translateX(.35rem)'
+                            }}/>
+                            <div className={styles.title}>
                                 {ted.number}
                             </div>
 
 
                         </div>
-
                     </div>
 
-                    <div className={styles.content}>
 
-                        <Tabs
-                            buttons={[
-                                {
-                                    key: 0,
-                                    value: lang.ted,
-                                    content: (
-                                        <TedForm
-                                            returnToMain={() => {
-                                                null
-                                            }}
-                                            handleChange={event => handleObjectChange({
-                                                event: event,
-                                                setData: setTed
-                                            })} id={ted.id}
-                                            create={false}
-                                            data={ted}/>
-                                    )
-                                },
+                    <Tabs
+                        buttons={[
+                            {
+                                key: 0,
+                                value: lang.ted,
+                                content: (
+                                    <TedForm
+                                        returnToMain={() => {
+                                            null
+                                        }}
+                                        handleChange={event => handleObjectChange({
+                                            event: event,
+                                            setData: setTed
+                                        })} id={ted.id}
+                                        create={false}
+                                        data={ted}/>
+                                )
+                            },
 
-                                {
-                                    key: 1,
-                                    value: lang.addendum,
-                                    content: <AddendumList ted={ted}/>
-                                }
-                            ]}
-                            setOpenTab={setOpenTab}
-                            openTab={openTab}
-                        />
-                    </div>
+                            {
+                                key: 1,
+                                value: lang.addendum,
+                                content: <AddendumList ted={ted}/>
+                            }
+                        ]}
+                        setOpenTab={setOpenTab}
+                        openTab={openTab}
+                    />
                 </div>
+
             </div>
         )
     else

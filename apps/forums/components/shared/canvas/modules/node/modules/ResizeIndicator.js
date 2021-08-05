@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import NodeTemplate from "../../../templates/NodeTemplate";
 import ResizeNode from "../../../methods/misc/ResizeNode";
-
+import styles from '../../../styles/Node.module.css'
 export default function ResizeIndicator(props) {
     const getPlacement = () => {
         return {
@@ -14,7 +14,7 @@ export default function ResizeIndicator(props) {
     if (props.reference !== undefined && props.selected === props.node.id) {
         const placement = getPlacement()
         return (
-            <rect width={placement.width} height={placement.height} fill={'none'}
+            <rect width={placement.width} height={placement.height} fill={'none'} className={styles.entityContainer}
                   stroke={'#777777'} strokeWidth={'2'} id={props.node.id + '-node-resize'}
                   x={placement.x} cursor={'crosshair'} strokeDasharray={'3,3'}
                   y={placement.y} style={{position: 'absolute', transition: 'fill 150ms linear'}}

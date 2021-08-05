@@ -5,7 +5,6 @@ import SelectorsPT from "./locales/SelectorsPT";
 import Modal from "../modal/Modal";
 import List from "../list/List";
 import PropTypes from "prop-types";
-import SelectorSearch from "./SelectorSearch";
 
 
 export default function SelectorModal(props) {
@@ -36,8 +35,6 @@ export default function SelectorModal(props) {
                                }}>{lang.required}</label>
                     </div>
 
-                    <SelectorSearch searchInput={search} applySearch={() => setApplySearch(true)}
-                                    clearSearch={() => setSearch('')} setSearchInput={setSearch}/>
 
                     <div style={{display: 'grid', gap: '8px'}}>
                         <div className={styles.selectedEntityContainer}
@@ -57,7 +54,7 @@ export default function SelectorModal(props) {
                         <List
                             applySearch={applySearch}
                             renderElement={entity => props.getEntityKey(entity) !==  props.getEntityKey(props.selected) ? props.renderEntity(entity) : null}
-                            searchInput={search}
+                            searchInput={search} searchFieldName={props.searchFieldName}
                             clickEvent={() => null}
                             createOption={false} listKey={props.selectorKey + '-selector-list'}
                             fetchToken={props.fetchToken} fetchUrl={props.fetchUrl} scrollableElement={'selector-modal'}
@@ -85,6 +82,7 @@ export default function SelectorModal(props) {
 
 }
 SelectorModal.propTypes = {
+    searchFieldName: PropTypes.string,
     renderEntity: PropTypes.func,
     elementRootID: PropTypes.string,
     fetchUrl: PropTypes.string,

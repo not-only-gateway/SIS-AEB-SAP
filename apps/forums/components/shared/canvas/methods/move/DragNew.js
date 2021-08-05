@@ -51,9 +51,11 @@ export default function DragNew(props) {
 
     props.contextMenuRef.appendChild(element)
     props.contextMenuRef.style.zIndex = '999'
-    console.log(props.contextMenuRef.firstChild.firstChild)
-    props.contextMenuRef.style.top = (props.event.clientY - (props.root.offsetTop + dimensions.height/2 + 20)) + 'px'
-    props.contextMenuRef.style.left = (props.event.clientX - (props.root.offsetLeft + dimensions.width/2)) + 'px'
+        console.log(props.root.offsetLeft)
+    console.log(props.root.offsetTop)
+
+    props.contextMenuRef.style.top = (props.event.clientY - dimensions.height/2 ) + 'px'
+    props.contextMenuRef.style.left = (props.event.clientX  - dimensions.width/2) + 'px'
     props.contextMenuRef.firstChild.firstChild.setAttribute('width', dimensions.width)
     props.contextMenuRef.firstChild.firstChild.setAttribute('height', dimensions.height)
 
@@ -67,14 +69,14 @@ export default function DragNew(props) {
             move(event, false)
     })
     document.addEventListener("mouseup", event => {
+
         if (moving) {
             const elements =  document.elementsFromPoint(event.clientX, event.clientY)
             try {
                 props.contextMenuRef.removeChild(props.contextMenuRef.firstChild)
             } catch (error) {
             }
-
-            if (elements.length >= 4 &&  typeof elements[4].className === 'object' && elements[4].className.animVal === 'Frame_canvasBackground__3fnpp' && props.root !== undefined) {
+            if (elements.length >= 4 &&  typeof elements[4].className === 'object' && elements[4].className.animVal === 'Canvas_canvasBackground__Ceq-Q' && props.root !== undefined) {
 
                 event.target.style.background = "";
                 const rootBounding = {

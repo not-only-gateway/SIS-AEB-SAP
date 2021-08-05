@@ -46,6 +46,7 @@ a {
     text-rendering: optimizeLegibility;
     box-sizing: border-box;
     : 1px;
+    font-family: 'Roboto' !important;
     scroll-behavior: smooth;
 }
 

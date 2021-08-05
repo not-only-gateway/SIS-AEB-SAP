@@ -77,7 +77,7 @@ export default function Canvas(props) {
 
     return (
         <div
-            style={{height: '100%', width: '100%', userSelect: 'none', scrollBehavior: 'auto'}}
+            className={styles.wrapper}
             id={'frame'}
             onMouseDown={event => {
                 const className = event.target.className
@@ -100,7 +100,7 @@ export default function Canvas(props) {
 
                 <div ref={contextMenuRef} style={{position: 'absolute'}}/>
                 <SideBar
-                    root={root.current}
+                    root={root.current} setOpenNodeOverview={setOpenNodeOverview}
                     data={data} scale={scale}
                     setState={setData} contextMenuRef={contextMenuRef.current}
                 />
@@ -113,21 +113,21 @@ export default function Canvas(props) {
                     }}
                     style={{width: 'calc(100% - 45px)', height: 'calc(100% - 75px)'}}>
                     <svg onContextMenu={event => {
-                            event.preventDefault()
-                            if (openNodeOverview)
-                                setOpenNodeOverview(false)
-                        }}
-                        style={{
-                            minWidth: data.dimensions.width + 'px',
-                            minHeight: data.dimensions.height + 'px',
-                            position: 'absolute',
-                            transform: `scale(${scale})`,
-                            transformOrigin: scale !== 1 ? 'top left' : undefined,
-                            top: 0,
-                            left: 0
-                        }}
-                        className={styles.canvasBackground}
-                        ref={printRef}
+                        event.preventDefault()
+                        if (openNodeOverview)
+                            setOpenNodeOverview(false)
+                    }}
+                         style={{
+                             minWidth: data.dimensions.width + 'px',
+                             minHeight: data.dimensions.height + 'px',
+                             position: 'absolute',
+                             transform: `scale(${scale})`,
+                             transformOrigin: scale !== 1 ? 'top left' : undefined,
+                             top: 0,
+                             left: 0
+                         }}
+                         className={styles.canvasBackground}
+                         ref={printRef}
                     >
                         <LinkIndicator source={toBeLinked} type={data.connectionType} root={root.current}/>
                         <RenderNodes
@@ -150,7 +150,7 @@ export default function Canvas(props) {
                     </svg>
                 </div>
 
-                <Footer scale={scale} setScale={setScale}/>
+                <Footer scale={scale} setScale={setScale} data={data} setData={setData}/>
             </div>
         </div>
     )

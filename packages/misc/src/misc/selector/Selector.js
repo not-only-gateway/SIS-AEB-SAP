@@ -69,6 +69,7 @@ export default function Selector(props) {
 }
 
 Selector.propTypes = {
+    searchFieldName: PropTypes.string,
   width: PropTypes.string,
   renderEntity: PropTypes.func,
   elementRootID: PropTypes.string,

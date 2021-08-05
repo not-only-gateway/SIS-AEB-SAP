@@ -36,12 +36,16 @@ export default function List(props) {
             display: 'grid',
             marginTop: '10px',
             width: '100%',
-            gap: '8px'
+
+            background: 'white',
+            padding: '0 16px 16px 16px',
+            borderRadius: '5px'
         }}>
             <div className={styles.headerContainer}>
                 <div className={styles.titleContainer}>{props.title}</div>
                 {props.noSearchBar || props.searchFieldName === undefined ? null :
-                    <SearchBar fullWidth={props.title === undefined} searchInput={searchInput} setSearchInput={setSearchInput} applySearch={() => {
+                    <SearchBar fullWidth={props.title === undefined} searchInput={searchInput}
+                               setSearchInput={setSearchInput} applySearch={() => {
                         Fetch({
                             setLastFetchedSize: setLastFetchedSize,
                             setData: setData,
@@ -85,7 +89,7 @@ export default function List(props) {
                         </div>
                     }
                 >
-                    <div style={{display: 'grid', gap: '8px', overflow: 'hidden', height: 'auto'}}>
+                    <div style={{display: 'grid', overflow: 'hidden', height: 'auto'}}>
                         {data.map((entity, index) =>
                             <React.Fragment key={index + props.listKey}>
                                 <ListContent
@@ -93,7 +97,7 @@ export default function List(props) {
                                     create={false} lang={lang} entity={entity}
                                     setEntity={() => props.setEntity(entity)}
                                     renderElement={props.renderElement}
-                                    clickEvent={props.clickEvent}
+                                    clickEvent={props.clickEvent} isLast={index === (data.length - 1)}
                                 />
                             </React.Fragment>
                         )}

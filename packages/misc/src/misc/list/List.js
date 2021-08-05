@@ -36,12 +36,16 @@ export default function List(props) {
             display: 'grid',
             marginTop: '10px',
             width: '100%',
-            gap: '8px'
+
+            background: 'white',
+            padding: '0 16px 16px 16px',
+            borderRadius: '5px'
         }}>
             <div className={styles.headerContainer}>
                 <div className={styles.titleContainer}>{props.title}</div>
                 {props.noSearchBar || props.searchFieldName === undefined ? null :
-                    <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} applySearch={() => {
+                    <SearchBar fullWidth={props.title === undefined} searchInput={searchInput}
+                               setSearchInput={setSearchInput} applySearch={() => {
                         Fetch({
                             setLastFetchedSize: setLastFetchedSize,
                             setData: setData,
@@ -57,8 +61,9 @@ export default function List(props) {
                     }}/>
                 }
             </div>
-            {props.createOption ? <ListContent create={true} lang={lang} setEntity={() => props.setEntity(null)}
-                                               clickEvent={() => props.clickEvent(true)} entity={null}/> : null}
+            {props.createOption ? <ListContent create={true} createOptionLabel={props.createOptionLabel} lang={lang}
+                                               setEntity={() => props.setEntity(null)}
+                                               clickEvent={props.clickEvent} entity={null}/> : null}
 
             {data !== undefined && Array.isArray(data) && data.length > 0 ?
                 <InfiniteScroll
@@ -84,14 +89,15 @@ export default function List(props) {
                         </div>
                     }
                 >
-                    <div style={{display: 'grid', gap: '8px', overflow: 'hidden', height: 'auto'}}>
+                    <div style={{display: 'grid', overflow: 'hidden', height: 'auto'}}>
                         {data.map((entity, index) =>
                             <React.Fragment key={index + props.listKey}>
-                                <ListContent index={index} onlyCreate={props.onlyCreate}
-                                             create={false} lang={lang} entity={entity}
-                                             setEntity={() => props.setEntity(entity)}
-                                             renderElement={props.renderElement}
-                                             clickEvent={() => props.clickEvent(true)}
+                                <ListContent
+                                    index={index} onlyCreate={props.onlyCreate}
+                                    create={false} lang={lang} entity={entity}
+                                    setEntity={() => props.setEntity(entity)}
+                                    renderElement={props.renderElement}
+                                    clickEvent={props.clickEvent} isLast={index === (data.length - 1)}
                                 />
                             </React.Fragment>
                         )}
@@ -108,6 +114,7 @@ export default function List(props) {
     )
 }
 List.propTypes = {
+    createOptionLabel: PropTypes.string,
     title: PropTypes.string,
     searchFieldName: PropTypes.string,
     noSearchBar: PropTypes.bool,

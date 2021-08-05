@@ -16,11 +16,6 @@ mkdir dist
 sudo rm -r node_modules
 
 
-cd ../chart
-sudo rm -r dist
-mkdir dist
-sudo rm -r node_modules
-
 cd ../navigation
 sudo rm -r dist
 mkdir dist

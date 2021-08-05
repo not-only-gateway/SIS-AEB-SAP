@@ -1,12 +1,10 @@
 .container {
-    margin-top: 32px;
-    border: #e0e0e0 1px solid;
     background: white;
-    border-radius: 10px;
+    border-radius: 5px;
 
-    padding: 16px;
+    padding: 16px 16px 0;
     display: grid;
-
+    overflow-y: auto;
 }
 
 .headerContainer {
@@ -41,9 +39,9 @@
 }
 
 .buttonContainer:hover {
-    background: #E8F0FE;
-    color: #0095ff;
+    background: #f4f5fa;
 }
+
 .buttonContainer:disabled {
     background: white;
     color: #999999;
@@ -83,16 +81,26 @@
     position: absolute;
     z-index: 999;
     background: white;
-    border: #0095ff 2px solid;
+    /*border: #0095ff 2px solid;*/
     top: 56px;
-    right: 12px;
+    right: 0px;
     animation: popIn 250ms ease;
 }
+
 @keyframes popIn {
-    0%{
+    0% {
         opacity: 0;
     }
-    100%{
+    100% {
         opacity: 1;
     }
+}
+
+.header {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    font-size: 22px;
+    font-family: Roboto;
+    color: #333333;
 }

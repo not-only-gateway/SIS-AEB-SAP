@@ -14,56 +14,59 @@ export default function Navigation(props) {
     const [modal, setModal] = useState(false)
 
     return (
+        <div className={styles.wrapper}>
+            <div className={styles.header}>
+                <Loading loading={props.loading}/>
+                <div className={styles.logoContainer} style={{color: '#666666', fontWeight: "bold", fontFamily: 'Roboto'}}>
 
-        <div className={styles.navigationContainer}>
-            <Loading loading={props.loading}/>
-            <div className={styles.logoContainer} style={{color: '#666666', fontWeight: 600, fontSize: '16px'}}>
+                    <button style={{display: props.buttons.length > 0 ? undefined : 'none'}}
+                            className={styles.appsButtonContainer} onClick={() => setModal(!modal)}>
+                        <MenuRounded/>
+                    </button>
+                    <img
+                        style={{height: '35px'}}
+                        src={props.logo} alt={'logo'}/>
+
+                    {props.appName}
+                </div>
+                <div className={styles.logoContainer} style={{justifyContent: 'flex-end', gap: '8px'}}>
+                    <NavigationApps lang={lang} buttons={props.apps}
+                                    centered={props.profile !== null && props.profile !== undefined}/>
+
+                    {props.profile !== null && props.profile !== undefined ?
+                        <NavigationProfile
+                            buttons={props.profileButtons}
+                            profile={{
+                                id: props.profile.id,
+                                image: props.profile.image,
+                                corporate_email: props.profile.corporate_email,
+                                name: props.profile.name
+                            }} reduced={props.reduced}
+                            setReduced={props.setReduced} accessProfile={props.accessProfile}
+                            lang={lang}/>
+                        :
+                        null
+                    }
+                </div>
+
+            </div>
+            <div className={styles.contentWrapper}>
                 {props.buttons.length > 0 ?
                     <NavigationTabs open={modal} setOpen={setModal} buttons={props.buttons} path={props.path}
                                     logo={props.logo}/>
                     :
                     null
                 }
-                <button style={{display: props.buttons.length > 0 ? undefined : 'none'}}
-                        className={styles.appsButtonContainer} onClick={() => setModal(true)}>
-                    <MenuRounded/>
-                </button>
-                <img
-                    style={{height: '37px'}}
-                    src={props.logo} alt={'logo'}/>
-
-                {props.appName}
-            </div>
-            <div className={styles.logoContainer}
-                 style={{alignContent: 'center', display: props.searchBar ? undefined : 'none'}}>
-            </div>
-            <div className={styles.logoContainer} style={{justifyContent: 'flex-end', gap: '8px'}}>
-                <NavigationApps lang={lang} buttons={props.apps}
-                                centered={props.profile !== null && props.profile !== undefined}/>
-
-                {props.profile !== null && props.profile !== undefined ?
-                    <NavigationProfile
-                        buttons={props.profileButtons}
-                        profile={{
-                            id: props.profile.id,
-                            image: props.profile.image,
-                            corporate_email: props.profile.corporate_email,
-                            name: props.profile.name
-                        }} reduced={props.reduced}
-                        setReduced={props.setReduced} accessProfile={props.accessProfile}
-                        lang={lang}/>
-                    :
-                    null
-                }
+                {props.children}
             </div>
 
         </div>
-
     )
 
 }
 
 Navigation.propTypes = {
+    children: PropTypes.element,
     path: PropTypes.string,
     appName: PropTypes.string,
     logo: PropTypes.any,

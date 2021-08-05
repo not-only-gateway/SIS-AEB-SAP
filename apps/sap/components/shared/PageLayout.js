@@ -10,7 +10,7 @@ import {ExitToApp, ExtensionRounded, GroupRounded, ListRounded, TimelineRounded,
 
 import CollaboratorRequests from "../../utils/fetch/CollaboratorRequests";
 import PersonRequests from "../../utils/fetch/PersonRequests";
-import Navigation from "./nav/Navigation";
+import {Navigation} from "sis-aeb-navigation";
 
 
 const cookies = new Cookies()
@@ -21,7 +21,7 @@ export default function PageLayout(props) {
     const lang = LayoutPT
 
     useEffect(() => {
-        if(cookies.get('jwt') !== undefined ){
+        if (cookies.get('jwt') !== undefined) {
             if (sessionStorage.getItem('profile') === null) {
                 CollaboratorRequests.fetchMemberByToken().then(res => {
                     if (res !== null) {
@@ -39,10 +39,8 @@ export default function PageLayout(props) {
                     }
                 })
             } else setProfile(JSON.parse(sessionStorage.getItem('profile')))
-        }
-        else
+        } else
             router.push('/authenticate', '/authenticate')
-
 
 
     }, [])
@@ -91,19 +89,23 @@ export default function PageLayout(props) {
                             icon: <ExtensionRounded/>
                         }
                     ]} logo={'./light.png'}
-                />
+                >
+                    <div id={'scrollableDiv'} style={{width: '100%'}}>
+                        {props.children}
+                    </div>
+
+                </Navigation>
                 :
-                null
+                <div className={styles.pageContentContainer}
+                     id={'scrollableDiv'} style={{
+                    transition: '250ms ease-in-out',
+                    height: '100vh',
+                    overflowX: 'hidden'
+                }}>
+                    {props.children}
+                </div>
             }
-            <div className={styles.pageContentContainer}
-                 id={'scrollableDiv'} style={{
-                transition: '250ms ease-in-out',
-                height: router.pathname !== '/authenticate' ? 'calc(100% - 60px)' : '100vh',
-                marginTop: router.pathname !== '/authenticate' ? '60px' : undefined,
-                overflowX: 'hidden'
-            }}>
-                {props.children}
-            </div>
+
             <div id={'root'}/>
         </div>
     )

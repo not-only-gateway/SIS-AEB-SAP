@@ -52,3 +52,41 @@
     font-family: Roboto;
     text-align: center;
 }
+
+.pageButton{
+    font-size: .85rem;
+    font-weight: bold;
+    padding: 8px;
+    background: #ecedf2;
+}
+.pageButton:hover{
+    background: #ecedf2;
+}
+
+.newPageButton{
+    outline: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    color: #777777;
+    background-color: white;
+    transition: 150ms linear;
+    cursor: pointer;
+}
+.newPageButton:hover{
+    color: #393C44;
+    background-color: #f4f5fa;
+}
+.newPageButton:active{
+    color: #0095ff;
+    background-color: #E8F0FE;
+}
+.newPageButton:disabled{
+    cursor: unset;
+    color: #999999;
+    background-color: white;
+}

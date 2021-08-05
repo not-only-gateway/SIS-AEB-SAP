@@ -5,26 +5,23 @@
 }
 
 
-.navigationContainer {
-    position: fixed;
+.header {
+    position: sticky;
     top: 0;
-
     z-index: 75;
     overflow: visible;
-    height: 60px;
+    height: 45px;
     width: 100%;
     justify-items: center;
 
     transition: 250ms ease-in-out;
     box-sizing: border-box;
-
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
     display: flex;
     justify-content: space-between;
     background: white;
-    border-bottom: #e0e0e0 1px solid;
 
-    padding: 8px;
-
+    padding: 4px;
 }
 
 .appsButtonContainer {
@@ -64,22 +61,21 @@
 
 .buttonContainer {
     height: 100%;
-    width: auto;
 
     display: flex;
     align-items: center;
     gap: 16px;
-
+    width: 100%;
     outline: none;
     box-shadow: none;
     background-color: transparent;
-    border-radius: 0 32px 32px 0;
+    border-radius: 5px;
     border: none;
     color: #666666;
-    padding: 10px 12px 10px 24px;
+    padding: 4px;
     cursor: pointer;
-    transition: 300ms ease;
-    font-family: 'Roboto' !important;
+    transition: 150ms linear;
+
 }
 
 .buttonContainer:hover, .appsButtonContainer:hover {
@@ -112,34 +108,45 @@
     padding: 8px;
 }
 
-.modalContainer {
 
 
-    background: white;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-
-    width: 295px;
-    height: 100vh;
-
-}
-.modalButtonsContainer{
-    padding-top: 16px;
-    width: calc(100% - 16px);
-    margin-left: 0;
+.modalButtonsContainer {
+    width: 100%;
     display: grid;
     align-content: flex-start;
+    padding: 4px;
     gap: 4px;
 }
-.navigationTabsContainer {
-    width: 100vw;
-    position: fixed;
-    height: 100vh;
 
-    z-index: 100;
-    bottom: 0;
+.navigationTabsContainer {
+    overflow: hidden;
+    width: 45px;
+    transition: 150ms linear;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.05) 0 0 0 1px;
+    position: sticky;
     left: 0;
-    transition: 300ms ease-in-out;
+    height: 100%;
+
+}
+
+.wrapper{
+    display: block;
+    height: 100vh;
+    overflow: hidden;
+    width: 100%;
+    background-color: #f4f5fa;
+}
+.contentWrapper{
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+.buttonLabel{
+    margin-left: 8px;
+    font-size: .85rem;
+    overflow: hidden;
+    color: #666666;
+    font-weight: bold;
+    font-family: Roboto;
 }
