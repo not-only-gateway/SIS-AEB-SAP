@@ -1,13 +1,31 @@
 import PropTypes from 'prop-types'
 import styles from "../styles/Footer.module.css";
-import {AddRounded} from "@material-ui/icons";
+import {AddRounded, ListRounded} from "@material-ui/icons";
+import {useState} from "react";
 
 export default function Pages(props) {
+    const [selected, setSelected] = useState(undefined)
     return (
         <div className={styles.scaleContainer} style={{marginLeft: 0}}>
-            {props.data.pages.map(page => (
-                <div className={styles.pageButton} style={{background: page.default ? undefined : '#fdfdfd'}} onContextMenu={event => event.preventDefault()}>
-                    {page.title}
+            <button
+                className={styles.newPageButton}
+                style={{borderRight: '#ecedf2 1px solid'}}
+            >
+                <ListRounded style={{fontSize: '1.7rem'}}/>
+            </button>
+            {props.data.pages.map((page, index) => (
+                <div>
+                    {selected === index ?
+                        <input
+                            className={[styles.pageButton, page.default ? styles.mainPage : ''].join(' ')}
+                            onContextMenu={event => event.preventDefault()} value={page.title}/>
+                        :
+                        <div className={[styles.pageButton, page.default ? styles.mainPage : ''].join(' ')}
+                             onDoubleClick={() => setSelected(index)}>
+                            {page.title}
+                        </div>
+                    }
+
                 </div>
             ))
             }
@@ -27,13 +45,13 @@ export default function Pages(props) {
                         pages: newPages
                     })
                 }}>
-                <AddRounded/>
+                <AddRounded style={{fontSize: '1.5rem'}}/>
             </button>
         </div>
     )
 }
 
 Pages.propTypes = {
-    data: PropTypes.object,
-    setData: PropTypes.func
+        data: PropTypes.object,
+        setData:PropTypes.func
 }

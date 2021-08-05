@@ -14,7 +14,6 @@
     margin-left: auto;
     display: flex;
     align-items: center;
-    gap: 4px;
     border-left: #ecedf2 1px solid;
     border-right: #ecedf2 1px solid;
 }
@@ -52,15 +51,22 @@
     font-family: Roboto;
     text-align: center;
 }
-
-.pageButton{
-    font-size: .85rem;
-    font-weight: bold;
-    padding: 8px;
+.mainPage{
     background: #ecedf2;
 }
-.pageButton:hover{
-    background: #ecedf2;
+.pageButton{
+    width: fit-content;
+    height: 100%;
+    outline: none;
+    border: none;
+    font-size: .85rem;
+    border-right: #ecedf2 1px solid;
+    font-weight: bold;
+    padding: 8px;
+    background: white;
+}
+.pageButton:focus, .mainPage:focus{
+    background: #E8F0FE;
 }
 
 .newPageButton{
@@ -69,10 +75,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    color: #777777;
+    width: 45px;
+    height: 100%;
+    color: #393C44;
     background-color: white;
     transition: 150ms linear;
     cursor: pointer;
@@ -83,7 +88,7 @@
 }
 .newPageButton:active{
     color: #0095ff;
-    background-color: #E8F0FE;
+    background-color: #E8F0FE ;
 }
 .newPageButton:disabled{
     cursor: unset;
