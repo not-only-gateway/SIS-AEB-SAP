@@ -1,19 +1,17 @@
 import CanvasTemplate from "./templates/CanvasPropsTemplate";
-import styles from './styles/Frame.module.css'
-
+import styles from './styles/Canvas.module.css'
 import React, {useEffect, useRef, useState} from "react";
 import {useReactToPrint} from "react-to-print";
 import ReactDOM from "react-dom";
-import Options from "./modules/navigation/Options";
 import ScrollCanvas from "./methods/misc/ScrollCanvas";
-import Scale from "./modules/navigation/Scale";
-
 import StickyZone from "./modules/misc/StickyZone";
 import RenderNodes from "./methods/render/RenderNodes";
 import RenderLinks from "./methods/render/RenderLinks";
 import NewProjectTemplate from "./templates/NewProjectTemplate";
 import LinkIndicator from "./modules/link/LinkIndicator";
 import Header from "./modules/navigation/Header";
+import Footer from "./modules/navigation/Footer";
+import SideBar from "./modules/navigation/SideBar";
 
 
 export default function Canvas(props) {
@@ -99,12 +97,9 @@ export default function Canvas(props) {
                     onSave={props.onSave}
                     handlePrint={handlePrint}
                 />
-                <Scale
-                    scale={scale} setScale={setScale} reduced={false}
-                />
 
                 <div ref={contextMenuRef} style={{position: 'absolute'}}/>
-                <Options
+                <SideBar
                     root={root.current}
                     data={data} scale={scale}
                     setState={setData} contextMenuRef={contextMenuRef.current}
@@ -116,9 +111,8 @@ export default function Canvas(props) {
                         if (typeof event.target.className === 'object' && event.button === 2)
                             ScrollCanvas({canvas: root.current, event: event})
                     }}
-                    style={{width: '100%', height: 'calc(100% - 40px)'}}>
-                    <svg
-                        onContextMenu={event => {
+                    style={{width: 'calc(100% - 45px)', height: 'calc(100% - 75px)'}}>
+                    <svg onContextMenu={event => {
                             event.preventDefault()
                             if (openNodeOverview)
                                 setOpenNodeOverview(false)
@@ -155,6 +149,8 @@ export default function Canvas(props) {
 
                     </svg>
                 </div>
+
+                <Footer scale={scale} setScale={setScale}/>
             </div>
         </div>
     )

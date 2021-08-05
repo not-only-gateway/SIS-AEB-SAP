@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
-import styles from '../../styles/Frame.module.css'
 import {AddRounded, RemoveRounded} from "@material-ui/icons";
+import styles from '../styles/Footer.module.css'
+
 
 export default function Scale(props) {
     return (
@@ -12,7 +13,7 @@ export default function Scale(props) {
                 <AddRounded/>
             </button>
             <div className={styles.scaleInfo}>
-                {props.scale}
+                {props.scale*100}%
             </div>
             <button className={styles.scaleButton} disabled={props.scale === .5} onClick={() => {
                 if(props.scale > .5)
@@ -26,5 +27,4 @@ export default function Scale(props) {
 Scale.propTypes = {
     setScale: PropTypes.func,
     scale: PropTypes.number,
-    reduced: PropTypes.bool
 }

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import styles from '../../styles/Navigation.module.css'
+import styles from './styles/Navigation.module.css'
 
 import HandleUpload from "../../methods/handles/HandleUpload";
 import {LocalLibraryRounded, PictureAsPdfRounded, PublishRounded, SaveAltRounded} from "@material-ui/icons";

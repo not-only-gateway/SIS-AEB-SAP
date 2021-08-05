@@ -9,7 +9,7 @@
     transition: 150ms linear;
 }
 
-.shapeContainer{
+.shapeContainer {
     background: none;
     cursor: grab;
     height: fit-content;
@@ -31,7 +31,6 @@
 }
 
 
-
 .circle:hover, .rect:hover {
     border-color: #0095ff;
 }
@@ -49,37 +48,19 @@
     align-items: center;
     justify-content: space-between;
     padding: 4px 4px 4px 16px;
-    border-radius: 5px;
     transition: 150ms linear;
 }
-.optionsDivider:hover{
-    background: #E8F0FE;
+
+.optionsDivider:hover {
+    background: #f4f5fa;
 }
+
 .divider {
     background: #ecedf2;
     height: 1px;
     width: 100%;
 }
 
-.stickyZone {
-    display: none;
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    z-index: 100;
-    user-select: none;
-    height: calc(100% - 32px);
-    width: 400px;
-    background: rgba(224, 224, 224, .5);
-    border: #e0e0e0 4px solid;
-    border-radius: 8px;
-    transition: 150ms linear;
-}
-
-.stickyZone:hover, .stickyZone:focus {
-    background: rgba(0, 149, 255, .5);
-    border: #0095ff 4px solid;
-}
 
 .linkType {
     border: #e0e0e0 1px solid;
@@ -99,27 +80,60 @@
     align-items: center;
     justify-content: center;
 }
-.linkType:hover{
+
+.linkType:hover {
     border-color: #0095ff;
 }
 
-.stepRounded{
+.stepRounded {
     cursor: grab;
     border-radius: 5px;
     width: 80px;
     height: 30px;
     border: #e0e0e0 1px solid;
 }
-.stepRect{
+
+.stepRect {
     cursor: grab;
     width: 80px;
     height: 30px;
     border: #e0e0e0 1px solid;
 }
+
 .circle:active, .rect:active, .stepRect:active, .stepRounded:active {
     color: #0095ff;
     border-color: #0095ff;
     background: #fbfbfb;
     border-style: dashed;
     cursor: grabbing;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    text-align: left;
+    padding: 8px;
+    height: fit-content;
+    font-size: 1.1rem;
+    font-weight: bold;
+    font-family: Roboto;
+    color: #393C44;
+    border-bottom: #ecedf2 1px solid;
+    background-color: white;
+    z-index: 999;
+}
+
+.elementsContainer {
+    display: grid;
+    gap: 16px;
+    transition: 150ms linear;
+    height: fit-content;
+
+    border-bottom: #ecedf2 1px solid;
+}
+
+.container {
+    width: 100%;
+    align-self: stretch;
+    overflow-y: auto
 }

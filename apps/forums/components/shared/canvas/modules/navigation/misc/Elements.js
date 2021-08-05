@@ -1,13 +1,13 @@
 import {useState} from "react";
-import styles from "../../../styles/Shapes.module.css";
+import styles from "../styles/Shapes.module.css";
 import {ArrowDropDown} from "@material-ui/icons";
 import PropTypes from "prop-types";
 
 export default function Elements(props) {
     const [open, setOpen] = useState(false)
     return (
-        <div style={{ borderRadius: '0 5px 5px 0 ', display: 'grid', gap: '16px', borderLeft: open? '#0095ff 2px solid' : '#e0e0e0 2px solid', transition: '150ms linear'}}>
-            <div className={styles.optionsDivider} onClick={() => setOpen(!open)}>
+        <div className={styles.elementsContainer} >
+            <div className={styles.optionsDivider} onClick={() => setOpen(!open)} style={{background: open ? '#E8F0FE' : undefined}}>
 
                 {props.label}
                 <ArrowDropDown style={{
