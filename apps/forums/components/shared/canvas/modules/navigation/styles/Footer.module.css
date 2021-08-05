@@ -65,9 +65,6 @@
     padding: 8px;
     background: white;
 }
-.pageButton:focus, .mainPage:focus{
-    background: #E8F0FE;
-}
 
 .newPageButton{
     outline: none;

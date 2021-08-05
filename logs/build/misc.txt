@@ -2546,3 +2546,16 @@ src/index.js → dist/index.js, dist/index.modern.js...
 ArrowBackIos,ArrowLeftRounded,ArrowRightAltRounded imported from external module '@material-ui/icons' but never used
 created dist/index.js, dist/index.modern.js in 2.4s
 Done in 2.98s.
+yarn install v1.22.5
+[1/5] Validating package.json...
+[2/5] Resolving packages...
+success Already up-to-date.
+Done in 0.47s.
+yarn run v1.22.5
+$ rollup -c 
+
+src/index.js → dist/index.js, dist/index.modern.js...
+(!) Unused external imports
+ArrowBackIos,ArrowLeftRounded,ArrowRightAltRounded imported from external module '@material-ui/icons' but never used
+created dist/index.js, dist/index.modern.js in 2.3s
+Done in 2.78s.

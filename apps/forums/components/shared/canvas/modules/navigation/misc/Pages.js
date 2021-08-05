@@ -2,9 +2,10 @@ import PropTypes from 'prop-types'
 import styles from "../styles/Footer.module.css";
 import {AddRounded, ListRounded} from "@material-ui/icons";
 import {useState} from "react";
+import PageField from "./PageField";
 
 export default function Pages(props) {
-    const [selected, setSelected] = useState(undefined)
+
     return (
         <div className={styles.scaleContainer} style={{marginLeft: 0}}>
             <button
@@ -14,19 +15,7 @@ export default function Pages(props) {
                 <ListRounded style={{fontSize: '1.7rem'}}/>
             </button>
             {props.data.pages.map((page, index) => (
-                <div>
-                    {selected === index ?
-                        <input
-                            className={[styles.pageButton, page.default ? styles.mainPage : ''].join(' ')}
-                            onContextMenu={event => event.preventDefault()} value={page.title}/>
-                        :
-                        <div className={[styles.pageButton, page.default ? styles.mainPage : ''].join(' ')}
-                             onDoubleClick={() => setSelected(index)}>
-                            {page.title}
-                        </div>
-                    }
-
-                </div>
+                <PageField page={page}/>
             ))
             }
             <button
@@ -52,6 +41,6 @@ export default function Pages(props) {
 }
 
 Pages.propTypes = {
-        data: PropTypes.object,
-        setData:PropTypes.func
+    data: PropTypes.object,
+    setData: PropTypes.func
 }
