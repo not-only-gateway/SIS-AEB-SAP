@@ -14,7 +14,7 @@ export default function AddendumList(props) {
     const [open, setOpen] = useState(false)
 
     return (
-        <>
+        <div style={{width: '100%'}}>
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <AddendumForm
@@ -61,7 +61,7 @@ export default function AddendumList(props) {
                     }}
                     />
             </div>
-        </>
+        </div>
     )
 }
 AddendumList.propTypes = {

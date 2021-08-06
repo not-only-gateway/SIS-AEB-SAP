@@ -23,7 +23,7 @@ export default function FollowUpForm(props) {
             />
             <EntityLayout
                 rootElementID={'root'} entity={props.data}
-                create={props.create} label={props.create ? lang.newOperation : lang.operation}
+                create={props.create} label={props.create ? lang.newFollowUpGoal : lang.followUpGoal}
                 dependencies={{
                     fields: [
                         {name: 'description', type: 'string'},

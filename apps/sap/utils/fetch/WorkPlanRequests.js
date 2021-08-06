@@ -24,14 +24,18 @@ export default class WorkPlanRequests {
         })
         return response
     }
+
     static async submitInfrastructure(submitProps) {
         let response = false
+        let data = {}
+        data = Object.assign(data, submitProps.data)
 
+        data.address = submitProps.data.latitude + ', ' + submitProps.data.longitude
         await axios({
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'infrastructure' : Host() + 'infrastructure/' + submitProps.pk,
             headers: {'authorization': jwt},
-            data: submitProps.data
+            data: data
         }).then(res => {
             submitProps.setStatus({
                 type: 'success',
@@ -46,14 +50,18 @@ export default class WorkPlanRequests {
         })
         return response
     }
+
     static async submitStatus(submitProps) {
         let response = false
-
+        let data = {}
+        data = Object.assign(data, submitProps.data)
+        if (submitProps.create)
+            data.update_date = new Date()
         await axios({
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'work_plan_status' : Host() + 'work_plan_status/' + submitProps.pk,
             headers: {'authorization': jwt},
-            data: submitProps.data
+            data: data
         }).then(res => {
             submitProps.setStatus({
                 type: 'success',
@@ -68,6 +76,7 @@ export default class WorkPlanRequests {
         })
         return response
     }
+
     static async submitGoal(submitProps) {
         let response = false
 
@@ -90,6 +99,7 @@ export default class WorkPlanRequests {
         })
         return response
     }
+
     static async submitComponent(submitProps) {
         let response = false
 

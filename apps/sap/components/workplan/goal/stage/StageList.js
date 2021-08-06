@@ -15,8 +15,8 @@ export default function StageList(props) {
 
     return (
         <>
-            { !(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined) && open ?
-                <StageForm
+            { open ?
+                <Stage
                     returnToMain={() => {
                         setOpen(false)
                         setCurrentEntity(null)
@@ -31,19 +31,8 @@ export default function StageList(props) {
                 :
                 null
             }
-            <Stage
-                returnToMain={() => {
-                    setOpen(false)
-                    setCurrentEntity(null)
-                }} open={open}
-                handleChange={event => handleObjectChange({
-                    event: event,
-                    setData: setCurrentEntity
-                })}
-                create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                data={currentEntity} goal={props.goal}
-            />
-            <div style={{display: !(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined) && open ? 'none' : undefined}}>
+
+            <div style={{display: open ? 'none' : undefined}}>
                 <List
                     listKey={'project'}
                     createOption={true}

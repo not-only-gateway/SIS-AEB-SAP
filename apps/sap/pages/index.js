@@ -5,7 +5,7 @@ import IndexPT from "../packages/locales/ProjectPT";
 import ProjectList from "../components/index/ProjectList";
 import Tabs from "../components/shared/misc/tabs/Tabs";
 import TedList from "../components/index/TedList";
-import WorkPlanList from "../components/index/WorkPlanList";
+import WorkPlanList from "../components/workplan/WorkPlanList";
 
 export default function index(props) {
     const lang = IndexPT
@@ -36,14 +36,7 @@ export default function index(props) {
                             content: (
                                 <TedList redirect={id => router.push('/ted/?id=' + id, undefined, {shallow: true})} setOpen={() => null}/>
                             )
-                        },
-                        {
-                            key: 2,
-                            value: lang.workPlan,
-                            content: (
-                                <WorkPlanList redirect={id => router.push('/workplan/?id=' + id, undefined, {shallow: true})} setOpen={() => null}/>
-                            )
-                        },
+                        }
                     ]} type={'horizontal'}
                     setOpenTab={setOpenTab}
                     openTab={openTab}

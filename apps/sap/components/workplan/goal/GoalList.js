@@ -13,7 +13,7 @@ export default function GoalList(props) {
     const [open, setOpen] = useState(false)
 
     return (
-        <>
+        <div style={{width: '100%'}}>
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <Goal
@@ -50,9 +50,12 @@ export default function GoalList(props) {
                             </div>
                         )
                     }}
-                    clickEvent={() => setOpen(true)}
+                    clickEvent={() => null}
                     setEntity={entity => {
-                        setCurrentEntity(entity)
+                        if(entity !== null && entity !== undefined)
+                            props.setOpenGoal(entity)
+                        else
+                            setOpen(true)
                     }} searchFieldName={'search_input'} title={'Metas'} scrollableElement={'scrollableDiv'}
                     fetchSize={15}
                     fetchParams={{
@@ -60,9 +63,10 @@ export default function GoalList(props) {
                     }}
           />
             </div>
-        </>
+        </div>
     )
 }
 GoalList.propTypes = {
-    workPlan: PropTypes.object
+    workPlan: PropTypes.object,
+    setOpenGoal: PropTypes.func
 }

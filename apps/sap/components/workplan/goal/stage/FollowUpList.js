@@ -56,7 +56,7 @@ export default function FollowUpList(props) {
                     setEntity={entity => {
                         setOpen(true)
                         setCurrentEntity(entity)
-                    }} searchFieldName={'search_input'} title={'Objetivos de acompanhamento'}
+                    }} searchFieldName={'search_input'} title={'Marcos do acompanhamento'}
                     scrollableElement={'scrollableDiv'} fetchSize={15}
                     fetchParams={{
                         operation: props.operation.id

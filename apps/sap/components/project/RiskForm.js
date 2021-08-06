@@ -53,7 +53,7 @@ export default function RiskForm(props){
                                     props.handleChange({name: 'description', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.description}
                                 required={true}
-                                width={'calc(50% - 16px)'}/>
+                                width={'100%'}/>
 
                             <DropDownField
                                 dark={true}
@@ -63,7 +63,7 @@ export default function RiskForm(props){
                                     setChanged(true)
                                     props.handleChange({name: 'analysis', value: event})
                                 }} value={props.data === null ? null : props.data.analysis} required={true}
-                                width={'calc(50% - 16px)'} choices={lang.riskOptions}/>
+                                width={'100%'} choices={lang.riskOptions}/>
                         </>
                     )
                 }]}/>

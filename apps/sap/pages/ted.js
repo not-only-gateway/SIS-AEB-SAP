@@ -10,6 +10,8 @@ import TedRequests from "../utils/fetch/TedRequests";
 import TedForm from "../components/index/TedForm";
 import AddendumList from "../components/ted/AddendumList";
 import {ArrowBackIos, HomeRounded} from "@material-ui/icons";
+import Ted from "../components/ted/Ted";
+import WorkPlanList from "../components/workplan/WorkPlanList";
 
 export default function ted() {
     const lang = TedPT
@@ -68,23 +70,16 @@ export default function ted() {
                                 key: 0,
                                 value: lang.ted,
                                 content: (
-                                    <TedForm
-                                        returnToMain={() => {
-                                            null
-                                        }}
-                                        handleChange={event => handleObjectChange({
-                                            event: event,
-                                            setData: setTed
-                                        })} id={ted.id}
-                                        create={false}
-                                        data={ted}/>
+                                    <Ted ted={ted} setTed={setTed}/>
                                 )
                             },
 
                             {
                                 key: 1,
-                                value: lang.addendum,
-                                content: <AddendumList ted={ted}/>
+                                value: lang.workPlan,
+                                content: (
+                                    <WorkPlanList redirect={() => null} ted={ted}/>
+                                )
                             }
                         ]}
                         setOpenTab={setOpenTab}

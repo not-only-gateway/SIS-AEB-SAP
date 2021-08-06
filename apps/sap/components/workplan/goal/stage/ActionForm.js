@@ -57,7 +57,7 @@ export default function ActionForm(props) {
                                     props.handleChange({name: 'detailing', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.detailing}
                                 required={true}
-                                width={'calc(50% - 16px)'}/>
+                                width={'100%'}/>
                             <DropDownField
                                 dark={true}
                                 placeholder={lang.accomplished}
@@ -66,7 +66,7 @@ export default function ActionForm(props) {
                                     setChanged(true)
                                     props.handleChange({name: 'accomplished', value: event})
                                 }} value={props.data === null ? null : props.data.accomplished} required={true}
-                                width={'calc(50% - 16px)'} choices={lang.options}/>
+                                width={'100%'} choices={lang.options}/>
                         </>
                     )
                 }]}/>

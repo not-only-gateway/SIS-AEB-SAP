@@ -38,7 +38,8 @@ export default function List(props) {
 
             background: 'white',
             padding: '0 32px 8px 32px',
-            borderRadius: '5px'
+            borderRadius: '5px',
+            boxShadow: props.noShadow ? 'none' : 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px'
         }}>
             <div className={styles.headerContainer}>
                 <div className={styles.titleContainer}>{props.title}</div>
@@ -130,5 +131,6 @@ List.propTypes = {
     fetchParams: PropTypes.object,
 
     scrollableElement: PropTypes.string,
-    renderElement: PropTypes.func
+    renderElement: PropTypes.func,
+    noShadow: PropTypes.bool
 }

@@ -35,7 +35,12 @@ export default function WorkPlanList(props) {
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/work_plan'}
                     renderElement={element => {
                         return (
-                            <div style={{display: 'flex',justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
+                            <div style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                width: '100%'
+                            }}>
 
                                 <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
                                     <div>
@@ -62,11 +67,15 @@ export default function WorkPlanList(props) {
                             props.redirect(entity.id)
                     }} searchFieldName={'search_input'} title={'Planos de trabalho'} scrollableElement={'scrollableDiv'}
                     fetchSize={15}
-                    />
+                    fetchParams={{
+                        ted: props.ted.id
+                    }}
+                />
             </div>
         </>
     )
 }
 WorkPlanList.propTypes = {
-    redirect: PropTypes.func
+    redirect: PropTypes.func,
+    ted: PropTypes.object
 }

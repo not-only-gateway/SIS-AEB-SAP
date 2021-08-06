@@ -1,7 +1,7 @@
 import Tabs from "../shared/misc/tabs/Tabs";
 import ProjectList from "../index/ProjectList";
 import TedList from "../index/TedList";
-import WorkPlanList from "../index/WorkPlanList";
+import WorkPlanList from "../workplan/WorkPlanList";
 import React, {useState} from "react";
 import OverviewPT from "../../packages/locales/OverviewPT";
 

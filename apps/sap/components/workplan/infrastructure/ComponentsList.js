@@ -43,11 +43,15 @@ export default function ComponentsList(props) {
                             <div style={{display: 'flex', gap: '16px', justifyContent: 'space-between', width: '100%'}}>
                                 <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
                                     <div>
-                                        {element.situation}
+                                        {element.classification}
                                     </div>
                                     <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
                                     <div>
                                         {element.type}
+                                    </div>
+                                    <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
+                                    <div>
+                                        {element.situation}
                                     </div>
                                 </div>
                                 <EditRounded style={{fontSize: '1.3rem', color: '#555555'}}/>

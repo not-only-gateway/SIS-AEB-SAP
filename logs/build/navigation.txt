@@ -2298,3 +2298,16 @@ src/index.js → dist/index.js, dist/index.modern.js...
 useRef imported from external module 'react' but never used
 created dist/index.js, dist/index.modern.js in 1.4s
 Done in 1.83s.
+yarn install v1.22.10
+[1/5] Validating package.json...
+[2/5] Resolving packages...
+success Already up-to-date.
+Done in 0.60s.
+yarn run v1.22.10
+$ rollup -c 
+
+src/index.js → dist/index.js, dist/index.modern.js...
+(!) Unused external imports
+useRef imported from external module 'react' but never used
+created dist/index.js, dist/index.modern.js in 1.7s
+Done in 2.40s.

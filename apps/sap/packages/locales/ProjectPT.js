@@ -12,7 +12,7 @@ export default {
     description: 'Descrição',
     analysis: 'Análise',
     deadline: 'Prazo',
-    estimatedValue: 'Valor estimado',
+    estimatedValue: 'Valor estimado (R$)',
     scope: 'Escopo',
     criticalFactors: 'Fatores críticos',
 

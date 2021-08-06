@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import PropTypes from 'prop-types'
-import {DateField, TextField} from "sis-aeb-inputs";
+import {DateField, DropDownField, TextField} from "sis-aeb-inputs";
 import {Alert} from "sis-aeb-misc";
 import EntityLayout from "../shared/misc/form/EntityLayout";
 import TedPT from "../../packages/locales/TedPT";
@@ -78,7 +78,7 @@ export default function TedForm(props) {
 
                             <TextField
                                 type={'number'}
-                                placeholder={lang.year} label={lang.year}
+                                placeholder={lang.year} label={lang.year} maxLength={4}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'year', value: event.target.value})
@@ -95,25 +95,19 @@ export default function TedForm(props) {
                                 }} locale={props.locale} value={props.data === null ? null : props.data.process}
                                 required={true}
                                 width={'calc(50% - 16px)'}/>
-                            <TextField
+                            <DropDownField
 
                                 placeholder={lang.status}
                                 label={lang.status}
                                 handleChange={event => {
                                     setChanged(true)
-                                    props.handleChange({name: 'status', value: event.target.value})
-                                }} locale={props.locale} value={props.data === null ? null : props.data.status}
-                                required={true}
-                                width={'calc(50% - 16px)'}/>
+                                    props.handleChange({name: 'status', value: event})
+                                }} value={props.data === null ? null : props.data.status} required={true}
+                                width={'calc(50% - 16px)'} choices={lang.statusOptions}/>
 
 
-                        </>
 
-                    )
-                },
-                    {
-                        child: (
-                            <>
+
                                 <DateField
                                     dark={true}
                                     placeholder={lang.startDate} label={lang.startDate}
@@ -137,12 +131,7 @@ export default function TedForm(props) {
                                     }
                                     required={true} width={'calc(50% - 16px)'}/>
 
-                            </>
-                        )
-                    },
-                    {
-                        child: (
-                            <>
+
 
 
                                 <TextField
@@ -166,18 +155,15 @@ export default function TedForm(props) {
                                     value={props.data === null ? null : props.data.decentralized}
                                     required={true} width={'calc(33.333% - 21.5px)'}/>
 
-
-                                <TextField
+                                <DropDownField
 
                                     placeholder={lang.action}
                                     label={lang.action}
                                     handleChange={event => {
                                         setChanged(true)
-                                        props.handleChange({name: 'action', value: event.target.value})
-                                    }} locale={props.locale}
-                                    value={props.data === null ? null : props.data.action}
-                                    required={true}
-                                    width={'calc(33.333% - 21.5px)'}/>
+                                        props.handleChange({name: 'action', value: event})
+                                    }} value={props.data === null ? null : props.data.action} required={true}
+                                    width={'calc(33.333% - 21.5px)'} choices={lang.actionOptions}/>
                             </>
                         )
                     }

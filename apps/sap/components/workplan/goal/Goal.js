@@ -13,7 +13,6 @@ export default function Goal(props) {
     return (
         props.create ? <GoalForm {...props}/> :
             <Tabs
-                type={'vertical'}
                 buttons={[
                     {
                         key: 0,

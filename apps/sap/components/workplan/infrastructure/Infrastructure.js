@@ -10,29 +10,31 @@ export default function Infrastructure(props) {
     const lang = InfrastructurePT
     const [openTab, setOpenTab] = useState(0)
     return (
-
-        <Tabs
-            type={'vertical'}
-            buttons={[
-                {
-                    key: 0,
-                    value: props.data.name,
-                    content: (
-                        <div style={{width: '100%'}}>
-                            <InfrastructureForm {...props}/>
+        props.create ?
+            <InfrastructureForm {...props}/>
+            :
+            <Tabs
+                type={'vertical'}
+                buttons={[
+                    {
+                        key: 0,
+                        value: props.data.name,
+                        content: (
+                            <div style={{width: '100%'}}>
+                                <InfrastructureForm {...props}/>
+                            </div>
+                        )
+                    }, {
+                        key: 1,
+                        value: lang.components,
+                        content: <div style={{width: '100%'}}>
+                            <ComponentsList infrastructure={props.data}/>
                         </div>
-                    )
-                }, {
-                    key: 1,
-                    value: lang.components,
-                    content: <div style={{width: '100%'}}>
-                        <ComponentsList infrastructure={props.data}/>
-                    </div>
-                }
-            ]}
-            setOpenTab={setOpenTab}
-            openTab={openTab}
-        />
+                    }
+                ]}
+                setOpenTab={setOpenTab}
+                openTab={openTab}
+            />
     )
 }
 Infrastructure.propTypes = {

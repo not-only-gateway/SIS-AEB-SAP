@@ -56,17 +56,7 @@ export default function AddendumForm(props) {
                                     props.handleChange({name: 'number', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.number}
                                 required={true}
-                                width={'calc(33.333% - 21.5px)'}/>
-
-                            <TextField
-
-                                placeholder={lang.changes} label={lang.changes}
-                                handleChange={event => {
-                                    setChanged(true)
-                                    props.handleChange({name: 'changes', value: event.target.value})
-                                }} locale={props.locale} value={props.data === null ? null : props.data.changes}
-                                required={true}
-                                width={'calc(33.333% - 21.5px)'}/>
+                                width={'calc(50% - 16px)'}/>
                             <TextField
                                 type={'number'}
                                 placeholder={lang.globalValue} label={lang.globalValue}
@@ -75,7 +65,17 @@ export default function AddendumForm(props) {
                                     props.handleChange({name: 'global_value', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.global_value}
                                 required={true}
-                                width={'calc(33.333% - 21.5px)'}/>
+                                width={'calc(50% - 16px)'}/>
+                            <TextField
+                                variant={'area'}
+                                placeholder={lang.changes} label={lang.changes}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'changes', value: event.target.value})
+                                }} locale={props.locale} value={props.data === null ? null : props.data.changes}
+                                required={true}
+                                width={'100%'}/>
+
                             <DateField
                                 dark={true}
                                 placeholder={lang.startDate} label={lang.startDate}

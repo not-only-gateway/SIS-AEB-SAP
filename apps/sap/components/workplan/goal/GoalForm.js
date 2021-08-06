@@ -68,7 +68,7 @@ export default function GoalForm(props) {
                                     props.handleChange({name: 'detailing', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.detailing}
                                 required={true}
-                                width={'calc(50% - 16px)'}/>
+                                width={'100%'}/>
 
                             <TextField
                                 placeholder={lang.measurement} label={lang.measurement}

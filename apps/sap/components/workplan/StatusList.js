@@ -13,7 +13,7 @@ export default function StatusList(props) {
     const [open, setOpen] = useState(false)
 
     return (
-        <>
+        <div style={{width: '100%'}}>
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <StatusForm
@@ -42,7 +42,7 @@ export default function StatusList(props) {
                                     </div>
                                     <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
                                     <div>
-                                        {element.update_date}
+                                        {new Date(element.update_date).toLocaleDateString()}
                                     </div>
                                 </div>
                                 <EditRounded style={{fontSize: '1.3rem', color: '#555555'}}/>
@@ -60,7 +60,7 @@ export default function StatusList(props) {
                     }}
           />
             </div>
-        </>
+        </div>
     )
 }
 StatusList.propTypes = {

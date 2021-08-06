@@ -37,7 +37,7 @@ export default function EntityLayout(props) {
         //         null
         //     }
 
-        <div ref={ref} className={styles.container} style={{height: height !== undefined ? height + 'px' : 'auto'}}>
+        <div ref={ref} className={styles.container} style={{height: height !== undefined ? height + 'px' : 'auto', boxShadow: props.noShadow ? 'none' : undefined}}>
             <div className={styles.headerContainer} style={{display: props.noHeader ? 'none' : undefined}}>
                 <div className={styles.header}>
                     <button className={styles.buttonContainer}

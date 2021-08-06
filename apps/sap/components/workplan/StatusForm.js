@@ -27,7 +27,6 @@ export default function StatusForm(props){
                 dependencies={{
                     fields: [
                         {name: 'status', type: 'string'},
-                        {name: 'update_date', type: 'date'},
                         {name: 'difficulties', type: 'string'},
                     ],
                     changed: changed
@@ -54,19 +53,8 @@ export default function StatusForm(props){
                                     props.handleChange({name: 'status', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.status}
                                 required={true}
-                                width={'calc(50% - 16px)'}/>
+                                width={'100%'} variant={'area'}/>
 
-                            <DateField
-                                dark={true}
-                                placeholder={lang.updateDate} label={lang.updateDate}
-                                handleChange={event => {
-                                    setChanged(true)
-                                    props.handleChange({name: 'update_date', value: event.target.value})
-                                }}
-                                value={
-                                    props.data === null ? null : props.data.update_date
-                                }
-                                required={true} width={'calc(50% - 16px)'}/>
                             <TextField
                                 placeholder={lang.difficulties} label={lang.difficulties}
                                 handleChange={event => {
@@ -74,7 +62,7 @@ export default function StatusForm(props){
                                     props.handleChange({name: 'difficulties', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.difficulties}
                                 required={true}
-                                width={'100%'}/>
+                                width={'100%'} variant={'area'}/>
 
                         </>
                     )

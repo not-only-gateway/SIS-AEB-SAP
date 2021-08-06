@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
 import InfrastructurePT from "../../../packages/locales/InfrastructurePT";
 
-export default function InfrastructureForm(props){
+export default function InfrastructureForm(props) {
     const [changed, setChanged] = useState(false)
     const lang = InfrastructurePT
     const [status, setStatus] = useState({
@@ -14,6 +14,15 @@ export default function InfrastructureForm(props){
     })
     useEffect(() => {
         props.handleChange({name: 'work_plan', value: props.workPlan.id})
+        if (!props.create)
+            try {
+                props.handleChange({name: 'latitude', value: props.data.address.split(", ")[0]})
+                props.handleChange({name: 'longitude', value: props.data.address.split(", ")[1]})
+            } catch (e) {
+                console.log(e)
+            }
+
+
     }, [])
     return (
         <>
@@ -23,7 +32,7 @@ export default function InfrastructureForm(props){
             />
             <EntityLayout
                 rootElementID={'root'} entity={props.data}
-                create={props.create} label={lang.risksTitle}
+                create={props.create} label={props.create ? lang.newInfrastructure : lang.infrastructure}
                 dependencies={{
                     fields: [
                         {name: 'name', type: 'string'},
@@ -66,13 +75,22 @@ export default function InfrastructureForm(props){
                                 width={'calc(50% - 16px)'}/>
 
                             <TextField
-                                placeholder={lang.address} label={lang.address}
+                                placeholder={lang.latitude} label={lang.latitude} type={'number'}
                                 handleChange={event => {
                                     setChanged(true)
-                                    props.handleChange({name: 'address', value: event.target.value})
-                                }} locale={props.locale} value={props.data === null ? null : props.data.address}
+                                    props.handleChange({name: 'latitude', value: event.target.value})
+                                }} locale={props.locale} value={props.data === null ? null : props.data.latitude}
                                 required={false}
-                                width={'100%'}/>
+                                width={'calc(50% - 16px)'}/>
+                            <TextField
+                                placeholder={lang.longitude} label={lang.longitude} type={'number'}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'longitude', value: event.target.value})
+                                }} locale={props.locale} value={props.data === null ? null : props.data.longitude}
+                                required={false}
+                                width={'calc(50% - 16px)'}
+                            />
                         </>
                     )
                 }]}/>

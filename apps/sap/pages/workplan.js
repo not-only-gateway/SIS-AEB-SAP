@@ -7,17 +7,20 @@ import Link from "next/link";
 import Tabs from "../components/shared/misc/tabs/Tabs";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import WorkPlanPT from "../packages/locales/WorkPlanPT";
-import WorkPlanForm from "../components/index/WorkPlanForm";
+import WorkPlanForm from "../components/workplan/WorkPlanForm";
 import WorkPlanRequests from "../utils/fetch/WorkPlanRequests";
 import InfrastructureList from "../components/workplan/infrastructure/InfrastructureList";
 import StatusList from "../components/workplan/StatusList";
 import GoalList from "../components/workplan/goal/GoalList";
 import {ArrowBackIos, HomeRounded} from "@material-ui/icons";
+import WorkPlan from "../components/workplan/WorkPlan";
+import Goal from "../components/workplan/goal/Goal";
 
 export default function workplan() {
     const lang = WorkPlanPT
     const [workPlan, setWorkPlan] = useState(undefined)
     const [openTab, setOpenTab] = useState(0)
+    const [openGoal, setOpenGoal] = useState(null)
     const router = useRouter()
     useEffect(() => {
         if (router.isReady) {
@@ -55,54 +58,67 @@ export default function workplan() {
                                 color: '#666666',
                                 transform: 'rotate(180deg) translateX(.35rem)'
                             }}/>
-                            <div className={pStyles.title}>
-                                {workPlan.object}
-                            </div>
 
+                            {openGoal !== null && openGoal !== undefined ?
+                                <>
+                                    <button className={pStyles.headerButton} onClick={() => setOpenGoal(null)}>
+                                        {workPlan.object}
+                                    </button>
+                                    <ArrowBackIos style={{
+                                        fontSize: '.9rem',
+                                        color: '#666666',
+                                        transform: 'rotate(180deg) translateX(.35rem)'
+                                    }}/>
+
+                                    <div className={pStyles.title}>
+                                        {openGoal.goal_number}
+                                    </div>
+                                </>
+                                :
+                                <div className={pStyles.title}>
+                                    {workPlan.object}
+                                </div>
+                            }
 
                         </div>
 
                     </div>
+                    {openGoal !== null && openGoal !== undefined ?
+                        <Goal
+                            returnToMain={() => {
+                                setOpenGoal(null)
+                            }}
+                            handleChange={event => handleObjectChange({
+                                event: event,
+                                setData: setOpenGoal
+                            })}
+                            data={openGoal} workPlan={workPlan}/>
+                        :
+                        null
+                    }
+                    <div style={{display: openGoal !== null && openGoal !== undefined ? ' none' : undefined}}>
+                        <Tabs
+                            buttons={[
+                                {
+                                    key: 0,
+                                    value: lang.workPlan,
+                                    content: (
+                                        <WorkPlan workPlan={workPlan} setWorkPlan={setWorkPlan}
+                                                  setOpenGoal={event => setOpenGoal(event)}/>
+                                    )
+                                },
 
-                    <Tabs
-                        buttons={[
-                            {
-                                key: 0,
-                                value: lang.workPlan,
-                                content: (
-                                    <WorkPlanForm
-                                        returnToMain={() => {
-                                            null
-                                        }}
-                                        handleChange={event => handleObjectChange({
-                                            event: event,
-                                            setData: setWorkPlan
-                                        })} id={workPlan.id}
-                                        create={false}
-                                        data={workPlan}
-                                    />
-                                )
-                            },
+                                {
+                                    key: 1,
+                                    value: lang.infrastructure,
+                                    content: <InfrastructureList workPlan={workPlan}/>
+                                }
+                            ]}
+                            setOpenTab={setOpenTab}
+                            openTab={openTab}
+                        />
+                    </div>
 
-                            {
-                                key: 1,
-                                value: lang.infrastructure,
-                                content: <InfrastructureList workPlan={workPlan}/>
-                            },
-                            {
-                                key: 2,
-                                value: lang.status,
-                                content: <StatusList workPlan={workPlan}/>
-                            },
-                            {
-                                key: 3,
-                                value: lang.goal,
-                                content: <GoalList workPlan={workPlan}/>
-                            }
-                        ]}
-                        setOpenTab={setOpenTab}
-                        openTab={openTab}
-                    />
                 </div>
             </div>
         )
