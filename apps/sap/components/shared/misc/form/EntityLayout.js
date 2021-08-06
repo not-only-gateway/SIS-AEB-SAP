@@ -40,7 +40,7 @@ export default function EntityLayout(props) {
         <div ref={ref} className={styles.container} style={{height: height !== undefined ? height + 'px' : 'auto'}}>
             <div className={styles.headerContainer} style={{display: props.noHeader ? 'none' : undefined}}>
                 <div className={styles.header}>
-                    <button className={[styles.returnButton, styles.buttonContainer].join(' ')}
+                    <button className={styles.buttonContainer}
                             style={{display: props.returnButton ? undefined : 'none'}}
                             onClick={() => props.handleClose()}>
                         <ArrowBackRounded/>

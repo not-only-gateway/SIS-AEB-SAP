@@ -48,7 +48,6 @@
     font-size: .9rem;
     color: #393C44;
     font-weight: bold;
-    font-family: Roboto;
     text-align: center;
 }
 .mainPage{
@@ -56,6 +55,8 @@
 }
 .pageButton{
     width: fit-content;
+
+    min-width: unset;
     height: 100%;
     outline: none;
     border: none;

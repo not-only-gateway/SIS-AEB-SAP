@@ -13,7 +13,7 @@ export default function Objectives(props){
     const [open, setOpen] = useState(false)
 
     return (
-        <>
+        <div style={{width: '100%'}}>
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <ObjectiveForm
@@ -57,14 +57,14 @@ export default function Objectives(props){
                     clickEvent={() => setOpen(true)}
                     setEntity={entity => {
                         setCurrentEntity(entity)
-                    }} searchFieldName={'search_input'} title={'Objetivos'} scrollableElement={'scrollableDiv'}
+                    }} searchFieldName={'search_input'} title={'Marcos do projeto'} scrollableElement={'scrollableDiv'}
                     fetchSize={15}
                     fetchParams={{
                         project: props.project.id
                     }}
                 />
             </div>
-        </>
+        </div>
     )
 }
 Objectives.propTypes={

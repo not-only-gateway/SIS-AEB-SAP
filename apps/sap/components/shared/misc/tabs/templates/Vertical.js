@@ -15,7 +15,7 @@ export default function Vertical(props) {
                             disabled={button.disabled}
                             className={styles.button}
                             style={{
-                                border: props.openTab === button.key ? 'transparent 1px solid' : undefined,
+                                borderLeft: props.openTab === button.key ? '#0095ff 2px solid' : undefined,
                                 background: props.openTab === button.key ? '#E8F0FE' : undefined
                             }}
                         >

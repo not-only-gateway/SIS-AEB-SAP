@@ -12,6 +12,7 @@ import ProjectForm from "../components/index/ProjectForm";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
 import ProjectTeds from "../components/project/ProjectTeds";
 import {ArrowBackIos, HomeRounded} from "@material-ui/icons";
+import Project from "../components/project/Project";
 
 export default function project(props) {
     const lang = ProjectPT
@@ -64,17 +65,7 @@ export default function project(props) {
                                 key: 0,
                                 value: lang.project,
                                 content: (
-                                    <ProjectForm
-                                        returnToMain={() => {
-                                            null
-                                        }}
-                                        handleChange={event => handleObjectChange({
-                                            event: event,
-                                            setData: setProject
-                                        })} id={project.id}
-                                        create={false}
-                                        data={project}
-                                    />
+                                    <Project setProject={setProject} project={project}/>
                                 )
                             },
 
@@ -82,16 +73,6 @@ export default function project(props) {
                                 key: 1,
                                 value: lang.teds,
                                 content: <ProjectTeds project={project}/>
-                            },
-                            {
-                                key: 2,
-                                value: lang.objectives,
-                                content: <Objectives project={project}/>
-                            },
-                            {
-                                key: 3,
-                                value: lang.risks,
-                                content: <Risks project={project}/>
                             }
                         ]}
                         setOpenTab={setOpenTab}

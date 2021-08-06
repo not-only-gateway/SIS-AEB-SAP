@@ -1,13 +1,13 @@
 export default {
     pageTitle: 'SIS-AEB / SAP',
     name: 'Nome',
-    project: 'Projeto',
-    objectives: 'Objetivos',
+    project: 'Projeto / atividade',
+    objectives: 'Marcos',
     risks: 'Riscos',
-    edit: 'Editar Projeto',
+    edit: 'Editar projeto / atividade',
     teds: 'Teds',
 
-    objectiveTitle: 'Objetivo',
+    objectiveTitle: 'Marco do projeto',
     risksTitle: 'Risco',
     description: 'Descrição',
     analysis: 'Análise',
@@ -25,10 +25,11 @@ export default {
     sponsor: 'Patrocinador',
     stakeholders: 'Stakeholders',
     other: 'Patrocinadores',
-    title: 'Novo projeto',
+    title: 'Novo projeto / atividade',
 
-    projects: 'Projetos',
+    projects: 'Projetos / Atividades',
 
     workPlan: 'Planos de trabalho',
-
+    riskOptions: [{key: 'alto', value: 'Alto'},{key: 'moderado', value: 'Moderado'},{key: 'baixo', value: 'Baixo'}],
+    projectTypes:[{key: 'projeto', value: 'Projeto'},{key: 'atividade', value: 'Atividade'}],
 }

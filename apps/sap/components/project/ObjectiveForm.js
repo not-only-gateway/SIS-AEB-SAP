@@ -53,7 +53,7 @@ export default function ObjectiveForm(props) {
                                     props.handleChange({name: 'description', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.description}
                                 required={true}
-                                width={'calc(50% - 16px)'}
+                                width={'100%'}
                             />
 
                             <DateField
@@ -66,7 +66,7 @@ export default function ObjectiveForm(props) {
                                 value={
                                     props.data === null ? null : props.data.deadline
                                 }
-                                required={true} width={'calc(50% - 16px)'}/>
+                                required={true} width={'100%'}/>
 
                         </>
 

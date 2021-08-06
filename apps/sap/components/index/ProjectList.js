@@ -65,7 +65,7 @@ export default function ProjectList(props) {
                             props.setOpen(true)
                         } else
                             props.redirect(entity.id)
-                    }} searchFieldName={'search_input'} title={'Projetos'} scrollableElement={'scrollableDiv'}
+                    }} searchFieldName={'search_input'} title={'Projetos / Atividades'} scrollableElement={'scrollableDiv'}
                     fetchSize={15}
                 />
             </div>

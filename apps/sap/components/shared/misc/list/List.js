@@ -34,11 +34,10 @@ export default function List(props) {
     return (
         <div style={{
             display: 'grid',
-            marginTop: '10px',
             width: '100%',
 
             background: 'white',
-            padding: '0 16px 16px 16px',
+            padding: '0 32px 8px 32px',
             borderRadius: '5px'
         }}>
             <div className={styles.headerContainer}>
@@ -62,7 +61,7 @@ export default function List(props) {
                 }
             </div>
             {props.createOption ? <ListContent create={true} createOptionLabel={props.createOptionLabel} lang={lang}
-                                               setEntity={() => props.setEntity(null)}
+                                               setEntity={() => props.setEntity(null)} dataLength={data.length}
                                                clickEvent={props.clickEvent} entity={null}/> : null}
 
             {data !== undefined && Array.isArray(data) && data.length > 0 ?

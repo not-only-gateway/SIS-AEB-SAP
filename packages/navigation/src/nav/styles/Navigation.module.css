@@ -120,7 +120,7 @@
 
 .navigationTabsContainer {
     overflow: hidden;
-    width: 45px;
+    width: 60px;
     transition: 150ms linear;
     background: white;
     box-shadow: rgba(0, 0, 0, 0.05) 0 0 0 1px;

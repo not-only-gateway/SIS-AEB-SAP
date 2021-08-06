@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import PropTypes from 'prop-types'
-import {TextField} from "sis-aeb-inputs";
+import {DropDownField, TextField} from "sis-aeb-inputs";
 import {Alert} from "sis-aeb-misc";
 import ProjectPT from "../../packages/locales/ProjectPT";
 import submitProject from "../../utils/submit/SubmitProject";
@@ -50,10 +50,10 @@ export default function ProjectForm(props) {
                         setStatus: setStatus,
                         create: props.create
                     }).then(res => {
-                        if(res !== null && props.create)
+                        if (res !== null && props.create)
                             props.redirect(res)
 
-                        if(!props.create && res)
+                        if (!props.create && res)
                             setChanged(false)
                     })}
                 handleClose={() => props.returnToMain()}
@@ -68,18 +68,8 @@ export default function ProjectForm(props) {
                                     props.handleChange({name: 'name', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.name}
                                 required={true}
-                                width={'calc(33.333% - 21.35px)'}/>
+                                width={'calc(33.333% - 21.5px)'}/>
 
-
-                            <TextField
-
-                                placeholder={lang.description} label={lang.description}
-                                handleChange={event => {
-                                    setChanged(true)
-                                    props.handleChange({name: 'description', value: event.target.value})
-                                }} locale={props.locale} value={props.data === null ? null : props.data.description}
-                                required={true}
-                                width={'calc(33.333% - 21.35px)'}/>
 
                             <TextField
                                 type={'number'}
@@ -89,10 +79,27 @@ export default function ProjectForm(props) {
                                     props.handleChange({name: 'estimated_value', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.estimated_value}
                                 required={true}
-                                width={'calc(33.333% - 21.35px)'}/>
-
+                                width={'calc(33.333% - 21.5px)'}/>
+                            <DropDownField
+                                dark={true}
+                                placeholder={lang.type}
+                                label={lang.type}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'type', value: event})
+                                }} value={props.data === null ? null : props.data.type} required={true}
+                                width={'calc(33.333% - 21.5px)'} choices={lang.projectTypes}/>
                             <TextField
-
+                                variant={'area'}
+                                placeholder={lang.description} label={lang.description}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'description', value: event.target.value})
+                                }} locale={props.locale} value={props.data === null ? null : props.data.description}
+                                required={true}
+                                width={'100%'}/>
+                            <TextField
+                                variant={'area'}
                                 placeholder={lang.objectives}
                                 label={lang.objectives}
                                 handleChange={event => {
@@ -101,16 +108,17 @@ export default function ProjectForm(props) {
                                 }} locale={props.locale} value={props.data === null ? null : props.data.objectives}
                                 required={true} width={'100%'}/>
                             <TextField
-
+                                variant={'area'}
                                 placeholder={lang.scope}
                                 label={lang.scope}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'scope', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.scope}
-                                required={true} width={'calc(33.333% - 21.35px)'}/>
-                            <TextField
+                                required={true} width={'100%'}/>
 
+                            <TextField
+                                variant={'area'}
                                 placeholder={lang.criticalFactors}
                                 label={lang.criticalFactors}
                                 handleChange={event => {
@@ -118,106 +126,78 @@ export default function ProjectForm(props) {
                                     props.handleChange({name: 'critical_factors', value: event.target.value})
                                 }} locale={props.locale}
                                 value={props.data === null ? null : props.data.critical_factors}
-                                required={true} width={'calc(33.333% - 21.35px)'}/>
+                                required={true} width={'100%'}/>
+
 
                             <TextField
 
-                                placeholder={lang.type}
-                                label={lang.type}
+                                placeholder={lang.responsible}
+                                label={lang.responsible}
                                 handleChange={event => {
                                     setChanged(true)
-                                    props.handleChange({name: 'type', value: event.target.value})
-                                }} locale={props.locale} value={props.data === null ? null : props.data.type}
-                                required={true} width={'calc(33.333% - 21.35px)'}/>
+                                    props.handleChange({name: 'responsible', value: event.target.value})
+                                }} locale={props.locale}
+                                value={props.data === null ? null : props.data.responsible}
+                                required={true} width={'calc(50% - 16px)'}/>
+
+                            <TextField
+                                placeholder={lang.manager}
+                                label={lang.manager}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'manager', value: event.target.value})
+                                }} locale={props.locale} value={props.data === null ? null : props.data.manager}
+                                required={true} width={'calc(50% - 16px)'}/>
+
+
+                            <TextField
+                                variant={'area'}
+                                placeholder={lang.publicTeam}
+                                label={lang.publicTeam}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'public_sector_team', value: event.target.value})
+                                }} locale={props.locale}
+                                value={props.data === null ? null : props.data.public_sector_team}
+                                required={true}
+                                width={'100%'}/>
+                            <TextField
+                                variant={'area'}
+                                placeholder={lang.privateTeam}
+                                label={lang.privateTeam}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'private_sector_team', value: event.target.value})
+                                }} locale={props.locale}
+                                value={props.data === null ? null : props.data.private_sector_team}
+                                required={true}
+                                width={'100%'}/>
+
+                            <TextField
+                                variant={'area'}
+                                placeholder={lang.sponsor} label={lang.sponsor}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'sponsor', value: event.target.value})
+                                }} locale={props.locale} value={props.data === null ? null : props.data.sponsor}
+                                required={true}
+                                width={'100%'}/>
+
+                            <TextField
+                                variant={'area'}
+                                placeholder={lang.stakeholders}
+                                label={lang.stakeholders}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'stakeholders', value: event.target.value})
+                                }} locale={props.locale}
+                                value={props.data === null ? null : props.data.stakeholders}
+                                required={true} width={'100%'}/>
+
 
                         </>
-
                     )
-                },
-                    {
-                        title: lang.control,
-                        child: (
-                            <>
-
-
-                                <TextField
-
-                                    placeholder={lang.responsible}
-                                    label={lang.responsible}
-                                    handleChange={event => {
-                                        setChanged(true)
-                                        props.handleChange({name: 'responsible', value: event.target.value})
-                                    }} locale={props.locale}
-                                    value={props.data === null ? null : props.data.responsible}
-                                    required={true} width={'calc(50% - 16px)'}/>
-
-                                <TextField
-                                    placeholder={lang.manager}
-                                    label={lang.manager}
-                                    handleChange={event => {
-                                        setChanged(true)
-                                        props.handleChange({name: 'manager', value: event.target.value})
-                                    }} locale={props.locale} value={props.data === null ? null : props.data.manager}
-                                    required={true} width={'calc(50% - 16px)'}/>
-
-
-
-
-                                <TextField
-
-                                    placeholder={lang.publicTeam}
-                                    label={lang.publicTeam}
-                                    handleChange={event => {
-                                        setChanged(true)
-                                        props.handleChange({name: 'public_sector_team', value: event.target.value})
-                                    }} locale={props.locale}
-                                    value={props.data === null ? null : props.data.public_sector_team}
-                                    required={true}
-                                    width={'calc(50% - 16px)'}/>
-                                <TextField
-
-                                    placeholder={lang.privateTeam}
-                                    label={lang.privateTeam}
-                                    handleChange={event => {
-                                        setChanged(true)
-                                        props.handleChange({name: 'private_sector_team', value: event.target.value})
-                                    }} locale={props.locale}
-                                    value={props.data === null ? null : props.data.private_sector_team}
-                                    required={true} width={'calc(50% - 16px)'}/>
-
-
-                            </>
-                        )
-                    },
-                    {
-                        title: lang.other,
-                        child: (
-                            <>
-                                <TextField
-
-                                    placeholder={lang.sponsor} label={lang.sponsor}
-                                    handleChange={event => {
-                                        setChanged(true)
-                                        props.handleChange({name: 'sponsor', value: event.target.value})
-                                    }} locale={props.locale} value={props.data === null ? null : props.data.sponsor}
-                                    required={true}
-                                    width={'calc(50% - 16px)'}/>
-
-                                <TextField
-
-                                    placeholder={lang.stakeholders}
-                                    label={lang.stakeholders}
-                                    handleChange={event => {
-                                        setChanged(true)
-                                        props.handleChange({name: 'stakeholders', value: event.target.value})
-                                    }} locale={props.locale}
-                                    value={props.data === null ? null : props.data.stakeholders}
-                                    required={true} width={'calc(50% - 16px)'}/>
-
-
-                            </>
-                        )
-                    }
+                }
                 ]}/>
         </>
     )

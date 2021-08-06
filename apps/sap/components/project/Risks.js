@@ -13,7 +13,7 @@ export default function Risks(props) {
     const [open, setOpen] = useState(false)
 
     return (
-        <>
+        <div style={{width: '100%'}}>
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <RiskForm
@@ -60,7 +60,7 @@ export default function Risks(props) {
                     }}
           />
             </div>
-        </>
+        </div>
     )
 }
 Risks.propTypes = {

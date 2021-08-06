@@ -14,7 +14,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    height: 56px;
+    height: auto;
 
 }
 
@@ -22,7 +22,7 @@
     border-radius: 5px;
     border: #ecedf2 1px solid;
     box-shadow: unset;
-    transition: 150ms ease-in-out;
+    transition: box-shadow 150ms linear, border 150ms linear, background 150ms linear;
     background: white;
     width: 100%;
     font-family: 'Roboto' !important;

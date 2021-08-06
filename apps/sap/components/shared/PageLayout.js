@@ -12,7 +12,6 @@ import CollaboratorRequests from "../../utils/fetch/CollaboratorRequests";
 import PersonRequests from "../../utils/fetch/PersonRequests";
 import {Navigation} from "sis-aeb-navigation";
 
-
 const cookies = new Cookies()
 
 export default function PageLayout(props) {
