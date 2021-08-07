@@ -1,0 +1,292 @@
+.container {
+    background: white;
+
+
+    position: absolute;
+    right:0;
+    top: 40px;
+    z-index: 999;
+    overflow-x: hidden;
+    width: 400px;
+    border-left: #ecedf2 1px solid;
+    /*box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;*/
+    height: calc(100% - 75px);
+
+    padding: 16px;
+
+    animation: slideIn 300ms ease;
+
+    overflow-y: auto;
+    display: block;
+    user-select: none;
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+.exitAnimation{
+    animation: slideOut 300ms ease;
+}
+@keyframes slideOut {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+.header {
+    width: 100%;
+    display: grid;
+    gap: 16px;
+}
+
+
+.footer {
+    border-top: #e0e0e0 1px solid;
+    display: grid;
+    justify-content: flex-start;
+    padding: 16px;
+    gap: 8px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+}
+
+
+.buttonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    outline: none;
+    background: white;
+    color: #777777;
+    border-radius: 50%;
+    border: none;
+
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    transition: 150ms linear;
+}
+
+.buttonContainer:hover {
+    color: #0095ff;
+    background: #E8F0FE;
+}
+
+
+.saveButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    outline: none;
+    background: #0095ff;
+    color: white;
+    border-radius: 5px;
+    border: none;
+
+    cursor: pointer;
+
+    height: 35px;
+    margin-top: 16px;
+    transition: 150ms linear;
+}
+
+.saveButton:hover {
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.saveButton:active {
+    box-shadow: none;
+}
+
+.saveButton:disabled {
+    cursor: unset;
+    color: #999999;
+    background: white;
+    box-shadow: none;
+    border: #ecedf2 1px solid;
+}
+
+.dragHeader {
+    font-family: Roboto;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 8px;
+    background: #F8F8FC;
+    border-radius: 5px 5px 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 35px;
+    cursor: move;
+    color: #555555;
+    transition: 150ms linear;
+}
+.dragHeader:active{
+    color: #0095ff;
+}
+.closeButtonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    outline: none;
+    background: transparent;
+    color: #777777;
+
+    border: none;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    transition: 150ms linear;
+}
+
+.closeButtonContainer:hover {
+    color: #0095ff;
+    background: #D4D7ED;
+}
+
+.input {
+    font-family: Roboto;
+    border: none;
+    outline: none;
+    background: transparent;
+    border-bottom: #ecedf2 1px solid;
+    border-radius: 5px 5px 0 0;
+    transition: 150ms linear;
+    padding: 8px 4px;
+    resize: vertical;
+}
+
+.input:hover {
+    border-bottom: #0095ff 1px solid;
+}
+
+.input:focus-within, .input:focus {
+    border-bottom: #0095ff 1px solid;
+    background: #E8F0FE;
+}
+
+.inputTitle {
+    font-size: 1.05rem;
+    font-weight: bold;
+    color: #393C44;
+}
+
+.inputBody {
+    border: #ecedf2 1px solid;
+    border-radius: 5px;
+    width: 100%;
+    font-size: .9rem;
+    font-family: Roboto;
+    color: #393C44;
+}
+
+.uploadButton{
+    width: 100%;
+    border-radius:5px;
+    border: #ecedf2 1px solid;
+    background: white;
+    font-family: Roboto;
+    color: #777777;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 8px;
+
+    transition: 150ms linear;
+
+}
+
+.uploadButtonWFile:hover{
+    border: #ff5555 1px solid;
+    background: #E8F0FE;
+    color: #ff5555;
+}
+.uploadButtonNoFile:hover{
+    border: #0095ff 1px solid;
+    background: #E8F0FE;
+    color: #0095ff;
+}
+.uploadButton:disabled{
+    border: #ecedf2 1px solid;
+    background: white;
+    cursor: unset;
+    color: #777777;
+}
+
+.fieldSetContainer{
+    outline: none;
+    border-radius: 5px;
+    border: #ecedf2 1px solid;
+    display: grid;
+    gap: 16px;
+    padding-top: 0;
+}
+.fieldSetContainer > legend{
+    padding-left: 8px;
+    padding-right: 8px;
+    color: #393C44;
+
+}
+.fieldContainer{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    width: 100%;
+}
+.fieldContainer > label{
+    font-size: .85rem;
+    color: #333333;
+}
+.dropdown{
+    border-radius: 5px;
+    border: #ecedf2 1px solid;
+    width: 100%;
+
+}
+.dropdown:focus,.dropdown:focus-within, .dropdown:active{
+    background: #E8F0FE;
+    border: #ecedf2 1px solid;
+}
+
+.dropdown > option{
+    position: absolute;
+    background-color: white;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    border-radius: 5px;
+    border: #ecedf2 1px solid;
+}
+.overflowEllipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+}
+.colorPicker{
+    width: 100%;
+    border-radius: 5px;
+    border: #ecedf2 1px solid;
+    padding: 8px;
+}

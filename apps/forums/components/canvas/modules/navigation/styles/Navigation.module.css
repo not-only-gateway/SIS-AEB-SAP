@@ -1,0 +1,70 @@
+.navigation {
+    height: 40px;
+    width: 100%;
+    background: white;
+
+    padding: 4px;
+    display: flex;
+
+    align-items: center;
+}
+
+.column {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    align-items: center;
+}
+
+
+.textField {
+    box-sizing: border-box;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: Roboto;
+    color: #393C44;
+    border: none;
+    width: 40%;
+    padding: 4px;
+    background: white;
+    outline: none;
+
+    transition: 150ms linear;
+    display: flex;
+    align-items: center;
+
+}
+.textField:hover {
+    background: #f4f5fa;
+}
+.textField:focus, .textField:focus-within {
+    background: #E8F0FE;
+}
+
+.buttonContainer {
+    height: 100%;
+    outline: none;
+    border: transparent 1px solid;
+    background: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: Roboto;
+    color: #555555;
+    cursor: pointer;
+    transition: 150ms linear;
+    border-radius: 5px;
+}
+
+.buttonContainer:hover {
+    background: #E8F0FE;
+
+}
+
+.buttonContainer:disabled {
+    background: white;
+
+    color: #999999;
+    cursor: unset;
+}

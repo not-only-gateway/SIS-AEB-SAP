@@ -1,0 +1,72 @@
+
+.stickyZone {
+    display: none;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 100;
+    user-select: none;
+    height: calc(100% - 32px);
+    width: 400px;
+    background: rgba(224, 224, 224, .5);
+    border: #e0e0e0 4px solid;
+    border-radius: 8px;
+    transition: 150ms linear;
+}
+
+.stickyZone:hover, .stickyZone:focus {
+    background: rgba(0, 149, 255, .5);
+    border: #0095ff 4px solid;
+}
+
+.context{
+    position: absolute;
+    background: white;
+    border-radius: 5px;
+    width: 300px;
+    min-height: 40px;
+    animation: popIn 250ms ease;
+}
+.exitAnimation{
+    animation: popOut 250ms ease;
+}
+@keyframes popOut {
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+@keyframes popIn {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+.contextButton{
+    width: 100%;
+    min-height: 40px;
+    outline: none;
+    background: transparent;
+    transition: 150ms linear;
+    border: none;
+    color: #393C44;
+    font-weight: bold;
+    font-size: .9rem;
+    cursor: pointer;
+}
+.contextButton:hover{
+    background: #f4f5fa;
+}
+.contextButton:active{
+    background: #E8F0FE;
+    color: #0095ff;
+ }
+.contextButton:disabled{
+    background: transparent;
+    color: #999999;
+    cursor: unset;
+}

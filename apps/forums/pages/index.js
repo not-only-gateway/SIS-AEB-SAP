@@ -1,19 +1,13 @@
 import React from 'react'
 import Head from "next/head";
-import IndexPT from "../packages/locales/IndexPT";
-
-import Canvas from "../components/shared/canvas/Canvas";
+import Canvas from "../components/canvas/Canvas";
 import Cookies from "universal-cookie/lib";
 import 'typeface-roboto'
 export default function index(props) {
-    const lang = IndexPT
 
     return (
-        <>
-            <Head>
-                <title>{lang.title}</title>
-                <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
-            </Head>
+
+
             <Canvas
                 options={{
                     move: (new Cookies()).get('jwt') !== undefined,
@@ -24,6 +18,5 @@ export default function index(props) {
                     null
                 }}
             />
-        </>
     )
 }

@@ -46,31 +46,30 @@ a {
     text-rendering: optimizeLegibility;
     box-sizing: border-box;
     : 1px;
-    font-family: 'Roboto' !important;
     scroll-behavior: smooth;
 }
 
 /* width */
 ::-webkit-scrollbar {
-
-    width: 7px;
-    height: 7px;
+    width: 10px;
+    height: 10px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: transparent;
+    background: #f1f1f1;
+    border-radius: 8px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    transition: 150ms linear;
-    background: rgba(0, 0, 0, .2);
+    background: #888;
     border-radius: 8px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, .4);
+    background-color: #555;
     border-radius: 8px;
 }
+

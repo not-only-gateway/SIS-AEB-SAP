@@ -1,0 +1,150 @@
+.tabsContainer {
+    width: 100%;
+}
+
+.tabNavigation {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    border-bottom: #e0e0e0 1px solid;
+}
+
+.tabButtonContainer {
+    cursor: pointer;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px 5px 0 0;
+    font-size: .95rem;
+    font-weight: bold;
+    color: #666666;
+    transition: 200ms linear;
+}
+
+.tabButtonContainer:hover {
+    background: #E8F0FE;
+}
+
+.contentContainer {
+    margin-top: 16px;
+    width: 100%;
+}
+
+.options {
+    display: grid;
+    gap: 4px;
+}
+
+.helpContainer {
+    width: 100%;
+    border: #ecedf2 1px solid;
+    border-radius: 5px;
+    background: white;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 8px 8px 16px;
+    color: #555555;
+    transition: 150ms linear;
+    font-family: Roboto;
+    font-size: .8rem;
+}
+
+
+.container {
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-self: stretch;
+    position: relative;
+
+}
+
+.buttons {
+    align-self: stretch;
+    display: grid;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
+    background: white;
+    gap: 8px;
+    width: 60px;
+    padding: 4px;
+
+    position: relative;
+    z-index: 999;
+}
+
+
+.button {
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    background: white;
+    outline: none;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #555555;
+    font-size: .8rem;
+    transition: 150ms linear;
+    position: sticky;
+    top: 0;
+
+}
+
+.button:hover {
+    background-color: #f4f5fa;
+}
+
+.button:disabled {
+    color: #999999;
+    background: white;
+    cursor: unset;
+}
+
+.content {
+    position: absolute;
+    right: calc(-100% - 240px);
+    height: 100%;
+    width: 300px;
+    top: 0;
+
+    z-index: 888;
+    /*transform: translateX(-100%);*/
+
+    background: white;
+    animation: slideIn 300ms ease forwards;
+}
+
+@keyframes slideIn {
+    0% {
+        z-index: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+
+        transform: translateX(0);
+    }
+}
+
+.exitAnim {
+    animation: slideOut 300ms ease forwards;
+    /*z-index: 0;*/
+}
+
+@keyframes slideOut {
+    from {
+
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
