@@ -3,7 +3,7 @@
     width: 100%;
     user-select: none;
     scroll-behavior: auto;
-    background: white;
+
 }
 .wrapper > * {
     font-family: Roboto !important;
@@ -14,15 +14,15 @@
     background: #f4f5fa;
     overflow: hidden;
     position: relative;
-    display: block;
+    padding: 4px;
 }
 
 
 
 .header {
-    grid-row: 1;
-    width: 100%;
 
+    width: 100%;
+    align-self: stretch;
     background: white;
     border-bottom: #E8F0EF 1px solid;
 }
@@ -128,26 +128,26 @@
 }
 
 .canvasBackground {
-    background: #f4f5fa radial-gradient(#d5d5d5 1.5px, transparent 0);
+    background: white radial-gradient(#d5d5d5 1.5px, transparent 0);
     background-size: 20px 20px;
-
-
     position: absolute;
-
     top: 0;
     left: 0;
-
 }
 
 .canvasContainer {
     transition: 150ms linear;
-    overflow: auto;
+    overflow: hidden;
     position:relative;
     width: 100%;
+
+
     background: white;
     align-self: stretch;
     cursor: default;
     scroll-behavior: auto;
     border-radius: 10px;
-
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+    padding: 50px;
 }
+

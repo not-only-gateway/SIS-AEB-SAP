@@ -3,9 +3,10 @@
     width: 100%;
     background: white;
 
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
     padding: 4px;
     display: flex;
-
+    border-radius: 8px;
     align-items: center;
 }
 
@@ -21,7 +22,8 @@
     box-sizing: border-box;
     border-radius: 8px;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 1.1rem;
+
     font-family: Roboto;
     color: #393C44;
     border: none;
@@ -29,6 +31,7 @@
     padding: 4px;
     background: white;
     outline: none;
+    height: 100%;
 
     transition: 150ms linear;
     display: flex;

@@ -116,13 +116,13 @@ export default function Canvas(props) {
                     handlePrint={handlePrint}
                 />
 
-                <div style={{display: 'flex', height: 'calc(100% - 75px)', background: 'white'}}>
+                <div style={{height: 'calc(100% - 75px)', display: 'flex',  columnGap: '8px', padding: '4px', width: '100%'}}>
 
-                    {/*<SideBar*/}
-                    {/*    root={root.current}*/}
-                    {/*    data={data} scale={scale}*/}
-                    {/*    setState={setData} contextMenuRef={contextMenuRef.current}*/}
-                    {/*/>*/}
+                    <SideBar
+                        root={root.current}
+                        data={data} scale={scale}
+                        setState={setData} contextMenuRef={contextMenuRef.current}
+                    />
 
                     <div
                         ref={root} className={styles.canvasContainer}
@@ -166,8 +166,12 @@ export default function Canvas(props) {
 
                     {renderOverview()}
                 </div>
-                <Footer scale={scale} setScale={setScale} data={data} setData={setData}
-                        contextMenuRef={contextMenuRef.current}/>
+
+                <Footer
+                    scale={scale} setScale={setScale}
+                    data={data} setData={setData}
+                    contextMenuRef={contextMenuRef.current}
+                />
             </div>
         </div>
     )
