@@ -4,15 +4,17 @@ import {useEffect, useRef, useState} from "react";
 import ReactDOM from 'react-dom'
 
 export default function Context(props) {
-    const ref = useRef()
 
     const element = (
         <div
-            className={styles.context} ref={ref}
+            className={styles.context} id={'context-menu'}
         >
             {props.buttons.map(button => (
                 <button onClick={() => button.onClick()} disabled={button.disabled} className={styles.contextButton}>
-                    {button.label}
+                    {button.icon}
+                    <div style={{color: '#393C44'}}>
+                        {button.label}
+                    </div>
                 </button>
             ))}
         </div>
@@ -20,29 +22,30 @@ export default function Context(props) {
 
     )
     const unmount = () => {
+        const el = document.getElementById('context-menu')
+        el?.classList.remove(styles.exitAnimation)
+
         try {
             ReactDOM.unmountComponentAtNode(props.contextMenuRef)
-
         } catch (e) {
         }
         document.removeEventListener('mousedown', listener)
         props.handleClose()
     }
     const listener = (event) => {
+        const el = document.getElementById('context-menu')
         if (typeof event.target.className !== 'string' || !event.target.className.includes('Styles_contextButton')) {
-            ref.current.classList.add(styles.exitAnimation)
-            ref.current.addEventListener('animationend', () => {
-                console.log(ref.current.className)
-                unmount()
-            }, {
-                once: true
-            })
-        }
-
+            el?.classList.add(styles.exitAnimation)
+            el?.addEventListener('animationend', unmount, {once: true})
+        } else
+            el?.classList.remove(styles.exitAnimation)
     }
     useEffect(() => {
+        try {
+            ReactDOM.unmountComponentAtNode(props.contextMenuRef)
+        } catch (e) {
+        }
         if (props.render) {
-            unmount()
             ReactDOM.render(
                 element,
                 props.contextMenuRef
@@ -61,7 +64,8 @@ Context.propTypes = {
     buttons: PropTypes.arrayOf(PropTypes.shape({
         label: PropTypes.any,
         onClick: PropTypes.func,
-        disabled: PropTypes.bool
+        disabled: PropTypes.bool,
+        icon: PropTypes.object
     })),
     render: PropTypes.bool,
     contextMenuRef: PropTypes.object,

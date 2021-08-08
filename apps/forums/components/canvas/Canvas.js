@@ -116,13 +116,13 @@ export default function Canvas(props) {
                     handlePrint={handlePrint}
                 />
 
-                <div style={{display: 'flex', height: 'calc(100% - 75px)'}}>
+                <div style={{display: 'flex', height: 'calc(100% - 75px)', background: 'white'}}>
 
-                    <SideBar
-                        root={root.current}
-                        data={data} scale={scale}
-                        setState={setData} contextMenuRef={contextMenuRef.current}
-                    />
+                    {/*<SideBar*/}
+                    {/*    root={root.current}*/}
+                    {/*    data={data} scale={scale}*/}
+                    {/*    setState={setData} contextMenuRef={contextMenuRef.current}*/}
+                    {/*/>*/}
 
                     <div
                         ref={root} className={styles.canvasContainer}

@@ -1,7 +1,7 @@
 import styles from "../styles/Footer.module.css";
 import {useRef, useState} from "react";
 import PropTypes from "prop-types";
-import {ArrowBackRounded} from "@material-ui/icons";
+import {ArrowBackRounded, DeleteForeverRounded, EditRounded, FileCopyRounded} from "@material-ui/icons";
 import Context from "../../misc/Context";
 
 export default function PageField(props) {
@@ -15,9 +15,9 @@ export default function PageField(props) {
             {openContext ?
                 <Context
                     buttons={[
-                        {label: 'Renomear', onClick: () => ref.current.focus()},
-                        {label: 'Duplicar', onClick: () => null},
-                        {label: 'Excluir', onClick: () => null}
+                        {label: 'Renomear', onClick: () => ref.current.focus(), icon: <EditRounded style={{fontSize: '1.2rem'}}/>},
+                        {label: 'Duplicar', onClick: () => null, icon: <FileCopyRounded style={{fontSize: '1.2rem'}}/>},
+                        {label: 'Excluir', onClick: () => null, icon: <DeleteForeverRounded style={{fontSize: '1.2rem'}}/>}
                     ]}
                     contextMenuRef={props.contextMenuRef}
                     render={openContext}
@@ -25,7 +25,6 @@ export default function PageField(props) {
                     handleClose={() => {
                         setEvent({})
                         setOpenContext(false)
-                        console.log('HERE')
                     }}
                 />
                 :

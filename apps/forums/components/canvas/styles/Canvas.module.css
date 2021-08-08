@@ -144,8 +144,7 @@
     overflow: auto;
     position:relative;
     width: 100%;
-
-    background: red;
+    background: white;
     align-self: stretch;
     cursor: default;
     scroll-behavior: auto;

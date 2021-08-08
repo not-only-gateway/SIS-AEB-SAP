@@ -69,9 +69,9 @@ export default function SideBar(props) {
                 <button
                     className={styles.button}
                     style={{
-                        color: openTab === 0 && !reduced ? '#0095ff' : undefined,
+                        borderRight: openTab === 0 && !reduced ? '#0095ff 2px solid' : undefined,
                         background: openTab === 0 && !reduced ? '#E8F0FE' : undefined,
-                        boxShadow: openTab === 0 && !reduced ? 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px' : undefined
+                        // boxShadow: openTab === 0 && !reduced ? 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px' : undefined
                     }}
                     onClick={() => {
                         if (!reduced) {
@@ -94,7 +94,7 @@ export default function SideBar(props) {
                 <button
                     className={styles.button}
                     style={{
-                        color: openTab === 1 && !reduced ? '#0095ff' : undefined,
+                        borderRight: openTab === 1 && !reduced ? '#0095ff 2px solid' : undefined,
                         background: openTab === 1 && !reduced ? '#E8F0FE' : undefined
                     }}
                     onClick={() => {

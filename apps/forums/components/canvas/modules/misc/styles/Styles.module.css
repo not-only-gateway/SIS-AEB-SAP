@@ -22,8 +22,8 @@
 .context{
     position: absolute;
     background: white;
-    border-radius: 5px;
-    width: 300px;
+    border-radius: 10px;
+    width: 250px;
     min-height: 40px;
     animation: popIn 250ms ease;
 }
@@ -53,10 +53,15 @@
     background: transparent;
     transition: 150ms linear;
     border: none;
-    color: #393C44;
-    font-weight: bold;
+    font-family: Roboto;
+    color: #575757;
     font-size: .9rem;
     cursor: pointer;
+
+    display: flex;
+    justify-items: flex-start;
+    align-items: center;
+    gap: 16px;
 }
 .contextButton:hover{
     background: #f4f5fa;
