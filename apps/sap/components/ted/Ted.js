@@ -6,7 +6,7 @@ import Tabs from "../shared/misc/tabs/Tabs";
 import ProjectPT from "../../packages/locales/ProjectPT";
 import PropTypes from 'prop-types'
 import TedPT from "../../packages/locales/TedPT";
-import TedForm from "../index/TedForm";
+import TedForm from "../shared/TedForm";
 import AddendumList from "./AddendumList";
 export default function Ted(props){
     const lang = TedPT
@@ -24,10 +24,7 @@ export default function Ted(props){
                                 returnToMain={() => {
                                     null
                                 }}
-                                handleChange={event => handleObjectChange({
-                                    event: event,
-                                    setData: props.setTed
-                                })} id={props.ted.id}
+                                handleChange={props.setTed} id={props.ted.id}
                                 create={false}
                                 data={props.ted}/>
                         )

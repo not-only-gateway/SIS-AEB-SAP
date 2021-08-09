@@ -15,7 +15,8 @@ export default function StageForm(props) {
         type: undefined, message: undefined
     })
     useEffect(() => {
-        props.handleChange({name: 'goal', value: props.goal.id})
+        if(props.create)
+         props.handleChange({name: 'goal', value: props.goal.id})
     }, [])
     return (
         <>
@@ -46,7 +47,11 @@ export default function StageForm(props) {
                         setStatus: setStatus,
                         create: props.create
                     }).then(res => {
-                        setChanged(!res)
+                        if (res !== null && props.create)
+                            props.redirect(res)
+
+                        if (!props.create && res)
+                            setChanged(false)
                     })}
                 handleClose={() => props.returnToMain()}
                 forms={[{

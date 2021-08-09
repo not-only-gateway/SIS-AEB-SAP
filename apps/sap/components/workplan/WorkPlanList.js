@@ -6,6 +6,7 @@ import animations from "../../styles/Animations.module.css";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import List from "../shared/misc/list/List";
 import WorkPlanForm from "./WorkPlanForm";
+import WorkPlanRequests from "../../utils/fetch/WorkPlanRequests";
 
 export default function WorkPlanList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -14,17 +15,20 @@ export default function WorkPlanList(props) {
     return (
         <>
             {!open ? null :
-                <div className={animations.fadeIn} style={{marginTop: '32px', marginBottom: '32px'}}>
+                <div className={animations.fadeIn}>
                     <WorkPlanForm
                         returnToMain={() => {
                             setOpen(false)
-                            props.setOpen(false)
-                        }} redirect={props.redirect}
+                        }} redirect={id => {
+                        WorkPlanRequests.fetchWorkPlan(id).then(res => {
+                            if (res !== null)
+                                props.setCurrentStructure('workPlan', res)
+                        })}}
                         handleChange={event => handleObjectChange({
                             event: event,
                             setData: setCurrentEntity
                         })}
-                        create={true}
+                        create={true} ted={props.ted}
                         data={currentEntity}/>
                 </div>
             }
@@ -62,9 +66,8 @@ export default function WorkPlanList(props) {
                     setEntity={entity => {
                         if (entity === null || entity === undefined) {
                             setOpen(true)
-                            props.setOpen(true)
                         } else
-                            props.redirect(entity.id)
+                            props.setCurrentStructure('workPlan', entity)
                     }} searchFieldName={'search_input'} title={'Planos de trabalho'} scrollableElement={'scrollableDiv'}
                     fetchSize={15}
                     fetchParams={{
@@ -76,6 +79,8 @@ export default function WorkPlanList(props) {
     )
 }
 WorkPlanList.propTypes = {
-    redirect: PropTypes.func,
-    ted: PropTypes.object
+    setCurrentStructure: PropTypes.func,
+    currentStructure: PropTypes.object,
+    ted: PropTypes.object,
+
 }

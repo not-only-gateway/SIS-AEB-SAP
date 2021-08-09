@@ -5,15 +5,17 @@
 
 .header {
     display: flex;
+    gap: 4px;
+    align-items: center;
     margin-top: 16px;
-    padding-top: 16px;
-    padding-bottom: 24px;
+    padding-top: 12px;
+    padding-bottom: 12px;
     margin-bottom: 8px;
     border-radius: 5px;
     background-color: white;
     padding-left: 8px;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
-
+    width: 100%;
 }
 
 .info {
@@ -53,10 +55,19 @@
     background: transparent;
     color: #777777;
     cursor: pointer;
+    /*max-width: 65%;*/
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .headerButton:hover {
     border-bottom: #e0e0e0 1px solid;
+}
+.headerButton:disabled {
+    color: #555555;
+    border-bottom: unset;
+    cursor: unset;
 }
 .title{
     font-weight: bold;

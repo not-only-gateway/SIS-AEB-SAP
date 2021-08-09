@@ -15,7 +15,7 @@ export default {
     estimatedValue: 'Valor estimado (R$)',
     scope: 'Escopo',
     criticalFactors: 'Fatores críticos',
-
+    ted: 'TED',
     type: 'Tipo',
     control: 'Gerentes',
     responsible: 'Responsável',
@@ -32,4 +32,7 @@ export default {
     workPlan: 'Planos de trabalho',
     riskOptions: [{key: 'alto', value: 'Alto'},{key: 'moderado', value: 'Moderado'},{key: 'baixo', value: 'Baixo'}],
     projectTypes:[{key: 'projeto', value: 'Projeto'},{key: 'atividade', value: 'Atividade'}],
+    infrastructure: 'Infraestruturas',
+    goals: 'Metas',
+    status: 'Status'
 }

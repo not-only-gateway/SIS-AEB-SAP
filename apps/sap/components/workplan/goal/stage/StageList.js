@@ -7,6 +7,7 @@ import List from "../../../shared/misc/list/List";
 import handleObjectChange from "../../../../utils/shared/HandleObjectChange";
 import Stage from "./Stage";
 import StageForm from "./StageForm";
+import WorkPlanRequests from "../../../../utils/fetch/WorkPlanRequests";
 
 
 export default function StageList(props) {
@@ -15,16 +16,24 @@ export default function StageList(props) {
 
     return (
         <>
-            { open ?
-                <Stage
+            {open ?
+                <StageForm
                     returnToMain={() => {
                         setOpen(false)
                         setCurrentEntity(null)
-                    }} open={open}
+                    }}
+                    open={open}
                     handleChange={event => handleObjectChange({
                         event: event,
                         setData: setCurrentEntity
                     })}
+                    redirect={id => {
+                        WorkPlanRequests.fetchStage(id).then(res => {
+                            console.log(res)
+                            if (res !== null)
+                                props.setCurrentStructure(res)
+                        })
+                    }}
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                     data={currentEntity} goal={props.goal}
                 />
@@ -55,8 +64,11 @@ export default function StageList(props) {
                     }}
                     clickEvent={() => null}
                     setEntity={entity => {
-                        setOpen(true)
-                        setCurrentEntity(entity)
+                        console.log(entity)
+                        if (entity !== null && entity !== undefined)
+                            props.setCurrentStructure(entity)
+                        else
+                            setOpen(true)
                     }} searchFieldName={'search_input'} title={'Etapas'} scrollableElement={'scrollableDiv'}
                     fetchSize={15}
                     fetchParams={{
@@ -68,5 +80,6 @@ export default function StageList(props) {
     )
 }
 StageList.propTypes = {
-    goal: PropTypes.object
+    goal: PropTypes.object,
+    setCurrentStructure: PropTypes.func
 }

@@ -2,7 +2,6 @@ import ProjectForm from "../index/ProjectForm";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import React, {useState} from "react";
 import Tabs from "../shared/misc/tabs/Tabs";
-import ProjectTeds from "./ProjectTeds";
 import Objectives from "./Objectives";
 import Risks from "./Risks";
 import ProjectPT from "../../packages/locales/ProjectPT";

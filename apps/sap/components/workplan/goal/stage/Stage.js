@@ -11,15 +11,10 @@ import {CloseRounded} from "@material-ui/icons";
 export default function Stage(props) {
     const lang = GoalPT
     const [openTab, setOpenTab] = useState(0)
+
     return (
-        props.create ?
-            <StageForm {...props}/>
-            :
-            <>
-                <button className={styles.closeButton} onClick={() => props.returnToMain()}>
-                    <CloseRounded/>
-                </button>
-                {props.data !== null && props.data !== undefined ? <Tabs
+
+               <Tabs
                     buttons={[
                         {
                             key: 0,
@@ -38,16 +33,15 @@ export default function Stage(props) {
                         }
                     ]}
                     setOpenTab={setOpenTab}
-                    openTab={openTab} type={'vertical'}
-                /> : null}
-            </>
+                    openTab={openTab}
+                />
+
     )
 }
 Stage.propTypes = {
     data: PropTypes.object,
     handleChange: PropTypes.func,
     returnToMain: PropTypes.func,
-    create: PropTypes.bool,
-    goal: PropTypes.object,
-    open: PropTypes.bool,
+
+    goal: PropTypes.object
 }

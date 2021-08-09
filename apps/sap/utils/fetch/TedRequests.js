@@ -20,7 +20,7 @@ export default class TedRequests {
         }).then(res => {
             response = res.data
         }).catch(error => {
-            console.log(error)
+            console.log(error.request)
         })
         return response
     }

@@ -25,6 +25,34 @@ export default class WorkPlanRequests {
         return response
     }
 
+    static async fetchStage(pk) {
+        let response = null
+        await axios({
+            method: 'get',
+            url: Host() + 'activity/' + pk,
+            headers: {'authorization': jwt}
+        }).then(res => {
+            response = res.data
+        }).catch(error => {
+            console.log(error)
+        })
+        return response
+    }
+
+    static async fetchGoal(pk) {
+        let response = null
+        await axios({
+            method: 'get',
+            url: Host() + 'work_plan_goal/' + pk,
+            headers: {'authorization': jwt}
+        }).then(res => {
+            response = res.data
+        }).catch(error => {
+            console.log(error)
+        })
+        return response
+    }
+
     static async submitInfrastructure(submitProps) {
         let response = false
         let data = {}
@@ -78,7 +106,9 @@ export default class WorkPlanRequests {
     }
 
     static async submitGoal(submitProps) {
-        let response = false
+
+        let response = submitProps.create ? null : false
+
 
         await axios({
             method: submitProps.create ? 'post' : 'put',
@@ -90,15 +120,17 @@ export default class WorkPlanRequests {
                 type: 'success',
                 message: res.status + ' - ' + res.statusText,
             })
-            response = true
+            response = submitProps.create ? res.data.id : true
         }).catch(error => {
             submitProps.setStatus({
                 type: 'error',
                 message: error.message
             })
+            console.log(error.response)
         })
         return response
     }
+
 
     static async submitComponent(submitProps) {
         let response = false
@@ -124,7 +156,9 @@ export default class WorkPlanRequests {
     }
 
     static async submitStage(submitProps) {
-        let response = false
+
+        let response = submitProps.create ? null : false
+
 
         await axios({
             method: submitProps.create ? 'post' : 'put',
@@ -136,12 +170,13 @@ export default class WorkPlanRequests {
                 type: 'success',
                 message: res.status + ' - ' + res.statusText,
             })
-            response = true
+            response = submitProps.create ? res.data.id : true
         }).catch(error => {
             submitProps.setStatus({
                 type: 'error',
                 message: error.message
             })
+            console.log(error.response)
         })
         return response
     }

@@ -10,13 +10,14 @@ import GoalPT from "../../../packages/locales/GoalPT";
 export default function Goal(props) {
     const lang = GoalPT
     const [openTab, setOpenTab] = useState(0)
+
     return (
-        props.create ? <GoalForm {...props}/> :
+
             <Tabs
                 buttons={[
                     {
                         key: 0,
-                        value: props.data.goal_number,
+                        value: lang.goal,
                         content: (
                             <div style={{width: '100%'}}>
                                 <GoalForm {...props}/>
@@ -26,7 +27,7 @@ export default function Goal(props) {
                         key: 1,
                         value: lang.stages,
                         content: <div style={{width: '100%'}}>
-                            <StageList goal={props.data}/>
+                            <StageList goal={props.data} setCurrentStructure={props.setCurrentStructure}/>
                         </div>
                     }
                 ]}
@@ -40,6 +41,6 @@ Goal.propTypes = {
     data: PropTypes.object,
     handleChange: PropTypes.func,
     returnToMain: PropTypes.func,
-    create: PropTypes.bool,
+    setCurrentStructure: PropTypes.func,
     workPlan: PropTypes.object
 }

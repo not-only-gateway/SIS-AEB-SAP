@@ -13,7 +13,8 @@ export default function GoalForm(props) {
         type: undefined, message: undefined
     })
     useEffect(() => {
-        props.handleChange({name: 'work_plan', value: props.workPlan.id})
+        if (props.create)
+                props.handleChange({name: 'work_plan', value: props.workPlan.id})
     }, [])
     return (
         <>
@@ -44,7 +45,11 @@ export default function GoalForm(props) {
                         setStatus: setStatus,
                         create: props.create
                     }).then(res => {
-                        setChanged(!res)
+                        if (res !== null && props.create)
+                            props.redirect(res)
+
+                        if (!props.create && res)
+                            setChanged(false)
                     })}
                 handleClose={() => props.returnToMain()}
                 forms={[{
@@ -79,7 +84,7 @@ export default function GoalForm(props) {
                                 value={props.data === null ? null : props.data.unit_of_measurement}
                                 required={true}
                                 width={'calc(50% - 16px)'}/>
-                            
+
                             <TextField
                                 type={'number'}
                                 placeholder={lang.value} label={lang.value}

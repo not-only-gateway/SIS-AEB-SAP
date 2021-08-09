@@ -10,14 +10,19 @@
 }
 
 .headerContainer {
-    margin-bottom: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background: white;
+    transform: translateY(-16px);
+    padding-top: 8px;
+    padding-bottom: 12px;
     font-size: 1.4rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 16px;
-
-    position: relative;
+    border-bottom: #ecedf2 1px solid;
 }
 
 .buttonContainer {

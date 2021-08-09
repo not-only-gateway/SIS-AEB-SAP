@@ -14,7 +14,7 @@ export default function ProjectList(props) {
     return (
         <>
             {!open ? null :
-                <div className={animations.fadeIn} style={{marginTop: '32px', marginBottom: '32px'}}>
+                <div className={animations.fadeIn}>
                     <ProjectForm
                         returnToMain={() => {
                             setOpen(false)

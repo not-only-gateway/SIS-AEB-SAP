@@ -13,7 +13,7 @@ const submitProps = PropTypes.shape({
 export default class OperationRequests {
     static async submitOperation(submitProps) {
         let response = submitProps.create ? null : false
-
+        console.log(submitProps)
         await axios({
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'operation_phase' : Host() + 'operation_phase/' + submitProps.pk,
@@ -30,6 +30,7 @@ export default class OperationRequests {
                 type: 'error',
                 message: error.message
             })
+            console.log(error.request)
         })
         return response
     }
@@ -56,6 +57,7 @@ export default class OperationRequests {
         return response
     }
     static async submitFollowUpGoal(submitProps) {
+        console.log(submitProps)
         let response = false
         await axios({
             method: submitProps.create ? 'post' : 'put',
@@ -73,6 +75,7 @@ export default class OperationRequests {
                 type: 'error',
                 message: error.message
             })
+            console.log(error.requests)
         })
         return response
     }

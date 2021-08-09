@@ -7,16 +7,13 @@ const jwt = (new Cookies()).get('jwt')
 
 export default async function submitWorkPlan(props) {
     let response = props.create ? null : false
-    let data = {}
-    data = Object.assign(data, props.data)
 
-    data.ted = props.data.ted.id
 
     await axios({
         method: props.create ? 'post' : 'put',
         url: props.create ? Host() + 'work_plan' : Host() + 'work_plan/' + props.pk,
         headers: {'authorization': jwt},
-        data: data
+        data: props.data
     }).then(res => {
         props.setStatus({
             type: 'success',
@@ -28,6 +25,7 @@ export default async function submitWorkPlan(props) {
             type: 'error',
             message: error.message
         })
+        console.log(error.response)
     })
     return response
 }

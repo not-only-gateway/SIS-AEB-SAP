@@ -13,7 +13,8 @@ export default function OperationForm(props) {
         type: undefined, message: undefined
     })
     useEffect(() => {
-        props.handleChange({name: 'operation_phase', value: props.stage.id})
+        if(props.create)
+            props.handleChange({name: 'activity_stage', value: props.stage.id})
     }, [])
     return (
         <>

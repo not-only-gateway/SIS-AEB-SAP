@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import {DateField, DropDownField, TextField} from "sis-aeb-inputs";
 import {Alert} from "sis-aeb-misc";
-import EntityLayout from "../shared/misc/form/EntityLayout";
+import EntityLayout from "./misc/form/EntityLayout";
 import TedPT from "../../packages/locales/TedPT";
 import TedRequests from "../../utils/fetch/TedRequests";
 
@@ -14,7 +14,10 @@ export default function TedForm(props) {
     const [status, setStatus] = useState({
         type: undefined, message: undefined
     })
-
+    useEffect(() => {
+        if(props.create)
+            props.handleChange({name: 'projects', value: [props.project]})
+    },[])
     return (
         <>
             <Alert
@@ -155,15 +158,25 @@ export default function TedForm(props) {
                                     value={props.data === null ? null : props.data.decentralized}
                                     required={true} width={'calc(33.333% - 21.5px)'}/>
 
-                                <DropDownField
 
-                                    placeholder={lang.action}
-                                    label={lang.action}
-                                    handleChange={event => {
-                                        setChanged(true)
-                                        props.handleChange({name: 'action', value: event})
-                                    }} value={props.data === null ? null : props.data.action} required={true}
-                                    width={'calc(33.333% - 21.5px)'} choices={lang.actionOptions}/>
+                            <TextField
+
+                                placeholder={lang.action} label={lang.action} maxLength={4}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'action', value: event.target.value})
+                                }} locale={props.locale} value={props.data === null ? null : props.data.action}
+                                required={true}
+                                width={'calc(33.333% - 21.35px)'}/>
+                                {/*<DropDownField*/}
+
+                                {/*    placeholder={lang.action}*/}
+                                {/*    label={lang.action}*/}
+                                {/*    handleChange={event => {*/}
+                                {/*        setChanged(true)*/}
+                                {/*        props.handleChange({name: 'action', value: event})*/}
+                                {/*    }} value={props.data === null ? null : props.data.action} required={true}*/}
+                                {/*    width={'calc(33.333% - 21.5px)'} choices={lang.actionOptions}/>*/}
                             </>
                         )
                     }
@@ -179,4 +192,5 @@ TedForm.propTypes = {
     handleChange: PropTypes.func,
     returnToMain: PropTypes.func,
     create: PropTypes.bool,
+    project: PropTypes.number
 }

@@ -6,7 +6,7 @@ import Tabs from "../shared/misc/tabs/Tabs";
 import ProjectPT from "../../packages/locales/ProjectPT";
 import PropTypes from 'prop-types'
 import TedPT from "../../packages/locales/TedPT";
-import TedForm from "../index/TedForm";
+import TedForm from "../shared/TedForm";
 import WorkPlanPT from "../../packages/locales/WorkPlanPT";
 import WorkPlanForm from "./WorkPlanForm";
 import GoalList from "./goal/GoalList";
@@ -28,10 +28,7 @@ export default function WorkPlan(props){
                                 returnToMain={() => {
                                     null
                                 }}
-                                handleChange={event => handleObjectChange({
-                                    event: event,
-                                    setData: props.setWorkPlan
-                                })} id={props.workPlan.id}
+                                handleChange={event => props.setWorkPlan(event)} id={props.workPlan.id}
                                 create={false}
                                 data={props.workPlan}/>
                         )
@@ -41,12 +38,6 @@ export default function WorkPlan(props){
                         key: 1,
                         value: lang.status,
                         content:  <StatusList workPlan={props.workPlan}/>
-                    },
-
-                    {
-                        key: 2,
-                        value: lang.goal,
-                        content: <GoalList workPlan={props.workPlan} setOpenGoal={props.setOpenGoal}/>
                     }
                 ]} type={'vertical'}
                 setOpenTab={setOpenTab}
@@ -59,5 +50,4 @@ export default function WorkPlan(props){
 WorkPlan.propTypes={
     workPlan: PropTypes.object,
     setWorkPlan: PropTypes.func,
-    setOpenGoal: PropTypes.func
 }

@@ -29,6 +29,7 @@ export default function ObjectiveForm(props) {
                     fields: [
                         {name: 'description', type: 'string'},
                         {name: 'deadline', type: 'string'},
+                        {name: 'status', type: 'string'},
                     ],
                     changed: changed
                 }}
@@ -55,7 +56,15 @@ export default function ObjectiveForm(props) {
                                 required={true}
                                 width={'100%'}
                             />
-
+                            <TextField
+                                placeholder={lang.status} label={lang.description}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'status', value: event.target.value})
+                                }} locale={props.locale} value={props.data === null ? null : props.data.status}
+                                required={true}
+                                width={'100%'} variant={'area'}
+                            />
                             <DateField
                                 dark={true}
                                 placeholder={lang.deadline} label={lang.deadline}

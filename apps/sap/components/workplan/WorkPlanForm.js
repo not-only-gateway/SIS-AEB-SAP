@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import {DropDownField, TextField} from "sis-aeb-inputs";
 import {Alert} from "sis-aeb-misc";
@@ -17,7 +17,10 @@ export default function WorkPlanForm(props) {
     const [status, setStatus] = useState({
         type: undefined, message: undefined
     })
-
+    useEffect(() => {
+        if (props.create)
+            props.handleChange({name: 'ted', value: props.ted.id})
+    }, [])
     return (
         <div style={{width: '100%'}}>
             <Alert
@@ -30,9 +33,7 @@ export default function WorkPlanForm(props) {
                 dependencies={{
                     fields: [
                         {name: 'responsible', type: 'string'},
-                        {name: 'object', type: 'string'},
-                        {name: 'additive', type: 'number'},
-                        {name: 'ted', type: 'number'}
+                        {name: 'object', type: 'string'}
                     ],
                     changed: changed
                 }} noHeader={!props.create}
@@ -70,7 +71,7 @@ export default function WorkPlanForm(props) {
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'apostille', value: event})
-                                }} value={props.data === null ? null : props.data.apostille} required={true}
+                                }} value={props.data === null ? null : props.data.apostille} required={false}
                                 width={'calc(50% - 16px)'} choices={lang.apostilleOptions}/>
 
 
@@ -98,4 +99,5 @@ WorkPlanForm.propTypes = {
     handleChange: PropTypes.func,
     returnToMain: PropTypes.func,
     create: PropTypes.bool,
+    ted: PropTypes.object
 }

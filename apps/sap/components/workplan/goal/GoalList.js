@@ -7,6 +7,8 @@ import Cookies from "universal-cookie/lib";
 import Host from "../../../utils/shared/Host";
 import {EditRounded} from "@material-ui/icons";
 import Goal from "./Goal";
+import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
+import GoalForm from "./GoalForm";
 
 export default function GoalList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -16,7 +18,7 @@ export default function GoalList(props) {
         <div style={{width: '100%'}}>
             {!open ? null :
                 <div className={animations.fadeIn}>
-                    <Goal
+                    <GoalForm
                         returnToMain={() => {
                             setOpen(false)
                         }}
@@ -24,8 +26,15 @@ export default function GoalList(props) {
                             event: event,
                             setData: setCurrentEntity
                         })}
+                        redirect={data => {
+                            WorkPlanRequests.fetchGoal(data).then(res => {
+                                if (res !== null)
+                                    props.setCurrentStructure(res)
+                            })
+                        }}
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                        data={currentEntity} workPlan={props.workPlan}/>
+                        data={currentEntity} workPlan={props.workPlan}
+                    />
                 </div>
             }
             <div style={{display: open ? 'none' : undefined}}>
@@ -53,7 +62,7 @@ export default function GoalList(props) {
                     clickEvent={() => null}
                     setEntity={entity => {
                         if(entity !== null && entity !== undefined)
-                            props.setOpenGoal(entity)
+                            props.setCurrentStructure(entity)
                         else
                             setOpen(true)
                     }} searchFieldName={'search_input'} title={'Metas'} scrollableElement={'scrollableDiv'}
@@ -68,5 +77,5 @@ export default function GoalList(props) {
 }
 GoalList.propTypes = {
     workPlan: PropTypes.object,
-    setOpenGoal: PropTypes.func
+    setCurrentStructure: PropTypes.func
 }
