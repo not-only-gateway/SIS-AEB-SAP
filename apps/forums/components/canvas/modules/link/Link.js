@@ -24,8 +24,6 @@ export default function Link(props) {
             setColor: setColor,
             type: props.type, setOnMove: setOnMove
         })
-        document.removeEventListener('mousemove', () => null)
-        document.removeEventListener('mouseup', () => null)
     }
 
     const renderRemove = () => {
@@ -80,43 +78,41 @@ export default function Link(props) {
 
     useEffect(() => {
 
-        const t = document.getElementById(props.target.id + '-node')
-        const s = document.getElementById(props.source.id + '-node')
-        pathRef.current.setAttribute('d', GetCurve({
-            target: {
-                x: parseInt(t.firstChild.getAttribute('x')),
-                y: parseInt(t.firstChild.getAttribute('y')),
-                height: t.firstChild.getBBox().height,
-                width: t.firstChild.getBBox().width,
-                connectionPoint: props.target.connectionPoint
-            },
-            source: {
-                x: parseInt(s.firstChild.getAttribute('x')),
-                y: parseInt(s.firstChild.getAttribute('y')),
-                height: s.firstChild.getBBox().height,
-                width: s.firstChild.getBBox().width,
-                connectionPoint: props.source.connectionPoint
-            },
-            type: props.type
-        }))
+            const t = document.getElementById(props.target.id + '-node')
+            const s = document.getElementById(props.source.id + '-node')
+            pathRef.current.setAttribute('d', GetCurve({
+                target: {
+                    x: parseInt(t.firstChild.getAttribute('x')),
+                    y: parseInt(t.firstChild.getAttribute('y')),
+                    height: t.firstChild.getBBox().height,
+                    width: t.firstChild.getBBox().width,
+                    connectionPoint: props.target.connectionPoint
+                },
+                source: {
+                    x: parseInt(s.firstChild.getAttribute('x')),
+                    y: parseInt(s.firstChild.getAttribute('y')),
+                    height: s.firstChild.getBBox().height,
+                    width: s.firstChild.getBBox().width,
+                    connectionPoint: props.source.connectionPoint
+                },
+                type: props.type
+            }))
 
-        s.addEventListener('mousedown', event => {
-            if (event.button === 0) {
-                setSelected(false)
-                handleMouseDown(t.firstChild, s.firstChild, true)
+            const mouseDown = (event) => {
+                if (event.button === 0) {
+                    setSelected(false)
+                    handleMouseDown(t.firstChild, s.firstChild, true)
+                }
             }
-        })
-        t.addEventListener('mousedown', event => {
-            if (event.button === 0) {
-                setSelected(false)
-                handleMouseDown(t.firstChild, s.firstChild, false)
+
+            s.addEventListener('mousedown', mouseDown)
+            t.addEventListener('mousedown', mouseDown)
+            return () => {
+                t.removeEventListener('mousedown', mouseDown)
+                s.removeEventListener('mousedown', mouseDown)
             }
-        })
-        return () => {
-            t.removeEventListener('mousedown', () => null)
-            s.removeEventListener('mousedown', () => null)
-        }
-    }, [])
+        }, []
+    )
 
 
     return (

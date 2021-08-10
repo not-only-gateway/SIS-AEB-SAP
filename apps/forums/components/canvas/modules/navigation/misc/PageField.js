@@ -7,28 +7,8 @@ export default function PageField(props) {
     const ref = useRef()
     const [focused, setFocused] = useState(false)
     const [openContext, setOpenContext] = useState(false)
-    const [event, setEvent] = useState({})
     return (
         <div style={{position: 'relative', display: 'flex'}}>
-
-            {/*{openContext ?*/}
-            {/*    <Context*/}
-            {/*        buttons={[*/}
-            {/*            {label: 'Renomear', onClick: () => ref.current.focus(), icon: <EditRounded style={{fontSize: '1.2rem'}}/>},*/}
-            {/*            {label: 'Duplicar', onClick: () => null, icon: <FileCopyRounded style={{fontSize: '1.2rem'}}/>},*/}
-            {/*            {label: 'Excluir', onClick: () => null, icon: <DeleteForeverRounded style={{fontSize: '1.2rem'}}/>}*/}
-            {/*        ]}*/}
-            {/*        contextMenuRef={props.contextMenuRef}*/}
-            {/*        render={openContext}*/}
-            {/*        placement={event}*/}
-            {/*        handleClose={() => {*/}
-            {/*            setEvent({})*/}
-            {/*            setOpenContext(false)*/}
-            {/*        }}*/}
-            {/*    />*/}
-            {/*    :*/}
-            {/*    null*/}
-            {/*}*/}
 
 
             <input
@@ -42,21 +22,16 @@ export default function PageField(props) {
                     if (!focused)
                         ref.current.blur()
                 }}
-                ref={ref}
+                ref={ref} onChange={() => null}
                 onDoubleClick={() => {
                     ref.current.focus()
                     setFocused(true)
-                }} onBlur={() => setFocused(false)}/>
-            <button onClick={e => {
-                setOpenContext(!openContext)
-                setEvent(e)
-            }}>
-                <ArrowBackRounded/>
-            </button>
+                }} onBlur={() => setFocused(false)}
+            />
         </div>
     )
 }
 PageField.propTypes = {
-    page: PropTypes.func,
+    page: PropTypes.object,
     contextMenuRef: PropTypes.object
 }

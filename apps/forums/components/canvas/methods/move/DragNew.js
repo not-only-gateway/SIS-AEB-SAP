@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import {v4 as uuid4} from "uuid";
-
+import ReactDOM from 'react-dom'
 export default function DragNew(props) {
     let moving = true
 
@@ -42,17 +42,19 @@ export default function DragNew(props) {
     }
     const dimensions = getDimensions()
     const element = props.element.firstChild.cloneNode(true)
-    try {
-        props.contextMenuRef.removeChild(props.contextMenuRef.firstChild)
-    } catch (error) {
-    }
 
-    props.contextMenuRef.appendChild(element)
-    props.contextMenuRef.style.zIndex = '999'
-    props.contextMenuRef.style.top = (props.event.clientY - dimensions.height / 2) + 'px'
-    props.contextMenuRef.style.left = (props.event.clientX - dimensions.width / 2) + 'px'
-    props.contextMenuRef.firstChild.setAttribute('width', dimensions.width)
-    props.contextMenuRef.firstChild.setAttribute('height', dimensions.height)
+    const newWrapper = document.createElement('div')
+    document.body.appendChild(newWrapper)
+
+    newWrapper.appendChild(element)
+    newWrapper.style.position = 'fixed'
+    newWrapper.style.zIndex = '999'
+    newWrapper.style.top = (props.event.clientY - dimensions.height / 2) + 'px'
+    newWrapper.style.left = (props.event.clientX - dimensions.width / 2) + 'px'
+    newWrapper.firstChild.setAttribute('width', dimensions.width)
+    newWrapper.firstChild.setAttribute('height', dimensions.height)
+    newWrapper.firstChild.setAttribute('stroke-dasharray', '5,5')
+    newWrapper.firstChild.setAttribute('fill', 'transparent')
 
     let lastPlacement = {
         x: props.event.clientX,
@@ -69,10 +71,7 @@ export default function DragNew(props) {
 
         if (moving) {
             const elements = document.elementsFromPoint(event.clientX, event.clientY)
-            try {
-                props.contextMenuRef.removeChild(props.contextMenuRef.firstChild)
-            } catch (error) {
-            }
+            document.body.removeChild(newWrapper)
             if (elements.length >= 2 && typeof elements[3].className === 'object' && elements[3].className.animVal.includes('Canvas_canvasBackground') && props.root !== undefined) {
 
                 event.target.style.background = "";
@@ -103,9 +102,7 @@ export default function DragNew(props) {
                         }
                     }]]
                 }))
-                props.contextMenuRef.style.zIndex = 'unset'
-            } else
-                props.contextMenuRef.style.zIndex = 'unset'
+            }
 
             moving = false
         }
@@ -123,11 +120,11 @@ export default function DragNew(props) {
             y: event.clientY
         }
 
-        let placementX = props.contextMenuRef.offsetLeft - newPlacement.x / props.scale
-        let placementY = props.contextMenuRef.offsetTop - newPlacement.y / props.scale
+        let placementX = newWrapper.offsetLeft - newPlacement.x / props.scale
+        let placementY = newWrapper.offsetTop - newPlacement.y / props.scale
 
-        props.contextMenuRef.style.top = placementY + 'px'
-        props.contextMenuRef.style.left = placementX + 'px'
+        newWrapper.style.top = placementY + 'px'
+        newWrapper.style.left = placementX + 'px'
 
     }
 
@@ -139,7 +136,6 @@ DragNew.propTypes = {
     scale: PropTypes.number,
     root: PropTypes.object,
     event: PropTypes.object,
-    contextMenuRef: PropTypes.object,
     type: PropTypes.string,
     setData: PropTypes.func,
     data: PropTypes.object

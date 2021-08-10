@@ -37,13 +37,13 @@ export default function Node(props) {
             ref={ref}
         >
 
-            <svg x={props.node.placement.x} y={props.node.placement.y} overflow={'visible'}>
+            <svg x={props.node.placement.x} y={props.node.placement.y} overflow={'visible'} id={props.node.id+'-*svg'}>
                 <RenderNodeShape {...props} reference={ref.current} linkable={linkable}/>
 
                 <foreignObject
                     x={(props.node.shape === 'triangle' ? props.node.dimensions.width/4 : 0)} y={0}
                     width={props.node.dimensions.width/(props.node.shape === 'triangle' ? 2 : 1)}
-                    height={props.node.dimensions.height}
+                    height={props.node.dimensions.height} key={props.node.id+'-*object'}
                     className={props.linkable ? styles.pulse : ' '}
                     style={{
                         transition: 'box-shadow 150ms linear',
@@ -51,7 +51,7 @@ export default function Node(props) {
 
                     }}>
                     <Wrapper {...props}>
-                        <div className={styles.header}>
+                        <div className={styles.header} id={props.node.id+'-*header'}>
                             {props.node.title}
                         </div>
                     </Wrapper>

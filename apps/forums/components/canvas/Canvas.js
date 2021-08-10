@@ -104,13 +104,14 @@ export default function Canvas(props) {
             className={styles.wrapper}
             id={'frame'}
             onMouseDown={event => {
-                if (selectedNode && event.target.closest('.Node_body__1O9a2') === null && event.target.closest('.Node_nodeShapeContainer__3-69M') === null && event.target.id === '')
+                if (selectedNode && (typeof event.target.className !== 'string' || event.target.id === undefined || !event.target.className.includes('Node')))
                     setSelectedNode(undefined)
                 if (toBeLinked !== null && event.target.closest('.Node_body__1O9a2') === null && event.target.closest('.Node_nodeShapeContainer__3-69M') === null && event.target.id === '')
                     setToBeLinked(null)
             }}>
             <div ref={contextMenuRef} style={{position: 'fixed', zIndex: '999'}}/>
-            <Context data={data} setData={setData} scale={scale} setScale={setScale} copiedNode={copiedNode} setCopiedNode={setCopiedNode}/>
+            <Context data={data} setData={setData} scale={scale} setScale={setScale} copiedNode={copiedNode}
+                     setCopiedNode={setCopiedNode} root={root.current} setNodeOnOverview={setNodeOnOverview}/>
             <div className={styles.content}>
                 <Header
                     root={root.current}

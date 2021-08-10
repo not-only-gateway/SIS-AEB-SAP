@@ -114,7 +114,7 @@ export default function RenderNodes(props) {
     }
     return (
         <g id={'canvas'}>
-            {props.data.nodes.map((node, index) => (
+            {props.data.nodes.map((node, index) => node.id === undefined ? null : (
                 <g key={`${node.id}-node-${index}`} x={node.placement.x} y={node.placement.y}>
                     <Node
                         node={node} index={index} asStep={false}

@@ -17,7 +17,7 @@ export default function ResizeIndicator(props) {
         return (
             <rect width={placement.width} height={placement.height} fill={'none'} className={styles.entityContainer}
                   stroke={'#777777'} strokeWidth={'2'} id={props.node.id + '-node-resize'}
-                  x={placement.x} cursor={'crosshair'} strokeDasharray={'3,3'}
+                  x={placement.x} cursor={'crosshair'}
                   y={placement.y} style={{position: 'absolute', transition: 'fill 150ms linear'}}
                   rx={props.node.styling.border} ry={props.node.styling.border}
                   onMouseDown={event => {

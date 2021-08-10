@@ -2,7 +2,8 @@ import PropTypes from 'prop-types'
 import NodeTemplate from "../../templates/NodeTemplate";
 
 export default function ResizeNode(props) {
-    const el = document.getElementById(props.node + '-node-resize')
+
+    const el = document.getElementById(props.node.id + '-node-resize')
     let lastPlacement = {
         x: props.event.clientX / props.scale,
         y: props.event.clientY / props.scale
@@ -12,11 +13,13 @@ export default function ResizeNode(props) {
         height: undefined
     }
     let resizing = true
+
     if (el !== null) {
         el.setAttribute('stroke-width', '2')
         el.setAttribute('cursor', 'default')
         el.setAttribute('stroke-dasharray', '3,3')
         document.addEventListener('mousemove', function resize(event) {
+
             if (resizing) {
                 const bBox = el.getBBox()
                 const newPlacement = {
