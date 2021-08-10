@@ -22,9 +22,11 @@ export default function Move(props) {
             nodeSlotRef
         )
         nodeSlotRef.setAttribute('visibility', 'hidden')
-        document.addEventListener('mousemove', event => {
+        document.addEventListener('mousemove', function movingEl(event){
             if (moving)
                 move(event, false)
+            else
+                event.currentTarget.removeEventListener('mousemove', movingEl)
         })
         document.addEventListener("mouseup", event => {
             if (moving) {
@@ -34,7 +36,7 @@ export default function Move(props) {
                 nodeRef.style.cursor = 'pointer'
                 move(event, true)
             }
-        }, false);
+        }, {once: true});
 
     }
 
@@ -72,12 +74,6 @@ export default function Move(props) {
             nodeSlotRef.firstChild.setAttribute('x', (placementX + wrapper.getBBox().width / 2 - nodeSlotRef.getBBox().width / 2).toString())
             nodeSlotRef.firstChild.setAttribute('y', (placementY + wrapper.getBBox().height + 30).toString())
         }
-    }
-
-
-    return () => {
-        document.removeEventListener('mouseup', () => null)
-        document.removeEventListener('mousemove', () => null)
     }
 }
 

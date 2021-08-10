@@ -12,24 +12,24 @@ export default function PageField(props) {
     return (
         <div style={{position: 'relative', display: 'flex'}}>
 
-            {openContext ?
-                <Context
-                    buttons={[
-                        {label: 'Renomear', onClick: () => ref.current.focus(), icon: <EditRounded style={{fontSize: '1.2rem'}}/>},
-                        {label: 'Duplicar', onClick: () => null, icon: <FileCopyRounded style={{fontSize: '1.2rem'}}/>},
-                        {label: 'Excluir', onClick: () => null, icon: <DeleteForeverRounded style={{fontSize: '1.2rem'}}/>}
-                    ]}
-                    contextMenuRef={props.contextMenuRef}
-                    render={openContext}
-                    placement={event}
-                    handleClose={() => {
-                        setEvent({})
-                        setOpenContext(false)
-                    }}
-                />
-                :
-                null
-            }
+            {/*{openContext ?*/}
+            {/*    <Context*/}
+            {/*        buttons={[*/}
+            {/*            {label: 'Renomear', onClick: () => ref.current.focus(), icon: <EditRounded style={{fontSize: '1.2rem'}}/>},*/}
+            {/*            {label: 'Duplicar', onClick: () => null, icon: <FileCopyRounded style={{fontSize: '1.2rem'}}/>},*/}
+            {/*            {label: 'Excluir', onClick: () => null, icon: <DeleteForeverRounded style={{fontSize: '1.2rem'}}/>}*/}
+            {/*        ]}*/}
+            {/*        contextMenuRef={props.contextMenuRef}*/}
+            {/*        render={openContext}*/}
+            {/*        placement={event}*/}
+            {/*        handleClose={() => {*/}
+            {/*            setEvent({})*/}
+            {/*            setOpenContext(false)*/}
+            {/*        }}*/}
+            {/*    />*/}
+            {/*    :*/}
+            {/*    null*/}
+            {/*}*/}
 
 
             <input

@@ -2,77 +2,86 @@ import PropTypes from 'prop-types'
 import styles from './styles/Styles.module.css'
 import {useEffect, useRef, useState} from "react";
 import ReactDOM from 'react-dom'
+import CanvasContext from "./packages/CanvasContext";
+import NodeContext from "./packages/NodeContext";
+import NodeTemplate from "../../templates/NodeTemplate";
 
 export default function Context(props) {
+    const ref = useRef()
+    const [onRender, setOnRender] = useState(false)
+    const [buttons, setButtons] = useState([])
 
-    const element = (
-        <div
-            className={styles.context} id={'context-menu'}
-        >
-            {props.buttons.map(button => (
-                <button onClick={() => button.onClick()} disabled={button.disabled} className={styles.contextButton}>
+    const handleExit = () => {
+        ref.current.classList.add(styles.exitAnimation)
+        ref.current.addEventListener('animationend', () => {
+            if (ref.current.classList.length === 2) {
+                setOnRender(false)
+                ref.current.classList.remove(styles.exitAnimation)
+                setButtons([])
+            }
+        }, {once: true})
+    }
+
+    useEffect(() => {
+        let moved = false
+        document.addEventListener('mouseup', event => {
+            event.preventDefault()
+            if (event.button === 2) {
+                const el = document.elementFromPoint(event.clientX, event.clientY)
+                let newButtons = []
+                setOnRender(true)
+
+                if (el !== null && el.id.includes('canvas'))
+                    newButtons = CanvasContext
+                else if (el.id.includes('node') || el.className.includes('Node'))
+                    newButtons = NodeContext
+
+                setButtons(newButtons)
+                const marginTop = newButtons.length * 40
+                if (event.clientY > marginTop)
+                    ref.current.style.top = (event.clientY - marginTop) + 'px'
+                else
+                    ref.current.style.top = event.clientY + 'px'
+
+                if ((document.documentElement.offsetWidth - event.clientX) > 250)
+                    ref.current.style.left = event.clientX + 'px'
+                else
+                    ref.current.style.left = (event.clientX - 250) + 'px'
+            }
+        })
+        document.addEventListener('mousedown', event => {
+            console.log(event.button)
+            if (event.button === 0 && !document.elementsFromPoint(event.clientX, event.clientY).includes(ref.current))
+                handleExit()
+        })
+
+    }, [])
+    return (
+        <div ref={ref} style={{display: onRender ? undefined : 'none'}}
+             className={onRender ? styles.context : undefined}>
+            {buttons.map((button, i) => (
+                <button
+                    onClick={() => {
+                        button.onClick(props)
+                        handleExit()
+                    }} key={i + '-button'} id={i + '-button'}
+                    disabled={button.getDisabled !== undefined ? button.getDisabled(props) : false}
+                    className={styles.contextButton}
+                >
                     {button.icon}
-                    <div style={{color: '#393C44'}}>
-                        {button.label}
-                    </div>
+                    {button.label}
                 </button>
             ))}
         </div>
-
-
     )
-    const unmount = () => {
-        const el = document.getElementById('context-menu')
-        el?.classList.remove(styles.exitAnimation)
-
-        try {
-            ReactDOM.unmountComponentAtNode(props.contextMenuRef)
-        } catch (e) {
-        }
-        document.removeEventListener('mousedown', listener)
-        props.handleClose()
-    }
-    const listener = (event) => {
-        const el = document.getElementById('context-menu')
-        if (typeof event.target.className !== 'string' || !event.target.className.includes('Styles_contextButton')) {
-            el?.classList.add(styles.exitAnimation)
-            el?.addEventListener('animationend', unmount, {once: true})
-        } else
-            el?.classList.remove(styles.exitAnimation)
-    }
-    useEffect(() => {
-        try {
-            ReactDOM.unmountComponentAtNode(props.contextMenuRef)
-        } catch (e) {
-        }
-        if (props.render) {
-            ReactDOM.render(
-                element,
-                props.contextMenuRef
-            )
-
-            props.contextMenuRef.style.display = 'block'
-            props.contextMenuRef.style.top = (props.placement.clientY - props.buttons.length * 40) + 'px'
-            props.contextMenuRef.style.left = props.placement.clientX + 'px'
-
-            document.addEventListener('mousedown', listener)
-        }
-    }, [props.render])
-    return null
 }
 Context.propTypes = {
-    buttons: PropTypes.arrayOf(PropTypes.shape({
-        label: PropTypes.any,
-        onClick: PropTypes.func,
-        disabled: PropTypes.bool,
-        icon: PropTypes.object
-    })),
-    render: PropTypes.bool,
-    contextMenuRef: PropTypes.object,
-    placement: PropTypes.shape({
-        clientX: PropTypes.number,
-        clientY: PropTypes.number
-    }),
-    handleClose: PropTypes.func
+    data: PropTypes.object,
+    setData: PropTypes.object,
 
+    scale: PropTypes.number,
+    setScale: PropTypes.func,
+
+    copiedNode: NodeTemplate,
+    setCopiedNode: PropTypes.func
 }

@@ -21,7 +21,7 @@ export default function DragNew(props) {
                 }
                 break
             }
-            case props.type.includes('rect') ||  props.type.includes('parallelogram') ||  props.type.includes('trapezoid'): {
+            case props.type.includes('rect') || props.type.includes('parallelogram') || props.type.includes('trapezoid'): {
                 res = {
                     width: 150,
                     height: 80
@@ -41,7 +41,7 @@ export default function DragNew(props) {
         return res
     }
     const dimensions = getDimensions()
-    const element = props.element.cloneNode(true)
+    const element = props.element.firstChild.cloneNode(true)
     try {
         props.contextMenuRef.removeChild(props.contextMenuRef.firstChild)
     } catch (error) {
@@ -49,34 +49,31 @@ export default function DragNew(props) {
 
     props.contextMenuRef.appendChild(element)
     props.contextMenuRef.style.zIndex = '999'
-        console.log(props.root.offsetLeft)
-    console.log(props.root.offsetTop)
-
-    props.contextMenuRef.style.top = (props.event.clientY - dimensions.height/2 ) + 'px'
-    props.contextMenuRef.style.left = (props.event.clientX  - dimensions.width/2) + 'px'
-    props.contextMenuRef.firstChild.firstChild.setAttribute('width', dimensions.width)
-    props.contextMenuRef.firstChild.firstChild.setAttribute('height', dimensions.height)
+    props.contextMenuRef.style.top = (props.event.clientY - dimensions.height / 2) + 'px'
+    props.contextMenuRef.style.left = (props.event.clientX - dimensions.width / 2) + 'px'
+    props.contextMenuRef.firstChild.setAttribute('width', dimensions.width)
+    props.contextMenuRef.firstChild.setAttribute('height', dimensions.height)
 
     let lastPlacement = {
         x: props.event.clientX,
         y: props.event.clientY
     }
 
-    document.addEventListener('mousemove', event => {
+    document.addEventListener('mousemove', function movingNew(event) {
         if (moving)
             move(event, false)
+        else
+            event.currentTarget.removeEventListener('mousemove', movingNew);
     })
     document.addEventListener("mouseup", event => {
 
         if (moving) {
-            const elements =  document.elementsFromPoint(event.clientX, event.clientY)
+            const elements = document.elementsFromPoint(event.clientX, event.clientY)
             try {
                 props.contextMenuRef.removeChild(props.contextMenuRef.firstChild)
             } catch (error) {
             }
-            console.log( elements[4].className.animVal)
-            console.log( elements[4])
-            if (elements.length >= 4 &&  typeof elements[4].className === 'object' && elements[4].className.animVal.includes('Canvas_canvasBackground')  && props.root !== undefined) {
+            if (elements.length >= 2 && typeof elements[3].className === 'object' && elements[3].className.animVal.includes('Canvas_canvasBackground') && props.root !== undefined) {
 
                 event.target.style.background = "";
                 const rootBounding = {
@@ -107,14 +104,13 @@ export default function DragNew(props) {
                     }]]
                 }))
                 props.contextMenuRef.style.zIndex = 'unset'
-            }
-            else
+            } else
                 props.contextMenuRef.style.zIndex = 'unset'
 
-            document.removeEventListener('mousemove', () => null)
             moving = false
         }
-    }, false);
+
+    }, {once: true})
 
     function move(event) {
         let newPlacement = {
@@ -136,10 +132,6 @@ export default function DragNew(props) {
     }
 
 
-    return () => {
-        document.removeEventListener('mouseup', () => null)
-        document.removeEventListener('mousemove', () => null)
-    }
 }
 
 DragNew.propTypes = {

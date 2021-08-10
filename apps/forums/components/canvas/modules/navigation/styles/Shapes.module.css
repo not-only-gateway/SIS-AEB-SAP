@@ -137,3 +137,9 @@
     align-self: stretch;
     overflow-y: auto
 }
+
+.overflowEllipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
