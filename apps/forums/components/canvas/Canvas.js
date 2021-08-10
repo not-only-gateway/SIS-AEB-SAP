@@ -9,10 +9,11 @@ import RenderLinks from "./methods/render/RenderLinks";
 import NewProjectTemplate from "./templates/NewProjectTemplate";
 import LinkIndicator from "./modules/link/LinkIndicator";
 import Header from "./modules/navigation/Header";
-import Footer from "./modules/navigation/Footer";
 import SideBar from "./modules/navigation/SideBar";
 import Overview from "./modules/node/misc/Overview";
 import Context from "./modules/misc/Context";
+import Pages from "./modules/navigation/misc/Pages";
+import Scale from "./modules/navigation/misc/Scale";
 
 
 export default function Canvas(props) {
@@ -132,56 +133,58 @@ export default function Canvas(props) {
                         data={data} scale={scale}
                         setState={setData} contextMenuRef={contextMenuRef.current}
                     />
-                    <div style={{padding: '8px', width: '100%', alignSelf: 'stretch'}}>
-                        <div
-                            ref={root} className={styles.canvasContainer}
-                            onMouseDown={event => {
-                                if (typeof event.target.className === 'object' && event.button === 2)
-                                    ScrollCanvas({canvas: root.current, event: event})
-                            }}>
-                            <svg
-                                onContextMenu={event => {
-                                    event.preventDefault()
-                                }}
-                                style={{
-                                    minWidth: data.dimensions.width + 'px',
-                                    minHeight: data.dimensions.height + 'px',
-                                    transform: `scale(${scale})`,
-                                    transformOrigin: scale !== 1 ? 'top left' : undefined,
-                                }}
-                                className={styles.canvasBackground}
-                                ref={printRef} id={'canvas-area'}
-                            >
-                                <LinkIndicator source={toBeLinked} type={data.connectionType} root={root.current}/>
-                                <RenderNodes
-                                    {...props} contextMenuRef={contextMenuRef.current}
-                                    scale={scale} root={root.current}
-                                    setData={setData} data={data}
-                                    nodeOnOverview={nodeOnOverview}
-                                    setNodeOnOverview={setNodeOnOverview}
-                                    selectedNode={selectedNode} toBeLinked={toBeLinked}
-                                    setToBeLinked={setToBeLinked}
-                                    asStep={false} setSelectedNode={setSelectedNode}
-                                />
-                                <RenderLinks
-                                    {...props} data={data} setData={setData}
-                                    root={root.current}
-                                    contextMenuRef={contextMenuRef.current}
-                                    handleContextClose={() => ReactDOM.unmountComponentAtNode(contextMenuRef.current)}
-                                />
+                    <div style={{width: '100%'}}>
+                    <Pages
+                        scale={scale} setScale={setScale}
+                        data={data} setData={setData}
+                        contextMenuRef={contextMenuRef.current}
+                    />
+                    <div
+                        ref={root} className={styles.canvasContainer}
+                        onMouseDown={event => {
+                            if (typeof event.target.className === 'object' && event.button === 2)
+                                ScrollCanvas({canvas: root.current, event: event})
+                        }}>
+                        <svg
+                            onContextMenu={event => {
+                                event.preventDefault()
+                            }}
+                            style={{
+                                minWidth: data.dimensions.width + 'px',
+                                minHeight: data.dimensions.height + 'px',
+                                transform: `scale(${scale})`,
+                                transformOrigin: scale !== 1 ? 'top left' : undefined,
+                            }}
+                            className={styles.canvasBackground}
+                            ref={printRef} id={'canvas-area'}
+                        >
+                            <LinkIndicator source={toBeLinked} type={data.connectionType} root={root.current}/>
+                            <RenderNodes
+                                {...props} contextMenuRef={contextMenuRef.current}
+                                scale={scale} root={root.current}
+                                setData={setData} data={data}
+                                nodeOnOverview={nodeOnOverview}
+                                setNodeOnOverview={setNodeOnOverview}
+                                selectedNode={selectedNode} toBeLinked={toBeLinked}
+                                setToBeLinked={setToBeLinked}
+                                asStep={false} setSelectedNode={setSelectedNode}
+                            />
+                            <RenderLinks
+                                {...props} data={data} setData={setData}
+                                root={root.current}
+                                contextMenuRef={contextMenuRef.current}
+                                handleContextClose={() => ReactDOM.unmountComponentAtNode(contextMenuRef.current)}
+                            />
 
-                            </svg>
-                        </div>
+                        </svg>
+
                     </div>
+                    </div>
+
                     {renderOverview()}
                 </div>
-
-                <Footer
-                    scale={scale} setScale={setScale}
-                    data={data} setData={setData}
-                    contextMenuRef={contextMenuRef.current}
-                />
             </div>
+            <Scale scale={scale} setScale={setScale}/>
         </div>
     )
 }

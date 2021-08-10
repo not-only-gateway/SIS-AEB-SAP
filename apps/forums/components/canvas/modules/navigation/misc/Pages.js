@@ -6,7 +6,7 @@ import React from 'react'
 export default function Pages(props) {
 
     return (
-        <div className={styles.scaleContainer} style={{marginLeft: 0}}>
+        <div className={styles.pagesContainer}>
             <button
                 className={styles.newPageButton}
                 style={{borderRight: '#ecedf2 1px solid'}}

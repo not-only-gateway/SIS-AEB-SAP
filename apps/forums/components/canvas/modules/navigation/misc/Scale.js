@@ -5,19 +5,19 @@ import styles from '../styles/Footer.module.css'
 
 export default function Scale(props) {
     return (
-        <div className={styles.scaleContainer}   onContextMenu={event => event.preventDefault()}>
+        <div className={styles.scaleContainer}>
             <button className={styles.scaleButton} disabled={props.scale === 2} onClick={() => {
-                if(props.scale < 2)
-                props.setScale(props.scale + .25)
+                if (props.scale < 2)
+                    props.setScale(props.scale + .25)
             }}>
                 <AddRounded/>
             </button>
             <div className={styles.scaleInfo}>
-                {props.scale*100}%
+                {props.scale * 100}%
             </div>
             <button className={styles.scaleButton} disabled={props.scale === .5} onClick={() => {
-                if(props.scale > .5)
-                props.setScale(props.scale - .25)
+                if (props.scale > .5)
+                    props.setScale(props.scale - .25)
             }}>
                 <RemoveRounded/>
             </button>

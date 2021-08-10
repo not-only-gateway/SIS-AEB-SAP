@@ -13,7 +13,7 @@
 .content {
     height: 100%;
     width: 100%;
-    background: #f4f5fa;
+    background: white;
     overflow: hidden;
     position: relative;
     /*padding: 4px;*/
@@ -129,7 +129,7 @@
 }
 
 .canvasBackground {
-    background: white radial-gradient(#d5d5d5 1.5px, transparent 0);
+    background: #f4f5fa radial-gradient(#d5d5d5 1.5px, transparent 0);
     background-size: 20px 20px;
     position: absolute;
     top: 0;
@@ -147,8 +147,8 @@
 
     cursor: default;
     scroll-behavior: auto;
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+    border-radius: 10px 0 0 10px;
+    border: #ecedf2 1px solid;
     padding: 50px;
 }
 

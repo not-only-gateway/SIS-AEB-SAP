@@ -10,18 +10,37 @@ export default function Context(props) {
     const [onRender, setOnRender] = useState(false)
     const [buttons, setButtons] = useState([])
     const [e, setE] = useState({})
-
+    let originalPlacement = {
+        x: -1,
+        y: -1
+    }
+    let onRenderListener = false
+    const remove = () => {
+        ref.current.classList.add(styles.exitAnimation)
+        ref.current.addEventListener('animationend', () => {
+            if (ref.current.classList.length === 2) {
+                setOnRender(false)
+                onRenderListener = false
+                ref.current.classList.remove(styles.exitAnimation)
+                setButtons([])
+            }
+        }, {once: true})
+    }
     const preventContext = (event) => {
         event.preventDefault()
     }
     const handleMouseUp = (event) => {
         event.preventDefault()
-        if (event.button === 2) {
+        console.log(event)
+        console.log(originalPlacement)
+        console.log((originalPlacement.x - event.clientX))
+        console.log((originalPlacement.y - event.clientY))
+        if (event.button === 2 && (originalPlacement.x - event.clientX) === 0 && (originalPlacement.y - event.clientY) === 0) {
             setE(event)
             const el = document.elementFromPoint(event.clientX, event.clientY)
             let newButtons = []
             setOnRender(true)
-
+            onRenderListener = true
             if (el !== null && el.id.includes('canvas'))
                 newButtons = CanvasContext
             else if (el.id.includes('node') || (typeof el.className === 'string' && el.className.includes('Node')))
@@ -39,28 +58,28 @@ export default function Context(props) {
             else
                 ref.current.style.left = (event.clientX - 250) + 'px'
         }
+
     }
     const handleExit = (event) => {
-        if (event && event.button === 0 && !document.elementsFromPoint(event.clientX, event.clientY).includes(ref.current)) {
-            ref.current.classList.add(styles.exitAnimation)
-            ref.current.addEventListener('animationend', () => {
-                if (ref.current.classList.length === 2) {
-                    setOnRender(false)
-                    ref.current.classList.remove(styles.exitAnimation)
-                    setButtons([])
-                }
-            }, {once: true})
-        }
+
+        if (event && ((event.button === 0 && !document.elementsFromPoint(event.clientX, event.clientY).includes(ref.current)) || (event.button === 2 && onRenderListener)))
+            remove()
+        else if (!onRenderListener && event.button === 2)
+            originalPlacement = {
+                x: event.clientX,
+                y: event.clientY
+            }
     }
 
     useEffect(() => {
-        let moved = false
+
         document.body.addEventListener('contextmenu', preventContext)
         document.addEventListener('mouseup', handleMouseUp)
         document.addEventListener('mousedown', handleExit)
         return () => {
             document.body.removeEventListener('contextmenu', preventContext)
             document.removeEventListener('mousedown', handleExit)
+            document.removeEventListener('mouseup', handleMouseUp)
         }
     }, [])
     return (
@@ -70,14 +89,7 @@ export default function Context(props) {
                 <button
                     onClick={() => {
                         button.onClick(props, e)
-                        ref.current.classList.add(styles.exitAnimation)
-                        ref.current.addEventListener('animationend', () => {
-                            if (ref.current.classList.length === 2) {
-                                setOnRender(false)
-                                ref.current.classList.remove(styles.exitAnimation)
-                                setButtons([])
-                            }
-                        }, {once: true})
+                        remove()
                     }} key={i + '-button'} id={i + '-button'}
                     disabled={button.getDisabled !== undefined ? button.getDisabled(props) : false}
                     className={styles.contextButton}
