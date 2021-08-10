@@ -34,7 +34,7 @@ export default function TextField(props) {
                     id={props.label + 'text_field'}
 
                     placeholder={props.placeholder}
-                    type={props.type}
+                    type={props.type !== 'password' ? props.type : (!visible ? props.type : 'text')}
                     value={props.phoneMask ? event.value : props.value}
                     className={styles.inputContainer}
                     style={{

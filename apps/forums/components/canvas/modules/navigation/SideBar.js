@@ -1,17 +1,7 @@
 import styles from '../../styles/Menu.module.css'
-import {
-    ArrowBackIos,
-    ControlCameraRounded,
-    DragIndicatorRounded, ExtensionRounded, HelpRounded,
-    MoreVertRounded,
-    VisibilityRounded
-} from "@material-ui/icons";
-import Tabs from "./misc/Tabs";
 import PropTypes from "prop-types";
-import {useEffect, useRef, useState} from "react";
+import {useRef} from "react";
 import Shapes from "./misc/customization/Shapes";
-import MoveOptions from "../../methods/move/MoveOptions";
-import DragHandleRoundedIcon from '@material-ui/icons/DragHandleRounded';
 import NodeTemplate from "../../templates/NodeTemplate";
 import Connections from "./misc/customization/Connections";
 

@@ -1,13 +1,10 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {useRouter} from "next/router";
 import Head from "next/head";
 import IndexPT from "../packages/locales/ProjectPT";
 import ProjectList from "../components/index/ProjectList";
-import Tabs from "../components/shared/misc/tabs/Tabs";
-import TedList from "../components/project/TedList";
-import WorkPlanList from "../components/workplan/WorkPlanList";
 
-export default function index(props) {
+export default function index() {
     const lang = IndexPT
     const router = useRouter()
 

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import styles from '../styles/Tab.module.css'
-import React, {useEffect, useRef, useState} from "react";
-import {ArrowBackIos, ArrowBackRounded, ArrowLeftRounded, ArrowRightAltRounded} from "@material-ui/icons";
+import React, {useRef, useState} from "react";
+import {ArrowBackRounded} from "@material-ui/icons";
 
 export default function Horizontal(props) {
     const ref = useRef()

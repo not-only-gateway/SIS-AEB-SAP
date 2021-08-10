@@ -3,34 +3,28 @@ import {useRouter} from "next/router";
 import Head from "next/head";
 import ProjectPT from "../packages/locales/ProjectPT";
 import styles from "../styles/Project.module.css";
+import pStyles from "../styles/Project.module.css";
 import Tabs from "../components/shared/misc/tabs/Tabs";
 import ProjectRequests from "../utils/fetch/ProjectRequests";
 import Link from 'next/link'
 import {ArrowBackIos, HomeRounded} from "@material-ui/icons";
-import Project from "../components/project/Project";
-import TedList from "../components/project/TedList";
+import Project from "../components/project/project/Project";
+import TedList from "../components/project/project/TedList";
 import TedRequests from "../utils/fetch/TedRequests";
-import Ted from "../components/ted/Ted";
-import WorkPlanList from "../components/workplan/WorkPlanList";
-import pStyles from "../styles/Project.module.css";
-import WorkPlan from "../components/workplan/WorkPlan";
-import InfrastructureList from "../components/workplan/infrastructure/InfrastructureList";
-import GoalList from "../components/workplan/goal/GoalList";
-import handleObjectChange from "../utils/shared/HandleObjectChange";
-import Goal from "../components/workplan/goal/Goal";
-import Stage from "../components/workplan/goal/stage/Stage";
-import WorkPlanRequests from "../utils/fetch/WorkPlanRequests";
-import StageForm from "../components/workplan/goal/stage/StageForm";
+import Ted from "../components/project/ted/Ted";
+import WorkPlanList from "../components/project/workplan/WorkPlanList";
+import WorkPlan from "../components/project/workplan/WorkPlan";
+import InfrastructureList from "../components/project/workplan/infrastructure/InfrastructureList";
+import GoalList from "../components/project/workplan/goal/GoalList";
+import Goal from "../components/project/workplan/goal/Goal";
+import Stage from "../components/project/workplan/goal/stage/Stage";
+import Header from "../components/project/Header";
+import Execution from "../components/project/execution/Execution";
 
 export default function project(props) {
     const lang = ProjectPT
     const [project, setProject] = useState(undefined)
     const [openTab, setOpenTab] = useState(0)
-    const [openStructureTab, setOpenStructureTab] = useState({
-        ted: 0,
-        workPlan: 0,
-        goal: 0
-    })
     const [currentStructure, setCurrentStructure] = useState({
         ted: null
     })
@@ -52,243 +46,61 @@ export default function project(props) {
                     <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
                 </Head>
 
+                <Header setCurrentStructure={setCurrentStructure} project={project}
+                        currentStructure={currentStructure}/>
 
-                <div className={styles.header}>
-                    <Link href={'/'}>
-                        <button className={[styles.homeButton, styles.headerButton].join(' ')}
-                                style={{border: 'none'}}>
-                            <HomeRounded/>
-                        </button>
-                    </Link>
-                    <>
-                        <Link href={'/'}>
-                            <button className={styles.headerButton}>
-                                {lang.projects}
-                            </button>
-                        </Link>
-                        <ArrowBackIos style={{
-                            fontSize: '.9rem',
-                            color: '#666666',
-                            transform: 'rotate(180deg) translateX(.35rem)'
+
+                {currentStructure.ted === null ?
+                    <Project setProject={setProject} project={project} currentStructure={currentStructure}
+                             setCurrentStructure={setCurrentStructure}/>
+                    :
+                    null
+                }
+
+
+                {currentStructure.ted !== null && currentStructure.ted !== undefined && (currentStructure.workPlan === null || currentStructure.workPlan === undefined) ?
+                    <Ted
+                        ted={currentStructure.ted}
+                        setWorkPlan={event => {
+                            setCurrentStructure({
+                                ...currentStructure,
+                                workPlan: event
+                            })
+                        }}
+                        setTed={event => {
+                            const newTed = {...currentStructure.ted}
+                            newTed[event.name] = event.value
+                            setCurrentStructure({
+                                ...currentStructure,
+                                ted: newTed
+                            })
                         }}/>
-                        <button className={pStyles.headerButton} disabled={currentStructure.ted === null}
-                                style={{maxWidth: '20%'}}
-                                onClick={() => {
-                                    setCurrentStructure({
-                                        ted: null
-                                    })
-                                }}>
-                            {project.name}
-                        </button>
-                        {currentStructure.ted !== undefined && currentStructure.ted !== null ?
-                            <>
-                                <ArrowBackIos style={{
-                                    fontSize: '.9rem',
-                                    color: '#666666',
-                                    transform: 'rotate(180deg) translateX(.35rem)'
-                                }}/>
-                                <button
-                                    className={pStyles.headerButton} style={{maxWidth: '20%'}}
-                                    onClick={() => {
-                                        setCurrentStructure({
-                                            ted: currentStructure.ted
-                                        })
-                                    }}
-                                    disabled={currentStructure.workPlan === undefined || currentStructure.workPlan === null}>
-                                    {currentStructure.ted.number}
-                                </button>
-                            </>
-                            :
-                            null
-                        }
-                        {currentStructure.workPlan !== undefined && currentStructure.workPlan !== null ?
-                            <>
-                                <ArrowBackIos style={{
-                                    fontSize: '.9rem',
-                                    color: '#666666',
-                                    transform: 'rotate(180deg) translateX(.35rem)'
-                                }}/>
-                                <button className={pStyles.headerButton} style={{maxWidth: '20%'}}
-                                        onClick={() => {
-                                            setCurrentStructure({
-                                                ted: currentStructure.ted,
-                                                workPlan: currentStructure.workPlan
-                                            })
-                                        }}
-                                        disabled={currentStructure.goal === undefined || currentStructure.goal === null}>
-                                    {currentStructure.workPlan.object}
-                                </button>
-                            </>
-                            :
-                            null
-                        }
-                        {currentStructure.goal !== undefined && currentStructure.goal !== null ?
-                            <>
-                                <ArrowBackIos style={{
-                                    fontSize: '.9rem',
-                                    color: '#666666',
-                                    transform: 'rotate(180deg) translateX(.35rem)'
-                                }}/>
-                                <button className={pStyles.headerButton} style={{maxWidth: '20%'}}
-                                        disabled={currentStructure.stage === undefined || currentStructure.stage === null}>
-                                    {currentStructure.goal.goal_number}
-                                </button>
-                            </>
-                            :
-                            null
-                        }
-                        {currentStructure.stage !== undefined && currentStructure.stage !== null ?
-                            <>
-                                <ArrowBackIos style={{
-                                    fontSize: '.9rem',
-                                    color: '#666666',
-                                    transform: 'rotate(180deg) translateX(.35rem)'
-                                }}/>
-                                <button className={pStyles.headerButton} style={{maxWidth: '20%'}} disabled={true}>
-                                    {currentStructure.stage.stage}
-                                </button>
-                            </>
-                            :
-                            null
-                        }
-                    </>
+                    :
+                    null
+                }
 
-                </div>
-
-                <div style={{
-                    display: currentStructure.ted === null ? undefined : 'none',
-                    width: '100%'
-                }}>
-                    <Tabs
-                        buttons={[
-                            {
-                                key: 0,
-                                value: lang.project,
-                                content: (
-                                    <Project setProject={setProject} project={project}/>
-                                )
-                            },
-
-                            {
-                                key: 1,
-                                value: lang.teds,
-                                content: <TedList redirect={id => {
-                                    TedRequests.fetchTed(id).then(res => {
-                                        if (res !== null)
-                                            setCurrentStructure({
-                                                ...currentStructure,
-                                                ted: res
-                                            })
-                                    })
-                                }} project={project}/>
-                            }
-                        ]}
-                        setOpenTab={setOpenTab}
-                        openTab={openTab}
-                    />
-                </div>
-
-                <div style={{
-                    display: currentStructure.ted !== null && currentStructure.ted !== undefined && (currentStructure.workPlan === null || currentStructure.workPlan === undefined) ? undefined : 'none',
-                    width: '100%'
-                }}>
-                    <Tabs
-                        buttons={[
-                            {
-                                key: 0,
-                                value: lang.ted,
-                                content: (
-                                    currentStructure.ted !== null && currentStructure.ted !== undefined ?
-                                        <Ted ted={currentStructure.ted}
-                                             setTed={event => {
-                                                 const newTed = {...currentStructure.ted}
-                                                 newTed[event.name] = event.value
-                                                 setCurrentStructure({
-                                                     ...currentStructure,
-                                                     ted: newTed
-                                                 })
-                                             }}/> : null
-                                )
-                            },
-                            {
-                                key: 1,
-                                value: lang.workPlan,
-                                content: (
-                                    currentStructure.ted !== null && currentStructure.ted !== undefined ?
-                                        <WorkPlanList
-                                            redirect={() => null} ted={currentStructure.ted}
-                                            setCurrentStructure={(name, data) => {
-                                                setCurrentStructure({
-                                                    ...currentStructure,
-                                                    [name]: data
-                                                })
-                                            }}
-                                            currentStructure={currentStructure}
-                                        />
-                                        :
-                                        null
-                                )
-                            }
-                        ]}
-                        setOpenTab={value => setOpenStructureTab({...openStructureTab, ted: value})}
-                        openTab={openStructureTab.ted}
-                    />
-                </div>
-
-                <div style={{
-                    display: currentStructure.workPlan !== null && currentStructure.workPlan !== undefined && (currentStructure.goal === null || currentStructure.goal === undefined) ? undefined : 'none',
-                    width: '100%'
-                }}>
-                    <Tabs
-                        buttons={[
-                            {
-                                key: 0,
-                                value: lang.workPlan,
-                                content: (
-                                    currentStructure.workPlan !== null && currentStructure.workPlan !== undefined ?
-                                        <WorkPlan
-                                            workPlan={currentStructure.workPlan}
-                                            setWorkPlan={event => {
-                                                const newWorkPlan = {...currentStructure.workPlan}
-                                                newWorkPlan[event.name] = event.value
-                                                setCurrentStructure({
-                                                    ...currentStructure,
-                                                    workPlan: newWorkPlan
-                                                })
-                                            }} setCurrentStructure={setCurrentStructure}
-                                            currentStructure={currentStructure}/> : null
-                                )
-                            },
-
-                            {
-                                key: 1,
-                                value: lang.infrastructure,
-                                content: currentStructure.workPlan !== null && currentStructure.workPlan !== undefined ?
-                                    <InfrastructureList workPlan={currentStructure.workPlan}/> : null
-                            },
-                            {
-                                key: 2,
-                                value: lang.goals,
-                                content: currentStructure.workPlan !== null && currentStructure.workPlan !== undefined ?
-                                    <GoalList
-                                        workPlan={currentStructure.workPlan}
-                                        setCurrentStructure={data => {
-                                            setCurrentStructure({
-                                                ...currentStructure,
-                                                goal: data
-                                            })
-                                        }}
-                                    /> : null
-                            },
-
-                        ]}
-                        setOpenTab={value => setOpenStructureTab({...openStructureTab, workPlan: value})}
-                        openTab={openStructureTab.workPlan}
-                    />
-                </div>
+                {currentStructure.workPlan !== null && currentStructure.workPlan !== undefined && (currentStructure.goal === null || currentStructure.goal === undefined) ?
+                    <WorkPlan
+                        workPlan={currentStructure.workPlan}
+                        setWorkPlan={event => {
+                            const newWorkPlan = {...currentStructure.workPlan}
+                            newWorkPlan[event.name] = event.value
+                            setCurrentStructure({
+                                ...currentStructure,
+                                workPlan: newWorkPlan
+                            })
+                        }}
+                        setGoal={goal => {
+                            setCurrentStructure({
+                                ...currentStructure,
+                                goal: goal
+                            })
+                        }}/>
+                    :
+                    null
+                }
                 {currentStructure.goal !== null && currentStructure.goal !== undefined && (currentStructure.stage === null || currentStructure.stage === undefined) ?
                     <Goal
-
                         handleChange={event => {
                             const newGoal = {...currentStructure.goal}
                             newGoal[event.name] = event.value
@@ -310,7 +122,7 @@ export default function project(props) {
                     :
                     null
                 }
-                {currentStructure.stage !== null && currentStructure.stage !== undefined ?
+                {currentStructure.stage !== null && currentStructure.stage !== undefined && (currentStructure.execution === null || currentStructure.execution === undefined)  ?
                     <Stage
                         handleChange={event => {
                             const newStage = {...currentStructure.goal}
@@ -322,6 +134,27 @@ export default function project(props) {
                         }}
                         data={currentStructure.stage}
                         goal={currentStructure.goal}
+                        setExecution={event => {
+                            setCurrentStructure({
+                                ...currentStructure,
+                                execution: event
+                            })
+                        }}
+                    />
+                    :
+                    null
+                }
+                {currentStructure.execution !== null && currentStructure.execution !== undefined ?
+                    <Execution
+                        setExecution={event => {
+                            const newExecution = {...currentStructure.execution}
+                            newExecution[event.name] = event.value
+                            setCurrentStructure({
+                                ...currentStructure,
+                                execution: newExecution
+                            })
+                        }}
+                        execution={currentStructure.execution}
                     />
                     :
                     null

@@ -1,11 +1,4 @@
-import {
-    CropRounded,
-    DeleteRounded,
-    EditRounded,
-    FileCopyRounded,
-    ZoomInRounded,
-    ZoomOutRounded
-} from "@material-ui/icons";
+import {CropRounded, DeleteRounded, EditRounded, FileCopyRounded} from "@material-ui/icons";
 
 export default [
     {

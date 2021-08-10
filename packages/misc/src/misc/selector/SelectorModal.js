@@ -52,7 +52,7 @@ export default function SelectorModal(props) {
 
                         </div>
                         <List
-                            applySearch={applySearch}
+                            applySearch={applySearch} noShadow={true}
                             renderElement={entity => props.getEntityKey(entity) !==  props.getEntityKey(props.selected) ? props.renderEntity(entity) : null}
                             searchInput={search} searchFieldName={props.searchFieldName}
                             clickEvent={() => null}

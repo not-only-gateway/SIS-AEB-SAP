@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import styles from './styles/Styles.module.css'
 import {useEffect, useRef, useState} from "react";
-import ReactDOM from 'react-dom'
 import CanvasContext from "./packages/CanvasContext";
 import NodeContext from "./packages/NodeContext";
 import NodeTemplate from "../../templates/NodeTemplate";

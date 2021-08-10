@@ -1,13 +1,4 @@
-import {
-    AddRounded,
-    FileCopyRounded,
-    MoreRounded,
-    RemoveRounded,
-    ZoomInRounded,
-    ZoomOutRounded
-} from "@material-ui/icons";
-import NodeTemplate from "../../../templates/NodeTemplate";
-
+import {AddRounded, FileCopyRounded, ZoomInRounded, ZoomOutRounded} from "@material-ui/icons";
 
 
 export default [

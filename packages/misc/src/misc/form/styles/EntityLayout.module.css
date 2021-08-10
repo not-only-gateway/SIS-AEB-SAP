@@ -5,19 +5,24 @@
     padding: 16px 16px 0;
     display: grid;
     overflow-y: auto;
+    /*box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;*/
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
 
 .headerContainer {
-    margin-bottom: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background: white;
+    transform: translateY(-16px);
+    padding-top: 8px;
+    padding-bottom: 12px;
     font-size: 1.4rem;
-    text-transform: capitalize;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 16px;
-
-    position: relative;
+    border-bottom: #ecedf2 1px solid;
 }
 
 .buttonContainer {
@@ -100,7 +105,7 @@
     display: flex;
     gap: 16px;
     align-items: center;
-    font-size: 22px;
-    font-family: Roboto;
-    color: #333333;
+    font-size: 1.3rem;
+    color: #444444;
+    font-weight: bold;
 }

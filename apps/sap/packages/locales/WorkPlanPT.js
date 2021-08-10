@@ -6,7 +6,8 @@ export default {
     ted: 'TED',
     title: 'Novo plano de trabalho',
     workPlans: 'Planos de trabalho',
-
+    goals: 'Metas',
+    panel: 'Acompanhamento',
     infrastructure: 'Infraestrutura',
     status: 'Status',
     goal: 'Metas',

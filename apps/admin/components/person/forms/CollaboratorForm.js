@@ -14,7 +14,6 @@ import {Alert, EntityLayout, Selector} from "sis-aeb-misc";
 import {DropDownField, TextField} from "sis-aeb-inputs";
 
 
-
 export default function CollaboratorForm(props) {
 
     const lang = MembershipPT

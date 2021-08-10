@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
-import React, {useEffect, useRef, useState} from "react";
-import animations from '../styles/Animations.module.css'
+import React from "react";
 import styles from "../styles/Navigation.module.css";
 import NavigationButton from "./NavigationButton";
 

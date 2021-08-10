@@ -22,5 +22,4 @@ Tabs.proptypes = {
         })
     ),
     setOpenTab: PropTypes.func,
-    openTab: PropTypes.number,
-}
+    openTab: PropTypes.number}

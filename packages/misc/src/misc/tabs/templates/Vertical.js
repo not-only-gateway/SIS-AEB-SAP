@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import styles from '../styles/Vertical.module.css'
 import React from "react";
+import ToolTip from "../../tooltip/ToolTip";
 
 export default function Vertical(props) {
     console.log('here')
@@ -8,18 +9,22 @@ export default function Vertical(props) {
         <div className={styles.container}>
             <div
                 className={styles.buttons}>
-                {props.buttons.map((button) => (button !== null ?
+                {props.buttons.map((button, i) => (button !== null ?
                         <button
-                            key={button.key + ' - ' + button.value}
+                            key={button.key + ' - ' + button.value} id={button.key + ' - ' + button.value}
                             onClick={() => props.setOpenTab(button.key)}
                             disabled={button.disabled}
                             className={styles.button}
                             style={{
-                                border: props.openTab === button.key ? 'transparent 1px solid' : undefined,
+                                borderLeft: props.openTab === button.key ? '#0095ff 2px solid' : undefined,
                                 background: props.openTab === button.key ? '#E8F0FE' : undefined
                             }}
                         >
                             {button.value}
+                            {props.toolTipMountingElement !== null && props.toolTipMountingElement !== undefined ?
+                                <ToolTip content={button.value}
+                                />
+                                : null}
                         </button>
                         :
                         null

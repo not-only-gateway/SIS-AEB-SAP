@@ -5,6 +5,7 @@ body {
     width: 100vw;
     font-family: 'Roboto' !important;
     image-rendering: optimizeQuality ;
+    overflow: hidden;
 }
 
 h2{

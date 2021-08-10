@@ -4,7 +4,7 @@
 }
 
 .header {
-    display: flex;
+    display: inline-flex;
     gap: 4px;
     align-items: center;
     margin-top: 16px;
@@ -55,9 +55,8 @@
     background: transparent;
     color: #777777;
     cursor: pointer;
-    /*max-width: 65%;*/
-    white-space: nowrap;
     overflow: hidden;
+    white-space: nowrap;
     text-overflow: ellipsis;
 }
 

@@ -1,12 +1,8 @@
-import IndexPT from "../packages/locales/ProjectPT";
 import {useRouter} from "next/router";
 import React, {useState} from "react";
 import Head from "next/head";
 import Tabs from "../components/shared/misc/tabs/Tabs";
 import OverviewPT from "../packages/locales/OverviewPT";
-import ProjectList from "../components/index/ProjectList";
-import TedList from "../components/project/TedList";
-import WorkPlanList from "../components/workplan/WorkPlanList";
 import Project from "../components/overview/Project";
 
 import WorkPlan from "../components/overview/WorkPlan";

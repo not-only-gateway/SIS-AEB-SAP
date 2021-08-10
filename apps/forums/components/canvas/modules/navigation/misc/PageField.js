@@ -1,8 +1,7 @@
 import styles from "../styles/Footer.module.css";
 import {useRef, useState} from "react";
 import PropTypes from "prop-types";
-import {ArrowBackRounded, DeleteForeverRounded, EditRounded, FileCopyRounded} from "@material-ui/icons";
-import Context from "../../misc/Context";
+import {ArrowBackRounded} from "@material-ui/icons";
 
 export default function PageField(props) {
     const ref = useRef()

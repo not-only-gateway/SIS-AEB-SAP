@@ -7,40 +7,7 @@ export default function Modal(props) {
   const [isInRender, setIsInRender] = useState(false)
   const [style, setStyle] = useState('')
 
-  useEffect(() => {
-    // console.log(props.open)
-    const element = document.getElementById('modal-frame')
-    const content = document.getElementById('modal-content')
-    const root = document.getElementById(props.rootElementID)
-
-    if (isInRender && !props.open) {
-      setStyle(styles.fadeOutAnimation)
-    } else if (!isInRender && props.open) {
-      setIsInRender(true)
-      setStyle(styles.fadeIn)
-    }
-
-    if (element !== null) {
-      element.addEventListener('animationend', () => {
-        if (!props.open && isInRender) {
-          setIsInRender(false)
-          if (root !== null)
-            ReactDOM.unmountComponentAtNode(root);
-          setStyle(styles.fadeIn)
-        }
-        element.removeEventListener('animationend', null)
-      });
-    }
-
-
-    if (element !== null && props.open)
-      element.addEventListener('mousedown', event => {
-        if (content !== null && event.target !== content && !content.contains(event.target))
-          props.handleClose(false)
-      })
-  })
-
-  let element = isInRender ? (
+  const modal = (
     <div id={'modal-frame'}
          key={'modal-frame'}
          className={style}
@@ -61,24 +28,55 @@ export default function Modal(props) {
         {props.children}
       </div>
     </div>
-  ) : <></>
+  )
 
-  if (typeof window !== 'undefined' && process.browser && isInRender) {
-    const root = document.getElementById(props.rootElementID)
-    if (root !== null) {
+  const mountingPoint = document.createElement('div')
+
+  useEffect(() => {
+    const element = document.getElementById('modal-frame')
+    const content = document.getElementById('modal-content')
+
+    if (isInRender && !props.open) {
+      setStyle(styles.fadeOutAnimation)
+    } else if (!isInRender && props.open) {
+      setIsInRender(true)
       ReactDOM.render(
-        element,
-        root
-      );
+        modal,
+        mountingPoint
+      )
+      setStyle(styles.fadeIn)
     }
-  }
+
+    element?.addEventListener('animationend', () => {
+      if (!props.open && isInRender) {
+        setIsInRender(false)
+
+        ReactDOM.unmountComponentAtNode(mountingPoint);
+        setStyle(styles.fadeIn)
+      }
+    }, {once: true})
+
+    const mouseDown = (event) => {
+      if (content !== null && event.target !== content && !content.contains(event.target))
+        props.handleClose(false)
+    }
+    if (props.open)
+      element?.addEventListener('mousedown', mouseDown)
+
+    return () => {
+      element?.removeEventListener('mousedown', mouseDown)
+      ReactDOM.unmountComponentAtNode(
+        mountingPoint
+      )
+    }
+  })
+
   return null
 }
 
 Modal.propTypes = {
   noBlur: PropTypes.bool,
   componentStyle: PropTypes.object,
-  rootElementID: PropTypes.string,
   open: PropTypes.bool,
   handleClose: PropTypes.func
 }

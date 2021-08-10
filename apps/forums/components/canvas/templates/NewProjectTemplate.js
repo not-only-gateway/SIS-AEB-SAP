@@ -1,5 +1,4 @@
 import {v4 as uuid4} from 'uuid';
-import {PropTypes} from "@material-ui/core";
 
 export default {
     id: uuid4().toString(),

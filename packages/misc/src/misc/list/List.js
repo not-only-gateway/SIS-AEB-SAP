@@ -34,12 +34,12 @@ export default function List(props) {
     return (
         <div style={{
             display: 'grid',
-            marginTop: '10px',
             width: '100%',
 
             background: 'white',
-            padding: '0 16px 16px 16px',
-            borderRadius: '5px'
+            padding: '0 32px 8px 32px',
+            borderRadius: '5px',
+            boxShadow: props.noShadow ? 'none' : 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px'
         }}>
             <div className={styles.headerContainer}>
                 <div className={styles.titleContainer}>{props.title}</div>
@@ -62,7 +62,7 @@ export default function List(props) {
                 }
             </div>
             {props.createOption ? <ListContent create={true} createOptionLabel={props.createOptionLabel} lang={lang}
-                                               setEntity={() => props.setEntity(null)}
+                                               setEntity={() => props.setEntity(null)} dataLength={data.length}
                                                clickEvent={props.clickEvent} entity={null}/> : null}
 
             {data !== undefined && Array.isArray(data) && data.length > 0 ?
@@ -131,5 +131,6 @@ List.propTypes = {
     fetchParams: PropTypes.object,
 
     scrollableElement: PropTypes.string,
-    renderElement: PropTypes.func
+    renderElement: PropTypes.func,
+    noShadow: PropTypes.bool
 }

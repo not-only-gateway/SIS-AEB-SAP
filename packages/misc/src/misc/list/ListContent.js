@@ -14,7 +14,7 @@ export default function ListContent(props) {
         props.setEntity()
         props.clickEvent(event, props.create)
       }}
-      style={{animationDuration: '250ms', display: (element === null || element === undefined) && !props.create? 'none' : undefined, borderBottom: props.isLast ? '#ecedf2 1px solid' : undefined}}
+      style={{animationDuration: '250ms', display: (element === null || element === undefined) && !props.create? 'none' : undefined, borderBottom: props.isLast || props.dataLength === 0 ? '#ecedf2 1px solid' : undefined}}
     >
       <AddRounded style={{
         color: '#555555',

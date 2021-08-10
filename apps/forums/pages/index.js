@@ -1,8 +1,8 @@
 import React from 'react'
-import Head from "next/head";
 import Canvas from "../components/canvas/Canvas";
 import Cookies from "universal-cookie/lib";
 import 'typeface-roboto'
+
 export default function index(props) {
 
     return (

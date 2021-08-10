@@ -10,14 +10,12 @@ export default function EntityLayout(props) {
     const lang = EntityLayoutPT
     const ref = useRef()
     const [openHistory, setOpenHistory] = useState(false)
-    const [infoModal, setInfoModal] = useState(false)
     const [openOptions, setOpenOptions] = useState(false)
-    const [height, setHeight] = useState(undefined)
 
     useEffect(() => {
-        const newHeight = document.documentElement.offsetHeight - ref.current.offsetTop - 32
+        const newHeight = document.documentElement.offsetHeight - ref.current.getBoundingClientRect().y - 32
         if (ref.current.offsetHeight > newHeight)
-            setHeight(newHeight)
+            ref.current.style.height = newHeight + 'px'
         document.addEventListener('mousedown', event => {
             const target = event.target.className
             if (target !== 'EntityLayout_optionsContainer__1uQvl' && target !== 'EntityLayout_buttonContainer__NhngH' && target !== 'EntityLayout-module_buttonContainer__DCckt' && typeof target !== 'object')
@@ -37,10 +35,12 @@ export default function EntityLayout(props) {
         //         null
         //     }
 
-        <div ref={ref} className={styles.container} style={{height: height !== undefined ? height + 'px' : 'auto'}}>
+        <div ref={ref} className={styles.container} style={{
+            boxShadow: props.noShadow ? 'none' : undefined
+        }}>
             <div className={styles.headerContainer} style={{display: props.noHeader ? 'none' : undefined}}>
                 <div className={styles.header}>
-                    <button className={[styles.returnButton, styles.buttonContainer].join(' ')}
+                    <button className={styles.buttonContainer}
                             style={{display: props.returnButton ? undefined : 'none'}}
                             onClick={() => props.handleClose()}>
                         <ArrowBackRounded/>
