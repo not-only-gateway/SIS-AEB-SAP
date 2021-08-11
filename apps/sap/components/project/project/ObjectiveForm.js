@@ -57,7 +57,7 @@ export default function ObjectiveForm(props) {
                                 width={'100%'}
                             />
                             <TextField
-                                placeholder={lang.status} label={lang.description}
+                                placeholder={lang.status} label={lang.status}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'status', value: event.target.value})

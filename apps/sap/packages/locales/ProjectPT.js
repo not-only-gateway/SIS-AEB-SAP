@@ -2,7 +2,7 @@ export default {
     pageTitle: 'SIS-AEB / SAP',
     name: 'Nome',
     project: 'Projeto / atividade',
-    objectives: 'Objetivos',
+    objectives: 'Marcos do projeto',
     risks: 'Riscos',
     edit: 'Editar projeto / atividade',
     teds: 'Teds',
@@ -30,11 +30,20 @@ export default {
     projects: 'Projetos / Atividades',
 
     workPlan: 'Planos de trabalho',
-    riskOptions: [{key: 'alto', value: 'Alto'},{key: 'moderado', value: 'Moderado'},{key: 'baixo', value: 'Baixo'}],
-    projectTypes:[{key: 'projeto', value: 'Projeto'},{key: 'atividade', value: 'Atividade'}],
+    riskOptions: [{key: 'alto', value: 'Alto'}, {key: 'moderado', value: 'Moderado'}, {key: 'baixo', value: 'Baixo'}],
+    projectTypes: [{key: 'projeto', value: 'Projeto'}, {key: 'atividade', value: 'Atividade'}],
     infrastructure: 'Infraestruturas',
 
     status: 'Status',
-
+    responsibleOptions: [
+        {
+            key: 'Coordenação de Satelites e Aplicações',
+            value: 'Coordenação de Satelites e Aplicações'
+        },
+        {key: 'Coordenação de Segmento Solo', value: 'Coordenação de Segmento Solo'},
+        {
+            key: 'Coordenacao de Veiculos Lançadores e Diretoria de Gestao de Portfólio',
+            value: 'Coordenacao de Veiculos Lançadores e Diretoria de Gestao de Portfólio'
+        }],
 
 }

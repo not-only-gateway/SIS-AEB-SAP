@@ -168,7 +168,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: 30%;
+
 }
 .label{
     font-family: Roboto;

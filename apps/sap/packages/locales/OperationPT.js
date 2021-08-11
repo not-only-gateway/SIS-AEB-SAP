@@ -28,6 +28,9 @@ export default {
     liquidated: 'Liquidado (R$)',
     paid: 'Pago (R$)',
     executionDate: 'Data da execução',
-    description: 'Descrição'
+    description: 'Descrição',
+
+    measures: 'Medidas adotadas',
+    difficulties: 'Dificuldades encontradas'
 
 }

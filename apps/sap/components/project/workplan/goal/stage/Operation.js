@@ -37,18 +37,18 @@ export default function Operation(props) {
                     },
                     {
                         key: 2,
+                        value: lang.followUpGoal,
+                        content: <div style={{width: '100%'}}>
+                            <FollowUpList operation={props.data}/>
+                        </div>
+                    },
+                    {
+                        key: 3,
                         value: lang.executions,
                         content: <div style={{width: '100%'}}>
                             <ExecutionList operation={props.data} setExecution={props.setExecution}/>
                         </div>
                     },
-                    {
-                        key: 3,
-                        value: lang.followUpGoal,
-                        content: <div style={{width: '100%'}}>
-                            <FollowUpList operation={props.data}/>
-                        </div>
-                    }
                 ]}
                 setOpenTab={setOpenTab}
                 openTab={openTab}

@@ -40,6 +40,7 @@ export default function OperationList(props) {
 
                         {name: 'phase', type: 'string',label: 'Fase'},
                         {name: 'version', type: 'string',label: 'versão'},
+                        {name: 'detailing', type: 'string',label: 'Detalhamento'},
                     ]}
                     clickEvent={() => null}
                     setEntity={entity => {

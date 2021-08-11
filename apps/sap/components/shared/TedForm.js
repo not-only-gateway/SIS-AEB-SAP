@@ -70,14 +70,16 @@ export default function TedForm(props) {
                                 required={true}
                                 width={'calc(33.333% - 21.35px)'}/>
 
-                            <TextField
-
-                                placeholder={lang.responsible} label={lang.responsible}
+                            <DropDownField
+                                dark={true}
+                                placeholder={lang.responsible}
+                                label={lang.responsible}
                                 handleChange={event => {
                                     setChanged(true)
-                                    props.handleChange({name: 'responsible', value: event.target.value})
-                                }} locale={props.locale} value={props.data === null ? null : props.data.responsible}
-                                required={true} width={'calc(33.333% - 21.35px)'}/>
+                                    props.handleChange({name: 'responsible', value: event})
+                                }} value={props.data === null ? null : props.data.responsible} required={true}
+                                width={'calc(33.333% - 21.5px)'} choices={lang.responsibleOptions}/>
+
 
                             <TextField
                                 type={'number'}

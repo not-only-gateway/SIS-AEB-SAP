@@ -13,13 +13,16 @@ export default function ListContent(props) {
                 break
             }
             case 'number': {
-                const value = props.entity[field.name].toString()
 
-                res = (field.maskStart ? field.maskStart : '') + value.substring(0, value.length - 3) + '.' + value.substring(value.length - 3, value.length)
+                let parts = props.entity[field.name].toString().split(".")
+                parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+
+
+                res = (field.maskStart ? field.maskStart : '') + (parts.join("."))
                 break
             }
             case 'bool': {
-                res = (field.maskStart ? field.maskStart : '') + JSON.stringify(props.entity[field.name])
+                res = (field.maskStart ? field.maskStart : '') + (props.entity[field.name] ? 'Sim' : 'Não')
                 break
             }
             case 'date': {
@@ -44,21 +47,21 @@ export default function ListContent(props) {
                 borderBottom: props.isLast || props.dataLength === 0 ? '#ecedf2 1px solid' : undefined
             }}
         >
-            <AddRounded style={{
-                color: '#555555',
-                display: !props.create ? 'none' : undefined
-            }}/>
 
-            {
-                props.create ?
-                    (props.createOptionLabel !== undefined ? props.createOptionLabel : props.lang.create)
+            {props.create ?
+                    <div className={styles.row} style={{display: 'flex', justifyContent: 'center', gap: '4px'}}>
+                        <AddRounded style={{
+                            color: '#555555'
+                        }}/>
+                        {props.createOptionLabel !== undefined ? props.createOptionLabel : props.lang.create}
+                    </div>
                     :
                     <div className={styles.row}>
                         {props.fields.map((field, i) => (
                             <>
                                 {i > 0 ? <div className={styles.divider}/> : null}
 
-                                <div className={styles.overflow}>
+                                <div className={styles.overflow} style={{width: (100/props.fields.length) + '%'}}>
                                     {renderField(field)}
                                     <div className={styles.label}>
                                         {field.label}

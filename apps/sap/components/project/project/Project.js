@@ -47,7 +47,7 @@ export default function Project(props) {
                                         value: lang.risks,
                                         content: <RisksList project={props.project}/>
                                     }
-                                ]} type={'vertical'} toolTipMountingElement={document.getElementById('root')}
+                                ]} type={'vertical'}
                                 setOpenTab={setOpenInternalTab}
                                 openTab={openInternalTab}
                             />

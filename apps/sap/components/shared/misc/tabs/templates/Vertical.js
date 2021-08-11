@@ -4,28 +4,29 @@ import React from "react";
 import ToolTip from "../../tooltip/ToolTip";
 
 export default function Vertical(props) {
-    console.log('here')
+
     return (
         <div className={styles.container}>
             <div
                 className={styles.buttons}>
                 {props.buttons.map((button, i) => (button !== null ?
-                        <button
-                            key={button.key + ' - ' + button.value} id={button.key + ' - ' + button.value}
-                            onClick={() => props.setOpenTab(button.key)}
-                            disabled={button.disabled}
-                            className={styles.button}
-                            style={{
-                                borderLeft: props.openTab === button.key ? '#0095ff 2px solid' : undefined,
-                                background: props.openTab === button.key ? '#E8F0FE' : undefined
-                            }}
-                        >
-                            {button.value}
-                            {props.toolTipMountingElement !== null && props.toolTipMountingElement !== undefined ?
-                                <ToolTip content={button.value}
-                                />
-                                : null}
-                        </button>
+                        <span>
+                            <ToolTip content={button.value}/>
+                            <button
+                                key={button.key + ' - ' + button.value} id={button.key + ' - ' + button.value}
+                                onClick={() => props.setOpenTab(button.key)}
+                                disabled={button.disabled}
+                                className={styles.button}
+                                style={{
+                                    borderLeft: props.openTab === button.key ? '#0095ff 2px solid' : undefined,
+                                    background: props.openTab === button.key ? '#E8F0FE' : undefined
+                                }}
+                            >
+                                {button.value}
+
+                            </button>
+
+                        </span>
                         :
                         null
                     )

@@ -36,7 +36,10 @@ export default function ExecutionList(props) {
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/execution'}
 
                     fields={[
-                        {name: 'current_execution', type: 'string',label: 'Execução atual'},
+                        {name: 'current_execution', type: 'string',label: 'Execução atual (%)'},
+                        {name: 'committed', type: 'number',label: 'Valor empenhado', maskStart: 'R$ '},
+                        {name: 'liquidated', type: 'number',label: 'Valor liquidado', maskStart: 'R$ '},
+                        {name: 'paid', type: 'number',label: 'Valor pago', maskStart: 'R$ '},
                         {name: 'execution_date', type: 'date', label: 'Data da execução'}
                     ]}
                     clickEvent={() => null}

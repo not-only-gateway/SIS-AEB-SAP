@@ -52,15 +52,16 @@ export default function WorkPlanForm(props) {
                 forms={[{
                     child: (
                         <>
-                            <TextField
-
-                                placeholder={lang.responsible} label={lang.responsible}
+                            <DropDownField
+                                dark={true}
+                                placeholder={lang.responsible}
+                                label={lang.responsible}
                                 handleChange={event => {
                                     setChanged(true)
-                                    props.handleChange({name: 'responsible', value: event.target.value})
-                                }} locale={props.locale} value={props.data === null ? null : props.data.responsible}
-                                required={true}
-                                width={'calc(50% - 16px)'}/>
+                                    props.handleChange({name: 'responsible', value: event})
+                                }} value={props.data === null ? null : props.data.responsible} required={true}
+                                width={'calc(50% - 16px)'} choices={lang.responsibleOptions}/>
+
                             <DropDownField
                                 dark={true}
                                 placeholder={lang.apostille}

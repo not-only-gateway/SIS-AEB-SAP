@@ -33,6 +33,10 @@ export default function ExecutionForm(props) {
                         {name: 'liquidated', type: 'number'},
                         {name: 'paid', type: 'number'},
 
+                        {name: 'description', type: 'string'},
+                        {name: 'difficulties', type: 'string'},
+                        {name: 'measures_taken', type: 'string'},
+
                         {name: 'execution_date', type: 'date'},
                     ],
                     changed: changed
@@ -53,6 +57,36 @@ export default function ExecutionForm(props) {
                 forms={[{
                     child: (
                         <>
+                            <TextField
+                                placeholder={lang.description} label={lang.description}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'description', value: event.target.value})
+                                }} locale={props.locale}
+                                value={props.data === null ? null : props.data.description}
+                                required={true} variant={'area'}
+                                width={'100%'}/>
+                            <TextField
+
+                                placeholder={lang.difficulties} label={lang.difficulties}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'difficulties', value: event.target.value})
+                                }} locale={props.locale}
+                                value={props.data === null ? null : props.data.difficulties}
+                                required={true} variant={'area'}
+                                width={'100%'}/>
+                            <TextField
+
+                                placeholder={lang.measures} label={lang.measures}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'measures_taken', value: event.target.value})
+                                }} locale={props.locale}
+                                value={props.data === null ? null : props.data.measures_taken}
+                                required={true} variant={'area'}
+                                width={'100%'}/>
+
                             <TextField
 
                                 placeholder={lang.currentExecution} label={lang.currentExecution}

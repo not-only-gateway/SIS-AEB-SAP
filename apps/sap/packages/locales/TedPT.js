@@ -24,5 +24,15 @@ export default {
         key: 'aditivado',
         value: 'Aditivado'
     }, {key: 'finalizado', value: 'Finalizado'}],
-    workPlan: 'Planos de trabalho'
+    workPlan: 'Planos de trabalho',
+    responsibleOptions: [
+        {
+            key: 'Coordenação de Satelites e Aplicações',
+            value: 'Coordenação de Satelites e Aplicações'
+        },
+        {key: 'Coordenação de Segmento Solo', value: 'Coordenação de Segmento Solo'},
+        {
+            key: 'Coordenacao de Veiculos Lançadores e Diretoria de Gestao de Portfólio',
+            value: 'Coordenacao de Veiculos Lançadores e Diretoria de Gestao de Portfólio'
+        }],
 }

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Alert} from "sis-aeb-misc";
 import EntityLayout from "../../../shared/misc/form/EntityLayout";
-import {TextField} from "sis-aeb-inputs";
+import {DropDownField, TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
 import WorkPlanRequests from "../../../../utils/fetch/WorkPlanRequests";
 import InfrastructurePT from "../../../../packages/locales/InfrastructurePT";
@@ -40,7 +40,7 @@ export default function InfrastructureForm(props) {
                     ],
                     changed: changed
                 }}
-                returnButton={true} noHeader={!props.create}
+                returnButton={true}
                 handleSubmit={() =>
                     WorkPlanRequests.submitInfrastructure({
                         pk: props.data.id,
@@ -65,14 +65,16 @@ export default function InfrastructureForm(props) {
                                 width={'calc(50% - 16px)'}/>
 
 
-                            <TextField
-                                placeholder={lang.type} label={lang.type}
+
+                            <DropDownField
+                                dark={true}
+                                placeholder={lang.type}
+                                label={lang.type}
                                 handleChange={event => {
                                     setChanged(true)
-                                    props.handleChange({name: 'type', value: event.target.value})
-                                }} locale={props.locale} value={props.data === null ? null : props.data.type}
-                                required={true}
-                                width={'calc(50% - 16px)'}/>
+                                    props.handleChange({name: 'type', value: event})
+                                }} value={props.data === null ? null : props.data.type} required={true}
+                                width={'calc(50% - 16px)'} choices={lang.typeOptions}/>
 
                             <TextField
                                 placeholder={lang.latitude} label={lang.latitude} type={'number'}
