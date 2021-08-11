@@ -121,11 +121,15 @@ export default function Canvas(props) {
                     onSave={props.onSave}
                     handlePrint={handlePrint}
                 />
-
+                <Pages
+                    scale={scale} setScale={setScale}
+                    data={data} setData={setData}
+                    contextMenuRef={contextMenuRef.current}
+                />
                 <div style={{
                     height: 'calc(100% - 75px)',
                     display: 'flex',
-                    width: '100%'
+                    width: '100%',
                 }}>
 
                     <SideBar
@@ -133,12 +137,7 @@ export default function Canvas(props) {
                         data={data} scale={scale}
                         setState={setData} contextMenuRef={contextMenuRef.current}
                     />
-                    <div style={{width: '100%'}}>
-                    <Pages
-                        scale={scale} setScale={setScale}
-                        data={data} setData={setData}
-                        contextMenuRef={contextMenuRef.current}
-                    />
+
                     <div
                         ref={root} className={styles.canvasContainer}
                         onMouseDown={event => {
@@ -179,7 +178,7 @@ export default function Canvas(props) {
                         </svg>
 
                     </div>
-                    </div>
+                    {/*</div>*/}
 
                     {renderOverview()}
                 </div>
