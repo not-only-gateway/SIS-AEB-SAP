@@ -2,7 +2,7 @@ export default {
     pageTitle: 'SIS-AEB / SAP',
     name: 'Nome',
     project: 'Projeto / atividade',
-    objectives: 'Marcos',
+    objectives: 'Objetivos',
     risks: 'Riscos',
     edit: 'Editar projeto / atividade',
     teds: 'Teds',

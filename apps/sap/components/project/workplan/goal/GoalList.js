@@ -58,6 +58,12 @@ export default function GoalList(props) {
                             </div>
                         )
                     }}
+
+
+                    fields={[
+                        {name: 'goal_number', type: 'string',label: 'Número'},
+                        {name: 'detailing', type: 'string',label: 'Detalhamento'}
+                    ]}
                     clickEvent={() => null}
                     setEntity={entity => {
                         if(entity !== null && entity !== undefined)

@@ -38,26 +38,13 @@ export default function ComponentsList(props) {
                     listKey={'project'}
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/component'}
-                    renderElement={element => {
-                        return (
-                            <div style={{display: 'flex', gap: '16px', justifyContent: 'space-between', width: '100%'}}>
-                                <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
-                                    <div>
-                                        {element.classification}
-                                    </div>
-                                    <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
-                                    <div>
-                                        {element.type}
-                                    </div>
-                                    <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
-                                    <div>
-                                        {element.situation}
-                                    </div>
-                                </div>
-                                <EditRounded style={{fontSize: '1.3rem', color: '#555555'}}/>
-                            </div>
-                        )
-                    }}
+
+
+                    fields={[
+                        {name: 'classification', type: 'string',label: 'classificação'},
+                        {name: 'type', type: 'string',label: 'Tipo'},
+                        {name: 'situation', type: 'string',label: 'situação'}
+                    ]}
                     clickEvent={() => setOpen(true)}
                     setEntity={entity => {
                         setCurrentEntity(entity)

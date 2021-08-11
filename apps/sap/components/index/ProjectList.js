@@ -33,31 +33,11 @@ export default function ProjectList(props) {
                     listKey={'project'}
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/project'}
-                    renderElement={element => {
-                        return (
-                            <div style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                width: '100%'
-                            }}>
-
-                                <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
-                                    <div>
-                                        {element.name}
-                                    </div>
-                                    <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
-                                    <div>
-                                        {element.description}
-                                    </div>
-                                </div>
-                                <div>
-                                    R$ {element.estimated_value}
-                                </div>
-
-                            </div>
-                        )
-                    }}
+                    fields={[
+                        {name: 'name', type: 'string',label: 'nome'},
+                        {name: 'description', type: 'string',label: 'descrição'},
+                        {name: 'estimated_value', type: 'number', maskStart: 'R$', label: 'Valor estimado'}
+                    ]}
                     clickEvent={() => null}
                     setEntity={entity => {
                         if (entity === null || entity === undefined) {
@@ -65,7 +45,8 @@ export default function ProjectList(props) {
                             props.setOpen(true)
                         } else
                             props.redirect(entity.id)
-                    }} searchFieldName={'search_input'} title={'Projetos / Atividades'} scrollableElement={'scrollableDiv'}
+                    }} searchFieldName={'search_input'} title={'Projetos / Atividades'}
+                    scrollableElement={'scrollableDiv'}
                     fetchSize={15}
                 />
             </div>

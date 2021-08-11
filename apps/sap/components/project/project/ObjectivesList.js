@@ -1,14 +1,14 @@
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 import React, {useState} from "react";
 import animations from "../../../styles/Animations.module.css";
-import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import List from "../../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";
 import Host from "../../../utils/shared/Host";
-import RiskForm from "./RiskForm";
+import handleObjectChange from "../../../utils/shared/HandleObjectChange";
+import ObjectiveForm from "./ObjectiveForm";
 import {EditRounded} from "@material-ui/icons";
 
-export default function Risks(props) {
+export default function ObjectivesList(props){
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
 
@@ -16,7 +16,7 @@ export default function Risks(props) {
         <div style={{width: '100%'}}>
             {!open ? null :
                 <div className={animations.fadeIn}>
-                    <RiskForm
+                    <ObjectiveForm
                         returnToMain={() => {
                             setOpen(false)
                         }}
@@ -32,37 +32,26 @@ export default function Risks(props) {
                 <List
                     listKey={'project'}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/risk'}
-                    renderElement={element => {
-                        return (
-                            <div style={{display: 'flex', gap: '16px', justifyContent: 'space-between', width: '100%'}}>
-                                <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
-                                    <div>
-                                        {element.description}
-                                    </div>
-                                    <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
-                                    <div>
-                                        {element.analysis}
-                                    </div>
-                                </div>
-                                <EditRounded style={{fontSize: '1.3rem', color: '#555555'}}/>
+                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/goal_project'}
 
-                            </div>
-                        )
-                    }}
+                    fields={[
+                        {name: 'description', type: 'string',label: 'descrição'},
+                        {name: 'deadline', type: 'date', label: 'Prazo final'},
+                        {name: 'status', type: 'string', label: 'status'}
+                    ]}
                     clickEvent={() => setOpen(true)}
                     setEntity={entity => {
                         setCurrentEntity(entity)
-                    }} searchFieldName={'search_input'} title={'Riscos'} scrollableElement={'scrollableDiv'}
+                    }} searchFieldName={'search_input'} title={'Marcos do projeto'} scrollableElement={'scrollableDiv'}
                     fetchSize={15}
                     fetchParams={{
                         project: props.project.id
                     }}
-          />
+                />
             </div>
         </div>
     )
 }
-Risks.propTypes = {
+ObjectivesList.propTypes={
     project: PropTypes.object
 }

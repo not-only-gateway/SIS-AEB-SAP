@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import styles from './styles/SearchInput.module.css'
+import styles from '../styles/SearchInput.module.css'
 import {SearchRounded} from "@material-ui/icons";
 
 export default function SearchBar(props) {

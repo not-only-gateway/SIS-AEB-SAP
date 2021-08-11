@@ -45,22 +45,11 @@ export default function StageList(props) {
                     listKey={'project'}
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/activity'}
-                    renderElement={element => {
-                        return (
-                            <div style={{display: 'flex', gap: '16px', justifyContent: 'space-between', width: '100%'}}>
-                                <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
-                                    <div>
-                                        {element.stage}
-                                    </div>
-                                    <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
-                                    <div>
-                                        {element.description}
-                                    </div>
-                                </div>
-                                <EditRounded style={{fontSize: '1.3rem', color: '#555555'}}/>
-                            </div>
-                        )
-                    }}
+
+                    fields={[
+                        {name: 'stage', type: 'string', label: 'etapa'},
+                        {name: 'description', type: 'string', label: 'descrição'},
+                    ]}
                     clickEvent={() => null}
                     setEntity={entity => {
                         console.log(entity)

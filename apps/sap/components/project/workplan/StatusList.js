@@ -33,23 +33,11 @@ export default function StatusList(props) {
                     listKey={'project'}
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/work_plan_status'}
-                    renderElement={element => {
-                        return (
-                            <div style={{display: 'flex', gap: '16px', justifyContent: 'space-between', width: '100%'}}>
-                                <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
-                                    <div>
-                                        {element.status}
-                                    </div>
-                                    <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
-                                    <div>
-                                        {new Date(element.update_date).toLocaleDateString()}
-                                    </div>
-                                </div>
-                                <EditRounded style={{fontSize: '1.3rem', color: '#555555'}}/>
 
-                            </div>
-                        )
-                    }}
+                    fields={[
+                        {name: 'status', type: 'string',label: 'status'},
+                        {name: 'update_date', type: 'date', label: 'data da atualização'},
+                    ]}
                     clickEvent={() => setOpen(true)}
                     setEntity={entity => {
                         setCurrentEntity(entity)

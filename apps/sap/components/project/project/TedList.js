@@ -7,6 +7,7 @@ import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import List from "../../shared/misc/list/List";
 import TedForm from "../../shared/TedForm";
 import Selector from "../../shared/misc/selector/Selector";
+import {ArrowForwardRounded, RemoveRounded} from "@material-ui/icons";
 
 export default function TedList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -20,7 +21,8 @@ export default function TedList(props) {
             justifyItems: 'center',
             boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px'
         }}>
-            {open ? null :
+            {open ?
+                null :
                 <Selector
                     getEntityKey={entity => {
                         if (entity !== null && entity !== undefined)
@@ -32,34 +34,12 @@ export default function TedList(props) {
                     }} label={'Adicionar novo instrumento'}
                     setChanged={() => null}
                     disabled={false} width={'calc(100% - 64px)'}
-                    renderEntity={entity => {
-                        if (entity !== undefined && entity !== null)
-                            return (
-                                <div style={{
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center',
-                                    width: '100%'
-                                }}>
-
-                                    <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
-                                        <div>
-                                            {entity.number}
-                                        </div>
-                                        <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
-                                        <div>
-                                            {entity.responsible}
-                                        </div>
-                                    </div>
-                                    <div>
-                                        {entity.process}
-                                    </div>
-
-                                </div>
-                            )
-                        else
-                            return null
-                    }} fetchUrl={Host() + 'list/free/project_teds'}
+                    fields={[
+                        {name: 'number', type: 'string',label: 'Número'},
+                        {name: 'responsible', type: 'string', label: 'Responsável'},
+                        {name: 'process', type: 'string', label: 'Processo'}
+                    ]}
+                    fetchUrl={Host() + 'list/free/project_teds'}
                     fetchToken={(new Cookies()).get('jwt')}
                     elementRootID={'root'} selectorKey={'teds-selector'}
                 />
@@ -83,31 +63,12 @@ export default function TedList(props) {
                     listKey={'teds'} noShadow={true}
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/ted'}
-                    renderElement={element => {
-                        return (
-                            <div style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                width: '100%'
-                            }}>
 
-                                <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
-                                    <div>
-                                        {element.number}
-                                    </div>
-                                    <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
-                                    <div>
-                                        {element.responsible}
-                                    </div>
-                                </div>
-                                <div>
-                                    {element.process}
-                                </div>
-
-                            </div>
-                        )
-                    }}
+                    fields={[
+                        {name: 'number', type: 'string',label: 'Número'},
+                        {name: 'responsible', type: 'string', label: 'Responsável'},
+                        {name: 'process', type: 'string', label: 'Processo'}
+                    ]}
                     clickEvent={() => null}
                     setEntity={entity => {
                         if (entity === null || entity === undefined) {
@@ -115,7 +76,27 @@ export default function TedList(props) {
                         } else
                             props.redirect(entity.id)
                     }} searchFieldName={'search_input'} title={'Instrumento de celebração'}
-                    scrollableElement={'scrollableDiv'} fetchParams={{
+                    scrollableElement={'scrollableDiv'}
+                    options={[{
+                        label: 'Remover vínculo',
+                        icon: <RemoveRounded/>,
+                        onClick: (entity) => {
+
+                        },
+                        disabled: false
+                    },
+                        {
+                            label: 'Abrir',
+                            icon: <ArrowForwardRounded/>,
+                            onClick: (entity) => {
+                                props.redirect(entity.id)
+                            },
+                            disabled: false
+                        }
+
+                    ]}
+
+                    fetchParams={{
                     project: props.project.id
                 }}
                     fetchSize={15}/>

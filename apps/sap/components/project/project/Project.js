@@ -2,8 +2,8 @@ import ProjectForm from "../../index/ProjectForm";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import React, {useState} from "react";
 import Tabs from "../../shared/misc/tabs/Tabs";
-import Objectives from "./Objectives";
-import Risks from "./Risks";
+import ObjectivesList from "./ObjectivesList";
+import RisksList from "./RisksList";
 import ProjectPT from "../../../packages/locales/ProjectPT";
 import PropTypes from 'prop-types'
 import TedList from "./TedList";
@@ -40,12 +40,12 @@ export default function Project(props) {
                                     {
                                         key: 2,
                                         value: lang.objectives,
-                                        content: <Objectives project={props.project}/>
+                                        content: <ObjectivesList project={props.project}/>
                                     },
                                     {
                                         key: 3,
                                         value: lang.risks,
-                                        content: <Risks project={props.project}/>
+                                        content: <RisksList project={props.project}/>
                                     }
                                 ]} type={'vertical'} toolTipMountingElement={document.getElementById('root')}
                                 setOpenTab={setOpenInternalTab}

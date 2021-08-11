@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useState} from "react";
-import Fetch from "./Fetch";
-import ListContent from "./ListContent";
+import Fetch from "./methods/Fetch";
+import ListContent from "./modules/ListContent";
 import ListsPT from "./locales/ListsPT";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Loader from "./Loader";
+import Loader from "./modules/Loader";
 import styles from './styles/List.module.css'
-import SearchBar from "./SearchBar";
+import SearchBar from "./modules/SearchBar";
+import ContextMenu from "./modules/ContextMenu";
 
 export default function List(props) {
     const [data, setData] = useState([])
@@ -15,7 +16,15 @@ export default function List(props) {
     const [searchInput, setSearchInput] = useState('')
     const lang = ListsPT
 
+    const [mountingPoint, setMountingPoint] = useState(undefined)
+
     useEffect(() => {
+        const newElement = document.createElement('div')
+        if (mountingPoint === undefined) {
+            setMountingPoint(newElement)
+            document.body.appendChild(newElement)
+        }
+
         Fetch({
             setLastFetchedSize: setLastFetchedSize,
             setData: setData,
@@ -28,19 +37,31 @@ export default function List(props) {
             params: props.fetchParams,
             searchFieldName: props.searchFieldName
         })
+        return () => {
+            try {
+                if (newElement !== undefined)
+                    document.body.removeChild(newElement)
+            }
+            catch(e){
+                console.log(e)
+            }
+        }
     }, [])
 
 
     return (
         <div style={{
             display: 'grid',
-            width: '100%',
+         width: '100%',
+            overflowX: 'hidden',
 
             background: 'white',
             padding: '0 32px 8px 32px',
             borderRadius: '5px',
             boxShadow: props.noShadow ? 'none' : 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px'
         }}>
+            {props.options !== undefined && mountingPoint !== undefined ?
+                <ContextMenu mountingPoint={mountingPoint} data={data} options={props.options}/> : null}
             <div className={styles.headerContainer}>
                 <div className={styles.titleContainer}>{props.title}</div>
                 {props.noSearchBar || props.searchFieldName === undefined ? null :
@@ -89,14 +110,14 @@ export default function List(props) {
                         </div>
                     }
                 >
-                    <div style={{display: 'grid', overflow: 'hidden', height: 'auto'}}>
+                    <div style={{display: 'grid', overflow: 'hidden', height: 'auto', maxWidth: '100%'}}>
                         {data.map((entity, index) =>
                             <React.Fragment key={index + props.listKey}>
                                 <ListContent
                                     index={index} onlyCreate={props.onlyCreate}
                                     create={false} lang={lang} entity={entity}
                                     setEntity={() => props.setEntity(entity)}
-                                    renderElement={props.renderElement}
+                                    fields={props.fields}
                                     clickEvent={props.clickEvent} isLast={index === (data.length - 1)}
                                 />
                             </React.Fragment>
@@ -131,6 +152,17 @@ List.propTypes = {
     fetchParams: PropTypes.object,
 
     scrollableElement: PropTypes.string,
-    renderElement: PropTypes.func,
-    noShadow: PropTypes.bool
+    fields: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string,
+        type: PropTypes.oneOf(['bool', 'string', 'number','date']),
+        maskStart: PropTypes.string,
+        label: PropTypes.string
+    })),
+    noShadow: PropTypes.bool,
+    options: PropTypes.arrayOf(PropTypes.shape({
+        label: PropTypes.string,
+        icon: PropTypes.object,
+        onClick: PropTypes.func,
+        disabled: PropTypes.bool
+    })),
 }

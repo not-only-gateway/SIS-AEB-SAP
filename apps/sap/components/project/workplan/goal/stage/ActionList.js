@@ -34,22 +34,12 @@ export default function ActionList(props) {
                     listKey={'action'}
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/action'}
-                    renderElement={element => {
-                        return (
-                            <div style={{display: 'flex', gap: '16px', justifyContent: 'space-between', width: '100%'}}>
-                                <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
-                                    <div>
-                                        {element.detailing}
-                                    </div>
-                                    <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
-                                    <div>
-                                        {element.accomplished ? 'Realizada' : 'Não realizada'}
-                                    </div>
-                                </div>
-                                <EditRounded style={{fontSize: '1.3rem', color: '#555555'}}/>
-                            </div>
-                        )
-                    }}
+
+                    fields={[
+
+                        {name: 'detailing', type: 'string',label: 'Detalhamento'},
+                        {name: 'accomplished', type: 'bool',label: 'Realizada'},
+                    ]}
                     clickEvent={() => null}
                     setEntity={entity => {
                         setOpen(true)

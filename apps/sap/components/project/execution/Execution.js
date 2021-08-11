@@ -5,6 +5,8 @@ import React, {useState} from "react";
 import Tabs from "../../shared/misc/tabs/Tabs";
 import ExecutionForm from "./ExecutionForm";
 import ExecutionPT from "../../../packages/locales/ExecutionPT";
+import OperationList from "../workplan/goal/stage/OperationList";
+import NoteList from "./NoteList";
 
 export default function Execution(props) {
     const lang = ExecutionPT
@@ -27,8 +29,10 @@ export default function Execution(props) {
                     },
                     {
                         key: 1,
-                        value: lang.note,
-                        content: null
+                        value: lang.notes,
+                        content:  <div style={{width: '100%'}}>
+                            <NoteList execution={props.execution}/>
+                        </div>
                     }
                 ]}
                 setOpenTab={setOpenTab}

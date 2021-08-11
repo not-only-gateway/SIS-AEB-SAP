@@ -37,31 +37,11 @@ export default function WorkPlanList(props) {
                     listKey={'project'}
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/work_plan'}
-                    renderElement={element => {
-                        return (
-                            <div style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                width: '100%'
-                            }}>
-
-                                <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
-                                    <div>
-                                        {element.object}
-                                    </div>
-                                    <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
-                                    <div>
-                                        {element.responsible}
-                                    </div>
-                                </div>
-                                <div>
-                                    {element.additive}
-                                </div>
-
-                            </div>
-                        )
-                    }}
+                    fields={[
+                        {name: 'object', type: 'string',label: 'Objeto'},
+                        {name: 'responsible', type: 'string',label: 'Responsável'},
+                        {name: 'additive', type: 'date', label: 'Termo aditivo'},
+                    ]}
                     clickEvent={() => null}
                     setEntity={entity => {
                         if (entity === null || entity === undefined) {

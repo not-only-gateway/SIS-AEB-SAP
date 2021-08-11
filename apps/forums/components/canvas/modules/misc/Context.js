@@ -31,10 +31,6 @@ export default function Context(props) {
     }
     const handleMouseUp = (event) => {
         event.preventDefault()
-        console.log(event)
-        console.log(originalPlacement)
-        console.log((originalPlacement.x - event.clientX))
-        console.log((originalPlacement.y - event.clientY))
         if (event.button === 2 && (originalPlacement.x - event.clientX) === 0 && (originalPlacement.y - event.clientY) === 0) {
             setE(event)
             const el = document.elementFromPoint(event.clientX, event.clientY)

@@ -35,6 +35,29 @@ export default class OperationRequests {
         return response
     }
 
+    static async submitNote(submitProps) {
+        let response = false
+        console.log(submitProps.data)
+        await axios({
+            method: submitProps.create ? 'post' : 'put',
+            url: submitProps.create ? Host() + 'note' : Host() + 'note/' + submitProps.pk,
+            headers: {'authorization': jwt},
+            data: submitProps.data
+        }).then(res => {
+            submitProps.setStatus({
+                type: 'success',
+                message: res.status + ' - ' + res.statusText,
+            })
+            response = true
+        }).catch(error => {
+            submitProps.setStatus({
+                type: 'error',
+                message: error.message
+            })
+            console.log(error.request)
+        })
+        return response
+    }
     static async submitAction(submitProps) {
         let response = false
         await axios({

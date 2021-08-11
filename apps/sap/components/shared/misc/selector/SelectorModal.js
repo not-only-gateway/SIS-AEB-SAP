@@ -39,7 +39,7 @@ export default function SelectorModal(props) {
                     <div style={{display: 'grid', gap: '8px'}}>
                         <div className={styles.selectedEntityContainer}
                              style={{display: props.selected === undefined || props.selected === null ? 'none' : undefined}}>
-                            {props.renderEntity(props.selected)}
+                            {props.renderEntity()}
                             <button className={styles.removeButton}
                                     style={{display: props.required ? 'none' : undefined}}
                                     onClick={() => {
@@ -53,9 +53,8 @@ export default function SelectorModal(props) {
                         </div>
                         <List
                             applySearch={applySearch} noShadow={true}
-                            renderElement={entity => props.getEntityKey(entity) !==  props.getEntityKey(props.selected) ? props.renderEntity(entity) : null}
                             searchInput={search} searchFieldName={props.searchFieldName}
-                            clickEvent={() => null}
+                            clickEvent={() => null} fields={props.fields}
                             createOption={false} listKey={props.selectorKey + '-selector-list'}
                             fetchToken={props.fetchToken} fetchUrl={props.fetchUrl} scrollableElement={'selector-modal'}
                             setAppliedSearch={() => setApplySearch(false)}
@@ -83,7 +82,10 @@ export default function SelectorModal(props) {
 }
 SelectorModal.propTypes = {
     searchFieldName: PropTypes.string,
-    renderEntity: PropTypes.func,
+    fields: PropTypes.arrayOf(PropTypes.shape({
+
+        name: PropTypes.string, type: PropTypes.oneOf(['bool', 'string', 'text']), maskStart: PropTypes.string, label: PropTypes.string
+    })),
     elementRootID: PropTypes.string,
     fetchUrl: PropTypes.string,
     fetchToken: PropTypes.string,
