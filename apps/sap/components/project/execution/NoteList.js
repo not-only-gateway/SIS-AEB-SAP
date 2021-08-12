@@ -39,9 +39,10 @@ export default function NoteList(props) {
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/note'}
 
                     fields={[
-                        {name: 'number', type: 'string',label: 'Número'},
-                        {name: 'value', type: 'number', maskStart: 'R$', label: 'Valor'}
+                        {name: 'number', type: 'string'},
+                        {name: 'value', type: 'number', maskStart: 'R$'}
                     ]}
+                    labels={['Número','Valor']}
                     clickEvent={() => null}
                     setEntity={entity => {
                         setOpen(true)

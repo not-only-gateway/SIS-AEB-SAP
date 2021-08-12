@@ -3,8 +3,10 @@ import ProjectPT from "../../../packages/locales/ProjectPT";
 import {Alert} from "sis-aeb-misc";
 import EntityLayout from "../../shared/misc/form/EntityLayout";
 import {DateField, TextField} from "sis-aeb-inputs";
+
 import PropTypes from "prop-types";
 import ProjectRequests from "../../../utils/fetch/ProjectRequests";
+
 
 export default function ObjectiveForm(props) {
 
@@ -66,7 +68,7 @@ export default function ObjectiveForm(props) {
                                 width={'100%'} variant={'area'}
                             />
                             <DateField
-                                dark={true}
+
                                 placeholder={lang.deadline} label={lang.deadline}
                                 handleChange={event => {
                                     setChanged(true)

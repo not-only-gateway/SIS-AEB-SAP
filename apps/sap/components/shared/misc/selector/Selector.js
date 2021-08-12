@@ -112,7 +112,8 @@ Selector.propTypes = {
     label: PropTypes.string,
 
     getEntityKey: PropTypes.func,
-
+    fetchParams: PropTypes.object,
+    labels: PropTypes.array,
     required: PropTypes.bool,
     setChanged: PropTypes.func,
     disabled: PropTypes.bool,

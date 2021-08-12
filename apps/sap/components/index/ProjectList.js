@@ -34,10 +34,11 @@ export default function ProjectList(props) {
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/project'}
                     fields={[
-                        {name: 'name', type: 'string',label: 'nome'},
-                        {name: 'description', type: 'string',label: 'descrição'},
-                        {name: 'estimated_value', type: 'number', maskStart: 'R$', label: 'Valor estimado'}
+                        {name: 'name', type: 'string'},
+                        {name: 'description', type: 'string'},
+                        {name: 'estimated_value', type: 'number', maskStart: 'R$'}
                     ]}
+                    labels={['nome','descrição','Valor estimado']}
                     clickEvent={() => null}
                     setEntity={entity => {
                         if (entity === null || entity === undefined) {

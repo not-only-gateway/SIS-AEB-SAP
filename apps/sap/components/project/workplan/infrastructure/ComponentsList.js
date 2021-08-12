@@ -45,6 +45,7 @@ export default function ComponentsList(props) {
                         {name: 'type', type: 'string',label: 'Tipo'},
                         {name: 'situation', type: 'string',label: 'situação'}
                     ]}
+                    labels={['classificação', 'tipo', 'situação']}
                     clickEvent={() => setOpen(true)}
                     setEntity={entity => {
                         setCurrentEntity(entity)

@@ -37,7 +37,7 @@ export default function InfrastructureList(props) {
                     fields={[
                         {name: 'name', type: 'string',label: 'Nome'},
                         {name: 'type', type: 'string',label: 'Tipo'}
-                    ]}
+                    ]} labels={['Nome', 'Tipo']}
                     clickEvent={() => setOpen(true)}
                     setEntity={entity => {
                         setCurrentEntity(entity)

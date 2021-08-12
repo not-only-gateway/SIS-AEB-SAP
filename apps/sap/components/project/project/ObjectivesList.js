@@ -35,10 +35,11 @@ export default function ObjectivesList(props){
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/goal_project'}
 
                     fields={[
-                        {name: 'description', type: 'string',label: 'descrição'},
-                        {name: 'deadline', type: 'date', label: 'Prazo final'},
-                        {name: 'status', type: 'string', label: 'status'}
+                        {name: 'description', type: 'string'},
+                        {name: 'deadline', type: 'date'},
+                        {name: 'status', type: 'string'}
                     ]}
+                    labels={['descrição','prazo final', 'status']}
                     clickEvent={() => setOpen(true)}
                     setEntity={entity => {
                         setCurrentEntity(entity)

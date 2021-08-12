@@ -27,6 +27,7 @@ export default async function Fetch(props) {
     props.setLastFetchedSize(res.data.length)
   }).catch(error => {
     console.log(error)
+    console.log(error.request)
   })
 }
 

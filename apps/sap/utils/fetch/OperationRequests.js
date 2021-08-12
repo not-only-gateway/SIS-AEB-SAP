@@ -13,12 +13,17 @@ const submitProps = PropTypes.shape({
 export default class OperationRequests {
     static async submitOperation(submitProps) {
         let response = submitProps.create ? null : false
-        console.log(submitProps)
+        let data = {}
+        data = Object.assign(data, submitProps.data)
+        console.log(data)
+        if (typeof data.activity_stage === 'object')
+            data.activity_stage = data.activity_stage.id
+
         await axios({
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'operation_phase' : Host() + 'operation_phase/' + submitProps.pk,
             headers: {'authorization': jwt},
-            data: submitProps.data
+            data: data
         }).then(res => {
             submitProps.setStatus({
                 type: 'success',
@@ -58,6 +63,7 @@ export default class OperationRequests {
         })
         return response
     }
+
     static async submitAction(submitProps) {
         let response = false
         await axios({
@@ -79,6 +85,7 @@ export default class OperationRequests {
         })
         return response
     }
+
     static async submitFollowUpGoal(submitProps) {
         console.log(submitProps)
         let response = false
@@ -102,6 +109,7 @@ export default class OperationRequests {
         })
         return response
     }
+
     static async submitExecution(submitProps) {
         let response = false
         await axios({

@@ -34,7 +34,8 @@ export default function StageList(props) {
                         })
                     }}
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                    data={currentEntity} goal={props.goal}
+                    data={currentEntity}
+                    goal={props.goal}
                 />
                 :
                 null
@@ -49,7 +50,7 @@ export default function StageList(props) {
                     fields={[
                         {name: 'stage', type: 'string', label: 'etapa'},
                         {name: 'description', type: 'string', label: 'descrição'},
-                    ]}
+                    ]} labels={['etapa', 'descrição']}
                     clickEvent={() => null}
                     setEntity={entity => {
                         console.log(entity)
@@ -59,9 +60,9 @@ export default function StageList(props) {
                             setOpen(true)
                     }} searchFieldName={'search_input'} title={'Etapas'} scrollableElement={'scrollableDiv'}
                     fetchSize={15}
-                    fetchParams={{
+                    fetchParams={props.goal !== null ? {
                         goal: props.goal.id
-                    }}
+                    } : undefined}
                 />
             </div>
         </>

@@ -12,32 +12,20 @@
 
 .fadeOutAnimation {
     position: relative;
-    animation: fadeOut ease-in-out 250ms forwards;
+    animation: fadeOut ease-in-out 250ms;
 
 }
 
 
 @keyframes fadeOut {
-
-    0% {
-        opacity: 1;
-        height: inherit;
+    from {
+        opacity:1;
     }
-    50% {
-        opacity: .5;
-        height: inherit;
-    }
-    90% {
-        opacity: .1;
-        height: inherit;
-    }
-    100% {
+    to {
         opacity: 0;
-        display: none;
-        height: 0;
-        z-index: -1;
     }
 }
+
 @keyframes fadeIn {
     from {
         opacity: 0;

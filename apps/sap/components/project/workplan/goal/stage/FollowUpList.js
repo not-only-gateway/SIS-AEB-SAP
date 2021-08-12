@@ -37,8 +37,8 @@ export default function FollowUpList(props) {
                     fields={[
 
                         {name: 'description', type: 'string',label: 'descrição'},
-                        {name: 'accomplished', type: 'bool',label: 'Realizada'},
-                    ]}
+                        {name: 'accomplished', type: 'bool',label: 'entregue'},
+                    ]} labels={['descrição', 'entregue']}
                     clickEvent={() => null}
                     setEntity={entity => {
                         setOpen(true)

@@ -174,16 +174,21 @@
     font-family: Roboto;
     font-size: .75rem;
     color: #555555;
-
+    text-align: center;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     max-width: 100%;
     text-transform: capitalize;
+    padding: 4px;
 }
 .divider{
     height: 20px;
     width: 1px;
     background: #e0e0e0;
 
+}
+
+.labelsContainer{
+    display: flex;
 }

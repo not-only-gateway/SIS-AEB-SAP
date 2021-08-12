@@ -37,7 +37,7 @@ export default function StatusList(props) {
                     fields={[
                         {name: 'status', type: 'string',label: 'status'},
                         {name: 'update_date', type: 'date', label: 'data da atualização'},
-                    ]}
+                    ]} labels={['status', 'data da atualização']}
                     clickEvent={() => setOpen(true)}
                     setEntity={entity => {
                         setCurrentEntity(entity)

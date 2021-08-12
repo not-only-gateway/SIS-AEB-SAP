@@ -56,7 +56,7 @@ export default function Operation(props) {
     )
 }
 Operation.propTypes = {
-
+    workPlan: PropTypes.object,
     data: PropTypes.object,
     handleChange: PropTypes.func,
     returnToMain: PropTypes.func,

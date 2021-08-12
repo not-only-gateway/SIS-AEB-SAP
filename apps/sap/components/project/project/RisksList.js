@@ -38,6 +38,7 @@ export default function RisksList(props) {
                         {name: 'description', type: 'string',label: 'descrição'},
                         {name: 'analysis', type: 'string', label: 'Análise'}
                     ]}
+                    labels={['descrição', 'Análise']}
                     clickEvent={() => setOpen(true)}
                     setEntity={entity => {
                         setCurrentEntity(entity)

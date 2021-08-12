@@ -6,6 +6,10 @@ import PropTypes from "prop-types";
 import EntityLayout from "../../../../shared/misc/form/EntityLayout";
 import WorkPlanRequests from "../../../../../utils/fetch/WorkPlanRequests";
 import GoalPT from "../../../../../packages/locales/GoalPT";
+import Selector from "../../../../shared/misc/selector/Selector";
+import Host from "../../../../../utils/shared/Host";
+import Cookies from "universal-cookie/lib";
+import List from "../../../../shared/misc/list/List";
 
 
 export default function StageForm(props) {
@@ -15,17 +19,17 @@ export default function StageForm(props) {
         type: undefined, message: undefined
     })
     useEffect(() => {
-        if(props.create)
-         props.handleChange({name: 'goal', value: props.goal.id})
+        if (props.create && props.goal !== null && props.goal !== undefined)
+            props.handleChange({name: 'goal', value: props.goal.id})
     }, [])
     return (
         <>
 
-                <Alert
-                    type={status.type} render={status.type !== undefined} rootElementID={'root'}
-                    handleClose={() => setStatus({type: undefined, message: undefined})}
-                    message={status.message}
-                />
+            <Alert
+                type={status.type} render={status.type !== undefined} rootElementID={'root'}
+                handleClose={() => setStatus({type: undefined, message: undefined})}
+                message={status.message}
+            />
 
             <EntityLayout
                 rootElementID={'root'} entity={props.data}
@@ -34,7 +38,8 @@ export default function StageForm(props) {
                     fields: [
                         {name: 'stage', type: 'string'},
                         {name: 'description', type: 'string'},
-                        {name: 'representation', type: 'number'}
+                        {name: 'representation', type: 'number'},
+                        {name: 'goal', type: 'number'},
                     ],
                     changed: changed
                 }}
@@ -58,14 +63,14 @@ export default function StageForm(props) {
                     child: (
                         <>
                             <TextField
-
+                                type={'number'}
                                 placeholder={lang.stage} label={lang.stage}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'stage', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.stage}
                                 required={true}
-                                width={'100%'}/>
+                                width={props.goal !== null && props.goal !== undefined ? 'calc(33.333% - 21.5px)'  : 'calc(50% - 16px)'}/>
 
 
                             <TextField
@@ -75,7 +80,7 @@ export default function StageForm(props) {
                                     props.handleChange({name: 'description', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.description}
                                 required={true}
-                                width={'calc(50% - 16px)'}/>
+                                width={props.goal !== null && props.goal !== undefined ? 'calc(33.333% - 21.5px)'  : 'calc(50% - 16px)'}/>
 
                             <TextField
                                 placeholder={lang.representation} label={lang.representation}
@@ -85,7 +90,7 @@ export default function StageForm(props) {
                                 }} locale={props.locale}
                                 value={props.data === null ? null : props.data.representation}
                                 required={true} type={'number'}
-                                width={'calc(50% - 16px)'}/>
+                                width={props.goal !== null && props.goal !== undefined ? 'calc(33.333% - 21.5px)'  : 'calc(50% - 16px)'}/>
 
 
                         </>

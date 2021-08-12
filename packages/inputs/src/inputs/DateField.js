@@ -1,11 +1,21 @@
 import styles from './styles/Input.module.css'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import LocalePT from './locales/LocalePT'
 
 export default function DateField(props) {
     const lang = LocalePT
-    // const [data, setData] = useState('')
+    const [parsedDate, setParsedDate] = useState()
+    useEffect(() => {
+        if(props.value !== undefined && props.value !== null){
+            const value = new Date(props.value)
+            let dd = String(value.getDate()).padStart(2, '0');
+            let mm = String(value.getMonth() + 1).padStart(2, '0')
+            let yyyy = value.getFullYear();
+            setParsedDate(yyyy + '-' + mm + '-'+dd)
+        }
+
+    })
     return (
         <div style={{
             width: props.width,
@@ -31,7 +41,7 @@ export default function DateField(props) {
                         boxShadow: props.disabled ? 'none' : undefined
                     }}
                     className={styles.inputContainer}
-                    value={props.value}
+                    value={parsedDate}
                     type={'date'}
                     onChange={props.handleChange}
                     maxLength={props.maxLength}

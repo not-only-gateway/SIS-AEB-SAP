@@ -46,6 +46,7 @@ export default function ToolTip(props) {
             ReactDOM.unmountComponentAtNode(
                 mountingPoint
             )
+            document.body.removeChild(mountingPoint)
         }
     })
 

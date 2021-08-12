@@ -35,10 +35,10 @@ export default function TedList(props) {
                     setChanged={() => null}
                     disabled={false} width={'calc(100% - 64px)'}
                     fields={[
-                        {name: 'number', type: 'string',label: 'Número'},
-                        {name: 'responsible', type: 'string', label: 'Responsável'},
-                        {name: 'process', type: 'string', label: 'Processo'}
-                    ]}
+                        {name: 'number', type: 'string'},
+                        {name: 'responsible', type: 'string'},
+                        {name: 'process', type: 'string'}
+                    ]} labels={['Número', 'Responsável', 'Processo']}
                     fetchUrl={Host() + 'list/free/project_teds'}
                     fetchToken={(new Cookies()).get('jwt')}
                     elementRootID={'root'} selectorKey={'teds-selector'}
@@ -69,6 +69,7 @@ export default function TedList(props) {
                         {name: 'responsible', type: 'string', label: 'Responsável'},
                         {name: 'process', type: 'string', label: 'Processo'}
                     ]}
+                    labels={['Número', 'Responsável', 'Processo']}
                     clickEvent={() => null}
                     setEntity={entity => {
                         if (entity === null || entity === undefined) {

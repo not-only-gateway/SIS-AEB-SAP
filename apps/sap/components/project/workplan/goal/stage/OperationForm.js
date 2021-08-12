@@ -5,6 +5,10 @@ import PropTypes from "prop-types";
 import OperationPT from "../../../../../packages/locales/OperationPT";
 import EntityLayout from "../../../../shared/misc/form/EntityLayout";
 import OperationRequests from "../../../../../utils/fetch/OperationRequests";
+import Selector from "../../../../shared/misc/selector/Selector";
+import Host from "../../../../../utils/shared/Host";
+import Cookies from "universal-cookie/lib";
+import List from "../../../../shared/misc/list/List";
 
 export default function OperationForm(props) {
     const [changed, setChanged] = useState(false)
@@ -13,8 +17,8 @@ export default function OperationForm(props) {
         type: undefined, message: undefined
     })
     useEffect(() => {
-        if(props.create)
-            props.handleChange({name: 'activity_stage', value: props.stage.id})
+        if (props.create && props.stage !== null)
+            props.handleChange({name: 'activity_stage', value: props.stage})
     }, [])
     return (
         <>
@@ -38,6 +42,7 @@ export default function OperationForm(props) {
                         {name: 'start_date', type: 'date'},
                         {name: 'end_date', type: 'date'},
                         {name: 'version', type: 'number'},
+                        {name: 'activity_stage', type: 'number'},
                     ],
                     changed: changed
                 }}
@@ -65,7 +70,7 @@ export default function OperationForm(props) {
                                     props.handleChange({name: 'phase', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.phase}
                                 required={true}
-                                width={'calc(50% - 16px)'}/>
+                                width={props.stage !== null && props.stage !== undefined ? 'calc(50% - 16px)' : 'calc(33.333% - 21.5px)'}/>
 
 
                             <TextField
@@ -75,7 +80,35 @@ export default function OperationForm(props) {
                                     props.handleChange({name: 'detailing', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.detailing}
                                 required={true}
-                                width={'calc(50% - 16px)'}/>
+                                width={props.stage !== null && props.stage !== undefined ? 'calc(50% - 16px)' : 'calc(33.333% - 21.5px)'}/>
+                            {props.stage !== null && props.stage !== undefined ?
+                                null
+                                :
+                                <Selector
+                                    getEntityKey={entity => {
+                                        if (entity !== null && entity !== undefined)
+                                            return entity.id
+                                        else return -1
+                                    }} searchFieldName={'search_input'}
+                                    handleChange={entity => {
+                                        props.handleChange({name: 'activity_stage', value: entity})
+                                    }} label={'Vincular atividade'}
+                                    setChanged={() => null} selected={props.data === null || !props.data.activity_stage ? null : props.data.activity_stage}
+                                    disabled={false} width={'calc(33.333% - 21.5px)'}
+
+                                    fields={[
+                                        {name: 'stage', type: 'string', label: 'etapa'},
+                                        {name: 'description', type: 'string', label: 'descrição'},
+                                    ]} required={true}
+                                    labels={['etapa', 'descrição']}
+                                    fetchUrl={Host() + 'list/activity'} fetchParams={{
+                                    workPlan: props.workPlan?.id
+                                    }}
+
+                                    fetchToken={(new Cookies()).get('jwt')}
+                                    elementRootID={'root'} selectorKey={'teds-selector'}
+                                />
+                            }
                         </>
                     )
                 },

@@ -6,12 +6,16 @@ import WorkPlanForm from "./WorkPlanForm";
 import StatusList from "./StatusList";
 import InfrastructureList from "./infrastructure/InfrastructureList";
 import GoalList from "./goal/GoalList";
+import HorizontalChart from "../../shared/chart/HorizontalChart";
+import StageList from "./goal/stage/StageList";
+import Operation from "./goal/stage/Operation";
+import OperationList from "./goal/stage/OperationList";
 
-export default function WorkPlan(props){
+export default function WorkPlan(props) {
     const lang = WorkPlanPT
     const [openTab, setOpenTab] = useState(0)
     const [internalOpenTab, setInternalOpenTab] = useState(0)
-    return(
+    return (
         <div>
             <Tabs
                 buttons={[
@@ -35,7 +39,7 @@ export default function WorkPlan(props){
                                     {
                                         key: 1,
                                         value: lang.status,
-                                        content:  <StatusList workPlan={props.workPlan}/>
+                                        content: <StatusList workPlan={props.workPlan}/>
                                     }
                                 ]} type={'vertical'}
                                 setOpenTab={setInternalOpenTab}
@@ -53,14 +57,44 @@ export default function WorkPlan(props){
                         key: 2,
                         value: lang.goals,
                         content: <GoalList
-                                workPlan={props.workPlan}
-                                setCurrentStructure={props.setGoal}
-                            />
+                            workPlan={props.workPlan}
+                            setCurrentStructure={props.setGoal}
+                        />
                     },
+
                     {
                         key: 3,
+                        value: lang.operation,
+                        content: <OperationList stage={null} setExecution={() => null} workPlan={props.workPlan}/>
+                    },
+                    {
+                        key: 4,
                         value: lang.panel,
-                        content: null
+                        content: (
+                            <HorizontalChart
+                                styles={{width: '100%', height: '500px'}}
+                                title={'Teste para Teste'} axisField={'y'}
+                                axisLabel={'Eixo teste'}
+                                valuesField={
+                                    'x'
+                                }
+                                data={[
+                                    {
+                                        x: 1,y: 'cafe',
+                                        z: 'cafe222'
+                                    },{
+                                        x: 13,y: 'ca123213fe',
+                                        z: 'cafe222'
+                                    },{
+                                        x: 112,y: '2323',
+                                        z: '2135'
+                                    },
+                                ]}
+                                legendLabel={'Legendas'}
+                                legendsField={'z'}
+                                valueLabel={'ValorLabel'}
+                            />
+                        )
                     }
                 ]}
                 setOpenTab={setOpenTab}
@@ -69,7 +103,7 @@ export default function WorkPlan(props){
         </div>
     )
 }
-WorkPlan.propTypes={
+WorkPlan.propTypes = {
     workPlan: PropTypes.object,
     setWorkPlan: PropTypes.func,
     setGoal: PropTypes.func

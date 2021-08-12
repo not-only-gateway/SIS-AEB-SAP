@@ -82,6 +82,13 @@ export default function List(props) {
                     }}/>
                 }
             </div>
+            <div className={styles.labelsContainer}>
+                {props.labels.map(l => (
+                    <div className={styles.label} style={{width: (100/props.labels.length) + '%'}}>
+                        {l}
+                    </div>
+                ))}
+            </div>
             {props.createOption ? <ListContent create={true} createOptionLabel={props.createOptionLabel} lang={lang}
                                                setEntity={() => props.setEntity(null)} dataLength={data.length}
                                                clickEvent={props.clickEvent} entity={null}/> : null}
@@ -155,9 +162,9 @@ List.propTypes = {
     fields: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string,
         type: PropTypes.oneOf(['bool', 'string', 'number','date']),
-        maskStart: PropTypes.string,
-        label: PropTypes.string
+        maskStart: PropTypes.string
     })),
+    labels: PropTypes.arrayOf(PropTypes.any),
     noShadow: PropTypes.bool,
     options: PropTypes.arrayOf(PropTypes.shape({
         label: PropTypes.string,

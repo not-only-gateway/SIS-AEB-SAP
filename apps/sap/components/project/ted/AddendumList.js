@@ -38,6 +38,7 @@ export default function AddendumList(props) {
                         {name: 'number', type: 'string',label: 'Número'},
                         {name: 'global_value', type: 'number', label: 'valor global'},
                     ]}
+                    labels={['Número', 'valor global']}
                     clickEvent={() => setOpen(true)}
                     setEntity={entity => {
                         setCurrentEntity(entity)

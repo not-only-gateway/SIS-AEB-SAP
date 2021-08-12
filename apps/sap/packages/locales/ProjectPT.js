@@ -11,7 +11,7 @@ export default {
     risksTitle: 'Risco',
     description: 'Descrição',
     analysis: 'Análise',
-    deadline: 'Prazo',
+    deadline: 'Prazo final',
     estimatedValue: 'Valor estimado (R$)',
     scope: 'Escopo',
     criticalFactors: 'Fatores críticos',

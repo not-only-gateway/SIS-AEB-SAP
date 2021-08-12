@@ -41,25 +41,7 @@ export default function GoalList(props) {
                     listKey={'project'}
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/work_plan_goal'}
-                    renderElement={element => {
-                        return (
-                            <div style={{display: 'flex', gap: '16px', justifyContent: 'space-between', width: '100%'}}>
-                                <div style={{display: 'flex', gap: '16px', alignItems: 'center'}}>
-                                    <div>
-                                        {element.goal_number}
-                                    </div>
-                                    <div style={{borderRight: '#e0e0e0 1px solid', width: '1px', height: '20px'}}/>
-                                    <div>
-                                        {element.detailing}
-                                    </div>
-                                </div>
-                                <EditRounded style={{fontSize: '1.3rem', color: '#555555'}}/>
-
-                            </div>
-                        )
-                    }}
-
-
+                  labels={['Número', 'Detalhamento']}
                     fields={[
                         {name: 'goal_number', type: 'string',label: 'Número'},
                         {name: 'detailing', type: 'string',label: 'Detalhamento'}

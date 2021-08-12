@@ -1,16 +1,16 @@
 import PropTypes from "prop-types";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import ReactDOM from 'react-dom'
 import styles from "./styles/Modal.module.css";
 
 export default function Modal(props) {
     const [isInRender, setIsInRender] = useState(false)
-    const [style, setStyle] = useState('')
+    const mountingPoint = useRef(document.createElement('div'))
+    const contentRef = useRef()
+    let mounted = false
 
     const modal = (
         <div id={'modal-frame'}
-             key={'modal-frame'}
-             className={style}
              style={{
                  ...props.componentStyle,
                  ...{
@@ -24,50 +24,53 @@ export default function Modal(props) {
 
                  }
              }}>
-            <div className={styles.modalContainer} id={'modal-content'}>
+            <div className={styles.modalContainer} ref={contentRef}>
                 {props.children}
             </div>
         </div>
     )
 
-    const mountingPoint = document.createElement('div')
+
 
     useEffect(() => {
-        const element = document.getElementById('modal-frame')
-        const content = document.getElementById('modal-content')
-
-        if (isInRender && !props.open) {
-            setStyle(styles.fadeOutAnimation)
-        } else if (!isInRender && props.open) {
-            setIsInRender(true)
-            ReactDOM.render(
-                modal,
-                mountingPoint
-            )
-            setStyle(styles.fadeIn)
+        if(!mounted) {
+            document.body.appendChild(mountingPoint.current)
+            mounted = true
         }
 
-        element?.addEventListener('animationend', () => {
-            if (!props.open && isInRender) {
+        if (isInRender && !props.open) {
+            mountingPoint.current.classList.remove(styles.fadeIn)
+            mountingPoint.current.classList.add(styles.fadeOutAnimation)
+            mountingPoint.current.addEventListener('animationend', () => {
+                console.log('HEREEE')
                 setIsInRender(false)
+                ReactDOM.unmountComponentAtNode(mountingPoint.current);
+                document.body.removeChild(mountingPoint.current)
+            }, {once: true})
+        } else if (!isInRender && props.open) {
+            mountingPoint.current.classList.remove(styles.fadeOutAnimation)
+            setIsInRender(true)
+            mountingPoint.current.style.position = 'fixed'
+            mountingPoint.current.style.zIndex = 999
+            ReactDOM.render(
+                modal,
+                mountingPoint.current
+            )
+            mountingPoint.current.classList.add(styles.fadeIn)
+        }
 
-                ReactDOM.unmountComponentAtNode(mountingPoint);
-                setStyle(styles.fadeIn)
-            }
-        }, {once: true})
 
         const mouseDown = (event) => {
-            if (content !== null && event.target !== content && !content.contains(event.target))
+            if (contentRef.current !== null && event.target !== contentRef.current && !contentRef.current?.contains(event.target))
                 props.handleClose(false)
         }
         if (props.open)
-            element?.addEventListener('mousedown', mouseDown)
+            mountingPoint.current.addEventListener('mousedown', mouseDown)
 
         return () => {
-            element?.removeEventListener('mousedown', mouseDown)
-            ReactDOM.unmountComponentAtNode(
-                mountingPoint
-            )
+            mountingPoint.current.removeEventListener('mousedown', mouseDown)
+            // ReactDOM.unmountComponentAtNode(mountingPoint);
+            // document.body.removeChild(mountingPoint)
         }
     })
 

@@ -33,6 +33,7 @@ export default async function submitAuthentication(props) {
             message: error.message
         })
         props.setLoading(false)
+        console.log(error.request)
     })
 
     return response

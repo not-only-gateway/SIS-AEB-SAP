@@ -34,7 +34,7 @@ export default function ActionList(props) {
                     listKey={'action'}
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/action'}
-
+                    labels={['Detalhamento', 'Realizada']}
                     fields={[
 
                         {name: 'detailing', type: 'string',label: 'Detalhamento'},

@@ -1,5 +1,5 @@
 export default {
-    title: 'Acompanhamento de portfólio',
+    title: 'Gestão de portfólio',
     statistics: 'Estatísticas do servidor',
     extensions: 'Ramais',
     administration: 'Administração',

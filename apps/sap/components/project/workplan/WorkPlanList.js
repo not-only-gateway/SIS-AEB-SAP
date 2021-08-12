@@ -42,6 +42,7 @@ export default function WorkPlanList(props) {
                         {name: 'responsible', type: 'string',label: 'Responsável'},
                         {name: 'additive', type: 'date', label: 'Termo aditivo'},
                     ]}
+                    labels={['objeto', 'responsável', 'termo aditivo']}
                     clickEvent={() => null}
                     setEntity={entity => {
                         if (entity === null || entity === undefined) {

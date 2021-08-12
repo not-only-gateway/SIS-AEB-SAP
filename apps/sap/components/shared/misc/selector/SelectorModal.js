@@ -9,8 +9,6 @@ import PropTypes from "prop-types";
 
 export default function SelectorModal(props) {
 
-    const [search, setSearch] = useState('')
-    const [applySearch, setApplySearch] = useState(false)
 
     const lang = SelectorsPT
 
@@ -52,12 +50,11 @@ export default function SelectorModal(props) {
 
                         </div>
                         <List
-                            applySearch={applySearch} noShadow={true}
-                            searchInput={search} searchFieldName={props.searchFieldName}
-                            clickEvent={() => null} fields={props.fields}
-                            createOption={false} listKey={props.selectorKey + '-selector-list'}
+                            noShadow={true}
+                             searchFieldName={props.searchFieldName}
+                            clickEvent={() => null} fields={props.fields} labels={props.labels}
+                            createOption={false} listKey={props.selectorKey + '-selector-list'} fetchParams={props.fetchParams}
                             fetchToken={props.fetchToken} fetchUrl={props.fetchUrl} scrollableElement={'selector-modal'}
-                            setAppliedSearch={() => setApplySearch(false)}
                             setEntity={entity => {
                                 props.handleChange(entity)
                                 if (props.setChanged)
@@ -97,5 +94,7 @@ SelectorModal.propTypes = {
     required: PropTypes.bool,
     setChanged: PropTypes.func,
     modal: PropTypes.bool,
-    setModal: PropTypes.func
+    setModal: PropTypes.func,
+    fetchParams: PropTypes.object,
+    labels: PropTypes.array,
 }

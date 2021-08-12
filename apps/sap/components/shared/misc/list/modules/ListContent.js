@@ -53,7 +53,7 @@ export default function ListContent(props) {
                         <AddRounded style={{
                             color: '#555555'
                         }}/>
-                        {props.createOptionLabel !== undefined ? props.createOptionLabel : props.lang.create}
+                        {/*{props.createOptionLabel !== undefined ? props.createOptionLabel : props.lang.create}*/}
                     </div>
                     :
                     <div className={styles.row}>
@@ -63,9 +63,6 @@ export default function ListContent(props) {
 
                                 <div className={styles.overflow} style={{width: (100/props.fields.length) + '%'}}>
                                     {renderField(field)}
-                                    <div className={styles.label}>
-                                        {field.label}
-                                    </div>
                                 </div>
                             </>
                         ))}

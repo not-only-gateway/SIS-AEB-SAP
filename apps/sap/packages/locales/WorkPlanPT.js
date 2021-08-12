@@ -23,4 +23,5 @@ export default {
             key: 'Coordenacao de Veiculos Lançadores e Diretoria de Gestao de Portfólio',
             value: 'Coordenacao de Veiculos Lançadores e Diretoria de Gestao de Portfólio'
         }],
+    operation: 'Fase / operação'
 }
