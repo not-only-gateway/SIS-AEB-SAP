@@ -9,7 +9,7 @@
 
 .column {
     display: flex;
-    gap: 8px;
+    gap: 16px;
     width: 100%;
     align-items: center;
 }
@@ -24,7 +24,7 @@
     font-family: Roboto;
     color: #393C44;
     border: none;
-    width: 40%;
+    width: fit-content;
     padding: 4px;
     background: white;
     outline: none;

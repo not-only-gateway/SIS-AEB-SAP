@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import styles from '../../../styles/Menu.module.css'
+import styles from './styles/Styles.module.css'
 import React from "react";
 
 export default function Tabs(props) {

@@ -1,6 +1,6 @@
-import styles from '../../styles/Shapes.module.css'
+import styles from '../styles/Shapes.module.css'
 import PropTypes from 'prop-types'
-import Elements from "../Elements";
+import Elements from "./Elements";
 import DragNew from "../../../../methods/move/DragNew";
 
 export default function Shapes(props) {

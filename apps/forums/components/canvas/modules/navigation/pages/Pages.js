@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import styles from "../styles/Footer.module.css";
+import styles from "./styles/Pages.module.css";
 import {AddRounded, ListRounded} from "@material-ui/icons";
 import PageField from "./PageField";
 import React from 'react'
@@ -7,15 +7,31 @@ export default function Pages(props) {
 
     return (
         <div className={styles.pagesContainer}>
-            <button
-                className={styles.newPageButton}
-                style={{borderRight: '#ecedf2 1px solid'}}
-            >
-                <ListRounded style={{fontSize: '1.7rem'}}/>
-            </button>
+
             {props.data.pages.map((page, index) => (
                 <React.Fragment key={'page-'+index}>
-                    <PageField page={page} contextMenuRef={props.contextMenuRef}/>
+                    <PageField
+                        page={page}
+                        contextMenuRef={props.contextMenuRef}
+                        setAsDefault={() => {
+                            let newPages = [...props.data.pages]
+                            let defaultIndex = -1
+                            newPages.find((page, i) => {
+                                if(page.default)
+                                    defaultIndex = i
+                            })
+
+                            if(defaultIndex !== -1)
+                                newPages[defaultIndex].default = false
+
+                            newPages[index].default = true
+
+                        props.setData({
+                            ...props.data,
+                            pages: newPages
+                        })
+                    }}
+                    />
                 </React.Fragment>
             ))}
             <button

@@ -1,0 +1,65 @@
+
+
+.pagesContainer {
+    background: transparent;
+    width: 100%;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    padding: 0 8px 0 0;
+
+
+}
+.mainPage{
+    background: white;
+}
+.pageButton{
+    width: 10%;
+
+    min-width: unset;
+    height: 100%;
+    outline: none;
+    border-radius: 8px 8px 0 0;
+    font-size: .85rem;
+
+    font-weight: bold;
+    padding: 8px;
+
+    text-align: center;
+    cursor: pointer;
+    border: #ecedf2 1px solid;
+    border-bottom: none;
+    color: #555555;
+    transition: 150ms linear;
+}
+.pageButton:disabled{
+    cursor: unset;
+    color: #333333;
+}
+.newPageButton{
+    outline: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    border-radius: 8px 8px 0 0;
+    height: 100%;
+    color: #393C44;
+    background-color: white;
+    transition: 150ms linear;
+    cursor: pointer;
+}
+.newPageButton:hover{
+    color: #0095ff;
+    background-color: #E8F0FE;
+}
+.newPageButton:active{
+    color: #0095ff;
+    background-color: #E8F0FE ;
+}
+.newPageButton:disabled{
+    cursor: unset;
+    color: #999999;
+    background-color: white;
+}

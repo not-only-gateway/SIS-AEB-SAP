@@ -54,20 +54,17 @@
     cursor: pointer;
     height: 40px;
 
-    color: #333333;
+    color: #555555;
     font-size: .8rem;
     font-family: Roboto;
     display: flex;
     gap: 6px;
     align-items: center;
     justify-content: space-between;
-    padding: 4px 4px 4px 16px;
+    padding:8px;
     transition: 150ms linear;
 }
 
-.optionsDivider:hover {
-    background: #f4f5fa;
-}
 
 .divider {
     background: #ecedf2;
@@ -128,10 +125,12 @@
     gap: 16px;
     transition: 150ms linear;
     height: fit-content;
-
-    border-bottom: #ecedf2 1px solid;
+    border-radius: 8px;
 }
-
+.elementsContainer:hover{
+    background: white;
+    color: #0095ff;
+}
 .container {
     width: 100%;
     align-self: stretch;
@@ -142,4 +141,9 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.elementsOpen{
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }

@@ -1,5 +1,5 @@
-import Elements from "../Elements";
-import styles from "../../styles/Shapes.module.css";
+import Elements from "./Elements";
+import styles from "../styles/Shapes.module.css";
 import PropTypes from "prop-types";
 
 export default function Connections(props){

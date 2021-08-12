@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import {AddRounded, RemoveRounded} from "@material-ui/icons";
-import styles from '../styles/Footer.module.css'
+import styles from './styles/Styles.module.css'
 
 
 export default function Scale(props) {

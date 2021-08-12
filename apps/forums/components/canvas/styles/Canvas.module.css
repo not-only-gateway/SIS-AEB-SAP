@@ -133,7 +133,8 @@
     position: relative;
     top: 0;
     left: 0;
-    border-radius: 10px;
+
+    border-left: #ecedf2 1px solid;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
 
@@ -144,14 +145,8 @@
     width: 100%;
     height: 100%;
 
-    background: #f4f5fa;
+
     cursor: default;
     scroll-behavior: auto;
-    border: #ecedf2 1px solid;
-    border-top: none;
-    padding: 100px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
 }
 
