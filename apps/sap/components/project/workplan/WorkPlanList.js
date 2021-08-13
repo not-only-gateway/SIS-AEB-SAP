@@ -11,7 +11,11 @@ import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
 export default function WorkPlanList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-
+    const [refreshed, setRefreshed] = useState(false)
+    const [status, setStatus] = useState({
+        type: undefined,
+        message: undefined
+    })
     return (
         <>
             {!open ? null :
@@ -19,6 +23,7 @@ export default function WorkPlanList(props) {
                     <WorkPlanForm
                         returnToMain={() => {
                             setOpen(false)
+                            setRefreshed(false)
                         }} redirect={id => {
                         WorkPlanRequests.fetchWorkPlan(id).then(res => {
                             if (res !== null)
@@ -37,6 +42,8 @@ export default function WorkPlanList(props) {
                     listKey={'project'}
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/work_plan'}
+                    triggerRefresh={!refreshed}
+                    setRefreshed={setRefreshed}
                     fields={[
                         {name: 'object', type: 'string',label: 'Objeto'},
                         {name: 'responsible', type: 'string',label: 'Responsável'},

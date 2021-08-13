@@ -12,7 +12,7 @@ import ActionForm from "./ActionForm";
 export default function ActionList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-
+    const [refreshed, setRefreshed] = useState(false)
     return (
         <>
             {!open ? null :

@@ -11,7 +11,11 @@ import {EditRounded} from "@material-ui/icons";
 export default function ObjectivesList(props){
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-
+    const [refreshed, setRefreshed] = useState(false)
+    const [status, setStatus] = useState({
+        type: undefined,
+        message: undefined
+    })
     return (
         <div style={{width: '100%'}}>
             {!open ? null :
@@ -19,6 +23,7 @@ export default function ObjectivesList(props){
                     <ObjectiveForm
                         returnToMain={() => {
                             setOpen(false)
+                            setRefreshed(false)
                         }}
                         handleChange={event => handleObjectChange({
                             event: event,
@@ -33,7 +38,8 @@ export default function ObjectivesList(props){
                     listKey={'project'}
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/goal_project'}
-
+                    triggerRefresh={!refreshed}
+                    setRefreshed={setRefreshed}
                     fields={[
                         {name: 'description', type: 'string'},
                         {name: 'deadline', type: 'date'},

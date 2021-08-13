@@ -2777,3 +2777,16 @@ src/index.js → dist/index.js, dist/index.modern.js...
 func imported from external module 'prop-types' but never used
 created dist/index.js, dist/index.modern.js in 3.2s
 Done in 3.99s.
+yarn install v1.22.10
+[1/5] Validating package.json...
+[2/5] Resolving packages...
+success Already up-to-date.
+Done in 0.59s.
+yarn run v1.22.10
+$ rollup -c 
+
+src/index.js → dist/index.js, dist/index.modern.js...
+(!) Unused external imports
+func imported from external module 'prop-types' but never used
+created dist/index.js, dist/index.modern.js in 2.7s
+Done in 3.13s.

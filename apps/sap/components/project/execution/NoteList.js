@@ -14,7 +14,7 @@ import NoteForm from "./NoteForm";
 export default function NoteList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-
+    const [refreshed, setRefreshed] = useState(false)
     return (
         <div>
             {!open ? null :

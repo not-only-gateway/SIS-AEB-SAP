@@ -12,13 +12,18 @@ import WorkPlanRequests from "../../../../../utils/fetch/WorkPlanRequests";
 export default function StageList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-
+    const [refreshed, setRefreshed] = useState(false)
+    const [status, setStatus] = useState({
+        type: undefined,
+        message: undefined
+    })
     return (
         <>
             {open ?
                 <StageForm
                     returnToMain={() => {
                         setOpen(false)
+                        setRefreshed(false)
                         setCurrentEntity(null)
                     }}
                     open={open}
@@ -46,7 +51,8 @@ export default function StageList(props) {
                     listKey={'project'}
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/activity'}
-
+                    triggerRefresh={!refreshed}
+                    setRefreshed={setRefreshed}
                     fields={[
                         {name: 'stage', type: 'string', label: 'etapa'},
                         {name: 'description', type: 'string', label: 'descrição'},

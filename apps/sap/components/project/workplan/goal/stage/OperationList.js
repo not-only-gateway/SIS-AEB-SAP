@@ -11,7 +11,7 @@ import Operation from "./Operation";
 export default function OperationList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-
+    const [refreshed, setRefreshed] = useState(false)
     return (
         <>
             {!open ? null :

@@ -1,28 +1,27 @@
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
-// import animations from "../../styles/Animations.module.css";
-// import ProjectForm from "../index/ProjectForm";
-// import handleObjectChange from "../../utils/shared/HandleObjectChange";
-// import List from "../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";
-// import Host from "../../utils/shared/Host";
 import {EditRounded} from "@material-ui/icons";
 import Host from "../../../../utils/shared/Host";
 import List from "../../../shared/misc/list/List";
 import ComponentForm from "./ComponentForm";
 import handleObjectChange from "../../../../utils/shared/HandleObjectChange";
-// import GoalForm from "./GoalForm";
 
 export default function ComponentsList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-
+    const [status, setStatus] = useState({
+        type: undefined,
+        message: undefined
+    })
+    const [refreshed, setRefreshed] = useState(false)
     return (
         <>
             {!open ? null :
                 <ComponentForm
                     returnToMain={() => {
                         setOpen(false)
+                        setRefreshed(false)
                     }}
                     handleChange={event => handleObjectChange({
                         event: event,
@@ -38,7 +37,8 @@ export default function ComponentsList(props) {
                     listKey={'project'}
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/component'}
-
+                    triggerRefresh={!refreshed}
+                    setRefreshed={setRefreshed}
 
                     fields={[
                         {name: 'classification', type: 'string',label: 'classificação'},

@@ -12,7 +12,11 @@ import AddendumForm from "./AddendumForm";
 export default function AddendumList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-
+    const [refreshed, setRefreshed] = useState(false)
+    const [status, setStatus] = useState({
+        type: undefined,
+        message: undefined
+    })
     return (
         <div style={{width: '100%'}}>
             {!open ? null :
@@ -20,6 +24,7 @@ export default function AddendumList(props) {
                     <AddendumForm
                         returnToMain={() => {
                             setOpen(false)
+                            setRefreshed(false)
                         }}
                         handleChange={event => handleObjectChange({
                             event: event,
@@ -38,6 +43,8 @@ export default function AddendumList(props) {
                         {name: 'number', type: 'string',label: 'Número'},
                         {name: 'global_value', type: 'number', label: 'valor global'},
                     ]}
+                    triggerRefresh={!refreshed}
+                    setRefreshed={setRefreshed}
                     labels={['Número', 'valor global']}
                     clickEvent={() => setOpen(true)}
                     setEntity={entity => {

@@ -6,12 +6,17 @@ import List from "../../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";
 import Host from "../../../utils/shared/Host";
 import RiskForm from "./RiskForm";
-import {EditRounded} from "@material-ui/icons";
+import {ArrowForwardRounded, EditRounded, RemoveRounded} from "@material-ui/icons";
+import ProjectRequests from "../../../utils/fetch/ProjectRequests";
 
 export default function RisksList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-
+    const [refreshed, setRefreshed] = useState(false)
+    const [status, setStatus] = useState({
+        type: undefined,
+        message: undefined
+    })
     return (
         <div style={{width: '100%'}}>
             {!open ? null :
@@ -19,6 +24,8 @@ export default function RisksList(props) {
                     <RiskForm
                         returnToMain={() => {
                             setOpen(false)
+                            setRefreshed(false)
+                            console.log('settingRefresh')
                         }}
                         handleChange={event => handleObjectChange({
                             event: event,
@@ -33,7 +40,8 @@ export default function RisksList(props) {
                     listKey={'project'}
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/risk'}
-
+                    triggerRefresh={!refreshed}
+                    setRefreshed={setRefreshed}
                     fields={[
                         {name: 'description', type: 'string',label: 'descrição'},
                         {name: 'analysis', type: 'string', label: 'Análise', getColor: field => {
@@ -63,6 +71,18 @@ export default function RisksList(props) {
                         setCurrentEntity(entity)
                     }} searchFieldName={'search_input'} title={'Riscos'} scrollableElement={'scrollableDiv'}
                     fetchSize={15}
+                    options={[{
+                        label: 'Remover vínculo',
+                        icon: <RemoveRounded/>,
+                        onClick: (entity) => {
+                            ProjectRequests.deleteRisk({
+                                pk: entity.id,
+                                setStatus: setStatus,
+                                setRefreshed: setRefreshed
+                            })
+                        },
+                        disabled: false
+                    }]}
                     fetchParams={{
                         project: props.project.id
                     }}

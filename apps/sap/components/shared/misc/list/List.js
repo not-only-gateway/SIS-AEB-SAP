@@ -51,7 +51,7 @@ export default function List(props) {
 
         if(props.triggerRefresh || data.length === 0)
             refresh()
-    }, [props.refresh])
+    }, [props.triggerRefresh])
 
 
     return (

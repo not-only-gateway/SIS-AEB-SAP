@@ -12,7 +12,11 @@ import GoalForm from "./GoalForm";
 export default function GoalList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-
+    const [status, setStatus] = useState({
+        type: undefined,
+        message: undefined
+    })
+    const [refreshed, setRefreshed] = useState(false)
     return (
         <div style={{width: '100%'}}>
             {!open ? null :
@@ -20,6 +24,7 @@ export default function GoalList(props) {
                     <GoalForm
                         returnToMain={() => {
                             setOpen(false)
+                            setRefreshed(false)
                         }}
                         handleChange={event => handleObjectChange({
                             event: event,
@@ -40,6 +45,8 @@ export default function GoalList(props) {
                 <List
                     listKey={'project'}
                     createOption={true}
+                    triggerRefresh={!refreshed}
+                    setRefreshed={setRefreshed}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/work_plan_goal'}
                   labels={['Número', 'Detalhamento','unidade de medida', 'situação inicial', 'valor planejado']}
                     fields={[

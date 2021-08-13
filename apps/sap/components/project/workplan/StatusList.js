@@ -11,7 +11,11 @@ import StatusForm from "./StatusForm";
 export default function StatusList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-
+    const [refreshed, setRefreshed] = useState(false)
+    const [status, setStatus] = useState({
+        type: undefined,
+        message: undefined
+    })
     return (
         <div style={{width: '100%'}}>
             {!open ? null :
@@ -19,6 +23,7 @@ export default function StatusList(props) {
                     <StatusForm
                         returnToMain={() => {
                             setOpen(false)
+                            setRefreshed(false)
                         }}
                         handleChange={event => handleObjectChange({
                             event: event,
@@ -33,7 +38,8 @@ export default function StatusList(props) {
                     listKey={'project'}
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/work_plan_status'}
-
+                    triggerRefresh={!refreshed}
+                    setRefreshed={setRefreshed}
                     fields={[
                         {name: 'status', type: 'string',label: 'status'},
                         {name: 'difficulties', type: 'string'},

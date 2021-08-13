@@ -11,7 +11,7 @@ import FollowUpForm from "./FollowUpForm";
 export default function FollowUpList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-
+    const [refreshed, setRefreshed] = useState(false)
     return (
         <>
             {!open ? null :

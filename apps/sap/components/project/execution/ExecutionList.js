@@ -11,7 +11,7 @@ import ExecutionForm from "./ExecutionForm";
 export default function ExecutionList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-
+    const [refreshed, setRefreshed] = useState(false)
     return (
         <>
             {!open ? null :

@@ -11,7 +11,11 @@ import Infrastructure from "./Infrastructure";
 export default function InfrastructureList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-
+    const [refreshed, setRefreshed] = useState(false)
+    const [status, setStatus] = useState({
+        type: undefined,
+        message: undefined
+    })
     return (
         <>
             {!open ? null :
@@ -19,6 +23,7 @@ export default function InfrastructureList(props) {
                     <Infrastructure
                         returnToMain={() => {
                             setOpen(false)
+                            setRefreshed(false)
                         }}
                         handleChange={event => handleObjectChange({
                             event: event,
@@ -33,7 +38,8 @@ export default function InfrastructureList(props) {
                     listKey={'project'}
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/infrastructure'}
-
+                    triggerRefresh={!refreshed}
+                    setRefreshed={setRefreshed}
                     fields={[
                         {name: 'name', type: 'string',label: 'Nome'},
                         {name: 'type', type: 'string',label: 'Tipo'}
