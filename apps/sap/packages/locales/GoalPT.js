@@ -7,7 +7,7 @@ export default {
     goalNumber: 'Número da meta',
     detailing: 'Detalhamento',
     measurement: 'Unidade de medida',
-    value: 'Valor',
+    value: 'Valor planejado',
     initialSituation: 'Situação inicial',
     finalSituation:  'Situação final',
     goal: 'Meta',

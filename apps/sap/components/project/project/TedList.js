@@ -8,11 +8,25 @@ import List from "../../shared/misc/list/List";
 import TedForm from "../../shared/TedForm";
 import Selector from "../../shared/misc/selector/Selector";
 import {ArrowForwardRounded, RemoveRounded} from "@material-ui/icons";
+import ProjectRequests from "../../../utils/fetch/ProjectRequests";
+import Alert from "../../shared/misc/alert/Alert";
 
 export default function TedList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-
+    const [status, setStatus] = useState({
+        type: undefined,
+        message: undefined
+    })
+    const deleteTed = (entity) => {
+        ProjectRequests.deleteProjectTed({
+            pk: entity.id,
+            setStatus: setStatus,
+            data: {project: props.project.id},
+            setRefreshed: setRefreshed
+        })
+    }
+    const [refreshed, setRefreshed] = useState(false)
     return (
         <div style={{
             background: 'white',
@@ -21,6 +35,11 @@ export default function TedList(props) {
             justifyItems: 'center',
             boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px'
         }}>
+            <Alert
+                type={status.type} render={status.type !== undefined}
+                handleClose={() => setStatus({type: undefined, message: undefined})}
+                message={status.message}
+            />
             {open ?
                 null :
                 <Selector
@@ -30,9 +49,15 @@ export default function TedList(props) {
                         else return -1
                     }} searchFieldName={'search_input'}
                     handleChange={entity => {
-
+                        ProjectRequests.submitProjectTed({
+                            data: {ted: entity.id, activity_project: props.project.id},
+                            setStatus: setStatus
+                        })
                     }} label={'Adicionar novo instrumento'}
                     setChanged={() => null}
+                    fetchParams={{
+                        project: props.project.id
+                    }}
                     disabled={false} width={'calc(100% - 64px)'}
                     fields={[
                         {name: 'number', type: 'string'},
@@ -49,6 +74,7 @@ export default function TedList(props) {
                     <TedForm
                         returnToMain={() => {
                             setOpen(false)
+                            setRefreshed(false)
                         }} redirect={props.redirect}
                         handleChange={event => handleObjectChange({
                             event: event,
@@ -62,10 +88,11 @@ export default function TedList(props) {
                 <List
                     listKey={'teds'} noShadow={true}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/ted'}
-
+                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/project_ted'}
+                    triggerRefresh={!refreshed}
+                    setRefreshed={setRefreshed}
                     fields={[
-                        {name: 'number', type: 'string',label: 'Número'},
+                        {name: 'number', type: 'string', label: 'Número'},
                         {name: 'responsible', type: 'string', label: 'Responsável'},
                         {name: 'process', type: 'string', label: 'Processo'}
                     ]}
@@ -82,7 +109,7 @@ export default function TedList(props) {
                         label: 'Remover vínculo',
                         icon: <RemoveRounded/>,
                         onClick: (entity) => {
-
+                            deleteTed(entity)
                         },
                         disabled: false
                     },
@@ -90,16 +117,15 @@ export default function TedList(props) {
                             label: 'Abrir',
                             icon: <ArrowForwardRounded/>,
                             onClick: (entity) => {
-                                props.redirect(entity.id)
+                                props.redirect(entity)
                             },
                             disabled: false
                         }
 
                     ]}
-
                     fetchParams={{
-                    project: props.project.id
-                }}
+                        project: props.project.id
+                    }}
                     fetchSize={15}/>
             </div>
         </div>

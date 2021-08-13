@@ -4,9 +4,7 @@ import styles from "../styles/List.module.css";
 import ReactDOM from 'react-dom'
 
 export default function ContextMenu(props) {
-    let entity= null
-    const [e, setE] = useState({})
-
+    let entity = null
     const remove = () => {
         props.mountingPoint.classList.add(styles.exitAnimation)
 
@@ -17,11 +15,10 @@ export default function ContextMenu(props) {
     }
     const handleMouseUp = (event) => {
         event.preventDefault()
-        if (event.button === 2 && event.target.id.includes('*-') && event.target.id.replace('*-', '') !== 'undefined') {
-            setE(event)
-            const data = props.data[parseInt(event.target.id.replace('*-', ''))]
-            console.log(data)
-            console.log(props.data)
+        const parsedIndex = event.target.id.replace('*-', '').replace('-row', '').replace('-field', '')
+        if (event.button === 2 && event.target.id.includes('*-') && parsedIndex !== 'undefined') {
+            const data = props.data[parseInt(parsedIndex)]
+
             const context = (
                 <div className={styles.context}>
                     {props.options.map((button, i) => (
@@ -39,23 +36,26 @@ export default function ContextMenu(props) {
                     ))}
                 </div>
             )
-            ReactDOM.render(context,props.mountingPoint)
+            ReactDOM.render(context, props.mountingPoint)
             props.mountingPoint.style.position = 'fixed'
             props.mountingPoint.style.zIndex = 999
             props.mountingPoint.style.top = (event.clientY - props.options.length * 40) + 'px'
-            props.mountingPoint.style.left = (event.clientX ) + 'px'
+            props.mountingPoint.style.left = (event.clientX) + 'px'
         }
 
     }
     const handleExit = (event) => {
-        console.log(event.target)
-        if (event && (event.button === 2 && entity !== null)) {
-            // setEntity(null)
+        console.log(event.target.className)
+        console.log(entity)
+        if (event && event.button === 2 && typeof event.target.className === "object" || (typeof event.target.className === "string" && !event.target.className.includes('List_contextButton')))  {
             remove()
+            console.log('HERE')
         }
+
     }
 
     useEffect(() => {
+
         document.body.addEventListener('contextmenu', preventContext)
         document.addEventListener('mouseup', handleMouseUp)
         document.addEventListener('mousedown', handleExit)

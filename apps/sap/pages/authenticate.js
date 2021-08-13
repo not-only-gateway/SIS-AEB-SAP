@@ -70,12 +70,11 @@ export default function authenticate() {
                                 value: event.target.value
                             }, setData: setData
                         })} locale={router.locale} value={data.password}
-                        width={'100%'} passwordMask={true}
+                        width={'100%'} passwordMask={true} type={'password'}
                         maxLength={undefined}/>
 
 
                     <Button
-
                         onClick={() => submitAuthentication({
                             email: data.email,
                             password: data.password,

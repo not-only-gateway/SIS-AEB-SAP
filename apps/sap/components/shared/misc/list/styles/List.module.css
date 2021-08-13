@@ -89,7 +89,9 @@
     font-family: Roboto;
     color: #444444;
     margin-right: auto;
-
+    display: flex;
+    gap: 8px;
+    align-items: center;
 }
 
 
@@ -191,4 +193,26 @@
 
 .labelsContainer{
     display: flex;
+}
+.refreshButton{
+outline: none;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555555;
+    cursor: pointer;
+    transition: 150ms linear;
+    border-radius: 5px;
+}
+.refreshButton:hover{
+    background: #E8F0FE;
+    color: #333333;
+
+}
+.refreshButton:active{
+    background: #f4f5fa;
+    color: #0095ff;
+
 }

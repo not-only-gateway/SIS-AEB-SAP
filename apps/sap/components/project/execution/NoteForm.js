@@ -63,7 +63,7 @@ export default function NoteForm(props) {
 
 
                             <TextField
-                                placeholder={lang.value} label={lang.value}
+                                placeholder={lang.value} label={lang.value} maskStart={'R$'}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'value', value: event.target.value})

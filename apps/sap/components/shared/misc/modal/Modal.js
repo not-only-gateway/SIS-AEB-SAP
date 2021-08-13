@@ -31,9 +31,8 @@ export default function Modal(props) {
     )
 
 
-
     useEffect(() => {
-        if(!mounted) {
+        if (!mounted) {
             document.body.appendChild(mountingPoint.current)
             mounted = true
         }
@@ -42,10 +41,13 @@ export default function Modal(props) {
             mountingPoint.current.classList.remove(styles.fadeIn)
             mountingPoint.current.classList.add(styles.fadeOutAnimation)
             mountingPoint.current.addEventListener('animationend', () => {
-                console.log('HEREEE')
                 setIsInRender(false)
-                ReactDOM.unmountComponentAtNode(mountingPoint.current);
-                document.body.removeChild(mountingPoint.current)
+                try {
+                    ReactDOM.unmountComponentAtNode(mountingPoint.current);
+                    // document.body.removeChild(mountingPoint.current)
+                } catch (e) {
+                    console.log(e)
+                }
             }, {once: true})
         } else if (!isInRender && props.open) {
             mountingPoint.current.classList.remove(styles.fadeOutAnimation)

@@ -20,10 +20,12 @@ export default {
 
     changes: 'Mudanças',
     actionOptions: [],
-    statusOptions: [{key: 'vigente', value: 'Vigente'}, {key: 'a-celebrar', value: 'A celebrar'}, {
-        key: 'aditivado',
-        value: 'Aditivado'
-    }, {key: 'finalizado', value: 'Finalizado'}],
+    statusOptions: [
+        {key: 'vigente', value: 'Vigente'},
+        {key: 'A celebrar', value: 'A celebrar'},
+        {key: 'aditivado', value: 'Aditivado'},
+        {key: 'finalizado', value: 'Finalizado'}
+    ],
     workPlan: 'Planos de trabalho',
     responsibleOptions: [
         {

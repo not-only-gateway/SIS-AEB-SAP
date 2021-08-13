@@ -36,9 +36,10 @@ export default function ProjectList(props) {
                     fields={[
                         {name: 'name', type: 'string'},
                         {name: 'description', type: 'string'},
-                        {name: 'estimated_value', type: 'number', maskStart: 'R$'}
+                        {name: 'estimated_value', type: 'number', maskStart: 'R$ '},
+                        {name: 'type', type: 'string', capitalize: true},
                     ]}
-                    labels={['nome','descrição','Valor estimado']}
+                    labels={['nome','descrição','Valor estimado', 'tipo']}
                     clickEvent={() => null}
                     setEntity={entity => {
                         if (entity === null || entity === undefined) {

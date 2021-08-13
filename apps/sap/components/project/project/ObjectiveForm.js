@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import ProjectPT from "../../../packages/locales/ProjectPT";
 import {Alert} from "sis-aeb-misc";
 import EntityLayout from "../../shared/misc/form/EntityLayout";
-import {DateField, TextField} from "sis-aeb-inputs";
+import {DateField, DropDownField, TextField} from "sis-aeb-inputs";
 
 import PropTypes from "prop-types";
 import ProjectRequests from "../../../utils/fetch/ProjectRequests";
@@ -55,18 +55,18 @@ export default function ObjectiveForm(props) {
                                     setChanged(true)
                                     props.handleChange({name: 'description', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.description}
-                                required={true}
-                                width={'100%'}
-                            />
-                            <TextField
-                                placeholder={lang.status} label={lang.status}
+                                required={true} width={'100%'} />
+
+                            <DropDownField
+                                dark={true}
+                                placeholder={lang.status}
+                                label={lang.status}
                                 handleChange={event => {
                                     setChanged(true)
-                                    props.handleChange({name: 'status', value: event.target.value})
-                                }} locale={props.locale} value={props.data === null ? null : props.data.status}
-                                required={true}
-                                width={'100%'} variant={'area'}
-                            />
+                                    props.handleChange({name: 'status', value: event})
+                                }} value={props.data === null ? null : props.data.status} required={true}
+                                width={'calc(50% - 16px)'} choices={lang.statusOptions}/>
+
                             <DateField
 
                                 placeholder={lang.deadline} label={lang.deadline}
@@ -77,7 +77,7 @@ export default function ObjectiveForm(props) {
                                 value={
                                     props.data === null ? null : props.data.deadline
                                 }
-                                required={true} width={'100%'}/>
+                                required={true} width={'calc(50% - 16px)'}/>
 
                         </>
 

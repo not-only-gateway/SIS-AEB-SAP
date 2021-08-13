@@ -46,6 +46,53 @@ export default class ProjectRequests {
         })
         return response
     }
+    static async deleteProjectTed(submitProps) {
+        let response = false
+
+        await axios({
+            method: 'delete',
+            url:  Host() + 'project_ted/'+submitProps.pk,
+            headers: {'authorization': jwt},
+            data: submitProps.data
+        }).then(res => {
+            submitProps.setStatus({
+                type: 'success',
+                message: res.status + ' - ' + res.statusText,
+            })
+            submitProps.setRefreshed(false)
+            response = true
+        }).catch(error => {
+            submitProps.setStatus({
+                type: 'error',
+                message: error.message
+            })
+            console.log(error.request)
+        })
+        return response
+    }
+    static async submitProjectTed(submitProps) {
+        let response = false
+
+        await axios({
+            method: 'post',
+            url:  Host() + 'project_ted',
+            headers: {'authorization': jwt},
+            data: submitProps.data
+        }).then(res => {
+            submitProps.setStatus({
+                type: 'success',
+                message: res.status + ' - ' + res.statusText,
+            })
+            response = true
+        }).catch(error => {
+            submitProps.setStatus({
+                type: 'error',
+                message: error.message
+            })
+            console.log(error.request)
+        })
+        return response
+    }
     static async submitRisk(submitProps) {
         let response = false
 

@@ -50,7 +50,9 @@ export default function StageList(props) {
                     fields={[
                         {name: 'stage', type: 'string', label: 'etapa'},
                         {name: 'description', type: 'string', label: 'descrição'},
-                    ]} labels={['etapa', 'descrição']}
+                        {name: 'representation', type: 'string', maskEnd: ' %'},
+
+                    ]} labels={['etapa', 'descrição', 'reresentação (%) da meta']}
                     clickEvent={() => null}
                     setEntity={entity => {
                         console.log(entity)

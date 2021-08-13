@@ -36,7 +36,26 @@ export default function RisksList(props) {
 
                     fields={[
                         {name: 'description', type: 'string',label: 'descrição'},
-                        {name: 'analysis', type: 'string', label: 'Análise'}
+                        {name: 'analysis', type: 'string', label: 'Análise', getColor: field => {
+                            let res = undefined
+                                switch (field){
+                                    case 'baixo': {
+                                        res = '#00F400'
+                                        break
+                                    }
+                                    case 'moderado': {
+                                        res = '#FFBA3E'
+                                        break
+                                    }
+                                    case 'alto': {
+                                        res = '#ff5555'
+                                        break
+                                    }
+                                    default:
+                                        break
+                                }
+                                return res
+                            }}
                     ]}
                     labels={['descrição', 'Análise']}
                     clickEvent={() => setOpen(true)}

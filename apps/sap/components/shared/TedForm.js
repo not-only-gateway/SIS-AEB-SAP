@@ -101,7 +101,6 @@ export default function TedForm(props) {
                                 required={true}
                                 width={'calc(50% - 16px)'}/>
                             <DropDownField
-
                                 placeholder={lang.status}
                                 label={lang.status}
                                 handleChange={event => {

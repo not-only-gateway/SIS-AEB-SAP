@@ -193,14 +193,24 @@
 }
 
 
-.hidden{
+.hidden {
     display: none
 }
 
-.toolbarContainer{
+.toolbarContainer {
     display: flex;
     flex-flow: row;
     flex-wrap: wrap;
-    border:none;
+    border: none;
     border-bottom: #e0e0e0 1px solid;
+}
+
+.maskStart {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 8px;
+    color: #555555;
+    font-family: Roboto;
+    font-size: .95rem;
 }

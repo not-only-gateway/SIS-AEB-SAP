@@ -100,7 +100,7 @@ export default function ExecutionForm(props) {
 
 
                             <TextField
-                                placeholder={lang.committed} label={lang.committed}
+                                placeholder={lang.committed} label={lang.committed} maskStart={'R$'}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'committed', value: event.target.value})
@@ -109,7 +109,7 @@ export default function ExecutionForm(props) {
                                 width={'calc(50% - 16px)'}/>
 
                             <TextField
-                                placeholder={lang.liquidated} label={lang.liquidated}
+                                placeholder={lang.liquidated} label={lang.liquidated} maskStart={'R$'}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'liquidated', value: event.target.value})
@@ -118,7 +118,7 @@ export default function ExecutionForm(props) {
                                 width={'calc(50% - 16px)'}/>
 
                             <TextField
-                                placeholder={lang.paid} label={lang.paid}
+                                placeholder={lang.paid} label={lang.paid} maskStart={'R$'}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'paid', value: event.target.value})

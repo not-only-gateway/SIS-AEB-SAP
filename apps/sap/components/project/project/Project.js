@@ -58,8 +58,9 @@ export default function Project(props) {
                         key: 1,
                         value: lang.teds,
                         content: <TedList
-                            redirect={id => {
-                                TedRequests.fetchTed(id).then(res => {
+                            redirect={ted => {
+                                TedRequests.fetchTed(typeof ted === 'object' ?  ted.id : ted).then(res => {
+                                    console.log(ted)
                                     if (res !== null)
                                         props.setCurrentStructure({
                                             ...props.currentStructure,

@@ -41,10 +41,13 @@ export default function GoalList(props) {
                     listKey={'project'}
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/work_plan_goal'}
-                  labels={['Número', 'Detalhamento']}
+                  labels={['Número', 'Detalhamento','unidade de medida', 'situação inicial', 'valor planejado']}
                     fields={[
                         {name: 'goal_number', type: 'string',label: 'Número'},
-                        {name: 'detailing', type: 'string',label: 'Detalhamento'}
+                        {name: 'detailing', type: 'string',label: 'Detalhamento'},
+                        {name: 'unit_of_measurement', type: 'string'},
+                        {name: 'initial_situation', type: 'string'},
+                        {name: 'value', type: 'string'},
                     ]}
                     clickEvent={() => null}
                     setEntity={entity => {

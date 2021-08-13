@@ -77,7 +77,7 @@ export default function ProjectForm(props) {
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'estimated_value', value: event.target.value})
-                                }} locale={props.locale} value={props.data === null ? null : props.data.estimated_value}
+                                }} locale={props.locale} value={props.data === null ? null : props.data.estimated_value} maskStart={'R$'}
                                 required={true}
                                 width={'calc(33.333% - 21.5px)'}/>
                             <DropDownField

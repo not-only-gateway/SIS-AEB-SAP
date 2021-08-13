@@ -8,6 +8,7 @@ import LocalePT from './locales/LocalePT'
 export default function TextField(props) {
     const [visible, setVisible] = useState(false)
     const lang = LocalePT
+    // const [value, setValue] = useState()
     const getInput = (event) => {
         return (
             props.variant === 'area' ?
@@ -29,22 +30,26 @@ export default function TextField(props) {
                     maxLength={props.maxLength}
                 />
                 :
-                <input
-                    disabled={props.disabled}
-                    id={props.label + 'text_field'}
+                <div style={{width: '100%', position: 'relative'}}>
+                    <input
+                        disabled={props.disabled}
+                        id={props.label + 'text_field'}
 
-                    placeholder={props.placeholder}
-                    type={props.type !== 'password' ? props.type : (!visible ? props.type : 'text')}
-                    value={props.phoneMask ? event.value : props.value}
-                    className={styles.inputContainer}
-                    style={{
-                        background: props.disabled ? 'white' : undefined,
-                        border: props.disabled ? '#ecedf2 1px solid' : undefined,
-                        boxShadow: props.disabled ? 'none' : undefined
-                    }}
-                    onChange={props.phoneMask ? event.onChange : props.handleChange}
-                    maxLength={props.maxLength}
-                />
+                        placeholder={props.placeholder}
+                        type={props.type !== 'password' ? props.type : (!visible ? 'password' : 'text')}
+                        value={props.phoneMask ? event.value : props.value}
+                        className={styles.inputContainer}
+                        style={{
+                            background: props.disabled ? 'white' : undefined,
+                            border: props.disabled ? '#ecedf2 1px solid' : undefined,
+                            boxShadow: props.disabled ? 'none' : undefined,
+                            paddingLeft: props.maskStart ? '32px' : undefined
+                        }}
+                        onChange={props.phoneMask ? event.onChange : props.handleChange}
+                        maxLength={props.maxLength}
+                    />
+                    <span className={styles.maskStart}>{props.maskStart}</span>
+                </div>
         )
     }
     return (
@@ -117,4 +122,5 @@ TextField.propTypes = {
         'area'
     ]),
     type: PropTypes.string,
+    maskStart: PropTypes.string
 }

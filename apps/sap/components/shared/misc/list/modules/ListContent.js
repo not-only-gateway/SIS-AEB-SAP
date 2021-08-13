@@ -9,7 +9,7 @@ export default function ListContent(props) {
         let res = null
         switch (field.type) {
             case 'string': {
-                res = (field.maskStart ? field.maskStart : '') + props.entity[field.name]
+                res = (field.maskStart ? field.maskStart : '') + props.entity[field.name] + (field.maskEnd ? field.maskEnd : '')
                 break
             }
             case 'number': {
@@ -18,15 +18,15 @@ export default function ListContent(props) {
                 parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".")
 
 
-                res = (field.maskStart ? field.maskStart : '') + (parts.join("."))
+                res = (field.maskStart ? field.maskStart : '') + (parts.join(".")) + (field.maskEnd ? field.maskEnd : '')
                 break
             }
             case 'bool': {
-                res = (field.maskStart ? field.maskStart : '') + (props.entity[field.name] ? 'Sim' : 'Não')
+                res = (field.maskStart ? field.maskStart : '') + (props.entity[field.name] ? 'Sim' : 'Não') + (field.maskEnd ? field.maskEnd : '')
                 break
             }
             case 'date': {
-                res = (field.maskStart ? field.maskStart : '') + (new Date(props.entity[field.name]).toLocaleDateString())
+                res = (field.maskStart ? field.maskStart : '') + (new Date(props.entity[field.name]).toLocaleDateString()) + (field.maskEnd ? field.maskEnd : '')
                 break
             }
             default:
@@ -44,29 +44,32 @@ export default function ListContent(props) {
             }}
             style={{
                 animationDuration: '250ms',
-                borderBottom: props.isLast || props.dataLength === 0 ? '#ecedf2 1px solid' : undefined
+                borderBottom: props.isLast || props.dataLength === 0 ? '#ecedf2 1px solid' : 'transparent 1px solid'
             }}
         >
 
             {props.create ?
-                    <div className={styles.row} style={{display: 'flex', justifyContent: 'center', gap: '4px'}}>
-                        <AddRounded style={{
-                            color: '#555555'
-                        }}/>
-                        {/*{props.createOptionLabel !== undefined ? props.createOptionLabel : props.lang.create}*/}
-                    </div>
-                    :
-                    <div className={styles.row}>
-                        {props.fields.map((field, i) => (
-                            <>
-                                {i > 0 ? <div className={styles.divider}/> : null}
+                <div className={styles.row} style={{display: 'flex', justifyContent: 'center', gap: '4px'}}>
+                    <AddRounded style={{
+                        color: '#555555'
+                    }}/>
+                </div>
+                :
+                <div className={styles.row} id={('*-' + props.index) + '-row'}>
+                    {props.fields.map((field, i) => (
+                        <>
+                            {i > 0 ? <div className={styles.divider}/> : null}
 
-                                <div className={styles.overflow} style={{width: (100/props.fields.length) + '%'}}>
-                                    {renderField(field)}
-                                </div>
-                            </>
-                        ))}
-                    </div>
+                            <div className={styles.overflow} style={{
+                                width: (100 / props.fields.length) + '%',
+                                color: typeof field.getColor === 'function' ? field.getColor(props.entity[field.name]) : undefined,
+                                textTransform: field.capitalize ? 'capitalize' : undefined
+                            }} id={('*-' + props.index) + '-field'}>
+                                {renderField(field)}
+                            </div>
+                        </>
+                    ))}
+                </div>
             }
         </button>
 
@@ -86,8 +89,11 @@ ListContent.propTypes = {
     clickEvent: PropTypes.func,
     fields: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string,
-        type: PropTypes.oneOf(['bool', 'string', 'number','date']),
+        type: PropTypes.oneOf(['bool', 'string', 'number', 'date']),
         maskStart: PropTypes.string,
-        label: PropTypes.string
+        label: PropTypes.string,
+        getColor: PropTypes.func,
+        maskEnd: PropTypes.string,
+        capitalize: PropTypes.string
     })),
 }

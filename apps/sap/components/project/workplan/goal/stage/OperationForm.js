@@ -10,6 +10,7 @@ import Host from "../../../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import List from "../../../../shared/misc/list/List";
 
+
 export default function OperationForm(props) {
     const [changed, setChanged] = useState(false)
     const lang = OperationPT
@@ -70,7 +71,7 @@ export default function OperationForm(props) {
                                     props.handleChange({name: 'phase', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.phase}
                                 required={true}
-                                width={props.stage !== null && props.stage !== undefined ? 'calc(50% - 16px)' : 'calc(33.333% - 21.5px)'}/>
+                                width={props.stage !== null && props.stage !== undefined ? 'calc(25% - 14px)' : 'calc(33.333% - 21.5px)'}/>
 
 
                             <TextField
@@ -80,7 +81,7 @@ export default function OperationForm(props) {
                                     props.handleChange({name: 'detailing', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.detailing}
                                 required={true}
-                                width={props.stage !== null && props.stage !== undefined ? 'calc(50% - 16px)' : 'calc(33.333% - 21.5px)'}/>
+                                width={props.stage !== null && props.stage !== undefined ? 'calc(75% - 18px)' : 'calc(33.333% - 21.5px)'}/>
                             {props.stage !== null && props.stage !== undefined ?
                                 null
                                 :
@@ -93,7 +94,8 @@ export default function OperationForm(props) {
                                     handleChange={entity => {
                                         props.handleChange({name: 'activity_stage', value: entity})
                                     }} label={'Vincular atividade'}
-                                    setChanged={() => null} selected={props.data === null || !props.data.activity_stage ? null : props.data.activity_stage}
+                                    setChanged={() => null}
+                                    selected={props.data === null || !props.data.activity_stage ? null : props.data.activity_stage}
                                     disabled={false} width={'calc(33.333% - 21.5px)'}
 
                                     fields={[
@@ -101,10 +103,10 @@ export default function OperationForm(props) {
                                         {name: 'description', type: 'string', label: 'descrição'},
                                     ]} required={true}
                                     labels={['etapa', 'descrição']}
-                                    fetchUrl={Host() + 'list/activity'} fetchParams={{
-                                    workPlan: props.workPlan?.id
+                                    fetchUrl={Host() + 'list/work_plan_activity'}
+                                    fetchParams={{
+                                        work_plan: props.workPlan?.id
                                     }}
-
                                     fetchToken={(new Cookies()).get('jwt')}
                                     elementRootID={'root'} selectorKey={'teds-selector'}
                                 />
@@ -161,7 +163,7 @@ export default function OperationForm(props) {
                                     handleChange={event => {
                                         setChanged(true)
                                         props.handleChange({name: 'estimated_cost', value: event.target.value})
-                                    }} locale={props.locale}
+                                    }} locale={props.locale} maskStart={'R$'}
                                     value={props.data === null ? null : props.data.estimated_cost}
                                     required={true}
                                     width={'calc(50% - 16px)'}/>
