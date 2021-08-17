@@ -8,7 +8,16 @@ import LocalePT from './locales/LocalePT'
 export default function TextField(props) {
     const [visible, setVisible] = useState(false)
     const lang = LocalePT
-    // const [value, setValue] = useState()
+    const asCurrency = (event) => {
+        let value = event;
+
+        value = value + '';
+        value = parseInt(value.replace(/[\D]+/g,''));
+        value = value + '';
+        value = value.replace(/([0-9]{2})$/g, ".$1");
+
+        return value
+    }
     const getInput = (event) => {
         return (
             props.variant === 'area' ?
@@ -45,7 +54,12 @@ export default function TextField(props) {
                             boxShadow: props.disabled ? 'none' : undefined,
                             paddingLeft: props.maskStart ? '32px' : undefined
                         }}
-                        onChange={props.phoneMask ? event.onChange : props.handleChange}
+                        onChange={props.phoneMask ? event.onChange : event => {
+                            let data = event.target.value
+                            if (props.currencyMask)
+                                data = asCurrency(data)
+                            props.handleChange({target: {value: data}})
+                        }}
                         maxLength={props.maxLength}
                     />
                     <span className={styles.maskStart}>{props.maskStart}</span>
@@ -122,5 +136,6 @@ TextField.propTypes = {
         'area'
     ]),
     type: PropTypes.string,
+    currencyMask: PropTypes.bool,
     maskStart: PropTypes.string
 }

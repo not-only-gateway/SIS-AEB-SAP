@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import PropTypes from 'prop-types'
 import {DropDownField, TextField} from "sis-aeb-inputs";
+
 import {Alert} from "sis-aeb-misc";
 import ProjectPT from "../../packages/locales/ProjectPT";
 import submitProject from "../../utils/submit/SubmitProject";
@@ -78,7 +79,7 @@ export default function ProjectForm(props) {
                                     setChanged(true)
                                     props.handleChange({name: 'estimated_value', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.estimated_value} maskStart={'R$'}
-                                required={true}
+                                required={true} currencyMask={true}
                                 width={'calc(33.333% - 21.5px)'}/>
                             <DropDownField
                                 dark={true}
