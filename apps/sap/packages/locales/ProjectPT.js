@@ -26,7 +26,7 @@ export default {
     stakeholders: 'Stakeholders',
     other: 'Patrocinadores',
     title: 'Novo projeto / atividade',
-
+    projectObjectives: 'Objetivos',
     projects: 'Projetos / Atividades',
 
     workPlan: 'Planos de trabalho',

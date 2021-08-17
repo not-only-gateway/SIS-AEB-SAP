@@ -6,8 +6,11 @@ import List from "../../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";
 import Host from "../../../utils/shared/Host";
 
-import {EditRounded} from "@material-ui/icons";
+import {EditRounded, RemoveRounded} from "@material-ui/icons";
 import AddendumForm from "./AddendumForm";
+import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
+import TedRequests from "../../../utils/fetch/TedRequests";
+import Alert from "../../shared/misc/alert/Alert";
 
 export default function AddendumList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -19,6 +22,11 @@ export default function AddendumList(props) {
     })
     return (
         <div style={{width: '100%'}}>
+            <Alert
+                type={status.type} render={status.type !== undefined}
+                handleClose={() => setStatus({type: undefined, message: undefined})}
+                message={status.message}
+            />
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <AddendumForm
@@ -47,6 +55,18 @@ export default function AddendumList(props) {
                     setRefreshed={setRefreshed}
                     labels={['Número', 'valor global']}
                     clickEvent={() => setOpen(true)}
+                    options={[{
+                        label: 'Deletar',
+                        icon: <RemoveRounded/>,
+                        onClick: (entity) => {
+                            TedRequests.deleteAddendum({
+                                pk: entity.id,
+                                setStatus: setStatus,
+                                setRefreshed: setRefreshed
+                            })
+                        },
+                        disabled: false
+                    }]}
                     setEntity={entity => {
                         setCurrentEntity(entity)
                     }} searchFieldName={'search_input'} title={'Termos aditivos'} scrollableElement={'scrollableDiv'}

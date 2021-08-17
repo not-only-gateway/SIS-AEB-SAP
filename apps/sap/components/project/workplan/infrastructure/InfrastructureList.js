@@ -5,8 +5,10 @@ import handleObjectChange from "../../../../utils/shared/HandleObjectChange";
 import List from "../../../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";
 import Host from "../../../../utils/shared/Host";
-import {EditRounded} from "@material-ui/icons";
+import {EditRounded, RemoveRounded} from "@material-ui/icons";
 import Infrastructure from "./Infrastructure";
+import WorkPlanRequests from "../../../../utils/fetch/WorkPlanRequests";
+import Alert from "../../../shared/misc/alert/Alert";
 
 export default function InfrastructureList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -18,6 +20,11 @@ export default function InfrastructureList(props) {
     })
     return (
         <>
+            <Alert
+                type={status.type} render={status.type !== undefined}
+                handleClose={() => setStatus({type: undefined, message: undefined})}
+                message={status.message}
+            />
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <Infrastructure
@@ -40,6 +47,18 @@ export default function InfrastructureList(props) {
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/infrastructure'}
                     triggerRefresh={!refreshed}
                     setRefreshed={setRefreshed}
+                    options={[{
+                        label: 'Deletar',
+                        icon: <RemoveRounded/>,
+                        onClick: (entity) => {
+                            WorkPlanRequests.deleteInfrastructure({
+                                pk: entity.id,
+                                setStatus: setStatus,
+                                setRefreshed: setRefreshed
+                            })
+                        },
+                        disabled: false
+                    }]}
                     fields={[
                         {name: 'name', type: 'string',label: 'Nome'},
                         {name: 'type', type: 'string',label: 'Tipo'}

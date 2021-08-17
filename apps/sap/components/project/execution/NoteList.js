@@ -10,13 +10,26 @@ import {ArrowForwardRounded, RemoveRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import {allowedStatusCodes} from "next/dist/lib/load-custom-routes";
 import NoteForm from "./NoteForm";
+import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
+import Alert from "../../shared/misc/alert/Alert";
+import OperationRequests from "../../../utils/fetch/OperationRequests";
 
 export default function NoteList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
+    const [status, setStatus] = useState({
+        type: undefined,
+        message: undefined
+    })
+
     return (
         <div>
+            <Alert
+                type={status.type} render={status.type !== undefined}
+                handleClose={() => setStatus({type: undefined, message: undefined})}
+                message={status.message}
+            />
             {!open ? null :
                 <div className={animations.fadeIn} style={{width: '100%'}}>
                     <NoteForm
@@ -47,27 +60,23 @@ export default function NoteList(props) {
                     setEntity={entity => {
                         setOpen(true)
                         setCurrentEntity(entity)
-                    }} searchFieldName={'search_input'} title={'Notas de empenho'}
+                    }}
+
+                    searchFieldName={'search_input'}
+                    title={'Notas de empenho'}
                     scrollableElement={'scrollableDiv'}
                     options={[{
-                        label: 'Remover',
+                        label: 'Deletar',
                         icon: <RemoveRounded/>,
                         onClick: (entity) => {
-
+                            OperationRequests.deleteNote({
+                                pk: entity.id,
+                                setStatus: setStatus,
+                                setRefreshed: setRefreshed
+                            })
                         },
                         disabled: false
-                    },
-                        {
-                            label: 'Abrir',
-                            icon: <ArrowForwardRounded/>,
-                            onClick: (entity) => {
-
-                            },
-                            disabled: false
-                        }
-
-                    ]}
-
+                    }]}
                     fetchParams={{
                         execution: props.execution.id
                     }}

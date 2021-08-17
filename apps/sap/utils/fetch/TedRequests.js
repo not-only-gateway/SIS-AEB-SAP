@@ -48,6 +48,30 @@ export default class TedRequests {
         return response
     }
 
+    static async deleteAddendum(submitProps) {
+        let response = false
+
+        await axios({
+            method: 'delete',
+            url:  Host() + 'addendum/'+submitProps.pk,
+            headers: {'authorization': jwt},
+            data: submitProps.data
+        }).then(res => {
+            submitProps.setStatus({
+                type: 'success',
+                message: res.status + ' - ' + res.statusText,
+            })
+            submitProps.setRefreshed(false)
+            response = true
+        }).catch(error => {
+            submitProps.setStatus({
+                type: 'error',
+                message: error.message
+            })
+            console.log(error.request)
+        })
+        return response
+    }
     static async submitAddendum(submitProps) {
         let response = false
         console.log(submitProps.data)

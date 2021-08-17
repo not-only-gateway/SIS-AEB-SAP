@@ -5,10 +5,11 @@ import PropTypes from "prop-types";
 import OperationPT from "../../../packages/locales/OperationPT";
 import EntityLayout from "../../shared/misc/form/EntityLayout";
 import OperationRequests from "../../../utils/fetch/OperationRequests";
+import ExecutionPT from "../../../packages/locales/ExecutionPT";
 
 export default function ExecutionForm(props) {
     const [changed, setChanged] = useState(false)
-    const lang = OperationPT
+    const lang = ExecutionPT
     const [status, setStatus] = useState({
         type: undefined, message: undefined
     })

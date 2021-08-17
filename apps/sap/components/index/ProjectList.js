@@ -6,13 +6,25 @@ import animations from "../../styles/Animations.module.css";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import List from "../shared/misc/list/List";
 import ProjectForm from "./ProjectForm";
+import {ArrowForwardRounded, RemoveRounded} from "@material-ui/icons";
+import ProjectRequests from "../../utils/fetch/ProjectRequests";
+import Alert from "../shared/misc/alert/Alert";
 
 export default function ProjectList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
+    const [status, setStatus] = useState({
+        type: undefined,
+        message: undefined
+    })
 
     return (
         <>
+            <Alert
+                type={status.type} render={status.type !== undefined}
+                handleClose={() => setStatus({type: undefined, message: undefined})}
+                message={status.message}
+            />
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <ProjectForm
@@ -41,6 +53,27 @@ export default function ProjectList(props) {
                     ]}
                     labels={['nome','descrição','Valor estimado', 'tipo']}
                     clickEvent={() => null}
+                    options={[{
+                        label: 'Deletar projeto',
+                        icon: <RemoveRounded/>,
+                        onClick: (entity) => {
+                            ProjectRequests.deleteProject({
+                                pk: entity.id,
+                                setStatus: setStatus,
+                                setRefreshed: setRefreshed
+                            })
+                        },
+                        disabled: false
+                    },
+                        {
+                            label: 'Abrir',
+                            icon: <ArrowForwardRounded/>,
+                            onClick: (entity) => {
+                                props.redirect(entity.id)
+                            },
+                            disabled: false
+                        }
+                    ]}
                     setEntity={entity => {
                         if (entity === null || entity === undefined) {
                             setOpen(true)

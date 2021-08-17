@@ -8,8 +8,8 @@ export default {
     estimatedCost: 'Custo estimado (R$)',
     startDate: 'Data de Inicio',
     endDate: 'Data de fim',
-    newOperation: 'Nova fase de operação',
-    operation: 'Fase de operação',
+    newOperation: 'Nova fase/operação',
+    operation: 'Fase/operação',
 
     actions: 'Items de Ação',
     action: 'Item de ação',

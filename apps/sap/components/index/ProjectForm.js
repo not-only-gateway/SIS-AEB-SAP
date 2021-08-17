@@ -100,8 +100,8 @@ export default function ProjectForm(props) {
                                 width={'100%'}/>
                             <TextField
                                 variant={'area'}
-                                placeholder={lang.objectives}
-                                label={lang.objectives}
+                                placeholder={lang.projectObjectives}
+                                label={lang.projectObjectives}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'objectives', value: event.target.value})

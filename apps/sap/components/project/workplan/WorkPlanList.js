@@ -7,6 +7,8 @@ import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import List from "../../shared/misc/list/List";
 import WorkPlanForm from "./WorkPlanForm";
 import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
+import {RemoveRounded} from "@material-ui/icons";
+import Alert from "../../shared/misc/alert/Alert";
 
 export default function WorkPlanList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -18,6 +20,11 @@ export default function WorkPlanList(props) {
     })
     return (
         <>
+            <Alert
+                type={status.type} render={status.type !== undefined}
+                handleClose={() => setStatus({type: undefined, message: undefined})}
+                message={status.message}
+            />
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <WorkPlanForm
@@ -49,6 +56,18 @@ export default function WorkPlanList(props) {
                         {name: 'responsible', type: 'string',label: 'Responsável'},
                         {name: 'additive', type: 'date', label: 'Termo aditivo'},
                     ]}
+                    options={[{
+                        label: 'Deletar',
+                        icon: <RemoveRounded/>,
+                        onClick: (entity) => {
+                            WorkPlanRequests.deleteWorkPlan({
+                                pk: entity.id,
+                                setStatus: setStatus,
+                                setRefreshed: setRefreshed
+                            })
+                        },
+                        disabled: false
+                    }]}
                     labels={['objeto', 'responsável', 'termo aditivo']}
                     clickEvent={() => null}
                     setEntity={entity => {

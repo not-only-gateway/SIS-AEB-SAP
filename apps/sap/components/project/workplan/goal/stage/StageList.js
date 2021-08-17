@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
 import Cookies from "universal-cookie/lib";
-import {EditRounded} from "@material-ui/icons";
+import {EditRounded, RemoveRounded} from "@material-ui/icons";
 import Host from "../../../../../utils/shared/Host";
 import List from "../../../../shared/misc/list/List";
 import handleObjectChange from "../../../../../utils/shared/HandleObjectChange";
 import StageForm from "./StageForm";
 import WorkPlanRequests from "../../../../../utils/fetch/WorkPlanRequests";
+import Alert from "../../../../shared/misc/alert/Alert";
+import OperationRequests from "../../../../../utils/fetch/OperationRequests";
 
 
 export default function StageList(props) {
@@ -19,6 +21,11 @@ export default function StageList(props) {
     })
     return (
         <>
+            <Alert
+                type={status.type} render={status.type !== undefined}
+                handleClose={() => setStatus({type: undefined, message: undefined})}
+                message={status.message}
+            />
             {open ?
                 <StageForm
                     returnToMain={() => {
@@ -60,6 +67,18 @@ export default function StageList(props) {
 
                     ]} labels={['etapa', 'descrição', 'reresentação (%) da meta']}
                     clickEvent={() => null}
+                    options={[{
+                        label: 'Deletar',
+                        icon: <RemoveRounded/>,
+                        onClick: (entity) => {
+                            WorkPlanRequests.deleteStage({
+                                pk: entity.id,
+                                setStatus: setStatus,
+                                setRefreshed: setRefreshed
+                            })
+                        },
+                        disabled: false
+                    }]}
                     setEntity={entity => {
                         console.log(entity)
                         if (entity !== null && entity !== undefined)

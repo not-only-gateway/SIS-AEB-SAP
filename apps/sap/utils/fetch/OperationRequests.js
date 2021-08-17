@@ -11,6 +11,7 @@ const submitProps = PropTypes.shape({
     create: PropTypes.bool
 })
 export default class OperationRequests {
+
     static async submitOperation(submitProps) {
         let response = submitProps.create ? null : false
         let data = {}
@@ -109,7 +110,78 @@ export default class OperationRequests {
         })
         return response
     }
+    static async deleteOperation(submitProps) {
+        let response = false
 
+        await axios({
+            method: 'delete',
+            url:  Host() + 'operation_phase/'+submitProps.pk,
+            headers: {'authorization': jwt},
+            data: submitProps.data
+        }).then(res => {
+            submitProps.setStatus({
+                type: 'success',
+                message: res.status + ' - ' + res.statusText,
+            })
+            submitProps.setRefreshed(false)
+            response = true
+        }).catch(error => {
+            submitProps.setStatus({
+                type: 'error',
+                message: error.message
+            })
+            console.log(error.request)
+        })
+        return response
+    }
+    static async deleteAction(submitProps) {
+        let response = false
+
+        await axios({
+            method: 'delete',
+            url:  Host() + 'action/'+submitProps.pk,
+            headers: {'authorization': jwt},
+            data: submitProps.data
+        }).then(res => {
+            submitProps.setStatus({
+                type: 'success',
+                message: res.status + ' - ' + res.statusText,
+            })
+            submitProps.setRefreshed(false)
+            response = true
+        }).catch(error => {
+            submitProps.setStatus({
+                type: 'error',
+                message: error.message
+            })
+            console.log(error.request)
+        })
+        return response
+    }
+    static async deleteFollowUpGoal(submitProps) {
+        let response = false
+
+        await axios({
+            method: 'delete',
+            url:  Host() + 'follow_up_goal/'+submitProps.pk,
+            headers: {'authorization': jwt},
+            data: submitProps.data
+        }).then(res => {
+            submitProps.setStatus({
+                type: 'success',
+                message: res.status + ' - ' + res.statusText,
+            })
+            submitProps.setRefreshed(false)
+            response = true
+        }).catch(error => {
+            submitProps.setStatus({
+                type: 'error',
+                message: error.message
+            })
+            console.log(error.request)
+        })
+        return response
+    }
     static async submitExecution(submitProps) {
         let response = false
         await axios({
@@ -131,7 +203,54 @@ export default class OperationRequests {
         })
         return response
     }
+    static async deleteExecution(submitProps) {
+        let response = false
 
+        await axios({
+            method: 'delete',
+            url:  Host() + 'execution/'+submitProps.pk,
+            headers: {'authorization': jwt},
+            data: submitProps.data
+        }).then(res => {
+            submitProps.setStatus({
+                type: 'success',
+                message: res.status + ' - ' + res.statusText,
+            })
+            submitProps.setRefreshed(false)
+            response = true
+        }).catch(error => {
+            submitProps.setStatus({
+                type: 'error',
+                message: error.message
+            })
+            console.log(error.request)
+        })
+        return response
+    }
+    static async deleteNote(submitProps) {
+        let response = false
+
+        await axios({
+            method: 'delete',
+            url:  Host() + 'note/'+submitProps.pk,
+            headers: {'authorization': jwt},
+            data: submitProps.data
+        }).then(res => {
+            submitProps.setStatus({
+                type: 'success',
+                message: res.status + ' - ' + res.statusText,
+            })
+            submitProps.setRefreshed(false)
+            response = true
+        }).catch(error => {
+            submitProps.setStatus({
+                type: 'error',
+                message: error.message
+            })
+            console.log(error.request)
+        })
+        return response
+    }
 }
 
 

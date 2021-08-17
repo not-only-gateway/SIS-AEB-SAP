@@ -3,17 +3,29 @@ import handleObjectChange from "../../../../../utils/shared/HandleObjectChange";
 import List from "../../../../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";
 import Host from "../../../../../utils/shared/Host";
-import {EditRounded} from "@material-ui/icons";
+import {EditRounded, RemoveRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import animations from "../../../../../styles/Animations.module.css";
 import FollowUpForm from "./FollowUpForm";
+import WorkPlanRequests from "../../../../../utils/fetch/WorkPlanRequests";
+import Alert from "../../../../shared/misc/alert/Alert";
+import OperationRequests from "../../../../../utils/fetch/OperationRequests";
 
 export default function FollowUpList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
+    const [status, setStatus] = useState({
+        type: undefined,
+        message: undefined
+    })
     return (
         <>
+            <Alert
+                type={status.type} render={status.type !== undefined}
+                handleClose={() => setStatus({type: undefined, message: undefined})}
+                message={status.message}
+            />
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <FollowUpForm
@@ -33,7 +45,18 @@ export default function FollowUpList(props) {
                     listKey={'follow_up_goal'}
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/follow_up_goal'}
-
+                    options={[{
+                        label: 'Deletar',
+                        icon: <RemoveRounded/>,
+                        onClick: (entity) => {
+                            OperationRequests.deleteFollowUpGoal({
+                                pk: entity.id,
+                                setStatus: setStatus,
+                                setRefreshed: setRefreshed
+                            })
+                        },
+                        disabled: false
+                    }]}
                     fields={[
 
                         {name: 'description', type: 'string',label: 'descrição'},

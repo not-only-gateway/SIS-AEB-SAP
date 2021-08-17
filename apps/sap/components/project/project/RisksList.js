@@ -8,6 +8,7 @@ import Host from "../../../utils/shared/Host";
 import RiskForm from "./RiskForm";
 import {ArrowForwardRounded, EditRounded, RemoveRounded} from "@material-ui/icons";
 import ProjectRequests from "../../../utils/fetch/ProjectRequests";
+import Alert from "../../shared/misc/alert/Alert";
 
 export default function RisksList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -19,6 +20,11 @@ export default function RisksList(props) {
     })
     return (
         <div style={{width: '100%'}}>
+            <Alert
+                type={status.type} render={status.type !== undefined}
+                handleClose={() => setStatus({type: undefined, message: undefined})}
+                message={status.message}
+            />
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <RiskForm
@@ -67,12 +73,13 @@ export default function RisksList(props) {
                     ]}
                     labels={['descrição', 'Análise']}
                     clickEvent={() => setOpen(true)}
-                    setEntity={entity => {
-                        setCurrentEntity(entity)
-                    }} searchFieldName={'search_input'} title={'Riscos'} scrollableElement={'scrollableDiv'}
+                    setEntity={entity => setCurrentEntity(entity)}
+                    searchFieldName={'search_input'}
+                    title={'Riscos'}
+                    scrollableElement={'scrollableDiv'}
                     fetchSize={15}
                     options={[{
-                        label: 'Remover vínculo',
+                        label: 'Deletar',
                         icon: <RemoveRounded/>,
                         onClick: (entity) => {
                             ProjectRequests.deleteRisk({

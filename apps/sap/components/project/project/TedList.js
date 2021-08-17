@@ -18,14 +18,7 @@ export default function TedList(props) {
         type: undefined,
         message: undefined
     })
-    const deleteTed = (entity) => {
-        ProjectRequests.deleteProjectTed({
-            pk: entity.id,
-            setStatus: setStatus,
-            data: {project: props.project.id},
-            setRefreshed: setRefreshed
-        })
-    }
+
     const [refreshed, setRefreshed] = useState(false)
     return (
         <div style={{
@@ -35,6 +28,7 @@ export default function TedList(props) {
             justifyItems: 'center',
             boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px'
         }}>
+
             <Alert
                 type={status.type} render={status.type !== undefined}
                 handleClose={() => setStatus({type: undefined, message: undefined})}
@@ -109,7 +103,12 @@ export default function TedList(props) {
                         label: 'Remover vínculo',
                         icon: <RemoveRounded/>,
                         onClick: (entity) => {
-                            deleteTed(entity)
+                            ProjectRequests.deleteProjectTed({
+                                pk: entity.id,
+                                setStatus: setStatus,
+                                data: {project: props.project.id},
+                                setRefreshed: setRefreshed
+                            })
                         },
                         disabled: false
                     },
