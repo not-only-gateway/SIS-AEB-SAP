@@ -11,6 +11,30 @@ const submitProps = PropTypes.shape({
     create: PropTypes.bool
 })
 export default class ProjectRequests {
+    static async deleteProject(submitProps) {
+        let response = false
+
+        await axios({
+            method: 'delete',
+            url:  Host() + 'project/'+submitProps.pk,
+            headers: {'authorization': jwt},
+            data: submitProps.data
+        }).then(res => {
+            submitProps.setStatus({
+                type: 'success',
+                message: res.status + ' - ' + res.statusText,
+            })
+            submitProps.setRefreshed(false)
+            response = true
+        }).catch(error => {
+            submitProps.setStatus({
+                type: 'error',
+                message: error.message
+            })
+            console.log(error.request)
+        })
+        return response
+    }
     static async fetchProject(pk) {
         let response = null
         await axios({

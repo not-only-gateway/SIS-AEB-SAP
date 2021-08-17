@@ -8,8 +8,7 @@ import AlertPT from "./locales/AlertPT";
 export default function Alert(props) {
     const lang = AlertPT
     let mounted = false
-    const mountingPoint = useRef(document.createElement('div'))
-
+    const mountingPoint = useRef()
 
 
     const element = () => {
@@ -43,6 +42,7 @@ export default function Alert(props) {
 
         )
     }
+
     function getColor(type) {
         let response = {
             style: {},
@@ -125,9 +125,12 @@ export default function Alert(props) {
 
         return response
     }
+
     useEffect(() => {
         if (!mounted) {
-            document.body.appendChild(mountingPoint.current)
+            const newElement = document.createElement('div')
+            mountingPoint.current = newElement
+            document.body.appendChild(newElement)
             mounted = true
         }
         if (props.render && props.type !== undefined) {

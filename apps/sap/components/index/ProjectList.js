@@ -17,7 +17,7 @@ export default function ProjectList(props) {
         type: undefined,
         message: undefined
     })
-
+    const [refreshed, setRefreshed] = useState(false)
     return (
         <>
             <Alert
