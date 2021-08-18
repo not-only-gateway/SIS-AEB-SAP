@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Alert} from "sis-aeb-misc";
-import {DateField, TextField} from "sis-aeb-inputs";
+import {TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
-import OperationPT from "../../../packages/locales/OperationPT";
 import EntityLayout from "../../shared/misc/form/EntityLayout";
 import OperationRequests from "../../../utils/fetch/OperationRequests";
 import ExecutionPT from "../../../packages/locales/ExecutionPT";
@@ -63,7 +62,7 @@ export default function NoteForm(props) {
 
 
                             <TextField
-                                placeholder={lang.value} label={lang.value} maskStart={'R$'}
+                                placeholder={lang.value} label={lang.value} maskStart={'R$'}  currencyMask={true}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'value', value: event.target.value})

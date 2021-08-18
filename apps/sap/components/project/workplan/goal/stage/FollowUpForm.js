@@ -61,8 +61,8 @@ export default function FollowUpForm(props) {
 
                             <DropDownField
                                 dark={true}
-                                placeholder={lang.accomplished}
-                                label={lang.accomplished}
+                                placeholder={lang.delivered}
+                                label={lang.delivered}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'accomplished', value: event})

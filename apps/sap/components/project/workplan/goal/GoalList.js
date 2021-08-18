@@ -5,7 +5,6 @@ import handleObjectChange from "../../../../utils/shared/HandleObjectChange";
 import List from "../../../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";
 import Host from "../../../../utils/shared/Host";
-import {EditRounded} from "@material-ui/icons";
 import WorkPlanRequests from "../../../../utils/fetch/WorkPlanRequests";
 import GoalForm from "./GoalForm";
 

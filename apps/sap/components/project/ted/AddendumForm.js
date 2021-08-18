@@ -59,7 +59,8 @@ export default function AddendumForm(props) {
                                 width={'calc(50% - 16px)'}/>
                             <TextField
                                 type={'number'}
-                                placeholder={lang.globalValue} label={lang.globalValue}
+                                placeholder={lang.globalValue} label={lang.globalValue} currencyMask={true}
+                                maskStart={'R$'}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'global_value', value: event.target.value})

@@ -21,8 +21,8 @@ export default {
     newFollowUpGoal: 'Novo marco do acompanhamento',
     followUpGoal: 'Marco do acompanhamento',
     options: [{key: true, value: 'Sim'}, {key: false, value: 'Não'}],
-    accomplished: 'Entregue',
-
+    accomplished: 'Realizado',
+    delivered: 'Entregue',
     currentExecution: 'Execução atual',
     committed: 'Empenhado (R$)',
     liquidated: 'Liquidado (R$)',

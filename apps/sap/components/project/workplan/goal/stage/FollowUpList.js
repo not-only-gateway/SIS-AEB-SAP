@@ -3,11 +3,10 @@ import handleObjectChange from "../../../../../utils/shared/HandleObjectChange";
 import List from "../../../../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";
 import Host from "../../../../../utils/shared/Host";
-import {EditRounded, RemoveRounded} from "@material-ui/icons";
+import {RemoveRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import animations from "../../../../../styles/Animations.module.css";
 import FollowUpForm from "./FollowUpForm";
-import WorkPlanRequests from "../../../../../utils/fetch/WorkPlanRequests";
 import Alert from "../../../../shared/misc/alert/Alert";
 import OperationRequests from "../../../../../utils/fetch/OperationRequests";
 

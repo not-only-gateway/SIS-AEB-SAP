@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import Tabs from "../../shared/misc/tabs/Tabs";
 import PropTypes from 'prop-types'
 import TedPT from "../../../packages/locales/TedPT";
-import TedForm from "../../shared/TedForm";
+import TedForm from "./TedForm";
 import AddendumList from "./AddendumList";
 import WorkPlanList from "../workplan/WorkPlanList";
 
@@ -48,7 +48,7 @@ export default function Ted(props) {
                         value: lang.workPlan,
                         content: (
                             <WorkPlanList
-                                redirect={() => null} ted={props.ted}
+                                redirect={() => null} ted={props.ted} project={props.project}
                                 setCurrentStructure={props.setWorkPlan}
                             />
 
@@ -66,5 +66,6 @@ export default function Ted(props) {
 Ted.propTypes = {
     ted: PropTypes.object,
     setTed: PropTypes.func,
-    setWorkPlan: PropTypes.func
+    setWorkPlan: PropTypes.func,
+    project: PropTypes.object
 }

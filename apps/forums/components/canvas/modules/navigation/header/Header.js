@@ -2,14 +2,7 @@ import PropTypes from 'prop-types'
 import styles from './styles/Header.module.css'
 
 import HandleUpload from "../../../methods/handles/HandleUpload";
-import {
-    LocalLibraryRounded,
-    PictureAsPdfRounded,
-    PublishRounded,
-    SaveAltRounded,
-    ShareRounded
-} from "@material-ui/icons";
-import HandleDownload from "../../../methods/handles/HandleDownload";
+import {ShareRounded} from "@material-ui/icons";
 
 export default function Header(props) {
 

@@ -1,38 +1,46 @@
 .searchInput{
     outline: none;
     border: none;
-    border-bottom: #ecedf2 1px solid;
-    border-radius: 5px 5px 0 0;
+    border-radius: 0 5px 5px 0;
     padding: 8px;
     box-shadow: none;
     background: white;
     transition: 250ms ease;
     color: #333333;
-    font-family: 'Roboto' !important;
+    font-family: Roboto;
+    font-size: .9rem;
+    /*font-weight: bold;*/
+
     height: 35px;
+    width: 100%;
+    border-left: transparent 1px solid;
 }
-.searchInput:hover{
-    border-bottom: #0095ff 1px solid;
-}
+
 .searchInput:focus, .searchInput:focus-within{
-    border-bottom: #0095ff 1px solid;
     background: #E8F0FE;
+    border-left: #ecedf2 1px solid;
 }
 
 .formContainer{
+    width: 100%;
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 1px;
-}
+    border: #ecedf2 1px solid;
+    border-radius: 5px;
 
+    margin-bottom: 32px;
+    transition: 150ms linear;
+}
+.formContainer:hover{
+    border: #0095ff 1px solid;
+}
 .buttonContainer{
     display: flex;
     align-items: center;
     justify-content: center;
         border: none;
     outline: none;
-    border-radius: 50%;
+    border-radius: 5px 0 0 5px;
 
     background: white;
     width: 35px;

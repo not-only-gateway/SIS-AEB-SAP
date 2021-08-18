@@ -2,20 +2,10 @@ import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
 import Head from "next/head";
 import ProjectPT from "../packages/locales/ProjectPT";
-import styles from "../styles/Project.module.css";
-import pStyles from "../styles/Project.module.css";
-import Tabs from "../components/shared/misc/tabs/Tabs";
 import ProjectRequests from "../utils/fetch/ProjectRequests";
-import Link from 'next/link'
-import {ArrowBackIos, HomeRounded} from "@material-ui/icons";
 import Project from "../components/project/project/Project";
-import TedList from "../components/project/project/TedList";
-import TedRequests from "../utils/fetch/TedRequests";
 import Ted from "../components/project/ted/Ted";
-import WorkPlanList from "../components/project/workplan/WorkPlanList";
 import WorkPlan from "../components/project/workplan/WorkPlan";
-import InfrastructureList from "../components/project/workplan/infrastructure/InfrastructureList";
-import GoalList from "../components/project/workplan/goal/GoalList";
 import Goal from "../components/project/workplan/goal/Goal";
 import Stage from "../components/project/workplan/goal/stage/Stage";
 import Header from "../components/project/Header";
@@ -66,7 +56,7 @@ export default function project(props) {
                                 ...currentStructure,
                                 workPlan: event
                             })
-                        }}
+                        }} project={project}
                         setTed={event => {
                             const newTed = {...currentStructure.ted}
                             newTed[event.name] = event.value

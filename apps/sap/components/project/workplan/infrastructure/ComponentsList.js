@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
 import Cookies from "universal-cookie/lib";
-import {EditRounded, RemoveRounded} from "@material-ui/icons";
+import {RemoveRounded} from "@material-ui/icons";
 import Host from "../../../../utils/shared/Host";
 import List from "../../../shared/misc/list/List";
 import ComponentForm from "./ComponentForm";

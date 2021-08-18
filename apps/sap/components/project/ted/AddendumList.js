@@ -6,9 +6,8 @@ import List from "../../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";
 import Host from "../../../utils/shared/Host";
 
-import {EditRounded, RemoveRounded} from "@material-ui/icons";
+import {RemoveRounded} from "@material-ui/icons";
 import AddendumForm from "./AddendumForm";
-import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
 import TedRequests from "../../../utils/fetch/TedRequests";
 import Alert from "../../shared/misc/alert/Alert";
 
@@ -49,7 +48,7 @@ export default function AddendumList(props) {
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/addendum'}
                     fields={[
                         {name: 'number', type: 'string',label: 'Número'},
-                        {name: 'global_value', type: 'number', label: 'valor global'},
+                        {name: 'global_value', type: 'number', label: 'valor global', maskStart: 'R$ '},
                     ]}
                     triggerRefresh={!refreshed}
                     setRefreshed={setRefreshed}

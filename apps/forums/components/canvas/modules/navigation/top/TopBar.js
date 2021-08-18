@@ -5,8 +5,10 @@ import {
     FormatAlignCenterRounded,
     FormatBoldRounded,
     FormatItalicRounded,
-    FormatUnderlinedRounded, MoreRounded, RemoveRounded
+    FormatUnderlinedRounded,
+    RemoveRounded
 } from "@material-ui/icons";
+
 export default function TopBar(props){
     return(
         <div className={styles.container}>

@@ -21,8 +21,8 @@ export default {
     changes: 'Mudanças',
     actionOptions: [],
     statusOptions: [
-        {key: 'vigente', value: 'Vigente'},
         {key: 'A celebrar', value: 'A celebrar'},
+        {key: 'vigente', value: 'Vigente'},
         {key: 'aditivado', value: 'Aditivado'},
         {key: 'finalizado', value: 'Finalizado'}
     ],

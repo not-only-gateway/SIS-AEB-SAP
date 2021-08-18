@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import styles from './styles/Horizontal.module.css'
+
 export default function HorizontalChart(props) {
     return(
         <div className={styles.container} style={props.styles}>

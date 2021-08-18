@@ -5,7 +5,7 @@ import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import List from "../../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";
 import Host from "../../../utils/shared/Host";
-import {EditRounded, RemoveRounded} from "@material-ui/icons";
+import {RemoveRounded} from "@material-ui/icons";
 import StatusForm from "./StatusForm";
 import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
 import Alert from "../../shared/misc/alert/Alert";

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import styles from './styles/Alert.module.css'
 import {CheckCircleRounded, CloseRounded, ErrorRounded, ReportProblemRounded} from '@material-ui/icons'
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useEffect, useRef} from 'react'
 import ReactDOM from "react-dom";
 import AlertPT from "./locales/AlertPT";
 

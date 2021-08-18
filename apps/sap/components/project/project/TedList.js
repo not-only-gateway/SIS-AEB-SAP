@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import animations from "../../../styles/Animations.module.css";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import List from "../../shared/misc/list/List";
-import TedForm from "../../shared/TedForm";
+import TedForm from "../ted/TedForm";
 import Selector from "../../shared/misc/selector/Selector";
 import {ArrowForwardRounded, RemoveRounded} from "@material-ui/icons";
 import ProjectRequests from "../../../utils/fetch/ProjectRequests";
@@ -95,8 +95,9 @@ export default function TedList(props) {
                     setEntity={entity => {
                         if (entity === null || entity === undefined) {
                             setOpen(true)
-                        } else
-                            props.redirect(entity.id)
+                        } else {
+                            props.redirect(entity.ted)
+                        }
                     }} searchFieldName={'search_input'} title={'Instrumento de celebração'}
                     scrollableElement={'scrollableDiv'}
                     options={[{
@@ -104,7 +105,7 @@ export default function TedList(props) {
                         icon: <RemoveRounded/>,
                         onClick: (entity) => {
                             ProjectRequests.deleteProjectTed({
-                                pk: entity.id,
+                                pk: entity.ted,
                                 setStatus: setStatus,
                                 data: {project: props.project.id},
                                 setRefreshed: setRefreshed

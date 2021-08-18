@@ -1,16 +1,12 @@
 import React, {useState} from "react";
-import Selector from "../../shared/misc/selector/Selector";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import animations from "../../../styles/Animations.module.css";
-import TedForm from "../../shared/TedForm";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import List from "../../shared/misc/list/List";
-import {ArrowForwardRounded, RemoveRounded} from "@material-ui/icons";
+import {RemoveRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
-import {allowedStatusCodes} from "next/dist/lib/load-custom-routes";
 import NoteForm from "./NoteForm";
-import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
 import Alert from "../../shared/misc/alert/Alert";
 import OperationRequests from "../../../utils/fetch/OperationRequests";
 

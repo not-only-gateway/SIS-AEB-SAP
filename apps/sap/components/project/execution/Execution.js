@@ -1,11 +1,8 @@
 import PropTypes from "prop-types";
-import WorkPlan from "../workplan/WorkPlan";
-import WorkPlanPT from "../../../packages/locales/WorkPlanPT";
 import React, {useState} from "react";
 import Tabs from "../../shared/misc/tabs/Tabs";
 import ExecutionForm from "./ExecutionForm";
 import ExecutionPT from "../../../packages/locales/ExecutionPT";
-import OperationList from "../workplan/goal/stage/OperationList";
 import NoteList from "./NoteList";
 
 export default function Execution(props) {

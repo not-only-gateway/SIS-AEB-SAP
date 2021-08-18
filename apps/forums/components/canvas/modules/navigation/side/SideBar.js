@@ -4,7 +4,7 @@ import {useRef, useState} from "react";
 import Shapes from "./modules/Shapes";
 import NodeTemplate from "../../../templates/NodeTemplate";
 import Connections from "./modules/Connections";
-import {ExpandLessRounded, MenuOpenRounded, RemoveRounded} from "@material-ui/icons";
+import {RemoveRounded} from "@material-ui/icons";
 
 export default function SideBar(props) {
     const ref = useRef()

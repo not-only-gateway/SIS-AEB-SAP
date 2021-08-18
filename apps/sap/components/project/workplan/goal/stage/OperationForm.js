@@ -8,7 +8,6 @@ import OperationRequests from "../../../../../utils/fetch/OperationRequests";
 import Selector from "../../../../shared/misc/selector/Selector";
 import Host from "../../../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import List from "../../../../shared/misc/list/List";
 
 
 export default function OperationForm(props) {
@@ -159,7 +158,7 @@ export default function OperationForm(props) {
                                     width={'calc(50% - 16px)'}/>
                                 <TextField
                                     type={'number'}
-                                    placeholder={lang.estimatedCost} label={lang.estimatedCost}
+                                    placeholder={lang.estimatedCost} label={lang.estimatedCost}  currencyMask={true}
                                     handleChange={event => {
                                         setChanged(true)
                                         props.handleChange({name: 'estimated_cost', value: event.target.value})

@@ -89,7 +89,7 @@ export default function PageLayout(props) {
                         }
                     ]} logo={'./light.png'}
                 >
-                    <div id={'scrollableDiv'} style={{width: '100%'}}>
+                    <div id={'scrollableDiv'} style={{width: '100%', overflowX: 'hidden', overflowY: 'auto'}}>
                         {props.children}
                     </div>
 

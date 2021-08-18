@@ -6,12 +6,11 @@ import Cookies from "universal-cookie/lib";
 import Host from "../../../utils/shared/Host";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import ObjectiveForm from "./ObjectiveForm";
-import {EditRounded, RemoveRounded} from "@material-ui/icons";
-import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
+import {RemoveRounded} from "@material-ui/icons";
 import Alert from "../../shared/misc/alert/Alert";
 import ProjectRequests from "../../../utils/fetch/ProjectRequests";
 
-export default function ObjectivesList(props){
+export default function ObjectivesList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
@@ -51,9 +50,40 @@ export default function ObjectivesList(props){
                     fields={[
                         {name: 'description', type: 'string'},
                         {name: 'deadline', type: 'date'},
-                        {name: 'status', type: 'string'}
+                        {
+                            name: 'status',
+                            type: 'string',
+                            getColor: field => {
+                                let res = undefined
+                                switch (field) {
+                                    case 'A iniciar': {
+                                        res = '#A300F5'
+                                        break
+                                    }
+                                    case 'Em andamento': {
+                                        res = '#00F400'
+                                        break
+                                    }
+                                    case 'Pausado': {
+                                        res = '#FFBA3E'
+                                        break
+                                    }
+                                    case 'Atrasado': {
+                                        res = '#ff5555'
+                                        break
+                                    }
+                                    case 'Finalizado': {
+                                        res = '#0095ff'
+                                        break
+                                    }
+                                    default:
+                                        break
+                                }
+                                return res
+                            }
+                        }
                     ]}
-                    labels={['descrição','prazo final', 'status']}
+                    labels={['descrição', 'prazo final', 'status']}
                     clickEvent={() => setOpen(true)}
                     options={[{
                         label: 'Deletar',
@@ -79,6 +109,6 @@ export default function ObjectivesList(props){
         </div>
     )
 }
-ObjectivesList.propTypes={
+ObjectivesList.propTypes = {
     project: PropTypes.object
 }

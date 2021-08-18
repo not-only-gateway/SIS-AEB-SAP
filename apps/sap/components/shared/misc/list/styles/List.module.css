@@ -1,9 +1,25 @@
+.header{
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: white;
+}
+.container{
+    width: 100%;
+    overflow-x: hidden;
 
+    background: white;
+    padding: 0 32px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+
+}
 
 .rowContainer {
     font-family: Roboto;
     border: none;
-    border-top: #ecedf2 1px solid;
+
     background: transparent;
 
     width: 100%;
@@ -193,6 +209,7 @@
 
 .labelsContainer{
     display: flex;
+    border-bottom: #ecedf2 1px solid;
 }
 .refreshButton{
 outline: none;
@@ -216,3 +233,31 @@ outline: none;
     color: #0095ff;
 
 }
+
+.createButton{
+    outline: none;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    color: #555555;
+    cursor: pointer;
+    transition: 150ms linear;
+    border-radius: 5px;
+    padding: 8px 12px;
+    border: #ecedf2 1px solid;
+
+}
+.createButton:hover{
+    background: #E8F0FE;
+    color: #333333;
+
+}
+.createButton:active{
+    background: #f4f5fa;
+    color: #0095ff;
+
+}
+

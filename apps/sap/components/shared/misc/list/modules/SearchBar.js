@@ -4,19 +4,18 @@ import {SearchRounded} from "@material-ui/icons";
 
 export default function SearchBar(props) {
     return (
-        <div className={styles.formContainer} style={{width: props.fullWidth ? '100%' : undefined}}>
-            <button disabled={props.searchInput.length === 0} onClick={e => {
+        <div className={styles.formContainer}>
+            <button disabled={props.searchInput.length === 0} onClick={() => {
                 props.applySearch()
             }} className={styles.buttonContainer}>
                 <SearchRounded style={{fontSize: '1.3rem'}}/>
             </button>
             <input placeholder={'Pesquisar'} id={'search'} onChange={event => props.setSearchInput(event.target.value)}
-                   className={styles.searchInput} style={{width: props.fullWidth ? '100%' : undefined}}/>
+                   className={styles.searchInput}/>
         </div>
     )
 }
 SearchBar.propTypes = {
-    fullWidth: PropTypes.bool,
     applySearch: PropTypes.func,
     setSearchInput: PropTypes.func,
     searchInput: PropTypes.string

@@ -1,7 +1,5 @@
 import styles from "./styles/Pages.module.css";
-import {useRef, useState} from "react";
 import PropTypes from "prop-types";
-import {ArrowBackRounded} from "@material-ui/icons";
 
 export default function PageField(props) {
 

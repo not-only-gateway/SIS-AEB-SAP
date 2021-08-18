@@ -44,7 +44,7 @@ export default function ListContent(props) {
             }}
             style={{
                 animationDuration: '250ms',
-                borderBottom: props.isLast || props.dataLength === 0 ? '#ecedf2 1px solid' : 'transparent 1px solid'
+                borderBottom:  '#ecedf2 1px solid'
             }}
         >
 
@@ -57,7 +57,7 @@ export default function ListContent(props) {
                 :
                 <div className={styles.row} id={('*-' + props.index) + '-row'}>
                     {props.fields.map((field, i) => (
-                        <>
+                        <React.Fragment key={i + '-field-' + props.entity.id}>
                             {i > 0 ? <div className={styles.divider}/> : null}
 
                             <div className={styles.overflow} style={{
@@ -67,7 +67,7 @@ export default function ListContent(props) {
                             }} id={('*-' + props.index) + '-field'}>
                                 {renderField(field)}
                             </div>
-                        </>
+                        </React.Fragment>
                     ))}
                 </div>
             }

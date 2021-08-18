@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import {v4 as uuid4} from "uuid";
-import ReactDOM from 'react-dom'
+
 export default function DragNew(props) {
     let moving = true
 

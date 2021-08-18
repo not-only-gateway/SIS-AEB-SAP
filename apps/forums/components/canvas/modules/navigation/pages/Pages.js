@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
 import styles from "./styles/Pages.module.css";
-import {AddRounded, ListRounded} from "@material-ui/icons";
+import {AddRounded} from "@material-ui/icons";
 import PageField from "./PageField";
 import React from 'react'
+
 export default function Pages(props) {
 
     return (

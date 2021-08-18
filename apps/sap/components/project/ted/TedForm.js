@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
-import {DateField, DropDownField, TextField} from "sis-aeb-inputs";
+import {DropDownField, TextField} from "sis-aeb-inputs";
 import {Alert} from "sis-aeb-misc";
-import EntityLayout from "./misc/form/EntityLayout";
-import TedPT from "../../packages/locales/TedPT";
-import TedRequests from "../../utils/fetch/TedRequests";
+import EntityLayout from "../../shared/misc/form/EntityLayout";
+import TedPT from "../../../packages/locales/TedPT";
+import TedRequests from "../../../utils/fetch/TedRequests";
+import DateField from "../../shared/inputs/DateField";
 
 
 export default function TedForm(props) {
@@ -113,7 +114,6 @@ export default function TedForm(props) {
 
 
                                 <DateField
-                                    dark={true}
                                     placeholder={lang.startDate} label={lang.startDate}
                                     handleChange={event => {
                                         setChanged(true)

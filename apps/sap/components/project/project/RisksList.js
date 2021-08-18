@@ -6,7 +6,7 @@ import List from "../../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";
 import Host from "../../../utils/shared/Host";
 import RiskForm from "./RiskForm";
-import {ArrowForwardRounded, EditRounded, RemoveRounded} from "@material-ui/icons";
+import {RemoveRounded} from "@material-ui/icons";
 import ProjectRequests from "../../../utils/fetch/ProjectRequests";
 import Alert from "../../shared/misc/alert/Alert";
 

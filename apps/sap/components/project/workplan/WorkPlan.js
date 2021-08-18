@@ -7,8 +7,6 @@ import StatusList from "./StatusList";
 import InfrastructureList from "./infrastructure/InfrastructureList";
 import GoalList from "./goal/GoalList";
 import HorizontalChart from "../../shared/chart/HorizontalChart";
-import StageList from "./goal/stage/StageList";
-import Operation from "./goal/stage/Operation";
 import OperationList from "./goal/stage/OperationList";
 
 export default function WorkPlan(props) {

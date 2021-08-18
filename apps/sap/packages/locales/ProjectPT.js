@@ -33,7 +33,13 @@ export default {
     riskOptions: [{key: 'alto', value: 'Alto'}, {key: 'moderado', value: 'Moderado'}, {key: 'baixo', value: 'Baixo'}],
     projectTypes: [{key: 'projeto', value: 'Projeto'}, {key: 'atividade', value: 'Atividade'}],
     infrastructure: 'Infraestruturas',
-    statusOptions: [{key: 'A iniciar', value: 'A iniciar'}, {key: 'Em andamento', value: 'Em andamento'}, {key: 'Pausado', value: 'Pausado'}, {key: 'Finalizado', value: 'Finalizado'}],
+    statusOptions: [{key: 'A iniciar', value: 'A iniciar'}, {
+        key: 'Em andamento',
+        value: 'Em andamento'
+    }, {key: 'Pausado', value: 'Pausado'}, {key: 'Finalizado', value: 'Finalizado'}, {
+        key: 'Atrasado',
+        value: 'Atrasado'
+    }],
     status: 'Status',
     responsibleOptions: [
         {

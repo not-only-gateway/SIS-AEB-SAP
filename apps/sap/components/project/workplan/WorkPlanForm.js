@@ -15,8 +15,10 @@ export default function WorkPlanForm(props) {
         type: undefined, message: undefined
     })
     useEffect(() => {
-        if (props.create)
+        if (props.create) {
             props.handleChange({name: 'ted', value: props.ted.id})
+            props.handleChange({name: 'project', value: props.project.id})
+        }
     }, [])
     return (
         <div style={{width: '100%'}}>
@@ -97,5 +99,6 @@ WorkPlanForm.propTypes = {
     handleChange: PropTypes.func,
     returnToMain: PropTypes.func,
     create: PropTypes.bool,
-    ted: PropTypes.object
+    ted: PropTypes.object,
+    project: PropTypes.object
 }

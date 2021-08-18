@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {Alert} from "sis-aeb-misc";
 import {DateField, TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
-import OperationPT from "../../../packages/locales/OperationPT";
 import EntityLayout from "../../shared/misc/form/EntityLayout";
 import OperationRequests from "../../../utils/fetch/OperationRequests";
 import ExecutionPT from "../../../packages/locales/ExecutionPT";
@@ -101,7 +100,7 @@ export default function ExecutionForm(props) {
 
 
                             <TextField
-                                placeholder={lang.committed} label={lang.committed} maskStart={'R$'}
+                                placeholder={lang.committed} label={lang.committed} maskStart={'R$'}  currencyMask={true}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'committed', value: event.target.value})
@@ -110,7 +109,7 @@ export default function ExecutionForm(props) {
                                 width={'calc(50% - 16px)'}/>
 
                             <TextField
-                                placeholder={lang.liquidated} label={lang.liquidated} maskStart={'R$'}
+                                placeholder={lang.liquidated} label={lang.liquidated} maskStart={'R$'}  currencyMask={true}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'liquidated', value: event.target.value})
@@ -119,7 +118,7 @@ export default function ExecutionForm(props) {
                                 width={'calc(50% - 16px)'}/>
 
                             <TextField
-                                placeholder={lang.paid} label={lang.paid} maskStart={'R$'}
+                                placeholder={lang.paid} label={lang.paid} maskStart={'R$'}  currencyMask={true}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'paid', value: event.target.value})

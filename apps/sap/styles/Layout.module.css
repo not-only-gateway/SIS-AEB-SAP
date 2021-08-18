@@ -1,6 +1,7 @@
 .pageContentContainer{
     height: 100%;
     width: 100%;
+    background: red;
     overflow-y: auto;
 }
 .pageContentContainer:first-child{

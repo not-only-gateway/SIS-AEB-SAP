@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
 import Cookies from "universal-cookie/lib";
-import {EditRounded, RemoveRounded} from "@material-ui/icons";
+import {RemoveRounded} from "@material-ui/icons";
 import Host from "../../../../../utils/shared/Host";
 import List from "../../../../shared/misc/list/List";
 import handleObjectChange from "../../../../../utils/shared/HandleObjectChange";
 import StageForm from "./StageForm";
 import WorkPlanRequests from "../../../../../utils/fetch/WorkPlanRequests";
 import Alert from "../../../../shared/misc/alert/Alert";
-import OperationRequests from "../../../../../utils/fetch/OperationRequests";
 
 
 export default function StageList(props) {

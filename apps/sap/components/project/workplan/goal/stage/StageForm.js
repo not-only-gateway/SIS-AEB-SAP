@@ -6,10 +6,6 @@ import PropTypes from "prop-types";
 import EntityLayout from "../../../../shared/misc/form/EntityLayout";
 import WorkPlanRequests from "../../../../../utils/fetch/WorkPlanRequests";
 import GoalPT from "../../../../../packages/locales/GoalPT";
-import Selector from "../../../../shared/misc/selector/Selector";
-import Host from "../../../../../utils/shared/Host";
-import Cookies from "universal-cookie/lib";
-import List from "../../../../shared/misc/list/List";
 
 
 export default function StageForm(props) {
@@ -24,7 +20,6 @@ export default function StageForm(props) {
     }, [])
     return (
         <>
-
             <Alert
                 type={status.type} render={status.type !== undefined} rootElementID={'root'}
                 handleClose={() => setStatus({type: undefined, message: undefined})}

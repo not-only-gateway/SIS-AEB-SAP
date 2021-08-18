@@ -2,10 +2,12 @@ import React, {useEffect, useState} from "react";
 import ProjectPT from "../../../packages/locales/ProjectPT";
 import {Alert} from "sis-aeb-misc";
 import EntityLayout from "../../shared/misc/form/EntityLayout";
-import {DateField, DropDownField, TextField} from "sis-aeb-inputs";
+import {TextField} from "sis-aeb-inputs";
 
 import PropTypes from "prop-types";
 import ProjectRequests from "../../../utils/fetch/ProjectRequests";
+import DropDownField from "../../shared/inputs/DropDownField";
+import DateField from "../../shared/inputs/DateField";
 
 
 export default function ObjectiveForm(props) {

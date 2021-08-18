@@ -39,7 +39,7 @@ export default function WorkPlanList(props) {
                         handleChange={event => handleObjectChange({
                             event: event,
                             setData: setCurrentEntity
-                        })}
+                        })} project={props.project}
                         create={true} ted={props.ted}
                         data={currentEntity}/>
                 </div>
@@ -78,7 +78,8 @@ export default function WorkPlanList(props) {
                     }} searchFieldName={'search_input'} title={'Planos de trabalho'} scrollableElement={'scrollableDiv'}
                     fetchSize={15}
                     fetchParams={{
-                        ted: props.ted.id
+                        ted: props.ted.id,
+                        project: props.project.id
                     }}
                 />
             </div>
@@ -88,5 +89,6 @@ export default function WorkPlanList(props) {
 WorkPlanList.propTypes = {
     setCurrentStructure: PropTypes.func,
     ted: PropTypes.object,
+    project: PropTypes.object
 
 }
