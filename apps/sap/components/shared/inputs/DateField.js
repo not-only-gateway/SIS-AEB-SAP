@@ -3,13 +3,16 @@ import PropTypes from 'prop-types'
 import React, {useEffect, useState} from 'react'
 import LocalePT from './locales/LocalePT'
 import dStyles from './styles/DateField.module.css'
-import {CalendarTodayRounded} from "@material-ui/icons";
+import {ArrowBackRounded, ArrowForwardRounded, CalendarTodayRounded} from "@material-ui/icons";
 import Dates from "./packages/Dates";
 
 export default function DateField(props) {
     const lang = LocalePT
-    const [parsedDate, setParsedDate] = useState()
     const [open, setOpen] = useState()
+    const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth())
+    const [selectedDay, setSelectedDay] = useState(new Date().getDay())
+    const [year, setYear] = useState(new Date().getFullYear())
+    const [mounted, setMounted] = useState(false)
 
     const handleMouseDown = (event) => {
         const closest = event.target.closest('.' + dStyles.calendar)
@@ -18,15 +21,42 @@ export default function DateField(props) {
             setOpen(false)
 
     }
+    const getDays = () => {
+        let res = []
+        let days = Dates[selectedMonth - 1].days;
+        for (let i = 0; i < days; i++) {
+            res.push(
+                <div
+                    className={dStyles.dayContainer}
+                    style={{
+                        background: selectedDay === (i + 1) ? '#E8F0FE' : undefined,
+                        color: selectedDay === (i + 1) ? '#0095ff' : undefined
+                    }}
+                    onClick={() => {
+                        setOpen(false)
+                        setSelectedDay(i + 1)
+                        props.handleChange(`${i + 1}-${selectedMonth}-${year}`)
+                    }}
+                >
+                    {i + 1}
+                </div>
+            )
+        }
+        return res
+    }
     useEffect(() => {
+        if (!mounted) {
+            setMounted(true)
+            if (props.value !== undefined && props.value !== null) {
+                let value = props.value.split('-')
+                setSelectedDay(parseInt(value[0]))
+                setSelectedMonth(parseInt(value[1]))
+                setYear(parseInt(value[2]))
+            }
+        }
+
         document.addEventListener('mousedown', handleMouseDown)
-        // if (props.value !== undefined && props.value !== null) {
-        //     const value = new Date(props.value)
-        //     let dd = String(value.getDate()).padStart(2, '0');
-        //     let mm = String(value.getMonth() + 1).padStart(2, '0')
-        //     let yyyy = value.getFullYear();
-        //     setParsedDate(yyyy + '-' + mm + '-' + dd)
-        // }
+
         return () => {
             document.removeEventListener('mousedown', handleMouseDown)
         }
@@ -45,9 +75,12 @@ export default function DateField(props) {
                         disabled={props.disabled}
                         className={dStyles.inputContainer}
                         placeholder={'dd'}
-                        value={33}
+                        value={selectedDay < 10 ? `0${selectedDay}` : selectedDay}
                         type={'number'}
-                        onChange={props.handleChange}
+                        onChange={event => {
+                            setSelectedDay(event.target.value)
+                            props.handleChange(`${event.target.value}-${selectedMonth}-${year}`)
+                        }}
                         maxLength={props.maxLength}
                     />
                     <div className={dStyles.divider}/>
@@ -55,10 +88,13 @@ export default function DateField(props) {
                         disabled={props.disabled}
                         className={dStyles.inputContainer}
                         placeholder={'mm'}
-                        value={34}
+                        value={selectedMonth < 10 ? `0${selectedMonth}` : (selectedMonth)}
 
                         type={'number'}
-                        onChange={props.handleChange}
+                        onChange={event => {
+                            setSelectedMonth(event.target.value)
+                            props.handleChange(`${selectedDay}-${event.target.value}-${year}`)
+                        }}
                         maxLength={props.maxLength}
                     />
                     <div className={dStyles.divider}/>
@@ -66,10 +102,13 @@ export default function DateField(props) {
                         disabled={props.disabled}
                         className={dStyles.inputContainer}
                         placeholder={'yyyy'}
-                        value={undefined}
+                        value={year}
                         type={'number'}
                         style={{width: '40px'}}
-                        onChange={props.handleChange}
+                        onChange={event => {
+                            setYear(event.target.value)
+                            props.handleChange(`${selectedDay}-${selectedMonth + 1}-${event.target.value}`)
+                        }}
                         maxLength={props.maxLength}
                     />
                 </div>
@@ -79,26 +118,45 @@ export default function DateField(props) {
                     <CalendarTodayRounded style={{fontSize: '1.2rem'}}/>
                 </button>
                 <div className={dStyles.calendar} style={{display: open ? undefined : 'none'}}>
-                    <div className={dStyles.monthsContainer}>
-                        {
-                            Dates.map(month => (
-                                <div className={dStyles.monthContainer} onClick={() => {
-
-                                }}>
-                                    {month.month}
-                                </div>
-                            ))
-                        }
+                    {Dates[selectedMonth - 1] !== undefined ?
+                        <div
+                            className={dStyles.monthContainer}
+                        >
+                            <button className={dStyles.buttonContainer} style={{width: 'fit-content'}} onClick={() => {
+                                if (selectedMonth === 1) {
+                                    setSelectedMonth(12)
+                                    setYear(year - 1)
+                                } else
+                                    setSelectedMonth(selectedMonth - 1)
+                            }}>
+                                <ArrowBackRounded/>
+                            </button>
+                            {Dates[selectedMonth - 1].month} - {year}
+                            <button className={dStyles.buttonContainer} style={{width: 'fit-content'}} onClick={() => {
+                                if (selectedMonth === 12) {
+                                    setSelectedMonth(1)
+                                    setYear(year + 1)
+                                } else
+                                    setSelectedMonth(selectedMonth + 1)
+                            }}>
+                                <ArrowForwardRounded/>
+                            </button>
+                        </div>
+                        :
+                        null
+                    }
+                    <div className={dStyles.daysContainer}>
+                        {Dates[selectedMonth - 1] !== undefined ? getDays(setSelectedMonth).map(e => e) : null}
                     </div>
                 </div>
             </div>
 
 
             <div className={styles.alertLabel}
-                   style={{
-                       color: (props.value === null || !props.value) ? '#ff5555' : '#262626',
-                       visibility: props.required ? 'visible' : 'hidden'
-                   }}>{lang.required}</div>
+                 style={{
+                     color: (props.value === null || !props.value) ? '#ff5555' : '#262626',
+                     visibility: props.required ? 'visible' : 'hidden'
+                 }}>{lang.required}</div>
 
         </div>
     )
