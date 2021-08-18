@@ -9,6 +9,8 @@
     width: 100%;
     margin: auto;
     display: grid;
+    max-height: calc(90% - 16px);
+    overflow: auto;
 }
 
 .headerContainer{
@@ -66,9 +68,9 @@
     bottom: 0;
     z-index: 500;
     width: 100%;
-    background: white;
+    height: 10%;
     padding-bottom: 16px;
-    border-top: #ecedf2 1px solid;
+    /*border-top: #ecedf2 1px solid;*/
 }
 .saveButton {
 

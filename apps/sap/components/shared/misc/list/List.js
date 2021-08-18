@@ -142,37 +142,45 @@ export default function List(props) {
                     </div>)
             }
             <div className={pStyles.container}>
-                <div className={pStyles.currentPageContainer}>
-                    {currentPage}
+                <div className={pStyles.currentPageLabel}>
+                    {data?.length} - {lang.pagesLoaded}
                 </div>
-                <button className={pStyles.button} onClick={() => {
-                    setCurrentPage(currentPage - 1)
-                }}
-                        disabled={currentPage === 0}>
-                    <ArrowBackRounded/>
-                </button>
-
-
-                <button
-                    className={pStyles.button}
-                    onClick={() => {
-                        if(currentPage === (data.length -1))
-                            Fetch({
-                                setData: setData,
-                                data: data,
-                                maxID: maxID,
-                                searchInput: searchInput.length === 0 ? null : searchInput,
-                                setMaxID: setMaxID,
-                                fetchToken: props.fetchToken,
-                                fetchUrl: props.fetchUrl,
-                                setCurrentPage: setCurrentPage
-                            })
-                        else
-                            setCurrentPage(currentPage + 1)
+                <div style={{display: 'flex', alignItems: 'center', gap: '12px', height: '100%'}}>
+                    <div className={pStyles.currentPageLabel}>
+                        {lang.currentPage}
+                    </div>
+                    <div className={pStyles.currentPageContainer}>
+                        {currentPage}
+                    </div>
+                    <button className={pStyles.button} onClick={() => {
+                        setCurrentPage(currentPage - 1)
                     }}
-                    disabled={data[0] !== undefined && currentPage === (data?.length -1) && ((data[data?.length - 1].length < props.fetchSize && props.fetchSize) || data[data?.length - 1].length < 15)}>
-                    <ArrowForwardRounded/>
-                </button>
+                            disabled={currentPage === 0}>
+                        <ArrowBackRounded/>
+                    </button>
+
+
+                    <button
+                        className={pStyles.button}
+                        onClick={() => {
+                            if(currentPage === (data.length -1))
+                                Fetch({
+                                    setData: setData,
+                                    data: data,
+                                    maxID: maxID,
+                                    searchInput: searchInput.length === 0 ? null : searchInput,
+                                    setMaxID: setMaxID,
+                                    fetchToken: props.fetchToken,
+                                    fetchUrl: props.fetchUrl,
+                                    setCurrentPage: setCurrentPage
+                                })
+                            else
+                                setCurrentPage(currentPage + 1)
+                        }}
+                        disabled={data[0] !== undefined && currentPage === (data?.length -1) && ((data[data?.length - 1].length < props.fetchSize && props.fetchSize) || data[data?.length - 1].length < 15)}>
+                        <ArrowForwardRounded/>
+                    </button>
+                </div>
             </div>
         </div>
     )

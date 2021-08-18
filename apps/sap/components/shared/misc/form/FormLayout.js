@@ -27,45 +27,46 @@ export default function FormLayout(props) {
     }
 
     return (
-        <div className={styles.container}>
-            <div className={styles.formInfoContainer}
-                 style={{display: props.formInfo === undefined || props.formInfo === null ? 'none' : undefined}}>
-                {props.formInfo}
+        <div style={{height: '100%', overflow: 'hidden'}}>
+            <div className={styles.container}>
+                <div className={styles.formInfoContainer}
+                     style={{display: props.formInfo === undefined || props.formInfo === null ? 'none' : undefined}}>
+                    {props.formInfo}
+                </div>
+                <div className={styles.formContainer}>
+
+                    <div style={{width: '100%', display: "grid", gap: '64px'}}>
+                        {props.forms.map((element, index) => (
+                            <fieldset className={[styles.fieldsetContainer, styles.formFieldsContainer].join(' ')} key={index+'-form-layout-row'}
+                                      style={{
+                                          borderTop: element.title === undefined ? undefined : '#e0e0e0 1px solid',
+                                          paddingTop: element.title === undefined ? '0' : undefined
+                                      }}>
+                                <legend
+                                    style={{display: element.title === undefined ? 'none' : undefined}}>{element.title}</legend>
+                                {element.child}
+                            </fieldset>
+
+                        ))}
+                    </div>
+
+                </div>
+
             </div>
-            <div className={styles.formContainer}>
+            <div className={styles.saveButtonContainer}>
 
-                <div style={{width: '100%', display: "grid", gap: '64px'}}>
-                    {props.forms.map((element, index) => (
-
-                        <fieldset className={[styles.fieldsetContainer, styles.formFieldsContainer].join(' ')} key={index+'-form-layout-row'}
-                                  style={{
-                                      borderTop: element.title === undefined ? undefined : '#e0e0e0 1px solid',
-                                      paddingTop: element.title === undefined ? '0' : undefined
-                                  }}>
-                            <legend
-                                style={{display: element.title === undefined ? 'none' : undefined}}>{element.title}</legend>
-                            {element.child}
-                        </fieldset>
-
-                    ))}
-                </div>
-
-                <div className={styles.saveButtonContainer}>
-
-                    <button
-                        className={styles.saveButton}
-                        onClick={() => props.handleSubmit()} disabled={isDisabled()}
-                        style={{
-                            color: isDisabled() ? '#777777' : 'white',
-                            cursor: isDisabled() ? 'auto' : 'pointer',
-                            border: isDisabled() ? undefined : 'none',
-                            boxShadow: isDisabled() ? 'none' : undefined,
-                            background: isDisabled() ? undefined : '#0095ff',
-                        }}>
-                        {props.create ? lang.create : lang.save}
-                    </button>
-                </div>
-
+                <button
+                    className={styles.saveButton}
+                    onClick={() => props.handleSubmit()} disabled={isDisabled()}
+                    style={{
+                        color: isDisabled() ? '#777777' : 'white',
+                        cursor: isDisabled() ? 'auto' : 'pointer',
+                        border: isDisabled() ? undefined : 'none',
+                        boxShadow: isDisabled() ? 'none' : undefined,
+                        background: isDisabled() ? undefined : '#0095ff',
+                    }}>
+                    {props.create ? lang.create : lang.save}
+                </button>
             </div>
         </div>
     )

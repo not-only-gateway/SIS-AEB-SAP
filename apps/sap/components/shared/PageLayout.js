@@ -38,7 +38,8 @@ export default function PageLayout(props) {
                     }
                 })
             } else setProfile(JSON.parse(sessionStorage.getItem('profile')))
-        } else
+        }
+        else
             router.push('/authenticate', '/authenticate')
 
 

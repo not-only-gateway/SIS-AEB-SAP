@@ -15,6 +15,7 @@ export default function Navigation(props) {
 
     return (
         <div className={styles.wrapper}>
+
             <div className={styles.header}>
                 <Loading loading={props.loading}/>
                 <div className={styles.logoContainer} style={{color: '#666666', fontWeight: "bold", fontFamily: 'Roboto'}}>
@@ -50,6 +51,7 @@ export default function Navigation(props) {
                 </div>
 
             </div>
+
             <div className={styles.contentWrapper}>
                 {props.buttons.length > 0 ?
                     <NavigationTabs open={modal} setOpen={setModal} buttons={props.buttons} path={props.path}
@@ -57,7 +59,9 @@ export default function Navigation(props) {
                     :
                     null
                 }
+                <div className={styles.children}>
                 {props.children}
+                </div>
             </div>
 
         </div>

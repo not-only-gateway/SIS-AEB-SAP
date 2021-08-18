@@ -3,16 +3,16 @@
     position: sticky;
     top: 0;
     z-index: 40;
-    background: white;
+    /*background: white;*/
 }
 .container{
     width: 100%;
     overflow-x: hidden;
 
-    background: white;
+    /*background: white;*/
     padding: 0 32px;
     border-radius: 5px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    /*box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;*/
 
 }
 
@@ -247,16 +247,15 @@ outline: none;
     transition: 150ms linear;
     border-radius: 5px;
     padding: 8px 12px;
-    border: #ecedf2 1px solid;
 
 }
 .createButton:hover{
-    background: #E8F0FE;
+    background: white;
     color: #333333;
 
 }
 .createButton:active{
-    background: #f4f5fa;
+    background: #E8F0FE;
     color: #0095ff;
 
 }

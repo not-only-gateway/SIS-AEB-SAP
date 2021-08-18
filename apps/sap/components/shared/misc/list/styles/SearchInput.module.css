@@ -11,7 +11,7 @@
     font-size: .9rem;
     /*font-weight: bold;*/
 
-    height: 35px;
+    height: 100%;
     width: 100%;
     border-left: transparent 1px solid;
 }
@@ -25,14 +25,15 @@
     width: 100%;
     display: flex;
     align-items: center;
-    border: #ecedf2 1px solid;
+    border: transparent 1px solid;
     border-radius: 5px;
-
+    height: 45px;
     margin-bottom: 32px;
     transition: 150ms linear;
+
 }
 .formContainer:hover{
-    border: #0095ff 1px solid;
+    border: #ecedf2 1px solid;
 }
 .buttonContainer{
     display: flex;
@@ -43,8 +44,8 @@
     border-radius: 5px 0 0 5px;
 
     background: white;
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 100%;
 
     color: #555555;
     cursor: pointer;

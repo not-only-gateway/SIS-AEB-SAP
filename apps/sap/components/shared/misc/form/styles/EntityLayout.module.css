@@ -1,19 +1,19 @@
 .container {
-    background: white;
+    /*background: white;*/
     border-radius: 5px;
 
     padding: 16px 16px 0;
     display: grid;
     overflow-y: auto;
     /*box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;*/
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    /*box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;*/
 }
 
 .headerContainer {
     position: sticky;
     top: 0;
     z-index: 999;
-    background: white;
+    /*background: white;*/
     transform: translateY(-16px);
     padding-top: 8px;
     padding-bottom: 12px;
@@ -22,13 +22,13 @@
     justify-content: space-between;
     align-items: center;
     gap: 16px;
-    border-bottom: #ecedf2 1px solid;
+    /*border-bottom: #ecedf2 1px solid;*/
 }
 
 .buttonContainer {
     outline: none;
     box-shadow: none;
-    background: white;
+    background: transparent;
     border-radius: 8px;
     border: none;
     transition: 150ms ease-in-out;
@@ -44,9 +44,13 @@
 }
 
 .buttonContainer:hover {
-    background: #f4f5fa;
+    background: white;
+    color: #333333;
 }
-
+.buttonContainer:active {
+    background: #E8F0FE;
+    color: #0095ff;
+}
 .buttonContainer:disabled {
     background: white;
     color: #999999;

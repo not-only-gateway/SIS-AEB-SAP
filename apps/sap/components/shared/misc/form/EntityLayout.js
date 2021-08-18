@@ -13,7 +13,7 @@ export default function EntityLayout(props) {
     const [openOptions, setOpenOptions] = useState(false)
 
     useEffect(() => {
-        const newHeight = document.documentElement.offsetHeight - ref.current.getBoundingClientRect().y - 32
+        const newHeight = document.documentElement.offsetHeight - ref.current.getBoundingClientRect().y
         if (ref.current.offsetHeight > newHeight)
             ref.current.style.height = newHeight + 'px'
         document.addEventListener('mousedown', event => {
