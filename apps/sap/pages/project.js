@@ -100,7 +100,6 @@ export default function project(props) {
                         }}
                         data={currentStructure.goal}
                         setCurrentStructure={event => {
-                            console.log(event)
                             setCurrentStructure({
                                 ...currentStructure,
                                 stage: event

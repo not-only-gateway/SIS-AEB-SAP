@@ -1,3 +1,25 @@
+.container{
+    display: grid;
+    justify-content: flex-start;
+    gap: 16px;
+}
+.entityTitle{
+    font-weight: bold;
+    font-family: Roboto;
+    font-size: 1.2rem;
+    color: #555555;
+
+    display: grid;
+    justify-content: flex-start;
+    gap: 4px;
+}
+
+.subTitleContainer{
+    font-weight: bold;
+    font-family: Roboto;
+    font-size: .85rem;
+    color: #777777;
+}
 .pageContainer {
     width: 100%;
     display: grid;

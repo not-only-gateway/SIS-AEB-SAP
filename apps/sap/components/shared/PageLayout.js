@@ -10,7 +10,7 @@ import {ExitToApp, ExtensionRounded, GroupRounded, ListRounded, TimelineRounded,
 
 import CollaboratorRequests from "../../utils/fetch/CollaboratorRequests";
 import PersonRequests from "../../utils/fetch/PersonRequests";
-import Navigation from "./nav/Navigation";
+import Navigation from "../../../../packages/navigation/src/nav/Navigation";
 
 
 const cookies = new Cookies()
