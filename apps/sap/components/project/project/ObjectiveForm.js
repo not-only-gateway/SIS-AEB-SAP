@@ -2,12 +2,10 @@ import React, {useEffect, useState} from "react";
 import ProjectPT from "../../../packages/locales/ProjectPT";
 import {Alert} from "sis-aeb-misc";
 import EntityLayout from "../../shared/misc/form/EntityLayout";
-import {TextField} from "sis-aeb-inputs";
+import {DateField, DropDownField, TextField} from "sis-aeb-inputs";
 
 import PropTypes from "prop-types";
 import ProjectRequests from "../../../utils/fetch/ProjectRequests";
-import DropDownField from "../../shared/inputs/DropDownField";
-import DateField from "../../shared/inputs/DateField";
 
 
 export default function ObjectiveForm(props) {
@@ -57,7 +55,7 @@ export default function ObjectiveForm(props) {
                                     setChanged(true)
                                     props.handleChange({name: 'description', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.description}
-                                required={true} width={'100%'} />
+                                required={true} width={'100%'}/>
 
                             <DropDownField
                                 dark={true}
@@ -74,7 +72,7 @@ export default function ObjectiveForm(props) {
                                 placeholder={lang.deadline} label={lang.deadline}
                                 handleChange={event => {
                                     setChanged(true)
-                                    props.handleChange({name: 'deadline', value: event.target.value})
+                                    props.handleChange({name: 'deadline', value: event})
                                 }}
                                 value={
                                     props.data === null ? null : props.data.deadline

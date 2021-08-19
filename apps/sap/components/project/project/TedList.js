@@ -21,13 +21,7 @@ export default function TedList(props) {
 
     const [refreshed, setRefreshed] = useState(false)
     return (
-        <div style={{
-            background: 'white',
-            borderRadius: '5px',
-            display: 'grid',
-            justifyItems: 'center',
-            boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px'
-        }}>
+        <>
 
             <Alert
                 type={status.type} render={status.type !== undefined}
@@ -52,7 +46,7 @@ export default function TedList(props) {
                     fetchParams={{
                         project: props.project.id
                     }}
-                    disabled={false} width={'calc(100% - 64px)'}
+                    disabled={false} width={'100%'}
                     fields={[
                         {name: 'number', type: 'string'},
                         {name: 'responsible', type: 'string'},
@@ -128,7 +122,7 @@ export default function TedList(props) {
                     }}
                     fetchSize={15}/>
             </div>
-        </div>
+        </>
     )
 }
 TedList.propTypes = {

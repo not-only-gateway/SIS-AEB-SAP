@@ -35,7 +35,7 @@ export default function DateField(props) {
                     onClick={() => {
                         setOpen(false)
                         setSelectedDay(i + 1)
-                        props.handleChange(`${i + 1}-${selectedMonth}-${year}`)
+                        props.handleChange(`${i + 1}/${selectedMonth}/${year}`)
                     }}
                 >
                     {i + 1}
@@ -48,7 +48,7 @@ export default function DateField(props) {
         if (!mounted) {
             setMounted(true)
             if (props.value !== undefined && props.value !== null) {
-                let value = props.value.split('-')
+                let value = props.value.split('/')
                 setSelectedDay(parseInt(value[0]))
                 setSelectedMonth(parseInt(value[1]))
                 setYear(parseInt(value[2]))

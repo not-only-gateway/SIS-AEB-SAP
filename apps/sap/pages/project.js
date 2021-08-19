@@ -30,7 +30,7 @@ export default function project(props) {
 
     if (project !== undefined)
         return (
-            <div style={{width: '75%', margin: 'auto'}}>
+            <>
                 <Head>
                     <title>{project.name}</title>
                     <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
@@ -38,7 +38,6 @@ export default function project(props) {
 
                 <Header setCurrentStructure={setCurrentStructure} project={project}
                         currentStructure={currentStructure}/>
-
 
                 {currentStructure.ted === null ?
                     <Project setProject={setProject} project={project} currentStructure={currentStructure}
@@ -112,7 +111,7 @@ export default function project(props) {
                     :
                     null
                 }
-                {currentStructure.stage !== null && currentStructure.stage !== undefined && (currentStructure.execution === null || currentStructure.execution === undefined)  ?
+                {currentStructure.stage !== null && currentStructure.stage !== undefined && (currentStructure.execution === null || currentStructure.execution === undefined) ?
                     <Stage
                         handleChange={event => {
                             const newStage = {...currentStructure.goal}
@@ -149,7 +148,8 @@ export default function project(props) {
                     :
                     null
                 }
-            </div>
+
+            </>
             // </div>
         )
     else

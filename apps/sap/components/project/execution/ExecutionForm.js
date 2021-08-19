@@ -130,7 +130,7 @@ export default function ExecutionForm(props) {
                                 placeholder={lang.executionDate} label={lang.executionDate}
                                 handleChange={event => {
                                     setChanged(true)
-                                    props.handleChange({name: 'execution_date', value: event.target.value})
+                                    props.handleChange({name: 'execution_date', value: event})
                                 }}
                                 value={
                                     props.data === null ? null : props.data.execution_date

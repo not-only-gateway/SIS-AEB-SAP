@@ -18,7 +18,7 @@ export default function Header(props) {
                     <HomeRounded/>
                 </button>
             </Link>
-            <>
+            <div className={styles.header} style={{padding: '0', gap: '12px', justifyContent: 'flex-start'}}>
                 <Link href={'/'}>
                     <button className={styles.headerButton}>
                         {lang.projects}
@@ -148,7 +148,7 @@ export default function Header(props) {
                         {props.currentStructure.execution !== undefined && props.currentStructure.execution !== null ? props.currentStructure.execution.current_execution : null}
                     </button>
                 </span>
-            </>
+            </div>
 
         </div>
     )

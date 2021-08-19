@@ -3,17 +3,19 @@
     color: #555555;
 }
 
-.container{
+.container {
     background: white;
-    border-radius: 10px;
+
+    border-radius: 5px;
     width: 100%;
     margin: auto;
     display: grid;
-    max-height: calc(90% - 16px);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
     overflow: auto;
+
 }
 
-.headerContainer{
+.headerContainer {
     margin-bottom: 32px;
     font-size: 1.4rem;
     text-transform: capitalize;
@@ -63,7 +65,7 @@
     width: 100%;
 }
 
-.saveButtonContainer{
+.saveButtonContainer {
     position: sticky;
     bottom: 0;
     z-index: 500;
@@ -72,6 +74,7 @@
     padding-bottom: 16px;
     /*border-top: #ecedf2 1px solid;*/
 }
+
 .saveButton {
 
     padding: 8px;
@@ -80,23 +83,30 @@
     justify-content: center;
     gap: 16px;
 
-    margin-top: 32px;
     border-radius: 8px;
-
+    background: #0095ff;
     outline: none;
-    border: #e0e0e0 1px solid;
+    border: #ecedf2 1px solid;
     transition: 250ms ease-in-out;
     cursor: pointer;
     width: 100%;
-
+    color: white;
+}
+.saveButton:hover{
+    opacity: .8;
 }
 
-.saveButton:hover {
-    box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
-}
 
 .saveButton:active {
+    opacity: .6;
+}
+
+.saveButton:disabled {
+    color: #777777;
+    cursor: unset;
     box-shadow: none;
+    background: transparent;
+    opacity: 1;
 }
 
 .labelContainer {
@@ -111,7 +121,8 @@
     gap: 32px;
     border-bottom: #e0e0e0 1px solid;
 }
-.returnButton{
+
+.returnButton {
     outline: none;
     background: transparent;
     padding: 8px;
@@ -128,11 +139,13 @@
     transition: 150ms ease-in-out;
     cursor: pointer;
 }
-.returnButton:hover{
+
+.returnButton:hover {
     color: #ff5555;
     background: #f4f5fa;
 }
-.returnButton:active{
+
+.returnButton:active {
     color: #333333;
     background: #f4f5fa;
 }

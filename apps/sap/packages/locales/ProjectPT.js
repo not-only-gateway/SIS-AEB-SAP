@@ -6,7 +6,7 @@ export default {
     risks: 'Riscos',
     edit: 'Editar projeto / atividade',
     teds: 'Teds',
-
+    learnedLessons: 'Lições aprendidas',
     objectiveTitle: 'Marco do projeto',
     risksTitle: 'Risco',
     description: 'Descrição',
@@ -51,5 +51,5 @@ export default {
             key: 'Coordenacao de Veiculos Lançadores e Diretoria de Gestao de Portfólio',
             value: 'Coordenacao de Veiculos Lançadores e Diretoria de Gestao de Portfólio'
         }],
-
+    details: 'Detalhes'
 }

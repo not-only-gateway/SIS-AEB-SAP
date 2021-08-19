@@ -14,7 +14,7 @@ export default function index() {
                 <title>{lang.pageTitle}</title>
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
-            <div style={{width: '73%', margin: '32px auto auto auto'}}>
+            <div style={{width: '75%', margin: '16px auto auto auto'}}>
                 <ProjectList redirect={id => router.push('/project/?id=' + id, undefined, {shallow: true})}
                              setOpen={() => null}/>
             </div>

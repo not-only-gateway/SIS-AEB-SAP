@@ -12,10 +12,11 @@
     font-size: .8rem;
     font-weight: bold;
     text-align: center;
-    animation: fade 250ms ease-in-out;
+    animation: fade 250ms linear;
     display: flex;
     align-items: center;
     transform: translateX(-50%);
+
 }
 
 @keyframes fade {

@@ -4,17 +4,15 @@
 }
 
 .header {
+    background: white;
     display: inline-flex;
     gap: 4px;
     align-items: center;
-    margin-top: 16px;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    margin-bottom: 8px;
+
+    padding: 12px 10%;
     border-radius: 5px;
-    background-color: white;
-    padding-left: 8px;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+
+
     width: 100%;
 }
 
@@ -48,12 +46,13 @@
     font-weight: bold;
     font-family: Roboto;
     font-size: .9rem;
+    color: #777777;
 
     outline: none;
     border: none;
     border-bottom: transparent 1px solid;
     background: transparent;
-    color: #777777;
+
     cursor: pointer;
     overflow: hidden;
     white-space: nowrap;

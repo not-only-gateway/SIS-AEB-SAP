@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
-import {DropDownField, TextField} from "sis-aeb-inputs";
+import {DateField, DropDownField, TextField} from "sis-aeb-inputs";
 import {Alert} from "sis-aeb-misc";
 import EntityLayout from "../../shared/misc/form/EntityLayout";
 import TedPT from "../../../packages/locales/TedPT";
 import TedRequests from "../../../utils/fetch/TedRequests";
-import DateField from "../../shared/inputs/DateField";
 
 
 export default function TedForm(props) {
@@ -16,9 +15,9 @@ export default function TedForm(props) {
         type: undefined, message: undefined
     })
     useEffect(() => {
-        if(props.create)
+        if (props.create)
             props.handleChange({name: 'projects', value: [props.project]})
-    },[])
+    }, [])
     return (
         <>
             <Alert
@@ -39,7 +38,16 @@ export default function TedForm(props) {
                         {name: 'responsible', type: 'string'},
                         {name: 'global_value', type: 'number'},
                         {name: 'decentralized', type: 'string'},
-                        {name: 'action', type: 'string'}
+                        {name: 'action', type: 'string'},
+
+                        {name: 'object', type: 'string'},
+                        {name: 'object_summary', type: 'string'},
+                        {name: 'justification', type: 'string'},
+                        {name: 'summary_justification', type: 'string'},
+                        {name: 'programmatic_functional_classification', type: 'string'},
+                        {name: 'ownership_destination_assets', type: 'string'},
+                        {name: 'remaining_assets', type: 'bool'},
+
                     ],
                     changed: changed
                 }} noHeader={!props.create}
@@ -84,7 +92,7 @@ export default function TedForm(props) {
 
                             <TextField
                                 type={'number'}
-                                placeholder={lang.year} label={lang.year} maxLength={4}
+                                placeholder={lang.year} label={lang.year}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'year', value: event.target.value})
@@ -110,77 +118,135 @@ export default function TedForm(props) {
                                 }} value={props.data === null ? null : props.data.status} required={true}
                                 width={'calc(50% - 16px)'} choices={lang.statusOptions}/>
 
+                            <DropDownField
+
+                                placeholder={lang.remainingAssets}
+                                label={lang.remainingAssets}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'remaining_assets', value: event})
+                                }} value={props.data === null ? null : props.data.remaining_assets} required={true}
+                                width={'calc(33.333% - 21.5px)'}
+                                choices={lang.remainingAssetsOptions}/>
+                            <DateField
+                                placeholder={lang.startDate} label={lang.startDate}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'start_date', value: event})
+                                }}
+                                value={
+                                    props.data === null ? null : props.data.start_date
+                                }
+                                required={true} width={'calc(33.333% - 21.5px)'}/>
+                            <DateField
+                                dark={true}
+                                placeholder={lang.endDate} label={lang.endDate}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'end_date', value: event})
+                                }}
+                                value={
+                                    props.data === null ? null : props.data.end_date
+                                }
+                                required={true} width={'calc(33.333% - 21.5px)'}/>
 
 
+                            <TextField
+                                type={'number'}
+                                placeholder={lang.globalValue} maskStart={'R$'} currencyMask={true}
+                                label={lang.globalValue}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'global_value', value: event.target.value})
+                                }} locale={props.locale}
+                                value={props.data === null ? null : props.data.global_value}
+                                required={true} width={'calc(33.333% - 21.5px)'}/>
 
-                                <DateField
-                                    placeholder={lang.startDate} label={lang.startDate}
-                                    handleChange={event => {
-                                        setChanged(true)
-                                        props.handleChange({name: 'start_date', value: event.target.value})
-                                    }}
-                                    value={
-                                        props.data === null ? null : props.data.start_date
-                                    }
-                                    required={true} width={'calc(50% - 16px)'}/>
-                                <DateField
-                                    dark={true}
-                                    placeholder={lang.endDate} label={lang.endDate}
-                                    handleChange={event => {
-                                        setChanged(true)
-                                        props.handleChange({name: 'end_date', value: event.target.value})
-                                    }}
-                                    value={
-                                        props.data === null ? null : props.data.end_date
-                                    }
-                                    required={true} width={'calc(50% - 16px)'}/>
-
-
-
-
-                                <TextField
-                                    type={'number'}
-                                    placeholder={lang.globalValue}
-                                    label={lang.globalValue}
-                                    handleChange={event => {
-                                        setChanged(true)
-                                        props.handleChange({name: 'global_value', value: event.target.value})
-                                    }} locale={props.locale}
-                                    value={props.data === null ? null : props.data.global_value}
-                                    required={true} width={'calc(33.333% - 21.5px)'}/>
-
-                                <TextField
-                                    placeholder={lang.decentralized}
-                                    label={lang.decentralized}
-                                    handleChange={event => {
-                                        setChanged(true)
-                                        props.handleChange({name: 'decentralized', value: event.target.value})
-                                    }} locale={props.locale}
-                                    value={props.data === null ? null : props.data.decentralized}
-                                    required={true} width={'calc(33.333% - 21.5px)'}/>
+                            <TextField
+                                placeholder={lang.decentralized}
+                                label={lang.decentralized}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'decentralized', value: event.target.value})
+                                }} locale={props.locale}
+                                value={props.data === null ? null : props.data.decentralized}
+                                required={true} width={'calc(33.333% - 21.5px)'}/>
 
 
                             <TextField
 
-                                placeholder={lang.action} label={lang.action} maxLength={4}
+                                placeholder={lang.action} label={lang.action}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'action', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.action}
                                 required={true}
                                 width={'calc(33.333% - 21.35px)'}/>
-                                {/*<DropDownField*/}
 
-                                {/*    placeholder={lang.action}*/}
-                                {/*    label={lang.action}*/}
-                                {/*    handleChange={event => {*/}
-                                {/*        setChanged(true)*/}
-                                {/*        props.handleChange({name: 'action', value: event})*/}
-                                {/*    }} value={props.data === null ? null : props.data.action} required={true}*/}
-                                {/*    width={'calc(33.333% - 21.5px)'} choices={lang.actionOptions}/>*/}
-                            </>
-                        )
-                    }
+
+
+                            <TextField
+                                placeholder={lang.object} label={lang.object}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'object', value: event.target.value})
+                                }} locale={props.locale}
+                                value={props.data === null ? null : props.data.object}
+                                required={true} variant={'area'}
+                                width={'100%'}/>
+                            <TextField
+                                placeholder={lang.objectSummary} label={lang.objectSummary}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'object_summary', value: event.target.value})
+                                }} locale={props.locale}
+                                value={props.data === null ? null : props.data.object_summary}
+                                required={true} variant={'area'}
+                                width={'100%'}/>
+
+                            <TextField
+                                placeholder={lang.justification} label={lang.justification}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'justification', value: event.target.value})
+                                }} locale={props.locale}
+                                value={props.data === null ? null : props.data.justification}
+                                required={true} variant={'area'}
+                                width={'100%'}/>
+
+                            <TextField
+                                placeholder={lang.summaryJustification} label={lang.summaryJustification}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'summary_justification', value: event.target.value})
+                                }} locale={props.locale}
+                                value={props.data === null ? null : props.data.summary_justification}
+                                required={true} variant={'area'}
+                                width={'100%'}/>
+
+                            <TextField
+                                placeholder={lang.programmaticFunctional} label={lang.programmaticFunctional}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'programmatic_functional_classification', value: event.target.value})
+                                }} locale={props.locale}
+                                value={props.data === null ? null : props.data.programmatic_functional_classification}
+                                required={true} variant={'area'}
+                                width={'100%'}/>
+                            <TextField
+                                placeholder={lang.ownership} label={lang.ownership}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'ownership_destination_assets', value: event.target.value})
+                                }} locale={props.locale}
+                                value={props.data === null ? null : props.data.ownership_destination_assets}
+                                required={true} variant={'area'}
+                                width={'100%'}/>
+
+
+                        </>
+                    )
+                }
                 ]}/>
         </>
     )

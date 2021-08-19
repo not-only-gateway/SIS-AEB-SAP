@@ -25,14 +25,12 @@
     width: 100%;
     display: flex;
     align-items: center;
-    border: transparent 1px solid;
+
     border-radius: 5px;
     height: 45px;
     margin-bottom: 32px;
     transition: 150ms linear;
 
-}
-.formContainer:hover{
     border: #ecedf2 1px solid;
 }
 .buttonContainer{

@@ -23,7 +23,7 @@ export default function ProjectForm(props) {
                 handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
             />
             <EntityLayout
-                rootElementID={'root'} entity={props.data}
+                entity={props.data}
                 create={props.create} label={lang.title}
                 dependencies={{
                     fields: [
@@ -40,6 +40,7 @@ export default function ProjectForm(props) {
                         {name: 'critical_factors', type: 'string'},
                         {name: 'type', type: 'string'},
                         {name: 'responsible', type: 'string'},
+                        {name: 'lessons_learned', type: 'string'},
                     ],
                     changed: changed
                 }} noHeader={!props.create}
@@ -194,7 +195,16 @@ export default function ProjectForm(props) {
                                 value={props.data === null ? null : props.data.stakeholders}
                                 required={true} width={'100%'}/>
 
-
+                            <TextField
+                                variant={'area'}
+                                placeholder={lang.learnedLessons}
+                                label={lang.learnedLessons}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'lessons_learned', value: event.target.value})
+                                }} locale={props.locale}
+                                value={props.data === null ? null : props.data.lessons_learned}
+                                required={true} width={'100%'}/>
                         </>
                     )
                 }

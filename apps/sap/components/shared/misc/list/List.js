@@ -47,7 +47,7 @@ export default function List(props) {
 
     useEffect(() => {
         if (!mounted) {
-            setMaxHeight(document.documentElement.offsetHeight - ref.current.getBoundingClientRect().y - 32)
+            setMaxHeight(document.documentElement.offsetHeight - ref.current.getBoundingClientRect().y - 16)
             const newElement = document.createElement('div')
             if (mountingPoint === undefined) {
                 setMountingPoint(newElement)
@@ -118,29 +118,40 @@ export default function List(props) {
             </div>
 
             {loading ?
-                <Loader/>
+                <div style={{
+                    display: 'grid',
+                    alignContent: 'flex-start',
+                    overflowY: 'auto',
+                    height: '100%',
+                    maxWidth: '100%'
+                }}>
+                    <Loader/>
+                    <Loader/>
+                    <Loader/>
+                </div>
                 :
-                (data !== undefined && Array.isArray(data) && data.length > 0 ?
-                    <div style={{display: 'grid', overflow: 'hidden', height: '100%', maxWidth: '100%'}}>
+                (data !== undefined && Array.isArray(data) && data.length > 0 && data[0] !== undefined && data[0].length > 0 ?
+                        <div style={{display: 'grid', overflowY: 'auto', height: '100%', maxWidth: '100%'}}>
 
-                        {data[0] !== undefined ? data[currentPage].map((entity, index) =>
-                            <React.Fragment key={index + props.listKey}>
-                                <ListContent
-                                    index={index} onlyCreate={props.onlyCreate}
-                                    create={false} lang={lang} entity={entity}
-                                    setEntity={() => props.setEntity(entity)}
-                                    fields={props.fields}
-                                    clickEvent={props.clickEvent} isLast={index === (data.length - 1)}
-                                />
-                            </React.Fragment>
-                        ) : null}
-                    </div>
-                    :
-                    <div style={{width: '100%', userSelect: 'none'}}>
-                        <h5
-                            style={{textAlign: 'center', color: '#555555'}}>{lang.nothingFound}</h5>
-                    </div>)
-            }
+                            {data[currentPage].map((entity, index) =>
+                                <React.Fragment key={index + props.listKey}>
+                                    <ListContent
+                                        index={index} onlyCreate={props.onlyCreate}
+                                        create={false} lang={lang} entity={entity}
+                                        setEntity={() => props.setEntity(entity)}
+                                        fields={props.fields}
+                                        clickEvent={props.clickEvent} isLast={index === (data.length - 1)}
+                                    />
+                                </React.Fragment>
+                            )}
+                        </div>
+                        :
+                        <div style={{display: 'grid', overflowY: 'auto', height: '100%', maxWidth: '100%', userSelect: 'none'}}>
+
+                            <h5
+                                style={{textAlign: 'center', color: '#555555'}}>{lang.nothingFound}</h5>
+                        </div>
+                )}
             <div className={pStyles.container}>
                 <div className={pStyles.currentPageLabel}>
                     {data?.length} - {lang.pagesLoaded}
@@ -163,7 +174,7 @@ export default function List(props) {
                     <button
                         className={pStyles.button}
                         onClick={() => {
-                            if(currentPage === (data.length -1))
+                            if (currentPage === (data.length - 1))
                                 Fetch({
                                     setData: setData,
                                     data: data,
@@ -177,7 +188,7 @@ export default function List(props) {
                             else
                                 setCurrentPage(currentPage + 1)
                         }}
-                        disabled={data[0] !== undefined && currentPage === (data?.length -1) && ((data[data?.length - 1].length < props.fetchSize && props.fetchSize) || data[data?.length - 1].length < 15)}>
+                        disabled={data[0] !== undefined && currentPage === (data?.length - 1) && ((data[data?.length - 1].length < props.fetchSize && props.fetchSize) || data[data?.length - 1].length < 15)}>
                         <ArrowForwardRounded/>
                     </button>
                 </div>

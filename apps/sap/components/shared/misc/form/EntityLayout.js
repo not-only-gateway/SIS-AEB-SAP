@@ -5,6 +5,9 @@ import EntityLayoutPT from "./locales/EntityLayoutPT";
 import {ArrowBackRounded, HistoryRounded, InfoRounded, MoreVertRounded} from "@material-ui/icons";
 import React, {useEffect, useRef, useState} from "react";
 import History from "./History";
+import isDisabled from "./methods/GetDisabled";
+import fStyles from './styles/Form.module.css'
+import LayoutPropsTemplate from "./templates/LayoutPropsTemplate";
 
 export default function EntityLayout(props) {
     const lang = EntityLayoutPT
@@ -13,9 +16,9 @@ export default function EntityLayout(props) {
     const [openOptions, setOpenOptions] = useState(false)
 
     useEffect(() => {
-        const newHeight = document.documentElement.offsetHeight - ref.current.getBoundingClientRect().y
+        const newHeight = document.documentElement.offsetHeight - ref.current.getBoundingClientRect().y - 16
         if (ref.current.offsetHeight > newHeight)
-            ref.current.style.height = newHeight + 'px'
+            ref.current.style.maxHeight = newHeight + 'px'
         document.addEventListener('mousedown', event => {
             const target = event.target.className
             if (target !== 'EntityLayout_optionsContainer__1uQvl' && target !== 'EntityLayout_buttonContainer__NhngH' && target !== 'EntityLayout-module_buttonContainer__DCckt' && typeof target !== 'object')
@@ -27,13 +30,6 @@ export default function EntityLayout(props) {
     }, [])
 
     return (
-        // <div >
-        //     {!props.onlyEdit && Array.isArray(props.information) ?
-        //         <Description handleClose={() => setInfoModal(false)} open={infoModal} information={props.information}
-        //                      rootElementID={props.rootElementID}/>
-        //         :
-        //         null
-        //     }
 
         <div ref={ref} className={styles.container} style={{
             boxShadow: props.noShadow ? 'none' : undefined
@@ -85,65 +81,25 @@ export default function EntityLayout(props) {
                     hasInfo={props.information !== null && props.information !== undefined}
                     handleClose={() => props.handleClose()}
                 />
+
             }
+            <div className={styles.headerContainer} style={{
+                bottom: 0,
+                borderRadius: '0 0 5px 5px',
+                borderBottom: "none",
+                borderTop: '#ecedf2 1px solid',
+                padding: '8px ',
+                zIndex: 50
+            }}>
+                <button
+                    className={fStyles.saveButton}
+                    onClick={() => props.handleSubmit()} disabled={isDisabled(props)}
+                >
+                    {props.create ? lang.create : lang.save}
+                </button>
+            </div>
         </div>
         // </div>
     )
 }
-EntityLayout.propTypes = {
-    noHeader: PropTypes.bool,
-    returnButton: PropTypes.bool,
-    onlyEdit: PropTypes.bool,
-    label: PropTypes.string,
-    information: PropTypes.arrayOf(
-        PropTypes.shape({
-            label: PropTypes.string,
-            description: PropTypes.shape
-        })
-    ),
-    rootElementID: PropTypes.any,
-    entity: PropTypes.object,
-
-    // OVERVIEW
-    fields: PropTypes.arrayOf(
-        PropTypes.shape({
-            field: PropTypes.string,
-            label: PropTypes.string,
-            type: PropTypes.oneOf(['bool', 'image', 'string', 'object', 'date']),
-            renderObjectField: PropTypes.func
-        })
-    ),
-    // OVERVIEW
-
-    // HISTORY
-
-    versionControl: PropTypes.shape({
-        exists: PropTypes.bool,
-        entityKey: PropTypes.any,
-        fetchUrl: PropTypes.string,
-        fetchSize: PropTypes.string,
-        fetchToken: PropTypes.string,
-        setVersion: PropTypes.func,
-        entityID: PropTypes.number,
-    }),
-    // HISTORY
-
-    // FORM LAYOUT
-    create: PropTypes.bool,
-    forms: PropTypes.arrayOf(
-        PropTypes.shape({
-            child: PropTypes.object,
-            title: PropTypes.string
-        })
-    ),
-    handleSubmit: PropTypes.func,
-    dependencies: PropTypes.shape({
-        fields: PropTypes.arrayOf(PropTypes.shape({
-            name: PropTypes.string,
-            type: PropTypes.oneOf(['string', 'number', 'object', 'bool', 'date'])
-        })),
-        changed: PropTypes.bool
-    }),
-    handleClose: PropTypes.func
-    // FORM LAYOUT
-}
+EntityLayout.propTypes = LayoutPropsTemplate

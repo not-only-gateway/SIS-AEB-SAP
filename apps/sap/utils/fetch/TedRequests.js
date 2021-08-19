@@ -44,6 +44,7 @@ export default class TedRequests {
                 type: 'error',
                 message: error.message
             })
+            console.log(error.request)
         })
         return response
     }

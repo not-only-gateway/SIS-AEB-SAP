@@ -14,6 +14,7 @@ export default function Horizontal(props) {
         <div className={styles.container} ref={contentRef}>
             <div
                 className={styles.tabsContainer} ref={ref}
+                style={props.styles}
                 onMouseEnter={() => {
                     if (((ref.current.scrollWidth > contentRef.current.offsetWidth && ref.current.scrollLeft < ref.current.offsetWidth) || (ref.current.scrollWidth > contentRef.current.offsetWidth && ref.current.scrollLeft > 0)) && (canRender.left === undefined || canRender.right === undefined))
                         setCanRender({
@@ -83,7 +84,7 @@ export default function Horizontal(props) {
             </div>
 
             {props.buttons.map((button) => (button !== null && props.openTab === button.key ?
-                    <div className={styles.contentContainer}>
+                    <div className={styles.contentContainer} style={props.styles}>
                         {button.content}
                     </div>
                     :
@@ -105,4 +106,5 @@ Horizontal.proptypes = {
     ),
     setOpenTab: PropTypes.func,
     openTab: PropTypes.number,
+    styles: PropTypes.object
 }

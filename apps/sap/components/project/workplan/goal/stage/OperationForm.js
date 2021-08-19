@@ -177,7 +177,7 @@ export default function OperationForm(props) {
                                     placeholder={lang.startDate} label={lang.startDate}
                                     handleChange={event => {
                                         setChanged(true)
-                                        props.handleChange({name: 'start_date', value: event.target.value})
+                                        props.handleChange({name: 'start_date', value: event})
                                     }}
                                     value={
                                         props.data === null ? null : props.data.start_date
@@ -188,7 +188,7 @@ export default function OperationForm(props) {
                                     placeholder={lang.endDate} label={lang.endDate}
                                     handleChange={event => {
                                         setChanged(true)
-                                        props.handleChange({name: 'end_date', value: event.target.value})
+                                        props.handleChange({name: 'end_date', value: event})
                                     }}
                                     value={
                                         props.data === null ? null : props.data.end_date

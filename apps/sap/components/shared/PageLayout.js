@@ -10,7 +10,8 @@ import {ExitToApp, ExtensionRounded, GroupRounded, ListRounded, TimelineRounded,
 
 import CollaboratorRequests from "../../utils/fetch/CollaboratorRequests";
 import PersonRequests from "../../utils/fetch/PersonRequests";
-import {Navigation} from "sis-aeb-navigation";
+import Navigation from "./nav/Navigation";
+
 
 const cookies = new Cookies()
 
@@ -58,18 +59,19 @@ export default function PageLayout(props) {
                         link: '/authenticate',
                         icon: <ExitToApp/>
                     }]}
-                    buttons={[
-                        {
-                            label: lang.projects,
-                            icon: <WorkRounded/>,
-                            link: '/'
-                        },
-                        {
-                            label: lang.overview,
-                            icon: <ListRounded/>,
-                            link: '/overview'
-                        }
-                    ]}
+                    buttons={[]}
+                    // buttons={[
+                    //     {
+                    //         label: lang.projects,
+                    //         icon: <WorkRounded/>,
+                    //         link: '/'
+                    //     },
+                    //     {
+                    //         label: lang.overview,
+                    //         icon: <ListRounded/>,
+                    //         link: '/overview'
+                    //     }
+                    // ]}
                     profile={profile} appName={lang.title}
                     path={router.pathname}
                     apps={[

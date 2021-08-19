@@ -21,5 +21,6 @@ Tabs.proptypes = {
             content: PropTypes.any
         })
     ),
+    styles: PropTypes.object,
     setOpenTab: PropTypes.func,
     openTab: PropTypes.number}

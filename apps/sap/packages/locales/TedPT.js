@@ -36,5 +36,25 @@ export default {
         {
             key: 'Coordenacao de Veiculos Lançadores e Diretoria de Gestao de Portfólio',
             value: 'Coordenacao de Veiculos Lançadores e Diretoria de Gestao de Portfólio'
-        }],
+        }
+    ],
+
+    objectSummary: 'Objeto resumido',
+    object: 'Objeto',
+    justification: 'Justificativa',
+    summaryJustification: 'Justificativa resumida',
+
+    ownership: 'Títularidade de destinação dos bens',
+    programmaticFunctional: 'Classificação funcional programática',
+    remainingAssets: 'Bens remanescentes',
+    remainingAssetsOptions:[
+        {
+            key: false,
+            value: 'Não'
+        },
+        {
+            key: true,
+            value: 'Sim'
+        }
+    ],
 }
