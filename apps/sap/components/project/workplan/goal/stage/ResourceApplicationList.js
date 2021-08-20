@@ -1,17 +1,19 @@
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
-import animations from "../../../styles/Animations.module.css";
-import handleObjectChange from "../../../utils/shared/HandleObjectChange";
-import List from "../../shared/misc/list/List";
-import Cookies from "universal-cookie/lib";
-import Host from "../../../utils/shared/Host";
-import {RemoveRounded} from "@material-ui/icons";
-import StatusForm from "./StatusForm";
-import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
-import Alert from "../../shared/misc/alert/Alert";
-import FinancialDisbursementForm from "./FinancialDisbursementForm";
 
-export default function FinancialDisbursementList(props) {
+import Cookies from "universal-cookie/lib";
+
+import {RemoveRounded} from "@material-ui/icons";
+import Alert from "../../../../shared/misc/alert/Alert";
+import OperationRequests from "../../../../../utils/fetch/OperationRequests";
+import List from "../../../../shared/misc/list/List";
+import Host from "../../../../../utils/shared/Host";
+import PermanentGoodsForm from "./PermanentGoodsForm";
+import handleObjectChange from "../../../../../utils/shared/HandleObjectChange";
+import ResourceApplicationForm from "./ResourceApplicationForm";
+
+
+export default function ResourceApplicationList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
@@ -27,8 +29,8 @@ export default function FinancialDisbursementList(props) {
                 message={status.message}
             />
             {!open ? null :
-                <div className={animations.fadeIn}>
-                    <FinancialDisbursementForm
+                <>
+                    <ResourceApplicationForm
                         returnToMain={() => {
                             setOpen(false)
                             setRefreshed(false)
@@ -38,21 +40,21 @@ export default function FinancialDisbursementList(props) {
                             setData: setCurrentEntity
                         })}
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                        data={currentEntity} workPlan={props.workPlan}/>
-                </div>
+                        data={currentEntity} operation={props.operation}/>
+                </>
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'financial_disb'}
+                    listKey={'resource'}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/financial_disbursement'}
+                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/resource_application'}
                     triggerRefresh={!refreshed}
                     setRefreshed={setRefreshed}
                     options={[{
                         label: 'Deletar',
                         icon: <RemoveRounded/>,
                         onClick: (entity) => {
-                            WorkPlanRequests.deleteFinancial({
+                            OperationRequests.deleteResource({
                                 pk: entity.id,
                                 setStatus: setStatus,
                                 setRefreshed: setRefreshed
@@ -61,23 +63,27 @@ export default function FinancialDisbursementList(props) {
                         disabled: false
                     }]}
                     fields={[
-                        {name: 'year', type: 'string',label: 'status'},
-                        {name: 'month', type: 'string'},
-                        {name: 'value', type: 'number', label: 'data da atualização', maskStart: 'R$ '},
-                    ]} labels={['ano', 'mês', 'valor']}
+                        {name: 'gnd', type: 'string'},
+                        {name: 'nature_expense', type: 'string'},
+                        {name: 'indirect_cost', type: 'bool'},
+                        {name: 'value', type: 'number', maskStart: 'R$ '},
+                    ]}
+
+                    labels={['GND', 'Natureza de despesa', 'custo indireto', 'valor']}
+
                     clickEvent={() => setOpen(true)}
                     setEntity={entity => {
                         setCurrentEntity(entity)
-                    }} searchFieldName={'search_input'} title={'Desembolso financeiro'} scrollableElement={'scrollableDiv'}
+                    }} searchFieldName={'search_input'} title={'Aplicação dos recursos'}
                     fetchSize={15}
                     fetchParams={{
-                        work_plan: props.workPlan.id
+                        operation: props.operation.id
                     }}
                 />
             </div>
         </div>
     )
 }
-FinancialDisbursementList.propTypes = {
-    workPlan: PropTypes.object
+ResourceApplicationList.propTypes = {
+    operation: PropTypes.object
 }

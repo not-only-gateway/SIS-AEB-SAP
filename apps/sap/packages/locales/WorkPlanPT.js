@@ -37,5 +37,6 @@ export default {
     email: 'E-mail',
     phone: 'Telefone',
     infrastructures: 'Infraestruturas',
-    financialDisbursement: 'Desembolso financeiro'
+    financialDisbursement: 'Desembolso financeiro',
+    budgetOptions:  [{key: 'true', value: 'Sim'}, {key: 'false', value: 'Não'}]
 }

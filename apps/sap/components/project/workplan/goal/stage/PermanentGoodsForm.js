@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 
-import {DateField, TextField} from "sis-aeb-inputs";
+import {DateField, DropDownField, TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
 import OperationRequests from "../../../../../utils/fetch/OperationRequests";
 import EntityLayout from "../../../../shared/misc/form/EntityLayout";
@@ -61,15 +61,14 @@ export default function PermanentGoodsForm(props) {
                                 }} value={props.data === null ? null : props.data.description}
                                 required={true} width={'100%'} variant={'area'}/>
 
-                            <TextField
-                                placeholder={lang.unitOfMeasurement}
-                                label={lang.unitOfMeasurement}
+                            <DropDownField
+                                placeholder={lang.unitOfMeasurement }
+                                label={lang.unitOfMeasurement }
                                 handleChange={event => {
                                     setChanged(true)
-                                    props.handleChange({name: 'unit_of_measurement', value: event.target.value})
-                                }} value={props.data === null ? null : props.data.unit_of_measurement}
-                                required={true}
-                                width={'calc(33.333% - 21.5px)'}/>
+                                    props.handleChange({name: 'unit_of_measurement', value: event})
+                                }} value={props.data === null ? null : props.data.unit_of_measurement } required={false}
+                                width={'calc(33.333% - 21.5px)'} choices={lang.measurementOptions}/>
                             <TextField
                                 placeholder={lang.unitValue} label={lang.unitValue}
                                 handleChange={event => {

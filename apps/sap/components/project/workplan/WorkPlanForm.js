@@ -126,15 +126,9 @@ export default function WorkPlanForm(props) {
                                 }} locale={props.locale} value={props.data === null ? null : props.data.justification}
                                 required={true} variant={'area'}
                                 width={'100%'}/>
-                            <TextField
 
-                                placeholder={lang.ways} label={lang.ways}
-                                handleChange={event => {
-                                    setChanged(true)
-                                    props.handleChange({name: 'ways_of_execution', value: event.target.value})
-                                }} locale={props.locale} value={props.data === null ? null : props.data.ways_of_execution }
-                                required={true} variant={'area'}
-                                width={'100%'}/>
+
+
                             <TextField
 
                                 placeholder={lang.detailingIndirect} label={lang.detailingIndirect}
@@ -144,15 +138,24 @@ export default function WorkPlanForm(props) {
                                 }} locale={props.locale} value={props.data === null ? null : props.data.detailing_of_indirect_costs }
                                 required={true} variant={'area'}
                                 width={'100%'}/>
-                            <TextField
 
-                                placeholder={lang.budgetPlan} label={lang.budgetPlan}
+                            <DropDownField
+                                placeholder={lang.ways }
+                                label={lang.ways }
                                 handleChange={event => {
                                     setChanged(true)
-                                    props.handleChange({name: 'budget_plan', value: event.target.value})
-                                }} locale={props.locale} value={props.data === null ? null : props.data.budget_plan}
-                                required={true} variant={'area'}
-                                width={'100%'}/>
+                                    props.handleChange({name: 'ways_of_execution', value: event})
+                                }} value={props.data === null ? null : props.data.ways_of_execution } required={false}
+                                width={'calc(50% - 16px)'} choices={lang.waysOptions}/>
+
+                            <DropDownField
+                                placeholder={lang.budgetPlan }
+                                label={lang.budgetPlan }
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'budget_plan', value: event})
+                                }} value={props.data === null ? null : props.data.budget_plan } required={false}
+                                width={'calc(50% - 16px)'} choices={lang.budgetOptions}/>
                         </>
 
                     )

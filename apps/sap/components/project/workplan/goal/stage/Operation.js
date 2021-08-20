@@ -10,6 +10,8 @@ import ActionList from "./ActionList";
 import ExecutionList from "../../../execution/ExecutionList";
 import FollowUpList from "./FollowUpList";
 import PermanentGoodsList from "./PermanentGoodsList";
+import ResourceApplicationForm from "./ResourceApplicationForm";
+import ResourceApplicationList from "./ResourceApplicationList";
 
 export default function Operation(props) {
     const lang = OperationPT
@@ -62,7 +64,7 @@ export default function Operation(props) {
                         key: 5,
                         value: lang.resourceApplication,
                         content: <div style={{width: '100%'}}>
-                            {/*<ExecutionList operation={props.data} setExecution={props.setExecution}/>*/}
+                            <ResourceApplicationList operation={props.data}/>
                         </div>
                     },
                 ]}

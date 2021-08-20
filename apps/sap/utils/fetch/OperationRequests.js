@@ -66,6 +66,32 @@ export default class OperationRequests {
         })
         return response
     }
+
+
+    static async submitResource(submitProps) {
+        let response = false
+
+        await axios({
+            method: submitProps.create ? 'post' : 'put',
+            url: submitProps.create ? Host() + 'resource_application' : Host() + 'resource_application/' + submitProps.pk,
+            headers: {'authorization': jwt},
+            data: submitProps.data
+        }).then(res => {
+            submitProps.setStatus({
+                type: 'success',
+                message: res.status + ' - ' + res.statusText,
+            })
+            response = true
+        }).catch(error => {
+            submitProps.setStatus({
+                type: 'error',
+                message: error.message
+            })
+            console.log(error.request)
+        })
+        return response
+    }
+
     static async submitNote(submitProps) {
         let response = false
         console.log(submitProps.data)
@@ -136,13 +162,37 @@ export default class OperationRequests {
         return response
     }
 
+    static async deleteResource(submitProps) {
+        let response = false
+
+        await axios({
+            method: 'delete',
+            url: Host() + 'resource_application/' + submitProps.pk,
+            headers: {'authorization': jwt},
+            data: submitProps.data
+        }).then(res => {
+            submitProps.setStatus({
+                type: 'success',
+                message: res.status + ' - ' + res.statusText,
+            })
+            submitProps.setRefreshed(false)
+            response = true
+        }).catch(error => {
+            submitProps.setStatus({
+                type: 'error',
+                message: error.message
+            })
+            console.log(error.request)
+        })
+        return response
+    }
 
     static async deletePermanentGoods(submitProps) {
         let response = false
 
         await axios({
             method: 'delete',
-            url:  Host() + 'permanent_goods/'+submitProps.pk,
+            url: Host() + 'permanent_goods/' + submitProps.pk,
             headers: {'authorization': jwt},
             data: submitProps.data
         }).then(res => {
@@ -167,7 +217,7 @@ export default class OperationRequests {
 
         await axios({
             method: 'delete',
-            url:  Host() + 'operation_phase/'+submitProps.pk,
+            url: Host() + 'operation_phase/' + submitProps.pk,
             headers: {'authorization': jwt},
             data: submitProps.data
         }).then(res => {
@@ -186,12 +236,13 @@ export default class OperationRequests {
         })
         return response
     }
+
     static async deleteAction(submitProps) {
         let response = false
 
         await axios({
             method: 'delete',
-            url:  Host() + 'action/'+submitProps.pk,
+            url: Host() + 'action/' + submitProps.pk,
             headers: {'authorization': jwt},
             data: submitProps.data
         }).then(res => {
@@ -210,12 +261,13 @@ export default class OperationRequests {
         })
         return response
     }
+
     static async deleteFollowUpGoal(submitProps) {
         let response = false
 
         await axios({
             method: 'delete',
-            url:  Host() + 'follow_up_goal/'+submitProps.pk,
+            url: Host() + 'follow_up_goal/' + submitProps.pk,
             headers: {'authorization': jwt},
             data: submitProps.data
         }).then(res => {
@@ -234,6 +286,7 @@ export default class OperationRequests {
         })
         return response
     }
+
     static async submitExecution(submitProps) {
         let response = false
         await axios({
@@ -255,12 +308,13 @@ export default class OperationRequests {
         })
         return response
     }
+
     static async deleteExecution(submitProps) {
         let response = false
 
         await axios({
             method: 'delete',
-            url:  Host() + 'execution/'+submitProps.pk,
+            url: Host() + 'execution/' + submitProps.pk,
             headers: {'authorization': jwt},
             data: submitProps.data
         }).then(res => {
@@ -279,12 +333,13 @@ export default class OperationRequests {
         })
         return response
     }
+
     static async deleteNote(submitProps) {
         let response = false
 
         await axios({
             method: 'delete',
-            url:  Host() + 'note/'+submitProps.pk,
+            url: Host() + 'note/' + submitProps.pk,
             headers: {'authorization': jwt},
             data: submitProps.data
         }).then(res => {

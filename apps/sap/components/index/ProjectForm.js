@@ -1,11 +1,12 @@
 import React, {useState} from "react";
 import PropTypes from 'prop-types'
-import {DropDownField, TextField} from "sis-aeb-inputs";
+import {TextField} from "sis-aeb-inputs";
 
 import {Alert} from "sis-aeb-misc";
 import ProjectPT from "../../packages/locales/ProjectPT";
 import submitProject from "../../utils/submit/SubmitProject";
 import EntityLayout from "../shared/misc/form/EntityLayout";
+import DropDownField from "../shared/inputs/dropdown/DropDownField";
 
 
 export default function ProjectForm(props) {
@@ -83,7 +84,6 @@ export default function ProjectForm(props) {
                                 required={true} currencyMask={true}
                                 width={'calc(33.333% - 21.5px)'}/>
                             <DropDownField
-                                dark={true}
                                 placeholder={lang.type}
                                 label={lang.type}
                                 handleChange={event => {
