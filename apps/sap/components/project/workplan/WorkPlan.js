@@ -8,6 +8,7 @@ import InfrastructureList from "./infrastructure/InfrastructureList";
 import GoalList from "./goal/GoalList";
 import HorizontalChart from "../../shared/chart/HorizontalChart";
 import OperationList from "./goal/stage/OperationList";
+import FinancialDisbursementList from "./FinancialDisbursementList";
 
 export default function WorkPlan(props) {
     const lang = WorkPlanPT
@@ -19,13 +20,13 @@ export default function WorkPlan(props) {
                 buttons={[
                     {
                         key: 0,
-                        value: lang.workPlan,
+                        value: lang.details,
                         content: (
                             <Tabs
                                 buttons={[
                                     {
                                         key: 0,
-                                        value: props.workPlan.object,
+                                        value: lang.workPlan,
                                         content: (
                                             <WorkPlanForm
                                                 handleChange={props.setWorkPlan} id={props.workPlan.id}
@@ -38,7 +39,13 @@ export default function WorkPlan(props) {
                                         key: 1,
                                         value: lang.status,
                                         content: <StatusList workPlan={props.workPlan}/>
+                                    },
+                                    {
+                                        key: 2,
+                                        value: lang.financialDisbursement,
+                                        content: <FinancialDisbursementList workPlan={props.workPlan}/>
                                     }
+
                                 ]} type={'vertical'}
                                 setOpenTab={setInternalOpenTab}
                                 openTab={internalOpenTab}
@@ -48,7 +55,7 @@ export default function WorkPlan(props) {
 
                     {
                         key: 1,
-                        value: lang.infrastructure,
+                        value: lang.infrastructures,
                         content: <InfrastructureList workPlan={props.workPlan}/>
                     },
                     {
@@ -78,13 +85,13 @@ export default function WorkPlan(props) {
                                 }
                                 data={[
                                     {
-                                        x: 1,y: 'cafe',
+                                        x: 1, y: 'cafe',
                                         z: 'cafe222'
-                                    },{
-                                        x: 13,y: 'ca123213fe',
+                                    }, {
+                                        x: 13, y: 'ca123213fe',
                                         z: 'cafe222'
-                                    },{
-                                        x: 112,y: '2323',
+                                    }, {
+                                        x: 112, y: '2323',
                                         z: '2135'
                                     },
                                 ]}
@@ -95,6 +102,7 @@ export default function WorkPlan(props) {
                         )
                     }
                 ]}
+                styles={{paddingLeft: '10%', paddingRight: '10%'}}
                 setOpenTab={setOpenTab}
                 openTab={openTab}
             />

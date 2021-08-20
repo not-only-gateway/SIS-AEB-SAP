@@ -1,4 +1,6 @@
 export default {
+
+    details: 'Detalhes',
     number: 'Número',
     process: 'Processo',
     year: 'Ano',

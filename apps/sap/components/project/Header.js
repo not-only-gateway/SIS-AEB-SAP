@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import styles from "../../styles/Project.module.css";
 import pStyles from "../../styles/Project.module.css";
 import Link from "next/link";
-import {ArrowBackIos, HomeRounded} from "@material-ui/icons";
+import {ArrowBackIos, CategoryRounded, HomeRounded} from "@material-ui/icons";
 import React from "react";
 import ProjectPT from "../../packages/locales/ProjectPT";
 import ToolTip from "../shared/misc/tooltip/ToolTip";
@@ -17,6 +17,7 @@ export default function Header(props) {
                     <>
                         {props.project.name}
                         <div className={styles.subTitleContainer}>
+                            <CategoryRounded style={{fontSize: '1.1rem'}}/>
                             Projeto
                         </div>
                     </>
@@ -28,6 +29,7 @@ export default function Header(props) {
                     <>
                         {props.currentStructure.ted.number}
                         <div className={styles.subTitleContainer}>
+                            <CategoryRounded style={{fontSize: '1.1rem'}}/>
                             Instrumento de celebração
                         </div>
                     </>
@@ -39,6 +41,7 @@ export default function Header(props) {
                     <>
                         {props.currentStructure.workPlan.object}
                         <div className={styles.subTitleContainer}>
+                            <CategoryRounded style={{fontSize: '1.1rem'}}/>
                             Plano de trabalho
                         </div>
                     </>
@@ -50,6 +53,7 @@ export default function Header(props) {
                     <>
                         {props.currentStructure.goal.goal_number}
                         <div className={styles.subTitleContainer}>
+                            <CategoryRounded style={{fontSize: '1.1rem'}}/>
                             Meta do plano de trabalho
                         </div>
                     </>
@@ -61,17 +65,19 @@ export default function Header(props) {
                     <>
                         {props.currentStructure.stage.stage}
                         <div className={styles.subTitleContainer}>
+                            <CategoryRounded style={{fontSize: '1.1rem'}}/>
                             Etapa / atividade
                         </div>
                     </>
                 )
                 break
             }
-            case props.currentStructure.execution: {
+            case props.currentStructure.execution !== undefined: {
                 res = (
                     <>
                         {props.currentStructure.execution.current_execution}
                         <div className={styles.subTitleContainer}>
+                            <CategoryRounded style={{fontSize: '1.1rem'}}/>
                             Execução
                         </div>
                     </>
@@ -81,16 +87,17 @@ export default function Header(props) {
             default:
                 break
         }
+        return res
     }
     return (
         <div className={styles.container}>
             <div className={styles.header}>
-                <Link href={'/'}>
-                    <button className={[styles.homeButton, styles.headerButton].join(' ')}
-                            style={{border: 'none'}}>
-                        <HomeRounded/>
-                    </button>
-                </Link>
+                {/*<Link href={'/'}>*/}
+                {/*    <button className={[styles.homeButton, styles.headerButton].join(' ')}*/}
+                {/*            style={{border: 'none'}}>*/}
+                {/*        <HomeRounded/>*/}
+                {/*    </button>*/}
+                {/*</Link>*/}
                 <div className={styles.header} style={{padding: '0', gap: '12px', justifyContent: 'flex-start'}}>
                     <Link href={'/'}>
                         <button className={styles.headerButton}>

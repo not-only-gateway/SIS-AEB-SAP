@@ -108,6 +108,7 @@
 }
 
 .header {
+    padding-left: 8px;
     display: flex;
     gap: 16px;
     align-items: center;

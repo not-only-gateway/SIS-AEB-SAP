@@ -31,5 +31,6 @@ export default {
             key: 'Centro de Armazenamento e Processamento de Imagens',
             value:'Centro de Armazenamento e Processamento de Imagens'
         }
-    ]
+    ],
+    details: 'Detalhes da infraestrutura'
 }

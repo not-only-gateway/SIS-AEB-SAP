@@ -16,13 +16,13 @@ export default function Ted(props) {
                 buttons={[
                     {
                         key: 0,
-                        value: lang.ted,
+                        value: lang.details,
                         content: (
                             <Tabs
                                 buttons={[
                                     {
                                         key: 0,
-                                        value: props.ted.number,
+                                        value: lang.ted,
                                         content: (
                                             <TedForm
                                                 handleChange={props.setTed} id={props.ted.id}
@@ -57,6 +57,7 @@ export default function Ted(props) {
                 ]}
                 setOpenTab={setOpenTab}
                 openTab={openTab}
+                styles={{paddingLeft: '10%', paddingRight: '10%'}}
             />
 
 

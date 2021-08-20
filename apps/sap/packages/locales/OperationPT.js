@@ -31,6 +31,9 @@ export default {
     description: 'Descrição',
 
     measures: 'Medidas adotadas',
-    difficulties: 'Dificuldades encontradas'
+    difficulties: 'Dificuldades encontradas',
+    details: 'Detalhes da fase/operação',
+    resourceApplication: 'Aplicação dos recursos',
+    permanentGoods: 'Bens permanentes'
 
 }

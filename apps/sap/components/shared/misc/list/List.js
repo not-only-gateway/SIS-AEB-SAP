@@ -131,7 +131,13 @@ export default function List(props) {
                 </div>
                 :
                 (data !== undefined && Array.isArray(data) && data.length > 0 && data[0] !== undefined && data[0].length > 0 ?
-                        <div style={{display: 'grid', overflowY: 'auto', height: '100%', maxWidth: '100%'}}>
+                        <div style={{
+                            display: 'grid',
+                            alignContent: 'flex-start',
+                            overflowY: 'auto',
+                            height: '100%',
+                            maxWidth: '100%'
+                        }}>
 
                             {data[currentPage].map((entity, index) =>
                                 <React.Fragment key={index + props.listKey}>
@@ -146,7 +152,13 @@ export default function List(props) {
                             )}
                         </div>
                         :
-                        <div style={{display: 'grid', overflowY: 'auto', height: '100%', maxWidth: '100%', userSelect: 'none'}}>
+                        <div style={{
+                            display: 'grid',
+                            overflowY: 'auto',
+                            height: '100%',
+                            maxWidth: '100%',
+                            userSelect: 'none'
+                        }}>
 
                             <h5
                                 style={{textAlign: 'center', color: '#555555'}}>{lang.nothingFound}</h5>

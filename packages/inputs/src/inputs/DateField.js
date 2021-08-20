@@ -9,9 +9,10 @@ import Dates from "./packages/Dates";
 export default function DateField(props) {
     const lang = LocalePT
     const [open, setOpen] = useState()
-    const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth())
-    const [selectedDay, setSelectedDay] = useState(new Date().getDay())
-    const [year, setYear] = useState(new Date().getFullYear())
+    const [selectedMonth, setSelectedMonth] = useState()
+    const [selectedDay, setSelectedDay] = useState()
+    const [year, setYear] = useState()
+
     const [mounted, setMounted] = useState(false)
 
     const handleMouseDown = (event) => {
@@ -21,9 +22,9 @@ export default function DateField(props) {
             setOpen(false)
 
     }
-    const getDays = () => {
+    const getDays = (month) => {
         let res = []
-        let days = Dates[selectedMonth - 1].days;
+        let days = Dates[month - 1].days;
         for (let i = 0; i < days; i++) {
             res.push(
                 <div
@@ -33,9 +34,12 @@ export default function DateField(props) {
                         color: selectedDay === (i + 1) ? '#0095ff' : undefined
                     }}
                     onClick={() => {
+                        const date = new Date()
                         setOpen(false)
+                        setSelectedMonth(month)
                         setSelectedDay(i + 1)
-                        props.handleChange(`${i + 1}/${selectedMonth}/${year}`)
+                        setYear(year === undefined ? date.getFullYear() : year)
+                        props.handleChange(`${year === undefined ? date.getFullYear() : year}-${month}-${i + 1}`)
                     }}
                 >
                     {i + 1}
@@ -48,7 +52,8 @@ export default function DateField(props) {
         if (!mounted) {
             setMounted(true)
             if (props.value !== undefined && props.value !== null) {
-                let value = props.value.split('/')
+                let value = new Date(props.value).toLocaleDateString()
+                value = value.split('/')
                 setSelectedDay(parseInt(value[0]))
                 setSelectedMonth(parseInt(value[1]))
                 setYear(parseInt(value[2]))
@@ -74,42 +79,54 @@ export default function DateField(props) {
                     <input
                         disabled={props.disabled}
                         className={dStyles.inputContainer}
-                        placeholder={'dd'}
-                        value={selectedDay < 10 ? `0${selectedDay}` : selectedDay}
-                        type={'number'}
-                        onChange={event => {
-                            setSelectedDay(event.target.value)
-                            props.handleChange(`${event.target.value}-${selectedMonth}-${year}`)
-                        }}
-                        maxLength={props.maxLength}
-                    />
-                    <div className={dStyles.divider}/>
-                    <input
-                        disabled={props.disabled}
-                        className={dStyles.inputContainer}
-                        placeholder={'mm'}
-                        value={selectedMonth < 10 ? `0${selectedMonth}` : (selectedMonth)}
-
-                        type={'number'}
-                        onChange={event => {
-                            setSelectedMonth(event.target.value)
-                            props.handleChange(`${selectedDay}-${event.target.value}-${year}`)
-                        }}
-                        maxLength={props.maxLength}
-                    />
-                    <div className={dStyles.divider}/>
-                    <input
-                        disabled={props.disabled}
-                        className={dStyles.inputContainer}
-                        placeholder={'yyyy'}
-                        value={year}
-                        type={'number'}
+                        placeholder={'DD'}
+                        type="text" pattern="\d*" maxLength="2"
+                        value={selectedDay < 10 ? `${selectedDay}` : selectedDay}
                         style={{width: '40px'}}
                         onChange={event => {
-                            setYear(event.target.value)
-                            props.handleChange(`${selectedDay}-${selectedMonth + 1}-${event.target.value}`)
+                            if ((event.target.value <= 31 && event.target.value >= 1) && event.target.value.length <= 2 || (selectedDay !== undefined && event.target.value.length < selectedDay.length)) {
+                                setSelectedDay(event.target.value.length === 0 ? undefined : event.target.value)
+                                props.handleChange(
+                                    `${year}-${selectedMonth}-${event.target.value}`
+                                )
+                            }
                         }}
-                        maxLength={props.maxLength}
+                    />
+                    <div className={dStyles.divider}/>
+                    <input
+                        disabled={props.disabled}
+                        className={dStyles.inputContainer}
+                        placeholder={'MM'}
+                        value={selectedMonth < 10 ? `${selectedMonth}` : (selectedMonth)}
+                        type="number"
+                        max={12}
+                        min={1}
+                        style={{width: '40px'}}
+                        onChange={event => {
+                            if ((event.target.value <= 12 && event.target.value >= 1) && event.target.value.length <= 2 || (selectedMonth !== undefined && event.target.value.length < selectedMonth.length)) {
+                                setSelectedMonth(event.target.value.length === 0 ? undefined : event.target.value)
+                                props.handleChange(
+                                    `${year}-${event.target.value}-${selectedDay}`
+                                )
+                            }
+                        }}
+                    />
+                    <div className={dStyles.divider}/>
+                    <input
+                        disabled={props.disabled}
+                        className={dStyles.inputContainer}
+                        placeholder={'AAAA'}
+                        value={year}
+                        type="number"
+                        style={{width: '60px'}}
+                        onChange={event => {
+                            if ((event.target.value <= 5000 && event.target.value >= 0) && event.target.value.length <= 4 || (year !== undefined && event.target.value.length < year.length)) {
+                                setYear(event.target.value.length === 0 ? undefined : event.target.value)
+                                props.handleChange(
+                                    `${event.target.value}-${selectedMonth + 1}-${selectedDay}`
+                                )
+                            }
+                        }}
                     />
                 </div>
                 <button className={dStyles.buttonContainer} onClick={() => {
@@ -118,35 +135,35 @@ export default function DateField(props) {
                     <CalendarTodayRounded style={{fontSize: '1.2rem'}}/>
                 </button>
                 <div className={dStyles.calendar} style={{display: open ? undefined : 'none'}}>
-                    {Dates[selectedMonth - 1] !== undefined ?
-                        <div
-                            className={dStyles.monthContainer}
-                        >
-                            <button className={dStyles.buttonContainer} style={{width: 'fit-content'}} onClick={() => {
-                                if (selectedMonth === 1) {
-                                    setSelectedMonth(12)
-                                    setYear(year - 1)
-                                } else
-                                    setSelectedMonth(selectedMonth - 1)
-                            }}>
-                                <ArrowBackRounded/>
-                            </button>
-                            {Dates[selectedMonth - 1].month} - {year}
-                            <button className={dStyles.buttonContainer} style={{width: 'fit-content'}} onClick={() => {
-                                if (selectedMonth === 12) {
-                                    setSelectedMonth(1)
-                                    setYear(year + 1)
-                                } else
-                                    setSelectedMonth(selectedMonth + 1)
-                            }}>
-                                <ArrowForwardRounded/>
-                            </button>
-                        </div>
-                        :
-                        null
-                    }
+
+                    <div
+                        className={dStyles.monthContainer}
+                    >
+                        <button className={dStyles.buttonContainer} style={{width: 'fit-content'}} onClick={() => {
+                            if ((selectedMonth !== undefined && selectedMonth === 1) || (!selectedMonth && new Date().getMonth() === 1)) {
+                                setSelectedMonth(12)
+                                setYear(year === undefined ? (new Date().getFullYear() - 1) : (year - 1))
+                            } else
+                                setSelectedMonth(selectedMonth === undefined ? (new Date().getMonth() - 1) : (selectedMonth - 1))
+
+
+                        }}>
+                            <ArrowBackRounded/>
+                        </button>
+                        {selectedMonth === undefined || selectedMonth > 12 || selectedMonth < 1 ? Dates[new Date().getMonth() - 1].month : Dates[selectedMonth - 1].month} - {year === undefined ? new Date().getFullYear() : year}
+                        <button className={dStyles.buttonContainer} style={{width: 'fit-content'}} onClick={() => {
+                            if ((selectedMonth !== undefined && selectedMonth === 12) || (!selectedMonth && new Date().getMonth() === 12)) {
+                                setSelectedMonth(1)
+                                setYear(year === undefined ? (new Date().getFullYear() + 1) : (year + 1))
+                            } else
+                                setSelectedMonth(selectedMonth === undefined ? (new Date().getMonth() + 1) : (selectedMonth + 1))
+                        }}>
+                            <ArrowForwardRounded/>
+                        </button>
+                    </div>
+
                     <div className={dStyles.daysContainer}>
-                        {Dates[selectedMonth - 1] !== undefined ? getDays(setSelectedMonth).map(e => e) : null}
+                        {getDays(selectedMonth === undefined ? new Date().getMonth() : selectedMonth).map(e => e)}
                     </div>
                 </div>
             </div>

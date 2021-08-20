@@ -17,7 +17,7 @@ export default function Goal(props) {
                 buttons={[
                     {
                         key: 0,
-                        value: lang.goal,
+                        value: lang.details,
                         content: (
                             <div style={{width: '100%'}}>
                                 <GoalForm {...props}/>
@@ -33,6 +33,7 @@ export default function Goal(props) {
                 ]}
                 setOpenTab={setOpenTab}
                 openTab={openTab}
+                styles={{paddingLeft: '10%', paddingRight: '10%'}}
             />
     )
 }

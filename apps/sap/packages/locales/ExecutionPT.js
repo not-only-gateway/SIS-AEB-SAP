@@ -15,5 +15,7 @@ export default {
     executionDate: 'Data da execução',
     measures: 'Medidas adotadas',
     difficulties: 'Dificuldades encontradas',
-    description: 'Relato detalhado do andamento da fase'
+    description: 'Relato detalhado do andamento da fase',
+
+    newExecution: 'Nova execução'
 }

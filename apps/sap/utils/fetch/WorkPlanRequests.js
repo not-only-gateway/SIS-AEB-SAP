@@ -16,7 +16,7 @@ export default class WorkPlanRequests {
 
         await axios({
             method: 'delete',
-            url:  Host() + 'work_plan/'+submitProps.pk,
+            url: Host() + 'work_plan/' + submitProps.pk,
             headers: {'authorization': jwt},
             data: submitProps.data
         }).then(res => {
@@ -35,6 +35,7 @@ export default class WorkPlanRequests {
         })
         return response
     }
+
     static async fetchWorkPlan(pk) {
         let response = null
         await axios({
@@ -62,12 +63,13 @@ export default class WorkPlanRequests {
         })
         return response
     }
+
     static async deleteStage(submitProps) {
         let response = false
 
         await axios({
             method: 'delete',
-            url:  Host() + 'activity/'+submitProps.pk,
+            url: Host() + 'activity/' + submitProps.pk,
             headers: {'authorization': jwt},
             data: submitProps.data
         }).then(res => {
@@ -86,6 +88,7 @@ export default class WorkPlanRequests {
         })
         return response
     }
+
     static async fetchGoal(pk) {
         let response = null
         await axios({
@@ -125,12 +128,13 @@ export default class WorkPlanRequests {
         })
         return response
     }
+
     static async deleteInfrastructure(submitProps) {
         let response = false
 
         await axios({
             method: 'delete',
-            url:  Host() + 'infrastructure/'+submitProps.pk,
+            url: Host() + 'infrastructure/' + submitProps.pk,
             headers: {'authorization': jwt},
             data: submitProps.data
         }).then(res => {
@@ -149,6 +153,55 @@ export default class WorkPlanRequests {
         })
         return response
     }
+
+    static async deleteFinancial(submitProps) {
+        let response = false
+
+        await axios({
+            method: 'delete',
+            url: Host() + 'financial_disbursement/' + submitProps.pk,
+            headers: {'authorization': jwt},
+            data: submitProps.data
+        }).then(res => {
+            submitProps.setStatus({
+                type: 'success',
+                message: res.status + ' - ' + res.statusText,
+            })
+            submitProps.setRefreshed(false)
+            response = true
+        }).catch(error => {
+            submitProps.setStatus({
+                type: 'error',
+                message: error.message
+            })
+            console.log(error.request)
+        })
+        return response
+    }
+
+    static async submitFinancial(submitProps) {
+        let response = false
+
+        await axios({
+            method: submitProps.create ? 'post' : 'put',
+            url: submitProps.create ? Host() + 'financial_disbursement' : Host() + 'financial_disbursement/' + submitProps.pk,
+            headers: {'authorization': jwt},
+            data: submitProps.data
+        }).then(res => {
+            submitProps.setStatus({
+                type: 'success',
+                message: res.status + ' - ' + res.statusText,
+            })
+            response = true
+        }).catch(error => {
+            submitProps.setStatus({
+                type: 'error',
+                message: error.message
+            })
+        })
+        return response
+    }
+
     static async submitStatus(submitProps) {
         let response = false
         let data = {}
@@ -174,12 +227,13 @@ export default class WorkPlanRequests {
         })
         return response
     }
+
     static async deleteStatus(submitProps) {
         let response = false
 
         await axios({
             method: 'delete',
-            url:  Host() + 'work_plan_status/'+submitProps.pk,
+            url: Host() + 'work_plan_status/' + submitProps.pk,
             headers: {'authorization': jwt},
             data: submitProps.data
         }).then(res => {
@@ -198,6 +252,7 @@ export default class WorkPlanRequests {
         })
         return response
     }
+
     static async submitGoal(submitProps) {
 
         let response = submitProps.create ? null : false
@@ -247,12 +302,13 @@ export default class WorkPlanRequests {
         })
         return response
     }
+
     static async deleteComponent(submitProps) {
         let response = false
 
         await axios({
             method: 'delete',
-            url:  Host() + 'component/'+submitProps.pk,
+            url: Host() + 'component/' + submitProps.pk,
             headers: {'authorization': jwt},
             data: submitProps.data
         }).then(res => {
@@ -271,6 +327,7 @@ export default class WorkPlanRequests {
         })
         return response
     }
+
     static async submitStage(submitProps) {
 
         let response = submitProps.create ? null : false

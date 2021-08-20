@@ -12,6 +12,6 @@ export default {
     finalSituation:  'Situação final',
     goal: 'Meta',
     newGoal: 'Nova meta',
-    operations: 'Fases / operação'
-
+    operations: 'Fases / operação',
+    details: 'Detalhes',
 }

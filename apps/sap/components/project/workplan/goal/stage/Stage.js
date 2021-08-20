@@ -14,7 +14,7 @@ export default function Stage(props) {
             buttons={[
                 {
                     key: 0,
-                    value: lang.stage,
+                    value: lang.details,
                     content: (
                         <div style={{width: '100%'}}>
                             <StageForm {...props}/>
@@ -28,6 +28,7 @@ export default function Stage(props) {
                     </div>
                 }
             ]}
+            styles={{paddingLeft: '10%', paddingRight: '10%'}}
             setOpenTab={setOpenTab}
             openTab={openTab}
         />

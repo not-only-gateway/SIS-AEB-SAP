@@ -10,7 +10,7 @@ import {ExitToApp, ExtensionRounded, GroupRounded, ListRounded, TimelineRounded,
 
 import CollaboratorRequests from "../../utils/fetch/CollaboratorRequests";
 import PersonRequests from "../../utils/fetch/PersonRequests";
-import Navigation from "../../../../packages/navigation/src/nav/Navigation";
+import {Navigation} from "sis-aeb-navigation";
 
 
 const cookies = new Cookies()

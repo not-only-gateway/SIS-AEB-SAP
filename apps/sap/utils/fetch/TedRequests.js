@@ -75,7 +75,7 @@ export default class TedRequests {
     }
     static async submitAddendum(submitProps) {
         let response = false
-        console.log(submitProps.data)
+
         await axios({
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'addendum' : Host() + 'addendum/' + submitProps.pk,

@@ -18,7 +18,7 @@ export default function Infrastructure(props) {
                 buttons={[
                     {
                         key: 0,
-                        value: props.data.name,
+                        value: lang.details,
                         content: (
                             <div style={{width: '100%'}}>
                                 <InfrastructureForm {...props}/>

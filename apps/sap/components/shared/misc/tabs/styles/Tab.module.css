@@ -2,7 +2,7 @@
     display: inline-flex;
     justify-content: flex-start;
     align-items: stretch;
-
+    gap: 32px;
     position: relative;
 
     overflow: hidden;
@@ -27,7 +27,7 @@
 
 
     transition: 150ms linear;
-    padding: 8px 16px;
+    padding: 8px 0px;
     box-shadow: none;
 
     text-align: center;
@@ -35,7 +35,6 @@
     white-space: nowrap;
 
     width: fit-content;
-    border-radius: 5px 5px 0 0;
 
     border: none;
     background: transparent;

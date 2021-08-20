@@ -41,6 +41,31 @@ export default class OperationRequests {
         return response
     }
 
+    static async submitPermanentGoods(submitProps) {
+        let response = false
+        let data = {}
+        data = Object.assign(data, submitProps.data)
+        data.total_value = data.unit_price * data.quantity
+        await axios({
+            method: submitProps.create ? 'post' : 'put',
+            url: submitProps.create ? Host() + 'permanent_goods' : Host() + 'permanent_goods/' + submitProps.pk,
+            headers: {'authorization': jwt},
+            data: data
+        }).then(res => {
+            submitProps.setStatus({
+                type: 'success',
+                message: res.status + ' - ' + res.statusText,
+            })
+            response = true
+        }).catch(error => {
+            submitProps.setStatus({
+                type: 'error',
+                message: error.message
+            })
+            console.log(error.request)
+        })
+        return response
+    }
     static async submitNote(submitProps) {
         let response = false
         console.log(submitProps.data)
@@ -110,6 +135,33 @@ export default class OperationRequests {
         })
         return response
     }
+
+
+    static async deletePermanentGoods(submitProps) {
+        let response = false
+
+        await axios({
+            method: 'delete',
+            url:  Host() + 'permanent_goods/'+submitProps.pk,
+            headers: {'authorization': jwt},
+            data: submitProps.data
+        }).then(res => {
+            submitProps.setStatus({
+                type: 'success',
+                message: res.status + ' - ' + res.statusText,
+            })
+            submitProps.setRefreshed(false)
+            response = true
+        }).catch(error => {
+            submitProps.setStatus({
+                type: 'error',
+                message: error.message
+            })
+            console.log(error.request)
+        })
+        return response
+    }
+
     static async deleteOperation(submitProps) {
         let response = false
 

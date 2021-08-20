@@ -1,4 +1,5 @@
 export default {
+    details: 'Detalhes',
     responsible: 'Responsável',
     object: 'Objeto',
     additive: 'Aditivo',
@@ -23,5 +24,18 @@ export default {
             key: 'Coordenacao de Veiculos Lançadores e Diretoria de Gestao de Portfólio',
             value: 'Coordenacao de Veiculos Lançadores e Diretoria de Gestao de Portfólio'
         }],
-    operation: 'Fase / operação'
+    operation: 'Fase / operação',
+    baseOptions: [{key: true, value: 'Sim'}, {key: false, value: 'Não'}],
+    subDecentralization: 'Subdescentralização',
+    indirectCosts: 'Custos indiretos',
+    justification: 'Justificativa e motivação',
+    detailingIndirect: 'Detalhamento dos custos indiretos',
+    ways: 'Forma de execução',
+    budgetPlan: 'Plano orçamentário',
+    responsibleExecution: 'Responsável pela execução',
+    func: 'Função',
+    email: 'E-mail',
+    phone: 'Telefone',
+    infrastructures: 'Infraestruturas',
+    financialDisbursement: 'Desembolso financeiro'
 }

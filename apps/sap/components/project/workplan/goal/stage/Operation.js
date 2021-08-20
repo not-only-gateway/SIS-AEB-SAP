@@ -9,6 +9,7 @@ import Tabs from "../../../../shared/misc/tabs/Tabs";
 import ActionList from "./ActionList";
 import ExecutionList from "../../../execution/ExecutionList";
 import FollowUpList from "./FollowUpList";
+import PermanentGoodsList from "./PermanentGoodsList";
 
 export default function Operation(props) {
     const lang = OperationPT
@@ -22,7 +23,7 @@ export default function Operation(props) {
                 buttons={[
                     {
                         key: 0,
-                        value: props.data.phase,
+                        value: lang.details,
                         content: (
                             <div style={{width: '100%'}}>
                                 <OperationForm {...props}/>
@@ -47,6 +48,21 @@ export default function Operation(props) {
                         value: lang.executions,
                         content: <div style={{width: '100%'}}>
                             <ExecutionList operation={props.data} setExecution={props.setExecution}/>
+                        </div>
+                    },
+                    {
+                        key: 4,
+                        value: lang.permanentGoods,
+                        content: <div style={{width: '100%'}}>
+                            <PermanentGoodsList operation={props.data}/>
+                            {/*<ExecutionList operation={props.data} setExecution={props.setExecution}/>*/}
+                        </div>
+                    },
+                    {
+                        key: 5,
+                        value: lang.resourceApplication,
+                        content: <div style={{width: '100%'}}>
+                            {/*<ExecutionList operation={props.data} setExecution={props.setExecution}/>*/}
                         </div>
                     },
                 ]}

@@ -32,6 +32,7 @@ export default function Execution(props) {
                         </div>
                     }
                 ]}
+                styles={{paddingLeft: '10%', paddingRight: '10%'}}
                 setOpenTab={setOpenTab}
                 openTab={openTab}
             />
