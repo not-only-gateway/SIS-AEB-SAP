@@ -81,37 +81,12 @@
 }
 
 .calendar {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
     background: white;
-
-
     border-radius: 8px;
-    width: 400px;
     height: 250px;
-    z-index: 999;
-    /*box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;*/
     box-shadow: 0 0 10px 2px rgba(0, 0, 0, .2);
-    /*border: #0095ff 2px solid;*/
-    animation: fadeIn 150ms linear;
-
     display: grid;
-
 }
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-
 
 .monthContainer{
     font-family: Roboto;
@@ -129,8 +104,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-
 }
 /*.monthB {*/
 /*    outline: none;*/

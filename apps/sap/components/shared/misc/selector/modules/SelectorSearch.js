@@ -1,9 +1,9 @@
 import React from 'react'
-import styles from './styles/Selector.module.css'
+import styles from '../styles/Selector.module.css'
 
 import PropTypes from 'prop-types'
 import {ClearRounded, SearchRounded} from "@material-ui/icons";
-import SelectorsPT from "./locales/SelectorsPT";
+import SelectorsPT from "../locales/SelectorsPT";
 
 export default function SelectorSearch(props) {
     const lang = SelectorsPT

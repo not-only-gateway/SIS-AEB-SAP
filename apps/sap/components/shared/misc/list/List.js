@@ -10,8 +10,9 @@ import SearchBar from "./modules/SearchBar";
 import ContextMenu from "./modules/ContextMenu";
 import RefreshRoundedIcon from '@material-ui/icons/RefreshRounded';
 import {AddRounded, ArrowBackRounded, ArrowForwardRounded} from "@material-ui/icons";
-import ListPropsTemplate from "./ListPropsTemplate";
+import ListPropsTemplate from "../shared/ListPropsTemplate";
 import pStyles from './styles/PageChanger.module.css'
+import ListHeader from "./modules/Header";
 
 export default function List(props) {
     const [data, setData] = useState([])
@@ -47,7 +48,14 @@ export default function List(props) {
 
     useEffect(() => {
         if (!mounted) {
-            setMaxHeight(document.documentElement.offsetHeight - ref.current.getBoundingClientRect().y - 16)
+            if (!props.asModal) {
+                setMaxHeight(document.documentElement.offsetHeight - ref.current.getBoundingClientRect().y - 16)
+            } else {
+                console.log(ref.current?.parentNode.getBoundingClientRect().height)
+                setMaxHeight(ref.current?.parentNode.getBoundingClientRect().height)
+            }
+
+
             const newElement = document.createElement('div')
             if (mountingPoint === undefined) {
                 setMountingPoint(newElement)
@@ -62,9 +70,12 @@ export default function List(props) {
 
 
     return (
-        <div className={styles.container} ref={ref} style={{
-            boxShadow: props.noShadow ? 'none' : undefined, height: maxHeight + 'px'
-        }}>
+        <div
+            className={styles.container} ref={ref}
+            style={{
+                boxShadow: props.noShadow ? 'none' : undefined, height: maxHeight + 'px'
+            }}
+        >
             {
                 props.options !== undefined && mountingPoint !== undefined ?
                     <ContextMenu mountingPoint={mountingPoint} data={data} options={props.options}/>
@@ -72,25 +83,10 @@ export default function List(props) {
                     null
             }
             <div className={styles.header}>
-                <div className={styles.headerContainer}>
-                    <div className={styles.titleContainer}>
-                        {props.title}
-                        <button onClick={() => refresh()} className={styles.refreshButton}>
-                            <RefreshRoundedIcon/>
-                        </button>
-                    </div>
-                    {props.createOption ?
-                        <button onClick={() => {
-                            props.setEntity(null)
-                            props.clickEvent()
-                        }} className={styles.createButton}>
-                            <AddRounded/>
-                            Inserir
-                        </button>
-                        :
-                        null
-                    }
-                </div>
+                <ListHeader
+                    createOption={props.createOption} clickEvent={props.clickEvent}
+                    setEntity={props.setEntity} title={props.title} refresh={refresh}
+                />
                 {props.noSearchBar || props.searchFieldName === undefined ? null :
                     <SearchBar fullWidth={props.title === undefined} searchInput={searchInput}
                                setSearchInput={setSearchInput} applySearch={() => {
@@ -140,7 +136,7 @@ export default function List(props) {
                         }}>
 
                             {data[currentPage].map((entity, index) =>
-                                <React.Fragment key={index + props.listKey}>
+                                <React.Fragment key={index + '-list'}>
                                     <ListContent
                                         index={index} onlyCreate={props.onlyCreate}
                                         create={false} lang={lang} entity={entity}

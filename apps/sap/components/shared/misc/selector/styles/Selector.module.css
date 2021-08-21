@@ -68,6 +68,7 @@
 
 .closeButton {
     position: absolute;
+    z-index: 999;
     width: 40px;
     height: 40px;
     top: 5px;
@@ -185,3 +186,20 @@
     justify-content: center;
 }
 
+.divider{
+    height: 20px;
+    width: 1px;
+    background: #e0e0e0;
+
+}
+
+.overflow{
+    font-family: Roboto;
+    font-size: .85rem;
+
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+}

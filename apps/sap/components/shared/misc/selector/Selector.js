@@ -2,42 +2,20 @@ import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import styles from './styles/Selector.module.css'
 import SelectorsPT from './locales/SelectorsPT'
-import SelectorModal from "./SelectorModal";
+import SelectorModal from "./modules/SelectorModal";
 import {LaunchRounded} from "@material-ui/icons";
+import ListPropsTemplate from "../shared/ListPropsTemplate";
+import SelectorPropsTemplate from "./templates/SelectorPropsTemplate";
+import RenderListField from "../shared/RenderListField";
 
 export default function Selector(props) {
     const [modal, setModal] = useState(false)
-    const renderField = () => {
-        let res = null
-        const field = props.fields[0]
-        if (props.selected !== undefined && props.selected !== null)
-            switch (field.type) {
-                case 'string': {
-                    res = (field.maskStart ? field.maskStart : '') + props.selected[field.name]
-                    break
-                }
-                case 'number': {
-                    const value = props.selected[field.name].toString()
-
-                    res = (field.maskStart ? field.maskStart : '') + value.substring(0, value.length - 3) + '.' + value.substring(value.length - 3, value.length)
-                    break
-                }
-                case 'bool': {
-                    res = (field.maskStart ? field.maskStart : '') + JSON.stringify(props.selected[field.name])
-                    break
-                }
-
-                default:
-                    break
-            }
-        return res
-    }
 
     const lang = SelectorsPT
 
     return (
-        <React.Fragment key={props.selectorKey + '-container'}>
-            <SelectorModal {...props} modal={modal} setModal={setModal} renderEntity={renderField}/>
+        <>
+            <SelectorModal {...props} modal={modal} setModal={setModal}/>
 
             <div
                 key={props.label + '-selector'}
@@ -76,7 +54,7 @@ export default function Selector(props) {
                         onClick={() => setModal(true)}
                     >
 
-                        {props.selected !== null && props.selected !== undefined ? renderField(props.fields[0]) : props.label}
+                        {props.selected !== null && props.selected !== undefined ? RenderListField(props.fields, props.selected) : props.label}
                         <LaunchRounded style={{fontSize: '1.2rem'}}/>
                     </button>
 
@@ -89,33 +67,9 @@ export default function Selector(props) {
                        }}>{lang.required}</label>
 
             </div>
-        </React.Fragment>
+        </>
     )
 }
 
-Selector.propTypes = {
-    searchFieldName: PropTypes.string,
-    width: PropTypes.string,
-    fields: PropTypes.arrayOf(PropTypes.shape({
-
-        name: PropTypes.string,
-        type: PropTypes.oneOf(['bool', 'string', 'text']),
-        maskStart: PropTypes.string,
-        label: PropTypes.string
-    })),
-    elementRootID: PropTypes.string,
-    fetchUrl: PropTypes.string,
-    fetchToken: PropTypes.string,
-    selectorKey: PropTypes.any,
-    handleChange: PropTypes.func,
-    selected: PropTypes.any,
-    label: PropTypes.string,
-
-    getEntityKey: PropTypes.func,
-    fetchParams: PropTypes.object,
-    labels: PropTypes.array,
-    required: PropTypes.bool,
-    setChanged: PropTypes.func,
-    disabled: PropTypes.bool,
-}
+Selector.propTypes = SelectorPropsTemplate
 

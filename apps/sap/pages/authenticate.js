@@ -10,6 +10,9 @@ import {Alert} from "sis-aeb-misc";
 import AuthenticatePT from "../packages/locales/AuthenticatePT";
 import submitAuthentication from "../utils/submit/SubmitAuthentication";
 import {TextField} from "sis-aeb-inputs";
+import DropDownField from "../components/shared/inputs/dropdown/DropDownField";
+import DateField from "../components/shared/inputs/date/DateField";
+import Selector from "../components/shared/misc/selector/Selector";
 
 export default function authenticate() {
     const router = useRouter()
@@ -72,6 +75,7 @@ export default function authenticate() {
                         })} locale={router.locale} value={data.password}
                         width={'100%'} passwordMask={true} type={'password'}
                         maxLength={undefined}/>
+
                     <Button
                         onClick={() => submitAuthentication({
                             email: data.email,

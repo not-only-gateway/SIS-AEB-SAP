@@ -1,15 +1,20 @@
 import React, {useEffect, useState} from "react";
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
-import styles from "../text/styles/Input.module.css";
-
+import styles from '../shared/styles/Styles.module.css'
 export default function SelectBox(props) {
     let newElement
 
-    const handleClose = () => {
-        // ReactDOM.unmountComponentAtNode(
-        //     newElement
-        // )
+    const handleClose = (event) => {
+        if(!document.elementsFromPoint(event.clientX, event.clientY).includes(newElement)) {
+            newElement.classList.add(styles.fadeOut)
+            newElement.addEventListener('animationend', () => {
+                ReactDOM.unmountComponentAtNode(
+                    newElement
+                )
+                props.setOpen(false)
+            }, {once: true})
+        }
     }
 
     useEffect(() => {
@@ -25,16 +30,15 @@ export default function SelectBox(props) {
                 props.children,
                 newElement
             )
-            newElement.style.width = '300px'
+            newElement.classList.add(styles.fadeIn)
+            newElement.style.width = '400px'
             newElement.style.height = 'auto'
             newElement.style.position = 'fixed'
-            newElement.style.display = 'block'
             newElement.style.zIndex = '999'
-            newElement.style.left = `${props.reference.getBoundingClientRect().left}px`
-            newElement.style.top = props.reference.getBoundingClientRect().top + 'px'
-
-        } else
-            handleClose()
+            newElement.style.left = `${props.reference.getBoundingClientRect().left + props.reference.getBoundingClientRect().width/2}px`
+            newElement.style.top = `${props.reference.getBoundingClientRect().top}px`
+            newElement.style.transform = `translateX(-50%)`
+        }
 
         return () => {
             document.removeEventListener('mousedown', handleClose)

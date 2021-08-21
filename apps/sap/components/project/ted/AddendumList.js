@@ -47,12 +47,13 @@ export default function AddendumList(props) {
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/addendum'}
                     fields={[
-                        {name: 'number', type: 'string',label: 'Número'},
-                        {name: 'global_value', type: 'number', label: 'valor global', maskStart: 'R$ '},
+                        {name: 'number', type: 'string'},
+                        {name: 'global_value', type: 'number', maskStart: 'R$ '},
                     ]}
+                    labels={['Número', 'valor global']}
                     triggerRefresh={!refreshed}
                     setRefreshed={setRefreshed}
-                    labels={['Número', 'valor global']}
+
                     clickEvent={() => setOpen(true)}
                     options={[{
                         label: 'Deletar',

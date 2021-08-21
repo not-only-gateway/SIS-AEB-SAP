@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 
 export default {
+    asModal:PropTypes.bool,
     createOptionLabel: PropTypes.string,
     title: PropTypes.string,
     searchFieldName: PropTypes.string,
@@ -26,14 +27,16 @@ export default {
         getColor: PropTypes.func,
         capitalize: PropTypes.string
     })),
-    labels: PropTypes.arrayOf(PropTypes.any),
-    noShadow: PropTypes.bool,
     options: PropTypes.arrayOf(PropTypes.shape({
         label: PropTypes.string,
         icon: PropTypes.object,
         onClick: PropTypes.func,
         disabled: PropTypes.bool
     })),
+
+    labels: PropTypes.arrayOf(PropTypes.any),
+    noShadow: PropTypes.bool,
+
     triggerRefresh: PropTypes.bool,
     setRefreshed: PropTypes.func
 }

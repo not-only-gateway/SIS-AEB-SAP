@@ -16,13 +16,6 @@ export default function DateField(props) {
     const ref = useRef()
     const [mounted, setMounted] = useState(false)
 
-    const handleMouseDown = (event) => {
-        const closest = event.target.closest('.' + dStyles.calendar)
-
-        if (closest === null && open)
-            setOpen(false)
-
-    }
     const getDays = (month) => {
         let res = []
         let days = Dates[month - 1].days;
@@ -53,7 +46,7 @@ export default function DateField(props) {
         if (!mounted) {
             setMounted(true)
             if (props.value !== undefined && props.value !== null) {
-                let value = new Date(props.value).toLcosntocaleDateString()
+                let value = new Date(props.value).toLocaleDateString()
                 value = value.split('/')
                 setSelectedDay(parseInt(value[0]))
                 setSelectedMonth(parseInt(value[1]))
@@ -61,11 +54,7 @@ export default function DateField(props) {
             }
         }
 
-        document.addEventListener('mousedown', handleMouseDown)
 
-        return () => {
-            document.removeEventListener('mousedown', handleMouseDown)
-        }
     }, [open])
     return (
         <div className={dStyles.container} style={{
@@ -136,7 +125,7 @@ export default function DateField(props) {
                     <CalendarTodayRounded style={{fontSize: '1.2rem'}}/>
                 </button>
 
-                <SelectBox open={open} setOpen={setOpen} reference={ref}>
+                <SelectBox open={open} setOpen={setOpen} reference={ref.current}>
                     <div className={dStyles.calendar}>
                         <div className={dStyles.monthContainer}>
                             <button className={dStyles.buttonContainer} style={{width: 'fit-content'}} onClick={() => {
@@ -169,12 +158,13 @@ export default function DateField(props) {
 
                 </SelectBox>
 
-                <div className={styles.alertLabel}
-                     style={{
-                         color: (props.value === null || !props.value) ? '#ff5555' : '#262626',
-                         visibility: props.required ? 'visible' : 'hidden'
-                     }}>{lang.required}</div>
+
             </div>
+            <div className={styles.alertLabel}
+                 style={{
+                     color: (props.value === null || !props.value) ? '#ff5555' : '#262626',
+                     visibility: props.required ? 'visible' : 'hidden'
+                 }}>{lang.required}</div>
         </div>
     )
 }
@@ -185,7 +175,5 @@ DateField.propTypes = {
     handleChange: PropTypes.func,
     value: PropTypes.string,
     required: PropTypes.bool,
-    locale: PropTypes.string,
-    disabled: PropTypes.bool,
-    dark: PropTypes.bool
+    disabled: PropTypes.bool
 }

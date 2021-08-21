@@ -2,38 +2,11 @@ import React from "react";
 import PropTypes from 'prop-types'
 import {AddRounded} from "@material-ui/icons";
 import styles from "../styles/List.module.css";
+import RenderListField from "../../shared/RenderListField";
 
 
 export default function ListContent(props) {
-    const renderField = (field) => {
-        let res = null
-        switch (field.type) {
-            case 'string': {
-                res = (field.maskStart ? field.maskStart : '') + props.entity[field.name] + (field.maskEnd ? field.maskEnd : '')
-                break
-            }
-            case 'number': {
 
-                let parts = props.entity[field.name].toString().split(".")
-                parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-
-
-                res = (field.maskStart ? field.maskStart : '') + (parts.join(".")) + (field.maskEnd ? field.maskEnd : '')
-                break
-            }
-            case 'bool': {
-                res = (field.maskStart ? field.maskStart : '') + (props.entity[field.name] ? 'Sim' : 'Não') + (field.maskEnd ? field.maskEnd : '')
-                break
-            }
-            case 'date': {
-                res = (field.maskStart ? field.maskStart : '') + (new Date(props.entity[field.name]).toLocaleDateString()) + (field.maskEnd ? field.maskEnd : '')
-                break
-            }
-            default:
-                break
-        }
-        return res
-    }
     return (
         <button
             disabled={!props.create && props.onlyCreate} id={('*-' + props.index)}
@@ -65,7 +38,7 @@ export default function ListContent(props) {
                                 color: typeof field.getColor === 'function' ? field.getColor(props.entity[field.name]) : undefined,
                                 textTransform: field.capitalize ? 'capitalize' : undefined
                             }} id={('*-' + props.index) + '-field'}>
-                                {renderField(field)}
+                                {RenderListField(field, props.entity)}
                             </div>
                         </React.Fragment>
                     ))}

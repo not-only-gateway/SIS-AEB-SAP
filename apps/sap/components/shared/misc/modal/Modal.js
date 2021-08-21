@@ -5,9 +5,9 @@ import styles from "./styles/Modal.module.css";
 
 export default function Modal(props) {
     const [isInRender, setIsInRender] = useState(false)
-    const mountingPoint = useRef(document.createElement('div'))
+    const mountingPoint = useRef()
     const contentRef = useRef()
-    let mounted = false
+    const [mounted, setMounted] = useState(false)
 
     const modal = (
         <div id={'modal-frame'}
@@ -33,8 +33,11 @@ export default function Modal(props) {
 
     useEffect(() => {
         if (!mounted) {
-            document.body.appendChild(mountingPoint.current)
-            mounted = true
+            const newElement = document.createElement('div')
+            mountingPoint.current = newElement
+            document.body.appendChild(newElement)
+
+            setMounted(true)
         }
 
         if (isInRender && !props.open) {

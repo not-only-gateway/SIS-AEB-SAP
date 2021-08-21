@@ -46,36 +46,35 @@ export default function DropDownField(props) {
                 className={styles.selectContainer}
                 onClick={() => setOpen(!open)}
             >
-                <ArrowDropDownRounded style={{transform: !open ? 'unset' : 'rotate(180deg)'}}/>
-                {value ? value : props.placeholder}
+                <ArrowDropDownRounded style={{transform: !open ? 'unset' : 'rotate(180deg)', transition: '150ms linear'}}/>
+                {value ? value : props.label}
 
             </button>
             <SelectBox open={open} setOpen={setOpen} reference={ref.current}>
-                <div
-                    className={styles.dropDownContainer}
-                >
-                    <div className={styles.dropDownChoicesContainer}>
-                        { props.choices.map((choice, index) => (
-                            <button key={index + '-choice-button'}
-                                    style={{
-                                        color: choice.key === props.value ? 'white' : undefined,
-                                        background: choice.key === props.value ? '#0095ff' : 'transparent'
-                                    }}
-                                    onClick={() => {
-                                        props.handleChange(choice.key)
-                                        setOpen(false)
-                                    }}
-                                    className={styles.buttonContainer}>
-                                {choice.value}
-                            </button>
-                        ))}
-                    </div>
+
+                <div className={styles.dropDownChoicesContainer}>
+                    {props.choices.map((choice, index) => (
+                        <button
+                            key={index + '-choice-button'}
+                            style={{
+                                color: choice.key === props.value ? 'white' : undefined,
+                                background: choice.key === props.value ? '#0095ff' : undefined
+                            }}
+                            onClick={() => {
+                                props.handleChange(choice.key)
+                                setOpen(false)
+                            }}
+                            className={styles.dropDownButton}
+                        >
+                            {choice.value}
+                        </button>
+                    ))}
                 </div>
             </SelectBox>
             <div className={styles.alertLabel}
                  style={{
                      color: props.value === null || props.value === undefined ? '#ff5555' : '#262626',
-                     visibility: props.required && !open ? 'visible' : 'hidden',
+                     visibility: props.required ? 'visible' : 'hidden',
                  }}
             >
                 {lang.required}
@@ -87,7 +86,6 @@ export default function DropDownField(props) {
 
 DropDownField.propTypes = {
     width: PropTypes.string,
-    placeholder: PropTypes.string,
     label: PropTypes.string,
     choices: PropTypes.arrayOf(PropTypes.shape({key: PropTypes.any, value: PropTypes.any})),
     handleChange: PropTypes.func,
