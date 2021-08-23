@@ -49,10 +49,10 @@ export default function List(props) {
     useEffect(() => {
         if (!mounted) {
             if (!props.asModal) {
-                setMaxHeight(document.documentElement.offsetHeight - ref.current.getBoundingClientRect().y - 16)
+                setMaxHeight(document.documentElement.offsetHeight - ref.current.getBoundingClientRect().y - 16 )
             } else {
-                console.log(ref.current?.parentNode.getBoundingClientRect().height)
-                setMaxHeight(ref.current?.parentNode.getBoundingClientRect().height)
+
+                setMaxHeight(ref.current?.parentNode.getBoundingClientRect().height - ref.current?.offsetTop)
             }
 
 

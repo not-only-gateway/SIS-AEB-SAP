@@ -1,13 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styles from './styles/Input.module.css'
+import styles from '../text/styles/Input.module.css'
 import {CloseRounded, GetAppRounded} from '@material-ui/icons'
-import LocalePT from './locales/LocalePT'
+import LocalePT from '../packages/LocalePT'
 
 export default function ImageField(props) {
-
     const lang = LocalePT
-
     return (
         <div style={{
             width: props.width,

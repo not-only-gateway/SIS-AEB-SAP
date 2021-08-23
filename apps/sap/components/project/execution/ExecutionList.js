@@ -46,15 +46,14 @@ export default function ExecutionList(props) {
                     listKey={'execution'}
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/execution'}
-
                     fields={[
                         {name: 'current_execution', type: 'string', maskEnd: ' %'},
-                        {name: 'committed', type: 'number',maskStart: 'R$ '},
+                        {name: 'committed', type: 'number', maskStart: 'R$ '},
                         {name: 'liquidated', type: 'number', maskStart: 'R$ '},
                         {name: 'paid', type: 'number', maskStart: 'R$ '},
-                        {name: 'execution_date', type: 'date' }
+                        {name: 'execution_date', type: 'date'}
                     ]}
-                    labels={['Execução atual (%)','Valor empenhado','Valor liquidado', 'Valor pago', 'Data da execução']}
+                    labels={['Execução atual (%)', 'Valor empenhado', 'Valor liquidado', 'Valor pago', 'Data da execução']}
                     clickEvent={() => null}
                     options={[{
                         label: 'Deletar',
@@ -69,10 +68,9 @@ export default function ExecutionList(props) {
                         disabled: false
                     }]}
                     setEntity={entity => {
-                        if(entity === null || entity === undefined)
-                            setOpen(true)
-                        else
-                            props.setExecution(entity)
+                        setCurrentEntity(entity)
+                        setOpen(true)
+
                     }} searchFieldName={'search_input'} title={'Execuções'}
                     scrollableElement={'scrollableDiv'} fetchSize={15}
                     fetchParams={{

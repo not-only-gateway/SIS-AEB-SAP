@@ -1,8 +1,0 @@
-.header{
-  display: inline-flex;
-  gap: 8px;
-  background-color: transparent;
-
-  flex-flow: row;
-  flex-wrap: wrap;
-}

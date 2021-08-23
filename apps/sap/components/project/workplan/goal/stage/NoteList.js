@@ -1,14 +1,14 @@
 import React, {useState} from "react";
-import Host from "../../../utils/shared/Host";
+import Host from "../../../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import animations from "../../../styles/Animations.module.css";
-import handleObjectChange from "../../../utils/shared/HandleObjectChange";
-import List from "../../shared/misc/list/List";
+import animations from "../../../../../styles/Animations.module.css";
+import handleObjectChange from "../../../../../utils/shared/HandleObjectChange";
+import List from "../../../../shared/misc/list/List";
 import {RemoveRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import NoteForm from "./NoteForm";
-import Alert from "../../shared/misc/alert/Alert";
-import OperationRequests from "../../../utils/fetch/OperationRequests";
+import Alert from "../../../../shared/misc/alert/Alert";
+import OperationRequests from "../../../../../utils/fetch/OperationRequests";
 
 export default function NoteList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -37,7 +37,7 @@ export default function NoteList(props) {
                             setData: setCurrentEntity
                         })}
                         create={currentEntity === undefined || currentEntity === null || currentEntity.id === undefined}
-                        execution={props.execution.id}
+                        operation={props.operation.id}
                         data={currentEntity}/>
                 </div>
             }
@@ -74,7 +74,7 @@ export default function NoteList(props) {
                         disabled: false
                     }]}
                     fetchParams={{
-                        execution: props.execution.id
+                        operation: props.operation.id
                     }}
                     fetchSize={15}/>
             </div>
@@ -84,5 +84,5 @@ export default function NoteList(props) {
 
 }
 NoteList.propTypes ={
-    execution: PropTypes.object
+    operation: PropTypes.object
 }

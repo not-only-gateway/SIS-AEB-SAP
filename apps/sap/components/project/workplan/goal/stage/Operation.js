@@ -12,6 +12,7 @@ import FollowUpList from "./FollowUpList";
 import PermanentGoodsList from "./PermanentGoodsList";
 import ResourceApplicationForm from "./ResourceApplicationForm";
 import ResourceApplicationList from "./ResourceApplicationList";
+import NoteList from "./NoteList";
 
 export default function Operation(props) {
     const lang = OperationPT
@@ -49,7 +50,7 @@ export default function Operation(props) {
                         key: 3,
                         value: lang.executions,
                         content: <div style={{width: '100%'}}>
-                            <ExecutionList operation={props.data} setExecution={props.setExecution}/>
+                            <ExecutionList operation={props.data}/>
                         </div>
                     },
                     {
@@ -57,7 +58,7 @@ export default function Operation(props) {
                         value: lang.permanentGoods,
                         content: <div style={{width: '100%'}}>
                             <PermanentGoodsList operation={props.data}/>
-                            {/*<ExecutionList operation={props.data} setExecution={props.setExecution}/>*/}
+
                         </div>
                     },
                     {
@@ -65,6 +66,12 @@ export default function Operation(props) {
                         value: lang.resourceApplication,
                         content: <div style={{width: '100%'}}>
                             <ResourceApplicationList operation={props.data}/>
+                        </div>
+                    },{
+                        key: 6,
+                        value: lang.note,
+                        content: <div style={{width: '100%'}}>
+                            <NoteList operation={props.data}/>
                         </div>
                     },
                 ]}
@@ -79,6 +86,5 @@ Operation.propTypes = {
     handleChange: PropTypes.func,
     returnToMain: PropTypes.func,
     create: PropTypes.bool,
-    stage: PropTypes.object,
-    setExecution: PropTypes.func
+    stage: PropTypes.object
 }

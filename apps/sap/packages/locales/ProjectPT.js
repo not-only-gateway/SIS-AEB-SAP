@@ -51,5 +51,12 @@ export default {
             key: 'Coordenacao de Veiculos Lançadores e Diretoria de Gestao de Portfólio',
             value: 'Coordenacao de Veiculos Lançadores e Diretoria de Gestao de Portfólio'
         }],
-    details: 'Detalhes'
+    details: 'Detalhes',
+    natureOfExpense: 'Natureza de despesa',
+    newNatureOfExpense: 'Nova natureza de despesa',
+
+
+    budgetPlan: 'Plano orçamentário',
+    newBudgetPlan: 'Novo plano orçamentário',
+    action: 'Ação'
 }

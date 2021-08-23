@@ -1,7 +1,10 @@
 .container {
-    height: 15px;
+    height: auto;
+    min-height: 15px;
     padding: 16px;
     width: fit-content;
+    max-width: 300px;
+
     border-radius: 5px;
 
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -13,8 +16,7 @@
     font-weight: bold;
     text-align: center;
     animation: fade 250ms linear;
-    display: flex;
-    align-items: center;
+
     transform: translateX(-50%);
 
 }

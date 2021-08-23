@@ -9,7 +9,6 @@ import WorkPlan from "../components/project/workplan/WorkPlan";
 import Goal from "../components/project/workplan/goal/Goal";
 import Stage from "../components/project/workplan/goal/stage/Stage";
 import Header from "../components/project/Header";
-import Execution from "../components/project/execution/Execution";
 
 export default function project(props) {
     const lang = ProjectPT
@@ -110,7 +109,7 @@ export default function project(props) {
                     :
                     null
                 }
-                {currentStructure.stage !== null && currentStructure.stage !== undefined && (currentStructure.execution === null || currentStructure.execution === undefined) ?
+                {currentStructure.stage !== null && currentStructure.stage !== undefined ?
                     <Stage
                         handleChange={event => {
                             const newStage = {...currentStructure.goal}
@@ -122,34 +121,11 @@ export default function project(props) {
                         }}
                         data={currentStructure.stage}
                         goal={currentStructure.goal}
-                        setExecution={event => {
-                            setCurrentStructure({
-                                ...currentStructure,
-                                execution: event
-                            })
-                        }}
                     />
                     :
                     null
                 }
-                {currentStructure.execution !== null && currentStructure.execution !== undefined ?
-                    <Execution
-                        setExecution={event => {
-                            const newExecution = {...currentStructure.execution}
-                            newExecution[event.name] = event.value
-                            setCurrentStructure({
-                                ...currentStructure,
-                                execution: newExecution
-                            })
-                        }}
-                        execution={currentStructure.execution}
-                    />
-                    :
-                    null
-                }
-
             </>
-            // </div>
         )
     else
         return null

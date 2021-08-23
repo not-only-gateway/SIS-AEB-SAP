@@ -5,9 +5,10 @@ import PropTypes from "prop-types";
 import OperationPT from "../../../../../packages/locales/OperationPT";
 import EntityLayout from "../../../../shared/misc/form/EntityLayout";
 import OperationRequests from "../../../../../utils/fetch/OperationRequests";
-import Selector from "../../../../shared/misc/selector/Selector";
+
 import Host from "../../../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
+import Selector from "../../../../shared/misc/selector/Selector";
 
 
 export default function OperationForm(props) {
@@ -95,11 +96,11 @@ export default function OperationForm(props) {
                                     }} label={'Vincular atividade'}
                                     setChanged={() => null}
                                     selected={props.data === null || !props.data.activity_stage ? null : props.data.activity_stage}
-                                    disabled={false} width={'calc(33.333% - 21.5px)'}
-
+                                    disabled={false}
+                                    width={'calc(33.333% - 21.5px)'}
                                     fields={[
-                                        {name: 'stage', type: 'string', label: 'etapa'},
-                                        {name: 'description', type: 'string', label: 'descrição'},
+                                        {name: 'stage', type: 'string'},
+                                        {name: 'description', type: 'string'},
                                     ]} required={true}
                                     labels={['etapa', 'descrição']}
                                     fetchUrl={Host() + 'list/work_plan_activity'}
@@ -107,7 +108,6 @@ export default function OperationForm(props) {
                                         work_plan: props.workPlan?.id
                                     }}
                                     fetchToken={(new Cookies()).get('jwt')}
-                                    elementRootID={'root'} selectorKey={'teds-selector'}
                                 />
                             }
                         </>

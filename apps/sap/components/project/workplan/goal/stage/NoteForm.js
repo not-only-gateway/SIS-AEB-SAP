@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react";
 import {Alert} from "sis-aeb-misc";
 import {TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
-import EntityLayout from "../../shared/misc/form/EntityLayout";
-import OperationRequests from "../../../utils/fetch/OperationRequests";
-import ExecutionPT from "../../../packages/locales/ExecutionPT";
+import EntityLayout from "../../../../shared/misc/form/EntityLayout";
+import OperationRequests from "../../../../../utils/fetch/OperationRequests";
+import ExecutionPT from "../../../../../packages/locales/ExecutionPT";
 
 export default function NoteForm(props) {
     const [changed, setChanged] = useState(false)
@@ -14,7 +14,7 @@ export default function NoteForm(props) {
     })
     useEffect(() => {
         if(props.create)
-            props.handleChange({name: 'execution', value: props.execution})
+            props.handleChange({name: 'operation_phase', value: props.operation})
     }, [])
     return (
         <>
@@ -84,5 +84,5 @@ NoteForm.propTypes = {
     handleChange: PropTypes.func,
     returnToMain: PropTypes.func,
     create: PropTypes.bool,
-    execution: PropTypes.object
+    operation: PropTypes.object
 }

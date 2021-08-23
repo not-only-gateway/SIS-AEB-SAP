@@ -1,10 +1,11 @@
-import styles from './styles/Input.module.css'
+import styles from '../text/styles/Input.module.css'
 import PropTypes from 'prop-types'
-import React, {useEffect, useState} from 'react'
-import LocalePT from './locales/LocalePT'
+import React, {useEffect, useRef, useState} from 'react'
+import LocalePT from '../packages/LocalePT'
 import dStyles from './styles/DateField.module.css'
 import {ArrowBackRounded, ArrowForwardRounded, CalendarTodayRounded} from "@material-ui/icons";
-import Dates from "./packages/Dates";
+import Dates from "../packages/Dates";
+import SelectBox from "../shared/SelectBox";
 
 export default function DateField(props) {
     const lang = LocalePT
@@ -12,16 +13,9 @@ export default function DateField(props) {
     const [selectedMonth, setSelectedMonth] = useState()
     const [selectedDay, setSelectedDay] = useState()
     const [year, setYear] = useState()
-
+    const ref = useRef()
     const [mounted, setMounted] = useState(false)
 
-    const handleMouseDown = (event) => {
-        const closest = event.target.closest('.' + dStyles.calendar)
-
-        if (closest === null && open)
-            setOpen(false)
-
-    }
     const getDays = (month) => {
         let res = []
         let days = Dates[month - 1].days;
@@ -60,18 +54,14 @@ export default function DateField(props) {
             }
         }
 
-        document.addEventListener('mousedown', handleMouseDown)
 
-        return () => {
-            document.removeEventListener('mousedown', handleMouseDown)
-        }
     }, [open])
     return (
         <div className={dStyles.container} style={{
             width: props.width,
             alignItems: props.value ? 'unset' : 'flex-start',
 
-        }}>
+        }} ref={ref}>
             <div className={styles.labelContainer}>{props.label}</div>
 
             <div className={dStyles.fieldsContainer}>
@@ -134,47 +124,47 @@ export default function DateField(props) {
                 }}>
                     <CalendarTodayRounded style={{fontSize: '1.2rem'}}/>
                 </button>
-                <div className={dStyles.calendar} style={{display: open ? undefined : 'none'}}>
 
-                    <div
-                        className={dStyles.monthContainer}
-                    >
-                        <button className={dStyles.buttonContainer} style={{width: 'fit-content'}} onClick={() => {
-                            if ((selectedMonth !== undefined && selectedMonth === 1) || (!selectedMonth && new Date().getMonth() === 1)) {
-                                setSelectedMonth(12)
-                                setYear(year === undefined ? (new Date().getFullYear() - 1) : (year - 1))
-                            } else
-                                setSelectedMonth(selectedMonth === undefined ? (new Date().getMonth() - 1) : (selectedMonth - 1))
+                <SelectBox open={open} setOpen={setOpen} reference={ref.current}>
+                    <div className={dStyles.calendar}>
+                        <div className={dStyles.monthContainer}>
+                            <button className={dStyles.buttonContainer} style={{width: 'fit-content'}} onClick={() => {
+                                if ((selectedMonth !== undefined && selectedMonth === 1) || (!selectedMonth && new Date().getMonth() === 1)) {
+                                    setSelectedMonth(12)
+                                    setYear(year === undefined ? (new Date().getFullYear() - 1) : (year - 1))
+                                } else
+                                    setSelectedMonth(selectedMonth === undefined ? (new Date().getMonth() - 1) : (selectedMonth - 1))
 
 
-                        }}>
-                            <ArrowBackRounded/>
-                        </button>
-                        {selectedMonth === undefined || selectedMonth > 12 || selectedMonth < 1 ? Dates[new Date().getMonth() - 1].month : Dates[selectedMonth - 1].month} - {year === undefined ? new Date().getFullYear() : year}
-                        <button className={dStyles.buttonContainer} style={{width: 'fit-content'}} onClick={() => {
-                            if ((selectedMonth !== undefined && selectedMonth === 12) || (!selectedMonth && new Date().getMonth() === 12)) {
-                                setSelectedMonth(1)
-                                setYear(year === undefined ? (new Date().getFullYear() + 1) : (year + 1))
-                            } else
-                                setSelectedMonth(selectedMonth === undefined ? (new Date().getMonth() + 1) : (selectedMonth + 1))
-                        }}>
-                            <ArrowForwardRounded/>
-                        </button>
+                            }}>
+                                <ArrowBackRounded/>
+                            </button>
+                            {selectedMonth === undefined || selectedMonth > 12 || selectedMonth < 1 ? Dates[new Date().getMonth() - 1].month : Dates[selectedMonth - 1].month} - {year === undefined ? new Date().getFullYear() : year}
+                            <button className={dStyles.buttonContainer} style={{width: 'fit-content'}} onClick={() => {
+                                if ((selectedMonth !== undefined && selectedMonth === 12) || (!selectedMonth && new Date().getMonth() === 12)) {
+                                    setSelectedMonth(1)
+                                    setYear(year === undefined ? (new Date().getFullYear() + 1) : (year + 1))
+                                } else
+                                    setSelectedMonth(selectedMonth === undefined ? (new Date().getMonth() + 1) : (selectedMonth + 1))
+                            }}>
+                                <ArrowForwardRounded/>
+                            </button>
+                        </div>
+
+                        <div className={dStyles.daysContainer}>
+                            {getDays(selectedMonth === undefined ? new Date().getMonth() : selectedMonth).map(e => e)}
+                        </div>
                     </div>
 
-                    <div className={dStyles.daysContainer}>
-                        {getDays(selectedMonth === undefined ? new Date().getMonth() : selectedMonth).map(e => e)}
-                    </div>
-                </div>
+                </SelectBox>
+
+
             </div>
-
-
             <div className={styles.alertLabel}
                  style={{
                      color: (props.value === null || !props.value) ? '#ff5555' : '#262626',
                      visibility: props.required ? 'visible' : 'hidden'
                  }}>{lang.required}</div>
-
         </div>
     )
 }
@@ -185,7 +175,5 @@ DateField.propTypes = {
     handleChange: PropTypes.func,
     value: PropTypes.string,
     required: PropTypes.bool,
-    locale: PropTypes.string,
-    disabled: PropTypes.bool,
-    dark: PropTypes.bool
+    disabled: PropTypes.bool
 }

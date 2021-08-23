@@ -13,8 +13,8 @@ export default {
         required: PropTypes.bool,
         setChanged: PropTypes.func,
         disabled: PropTypes.bool,
-        onCreate: PropTypes.bool,
-        createContent: PropTypes.object,
+        createOption: PropTypes.bool,
+        handleCreate: PropTypes.func,
         setOnCreate: PropTypes.func
     }
 }

@@ -48,6 +48,54 @@ export default class ProjectRequests {
         })
         return response
     }
+
+
+    static async submitBudgetPlan(submitProps) {
+        let response = false
+        console.log(submitProps.data)
+        await axios({
+            method: submitProps.create ? 'post' : 'put',
+            url: submitProps.create ? Host() + 'budget_plan' : Host() + 'budget_plan/' + submitProps.pk,
+            headers: {'authorization': jwt},
+            data: submitProps.data
+        }).then(res => {
+            submitProps.setStatus({
+                type: 'success',
+                message: res.status + ' - ' + res.statusText,
+            })
+            response = true
+        }).catch(error => {
+            submitProps.setStatus({
+                type: 'error',
+                message: error.message
+            })
+            console.log(error.request)
+        })
+        return response
+    }
+    static async submitNatureOfExpense(submitProps) {
+        let response = false
+        console.log(submitProps.data)
+        await axios({
+            method: submitProps.create ? 'post' : 'put',
+            url: submitProps.create ? Host() + 'nature_of_expense' : Host() + 'nature_of_expense/' + submitProps.pk,
+            headers: {'authorization': jwt},
+            data: submitProps.data
+        }).then(res => {
+            submitProps.setStatus({
+                type: 'success',
+                message: res.status + ' - ' + res.statusText,
+            })
+            response = true
+        }).catch(error => {
+            submitProps.setStatus({
+                type: 'error',
+                message: error.message
+            })
+            console.log(error.request)
+        })
+        return response
+    }
     static async submitObjective(submitProps) {
         let response = false
 

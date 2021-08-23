@@ -60,25 +60,13 @@ export default function Header(props) {
                 )
                 break
             }
-            case props.currentStructure.stage && !props.currentStructure.execution : {
+            case props.currentStructure.stage !== undefined : {
                 res = (
                     <>
                         {props.currentStructure.stage.stage}
                         <div className={styles.subTitleContainer}>
                             <CategoryRounded style={{fontSize: '1.1rem'}}/>
                             Etapa / atividade
-                        </div>
-                    </>
-                )
-                break
-            }
-            case props.currentStructure.execution !== undefined: {
-                res = (
-                    <>
-                        {props.currentStructure.execution.current_execution}
-                        <div className={styles.subTitleContainer}>
-                            <CategoryRounded style={{fontSize: '1.1rem'}}/>
-                            Execução
                         </div>
                     </>
                 )

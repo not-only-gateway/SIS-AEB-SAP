@@ -54,7 +54,25 @@ export default function Selector(props) {
                         onClick={() => setModal(true)}
                     >
 
-                        {props.selected !== null && props.selected !== undefined ? RenderListField(props.fields, props.selected) : props.label}
+                        {props.selected !== null && props.selected !== undefined ?
+                            props.fields.map((field, i) => (
+                                <React.Fragment key={i + '-field-selector'}>
+                                    {i > 0 ? <div className={styles.divider}/> : null}
+
+                                    <div className={styles.overflow} style={{
+                                        width: (100 / props.fields.length) + '%',
+                                        color: typeof field.getColor === 'function' ? field.getColor(props.entity[field.name]) : undefined,
+                                        textTransform: field.capitalize ? 'capitalize' : undefined,
+                                        textAlign: 'center'
+                                    }}>
+
+                                        {RenderListField(field, props.selected)}
+                                        <div style={{fontWeight: 'bold', fontSize: '.7rem', textTransform: 'capitalize'}}>
+                                            {props.labels[i]}
+                                        </div>
+                                    </div>
+                                </React.Fragment>
+                            )) : props.label}
                         <LaunchRounded style={{fontSize: '1.2rem'}}/>
                     </button>
 

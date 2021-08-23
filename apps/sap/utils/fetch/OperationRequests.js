@@ -70,12 +70,15 @@ export default class OperationRequests {
 
     static async submitResource(submitProps) {
         let response = false
+        let data = {}
+        data = Object.assign(data, submitProps.data)
 
+        data.nature_of_expense = data.nature_of_expense.id
         await axios({
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'resource_application' : Host() + 'resource_application/' + submitProps.pk,
             headers: {'authorization': jwt},
-            data: submitProps.data
+            data: data
         }).then(res => {
             submitProps.setStatus({
                 type: 'success',

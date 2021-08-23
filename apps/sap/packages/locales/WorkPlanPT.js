@@ -13,7 +13,10 @@ export default {
     status: 'Status',
     goal: 'Metas',
     workPlan: 'Plano de trabalho',
-    apostilleOptions: [{key: 0, value: '0'}, {key: 1, value: '1'},{key: 2, value: '2'},{key: 3, value: '3'},{key: 4, value: '4'},{key: 5, value: '5'}],
+    apostilleOptions: [{key: 0, value: '0'}, {key: 1, value: '1'}, {key: 2, value: '2'}, {key: 3, value: '3'}, {
+        key: 4,
+        value: '4'
+    }, {key: 5, value: '5'}],
     responsibleOptions: [
         {
             key: 'Coordenação de Satelites e Aplicações',
@@ -38,5 +41,16 @@ export default {
     phone: 'Telefone',
     infrastructures: 'Infraestruturas',
     financialDisbursement: 'Desembolso financeiro',
-    budgetOptions:  [{key: 'true', value: 'Sim'}, {key: 'false', value: 'Não'}]
+    waysOptions: [{
+        key: 'Direta, por meio da utilização capacidade organizacional da Unidade Descentralizada.',
+        value: 'Direta, por meio da utilização capacidade organizacional da Unidade Descentralizada.'
+    }, {
+        key: 'Contratação de particulares, observadas as normas para contratos da administração pública.',
+        value: 'Contratação de particulares, observadas as normas para contratos da administração pública.'
+    },
+        {
+            key: 'Descentralizada, por meio da celebração de convênios, acordos, ajustes ou outros instrumentos congêneres, com entes federativos, entidades privadas sem fins lucrativos, organismos internacionais ou fundações de apoio regidas pela Lei nº 8.958, de 20 de dezembro de 1994.',
+            value: 'Descentralizada, por meio da celebração de convênios, acordos, ajustes ou outros instrumentos congêneres, com entes federativos, entidades privadas sem fins lucrativos, organismos internacionais ou fundações de apoio regidas pela Lei nº 8.958, de 20 de dezembro de 1994.'
+        }
+    ],
 }

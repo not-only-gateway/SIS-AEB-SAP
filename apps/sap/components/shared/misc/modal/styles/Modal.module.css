@@ -7,7 +7,6 @@
 .fadeIn {
     position: relative;
     animation: fadeIn ease-in-out 250ms forwards;
-
 }
 
 .fadeOutAnimation {

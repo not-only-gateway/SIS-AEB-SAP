@@ -102,7 +102,33 @@ export default class WorkPlanRequests {
         })
         return response
     }
+    static async submitWorkPlan(submitProps) {
+        let response = null
+        let data = {}
+        data = Object.assign(data, submitProps.data)
 
+        data.budget_plan = data.budget_plan.id
+
+        await axios({
+            method: submitProps.create ? 'post' : 'put',
+            url: submitProps.create ? Host() + 'work_plan' : Host() + 'work_plan/' + submitProps.pk,
+            headers: {'authorization': jwt},
+            data: data
+        }).then(res => {
+            submitProps.setStatus({
+                type: 'success',
+                message: res.status + ' - ' + res.statusText,
+            })
+            response = res.data.id
+        }).catch(error => {
+            submitProps.setStatus({
+                type: 'error',
+                message: error.message
+            })
+            console.log(error.request)
+        })
+        return response
+    }
     static async submitInfrastructure(submitProps) {
         let response = false
         let data = {}

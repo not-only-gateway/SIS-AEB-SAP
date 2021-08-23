@@ -1,4 +1,5 @@
 export default {
+    note: 'Notas de empenho',
     phase: 'Fase',
     detailing: 'Detalhamento',
     version: 'Versão',

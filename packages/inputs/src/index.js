@@ -1,12 +1,9 @@
 import React from 'react'
 
-import DateField from './inputs/DateField'
-import TextField from './inputs/TextField'
-import ImageField from './inputs/ImageField'
-import DropDownField from './inputs/DropDownField'
-import TextArea from './inputs/TextArea'
-import ColorField from './inputs/ColorField'
+import DateField from './inputs/date/DateField'
+import TextField from './inputs/text/TextField'
+import ImageField from './inputs/file/ImageField'
+import DropDownField from './inputs/dropdown/DropDownField'
 
-
-export { DateField, TextField, ImageField, DropDownField, ColorField, TextArea}
+export {DateField, TextField, ImageField, DropDownField}
 

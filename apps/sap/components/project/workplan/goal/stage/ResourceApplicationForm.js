@@ -7,6 +7,12 @@ import EntityLayout from "../../../../shared/misc/form/EntityLayout";
 import PermanentGoodsPT from "../../../../../packages/locales/PermanentGoodsPT";
 import Alert from "../../../../shared/misc/alert/Alert";
 import ResourcePT from "../../../../../packages/locales/ResourcePT";
+import Selector from "../../../../shared/misc/selector/Selector";
+import Host from "../../../../../utils/shared/Host";
+import Cookies from "universal-cookie/lib";
+import NatureExpenseForm from "./NatureExpenseForm";
+import handleObjectChange from "../../../../../utils/shared/HandleObjectChange";
+import Modal from "../../../../shared/misc/modal/Modal";
 
 export default function ResourceApplicationForm(props) {
     const [changed, setChanged] = useState(false)
@@ -14,12 +20,15 @@ export default function ResourceApplicationForm(props) {
     const [status, setStatus] = useState({
         type: undefined, message: undefined
     })
+    const [open, setOpen] = useState(false)
+
     useEffect(() => {
         if (props.create)
             props.handleChange({name: 'operation_phase', value: props.operation.id})
     }, [])
     return (
         <>
+
             <Alert
                 type={status.type} render={status.type !== undefined}
                 handleClose={() => setStatus({type: undefined, message: undefined})}
@@ -30,9 +39,7 @@ export default function ResourceApplicationForm(props) {
                 create={props.create} label={props.create ? lang.newResource : lang.resource}
                 dependencies={{
                     fields: [
-                        {name: 'gnd', type: 'string'},
-                        {name: 'nature_expense', type: 'string'},
-                        {name: 'description', type: 'number'},
+                        {name: 'nature_of_expense', type: 'object'},
                         {name: 'indirect_cost', type: 'bool'},
                         {name: 'value', type: 'number'}
                     ],
@@ -52,52 +59,38 @@ export default function ResourceApplicationForm(props) {
                 forms={[{
                     child: (
                         <>
-                            <DropDownField
-                                placeholder={lang.gnd }
-                                label={lang.gnd }
-                                handleChange={event => {
-                                    setChanged(true)
-                                    props.handleChange({name: 'gnd', value: event})
-                                }} value={props.data === null ? null : props.data.gnd } required={false}
-                                width={'calc(50% - 16px)'} choices={[{key: 3, value: '3'},{key: 4, value: '4'}]}/>
-
-
-                            <TextField
-                                placeholder={lang.natureExpense}
-                                label={lang.natureExpense}
-                                handleChange={event => {
-                                    setChanged(true)
-                                    props.handleChange({name: 'nature_expense', value: event.target.value})
-                                }} value={props.data === null ? null : props.data.nature_expense}
-                                required={true}
-                                width={'calc(50% - 16px)'}/>
-                            {/*<DropDownField*/}
-                            {/*    dark={true}*/}
-                            {/*    placeholder={lang.natureExpense }*/}
-                            {/*    label={lang.natureExpense }*/}
-                            {/*    handleChange={event => {*/}
-                            {/*        setChanged(true)*/}
-                            {/*        props.handleChange({name: 'nature_expense', value: event})*/}
-                            {/*    }} value={props.data === null ? null : props.data.nature_expense } required={false}*/}
-                            {/*    width={'calc(50% - 16px)'} choices={lang.natureOptions}/>*/}
-
-
-                            <TextField
-                                placeholder={lang.description} label={lang.description}
-                                handleChange={event => {
-                                    setChanged(true)
-                                    props.handleChange({name: 'description', value: event.target.value})
-                                }} value={props.data === null ? null : props.data.description}
-                                required={true}
-                                width={'100%'} variant={'area'}/>
+                            <Selector
+                                getEntityKey={entity => {
+                                    if (entity !== null && entity !== undefined)
+                                        return entity.id
+                                    else return -1
+                                }} searchFieldName={'search_input'}
+                                handleChange={entity => {
+                                    props.handleChange({name: 'nature_of_expense', value: entity})
+                                }} label={'Vincular natureza de despesa'}
+                                setChanged={() => null}
+                                selected={props.data === null || !props.data.nature_of_expense ? null : props.data.nature_of_expense}
+                                disabled={false}
+                                handleCreate={() => setOpen(true)}
+                                width={'100%'}
+                                fields={[
+                                    {name: 'gnd', type: 'string'},
+                                    {name: 'nature_of_expense', type: 'string'},
+                                    {name: 'description', type: 'string'},
+                                ]} required={true}
+                                labels={['gnd', 'natureza de despesa', 'descrição']}
+                                fetchUrl={Host() + 'list/nature_of_expense'}
+                                createOption={true}
+                                fetchToken={(new Cookies()).get('jwt')}
+                            />
                             <DropDownField
                                 dark={true}
-                                placeholder={lang.indirectCosts }
-                                label={lang.indirectCosts }
+                                placeholder={lang.indirectCosts}
+                                label={lang.indirectCosts}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'indirect_cost', value: event})
-                                }} value={props.data === null ? null : props.data.indirect_cost } required={false}
+                                }} value={props.data === null ? null : props.data.indirect_cost} required={false}
                                 width={'calc(50% - 16px)'} choices={lang.baseOptions}/>
 
                             <TextField
@@ -108,6 +101,25 @@ export default function ResourceApplicationForm(props) {
                                 }} value={props.data === null ? null : props.data.value}
                                 required={true} type={'number'} maskStart={'R$'} currencyMask={true}
                                 width={'calc(50% - 16px)'}/>
+
+                            <Modal open={open} handleClose={() => setOpen(false)}>
+                                <div style={{
+                                    height: '100vh',
+                                    width: '100vw',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}>
+                                    <NatureExpenseForm
+                                        returnToMain={() => {
+                                            setOpen(false)
+                                        }}
+
+                                        create={true}
+                                    />
+                                </div>
+                            </Modal>
+
                         </>
                     )
                 }]}/>

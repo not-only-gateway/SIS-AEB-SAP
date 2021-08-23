@@ -24,7 +24,7 @@ export default function Stage(props) {
                     key: 1,
                     value: lang.operations,
                     content: <div style={{width: '100%'}}>
-                        <OperationList stage={props.data} setExecution={props.setExecution}/>
+                        <OperationList stage={props.data}/>
                     </div>
                 }
             ]}
@@ -38,6 +38,5 @@ Stage.propTypes = {
     data: PropTypes.object,
     handleChange: PropTypes.func,
     returnToMain: PropTypes.func,
-    setExecution: PropTypes.func,
     goal: PropTypes.object
 }

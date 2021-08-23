@@ -37,7 +37,6 @@ export default function OperationList(props) {
                         })} workPlan={props.workPlan}
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                         data={currentEntity} stage={props.stage}
-                        setExecution={props.setExecution}
                     />
                 </div>
             }
@@ -85,6 +84,5 @@ export default function OperationList(props) {
 }
 OperationList.propTypes = {
     stage: PropTypes.object,
-    setExecution: PropTypes.func,
     workPlan: PropTypes.object
 }
