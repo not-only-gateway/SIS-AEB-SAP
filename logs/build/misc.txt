@@ -3014,3 +3014,35 @@ src/index.js → dist/index.js, dist/index.modern.js...
 func imported from external module 'prop-types' but never used
 created dist/index.js, dist/index.modern.js in 2.7s
 Done in 3.10s.
+yarn install v1.22.10
+[1/5] Validating package.json...
+[2/5] Resolving packages...
+[3/5] Fetching packages...
+info fsevents@1.2.13: The platform "linux" is incompatible with this module.
+info "fsevents@1.2.13" is an optional dependency and failed compatibility check. Excluding it from installation.
+info fsevents@2.3.2: The platform "linux" is incompatible with this module.
+info "fsevents@2.3.2" is an optional dependency and failed compatibility check. Excluding it from installation.
+[4/5] Linking dependencies...
+[5/5] Building fresh packages...
+Done in 7.56s.
+yarn run v1.22.10
+$ rollup -c 
+
+src/index.js → dist/index.js, dist/index.modern.js...
+(!) Unused external imports
+func imported from external module 'prop-types' but never used
+created dist/index.js, dist/index.modern.js in 2.8s
+Done in 3.28s.
+yarn install v1.22.10
+[1/5] Validating package.json...
+[2/5] Resolving packages...
+success Already up-to-date.
+Done in 0.65s.
+yarn run v1.22.10
+$ rollup -c 
+
+src/index.js → dist/index.js, dist/index.modern.js...
+(!) Unused external imports
+func imported from external module 'prop-types' but never used
+created dist/index.js, dist/index.modern.js in 2.8s
+Done in 3.31s.

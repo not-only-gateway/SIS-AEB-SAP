@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import React, {useEffect, useRef, useState} from 'react'
 import {ArrowDropDownRounded} from '@material-ui/icons'
 import LocalePT from '../packages/LocalePT'
-import SelectBox from "../shared/SelectBox";
-import ToolTip from "../../misc/tooltip/ToolTip";
+import ToolTip from "../tooltip/ToolTip";
 
 
 export default function MultiSelectField(props) {
@@ -85,7 +84,7 @@ export default function MultiSelectField(props) {
                                  type={'checkbox'}
 
                                  onChange={event => {
-                                     console.log(event.target.value)
+
                                      if (selected.includes(choice.key)) {
                                          let newSelected = [...selected]
                                          newSelected.splice(newSelected.indexOf(choice.key), 1)
