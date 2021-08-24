@@ -21,6 +21,7 @@ export default function NavigationButton(props) {
                     justifyContent: props.extended ? 'space-between' : 'center',
                     justifyItems: props.extended ? undefined : 'center',
                     backgroundColor: props.highlight ? '#E8F0FE' : undefined,
+                    color: props.highlight ? '#0095ff' : undefined,
                     padding: props.extended ? '8px 16px' : undefined
                 }}>
 

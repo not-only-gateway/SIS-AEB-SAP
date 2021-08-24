@@ -54,7 +54,8 @@ export default function Navigation(props) {
 
             <div className={styles.contentWrapper}>
                 {props.buttons.length > 0 ?
-                    <NavigationTabs open={modal} setOpen={setModal} buttons={props.buttons} path={props.path}
+                    <NavigationTabs open={modal} setOpen={setModal} buttons={props.buttons}
+                                    path={props.path}
                                     logo={props.logo}/>
                     :
                     null
