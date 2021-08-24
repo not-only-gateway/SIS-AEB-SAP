@@ -52,9 +52,9 @@ export default function WorkPlanList(props) {
                     triggerRefresh={!refreshed}
                     setRefreshed={setRefreshed}
                     fields={[
-                        {name: 'object', type: 'string',label: 'Objeto'},
-                        {name: 'responsible', type: 'string',label: 'Responsável'},
-                        {name: 'additive', type: 'string', label: 'Termo aditivo'},
+                        {name: 'object', type: 'string'},
+                        {name: 'budget_plan', type: 'object', subfield: 'number'},
+                        {name: 'responsible', type: 'string'},
                     ]}
                     options={[{
                         label: 'Deletar',
@@ -68,7 +68,7 @@ export default function WorkPlanList(props) {
                         },
                         disabled: false
                     }]}
-                    labels={['objeto', 'responsável', 'termo aditivo']}
+                    labels={['objeto', 'plano orçamentário', 'responsável']}
                     clickEvent={() => null}
                     setEntity={entity => {
                         if (entity === null || entity === undefined) {

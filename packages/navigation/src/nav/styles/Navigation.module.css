@@ -82,7 +82,12 @@
     background: #f4f5fa;
 
 }
+.buttonContainer:disabled{
+  background: white;
+  color: #999999;
+  cursor: unset;
 
+}
 .appsContainer {
     position: relative;
     height: 100%;

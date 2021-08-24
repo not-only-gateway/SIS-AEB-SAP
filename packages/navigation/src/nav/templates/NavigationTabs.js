@@ -20,7 +20,7 @@ export default function NavigationTabs(props) {
                             highlight={props.path === button.link}
                             icon={
                                 button.icon
-                            } extended={props.open}
+                            } extended={props.open} disabled={button.disabled}
                             label={button.label}
                         />
                     </React.Fragment>

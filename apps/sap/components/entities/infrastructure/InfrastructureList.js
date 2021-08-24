@@ -32,12 +32,10 @@ export default function InfrastructureList(props) {
                             setOpen(false)
                             setRefreshed(false)
                         }}
-                        handleChange={event => handleObjectChange({
-                            event: event,
-                            setData: setCurrentEntity
-                        })} asDefault={true}
+                        asDefault={true}
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                        data={currentEntity}/>
+                        data={currentEntity}
+                    />
                 </div>
             }
             <div style={{display: open ? 'none' : undefined}}>

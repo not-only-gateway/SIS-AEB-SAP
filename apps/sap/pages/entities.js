@@ -3,11 +3,6 @@ import React, {useState} from "react";
 import Head from "next/head";
 import Tabs from "../components/shared/misc/tabs/Tabs";
 import OverviewPT from "../packages/locales/OverviewPT";
-import Project from "../components/overview/Project";
-
-import WorkPlan from "../components/overview/WorkPlan";
-import Ted from "../components/overview/Ted";
-import InfrastructureForm from "../components/entities/infrastructure/InfrastructureForm";
 import InfrastructureList from "../components/entities/infrastructure/InfrastructureList";
 import BudgetPlanList from "../components/entities/budget_plan/BudgetPlanList";
 import NatureExpenseList from "../components/entities/nature_expense/NatureExpenseList";
@@ -21,7 +16,7 @@ export default function entities(){
     return (
         <>
             <Head>
-                <title>{lang.overview}</title>
+                <title>Entidades</title>
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
             <>

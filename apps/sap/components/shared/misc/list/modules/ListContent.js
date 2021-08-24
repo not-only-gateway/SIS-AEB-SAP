@@ -62,11 +62,12 @@ ListContent.propTypes = {
     clickEvent: PropTypes.func,
     fields: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string,
-        type: PropTypes.oneOf(['bool', 'string', 'number', 'date']),
+        type: PropTypes.oneOf(['bool', 'string', 'number', 'date', 'object']),
         maskStart: PropTypes.string,
         label: PropTypes.string,
         getColor: PropTypes.func,
         maskEnd: PropTypes.string,
-        capitalize: PropTypes.string
+        capitalize: PropTypes.string,
+        subfield: PropTypes.string
     })),
 }

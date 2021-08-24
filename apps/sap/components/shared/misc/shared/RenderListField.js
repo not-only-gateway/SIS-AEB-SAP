@@ -22,6 +22,10 @@ export default function RenderListField(field, entity) {
             res = (field.maskStart ? field.maskStart : '') + (new Date(entity[field.name]).toLocaleDateString()) + (field.maskEnd ? field.maskEnd : '')
             break
         }
+        case 'object': {
+            res = (field.maskStart ? field.maskStart : '') + (entity[field.name][field.subfield]) + (field.maskEnd ? field.maskEnd : '')
+            break
+        }
         default:
             break
     }
