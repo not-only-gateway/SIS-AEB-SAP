@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import React, {useEffect, useRef, useState} from 'react'
 import {ArrowDropDownRounded} from '@material-ui/icons'
 import LocalePT from '../packages/LocalePT'
+import SelectBox from "../shared/SelectBox";
 import ToolTip from "../tooltip/ToolTip";
 
 
@@ -12,12 +13,7 @@ export default function MultiSelectField(props) {
     const lang = LocalePT
     const ref = useRef()
     const [selected, setSelected] = useState([])
-    const handleMouseDown = (event) => {
-        if (event.target.closest('.' + styles.dropDownChoicesContainer) === null && !document.elementsFromPoint(event.clientX, event.clientY).includes(ref.current)) {
 
-            setOpen(false)
-        }
-    }
     useEffect(() => {
         if (props.value !== undefined && props.value !== null && selected.length === 0)
             setSelected(props.value.split('-*/'))
@@ -28,10 +24,6 @@ export default function MultiSelectField(props) {
         if (filtered.length > 0)
             setValue(filtered[0].value)
 
-        document.addEventListener("mousedown", handleMouseDown)
-        return () => {
-            document.removeEventListener("mousedown", handleMouseDown)
-        }
     }, [props.value])
     return (
         <div
@@ -73,18 +65,14 @@ export default function MultiSelectField(props) {
                     : props.label}
             </button>
 
-            <div style={{
-                display: open ? undefined : 'none',
-                position: "absolute",
-                width: '100%'
-            }} className={styles.dropDownChoicesContainer}>
-                {props.choices.map((choice, index) => (
-                    <span style={{overflow: "hidden"}} className={styles.multiSelectRow}>
+            <SelectBox open={open} setOpen={setOpen} reference={ref.current}>
+                <div className={styles.dropDownChoicesContainer}>
+                    {props.choices.map((choice, index) => (
+                        <span style={{overflow: "hidden"}} className={styles.multiSelectRow}>
                              <input
                                  type={'checkbox'}
 
                                  onChange={event => {
-
                                      if (selected.includes(choice.key)) {
                                          let newSelected = [...selected]
                                          newSelected.splice(newSelected.indexOf(choice.key), 1)
@@ -94,8 +82,7 @@ export default function MultiSelectField(props) {
                                          let newData = ''
                                          newSelected.forEach(e => newData = newData + '-*/' + e)
                                          props.handleChange(newData)
-                                     }
-                                     else {
+                                     } else {
                                          let newSelected = [...selected]
                                          newSelected.push(choice.key)
                                          setSelected(newSelected)
@@ -104,8 +91,6 @@ export default function MultiSelectField(props) {
                                          newSelected.forEach(e => newData = newData + '-*/' + e)
                                          props.handleChange(newData)
                                      }
-
-                                     props.handleChange(choice.key)
                                      setOpen(false)
                                  }} className={styles.multiSelectRowCheckbox}
                                  checked={selected.includes(choice.key)}
@@ -119,9 +104,9 @@ export default function MultiSelectField(props) {
 
                             <ToolTip content={choice.value}/>
                         </span>
-                ))}
-            </div>
-
+                    ))}
+                </div>
+            </SelectBox>
             <div className={styles.alertLabel}
                  style={{
                      color: props.value === null || props.value === undefined ? '#ff5555' : '#262626',

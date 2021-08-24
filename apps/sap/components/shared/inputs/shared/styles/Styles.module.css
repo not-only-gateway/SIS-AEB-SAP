@@ -1,25 +1,8 @@
-.fadeIn{
-    animation: fadeIn 150ms linear;
-}
-
-.fadeOut{
-    animation: fadeOut 150ms linear;
-}
-
-
-@keyframes fadeIn {
-    0%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 1;
-    }
-}
-@keyframes fadeOut {
-    0%{
-        opacity: 1;
-    }
-    100%{
-        opacity: 0;
-    }
+.selectBox{
+    transition: visibility 150ms linear,opacity 150ms linear;
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    width: 100%;
+    z-index: 999;
 }

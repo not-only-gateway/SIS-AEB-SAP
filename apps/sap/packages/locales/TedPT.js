@@ -21,7 +21,6 @@ export default {
     eAddendum: 'Termo aditivo',
 
     changes: 'Mudanças',
-    actionOptions: [],
     statusOptions: [
         {key: 'A celebrar', value: 'A celebrar'},
         {key: 'vigente', value: 'Vigente'},
@@ -49,7 +48,7 @@ export default {
     ownership: 'Títularidade de destinação dos bens',
     programmaticFunctional: 'Classificação funcional programática',
     remainingAssets: 'Bens remanescentes',
-    remainingAssetsOptions:[
+    remainingAssetsOptions: [
         {
             key: false,
             value: 'Não'
@@ -59,4 +58,14 @@ export default {
             value: 'Sim'
         }
     ],
+
+    actionsOptions: [
+        {key: '20VB', value: '20VB'},
+        {key: '21AG', value: '21AG'},
+        {key: '21AH', value: '21AH'},
+        {key: '21AI', value: '21AI'},
+        {key: '154L', value: '154L'},
+        {key: '7F40', value: '7F40'},
+        {key: '2357', value: '2357'}
+    ]
 }

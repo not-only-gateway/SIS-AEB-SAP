@@ -27,12 +27,15 @@ export default class TedRequests {
 
     static async submitTed(submitProps) {
         let response = submitProps.create ? null : false
+        let data = {}
+        data = Object.assign(data, submitProps.data)
 
+        data.action = data.action.id
         await axios({
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'ted' : Host() + 'ted/' + submitProps.pk,
             headers: {'authorization': jwt},
-            data: submitProps.data
+            data: data
         }).then(res => {
             submitProps.setStatus({
                 type: 'success',

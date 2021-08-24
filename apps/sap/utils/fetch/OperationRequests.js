@@ -119,11 +119,11 @@ export default class OperationRequests {
         return response
     }
 
-    static async submitAction(submitProps) {
+    static async submitActionItem(submitProps) {
         let response = false
         await axios({
             method: submitProps.create ? 'post' : 'put',
-            url: submitProps.create ? Host() + 'action' : Host() + 'action/' + submitProps.pk,
+            url: submitProps.create ? Host() + 'action_item' : Host() + 'action_item/' + submitProps.pk,
             headers: {'authorization': jwt},
             data: submitProps.data
         }).then(res => {
@@ -240,12 +240,12 @@ export default class OperationRequests {
         return response
     }
 
-    static async deleteAction(submitProps) {
+    static async deleteActionItem(submitProps) {
         let response = false
 
         await axios({
             method: 'delete',
-            url: Host() + 'action/' + submitProps.pk,
+            url: Host() + 'action_item/' + submitProps.pk,
             headers: {'authorization': jwt},
             data: submitProps.data
         }).then(res => {

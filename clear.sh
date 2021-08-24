@@ -1,22 +1,14 @@
-cd apps/admin
+cd apps/sap
 sudo rm -r node_modules
 sudo rm -r .next
 
-cd ../forums
-sudo rm -r node_modules
-sudo rm -r .next
-
-cd ../sap
-sudo rm -r node_modules
-sudo rm -r .next
-
-cd ../inputs
+cd ../../packages/inputs
 sudo rm -r dist
 mkdir dist
 sudo rm -r node_modules
 
 
-cd ../navigation
+cd ../../packages/navigation
 sudo rm -r dist
 mkdir dist
 sudo rm -r node_modules

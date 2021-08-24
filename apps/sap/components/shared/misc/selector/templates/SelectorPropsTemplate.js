@@ -11,7 +11,6 @@ export default {
         getEntityKey: PropTypes.func,
         labels: PropTypes.array,
         required: PropTypes.bool,
-        setChanged: PropTypes.func,
         disabled: PropTypes.bool,
         createOption: PropTypes.bool,
         handleCreate: PropTypes.func,

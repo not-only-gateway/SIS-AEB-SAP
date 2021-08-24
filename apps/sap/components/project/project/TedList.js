@@ -41,7 +41,7 @@ export default function TedList(props) {
                             data: {ted: entity.id, activity_project: props.project.id},
                             setStatus: setStatus
                         })
-                    }} label={'Adicionar novo instrumento'}
+                    }} label={'Selecionar Instrumentos já cadastrados'}
                     setChanged={() => null}
                     fetchParams={{
                         project: props.project.id

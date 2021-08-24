@@ -1,16 +1,16 @@
+import PropTypes from 'prop-types'
 import React, {useState} from "react";
-import Cookies from "universal-cookie/lib";
-import Host from "../../../utils/shared/Host";
-import PropTypes from "prop-types";
 import animations from "../../../styles/Animations.module.css";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import List from "../../shared/misc/list/List";
-import WorkPlanForm from "./WorkPlanForm";
-import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
+import Cookies from "universal-cookie/lib";
+import Host from "../../../utils/shared/Host";
 import {RemoveRounded} from "@material-ui/icons";
+import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
 import Alert from "../../shared/misc/alert/Alert";
+import NatureExpenseForm from "./NatureExpenseForm";
 
-export default function WorkPlanList(props) {
+export default function NatureExpenseList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
@@ -27,40 +27,31 @@ export default function WorkPlanList(props) {
             />
             {!open ? null :
                 <div className={animations.fadeIn}>
-                    <WorkPlanForm
+                    <NatureExpenseForm
                         returnToMain={() => {
                             setOpen(false)
                             setRefreshed(false)
-                        }} redirect={id => {
-                        WorkPlanRequests.fetchWorkPlan(id).then(res => {
-                            if (res !== null)
-                                props.setCurrentStructure(res)
-                        })}}
+                        }}
                         handleChange={event => handleObjectChange({
                             event: event,
                             setData: setCurrentEntity
-                        })} project={props.project}
-                        create={true} ted={props.ted}
+                        })} asDefault={true}
+                        create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                         data={currentEntity}/>
                 </div>
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'project'}
+                    listKey={'nature'}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/work_plan'}
+                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/nature_of_expense'}
                     triggerRefresh={!refreshed}
                     setRefreshed={setRefreshed}
-                    fields={[
-                        {name: 'object', type: 'string',label: 'Objeto'},
-                        {name: 'responsible', type: 'string',label: 'Responsável'},
-                        {name: 'additive', type: 'string', label: 'Termo aditivo'},
-                    ]}
                     options={[{
                         label: 'Deletar',
                         icon: <RemoveRounded/>,
                         onClick: (entity) => {
-                            WorkPlanRequests.deleteWorkPlan({
+                            WorkPlanRequests.deleteInfrastructure({
                                 pk: entity.id,
                                 setStatus: setStatus,
                                 setRefreshed: setRefreshed
@@ -68,27 +59,18 @@ export default function WorkPlanList(props) {
                         },
                         disabled: false
                     }]}
-                    labels={['objeto', 'responsável', 'termo aditivo']}
-                    clickEvent={() => null}
+                    fields={[
+                        {name: 'gnd', type: 'string'},
+                        {name: 'nature_of_expense', type: 'string'},
+                        {name: 'description', type: 'string'}
+                    ]} labels={['gnd', 'natureza de despesa', 'descrição']}
+                    clickEvent={() => setOpen(true)}
                     setEntity={entity => {
-                        if (entity === null || entity === undefined) {
-                            setOpen(true)
-                        } else
-                            props.setCurrentStructure(entity)
-                    }} searchFieldName={'search_input'} title={'Planos de trabalho'} scrollableElement={'scrollableDiv'}
+                        setCurrentEntity(entity)
+                    }} searchFieldName={'search_input'} title={'Naturezas de despesa'} scrollableElement={'scrollableDiv'}
                     fetchSize={15}
-                    fetchParams={{
-                        ted: props.ted.id,
-                        project: props.project.id
-                    }}
                 />
             </div>
         </>
     )
-}
-WorkPlanList.propTypes = {
-    setCurrentStructure: PropTypes.func,
-    ted: PropTypes.object,
-    project: PropTypes.object
-
 }

@@ -61,8 +61,6 @@ export default function SelectorModal(props) {
                                 <button className={styles.removeButton}
                                         style={{display: props.required ? 'none' : undefined}}
                                         onClick={() => {
-                                            if (props.setChanged)
-                                                props.setChanged(true)
                                             props.handleChange(undefined)
                                             props.setModal(false)
                                         }}>
@@ -87,8 +85,6 @@ export default function SelectorModal(props) {
                     setEntity={entity => {
                         if (entity !== undefined && entity !== null) {
                             props.handleChange(entity)
-                            if (props.setChanged)
-                                props.setChanged(true)
                             props.setModal(false)
                         } else if (props.createOption)
                             props.handleCreate()

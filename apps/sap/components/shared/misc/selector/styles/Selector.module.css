@@ -71,13 +71,14 @@
     z-index: 999;
     width: 40px;
     height: 40px;
-    top: 5px;
-    right: 5px;
+    top: -20px;
+    right: -20px;
 
     outline: none;
     cursor: pointer;
     border: none;
-    background: transparent;
+    background: white;
+    border-radius: 50%;
     color: #555555;
 
     display: flex;
@@ -87,7 +88,8 @@
     transition: 150ms linear;
 }
 .closeButton:hover{
-    color: #ff5555;
+    background: #ff5555;
+    color: white;
 }
 .inputContainer {
 

@@ -11,7 +11,7 @@
     margin: auto;
     display: grid;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
-    overflow: auto;
+    overflow: visible;
 
 }
 
@@ -31,9 +31,11 @@
 
 .formContainer > div {
     width: 100%;
+
 }
 
 .formFieldsContainer {
+    overflow: visible;
     display: inline-flex;
     flex-flow: row wrap;
     column-gap: 32px;
@@ -46,7 +48,7 @@
     display: grid;
     gap: 16px;
     padding: 16px;
-
+    overflow: visible;
     border-radius: 8px;
 
     position: relative;

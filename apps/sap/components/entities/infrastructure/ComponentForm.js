@@ -3,9 +3,9 @@ import React, {useEffect, useState} from "react";
 import {Alert} from "sis-aeb-misc";
 import {TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
-import InfrastructurePT from "../../../../packages/locales/InfrastructurePT";
-import EntityLayout from "../../../shared/misc/form/EntityLayout";
-import WorkPlanRequests from "../../../../utils/fetch/WorkPlanRequests";
+import InfrastructurePT from "../../../packages/locales/InfrastructurePT";
+import EntityLayout from "../../shared/misc/form/EntityLayout";
+import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
 
 
 export default function ComponentForm(props) {

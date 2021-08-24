@@ -5,7 +5,7 @@ export default {
     objectives: 'Marcos do projeto',
     risks: 'Riscos',
     edit: 'Editar projeto / atividade',
-    teds: 'Teds',
+    teds: 'TED',
     learnedLessons: 'Lições aprendidas',
     objectiveTitle: 'Marco do projeto',
     risksTitle: 'Risco',
@@ -58,5 +58,19 @@ export default {
 
     budgetPlan: 'Plano orçamentário',
     newBudgetPlan: 'Novo plano orçamentário',
-    action: 'Ação'
+    action: 'Ação',
+    actionOptions: [
+        {key: '20VB', value: '20VB'},
+        {key: '21AG', value: '21AG'},
+        {key: '21AH', value: '21AH'},
+        {key: '21AI', value: '21AI'},
+        {key: '154L', value: '154L'},
+        {key: '7F40', value: '7F40'},
+        {key: '2357', value: '2357'}
+    ],
+
+
+    number: 'Número',
+    detailing: 'Detalhamento',
+    newAction: 'Nova ação'
 }

@@ -2,23 +2,31 @@ import React, {useEffect, useState} from "react";
 
 import {DateField, DropDownField, TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
-import OperationRequests from "../../../../../utils/fetch/OperationRequests";
-import EntityLayout from "../../../../shared/misc/form/EntityLayout";
-import PermanentGoodsPT from "../../../../../packages/locales/PermanentGoodsPT";
-import Alert from "../../../../shared/misc/alert/Alert";
-import ProjectRequests from "../../../../../utils/fetch/ProjectRequests";
-import ProjectPT from "../../../../../packages/locales/ProjectPT";
-import handleObjectChange from "../../../../../utils/shared/HandleObjectChange";
+import OperationRequests from "../../../utils/fetch/OperationRequests";
+import EntityLayout from "../../shared/misc/form/EntityLayout";
+import PermanentGoodsPT from "../../../packages/locales/PermanentGoodsPT";
+import Alert from "../../shared/misc/alert/Alert";
+import ProjectRequests from "../../../utils/fetch/ProjectRequests";
+import ProjectPT from "../../../packages/locales/ProjectPT";
+import handleObjectChange from "../../../utils/shared/HandleObjectChange";
+import Selector from "../../shared/misc/selector/Selector";
+import Host from "../../../utils/shared/Host";
+import Cookies from "universal-cookie/lib";
 
-export default function BudgetPlanForm(props) {
+export default function ActionForm(props) {
     const [changed, setChanged] = useState(false)
     const lang = ProjectPT
     const [status, setStatus] = useState({
         type: undefined, message: undefined
     })
     const [data, setData] = useState(null)
-    return (
-        <div style={{width: '55vw', height: '400px', background: 'white', borderRadius: '8px'}}>
+    useEffect(() => {
+        if(!props.create)
+            setData(props.data)
+    }, [])
+
+    const content = (
+        <>
             <Alert
                 type={status.type} render={status.type !== undefined}
                 handleClose={() => setStatus({type: undefined, message: undefined})}
@@ -26,17 +34,17 @@ export default function BudgetPlanForm(props) {
             />
             <EntityLayout
                 entity={data}
-                create={props.create} label={props.create ? lang.newBudgetPlan : lang.budgetPlan}
+                create={props.create} label={props.create ? lang.newAction : lang.action}
                 dependencies={{
                     fields: [
-                        {name: 'budget_plan', type: 'string'},
-                        {name: 'action', type: 'string'},
+                        {name: 'number', type: 'string'},
+                        {name: 'detailing', type: 'object'},
                     ],
                     changed: changed
                 }}
                 returnButton={true}
                 handleSubmit={() =>
-                    ProjectRequests.submitBudgetPlan({
+                    ProjectRequests.submitAction({
                         pk: data.id,
                         data: data,
                         setStatus: setStatus,
@@ -49,37 +57,44 @@ export default function BudgetPlanForm(props) {
                     child: (
                         <>
                             <TextField
-                                placeholder={lang.action} label={lang.action}
+                                placeholder={lang.number} label={lang.number}
                                 handleChange={event => {
                                     setChanged(true)
                                     handleObjectChange({
-                                        event: ({name: 'action', value: event.target.value}),
+                                        event: ({name: 'number', value: event.target.value}),
                                         setData: setData
                                     })
 
-                                }} value={data === null ? null : data.action}
-                                required={true} width={'100%'} variant={'area'}/>
-
+                                }} value={data === null ? null : data.number}
+                                required={true} width={'100%'}/>
                             <TextField
-                                placeholder={lang.budgetPlan} label={lang.budgetPlan}
+                                placeholder={lang.detailing} label={lang.detailing}
                                 handleChange={event => {
                                     setChanged(true)
                                     handleObjectChange({
-                                        event: ({name: 'budget_plan', value: event.target.value}),
+                                        event: ({name: 'detailing', value: event.target.value}),
                                         setData: setData
                                     })
-                                }} value={data === null ? null : data.budget_plan}
-                                required={true} width={'100%'}
+                                }} value={data === null ? null : data.detailing}
+                                required={true} width={'100%'} variant={'area'}
                             />
                         </>
                     )
                 }]}/>
-        </div>
+        </>
+    )
+
+    return (
+        props.asDefault ? content :
+            <div style={{width: '55vw', height: '400px', background: 'white', borderRadius: '8px'}}>
+                {content}
+            </div>
     )
 
 }
 
-BudgetPlanForm.propTypes = {
+ActionForm.propTypes = {
     returnToMain: PropTypes.func,
-    create: PropTypes.bool
+    create: PropTypes.bool,
+    asDefault: PropTypes.bool
 }

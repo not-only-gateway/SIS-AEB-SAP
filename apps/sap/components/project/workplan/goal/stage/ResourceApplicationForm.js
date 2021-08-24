@@ -10,7 +10,7 @@ import ResourcePT from "../../../../../packages/locales/ResourcePT";
 import Selector from "../../../../shared/misc/selector/Selector";
 import Host from "../../../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import NatureExpenseForm from "./NatureExpenseForm";
+import NatureExpenseForm from "../../../../entities/nature_expense/NatureExpenseForm";
 import handleObjectChange from "../../../../../utils/shared/HandleObjectChange";
 import Modal from "../../../../shared/misc/modal/Modal";
 

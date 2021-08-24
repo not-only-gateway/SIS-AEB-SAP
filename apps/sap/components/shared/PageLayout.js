@@ -6,7 +6,15 @@ import {useRouter} from "next/router";
 import "@fontsource/roboto"
 import PropTypes from "prop-types";
 import LayoutPT from "../../packages/locales/LayoutPT";
-import {ExitToApp, ExtensionRounded, GroupRounded, ListRounded, TimelineRounded, WorkRounded} from "@material-ui/icons";
+import {
+    AssignmentRounded,
+    ExitToApp,
+    ExtensionRounded,
+    GroupRounded,
+    ListRounded,
+    TimelineRounded,
+    WorkRounded
+} from "@material-ui/icons";
 
 import CollaboratorRequests from "../../utils/fetch/CollaboratorRequests";
 import PersonRequests from "../../utils/fetch/PersonRequests";
@@ -59,19 +67,27 @@ export default function PageLayout(props) {
                         link: '/authenticate',
                         icon: <ExitToApp/>
                     }]}
-                    buttons={[]}
-                    // buttons={[
-                    //     {
-                    //         label: lang.projects,
-                    //         icon: <WorkRounded/>,
-                    //         link: '/'
-                    //     },
-                    //     {
-                    //         label: lang.overview,
-                    //         icon: <ListRounded/>,
-                    //         link: '/overview'
-                    //     }
-                    // ]}
+
+                    buttons={[
+                        {
+                            label: lang.projects,
+                            icon: <WorkRounded/>,
+                            link: '/'
+                        },
+                        {
+                            label: lang.entities,
+                            icon: <AssignmentRounded/>,
+                            link: '/entities',
+
+                        },
+                        {
+                            label: lang.overview,
+                            icon: <ListRounded/>,
+                            link: '/overview',
+                            disabled: true
+                        },
+
+                    ]}
                     profile={profile} appName={lang.title}
                     path={router.pathname}
                     apps={[

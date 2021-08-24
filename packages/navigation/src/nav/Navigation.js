@@ -6,7 +6,7 @@ import NavigationPT from './locales/NavigationPT'
 import NavigationApps from './templates/NavigationApps'
 import {MenuRounded} from "@material-ui/icons";
 import NavigationTabs from "./templates/NavigationTabs";
-import Loading from "./Loading";
+import Loading from "./modules/Loading";
 
 
 export default function Navigation(props) {

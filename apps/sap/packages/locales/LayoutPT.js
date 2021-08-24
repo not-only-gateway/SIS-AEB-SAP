@@ -7,4 +7,5 @@ export default {
     signout: 'Sair',
     overview: 'Visão geral',
     projects: 'Projetos',
+    entities: 'Outros'
 }

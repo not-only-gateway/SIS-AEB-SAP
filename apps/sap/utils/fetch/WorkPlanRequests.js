@@ -108,7 +108,8 @@ export default class WorkPlanRequests {
         data = Object.assign(data, submitProps.data)
 
         data.budget_plan = data.budget_plan.id
-
+        data.infrastructure = data.infrastructure.id
+        console.log(data)
         await axios({
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'work_plan' : Host() + 'work_plan/' + submitProps.pk,

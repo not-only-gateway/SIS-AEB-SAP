@@ -115,7 +115,7 @@
     display: grid;
     align-content: flex-start;
     padding: 4px;
-    gap: 4px;
+    gap: 8px;
 }
 
 .navigationTabsContainer {
@@ -154,10 +154,9 @@
     height: 100%;
 }
 .buttonLabel{
-    margin-left: 8px;
-    font-size: .85rem;
+    font-size: .8rem;
     overflow: hidden;
-    color: #666666;
-    font-weight: bold;
+    color: #555555;
+
     font-family: Roboto;
 }

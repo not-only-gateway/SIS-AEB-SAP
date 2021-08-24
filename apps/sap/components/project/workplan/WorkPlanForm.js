@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
-import {DropDownField, TextField} from "sis-aeb-inputs";
+import {TextField} from "sis-aeb-inputs";
 import {Alert} from "sis-aeb-misc";
 import EntityLayout from "../../shared/misc/form/EntityLayout";
 import WorkPlanPT from "../../../packages/locales/WorkPlanPT";
@@ -10,9 +10,10 @@ import Selector from "../../shared/misc/selector/Selector";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import Modal from "../../shared/misc/modal/Modal";
-import NatureExpenseForm from "./goal/stage/NatureExpenseForm";
-import BudgetPlanForm from "./goal/stage/BudgetPlanForm";
+import NatureExpenseForm from "../../entities/nature_expense/NatureExpenseForm";
+import BudgetPlanForm from "../../entities/budget_plan/BudgetPlanForm";
 import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
+import DropDownField from "../../shared/inputs/dropdown/DropDownField";
 
 
 export default function WorkPlanForm(props) {
@@ -53,6 +54,7 @@ export default function WorkPlanForm(props) {
                             {name: 'indirect_costs', type: 'bool'},
                             {name: 'detailing_of_indirect_costs', type: 'string'},
                             {name: 'budget_plan', type: 'string'},
+                            {name: 'infrastructure', type: 'string'},
 
                             // NEW CATEGORY
                             {name: 'responsible_execution', type: 'string'},
@@ -110,7 +112,7 @@ export default function WorkPlanForm(props) {
                                     required={true} variant={'area'}
                                     width={'100%'}/>
                                 <DropDownField
-                                    dark={true}
+
                                     placeholder={lang.subDecentralization}
                                     label={lang.subDecentralization}
                                     handleChange={event => {
@@ -118,7 +120,7 @@ export default function WorkPlanForm(props) {
                                         props.handleChange({name: 'sub_decentralization', value: event})
                                     }} value={props.data === null ? null : props.data.sub_decentralization}
                                     required={true}
-                                    width={'calc(50% - 16px)'} choices={lang.baseOptions}/>
+                                    width={'calc(25% - 24px)'} choices={lang.baseOptions}/>
 
                                 <DropDownField
                                     placeholder={lang.indirectCosts}
@@ -126,9 +128,29 @@ export default function WorkPlanForm(props) {
                                     handleChange={event => {
                                         setChanged(true)
                                         props.handleChange({name: 'indirect_costs', value: event})
-                                    }} value={props.data === null ? null : props.data.indirect_costs} required={false}
-                                    width={'calc(50% - 16px)'} choices={lang.baseOptions}/>
-
+                                    }} value={props.data === null ? null : props.data.indirect_costs} required={true}
+                                    width={'calc(25% - 24px)'} choices={lang.baseOptions}/>
+                                <Selector
+                                    getEntityKey={entity => {
+                                        if (entity !== null && entity !== undefined)
+                                            return entity.id
+                                        else return -1
+                                    }}
+                                    searchFieldName={'search_input'}
+                                    handleChange={entity => {
+                                        props.handleChange({name: 'infrastructure', value: entity})
+                                    }} label={'Vincular infraestrutura'}
+                                    setChanged={() => null}
+                                    selected={props.data === null ? null : props.data.infrastructure}
+                                    width={'calc(50% - 16px)'}
+                                    fields={[
+                                        {name: 'name', type: 'string'},
+                                        {name: 'type', type: 'string'}
+                                    ]} required={true}
+                                    labels={['Nome', 'tipo']}
+                                    fetchUrl={Host() + 'list/infrastructure'}
+                                    fetchToken={(new Cookies()).get('jwt')}
+                                />
 
                                 <TextField
 
@@ -182,10 +204,13 @@ export default function WorkPlanForm(props) {
                                     handleCreate={() => setOpen(true)}
                                     width={'calc(50% - 16px)'}
                                     fields={[
-                                        {name: 'budget_plan', type: 'string'},
-                                        {name: 'action', type: 'string'}
+                                        {name: 'number', type: 'string'},
+                                        {name: 'detailing', type: 'string'}
                                     ]} required={true}
-                                    labels={['plano orçamentário', 'açao']}
+                                    fetchParams={{
+                                        action: props.ted.action.id
+                                    }}
+                                    labels={['número', 'detalhamento']}
                                     fetchUrl={Host() + 'list/budget_plan'}
                                     createOption={true}
                                     fetchToken={(new Cookies()).get('jwt')}
@@ -255,6 +280,8 @@ export default function WorkPlanForm(props) {
                         returnToMain={() => {
                             setOpen(false)
                         }}
+
+                            action={props.ted.action}
                         create={true}
                     />
                 </div>
@@ -271,5 +298,5 @@ WorkPlanForm.propTypes = {
     returnToMain: PropTypes.func,
     create: PropTypes.bool,
     ted: PropTypes.object,
-    project: PropTypes.object
+    project: PropTypes.object,
 }

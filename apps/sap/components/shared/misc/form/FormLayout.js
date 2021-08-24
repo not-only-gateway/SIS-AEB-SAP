@@ -5,12 +5,8 @@ import FormPT from "./locales/FormPT";
 import LayoutPropsTemplate from "./templates/LayoutPropsTemplate";
 
 export default function FormLayout(props) {
-    const lang = FormPT
-
-
-
     return (
-        <div style={{height: '100%', overflow: 'hidden'}}>
+        <div style={{height: '100%', overflow: 'visible'}}>
             <div className={styles.container}>
                 <div className={styles.formInfoContainer}
                      style={{display: props.formInfo === undefined || props.formInfo === null ? 'none' : undefined}}>

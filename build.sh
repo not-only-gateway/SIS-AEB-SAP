@@ -15,7 +15,7 @@ sudo bash misc.sh
 
 # INDEPENDENTES
 #sudo bash admin.sh
-sudo bash forums.sh
+sudo bash sap.sh
 #sudo bash public.sh
 #sudo bash statistics.sh
 

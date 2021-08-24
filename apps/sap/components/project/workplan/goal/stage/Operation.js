@@ -6,7 +6,7 @@ import React, {useState} from "react";
 import OperationForm from "./OperationForm";
 import OperationPT from "../../../../../packages/locales/OperationPT";
 import Tabs from "../../../../shared/misc/tabs/Tabs";
-import ActionList from "./ActionList";
+import ActionItemList from "./ActionItemList";
 import ExecutionList from "../../../execution/ExecutionList";
 import FollowUpList from "./FollowUpList";
 import PermanentGoodsList from "./PermanentGoodsList";
@@ -36,7 +36,7 @@ export default function Operation(props) {
                         key: 1,
                         value: lang.actions,
                         content: <div style={{width: '100%'}}>
-                            <ActionList operation={props.data}/>
+                            <ActionItemList operation={props.data}/>
                         </div>
                     },
                     {

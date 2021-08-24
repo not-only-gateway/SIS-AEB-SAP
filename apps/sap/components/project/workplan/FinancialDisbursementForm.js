@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Alert} from "sis-aeb-misc";
 import EntityLayout from "../../shared/misc/form/EntityLayout";
-import {TextField} from "sis-aeb-inputs";
+import {DropDownField, TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
 import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
 import StatusPT from "../../../packages/locales/StatusPT";
@@ -56,14 +56,14 @@ export default function FinancialDisbursementForm(props) {
                                 required={true} type={'number'}
                                 width={'calc(33.333% - 21.5px)'}/>
 
-                            <TextField
-                                placeholder={lang.month} label={lang.month}
+                            <DropDownField
+                                placeholder={lang.month }
+                                label={lang.month }
                                 handleChange={event => {
                                     setChanged(true)
-                                    props.handleChange({name: 'month', value: event.target.value})
-                                }} locale={props.locale} value={props.data === null ? null : props.data.month}
-                                required={true} type={'number'}
-                                width={'calc(33.333% - 21.5px)'}/>
+                                    props.handleChange({name: 'month', value: event})
+                                }} value={props.data === null ? null : props.data.month } required={false}
+                                width={'calc(33.333% - 21.5px)'} choices={lang.monthOptions}/>
                             <TextField
                                 placeholder={lang.value} label={lang.value}
                                 handleChange={event => {

@@ -1,10 +1,19 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
-import {DateField, DropDownField, TextField} from "sis-aeb-inputs";
+import {TextField} from "sis-aeb-inputs";
+
 import {Alert} from "sis-aeb-misc";
 import EntityLayout from "../../shared/misc/form/EntityLayout";
 import TedPT from "../../../packages/locales/TedPT";
 import TedRequests from "../../../utils/fetch/TedRequests";
+import DateField from "../../shared/inputs/date/DateField";
+import DropDownField from "../../shared/inputs/dropdown/DropDownField";
+import Selector from "../../shared/misc/selector/Selector";
+import Host from "../../../utils/shared/Host";
+import Cookies from "universal-cookie/lib";
+import Modal from "../../shared/misc/modal/Modal";
+import NatureExpenseForm from "../../entities/nature_expense/NatureExpenseForm";
+import ActionForm from "../../entities/action/ActionForm";
 
 
 export default function TedForm(props) {
@@ -14,6 +23,8 @@ export default function TedForm(props) {
     const [status, setStatus] = useState({
         type: undefined, message: undefined
     })
+    const [open, setOpen] = useState(false)
+
     useEffect(() => {
         if (props.create)
             props.handleChange({name: 'projects', value: [props.project]})
@@ -80,7 +91,6 @@ export default function TedForm(props) {
                                 width={'calc(33.333% - 21.35px)'}/>
 
                             <DropDownField
-                                dark={true}
                                 placeholder={lang.responsible}
                                 label={lang.responsible}
                                 handleChange={event => {
@@ -117,16 +127,23 @@ export default function TedForm(props) {
                                     props.handleChange({name: 'status', value: event})
                                 }} value={props.data === null ? null : props.data.status} required={true}
                                 width={'calc(50% - 16px)'} choices={lang.statusOptions}/>
-
+                            <TextField
+                                placeholder={lang.ownership} label={lang.ownership}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange({name: 'ownership_destination_assets', value: event.target.value})
+                                }} locale={props.locale}
+                                value={props.data === null ? null : props.data.ownership_destination_assets}
+                                required={true} variant={'area'}
+                                width={'calc(50% - 16px)'}/>
                             <DropDownField
-
                                 placeholder={lang.remainingAssets}
                                 label={lang.remainingAssets}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'remaining_assets', value: event})
                                 }} value={props.data === null ? null : props.data.remaining_assets} required={true}
-                                width={'calc(33.333% - 21.5px)'}
+                                width={'calc(50% - 16px)'}
                                 choices={lang.remainingAssetsOptions}/>
                             <DateField
                                 placeholder={lang.startDate} label={lang.startDate}
@@ -137,7 +154,7 @@ export default function TedForm(props) {
                                 value={
                                     props.data === null ? null : props.data.start_date
                                 }
-                                required={true} width={'calc(33.333% - 21.5px)'}/>
+                                required={true} width={'calc(50% - 16px)'}/>
                             <DateField
                                 dark={true}
                                 placeholder={lang.endDate} label={lang.endDate}
@@ -148,7 +165,7 @@ export default function TedForm(props) {
                                 value={
                                     props.data === null ? null : props.data.end_date
                                 }
-                                required={true} width={'calc(33.333% - 21.5px)'}/>
+                                required={true} width={'calc(50% - 16px)'}/>
 
 
                             <TextField
@@ -172,17 +189,29 @@ export default function TedForm(props) {
                                 value={props.data === null ? null : props.data.decentralized}
                                 required={true} width={'calc(33.333% - 21.5px)'}/>
 
-
-                            <TextField
-
-                                placeholder={lang.action} label={lang.action}
-                                handleChange={event => {
-                                    setChanged(true)
-                                    props.handleChange({name: 'action', value: event.target.value})
-                                }} locale={props.locale} value={props.data === null ? null : props.data.action}
-                                required={true}
-                                width={'calc(33.333% - 21.35px)'}/>
-
+                            <Selector
+                                getEntityKey={entity => {
+                                    if (entity !== null && entity !== undefined)
+                                        return entity.id
+                                    else return -1
+                                }} searchFieldName={'search_input'}
+                                handleChange={entity => {
+                                    props.handleChange({name: 'action', value: entity})
+                                }} label={'Vincular ação'}
+                                setChanged={() => null}
+                                selected={props.data === null || !props.data.action ? null : props.data.action}
+                                disabled={false}
+                                handleCreate={() => setOpen(true)}
+                                width={'calc(33.333% - 21.5px)'}
+                                fields={[
+                                    {name: 'number', type: 'string'},
+                                    {name: 'detailing', type: 'string'},
+                                ]} required={true}
+                                labels={['número', 'detalhamento']}
+                                fetchUrl={Host() + 'list/action'}
+                                createOption={true}
+                                fetchToken={(new Cookies()).get('jwt')}
+                            />
 
 
                             <TextField
@@ -233,17 +262,22 @@ export default function TedForm(props) {
                                 value={props.data === null ? null : props.data.programmatic_functional_classification}
                                 required={true} variant={'area'}
                                 width={'100%'}/>
-                            <TextField
-                                placeholder={lang.ownership} label={lang.ownership}
-                                handleChange={event => {
-                                    setChanged(true)
-                                    props.handleChange({name: 'ownership_destination_assets', value: event.target.value})
-                                }} locale={props.locale}
-                                value={props.data === null ? null : props.data.ownership_destination_assets}
-                                required={true} variant={'area'}
-                                width={'100%'}/>
-
-
+                            <Modal open={open} handleClose={() => setOpen(false)}>
+                                <div style={{
+                                    height: '100vh',
+                                    width: '100vw',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}>
+                                    <ActionForm
+                                        returnToMain={() => {
+                                            setOpen(false)
+                                        }}
+                                        create={true}
+                                    />
+                                </div>
+                            </Modal>
                         </>
                     )
                 }

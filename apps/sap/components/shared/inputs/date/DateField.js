@@ -18,27 +18,29 @@ export default function DateField(props) {
 
     const getDays = (month) => {
         let res = []
-        let days = Dates[month - 1].days;
-        for (let i = 0; i < days; i++) {
-            res.push(
-                <div
-                    className={dStyles.dayContainer}
-                    style={{
-                        background: selectedDay === (i + 1) ? '#E8F0FE' : undefined,
-                        color: selectedDay === (i + 1) ? '#0095ff' : undefined
-                    }}
-                    onClick={() => {
-                        const date = new Date()
-                        setOpen(false)
-                        setSelectedMonth(month)
-                        setSelectedDay(i + 1)
-                        setYear(year === undefined ? date.getFullYear() : year)
-                        props.handleChange(`${year === undefined ? date.getFullYear() : year}-${month}-${i + 1}`)
-                    }}
-                >
-                    {i + 1}
-                </div>
-            )
+        if (Dates[month - 1] !== undefined) {
+            let days = Dates[month - 1].days;
+            for (let i = 0; i < days; i++) {
+                res.push(
+                    <div
+                        className={dStyles.dayContainer}
+                        style={{
+                            background: selectedDay === (i + 1) ? '#E8F0FE' : undefined,
+                            color: selectedDay === (i + 1) ? '#0095ff' : undefined
+                        }}
+                        onClick={() => {
+                            const date = new Date()
+                            setOpen(false)
+                            setSelectedMonth(month)
+                            setSelectedDay(i + 1)
+                            setYear(year === undefined ? date.getFullYear() : year)
+                            props.handleChange(`${year === undefined ? date.getFullYear() : year}-${month}-${i + 1}`)
+                        }}
+                    >
+                        {i + 1}
+                    </div>
+                )
+            }
         }
         return res
     }

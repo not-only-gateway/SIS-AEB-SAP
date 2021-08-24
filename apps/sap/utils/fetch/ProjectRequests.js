@@ -49,15 +49,40 @@ export default class ProjectRequests {
         return response
     }
 
-
+    static async submitAction(submitProps) {
+        let response = false
+        await axios({
+            method: submitProps.create ? 'post' : 'put',
+            url: submitProps.create ? Host() + 'action' : Host() + 'action/' + submitProps.pk,
+            headers: {'authorization': jwt},
+            data: submitProps.data
+        }).then(res => {
+            submitProps.setStatus({
+                type: 'success',
+                message: res.status + ' - ' + res.statusText,
+            })
+            response = true
+        }).catch(error => {
+            submitProps.setStatus({
+                type: 'error',
+                message: error.message
+            })
+            console.log(error.request)
+        })
+        return response
+    }
     static async submitBudgetPlan(submitProps) {
         let response = false
-        console.log(submitProps.data)
+        let data = {}
+        data = Object.assign(data, submitProps.data)
+
+        data.action = data.action.id
+
         await axios({
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'budget_plan' : Host() + 'budget_plan/' + submitProps.pk,
             headers: {'authorization': jwt},
-            data: submitProps.data
+            data: data
         }).then(res => {
             submitProps.setStatus({
                 type: 'success',

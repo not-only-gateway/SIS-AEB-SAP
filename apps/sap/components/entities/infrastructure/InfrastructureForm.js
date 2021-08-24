@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {Alert} from "sis-aeb-misc";
-import EntityLayout from "../../../shared/misc/form/EntityLayout";
+import EntityLayout from "../../shared/misc/form/EntityLayout";
 import {DropDownField, TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
-import WorkPlanRequests from "../../../../utils/fetch/WorkPlanRequests";
-import InfrastructurePT from "../../../../packages/locales/InfrastructurePT";
+import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
+import InfrastructurePT from "../../../packages/locales/InfrastructurePT";
+import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 
 export default function InfrastructureForm(props) {
     const [changed, setChanged] = useState(false)
@@ -12,26 +13,29 @@ export default function InfrastructureForm(props) {
     const [status, setStatus] = useState({
         type: undefined, message: undefined
     })
+
+    const [data, setData] = useState(null)
+
+
     useEffect(() => {
-        props.handleChange({name: 'work_plan', value: props.workPlan.id})
         if (!props.create)
             try {
-                props.handleChange({name: 'latitude', value: props.data.address.split(", ")[0]})
-                props.handleChange({name: 'longitude', value: props.data.address.split(", ")[1]})
+                setData(data)
+                handleObjectChange({name: 'latitude', value: data.address.split(", ")[0]})
+                handleObjectChange({name: 'longitude', value: data.address.split(", ")[1]})
             } catch (e) {
                 console.log(e)
             }
-
-
     }, [])
-    return (
+
+    const content = (
         <>
             <Alert
                 type={status.type} render={status.type !== undefined} rootElementID={'root'}
                 handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
             />
             <EntityLayout
-                rootElementID={'root'} entity={props.data}
+                rootElementID={'root'} entity={data}
                 create={props.create} label={props.create ? lang.newInfrastructure : lang.infrastructure}
                 dependencies={{
                     fields: [
@@ -43,8 +47,8 @@ export default function InfrastructureForm(props) {
                 returnButton={true}
                 handleSubmit={() =>
                     WorkPlanRequests.submitInfrastructure({
-                        pk: props.data.id,
-                        data: props.data,
+                        pk: data.id,
+                        data: data,
                         setStatus: setStatus,
                         create: props.create
                     }).then(res => {
@@ -59,37 +63,37 @@ export default function InfrastructureForm(props) {
                                 placeholder={lang.name} label={lang.name}
                                 handleChange={event => {
                                     setChanged(true)
-                                    props.handleChange({name: 'name', value: event.target.value})
-                                }} locale={props.locale} value={props.data === null ? null : props.data.name}
+                                    handleObjectChange({event: {name: 'name', value: event.target.value}, setData: setData})
+                                }} locale={props.locale} value={data === null ? null : data.name}
                                 required={true}
                                 width={'calc(50% - 16px)'}/>
 
 
-
                             <DropDownField
-                                dark={true}
                                 placeholder={lang.type}
                                 label={lang.type}
                                 handleChange={event => {
                                     setChanged(true)
-                                    props.handleChange({name: 'type', value: event})
-                                }} value={props.data === null ? null : props.data.type} required={true}
+                                    handleObjectChange({event: {name: 'type', value: event}, setData: setData})
+                                }} value={data === null ? null : data.type} required={true}
                                 width={'calc(50% - 16px)'} choices={lang.typeOptions}/>
 
                             <TextField
                                 placeholder={lang.latitude} label={lang.latitude} type={'number'}
                                 handleChange={event => {
                                     setChanged(true)
-                                    props.handleChange({name: 'latitude', value: event.target.value})
-                                }} locale={props.locale} value={props.data === null ? null : props.data.latitude}
+                                    handleObjectChange({event: {name: 'latitude', value: event.target.value}, setData: setData})
+
+                                }}
+                                value={data === null ? null : data.latitude}
                                 required={false}
                                 width={'calc(50% - 16px)'}/>
                             <TextField
                                 placeholder={lang.longitude} label={lang.longitude} type={'number'}
                                 handleChange={event => {
                                     setChanged(true)
-                                    props.handleChange({name: 'longitude', value: event.target.value})
-                                }} locale={props.locale} value={props.data === null ? null : props.data.longitude}
+                                    handleObjectChange({event: {name: 'longitude', value: event.target.value}, setData: setData})
+                                }} value={data === null ? null : data.longitude}
                                 required={false}
                                 width={'calc(50% - 16px)'}
                             />
@@ -97,6 +101,12 @@ export default function InfrastructureForm(props) {
                     )
                 }]}/>
         </>
+    )
+    return (
+        props.asDefault ? content :
+            <div style={{width: '55vw', height: '400px', background: 'white', borderRadius: '8px'}}>
+                {content}
+            </div>
     )
 
 }
@@ -106,5 +116,5 @@ InfrastructureForm.propTypes = {
     handleChange: PropTypes.func,
     returnToMain: PropTypes.func,
     create: PropTypes.bool,
-    workPlan: PropTypes.object
+    asDefault: PropTypes.bool
 }

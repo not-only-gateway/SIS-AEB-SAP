@@ -77,7 +77,7 @@ export default function project(props) {
                                 ...currentStructure,
                                 workPlan: newWorkPlan
                             })
-                        }}
+                        }} ted={currentStructure.ted}
                         setGoal={goal => {
                             setCurrentStructure({
                                 ...currentStructure,

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
-import Tabs from "../../../shared/misc/tabs/Tabs";
+import Tabs from "../../shared/misc/tabs/Tabs";
 
 import React, {useState} from "react";
-import InfrastructurePT from "../../../../packages/locales/InfrastructurePT";
+import InfrastructurePT from "../../../packages/locales/InfrastructurePT";
 import InfrastructureForm from "./InfrastructureForm";
 import ComponentsList from "./ComponentsList";
 
@@ -42,6 +42,5 @@ Infrastructure.propTypes = {
     data: PropTypes.object,
     handleChange: PropTypes.func,
     returnToMain: PropTypes.func,
-    create: PropTypes.bool,
-    workPlan: PropTypes.object
+    create: PropTypes.bool
 }

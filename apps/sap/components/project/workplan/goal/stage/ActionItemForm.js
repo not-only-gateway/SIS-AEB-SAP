@@ -6,7 +6,7 @@ import OperationPT from "../../../../../packages/locales/OperationPT";
 import EntityLayout from "../../../../shared/misc/form/EntityLayout";
 import OperationRequests from "../../../../../utils/fetch/OperationRequests";
 
-export default function ActionForm(props) {
+export default function ActionItemForm(props) {
     const [changed, setChanged] = useState(false)
     const lang = OperationPT
     const [status, setStatus] = useState({
@@ -34,7 +34,7 @@ export default function ActionForm(props) {
                 }}
                 returnButton={true}
                 handleSubmit={() =>
-                    OperationRequests.submitAction({
+                    OperationRequests.submitActionItem({
                         pk: props.data.id,
                         data: props.data,
                         setStatus: setStatus,
@@ -75,7 +75,7 @@ export default function ActionForm(props) {
 
 }
 
-ActionForm.propTypes = {
+ActionItemForm.propTypes = {
     id: PropTypes.number,
     data: PropTypes.object,
     handleChange: PropTypes.func,

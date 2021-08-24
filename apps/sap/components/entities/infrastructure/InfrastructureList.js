@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
-import animations from "../../../../styles/Animations.module.css";
-import handleObjectChange from "../../../../utils/shared/HandleObjectChange";
-import List from "../../../shared/misc/list/List";
+import animations from "../../../styles/Animations.module.css";
+import handleObjectChange from "../../../utils/shared/HandleObjectChange";
+import List from "../../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";
-import Host from "../../../../utils/shared/Host";
+import Host from "../../../utils/shared/Host";
 import {RemoveRounded} from "@material-ui/icons";
 import Infrastructure from "./Infrastructure";
-import WorkPlanRequests from "../../../../utils/fetch/WorkPlanRequests";
-import Alert from "../../../shared/misc/alert/Alert";
+import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
+import Alert from "../../shared/misc/alert/Alert";
 
 export default function InfrastructureList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -35,9 +35,9 @@ export default function InfrastructureList(props) {
                         handleChange={event => handleObjectChange({
                             event: event,
                             setData: setCurrentEntity
-                        })}
+                        })} asDefault={true}
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                        data={currentEntity} workPlan={props.workPlan}/>
+                        data={currentEntity}/>
                 </div>
             }
             <div style={{display: open ? 'none' : undefined}}>
@@ -68,14 +68,8 @@ export default function InfrastructureList(props) {
                         setCurrentEntity(entity)
                     }} searchFieldName={'search_input'} title={'Infraestruturas'} scrollableElement={'scrollableDiv'}
                     fetchSize={15}
-                    fetchParams={{
-                        work_plan: props.workPlan.id
-                    }}
           />
             </div>
         </>
     )
-}
-InfrastructureList.propTypes = {
-    workPlan: PropTypes.object
 }

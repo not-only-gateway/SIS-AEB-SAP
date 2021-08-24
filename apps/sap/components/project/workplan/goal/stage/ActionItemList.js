@@ -7,11 +7,11 @@ import {RemoveRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import animations from "../../../../../styles/Animations.module.css";
 
-import ActionForm from "./ActionForm";
+import ActionItemForm from "./ActionItemForm";
 import Alert from "../../../../shared/misc/alert/Alert";
 import OperationRequests from "../../../../../utils/fetch/OperationRequests";
 
-export default function ActionList(props) {
+export default function ActionItemList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
@@ -28,7 +28,7 @@ export default function ActionList(props) {
             />
             {!open ? null :
                 <div className={animations.fadeIn}>
-                    <ActionForm
+                    <ActionItemForm
                         returnToMain={() => {
                             setOpen(false)
                         }}
@@ -44,7 +44,7 @@ export default function ActionList(props) {
                 <List
                     listKey={'action'}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/action'}
+                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/action_item'}
                     labels={['Detalhamento', 'Realizada']}
                     fields={[
 
@@ -55,7 +55,7 @@ export default function ActionList(props) {
                         label: 'Deletar',
                         icon: <RemoveRounded/>,
                         onClick: (entity) => {
-                            OperationRequests.deleteAction({
+                            OperationRequests.deleteActionItem({
                                 pk: entity.id,
                                 setStatus: setStatus,
                                 setRefreshed: setRefreshed
@@ -77,6 +77,6 @@ export default function ActionList(props) {
         </>
     )
 }
-ActionList.propTypes = {
+ActionItemList.propTypes = {
     operation: PropTypes.object
 }
