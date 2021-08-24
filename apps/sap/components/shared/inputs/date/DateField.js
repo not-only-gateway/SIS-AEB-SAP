@@ -115,7 +115,7 @@ export default function DateField(props) {
                             if ((event.target.value <= 5000 && event.target.value >= 0) && event.target.value.length <= 4 || (year !== undefined && event.target.value.length < year.length)) {
                                 setYear(event.target.value.length === 0 ? undefined : event.target.value)
                                 props.handleChange(
-                                    `${event.target.value}-${selectedMonth + 1}-${selectedDay}`
+                                    `${event.target.value}-${selectedMonth}-${selectedDay}`
                                 )
                             }
                         }}

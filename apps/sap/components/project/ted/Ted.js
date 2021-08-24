@@ -3,7 +3,7 @@ import Tabs from "../../shared/misc/tabs/Tabs";
 import PropTypes from 'prop-types'
 import TedPT from "../../../packages/locales/TedPT";
 import TedForm from "./TedForm";
-import AddendumList from "./AddendumList";
+import AddendumList from "./addendum/AddendumList";
 import WorkPlanList from "../workplan/WorkPlanList";
 
 export default function Ted(props) {

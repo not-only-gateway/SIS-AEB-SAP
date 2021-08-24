@@ -3,12 +3,12 @@ import Tabs from "../../shared/misc/tabs/Tabs";
 import PropTypes from 'prop-types'
 import WorkPlanPT from "../../../packages/locales/WorkPlanPT";
 import WorkPlanForm from "./WorkPlanForm";
-import StatusList from "./StatusList";
+import StatusList from "./status/StatusList";
 import InfrastructureList from "../../entities/infrastructure/InfrastructureList";
 import GoalList from "./goal/GoalList";
 import HorizontalChart from "../../shared/chart/HorizontalChart";
-import OperationList from "./goal/stage/OperationList";
-import FinancialDisbursementList from "./FinancialDisbursementList";
+import OperationList from "./operation/OperationList";
+import FinancialDisbursementList from "./financial/FinancialDisbursementList";
 
 export default function WorkPlan(props) {
     const lang = WorkPlanPT

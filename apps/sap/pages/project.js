@@ -7,7 +7,7 @@ import Project from "../components/project/project/Project";
 import Ted from "../components/project/ted/Ted";
 import WorkPlan from "../components/project/workplan/WorkPlan";
 import Goal from "../components/project/workplan/goal/Goal";
-import Stage from "../components/project/workplan/goal/stage/Stage";
+import Stage from "../components/project/workplan/stage/Stage";
 import Header from "../components/project/Header";
 
 export default function project(props) {

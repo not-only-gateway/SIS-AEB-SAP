@@ -3,7 +3,7 @@ import Tabs from "../../../shared/misc/tabs/Tabs";
 
 import React, {useState} from "react";
 
-import StageList from "./stage/StageList";
+import StageList from "../stage/StageList";
 import GoalForm from "./GoalForm";
 import GoalPT from "../../../../packages/locales/GoalPT";
 

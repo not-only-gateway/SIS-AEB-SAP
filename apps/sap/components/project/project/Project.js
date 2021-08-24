@@ -2,11 +2,11 @@ import ProjectForm from "../../index/ProjectForm";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import React, {useState} from "react";
 import Tabs from "../../shared/misc/tabs/Tabs";
-import ObjectivesList from "./ObjectivesList";
-import RisksList from "./RisksList";
+import ObjectivesList from "./objective/ObjectivesList";
+import RisksList from "./risk/RisksList";
 import ProjectPT from "../../../packages/locales/ProjectPT";
 import PropTypes from 'prop-types'
-import TedList from "./TedList";
+import TedList from "../ted/TedList";
 import TedRequests from "../../../utils/fetch/TedRequests";
 
 export default function Project(props) {
