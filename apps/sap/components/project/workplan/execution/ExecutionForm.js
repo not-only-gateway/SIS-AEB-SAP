@@ -1,27 +1,21 @@
 import React, {useEffect, useState} from "react";
-import {Alert} from "sis-aeb-misc";
 import {DateField, TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
 import EntityLayout from "../../../shared/misc/form/EntityLayout";
-import OperationRequests from "../../../../utils/fetch/OperationRequests";
+import OperationRequests from "../../../../utils/requests/OperationRequests";
 import ExecutionPT from "../../../../packages/locales/ExecutionPT";
 
 export default function ExecutionForm(props) {
     const [changed, setChanged] = useState(false)
     const lang = ExecutionPT
-    const [status, setStatus] = useState({
-        type: undefined, message: undefined
-    })
+
     useEffect(() => {
         if(props.create)
             props.handleChange({name: 'operation_phase', value: props.operation.id})
     }, [])
     return (
         <>
-            <Alert
-                type={status.type} render={status.type !== undefined} rootElementID={'root'}
-                handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
-            />
+
             <EntityLayout
                 rootElementID={'root'} entity={props.data}
                 create={props.create} label={props.create ? lang.newExecution : lang.execution}
@@ -46,7 +40,7 @@ export default function ExecutionForm(props) {
                     OperationRequests.submitExecution({
                         pk: props.data.id,
                         data: props.data,
-                        setStatus: setStatus,
+
                         create: props.create
                     }).then(res => {
                         setChanged(false)

@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from "react";
 import ProjectPT from "../../../../packages/locales/ProjectPT";
-import {Alert} from "sis-aeb-misc";
 import EntityLayout from "../../../shared/misc/form/EntityLayout";
-import { DropDownField, TextField} from "sis-aeb-inputs";
+import {DropDownField, TextField} from "sis-aeb-inputs";
 
 import PropTypes from "prop-types";
-import ProjectRequests from "../../../../utils/fetch/ProjectRequests";
+import ProjectRequests from "../../../../utils/requests/ProjectRequests";
 import DateField from "../../../shared/inputs/date/DateField";
 
 
@@ -13,18 +12,13 @@ export default function ObjectiveForm(props) {
 
     const [changed, setChanged] = useState(false)
     const lang = ProjectPT
-    const [status, setStatus] = useState({
-        type: undefined, message: undefined
-    })
+
     useEffect(() => {
         props.handleChange({name: 'project', value: props.project.id})
     }, [])
     return (
         <>
-            <Alert
-                type={status.type} render={status.type !== undefined} rootElementID={'root'}
-                handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
-            />
+
             <EntityLayout
                 rootElementID={'root'} entity={props.data}
                 create={props.create} label={lang.objectiveTitle}
@@ -41,7 +35,6 @@ export default function ObjectiveForm(props) {
                     ProjectRequests.submitObjective({
                         pk: props.id,
                         data: props.data,
-                        setStatus: setStatus,
                         create: props.create
                     }).then(res => {
                         setChanged(!res)

@@ -1,30 +1,22 @@
 import React, {useEffect, useState} from "react";
-
-import {Alert} from "sis-aeb-misc";
 import {TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
 import EntityLayout from "../../../shared/misc/form/EntityLayout";
-import WorkPlanRequests from "../../../../utils/fetch/WorkPlanRequests";
+import WorkPlanRequests from "../../../../utils/requests/WorkPlanRequests";
 import GoalPT from "../../../../packages/locales/GoalPT";
 
 
 export default function StageForm(props) {
     const [changed, setChanged] = useState(false)
     const lang = GoalPT
-    const [status, setStatus] = useState({
-        type: undefined, message: undefined
-    })
+
     useEffect(() => {
         if (props.create && props.goal !== null && props.goal !== undefined)
             props.handleChange({name: 'goal', value: props.goal.id})
     }, [])
     return (
         <>
-            <Alert
-                type={status.type} render={status.type !== undefined} rootElementID={'root'}
-                handleClose={() => setStatus({type: undefined, message: undefined})}
-                message={status.message}
-            />
+
 
             <EntityLayout
                 rootElementID={'root'} entity={props.data}
@@ -44,7 +36,6 @@ export default function StageForm(props) {
                     WorkPlanRequests.submitStage({
                         pk: props.data.id,
                         data: props.data,
-                        setStatus: setStatus,
                         create: props.create
                     }).then(res => {
                         if (res !== null && props.create)

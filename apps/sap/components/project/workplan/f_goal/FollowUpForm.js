@@ -1,26 +1,20 @@
 import React, {useEffect, useState} from "react";
-import {Alert} from "sis-aeb-misc";
 import {DropDownField, TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
 import OperationPT from "../../../../packages/locales/OperationPT";
 import EntityLayout from "../../../shared/misc/form/EntityLayout";
-import OperationRequests from "../../../../utils/fetch/OperationRequests";
+import OperationRequests from "../../../../utils/requests/OperationRequests";
 
 export default function FollowUpForm(props) {
     const [changed, setChanged] = useState(false)
     const lang = OperationPT
-    const [status, setStatus] = useState({
-        type: undefined, message: undefined
-    })
+
     useEffect(() => {
         props.handleChange({name: 'operation_phase', value: props.operation.id})
     }, [])
     return (
         <>
-            <Alert
-                type={status.type} render={status.type !== undefined} rootElementID={'root'}
-                handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
-            />
+
             <EntityLayout
                 rootElementID={'root'} entity={props.data}
                 create={props.create} label={props.create ? lang.newFollowUpGoal : lang.followUpGoal}
@@ -36,7 +30,6 @@ export default function FollowUpForm(props) {
                     OperationRequests.submitFollowUpGoal({
                         pk: props.data.id,
                         data: props.data,
-                        setStatus: setStatus,
                         create: props.create
                     }).then(res => {
 

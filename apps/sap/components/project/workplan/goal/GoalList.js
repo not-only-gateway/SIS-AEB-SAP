@@ -5,7 +5,7 @@ import handleObjectChange from "../../../../utils/shared/HandleObjectChange";
 import List from "../../../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";
 import Host from "../../../../utils/shared/Host";
-import WorkPlanRequests from "../../../../utils/fetch/WorkPlanRequests";
+import WorkPlanRequests from "../../../../utils/requests/WorkPlanRequests";
 import GoalForm from "./GoalForm";
 
 export default function GoalList(props) {

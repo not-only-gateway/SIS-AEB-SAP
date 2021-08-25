@@ -1,7 +1,5 @@
-import PropTypes from 'prop-types'
 import styles from "./styles/Form.module.css";
 import React from "react";
-import FormPT from "./locales/FormPT";
 import LayoutPropsTemplate from "./templates/LayoutPropsTemplate";
 
 export default function FormLayout(props) {

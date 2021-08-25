@@ -10,7 +10,6 @@ import ActionItemList from "../action_item/ActionItemList";
 import ExecutionList from "../execution/ExecutionList";
 import FollowUpList from "../f_goal/FollowUpList";
 import PermanentGoodsList from "../permanent/PermanentGoodsList";
-import ResourceApplicationForm from "../resource/ResourceApplicationForm";
 import ResourceApplicationList from "../resource/ResourceApplicationList";
 import NoteList from "../note/NoteList";
 

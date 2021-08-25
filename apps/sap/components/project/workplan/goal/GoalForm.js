@@ -1,27 +1,21 @@
 import React, {useEffect, useState} from "react";
-import {Alert} from "sis-aeb-misc";
 import EntityLayout from "../../../shared/misc/form/EntityLayout";
 import {TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
-import WorkPlanRequests from "../../../../utils/fetch/WorkPlanRequests";
+import WorkPlanRequests from "../../../../utils/requests/WorkPlanRequests";
 import GoalPT from "../../../../packages/locales/GoalPT";
 
 export default function GoalForm(props) {
     const [changed, setChanged] = useState(false)
     const lang = GoalPT
-    const [status, setStatus] = useState({
-        type: undefined, message: undefined
-    })
+
     useEffect(() => {
         if (props.create)
                 props.handleChange({name: 'work_plan', value: props.workPlan.id})
     }, [])
     return (
         <>
-            <Alert
-                type={status.type} render={status.type !== undefined} rootElementID={'root'}
-                handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
-            />
+
             <EntityLayout
                 rootElementID={'root'} entity={props.data}
                 create={props.create} label={props.create ? lang.newGoal : lang.goal}
@@ -42,7 +36,7 @@ export default function GoalForm(props) {
                     WorkPlanRequests.submitGoal({
                         pk: props.data.id,
                         data: props.data,
-                        setStatus: setStatus,
+
                         create: props.create
                     }).then(res => {
                         if (res !== null && props.create)

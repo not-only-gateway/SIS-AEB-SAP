@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import styles from "../../styles/Project.module.css";
 import pStyles from "../../styles/Project.module.css";
 import Link from "next/link";
-import {ArrowBackIos, CategoryRounded, HomeRounded} from "@material-ui/icons";
+import {ArrowBackIos, CategoryRounded} from "@material-ui/icons";
 import React from "react";
 import ProjectPT from "../../packages/locales/ProjectPT";
 import ToolTip from "../shared/misc/tooltip/ToolTip";

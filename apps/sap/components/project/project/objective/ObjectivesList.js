@@ -7,24 +7,16 @@ import Host from "../../../../utils/shared/Host";
 import handleObjectChange from "../../../../utils/shared/HandleObjectChange";
 import ObjectiveForm from "./ObjectiveForm";
 import {RemoveRounded} from "@material-ui/icons";
-import Alert from "../../../shared/misc/alert/Alert";
-import ProjectRequests from "../../../../utils/fetch/ProjectRequests";
+import ProjectRequests from "../../../../utils/requests/ProjectRequests";
 
 export default function ObjectivesList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
-    const [status, setStatus] = useState({
-        type: undefined,
-        message: undefined
-    })
+
     return (
         <div style={{width: '100%'}}>
-            <Alert
-                type={status.type} render={status.type !== undefined}
-                handleClose={() => setStatus({type: undefined, message: undefined})}
-                message={status.message}
-            />
+
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <ObjectiveForm
@@ -91,7 +83,6 @@ export default function ObjectivesList(props) {
                         onClick: (entity) => {
                             ProjectRequests.deleteObjective({
                                 pk: entity.id,
-                                setStatus: setStatus,
                                 setRefreshed: setRefreshed
                             })
                         },

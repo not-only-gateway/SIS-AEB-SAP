@@ -1,4 +1,4 @@
-import PropTypes, {func} from 'prop-types'
+import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import styles from './styles/Styles.module.css'
 import {useEffect, useRef} from "react";

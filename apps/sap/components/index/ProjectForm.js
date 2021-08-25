@@ -1,8 +1,6 @@
 import React, {useState} from "react";
 import PropTypes from 'prop-types'
 import {TextField} from "sis-aeb-inputs";
-
-import {Alert} from "sis-aeb-misc";
 import ProjectPT from "../../packages/locales/ProjectPT";
 import submitProject from "../../utils/submit/SubmitProject";
 import EntityLayout from "../shared/misc/form/EntityLayout";
@@ -13,16 +11,10 @@ export default function ProjectForm(props) {
 
     const [changed, setChanged] = useState(false)
     const lang = ProjectPT
-    const [status, setStatus] = useState({
-        type: undefined, message: undefined
-    })
 
     return (
         <>
-            <Alert
-                type={status.type} render={status.type !== undefined} rootElementID={'root'}
-                handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
-            />
+
             <EntityLayout
                 entity={props.data}
                 create={props.create} label={lang.title}
@@ -50,7 +42,6 @@ export default function ProjectForm(props) {
                     submitProject({
                         pk: props.id,
                         data: props.data,
-                        setStatus: setStatus,
                         create: props.create
                     }).then(res => {
                         if (res !== null && props.create)

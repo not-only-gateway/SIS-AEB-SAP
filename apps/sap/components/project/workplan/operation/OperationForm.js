@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {Alert} from "sis-aeb-misc";
 import {DateField, TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
 import OperationPT from "../../../../packages/locales/OperationPT";
 import EntityLayout from "../../../shared/misc/form/EntityLayout";
-import OperationRequests from "../../../../utils/fetch/OperationRequests";
+import OperationRequests from "../../../../utils/requests/OperationRequests";
 
 import Host from "../../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
@@ -14,19 +13,14 @@ import Selector from "../../../shared/misc/selector/Selector";
 export default function OperationForm(props) {
     const [changed, setChanged] = useState(false)
     const lang = OperationPT
-    const [status, setStatus] = useState({
-        type: undefined, message: undefined
-    })
+
     useEffect(() => {
         if (props.create && props.stage !== null)
             props.handleChange({name: 'activity_stage', value: props.stage})
     }, [])
     return (
         <>
-            <Alert
-                type={status.type} render={status.type !== undefined} rootElementID={'root'}
-                handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
-            />
+
             <EntityLayout
                 rootElementID={'root'} entity={props.data}
                 create={props.create} label={props.create ? lang.newOperation : lang.operation}
@@ -52,7 +46,6 @@ export default function OperationForm(props) {
                     OperationRequests.submitOperation({
                         pk: props.data.id,
                         data: props.data,
-                        setStatus: setStatus,
                         create: props.create
                     }).then(res => {
                         setChanged(false)

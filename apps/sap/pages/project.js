@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {useRouter} from "next/router";
 import Head from "next/head";
 import ProjectPT from "../packages/locales/ProjectPT";
-import ProjectRequests from "../utils/fetch/ProjectRequests";
+import ProjectRequests from "../utils/requests/ProjectRequests";
 import Project from "../components/project/project/Project";
 import Ted from "../components/project/ted/Ted";
 import WorkPlan from "../components/project/workplan/WorkPlan";

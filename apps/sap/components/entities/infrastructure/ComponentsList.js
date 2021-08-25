@@ -6,24 +6,15 @@ import Host from "../../../utils/shared/Host";
 import List from "../../shared/misc/list/List";
 import ComponentForm from "./ComponentForm";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
-import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
-import Alert from "../../shared/misc/alert/Alert";
+import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
 
 export default function ComponentsList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const [status, setStatus] = useState({
-        type: undefined,
-        message: undefined
-    })
+
     const [refreshed, setRefreshed] = useState(false)
     return (
         <>
-            <Alert
-                type={status.type} render={status.type !== undefined}
-                handleClose={() => setStatus({type: undefined, message: undefined})}
-                message={status.message}
-            />
             {!open ? null :
                 <ComponentForm
                     returnToMain={() => {
@@ -58,7 +49,6 @@ export default function ComponentsList(props) {
                         onClick: (entity) => {
                             WorkPlanRequests.deleteComponent({
                                 pk: entity.id,
-                                setStatus: setStatus,
                                 setRefreshed: setRefreshed
                             })
                         },

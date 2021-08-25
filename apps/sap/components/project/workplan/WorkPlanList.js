@@ -6,25 +6,16 @@ import animations from "../../../styles/Animations.module.css";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import List from "../../shared/misc/list/List";
 import WorkPlanForm from "./WorkPlanForm";
-import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
+import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
 import {RemoveRounded} from "@material-ui/icons";
-import Alert from "../../shared/misc/alert/Alert";
 
 export default function WorkPlanList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
-    const [status, setStatus] = useState({
-        type: undefined,
-        message: undefined
-    })
+
     return (
         <>
-            <Alert
-                type={status.type} render={status.type !== undefined}
-                handleClose={() => setStatus({type: undefined, message: undefined})}
-                message={status.message}
-            />
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <WorkPlanForm
@@ -62,7 +53,6 @@ export default function WorkPlanList(props) {
                         onClick: (entity) => {
                             WorkPlanRequests.deleteWorkPlan({
                                 pk: entity.id,
-                                setStatus: setStatus,
                                 setRefreshed: setRefreshed
                             })
                         },

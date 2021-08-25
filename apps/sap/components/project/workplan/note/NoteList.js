@@ -7,25 +7,15 @@ import List from "../../../shared/misc/list/List";
 import {RemoveRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import NoteForm from "./NoteForm";
-import Alert from "../../../shared/misc/alert/Alert";
-import OperationRequests from "../../../../utils/fetch/OperationRequests";
+import OperationRequests from "../../../../utils/requests/OperationRequests";
 
 export default function NoteList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
-    const [status, setStatus] = useState({
-        type: undefined,
-        message: undefined
-    })
 
     return (
         <div>
-            <Alert
-                type={status.type} render={status.type !== undefined}
-                handleClose={() => setStatus({type: undefined, message: undefined})}
-                message={status.message}
-            />
             {!open ? null :
                 <div className={animations.fadeIn} style={{width: '100%'}}>
                     <NoteForm
@@ -68,7 +58,6 @@ export default function NoteList(props) {
                         onClick: (entity) => {
                             OperationRequests.deleteNote({
                                 pk: entity.id,
-                                setStatus: setStatus,
                                 setRefreshed: setRefreshed
                             })
                         },

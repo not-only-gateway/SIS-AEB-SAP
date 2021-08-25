@@ -1,10 +1,8 @@
 import React, {useState} from 'react'
-import PropTypes from 'prop-types'
 import styles from './styles/Selector.module.css'
 import SelectorsPT from './locales/SelectorsPT'
 import SelectorModal from "./modules/SelectorModal";
 import {LaunchRounded} from "@material-ui/icons";
-import ListPropsTemplate from "../shared/ListPropsTemplate";
 import SelectorPropsTemplate from "./templates/SelectorPropsTemplate";
 import RenderListField from "../shared/RenderListField";
 

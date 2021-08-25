@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import FormLayout from "./FormLayout";
 import styles from './styles/EntityLayout.module.css'
 import EntityLayoutPT from "./locales/EntityLayoutPT";

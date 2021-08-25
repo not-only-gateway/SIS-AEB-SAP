@@ -1,18 +1,15 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import {TextField} from "sis-aeb-inputs";
-import {Alert} from "sis-aeb-misc";
 import EntityLayout from "../../shared/misc/form/EntityLayout";
 import WorkPlanPT from "../../../packages/locales/WorkPlanPT";
-import submitWorkPlan from "../../../utils/submit/SubmitWorkPlan";
 import MultiSelectField from "../../shared/inputs/multiselect/MultiSelectField";
 import Selector from "../../shared/misc/selector/Selector";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import Modal from "../../shared/misc/modal/Modal";
-import NatureExpenseForm from "../../entities/nature_expense/NatureExpenseForm";
 import BudgetPlanForm from "../../entities/budget_plan/BudgetPlanForm";
-import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
+import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
 import DropDownField from "../../shared/inputs/dropdown/DropDownField";
 
 
@@ -20,9 +17,7 @@ export default function WorkPlanForm(props) {
 
     const [changed, setChanged] = useState(false)
     const lang = WorkPlanPT
-    const [status, setStatus] = useState({
-        type: undefined, message: undefined
-    })
+
     const [open, setOpen] = useState(false)
     useEffect(() => {
         if (props.create) {
@@ -35,10 +30,7 @@ export default function WorkPlanForm(props) {
 
 
             <div style={{width: '100%'}}>
-                <Alert
-                    type={status.type} render={status.type !== undefined} rootElementID={'root'}
-                    handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
-                />
+
                 <EntityLayout
                     rootElementID={'root'} entity={props.data}
                     create={props.create} label={lang.title}
@@ -69,7 +61,6 @@ export default function WorkPlanForm(props) {
                         WorkPlanRequests.submitWorkPlan({
                             pk: props.id,
                             data: props.data,
-                            setStatus: setStatus,
                             create: props.create
                         }).then(res => {
                             if (res !== null && props.create)

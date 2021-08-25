@@ -1,49 +1,22 @@
 import PropTypes from 'prop-types'
-import styles from './styles/Alert.module.css'
+import styles from '../../styles/Alert.module.css'
 import {CheckCircleRounded, CloseRounded, ErrorRounded, ReportProblemRounded} from '@material-ui/icons'
-import React, {useEffect, useRef} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import ReactDOM from "react-dom";
-import AlertPT from "./locales/AlertPT";
+import AlertPT from "../../locales/LocalesPT";
+import Details from "../details/Details";
 
 export default function Alert(props) {
     const lang = AlertPT
-    let mounted = false
-    const mountingPoint = useRef()
-
-
-    const element = () => {
-
-        const elements = getColor(props.type)
-        return (
-            <div className={[styles.alertContainer, styles.slideUp, styles.alertContent].join(' ')}
-                 style={
-                     elements.style
-                 }>
-
-                <div className={styles.alertContentContainer}>
-                    {elements.icon}
-                    <div>
-                        {elements.message}
-                    </div>
-                    {elements.messageCode !== undefined ?
-                        <div style={{fontSize: '.8rem'}}>
-                            ({elements.messageCode})
-                        </div>
-                        :
-                        null
-                    }
-                </div>
-
-                <button className={styles.buttonContainer} onClick={() => props.handleClose()}>
-                    <CloseRounded style={{fontSize: '1.15rem', color: elements.style.color}}/>
-                </button>
-
-            </div>
-
-        )
-    }
-
-    function getColor(type) {
+    const [open, setOpen] = useState(false)
+    const [visuals, setVisuals] = useState( {
+        style: {},
+        icon: undefined,
+        message: undefined,
+        messageCode: undefined
+    })
+    const ref = useRef()
+    const getColor = (type) => {
         let response = {
             style: {},
             icon: undefined,
@@ -70,7 +43,7 @@ export default function Alert(props) {
                         </div>
                     ),
                     message: lang.error,
-                    messageCode: props.statusCode
+                    messageCode: props.data.httpStatusCode
 
                 }
                 break
@@ -92,8 +65,8 @@ export default function Alert(props) {
                             <ErrorRounded/>
                         </div>
                     ),
-                    message: props.message,
-                    messageCode: props.statusCode
+                    message: props.data.message,
+                    messageCode: props.data.httpStatusCode
                 }
                 break
             case 'success':
@@ -114,8 +87,8 @@ export default function Alert(props) {
                             <CheckCircleRounded/>
                         </div>
                     ),
-                    message: props.statusCode === 201 ? lang.created : lang.success,
-                    messageCode: props.statusCode
+                    message: props.data.httpStatusCode === 201 ? lang.created : lang.success,
+                    messageCode: props.data.httpStatusCode
                 }
 
                 break
@@ -125,37 +98,77 @@ export default function Alert(props) {
 
         return response
     }
+    const openRef = useRef(open)
+    openRef.current = open
 
     useEffect(() => {
-        if (!mounted) {
-            const newElement = document.createElement('div')
-            mountingPoint.current = newElement
-            document.body.appendChild(newElement)
-            mounted = true
-        }
-        if (props.render && props.type !== undefined) {
-            setTimeout(() => props.handleClose(), 7000)
-            ReactDOM.render(
-                element(),
-                mountingPoint.current
-            )
-        } else if (!props.render)
-            ReactDOM.unmountComponentAtNode(mountingPoint.current);
+        setVisuals(getColor(props.type))
+        const parent = ref.current.parentNode
+        setTimeout(() => {
+            if(!openRef.current)
+                try{
+                    ReactDOM.unmountComponentAtNode(ref.current?.parentNode);
+                }
+                catch (e) {
+                    console.log(e)
+                }
+        }, 7000)
 
         return () => {
-            ReactDOM.unmountComponentAtNode(mountingPoint.current);
+            try{
+                document.body.removeChild(parent)
+                ReactDOM.unmountComponentAtNode(parent);
+            }
+            catch (e) {
+                console.log(e)
+            }
         }
-    }, [props.type, props.render])
+    }, [])
 
+    return (
+        <>
+            <Details open={open} setOpen={setOpen} data={props.data}/>
+            <button
 
-    return null
+                className={styles.alertContainer}
+                onClick={() => setOpen(true)}
+                style={{...visuals.style, ...{opacity: open ? 0 : 1, visibility: open ? 'hidden' : 'visible'}}}
+                ref={ref}
+            >
+                <div className={styles.alertContentContainer}>
+                    {visuals.icon}
+                    <div>
+                        {visuals.message}
+                    </div>
+                    {visuals.messageCode !== undefined ?
+                        <div style={{fontSize: '.8rem'}}>
+                            ({visuals.messageCode})
+                        </div>
+                        :
+                        null
+                    }
+                </div>
+
+                <button
+                    className={styles.buttonContainer}
+                    onClick={() => ReactDOM.unmountComponentAtNode(ref.current.parentNode)}
+                >
+                    <CloseRounded style={{fontSize: '1.15rem', color: visuals.style.color}}/>
+                </button>
+            </button>
+        </>
+    )
 }
 
 Alert.propTypes = {
-    rootElementID: PropTypes.string,
-    statusCode: PropTypes.any,
-    message: PropTypes.string,
+
+    data: PropTypes.shape({
+        message: PropTypes.string,
+        details: PropTypes.string,
+        httpStatusCode: PropTypes.number,
+        package: PropTypes.any,
+        method: PropTypes.string,
+        url: PropTypes.string
+    }),
     type: PropTypes.oneOf(['error', 'alert', 'success']),
-    handleClose: PropTypes.func,
-    render: PropTypes.bool,
 }

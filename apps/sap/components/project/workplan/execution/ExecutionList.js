@@ -7,25 +7,15 @@ import {RemoveRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import animations from "../../../../styles/Animations.module.css";
 import ExecutionForm from "./ExecutionForm";
-import Alert from "../../../shared/misc/alert/Alert";
-import OperationRequests from "../../../../utils/fetch/OperationRequests";
+import OperationRequests from "../../../../utils/requests/OperationRequests";
 
 export default function ExecutionList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
-    const [status, setStatus] = useState({
-        type: undefined,
-        message: undefined
-    })
 
     return (
         <>
-            <Alert
-                type={status.type} render={status.type !== undefined}
-                handleClose={() => setStatus({type: undefined, message: undefined})}
-                message={status.message}
-            />
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <ExecutionForm
@@ -63,7 +53,6 @@ export default function ExecutionList(props) {
                         onClick: (entity) => {
                             OperationRequests.deleteExecution({
                                 pk: entity.id,
-                                setStatus: setStatus,
                                 setRefreshed: setRefreshed
                             })
                         },

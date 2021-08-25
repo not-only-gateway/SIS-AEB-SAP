@@ -2,28 +2,21 @@ import React, {useEffect, useState} from "react";
 
 import {DateField, DropDownField, TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
-import OperationRequests from "../../../../utils/fetch/OperationRequests";
+import OperationRequests from "../../../../utils/requests/OperationRequests";
 import EntityLayout from "../../../shared/misc/form/EntityLayout";
 import PermanentGoodsPT from "../../../../packages/locales/PermanentGoodsPT";
-import Alert from "../../../shared/misc/alert/Alert";
 
 export default function PermanentGoodsForm(props) {
     const [changed, setChanged] = useState(false)
     const lang = PermanentGoodsPT
-    const [status, setStatus] = useState({
-        type: undefined, message: undefined
-    })
+
     useEffect(() => {
         if (props.create)
             props.handleChange({name: 'operation_phase', value: props.operation.id})
     }, [])
     return (
         <>
-            <Alert
-                type={status.type} render={status.type !== undefined}
-                handleClose={() => setStatus({type: undefined, message: undefined})}
-                message={status.message}
-            />
+
             <EntityLayout
                 entity={props.data}
                 create={props.create} label={props.create ? lang.newPermanent : lang.permanent}
@@ -44,7 +37,6 @@ export default function PermanentGoodsForm(props) {
                     OperationRequests.submitPermanentGoods({
                         pk: props.data.id,
                         data: props.data,
-                        setStatus: setStatus,
                         create: props.create
                     }).then(res => {
                         setChanged(!res)

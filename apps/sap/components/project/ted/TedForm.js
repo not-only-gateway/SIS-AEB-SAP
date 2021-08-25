@@ -1,18 +1,15 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import {TextField} from "sis-aeb-inputs";
-
-import {Alert} from "sis-aeb-misc";
 import EntityLayout from "../../shared/misc/form/EntityLayout";
 import TedPT from "../../../packages/locales/TedPT";
-import TedRequests from "../../../utils/fetch/TedRequests";
+import TedRequests from "../../../utils/requests/TedRequests";
 import DateField from "../../shared/inputs/date/DateField";
 import DropDownField from "../../shared/inputs/dropdown/DropDownField";
 import Selector from "../../shared/misc/selector/Selector";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import Modal from "../../shared/misc/modal/Modal";
-import NatureExpenseForm from "../../entities/nature_expense/NatureExpenseForm";
 import ActionForm from "../../entities/action/ActionForm";
 
 
@@ -20,9 +17,7 @@ export default function TedForm(props) {
 
     const [changed, setChanged] = useState(false)
     const lang = TedPT
-    const [status, setStatus] = useState({
-        type: undefined, message: undefined
-    })
+
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
@@ -31,10 +26,7 @@ export default function TedForm(props) {
     }, [])
     return (
         <>
-            <Alert
-                type={status.type} render={status.type !== undefined} rootElementID={'root'}
-                handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
-            />
+
             <EntityLayout
                 rootElementID={'root'} entity={props.data}
                 create={props.create} label={lang.title}
@@ -67,7 +59,6 @@ export default function TedForm(props) {
                     TedRequests.submitTed({
                         pk: props.id,
                         data: props.data,
-                        setStatus: setStatus,
                         create: props.create
                     }).then(res => {
                         if (res !== null && props.create)

@@ -1,18 +1,14 @@
 import React, {useEffect, useState} from "react";
-import {Alert} from "sis-aeb-misc";
 import EntityLayout from "../../shared/misc/form/EntityLayout";
 import {DropDownField, TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
-import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
+import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
 import InfrastructurePT from "../../../packages/locales/InfrastructurePT";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 
 export default function InfrastructureForm(props) {
     const [changed, setChanged] = useState(false)
     const lang = InfrastructurePT
-    const [status, setStatus] = useState({
-        type: undefined, message: undefined
-    })
 
     const [data, setData] = useState(null)
 
@@ -31,10 +27,7 @@ export default function InfrastructureForm(props) {
 
     const content = (
         <>
-            <Alert
-                type={status.type} render={status.type !== undefined} rootElementID={'root'}
-                handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
-            />
+
             <EntityLayout
                 rootElementID={'root'} entity={data}
                 create={props.create} label={props.create ? lang.newInfrastructure : lang.infrastructure}
@@ -50,7 +43,6 @@ export default function InfrastructureForm(props) {
                     WorkPlanRequests.submitInfrastructure({
                         pk: data.id,
                         data: data,
-                        setStatus: setStatus,
                         create: props.create
                     }).then(res => {
                         setChanged(!res)

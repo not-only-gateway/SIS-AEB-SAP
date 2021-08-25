@@ -7,24 +7,14 @@ import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import List from "../shared/misc/list/List";
 import ProjectForm from "./ProjectForm";
 import {ArrowForwardRounded, RemoveRounded} from "@material-ui/icons";
-import ProjectRequests from "../../utils/fetch/ProjectRequests";
-import Alert from "../shared/misc/alert/Alert";
+import ProjectRequests from "../../utils/requests/ProjectRequests";
 
 export default function ProjectList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const [status, setStatus] = useState({
-        type: undefined,
-        message: undefined
-    })
     const [refreshed, setRefreshed] = useState(false)
     return (
         <>
-            <Alert
-                type={status.type} render={status.type !== undefined}
-                handleClose={() => setStatus({type: undefined, message: undefined})}
-                message={status.message}
-            />
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <ProjectForm
@@ -59,7 +49,6 @@ export default function ProjectList(props) {
                         onClick: (entity) => {
                             ProjectRequests.deleteProject({
                                 pk: entity.id,
-                                setStatus: setStatus,
                                 setRefreshed: setRefreshed
                             })
                         },

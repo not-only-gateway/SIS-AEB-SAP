@@ -2,24 +2,19 @@ import React, {useEffect, useState} from "react";
 
 import {DropDownField, TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
-import OperationRequests from "../../../../utils/fetch/OperationRequests";
+import OperationRequests from "../../../../utils/requests/OperationRequests";
 import EntityLayout from "../../../shared/misc/form/EntityLayout";
-import PermanentGoodsPT from "../../../../packages/locales/PermanentGoodsPT";
-import Alert from "../../../shared/misc/alert/Alert";
 import ResourcePT from "../../../../packages/locales/ResourcePT";
 import Selector from "../../../shared/misc/selector/Selector";
 import Host from "../../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import NatureExpenseForm from "../../../entities/nature_expense/NatureExpenseForm";
-import handleObjectChange from "../../../../utils/shared/HandleObjectChange";
 import Modal from "../../../shared/misc/modal/Modal";
 
 export default function ResourceApplicationForm(props) {
     const [changed, setChanged] = useState(false)
     const lang = ResourcePT
-    const [status, setStatus] = useState({
-        type: undefined, message: undefined
-    })
+
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
@@ -29,11 +24,6 @@ export default function ResourceApplicationForm(props) {
     return (
         <>
 
-            <Alert
-                type={status.type} render={status.type !== undefined}
-                handleClose={() => setStatus({type: undefined, message: undefined})}
-                message={status.message}
-            />
             <EntityLayout
                 entity={props.data}
                 create={props.create} label={props.create ? lang.newResource : lang.resource}
@@ -50,7 +40,7 @@ export default function ResourceApplicationForm(props) {
                     OperationRequests.submitResource({
                         pk: props.data.id,
                         data: props.data,
-                        setStatus: setStatus,
+
                         create: props.create
                     }).then(res => {
                         setChanged(!res)

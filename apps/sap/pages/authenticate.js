@@ -6,23 +6,14 @@ import styles from '../styles/Authenticate.module.css'
 import Head from "next/head";
 import {Button} from "@material-ui/core";
 import handleObjectChange from "../utils/shared/HandleObjectChange";
-import {Alert} from "sis-aeb-misc";
 import AuthenticatePT from "../packages/locales/AuthenticatePT";
 import submitAuthentication from "../utils/submit/SubmitAuthentication";
 import {TextField} from "sis-aeb-inputs";
-import DropDownField from "../components/shared/inputs/dropdown/DropDownField";
-import DateField from "../components/shared/inputs/date/DateField";
-import Selector from "../components/shared/misc/selector/Selector";
 
 export default function authenticate() {
     const router = useRouter()
     const lang = AuthenticatePT
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState({
-        error: false,
-        message: ''
-    })
-
     const [data, setData] = useState({
         email: '',
         password: ''
@@ -37,10 +28,7 @@ export default function authenticate() {
 
     return (
         <>
-            <Alert
-                type={'error'} message={error.message} render={error.error} rootElementID={'root'}
-                handleClose={() => setError({error: false, message: ''})}
-            />
+
             <Head>
                 <title>{lang.title}</title>
 
@@ -49,7 +37,7 @@ export default function authenticate() {
 
             <div className={styles.pageContainer}>
 
-                <div className={[styles.inputContainer, loading ? styles.loading : ''].join(' ')}>
+                <div className={styles.inputContainer}>
                     <img src={'/light.png'} className={styles.logoImage} alt={'logo'}/>
                     <h4 style={{fontWeight: 575}}>
                         {lang.welcome}
@@ -80,7 +68,6 @@ export default function authenticate() {
                         onClick={() => submitAuthentication({
                             email: data.email,
                             password: data.password,
-                            setError: setError,
                             setLoading: setLoading
                         }).then(res => {
                                 if (res)

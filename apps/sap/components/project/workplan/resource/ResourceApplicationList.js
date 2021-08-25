@@ -4,11 +4,9 @@ import React, {useState} from "react";
 import Cookies from "universal-cookie/lib";
 
 import {RemoveRounded} from "@material-ui/icons";
-import Alert from "../../../shared/misc/alert/Alert";
-import OperationRequests from "../../../../utils/fetch/OperationRequests";
+import OperationRequests from "../../../../utils/requests/OperationRequests";
 import List from "../../../shared/misc/list/List";
 import Host from "../../../../utils/shared/Host";
-import PermanentGoodsForm from "../permanent/PermanentGoodsForm";
 import handleObjectChange from "../../../../utils/shared/HandleObjectChange";
 import ResourceApplicationForm from "./ResourceApplicationForm";
 
@@ -17,17 +15,10 @@ export default function ResourceApplicationList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
-    const [status, setStatus] = useState({
-        type: undefined,
-        message: undefined
-    })
+
     return (
         <div style={{width: '100%'}}>
-            <Alert
-                type={status.type} render={status.type !== undefined}
-                handleClose={() => setStatus({type: undefined, message: undefined})}
-                message={status.message}
-            />
+
             {!open ? null :
                 <>
                     <ResourceApplicationForm
@@ -56,7 +47,7 @@ export default function ResourceApplicationList(props) {
                         onClick: (entity) => {
                             OperationRequests.deleteResource({
                                 pk: entity.id,
-                                setStatus: setStatus,
+
                                 setRefreshed: setRefreshed
                             })
                         },

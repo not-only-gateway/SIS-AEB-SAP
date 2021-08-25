@@ -8,24 +8,15 @@ import PropTypes from "prop-types";
 import animations from "../../../../styles/Animations.module.css";
 
 import ActionItemForm from "./ActionItemForm";
-import Alert from "../../../shared/misc/alert/Alert";
-import OperationRequests from "../../../../utils/fetch/OperationRequests";
+import OperationRequests from "../../../../utils/requests/OperationRequests";
 
 export default function ActionItemList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
-    const [status, setStatus] = useState({
-        type: undefined,
-        message: undefined
-    })
+
     return (
         <>
-            <Alert
-                type={status.type} render={status.type !== undefined}
-                handleClose={() => setStatus({type: undefined, message: undefined})}
-                message={status.message}
-            />
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <ActionItemForm
@@ -59,7 +50,6 @@ export default function ActionItemList(props) {
                         onClick: (entity) => {
                             OperationRequests.deleteActionItem({
                                 pk: entity.id,
-                                setStatus: setStatus,
                                 setRefreshed: setRefreshed
                             })
                         },

@@ -7,24 +7,15 @@ import Cookies from "universal-cookie/lib";
 import Host from "../../../../utils/shared/Host";
 import RiskForm from "./RiskForm";
 import {RemoveRounded} from "@material-ui/icons";
-import ProjectRequests from "../../../../utils/fetch/ProjectRequests";
-import Alert from "../../../shared/misc/alert/Alert";
+import ProjectRequests from "../../../../utils/requests/ProjectRequests";
 
 export default function RisksList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
-    const [status, setStatus] = useState({
-        type: undefined,
-        message: undefined
-    })
     return (
         <div style={{width: '100%'}}>
-            <Alert
-                type={status.type} render={status.type !== undefined}
-                handleClose={() => setStatus({type: undefined, message: undefined})}
-                message={status.message}
-            />
+
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <RiskForm
@@ -84,7 +75,6 @@ export default function RisksList(props) {
                         onClick: (entity) => {
                             ProjectRequests.deleteRisk({
                                 pk: entity.id,
-                                setStatus: setStatus,
                                 setRefreshed: setRefreshed
                             })
                         },

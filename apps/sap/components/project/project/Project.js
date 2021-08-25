@@ -7,7 +7,7 @@ import RisksList from "./risk/RisksList";
 import ProjectPT from "../../../packages/locales/ProjectPT";
 import PropTypes from 'prop-types'
 import TedList from "../ted/TedList";
-import TedRequests from "../../../utils/fetch/TedRequests";
+import TedRequests from "../../../utils/requests/TedRequests";
 
 export default function Project(props) {
     const lang = ProjectPT

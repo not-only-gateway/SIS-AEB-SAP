@@ -1,15 +1,12 @@
-import PropTypes from 'prop-types'
 import React, {useEffect, useRef, useState} from "react";
 import Fetch from "./methods/Fetch";
 import ListContent from "./modules/ListContent";
 import ListsPT from "./locales/ListsPT";
-import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "./modules/Loader";
 import styles from './styles/List.module.css'
 import SearchBar from "./modules/SearchBar";
 import ContextMenu from "./modules/ContextMenu";
-import RefreshRoundedIcon from '@material-ui/icons/RefreshRounded';
-import {AddRounded, ArrowBackRounded, ArrowForwardRounded} from "@material-ui/icons";
+import {ArrowBackRounded, ArrowForwardRounded} from "@material-ui/icons";
 import ListPropsTemplate from "../shared/ListPropsTemplate";
 import pStyles from './styles/PageChanger.module.css'
 import ListHeader from "./modules/Header";

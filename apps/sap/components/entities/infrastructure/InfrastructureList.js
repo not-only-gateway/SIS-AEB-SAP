@@ -1,30 +1,20 @@
-import PropTypes from 'prop-types'
 import React, {useState} from "react";
 import animations from "../../../styles/Animations.module.css";
-import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import List from "../../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";
 import Host from "../../../utils/shared/Host";
 import {RemoveRounded} from "@material-ui/icons";
 import Infrastructure from "./Infrastructure";
-import WorkPlanRequests from "../../../utils/fetch/WorkPlanRequests";
-import Alert from "../../shared/misc/alert/Alert";
+import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
 
 export default function InfrastructureList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
-    const [status, setStatus] = useState({
-        type: undefined,
-        message: undefined
-    })
+
     return (
         <>
-            <Alert
-                type={status.type} render={status.type !== undefined}
-                handleClose={() => setStatus({type: undefined, message: undefined})}
-                message={status.message}
-            />
+
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <Infrastructure
@@ -51,7 +41,7 @@ export default function InfrastructureList(props) {
                         onClick: (entity) => {
                             WorkPlanRequests.deleteInfrastructure({
                                 pk: entity.id,
-                                setStatus: setStatus,
+
                                 setRefreshed: setRefreshed
                             })
                         },

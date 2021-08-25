@@ -1,26 +1,19 @@
 import React, {useEffect, useState} from "react";
 import ProjectPT from "../../../../packages/locales/ProjectPT";
-import {Alert} from "sis-aeb-misc";
 import EntityLayout from "../../../shared/misc/form/EntityLayout";
 import {DropDownField, TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
-import ProjectRequests from "../../../../utils/fetch/ProjectRequests";
+import ProjectRequests from "../../../../utils/requests/ProjectRequests";
 
 export default function RiskForm(props){
     const [changed, setChanged] = useState(false)
     const lang = ProjectPT
-    const [status, setStatus] = useState({
-        type: undefined, message: undefined
-    })
     useEffect(() => {
         props.handleChange({name: 'project', value: props.project.id})
     }, [])
     return (
         <>
-            <Alert
-                type={status.type} render={status.type !== undefined} rootElementID={'root'}
-                handleClose={() => setStatus({type: undefined, message: undefined})} message={status.message}
-            />
+
             <EntityLayout
                 rootElementID={'root'} entity={props.data}
                 create={props.create} label={lang.risksTitle}
@@ -36,7 +29,7 @@ export default function RiskForm(props){
                     ProjectRequests.submitRisk({
                         pk: props.id,
                         data: props.data,
-                        setStatus: setStatus,
+
                         create: props.create
                     }).then(res => {
                         setChanged(!res)

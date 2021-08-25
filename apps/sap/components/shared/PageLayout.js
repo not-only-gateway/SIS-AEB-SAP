@@ -16,8 +16,8 @@ import {
     WorkRounded
 } from "@material-ui/icons";
 
-import CollaboratorRequests from "../../utils/fetch/CollaboratorRequests";
-import PersonRequests from "../../utils/fetch/PersonRequests";
+import CollaboratorRequests from "../../utils/requests/CollaboratorRequests";
+import PersonRequests from "../../utils/requests/PersonRequests";
 import {Navigation} from "sis-aeb-navigation";
 
 

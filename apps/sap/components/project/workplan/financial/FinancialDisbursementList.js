@@ -6,26 +6,16 @@ import List from "../../../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";
 import Host from "../../../../utils/shared/Host";
 import {RemoveRounded} from "@material-ui/icons";
-import StatusForm from "../status/StatusForm";
-import WorkPlanRequests from "../../../../utils/fetch/WorkPlanRequests";
-import Alert from "../../../shared/misc/alert/Alert";
+import WorkPlanRequests from "../../../../utils/requests/WorkPlanRequests";
 import FinancialDisbursementForm from "./FinancialDisbursementForm";
 
 export default function FinancialDisbursementList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
-    const [status, setStatus] = useState({
-        type: undefined,
-        message: undefined
-    })
+
     return (
         <div style={{width: '100%'}}>
-            <Alert
-                type={status.type} render={status.type !== undefined}
-                handleClose={() => setStatus({type: undefined, message: undefined})}
-                message={status.message}
-            />
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <FinancialDisbursementForm
@@ -54,7 +44,6 @@ export default function FinancialDisbursementList(props) {
                         onClick: (entity) => {
                             WorkPlanRequests.deleteFinancial({
                                 pk: entity.id,
-                                setStatus: setStatus,
                                 setRefreshed: setRefreshed
                             })
                         },

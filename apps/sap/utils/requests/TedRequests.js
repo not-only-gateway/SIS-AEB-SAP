@@ -1,7 +1,7 @@
-import axios from "axios";
 import Host from "../shared/Host";
 import Cookies from "universal-cookie/lib";
 import PropTypes from "prop-types";
+import Requester from "../../components/shared/misc/requester/Requester";
 
 const jwt = (new Cookies()).get('jwt')
 const submitProps = PropTypes.shape({
@@ -13,14 +13,16 @@ const submitProps = PropTypes.shape({
 export default class TedRequests {
     static async fetchTed(pk) {
         let response = null
-        await axios({
+        await Requester({
+            package: submitProps.data,
             method: 'get',
             url: Host() + 'ted/' + pk,
-            headers: {'authorization': jwt}
+
+            token: jwt
         }).then(res => {
             response = res.data
-        }).catch(error => {
-            console.log(error.request)
+        }).catch(e => {
+            console.log(e)
         })
         return response
     }
@@ -31,70 +33,52 @@ export default class TedRequests {
         data = Object.assign(data, submitProps.data)
 
         data.action = data.action.id
-        await axios({
+
+        await Requester({
+            package: data,
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'ted' : Host() + 'ted/' + submitProps.pk,
-            headers: {'authorization': jwt},
-            data: data
+            showSuccessAlert: true,
+            token: jwt
         }).then(res => {
-            submitProps.setStatus({
-                type: 'success',
-                message: res.status + ' - ' + res.statusText,
-            })
             response = submitProps.create ? res.data : true
-        }).catch(error => {
-            submitProps.setStatus({
-                type: 'error',
-                message: error.message
-            })
-            console.log(error.request)
+        }).catch(e => {
+            console.log(e)
         })
         return response
     }
 
     static async deleteAddendum(submitProps) {
         let response = false
-
-        await axios({
+        await Requester({
+            package: submitProps.data,
             method: 'delete',
             url:  Host() + 'addendum/'+submitProps.pk,
-            headers: {'authorization': jwt},
-            data: submitProps.data
+            showSuccessAlert: true,
+            token: jwt
         }).then(res => {
-            submitProps.setStatus({
-                type: 'success',
-                message: res.status + ' - ' + res.statusText,
-            })
+
             submitProps.setRefreshed(false)
             response = true
-        }).catch(error => {
-            submitProps.setStatus({
-                type: 'error',
-                message: error.message
-            })
-            console.log(error.request)
+        }).catch(e => {
+            console.log(e)
         })
+
         return response
     }
     static async submitAddendum(submitProps) {
         let response = false
 
-        await axios({
+        await Requester({
+            package: submitProps.data,
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'addendum' : Host() + 'addendum/' + submitProps.pk,
-            headers: {'authorization': jwt},
-            data: submitProps.data
+            showSuccessAlert: true,
+            token: jwt
         }).then(res => {
-            submitProps.setStatus({
-                type: 'success',
-                message: res.status + ' - ' + res.statusText,
-            })
             response = true
-        }).catch(error => {
-            submitProps.setStatus({
-                type: 'error',
-                message: error.message
-            })
+        }).catch(e => {
+            console.log(e)
         })
         return response
     }

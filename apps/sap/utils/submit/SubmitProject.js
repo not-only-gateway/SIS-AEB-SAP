@@ -1,30 +1,24 @@
 import Host from "../shared/Host";
-import axios from "axios";
 import Cookies from "universal-cookie/lib";
 import PropTypes from 'prop-types'
+import Requester from "../../components/shared/misc/requester/Requester";
 
 const jwt = (new Cookies()).get('jwt')
 
 export default async function submitProject(props) {
     let response = props.create ? null : false
-
-    await axios({
-        method: props.create ? 'post' : 'put',
+    await Requester({
+        package: props.data,
         url: props.create ? Host() + 'project' : Host() + 'project/' + props.pk,
-        headers: {'authorization': jwt},
-        data: props.data
+        method: props.create ? 'post' : 'put',
+        showSuccessAlert: true,
+        token: jwt
     }).then(res => {
-        props.setStatus({
-            type: 'success',
-            message: res.status + ' - ' + res.statusText,
-        })
         response = props.create ? res.data.id : true
-    }).catch(error => {
-        props.setStatus({
-            type: 'error',
-            message: error.message
-        })
+    }).catch(e => {
+        console.log(e)
     })
+
     return response
 }
 

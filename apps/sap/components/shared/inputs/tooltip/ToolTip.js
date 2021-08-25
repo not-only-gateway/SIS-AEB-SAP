@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import styles from './styles/Styles.module.css'
-import {useEffect, useRef} from "react";
-import React from 'react'
+import React, {useEffect, useRef} from "react";
+
 export default function ToolTip(props) {
     const toolTip = (
         <div className={styles.container}>
@@ -49,6 +49,7 @@ export default function ToolTip(props) {
             ReactDOM.unmountComponentAtNode(
                 mountingPoint.current
             )
+            document.body.removeChild(newElement)
         }
     })
 

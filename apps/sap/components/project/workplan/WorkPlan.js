@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import WorkPlanPT from "../../../packages/locales/WorkPlanPT";
 import WorkPlanForm from "./WorkPlanForm";
 import StatusList from "./status/StatusList";
-import InfrastructureList from "../../entities/infrastructure/InfrastructureList";
 import GoalList from "./goal/GoalList";
 import HorizontalChart from "../../shared/chart/HorizontalChart";
 import OperationList from "./operation/OperationList";

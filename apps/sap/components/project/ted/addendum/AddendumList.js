@@ -8,24 +8,16 @@ import Host from "../../../../utils/shared/Host";
 
 import {RemoveRounded} from "@material-ui/icons";
 import AddendumForm from "./AddendumForm";
-import TedRequests from "../../../../utils/fetch/TedRequests";
-import Alert from "../../../shared/misc/alert/Alert";
+import TedRequests from "../../../../utils/requests/TedRequests";
 
 export default function AddendumList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
-    const [status, setStatus] = useState({
-        type: undefined,
-        message: undefined
-    })
+
     return (
         <div style={{width: '100%'}}>
-            <Alert
-                type={status.type} render={status.type !== undefined}
-                handleClose={() => setStatus({type: undefined, message: undefined})}
-                message={status.message}
-            />
+
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <AddendumForm
@@ -61,7 +53,7 @@ export default function AddendumList(props) {
                         onClick: (entity) => {
                             TedRequests.deleteAddendum({
                                 pk: entity.id,
-                                setStatus: setStatus,
+
                                 setRefreshed: setRefreshed
                             })
                         },

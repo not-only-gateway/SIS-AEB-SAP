@@ -8,26 +8,15 @@ import List from "../../shared/misc/list/List";
 import TedForm from "./TedForm";
 import Selector from "../../shared/misc/selector/Selector";
 import {ArrowForwardRounded, RemoveRounded} from "@material-ui/icons";
-import ProjectRequests from "../../../utils/fetch/ProjectRequests";
-import Alert from "../../shared/misc/alert/Alert";
+import ProjectRequests from "../../../utils/requests/ProjectRequests";
 
 export default function TedList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const [status, setStatus] = useState({
-        type: undefined,
-        message: undefined
-    })
 
     const [refreshed, setRefreshed] = useState(false)
     return (
         <>
-
-            <Alert
-                type={status.type} render={status.type !== undefined}
-                handleClose={() => setStatus({type: undefined, message: undefined})}
-                message={status.message}
-            />
             {open ?
                 null :
                 <Selector
@@ -38,8 +27,7 @@ export default function TedList(props) {
                     }} searchFieldName={'search_input'}
                     handleChange={entity => {
                         ProjectRequests.submitProjectTed({
-                            data: {ted: entity.id, activity_project: props.project.id},
-                            setStatus: setStatus
+                            data: {ted: entity.id, activity_project: props.project.id}
                         })
                     }} label={'Selecionar Instrumentos já cadastrados'}
                     setChanged={() => null}
