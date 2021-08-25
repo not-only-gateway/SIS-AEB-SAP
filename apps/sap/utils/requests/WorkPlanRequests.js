@@ -206,7 +206,6 @@ export default class WorkPlanRequests {
             showSuccessAlert: true,
             token: jwt
         }).then(res => {
-            submitProps.setRefreshed(false)
             response = true
         }).catch(e => {
             console.log(e)

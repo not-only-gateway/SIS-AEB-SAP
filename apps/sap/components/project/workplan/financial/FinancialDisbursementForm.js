@@ -35,6 +35,8 @@ export default function FinancialDisbursementForm(props) {
 
                         create: props.create
                     }).then(res => {
+                        if(props.create && res)
+                            props.returnToMain()
                         setChanged(!res)
                     })}
                 handleClose={() => props.returnToMain()}

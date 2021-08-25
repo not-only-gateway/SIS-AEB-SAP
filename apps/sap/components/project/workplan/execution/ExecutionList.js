@@ -20,6 +20,7 @@ export default function ExecutionList(props) {
                 <div className={animations.fadeIn}>
                     <ExecutionForm
                         returnToMain={() => {
+                            setRefreshed(false)
                             setOpen(false)
                         }}
                         handleChange={event => handleObjectChange({

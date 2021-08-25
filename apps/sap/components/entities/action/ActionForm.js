@@ -35,6 +35,8 @@ export default function ActionForm(props) {
                         data: data,
                         create: props.create
                     }).then(res => {
+                        if(props.create && res)
+                            props.returnToMain()
                         setChanged(!res)
                     })}
                 handleClose={() => props.returnToMain()}

@@ -52,6 +52,8 @@ export default function BudgetPlanForm(props) {
 
                         create: props.create
                     }).then(res => {
+                        if(props.create && res)
+                            props.returnToMain()
                         setChanged(!res)
                     })}
                 handleClose={() => props.returnToMain()}

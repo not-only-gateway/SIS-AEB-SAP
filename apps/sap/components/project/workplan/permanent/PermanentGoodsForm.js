@@ -39,6 +39,8 @@ export default function PermanentGoodsForm(props) {
                         data: props.data,
                         create: props.create
                     }).then(res => {
+                        if(props.create && res)
+                            props.returnToMain()
                         setChanged(!res)
                     })}
                 handleClose={() => props.returnToMain()}

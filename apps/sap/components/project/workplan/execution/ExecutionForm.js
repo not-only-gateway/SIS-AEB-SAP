@@ -43,6 +43,8 @@ export default function ExecutionForm(props) {
 
                         create: props.create
                     }).then(res => {
+                        if(props.create && res)
+                            props.returnToMain()
                         setChanged(false)
                     })
 

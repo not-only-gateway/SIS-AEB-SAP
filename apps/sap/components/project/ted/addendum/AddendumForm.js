@@ -36,6 +36,8 @@ export default function AddendumForm(props) {
 
                         create: props.create
                     }).then(res => {
+                        if(props.create && res)
+                            props.returnToMain()
                         setChanged(!res)
                     })}
                 handleClose={() => props.returnToMain()}

@@ -22,6 +22,7 @@ export default function ActionItemList(props) {
                     <ActionItemForm
                         returnToMain={() => {
                             setOpen(false)
+                            setRefreshed(false)
                         }}
                         handleChange={event => handleObjectChange({
                             event: event,

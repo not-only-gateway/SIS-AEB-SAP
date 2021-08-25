@@ -19,6 +19,7 @@ export default function FollowUpList(props) {
                 <div className={animations.fadeIn}>
                     <FollowUpForm
                         returnToMain={() => {
+                            setRefreshed(false)
                             setOpen(false)
                         }}
                         handleChange={event => handleObjectChange({

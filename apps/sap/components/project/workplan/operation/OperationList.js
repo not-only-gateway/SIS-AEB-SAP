@@ -21,6 +21,7 @@ export default function OperationList(props) {
                     <Operation
                         returnToMain={() => {
                             setOpen(false)
+                            setRefreshed(false)
                         }}
                         handleChange={event => handleObjectChange({
                             event: event,

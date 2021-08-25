@@ -20,6 +20,7 @@ export default function NoteList(props) {
                 <div className={animations.fadeIn} style={{width: '100%'}}>
                     <NoteForm
                         returnToMain={() => {
+                            setRefreshed(false)
                             setOpen(false)
                         }}
                         handleChange={event => handleObjectChange({

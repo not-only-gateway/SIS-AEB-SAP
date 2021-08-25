@@ -54,8 +54,8 @@ export default function ResourceApplicationList(props) {
                         disabled: false
                     }]}
                     fields={[
-                        {name: 'gnd', type: 'string'},
-                        {name: 'nature_expense', type: 'string'},
+                        {name: 'nature_of_expense', type: 'object', subfield: 'gnd'},
+                        {name: 'nature_of_expense', type: 'object', subfield: 'nature_of_expense'},
                         {name: 'indirect_cost', type: 'bool'},
                         {name: 'value', type: 'number', maskStart: 'R$ '},
                     ]}

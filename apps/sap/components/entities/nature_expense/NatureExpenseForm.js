@@ -36,9 +36,10 @@ export default function NatureExpenseForm(props) {
                         ProjectRequests.submitNatureOfExpense({
                             pk: data.id,
                             data: data,
-
                             create: props.create
                         }).then(res => {
+                            if(props.create && res)
+                                props.returnToMain()
                             setChanged(!res)
                         })}
                     handleClose={() => props.returnToMain()}

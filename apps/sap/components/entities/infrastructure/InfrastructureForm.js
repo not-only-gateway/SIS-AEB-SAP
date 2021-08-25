@@ -45,6 +45,8 @@ export default function InfrastructureForm(props) {
                         data: data,
                         create: props.create
                     }).then(res => {
+                        if(props.create && res)
+                            props.returnToMain()
                         setChanged(!res)
                     })}
                 handleClose={() => props.returnToMain()}
