@@ -46,7 +46,6 @@ export default function WorkPlanForm(props) {
                             {name: 'indirect_costs', type: 'bool'},
                             {name: 'detailing_of_indirect_costs', type: 'string'},
                             {name: 'budget_plan', type: 'string'},
-                            {name: 'infrastructure', type: 'string'},
 
                             // NEW CATEGORY
                             {name: 'responsible_execution', type: 'string'},
@@ -131,13 +130,12 @@ export default function WorkPlanForm(props) {
                                     handleChange={entity => {
                                         props.handleChange({name: 'infrastructure', value: entity})
                                     }} label={'Vincular infraestrutura'}
-                                    setChanged={() => null}
                                     selected={props.data === null ? null : props.data.infrastructure}
                                     width={'calc(50% - 16px)'}
                                     fields={[
                                         {name: 'name', type: 'string'},
                                         {name: 'type', type: 'string'}
-                                    ]} required={true}
+                                    ]} required={false}
                                     labels={['Nome', 'tipo']}
                                     fetchUrl={Host() + 'list/infrastructure'}
                                     fetchToken={(new Cookies()).get('jwt')}

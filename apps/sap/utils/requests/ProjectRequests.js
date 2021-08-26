@@ -11,6 +11,50 @@ const submitProps = PropTypes.shape({
     create: PropTypes.bool
 })
 export default class ProjectRequests {
+
+    static async submitUnit(submitProps){
+        let response = false
+        let data = {}
+        data = Object.assign(data, submitProps.data)
+
+        data.parent_unit = data.parent_unit.id
+
+        await Requester({
+            package: data,
+            url: submitProps.create ? Host() + 'unit' : Host() + 'unit/' + submitProps.pk,
+            method: submitProps.create ? 'post' : 'put',
+            showSuccessAlert: true,
+            token: jwt
+        }).then(res => {
+            response = true
+        }).catch(e => {
+            console.log(e)
+        })
+
+        return response
+    }
+    static async submitProject(submitProps){
+        let response = submitProps.create ? null : false
+
+        let data = {}
+        data = Object.assign(data, submitProps.data)
+
+        data.responsible = data.responsible.id
+
+        await Requester({
+            package: data,
+            url: submitProps.create ? Host() + 'project' : Host() + 'project/' + submitProps.pk,
+            method: submitProps.create ? 'post' : 'put',
+            showSuccessAlert: true,
+            token: jwt
+        }).then(res => {
+            response = submitProps.create ? res.data.id : true
+        }).catch(e => {
+            console.log(e)
+        })
+
+        return response
+    }
     static async deleteProject(submitProps) {
         let response = false
         await Requester({
@@ -43,6 +87,22 @@ export default class ProjectRequests {
         return response
     }
 
+    static async submitDecentralizedUnit(submitProps) {
+        let response = false
+
+        await Requester({
+            package: submitProps.data,
+            method: submitProps.create ? 'post' : 'put',
+            url: submitProps.create ? Host() + 'decentralized_unit' : Host() + 'decentralized_unit/' + submitProps.pk,
+            showSuccessAlert: true,
+            token: jwt
+        }).then(res => {
+            response = true
+        }).catch(e => {
+            console.log(e)
+        })
+        return response
+    }
     static async submitAction(submitProps) {
         let response = false
 
@@ -124,6 +184,22 @@ export default class ProjectRequests {
         })
         return response
     }
+    static async deleteDecentralizedUnit(submitProps) {
+        let response = false
+        await Requester({
+            package: submitProps.data,
+            method: 'delete',
+            url:  Host() + 'decentralized_unit/'+submitProps.pk,
+            showSuccessAlert: true,
+            token: jwt
+        }).then(res => {
+            submitProps.setRefreshed(false)
+            response = true
+        }).catch(e => {
+            console.log(e)
+        })
+        return response
+    }
     static async submitProjectTed(submitProps) {
         let response = false
         await Requester({
@@ -149,6 +225,38 @@ export default class ProjectRequests {
             showSuccessAlert: true,
             token: jwt
         }).then(res => {
+            response = true
+        }).catch(e => {
+            console.log(e)
+        })
+        return response
+    }
+    static async submitClassification(submitProps) {
+        let response = false
+
+        await Requester({
+            package: submitProps.data,
+            method: submitProps.create ? 'post' : 'put',
+            url: submitProps.create ? Host() + 'classification' : Host() + 'classification/' + submitProps.pk,
+            showSuccessAlert: true,
+            token: jwt
+        }).then(res => {
+            response = true
+        }).catch(e => {
+            console.log(e)
+        })
+        return response
+    }
+    static async deleteClassification(submitProps) {
+        let response = false
+        await Requester({
+            package: submitProps.data,
+            method: 'delete',
+            url:  Host() + 'classification/'+submitProps.pk,
+            showSuccessAlert: true,
+            token: jwt
+        }).then(res => {
+            submitProps.setRefreshed(false)
             response = true
         }).catch(e => {
             console.log(e)

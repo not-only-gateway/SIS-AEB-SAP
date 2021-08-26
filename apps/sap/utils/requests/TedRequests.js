@@ -32,7 +32,9 @@ export default class TedRequests {
         let data = {}
         data = Object.assign(data, submitProps.data)
 
+        data.responsible = data.responsible.id
         data.action = data.action.id
+        data.decentralized_unit = data.decentralized_unit.id
 
         await Requester({
             package: data,

@@ -253,9 +253,12 @@ export default class WorkPlanRequests {
 
     static async submitComponent(submitProps) {
         let response = false
+        let data = {}
+        data = Object.assign(data, submitProps.data)
+        data.classification = data.classification.id
 
         await Requester({
-            package: submitProps.data,
+            package: data,
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'component' : Host() + 'component/' + submitProps.pk,
             showSuccessAlert: true,

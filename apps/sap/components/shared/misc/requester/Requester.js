@@ -66,7 +66,7 @@ export default async function Requester(props) {
                 data={{
                     message: error.statusText,
                     details: error.request.responseText,
-                    httpStatusCode: JSON.parse(error.request.response).status,
+                    httpStatusCode:error.response.status,
                     package: props.package,
                     method: props.method,
                     url: props.url

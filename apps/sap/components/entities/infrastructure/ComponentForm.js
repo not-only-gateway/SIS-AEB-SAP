@@ -3,6 +3,10 @@ import PropTypes from "prop-types";
 import InfrastructurePT from "../../../packages/locales/InfrastructurePT";
 import EntityLayout from "../../shared/misc/form/EntityLayout";
 import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
+import TextField from "../../shared/inputs/text/TextField";
+import Selector from "../../shared/misc/selector/Selector";
+import Host from "../../../utils/shared/Host";
+import Cookies from "universal-cookie/lib";
 
 
 export default function ComponentForm(props) {
@@ -21,8 +25,7 @@ export default function ComponentForm(props) {
                 dependencies={{
                     fields: [
                         {name: 'situation', type: 'string'},
-                        {name: 'type', type: 'string'},
-                        {name: 'classification', type: 'string'}
+                        {name: 'classification', type: 'object'}
                     ],
                     changed: changed
                 }}
@@ -41,42 +44,37 @@ export default function ComponentForm(props) {
                 forms={[{
                     child: (
                         <>
-                            {/*<DropDownField*/}
-                            {/*    placeholder={lang.situation}*/}
-                            {/*    label={lang.situation}*/}
-                            {/*    handleChange={event => {*/}
-                            {/*        setChanged(true)*/}
-                            {/*        props.handleChange(*/}
-                            {/*            {name: 'situation', value: event}*/}
-                            {/*        )*/}
-                            {/*    }} value={props.data === null ? null : props.data.gnd} required={false}*/}
-                            {/*    width={'calc(33.333% - 21.5px)'} choices={lang.situationOptions}/>*/}
-
-
-                            {/*<DropDownField*/}
-                            {/*    placeholder={lang.type}*/}
-                            {/*    label={lang.type}*/}
-                            {/*    handleChange={event => {*/}
-                            {/*        setChanged(true)*/}
-                            {/*        props.handleChange(*/}
-                            {/*            {name: 'type', value: event}*/}
-                            {/*        )*/}
-                            {/*    }} value={props.data === null ? null : props.data.type} required={false}*/}
-                            {/*    width={'calc(33.333% - 21.5px)'} choices={lang.typeOptions}/>*/}
-
-
-                            {/*<DropDownField*/}
-                            {/*    placeholder={lang.classification}*/}
-                            {/*    label={lang.classification}*/}
-                            {/*    handleChange={event => {*/}
-                            {/*        setChanged(true)*/}
-                            {/*        props.handleChange(*/}
-                            {/*            {name: 'classification', value: event}*/}
-                            {/*        )*/}
-                            {/*    }} value={props.data === null ? null : props.data.classification} required={false}*/}
-                            {/*    width={'calc(33.333% - 21.5px)'} choices={lang.classificationOptions}/>*/}
-
-
+                            <TextField
+                                placeholder={lang.situation}
+                                label={lang.situation}
+                                handleChange={event => {
+                                    setChanged(true)
+                                    props.handleChange(
+                                        {name: 'situation', value: event.target.value}
+                                    )
+                                }} value={props.data === null ? null : props.data.situation}
+                                required={true}
+                                width={'calc(50% - 16px)'} />
+                            <Selector
+                                getEntityKey={entity => {
+                                    if (entity !== null && entity !== undefined)
+                                        return entity.id
+                                    else return -1
+                                }} searchFieldName={'search_input'}
+                                handleChange={entity => {
+                                    props.handleChange({name: 'classification', value: entity})
+                                }} label={'Vincular classificação'}
+                                setChanged={() => null}
+                                selected={props.data === null || !props.data.classification ? null : props.data.classification}
+                                width={'calc(50% - 16px)'}
+                                fields={[
+                                    {name: 'classification', type: 'string'},
+                                    {name: 'type', type: 'string'},
+                                ]} required={true}
+                                labels={['classificação', 'tipo']}
+                                fetchUrl={Host() + 'list/classification'}
+                                fetchToken={(new Cookies()).get('jwt')}
+                            />
                         </>
                     )
                 }]}/>

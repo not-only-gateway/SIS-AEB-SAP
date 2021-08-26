@@ -41,7 +41,8 @@ export default function TedForm(props) {
                         {name: 'responsible', type: 'string'},
                         {name: 'global_value', type: 'number'},
                         {name: 'decentralized', type: 'string'},
-                        {name: 'action', type: 'string'},
+                        {name: 'action', type: 'object'},
+                        {name: 'decentralized_unit', type: 'object'},
 
                         {name: 'object', type: 'string'},
                         {name: 'object_summary', type: 'string'},
@@ -79,16 +80,7 @@ export default function TedForm(props) {
                                     props.handleChange({name: 'number', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.number}
                                 required={true}
-                                width={'calc(33.333% - 21.35px)'}/>
-
-                            <DropDownField
-                                placeholder={lang.responsible}
-                                label={lang.responsible}
-                                handleChange={event => {
-                                    setChanged(true)
-                                    props.handleChange({name: 'responsible', value: event})
-                                }} value={props.data === null ? null : props.data.responsible} required={true}
-                                width={'calc(33.333% - 21.5px)'} choices={lang.responsibleOptions}/>
+                                width={'calc(50% - 16px)'}/>
 
 
                             <TextField
@@ -99,7 +91,7 @@ export default function TedForm(props) {
                                     props.handleChange({name: 'year', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.year}
                                 required={true}
-                                width={'calc(33.333% - 21.35px)'}/>
+                                width={'calc(50% - 16px)'}/>
 
                             <TextField
 
@@ -122,7 +114,10 @@ export default function TedForm(props) {
                                 placeholder={lang.ownership} label={lang.ownership}
                                 handleChange={event => {
                                     setChanged(true)
-                                    props.handleChange({name: 'ownership_destination_assets', value: event.target.value})
+                                    props.handleChange({
+                                        name: 'ownership_destination_assets',
+                                        value: event.target.value
+                                    })
                                 }} locale={props.locale}
                                 value={props.data === null ? null : props.data.ownership_destination_assets}
                                 required={true} variant={'area'}
@@ -168,7 +163,7 @@ export default function TedForm(props) {
                                     props.handleChange({name: 'global_value', value: event.target.value})
                                 }} locale={props.locale}
                                 value={props.data === null ? null : props.data.global_value}
-                                required={true} width={'calc(33.333% - 21.5px)'}/>
+                                required={true} width={'calc(50% - 16px)'}/>
 
                             <TextField
                                 placeholder={lang.decentralized}
@@ -178,100 +173,154 @@ export default function TedForm(props) {
                                     props.handleChange({name: 'decentralized', value: event.target.value})
                                 }} locale={props.locale}
                                 value={props.data === null ? null : props.data.decentralized}
-                                required={true} width={'calc(33.333% - 21.5px)'}/>
+                                required={true} width={'calc(50% - 16px)'}/>
+                        </>)
+                },
+                    {
+                        child: (
+                            <>
+                                <Selector
+                                    getEntityKey={entity => {
+                                        if (entity !== null && entity !== undefined)
+                                            return entity.id
+                                        else return -1
+                                    }} searchFieldName={'search_input'}
+                                    handleChange={entity => {
+                                        props.handleChange({name: 'responsible', value: entity})
+                                    }} label={'Vincular responsável'}
+                                    selected={props.data === null || !props.data.responsible ? null : props.data.responsible}
+                                    disabled={false}
+                                    width={'calc(33.333% - 21.5px)'}
+                                    fields={[
+                                        {name: 'name', type: 'string'},
+                                        {name: 'acronym', type: 'string'},
+                                    ]} required={true}
+                                    labels={['nome', 'Acrônimo']}
+                                    fetchUrl={Host() + 'list/unit'}
+                                    fetchToken={(new Cookies()).get('jwt')}
+                                />
+                                <Selector
+                                    getEntityKey={entity => {
+                                        if (entity !== null && entity !== undefined)
+                                            return entity.id
+                                        else return -1
+                                    }} searchFieldName={'search_input'}
+                                    handleChange={entity => {
+                                        props.handleChange({name: 'decentralized_unit', value: entity})
+                                    }} label={'Vincular unidade descentralizada'}
+                                    selected={props.data === null || !props.data.decentralized_unit ? null : props.data.decentralized_unit}
+                                    disabled={false}
+                                    width={'calc(33.333% - 21.5px)'}
+                                    fields={[
+                                        {name: 'name', type: 'string'},
+                                        {name: 'responsible', type: 'string'},
+                                    ]} required={true}
+                                    labels={['nome', 'responsável']}
+                                    fetchUrl={Host() + 'list/decentralized_unit'}
+                                    fetchToken={(new Cookies()).get('jwt')}
+                                />
 
-                            <Selector
-                                getEntityKey={entity => {
-                                    if (entity !== null && entity !== undefined)
-                                        return entity.id
-                                    else return -1
-                                }} searchFieldName={'search_input'}
-                                handleChange={entity => {
-                                    props.handleChange({name: 'action', value: entity})
-                                }} label={'Vincular ação'}
-                                setChanged={() => null}
-                                selected={props.data === null || !props.data.action ? null : props.data.action}
-                                disabled={false}
-                                handleCreate={() => setOpen(true)}
-                                width={'calc(33.333% - 21.5px)'}
-                                fields={[
-                                    {name: 'number', type: 'string'},
-                                    {name: 'detailing', type: 'string'},
-                                ]} required={true}
-                                labels={['número', 'detalhamento']}
-                                fetchUrl={Host() + 'list/action'}
-                                createOption={true}
-                                fetchToken={(new Cookies()).get('jwt')}
-                            />
 
+                                <Selector
+                                    getEntityKey={entity => {
+                                        if (entity !== null && entity !== undefined)
+                                            return entity.id
+                                        else return -1
+                                    }} searchFieldName={'search_input'}
+                                    handleChange={entity => {
+                                        props.handleChange({name: 'action', value: entity})
+                                    }} label={'Vincular ação'}
+                                    setChanged={() => null}
+                                    selected={props.data === null || !props.data.action ? null : props.data.action}
+                                    disabled={false}
+                                    handleCreate={() => setOpen(true)}
+                                    width={'calc(33.333% - 21.5px)'}
+                                    fields={[
+                                        {name: 'number', type: 'string'},
+                                        {name: 'detailing', type: 'string'},
+                                    ]} required={true}
+                                    labels={['número', 'detalhamento']}
+                                    fetchUrl={Host() + 'list/action'}
+                                    createOption={true}
+                                    fetchToken={(new Cookies()).get('jwt')}
+                                />
+                            </>
+                        )
+                    },
+                    {
 
-                            <TextField
-                                placeholder={lang.object} label={lang.object}
-                                handleChange={event => {
-                                    setChanged(true)
-                                    props.handleChange({name: 'object', value: event.target.value})
-                                }} locale={props.locale}
-                                value={props.data === null ? null : props.data.object}
-                                required={true} variant={'area'}
-                                width={'100%'}/>
-                            <TextField
-                                placeholder={lang.objectSummary} label={lang.objectSummary}
-                                handleChange={event => {
-                                    setChanged(true)
-                                    props.handleChange({name: 'object_summary', value: event.target.value})
-                                }} locale={props.locale}
-                                value={props.data === null ? null : props.data.object_summary}
-                                required={true} variant={'area'}
-                                width={'100%'}/>
+                        child: (
+                            <>
+                                <TextField
+                                    placeholder={lang.object} label={lang.object}
+                                    handleChange={event => {
+                                        setChanged(true)
+                                        props.handleChange({name: 'object', value: event.target.value})
+                                    }} locale={props.locale}
+                                    value={props.data === null ? null : props.data.object}
+                                    required={true} variant={'area'}
+                                    width={'100%'}/>
+                                <TextField
+                                    placeholder={lang.objectSummary} label={lang.objectSummary}
+                                    handleChange={event => {
+                                        setChanged(true)
+                                        props.handleChange({name: 'object_summary', value: event.target.value})
+                                    }} locale={props.locale}
+                                    value={props.data === null ? null : props.data.object_summary}
+                                    required={true} variant={'area'}
+                                    width={'100%'}/>
 
-                            <TextField
-                                placeholder={lang.justification} label={lang.justification}
-                                handleChange={event => {
-                                    setChanged(true)
-                                    props.handleChange({name: 'justification', value: event.target.value})
-                                }} locale={props.locale}
-                                value={props.data === null ? null : props.data.justification}
-                                required={true} variant={'area'}
-                                width={'100%'}/>
+                                <TextField
+                                    placeholder={lang.justification} label={lang.justification}
+                                    handleChange={event => {
+                                        setChanged(true)
+                                        props.handleChange({name: 'justification', value: event.target.value})
+                                    }} locale={props.locale}
+                                    value={props.data === null ? null : props.data.justification}
+                                    required={true} variant={'area'}
+                                    width={'100%'}/>
 
-                            <TextField
-                                placeholder={lang.summaryJustification} label={lang.summaryJustification}
-                                handleChange={event => {
-                                    setChanged(true)
-                                    props.handleChange({name: 'summary_justification', value: event.target.value})
-                                }} locale={props.locale}
-                                value={props.data === null ? null : props.data.summary_justification}
-                                required={true} variant={'area'}
-                                width={'100%'}/>
+                                <TextField
+                                    placeholder={lang.summaryJustification} label={lang.summaryJustification}
+                                    handleChange={event => {
+                                        setChanged(true)
+                                        props.handleChange({name: 'summary_justification', value: event.target.value})
+                                    }} locale={props.locale}
+                                    value={props.data === null ? null : props.data.summary_justification}
+                                    required={true} variant={'area'}
+                                    width={'100%'}/>
 
-                            <TextField
-                                placeholder={lang.programmaticFunctional} label={lang.programmaticFunctional}
-                                handleChange={event => {
-                                    setChanged(true)
-                                    props.handleChange({name: 'programmatic_functional_classification', value: event.target.value})
-                                }} locale={props.locale}
-                                value={props.data === null ? null : props.data.programmatic_functional_classification}
-                                required={true} variant={'area'}
-                                width={'100%'}/>
-                            <Modal open={open} handleClose={() => setOpen(false)}>
-                                <div style={{
-                                    height: '100vh',
-                                    width: '100vw',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center'
-                                }}>
-                                    <ActionForm
-                                        returnToMain={() => {
-                                            setOpen(false)
-                                        }}
-                                        create={true}
-                                    />
-                                </div>
-                            </Modal>
-                        </>
-                    )
-                }
+                                <TextField
+                                    placeholder={lang.programmaticFunctional} label={lang.programmaticFunctional}
+                                    handleChange={event => {
+                                        setChanged(true)
+                                        props.handleChange({
+                                            name: 'programmatic_functional_classification',
+                                            value: event.target.value
+                                        })
+                                    }} locale={props.locale}
+                                    value={props.data === null ? null : props.data.programmatic_functional_classification}
+                                    required={true} variant={'area'}
+                                    width={'100%'}/>
+                                <Modal open={open} handleClose={() => setOpen(false)}>
+                                    <div style={{
+                                        height: '100vh',
+                                        width: '100vw',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center'
+                                    }}>
+                                        <ActionForm
+                                            returnToMain={() => {
+                                                setOpen(false)
+                                            }}
+                                            create={true}
+                                        />
+                                    </div>
+                                </Modal>
+                            </>
+                        )
+                    }
                 ]}/>
         </>
     )

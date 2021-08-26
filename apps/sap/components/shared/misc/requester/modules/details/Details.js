@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import styles from "../../styles/Details.module.css";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import ReactDOM from "react-dom";
 import AlertPT from "../../locales/LocalesPT";
 import {CloseRounded} from "@material-ui/icons";
@@ -11,7 +11,7 @@ export default function Details(props) {
     useEffect(() => {
         const newElement = document.createElement('div')
         document.body.appendChild(newElement)
-        if(props.open && props.data !== undefined)
+        if (props.open && props.data !== undefined)
             ReactDOM.render(
                 (
                     <div className={styles.wrapper}>
@@ -29,11 +29,30 @@ export default function Details(props) {
                                 {props.data.url}
                             </div>
                         </div>
-                        <div>
-                            {lang.details}
-                            <div className={styles.body}>
-                                {props.data.details}
+                        <div style={{wordBreak: 'break-all', maxWidth: '100%', overflow: 'hidden'}}>
+                            <div style={{display: 'flex', gap: '16px', alignItems: 'center', position: 'relative'}}>
+                                {lang.details}
+                                <button className={styles.copyButton} onClick={event => {
+                                    navigator.clipboard.writeText(props.data.details);
+                                    event.target.innerText = 'Copiado'
+                                    event.target.style.background = 'white'
+                                    event.target.style.color = '#555555'
+                                    event.target.style.border = '#ecedf2 1px solid'
+                                    console.log(event.target)
+                                    setTimeout(() => {
+                                        console.log('On timeout')
+                                        event.target.innerText = 'Copiar'
+                                        event.target.style.background = '#0095ff'
+                                        event.target.style.color = 'white'
+                                        event.target.style.border = 'transparent 1px solid'
+                                    }, 5000)
+                                }}>
+                                    Copiar
+                                </button>
                             </div>
+                            <pre className={styles.body}>
+                                {JSON.stringify((JSON.parse(props.data.details)), null, 4)}
+                            </pre>
                         </div>
                         <div>
                             {lang.params}
@@ -43,7 +62,10 @@ export default function Details(props) {
                                     {lang.method} {props.data.method}
                                 </div>
                                 <div>
-                                    {lang.setPackage} {JSON.stringify(props.data.package)}
+                                    {lang.setPackage}
+                                    <pre className={styles.body} style={{background: 'white'}}>
+                                        {JSON.stringify(props.data.package, null, 4)}
+                                    </pre>
                                 </div>
                                 <div>
                                     {lang.url} {props.data.url}
@@ -56,9 +78,9 @@ export default function Details(props) {
             )
 
         return () => {
-            try{
+            try {
                 ReactDOM.unmountComponentAtNode(newElement)
-            }catch (e){
+            } catch (e) {
                 document.body.removeChild(newElement)
             }
         }

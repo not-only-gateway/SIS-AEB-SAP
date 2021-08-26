@@ -49,7 +49,9 @@
 
 .body {
     margin-top: 4px;
-
+    word-break: break-all;
+    line-break: anywhere;
+    overflow: auto;
     color: #555555;
     font-weight: bold;
     font-size: .8rem;
@@ -104,4 +106,31 @@
 .closeButton:active {
     color: #ff5555;
     transform: scale(1.1);
+}
+
+.copyButton {
+    height: 20px;
+
+    outline: none;
+    cursor: pointer;
+    border: none;
+    background: #0095ff;
+    color: white;
+    border-radius: 5px;
+    font-family: Roboto;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 150ms linear;
+
+    padding: 4px 16px;
+}
+
+.copyButton:hover{
+    opacity: .9;
+}
+.copyButton:active{
+    opacity: .6;
 }

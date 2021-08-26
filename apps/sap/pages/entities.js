@@ -7,6 +7,10 @@ import InfrastructureList from "../components/entities/infrastructure/Infrastruc
 import BudgetPlanList from "../components/entities/budget_plan/BudgetPlanList";
 import NatureExpenseList from "../components/entities/nature_expense/NatureExpenseList";
 import ActionList from "../components/entities/action/ActionList";
+import ClassificationList from "../components/entities/classification/ClassificationList";
+import DecentralizedUnitList from "../components/entities/decentralized/DecentralizedUnitList";
+import UnitList from "../components/entities/unit/UnitList";
+
 
 
 export default function entities(){
@@ -20,7 +24,6 @@ export default function entities(){
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
             <>
-
                 <Tabs
                     buttons={[
                         {
@@ -57,6 +60,33 @@ export default function entities(){
                             content: (
                                 <div style={{width: '70%', margin: 'auto'}}>
                                     <ActionList />
+                                </div>
+                            )
+                        },
+                        {
+                            key: 4,
+                            value: lang.classifications,
+                            content: (
+                                <div style={{width: '70%', margin: 'auto'}}>
+                                    <ClassificationList />
+                                </div>
+                            )
+                        },
+                        {
+                            key: 5,
+                            value: lang.decentralizedUnit,
+                            content: (
+                                <div style={{width: '70%', margin: 'auto'}}>
+                                    <DecentralizedUnitList />
+                                </div>
+                            )
+                        },
+                        {
+                            key: 6,
+                            value: lang.unit,
+                            content: (
+                                <div style={{width: '70%', margin: 'auto'}}>
+                                    <UnitList />
                                 </div>
                             )
                         },

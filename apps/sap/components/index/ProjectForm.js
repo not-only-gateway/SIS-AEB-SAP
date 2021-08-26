@@ -2,9 +2,12 @@ import React, {useState} from "react";
 import PropTypes from 'prop-types'
 import {TextField} from "sis-aeb-inputs";
 import ProjectPT from "../../packages/locales/ProjectPT";
-import submitProject from "../../utils/submit/SubmitProject";
 import EntityLayout from "../shared/misc/form/EntityLayout";
 import DropDownField from "../shared/inputs/dropdown/DropDownField";
+import Selector from "../shared/misc/selector/Selector";
+import Host from "../../utils/shared/Host";
+import Cookies from "universal-cookie/lib";
+import ProjectRequests from "../../utils/requests/ProjectRequests";
 
 
 export default function ProjectForm(props) {
@@ -39,7 +42,7 @@ export default function ProjectForm(props) {
                 }} noHeader={!props.create}
                 returnButton={props.create}
                 handleSubmit={() =>
-                    submitProject({
+                    ProjectRequests.submitProject({
                         pk: props.id,
                         data: props.data,
                         create: props.create
@@ -121,16 +124,26 @@ export default function ProjectForm(props) {
                                 value={props.data === null ? null : props.data.critical_factors}
                                 required={true} width={'100%'}/>
 
-                            <DropDownField
-                                dark={true}
-                                placeholder={lang.responsible}
-                                label={lang.responsible}
-                                handleChange={event => {
-                                    setChanged(true)
-                                    props.handleChange({name: 'responsible', value: event})
-                                }} value={props.data === null ? null : props.data.responsible} required={true}
-                                width={'calc(50% - 16px)'} choices={lang.responsibleOptions}/>
-
+                            <Selector
+                                getEntityKey={entity => {
+                                    if (entity !== null && entity !== undefined)
+                                        return entity.id
+                                    else return -1
+                                }} searchFieldName={'search_input'}
+                                handleChange={entity => {
+                                    props.handleChange({name: 'responsible', value: entity})
+                                }} label={'Vincular responsável'}
+                                selected={props.data === null || !props.data.responsible ? null : props.data.responsible}
+                                disabled={false}
+                                width={'calc(50% - 16px)'}
+                                fields={[
+                                    {name: 'name', type: 'string'},
+                                    {name: 'acronym', type: 'string'},
+                                ]} required={true}
+                                labels={['nome', 'Acrônimo']}
+                                fetchUrl={Host() + 'list/unit'}
+                                fetchToken={(new Cookies()).get('jwt')}
+                            />
 
                             <TextField
                                 placeholder={lang.manager}

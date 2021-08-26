@@ -40,7 +40,7 @@ export default function BudgetPlanForm(props) {
                     fields: [
                         {name: 'number', type: 'string'},
                         {name: 'action', type: 'object'},
-                        {name: 'detailing', type: 'object'},
+                        {name: 'detailing', type: 'string'},
                     ],
                     changed: changed
                 }}

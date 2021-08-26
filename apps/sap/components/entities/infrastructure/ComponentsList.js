@@ -39,8 +39,8 @@ export default function ComponentsList(props) {
                     setRefreshed={setRefreshed}
 
                     fields={[
-                        {name: 'classification', type: 'string',label: 'classificação'},
-                        {name: 'type', type: 'string',label: 'Tipo'},
+                        {name: 'classification', type: 'object',subfield: 'classification'},
+                        {name: 'classification', type: 'object',subfield: 'type'},
                         {name: 'situation', type: 'string',label: 'situação'}
                     ]}
                     options={[{

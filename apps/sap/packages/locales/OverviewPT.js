@@ -18,5 +18,9 @@ export default{
     actions: 'Ações',
     budgetPlans: 'Planos orçamentários',
     infrastructures: 'Infraestruturas',
-    natureOfExpense: 'Naturezas de despesa'
+    natureOfExpense: 'Naturezas de despesa',
+    decentralizedUnit: 'Unidade descentralizada',
+    unit: 'Unidades / Responsáveis',
+    classifications: 'Classificações',
+    classification: 'Classificação'
 }
