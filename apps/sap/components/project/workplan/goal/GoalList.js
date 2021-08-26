@@ -7,6 +7,8 @@ import Cookies from "universal-cookie/lib";
 import Host from "../../../../utils/shared/Host";
 import WorkPlanRequests from "../../../../utils/requests/WorkPlanRequests";
 import GoalForm from "./GoalForm";
+import {DeleteRounded, GetAppRounded, RemoveRounded} from "@material-ui/icons";
+import OperationRequests from "../../../../utils/requests/OperationRequests";
 
 export default function GoalList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -61,7 +63,33 @@ export default function GoalList(props) {
                             props.setCurrentStructure(entity)
                         else
                             setOpen(true)
-                    }} searchFieldName={'search_input'} title={'Metas'} scrollableElement={'scrollableDiv'}
+                    }}
+                    options={[{
+                        label: 'Deletar',
+                        icon: <DeleteRounded/>,
+                        onClick: (entity) => {
+                            WorkPlanRequests.deleteGoal({
+                                pk: entity.id,
+                                setRefreshed: setRefreshed
+                            })
+                        },
+                        disabled: false,
+                        color: '#ff5555'
+                    }, {
+                        label: 'Baixar dados',
+                        icon: <GetAppRounded/>,
+                        onClick: (entity) => {
+                            let downloadAnchorNode = document.createElement('a');
+                            const data =  "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(entity))
+                            downloadAnchorNode.setAttribute("href", data);
+                            downloadAnchorNode.setAttribute("download", `${entity.id}.json`);
+                            document.body.appendChild(downloadAnchorNode)
+                            downloadAnchorNode.click()
+                            downloadAnchorNode.remove()
+                        },
+                        disabled: false
+                    }]}
+                    searchFieldName={'search_input'} title={'Metas'} scrollableElement={'scrollableDiv'}
                     fetchSize={15}
                     fetchParams={{
                         work_plan: props.workPlan.id

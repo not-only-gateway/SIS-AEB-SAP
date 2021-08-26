@@ -4,7 +4,7 @@ import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import List from "../../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";
 import Host from "../../../utils/shared/Host";
-import {RemoveRounded} from "@material-ui/icons";
+import {DeleteRounded, GetAppRounded, RemoveRounded} from "@material-ui/icons";
 import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
 import NatureExpenseForm from "./NatureExpenseForm";
 
@@ -40,15 +40,30 @@ export default function NatureExpenseList(props) {
                     setRefreshed={setRefreshed}
                     options={[{
                         label: 'Deletar',
-                        icon: <RemoveRounded/>,
+                        icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             WorkPlanRequests.deleteInfrastructure({
                                 pk: entity.id,
                                 setRefreshed: setRefreshed
                             })
                         },
-                        disabled: false
-                    }]}
+                        disabled: false,
+                        color: '#ff5555'
+                    },
+                        {
+                            label: 'Baixar dados',
+                            icon: <GetAppRounded/>,
+                            onClick: (entity) => {
+                                let downloadAnchorNode = document.createElement('a');
+                                const data =  "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(entity))
+                                downloadAnchorNode.setAttribute("href", data);
+                                downloadAnchorNode.setAttribute("download", `${entity.id}.json`);
+                                document.body.appendChild(downloadAnchorNode)
+                                downloadAnchorNode.click()
+                                downloadAnchorNode.remove()
+                            },
+                            disabled: false
+                        }]}
                     fields={[
                         {name: 'gnd', type: 'string'},
                         {name: 'nature_of_expense', type: 'string'},

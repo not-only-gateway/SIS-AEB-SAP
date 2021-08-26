@@ -30,6 +30,25 @@ export default class WorkPlanRequests {
 
         return response
     }
+    static async deleteGoal(submitProps) {
+        let response = false
+
+        await Requester({
+            package: submitProps.data,
+            method: 'delete',
+            url: Host() + 'work_plan_goal/' + submitProps.pk,
+            showSuccessAlert: true,
+            token: jwt
+        }).then(res => {
+            submitProps.setRefreshed(false)
+            response = true
+        }).catch(e => {
+            console.log(e)
+        })
+
+
+        return response
+    }
 
     static async fetchWorkPlan(pk) {
         let response = null

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
 import Cookies from "universal-cookie/lib";
-import {RemoveRounded} from "@material-ui/icons";
+import {DeleteRounded, GetAppRounded, RemoveRounded} from "@material-ui/icons";
 import Host from "../../../utils/shared/Host";
 import List from "../../shared/misc/list/List";
 import ComponentForm from "./ComponentForm";
@@ -45,15 +45,30 @@ export default function ComponentsList(props) {
                     ]}
                     options={[{
                         label: 'Deletar',
-                        icon: <RemoveRounded/>,
+                        icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             WorkPlanRequests.deleteComponent({
                                 pk: entity.id,
                                 setRefreshed: setRefreshed
                             })
                         },
-                        disabled: false
-                    }]}
+                        disabled: false,
+                        color: '#ff5555'
+                    },
+                        {
+                            label: 'Baixar dados',
+                            icon: <GetAppRounded/>,
+                            onClick: (entity) => {
+                                let downloadAnchorNode = document.createElement('a');
+                                const data =  "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(entity))
+                                downloadAnchorNode.setAttribute("href", data);
+                                downloadAnchorNode.setAttribute("download", `${entity.id}.json`);
+                                document.body.appendChild(downloadAnchorNode)
+                                downloadAnchorNode.click()
+                                downloadAnchorNode.remove()
+                            },
+                            disabled: false
+                        }]}
                     labels={['classificação', 'tipo', 'situação']}
                     clickEvent={() => setOpen(true)}
                     setEntity={entity => {

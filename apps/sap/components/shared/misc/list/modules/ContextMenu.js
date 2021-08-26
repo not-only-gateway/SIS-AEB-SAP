@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom'
 
 export default function ContextMenu(props) {
     let entity = null
+    let target = null
     const remove = () => {
         props.mountingPoint.classList.add(styles.exitAnimation)
 
@@ -17,20 +18,33 @@ export default function ContextMenu(props) {
         event.preventDefault()
         const parsedIndex = event.target.id.replace('*-', '').replace('-row', '').replace('-field', '')
         if (event.button === 2 && event.target.id.includes('*-') && parsedIndex !== 'undefined') {
-            const data = props.data[parseInt(parsedIndex)]
-
+            const data = props.data[0][parseInt(parsedIndex)]
+            target = event.target.id.includes('-wrapper') ? event.target : event.target.id.includes('-row') ? event.target.parentNode : event.target.parentNode.parentNode
+            target.style.background = '#E8F0FE'
             const context = (
                 <div className={styles.context}>
                     {props.options.map((button, i) => (
                         <button
                             onClick={() => {
+                                target.style.background = ''
                                 button.onClick(data)
                                 remove()
                             }} key={i + '-button'} id={i + '-button'}
                             disabled={button.disabled}
+                            onMouseEnter={e => {
+                                if (button.color !== undefined && button.color !== null)
+                                    e.target.style.color = button.color
+                                else
+                                    e.target.style.color = '#0095ff'
+                            }}
+                            onMouseLeave={e => {
+                                e.target.style.color = '#575757'
+                            }}
                             className={styles.contextButton}
                         >
-                            {button.icon}
+                            <div style={{width: '30px'}}>
+                                {button.icon}
+                            </div>
                             {button.label}
                         </button>
                     ))}
@@ -45,11 +59,11 @@ export default function ContextMenu(props) {
 
     }
     const handleExit = (event) => {
-        console.log(event.target.className)
-        console.log(entity)
-        if (event && event.button === 2 && typeof event.target.className === "object" || (typeof event.target.className === "string" && !event.target.className.includes('List_contextButton')))  {
+        if (event && event.button === 2 && typeof event.target.className === "object" || (typeof event.target.className === "string" && !event.target.className.includes('List_contextButton'))) {
             remove()
-            console.log('HERE')
+            if (target !== null)
+                target.style.background = ''
+            target = null
         }
 
     }
@@ -77,5 +91,5 @@ ContextMenu.propTypes = {
         onClick: PropTypes.func,
         disabled: PropTypes.bool
     })),
-    data: PropTypes.arrayOf(PropTypes.object)
+    data: PropTypes.array
 }

@@ -6,7 +6,7 @@ import List from "../../../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";
 import Host from "../../../../utils/shared/Host";
 import RiskForm from "./RiskForm";
-import {RemoveRounded} from "@material-ui/icons";
+import {DeleteRounded, GetAppRounded, RemoveRounded} from "@material-ui/icons";
 import ProjectRequests from "../../../../utils/requests/ProjectRequests";
 
 export default function RisksList(props) {
@@ -71,12 +71,26 @@ export default function RisksList(props) {
                     fetchSize={15}
                     options={[{
                         label: 'Deletar',
-                        icon: <RemoveRounded/>,
+                        icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             ProjectRequests.deleteRisk({
                                 pk: entity.id,
                                 setRefreshed: setRefreshed
                             })
+                        },
+                        disabled: false,
+                        color: '#ff5555'
+                    }, {
+                        label: 'Baixar dados',
+                        icon: <GetAppRounded/>,
+                        onClick: (entity) => {
+                            let downloadAnchorNode = document.createElement('a');
+                            const data =  "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(entity))
+                            downloadAnchorNode.setAttribute("href", data);
+                            downloadAnchorNode.setAttribute("download", `${entity.id}.json`);
+                            document.body.appendChild(downloadAnchorNode)
+                            downloadAnchorNode.click()
+                            downloadAnchorNode.remove()
                         },
                         disabled: false
                     }]}

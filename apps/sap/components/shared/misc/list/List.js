@@ -10,6 +10,7 @@ import {ArrowBackRounded, ArrowForwardRounded} from "@material-ui/icons";
 import ListPropsTemplate from "../shared/ListPropsTemplate";
 import pStyles from './styles/PageChanger.module.css'
 import ListHeader from "./modules/Header";
+import ListLabels from "./modules/ListLabels";
 
 export default function List(props) {
     const [data, setData] = useState([])
@@ -46,7 +47,7 @@ export default function List(props) {
     useEffect(() => {
         if (!mounted) {
             if (!props.asModal) {
-                setMaxHeight(document.documentElement.offsetHeight - ref.current.getBoundingClientRect().y - 16 )
+                setMaxHeight(document.documentElement.offsetHeight - ref.current.getBoundingClientRect().y - 16)
             } else {
 
                 setMaxHeight(ref.current?.parentNode.getBoundingClientRect().height - ref.current?.offsetTop)
@@ -69,9 +70,7 @@ export default function List(props) {
     return (
         <div
             className={styles.container} ref={ref}
-            style={{
-                boxShadow: props.noShadow ? 'none' : undefined, height: maxHeight + 'px'
-            }}
+            style={{height: maxHeight + 'px'}}
         >
             {
                 props.options !== undefined && mountingPoint !== undefined ?
@@ -101,13 +100,12 @@ export default function List(props) {
                     }}/>
                 }
                 <div className={styles.labelsContainer}>
-                    {props.labels.map(l => (
-                        <div className={styles.label} style={{width: (100 / props.labels.length) + '%'}}>
-                            {l}
-                        </div>
+                    {props.labels.map((l, i) => (
+                        <React.Fragment key={'list-labels-' + i + '-' + l}>
+                            <ListLabels data={data} index={i} label={l} fields={props.fields}/>
+                        </React.Fragment>
                     ))}
                 </div>
-
             </div>
 
             {loading ?

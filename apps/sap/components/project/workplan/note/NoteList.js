@@ -4,7 +4,7 @@ import Cookies from "universal-cookie/lib";
 import animations from "../../../../styles/Animations.module.css";
 import handleObjectChange from "../../../../utils/shared/HandleObjectChange";
 import List from "../../../shared/misc/list/List";
-import {RemoveRounded} from "@material-ui/icons";
+import {DeleteRounded, GetAppRounded, RemoveRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import NoteForm from "./NoteForm";
 import OperationRequests from "../../../../utils/requests/OperationRequests";
@@ -55,12 +55,26 @@ export default function NoteList(props) {
                     scrollableElement={'scrollableDiv'}
                     options={[{
                         label: 'Deletar',
-                        icon: <RemoveRounded/>,
+                        icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             OperationRequests.deleteNote({
                                 pk: entity.id,
                                 setRefreshed: setRefreshed
                             })
+                        },
+                        disabled: false,
+                        color: '#ff5555'
+                    }, {
+                        label: 'Baixar dados',
+                        icon: <GetAppRounded/>,
+                        onClick: (entity) => {
+                            let downloadAnchorNode = document.createElement('a');
+                            const data =  "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(entity))
+                            downloadAnchorNode.setAttribute("href", data);
+                            downloadAnchorNode.setAttribute("download", `${entity.id}.json`);
+                            document.body.appendChild(downloadAnchorNode)
+                            downloadAnchorNode.click()
+                            downloadAnchorNode.remove()
                         },
                         disabled: false
                     }]}

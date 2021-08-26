@@ -3,7 +3,7 @@ import animations from "../../../styles/Animations.module.css";
 import List from "../../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";
 import Host from "../../../utils/shared/Host";
-import {RemoveRounded} from "@material-ui/icons";
+import {DeleteRounded, GetAppRounded, RemoveRounded} from "@material-ui/icons";
 import Infrastructure from "./Infrastructure";
 import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
 
@@ -37,7 +37,7 @@ export default function InfrastructureList(props) {
                     setRefreshed={setRefreshed}
                     options={[{
                         label: 'Deletar',
-                        icon: <RemoveRounded/>,
+                        icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             WorkPlanRequests.deleteInfrastructure({
                                 pk: entity.id,
@@ -45,8 +45,23 @@ export default function InfrastructureList(props) {
                                 setRefreshed: setRefreshed
                             })
                         },
-                        disabled: false
-                    }]}
+                        disabled: false,
+                        color: '#ff5555'
+                    },
+                        {
+                            label: 'Baixar dados',
+                            icon: <GetAppRounded/>,
+                            onClick: (entity) => {
+                                let downloadAnchorNode = document.createElement('a');
+                                const data =  "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(entity))
+                                downloadAnchorNode.setAttribute("href", data);
+                                downloadAnchorNode.setAttribute("download", `${entity.id}.json`);
+                                document.body.appendChild(downloadAnchorNode)
+                                downloadAnchorNode.click()
+                                downloadAnchorNode.remove()
+                            },
+                            disabled: false
+                        }]}
                     fields={[
                         {name: 'name', type: 'string',label: 'Nome'},
                         {name: 'type', type: 'string',label: 'Tipo'}

@@ -6,7 +6,13 @@ import animations from "../../styles/Animations.module.css";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import List from "../shared/misc/list/List";
 import ProjectForm from "./ProjectForm";
-import {ArrowForwardRounded, RemoveRounded} from "@material-ui/icons";
+import {
+    ArrowForwardRounded,
+    CloudDownloadRounded,
+    DeleteForeverRounded, DeleteRounded,
+    FileCopyRounded, GetAppRounded,
+    RemoveRounded
+} from "@material-ui/icons";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 
 export default function ProjectList(props) {
@@ -45,20 +51,35 @@ export default function ProjectList(props) {
                     clickEvent={() => null}
                     options={[{
                         label: 'Deletar projeto',
-                        icon: <RemoveRounded/>,
+                        icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             ProjectRequests.deleteProject({
                                 pk: entity.id,
                                 setRefreshed: setRefreshed
                             })
                         },
-                        disabled: false
+                        disabled: false,
+                        color: '#ff5555'
                     },
                         {
                             label: 'Abrir',
                             icon: <ArrowForwardRounded/>,
                             onClick: (entity) => {
                                 props.redirect(entity.id)
+                            },
+                            disabled: false
+                        },
+                        {
+                            label: 'Baixar dados',
+                            icon: <GetAppRounded/>,
+                            onClick: (entity) => {
+                                let downloadAnchorNode = document.createElement('a');
+                                const data =  "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(entity))
+                                downloadAnchorNode.setAttribute("href", data);
+                                downloadAnchorNode.setAttribute("download", `${entity.id}.json`);
+                                document.body.appendChild(downloadAnchorNode)
+                                downloadAnchorNode.click()
+                                downloadAnchorNode.remove()
                             },
                             disabled: false
                         }

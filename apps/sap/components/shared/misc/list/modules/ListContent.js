@@ -9,14 +9,14 @@ export default function ListContent(props) {
 
     return (
         <button
-            disabled={!props.create && props.onlyCreate} id={('*-' + props.index)}
+            disabled={!props.create && props.onlyCreate} id={('*-' + props.index + '-wrapper')}
             className={[styles.rowContainer, styles.fadeIn].join(' ')}
             onClick={event => {
                 props.setEntity()
                 props.clickEvent(event, props.create)
             }}
             style={{
-                animationDuration: '250ms',
+                animationDelay: (props.index * 100) + 'ms',
                 borderBottom:  '#ecedf2 1px solid'
             }}
         >
@@ -67,7 +67,7 @@ ListContent.propTypes = {
         label: PropTypes.string,
         getColor: PropTypes.func,
         maskEnd: PropTypes.string,
-        capitalize: PropTypes.string,
+        capitalize: PropTypes.bool,
         subfield: PropTypes.string
     })),
 }

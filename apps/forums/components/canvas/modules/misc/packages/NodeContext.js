@@ -62,6 +62,7 @@ export default [
                 ...props.data,
                 nodes: newNodes
             })
-        }
+        },
+        color: '#ff5555'
     },
 ]

@@ -7,8 +7,9 @@ import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import List from "../../shared/misc/list/List";
 import TedForm from "./TedForm";
 import Selector from "../../shared/misc/selector/Selector";
-import {ArrowForwardRounded, RemoveRounded} from "@material-ui/icons";
+import {ArrowForwardRounded, DeleteRounded, GetAppRounded, RemoveRounded} from "@material-ui/icons";
 import ProjectRequests from "../../../utils/requests/ProjectRequests";
+import TedRequests from "../../../utils/requests/TedRequests";
 
 export default function TedList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -26,9 +27,10 @@ export default function TedList(props) {
                         else return -1
                     }} searchFieldName={'search_input'}
                     handleChange={entity => {
+                        console.log(props.project.id)
                         ProjectRequests.submitProjectTed({
                             data: {ted: entity.id, activity_project: props.project.id}
-                        })
+                        }).then(res => setRefreshed(false))
                     }} label={'Selecionar Instrumentos já cadastrados'}
                     setChanged={() => null}
                     fetchParams={{
@@ -84,22 +86,39 @@ export default function TedList(props) {
                     scrollableElement={'scrollableDiv'}
                     options={[{
                         label: 'Remover vínculo',
-                        icon: <RemoveRounded/>,
+                        icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             ProjectRequests.deleteProjectTed({
                                 pk: entity.ted,
-                                setStatus: setStatus,
                                 data: {project: props.project.id},
                                 setRefreshed: setRefreshed
                             })
                         },
-                        disabled: false
+                        disabled: false,
+                        color: '#ff5555'
                     },
                         {
                             label: 'Abrir',
                             icon: <ArrowForwardRounded/>,
                             onClick: (entity) => {
                                 props.redirect(entity)
+                            },
+                            disabled: false
+                        },
+                        {
+                            label: 'Baixar dados',
+                            icon: <GetAppRounded/>,
+                            onClick: (entity) => {
+                                TedRequests.fetchTed(entity.ted).then(res => {
+                                    let downloadAnchorNode = document.createElement('a');
+                                    const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(res))
+                                    downloadAnchorNode.setAttribute("href", data);
+                                    downloadAnchorNode.setAttribute("download", `${res.id}.json`);
+                                    document.body.appendChild(downloadAnchorNode)
+                                    downloadAnchorNode.click()
+                                    downloadAnchorNode.remove()
+                                })
+
                             },
                             disabled: false
                         }
