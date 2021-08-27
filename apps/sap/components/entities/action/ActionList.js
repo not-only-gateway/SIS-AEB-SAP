@@ -36,6 +36,22 @@ export default function ActionList(props) {
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/action'}
                     triggerRefresh={!refreshed}
                     setRefreshed={setRefreshed}
+                    controlOptions={[
+
+                        {
+                            label: 'Baixar selecionados',
+                            icon: <GetAppRounded/>,
+                            onClick: (d) => {
+                                let downloadAnchorNode = document.createElement('a');
+                                const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(d))
+                                downloadAnchorNode.setAttribute("href", data);
+                                downloadAnchorNode.setAttribute("download", `acoes - ${new Date().toLocaleDateString()}.json`);
+                                document.body.appendChild(downloadAnchorNode)
+                                downloadAnchorNode.click()
+                                downloadAnchorNode.remove()
+                            }
+                        }
+                    ]}
                     options={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,

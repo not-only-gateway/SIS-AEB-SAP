@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import Cookies from "universal-cookie/lib";
-import {DeleteRounded, GetAppRounded, RemoveRounded} from "@material-ui/icons";
+import {CloudUploadRounded, DeleteRounded, GetAppRounded, PublishRounded, RemoveRounded} from "@material-ui/icons";
 import BudgetPlanForm from "./BudgetPlanForm";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import Host from "../../../utils/shared/Host";
@@ -11,6 +11,7 @@ export default function BudgetPlanList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
+
 
     return (
         <>
@@ -39,19 +40,7 @@ export default function BudgetPlanList(props) {
                     setRefreshed={setRefreshed}
                     controlOptions={[
                         {
-                            label: 'Deletar selecionados',
-                            icon: <DeleteRounded/>,
-                            onClick: (data) => {
-                                data.forEach(e => {
-                                    ProjectRequests.deleteBudgetPlan({
-                                        pk: e.id,
-                                        setRefreshed: () => null
-                                    })
-                                })
-                            }
-                        },
-                        {
-                            label: 'Baixar todos',
+                            label: 'Baixar selecionados',
                             icon: <GetAppRounded/>,
                             onClick: (d) => {
                                 let downloadAnchorNode = document.createElement('a');
@@ -62,7 +51,21 @@ export default function BudgetPlanList(props) {
                                 downloadAnchorNode.click()
                                 downloadAnchorNode.remove()
                             }
-                        }
+                        },
+                        {
+                            label: 'Importar multiplos',
+                            icon: <CloudUploadRounded/>,
+                            onClick: (d) => {
+                            },
+                            disabled: true
+                        },
+                        {
+                            label: 'Importar',
+                            icon: <PublishRounded/>,
+                            onClick: (d) => {
+                            },
+                            disabled: true
+                        },
                     ]}
                     options={[{
                         label: 'Deletar',
@@ -91,9 +94,10 @@ export default function BudgetPlanList(props) {
                             disabled: false
                         }]}
                     fields={[
-                        {name: 'number', type: 'string', label: 'Nome'},
-                        {name: 'detailing', type: 'string', label: 'Tipo'}
-                    ]} labels={['número', 'detalhamento']}
+                        {name: 'action', type: 'object', subfield: 'number'},
+                        {name: 'number', type: 'string'},
+                        {name: 'detailing', type: 'string', extraSize: 50}
+                    ]} labels={['ação', 'número', 'detalhamento']}
                     clickEvent={() => setOpen(true)}
                     setEntity={entity => {
                         setCurrentEntity(entity)

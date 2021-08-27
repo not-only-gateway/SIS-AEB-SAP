@@ -6,6 +6,7 @@ import Host from "../../../utils/shared/Host";
 import {DeleteRounded, GetAppRounded, RemoveRounded} from "@material-ui/icons";
 import Infrastructure from "./Infrastructure";
 import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
+import ProjectRequests from "../../../utils/requests/ProjectRequests";
 
 export default function InfrastructureList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -35,6 +36,21 @@ export default function InfrastructureList(props) {
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/infrastructure'}
                     triggerRefresh={!refreshed}
                     setRefreshed={setRefreshed}
+                    controlOptions={[
+                        {
+                            label: 'Baixar selecionados',
+                            icon: <GetAppRounded/>,
+                            onClick: (d) => {
+                                let downloadAnchorNode = document.createElement('a');
+                                const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(d))
+                                downloadAnchorNode.setAttribute("href", data);
+                                downloadAnchorNode.setAttribute("download", `infraestruturas - ${new Date().toLocaleDateString()}.json`);
+                                document.body.appendChild(downloadAnchorNode)
+                                downloadAnchorNode.click()
+                                downloadAnchorNode.remove()
+                            }
+                        }
+                    ]}
                     options={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,

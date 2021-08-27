@@ -1,13 +1,14 @@
 .container {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: flex-end;
 
     height: 35px;
-    border: #ecedf2 1px solid;
     border-radius: 5px;
-    margin-bottom: 8px;
+
     overflow: hidden;
+    width: 25%;
+    margin: auto;
 }
 
 .button {

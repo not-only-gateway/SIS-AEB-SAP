@@ -8,12 +8,12 @@ import List from "../../shared/misc/list/List";
 import WorkPlanForm from "./WorkPlanForm";
 import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
 import {DeleteRounded, GetAppRounded, RemoveRounded} from "@material-ui/icons";
+import ProjectRequests from "../../../utils/requests/ProjectRequests";
 
 export default function WorkPlanList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
-
     return (
         <>
             {!open ? null :
@@ -46,6 +46,21 @@ export default function WorkPlanList(props) {
                         {name: 'object', type: 'string'},
                         {name: 'budget_plan', type: 'object', subfield: 'number'},
                         {name: 'responsible', type: 'string'},
+                    ]}
+                    controlOptions={[
+                        {
+                            label: 'Baixar selecionados',
+                            icon: <GetAppRounded/>,
+                            onClick: (d) => {
+                                let downloadAnchorNode = document.createElement('a');
+                                const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(d))
+                                downloadAnchorNode.setAttribute("href", data);
+                                downloadAnchorNode.setAttribute("download", `planos_de_trabalho - ${new Date().toLocaleDateString()}.json`);
+                                document.body.appendChild(downloadAnchorNode)
+                                downloadAnchorNode.click()
+                                downloadAnchorNode.remove()
+                            }
+                        }
                     ]}
                     options={[{
                         label: 'Deletar',

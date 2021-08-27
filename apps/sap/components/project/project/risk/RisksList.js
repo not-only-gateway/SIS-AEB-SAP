@@ -39,6 +39,21 @@ export default function RisksList(props) {
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/risk'}
                     triggerRefresh={!refreshed}
                     setRefreshed={setRefreshed}
+                    controlOptions={[
+                        {
+                            label: 'Baixar selecionados',
+                            icon: <GetAppRounded/>,
+                            onClick: (d) => {
+                                let downloadAnchorNode = document.createElement('a');
+                                const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(d))
+                                downloadAnchorNode.setAttribute("href", data);
+                                downloadAnchorNode.setAttribute("download", `riscos - ${new Date().toLocaleDateString()}.json`);
+                                document.body.appendChild(downloadAnchorNode)
+                                downloadAnchorNode.click()
+                                downloadAnchorNode.remove()
+                            }
+                        }
+                    ]}
                     fields={[
                         {name: 'description', type: 'string',label: 'descrição'},
                         {name: 'analysis', type: 'string', label: 'Análise', getColor: field => {

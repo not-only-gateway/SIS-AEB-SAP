@@ -47,6 +47,21 @@ export default function OperationList(props) {
                         {name: 'estimated_cost', type: 'number', maskStart:'R$ '}
 
                     ]} labels={['Fase', 'Situação inicial', 'indicador planejado', 'detalhamento da fase', 'custo estimado']}
+                    controlOptions={[
+                        {
+                            label: 'Baixar selecionados',
+                            icon: <GetAppRounded/>,
+                            onClick: (d) => {
+                                let downloadAnchorNode = document.createElement('a');
+                                const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(d))
+                                downloadAnchorNode.setAttribute("href", data);
+                                downloadAnchorNode.setAttribute("download", `f/operacoes - ${new Date().toLocaleDateString()}.json`);
+                                document.body.appendChild(downloadAnchorNode)
+                                downloadAnchorNode.click()
+                                downloadAnchorNode.remove()
+                            }
+                        }
+                    ]}
                     options={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,

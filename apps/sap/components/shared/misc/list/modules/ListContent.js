@@ -24,7 +24,8 @@ export default function ListContent(props) {
                     ref.current.style.background = '#f4f5fa'
                 }}
                 onMouseLeave={() => {
-                    ref.current.style.background = ''
+                    if(ref.current.style.background !== 'rgb(232, 240, 254)')
+                        ref.current.style.background = ''
                 }}
                 onMouseDown={() => {
                     ref.current.style.background = '#E8F0FE'
@@ -38,7 +39,7 @@ export default function ListContent(props) {
                 {props.fields.map((field, i) => (
                     <React.Fragment key={i + '-field-' + props.entity.id}>
                         <div className={styles.overflow} style={{
-                            width: (100 / props.fields.length) + '%',
+                            width: ((100 / props.fields.length) + (field.extraSize !== undefined ? field.extraSize : 0)) + '%',
                             color: typeof field.getColor === 'function' ? field.getColor(props.entity[field.name]) : undefined,
                             textTransform: field.capitalize ? 'capitalize' : undefined
                         }} id={('*-' + props.index) + '-field'}>

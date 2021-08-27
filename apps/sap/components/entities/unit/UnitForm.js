@@ -85,7 +85,6 @@ export default function UnitForm(props) {
                                     })
                                 }} label={'Vincular unidade pai'}
                                 selected={data === null || !data.parent_unit ? null : data.parent_unit}
-                                disabled={false}
                                 width={'100%'}
                                 fields={[
                                     {name: 'name', type: 'string'},

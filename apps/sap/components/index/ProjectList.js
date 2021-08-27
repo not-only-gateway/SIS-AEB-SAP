@@ -47,6 +47,21 @@ export default function ProjectList(props) {
                         {name: 'estimated_value', type: 'number', maskStart: 'R$ '},
                         {name: 'type', type: 'string', capitalize: true},
                     ]}
+                    controlOptions={[
+                        {
+                            label: 'Baixar selecionados',
+                            icon: <GetAppRounded/>,
+                            onClick: (d) => {
+                                let downloadAnchorNode = document.createElement('a');
+                                const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(d))
+                                downloadAnchorNode.setAttribute("href", data);
+                                downloadAnchorNode.setAttribute("download", `projetos - ${new Date().toLocaleDateString()}.json`);
+                                document.body.appendChild(downloadAnchorNode)
+                                downloadAnchorNode.click()
+                                downloadAnchorNode.remove()
+                            }
+                        }
+                    ]}
                     labels={['nome','descrição','Valor estimado', 'tipo']}
                     clickEvent={() => null}
                     options={[{

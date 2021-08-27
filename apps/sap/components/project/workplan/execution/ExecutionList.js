@@ -14,6 +14,7 @@ export default function ExecutionList(props) {
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
 
+
     return (
         <>
             {!open ? null :
@@ -48,6 +49,21 @@ export default function ExecutionList(props) {
                     ]}
                     labels={['Execução atual (%)', 'Valor empenhado', 'Valor liquidado', 'Valor pago', 'Data da execução']}
                     clickEvent={() => null}
+                    controlOptions={[
+                        {
+                            label: 'Baixar selecionados',
+                            icon: <GetAppRounded/>,
+                            onClick: (d) => {
+                                let downloadAnchorNode = document.createElement('a');
+                                const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(d))
+                                downloadAnchorNode.setAttribute("href", data);
+                                downloadAnchorNode.setAttribute("download", `execucoes - ${new Date().toLocaleDateString()}.json`);
+                                document.body.appendChild(downloadAnchorNode)
+                                downloadAnchorNode.click()
+                                downloadAnchorNode.remove()
+                            }
+                        }
+                    ]}
                     options={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,

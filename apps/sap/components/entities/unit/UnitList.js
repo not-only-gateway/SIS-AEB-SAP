@@ -5,6 +5,8 @@ import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import Host from "../../../utils/shared/Host";
 import List from "../../shared/misc/list/List";
 import UnitForm from "./UnitForm";
+import {DeleteRounded, GetAppRounded} from "@material-ui/icons";
+import ProjectRequests from "../../../utils/requests/ProjectRequests";
 
 export default function UnitList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -34,6 +36,21 @@ export default function UnitList(props) {
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/unit'}
                     triggerRefresh={!refreshed}
                     setRefreshed={setRefreshed}
+                    controlOptions={[
+                        {
+                            label: 'Baixar selecionados',
+                            icon: <GetAppRounded/>,
+                            onClick: (d) => {
+                                let downloadAnchorNode = document.createElement('a');
+                                const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(d))
+                                downloadAnchorNode.setAttribute("href", data);
+                                downloadAnchorNode.setAttribute("download", `unidades - ${new Date().toLocaleDateString()}.json`);
+                                document.body.appendChild(downloadAnchorNode)
+                                downloadAnchorNode.click()
+                                downloadAnchorNode.remove()
+                            }
+                        }
+                    ]}
                     fields={[
                         {name: 'name', type: 'string'},
                         {name: 'acronym', type: 'string'}

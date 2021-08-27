@@ -73,6 +73,21 @@ export default function TedList(props) {
                         {name: 'responsible', type: 'string', label: 'Responsável'},
                         {name: 'process', type: 'string', label: 'Processo'}
                     ]}
+                    controlOptions={[
+                        {
+                            label: 'Baixar selecionados',
+                            icon: <GetAppRounded/>,
+                            onClick: (d) => {
+                                let downloadAnchorNode = document.createElement('a');
+                                const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(d))
+                                downloadAnchorNode.setAttribute("href", data);
+                                downloadAnchorNode.setAttribute("download", `teds - ${new Date().toLocaleDateString()}.json`);
+                                document.body.appendChild(downloadAnchorNode)
+                                downloadAnchorNode.click()
+                                downloadAnchorNode.remove()
+                            }
+                        }
+                    ]}
                     labels={['Número', 'Responsável', 'Processo']}
                     clickEvent={() => null}
                     setEntity={entity => {

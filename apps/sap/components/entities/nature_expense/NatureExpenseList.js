@@ -7,6 +7,7 @@ import Host from "../../../utils/shared/Host";
 import {DeleteRounded, GetAppRounded, RemoveRounded} from "@material-ui/icons";
 import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
 import NatureExpenseForm from "./NatureExpenseForm";
+import ProjectRequests from "../../../utils/requests/ProjectRequests";
 
 export default function NatureExpenseList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -38,6 +39,21 @@ export default function NatureExpenseList(props) {
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/nature_of_expense'}
                     triggerRefresh={!refreshed}
                     setRefreshed={setRefreshed}
+                    controlOptions={[
+                        {
+                            label: 'Baixar selecionados',
+                            icon: <GetAppRounded/>,
+                            onClick: (d) => {
+                                let downloadAnchorNode = document.createElement('a');
+                                const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(d))
+                                downloadAnchorNode.setAttribute("href", data);
+                                downloadAnchorNode.setAttribute("download", `naturezas_de_despesa - ${new Date().toLocaleDateString()}.json`);
+                                document.body.appendChild(downloadAnchorNode)
+                                downloadAnchorNode.click()
+                                downloadAnchorNode.remove()
+                            }
+                        }
+                    ]}
                     options={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,

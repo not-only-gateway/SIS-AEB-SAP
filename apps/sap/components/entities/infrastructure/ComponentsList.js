@@ -7,6 +7,7 @@ import List from "../../shared/misc/list/List";
 import ComponentForm from "./ComponentForm";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
+import ProjectRequests from "../../../utils/requests/ProjectRequests";
 
 export default function ComponentsList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -37,7 +38,21 @@ export default function ComponentsList(props) {
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/component'}
                     triggerRefresh={!refreshed}
                     setRefreshed={setRefreshed}
-
+                    controlOptions={[
+                        {
+                            label: 'Baixar selecionados',
+                            icon: <GetAppRounded/>,
+                            onClick: (d) => {
+                                let downloadAnchorNode = document.createElement('a');
+                                const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(d))
+                                downloadAnchorNode.setAttribute("href", data);
+                                downloadAnchorNode.setAttribute("download", `componentes - ${new Date().toLocaleDateString()}.json`);
+                                document.body.appendChild(downloadAnchorNode)
+                                downloadAnchorNode.click()
+                                downloadAnchorNode.remove()
+                            }
+                        }
+                    ]}
                     fields={[
                         {name: 'classification', type: 'object',subfield: 'classification'},
                         {name: 'classification', type: 'object',subfield: 'type'},

@@ -13,6 +13,7 @@ import ListHeader from "./modules/Header";
 import ListLabels from "./modules/ListLabels";
 import Checkbox from "./modules/Checkbox";
 import ControlHeader from "./modules/ControlHeader";
+import Content from "./modules/Content";
 
 export default function List(props) {
     const [data, setData] = useState([])
@@ -26,7 +27,7 @@ export default function List(props) {
     const [maxHeight, setMaxHeight] = useState(undefined)
     const ref = useRef()
     const [selected, setSelected] = useState([])
-
+    const [sorts, setSorts] = useState([])
     const refresh = () => {
         setSelected([])
         setLoading(true)
@@ -51,6 +52,17 @@ export default function List(props) {
 
     useEffect(() => {
         if (!mounted) {
+            let newSorts= []
+            props.fields.forEach(e => {
+                newSorts.push({
+                    field: e.name,
+                    type: undefined,
+                    variant: e.type
+                })
+            })
+
+            setSorts(newSorts)
+
             if (!props.asModal) {
                 setMaxHeight(document.documentElement.offsetHeight - ref.current.getBoundingClientRect().y - 16)
             } else {
@@ -88,23 +100,27 @@ export default function List(props) {
                     createOption={props.createOption} clickEvent={props.clickEvent}
                     setEntity={props.setEntity} title={props.title} refresh={refresh}
                 />
-                {props.noSearchBar || props.searchFieldName === undefined ? null :
-                    <SearchBar fullWidth={props.title === undefined} searchInput={searchInput}
-                               setSearchInput={setSearchInput} applySearch={() => {
-                        Fetch({
-                            setData: setData,
-                            data: [],
-                            maxID: null,
-                            searchInput: searchInput.length === 0 ? null : searchInput,
-                            setMaxID: setMaxID,
-                            fetchToken: props.fetchToken,
-                            fetchUrl: props.fetchUrl,
-                            params: props.fetchParams,
-                            searchFieldName: props.searchFieldName
-                        })
-                    }}/>
-                }
-                <ControlHeader controlOptions={props.controlOptions} disabled={selected.length === 0} data={data} selected={selected}/>
+                <div style={{display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '16px'}}>
+                    {props.noSearchBar || props.searchFieldName === undefined ? null :
+                        <SearchBar fullWidth={props.title === undefined} searchInput={searchInput}
+                                   setSearchInput={setSearchInput} applySearch={() => {
+                            Fetch({
+                                setData: setData,
+                                data: [],
+                                maxID: null,
+                                searchInput: searchInput.length === 0 ? null : searchInput,
+                                setMaxID: setMaxID,
+                                fetchToken: props.fetchToken,
+                                fetchUrl: props.fetchUrl,
+                                params: props.fetchParams,
+                                searchFieldName: props.searchFieldName
+                            })
+                        }}/>
+                    }
+                    <ControlHeader controlOptions={props.controlOptions} disabled={selected.length === 0} data={data}
+                                   selected={selected}/>
+                </div>
+
                 <div className={styles.labelsContainer}>
                     <Checkbox
                         noSelect={props.noSelect}
@@ -122,10 +138,9 @@ export default function List(props) {
                                 setSelected([])
                         }}
                     />
-
                     {props.labels.map((l, i) => (
                         <React.Fragment key={'list-labels-' + i + '-' + l}>
-                            <ListLabels data={data} index={i} label={l} fields={props.fields}/>
+                            <ListLabels sorts={sorts} setSorts={setSorts} data={data} index={i} label={l} fields={props.fields}/>
                         </React.Fragment>
                     ))}
                 </div>
@@ -144,44 +159,12 @@ export default function List(props) {
                     <Loader/>
                 </div>
                 :
-                (data !== undefined && Array.isArray(data) && data.length > 0 && data[0] !== undefined && data[0].length > 0 ?
-                        <div style={{
-                            display: 'grid',
-                            alignContent: 'flex-start',
-                            overflowY: 'auto',
-                            height: '100%',
-                            maxWidth: '100%'
-                        }}>
-
-                            {data[currentPage].map((entity, index) =>
-                                <React.Fragment key={index + '-list'}>
-                                    <ListContent
-                                        index={index} onlyCreate={props.onlyCreate}
-                                        create={false} lang={lang} entity={entity}
-                                        setEntity={() => props.setEntity(entity)}
-                                        checked={selected.includes(index)} handleCheck={checked => {
-                                        if (!checked)
-                                            setSelected([...selected, ...[index]])
-                                        else {
-                                            let i
-                                            let newSelected = [...selected]
-                                            newSelected.find((e, iS) => {
-                                                if (e === index)
-                                                    i = iS
-                                            })
-
-                                            newSelected.splice(i, 1)
-
-                                            setSelected(newSelected)
-                                        }
-
-                                    }}
-                                        fields={props.fields} noSelect={props.noSelect}
-                                        clickEvent={props.clickEvent} isLast={index === (data.length - 1)}
-                                    />
-                                </React.Fragment>
-                            )}
-                        </div>
+                (data[0] !== undefined && data[0].length > 0 ?
+                        <Content
+                            data={data} setData={setData} setSelected={setSelected} sorts={sorts}
+                            selected={selected} noSelect={props.noSelect} pageData={data[currentPage]}
+                            fields={props.fields} clickEvent={props.clickEvent} setEntity={props.setEntity}
+                        />
                         :
                         <div style={{
                             display: 'grid',

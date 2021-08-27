@@ -26,7 +26,8 @@ export default {
         maskStart: PropTypes.string,
         maskEnd: PropTypes.string,
         getColor: PropTypes.func,
-        capitalize: PropTypes.bool
+        capitalize: PropTypes.bool,
+        extraSize: PropTypes.number
     })),
     options: PropTypes.arrayOf(PropTypes.shape({
         label: PropTypes.string,

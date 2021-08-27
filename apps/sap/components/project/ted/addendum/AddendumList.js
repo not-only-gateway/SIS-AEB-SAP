@@ -45,7 +45,21 @@ export default function AddendumList(props) {
                     labels={['Número', 'valor global']}
                     triggerRefresh={!refreshed}
                     setRefreshed={setRefreshed}
-
+                    controlOptions={[
+                        {
+                            label: 'Baixar selecionados',
+                            icon: <GetAppRounded/>,
+                            onClick: (d) => {
+                                let downloadAnchorNode = document.createElement('a');
+                                const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(d))
+                                downloadAnchorNode.setAttribute("href", data);
+                                downloadAnchorNode.setAttribute("download", `termos_aditivos - ${new Date().toLocaleDateString()}.json`);
+                                document.body.appendChild(downloadAnchorNode)
+                                downloadAnchorNode.click()
+                                downloadAnchorNode.remove()
+                            }
+                        }
+                    ]}
                     clickEvent={() => setOpen(true)}
                     options={[{
                         label: 'Deletar',

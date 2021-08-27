@@ -155,7 +155,7 @@
     cursor: pointer;
     height: 100%;
     display: flex;
-    gap: 16px;
+
     align-items: center;
     text-align: left;
     padding: 0;
@@ -216,6 +216,7 @@
 
 .label:disabled {
     color: #999999;
+    cursor: unset;
     background: transparent;
 }
 

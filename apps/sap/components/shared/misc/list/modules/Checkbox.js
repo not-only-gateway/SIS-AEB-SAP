@@ -4,6 +4,7 @@ import {CheckRounded} from "@material-ui/icons";
 
 export default function Checkbox(props) {
     return (
+        <div style={{padding: '0 12px'}}>
         <div className={styles.container}
              style={{
                  display: props.noSelect ? 'none' : undefined,
@@ -12,6 +13,7 @@ export default function Checkbox(props) {
              }}
              onClick={() => props.handleCheck(props.checked)}>
             <CheckRounded style={{color: 'white', display: props.checked ? undefined : 'none', fontSize: '100%'}}/>
+        </div>
         </div>
     )
 }
