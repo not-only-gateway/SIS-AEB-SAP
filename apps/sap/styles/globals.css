@@ -3,37 +3,10 @@ body {
     padding: 0;
     margin: 0;
     width: 100vw;
-    font-family: 'Roboto' !important;
+    font-family: Roboto !important;
     image-rendering: optimizeQuality ;
     overflow: hidden;
-}
-
-h2{
-    font-size: 1.7rem;
-    font-weight: 570;
-    margin-top: 16px;
-    margin-bottom: 16px
-}
-h3{
-    color: #262626;
-    font-size: 1.3rem;
-    font-weight: 500;
-    /*line-height: 10px;*/
-    margin-bottom: 0;
-}
-h4{
-    color: #262626;
-    font-size: 1rem;
-    font-weight: 500;
-    /*line-height: 5px;*/
-    margin-bottom: 0;
-
-}
-h5{
-    color: #262626;
-    font-size: .75rem;
-    font-weight: 450;
-    margin-bottom: 8px;
+    -webkit-font-smoothing: antialiased !important;
 }
 a {
     color: inherit;
@@ -41,12 +14,13 @@ a {
 }
 
 * {
-    -webkit-font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: unset;
     box-sizing: border-box;
     : 1px;
     scroll-behavior: smooth;
+    font-family: Roboto !important;
 }
 
 /* width */

@@ -27,7 +27,6 @@ export default function TedList(props) {
                         else return -1
                     }} searchFieldName={'search_input'}
                     handleChange={entity => {
-                        console.log(props.project.id)
                         ProjectRequests.submitProjectTed({
                             data: {ted: entity.id, activity_project: props.project.id}
                         }).then(res => setRefreshed(false))

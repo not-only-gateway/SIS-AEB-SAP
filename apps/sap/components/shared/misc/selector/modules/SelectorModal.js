@@ -74,7 +74,7 @@ export default function SelectorModal(props) {
                     null
                 }
                 <List
-                    noShadow={true}
+                    noShadow={true} noSelect={true}
                     searchFieldName={props.searchFieldName}
                     clickEvent={() => null} fields={props.fields}
                     labels={props.labels} asModal={true}

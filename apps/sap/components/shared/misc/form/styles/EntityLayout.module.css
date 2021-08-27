@@ -110,9 +110,10 @@
 .header {
     padding-left: 8px;
     display: flex;
-    gap: 16px;
+    gap: 4px;
     align-items: center;
-    font-size: 1.3rem;
-    color: #444444;
+    font-size: 1.2rem;
     font-weight: bold;
+
+    color: #444444;
 }

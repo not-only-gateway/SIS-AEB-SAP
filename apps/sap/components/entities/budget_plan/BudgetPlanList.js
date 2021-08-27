@@ -37,6 +37,33 @@ export default function BudgetPlanList(props) {
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/budget_plan'}
                     triggerRefresh={!refreshed}
                     setRefreshed={setRefreshed}
+                    controlOptions={[
+                        {
+                            label: 'Deletar selecionados',
+                            icon: <DeleteRounded/>,
+                            onClick: (data) => {
+                                data.forEach(e => {
+                                    ProjectRequests.deleteBudgetPlan({
+                                        pk: e.id,
+                                        setRefreshed: () => null
+                                    })
+                                })
+                            }
+                        },
+                        {
+                            label: 'Baixar todos',
+                            icon: <GetAppRounded/>,
+                            onClick: (d) => {
+                                let downloadAnchorNode = document.createElement('a');
+                                const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(d))
+                                downloadAnchorNode.setAttribute("href", data);
+                                downloadAnchorNode.setAttribute("download", `planos_orcamentarios - ${new Date().toLocaleDateString()}.json`);
+                                document.body.appendChild(downloadAnchorNode)
+                                downloadAnchorNode.click()
+                                downloadAnchorNode.remove()
+                            }
+                        }
+                    ]}
                     options={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
@@ -54,7 +81,7 @@ export default function BudgetPlanList(props) {
                             icon: <GetAppRounded/>,
                             onClick: (entity) => {
                                 let downloadAnchorNode = document.createElement('a');
-                                const data =  "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(entity))
+                                const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(entity))
                                 downloadAnchorNode.setAttribute("href", data);
                                 downloadAnchorNode.setAttribute("download", `${entity.id}.json`);
                                 document.body.appendChild(downloadAnchorNode)
@@ -64,13 +91,14 @@ export default function BudgetPlanList(props) {
                             disabled: false
                         }]}
                     fields={[
-                        {name: 'number', type: 'string',label: 'Nome'},
-                        {name: 'detailing', type: 'string',label: 'Tipo'}
+                        {name: 'number', type: 'string', label: 'Nome'},
+                        {name: 'detailing', type: 'string', label: 'Tipo'}
                     ]} labels={['número', 'detalhamento']}
                     clickEvent={() => setOpen(true)}
                     setEntity={entity => {
                         setCurrentEntity(entity)
-                    }} searchFieldName={'search_input'} title={'Planos orçamentários'} scrollableElement={'scrollableDiv'}
+                    }} searchFieldName={'search_input'} title={'Planos orçamentários'}
+                    scrollableElement={'scrollableDiv'}
                     fetchSize={15}
 
                 />

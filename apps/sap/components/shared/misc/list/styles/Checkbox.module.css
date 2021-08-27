@@ -1,0 +1,14 @@
+.container{
+    border: #666666 1px solid;
+    width: 15px;
+    height: 15px;
+    padding: 2px;
+    border-radius: 3px;
+    background: transparent;
+    margin: 0 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}

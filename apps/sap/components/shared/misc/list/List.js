@@ -11,6 +11,8 @@ import ListPropsTemplate from "../shared/ListPropsTemplate";
 import pStyles from './styles/PageChanger.module.css'
 import ListHeader from "./modules/Header";
 import ListLabels from "./modules/ListLabels";
+import Checkbox from "./modules/Checkbox";
+import ControlHeader from "./modules/ControlHeader";
 
 export default function List(props) {
     const [data, setData] = useState([])
@@ -23,7 +25,10 @@ export default function List(props) {
     const [loading, setLoading] = useState(true)
     const [maxHeight, setMaxHeight] = useState(undefined)
     const ref = useRef()
+    const [selected, setSelected] = useState([])
+
     const refresh = () => {
+        setSelected([])
         setLoading(true)
         setData([])
         setMaxID(null)
@@ -99,7 +104,25 @@ export default function List(props) {
                         })
                     }}/>
                 }
+                <ControlHeader controlOptions={props.controlOptions} disabled={selected.length === 0} data={data} selected={selected}/>
                 <div className={styles.labelsContainer}>
+                    <Checkbox
+                        noSelect={props.noSelect}
+                        checked={data.length > 0 && selected.length === (data.length * (props.fetchSize !== undefined ? props.fetchSize : 15) - data[data.length - 1].length)}
+                        handleCheck={checked => {
+                            if (!checked) {
+                                let length = data.length * (props.fetchSize !== undefined ? props.fetchSize : 15) - data[data.length - 1].length
+
+                                let newA = new Array(length)
+                                for (let i = 0; i < length; i++)
+                                    newA[i] = i
+
+                                setSelected(newA)
+                            } else
+                                setSelected([])
+                        }}
+                    />
+
                     {props.labels.map((l, i) => (
                         <React.Fragment key={'list-labels-' + i + '-' + l}>
                             <ListLabels data={data} index={i} label={l} fields={props.fields}/>
@@ -136,7 +159,24 @@ export default function List(props) {
                                         index={index} onlyCreate={props.onlyCreate}
                                         create={false} lang={lang} entity={entity}
                                         setEntity={() => props.setEntity(entity)}
-                                        fields={props.fields}
+                                        checked={selected.includes(index)} handleCheck={checked => {
+                                        if (!checked)
+                                            setSelected([...selected, ...[index]])
+                                        else {
+                                            let i
+                                            let newSelected = [...selected]
+                                            newSelected.find((e, iS) => {
+                                                if (e === index)
+                                                    i = iS
+                                            })
+
+                                            newSelected.splice(i, 1)
+
+                                            setSelected(newSelected)
+                                        }
+
+                                    }}
+                                        fields={props.fields} noSelect={props.noSelect}
                                         clickEvent={props.clickEvent} isLast={index === (data.length - 1)}
                                     />
                                 </React.Fragment>

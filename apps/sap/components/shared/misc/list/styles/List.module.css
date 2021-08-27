@@ -19,20 +19,18 @@
 }
 
 .rowContainer {
-    font-family: Roboto;
+    padding: 0;
     border: none;
-
     background: transparent;
 
     width: 100%;
     height: 56px;
-    padding: 0 8px;
+
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-
-    cursor: pointer;
+    text-align: left;
     outline: none;
 
     transition: 150ms linear;
@@ -41,19 +39,12 @@
 .rowContainer:disabled {
     background-color: white;
 }
-
-.rowContainer:hover {
-    background-color: #f4f5fa;
-}
-
-
 .fadeIn {
     position: relative;
     opacity: 0;
     animation: fadeIn linear 200ms forwards;
 
 }
-
 
 
 @keyframes fadeIn {
@@ -93,12 +84,13 @@
 
 .context {
     background: white;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    overflow: hidden;
+    border-radius: 8px;
     width: 250px;
     min-height: 40px;
     animation: popIn 250ms ease;
-    border: #e0e0e0 1px solid;
+
 }
 
 .exitAnimation {
@@ -131,7 +123,7 @@
     transition: 150ms linear;
     border: none;
     font-family: Roboto;
-    color: #575757;
+    color: #666666;
     font-size: .85rem;
     cursor: pointer;
 
@@ -157,18 +149,23 @@
 }
 
 .row {
+    outline: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    height: 100%;
     display: flex;
     gap: 16px;
     align-items: center;
-
+    text-align: left;
+    padding: 0;
     width: 100%;
     overflow: hidden;
 }
 
 .overflow {
-    font-family: Roboto;
     font-size: .85rem;
-
+    color: #555555;
 
     overflow: hidden;
     text-overflow: ellipsis;
@@ -191,9 +188,9 @@
     border: none;
 
     font-family: Roboto;
-    font-size: .75rem;
+    font-size: .8rem;
     font-weight: bold;
-    color: #555555;
+    color: #666666;
 
     text-transform: capitalize;
     padding: 4px 0;
@@ -203,7 +200,8 @@
 
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    gap: 8px;
 }
 
 .label:hover {
@@ -232,6 +230,7 @@
     display: flex;
     border-bottom: #ecedf2 1px solid;
     padding-bottom: 4px;
+    align-items: center;
 }
 
 .refreshButton {
@@ -283,3 +282,7 @@
     opacity: .6;
 }
 
+.checkbox{
+    background: transparent;
+    border: #e0e0e0 1px solid;
+}

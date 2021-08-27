@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 
 export default {
+    noSelect: PropTypes.bool,
     asModal:PropTypes.bool,
     createOptionLabel: PropTypes.string,
     title: PropTypes.string,
@@ -33,7 +34,11 @@ export default {
         onClick: PropTypes.func,
         disabled: PropTypes.bool
     })),
-
+    controlOptions: PropTypes.arrayOf(PropTypes.shape({
+        label: PropTypes.string,
+        icon: PropTypes.object,
+        onClick: PropTypes.func
+    })),
     labels: PropTypes.arrayOf(PropTypes.any),
     noShadow: PropTypes.bool,
 
