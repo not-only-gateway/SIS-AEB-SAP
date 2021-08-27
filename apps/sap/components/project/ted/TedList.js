@@ -10,6 +10,7 @@ import Selector from "../../shared/misc/selector/Selector";
 import {ArrowForwardRounded, DeleteRounded, GetAppRounded, RemoveRounded} from "@material-ui/icons";
 import ProjectRequests from "../../../utils/requests/ProjectRequests";
 import TedRequests from "../../../utils/requests/TedRequests";
+import HandleDownload from "../../../utils/shared/HandleDownload";
 
 export default function TedList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -74,21 +75,6 @@ export default function TedList(props) {
                         {name: 'responsible', type: 'string', label: 'Responsável'},
                         {name: 'process', type: 'string', label: 'Processo'}
                     ]}
-                    controlOptions={[
-                        {
-                            label: 'Baixar selecionados',
-                            icon: <GetAppRounded/>,
-                            onClick: (d) => {
-                                let downloadAnchorNode = document.createElement('a');
-                                const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(d))
-                                downloadAnchorNode.setAttribute("href", data);
-                                downloadAnchorNode.setAttribute("download", `teds - ${new Date().toLocaleDateString()}.json`);
-                                document.body.appendChild(downloadAnchorNode)
-                                downloadAnchorNode.click()
-                                downloadAnchorNode.remove()
-                            }
-                        }
-                    ]}
                     labels={['Número', 'Responsável', 'Processo']}
                     clickEvent={() => null}
                     setEntity={entity => {
@@ -125,13 +111,7 @@ export default function TedList(props) {
                             icon: <GetAppRounded/>,
                             onClick: (entity) => {
                                 TedRequests.fetchTed(entity.ted).then(res => {
-                                    let downloadAnchorNode = document.createElement('a');
-                                    const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(res))
-                                    downloadAnchorNode.setAttribute("href", data);
-                                    downloadAnchorNode.setAttribute("download", `${res.id}.json`);
-                                    document.body.appendChild(downloadAnchorNode)
-                                    downloadAnchorNode.click()
-                                    downloadAnchorNode.remove()
+                                    HandleDownload(res,  res.id)
                                 })
 
                             },

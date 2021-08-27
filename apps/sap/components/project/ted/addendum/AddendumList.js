@@ -10,6 +10,8 @@ import {CloudUploadRounded, DeleteRounded, GetAppRounded, PublishRounded, Remove
 import AddendumForm from "./AddendumForm";
 import TedRequests from "../../../../utils/requests/TedRequests";
 import ProjectRequests from "../../../../utils/requests/ProjectRequests";
+import HandleUpload from "../../../../utils/shared/HandleUpload";
+import HandleDownload from "../../../../utils/shared/HandleDownload";
 
 export default function AddendumList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -19,25 +21,17 @@ export default function AddendumList(props) {
     return (
         <div style={{width: '100%'}}>
             <input
-                accept={'.json'} type={'file'} style={{display: 'none'}}
+                accept={'.sap'} type={'file'} style={{display: 'none'}}
                 ref={ref}
                 onChange={(file) => {
-                    let reader = new FileReader();
-                    reader.onload = e => {
-                        let data = JSON.parse(e.target.result)
-                        data.id = undefined
-
-                        TedRequests.submitAddendum({
-                            data: data,
-                            create: true
-                        }).then(res => {
-                            if (res)
-                                setRefreshed(false)
-                        })
-                        ref.current.value = ''
-
-                    };
-                    reader.readAsText(file.target.files[0]);
+                    HandleUpload(file.target.files[0]).then(res => {
+                        if(res !== null){
+                            res.id = undefined
+                            setCurrentEntity(res)
+                            setOpen(true)
+                        }
+                    })
+                    ref.current.value = ''
                 }}
                 multiple={false}
             />
@@ -73,13 +67,7 @@ export default function AddendumList(props) {
                             label: 'Baixar selecionados',
                             icon: <GetAppRounded/>,
                             onClick: (d) => {
-                                let downloadAnchorNode = document.createElement('a');
-                                const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(d))
-                                downloadAnchorNode.setAttribute("href", data);
-                                downloadAnchorNode.setAttribute("download", `termos_aditivos - ${new Date().toLocaleDateString()}.json`);
-                                document.body.appendChild(downloadAnchorNode)
-                                downloadAnchorNode.click()
-                                downloadAnchorNode.remove()
+                                HandleDownload(d,  `termo_aditivo - ${new Date().toLocaleDateString()}`)
                             }
                         },
                         {
@@ -115,13 +103,7 @@ export default function AddendumList(props) {
                         label: 'Baixar dados',
                         icon: <GetAppRounded/>,
                         onClick: (entity) => {
-                            let downloadAnchorNode = document.createElement('a');
-                            const data =  "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(entity))
-                            downloadAnchorNode.setAttribute("href", data);
-                            downloadAnchorNode.setAttribute("download", `${entity.id}.json`);
-                            document.body.appendChild(downloadAnchorNode)
-                            downloadAnchorNode.click()
-                            downloadAnchorNode.remove()
+                            HandleDownload(entity, entity.id)
                         },
                         disabled: false
                     }]}

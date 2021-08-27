@@ -14,8 +14,9 @@ export default function InfrastructureForm(props) {
 
 
     useEffect(() => {
+        setData(props.data)
         if (!props.create) {
-            setData(props.data)
+
             try {
                 handleObjectChange({event: {name: 'latitude', value: props.data.address.split(", ")[0]}, setData: setData})
                 handleObjectChange({event: {name: 'longitude', value: props.data.address.split(", ")[1]}, setData: setData})

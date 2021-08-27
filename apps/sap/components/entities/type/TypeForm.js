@@ -16,11 +16,11 @@ export default function TypeForm(props) {
     const lang = EntitiesPT
     const [data, setData] = useState(null)
 
-    useEffect(() => {
-        if (!props.create)
-            setData(props.data)
-    }, [])
 
+    useEffect(() => {
+
+        setData(props.data)
+    }, [])
     const content = (
         <>
             <EntityLayout

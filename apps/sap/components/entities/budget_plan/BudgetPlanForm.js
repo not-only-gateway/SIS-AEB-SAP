@@ -16,12 +16,10 @@ export default function BudgetPlanForm(props) {
     const [data, setData] = useState(null)
 
     useEffect(() => {
-        if (!props.create)
-            setData(props.data)
-
+        setData(props.data)
 
         if (props.action !== undefined && props.action !== null) {
-            console.log(props.action)
+
             handleObjectChange({
                 event: ({name: 'action', value: props.action}),
                 setData: setData
@@ -52,7 +50,7 @@ export default function BudgetPlanForm(props) {
 
                         create: props.create
                     }).then(res => {
-                        if(props.create && res)
+                        if (props.create && res)
                             props.returnToMain()
                         setChanged(!res)
                     })}
@@ -71,7 +69,7 @@ export default function BudgetPlanForm(props) {
 
                                 }} value={data === null ? null : data.number}
                                 required={true}
-                                width={props.action !== undefined && props.action !== null  ? '100%' : 'calc(50% - 16px)'}/>
+                                width={props.action !== undefined && props.action !== null ? '100%' : 'calc(50% - 16px)'}/>
                             {props.action !== undefined && props.action !== null ?
                                 null
                                 :

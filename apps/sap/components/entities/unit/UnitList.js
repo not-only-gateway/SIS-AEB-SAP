@@ -7,38 +7,16 @@ import List from "../../shared/misc/list/List";
 import UnitForm from "./UnitForm";
 import {CloudUploadRounded, DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
 import ProjectRequests from "../../../utils/requests/ProjectRequests";
+import HandleUpload from "../../../utils/shared/HandleUpload";
 
 export default function UnitList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
-    const ref = useRef()
 
     return (
         <>
-            <input
-                accept={'.json'} type={'file'} style={{display: 'none'}}
-                ref={ref}
-                onChange={(file) => {
-                    let reader = new FileReader();
-                    reader.onload = e => {
-                        let data = JSON.parse(e.target.result)
-                        data.id = undefined
 
-                        ProjectRequests.submitUnit({
-                            data: data,
-                            create: true
-                        }).then(res => {
-                            if (res)
-                                setRefreshed(false)
-                        })
-                        ref.current.value = ''
-
-                    };
-                    reader.readAsText(file.target.files[0]);
-                }}
-                multiple={false}
-            />
             {!open ? null :
                 <UnitForm
                     returnToMain={() => {
@@ -60,36 +38,6 @@ export default function UnitList(props) {
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/unit'}
                     triggerRefresh={!refreshed}
                     setRefreshed={setRefreshed}
-                    controlOptions={[
-                        {
-                            label: 'Baixar selecionados',
-                            icon: <GetAppRounded/>,
-                            onClick: (d) => {
-                                let downloadAnchorNode = document.createElement('a');
-                                const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(d))
-                                downloadAnchorNode.setAttribute("href", data);
-                                downloadAnchorNode.setAttribute("download", `unidades - ${new Date().toLocaleDateString()}.json`);
-                                document.body.appendChild(downloadAnchorNode)
-                                downloadAnchorNode.click()
-                                downloadAnchorNode.remove()
-                            }
-                        },
-                        {
-                            label: 'Importar multiplos',
-                            icon: <CloudUploadRounded/>,
-                            onClick: (d) => {
-                            },
-                            disabled: true
-                        },
-                        {
-                            label: 'Importar',
-                            icon: <PublishRounded/>,
-                            onClick: (d) => {
-                                ref.current.click()
-                            },
-                            disabled: false
-                        },
-                    ]}
                     fields={[
                         {name: 'name', type: 'string'},
                         {name: 'acronym', type: 'string'}

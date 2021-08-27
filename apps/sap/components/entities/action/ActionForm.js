@@ -12,8 +12,7 @@ export default function ActionForm(props) {
     const lang = ProjectPT
     const [data, setData] = useState(null)
     useEffect(() => {
-        if(!props.create)
-            setData(props.data)
+        setData(props.data)
     }, [])
 
     const content = (
@@ -35,7 +34,7 @@ export default function ActionForm(props) {
                         data: data,
                         create: props.create
                     }).then(res => {
-                        if(props.create && res)
+                        if (props.create && res)
                             props.returnToMain()
                         setChanged(!res)
                     })}
