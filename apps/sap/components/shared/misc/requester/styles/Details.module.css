@@ -49,14 +49,12 @@
 
 .body {
     margin-top: 4px;
-    word-break: break-all;
-    line-break: anywhere;
-    overflow: auto;
+
+    overflow-x: auto;
     color: #555555;
     font-weight: bold;
     font-size: .8rem;
-    font-family: Roboto;
-
+    filter: none;
     min-height: 50px;
     border: #ecedf2 1px solid;
     background: #f4f5fa;

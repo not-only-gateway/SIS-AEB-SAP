@@ -4,18 +4,20 @@ import {TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
 import EntityLayout from "../../shared/misc/form/EntityLayout";
 import ProjectRequests from "../../../utils/requests/ProjectRequests";
-import ProjectPT from "../../../packages/locales/ProjectPT";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
+import EntitiesPT from "../../../packages/locales/EntitiesPT";
+import Modal from "../../shared/misc/modal/Modal";
+import ActionForm from "../action/ActionForm";
+import TypeForm from "../type/TypeForm";
 import Selector from "../../shared/misc/selector/Selector";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import EntitiesPT from "../../../packages/locales/EntitiesPT";
 
 export default function ClassificationForm(props) {
     const [changed, setChanged] = useState(false)
     const lang = EntitiesPT
     const [data, setData] = useState(null)
-
+    const [open, setOpen] = useState(false)
     useEffect(() => {
         if (!props.create)
             setData(props.data)
@@ -62,20 +64,50 @@ export default function ClassificationForm(props) {
                                 }} value={data === null ? null : data.classification}
                                 required={true}
                                 width={'calc(50% - 16px'}/>
-                            <TextField
-                                placeholder={lang.type} label={lang.type}
-                                handleChange={event => {
-                                    setChanged(true)
+                            <Selector
+                                getEntityKey={entity => {
+                                    if (entity !== null && entity !== undefined)
+                                        return entity.id
+                                    else return -1
+                                }} searchFieldName={'search_input'}
+                                handleChange={entity => {
                                     handleObjectChange({
-                                        event: ({name: 'type', value: event.target.value}),
+                                        event: ({name: 'type', value: entity}),
                                         setData: setData
                                     })
-                                }} value={data === null ? null : data.type}
-                                required={true} width={'calc(50% - 16px'}
+                                }} label={'Vincular tipo'}
+                                setChanged={() => null}
+                                selected={props.data === null || !props.data.type ? null : props.data.type}
+                                disabled={false}
+                                handleCreate={() => setOpen(true)}
+                                width={'calc(50% - 16px)'}
+                                fields={[
+                                    {name: 'type', type: 'string'}
+                                ]} required={true}
+                                labels={['tipo']}
+                                fetchUrl={Host() + 'list/type'}
+                                createOption={true}
+                                fetchToken={(new Cookies()).get('jwt')}
                             />
                         </>
                     )
                 }]}/>
+            <Modal open={open} handleClose={() => setOpen(false)}>
+                <div style={{
+                    height: '100vh',
+                    width: '100vw',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                    <TypeForm
+                        returnToMain={() => {
+                            setOpen(false)
+                        }}
+                        create={true}
+                    />
+                </div>
+            </Modal>
         </>
     )
     return (

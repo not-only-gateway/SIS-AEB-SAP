@@ -18,6 +18,7 @@ export default function TedList(props) {
     const [refreshed, setRefreshed] = useState(false)
     return (
         <>
+
             {open ?
                 null :
                 <Selector

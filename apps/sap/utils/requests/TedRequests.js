@@ -31,10 +31,11 @@ export default class TedRequests {
         let response = submitProps.create ? null : false
         let data = {}
         data = Object.assign(data, submitProps.data)
-
-        data.responsible = data.responsible.id
-        data.action = data.action.id
-        data.decentralized_unit = data.decentralized_unit.id
+        if (data !== undefined && data.action !== undefined && data.responsible !== undefined && data.decentralized_unit !== undefined) {
+            data.responsible = data.responsible.id
+            data.action = data.action.id
+            data.decentralized_unit = data.decentralized_unit.id
+        }
 
         await Requester({
             package: data,
@@ -55,7 +56,7 @@ export default class TedRequests {
         await Requester({
             package: submitProps.data,
             method: 'delete',
-            url:  Host() + 'addendum/'+submitProps.pk,
+            url: Host() + 'addendum/' + submitProps.pk,
             showSuccessAlert: true,
             token: jwt
         }).then(res => {
@@ -68,6 +69,7 @@ export default class TedRequests {
 
         return response
     }
+
     static async submitAddendum(submitProps) {
         let response = false
 

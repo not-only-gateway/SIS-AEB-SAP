@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import Cookies from "universal-cookie/lib";
 import {CloudUploadRounded, DeleteRounded, GetAppRounded, PublishRounded, RemoveRounded} from "@material-ui/icons";
 import BudgetPlanForm from "./BudgetPlanForm";
@@ -6,16 +6,39 @@ import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import Host from "../../../utils/shared/Host";
 import List from "../../shared/misc/list/List";
 import ProjectRequests from "../../../utils/requests/ProjectRequests";
+import PropTypes from "prop-types";
 
 export default function BudgetPlanList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
-
+    const ref = useRef()
 
     return (
         <>
+            <input
+                accept={'.json'} type={'file'} style={{display: 'none'}}
+                ref={ref}
+                onChange={(file) => {
+                    let reader = new FileReader();
+                    reader.onload = e => {
+                        let data = JSON.parse(e.target.result)
+                        data.id = undefined
 
+                        ProjectRequests.submitBudgetPlan({
+                            data: data,
+                            create: true
+                        }).then(res => {
+                            if (res)
+                                setRefreshed(false)
+                        })
+                        ref.current.value = ''
+
+                    };
+                    reader.readAsText(file.target.files[0]);
+                }}
+                multiple={false}
+            />
             {!open ? null :
                 <>
                     <BudgetPlanForm
@@ -63,8 +86,9 @@ export default function BudgetPlanList(props) {
                             label: 'Importar',
                             icon: <PublishRounded/>,
                             onClick: (d) => {
+                                ref.current.click()
                             },
-                            disabled: true
+                            disabled: false
                         },
                     ]}
                     options={[{

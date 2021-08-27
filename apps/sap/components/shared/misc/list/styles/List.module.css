@@ -173,6 +173,7 @@
 }
 
 .labelContent {
+    transition: 150ms linear;
     text-align: center;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -195,7 +196,6 @@
     text-transform: capitalize;
     padding: 4px 0;
     border-radius: 5px;
-    transition: 150ms linear;
     user-select: none;
 
     display: flex;
@@ -206,12 +206,10 @@
 
 .label:hover {
     color: #333333;
-    background: #f4f5fa;
 }
 
 .label:active {
     color: #0095ff;
-    background: #E8F0FE;
 }
 
 .label:disabled {
@@ -286,4 +284,28 @@
 .checkbox{
     background: transparent;
     border: #e0e0e0 1px solid;
+}
+
+.removeButton{
+    outline: none;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    color: #666666;
+    cursor: pointer;
+    transition: 150ms linear;
+
+    width: 50px;
+    height: 100%;
+
+}
+
+.removeButton:hover{
+    color: #ff5555;
+}
+.removeButton:active{
+    transform: scale(1.2);
 }

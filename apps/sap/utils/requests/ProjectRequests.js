@@ -7,10 +7,26 @@ const jwt = (new Cookies()).get('jwt')
 const submitProps = PropTypes.shape({
     pk: PropTypes.number,
     data: PropTypes.object,
-    setStatus: PropTypes.func,
     create: PropTypes.bool
 })
 export default class ProjectRequests {
+
+
+    static async submitType(submitProps) {
+        let response = false
+        await Requester({
+            package: submitProps.data,
+            url: submitProps.create ? Host() + 'type' : Host() + 'type/' + submitProps.pk,
+            method: submitProps.create ? 'post' : 'put',
+            showSuccessAlert: true,
+            token: jwt
+        }).then(res => {
+            response = true
+        }).catch(e => {
+            console.log(e)
+        })
+        return response
+    }
 
     static async deleteAction(submitProps) {
         let response = false
@@ -52,7 +68,7 @@ export default class ProjectRequests {
         let data = {}
         data = Object.assign(data, submitProps.data)
 
-        if (data.parent_unit !== null && data.parent_unit !== undefined)
+        if (data !== undefined && data.parent_unit !== null && data.parent_unit !== undefined)
             data.parent_unit = data.parent_unit.id
 
         await Requester({
@@ -75,7 +91,7 @@ export default class ProjectRequests {
 
         let data = {}
         data = Object.assign(data, submitProps.data)
-
+        if(data !== undefined && data.responsible !== undefined)
         data.responsible = data.responsible.id
 
         await Requester({
@@ -164,8 +180,9 @@ export default class ProjectRequests {
         let response = false
         let data = {}
         data = Object.assign(data, submitProps.data)
-
-        data.action = data.action.id
+        console.log(data)
+        if(data !== undefined && data.action !== undefined)
+            data.action = data.action.id
         await Requester({
             package: data,
             method: submitProps.create ? 'post' : 'put',

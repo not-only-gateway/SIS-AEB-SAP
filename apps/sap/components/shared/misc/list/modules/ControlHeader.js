@@ -4,28 +4,35 @@ import ToolTip from "../../tooltip/ToolTip";
 
 export default function ControlHeader(props) {
     return (
-        <div className={styles.container}>
-            {props.controlOptions !== undefined && props.controlOptions.map((c, i) => (
-                <div>
-                    <button key={'control-' + i} className={styles.button} onClick={() => {
+        !props.controlOptions ?
+            null
+            :
+            <div className={styles.container} style={{
+                width: ((props.controlOptions.length / 4) * 40) + '%'
+            }}>
+                {props.controlOptions.map((c, i) => (
+                    <span key={'control-' + i} style={{width: ((4 / props.controlOptions.length) * 25) + '%'}}>
+                    <button className={styles.button} onClick={() => {
                         let data = []
                         let selected = []
                         props.data.map(e => {
                             data = [...data, ...e]
                         })
                         props.selected.map((m) => {
-                            if(data[m] !== null)
+                            if (data[m] !== null)
                                 selected = [...selected, ...[data[m]]]
                         })
                         c.onClick(selected)
-                    }} disabled={props.disabled || c.disabled}>
+                    }} disabled={c.disabled === undefined ? props.disabled : c.disabled}>
                         {c.icon}
-                        {c.label}
+                        <div className={styles.label}>
+                            {c.label}
+                        </div>
                     </button>
                     <ToolTip content={c.label}/>
-                </div>
-            ))}
-        </div>
+                </span>
+                ))}
+            </div>
     )
 }
 

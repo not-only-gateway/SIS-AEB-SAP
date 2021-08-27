@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import Tabs from "../../shared/misc/tabs/Tabs";
 import PropTypes from 'prop-types'
 import WorkPlanPT from "../../../packages/locales/WorkPlanPT";
@@ -13,6 +13,7 @@ export default function WorkPlan(props) {
     const lang = WorkPlanPT
     const [openTab, setOpenTab] = useState(0)
     const [internalOpenTab, setInternalOpenTab] = useState(0)
+    const ref = useRef()
     return (
         <div>
             <Tabs

@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types'
 import styles from "../styles/List.module.css";
 import React, {useState} from "react";
-import {ArrowDownwardRounded, ArrowDropDownRounded} from "@material-ui/icons";
+import {ArrowDownwardRounded, ArrowDropDownRounded, CloseRounded} from "@material-ui/icons";
+import ToolTip from "../../tooltip/ToolTip";
 
 export default function ListLabels(props) {
     const [open, setOpen] = useState(false)
@@ -54,6 +55,28 @@ export default function ListLabels(props) {
                     opacity: props.fields[props.index].type === 'object' || sortStatus === undefined ? '0' : '1'
                 }}/>
             </button>
+            <div
+                style={{
+                    display: props.fields[props.index].type === 'object' || sortStatus === undefined ? 'none' : undefined
+                }}
+            >
+                <ToolTip content={'Remover sort'}/>
+
+                <button className={styles.removeButton}
+
+                        disabled={props.fields[props.index].type === 'object'}
+                        onClick={() => {
+                            setSortStatus(undefined)
+                            let newSorts = [...props.sorts]
+                            newSorts[props.index].type = undefined
+                            props.setSorts(newSorts)
+
+                        }}>
+                    <CloseRounded style={{
+                        fontSize: '1rem',
+                    }}/>
+                </button>
+            </div>
         </div>
     )
 }

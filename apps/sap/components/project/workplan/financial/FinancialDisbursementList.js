@@ -1,20 +1,47 @@
 import PropTypes from 'prop-types'
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import animations from "../../../../styles/Animations.module.css";
 import handleObjectChange from "../../../../utils/shared/HandleObjectChange";
 import List from "../../../shared/misc/list/List";
 import Cookies from "universal-cookie/lib";
 import Host from "../../../../utils/shared/Host";
-import {DeleteRounded, GetAppRounded, RemoveRounded} from "@material-ui/icons";
+import {CloudUploadRounded, DeleteRounded, GetAppRounded, PublishRounded, RemoveRounded} from "@material-ui/icons";
 import WorkPlanRequests from "../../../../utils/requests/WorkPlanRequests";
 import FinancialDisbursementForm from "./FinancialDisbursementForm";
+import OperationRequests from "../../../../utils/requests/OperationRequests";
 
 export default function FinancialDisbursementList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
+    const ref = useRef()
+
     return (
+
         <div style={{width: '100%'}}>
+            <input
+                accept={'.json'} type={'file'} style={{display: 'none'}}
+                ref={ref}
+                onChange={(file) => {
+                    let reader = new FileReader();
+                    reader.onload = e => {
+                        let data = JSON.parse(e.target.result)
+                        data.id = undefined
+
+                        WorkPlanRequests.submitFinancial({
+                            data: data,
+                            create: true
+                        }).then(res => {
+                            if (res)
+                                setRefreshed(false)
+                        })
+                        ref.current.value = ''
+
+                    };
+                    reader.readAsText(file.target.files[0]);
+                }}
+                multiple={false}
+            />
             {!open ? null :
                 <div className={animations.fadeIn}>
                     <FinancialDisbursementForm
@@ -50,7 +77,22 @@ export default function FinancialDisbursementList(props) {
                                 downloadAnchorNode.click()
                                 downloadAnchorNode.remove()
                             }
-                        }
+                        },
+                        {
+                            label: 'Importar multiplos',
+                            icon: <CloudUploadRounded/>,
+                            onClick: (d) => {
+                            },
+                            disabled: true
+                        },
+                        {
+                            label: 'Importar',
+                            icon: <PublishRounded/>,
+                            onClick: (d) => {
+                                ref.current.click()
+                            },
+                            disabled: false
+                        },
                     ]}
                     options={[{
                         label: 'Deletar',

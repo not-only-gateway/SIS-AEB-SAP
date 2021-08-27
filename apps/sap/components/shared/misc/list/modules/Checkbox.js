@@ -12,7 +12,7 @@ export default function Checkbox(props) {
                  border: props.checked ? '#0095ff 1px solid' : undefined
              }}
              onClick={() => props.handleCheck(props.checked)}>
-            <CheckRounded style={{color: 'white', display: props.checked ? undefined : 'none', fontSize: '100%'}}/>
+            <CheckRounded style={{color: 'white', visibility: props.checked ? 'visible' : 'hidden', fontSize: '15px', fontWeight: "bold"}}/>
         </div>
         </div>
     )

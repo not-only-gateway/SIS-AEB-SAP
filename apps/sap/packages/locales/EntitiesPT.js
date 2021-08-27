@@ -16,5 +16,6 @@ export default {
 
     classification: 'Classificação',
     type: 'Tipo',
-    newClassification: 'Nova classificação'
+    newClassification: 'Nova classificação',
+    newType: 'Novo tipo'
 }

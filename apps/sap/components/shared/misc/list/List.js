@@ -52,7 +52,7 @@ export default function List(props) {
 
     useEffect(() => {
         if (!mounted) {
-            let newSorts= []
+            let newSorts = []
             props.fields.forEach(e => {
                 newSorts.push({
                     field: e.name,
@@ -102,23 +102,27 @@ export default function List(props) {
                 />
                 <div style={{display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '16px'}}>
                     {props.noSearchBar || props.searchFieldName === undefined ? null :
-                        <SearchBar fullWidth={props.title === undefined} searchInput={searchInput}
-                                   setSearchInput={setSearchInput} applySearch={() => {
-                            Fetch({
-                                setData: setData,
-                                data: [],
-                                maxID: null,
-                                searchInput: searchInput.length === 0 ? null : searchInput,
-                                setMaxID: setMaxID,
-                                fetchToken: props.fetchToken,
-                                fetchUrl: props.fetchUrl,
-                                params: props.fetchParams,
-                                searchFieldName: props.searchFieldName
-                            })
-                        }}/>
+                        <SearchBar
+                            searchInput={searchInput}
+                            setSearchInput={setSearchInput}
+                            applySearch={() => {
+                                Fetch({
+                                    setData: setData,
+                                    data: [],
+                                    maxID: null,
+                                    searchInput: searchInput.length === 0 ? null : searchInput,
+                                    setMaxID: setMaxID,
+                                    fetchToken: props.fetchToken,
+                                    fetchUrl: props.fetchUrl,
+                                    params: props.fetchParams,
+                                    searchFieldName: props.searchFieldName
+                                })
+                            }}/>
                     }
-                    <ControlHeader controlOptions={props.controlOptions} disabled={selected.length === 0} data={data}
-                                   selected={selected}/>
+                    <ControlHeader
+                        controlOptions={props.controlOptions} disabled={selected.length === 0} data={data}
+                        selected={selected}
+                    />
                 </div>
 
                 <div className={styles.labelsContainer}>
@@ -140,7 +144,8 @@ export default function List(props) {
                     />
                     {props.labels.map((l, i) => (
                         <React.Fragment key={'list-labels-' + i + '-' + l}>
-                            <ListLabels sorts={sorts} setSorts={setSorts} data={data} index={i} label={l} fields={props.fields}/>
+                            <ListLabels sorts={sorts} setSorts={setSorts} data={data} index={i} label={l}
+                                        fields={props.fields}/>
                         </React.Fragment>
                     ))}
                 </div>

@@ -117,9 +117,10 @@ export default class WorkPlanRequests {
         let data = {}
         data = Object.assign(data, submitProps.data)
 
-        data.budget_plan = data.budget_plan.id
-        data.infrastructure = data.infrastructure.id
-
+        if (data !== undefined && data.budget_plan !== undefined && data.infrastructure !== undefined ) {
+            data.budget_plan = data.budget_plan.id
+            data.infrastructure = data.infrastructure.id
+        }
         await Requester({
             package: data,
             method: submitProps.create ? 'post' : 'put',
@@ -141,6 +142,7 @@ export default class WorkPlanRequests {
         let response = false
         let data = {}
         data = Object.assign(data, submitProps.data)
+        if (data !== undefined)
         data.address = submitProps.data.latitude + ', ' + submitProps.data.longitude
 
         await Requester({
@@ -215,7 +217,7 @@ export default class WorkPlanRequests {
         let response = false
         let data = {}
         data = Object.assign(data, submitProps.data)
-        if (submitProps.create)
+        if (data !== undefined && submitProps.create)
             data.update_date = new Date()
 
         await Requester({
@@ -274,7 +276,8 @@ export default class WorkPlanRequests {
         let response = false
         let data = {}
         data = Object.assign(data, submitProps.data)
-        data.classification = data.classification.id
+        if (data !== undefined && data.classification !== undefined)
+            data.classification = data.classification.id
 
         await Requester({
             package: data,

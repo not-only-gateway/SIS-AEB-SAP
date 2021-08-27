@@ -1,20 +1,44 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import Cookies from "universal-cookie/lib";
 
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import Host from "../../../utils/shared/Host";
 import List from "../../shared/misc/list/List";
 import UnitForm from "./UnitForm";
-import {DeleteRounded, GetAppRounded} from "@material-ui/icons";
+import {CloudUploadRounded, DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
 import ProjectRequests from "../../../utils/requests/ProjectRequests";
 
 export default function UnitList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
+    const ref = useRef()
 
     return (
         <>
+            <input
+                accept={'.json'} type={'file'} style={{display: 'none'}}
+                ref={ref}
+                onChange={(file) => {
+                    let reader = new FileReader();
+                    reader.onload = e => {
+                        let data = JSON.parse(e.target.result)
+                        data.id = undefined
+
+                        ProjectRequests.submitUnit({
+                            data: data,
+                            create: true
+                        }).then(res => {
+                            if (res)
+                                setRefreshed(false)
+                        })
+                        ref.current.value = ''
+
+                    };
+                    reader.readAsText(file.target.files[0]);
+                }}
+                multiple={false}
+            />
             {!open ? null :
                 <UnitForm
                     returnToMain={() => {
@@ -49,7 +73,22 @@ export default function UnitList(props) {
                                 downloadAnchorNode.click()
                                 downloadAnchorNode.remove()
                             }
-                        }
+                        },
+                        {
+                            label: 'Importar multiplos',
+                            icon: <CloudUploadRounded/>,
+                            onClick: (d) => {
+                            },
+                            disabled: true
+                        },
+                        {
+                            label: 'Importar',
+                            icon: <PublishRounded/>,
+                            onClick: (d) => {
+                                ref.current.click()
+                            },
+                            disabled: false
+                        },
                     ]}
                     fields={[
                         {name: 'name', type: 'string'},

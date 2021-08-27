@@ -3295,3 +3295,14 @@ $ rollup -c
 src/index.js → dist/index.js, dist/index.modern.js...
 created dist/index.js, dist/index.modern.js in 1.6s
 Done in 1.93s.
+yarn install v1.22.11
+[1/5] Validating package.json...
+[2/5] Resolving packages...
+success Already up-to-date.
+Done in 0.48s.
+yarn run v1.22.11
+$ rollup -c 
+
+src/index.js → dist/index.js, dist/index.modern.js...
+created dist/index.js, dist/index.modern.js in 1.8s
+Done in 2.01s.

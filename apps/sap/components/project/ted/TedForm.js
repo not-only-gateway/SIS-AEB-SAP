@@ -26,7 +26,6 @@ export default function TedForm(props) {
     }, [])
     return (
         <>
-
             <EntityLayout
                 rootElementID={'root'} entity={props.data}
                 create={props.create} label={lang.title}
@@ -302,26 +301,27 @@ export default function TedForm(props) {
                                     value={props.data === null ? null : props.data.programmatic_functional_classification}
                                     required={true} variant={'area'}
                                     width={'100%'}/>
-                                <Modal open={open} handleClose={() => setOpen(false)}>
-                                    <div style={{
-                                        height: '100vh',
-                                        width: '100vw',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center'
-                                    }}>
-                                        <ActionForm
-                                            returnToMain={() => {
-                                                setOpen(false)
-                                            }}
-                                            create={true}
-                                        />
-                                    </div>
-                                </Modal>
+
                             </>
                         )
                     }
                 ]}/>
+            <Modal open={open} handleClose={() => setOpen(false)}>
+                <div style={{
+                    height: '100vh',
+                    width: '100vw',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                    <ActionForm
+                        returnToMain={() => {
+                            setOpen(false)
+                        }}
+                        create={true}
+                    />
+                </div>
+            </Modal>
         </>
     )
 

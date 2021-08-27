@@ -2,17 +2,19 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    gap: 4px;
 
     height: 35px;
     border-radius: 5px;
 
     overflow: hidden;
-    width: 25%;
+    width: 40%;
     margin: auto;
 }
 
 .button {
-    padding: 4px 12px;
+    width: 100%;
+    padding: 4px;
     height: 100%;
     display: flex;
     align-items: center;
@@ -42,4 +44,11 @@
     color: #999999;
     background: transparent;
     cursor: unset;
+}
+
+.label{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 75%;
 }

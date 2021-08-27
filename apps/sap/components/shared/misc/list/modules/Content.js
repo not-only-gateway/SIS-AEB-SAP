@@ -6,7 +6,8 @@ export default function Content(props) {
     const [sortedData, setSortedData] = useState([])
 
     useEffect(() => {
-        let newData = props.pageData
+        console.log('REFRESHING')
+        let newData = [...props.pageData]
         props.sorts.forEach(e => {
             switch (e.type) {
                 case 'descending': {
@@ -42,7 +43,7 @@ export default function Content(props) {
                     break
             }
         })
-        setSortedData(props.pageData)
+        setSortedData(newData)
     }, [props.pageData, props.sorts])
 
     return (
@@ -54,25 +55,25 @@ export default function Content(props) {
             maxWidth: '100%'
         }}>
             {sortedData.map((entity, index) =>
-                <React.Fragment key={index + '-list'}>
+                <React.Fragment key={index + '-list-' + props.pageData.indexOf(entity)}>
                     <ListContent
                         index={index} entity={entity}
                         setEntity={() => props.setEntity(entity)}
-                        checked={props.selected.includes(index)} handleCheck={checked => {
-                        if (!checked)
-                            props.setSelected([...props.selected, ...[index]])
-                        else {
-                            let i
-                            let newSelected = [...props.selected]
-                            newSelected.find((e, iS) => {
-                                if (e === index)
-                                    i = iS
-                            })
-                            newSelected.splice(i, 1)
-                            props.setSelected(newSelected)
-                        }
-
-                    }}
+                        checked={props.selected.includes(props.pageData.indexOf(entity))}
+                        handleCheck={checked => {
+                            if (!checked)
+                                props.setSelected([...props.selected, ...[props.pageData.indexOf(entity)]])
+                            else {
+                                let i
+                                let newSelected = [...props.selected]
+                                newSelected.find((e, iS) => {
+                                    if (e === props.pageData.indexOf(entity))
+                                        i = iS
+                                })
+                                newSelected.splice(i, 1)
+                                props.setSelected(newSelected)
+                            }
+                        }}
                         fields={props.fields} noSelect={props.noSelect}
                         clickEvent={props.clickEvent} isLast={index === (props.data.length - 1)}
                     />
