@@ -5,7 +5,7 @@ import React, {useState} from "react";
 
 import OperationForm from "./OperationForm";
 import OperationPT from "../../../../packages/locales/OperationPT";
-import Tabs from "../../../shared/misc/tabs/Tabs";
+import Tabs from "../../../shared/core/tabs/Tabs";
 import ActionItemList from "../action_item/ActionItemList";
 import ExecutionList from "../execution/ExecutionList";
 import FollowUpList from "../f_goal/FollowUpList";

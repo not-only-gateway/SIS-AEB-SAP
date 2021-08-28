@@ -3,13 +3,13 @@ import React, {useEffect, useState} from "react";
 import {DropDownField, TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
 import OperationRequests from "../../../../utils/requests/OperationRequests";
-import EntityLayout from "../../../shared/misc/form/EntityLayout";
+import EntityLayout from "../../../shared/core/form/EntityLayout";
 import ResourcePT from "../../../../packages/locales/ResourcePT";
-import Selector from "../../../shared/misc/selector/Selector";
+import Selector from "../../../shared/core/selector/Selector";
 import Host from "../../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import NatureExpenseForm from "../../../entities/nature_expense/NatureExpenseForm";
-import Modal from "../../../shared/misc/modal/Modal";
+import Modal from "../../../shared/core/modal/Modal";
 
 export default function ResourceApplicationForm(props) {
     const [changed, setChanged] = useState(false)

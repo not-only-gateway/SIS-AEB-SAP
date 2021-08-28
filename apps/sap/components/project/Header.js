@@ -5,7 +5,7 @@ import Link from "next/link";
 import {ArrowBackIos, CategoryRounded} from "@material-ui/icons";
 import React from "react";
 import ProjectPT from "../../packages/locales/ProjectPT";
-import ToolTip from "../shared/misc/tooltip/ToolTip";
+import ToolTip from "../shared/core/tooltip/ToolTip";
 
 export default function Header(props) {
     const lang = ProjectPT

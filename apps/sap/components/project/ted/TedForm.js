@@ -1,15 +1,13 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
-import {TextField} from "sis-aeb-inputs";
-import EntityLayout from "../../shared/misc/form/EntityLayout";
+import EntityLayout from "../../shared/core/form/EntityLayout";
 import TedPT from "../../../packages/locales/TedPT";
 import TedRequests from "../../../utils/requests/TedRequests";
-import DateField from "../../shared/inputs/date/DateField";
-import DropDownField from "../../shared/inputs/dropdown/DropDownField";
-import Selector from "../../shared/misc/selector/Selector";
+import {DropDownField, TextField, DateField} from "sis-aeb-inputs";
+import Selector from "../../shared/core/selector/Selector";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import Modal from "../../shared/misc/modal/Modal";
+import Modal from "../../shared/core/modal/Modal";
 import ActionForm from "../../entities/action/ActionForm";
 
 

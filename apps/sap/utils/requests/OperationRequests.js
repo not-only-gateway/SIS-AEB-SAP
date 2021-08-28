@@ -1,7 +1,7 @@
 import Host from "../shared/Host";
 import Cookies from "universal-cookie/lib";
 import PropTypes from "prop-types";
-import Requester from "../../components/shared/misc/requester/Requester";
+import Requester from "../../components/shared/core/requester/Requester";
 
 const jwt = (new Cookies()).get('jwt')
 const submitProps = PropTypes.shape({

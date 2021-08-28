@@ -4,7 +4,7 @@ import {CloudUploadRounded, DeleteRounded, GetAppRounded, PublishRounded, Remove
 
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import Host from "../../../utils/shared/Host";
-import List from "../../shared/misc/list/List";
+import List from "../../shared/core/list/List";
 import ProjectRequests from "../../../utils/requests/ProjectRequests";
 import ClassificationForm from "./ClassificationForm";
 import HandleUpload from "../../../utils/shared/HandleUpload";

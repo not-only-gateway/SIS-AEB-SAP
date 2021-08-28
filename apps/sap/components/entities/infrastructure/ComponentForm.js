@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import InfrastructurePT from "../../../packages/locales/InfrastructurePT";
-import EntityLayout from "../../shared/misc/form/EntityLayout";
+import EntityLayout from "../../shared/core/form/EntityLayout";
 import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
-import TextField from "../../shared/inputs/text/TextField";
-import Selector from "../../shared/misc/selector/Selector";
+import {DropDownField, TextField, DateField} from "sis-aeb-inputs";
+import Selector from "../../shared/core/selector/Selector";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 

@@ -3,7 +3,7 @@ import React, {useRef, useState} from "react";
 import Cookies from "universal-cookie/lib";
 import {CloudUploadRounded, DeleteRounded, GetAppRounded, PublishRounded, RemoveRounded} from "@material-ui/icons";
 import Host from "../../../utils/shared/Host";
-import List from "../../shared/misc/list/List";
+import List from "../../shared/core/list/List";
 import ComponentForm from "./ComponentForm";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";

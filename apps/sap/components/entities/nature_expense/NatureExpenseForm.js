@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 
 import {DropDownField, TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
-import EntityLayout from "../../shared/misc/form/EntityLayout";
+import EntityLayout from "../../shared/core/form/EntityLayout";
 import ProjectRequests from "../../../utils/requests/ProjectRequests";
 import ProjectPT from "../../../packages/locales/ProjectPT";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";

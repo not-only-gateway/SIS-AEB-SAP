@@ -7,7 +7,7 @@ import PersonAvatar from "../shared/PersonAvatar";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import BaseForm from "../person/forms/BaseForm";
 import ManagementPT from "../../packages/locales/management/ManagementPT";
-import List from "../shared/misc/list/List";
+import List from "../shared/core/list/List";
 
 export default function PeopleList(props) {
     const lang = ManagementPT

@@ -1,7 +1,7 @@
 import ProjectForm from "../../index/ProjectForm";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import React, {useState} from "react";
-import Tabs from "../../shared/misc/tabs/Tabs";
+import Tabs from "../../shared/core/tabs/Tabs";
 import ObjectivesList from "./objective/ObjectivesList";
 import RisksList from "./risk/RisksList";
 import ProjectPT from "../../../packages/locales/ProjectPT";

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import Tabs from "../../shared/misc/tabs/Tabs";
+import Tabs from "../../shared/core/tabs/Tabs";
 import PropTypes from 'prop-types'
 import TedPT from "../../../packages/locales/TedPT";
 import TedForm from "./TedForm";

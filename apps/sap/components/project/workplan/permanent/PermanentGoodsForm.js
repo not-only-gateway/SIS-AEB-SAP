@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {DateField, DropDownField, TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
 import OperationRequests from "../../../../utils/requests/OperationRequests";
-import EntityLayout from "../../../shared/misc/form/EntityLayout";
+import EntityLayout from "../../../shared/core/form/EntityLayout";
 import PermanentGoodsPT from "../../../../packages/locales/PermanentGoodsPT";
 
 export default function PermanentGoodsForm(props) {

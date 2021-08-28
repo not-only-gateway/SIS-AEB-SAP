@@ -2,14 +2,14 @@ import React, {useEffect, useState} from "react";
 
 import {TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
-import EntityLayout from "../../shared/misc/form/EntityLayout";
+import EntityLayout from "../../shared/core/form/EntityLayout";
 import ProjectRequests from "../../../utils/requests/ProjectRequests";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import EntitiesPT from "../../../packages/locales/EntitiesPT";
-import Modal from "../../shared/misc/modal/Modal";
+import Modal from "../../shared/core/modal/Modal";
 import ActionForm from "../action/ActionForm";
 import TypeForm from "../type/TypeForm";
-import Selector from "../../shared/misc/selector/Selector";
+import Selector from "../../shared/core/selector/Selector";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 

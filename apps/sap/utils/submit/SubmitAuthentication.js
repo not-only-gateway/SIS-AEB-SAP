@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import Cookies from "universal-cookie/lib";
 import publicIp from "public-ip";
 import Host from "../shared/Host";
-import Requester from "../../components/shared/misc/requester/Requester";
+import Requester from "../../components/shared/core/requester/Requester";
 
 
 const cookies = new Cookies()

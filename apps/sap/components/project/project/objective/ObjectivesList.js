@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, {useRef, useState} from "react";
 import animations from "../../../../styles/Animations.module.css";
-import List from "../../../shared/misc/list/List";
+import List from "../../../shared/core/list/List";
 import Cookies from "universal-cookie/lib";
 import Host from "../../../../utils/shared/Host";
 import handleObjectChange from "../../../../utils/shared/HandleObjectChange";

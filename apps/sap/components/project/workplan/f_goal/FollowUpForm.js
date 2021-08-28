@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {DropDownField, TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
 import OperationPT from "../../../../packages/locales/OperationPT";
-import EntityLayout from "../../../shared/misc/form/EntityLayout";
+import EntityLayout from "../../../shared/core/form/EntityLayout";
 import OperationRequests from "../../../../utils/requests/OperationRequests";
 
 export default function FollowUpForm(props) {

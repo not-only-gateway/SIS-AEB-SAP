@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import OverviewPT from "../../packages/locales/OverviewPT";
-import Tabs from "../shared/misc/tabs/Tabs";
+import Tabs from "../shared/core/tabs/Tabs";
 
 export default function WorkPlan() {
     const lang = OverviewPT

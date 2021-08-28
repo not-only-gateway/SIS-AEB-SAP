@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import EntityLayout from "../../../shared/misc/form/EntityLayout";
+import EntityLayout from "../../../shared/core/form/EntityLayout";
 import {TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
 import WorkPlanRequests from "../../../../utils/requests/WorkPlanRequests";

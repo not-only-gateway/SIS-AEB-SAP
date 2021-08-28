@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
 import StageForm from "./StageForm";
-import Tabs from "../../../shared/misc/tabs/Tabs";
+import Tabs from "../../../shared/core/tabs/Tabs";
 import GoalPT from "../../../../packages/locales/GoalPT";
 import OperationList from "../operation/OperationList";
 

@@ -5,7 +5,7 @@ import Cookies from "universal-cookie/lib";
 
 import {CloudUploadRounded, DeleteRounded, GetAppRounded, PublishRounded, RemoveRounded} from "@material-ui/icons";
 import OperationRequests from "../../../../utils/requests/OperationRequests";
-import List from "../../../shared/misc/list/List";
+import List from "../../../shared/core/list/List";
 import Host from "../../../../utils/shared/Host";
 import handleObjectChange from "../../../../utils/shared/HandleObjectChange";
 import ResourceApplicationForm from "./ResourceApplicationForm";

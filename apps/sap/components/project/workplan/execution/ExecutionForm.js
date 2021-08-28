@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {DateField, TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
-import EntityLayout from "../../../shared/misc/form/EntityLayout";
+import EntityLayout from "../../../shared/core/form/EntityLayout";
 import OperationRequests from "../../../../utils/requests/OperationRequests";
 import ExecutionPT from "../../../../packages/locales/ExecutionPT";
 

@@ -2,11 +2,11 @@ import React, {useEffect, useState} from "react";
 
 import {TextField} from "sis-aeb-inputs";
 import PropTypes from "prop-types";
-import EntityLayout from "../../shared/misc/form/EntityLayout";
+import EntityLayout from "../../shared/core/form/EntityLayout";
 import ProjectRequests from "../../../utils/requests/ProjectRequests";
 import ProjectPT from "../../../packages/locales/ProjectPT";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
-import Selector from "../../shared/misc/selector/Selector";
+import Selector from "../../shared/core/selector/Selector";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import EntitiesPT from "../../../packages/locales/EntitiesPT";

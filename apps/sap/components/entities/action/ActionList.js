@@ -3,7 +3,7 @@ import Cookies from "universal-cookie/lib";
 import {CloudUploadRounded, DeleteRounded, GetAppRounded, PublishRounded, RemoveRounded} from "@material-ui/icons";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import Host from "../../../utils/shared/Host";
-import List from "../../shared/misc/list/List";
+import List from "../../shared/core/list/List";
 import ActionForm from "./ActionForm";
 import ProjectRequests from "../../../utils/requests/ProjectRequests";
 import HandleUpload from "../../../utils/shared/HandleUpload";

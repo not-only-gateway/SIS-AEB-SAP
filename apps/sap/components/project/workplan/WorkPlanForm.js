@@ -1,16 +1,14 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
-import {TextField} from "sis-aeb-inputs";
-import EntityLayout from "../../shared/misc/form/EntityLayout";
+import EntityLayout from "../../shared/core/form/EntityLayout";
 import WorkPlanPT from "../../../packages/locales/WorkPlanPT";
-import MultiSelectField from "../../shared/inputs/multiselect/MultiSelectField";
-import Selector from "../../shared/misc/selector/Selector";
+import {DropDownField, TextField, MultiSelectField} from "sis-aeb-inputs";
+import Selector from "../../shared/core/selector/Selector";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import Modal from "../../shared/misc/modal/Modal";
+import Modal from "../../shared/core/modal/Modal";
 import BudgetPlanForm from "../../entities/budget_plan/BudgetPlanForm";
 import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
-import DropDownField from "../../shared/inputs/dropdown/DropDownField";
 
 
 export default function WorkPlanForm(props) {

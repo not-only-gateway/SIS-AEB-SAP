@@ -1,5 +1,5 @@
 import React, {useRef, useState} from "react";
-import Tabs from "../../shared/misc/tabs/Tabs";
+import Tabs from "../../shared/core/tabs/Tabs";
 import PropTypes from 'prop-types'
 import WorkPlanPT from "../../../packages/locales/WorkPlanPT";
 import WorkPlanForm from "./WorkPlanForm";

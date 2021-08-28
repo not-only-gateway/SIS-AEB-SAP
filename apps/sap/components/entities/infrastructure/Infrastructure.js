@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import Tabs from "../../shared/misc/tabs/Tabs";
+import Tabs from "../../shared/core/tabs/Tabs";
 
 import React, {useState} from "react";
 import InfrastructurePT from "../../../packages/locales/InfrastructurePT";
