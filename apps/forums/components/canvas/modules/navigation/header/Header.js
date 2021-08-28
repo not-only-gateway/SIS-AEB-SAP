@@ -26,7 +26,7 @@ export default function Header(props) {
                 {/*    Baixar modelo*/}
 
                 {/*</button>*/}
-                <input type="file" id="upload_file_input" style={{display: 'none'}} multiple={false}
+                <input type="file" id="upload_file_input" style={{display: 'none'}}
                        onChange={event => HandleUpload({
                            file: event,
                            setData: props.setData,

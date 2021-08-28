@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types'
 import React, {useRef, useState} from "react";
 import Cookies from "universal-cookie/lib";
-import {CloudUploadRounded, DeleteRounded, GetAppRounded, PublishRounded, RemoveRounded} from "@material-ui/icons";
+import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
 import Host from "../../../utils/shared/Host";
 import List from "../../shared/core/list/List";
 import ComponentForm from "./ComponentForm";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
-import ProjectRequests from "../../../utils/requests/ProjectRequests";
 import HandleUpload from "../../../utils/shared/HandleUpload";
 import HandleDownload from "../../../utils/shared/HandleDownload";
 
@@ -19,8 +18,8 @@ export default function ComponentsList(props) {
     return (
         <>
             <input
-                accept={'.sap'} type={'file'} style={{display: 'none'}}
-                ref={ref}
+                type={'file'} style={{display: 'none'}}
+                ref={ref} accept={'.json'}
                 onChange={(file) => {
                     HandleUpload(file.target.files[0]).then(res => {
                         if(res !== null){
@@ -31,7 +30,7 @@ export default function ComponentsList(props) {
                     })
                     ref.current.value = ''
                 }}
-                multiple={false}
+
             />
             {!open ? null :
                 <ComponentForm
@@ -56,20 +55,7 @@ export default function ComponentsList(props) {
                     triggerRefresh={!refreshed}
                     setRefreshed={setRefreshed}
                     controlOptions={[
-                        {
-                            label: 'Baixar selecionados',
-                            icon: <GetAppRounded/>,
-                            onClick: (d) => {
-                                HandleDownload(d,  `componentes - ${new Date().toLocaleDateString()}`)
-                            }
-                        },
-                        {
-                            label: 'Importar multiplos',
-                            icon: <CloudUploadRounded/>,
-                            onClick: (d) => {
-                            },
-                            disabled: true
-                        },
+
                         {
                             label: 'Importar',
                             icon: <PublishRounded/>,

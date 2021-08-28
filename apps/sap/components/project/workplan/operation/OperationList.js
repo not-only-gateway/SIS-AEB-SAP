@@ -3,7 +3,7 @@ import handleObjectChange from "../../../../utils/shared/HandleObjectChange";
 import List from "../../../shared/core/list/List";
 import Cookies from "universal-cookie/lib";
 import Host from "../../../../utils/shared/Host";
-import {CloudUploadRounded, DeleteRounded, GetAppRounded, PublishRounded, RemoveRounded} from "@material-ui/icons";
+import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import animations from "../../../../styles/Animations.module.css";
 import Operation from "./Operation";
@@ -19,8 +19,8 @@ export default function OperationList(props) {
     return (
         <>
             <input
-                accept={'.sap'} type={'file'} style={{display: 'none'}}
-                ref={ref}
+                type={'file'} style={{display: 'none'}}
+                ref={ref} accept={'.json'}
                 onChange={(file) => {
                     HandleUpload(file.target.files[0]).then(res => {
                         if(res !== null){
@@ -31,7 +31,6 @@ export default function OperationList(props) {
                     })
                     ref.current.value = ''
                 }}
-                multiple={false}
             />
             {!open ? null :
                 <div className={animations.fadeIn}>
@@ -65,20 +64,6 @@ export default function OperationList(props) {
 
                     ]} labels={['Fase', 'Situação inicial', 'indicador planejado', 'detalhamento da fase', 'custo estimado']}
                     controlOptions={[
-                        {
-                            label: 'Baixar selecionados',
-                            icon: <GetAppRounded/>,
-                            onClick: (d) => {
-                                HandleDownload(d,  `operacoes - ${new Date().toLocaleDateString()}`)
-                            }
-                        },
-                        {
-                            label: 'Importar multiplos',
-                            icon: <CloudUploadRounded/>,
-                            onClick: (d) => {
-                            },
-                            disabled: true
-                        },
                         {
                             label: 'Importar',
                             icon: <PublishRounded/>,

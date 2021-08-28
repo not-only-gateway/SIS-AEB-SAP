@@ -16,7 +16,7 @@
 
     transition: 250ms ease-in-out;
     box-sizing: border-box;
-    /*box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;*/
+    border-bottom: #ecedf2 1px solid;
     display: flex;
     justify-content: space-between;
     background: white;
@@ -139,9 +139,6 @@
     background: #f9fafb;
     width: 100%;
     height: 100%;
-
-    border-top: #ecedf2 1px solid;
-    border-left: #ecedf2 1px solid;
 }
 .wrapper{
     display: block;

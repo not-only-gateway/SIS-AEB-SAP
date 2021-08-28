@@ -3,10 +3,9 @@ import animations from "../../../styles/Animations.module.css";
 import List from "../../shared/core/list/List";
 import Cookies from "universal-cookie/lib";
 import Host from "../../../utils/shared/Host";
-import {CloudUploadRounded, DeleteRounded, GetAppRounded, PublishRounded, RemoveRounded} from "@material-ui/icons";
+import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
 import Infrastructure from "./Infrastructure";
 import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
-import ProjectRequests from "../../../utils/requests/ProjectRequests";
 import HandleUpload from "../../../utils/shared/HandleUpload";
 import HandleDownload from "../../../utils/shared/HandleDownload";
 
@@ -18,8 +17,8 @@ export default function InfrastructureList(props) {
     return (
         <>
             <input
-                accept={'.sap'} type={'file'} style={{display: 'none'}}
-                ref={ref}
+                type={'file'} style={{display: 'none'}}
+                ref={ref} accept={'.json'}
                 onChange={(file) => {
                     HandleUpload(file.target.files[0]).then(res => {
                         if(res !== null){
@@ -30,7 +29,7 @@ export default function InfrastructureList(props) {
                     })
                     ref.current.value = ''
                 }}
-                multiple={false}
+
             />
             {!open ? null :
                 <div className={animations.fadeIn}>
@@ -53,20 +52,7 @@ export default function InfrastructureList(props) {
                     triggerRefresh={!refreshed}
                     setRefreshed={setRefreshed}
                     controlOptions={[
-                        {
-                            label: 'Baixar selecionados',
-                            icon: <GetAppRounded/>,
-                            onClick: (d) => {
-                                HandleDownload(d,  `infraestruturas - ${new Date().toLocaleDateString()}`)
-                            }
-                        },
-                        {
-                            label: 'Importar multiplos',
-                            icon: <CloudUploadRounded/>,
-                            onClick: (d) => {
-                            },
-                            disabled: true
-                        },
+
                         {
                             label: 'Importar',
                             icon: <PublishRounded/>,

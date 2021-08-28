@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import PropTypes from 'prop-types'
 import ProjectPT from "../../packages/locales/ProjectPT";
 import EntityLayout from "../shared/core/form/EntityLayout";
-import {DropDownField, TextField, DateField} from "sis-aeb-inputs";
+import {DropDownField, TextField} from "sis-aeb-inputs";
 import Selector from "../shared/core/selector/Selector";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";

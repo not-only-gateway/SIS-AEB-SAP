@@ -2,6 +2,7 @@ import {FolderRounded} from "@material-ui/icons";
 import React from "react";
 import ListsPT from "../locales/ListsPT";
 import styles from '../styles/Indicator.module.css'
+
 export default function EmptyListIndicator(){
     const lang = ListsPT
 

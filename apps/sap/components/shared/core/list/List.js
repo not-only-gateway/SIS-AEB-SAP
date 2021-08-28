@@ -1,14 +1,10 @@
 import React, {useEffect, useRef, useState} from "react";
 import Fetch from "./methods/Fetch";
-import ListContent from "./modules/ListContent";
-import ListsPT from "./locales/ListsPT";
 import Loader from "./modules/Loader";
 import styles from './styles/List.module.css'
 import SearchBar from "./modules/SearchBar";
 import ContextMenu from "./modules/ContextMenu";
-import {ArrowBackRounded, ArrowForwardRounded, FolderOutlined, FolderRounded, ListRounded} from "@material-ui/icons";
 import ListPropsTemplate from "../shared/ListPropsTemplate";
-import pStyles from './styles/Footer.module.css'
 import ListHeader from "./modules/Header";
 import ListLabels from "./modules/ListLabels";
 import Checkbox from "./modules/Checkbox";
@@ -85,42 +81,16 @@ export default function List(props) {
             setMounted(true)
         }
 
-        if (props.triggerRefresh || data.length === 0)
+        if (Array.isArray(data) && (props.triggerRefresh || data.length === 0))
             refresh()
     }, [props.triggerRefresh])
 
-    const labels = (
-        <div className={styles.labelsContainer}>
-            <Checkbox
-                noSelect={props.noSelect}
-                checked={data.length > 0 && selected.length === (data.length * fetchSize - data[data.length - 1].length)}
-                handleCheck={checked => {
-                    let length = data.length * fetchSize - data[data.length - 1].length
-                    if (!checked && length > 0 && !isNaN(length)) {
-
-
-                        let newA = new Array(length)
-                        for (let i = 0; i < length; i++)
-                            newA[i] = i
-
-                        setSelected(newA)
-                    } else
-                        setSelected([])
-                }}
-            />
-            {props.labels.map((l, i) => (
-                <React.Fragment key={'list-labels-' + i + '-' + l}>
-                    <ListLabels sorts={sorts} setSorts={setSorts} data={data} index={i} label={l}
-                                fields={props.fields}/>
-                </React.Fragment>
-            ))}
-        </div>
-    )
     return (
         <div
             className={styles.container} ref={ref}
             style={{height: maxHeight + 'px'}}
         >
+
             <ContextMenu mountingPoint={mountingPoint} data={data} options={props.options}/>
             <div className={styles.header}>
                 <ListHeader
@@ -128,7 +98,7 @@ export default function List(props) {
                 />
                 <ControlHeader
                     controlOptions={props.controlOptions} disabled={selected.length === 0} data={data}
-                    selected={selected} createOption={props.createOption}
+                    selected={selected} createOption={props.createOption} listTitle={props.title}
                     refresh={refresh} setEntity={props.setEntity} clickEvent={props.clickEvent}
                 />
                 <div style={{display: 'flex', alignItems: 'center', gap: '16px'}}>
@@ -157,32 +127,50 @@ export default function List(props) {
 
 
             </div>
-            {loading ?
-                <div className={styles.contentWrapper}>
-                    {labels}
-                    <Loader/>
-                    <Loader/>
-                    <Loader/>
+            <div className={styles.contentWrapper}>
+                <div className={styles.labelsContainer}>
+                    <Checkbox
+                        noSelect={props.noSelect}
+                        checked={data[0] !== undefined && data.length > 0 && selected.length > 0 && selected.length === (data.length * fetchSize - data[data.length - 1].length)}
+                        handleCheck={checked => {
+                            let length = data.length * fetchSize - (data.length > 1 ? data[data.length - 1].length : 0)
+                            if (!isNaN(length) && !checked && length > 0) {
+                                let newA = new Array(length)
+                                for (let i = 0; i < length; i++)
+                                    newA[i] = i
+
+                                setSelected(newA)
+                            } else
+                                setSelected([])
+                        }}
+                    />
+                    {props.labels.map((l, i) => (
+                        <React.Fragment key={'list-labels-' + i + '-' + l}>
+                            <ListLabels sorts={sorts} setSorts={setSorts} data={data} index={i} label={l}
+                                        fields={props.fields}/>
+                        </React.Fragment>
+                    ))}
                 </div>
-                :
-                (data[0] !== undefined && data[0].length > 0 ?
-                        <div className={styles.contentWrapper}>
-                            {labels}
+                {loading ?
+                    <>
+                        <Loader/>
+                        <Loader/>
+                        <Loader/>
+                    </>
+                    :
+                    (data[0] !== undefined && data[0].length > 0 ?
                             <Content
                                 data={data} setData={setData} setSelected={setSelected} sorts={sorts}
                                 selected={selected} noSelect={props.noSelect} pageData={data[currentPage]}
 
                                 fields={props.fields} clickEvent={props.clickEvent} setEntity={props.setEntity}
                             />
-                        </div>
-                        :
-                        <div className={styles.contentWrapper}>
-                            {labels}
+                            :
                             <EmptyListIndicator/>
-                        </div>
 
-                )}
 
+                    )}
+            </div>
             <Footer
                 setCurrentPage={setCurrentPage} data={data} currentPage={currentPage} setData={setData}
                 fetchSize={fetchSize} fetchToken={props.fetchToken} maxID={maxID} setMaxID={setMaxID}

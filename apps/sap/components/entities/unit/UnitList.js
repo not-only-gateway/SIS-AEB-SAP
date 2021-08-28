@@ -1,13 +1,10 @@
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import Cookies from "universal-cookie/lib";
 
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import Host from "../../../utils/shared/Host";
 import List from "../../shared/core/list/List";
 import UnitForm from "./UnitForm";
-import {CloudUploadRounded, DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
-import ProjectRequests from "../../../utils/requests/ProjectRequests";
-import HandleUpload from "../../../utils/shared/HandleUpload";
 
 export default function UnitList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)

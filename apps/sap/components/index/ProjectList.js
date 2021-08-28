@@ -6,13 +6,7 @@ import animations from "../../styles/Animations.module.css";
 import handleObjectChange from "../../utils/shared/HandleObjectChange";
 import List from "../shared/core/list/List";
 import ProjectForm from "./ProjectForm";
-import {
-    ArrowForwardRounded,
-    CloudDownloadRounded, CloudUploadRounded,
-    DeleteForeverRounded, DeleteRounded,
-    FileCopyRounded, GetAppRounded, PublishRounded,
-    RemoveRounded
-} from "@material-ui/icons";
+import {ArrowForwardRounded, DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 
 export default function ProjectList(props) {
@@ -44,7 +38,7 @@ export default function ProjectList(props) {
                     };
                     reader.readAsText(file.target.files[0]);
                 }}
-                multiple={false}
+
             />
             {!open ? null :
                 <div className={animations.fadeIn}>
@@ -73,26 +67,6 @@ export default function ProjectList(props) {
                         {name: 'type', type: 'string', capitalize: true},
                     ]}
                     controlOptions={[
-                        {
-                            label: 'Baixar selecionados',
-                            icon: <GetAppRounded/>,
-                            onClick: (d) => {
-                                let downloadAnchorNode = document.createElement('a');
-                                const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(d))
-                                downloadAnchorNode.setAttribute("href", data);
-                                downloadAnchorNode.setAttribute("download", `projetos - ${new Date().toLocaleDateString()}.json`);
-                                document.body.appendChild(downloadAnchorNode)
-                                downloadAnchorNode.click()
-                                downloadAnchorNode.remove()
-                            }
-                        },
-                        {
-                            label: 'Importar multiplos',
-                            icon: <CloudUploadRounded/>,
-                            onClick: (d) => {
-                            },
-                            disabled: true
-                        },
                         {
                             label: 'Importar',
                             icon: <PublishRounded/>,

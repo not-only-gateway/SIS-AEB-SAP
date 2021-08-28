@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import EntityLayout from "../../shared/core/form/EntityLayout";
 import TedPT from "../../../packages/locales/TedPT";
 import TedRequests from "../../../utils/requests/TedRequests";
-import {DropDownField, TextField, DateField} from "sis-aeb-inputs";
+import {DateField, DropDownField, TextField} from "sis-aeb-inputs";
 import Selector from "../../shared/core/selector/Selector";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";

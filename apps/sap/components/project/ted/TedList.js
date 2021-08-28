@@ -7,7 +7,7 @@ import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import List from "../../shared/core/list/List";
 import TedForm from "./TedForm";
 import Selector from "../../shared/core/selector/Selector";
-import {ArrowForwardRounded, DeleteRounded, GetAppRounded, RemoveRounded} from "@material-ui/icons";
+import {ArrowForwardRounded, DeleteRounded, GetAppRounded} from "@material-ui/icons";
 import ProjectRequests from "../../../utils/requests/ProjectRequests";
 import TedRequests from "../../../utils/requests/TedRequests";
 import HandleDownload from "../../../utils/shared/HandleDownload";

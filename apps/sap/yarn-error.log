@@ -1,20 +1,20 @@
 Arguments: 
-  /usr/bin/node /usr/local/bin/yarn add crypto-js
+  /usr/bin/node /usr/bin/yarn add jszip
 
 PATH: 
-  /sbin:/bin:/usr/bin:/usr/local/bin
+  /home/roque/.local/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/var/lib/flatpak/exports/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl
 
 Yarn version: 
-  1.22.10
+  1.22.11
 
 Node version: 
-  12.18.2
+  16.6.2
 
 Platform: 
   linux x64
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/home/aeb/SIS-AEB-FRONTEND/apps/forums/node_modules/.yarn-integrity'
+  Error: EACCES: permission denied, unlink '/home/roque/SIS-AEB-FRONTEND/apps/sap/node_modules/.yarn-integrity'
 
 npm manifest: 
   {
@@ -32,6 +32,7 @@ npm manifest:
       "@material-ui/icons": "^4.11.2",
       "@material-ui/lab": "^4.0.0-alpha.57",
       "axios": "^0.21.1",
+      "crypto-js": "^4.0.0",
       "draft-js": "^0.11.7",
       "express": "^4.17.1",
       "next": "^10.2.3",
@@ -44,10 +45,10 @@ npm manifest:
       "react-infinite-scroll-component": "^6.0.0",
       "react-input-mask": "^2.0.4",
       "react-to-print": "^2.12.6",
-      "sis-aeb-chart": "../../packages/chart",
       "sis-aeb-inputs": "../../packages/inputs",
       "sis-aeb-misc": "../../packages/misc",
-      "sis-aeb-navigation": "../../packages/navigation"
+      "sis-aeb-navigation": "../../packages/navigation",
+      "uuid": "^8.3.2"
     },
     "devDependencies": {
       "@material-ui/pickers": "^3.3.10",
@@ -828,6 +829,11 @@ Lockfile:
       public-encrypt "^4.0.0"
       randombytes "^2.0.0"
       randomfill "^1.0.3"
+  
+  crypto-js@^4.0.0:
+    version "4.0.0"
+    resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-4.0.0.tgz#2904ab2677a9d042856a2ea2ef80de92e4a36dcc"
+    integrity sha512-bzHZN8Pn+gS7DQA6n+iUmBfl0hO5DJq++QP3U6uTucDtk/0iGpXd/Gg7CGR0p8tJhofJyaKoWBuJI4eAO00BBg==
   
   css-vendor@^2.0.8:
     version "2.0.8"
@@ -2504,9 +2510,6 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.7.2.tgz#67a7d02c76c9da24f99d20808fcaded0e0e04be2"
     integrity sha512-mRz/m/JVscCrkMyPqHc/bczi3OQHkLTqXHEFu0zDhK/qfv3UcOA4SVmRCLmos4bhjr9ekVQubj/R7waKapmiQg==
   
-  sis-aeb-chart@../../packages/chart:
-    version "1.0.0"
-  
   sis-aeb-inputs@../../packages/inputs:
     version "1.0.0"
   
@@ -2862,6 +2865,11 @@ Lockfile:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
     integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
+  
+  uuid@^8.3.2:
+    version "8.3.2"
+    resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
+    integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
   
   vary@~1.1.2:
     version "1.1.2"

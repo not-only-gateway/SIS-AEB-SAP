@@ -1,6 +1,6 @@
 import React, {useRef, useState} from "react";
 import Cookies from "universal-cookie/lib";
-import {CloudUploadRounded, DeleteRounded, GetAppRounded, PublishRounded, RemoveRounded} from "@material-ui/icons";
+import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
 
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import Host from "../../../utils/shared/Host";
@@ -19,8 +19,8 @@ export default function DecentralizedUnitList(props) {
     return (
         <>
             <input
-                accept={'.sap'} type={'file'} style={{display: 'none'}}
-                ref={ref}
+                type={'file'} style={{display: 'none'}}
+                ref={ref} accept={'.json'}
                 onChange={(file) => {
                     HandleUpload(file.target.files[0]).then(res => {
                         if(res !== null){
@@ -31,7 +31,7 @@ export default function DecentralizedUnitList(props) {
                     })
                     ref.current.value = ''
                 }}
-                multiple={false}
+
             />
             {!open ? null :
                 <>
@@ -58,20 +58,7 @@ export default function DecentralizedUnitList(props) {
                     triggerRefresh={!refreshed}
                     setRefreshed={setRefreshed}
                     controlOptions={[
-                        {
-                            label: 'Baixar selecionados',
-                            icon: <GetAppRounded/>,
-                            onClick: (d) => {
-                                HandleDownload(d,  `descentralizadas - ${new Date().toLocaleDateString()}`)
-                            }
-                        },
-                        {
-                            label: 'Importar multiplos',
-                            icon: <CloudUploadRounded/>,
-                            onClick: (d) => {
-                            },
-                            disabled: true
-                        },
+
                         {
                             label: 'Importar',
                             icon: <PublishRounded/>,

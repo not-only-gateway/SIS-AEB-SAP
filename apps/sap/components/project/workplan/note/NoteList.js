@@ -4,7 +4,7 @@ import Cookies from "universal-cookie/lib";
 import animations from "../../../../styles/Animations.module.css";
 import handleObjectChange from "../../../../utils/shared/HandleObjectChange";
 import List from "../../../shared/core/list/List";
-import {CloudUploadRounded, DeleteRounded, GetAppRounded, PublishRounded, RemoveRounded} from "@material-ui/icons";
+import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import NoteForm from "./NoteForm";
 import OperationRequests from "../../../../utils/requests/OperationRequests";
@@ -19,7 +19,7 @@ export default function NoteList(props) {
     return (
         <div>
             <input
-                accept={'.sap'} type={'file'} style={{display: 'none'}}
+                accept={'.json'} type={'file'} style={{display: 'none'}}
                 ref={ref}
                 onChange={(file) => {
                     HandleUpload(file.target.files[0]).then(res => {
@@ -31,7 +31,6 @@ export default function NoteList(props) {
                     })
                     ref.current.value = ''
                 }}
-                multiple={false}
             />
             {!open ? null :
                 <div className={animations.fadeIn} style={{width: '100%'}}>
@@ -67,20 +66,6 @@ export default function NoteList(props) {
                         setCurrentEntity(entity)
                     }}
                     controlOptions={[
-                        {
-                            label: 'Baixar selecionados',
-                            icon: <GetAppRounded/>,
-                            onClick: (d) => {
-                                HandleDownload(d,  `notas - ${new Date().toLocaleDateString()}`)
-                            }
-                        },
-                        {
-                            label: 'Importar multiplos',
-                            icon: <CloudUploadRounded/>,
-                            onClick: (d) => {
-                            },
-                            disabled: true
-                        },
                         {
                             label: 'Importar',
                             icon: <PublishRounded/>,

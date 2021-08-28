@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types'
 import React, {useRef, useState} from "react";
 import Cookies from "universal-cookie/lib";
-import {CloudUploadRounded, DeleteRounded, GetAppRounded, PublishRounded, RemoveRounded} from "@material-ui/icons";
+import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
 import Host from "../../../../utils/shared/Host";
 import List from "../../../shared/core/list/List";
 import handleObjectChange from "../../../../utils/shared/HandleObjectChange";
 import StageForm from "./StageForm";
 import WorkPlanRequests from "../../../../utils/requests/WorkPlanRequests";
-import OperationRequests from "../../../../utils/requests/OperationRequests";
 import HandleUpload from "../../../../utils/shared/HandleUpload";
 import HandleDownload from "../../../../utils/shared/HandleDownload";
 
@@ -20,11 +19,11 @@ export default function StageList(props) {
     return (
         <>
             <input
-                accept={'.sap'} type={'file'} style={{display: 'none'}}
-                ref={ref}
+                type={'file'} style={{display: 'none'}}
+                ref={ref} accept={'.json'}
                 onChange={(file) => {
                     HandleUpload(file.target.files[0]).then(res => {
-                        if(res !== null){
+                        if (res !== null) {
                             res.id = undefined
                             setCurrentEntity(res)
                             setOpen(true)
@@ -32,7 +31,6 @@ export default function StageList(props) {
                     })
                     ref.current.value = ''
                 }}
-                multiple={false}
             />
             {open ?
                 <StageForm
@@ -76,20 +74,6 @@ export default function StageList(props) {
                     ]} labels={['etapa', 'descrição', 'reresentação (%) da meta']}
                     clickEvent={() => null}
                     controlOptions={[
-                        {
-                            label: 'Baixar selecionados',
-                            icon: <GetAppRounded/>,
-                            onClick: (d) => {
-                                HandleDownload(d,  `etapas - ${new Date().toLocaleDateString()}`)
-                            }
-                        },
-                        {
-                            label: 'Importar multiplos',
-                            icon: <CloudUploadRounded/>,
-                            onClick: (d) => {
-                            },
-                            disabled: true
-                        },
                         {
                             label: 'Importar',
                             icon: <PublishRounded/>,

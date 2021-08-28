@@ -12,7 +12,6 @@ import DecentralizedUnitList from "../components/entities/decentralized/Decentra
 import UnitList from "../components/entities/unit/UnitList";
 
 
-
 export default function entities(){
     const lang = OverviewPT
     const router = useRouter()

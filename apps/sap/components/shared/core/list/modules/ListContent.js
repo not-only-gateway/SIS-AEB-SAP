@@ -1,6 +1,5 @@
 import React, {useRef} from "react";
 import PropTypes from 'prop-types'
-import {AddRounded} from "@material-ui/icons";
 import styles from "../styles/List.module.css";
 import RenderListField from "../../shared/RenderListField";
 import Checkbox from "./Checkbox";
@@ -37,7 +36,7 @@ export default function ListContent(props) {
                 }}
                 disabled={!props.create && props.onlyCreate}>
                 {props.fields.map((field, i) => (
-                    <React.Fragment key={i + '-field-' + props.entity.id}>
+                    <React.Fragment key={i + '-field-' + props.index}>
                         <div className={styles.overflow} style={{
                             width: ((100 / props.fields.length) + (field.extraSize !== undefined ? field.extraSize : 0)) + '%',
                             color: typeof field.getColor === 'function' ? field.getColor(props.entity[field.name]) : undefined,

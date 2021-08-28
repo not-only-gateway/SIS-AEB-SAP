@@ -1,13 +1,11 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useState} from "react";
 import ListContent from "./ListContent";
-import styles from '../styles/List.module.css'
 
 export default function Content(props) {
     const [sortedData, setSortedData] = useState([])
 
     useEffect(() => {
-        console.log('REFRESHING')
         let newData = [...props.pageData]
         props.sorts.forEach(e => {
             switch (e.type) {
@@ -69,7 +67,8 @@ export default function Content(props) {
                         }
                     }}
                     fields={props.fields} noSelect={props.noSelect}
-                    clickEvent={props.clickEvent} isLast={props.pageData.indexOf(entity) === (sortedData.length - 1)}
+                    clickEvent={props.clickEvent}
+                    isLast={props.pageData.indexOf(entity) === (props.pageData.length - 1)}
                 />
             </React.Fragment>
         )

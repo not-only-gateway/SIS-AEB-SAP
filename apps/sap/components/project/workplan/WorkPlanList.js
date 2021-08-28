@@ -7,8 +7,7 @@ import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import List from "../../shared/core/list/List";
 import WorkPlanForm from "./WorkPlanForm";
 import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
-import {CloudUploadRounded, DeleteRounded, GetAppRounded, PublishRounded, RemoveRounded} from "@material-ui/icons";
-import ProjectRequests from "../../../utils/requests/ProjectRequests";
+import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
 import HandleUpload from "../../../utils/shared/HandleUpload";
 import HandleDownload from "../../../utils/shared/HandleDownload";
 
@@ -20,8 +19,8 @@ export default function WorkPlanList(props) {
     return (
         <>
             <input
-                accept={'.sap'} type={'file'} style={{display: 'none'}}
-                ref={ref}
+                 type={'file'} style={{display: 'none'}}
+                ref={ref} accept={'.json'}
                 onChange={(file) => {
                     HandleUpload(file.target.files[0]).then(res => {
                         if(res !== null){
@@ -32,7 +31,7 @@ export default function WorkPlanList(props) {
                     })
                     ref.current.value = ''
                 }}
-                multiple={false}
+
             />
             {!open ? null :
                 <div className={animations.fadeIn}>
@@ -67,20 +66,6 @@ export default function WorkPlanList(props) {
                         {name: 'responsible', type: 'string'},
                     ]}
                     controlOptions={[
-                        {
-                            label: 'Baixar selecionados',
-                            icon: <GetAppRounded/>,
-                            onClick: (d) => {
-                                HandleDownload(d,  `planos_de_trabalho - ${new Date().toLocaleDateString()}`)
-                            }
-                        },
-                        {
-                            label: 'Importar multiplos',
-                            icon: <CloudUploadRounded/>,
-                            onClick: (d) => {
-                            },
-                            disabled: true
-                        },
                         {
                             label: 'Importar',
                             icon: <PublishRounded/>,

@@ -7,8 +7,7 @@ import Cookies from "universal-cookie/lib";
 import Host from "../../../../utils/shared/Host";
 import WorkPlanRequests from "../../../../utils/requests/WorkPlanRequests";
 import GoalForm from "./GoalForm";
-import {CloudUploadRounded, DeleteRounded, GetAppRounded, PublishRounded, RemoveRounded} from "@material-ui/icons";
-import OperationRequests from "../../../../utils/requests/OperationRequests";
+import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
 import HandleUpload from "../../../../utils/shared/HandleUpload";
 import HandleDownload from "../../../../utils/shared/HandleDownload";
 
@@ -21,8 +20,8 @@ export default function GoalList(props) {
     return (
         <div style={{width: '100%'}}>
             <input
-                accept={'.sap'} type={'file'} style={{display: 'none'}}
-                ref={ref}
+              type={'file'} style={{display: 'none'}}
+                ref={ref} accept={'.json'}
                 onChange={(file) => {
                     HandleUpload(file.target.files[0]).then(res => {
                         if(res !== null){
@@ -33,7 +32,7 @@ export default function GoalList(props) {
                     })
                     ref.current.value = ''
                 }}
-                multiple={false}
+
             />
             {!open ? null :
                 <div className={animations.fadeIn}>
@@ -80,20 +79,6 @@ export default function GoalList(props) {
                             setOpen(true)
                     }}
                     controlOptions={[
-                        {
-                            label: 'Baixar selecionados',
-                            icon: <GetAppRounded/>,
-                            onClick: (d) => {
-                                HandleDownload(d,  `meta_pt - ${new Date().toLocaleDateString()}`)
-                            }
-                        },
-                        {
-                            label: 'Importar multiplos',
-                            icon: <CloudUploadRounded/>,
-                            onClick: (d) => {
-                            },
-                            disabled: true
-                        },
                         {
                             label: 'Importar',
                             icon: <PublishRounded/>,

@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
 import styles from '../styles/Control.module.css'
 import ToolTip from "../../tooltip/ToolTip";
-import {AddRounded} from "@material-ui/icons";
+import {AddRounded, GetAppRounded} from "@material-ui/icons";
 import React from "react";
 import RefreshRoundedIcon from "@material-ui/icons/RefreshRounded";
+import HandleDownload from "../methods/HandleDownload";
 
 export default function ControlHeader(props) {
     return (
@@ -61,6 +62,28 @@ export default function ControlHeader(props) {
                         </div>
                     ))
                 }
+                <div>
+                    <button
+                        className={styles.button}
+                        onClick={() => {
+                            let data = []
+                            let selected = []
+                            props.data.map(e => {
+                                data = [...data, ...e]
+                            })
+                            props.selected.map((m) => {
+                                if (data[m] !== null)
+                                    selected = [...selected, ...[data[m]]]
+                            })
+                            HandleDownload(selected, props.listTitle)
+                        }} disabled={props.disabled}>
+                        <GetAppRounded/>
+                        <div className={styles.label}>
+                            Baixar selecionados
+                        </div>
+                    </button>
+                    <ToolTip content={'Baixar selecionados'}/>
+                </div>
             </div>
         </div>
     )
@@ -74,5 +97,6 @@ ControlHeader.propTypes = {
         disabled: PropTypes.bool
     })),
     data: PropTypes.array,
-    selected: PropTypes.array
+    selected: PropTypes.array,
+    listTitle: PropTypes.string
 }

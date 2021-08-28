@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import styles from "../../styles/Details.module.css";
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import ReactDOM from "react-dom";
 import AlertPT from "../../locales/LocalesPT";
 import {CloseRounded} from "@material-ui/icons";

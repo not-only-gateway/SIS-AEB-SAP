@@ -14,20 +14,20 @@
     position: absolute;
     background: #0095ff;
     height: 5px;
-    width: 10%;
+    width: 15vw;
 }
 
 @keyframes load {
     0%{
-        opacity: .9;
+        opacity: .3;
         transform: translateX(0);
     }
     50%{
-        opacity: .3;
+        opacity: 1;
         transform: translateX(50vw);
     }
     100%{
-        opacity: .9;
+        opacity: .3;
         transform: translateX(100vw);
     }
 }
