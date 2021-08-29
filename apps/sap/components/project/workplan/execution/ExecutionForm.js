@@ -1,23 +1,27 @@
 import React, {useEffect, useState} from "react";
-import {DateField, TextField} from "sis-aeb-inputs";
+import {TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import EntityLayout from "../../../shared/core/form/EntityLayout";
 import OperationRequests from "../../../../utils/requests/OperationRequests";
 import ExecutionPT from "../../../../packages/locales/ExecutionPT";
+import DateField from "../../../shared/core/date/DateField";
 
 export default function ExecutionForm(props) {
     const [changed, setChanged] = useState(false)
     const lang = ExecutionPT
 
     useEffect(() => {
-        if(props.create)
+        if (props.create) {
+            const date = new Date()
             props.handleChange({name: 'operation_phase', value: props.operation.id})
+            props.handleChange({name: 'execution_date', value: date.toString()})
+        }
     }, [])
     return (
         <>
 
             <EntityLayout
-                rootElementID={'root'} entity={props.data}
+                entity={props.data}
                 create={props.create} label={props.create ? lang.newExecution : lang.execution}
                 dependencies={{
                     fields: [
@@ -43,7 +47,7 @@ export default function ExecutionForm(props) {
 
                         create: props.create
                     }).then(res => {
-                        if(props.create && res)
+                        if (props.create && res)
                             props.returnToMain()
                         setChanged(false)
                     })
@@ -96,7 +100,7 @@ export default function ExecutionForm(props) {
 
 
                             <TextField
-                                placeholder={lang.committed} label={lang.committed} maskStart={'R$'}  currencyMask={true}
+                                placeholder={lang.committed} label={lang.committed} maskStart={'R$'} currencyMask={true}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'committed', value: event.target.value})
@@ -105,7 +109,8 @@ export default function ExecutionForm(props) {
                                 width={'calc(50% - 16px)'}/>
 
                             <TextField
-                                placeholder={lang.liquidated} label={lang.liquidated} maskStart={'R$'}  currencyMask={true}
+                                placeholder={lang.liquidated} label={lang.liquidated} maskStart={'R$'}
+                                currencyMask={true}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'liquidated', value: event.target.value})
@@ -114,24 +119,25 @@ export default function ExecutionForm(props) {
                                 width={'calc(50% - 16px)'}/>
 
                             <TextField
-                                placeholder={lang.paid} label={lang.paid} maskStart={'R$'}  currencyMask={true}
+                                placeholder={lang.paid} label={lang.paid} maskStart={'R$'} currencyMask={true}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'paid', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.paid}
                                 required={true} type={'number'}
                                 width={'calc(50% - 16px)'}/>
-                            <DateField
-                                dark={true}
-                                placeholder={lang.executionDate} label={lang.executionDate}
-                                handleChange={event => {
-                                    setChanged(true)
-                                    props.handleChange({name: 'execution_date', value: event})
-                                }}
-                                value={
-                                    props.data === null ? null : props.data.execution_date
-                                }
-                                required={true} width={'100%'}/>
+                            {props.data === null || props.data.execution_date === undefined ? null :
+                                <DateField
+                                    placeholder={lang.executionDate} label={lang.executionDate}
+                                    handleChange={event => {
+                                        setChanged(true)
+                                        props.handleChange({name: 'execution_date', value: event})
+                                    }}
+                                    value={
+                                        props.data.execution_date
+                                    }
+                                    required={true} width={'100%'}/>
+                            }
                         </>
                     )
                 }]}/>

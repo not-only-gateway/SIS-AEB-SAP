@@ -14,8 +14,8 @@ export default {
     newUnit: 'Nova unidade',
     acronym: 'Acrônimo',
 
-    classification: 'Classificação',
-    type: 'Tipo',
-    newClassification: 'Nova classificação',
-    newType: 'Novo tipo'
+    classification: 'Componente/classificação',
+    type: 'Categoria de componente',
+    newClassification: 'Novo componente/classificação',
+    newType: 'Nova categoria de componente'
 }

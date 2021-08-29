@@ -5,6 +5,9 @@ import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import Host from "../../../utils/shared/Host";
 import List from "../../shared/core/list/List";
 import UnitForm from "./UnitForm";
+import {DeleteRounded, GetAppRounded} from "@material-ui/icons";
+import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
+import HandleDownload from "../../../utils/shared/HandleDownload";
 
 export default function UnitList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -39,6 +42,15 @@ export default function UnitList(props) {
                         {name: 'name', type: 'string'},
                         {name: 'acronym', type: 'string'}
                     ]} labels={['nome', 'Acrônimo']}
+                    options={[
+                        {
+                            label: 'Baixar dados',
+                            icon: <GetAppRounded/>,
+                            onClick: (entity) => {
+                                HandleDownload(entity, entity.id)
+                            },
+                            disabled: false
+                        }]}
                     clickEvent={() => setOpen(true)}
                     setEntity={entity => {
                         setCurrentEntity(entity)

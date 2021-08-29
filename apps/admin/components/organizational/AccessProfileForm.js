@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import {Alert, EntityLayout} from "sis-aeb-misc";
-import {DropDownField, TextField} from "sis-aeb-inputs";
+import {EntityLayout} from "sis-aeb-core";
+import {DropDownField, TextField} from "sis-aeb-core";
 import AccessProfilePT from "../../packages/locales/organizational/AccessProfilePT";
 import ContractualLinkageDescription from "../../packages/descriptions/ContractualLinkageDescription";
 import CommissionedLinkageOverview from "../../packages/overview/CommissionedLinkageOverview";

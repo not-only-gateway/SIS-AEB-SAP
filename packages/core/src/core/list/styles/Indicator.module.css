@@ -1,0 +1,20 @@
+.wrapper{
+
+
+
+}
+
+.content{
+    user-select: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    padding: 0 32px;
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+
+    background: rgba(227, 232, 237, .5);
+    border-radius: 10px;
+}

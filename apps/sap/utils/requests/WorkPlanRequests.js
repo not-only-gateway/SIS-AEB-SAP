@@ -30,6 +30,7 @@ export default class WorkPlanRequests {
 
         return response
     }
+
     static async deleteGoal(submitProps) {
         let response = false
 
@@ -117,10 +118,13 @@ export default class WorkPlanRequests {
         let data = {}
         data = Object.assign(data, submitProps.data)
 
-        if (data !== undefined && data.budget_plan !== undefined && data.infrastructure !== undefined ) {
+        if (data !== undefined && data.budget_plan !== undefined)
             data.budget_plan = data.budget_plan.id
+        if (data !== undefined && data.infrastructure !== undefined)
             data.infrastructure = data.infrastructure.id
-        }
+
+        if (data !== undefined && data.responsible !== undefined)
+            data.responsible = data.responsible.id
         await Requester({
             package: data,
             method: submitProps.create ? 'post' : 'put',
@@ -143,7 +147,7 @@ export default class WorkPlanRequests {
         let data = {}
         data = Object.assign(data, submitProps.data)
         if (data !== undefined)
-        data.address = submitProps.data.latitude + ', ' + submitProps.data.longitude
+            data.address = submitProps.data.latitude + ', ' + submitProps.data.longitude
 
         await Requester({
             package: data,

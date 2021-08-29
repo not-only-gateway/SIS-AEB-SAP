@@ -18,7 +18,7 @@ import {
 
 import CollaboratorRequests from "../../utils/requests/CollaboratorRequests";
 import PersonRequests from "../../utils/requests/PersonRequests";
-import Navigation from "./core/navigation/Navigation";
+import {Navigation} from "sis-aeb-core";
 
 
 const cookies = new Cookies()

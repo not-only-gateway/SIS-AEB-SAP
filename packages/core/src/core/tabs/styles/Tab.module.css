@@ -1,0 +1,98 @@
+.tabsContainer {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 32px;
+    position: relative;
+
+    overflow: hidden;
+    max-width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+    background: white;
+    transition: 150ms linear;
+
+    padding-top: 5px;
+
+}
+
+
+.tabButtonContainer {
+    cursor: pointer;
+    outline: none;
+
+    font-weight: bold;
+    font-family: Roboto;
+    font-size: .8rem;
+    color: #777777;
+
+
+    transition: 150ms linear;
+    padding: 8px 0px;
+    box-shadow: none;
+
+    text-align: center;
+
+    white-space: nowrap;
+
+    width: fit-content;
+
+    border: none;
+    background: transparent;
+
+    text-rendering: unset;
+    animation: fadeIn ease-in-out 250ms forwards;
+}
+
+.tabButtonContainer:hover {
+    color: #333333;
+}
+
+.container {
+    display: grid;
+    align-items: flex-start;
+    gap: 32px;
+    width: 100%;
+}
+
+.contentContainer {
+    width: 100%;
+    animation: fadeIn 500ms linear forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 100%;
+    }
+
+}
+
+.scrollButton {
+    position: sticky;
+    z-index: 999;
+
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    cursor: pointer;
+    background-color: white;
+    outline: none;
+    border: none;
+    color: #555555;
+    align-self: stretch;
+    border-radius: 5px 5px 0 0;
+    transition: 150ms linear;
+}
+.scrollButton:hover{
+    background-color: #E8F0FE;
+    color: #0095ff;
+}
+.scrollButton:disabled{
+    color: #999999;
+    background-color: white;
+    cursor: unset;
+}

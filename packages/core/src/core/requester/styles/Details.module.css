@@ -1,0 +1,146 @@
+
+.modalContainer{
+
+    background: rgba(0,0,0,.25);
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+}
+.wrapper {
+    position: relative;
+    width: 50vw;
+    height: 75vh;
+
+    background: white;
+    border-radius: 8px;
+    padding: 8px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: grid;
+    gap: 32px;
+    align-content: flex-start;
+}
+
+.header {
+    color: #393C44;
+    font-weight: bold;
+    font-size: 1.2rem;
+    font-family: Roboto;
+
+    text-align: left;
+    width: 100%;
+
+    height: fit-content;
+
+
+}
+
+.subHeader {
+    margin-top: 4px;
+
+    color: #777777;
+    font-size: .8rem;
+    font-family: Roboto;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 75%;
+}
+
+.body {
+    margin-top: 4px;
+
+    overflow-x: auto;
+    color: #555555;
+    font-weight: bold;
+    font-size: .8rem;
+    filter: none;
+    min-height: 50px;
+    border: #ecedf2 1px solid;
+    background: #f4f5fa;
+    padding: 4px;
+    border-radius: 5px;
+}
+
+.footer {
+    margin-top: 4px;
+    border: #ecedf2 1px solid;
+    color: #777777;
+    font-weight: bold;
+    font-size: .75rem;
+    font-family: Roboto;
+    padding: 8px;
+    border-radius: 5px;
+    display: grid;
+    gap: 8px;
+}
+
+
+.closeButton {
+    position: absolute;
+    z-index: 999;
+    width: 40px;
+    height: 40px;
+    top: 0;
+    right: 0;
+
+    outline: none;
+    cursor: pointer;
+    border: none;
+    background: white;
+    color: #555555;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 150ms linear;
+}
+
+.closeButton:hover {
+    color: #ff5555;
+}
+
+.closeButton:active {
+    color: #ff5555;
+    transform: scale(1.1);
+}
+
+.copyButton {
+    height: 20px;
+
+    outline: none;
+    cursor: pointer;
+    border: none;
+    background: #0095ff;
+    color: white;
+    border-radius: 5px;
+    font-family: Roboto;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 150ms linear;
+
+    padding: 4px 16px;
+}
+
+.copyButton:hover{
+    opacity: .9;
+}
+.copyButton:active{
+    opacity: .6;
+}
+
+

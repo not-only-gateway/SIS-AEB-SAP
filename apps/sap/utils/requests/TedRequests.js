@@ -31,11 +31,12 @@ export default class TedRequests {
         let response = submitProps.create ? null : false
         let data = {}
         data = Object.assign(data, submitProps.data)
-        if (data !== undefined && data.action !== undefined && data.responsible !== undefined && data.decentralized_unit !== undefined) {
-            data.responsible = data.responsible.id
+        if (data !== undefined && data.action !== undefined)
             data.action = data.action.id
+        if (data !== undefined && data.responsible !== undefined)
+            data.responsible = data.responsible.id
+        if (data !== undefined && data.decentralized_unit !== undefined)
             data.decentralized_unit = data.decentralized_unit.id
-        }
 
         await Requester({
             package: data,

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import EntityLayout from "../../shared/core/form/EntityLayout";
 import WorkPlanPT from "../../../packages/locales/WorkPlanPT";
-import {DropDownField, MultiSelectField, TextField} from "sis-aeb-inputs";
+import {DropDownField, MultiSelectField, TextField} from "sis-aeb-core";
 import Selector from "../../shared/core/selector/Selector";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
@@ -70,15 +70,26 @@ export default function WorkPlanForm(props) {
                     forms={[{
                         child: (
                             <>
-                                <DropDownField
-                                    dark={true}
-                                    placeholder={lang.responsible}
-                                    label={lang.responsible}
-                                    handleChange={event => {
-                                        setChanged(true)
-                                        props.handleChange({name: 'responsible', value: event})
-                                    }} value={props.data === null ? null : props.data.responsible} required={true}
-                                    width={'calc(50% - 16px)'} choices={lang.responsibleOptions}/>
+                                <Selector
+                                    getEntityKey={entity => {
+                                        if (entity !== null && entity !== undefined)
+                                            return entity.id
+                                        else return -1
+                                    }} searchFieldName={'search_input'}
+                                    handleChange={entity => {
+                                        props.handleChange({name: 'responsible', value: entity})
+                                    }} label={'Vincular responsável'}
+                                    selected={props.data === null || !props.data.responsible ? null : props.data.responsible}
+                                    disabled={false}
+                                    width={'calc(50% - 16px)'}
+                                    fields={[
+                                        {name: 'name', type: 'string'},
+                                        {name: 'acronym', type: 'string'},
+                                    ]} required={true}
+                                    labels={['nome', 'Acrônimo']}
+                                    fetchUrl={Host() + 'list/unit'}
+                                    fetchToken={(new Cookies()).get('jwt')}
+                                />
 
                                 <DropDownField
                                     dark={true}

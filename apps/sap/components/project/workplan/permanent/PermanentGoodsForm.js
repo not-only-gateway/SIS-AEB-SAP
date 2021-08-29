@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 
-import {DateField, DropDownField, TextField} from "sis-aeb-inputs";
+import {DateField, DropDownField, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import OperationRequests from "../../../../utils/requests/OperationRequests";
 import EntityLayout from "../../../shared/core/form/EntityLayout";

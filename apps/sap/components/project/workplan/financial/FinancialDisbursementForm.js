@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import EntityLayout from "../../../shared/core/form/EntityLayout";
-import {DropDownField, TextField} from "sis-aeb-inputs";
+import {DropDownField, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import WorkPlanRequests from "../../../../utils/requests/WorkPlanRequests";
 import StatusPT from "../../../../packages/locales/StatusPT";

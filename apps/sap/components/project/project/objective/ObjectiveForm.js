@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import ProjectPT from "../../../../packages/locales/ProjectPT";
 import EntityLayout from "../../../shared/core/form/EntityLayout";
-import {DateField, DropDownField, TextField} from "sis-aeb-inputs";
+import {DateField, DropDownField, TextField} from "sis-aeb-core";
 
 import PropTypes from "prop-types";
 import ProjectRequests from "../../../../utils/requests/ProjectRequests";

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {DropDownField, TextField} from "sis-aeb-inputs";
+import {DropDownField, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import OperationPT from "../../../../packages/locales/OperationPT";
 import EntityLayout from "../../../shared/core/form/EntityLayout";

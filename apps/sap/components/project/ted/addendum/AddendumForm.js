@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import EntityLayout from "../../../shared/core/form/EntityLayout";
-import {DateField, TextField} from "sis-aeb-inputs";
+import {DateField, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import TedRequests from "../../../../utils/requests/TedRequests";
 import TedPT from "../../../../packages/locales/TedPT";

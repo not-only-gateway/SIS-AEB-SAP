@@ -9,9 +9,7 @@ fi
 cd scripts/builders
 
 # PRIMEIRO
-sudo bash inputs.sh
-sudo bash navigation.sh
-sudo bash misc.sh
+sudo bash core.sh
 
 # INDEPENDENTES
 #sudo bash admin.sh

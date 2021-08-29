@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import InfrastructurePT from "../../../packages/locales/InfrastructurePT";
 import EntityLayout from "../../shared/core/form/EntityLayout";
 import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
-import {TextField} from "sis-aeb-inputs";
+import {TextField} from "sis-aeb-core";
 import Selector from "../../shared/core/selector/Selector";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";

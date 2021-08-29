@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {DateField, TextField} from "sis-aeb-inputs";
+import {TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import OperationPT from "../../../../packages/locales/OperationPT";
 import EntityLayout from "../../../shared/core/form/EntityLayout";
@@ -8,6 +8,7 @@ import OperationRequests from "../../../../utils/requests/OperationRequests";
 import Host from "../../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import Selector from "../../../shared/core/selector/Selector";
+import DateField from "../../../shared/core/date/DateField";
 
 
 export default function OperationForm(props) {

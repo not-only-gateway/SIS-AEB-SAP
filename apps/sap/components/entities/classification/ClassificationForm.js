@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 
-import {TextField} from "sis-aeb-inputs";
+import {TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import EntityLayout from "../../shared/core/form/EntityLayout";
 import ProjectRequests from "../../../utils/requests/ProjectRequests";
@@ -30,7 +30,7 @@ export default function ClassificationForm(props) {
                 dependencies={{
                     fields: [
                         {name: 'classification', type: 'string'},
-                        {name: 'type', type: 'string'},
+                        {name: 'type', type: 'object'},
                     ],
                     changed: changed
                 }}

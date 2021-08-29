@@ -1,5 +1,3 @@
-var CryptoJS = require("crypto-js");
-
 export default function HandleDownload(file, name) {
     let dataStr
     let downloadAnchorNode = document.createElement('a');
