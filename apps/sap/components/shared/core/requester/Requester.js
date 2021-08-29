@@ -3,7 +3,7 @@ import axios from "axios";
 import Alert from "./modules/alert/Alert";
 import ReactDOM from 'react-dom'
 import Loader from "./modules/loader/Loader";
-
+import React from 'react'
 
 export default async function Requester(props) {
     let res

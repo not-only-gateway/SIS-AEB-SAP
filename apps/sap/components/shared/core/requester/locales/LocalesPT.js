@@ -1,3 +1,5 @@
+import React from 'react'
+
 export default {
     error: 'Algum erro ocorreu',
     success: 'Sucesso',

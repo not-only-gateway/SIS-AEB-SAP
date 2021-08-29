@@ -1,4 +1,4 @@
-
+import React from 'react'
 export default function HandleDownload(data, name){
     let dataStr
     let downloadAnchorNode = document.createElement('a');

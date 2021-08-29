@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import styles from '../styles/SearchInput.module.css'
 import {SearchRounded} from "@material-ui/icons";
-
+import React from 'react'
 export default function SearchBar(props) {
     return (
         <div className={styles.formContainer}>

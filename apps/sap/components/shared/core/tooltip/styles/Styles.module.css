@@ -1,32 +1,44 @@
 .container {
+    user-select: none;
     height: auto;
     min-height: 15px;
-    padding: 16px;
+
     width: fit-content;
     max-width: 300px;
-
-    border-radius: 5px;
-
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    background: black;
-    color: #f4f5fa;
-
-    font-family: Roboto;
-    font-size: .8rem;
-    font-weight: bold;
-    text-align: center;
-    animation: fade 250ms linear;
-
-    transform: translateX(-50%);
-
+    /*box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;*/
+    opacity: 0;
+    animation: show 250ms ease-in-out forwards;
+    animation-delay: 500ms;
 }
 
-@keyframes fade {
-    from {
+@keyframes show {
+    0% {
         opacity: 0;
     }
-    to {
+    100% {
         opacity: 1;
     }
+}
+.content{
+    padding: 8px;
+    border-radius: 5px;
+    background: rgba(0,0,0,.85);
+    color: white;
+    font-family: Roboto;
+    font-size: .85rem;
+    font-weight: bold;
+    text-align: center;
+}
+.exitAnim{
+    animation: exit 250ms ease-in-out;
+    transform-origin: top left;
+}
 
+@keyframes exit {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }

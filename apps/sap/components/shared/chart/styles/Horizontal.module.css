@@ -1,18 +1,18 @@
-.container{
+.container {
     background: white;
     border-radius: 5px;
     padding: 8px;
-
+    user-select: none;
 }
 
-.valuesLabel{
+.valuesLabel {
     height: 10%;
     text-align: center;
     display: grid;
     align-content: space-between;
 }
 
-.axisLabel{
+.axisLabel {
     text-orientation: sideways;
     writing-mode: vertical-lr;
     transform: rotate(180deg);
@@ -20,7 +20,7 @@
 }
 
 
-.legendsContainer{
+.legendsContainer {
     display: flex;
     align-items: center;
     gap: 16px;
@@ -28,17 +28,19 @@
     height: auto;
 
 }
-.legend{
+
+.legend {
     display: flex;
     align-items: center;
 }
-.content{
-    background: red;
+
+.content {
     display: flex;
     height: 80%;
     width: 100%;
 }
-.header{
+
+.header {
     font-family: Roboto;
     font-weight: bold;
     font-size: 1.1rem;
@@ -48,10 +50,67 @@
     height: 10%;
 }
 
-.graph{
+.graphs {
+    padding: 16px;
+    display: grid;
+    height: 100%;
+
+    border-radius: 8px;
+    width: 100%;
+    align-content: flex-start;
+    gap: 8px;
+}
+
+.data {
+    border-radius: 3px;
+    height: 40px;
+    min-width: 17px;
+
+    animation: extend 750ms ease-in-out;
+
+    transition: 250ms ease;
+}
+.data:hover{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+@keyframes extend {
+    0%{
+        max-width: 0;
+    }
+    100%{
+        max-width: 100%;
+    }
 
 }
 
-.graphRow{
+.row{
+    display: flex;
+    width: 100%;
+
+}
+.label{
+    width: 40px;
+
+    text-align: left;
+    vertical-align: middle;
+    line-height: 40px;
+    font-family: Roboto;
+    font-size: .9rem;
+    color: #555555;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.overview{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background: white;
+    border-radius: 5px;
+    padding: 16px;
+    display: grid;
+    justify-items: center;
+    align-content: flex-start;
+    gap: 16px;
 
 }

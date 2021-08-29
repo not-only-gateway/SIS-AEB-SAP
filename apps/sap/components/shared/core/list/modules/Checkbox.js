@@ -1,7 +1,7 @@
 import styles from '../styles/Checkbox.module.css'
 import PropTypes from 'prop-types'
 import {CheckRounded} from "@material-ui/icons";
-
+import React from 'react'
 export default function Checkbox(props) {
     return (
         <div style={{padding: '0 12px'}}>

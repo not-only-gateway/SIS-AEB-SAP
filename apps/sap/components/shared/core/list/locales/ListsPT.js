@@ -1,3 +1,5 @@
+import React from 'react'
+
 export default {
   create: 'Criar',
   end: 'Você chegou ao fim',

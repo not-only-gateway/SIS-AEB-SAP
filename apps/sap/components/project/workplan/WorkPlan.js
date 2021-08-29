@@ -78,20 +78,27 @@ export default function WorkPlan(props) {
                         content: (
                             <HorizontalChart
                                 styles={{width: '100%', height: '500px'}}
-                                title={'Teste para Teste'} axisField={'y'}
+                                title={'Teste para Teste'}
+                                axisField={'y'}
                                 axisLabel={'Eixo teste'}
-                                valuesField={
-                                    'x'
-                                }
+                                valueField={'x'}
                                 data={[
                                     {
-                                        x: 1, y: 'cafe',
+                                        x: 10000,
+                                        y: 'cafe',
+                                        z: 'cafe222'
+                                    },
+                                    {
+                                        x: 1000,
+                                        y: 'cafe',
+                                        z: 'cafe222'
+                                    },
+                                    {
+                                        x: 100,
+                                        y: 'ca123213fe',
                                         z: 'cafe222'
                                     }, {
-                                        x: 13, y: 'ca123213fe',
-                                        z: 'cafe222'
-                                    }, {
-                                        x: 112, y: '2323',
+                                        x: 10, y: '2323',
                                         z: '2135'
                                     },
                                 ]}
