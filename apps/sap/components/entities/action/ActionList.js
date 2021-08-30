@@ -21,10 +21,20 @@ export default function ActionList(props) {
                 ref={ref} accept={'.json'}
                 onChange={(file) => {
                     HandleUpload(file.target.files[0]).then(res => {
-                        if (res !== null) {
-                            res.id = undefined
-                            setCurrentEntity(res)
-                            setOpen(true)
+                        if(res !== null){
+                            if(Array.isArray(res)){
+                                res.forEach(e => {
+                                    ProjectRequests.submitAction({
+                                        data: e,
+                                        create: true
+                                    })
+                                })
+                            }
+                            else{
+                                res.id = undefined
+                                setCurrentEntity(res)
+                                setOpen(true)
+                            }
                         }
                     })
                     ref.current.value = ''

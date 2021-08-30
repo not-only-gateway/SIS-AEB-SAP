@@ -12,6 +12,22 @@ const submitProps = PropTypes.shape({
 export default class ProjectRequests {
 
 
+    static async deleteNatureOfExpense(submitProps) {
+        let response = false
+        await Requester({
+            method: 'delete',
+            url: Host() + 'nature_of_expense/' + submitProps.pk,
+            showSuccessAlert: true,
+            token: jwt,
+            data: submitProps.data
+        }).then(res => {
+            submitProps.setRefreshed(false)
+            response = true
+        }).catch(e => {
+            console.log(e)
+        })
+        return response
+    }
     static async submitType(submitProps) {
         let response = false
         await Requester({

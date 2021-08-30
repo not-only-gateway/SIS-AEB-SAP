@@ -21,14 +21,23 @@ export default function FinancialDisbursementList(props) {
 
         <div style={{width: '100%'}}>
             <input
-              type={'file'} style={{display: 'none'}}
+                type={'file'} style={{display: 'none'}}
                 ref={ref} accept={'.json'}
                 onChange={(file) => {
                     HandleUpload(file.target.files[0]).then(res => {
-                        if(res !== null){
-                            res.id = undefined
-                            setCurrentEntity(res)
-                            setOpen(true)
+                        if (res !== null) {
+                            if (Array.isArray(res)) {
+                                res.forEach(e => {
+                                    WorkPlanRequests.submitFinancial({
+                                        data: e,
+                                        create: true
+                                    })
+                                })
+                            } else {
+                                res.id = undefined
+                                setCurrentEntity(res)
+                                setOpen(true)
+                            }
                         }
                     })
                     ref.current.value = ''
@@ -87,14 +96,15 @@ export default function FinancialDisbursementList(props) {
                         disabled: false
                     }]}
                     fields={[
-                        {name: 'year', type: 'string',label: 'status'},
+                        {name: 'year', type: 'string', label: 'status'},
                         {name: 'month', type: 'string'},
                         {name: 'value', type: 'number', label: 'data da atualização', maskStart: 'R$ '},
                     ]} labels={['ano', 'mês', 'valor']}
                     clickEvent={() => setOpen(true)}
                     setEntity={entity => {
                         setCurrentEntity(entity)
-                    }} searchFieldName={'search_input'} title={'Desembolso financeiro'} scrollableElement={'scrollableDiv'}
+                    }} searchFieldName={'search_input'} title={'Desembolso financeiro'}
+                    scrollableElement={'scrollableDiv'}
                     fetchSize={15}
                     fetchParams={{
                         work_plan: props.workPlan.id

@@ -13,7 +13,7 @@ export default function WorkPlan(props) {
     const lang = WorkPlanPT
     const [openTab, setOpenTab] = useState(0)
     const [internalOpenTab, setInternalOpenTab] = useState(0)
-    const ref = useRef()
+
     return (
         <div>
             <Tabs

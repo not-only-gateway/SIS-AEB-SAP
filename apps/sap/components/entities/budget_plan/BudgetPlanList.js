@@ -23,9 +23,19 @@ export default function BudgetPlanList(props) {
                 onChange={(file) => {
                     HandleUpload(file.target.files[0]).then(res => {
                         if(res !== null){
-                            res.id = undefined
-                            setCurrentEntity(res)
-                            setOpen(true)
+                            if(Array.isArray(res)){
+                                res.forEach(e => {
+                                    ProjectRequests.submitBudgetPlan({
+                                        data: e,
+                                        create: true
+                                    })
+                                })
+                            }
+                            else{
+                                res.id = undefined
+                                setCurrentEntity(res)
+                                setOpen(true)
+                            }
                         }
                     })
                     ref.current.value = ''

@@ -11,6 +11,7 @@ import AddendumForm from "./AddendumForm";
 import TedRequests from "../../../../utils/requests/TedRequests";
 import HandleUpload from "../../../../utils/shared/HandleUpload";
 import HandleDownload from "../../../../utils/shared/HandleDownload";
+import ProjectRequests from "../../../../utils/requests/ProjectRequests";
 
 export default function AddendumList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -25,9 +26,19 @@ export default function AddendumList(props) {
                 onChange={(file) => {
                     HandleUpload(file.target.files[0]).then(res => {
                         if(res !== null){
-                            res.id = undefined
-                            setCurrentEntity(res)
-                            setOpen(true)
+                            if(Array.isArray(res)){
+                                res.forEach(e => {
+                                    TedRequests.submitAddendum({
+                                        data: e,
+                                        create: true
+                                    })
+                                })
+                            }
+                            else{
+                                res.id = undefined
+                                setCurrentEntity(res)
+                                setOpen(true)
+                            }
                         }
                     })
                     ref.current.value = ''

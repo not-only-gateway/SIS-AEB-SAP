@@ -10,6 +10,7 @@ import GoalForm from "./GoalForm";
 import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
 import HandleUpload from "../../../../utils/shared/HandleUpload";
 import HandleDownload from "../../../../utils/shared/HandleDownload";
+import ProjectRequests from "../../../../utils/requests/ProjectRequests";
 
 export default function GoalList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -25,9 +26,19 @@ export default function GoalList(props) {
                 onChange={(file) => {
                     HandleUpload(file.target.files[0]).then(res => {
                         if(res !== null){
-                            res.id = undefined
-                            setCurrentEntity(res)
-                            setOpen(true)
+                            if(Array.isArray(res)){
+                                res.forEach(e => {
+                                    WorkPlanRequests.submitGoal({
+                                        data: e,
+                                        create: true
+                                    })
+                                })
+                            }
+                            else{
+                                res.id = undefined
+                                setCurrentEntity(res)
+                                setOpen(true)
+                            }
                         }
                     })
                     ref.current.value = ''

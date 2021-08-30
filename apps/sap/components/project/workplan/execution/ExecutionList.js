@@ -10,6 +10,7 @@ import ExecutionForm from "./ExecutionForm";
 import OperationRequests from "../../../../utils/requests/OperationRequests";
 import HandleUpload from "../../../../utils/shared/HandleUpload";
 import HandleDownload from "../../../../utils/shared/HandleDownload";
+import WorkPlanRequests from "../../../../utils/requests/WorkPlanRequests";
 
 export default function ExecutionList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -24,10 +25,19 @@ export default function ExecutionList(props) {
                 ref={ref} accept={'.json'}
                 onChange={(file) => {
                     HandleUpload(file.target.files[0]).then(res => {
-                        if(res !== null){
-                            res.id = undefined
-                            setCurrentEntity(res)
-                            setOpen(true)
+                        if(res !== null) {
+                            if (Array.isArray(res)) {
+                                res.forEach(e => {
+                                    OperationRequests.submitExecution({
+                                        data: e,
+                                        create: true
+                                    })
+                                })
+                            } else {
+                                res.id = undefined
+                                setCurrentEntity(res)
+                                setOpen(true)
+                            }
                         }
                     })
                     ref.current.value = ''

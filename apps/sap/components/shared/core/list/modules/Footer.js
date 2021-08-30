@@ -43,7 +43,7 @@ export default function Footer(props) {
                                 fetchUrl: props.fetchUrl,
                                 fetchSize: props.fetchSize,
                                 setCurrentPage: props.setCurrentPage
-                            })
+                            }).then(() => props.setSize())
                         else
                             props.setCurrentPage(props.currentPage + 1)
                     }}
@@ -66,5 +66,6 @@ Footer.propTypes = {
     currentPage: PropTypes.number,
     searchInput: PropTypes.string,
     setHasMore: PropTypes.func,
-    hasMore: PropTypes.bool
+    hasMore: PropTypes.bool,
+    setSize: PropTypes.func
 }

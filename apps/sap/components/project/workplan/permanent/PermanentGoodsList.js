@@ -11,6 +11,7 @@ import PermanentGoodsForm from "./PermanentGoodsForm";
 import handleObjectChange from "../../../../utils/shared/HandleObjectChange";
 import HandleUpload from "../../../../utils/shared/HandleUpload";
 import HandleDownload from "../../../../utils/shared/HandleDownload";
+import WorkPlanRequests from "../../../../utils/requests/WorkPlanRequests";
 
 
 export default function PermanentGoodsList(props) {
@@ -26,9 +27,19 @@ export default function PermanentGoodsList(props) {
                 onChange={(file) => {
                     HandleUpload(file.target.files[0]).then(res => {
                         if(res !== null){
-                            res.id = undefined
-                            setCurrentEntity(res)
-                            setOpen(true)
+                            if(Array.isArray(res)){
+                                res.forEach(e => {
+                                    OperationRequests.submitPermanentGoods({
+                                        data: e,
+                                        create: true
+                                    })
+                                })
+                            }
+                            else{
+                                res.id = undefined
+                                setCurrentEntity(res)
+                                setOpen(true)
+                            }
                         }
                     })
                     ref.current.value = ''

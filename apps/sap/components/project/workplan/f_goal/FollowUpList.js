@@ -10,6 +10,7 @@ import FollowUpForm from "./FollowUpForm";
 import OperationRequests from "../../../../utils/requests/OperationRequests";
 import HandleUpload from "../../../../utils/shared/HandleUpload";
 import HandleDownload from "../../../../utils/shared/HandleDownload";
+import WorkPlanRequests from "../../../../utils/requests/WorkPlanRequests";
 
 export default function FollowUpList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -23,10 +24,19 @@ export default function FollowUpList(props) {
                 ref={ref} accept={'.json'}
                 onChange={(file) => {
                     HandleUpload(file.target.files[0]).then(res => {
-                        if(res !== null){
-                            res.id = undefined
-                            setCurrentEntity(res)
-                            setOpen(true)
+                        if(res !== null) {
+                            if (Array.isArray(res)) {
+                                res.forEach(e => {
+                                    OperationRequests.submitFollowUpGoal({
+                                        data: e,
+                                        create: true
+                                    })
+                                })
+                            } else {
+                                res.id = undefined
+                                setCurrentEntity(res)
+                                setOpen(true)
+                            }
                         }
                     })
                     ref.current.value = ''
