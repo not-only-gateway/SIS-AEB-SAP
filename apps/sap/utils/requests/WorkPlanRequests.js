@@ -118,12 +118,12 @@ export default class WorkPlanRequests {
         let data = {}
         data = Object.assign(data, submitProps.data)
 
-        if (data !== undefined && data.budget_plan !== undefined)
+        if (data !== undefined && data.budget_plan !== undefined&& data.budget_plan !== null)
             data.budget_plan = data.budget_plan.id
-        if (data !== undefined && data.infrastructure !== undefined)
+        if (data !== undefined && data.infrastructure !== undefined&& data.infrastructure !== null)
             data.infrastructure = data.infrastructure.id
 
-        if (data !== undefined && data.responsible !== undefined)
+        if (data !== undefined && data.responsible !== undefined&& data.responsible !== null)
             data.responsible = data.responsible.id
         await Requester({
             package: data,
@@ -280,7 +280,7 @@ export default class WorkPlanRequests {
         let response = false
         let data = {}
         data = Object.assign(data, submitProps.data)
-        if (data !== undefined && data.classification !== undefined)
+        if (data !== undefined && data.classification !== undefined&& data.classification !== null)
             data.classification = data.classification.id
 
         await Requester({

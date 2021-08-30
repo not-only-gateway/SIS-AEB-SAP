@@ -10,6 +10,7 @@ import ActionList from "../components/entities/action/ActionList";
 import ClassificationList from "../components/entities/classification/ClassificationList";
 import DecentralizedUnitList from "../components/entities/decentralized/DecentralizedUnitList";
 import UnitList from "../components/entities/unit/UnitList";
+import TedList from "../components/entities/ted/TedList";
 
 
 export default function entities(){
@@ -86,6 +87,15 @@ export default function entities(){
                             content: (
                                 <div style={{width: '70%', margin: 'auto'}}>
                                     <UnitList />
+                                </div>
+                            )
+                        },
+                        {
+                            key: 7,
+                            value: lang.teds,
+                            content: (
+                                <div style={{width: '70%', margin: 'auto'}}>
+                                    <TedList/>
                                 </div>
                             )
                         },

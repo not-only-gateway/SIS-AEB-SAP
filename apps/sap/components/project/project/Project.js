@@ -6,7 +6,7 @@ import ObjectivesList from "./objective/ObjectivesList";
 import RisksList from "./risk/RisksList";
 import ProjectPT from "../../../packages/locales/ProjectPT";
 import PropTypes from 'prop-types'
-import TedList from "../ted/TedList";
+import ProjectTedsList from "../ted/ProjectTedsList";
 import TedRequests from "../../../utils/requests/TedRequests";
 
 export default function Project(props) {
@@ -58,7 +58,7 @@ export default function Project(props) {
                 {
                     key: 1,
                     value: lang.teds,
-                    content: <TedList
+                    content: <ProjectTedsList
                         redirect={ted => {
                             TedRequests.fetchTed(typeof ted === 'object' ? ted.id : ted).then(res => {
                                 console.log(ted)

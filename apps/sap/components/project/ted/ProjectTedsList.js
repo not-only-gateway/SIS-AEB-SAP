@@ -13,7 +13,7 @@ import TedRequests from "../../../utils/requests/TedRequests";
 import HandleDownload from "../../../utils/shared/HandleDownload";
 import SelectorModal from "../../shared/core/selector/modules/SelectorModal";
 
-export default function TedList(props) {
+export default function ProjectTedsList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [openModal, setOpenModal] = useState(false)
@@ -77,7 +77,7 @@ export default function TedList(props) {
                     setRefreshed={setRefreshed}
                     fields={[
                         {name: 'number', type: 'string', label: 'Número'},
-                        {name: 'responsible', type: 'string', label: 'Responsável'},
+                        {name: 'responsible', type: 'object', subfield: 'acronym'},
                         {name: 'process', type: 'string', label: 'Processo'}
                     ]}
                     labels={['Número', 'Responsável', 'Processo']}
@@ -141,7 +141,7 @@ export default function TedList(props) {
         </>
     )
 }
-TedList.propTypes = {
+ProjectTedsList.propTypes = {
     redirect: PropTypes.func,
     project: PropTypes.object
 }

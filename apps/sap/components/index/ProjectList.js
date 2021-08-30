@@ -8,6 +8,8 @@ import List from "../shared/core/list/List";
 import ProjectForm from "./ProjectForm";
 import {ArrowForwardRounded, DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
+import HandleUpload from "../../utils/shared/HandleUpload";
+import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 
 export default function ProjectList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -18,27 +20,27 @@ export default function ProjectList(props) {
     return (
         <>
             <input
-                accept={'.json'} type={'file'} style={{display: 'none'}}
-                ref={ref}
+                type={'file'} style={{display: 'none'}}
+                ref={ref} accept={'.json'}
                 onChange={(file) => {
-                    let reader = new FileReader();
-                    reader.onload = e => {
-                        let data = JSON.parse(e.target.result)
-                        data.id = undefined
-
-                        ProjectRequests.submitProject({
-                            data: data,
-                            create: true
-                        }).then(res => {
-                            if (res)
-                                setRefreshed(false)
-                        })
-                        ref.current.value = ''
-
-                    };
-                    reader.readAsText(file.target.files[0]);
+                    HandleUpload(file.target.files[0]).then(res => {
+                        if (res !== null) {
+                            if (Array.isArray(res)) {
+                                res.forEach(e => {
+                                    ProjectRequests.submitProject({
+                                        data: e,
+                                        create: true
+                                    })
+                                })
+                            } else {
+                                res.id = undefined
+                                setCurrentEntity(res)
+                                setOpen(true)
+                            }
+                        }
+                    })
+                    ref.current.value = ''
                 }}
-
             />
             {!open ? null :
                 <div className={animations.fadeIn}>

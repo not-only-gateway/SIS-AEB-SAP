@@ -26,7 +26,7 @@ export default function TedForm(props) {
         <>
             <EntityLayout
                 rootElementID={'root'} entity={props.data}
-                create={props.create} label={lang.title}
+                create={props.create} label={props.create ? lang.newTed : lang.ted }
                 dependencies={{
                     fields: [
                         {name: 'number', type: 'string'},
@@ -49,19 +49,20 @@ export default function TedForm(props) {
                         },
                     ],
                     changed: changed
-                }} noHeader={!props.create}
-                returnButton={props.create}
+                }} noHeader={!props.create && !props.asEntity}
+                returnButton={props.create || props.asEntity}
                 handleSubmit={() =>
                     TedRequests.submitTed({
                         pk: props.id,
                         data: props.data,
                         create: props.create
                     }).then(res => {
-                        if (res !== null && props.create)
+                        if (res !== null && props.create && !props.asEntity)
                             props.redirect(res)
 
-                        if (!props.create && res)
-                            setChanged(false)
+                        setChanged(false)
+                        if(props.asEntity)
+                            props.returnToMain()
                     })}
                 handleClose={() => props.returnToMain()}
                 forms={[{
@@ -327,5 +328,6 @@ TedForm.propTypes = {
     handleChange: PropTypes.func,
     returnToMain: PropTypes.func,
     create: PropTypes.bool,
-    project: PropTypes.number
+    project: PropTypes.number,
+    asEntity: PropTypes.bool
 }

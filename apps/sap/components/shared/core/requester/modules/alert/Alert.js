@@ -127,7 +127,15 @@ export default function Alert(props) {
 
     return (
         <>
-            <Details open={open} setOpen={setOpen} data={props.data}/>
+            <Details open={open} setOpen={() => {
+                setOpen(false)
+                try{
+                    ReactDOM.unmountComponentAtNode(ref.current?.parentNode);
+                }
+                catch (e) {
+                    console.log(e)
+                }
+            }} data={props.data}/>
             <button
 
                 className={styles.alertContainer}

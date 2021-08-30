@@ -31,11 +31,11 @@ export default class TedRequests {
         let response = submitProps.create ? null : false
         let data = {}
         data = Object.assign(data, submitProps.data)
-        if (data !== undefined && data.action !== undefined)
+        if (data !== undefined && data.action !== undefined && data.action !== null)
             data.action = data.action.id
-        if (data !== undefined && data.responsible !== undefined)
+        if (data !== undefined && data.responsible !== undefined && data.responsible !== null)
             data.responsible = data.responsible.id
-        if (data !== undefined && data.decentralized_unit !== undefined)
+        if (data !== undefined && data.decentralized_unit !== undefined && data.decentralized_unit !== null)
             data.decentralized_unit = data.decentralized_unit.id
 
         await Requester({
@@ -49,6 +49,25 @@ export default class TedRequests {
         }).catch(e => {
             console.log(e)
         })
+        return response
+    }
+
+    static async deleteTed(submitProps) {
+        let response = false
+        await Requester({
+            package: submitProps.data,
+            method: 'delete',
+            url: Host() + 'ted/' + submitProps.pk,
+            showSuccessAlert: true,
+            token: jwt
+        }).then(res => {
+
+            submitProps.setRefreshed(false)
+            response = true
+        }).catch(e => {
+            console.log(e)
+        })
+
         return response
     }
 

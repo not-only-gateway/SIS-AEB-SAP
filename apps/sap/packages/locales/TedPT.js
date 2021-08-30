@@ -11,8 +11,7 @@ export default {
     globalValue: 'Valor global (R$)',
     decentralized: 'Descentralizada',
     action: 'Ação',
-    title: 'Novo TED',
-
+    newTed: 'Novo instrumento de celebração',
     ted: 'Instrumento de celebração',
     teds: 'TEDs',
     addendum: 'Termos aditivos',

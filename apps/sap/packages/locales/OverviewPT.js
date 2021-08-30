@@ -1,7 +1,7 @@
 export default{
     overview: 'Visão geral',
     projects: 'Projetos',
-    teds: 'TEDS',
+    teds: 'TED',
     workPlan: 'Planos de trabalho',
     action: 'Items / Ações',
     activity: 'Atividades',
