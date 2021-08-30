@@ -13,7 +13,7 @@ export default function DecentralizedUnitForm(props) {
     const [data, setData] = useState(null)
 
     useEffect(() => {
-
+        if(props.data !== undefined)
             setData(props.data)
     }, [])
 

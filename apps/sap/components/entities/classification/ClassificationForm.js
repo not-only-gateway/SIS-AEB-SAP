@@ -18,6 +18,7 @@ export default function ClassificationForm(props) {
     const [data, setData] = useState(null)
     const [open, setOpen] = useState(false)
     useEffect(() => {
+        if(props.data !== undefined)
             setData(props.data)
     }, [])
 

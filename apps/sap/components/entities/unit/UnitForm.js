@@ -16,8 +16,8 @@ export default function UnitForm(props) {
     const [data, setData] = useState(null)
 
     useEffect(() => {
-
-        setData(props.data)
+        if(props.data !== undefined)
+            setData(props.data)
     }, [])
 
     const content = (

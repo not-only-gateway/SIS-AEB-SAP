@@ -58,9 +58,9 @@ export default function MultiSelectField(props) {
             >
                 <ArrowDropDownRounded
                     style={{transform: !open ? 'unset' : 'rotate(180deg)', transition: '150ms linear'}}/>
-                {value ?
+                {props.value ?
                     <div className={styles.valueContainer}>
-                        {value}
+                        {props.value.split('-*/').length - 1} - {lang.values}
                     </div>
                     : props.label}
             </button>
@@ -80,7 +80,10 @@ export default function MultiSelectField(props) {
                                          setSelected(newSelected)
 
                                          let newData = ''
-                                         newSelected.forEach(e => newData = newData + '-*/' + e)
+                                         newSelected.forEach(e => {
+                                             if(e.length > 0)
+                                                 newData = newData + '-*/' + e
+                                         })
                                          props.handleChange(newData)
                                      } else {
                                          let newSelected = [...selected]
@@ -88,7 +91,10 @@ export default function MultiSelectField(props) {
                                          setSelected(newSelected)
 
                                          let newData = ''
-                                         newSelected.forEach(e => newData = newData + '-*/' + e)
+                                         newSelected.forEach(e => {
+                                             if(e.length > 0)
+                                                 newData = newData + '-*/' + e
+                                         })
                                          props.handleChange(newData)
                                      }
                                      setOpen(false)

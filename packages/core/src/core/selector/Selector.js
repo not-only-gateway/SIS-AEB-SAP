@@ -57,14 +57,16 @@ export default function Selector(props) {
                                 <React.Fragment key={i + '-field-selector'}>
                                     {i > 0 ? <div className={styles.divider}/> : null}
 
-                                    <div className={styles.overflow} style={{
+                                    <div style={{
                                         width: (100 / props.fields.length) + '%',
                                         color: props.disabled ? '#999999' : undefined,
                                         textTransform: field.capitalize ? 'capitalize' : undefined,
                                         textAlign: 'center'
                                     }}>
+                                        <div className={styles.overflow} style={{maxWidth: '100%'}}>
+                                            {RenderListField(field, props.selected)}
+                                        </div>
 
-                                        {RenderListField(field, props.selected)}
                                         <div style={{
                                             fontWeight: 'bold',
                                             fontSize: '.7rem',

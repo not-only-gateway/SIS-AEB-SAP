@@ -2,13 +2,15 @@ import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import EntityLayout from "../../shared/core/form/EntityLayout";
 import WorkPlanPT from "../../../packages/locales/WorkPlanPT";
-import {DropDownField, MultiSelectField, TextField} from "sis-aeb-core";
+import {DropDownField, TextField} from "sis-aeb-core";
+
 import Selector from "../../shared/core/selector/Selector";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import Modal from "../../shared/core/modal/Modal";
 import BudgetPlanForm from "../../entities/budget_plan/BudgetPlanForm";
 import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
+import MultiSelectField from "../../shared/core/multiselect/MultiSelectField";
 
 
 export default function WorkPlanForm(props) {
@@ -60,6 +62,7 @@ export default function WorkPlanForm(props) {
                             data: props.data,
                             create: props.create
                         }).then(res => {
+                            console.log(res)
                             if (res !== null && props.create)
                                 props.redirect(res)
 
@@ -206,7 +209,7 @@ export default function WorkPlanForm(props) {
                                         {name: 'detailing', type: 'string'}
                                     ]} required={true}
                                     fetchParams={{
-                                        action: props.ted.action.id
+                                        action: props.ted.action !== undefined && props.ted.action !== null ? props.ted.action.id : null
                                     }}
                                     labels={['número', 'detalhamento']}
                                     fetchUrl={Host() + 'list/budget_plan'}
@@ -279,7 +282,7 @@ export default function WorkPlanForm(props) {
                             setOpen(false)
                         }}
 
-                            action={props.ted.action}
+                        action={props.ted.action}
                         create={true}
                     />
                 </div>

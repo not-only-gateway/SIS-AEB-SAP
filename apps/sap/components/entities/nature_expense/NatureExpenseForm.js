@@ -15,7 +15,7 @@ export default function NatureExpenseForm(props) {
 
 
     useEffect(() => {
-
+        if(props.data !== undefined)
         setData(props.data)
     }, [])
     const content = (

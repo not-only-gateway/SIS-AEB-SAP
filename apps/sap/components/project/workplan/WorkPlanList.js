@@ -40,7 +40,7 @@ export default function WorkPlanList(props) {
                             setOpen(false)
                             setRefreshed(false)
                         }} redirect={id => {
-                        WorkPlanRequests.fetchWorkPlan(id).then(res => {
+                        WorkPlanRequests.fetchWorkPlan(id.id).then(res => {
                             if (res !== null)
                                 props.setCurrentStructure(res)
                         })

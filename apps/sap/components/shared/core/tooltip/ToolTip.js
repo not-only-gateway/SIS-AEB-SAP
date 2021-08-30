@@ -6,6 +6,7 @@ import React, {useEffect, useRef} from "react";
 export default function ToolTip(props) {
     const toolTip = (
         <div className={styles.container}>
+            <div className={styles.arrow} style={{borderBottom: props.color !== undefined ? props.color + ' 10px solid' : undefined}}/>
             <div className={styles.content} style={{display: props.content === undefined ? 'none' : undefined}}>
                 {props.content}
             </div>
@@ -74,5 +75,6 @@ export default function ToolTip(props) {
 
 ToolTip.propTypes = {
     content: PropTypes.string,
-    children: PropTypes.node
+    children: PropTypes.node,
+    color: PropTypes.string
 }

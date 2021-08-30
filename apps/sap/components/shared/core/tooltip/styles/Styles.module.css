@@ -9,8 +9,22 @@
     opacity: 0;
     animation: show 250ms ease-in-out forwards;
     animation-delay: 500ms;
+    position: relative;
 }
+.arrow{
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
 
+    border-bottom: 10px solid rgba(0,0,0,.85);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -100%);
+
+
+}
 @keyframes show {
     0% {
         opacity: 0;

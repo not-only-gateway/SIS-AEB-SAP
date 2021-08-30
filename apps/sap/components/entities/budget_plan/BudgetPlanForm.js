@@ -16,7 +16,8 @@ export default function BudgetPlanForm(props) {
     const [data, setData] = useState(null)
 
     useEffect(() => {
-        setData(props.data)
+        if (props.data !== undefined)
+            setData(props.data)
 
         if (props.action !== undefined && props.action !== null) {
 
@@ -24,7 +25,6 @@ export default function BudgetPlanForm(props) {
                 event: ({name: 'action', value: props.action}),
                 setData: setData
             })
-            console.log(data)
         }
     }, [])
 

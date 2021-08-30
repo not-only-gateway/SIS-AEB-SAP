@@ -6,6 +6,7 @@ import ToolTip from "../core/tooltip/ToolTip";
 export default function HorizontalChart(props) {
     const [biggest, setBiggest] = useState(null)
     const [sortedData, setSortedData] = useState([])
+    const [iterations, setIterations] = useState([])
     useEffect(() => {
         const nData = [...props.data]
 
@@ -30,6 +31,14 @@ export default function HorizontalChart(props) {
         })
 
         setBiggest(b)
+
+        b = Math.round(b / 10) * 10
+        let nI = []
+        for(let i = 0; i < 10; i++){
+            b = b/2
+            nI.push(b)
+        }
+        setIterations(nI)
     }, [props.data])
     return (
         <div className={styles.container} style={props.styles}>
@@ -55,17 +64,27 @@ export default function HorizontalChart(props) {
                                 background: `rgba(0, 149, 255, ${1.5 / (index + 1)}`,
                                 color: (1.5 / (index + 1)) < .5 ? '#333333' : undefined
                             }} className={styles.data}>
-                                <ToolTip>
+                                <ToolTip color={'#f4f5fa'}>
                                     <div className={styles.overview}>
-                                        {d[props.axisField]}
-                                        <div>
-                                            {d[props.valueField]}
+
+                                        <div style={{color: '#555555', fontSize: '.9rem', fontWeight: 'bold', textAlign: 'left', width: '100%'}}>
+                                            {props.axisLabel}: {d[props.axisField]}
+                                        </div>
+                                        <div style={{color: '#666666', fontSize: '.9rem', textAlign: 'left', width: '100%'}}>
+                                            {props.valueLabel}: {d[props.valueField]}
                                         </div>
                                     </div>
                                 </ToolTip>
                             </div>
                         </div>
                     ))}
+                    <div className={styles.values}>
+                        {iterations.map((e, i) =>(
+                            <div className={styles.value}>
+                                {e}
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
             <div className={styles.valuesLabel}>

@@ -14,6 +14,7 @@ export default function InfrastructureForm(props) {
 
 
     useEffect(() => {
+        if(props.data !== undefined)
         setData(props.data)
         if (!props.create) {
 
