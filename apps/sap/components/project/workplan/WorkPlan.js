@@ -8,6 +8,7 @@ import GoalList from "./goal/GoalList";
 import HorizontalChart from "../../shared/chart/HorizontalChart";
 import OperationList from "./operation/OperationList";
 import FinancialDisbursementList from "./financial/FinancialDisbursementList";
+import ApostilleList from "./apostille/ApostilleList";
 
 export default function WorkPlan(props) {
     const lang = WorkPlanPT
@@ -44,6 +45,15 @@ export default function WorkPlan(props) {
                                         key: 2,
                                         value: lang.financialDisbursement,
                                         content: <FinancialDisbursementList workPlan={props.workPlan}/>
+                                    },
+                                    {
+                                        key: 3,
+                                        value: lang.apostilles,
+                                        content: (
+                                            <div style={{width: '100%'}}>
+                                                <ApostilleList workPlan={props.workPlan} ted={props.ted}/>
+                                            </div>
+                                        )
                                     }
 
                                 ]} type={'vertical'}

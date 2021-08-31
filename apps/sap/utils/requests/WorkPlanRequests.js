@@ -80,6 +80,24 @@ export default class WorkPlanRequests {
         return response
     }
 
+
+    static async deleteApostille(submitProps) {
+        let response = false
+        await Requester({
+            package: submitProps.data,
+            method: 'delete',
+            url: Host() + 'apostille/' + submitProps.pk,
+            showSuccessAlert: true,
+            token: jwt
+        }).then(res => {
+            submitProps.setRefreshed(false)
+            response = true
+        }).catch(e => {
+            console.log(e)
+        })
+
+        return response
+    }
     static async deleteStage(submitProps) {
         let response = false
         await Requester({
@@ -112,7 +130,34 @@ export default class WorkPlanRequests {
 
         return response
     }
+    static async submitApostille(submitProps) {
+        let response = null
+        let data = {}
+        data = Object.assign(data, submitProps.data)
 
+        if (data !== undefined && data.budget_plan !== undefined&& data.budget_plan !== null)
+            data.budget_plan = data.budget_plan.id
+        if (data !== undefined && data.infrastructure !== undefined&& data.infrastructure !== null)
+            data.infrastructure = data.infrastructure.id
+
+        if (data !== undefined && data.responsible !== undefined&& data.responsible !== null)
+            data.responsible = data.responsible.id
+        await Requester({
+            package: data,
+            method: submitProps.create ? 'post' : 'put',
+            url: submitProps.create ? Host() + 'apostille' : Host() + 'apostille/' + submitProps.pk,
+            showSuccessAlert: true,
+            token: jwt
+        }).then(res => {
+            console.log(res.data)
+            response = res.data
+        }).catch(e => {
+            console.log(e)
+        })
+
+
+        return response
+    }
     static async submitWorkPlan(submitProps) {
         let response = null
         let data = {}

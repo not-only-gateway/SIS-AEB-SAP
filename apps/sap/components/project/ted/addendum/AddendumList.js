@@ -12,6 +12,7 @@ import TedRequests from "../../../../utils/requests/TedRequests";
 import HandleUpload from "../../../../utils/shared/HandleUpload";
 import HandleDownload from "../../../../utils/shared/HandleDownload";
 import ProjectRequests from "../../../../utils/requests/ProjectRequests";
+import TedForm from "../TedForm";
 
 export default function AddendumList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -47,17 +48,17 @@ export default function AddendumList(props) {
             />
             {!open ? null :
                 <div className={animations.fadeIn}>
-                    <AddendumForm
+                    <TedForm
                         returnToMain={() => {
                             setOpen(false)
                             setRefreshed(false)
-                        }}
+                        }} asAddendum={true}
                         handleChange={event => handleObjectChange({
                             event: event,
                             setData: setCurrentEntity
                         })} ted={props.ted}
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                        data={currentEntity} project={props.project}/>
+                        data={currentEntity} />
                 </div>
             }
             <div style={{display: open ? 'none' : undefined}}>
@@ -66,10 +67,11 @@ export default function AddendumList(props) {
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/addendum'}
                     fields={[
-                        {name: 'number', type: 'string'},
-                        {name: 'global_value', type: 'number', maskStart: 'R$ '},
+                        {name: 'number', type: 'string', label: 'Número'},
+                        {name: 'responsible', type: 'object', subfield: 'acronym'},
+                        {name: 'process', type: 'string', label: 'Processo'}
                     ]}
-                    labels={['Número', 'valor global']}
+                    labels={['Número', 'Responsável', 'Processo']}
                     triggerRefresh={!refreshed}
                     setRefreshed={setRefreshed}
                     controlOptions={[

@@ -1,38 +1,39 @@
 import React, {useRef, useState} from "react";
+import Host from "../../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import Host from "../../../utils/shared/Host";
-import PropTypes from "prop-types";
-import animations from "../../../styles/Animations.module.css";
-import handleObjectChange from "../../../utils/shared/HandleObjectChange";
-import List from "../../shared/core/list/List";
-import WorkPlanForm from "./WorkPlanForm";
-import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
+import animations from "../../../../styles/Animations.module.css";
+import handleObjectChange from "../../../../utils/shared/HandleObjectChange";
+import List from "../../../shared/core/list/List";
 import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
-import HandleUpload from "../../../utils/shared/HandleUpload";
-import HandleDownload from "../../../utils/shared/HandleDownload";
+import PropTypes from "prop-types";
 
-export default function WorkPlanList(props) {
+import OperationRequests from "../../../../utils/requests/OperationRequests";
+import HandleUpload from "../../../../utils/shared/HandleUpload";
+import HandleDownload from "../../../../utils/shared/HandleDownload";
+import WorkPlanRequests from "../../../../utils/requests/WorkPlanRequests";
+import WorkPlanForm from "../WorkPlanForm";
+
+export default function ApostilleList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
     const ref = useRef()
     return (
-        <>
+        <div>
             <input
-                 type={'file'} style={{display: 'none'}}
-                ref={ref} accept={'.json'}
+                accept={'.json'} type={'file'} style={{display: 'none'}}
+                ref={ref}
                 onChange={(file) => {
                     HandleUpload(file.target.files[0]).then(res => {
-                        if(res !== null){
-                            if(Array.isArray(res)){
+                        if(res !== null) {
+                            if (Array.isArray(res)) {
                                 res.forEach(e => {
-                                    WorkPlanRequests.submitWorkPlan({
+                                    WorkPlanRequests.submitApostille({
                                         data: e,
                                         create: true
                                     })
                                 })
-                            }
-                            else{
+                            } else {
                                 res.id = undefined
                                 setCurrentEntity(res)
                                 setOpen(true)
@@ -41,33 +42,28 @@ export default function WorkPlanList(props) {
                     })
                     ref.current.value = ''
                 }}
-
             />
             {!open ? null :
-                <div className={animations.fadeIn}>
+                <div className={animations.fadeIn} style={{width: '100%'}}>
                     <WorkPlanForm
                         returnToMain={() => {
-                            setOpen(false)
                             setRefreshed(false)
-                        }} redirect={id => {
-                        WorkPlanRequests.fetchWorkPlan(id.id).then(res => {
-                            if (res !== null)
-                                props.setCurrentStructure(res)
-                        })
-                    }}
+                            setOpen(false)
+                        }}
                         handleChange={event => handleObjectChange({
                             event: event,
                             setData: setCurrentEntity
-                        })} project={props.project}
-                        create={true} ted={props.ted}
+                        })} asApostille={true} ted={props.ted}
+                        create={currentEntity === undefined || currentEntity === null || currentEntity.id === undefined}
+                        workPlan={props.workPlan.id}
                         data={currentEntity}/>
                 </div>
             }
-            <div style={{display: open ? 'none' : undefined}}>
+            <div style={{display: open ? 'none' : undefined, width: '100%'}}>
                 <List
-                    listKey={'project'}
+                    listKey={'apostille'}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/work_plan'}
+                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/apostille'}
                     triggerRefresh={!refreshed}
                     setRefreshed={setRefreshed}
                     fields={[
@@ -75,6 +71,12 @@ export default function WorkPlanList(props) {
                         {name: 'budget_plan', type: 'object', subfield: 'number'},
                         {name: 'responsible', type: 'object', subfield: 'acronym'},
                     ]}
+                    labels={['objeto', 'plano orçamentário', 'responsável']}
+                    clickEvent={() => null}
+                    setEntity={entity => {
+                        setOpen(true)
+                        setCurrentEntity(entity)
+                    }}
                     controlOptions={[
                         {
                             label: 'Importar',
@@ -85,11 +87,13 @@ export default function WorkPlanList(props) {
                             disabled: false
                         },
                     ]}
+                    searchFieldName={'search_input'}
+                    title={'Apostilamentos'}
                     options={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
-                            WorkPlanRequests.deleteWorkPlan({
+                            WorkPlanRequests.deleteAppostile({
                                 pk: entity.id,
                                 setRefreshed: setRefreshed
                             })
@@ -104,27 +108,16 @@ export default function WorkPlanList(props) {
                         },
                         disabled: false
                     }]}
-                    labels={['objeto', 'plano orçamentário', 'responsável']}
-                    clickEvent={() => null}
-                    setEntity={entity => {
-                        if (entity === null || entity === undefined) {
-                            setOpen(true)
-                        } else
-                            props.setCurrentStructure(entity)
-                    }} searchFieldName={'search_input'} title={'Planos de trabalho'} scrollableElement={'scrollableDiv'}
-                    fetchSize={15}
                     fetchParams={{
-                        ted: props.ted.id,
-                        project: props.project.id
+                        work_plan: props.workPlan.id
                     }}
-                />
+                    fetchSize={15}/>
             </div>
-        </>
+        </div>
     )
-}
-WorkPlanList.propTypes = {
-    setCurrentStructure: PropTypes.func,
-    ted: PropTypes.object,
-    project: PropTypes.object
 
+
+}
+ApostilleList.propTypes ={
+    workPlan: PropTypes.object
 }

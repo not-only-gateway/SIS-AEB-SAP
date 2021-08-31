@@ -19,14 +19,19 @@ export default function TedForm(props) {
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
-        if (props.create)
-            props.handleChange({name: 'projects', value: [props.project]})
+        if (props.create) {
+            if(!props.asAddendum)
+                props.handleChange({name: 'projects', value: [props.project]})
+            else
+            props.handleChange({name: 'ted', value: props.ted.id})
+        }
     }, [])
     return (
         <>
             <EntityLayout
-                rootElementID={'root'} entity={props.data}
-                create={props.create} label={props.create ? lang.newTed : lang.ted }
+                entity={props.data}
+                create={props.create}
+                label={props.asAddendum ? (props.create ? lang.newAddendum : lang.addendum) : (props.create ? lang.newTed : lang.ted)}
                 dependencies={{
                     fields: [
                         {name: 'number', type: 'string'},
@@ -43,40 +48,58 @@ export default function TedForm(props) {
                         {name: 'summary_justification', type: 'string'},
                         {name: 'programmatic_functional_classification', type: 'string'},
                         {name: 'remaining_assets', type: 'bool'},
-                        props.data === null || !props.data.remaining_assets  ? null : {
+                        props.data === null || !props.data.remaining_assets ? null : {
                             name: 'ownership_destination_assets',
                             type: 'string'
+                        },
+                        !props.asAddendum ? null : {
+                            name: 'ted',
+                            type: 'object'
                         },
                     ],
                     changed: changed
                 }} noHeader={!props.create && !props.asEntity}
                 returnButton={props.create || props.asEntity}
-                handleSubmit={() =>
-                    TedRequests.submitTed({
-                        pk: props.id,
-                        data: props.data,
-                        create: props.create
-                    }).then(res => {
-                        if (res !== null && props.create && !props.asEntity)
-                            props.redirect(res)
+                handleSubmit={() => {
+                    if (!props.asAddendum)
+                        TedRequests.submitTed({
+                            pk: props.id,
+                            data: props.data,
+                            create: props.create
+                        }).then(res => {
+                            if (res !== null && props.create && !props.asEntity)
+                                props.redirect(res)
 
-                        setChanged(false)
-                        if(props.asEntity)
-                            props.returnToMain()
-                    })}
+                            setChanged(false)
+                            if (props.asEntity)
+                                props.returnToMain()
+                        })
+                    else
+                        TedRequests.submitAddendum({
+                            pk: props.id,
+                            data: props.data,
+                            create: props.create
+                        }).then(res => {
+                            setChanged(false)
+                            if (props.asEntity)
+                                props.returnToMain()
+                        })
+                }}
                 handleClose={() => props.returnToMain()}
                 forms={[{
                     child: (
-                        <>
-                            <TextField
 
+                        <>
+
+                            <TextField
                                 placeholder={lang.number} label={lang.number}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'number', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.number}
                                 required={true}
-                                width={'calc(50% - 16px)'}/>
+                                width={'calc(50% - 16px)'}
+                            />
 
 
                             <TextField
@@ -87,7 +110,8 @@ export default function TedForm(props) {
                                     props.handleChange({name: 'year', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.year}
                                 required={true}
-                                width={'calc(50% - 16px)'}/>
+                                width={'calc(50% - 16px)'}
+                            />
 
                             <TextField
 
@@ -329,5 +353,7 @@ TedForm.propTypes = {
     returnToMain: PropTypes.func,
     create: PropTypes.bool,
     project: PropTypes.number,
-    asEntity: PropTypes.bool
+    asEntity: PropTypes.bool,
+    asAddendum: PropTypes.bool,
+    ted: PropTypes.object
 }

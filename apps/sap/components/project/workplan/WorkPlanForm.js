@@ -21,8 +21,12 @@ export default function WorkPlanForm(props) {
     const [open, setOpen] = useState(false)
     useEffect(() => {
         if (props.create) {
-            props.handleChange({name: 'ted', value: props.ted.id})
-            props.handleChange({name: 'project', value: props.project.id})
+            if(!props.asApostille) {
+                props.handleChange({name: 'ted', value: props.ted.id})
+                props.handleChange({name: 'project', value: props.project.id})
+            }
+            else
+                props.handleChange({name: 'work_plan', value: props.workPlan})
         }
     }, [])
     return (
@@ -56,19 +60,30 @@ export default function WorkPlanForm(props) {
                         changed: changed
                     }} noHeader={!props.create}
                     returnButton={props.create}
-                    handleSubmit={() =>
-                        WorkPlanRequests.submitWorkPlan({
-                            pk: props.id,
-                            data: props.data,
-                            create: props.create
-                        }).then(res => {
-                            console.log(res)
-                            if (res !== null && props.create)
-                                props.redirect(res)
+                    handleSubmit={() => {
+                        if (!props.asApostille)
+                            WorkPlanRequests.submitWorkPlan({
+                                pk: props.id,
+                                data: props.data,
+                                create: props.create
+                            }).then(res => {
+                                if (res !== null && props.create)
+                                    props.redirect(res)
 
-                            if (!props.create && res)
-                                setChanged(false)
-                        })}
+                                if (!props.create && res)
+                                    setChanged(false)
+                            })
+                        else
+                            WorkPlanRequests.submitApostille({
+                                pk: props.id,
+                                data: props.data,
+                                create: props.create
+                            }).then(res => {
+                                if (res !== null)
+                                    props.returnToMain()
+                            })
+                    }
+                    }
                     handleClose={() => props.returnToMain()}
                     forms={[{
                         child: (
@@ -293,6 +308,9 @@ export default function WorkPlanForm(props) {
 }
 
 WorkPlanForm.propTypes = {
+    asApostille: PropTypes.bool,
+    workPlan: PropTypes.bool,
+
     id: PropTypes.number,
     data: PropTypes.object,
     handleChange: PropTypes.func,

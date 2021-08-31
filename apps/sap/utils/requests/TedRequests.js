@@ -93,8 +93,17 @@ export default class TedRequests {
     static async submitAddendum(submitProps) {
         let response = false
 
+        let data = {}
+        data = Object.assign(data, submitProps.data)
+        if (data !== undefined && data.action !== undefined && data.action !== null)
+            data.action = data.action.id
+        if (data !== undefined && data.responsible !== undefined && data.responsible !== null)
+            data.responsible = data.responsible.id
+        if (data !== undefined && data.decentralized_unit !== undefined && data.decentralized_unit !== null)
+            data.decentralized_unit = data.decentralized_unit.id
+
         await Requester({
-            package: submitProps.data,
+            package: data,
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'addendum' : Host() + 'addendum/' + submitProps.pk,
             showSuccessAlert: true,
