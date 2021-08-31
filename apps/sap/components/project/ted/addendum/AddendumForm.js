@@ -31,7 +31,7 @@ export default function AddendumForm(props) {
                 returnButton={true}
                 handleSubmit={() =>
                     TedRequests.submitAddendum({
-                        pk: props.id,
+                        pk: props.data.id,
                         data: props.data,
 
                         create: props.create

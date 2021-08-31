@@ -53,6 +53,7 @@
 .graphs {
     position: relative;
     padding: 16px;
+    padding-right: calc(5% - 8px);
     display: grid;
     height: 100%;
 
@@ -71,6 +72,8 @@
     animation: extend 750ms ease-in-out;
 
     transition: 250ms ease;
+    position: relative;
+    z-index: 999;
 }
 .data:hover{
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -125,15 +128,24 @@
     bottom: 0;
     width: 100%;
     background: white;
+    /*padding-left: calc(5% + 10px);*/
 }
 .value{
     font-family: Roboto;
     color: #555555;
-    width: 10%;
+
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: .85rem;
-
+    position: relative;
+}
+.valueDivider{
+    position: absolute;
+    width: 1px;
+    background: #e0e0e0;
+    height: 100%;
+    z-index: 1;
+    top: 0;
 }

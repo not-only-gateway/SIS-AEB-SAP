@@ -21,6 +21,7 @@ export default{
     natureOfExpense: 'Naturezas de despesa',
     decentralizedUnit: 'Unidade descentralizada',
     unit: 'Unidades / Responsáveis',
-    classifications: 'Classificações',
-    classification: 'Classificação'
+    classifications: 'Componentes',
+    classification: 'Componente',
+    types: 'Tipos'
 }

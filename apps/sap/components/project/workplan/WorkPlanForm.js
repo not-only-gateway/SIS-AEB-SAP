@@ -75,7 +75,7 @@ export default function WorkPlanForm(props) {
                             })
                         else
                             WorkPlanRequests.submitApostille({
-                                pk: props.id,
+                                pk: props.data.id,
                                 data: props.data,
                                 create: props.create
                             }).then(res => {

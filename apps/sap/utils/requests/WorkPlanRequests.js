@@ -191,7 +191,7 @@ export default class WorkPlanRequests {
         let response = false
         let data = {}
         data = Object.assign(data, submitProps.data)
-        if (data !== undefined)
+        if (data !== undefined && data.latitude !== undefined && data.longitude !== undefined)
             data.address = submitProps.data.latitude + ', ' + submitProps.data.longitude
 
         await Requester({

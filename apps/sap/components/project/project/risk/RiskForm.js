@@ -27,7 +27,7 @@ export default function RiskForm(props){
                 returnButton={true}
                 handleSubmit={() =>
                     ProjectRequests.submitRisk({
-                        pk: props.id,
+                        pk: props.data.id,
                         data: props.data,
                         create: props.create
                     }).then(res => {

@@ -22,20 +22,19 @@ export default function AddendumList(props) {
     return (
         <div style={{width: '100%'}}>
             <input
-             type={'file'} style={{display: 'none'}}
+                type={'file'} style={{display: 'none'}}
                 ref={ref} accept={'.json'}
                 onChange={(file) => {
                     HandleUpload(file.target.files[0]).then(res => {
-                        if(res !== null){
-                            if(Array.isArray(res)){
+                        if (res !== null) {
+                            if (Array.isArray(res)) {
                                 res.forEach(e => {
                                     TedRequests.submitAddendum({
                                         data: e,
                                         create: true
                                     })
                                 })
-                            }
-                            else{
+                            } else {
                                 res.id = undefined
                                 setCurrentEntity(res)
                                 setOpen(true)
@@ -58,7 +57,7 @@ export default function AddendumList(props) {
                             setData: setCurrentEntity
                         })} ted={props.ted}
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                        data={currentEntity} />
+                        data={currentEntity}/>
                 </div>
             }
             <div style={{display: open ? 'none' : undefined}}>
@@ -106,13 +105,16 @@ export default function AddendumList(props) {
                         disabled: false
                     }]}
                     setEntity={entity => {
-                        setCurrentEntity(entity)
+                        if (entity === null || entity === undefined)
+                            setCurrentEntity(props.ted)
+                        else
+                            setCurrentEntity(entity)
                     }} searchFieldName={'search_input'} title={'Termos aditivos'} scrollableElement={'scrollableDiv'}
                     fetchSize={15}
                     fetchParams={{
                         ted: props.ted.id
                     }}
-                    />
+                />
             </div>
         </div>
     )

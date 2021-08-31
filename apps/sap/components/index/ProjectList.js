@@ -87,7 +87,7 @@ export default function ProjectList(props) {
                             ProjectRequests.deleteProject({
                                 pk: entity.id,
                                 setRefreshed: setRefreshed
-                            })
+                            }).then(e => setRefreshed(false))
                         },
                         disabled: false,
                         color: '#ff5555'

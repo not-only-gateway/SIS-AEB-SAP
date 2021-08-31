@@ -32,7 +32,7 @@ export default function ObjectiveForm(props) {
                 returnButton={true}
                 handleSubmit={() =>
                     ProjectRequests.submitObjective({
-                        pk: props.id,
+                        pk: props.data.id,
                         data: props.data,
                         create: props.create
                     }).then(res => {

@@ -101,7 +101,7 @@ export default function ClassificationList(props) {
                     clickEvent={() => setOpen(true)}
                     setEntity={entity => {
                         setCurrentEntity(entity)
-                    }} searchFieldName={'search_input'} title={'Classificações'}
+                    }} searchFieldName={'search_input'} title={'Componentes'}
                     fetchSize={15}
 
                 />

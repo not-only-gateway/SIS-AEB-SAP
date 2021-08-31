@@ -8,6 +8,7 @@ import UnitForm from "./UnitForm";
 import {DeleteRounded, GetAppRounded} from "@material-ui/icons";
 import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
 import HandleDownload from "../../../utils/shared/HandleDownload";
+import ProjectRequests from "../../../utils/requests/ProjectRequests";
 
 export default function UnitList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -40,9 +41,21 @@ export default function UnitList(props) {
                     setRefreshed={setRefreshed}
                     fields={[
                         {name: 'name', type: 'string'},
-                        {name: 'acronym', type: 'string'}
-                    ]} labels={['nome', 'Acrônimo']}
-                    options={[
+                        {name: 'acronym', type: 'string'},
+                        {name: 'parent_unit', type: 'object', subfield: 'acronym', fallback: 'Nenhuma'},
+                    ]} labels={['nome', 'Acrônimo', 'Unidade pai']}
+                    options={[{
+                        label: 'Deletar',
+                        icon: <DeleteRounded/>,
+                        onClick: (entity) => {
+                            ProjectRequests.deleteUnit({
+                                pk: entity.id,
+                                setRefreshed: setRefreshed
+                            })
+                        },
+                        disabled: false,
+                        color: '#ff5555'
+                    },
                         {
                             label: 'Baixar dados',
                             icon: <GetAppRounded/>,

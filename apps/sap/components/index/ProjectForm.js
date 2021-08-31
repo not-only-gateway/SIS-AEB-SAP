@@ -42,7 +42,7 @@ export default function ProjectForm(props) {
                 returnButton={props.create}
                 handleSubmit={() =>
                     ProjectRequests.submitProject({
-                        pk: props.id,
+                        pk: props.data.id,
                         data: props.data,
                         create: props.create
                     }).then(res => {

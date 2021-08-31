@@ -186,7 +186,7 @@ export default function List(props) {
             <Footer
                 setCurrentPage={setCurrentPage} data={data} currentPage={currentPage} setData={setData}
                 fetchSize={fetchSize} fetchToken={props.fetchToken} maxID={maxID} setMaxID={setMaxID}
-                setSize={() => setSize(getLength())}
+                setSize={() => getLength()}
                 fetchUrl={props.fetchUrl} searchInput={searchInput} setHasMore={setHasMore} hasMore={hasMore}
             />
         </div>

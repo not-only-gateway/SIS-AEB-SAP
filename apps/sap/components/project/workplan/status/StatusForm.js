@@ -32,8 +32,6 @@ export default function StatusForm(props){
                         data: props.data,
                         create: props.create
                     }).then(res => {
-                        console.log(props.create )
-                        console.log(res)
                         if(props.create && res)
                             props.returnToMain()
                         setChanged(!res)

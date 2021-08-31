@@ -10,8 +10,38 @@ const submitProps = PropTypes.shape({
     create: PropTypes.bool
 })
 export default class ProjectRequests {
-
-
+    static async deleteUnit(submitProps) {
+        let response = false
+        await Requester({
+            method: 'delete',
+            url: Host() + 'unit/' + submitProps.pk,
+            showSuccessAlert: true,
+            token: jwt,
+            data: submitProps.data
+        }).then(res => {
+            submitProps.setRefreshed(false)
+            response = true
+        }).catch(e => {
+            console.log(e)
+        })
+        return response
+    }
+    static async deleteType(submitProps) {
+        let response = false
+        await Requester({
+            method: 'delete',
+            url: Host() + 'type/' + submitProps.pk,
+            showSuccessAlert: true,
+            token: jwt,
+            data: submitProps.data
+        }).then(res => {
+            submitProps.setRefreshed(false)
+            response = true
+        }).catch(e => {
+            console.log(e)
+        })
+        return response
+    }
     static async deleteNatureOfExpense(submitProps) {
         let response = false
         await Requester({
@@ -134,8 +164,6 @@ export default class ProjectRequests {
             token: jwt,
             data: submitProps.data
         }).then(res => {
-
-            submitProps.setRefreshed(false)
             response = true
         }).catch(e => {
             console.log(e)

@@ -63,7 +63,7 @@ export default function ComponentForm(props) {
                                 }} searchFieldName={'search_input'}
                                 handleChange={entity => {
                                     props.handleChange({name: 'classification', value: entity})
-                                }} label={'Vincular classificação'}
+                                }} label={'Vincular componente'}
                                 setChanged={() => null}
                                 selected={props.data === null || !props.data.classification ? null : props.data.classification}
                                 width={'calc(50% - 16px)'}

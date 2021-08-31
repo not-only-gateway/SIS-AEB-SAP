@@ -75,7 +75,10 @@ export default function ApostilleList(props) {
                     clickEvent={() => null}
                     setEntity={entity => {
                         setOpen(true)
-                        setCurrentEntity(entity)
+                        if (entity === null || entity === undefined)
+                            setCurrentEntity(props.workPlan)
+                        else
+                            setCurrentEntity(entity)
                     }}
                     controlOptions={[
                         {

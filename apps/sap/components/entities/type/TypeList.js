@@ -1,21 +1,21 @@
-import PropTypes from 'prop-types'
 import React, {useRef, useState} from "react";
-import Cookies from "universal-cookie/lib";
-import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
-import Host from "../../../utils/shared/Host";
-import List from "../../shared/core/list/List";
-import ComponentForm from "./ComponentForm";
+import animations from "../../../styles/Animations.module.css";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
+import List from "../../shared/core/list/List";
+import Cookies from "universal-cookie/lib";
+import Host from "../../../utils/shared/Host";
+import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
 import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
 import HandleUpload from "../../../utils/shared/HandleUpload";
 import HandleDownload from "../../../utils/shared/HandleDownload";
 import ProjectRequests from "../../../utils/requests/ProjectRequests";
+import TypeForm from "./TypeForm";
 
-export default function ComponentsList(props) {
+export default function TypeList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const ref = useRef()
     const [refreshed, setRefreshed] = useState(false)
+    const ref = useRef()
     return (
         <>
             <input
@@ -26,7 +26,9 @@ export default function ComponentsList(props) {
                         if(res !== null){
                             if(Array.isArray(res)){
                                 res.forEach(e => {
-                                    WorkPlanRequests.submitComponent({
+                                    let data = {...e}
+                                    data.id = undefined
+                                    ProjectRequests.submitType({
                                         data: e,
                                         create: true
                                     })
@@ -44,29 +46,28 @@ export default function ComponentsList(props) {
 
             />
             {!open ? null :
-                <ComponentForm
-                    returnToMain={() => {
-                        setOpen(false)
-                        setRefreshed(false)
-                    }}
-                    handleChange={event => handleObjectChange({
-                        event: event,
-                        setData: setCurrentEntity
-                    })}
-                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                    data={currentEntity} infrastructure={props.infrastructure}
-                />
-
+                <div className={animations.fadeIn}>
+                    <TypeForm
+                        returnToMain={() => {
+                            setOpen(false)
+                            setRefreshed(false)
+                        }} asEntity={true}
+                        handleChange={event => handleObjectChange({
+                            event: event,
+                            setData: setCurrentEntity
+                        })} asDefault={true}
+                        create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                        data={currentEntity}/>
+                </div>
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'project'}
+                    listKey={'nature'}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/component'}
+                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/type'}
                     triggerRefresh={!refreshed}
                     setRefreshed={setRefreshed}
                     controlOptions={[
-
                         {
                             label: 'Importar',
                             icon: <PublishRounded/>,
@@ -76,16 +77,11 @@ export default function ComponentsList(props) {
                             disabled: false
                         },
                     ]}
-                    fields={[
-                        {name: 'classification', type: 'object',subfield: 'classification'},
-                        {name: 'classification', type: 'object',subfield: 'type'},
-                        {name: 'situation', type: 'string',label: 'situação'}
-                    ]}
                     options={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
-                            WorkPlanRequests.deleteComponent({
+                            ProjectRequests.deleteType({
                                 pk: entity.id,
                                 setRefreshed: setRefreshed
                             })
@@ -101,19 +97,16 @@ export default function ComponentsList(props) {
                             },
                             disabled: false
                         }]}
-                    labels={['classificação', 'tipo', 'situação']}
+                    fields={[
+                        {name: 'type', type: 'string'},
+                    ]} labels={['tipo']}
                     clickEvent={() => setOpen(true)}
                     setEntity={entity => {
                         setCurrentEntity(entity)
-                    }} searchFieldName={'search_input'} title={'Situações Operacionais de Componentes'}
-                    fetchParams={{
-                        infrastructure: props.infrastructure.id
-                    }}
+                    }} searchFieldName={'search_input'} title={'Tipos'}
+
                 />
             </div>
         </>
     )
-}
-ComponentsList.propTypes = {
-    infrastructure: PropTypes.object
 }

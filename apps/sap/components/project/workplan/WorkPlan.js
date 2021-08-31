@@ -94,21 +94,21 @@ export default function WorkPlan(props) {
                                 valueField={'x'}
                                 data={[
                                     {
-                                        x: 10000,
-                                        y: 'cafe',
-                                        z: 'cafe222'
-                                    },
-                                    {
                                         x: 1000,
                                         y: 'cafe',
                                         z: 'cafe222'
                                     },
                                     {
-                                        x: 100,
+                                        x: 5,
+                                        y: 'cafe',
+                                        z: 'cafe222'
+                                    },
+                                    {
+                                        x: 2,
                                         y: 'ca123213fe',
                                         z: 'cafe222'
                                     }, {
-                                        x: 10, y: '2323',
+                                        x: 3, y: '2323',
                                         z: '2135'
                                     },
                                 ]}

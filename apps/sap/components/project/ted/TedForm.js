@@ -63,7 +63,7 @@ export default function TedForm(props) {
                 handleSubmit={() => {
                     if (!props.asAddendum)
                         TedRequests.submitTed({
-                            pk: props.id,
+                            pk: props.data.id,
                             data: props.data,
                             create: props.create
                         }).then(res => {
@@ -71,8 +71,10 @@ export default function TedForm(props) {
                                 props.redirect(res)
 
                             setChanged(false)
-                            if (props.asEntity)
+                            if (props.asEntity && props.create)
                                 props.returnToMain()
+                            else if(props.asEntity)
+                                setChanged(false)
                         })
                     else
                         TedRequests.submitAddendum({
