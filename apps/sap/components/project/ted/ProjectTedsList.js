@@ -44,10 +44,11 @@ export default function ProjectTedsList(props) {
                     }}
                     disabled={false}
                     fields={[
-                        {name: 'number', type: 'string'},
-                        {name: 'responsible', type: 'string'},
-                        {name: 'process', type: 'string'}
-                    ]} labels={['Número', 'Responsável', 'Processo']}
+                        {name: 'number', type: 'string', label: 'Número'},
+                        {name: 'responsible', type: 'object', subfield: 'acronym'},
+                        {name: 'process', type: 'string', label: 'Processo'}
+                    ]}
+                    labels={['Número', 'Responsável', 'Processo']}
                     fetchUrl={Host() + 'list/free/project_teds'}
                     fetchToken={(new Cookies()).get('jwt')}
                     selectorKey={'teds-selector'}

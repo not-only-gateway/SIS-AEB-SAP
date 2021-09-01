@@ -9,14 +9,14 @@ const cookies = new Cookies()
 export default async function submitAuthentication(props) {
 
     props.setLoading(true)
-    let ip = await publicIp.v4()
+    // let ip = await publicIp.v4()
     let res = false
 
     await Requester({
         package:  {
             corporate_email: props.email,
             password: props.password,
-            ip: ip,
+            ip: '192.168.0.211',
             platform: navigator.platform,
             browser_version: navigator.appVersion,
             browser_engine: navigator.product,

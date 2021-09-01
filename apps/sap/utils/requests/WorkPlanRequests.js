@@ -3,7 +3,6 @@ import Cookies from "universal-cookie/lib";
 import PropTypes from "prop-types";
 import Requester from "../../components/shared/core/requester/Requester";
 
-const jwt = (new Cookies()).get('jwt')
 const submitProps = PropTypes.shape({
     pk: PropTypes.number,
     data: PropTypes.object,
@@ -19,7 +18,7 @@ export default class WorkPlanRequests {
             method: 'delete',
             url: Host() + 'work_plan/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             submitProps.setRefreshed(false)
             response = true
@@ -39,7 +38,7 @@ export default class WorkPlanRequests {
             method: 'delete',
             url: Host() + 'work_plan_goal/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             submitProps.setRefreshed(false)
             response = true
@@ -56,7 +55,7 @@ export default class WorkPlanRequests {
         await Requester({
             method: 'get',
             url: Host() + 'work_plan/' + pk,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             response = res.data
         }).catch(e => {
@@ -70,7 +69,7 @@ export default class WorkPlanRequests {
         await Requester({
             method: 'get',
             url: Host() + 'activity/' + pk,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             response = res.data
         }).catch(e => {
@@ -88,7 +87,7 @@ export default class WorkPlanRequests {
             method: 'delete',
             url: Host() + 'apostille/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             submitProps.setRefreshed(false)
             response = true
@@ -105,7 +104,7 @@ export default class WorkPlanRequests {
             method: 'delete',
             url: Host() + 'activity/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             submitProps.setRefreshed(false)
             response = true
@@ -121,7 +120,7 @@ export default class WorkPlanRequests {
         await Requester({
             method: 'get',
             url: Host() + 'work_plan_goal/' + pk,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             response = res.data
         }).catch(e => {
@@ -147,7 +146,7 @@ export default class WorkPlanRequests {
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'apostille' : Host() + 'apostille/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             console.log(res.data)
             response = res.data
@@ -175,7 +174,7 @@ export default class WorkPlanRequests {
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'work_plan' : Host() + 'work_plan/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             console.log(res.data)
             response = res.data
@@ -199,7 +198,7 @@ export default class WorkPlanRequests {
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'infrastructure' : Host() + 'infrastructure/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             response = true
         }).catch(e => {
@@ -215,7 +214,7 @@ export default class WorkPlanRequests {
             method: 'delete',
             url: Host() + 'infrastructure/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             submitProps.setRefreshed(false)
             response = true
@@ -233,7 +232,7 @@ export default class WorkPlanRequests {
             method: 'delete',
             url: Host() + 'financial_disbursement/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             submitProps.setRefreshed(false)
             response = true
@@ -252,7 +251,7 @@ export default class WorkPlanRequests {
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'financial_disbursement' : Host() + 'financial_disbursement/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             response = true
         }).catch(e => {
@@ -274,7 +273,7 @@ export default class WorkPlanRequests {
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'work_plan_status' : Host() + 'work_plan_status/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             response = true
         }).catch(e => {
@@ -290,7 +289,7 @@ export default class WorkPlanRequests {
             method: 'delete',
             url: Host() + 'work_plan_status/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             submitProps.setRefreshed(false)
             response = true
@@ -310,7 +309,7 @@ export default class WorkPlanRequests {
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'work_plan_goal' : Host() + 'work_plan_goal/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             response = submitProps.create ? res.data.id : true
         }).catch(e => {
@@ -333,7 +332,7 @@ export default class WorkPlanRequests {
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'component' : Host() + 'component/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             response = true
         }).catch(e => {
@@ -350,7 +349,7 @@ export default class WorkPlanRequests {
             method: 'delete',
             url: Host() + 'component/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             submitProps.setRefreshed(false)
             response = true
@@ -369,7 +368,7 @@ export default class WorkPlanRequests {
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'activity' : Host() + 'activity/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             response = submitProps.create ? res.data.id : true
         }).catch(e => {

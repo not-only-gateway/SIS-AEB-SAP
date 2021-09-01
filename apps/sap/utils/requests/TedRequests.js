@@ -3,7 +3,6 @@ import Cookies from "universal-cookie/lib";
 import PropTypes from "prop-types";
 import Requester from "../../components/shared/core/requester/Requester";
 
-const jwt = (new Cookies()).get('jwt')
 const submitProps = PropTypes.shape({
     pk: PropTypes.number,
     data: PropTypes.object,
@@ -18,7 +17,7 @@ export default class TedRequests {
             method: 'get',
             url: Host() + 'ted/' + pk,
 
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             response = res.data
         }).catch(e => {
@@ -43,7 +42,7 @@ export default class TedRequests {
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'ted' : Host() + 'ted/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             response = submitProps.create ? res.data : true
         }).catch(e => {
@@ -59,7 +58,7 @@ export default class TedRequests {
             method: 'delete',
             url: Host() + 'ted/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
 
             submitProps.setRefreshed(false)
@@ -78,7 +77,7 @@ export default class TedRequests {
             method: 'delete',
             url: Host() + 'addendum/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
 
             submitProps.setRefreshed(false)
@@ -107,7 +106,7 @@ export default class TedRequests {
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'addendum' : Host() + 'addendum/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             response = true
         }).catch(e => {

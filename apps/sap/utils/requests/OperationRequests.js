@@ -3,7 +3,6 @@ import Cookies from "universal-cookie/lib";
 import PropTypes from "prop-types";
 import Requester from "../../components/shared/core/requester/Requester";
 
-const jwt = (new Cookies()).get('jwt')
 const submitProps = PropTypes.shape({
     pk: PropTypes.number,
     data: PropTypes.object,
@@ -26,7 +25,7 @@ export default class OperationRequests {
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'operation_phase' : Host() + 'operation_phase/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             response = submitProps.create ? res.data : true
         }).catch(e => {
@@ -46,7 +45,7 @@ export default class OperationRequests {
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'permanent_goods' : Host() + 'permanent_goods/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             response = true
         }).catch(e => {
@@ -68,7 +67,7 @@ export default class OperationRequests {
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'resource_application' : Host() + 'resource_application/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             response = true
         }).catch(e => {
@@ -84,7 +83,7 @@ export default class OperationRequests {
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'note' : Host() + 'note/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             response = true
         }).catch(e => {
@@ -102,7 +101,7 @@ export default class OperationRequests {
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'action_item' : Host() + 'action_item/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             response = true
         }).catch(e => {
@@ -119,7 +118,7 @@ export default class OperationRequests {
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'follow_up_goal' : Host() + 'follow_up_goal/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             response = true
         }).catch(e => {
@@ -135,7 +134,7 @@ export default class OperationRequests {
             method: 'delete',
             url: Host() + 'resource_application/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             submitProps.setRefreshed(false)
             response = true
@@ -154,7 +153,7 @@ export default class OperationRequests {
             method: 'delete',
             url: Host() + 'permanent_goods/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             submitProps.setRefreshed(false)
             response = true
@@ -173,7 +172,7 @@ export default class OperationRequests {
             method: 'delete',
             url: Host() + 'operation_phase/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             submitProps.setRefreshed(false)
             response = true
@@ -191,7 +190,7 @@ export default class OperationRequests {
             method: 'delete',
             url: Host() + 'action_item/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             submitProps.setRefreshed(false)
             response = true
@@ -208,7 +207,7 @@ export default class OperationRequests {
             method: 'delete',
             url: Host() + 'follow_up_goal/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             submitProps.setRefreshed(false)
             response = true
@@ -226,7 +225,7 @@ export default class OperationRequests {
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'execution' : Host() + 'execution/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             response = true
         }).catch(e => {
@@ -243,7 +242,7 @@ export default class OperationRequests {
             method: 'delete',
             url: Host() + 'execution/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             submitProps.setRefreshed(false)
             response = true
@@ -263,7 +262,7 @@ export default class OperationRequests {
             method: 'delete',
             url: Host() + 'note/' + submitProps.pk,
             showSuccessAlert: true,
-            token: jwt
+            token: (new Cookies()).get('jwt')
         }).then(res => {
             submitProps.setRefreshed(false)
             response = true
