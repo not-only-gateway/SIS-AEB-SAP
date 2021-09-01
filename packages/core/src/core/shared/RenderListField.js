@@ -2,6 +2,7 @@ import React from 'react'
 
 export default function RenderListField(field, entity) {
     let res = null
+    console.log(typeof entity[field.name])
     switch (field.type) {
         case 'string': {
             res = (field.maskStart ? field.maskStart : '') + entity[field.name] + (field.maskEnd ? field.maskEnd : '')
@@ -25,7 +26,12 @@ export default function RenderListField(field, entity) {
             break
         }
         case 'object': {
-            res = (field.maskStart ? field.maskStart : '') + (entity[field.name][field.subfield]) + (field.maskEnd ? field.maskEnd : '')
+
+            if (entity[field.name] !== null || (entity[field.name] !== null && entity[field.name][field.subfield] === undefined))
+                res = (field.maskStart ? field.maskStart : '') + (entity[field.name][field.subfield]) + (field.maskEnd ? field.maskEnd : '')
+            else
+                res = field.fallback
+
             break
         }
         default:

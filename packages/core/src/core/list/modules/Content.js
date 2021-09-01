@@ -78,7 +78,17 @@ export default function Content(props) {
 Content.propTypes = {
     noSelect: PropTypes.bool,
     clickEvent: PropTypes.func,
-    fields: PropTypes.array,
+    fields: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string,
+        type: PropTypes.oneOf(['bool', 'string', 'number', 'date', 'object']),
+        subfield: PropTypes.string,
+        fallback: PropTypes.string,
+        maskStart: PropTypes.string,
+        maskEnd: PropTypes.string,
+        getColor: PropTypes.func,
+        capitalize: PropTypes.bool,
+        extraSize: PropTypes.number
+    })),
     data: PropTypes.array,
     setSelected: PropTypes.func,
     selected: PropTypes.array,

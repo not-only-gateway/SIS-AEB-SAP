@@ -26,8 +26,15 @@ export default function List(props) {
     const [selected, setSelected] = useState([])
     const [sorts, setSorts] = useState([])
     const [fetchSize, setFetchSize] = useState(15)
+    const [size, setSize] = useState(0)
     const [hasMore, setHasMore] = useState(undefined)
+    const getLength = () => {
+        let l = 0
+        for (let i = 0; i < data.length; i++)
+            l = l + data[i].length
+        setSize(l)
 
+    }
     const refresh = () => {
         setSelected([])
         setLoading(true)
@@ -49,7 +56,10 @@ export default function List(props) {
             fetchUrl: props.fetchUrl,
             params: props.fetchParams,
             searchFieldName: props.searchFieldName
-        }).then(() => setLoading(false))
+        }).then(() => {
+            setLoading(false)
+            getLength()
+        })
     }
 
     useEffect(() => {
@@ -83,6 +93,8 @@ export default function List(props) {
 
         if (Array.isArray(data) && (props.triggerRefresh || data.length === 0))
             refresh()
+
+
     }, [props.triggerRefresh])
 
     return (
@@ -119,7 +131,7 @@ export default function List(props) {
                                     fetchUrl: props.fetchUrl,
                                     params: props.fetchParams,
                                     searchFieldName: props.searchFieldName
-                                })
+                                }).then(() => getLength())
                             }}/>
                     }
 
@@ -131,12 +143,12 @@ export default function List(props) {
                 <div className={styles.labelsContainer}>
                     <Checkbox
                         noSelect={props.noSelect}
-                        checked={data[0] !== undefined && data.length > 0 && selected.length > 0 && selected.length === (data.length * fetchSize - data[data.length - 1].length)}
+                        checked={size === selected.length && size > 0}
                         handleCheck={checked => {
-                            let length = data.length * fetchSize - (data.length > 1 ? data[data.length - 1].length : 0)
-                            if (!isNaN(length) && !checked && length > 0) {
-                                let newA = new Array(length)
-                                for (let i = 0; i < length; i++)
+                            getLength()
+                            if (!isNaN(size) && !checked && size > 0) {
+                                let newA = new Array(size)
+                                for (let i = 0; i < size; i++)
                                     newA[i] = i
 
                                 setSelected(newA)
@@ -174,6 +186,7 @@ export default function List(props) {
             <Footer
                 setCurrentPage={setCurrentPage} data={data} currentPage={currentPage} setData={setData}
                 fetchSize={fetchSize} fetchToken={props.fetchToken} maxID={maxID} setMaxID={setMaxID}
+                setSize={() => getLength()}
                 fetchUrl={props.fetchUrl} searchInput={searchInput} setHasMore={setHasMore} hasMore={hasMore}
             />
         </div>

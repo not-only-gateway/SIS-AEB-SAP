@@ -18,7 +18,8 @@ import {
 
 import CollaboratorRequests from "../../utils/requests/CollaboratorRequests";
 import PersonRequests from "../../utils/requests/PersonRequests";
-import {Navigation} from "sis-aeb-core";
+import {Modal, Navigation} from "sis-aeb-core";
+import Authenticator from "./Authenticator";
 
 
 const cookies = new Cookies()
@@ -27,35 +28,49 @@ export default function PageLayout(props) {
     const router = useRouter()
     const [profile, setProfile] = useState(null)
     const lang = LayoutPT
-
+    const [openModal, setOpenModal] = useState(false)
     useEffect(() => {
-        if (cookies.get('jwt') !== undefined) {
-            if (sessionStorage.getItem('profile') === null) {
-                CollaboratorRequests.fetchMemberByToken().then(res => {
-                    if (res !== null) {
-                        PersonRequests.FetchImage(res.person.image).then(imageRes => {
-                            res.person.image = imageRes
-                            sessionStorage.setItem('profile', JSON.stringify({
-                                id: res.person.id,
-                                corporate_email: res.collaborator.corporate_email,
-                                member_id: res.collaborator.id,
-                                image: imageRes,
-                                name: res.person.name
-                            }))
-                            setProfile(res.person)
+        console.log('REFRESHING STATE')
+        let interval
+        let timeout
+        timeout = setTimeout(() => {
+            interval = setInterval(() => {
+                console.log('REFRESHING COOKIES')
+                if (cookies.get('jwt') !== undefined) {
+                    if (openModal)
+                        setOpenModal(false)
+                    if (sessionStorage.getItem('profile') === null) {
+                        console.log(cookies.get('jwt'))
+                        CollaboratorRequests.fetchMemberByToken().then(res => {
+                            if (res !== null) {
+                                PersonRequests.FetchImage(res.person.image).then(imageRes => {
+                                    res.person.image = imageRes
+                                    sessionStorage.setItem('profile', JSON.stringify({
+                                        id: res.person.id,
+                                        corporate_email: res.collaborator.corporate_email,
+                                        member_id: res.collaborator.id,
+                                        image: imageRes,
+                                        name: res.person.name
+                                    }))
+                                    setProfile(res.person)
+                                })
+                            }
                         })
-                    }
-                })
-            } else setProfile(JSON.parse(sessionStorage.getItem('profile')))
+                    } else setProfile(JSON.parse(sessionStorage.getItem('profile')))
+                } else
+                    setOpenModal(true)
+            }, 1000)
+        }, 2000)
+
+        return () => {
+            clearTimeout(timeout)
+            clearInterval(interval)
         }
-        else
-            router.push('/authenticate', '/authenticate')
-
-
-    }, [])
+    }, [props.loading])
 
     return (
         <div className={styles.container}>
+
             {router.pathname !== '/authenticate' ?
                 <Navigation
                     loading={props.loading}
@@ -110,6 +125,19 @@ export default function PageLayout(props) {
                 >
                     <div id={'scrollableDiv'} style={{width: '100%', overflowX: 'hidden', overflowY: 'auto'}}>
                         {props.children}
+                        <Modal open={openModal} handleClose={() => setOpenModal(false)}>
+                            <div style={{
+                                height: '100vh',
+                                width: '100vw',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}>
+                                <div className={styles.modalContainer}>
+                                    <Authenticator redirect={() => setOpenModal(false)}/>
+                                </div>
+                            </div>
+                        </Modal>
                     </div>
 
                 </Navigation>

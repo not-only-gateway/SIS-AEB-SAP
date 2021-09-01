@@ -59,11 +59,12 @@ export default function DropDownField(props) {
             </button>
             <SelectBox open={open} setOpen={setOpen} reference={ref.current}>
 
-                <div className={styles.dropDownChoicesContainer}>
+                <div className={styles.dropDownChoicesContainer} >
                     {props.choices.map((choice, index) => (
-                        <span style={{overflow: "hidden"}}>
+                        <div>
                             <button
                                 key={index + '-choice-button'}
+
                                 style={{
                                     color: choice.key === props.value ? 'white' : undefined,
                                     background: choice.key === props.value ? '#0095ff' : undefined
@@ -78,7 +79,7 @@ export default function DropDownField(props) {
                                 {choice.value}
                             </button>
                             <ToolTip content={choice.value}/>
-                        </span>
+                        </div>
 
 
                     ))}

@@ -30,7 +30,7 @@ export default function Details(props) {
                                     {props.data.url}
                                 </div>
                             </div>
-                            <div style={{wordBreak: 'break-all', maxWidth: '100%', overflow: 'hidden'}}>
+                            <div style={{width: '100%', display: 'grid', }}>
                                 <div style={{display: 'flex', gap: '16px', alignItems: 'center', position: 'relative'}}>
                                     {lang.details}
                                     <button className={styles.copyButton} onClick={event => {
@@ -51,20 +51,20 @@ export default function Details(props) {
                                         Copiar
                                     </button>
                                 </div>
-                                <pre className={styles.body}>
+                                <pre className={styles.body} style={{ overflow: 'auto'}}>
                                 {JSON.stringify((JSON.parse(props.data.details)), null, 4)}
                             </pre>
                             </div>
-                            <div>
+                            <div style={{paddingBottom: '16px'}}>
                                 {lang.params}
 
                                 <div className={styles.footer}>
                                     <div>
                                         {lang.method} {props.data.method}
                                     </div>
-                                    <div>
+                                    <div style={{width: '100%', overflow: 'hidden'}}>
                                         {lang.setPackage}
-                                        <pre className={styles.body} style={{background: 'white'}}>
+                                        <pre className={styles.body} style={{background: 'white',  overflow: 'auto'}}>
                                         {JSON.stringify(props.data.package, null, 4)}
                                     </pre>
                                     </div>

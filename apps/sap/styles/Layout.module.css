@@ -17,3 +17,14 @@
     /*height: 100vh;*/
     /*position: relative;*/
 }
+
+.modalContainer{
+    align-content: flex-start;
+    background: white;
+    position: relative;
+
+    border: #e0e0e0 1px solid;
+    border-radius: 8px;
+
+    padding: 16px;
+}

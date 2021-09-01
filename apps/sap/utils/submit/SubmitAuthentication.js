@@ -26,8 +26,9 @@ export default async function submitAuthentication(props) {
         method: 'post',
         showSuccessAlert: true
     }).then(response => {
-        console.log(response)
+        console.log('SETTING COOKIE')
         cookies.set('jwt', response.data.token, {expires: new Date(response.data.exp)})
+        console.log(cookies.get('jwt'))
         props.setLoading(false)
         res = true
     }).catch(e => {

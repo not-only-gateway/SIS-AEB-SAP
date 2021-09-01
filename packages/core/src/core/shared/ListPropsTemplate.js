@@ -22,7 +22,9 @@ export default {
     scrollableElement: PropTypes.string,
     fields: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string,
-        type: PropTypes.oneOf(['bool', 'string', 'number', 'date']),
+        type: PropTypes.oneOf(['bool', 'string', 'number', 'date', 'object']),
+        subfield: PropTypes.string,
+        fallback: PropTypes.string,
         maskStart: PropTypes.string,
         maskEnd: PropTypes.string,
         getColor: PropTypes.func,

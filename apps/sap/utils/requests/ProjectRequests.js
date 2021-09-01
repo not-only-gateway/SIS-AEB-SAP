@@ -114,7 +114,7 @@ export default class ProjectRequests {
         let data = {}
         data = Object.assign(data, submitProps.data)
 
-        if (data !== undefined && data.parent_unit !== null && data.parent_unit !== undefined && data.parent_unit !== null)
+        if (data.parent_unit !== undefined && data.parent_unit !== null)
             data.parent_unit = data.parent_unit.id
 
         await Requester({
@@ -164,6 +164,7 @@ export default class ProjectRequests {
             token: jwt,
             data: submitProps.data
         }).then(res => {
+            submitProps.setRefreshed(false)
             response = true
         }).catch(e => {
             console.log(e)

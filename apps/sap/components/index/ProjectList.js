@@ -10,6 +10,7 @@ import {ArrowForwardRounded, DeleteRounded, GetAppRounded, PublishRounded} from 
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import HandleUpload from "../../utils/shared/HandleUpload";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
+import HandleDownload from "../../utils/shared/HandleDownload";
 
 export default function ProjectList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -59,15 +60,11 @@ export default function ProjectList(props) {
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'project'}
+                    listKey={'nature'}
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/project'}
-                    fields={[
-                        {name: 'name', type: 'string'},
-                        {name: 'description', type: 'string'},
-                        {name: 'estimated_value', type: 'number', maskStart: 'R$ '},
-                        {name: 'type', type: 'string', capitalize: true},
-                    ]}
+                    triggerRefresh={!refreshed}
+                    setRefreshed={setRefreshed}
                     controlOptions={[
                         {
                             label: 'Importar',
@@ -77,22 +74,8 @@ export default function ProjectList(props) {
                             },
                             disabled: false
                         },
-                    ]} triggerRefresh={!refreshed}
-                    labels={['nome','descrição','Valor estimado', 'tipo']}
-                    clickEvent={() => null}
+                    ]}
                     options={[{
-                        label: 'Deletar projeto',
-                        icon: <DeleteRounded/>,
-                        onClick: (entity) => {
-                            ProjectRequests.deleteProject({
-                                pk: entity.id,
-                                setRefreshed: setRefreshed
-                            }).then(e => setRefreshed(false))
-                        },
-                        disabled: false,
-                        color: '#ff5555'
-                    },
-                        {
                             label: 'Abrir',
                             icon: <ArrowForwardRounded/>,
                             onClick: (entity) => {
@@ -101,20 +84,33 @@ export default function ProjectList(props) {
                             disabled: false
                         },
                         {
+                        label: 'Deletar',
+                        icon: <DeleteRounded/>,
+                        onClick: (entity) => {
+                            ProjectRequests.deleteProject({
+                                pk: entity.id,
+                                setRefreshed: setRefreshed
+                            })
+                        },
+                        disabled: false,
+                        color: '#ff5555'
+                    },
+                        {
                             label: 'Baixar dados',
                             icon: <GetAppRounded/>,
                             onClick: (entity) => {
-                                let downloadAnchorNode = document.createElement('a');
-                                const data =  "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(entity))
-                                downloadAnchorNode.setAttribute("href", data);
-                                downloadAnchorNode.setAttribute("download", `${entity.id}.json`);
-                                document.body.appendChild(downloadAnchorNode)
-                                downloadAnchorNode.click()
-                                downloadAnchorNode.remove()
+                                HandleDownload(entity, entity.id)
                             },
                             disabled: false
-                        }
+                        }]}
+                    fields={[
+                        {name: 'name', type: 'string'},
+                        {name: 'description', type: 'string'},
+                        {name: 'estimated_value', type: 'number', maskStart: 'R$ '},
+                        {name: 'type', type: 'string', capitalize: true},
                     ]}
+                    labels={['nome','descrição','Valor estimado', 'tipo']}
+                    clickEvent={() => setOpen(true)}
                     setEntity={entity => {
                         if (entity === null || entity === undefined) {
                             setOpen(true)
@@ -122,8 +118,7 @@ export default function ProjectList(props) {
                         } else
                             props.redirect(entity.id)
                     }} searchFieldName={'search_input'} title={'Projetos / Atividades'}
-                    scrollableElement={'scrollableDiv'}
-                    fetchSize={15}
+
                 />
             </div>
         </>

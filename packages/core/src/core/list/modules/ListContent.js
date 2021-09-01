@@ -66,11 +66,12 @@ ListContent.propTypes = {
     fields: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string,
         type: PropTypes.oneOf(['bool', 'string', 'number', 'date', 'object']),
+        subfield: PropTypes.string,
+        fallback: PropTypes.string,
         maskStart: PropTypes.string,
-        label: PropTypes.string,
-        getColor: PropTypes.func,
         maskEnd: PropTypes.string,
+        getColor: PropTypes.func,
         capitalize: PropTypes.bool,
-        subfield: PropTypes.string
+        extraSize: PropTypes.number
     })),
 }

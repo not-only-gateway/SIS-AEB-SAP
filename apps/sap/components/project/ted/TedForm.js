@@ -252,7 +252,7 @@ export default function TedForm(props) {
                                     }} label={'Vincular ação'}
                                     setChanged={() => null}
                                     selected={props.data === null || !props.data.action ? null : props.data.action}
-                                    disabled={props.data !== null && props.data.decentralized_unit !== undefined}
+                                    disabled={props.data === null || props.data === undefined || (props.data.decentralized_unit !== undefined && props.data.decentralized_unit !== null)}
                                     handleCreate={() => setOpen(true)}
                                     width={'calc(33.333% - 21.5px)'}
                                     fields={[

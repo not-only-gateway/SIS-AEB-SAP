@@ -7,8 +7,9 @@
     max-width: 300px;
     /*box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;*/
     opacity: 0;
+
     animation: show 250ms ease-in-out forwards;
-    animation-delay: 500ms;
+
     position: relative;
 }
 .arrow{
@@ -34,14 +35,15 @@
     }
 }
 .content{
-    padding: 8px;
+    padding: 4px 8px;
     border-radius: 5px;
     background: rgba(0,0,0,.85);
     color: white;
     font-family: Roboto;
-    font-size: .85rem;
+    font-size: .8rem;
     font-weight: bold;
     text-align: center;
+
 }
 .exitAnim{
     animation: exit 250ms ease-in-out;
