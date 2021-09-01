@@ -11,8 +11,17 @@ export default function Content(props) {
             switch (e.type) {
                 case 'descending': {
                     const compare = (a, b) => {
-                        let fA = e.variant === 'string' ? a[e.field].toString().toUpperCase() : a[e.field]
-                        let fB = e.variant === 'string' ? b[e.field].toString().toUpperCase() : b[e.field]
+                        let fA
+                        let fB
+
+                        if(e.variant === 'object') {
+                            fA =  a[e.field][e.subfield].toString().toUpperCase()
+                            fB =  b[e.field][e.subfield].toString().toUpperCase()
+                        }
+                        else{
+                            fA= e.variant === 'string' ? a[e.field].toString().toUpperCase() : a[e.field]
+                            fB= e.variant === 'string' ? b[e.field].toString().toUpperCase() : b[e.field]
+                        }
                         if (fA < fB)
                             return 1;
                         if (fA > fB)
@@ -26,8 +35,17 @@ export default function Content(props) {
                 case 'ascending': {
 
                     const compare = (a, b) => {
-                        let fA = e.variant === 'string' ? a[e.field].toString().toUpperCase() : a[e.field]
-                        let fB = e.variant === 'string' ? b[e.field].toString().toUpperCase() : b[e.field]
+                        let fA
+                        let fB
+
+                        if(e.variant === 'object') {
+                            fA =  a[e.field][e.subfield].toString().toUpperCase()
+                            fB =  b[e.field][e.subfield].toString().toUpperCase()
+                        }
+                        else{
+                            fA= e.variant === 'string' ? a[e.field].toString().toUpperCase() : a[e.field]
+                            fB= e.variant === 'string' ? b[e.field].toString().toUpperCase() : b[e.field]
+                        }
                         if (fA < fB)
                             return -1;
                         if (fA > fB)

@@ -45,6 +45,7 @@ export default function TedForm(props) {
                         {name: 'object', type: 'string'},
                         {name: 'object_summary', type: 'string'},
                         {name: 'justification', type: 'string'},
+                        {name: 'action', type: 'object'},
                         {name: 'summary_justification', type: 'string'},
                         {name: 'programmatic_functional_classification', type: 'string'},
                         {name: 'remaining_assets', type: 'bool'},
@@ -225,7 +226,6 @@ export default function TedForm(props) {
                                     }} searchFieldName={'search_input'}
                                     handleChange={entity => {
                                         props.handleChange({name: 'decentralized_unit', value: entity})
-                                        props.handleChange({name: 'action', value: undefined})
                                     }} label={'Vincular unidade descentralizada'}
                                     selected={props.data === null || !props.data.decentralized_unit ? null : props.data.decentralized_unit}
                                     disabled={false}
@@ -247,12 +247,11 @@ export default function TedForm(props) {
                                         else return -1
                                     }} searchFieldName={'search_input'}
                                     handleChange={entity => {
-                                        props.handleChange({name: 'decentralized_unit', value: undefined})
                                         props.handleChange({name: 'action', value: entity})
                                     }} label={'Vincular ação'}
                                     setChanged={() => null}
                                     selected={props.data === null || !props.data.action ? null : props.data.action}
-                                    disabled={props.data === null || props.data === undefined || (props.data.decentralized_unit !== undefined && props.data.decentralized_unit !== null)}
+                                    required={true}
                                     handleCreate={() => setOpen(true)}
                                     width={'calc(33.333% - 21.5px)'}
                                     fields={[

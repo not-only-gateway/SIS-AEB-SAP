@@ -22,11 +22,24 @@ export default function SelectorModal(props) {
             >
                 <CloseRounded/>
             </button>
-            <div style={{height: '100%'}}>
+            <div style={{height: '100%', overflow: 'hidden'}}>
                 {props.selected !== undefined && props.selected !== null ?
-                    <div style={{width: '100%', height: '100px', marginBottom: '16px'}}>
+                    <div style={{
+                        width: '100%',
+                        maxWidth: '100%',
+                        height: '100px',
+                        marginBottom: '16px',
+                        overflow: 'hidden'
+                    }}>
                         {lang.selected}
-                        <div style={{width: '100%', display: 'grid', alignContent: 'flex-start', gap: '4px'}}>
+                        <div style={{
+                            overflow: "hidden",
+                            width: '100%',
+                            maxWidth: '100%',
+                            display: 'grid',
+                            alignContent: 'flex-start',
+                            gap: '4px'
+                        }}>
                             <div style={{display: 'flex', alignItems: 'center', width: '100%'}}>
                                 {props.labels.map(l => (
                                     <div className={styles.overflow} style={{
@@ -40,7 +53,7 @@ export default function SelectorModal(props) {
                                     </div>
                                 ))}
                             </div>
-                            <div className={styles.selectedEntityContainer}>
+                            <div className={styles.selectedEntityContainer} style={{maxWidth: '100%', overflow: 'hidden'}}>
 
                                 {props.fields.map((field, i) => (
                                     <React.Fragment key={i + '-field'}>
