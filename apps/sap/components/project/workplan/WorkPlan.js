@@ -9,6 +9,7 @@ import HorizontalChart from "../../shared/chart/HorizontalChart";
 import OperationList from "./operation/OperationList";
 import FinancialDisbursementList from "./financial/FinancialDisbursementList";
 import ApostilleList from "./apostille/ApostilleList";
+import ExecutionList from "./execution/ExecutionList";
 
 export default function WorkPlan(props) {
     const lang = WorkPlanPT
@@ -80,10 +81,15 @@ export default function WorkPlan(props) {
                     {
                         key: 2,
                         value: lang.operation,
-                        content: <OperationList stage={null} setExecution={() => null} workPlan={props.workPlan}/>
+                        content: <OperationList  workPlan={props.workPlan}/>
                     },
                     {
                         key: 3,
+                        value: lang.executions,
+                        content: <ExecutionList workPlan={props.workPlan}/>
+                    },
+                    {
+                        key: 4,
                         value: lang.panel,
                         content: (
                             <HorizontalChart

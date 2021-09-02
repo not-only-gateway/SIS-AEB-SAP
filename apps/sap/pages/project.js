@@ -112,7 +112,7 @@ export default function project(props) {
                 {currentStructure.stage !== null && currentStructure.stage !== undefined ?
                     <Stage
                         handleChange={event => {
-                            const newStage = {...currentStructure.goal}
+                            const newStage = {...currentStructure.stage}
                             newStage[event.name] = event.value
                             setCurrentStructure({
                                 ...currentStructure,

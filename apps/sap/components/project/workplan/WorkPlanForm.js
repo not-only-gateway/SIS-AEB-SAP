@@ -202,9 +202,9 @@ export default function WorkPlanForm(props) {
                                         props.handleChange({name: 'ways_of_execution', value: event})
                                     }} value={props.data === null ? null : props.data.ways_of_execution}
                                     required={false}
-                                    width={'calc(50% - 16px)'} choices={lang.waysOptions}/>
-
-
+                                    width={'calc(50% - 16px)'}
+                                    choices={lang.waysOptions}
+                                />
                                 <Selector
                                     getEntityKey={entity => {
                                         if (entity !== null && entity !== undefined)

@@ -21,11 +21,11 @@ export default function ExecutionList(props) {
     return (
         <>
             <input
-           type={'file'} style={{display: 'none'}}
+                type={'file'} style={{display: 'none'}}
                 ref={ref} accept={'.json'}
                 onChange={(file) => {
                     HandleUpload(file.target.files[0]).then(res => {
-                        if(res !== null) {
+                        if (res !== null) {
                             if (Array.isArray(res)) {
                                 res.forEach(e => {
                                     OperationRequests.submitExecution({
@@ -54,7 +54,7 @@ export default function ExecutionList(props) {
                         handleChange={event => handleObjectChange({
                             event: event,
                             setData: setCurrentEntity
-                        })}
+                        })} workPlan={props.workPlan}
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                         data={currentEntity} operation={props.operation}
                     />
@@ -68,13 +68,25 @@ export default function ExecutionList(props) {
                     createOption={true}
                     fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/execution'}
                     fields={[
+                        {name: 'operation_phase', type: 'object', subfield: 'phase'},
+                        {name: 'operation_phase', type: 'object', subfield: 'indicator_planned'},
+                        {name: 'operation_phase', type: 'object', subfield: 'estimated_cost', maskStart: 'R$ '},
                         {name: 'current_execution', type: 'string', maskEnd: ' %'},
+                        {name: 'total_execution', type: 'string'},
                         {name: 'committed', type: 'number', maskStart: 'R$ '},
                         {name: 'liquidated', type: 'number', maskStart: 'R$ '},
                         {name: 'paid', type: 'number', maskStart: 'R$ '},
-                        {name: 'execution_date', type: 'date'}
                     ]}
-                    labels={['Execução atual (%)', 'Valor empenhado', 'Valor liquidado', 'Valor pago', 'Data da execução']}
+                    labels={[
+                        'Fase',
+                        'Indicador planejado (fase)',
+                        'Custo estimado',
+                        'Execução atual (%)',
+                        'Execução total',
+                        'Valor empenhado',
+                        'Valor liquidado',
+                        'Valor pago'
+                    ]}
                     clickEvent={() => null}
                     controlOptions={[
                         {
@@ -110,15 +122,18 @@ export default function ExecutionList(props) {
                         setOpen(true)
 
                     }} searchFieldName={'search_input'} title={'Execuções'}
-                    scrollableElement={'scrollableDiv'} fetchSize={15}
-                    fetchParams={{
-                        operation: props.operation.id
-                    }}
+                    fetchParams={
+                        props.workPlan !== undefined ?
+                            {work_plan: props.workPlan.id}
+                            :
+                            {operation: props.operation.id}
+                    }
                 />
             </div>
         </>
     )
 }
 ExecutionList.propTypes = {
-    operation: PropTypes.object
+    operation: PropTypes.object,
+    workPlan: PropTypes.object
 }

@@ -69,7 +69,8 @@ export default function List(props) {
                 newSorts.push({
                     field: e.name,
                     type: undefined,
-                    variant: e.type
+                    variant: e.type,
+                    subfield: e.subfield
                 })
             })
 

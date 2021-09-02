@@ -18,6 +18,7 @@ export default function Selector(props) {
             <div
                 style={{
                     width: props.width,
+                    // overflow: 'hidden',
                     height: 'fit-content',
                     display: 'grid',
                     alignItems: props.value ? 'unset' : 'flex-start',
@@ -33,7 +34,7 @@ export default function Selector(props) {
                          color: props.disabled ? '#666666' : undefined
                      }}>{props.label}</div>
 
-                <div className={styles.dropDownContainer}>
+                <div className={styles.dropDownContainer} style={{maxWidth: '100%',}}>
                     <button
                         id={'select-' + props.label}
                         disabled={props.disabled}
@@ -44,8 +45,8 @@ export default function Selector(props) {
                             textTransform: props.selected === null || !props.selected ? 'capitalize' : undefined,
                             boxShadow: props.disabled ? 'none' : undefined,
                             border: props.disabled ? '#e0e0e0 1px solid' : undefined,
-                            background: props.disabled ? 'white' : undefined
-
+                            background: props.disabled ? 'white' : undefined,
+                            maxWidth: '100%', overflow: 'hidden'
                         }}
                         className={styles.selectContainer}
 
@@ -58,7 +59,8 @@ export default function Selector(props) {
                                     {i > 0 ? <div className={styles.divider}/> : null}
 
                                     <div style={{
-                                        width: (100 / props.fields.length) + '%',
+                                        maxWidth: `calc(${(100 / props.fields.length) + '%'} - 20px)`,
+                                        width: '100%',
                                         color: props.disabled ? '#999999' : undefined,
                                         textTransform: field.capitalize ? 'capitalize' : undefined,
                                         textAlign: 'center'
@@ -77,6 +79,8 @@ export default function Selector(props) {
                                     </div>
                                 </React.Fragment>
                             )) : props.label}
+
+
                         <LaunchRounded style={{fontSize: '1.2rem', display: props.disabled ? 'none' : undefined}}/>
                     </button>
 

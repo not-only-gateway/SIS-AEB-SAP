@@ -1,4 +1,5 @@
 export default {
+    executions: 'Execuções',
     details: 'Detalhes',
     responsible: 'Responsável',
     object: 'Objeto',

@@ -19,7 +19,7 @@ export default function StageForm(props) {
 
 
             <EntityLayout
-                rootElementID={'root'} entity={props.data}
+                entity={props.data}
                 create={props.create} label={props.create ? lang.newStage : lang.stage}
                 dependencies={{
                     fields: [

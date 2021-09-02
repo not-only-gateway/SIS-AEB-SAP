@@ -46,19 +46,18 @@ export default function DateField(props) {
     }
     useEffect(() => {
 
-        if (!mounted) {
+        if (!mounted && props.value !== undefined && props.value !== null) {
             setMounted(true)
-            if (props.value !== undefined && props.value !== null) {
-                let value = new Date(props.value)
 
-                setSelectedDay(parseInt(value.getDate()))
-                setSelectedMonth(parseInt(value.getMonth()))
-                setYear(parseInt(value.getFullYear()))
-            }
+            let value = new Date(props.value)
+
+            setSelectedDay(parseInt(value.getDate()))
+            setSelectedMonth(parseInt(value.getMonth() + 1))
+            setYear(parseInt(value.getFullYear()))
         }
 
 
-    }, [open])
+    }, [open, props.value])
     return (
         <div className={dStyles.container} style={{
             width: props.width,

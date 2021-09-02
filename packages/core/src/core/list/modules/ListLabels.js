@@ -20,7 +20,6 @@ export default function ListLabels(props) {
             width: ((100 / props.fields.length) + (props.fields[props.index].extraSize !== undefined ? props.fields[props.index].extraSize : 0)) + '%',
         }}>
             <button className={styles.label}
-                    disabled={props.fields[props.index].type === 'object'}
                     onClick={() => {
                         setOpen(!open)
                         switch (props.sorts[props.index].type) {
@@ -51,20 +50,20 @@ export default function ListLabels(props) {
                     transform: sortStatus === 'ascending' ? 'rotate(180deg)' : undefined,
                     transition: '150ms linear',
                     fontSize: '1rem',
-                    visibility: props.fields[props.index].type === 'object' || sortStatus === undefined ? 'hidden' : 'visible',
-                    opacity: props.fields[props.index].type === 'object' || sortStatus === undefined ? '0' : '1'
+                    visibility: sortStatus === undefined ? 'hidden' : 'visible',
+                    opacity: sortStatus === undefined ? '0' : '1'
                 }}/>
             </button>
             <div
                 style={{
-                    display: props.fields[props.index].type === 'object' || sortStatus === undefined ? 'none' : undefined
+                    display: sortStatus === undefined ? 'none' : undefined
                 }}
             >
                 <ToolTip content={'Remover sort'}/>
 
                 <button className={styles.removeButton}
 
-                        disabled={props.fields[props.index].type === 'object'}
+
                         onClick={() => {
                             setSortStatus(undefined)
                             let newSorts = [...props.sorts]

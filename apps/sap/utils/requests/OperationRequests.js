@@ -220,8 +220,15 @@ export default class OperationRequests {
 
     static async submitExecution(submitProps) {
         let response = false
+        let data = {}
+        data = Object.assign(data, submitProps.data)
+        const date = new Date(data.execution_date)
+
+        data.execution_date = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
+        data.operation_phase = data.operation_phase.id
+
         await Requester({
-            package: submitProps.data,
+            package: data,
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'execution' : Host() + 'execution/' + submitProps.pk,
             showSuccessAlert: true,
