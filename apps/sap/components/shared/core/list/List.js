@@ -25,7 +25,7 @@ export default function List(props) {
     const ref = useRef()
     const [selected, setSelected] = useState([])
     const [sorts, setSorts] = useState([])
-    const [fetchSize, setFetchSize] = useState(15)
+    const [fetchSize, setFetchSize] = useState(props.fetchSize !== undefined ? props.fetchSize : 15)
     const [size, setSize] = useState(0)
     const [hasMore, setHasMore] = useState(undefined)
     const getLength = () => {

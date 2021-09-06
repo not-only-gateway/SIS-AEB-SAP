@@ -67,7 +67,7 @@ export default function OperationList(props) {
 
                     fields={[
 
-                        {name: 'phase', type: 'string',label: 'Fase'},
+                        {name: 'phase', type: 'number'},
                         {name: 'initial_situation', type: 'string'},
                         {name: 'indicator_planned', type: 'string'},
                         {name: 'detailing', type: 'string'},

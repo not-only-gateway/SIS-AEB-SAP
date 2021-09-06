@@ -72,7 +72,7 @@
     border-radius: 5px;
     border: #ecedf2 1px solid;
 
-    transition: 150ms ease-in-out;
+    transition: 150ms linear;
     background: white;
     width: 45px;
     height: 45px;
@@ -85,9 +85,15 @@
     color: #555555;
 
     cursor: pointer;
+
 }
 
 .uploadFormContainer:hover {
+    background: #f4f5fa;
+    color: #333333;
+}
+.uploadFormContainer:active {
+    background: #E8F0FE;
     color: #0095ff;
 }
 
@@ -128,7 +134,7 @@
     border: #0095ff 1px solid;
 }
 
-.textArea:focus, .textArea:focus-within, .imageFieldContainer:focus, .imageFieldContainer:focus-visible, .imageFieldContainer:focus-within, .inputContainer:focus, .inputContainer:focus-visible, .inputContainer:focus-within {
+.textArea:focus, .textArea:focus-within, .inputContainer:focus, .inputContainer:focus-visible, .inputContainer:focus-within {
     color: #262626;
     box-shadow: 0 0 2px 1px #0095ff;
     border: #0095ff 1px solid;

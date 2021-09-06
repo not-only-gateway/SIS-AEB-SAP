@@ -13,7 +13,7 @@ import List from "../../../shared/core/list/List";
 export default function ExecutionForm(props) {
     const [changed, setChanged] = useState(false)
     const lang = ExecutionPT
-    const [executionDate, setExecutionDate] = useState(null)
+
     useEffect(() => {
         if (props.create) {
             const date = new Date()
@@ -21,28 +21,23 @@ export default function ExecutionForm(props) {
                 props.handleChange({name: 'operation_phase', value: props.operation})
 
             props.handleChange({name: 'execution_date', value: date.toString()})
-            setExecutionDate(date.toString())
         }
     }, [])
     return (
         <>
-
             <EntityLayout
                 entity={props.data}
                 create={props.create} label={props.create ? lang.newExecution : lang.execution}
                 dependencies={{
                     fields: [
                         {name: 'current_execution', type: 'number'},
-
                         {name: 'operation_phase', type: 'object'},
                         {name: 'committed', type: 'number'},
                         {name: 'liquidated', type: 'number'},
                         {name: 'paid', type: 'number'},
-
                         {name: 'description', type: 'string'},
                         {name: 'difficulties', type: 'string'},
                         {name: 'measures_taken', type: 'string'},
-
                         {name: 'execution_date', type: 'date'},
                     ],
                     changed: changed
@@ -52,19 +47,18 @@ export default function ExecutionForm(props) {
                     OperationRequests.submitExecution({
                         pk: props.data.id,
                         data: props.data,
-
                         create: props.create
                     }).then(res => {
                         if (props.create && res)
                             props.returnToMain()
                         setChanged(false)
                     })
-
                 }
                 handleClose={() => props.returnToMain()}
                 forms={[{
                     child: (
                         <>
+
                             <TextField
                                 placeholder={lang.description} label={lang.description}
                                 handleChange={event => {
@@ -73,7 +67,8 @@ export default function ExecutionForm(props) {
                                 }} locale={props.locale}
                                 value={props.data === null ? null : props.data.description}
                                 required={true} variant={'area'}
-                                width={'100%'}/>
+                                width={'100%'}
+                            />
                             <TextField
 
                                 placeholder={lang.difficulties} label={lang.difficulties}
@@ -110,13 +105,11 @@ export default function ExecutionForm(props) {
                                     required={true}
                                     width={'calc(33.333% - 21.5px)'}
                                     fields={[
-
                                         {name: 'phase', type: 'string', label: 'Fase'},
                                         {name: 'initial_situation', type: 'string'},
                                         {name: 'indicator_planned', type: 'string'},
                                         {name: 'detailing', type: 'string'},
                                         {name: 'estimated_cost', type: 'number', maskStart: 'R$ '}
-
                                     ]}
                                     labels={['Fase', 'Situação inicial', 'indicador planejado', 'detalhamento da fase', 'custo estimado']}
                                     fetchUrl={Host() + 'list/operation_phase'}

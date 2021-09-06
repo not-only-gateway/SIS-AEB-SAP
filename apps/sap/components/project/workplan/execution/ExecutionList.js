@@ -122,6 +122,7 @@ export default function ExecutionList(props) {
                         setOpen(true)
 
                     }} searchFieldName={'search_input'} title={'Execuções'}
+                    fetchSize={props.workPlan !== undefined ? 1 : 15}
                     fetchParams={
                         props.workPlan !== undefined ?
                             {work_plan: props.workPlan.id}

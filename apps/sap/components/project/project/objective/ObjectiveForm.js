@@ -6,11 +6,13 @@ import {DateField, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import ProjectRequests from "../../../../utils/requests/ProjectRequests";
 import DropDownField from "../../../shared/core/dropdown/DropDownField";
+import FileField from "../../../shared/core/file/FileField";
 
 
 export default function ObjectiveForm(props) {
 
     const [changed, setChanged] = useState(false)
+
     const lang = ProjectPT
 
     useEffect(() => {
@@ -37,7 +39,7 @@ export default function ObjectiveForm(props) {
                         data: props.data,
                         create: props.create
                     }).then(res => {
-                        if(props.create && res)
+                        if (props.create && res)
                             props.returnToMain()
                         setChanged(!res)
                     })}
@@ -45,6 +47,7 @@ export default function ObjectiveForm(props) {
                 forms={[{
                     child: (
                         <>
+
                             <TextField
                                 placeholder={lang.description} label={lang.description}
                                 handleChange={event => {

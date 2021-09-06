@@ -110,7 +110,7 @@ export default function ProjectList(props) {
                         {name: 'type', type: 'string', capitalize: true},
                     ]}
                     labels={['nome','descrição','Valor estimado', 'tipo']}
-                    clickEvent={() => setOpen(true)}
+                    clickEvent={() => null}
                     setEntity={entity => {
                         if (entity === null || entity === undefined) {
                             setOpen(true)

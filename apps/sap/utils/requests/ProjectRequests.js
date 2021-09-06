@@ -25,6 +25,7 @@ export default class ProjectRequests {
         })
         return response
     }
+
     static async deleteType(submitProps) {
         let response = false
         await Requester({
@@ -41,6 +42,7 @@ export default class ProjectRequests {
         })
         return response
     }
+
     static async deleteNatureOfExpense(submitProps) {
         let response = false
         await Requester({
@@ -57,6 +59,7 @@ export default class ProjectRequests {
         })
         return response
     }
+
     static async submitType(submitProps) {
         let response = false
         await Requester({
@@ -136,8 +139,8 @@ export default class ProjectRequests {
 
         let data = {}
         data = Object.assign(data, submitProps.data)
-        if(data !== undefined && data.responsible !== undefined && data.responsible !== null)
-        data.responsible = data.responsible.id
+        if (data !== undefined && data.responsible !== undefined && data.responsible !== null)
+            data.responsible = data.responsible.id
 
         await Requester({
             package: data,
@@ -225,7 +228,7 @@ export default class ProjectRequests {
         let data = {}
         data = Object.assign(data, submitProps.data)
         console.log(data)
-        if(data !== undefined && data.action !== undefined)
+        if (data !== undefined && data.action !== undefined)
             data.action = data.action.id
         await Requester({
             package: data,
@@ -267,9 +270,8 @@ export default class ProjectRequests {
             token: (new Cookies()).get('jwt')
         }).then(res => {
             response = true
-        }).catch(e => {
-            console.log(e)
-        })
+        }).catch()
+
         return response
     }
 

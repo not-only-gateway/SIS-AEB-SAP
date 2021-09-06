@@ -127,7 +127,7 @@ export default function OperationForm(props) {
                                     handleChange={event => {
                                         setChanged(true)
                                         props.handleChange({name: 'stage_representation', value: event.target.value})
-                                    }} locale={props.locale}
+                                    }} locale={props.locale} currencyMask={true}
                                     value={props.data === null ? null : props.data.stage_representation}
                                     required={true} type={'number'}
                                     width={'calc(33.333% - 21.5px)'}/>

@@ -73,7 +73,7 @@ export default function StageForm(props) {
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'representation', value: event.target.value})
-                                }} locale={props.locale}
+                                }} locale={props.locale} currencyMask={true}
                                 value={props.data === null ? null : props.data.representation}
                                 required={true} type={'number'}
                                 width={props.goal !== null && props.goal !== undefined ? 'calc(33.333% - 21.5px)'  : 'calc(50% - 16px)'}/>

@@ -113,17 +113,40 @@ export default class OperationRequests {
 
     static async submitFollowUpGoal(submitProps) {
         let response = false
-        await Requester({
-            package: submitProps.data,
-            method: submitProps.create ? 'post' : 'put',
-            url: submitProps.create ? Host() + 'follow_up_goal' : Host() + 'follow_up_goal/' + submitProps.pk,
-            showSuccessAlert: true,
-            token: (new Cookies()).get('jwt')
-        }).then(res => {
-            response = true
-        }).catch(e => {
-            console.log(e)
-        })
+        const submitData = async (fileID) => {
+            let data = {}
+            data = Object.assign(data, submitProps.data)
+            data.file = fileID
+            await Requester({
+                package: submitProps.data,
+                method: submitProps.create ? 'post' : 'put',
+                url: submitProps.create ? Host() + 'follow_up_goal' : Host() + 'follow_up_goal/' + submitProps.pk,
+                showSuccessAlert: true,
+                token: (new Cookies()).get('jwt')
+            }).then(res => {
+                response = true
+            }).catch(e => {
+                console.log(e)
+            })
+        }
+        if (submitProps.file !== undefined && submitProps.file !== null) {
+            let fileID = null
+            let data =new FormData()
+            data.append('file', submitProps.file)
+            await Requester({
+                package: data,
+                headers: { "Content-Type": "multipart/form-data" },
+                method: 'post',
+                url:  Host(true) + 'upload',
+                showSuccessAlert: false,
+                token: (new Cookies()).get('jwt')
+            }).then(res => {
+                fileID = res.data
+            }).catch( e => console.log(e))
+            await submitData(fileID)
+        }
+        else
+            await submitData(null)
         return response
     }
 

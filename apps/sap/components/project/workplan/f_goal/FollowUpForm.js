@@ -4,11 +4,12 @@ import PropTypes from "prop-types";
 import OperationPT from "../../../../packages/locales/OperationPT";
 import EntityLayout from "../../../shared/core/form/EntityLayout";
 import OperationRequests from "../../../../utils/requests/OperationRequests";
+import FileField from "../../../shared/core/file/FileField";
 
 export default function FollowUpForm(props) {
     const [changed, setChanged] = useState(false)
     const lang = OperationPT
-
+    const [file, setFile] = useState(null)
     useEffect(() => {
         props.handleChange({name: 'operation_phase', value: props.operation.id})
     }, [])
@@ -30,9 +31,10 @@ export default function FollowUpForm(props) {
                     OperationRequests.submitFollowUpGoal({
                         pk: props.data.id,
                         data: props.data,
-                        create: props.create
+                        create: props.create,
+                        file: file
                     }).then(res => {
-                        if(props.create && res)
+                        if (props.create && res)
                             props.returnToMain()
                         setChanged(false)
                     })
@@ -43,14 +45,14 @@ export default function FollowUpForm(props) {
                     child: (
                         <>
                             <TextField
-
                                 placeholder={lang.description} label={lang.description}
                                 handleChange={event => {
                                     setChanged(true)
                                     props.handleChange({name: 'description', value: event.target.value})
                                 }} locale={props.locale} value={props.data === null ? null : props.data.description}
                                 required={true}
-                                width={'calc(50% - 16px)'}/>
+                                width={'100%'}
+                            />
 
 
                             <DropDownField
@@ -62,6 +64,16 @@ export default function FollowUpForm(props) {
                                     props.handleChange({name: 'accomplished', value: event})
                                 }} value={props.data === null ? null : props.data.accomplished} required={true}
                                 width={'calc(50% - 16px)'} choices={lang.options}/>
+                            <FileField label={'Importar PDF'} width={'calc(50% - 16px)'} required={false}
+                                       multiple={false} accept={'.pdf'}
+                                       file={file}
+                                       handleChange={files => {
+                                           setChanged(true)
+                                           if (files !== null)
+                                               setFile(files[0])
+                                           else
+                                               setFile(null)
+                                       }}/>
                         </>
                     )
                 }]}/>
