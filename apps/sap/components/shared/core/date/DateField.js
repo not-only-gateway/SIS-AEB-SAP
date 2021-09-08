@@ -51,7 +51,7 @@ export default function DateField(props) {
 
             let value = new Date(props.value)
 
-            setSelectedDay(parseInt(value.getDate()))
+            setSelectedDay(parseInt(value.getDate()) + 1)
             setSelectedMonth(parseInt(value.getMonth() + 1))
             setYear(parseInt(value.getFullYear()))
         }

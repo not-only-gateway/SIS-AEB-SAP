@@ -65,8 +65,8 @@ export default async function Requester(props) {
             <Alert
                 data={{
                     message: error.statusText,
-                    details: error.request.responseText,
-                    httpStatusCode:error.response.status,
+                    details: error.response !== undefined ? error.request.responseText : 'server error',
+                    httpStatusCode:error.response !== undefined ? error.response.status : '500',
                     package: props.package,
                     method: props.method,
                     url: props.url

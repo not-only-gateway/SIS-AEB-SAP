@@ -82,7 +82,6 @@ export default function PageLayout(props) {
                         link: '/authenticate',
                         icon: <ExitToApp/>
                     }]}
-
                     buttons={[
                         {
                             label: lang.projects,
@@ -134,7 +133,10 @@ export default function PageLayout(props) {
                                 justifyContent: 'center'
                             }}>
                                 <div className={styles.modalContainer}>
-                                    <Authenticator redirect={() => setOpenModal(false)}/>
+                                    <Authenticator redirect={() => {
+                                        router.reload(router.pathname)
+                                        setOpenModal(false)
+                                    }}/>
                                 </div>
                             </div>
                         </Modal>

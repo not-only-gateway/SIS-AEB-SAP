@@ -10,7 +10,19 @@ const submitProps = PropTypes.shape({
     create: PropTypes.bool
 })
 export default class OperationRequests {
-
+    static async fetchFile(submitProps) {
+        let response = null
+        await Requester({
+            method:  'get',
+            url: Host(true) + 'download/'+submitProps.id,
+            showSuccessAlert: false,
+            token: (new Cookies()).get('jwt')
+        }).then(res => {
+            console.log(res)
+            response = res
+        }).catch(e => console.log(e))
+        return response
+    }
     static async submitOperation(submitProps) {
         let response = submitProps.create ? null : false
         let data = {}
@@ -18,7 +30,7 @@ export default class OperationRequests {
         console.log(data)
         if (typeof data.activity_stage === 'object')
             data.activity_stage = data.activity_stage.id
-
+        data.stage_representation = parseInt(data.stage_representation)
 
         await Requester({
             package: data,
@@ -118,7 +130,7 @@ export default class OperationRequests {
             data = Object.assign(data, submitProps.data)
             data.file = fileID
             await Requester({
-                package: submitProps.data,
+                package: data,
                 method: submitProps.create ? 'post' : 'put',
                 url: submitProps.create ? Host() + 'follow_up_goal' : Host() + 'follow_up_goal/' + submitProps.pk,
                 showSuccessAlert: true,
@@ -130,22 +142,20 @@ export default class OperationRequests {
             })
         }
         if (submitProps.file !== undefined && submitProps.file !== null) {
-            let fileID = null
-            let data =new FormData()
+            let data = new FormData()
             data.append('file', submitProps.file)
             await Requester({
                 package: data,
-                headers: { "Content-Type": "multipart/form-data" },
+                headers: {"Content-Type": "multipart/form-data"},
                 method: 'post',
-                url:  Host(true) + 'upload',
+                url: Host(true) + 'upload',
                 showSuccessAlert: false,
                 token: (new Cookies()).get('jwt')
-            }).then(res => {
-                fileID = res.data
-            }).catch( e => console.log(e))
-            await submitData(fileID)
-        }
-        else
+            }).then(async res => {
+                await submitData(res.data.data)
+            }).catch(async e => await submitData(null))
+
+        } else
             await submitData(null)
         return response
     }
@@ -245,9 +255,11 @@ export default class OperationRequests {
         let response = false
         let data = {}
         data = Object.assign(data, submitProps.data)
-        const date = new Date(data.execution_date)
+        console.log(data)
+        const date = data.execution_date.split('-')
 
-        data.execution_date = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
+        data.execution_date = date[1] + '-' + date[2] + '-' + date[0]
+        console.log(data.execution_date)
         data.operation_phase = data.operation_phase.id
 
         await Requester({

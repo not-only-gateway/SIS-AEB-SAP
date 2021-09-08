@@ -19,8 +19,10 @@ export default function ExecutionForm(props) {
             const date = new Date()
             if (props.workPlan === undefined)
                 props.handleChange({name: 'operation_phase', value: props.operation})
-
-            props.handleChange({name: 'execution_date', value: date.toString()})
+            console.log(date.getDate())
+            console.log(date.getMonth())
+            console.log(date.getFullYear())
+            props.handleChange({name: 'execution_date', value: (date.getFullYear()) + '-' + (date.getMonth() + 1) + '-' + (date.getDate())})
         }
     }, [])
     return (

@@ -14,7 +14,7 @@ import TedList from "../components/entities/ted/TedList";
 import TypeList from "../components/entities/type/TypeList";
 
 
-export default function entities(){
+export default function entities() {
     const lang = OverviewPT
     const router = useRouter()
     const [openTab, setOpenTab] = useState(0)
@@ -32,7 +32,7 @@ export default function entities(){
                             value: lang.actions,
                             content: (
                                 <div style={{width: '70%', margin: 'auto'}}>
-                                    <ActionList />
+                                    <ActionList/>
                                 </div>
                             )
                         },
@@ -68,42 +68,13 @@ export default function entities(){
                             value: lang.classifications,
                             content: (
                                 <div style={{width: '70%', margin: 'auto'}}>
-                                    <ClassificationList />
+                                    <ClassificationList/>
                                 </div>
                             )
                         },
+
                         {
                             key: 5,
-                            value: lang.decentralizedUnit,
-                            content: (
-                                <div style={{width: '70%', margin: 'auto'}}>
-                                    <DecentralizedUnitList />
-                                </div>
-                            )
-                        },
-
-                        {
-                            key: 6,
-                            value: lang.unit,
-                            content: (
-                                <div style={{width: '70%', margin: 'auto'}}>
-                                    <UnitList />
-                                </div>
-                            )
-                        },
-                        {
-                            key: 7,
-                            value: lang.natureOfExpense,
-                            content: (
-                                <div style={{width: '70%', margin: 'auto'}}>
-                                    <NatureExpenseList/>
-                                </div>
-                            )
-                        },
-
-
-                        {
-                            key: 8,
                             value: lang.types,
                             content: (
                                 <div style={{width: '70%', margin: 'auto'}}>
@@ -111,9 +82,34 @@ export default function entities(){
                                 </div>
                             )
                         },
+                        {
+                            key: 6,
+                            value: lang.decentralizedUnit,
+                            content: (
+                                <div style={{width: '70%', margin: 'auto'}}>
+                                    <DecentralizedUnitList/>
+                                </div>
+                            )
+                        },
 
-
-
+                        {
+                            key: 7,
+                            value: lang.unit,
+                            content: (
+                                <div style={{width: '70%', margin: 'auto'}}>
+                                    <UnitList/>
+                                </div>
+                            )
+                        },
+                        {
+                            key: 8,
+                            value: lang.natureOfExpense,
+                            content: (
+                                <div style={{width: '70%', margin: 'auto'}}>
+                                    <NatureExpenseList/>
+                                </div>
+                            )
+                        },
                     ]} type={'horizontal'}
                     setOpenTab={setOpenTab}
                     openTab={openTab}
