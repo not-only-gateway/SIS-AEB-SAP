@@ -43,7 +43,7 @@ export default function BudgetPlanForm(props) {
                     ],
                     changed: changed
                 }}
-                returnButton={true}
+                returnButton={true} noAutoHeight={!props.asDefault}
                 handleSubmit={() =>
                     ProjectRequests.submitBudgetPlan({
                         pk: data.id,
@@ -122,10 +122,7 @@ export default function BudgetPlanForm(props) {
         </>
     )
     return (
-        props.asDefault ? content :
-            <div style={{width: '55vw', height: '400px', background: 'white', borderRadius: '8px'}}>
-                {content}
-            </div>
+        content
     )
 
 }

@@ -240,9 +240,14 @@ export default function WorkPlanForm(props) {
                                     }}
                                     labels={['número', 'detalhamento']}
                                     fetchUrl={Host() + 'list/budget_plan'}
-                                    createOption={true}
+
                                     fetchToken={(new Cookies()).get('jwt')}
-                                />
+                                    createOption={true}
+                                    returnToList={!open}
+                                    setReturnToList={() => setOpen(true)}
+                                >
+                                    <BudgetPlanForm create={true} returnToMain={() => setOpen(false)}/>
+                                </Selector>
 
                             </>
 
@@ -296,24 +301,6 @@ export default function WorkPlanForm(props) {
                     ]}/>
 
             </div>
-            <Modal open={open} handleClose={() => setOpen(false)}>
-                <div style={{
-                    height: '100vh',
-                    width: '100vw',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}>
-                    <BudgetPlanForm
-                        returnToMain={() => {
-                            setOpen(false)
-                        }}
-
-                        action={props.ted.action}
-                        create={true}
-                    />
-                </div>
-            </Modal>
         </>
     )
 
