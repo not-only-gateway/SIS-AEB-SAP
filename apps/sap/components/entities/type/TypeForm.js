@@ -14,14 +14,17 @@ export default function TypeForm(props) {
 
 
     useEffect(() => {
-        if(props.data !== undefined)
+        if (props.data !== undefined)
             setData(props.data)
     }, [])
-    const content = (
+
+    return (
         <>
             <EntityLayout
                 entity={data}
-                create={props.create} label={props.create ? lang.newType : lang.type}
+                create={props.create}
+                noAutoHeight={props.create}
+                label={props.create ? lang.newType : lang.type}
                 dependencies={{
                     fields: [
                         {name: 'type', type: 'string'},
@@ -59,11 +62,6 @@ export default function TypeForm(props) {
                     )
                 }]}/>
         </>
-    )
-    return (
-        <div style={{width: '55vw', height: 'auto', background: 'white', borderRadius: '8px'}}>
-            {content}
-        </div>
     )
 
 }

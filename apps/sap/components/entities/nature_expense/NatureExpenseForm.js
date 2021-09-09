@@ -15,8 +15,8 @@ export default function NatureExpenseForm(props) {
 
 
     useEffect(() => {
-        if(props.data !== undefined)
-        setData(props.data)
+        if (props.data !== undefined)
+            setData(props.data)
     }, [])
     const content = (
         <>
@@ -43,7 +43,7 @@ export default function NatureExpenseForm(props) {
                             props.returnToMain()
                         setChanged(!res)
                     })}
-                handleClose={() => props.returnToMain()}
+                handleClose={() => props.returnToMain()} noAutoHeight={!props.asDefault}
                 forms={[{
                     child: (
                         <>
@@ -87,10 +87,7 @@ export default function NatureExpenseForm(props) {
         </>
     )
     return (
-        props.asDefault ? content :
-            <div style={{width: '55vw', height: '400px', background: 'white', borderRadius: '8px'}}>
-                {content}
-            </div>
+        content
     )
 
 }

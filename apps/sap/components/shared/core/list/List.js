@@ -12,91 +12,21 @@ import ControlHeader from "./modules/ControlHeader";
 import Content from "./modules/Content";
 import Footer from "./modules/Footer";
 import EmptyListIndicator from "./modules/EmptyListIndicator";
+import useData from "./hooks/useData";
 
 export default function List(props) {
-    const [data, setData] = useState([])
-    const [maxID, setMaxID] = useState(null)
-    const [searchInput, setSearchInput] = useState('')
-    const [currentPage, setCurrentPage] = useState(0)
-    const [mounted, setMounted] = useState(false)
-    const [mountingPoint, setMountingPoint] = useState(undefined)
-    const [loading, setLoading] = useState(true)
-    const [maxHeight, setMaxHeight] = useState(undefined)
-    const ref = useRef()
-    const [selected, setSelected] = useState([])
-    const [sorts, setSorts] = useState([])
-    const [fetchSize, setFetchSize] = useState(props.fetchSize !== undefined ? props.fetchSize : 15)
-    const [size, setSize] = useState(0)
-    const [hasMore, setHasMore] = useState(undefined)
-    const getLength = () => {
-        let l = 0
-        for (let i = 0; i < data.length; i++)
-            l = l + data[i].length
-        setSize(l)
-
-    }
-    const refresh = () => {
-        setSelected([])
-        setLoading(true)
-        setData([])
-        setMaxID(null)
-
-        if (typeof props.setRefreshed === 'function')
-            props.setRefreshed(true)
-
-        Fetch({
-            setHasMore: setHasMore,
-            fetchSize: fetchSize,
-            setData: setData,
-            data: [],
-            maxID: null,
-            searchInput: null,
-            setMaxID: setMaxID,
-            fetchToken: props.fetchToken,
-            fetchUrl: props.fetchUrl,
-            params: props.fetchParams,
-            searchFieldName: props.searchFieldName
-        }).then(() => {
-            setLoading(false)
-            getLength()
-        })
-    }
-
-    useEffect(() => {
-        if (!mounted) {
-            let newSorts = []
-            props.fields.forEach(e => {
-                newSorts.push({
-                    field: e.name,
-                    type: undefined,
-                    variant: e.type,
-                    subfield: e.subfield
-                })
-            })
-
-            setSorts(newSorts)
-
-            if (!props.asModal) {
-                setMaxHeight(document.documentElement.offsetHeight - ref.current.getBoundingClientRect().y - 16)
-            } else {
-
-                setMaxHeight(ref.current?.parentNode.getBoundingClientRect().height - ref.current?.offsetTop)
-            }
-
-
-            const newElement = document.createElement('div')
-            if (mountingPoint === undefined) {
-                setMountingPoint(newElement)
-                document.body.appendChild(newElement)
-            }
-            setMounted(true)
-        }
-
-        if (Array.isArray(data) && (props.triggerRefresh || data.length === 0))
-            refresh()
-
-
-    }, [props.triggerRefresh])
+    const {
+        data, setData,
+        maxID, setMaxID,
+        searchInput, setSearchInput,
+        currentPage, setCurrentPage,
+        mountingPoint, maxHeight,
+        loading, refresh, getLength,
+        ref, selected, setSelected,
+        sorts, setSorts,
+        fetchSize, size,
+        hasMore, setHasMore,
+    } = useData(props)
 
     return (
         <div
@@ -114,31 +44,27 @@ export default function List(props) {
                     selected={selected} createOption={props.createOption} listTitle={props.title}
                     refresh={refresh} setEntity={props.setEntity} clickEvent={props.clickEvent}
                 />
-                <div style={{display: 'flex', alignItems: 'center', gap: '16px'}}>
-                    {props.noSearchBar || props.searchFieldName === undefined ? null :
-                        <SearchBar
-                            searchInput={searchInput}
-                            setSearchInput={setSearchInput}
-                            applySearch={() => {
-                                Fetch({
-                                    setData: setData,
-                                    data: [],
-                                    setHasMore: setHasMore,
-                                    fetchSize: props.fetchSize,
-                                    maxID: null,
-                                    searchInput: searchInput.length === 0 ? null : searchInput,
-                                    setMaxID: setMaxID,
-                                    fetchToken: props.fetchToken,
-                                    fetchUrl: props.fetchUrl,
-                                    params: props.fetchParams,
-                                    searchFieldName: props.searchFieldName
-                                }).then(() => getLength())
-                            }}/>
-                    }
 
-                </div>
-
-
+                {props.noSearchBar || props.searchFieldName === undefined ? null :
+                    <SearchBar
+                        searchInput={searchInput}
+                        setSearchInput={setSearchInput}
+                        applySearch={() => {
+                            Fetch({
+                                setData: setData,
+                                data: [],
+                                setHasMore: setHasMore,
+                                fetchSize: props.fetchSize,
+                                maxID: null,
+                                searchInput: searchInput.length === 0 ? null : searchInput,
+                                setMaxID: setMaxID,
+                                fetchToken: props.fetchToken,
+                                fetchUrl: props.fetchUrl,
+                                params: props.fetchParams,
+                                searchFieldName: props.searchFieldName
+                            }).then(() => getLength())
+                        }}/>
+                }
             </div>
             <div className={styles.contentWrapper}>
                 <div className={styles.labelsContainer}>

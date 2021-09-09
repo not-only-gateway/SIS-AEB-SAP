@@ -1,4 +1,4 @@
-import styles from '../text/styles/Input.module.css'
+import styles from '../shared/styles/Input.module.css'
 import PropTypes from 'prop-types'
 import React, {useEffect, useRef, useState} from 'react'
 import LocalePT from '../packages/LocalePT'
@@ -6,7 +6,7 @@ import dStyles from './styles/DateField.module.css'
 import {ArrowBackIosRounded, ArrowBackRounded, ArrowForwardRounded, CalendarTodayRounded} from "@material-ui/icons";
 import Dates from "../packages/Dates";
 import SelectBox from "../../core/shared/SelectBox";
-
+import shared from '../../core/shared/styles/Input.module.css'
 export default function DateField(props) {
     const lang = LocalePT
     const [open, setOpen] = useState()
@@ -64,7 +64,7 @@ export default function DateField(props) {
             alignItems: props.value ? 'unset' : 'flex-start',
 
         }} ref={ref}>
-            <div className={styles.labelContainer}>{props.label}</div>
+            <div className={shared.labelContainer}>{props.label}</div>
 
             <div className={dStyles.fieldsContainer}>
                 <div style={{display: 'flex', alignItems: 'center', gap: '4px', width: 'fit-content'}}>
@@ -164,7 +164,7 @@ export default function DateField(props) {
 
 
             </div>
-            <div className={styles.alertLabel}
+            <div className={shared.alertLabel}
                  style={{
                      color: (props.value === null || !props.value) ? '#ff5555' : '#262626',
                      visibility: props.required ? 'visible' : 'hidden'

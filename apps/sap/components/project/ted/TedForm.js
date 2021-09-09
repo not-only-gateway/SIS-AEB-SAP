@@ -9,6 +9,8 @@ import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import Modal from "../../shared/core/modal/Modal";
 import ActionForm from "../../entities/action/ActionForm";
+import UnitForm from "../../entities/unit/UnitForm";
+import DecentralizedUnitForm from "../../entities/decentralized/DecentralizedUnitForm";
 
 
 export default function TedForm(props) {
@@ -217,7 +219,12 @@ export default function TedForm(props) {
                                     labels={['nome', 'Acrônimo']}
                                     fetchUrl={Host() + 'list/unit'}
                                     fetchToken={(new Cookies()).get('jwt')}
-                                />
+                                    createOption={true}
+                                    returnToList={!open}
+                                    setReturnToList={() => setOpen(true)}
+                                >
+                                    <UnitForm create={true} returnToMain={() => setOpen(false)}/>
+                                </Selector>
                                 <Selector
                                     getEntityKey={entity => {
                                         if (entity !== null && entity !== undefined)
@@ -237,7 +244,12 @@ export default function TedForm(props) {
                                     labels={['nome', 'responsável']}
                                     fetchUrl={Host() + 'list/decentralized_unit'}
                                     fetchToken={(new Cookies()).get('jwt')}
-                                />
+                                    createOption={true}
+                                    returnToList={!open}
+                                    setReturnToList={() => setOpen(true)}
+                                >
+                                    <DecentralizedUnitForm create={true} returnToMain={() => setOpen(false)}/>
+                                </Selector>
 
 
                                 <Selector
@@ -260,9 +272,14 @@ export default function TedForm(props) {
                                     ]}
                                     labels={['número', 'detalhamento']}
                                     fetchUrl={Host() + 'list/action'}
-                                    createOption={true}
+
                                     fetchToken={(new Cookies()).get('jwt')}
-                                />
+                                    createOption={true}
+                                    returnToList={!open}
+                                    setReturnToList={() => setOpen(true)}
+                                >
+                                    <ActionForm create={true} returnToMain={() => setOpen(false)}/>
+                                </Selector>
                             </>
                         )
                     },
@@ -326,22 +343,6 @@ export default function TedForm(props) {
                         )
                     }
                 ]}/>
-            <Modal open={open} handleClose={() => setOpen(false)}>
-                <div style={{
-                    height: '100vh',
-                    width: '100vw',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}>
-                    <ActionForm
-                        returnToMain={() => {
-                            setOpen(false)
-                        }}
-                        create={true}
-                    />
-                </div>
-            </Modal>
         </>
     )
 

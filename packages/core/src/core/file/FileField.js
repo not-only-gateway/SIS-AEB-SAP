@@ -1,6 +1,6 @@
 import React, {useRef} from 'react'
 import PropTypes from 'prop-types'
-import styles from '../text/styles/Input.module.css'
+import styles from '../shared/styles/Input.module.css'
 import {CloseRounded, GetAppRounded} from '@material-ui/icons'
 import LocalePT from '../packages/LocalePT'
 

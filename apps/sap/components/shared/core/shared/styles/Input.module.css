@@ -34,34 +34,42 @@
 
     color: #555555;
 }
+
 .inputContainer::-webkit-outer-spin-button,
 .inputContainer::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Firefox */
 .inputContainer[type=number] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
 
 .labelContainer {
-    transition: visibility 150ms linear,opacity 150ms linear;
+    transition: visibility 150ms linear, opacity 150ms linear;
 
-    color: #262626;
-    font-size: .9rem;
+    color: #666666;
+    font-weight: bold;
+    font-size: .8rem;
     margin-top: auto;
-    overflow: hidden;
+    user-select: none;
     font-family: Roboto;
     text-transform: capitalize;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 75%;
+    overflow: hidden;
 
 }
 
 .alertLabel {
     font-family: Roboto;
     margin-left: auto;
-    font-weight: 550;
-    font-size: .8rem;
+    font-size: .75rem;
+    user-select: none;
+
 }
 
 /*TEXT FIELD*/
@@ -92,6 +100,7 @@
     background: #f4f5fa;
     color: #333333;
 }
+
 .uploadFormContainer:active {
     background: #E8F0FE;
     color: #0095ff;

@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
 
-import {TextField} from "sis-aeb-core";
+
 import PropTypes from "prop-types";
 import EntityLayout from "../../shared/core/form/EntityLayout";
 import ProjectRequests from "../../../utils/requests/ProjectRequests";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import EntitiesPT from "../../../packages/locales/EntitiesPT";
+import TextField from "../../shared/core/text/TextField";
 
 export default function DecentralizedUnitForm(props) {
     const [changed, setChanged] = useState(false)
@@ -36,7 +37,7 @@ export default function DecentralizedUnitForm(props) {
                     ],
                     changed: changed
                 }}
-                returnButton={true}
+                returnButton={true} noAutoHeight={!props.asDefault}
                 handleSubmit={() =>
                     ProjectRequests.submitDecentralizedUnit({
                         pk: data.id,
@@ -169,10 +170,7 @@ export default function DecentralizedUnitForm(props) {
         </>
     )
     return (
-        props.asDefault ? content :
-            <div style={{width: '55vw', height: '400px', background: 'white', borderRadius: '8px'}}>
-                {content}
-            </div>
+      content
     )
 
 }

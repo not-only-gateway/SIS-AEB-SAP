@@ -9,12 +9,13 @@ import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import Selector from "../../shared/core/selector/Selector";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
+import ActionForm from "../action/ActionForm";
 
 export default function BudgetPlanForm(props) {
     const [changed, setChanged] = useState(false)
     const lang = ProjectPT
     const [data, setData] = useState(null)
-
+    const [open, setOpen] = useState(false)
     useEffect(() => {
         if (props.data !== undefined)
             setData(props.data)
@@ -94,7 +95,14 @@ export default function BudgetPlanForm(props) {
                                     ]} labels={['Número', 'detalhamento']}
                                     fetchUrl={Host() + 'list/action'}
                                     fetchToken={(new Cookies()).get('jwt')}
-                                />}
+
+                                    createOption={true}
+                                    returnToList={!open}
+                                    setReturnToList={() => setOpen(false)}
+                                >
+                                    <ActionForm create={true} returnToMain={() => setOpen(false)}/>
+                                </Selector>
+                            }
 
 
                             <TextField

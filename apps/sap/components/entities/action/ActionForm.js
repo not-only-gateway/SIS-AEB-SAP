@@ -39,7 +39,7 @@ export default function ActionForm(props) {
                             props.returnToMain()
                         setChanged(!res)
                     })}
-                handleClose={() => props.returnToMain()}
+                handleClose={() => props.returnToMain()} noAutoHeight={!props.asDefault}
                 forms={[{
                     child: (
                         <>
@@ -72,10 +72,7 @@ export default function ActionForm(props) {
     )
 
     return (
-        props.asDefault ? content :
-            <div style={{width: '55vw', height: '400px', background: 'white', borderRadius: '8px'}}>
-                {content}
-            </div>
+        content
     )
 
 }

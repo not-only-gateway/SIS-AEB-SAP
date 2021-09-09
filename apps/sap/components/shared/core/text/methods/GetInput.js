@@ -1,4 +1,4 @@
-import styles from "../styles/Input.module.css";
+import styles from "../../shared/styles/Input.module.css";
 import React from "react";
 import PropTypes from 'prop-types'
 import ParseCurrency from "./ParseCurrency";

@@ -9,14 +9,15 @@ import Selector from "../../shared/core/selector/Selector";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import EntitiesPT from "../../../packages/locales/EntitiesPT";
+import ClassificationForm from "../classification/ClassificationForm";
 
 export default function UnitForm(props) {
     const [changed, setChanged] = useState(false)
     const lang = EntitiesPT
     const [data, setData] = useState(null)
-
+    const [open, setOpen] = useState(false)
     useEffect(() => {
-        if(props.data !== undefined)
+        if (props.data !== undefined)
             setData(props.data)
     }, [])
 
@@ -33,7 +34,7 @@ export default function UnitForm(props) {
                     ],
                     changed: changed
                 }}
-                returnButton={true}
+                returnButton={true} noAutoHeight={!props.asDefault}
                 handleSubmit={() =>
                     ProjectRequests.submitUnit({
                         pk: data.id,
@@ -95,17 +96,19 @@ export default function UnitForm(props) {
                                     unit: data !== null && data !== undefined && data.id !== undefined ? data.id : null
                                 }}
                                 fetchToken={(new Cookies()).get('jwt')}
-                            />
+                                createOption={true}
+                                returnToList={!open}
+                                setReturnToList={() => setOpen(true)}
+                            >
+                                <UnitForm create={true} returnToMain={() => setOpen(false)}/>
+                            </Selector>
                         </>
                     )
                 }]}/>
         </>
     )
     return (
-        props.asDefault ? content :
-            <div style={{width: '55vw', height: '400px', background: 'white', borderRadius: '8px'}}>
-                {content}
-            </div>
+        content
     )
 
 }

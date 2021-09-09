@@ -16,10 +16,12 @@
     height: auto;
     position: relative;
 }
-.selectContainer:hover{
+
+.selectContainer:hover {
     border-color: #0095ff;
     box-shadow: 0 0 2px 1px #0095ff;
 }
+
 .selectContainer:focus, .selectContainer:focus-visible, .selectContainer:focus-within {
 
     color: #262626;
@@ -87,10 +89,12 @@
 
     transition: 150ms linear;
 }
-.closeButton:hover{
+
+.closeButton:hover {
     background: #ff5555;
     color: white;
 }
+
 .inputContainer {
 
     border: none;
@@ -148,7 +152,6 @@
     justify-content: center;
 
 
-
     background: transparent;
     transition: 300ms ease-in-out;
 }
@@ -156,21 +159,24 @@
 .searchButtonContainer:hover {
     color: #0095ff;
 }
-.selectedEntityContainer{
+
+.selectedEntityContainer {
     width: 100%;
-    border: #0095ff 2px solid;
+    border: none;
+    border-bottom: #ecedf2 1px solid;
+    border-top: #ecedf2 1px solid;
 
     height: 56px;
     color: #333333;
     font-size: .9rem;
-    border-radius: 8px;
 
     display: flex;
     align-items: center;
-    justify-content: space-between;
-        padding: 8px;
+    gap: 12px;
+    padding: 8px;
 }
-.removeButton{
+
+.removeButton {
 
     width: 28px;
     height: 28px;
@@ -187,20 +193,35 @@
     justify-content: center;
 }
 
-.divider{
+.divider {
     height: 30px;
     width: 1px;
     background: #e0e0e0;
 
 }
 
-.overflow{
-    font-family: Roboto;
-    font-size: .85rem;
-
-
+.overflow {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    max-width: 90%;
+}
 
+
+@keyframes enter {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes exit {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }

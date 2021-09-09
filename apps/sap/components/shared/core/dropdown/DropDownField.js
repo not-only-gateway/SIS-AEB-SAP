@@ -6,6 +6,7 @@ import LocalePT from '../packages/LocalePT'
 import SelectBox from "../../core/shared/SelectBox";
 import ToolTip from "../tooltip/ToolTip";
 
+import shared from '../../core/shared/styles/Input.module.css'
 
 export default function DropDownField(props) {
     const [open, setOpen] = useState(false)
@@ -29,7 +30,7 @@ export default function DropDownField(props) {
             ref={ref}
             className={styles.wrapper}
         >
-            <div className={styles.labelContainer}
+            <div className={shared.labelContainer}
                  style={{
                      visibility: (props.value !== undefined && props.value !== null) ? 'visible' : 'hidden',
                      opacity: (props.value !== undefined && props.value !== null) ? '1' : '0',
@@ -85,7 +86,7 @@ export default function DropDownField(props) {
                     ))}
                 </div>
             </SelectBox>
-            <div className={styles.alertLabel}
+            <div className={shared.alertLabel}
                  style={{
                      color: props.value === null || props.value === undefined ? '#ff5555' : '#262626',
                      visibility: props.required ? 'visible' : 'hidden',

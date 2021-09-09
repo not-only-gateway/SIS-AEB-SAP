@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 
 export default {
+    noAutoHeight: PropTypes.bool,
     noHeader: PropTypes.bool,
         returnButton: PropTypes.bool,
     onlyEdit: PropTypes.bool,

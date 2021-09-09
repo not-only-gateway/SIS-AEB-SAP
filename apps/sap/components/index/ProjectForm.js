@@ -7,13 +7,14 @@ import Selector from "../shared/core/selector/Selector";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
+import UnitForm from "../entities/unit/UnitForm";
 
 
 export default function ProjectForm(props) {
 
     const [changed, setChanged] = useState(false)
     const lang = ProjectPT
-
+    const [open, setOpen] = useState(false)
     return (
         <>
 
@@ -142,7 +143,12 @@ export default function ProjectForm(props) {
                                 labels={['nome', 'Acrônimo']}
                                 fetchUrl={Host() + 'list/unit'}
                                 fetchToken={(new Cookies()).get('jwt')}
-                            />
+                                createOption={true}
+                                returnToList={!open}
+                                setReturnToList={() => setOpen(true)}
+                            >
+                                <UnitForm create={true} returnToMain={() => setOpen(false)}/>
+                            </Selector>
 
                             <TextField
                                 placeholder={lang.manager}

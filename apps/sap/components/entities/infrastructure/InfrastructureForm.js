@@ -14,13 +14,19 @@ export default function InfrastructureForm(props) {
 
 
     useEffect(() => {
-        if(props.data !== undefined)
-        setData(props.data)
+        if (props.data !== undefined)
+            setData(props.data)
         if (!props.create) {
 
             try {
-                handleObjectChange({event: {name: 'latitude', value: props.data.address.split(", ")[0]}, setData: setData})
-                handleObjectChange({event: {name: 'longitude', value: props.data.address.split(", ")[1]}, setData: setData})
+                handleObjectChange({
+                    event: {name: 'latitude', value: props.data.address.split(", ")[0]},
+                    setData: setData
+                })
+                handleObjectChange({
+                    event: {name: 'longitude', value: props.data.address.split(", ")[1]},
+                    setData: setData
+                })
             } catch (e) {
                 console.log(e)
             }
@@ -40,14 +46,14 @@ export default function InfrastructureForm(props) {
                     ],
                     changed: changed
                 }}
-                returnButton={true}
+                returnButton={true} noAutoHeight={!props.asDefault}
                 handleSubmit={() =>
                     WorkPlanRequests.submitInfrastructure({
                         pk: data.id,
                         data: data,
                         create: props.create
                     }).then(res => {
-                        if(props.create && res)
+                        if (props.create && res)
                             props.returnToMain()
                         setChanged(!res)
                     })}
@@ -60,7 +66,10 @@ export default function InfrastructureForm(props) {
                                 placeholder={lang.name} label={lang.name}
                                 handleChange={event => {
                                     setChanged(true)
-                                    handleObjectChange({event: {name: 'name', value: event.target.value}, setData: setData})
+                                    handleObjectChange({
+                                        event: {name: 'name', value: event.target.value},
+                                        setData: setData
+                                    })
                                 }} locale={props.locale} value={data === null ? null : data.name}
                                 required={true}
                                 width={'calc(50% - 16px)'}/>
@@ -79,7 +88,10 @@ export default function InfrastructureForm(props) {
                                 placeholder={lang.latitude} label={lang.latitude} type={'number'}
                                 handleChange={event => {
                                     setChanged(true)
-                                    handleObjectChange({event: {name: 'latitude', value: event.target.value}, setData: setData})
+                                    handleObjectChange({
+                                        event: {name: 'latitude', value: event.target.value},
+                                        setData: setData
+                                    })
 
                                 }}
                                 value={data === null ? null : data.latitude}
@@ -89,7 +101,10 @@ export default function InfrastructureForm(props) {
                                 placeholder={lang.longitude} label={lang.longitude} type={'number'}
                                 handleChange={event => {
                                     setChanged(true)
-                                    handleObjectChange({event: {name: 'longitude', value: event.target.value}, setData: setData})
+                                    handleObjectChange({
+                                        event: {name: 'longitude', value: event.target.value},
+                                        setData: setData
+                                    })
                                 }} value={data === null ? null : data.longitude}
                                 required={false}
                                 width={'calc(50% - 16px)'}
@@ -100,10 +115,7 @@ export default function InfrastructureForm(props) {
         </>
     )
     return (
-        props.asDefault ? content :
-            <div style={{width: '55vw', height: '400px', background: 'white', borderRadius: '8px'}}>
-                {content}
-            </div>
+        content
     )
 
 }

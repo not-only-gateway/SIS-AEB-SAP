@@ -3,8 +3,10 @@ import styles from './styles/Selector.module.css'
 import SelectorsPT from './locales/SelectorsPT'
 import SelectorModal from "./modules/SelectorModal";
 import {LaunchRounded} from "@material-ui/icons";
-import SelectorPropsTemplate from "./templates/SelectorPropsTemplate";
 import RenderListField from "../shared/RenderListField";
+import ListPropsTemplate from "../shared/ListPropsTemplate";
+import PropTypes from "prop-types";
+import shared from '../../core/shared/styles/Input.module.css'
 
 export default function Selector(props) {
     const [modal, setModal] = useState(false)
@@ -25,7 +27,7 @@ export default function Selector(props) {
                     gap: '4px',
                 }}
             >
-                <div className={styles.labelContainer}
+                <div className={shared.labelContainer}
                      style={{
                          visibility: props.selected !== null && props.selected !== undefined ? 'visible' : 'hidden',
                          opacity: props.selected !== null && props.selected !== undefined ? '1' : '0',
@@ -86,16 +88,34 @@ export default function Selector(props) {
 
                 </div>
 
-                <label htmlFor={'select-' + props.label} className={styles.alertLabel}
+                <div className={shared.alertLabel}
                        style={{
                            color: props.selected === null || props.selected === undefined ? '#ff5555' : '#262626',
                            visibility: props.required ? 'visible' : 'hidden',
-                       }}>{lang.required}</label>
+                       }}>{lang.required}</div>
 
             </div>
         </>
     )
 }
 
-Selector.propTypes = SelectorPropsTemplate
+Selector.propTypes = {
+    ...ListPropsTemplate,
+    ...{
+
+        width: PropTypes.string,
+        handleChange: PropTypes.func,
+        selected: PropTypes.any,
+        label: PropTypes.string,
+        getEntityKey: PropTypes.func,
+        labels: PropTypes.array,
+        required: PropTypes.bool,
+        disabled: PropTypes.bool,
+        createOption: PropTypes.bool,
+        children: PropTypes.node,
+
+        returnToList: PropTypes.bool,
+        setReturnToList: PropTypes.func
+    }
+}
 

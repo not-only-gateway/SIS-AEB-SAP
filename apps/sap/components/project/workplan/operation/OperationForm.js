@@ -14,7 +14,6 @@ import DateField from "../../../shared/core/date/DateField";
 export default function OperationForm(props) {
     const [changed, setChanged] = useState(false)
     const lang = OperationPT
-
     useEffect(() => {
         if (props.create && props.stage !== null)
             props.handleChange({name: 'activity_stage', value: props.stage})

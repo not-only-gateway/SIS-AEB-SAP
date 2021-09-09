@@ -11,6 +11,8 @@ import Modal from "../../shared/core/modal/Modal";
 import BudgetPlanForm from "../../entities/budget_plan/BudgetPlanForm";
 import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
 import MultiSelectField from "../../shared/core/multiselect/MultiSelectField";
+import UnitForm from "../../entities/unit/UnitForm";
+import InfrastructureForm from "../../entities/infrastructure/InfrastructureForm";
 
 
 export default function WorkPlanForm(props) {
@@ -107,7 +109,12 @@ export default function WorkPlanForm(props) {
                                     labels={['nome', 'Acrônimo']}
                                     fetchUrl={Host() + 'list/unit'}
                                     fetchToken={(new Cookies()).get('jwt')}
-                                />
+                                    createOption={true}
+                                    returnToList={!open}
+                                    setReturnToList={() => setOpen(true)}
+                                >
+                                    <UnitForm create={true} returnToMain={() => setOpen(false)}/>
+                                </Selector>
 
                                 <DropDownField
                                     dark={true}
@@ -166,7 +173,12 @@ export default function WorkPlanForm(props) {
                                     labels={['Nome', 'tipo']}
                                     fetchUrl={Host() + 'list/infrastructure'}
                                     fetchToken={(new Cookies()).get('jwt')}
-                                />
+                                    createOption={true}
+                                    returnToList={!open}
+                                    setReturnToList={() => setOpen(true)}
+                                >
+                                    <InfrastructureForm create={true} returnToMain={() => setOpen(false)}/>
+                                </Selector>
 
                                 <TextField
 

@@ -18,7 +18,7 @@ export default function ClassificationForm(props) {
     const [data, setData] = useState(null)
     const [open, setOpen] = useState(false)
     useEffect(() => {
-        if(props.data !== undefined)
+        if (props.data !== undefined)
             setData(props.data)
     }, [])
 
@@ -34,7 +34,7 @@ export default function ClassificationForm(props) {
                         {name: 'type', type: 'object'},
                     ],
                     changed: changed
-                }}
+                }} noAutoHeight={!props.asDefault}
                 returnButton={true}
                 handleSubmit={() =>
                     ProjectRequests.submitClassification({
@@ -43,7 +43,7 @@ export default function ClassificationForm(props) {
 
                         create: props.create
                     }).then(res => {
-                        if(props.create && res)
+                        if (props.create && res)
                             props.returnToMain()
                         setChanged(!res)
                     })}
@@ -76,9 +76,8 @@ export default function ClassificationForm(props) {
                                     })
                                 }} label={'Vincular tipo'}
                                 setChanged={() => null}
-                                selected={props.data === null || !props.data.type ? null : props.data.type}
+                                selected={data === null || data.type === undefined ? null : data.type}
                                 disabled={false}
-                                handleCreate={() => setOpen(true)}
                                 width={'calc(50% - 16px)'}
                                 fields={[
                                     {name: 'type', type: 'string'}
@@ -87,33 +86,24 @@ export default function ClassificationForm(props) {
                                 fetchUrl={Host() + 'list/type'}
                                 createOption={true}
                                 fetchToken={(new Cookies()).get('jwt')}
-                            />
+                                returnToList={!open}
+                                setReturnToList={() => setOpen(true)}
+                            >
+                                <TypeForm
+                                    returnToMain={() => {
+                                        setOpen(false)
+                                    }}
+
+                                    create={true}
+                                />
+                            </Selector>
                         </>
                     )
                 }]}/>
-            <Modal open={open} handleClose={() => setOpen(false)}>
-                <div style={{
-                    height: '100vh',
-                    width: '100vw',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}>
-                    <TypeForm
-                        returnToMain={() => {
-                            setOpen(false)
-                        }}
-                        create={true}
-                    />
-                </div>
-            </Modal>
         </>
     )
     return (
-        props.asDefault ? content :
-            <div style={{width: '55vw', height: '400px', background: 'white', borderRadius: '8px'}}>
-                {content}
-            </div>
+        content
     )
 
 }

@@ -74,7 +74,12 @@ export default function ResourceApplicationForm(props) {
                                 fetchUrl={Host() + 'list/nature_of_expense'}
                                 createOption={true}
                                 fetchToken={(new Cookies()).get('jwt')}
-                            />
+
+                                returnToList={!open}
+                                setReturnToList={() => setOpen(true)}
+                            >
+                                <NatureExpenseForm create={true} returnToMain={() => setOpen(false)}/>
+                            </Selector>
                             <DropDownField
                                 dark={true}
                                 placeholder={lang.indirectCosts}
@@ -94,23 +99,6 @@ export default function ResourceApplicationForm(props) {
                                 required={true} type={'number'} maskStart={'R$'} currencyMask={true}
                                 width={'calc(50% - 16px)'}/>
 
-                            <Modal open={open} handleClose={() => setOpen(false)}>
-                                <div style={{
-                                    height: '100vh',
-                                    width: '100vw',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center'
-                                }}>
-                                    <NatureExpenseForm
-                                        returnToMain={() => {
-                                            setOpen(false)
-                                        }}
-
-                                        create={true}
-                                    />
-                                </div>
-                            </Modal>
 
                         </>
                     )

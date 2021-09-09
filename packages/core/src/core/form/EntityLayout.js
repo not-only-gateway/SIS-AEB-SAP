@@ -15,9 +15,11 @@ export default function EntityLayout(props) {
     const [openOptions, setOpenOptions] = useState(false)
 
     useEffect(() => {
-        const newHeight = document.documentElement.offsetHeight - ref.current.getBoundingClientRect().y - 16
-        if (ref.current.offsetHeight > newHeight)
-            ref.current.style.maxHeight = newHeight + 'px'
+        if (!props.noAutoHeight) {
+            const newHeight = document.documentElement.offsetHeight - ref.current.getBoundingClientRect().y - 16
+            if (ref.current.offsetHeight > newHeight)
+                ref.current.style.maxHeight = newHeight + 'px'
+        }
         document.addEventListener('mousedown', event => {
             const target = event.target.className
             if (target !== 'EntityLayout_optionsContainer__1uQvl' && target !== 'EntityLayout_buttonContainer__NhngH' && target !== 'EntityLayout-module_buttonContainer__DCckt' && typeof target !== 'object')
@@ -31,8 +33,10 @@ export default function EntityLayout(props) {
     return (
 
         <div ref={ref} className={styles.container} style={{
-            boxShadow: props.noShadow ? 'none' : undefined
+            boxShadow: props.noShadow ? 'none' : undefined,
+            alignContent: props.noAutoHeight ? 'space-between' : undefined
         }}>
+            <span>
             <div className={styles.headerContainer} style={{display: props.noHeader ? 'none' : undefined}}>
                 <div className={styles.header}>
                     <button className={styles.buttonContainer}
@@ -82,6 +86,7 @@ export default function EntityLayout(props) {
                 />
 
             }
+            </span>
             <div className={styles.headerContainer} style={{
                 bottom: 0,
                 borderRadius: '0 0 5px 5px',

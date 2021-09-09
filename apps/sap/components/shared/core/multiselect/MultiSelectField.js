@@ -1,4 +1,5 @@
 import styles from '../../core/shared/styles/Dropdown.module.css'
+import shared from '../../core/shared/styles/Input.module.css'
 import PropTypes from 'prop-types'
 import React, {useEffect, useRef, useState} from 'react'
 import {ArrowDropDownRounded} from '@material-ui/icons'
@@ -35,7 +36,7 @@ export default function MultiSelectField(props) {
             ref={ref}
             className={styles.wrapper}
         >
-            <div className={styles.labelContainer}
+            <div className={shared.labelContainer}
                  style={{
                      visibility: (props.value !== undefined && props.value !== null) ? 'visible' : 'hidden',
                      opacity: (props.value !== undefined && props.value !== null) ? '1' : '0',
@@ -113,7 +114,7 @@ export default function MultiSelectField(props) {
                     ))}
                 </div>
             </SelectBox>
-            <div className={styles.alertLabel}
+            <div className={shared.alertLabel}
                  style={{
                      color: props.value === null || props.value === undefined ? '#ff5555' : '#262626',
                      visibility: props.required ? 'visible' : 'hidden',

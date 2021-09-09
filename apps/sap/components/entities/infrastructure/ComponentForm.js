@@ -7,12 +7,14 @@ import {TextField} from "sis-aeb-core";
 import Selector from "../../shared/core/selector/Selector";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
+import ActionForm from "../action/ActionForm";
+import ClassificationForm from "../classification/ClassificationForm";
 
 
 export default function ComponentForm(props) {
     const [changed, setChanged] = useState(false)
     const lang = InfrastructurePT
-
+    const [open, setOpen] = useState(false)
     useEffect(() => {
         props.handleChange({name: 'infrastructure', value: props.infrastructure.id})
     }, [])
@@ -74,7 +76,13 @@ export default function ComponentForm(props) {
                                 labels={['classificação', 'tipo']}
                                 fetchUrl={Host() + 'list/classification'}
                                 fetchToken={(new Cookies()).get('jwt')}
-                            />
+
+                                createOption={true}
+                                returnToList={!open}
+                                setReturnToList={() => setOpen(true)}
+                            >
+                                <ClassificationForm create={true} returnToMain={() => setOpen(false)}/>
+                            </Selector>
                         </>
                     )
                 }]}/>

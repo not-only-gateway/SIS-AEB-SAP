@@ -1,86 +1,59 @@
 import styles from '../styles/Selector.module.css'
 import {CloseRounded, RemoveRounded} from "@material-ui/icons";
-import React from "react";
+import React, {useEffect, useRef, useState} from "react";
 import SelectorsPT from "../locales/SelectorsPT";
 import Modal from "../../modal/Modal";
 import List from "../../list/List";
 import PropTypes from "prop-types";
-import SelectorPropsTemplate from "../templates/SelectorPropsTemplate";
 import RenderListField from "../../shared/RenderListField";
-
+import ListPropsTemplate from "../../shared/ListPropsTemplate";
+import Checkbox from "../../list/modules/Checkbox";
+import shared from '../../../core/shared/styles/Input.module.css'
 
 export default function SelectorModal(props) {
     const lang = SelectorsPT
-
+    const [onCreate, setOnCreate] = useState(false)
     const list = (
-        <div className={styles.modalContainer}>
-            <button
-                onClick={() => {
-                    props.setModal(false)
-                }}
-                className={styles.closeButton}
-            >
-                <CloseRounded/>
-            </button>
+        <>
             <div style={{height: '100%', overflow: 'hidden'}}>
                 {props.selected !== undefined && props.selected !== null ?
                     <div style={{
                         width: '100%',
                         maxWidth: '100%',
-                        height: '100px',
-                        marginBottom: '16px',
-                        overflow: 'hidden'
+                        overflow: 'hidden',
+                        display: 'flex',
+                        paddingBottom: '8px'
                     }}>
-                        {lang.selected}
-                        <div style={{
-                            overflow: "hidden",
-                            width: '100%',
-                            maxWidth: '100%',
-                            display: 'grid',
-                            alignContent: 'flex-start',
-                            gap: '4px'
-                        }}>
-                            <div style={{display: 'flex', alignItems: 'center', width: '100%'}}>
-                                {props.labels.map(l => (
-                                    <div className={styles.overflow} style={{
-                                        width: (100 / props.labels.length) + '%',
-                                        textAlign: 'center',
-                                        textTransform: 'capitalize',
-                                        fontSize: '.75rem',
-                                        fontWeight: 'bold'
+
+
+                        <div className={styles.selectedEntityContainer}
+                             style={{maxWidth: '100%', overflow: 'hidden'}}>
+                            <Checkbox checked={true} handleCheck={() => {
+                                props.handleChange(undefined)
+                                props.setModal(false)
+                            }}/>
+                            <div className={styles.divider}/>
+                            {props.fields.map((field, i) => (
+                                <React.Fragment key={i + '-field'}>
+                                    {i > 0 ? <div className={styles.divider}/> : null}
+                                    <div style={{
+                                        width: (100 / props.fields.length) + '%',
+                                        textAlign: 'center'
                                     }}>
-                                        {l}
-                                    </div>
-                                ))}
-                            </div>
-                            <div className={styles.selectedEntityContainer} style={{maxWidth: '100%', overflow: 'hidden'}}>
 
-                                {props.fields.map((field, i) => (
-                                    <React.Fragment key={i + '-field'}>
-                                        {i > 0 ? <div className={styles.divider}/> : null}
-
-                                        <div className={styles.overflow} style={{
-                                            width: (100 / props.fields.length) + '%',
-                                            color: typeof field.getColor === 'function' ? field.getColor(props.entity[field.name]) : undefined,
-                                            textTransform: field.capitalize ? 'capitalize' : undefined,
-                                            textAlign: 'center'
-                                        }}>
-
+                                        <div className={styles.overflow}>
                                             {RenderListField(field, props.selected)}
                                         </div>
-                                    </React.Fragment>
-                                ))}
 
-                                <button className={styles.removeButton}
-                                        onClick={() => {
-                                            props.handleChange(undefined)
-                                            props.setModal(false)
-                                        }}>
-                                    <RemoveRounded/>
-                                </button>
+                                        <div className={[styles.overflow, shared.labelContainer].join(' ')}>
+                                            {props.labels[i]}
+                                        </div>
+                                    </div>
+                                </React.Fragment>
+                            ))}
 
-                            </div>
                         </div>
+
                     </div>
                     :
                     null
@@ -99,16 +72,26 @@ export default function SelectorModal(props) {
                             props.handleChange(entity)
                             props.setModal(false)
                         } else if (props.createOption)
-                            props.handleCreate()
+                            setOnCreate(true)
                     }}
                 />
             </div>
-
-        </div>
+        </>
     )
+    useEffect(() => {
+        if (props.returnToList) {
+            props.setReturnToList()
+            setOnCreate(false)
+        }
+    }, [props.returnToList])
+
     return (
-        <Modal open={props.modal} handleClose={() => props.setModal(false)}
-               componentStyle={{display: 'grid', placeItems: 'center'}}>
+        <Modal
+            open={props.modal}
+            handleClose={() => {
+                props.setModal(false)
+                setOnCreate(false)
+            }}>
             <div style={{
                 height: '100vh',
                 width: '100vw',
@@ -116,11 +99,56 @@ export default function SelectorModal(props) {
                 alignItems: 'center',
                 justifyContent: 'center'
             }}>
-                {list}
+                <div className={styles.modalContainer}>
+                    <span
+                        style={{
+                            display: onCreate ? 'none' : undefined,
+                            transition: '150ms linear'
+                        }}
+                    >
+                        {list}
+                    </span>
+                    <span
+                        style={{
+                            display: !onCreate ? 'none' : undefined,
+                            transition: '150ms linear'
+                        }}
+                    >
+                        {props.children}
+                    </span>
+                    <button
+                        onClick={() => {
+                            props.setModal(false)
+                        }}
+                        className={styles.closeButton}
+                    >
+                        <CloseRounded/>
+                    </button>
+                </div>
             </div>
         </Modal>
     )
 
 
 }
-SelectorModal.propTypes = {...SelectorPropsTemplate, ...{modal: PropTypes.bool, setModal: PropTypes.func}}
+SelectorModal.propTypes = {
+    ...ListPropsTemplate,
+    ...{
+
+        width: PropTypes.string,
+        handleChange: PropTypes.func,
+        selected: PropTypes.any,
+        label: PropTypes.string,
+        getEntityKey: PropTypes.func,
+        labels: PropTypes.array,
+        required: PropTypes.bool,
+        disabled: PropTypes.bool,
+        createOption: PropTypes.bool,
+        children: PropTypes.node,
+        modal: PropTypes.bool,
+        setModal: PropTypes.func,
+
+        returnToList: PropTypes.bool,
+        setReturnToList: PropTypes.func
+    }
+}

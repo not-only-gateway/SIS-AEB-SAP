@@ -24,13 +24,13 @@ export default function ListLabels(props) {
                         setOpen(!open)
                         switch (props.sorts[props.index].type) {
                             case undefined: {
-                                setSortStatus('descending')
-                                updateSort('descending')
+                                setSortStatus('ascending')
+                                updateSort('ascending')
                                 break
                             }
                             case 'descending': {
-                                setSortStatus('ascending')
-                                updateSort('ascending')
+                                setSortStatus(undefined)
+                                updateSort(undefined)
                                 break
                             }
                             case 'ascending': {
@@ -50,32 +50,9 @@ export default function ListLabels(props) {
                     transform: sortStatus === 'ascending' ? 'rotate(180deg)' : undefined,
                     transition: '150ms linear',
                     fontSize: '1rem',
-                    visibility: sortStatus === undefined ? 'hidden' : 'visible',
-                    opacity: sortStatus === undefined ? '0' : '1'
+                    opacity: sortStatus === undefined ? '.5' : '1'
                 }}/>
             </button>
-            <div
-                style={{
-                    display: sortStatus === undefined ? 'none' : undefined
-                }}
-            >
-                <ToolTip content={'Remover sort'}/>
-
-                <button className={styles.removeButton}
-
-
-                        onClick={() => {
-                            setSortStatus(undefined)
-                            let newSorts = [...props.sorts]
-                            newSorts[props.index].type = undefined
-                            props.setSorts(newSorts)
-
-                        }}>
-                    <CloseRounded style={{
-                        fontSize: '1rem',
-                    }}/>
-                </button>
-            </div>
         </div>
     )
 }
