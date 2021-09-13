@@ -17,6 +17,7 @@ export default async function Requester(props) {
     )
 
     const axiosPackage = {
+        method: props.method,
         url: props.url,
         headers: {...props.token ? {'authorization': props.token} : {}, ...props.headers !== undefined ? props.headers : {}},
         params: props.method === 'get' ? props.package : undefined,
