@@ -13,6 +13,7 @@ import Content from "./modules/Content";
 import Footer from "./modules/Footer";
 import EmptyListIndicator from "./modules/EmptyListIndicator";
 import useData from "./hooks/useData";
+import useContent from "./hooks/useContent";
 
 export default function List(props) {
     const {
@@ -27,6 +28,16 @@ export default function List(props) {
         fetchSize, size,
         hasMore, setHasMore,
     } = useData(props)
+    const {content, labels} = useContent({
+        ...props,
+        data: data,
+        currentPage: currentPage,
+        loading: loading,
+        selected: selected,
+        setSelected: setSelected,
+        sorts: sorts,
+        setSorts: setSorts
+    })
 
     return (
         <div
@@ -83,32 +94,9 @@ export default function List(props) {
                                 setSelected([])
                         }}
                     />
-                    {props.labels.map((l, i) => (
-                        <React.Fragment key={'list-labels-' + i + '-' + l}>
-                            <ListLabels sorts={sorts} setSorts={setSorts} data={data} index={i} label={l}
-                                        fields={props.fields}/>
-                        </React.Fragment>
-                    ))}
+                    {labels}
                 </div>
-                {loading ?
-                    <>
-                        <Loader/>
-                        <Loader/>
-                        <Loader/>
-                    </>
-                    :
-                    (data[0] !== undefined && data[0].length > 0 ?
-                            <Content
-                                data={data} setData={setData} setSelected={setSelected} sorts={sorts}
-                                selected={selected} noSelect={props.noSelect} pageData={data[currentPage]}
-
-                                fields={props.fields} clickEvent={props.clickEvent} setEntity={props.setEntity}
-                            />
-                            :
-                            <EmptyListIndicator/>
-
-
-                    )}
+                {content}
             </div>
             <Footer
                 setCurrentPage={setCurrentPage} data={data} currentPage={currentPage} setData={setData}

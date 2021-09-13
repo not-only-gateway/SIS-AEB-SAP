@@ -16,16 +16,11 @@ export default async function Requester(props) {
         loader
     )
 
-    const axiosPackage = props.method === 'get' ? {
-        method: 'get',
+    const axiosPackage = {
         url: props.url,
-        headers: {...{'authorization': props.token}, ...props.headers !== undefined ? props.headers : {}},
-        params: props.package
-    } : {
-        method: props.method,
-        url: props.url,
-        headers: {...{'authorization': props.token}, ...props.headers !== undefined ? props.headers : {}},
-        data: props.package
+        headers: {...props.token ? {'authorization': props.token} : {}, ...props.headers !== undefined ? props.headers : {}},
+        params: props.method === 'get' ? props.package : undefined,
+        data: props.method === 'get' ? undefined : props.package
     }
 
     await axios(axiosPackage).then(response => {
@@ -66,7 +61,7 @@ export default async function Requester(props) {
                 data={{
                     message: error.statusText,
                     details: error.response !== undefined ? error.request.responseText : 'server error',
-                    httpStatusCode:error.response !== undefined ? error.response.status : '500',
+                    httpStatusCode: error.response !== undefined ? error.response.status : '500',
                     package: props.package,
                     method: props.method,
                     url: props.url
@@ -80,7 +75,7 @@ export default async function Requester(props) {
     ReactDOM.unmountComponentAtNode(loader)
     document.body.removeChild(loader)
 
-    if(res.error)
+    if (res.error)
         throw res.data
     else
         return res.data

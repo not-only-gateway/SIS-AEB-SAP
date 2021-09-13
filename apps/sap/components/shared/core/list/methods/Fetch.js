@@ -1,6 +1,7 @@
 import axios from "axios";
 import PropTypes from "prop-types";
 import React from "react";
+import Requester from "../../requester/Requester";
 
 export default async function Fetch(props) {
     let params = {
@@ -12,11 +13,11 @@ export default async function Fetch(props) {
     if (props.params !== null && props.params !== undefined)
         params = {...params, ...props.params}
 
-    await axios({
+    await Requester({
         method: 'get',
         url: props.fetchUrl,
         headers: {'authorization': props.fetchToken},
-        params: params
+        package: params
     }).then(res => {
         props.data.forEach((page, index) => {
             let newPage = [...page]

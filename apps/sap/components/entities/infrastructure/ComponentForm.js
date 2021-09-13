@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import InfrastructurePT from "../../../packages/locales/InfrastructurePT";
-import EntityLayout from "../../shared/core/form/EntityLayout";
+import Form from "../../shared/core/form/Form";
 import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
 import {TextField} from "sis-aeb-core";
 import Selector from "../../shared/core/selector/Selector";
@@ -21,7 +21,7 @@ export default function ComponentForm(props) {
     return (
         <>
 
-            <EntityLayout
+            <Form
                 rootElementID={'root'} entity={props.data}
                 create={props.create} label={props.create ? lang.newComponent : lang.component}
                 dependencies={{

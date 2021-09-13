@@ -116,3 +116,12 @@
 
     color: #444444;
 }
+
+.submitContainer{
+    bottom: 0;
+    border-radius: 0 0 5px 5px;
+    border-bottom: none;
+    border-top: #ecedf2 1px solid;
+    padding: 8px ;
+    z-index: 50
+}

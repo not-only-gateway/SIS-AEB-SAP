@@ -1,15 +1,14 @@
 import styles from '../shared/styles/Input.module.css'
-import React, {useState} from 'react'
+import React, {useMemo, useState} from 'react'
 import InputMask from 'react-input-mask'
 import {VisibilityOffRounded, VisibilityRounded} from '@material-ui/icons'
 import LocalePT from '../packages/LocalePT'
-import GetInput from "./methods/GetInput";
 import TextFieldPropsTemplate from "./templates/TextFieldPropsTemplate";
+import GetInput from "./methods/GetInput";
 
 export default function TextField(props) {
     const [visible, setVisible] = useState(false)
     const lang = LocalePT
-
 
     return (
         <div

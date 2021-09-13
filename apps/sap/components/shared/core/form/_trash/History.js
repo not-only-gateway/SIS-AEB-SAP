@@ -2,9 +2,9 @@ import PropTypes from 'prop-types'
 import React, {useState} from "react";
 import {ArrowBackRounded} from "@material-ui/icons";
 import Overview from "./Overview";
-import List from "../list/List";
-import styles from "./styles/Form.module.css";
-import SharedPT from "./locales/SharedPT";
+import List from "../../list/List";
+import styles from "../styles/Form.module.css";
+import SharedPT from "../locales/SharedPT";
 
 export default function History(props) {
     const [currentEntity, setCurrentEntity] = useState(null)

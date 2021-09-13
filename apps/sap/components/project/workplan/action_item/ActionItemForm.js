@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {DropDownField, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import OperationPT from "../../../../packages/locales/OperationPT";
-import EntityLayout from "../../../shared/core/form/EntityLayout";
+import Form from "../../../shared/core/form/Form";
 import OperationRequests from "../../../../utils/requests/OperationRequests";
 
 export default function ActionItemForm(props) {
@@ -16,7 +16,7 @@ export default function ActionItemForm(props) {
     return (
         <>
 
-            <EntityLayout
+            <Form
                 rootElementID={'root'} entity={props.data}
                 create={props.create} label={props.create ? lang.newAction : lang.action}
                 dependencies={{

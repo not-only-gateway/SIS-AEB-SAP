@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import PropTypes from 'prop-types'
 import ProjectPT from "../../packages/locales/ProjectPT";
-import EntityLayout from "../shared/core/form/EntityLayout";
+import Form from "../shared/core/form/Form";
 import {DropDownField, TextField} from "sis-aeb-core";
 import Selector from "../shared/core/selector/Selector";
 import Host from "../../utils/shared/Host";
@@ -18,7 +18,7 @@ export default function ProjectForm(props) {
     return (
         <>
 
-            <EntityLayout
+            <Form
                 entity={props.data}
                 create={props.create} label={lang.title}
                 dependencies={{

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
-import EntityLayout from "../../../shared/core/form/EntityLayout";
+import Form from "../../../shared/core/form/Form";
 import OperationRequests from "../../../../utils/requests/OperationRequests";
 import ExecutionPT from "../../../../packages/locales/ExecutionPT";
 import DateField from "../../../shared/core/date/DateField";
@@ -27,7 +27,7 @@ export default function ExecutionForm(props) {
     }, [])
     return (
         <>
-            <EntityLayout
+            <Form
                 entity={props.data}
                 create={props.create} label={props.create ? lang.newExecution : lang.execution}
                 dependencies={{

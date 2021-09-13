@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
-import styles from "./styles/Overview.module.css";
-import OverviewPT from "./locales/OverviewPT";
+import styles from "../styles/Overview.module.css";
+import OverviewPT from "../locales/OverviewPT";
 import {Avatar} from "@material-ui/core";
 import React from 'react'
-import Modal from "../modal/Modal";
+import Modal from "../../modal/Modal";
 import {CheckRounded, CloseRounded} from "@material-ui/icons";
 
 export default function Overview(props) {
@@ -43,7 +43,7 @@ export default function Overview(props) {
     return (
         <Modal handleClose={() => props.handleClose()}
                open={props.open}
-               rootElementID={props.rootElementID}>
+               >
             <div style={{
                 height: '100vh',
                 width: '100vw',

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
-import EntityLayout from "../../shared/core/form/EntityLayout";
+import Form from "../../shared/core/form/Form";
 import TedPT from "../../../packages/locales/TedPT";
 import TedRequests from "../../../utils/requests/TedRequests";
 import {DateField, DropDownField, TextField} from "sis-aeb-core";
@@ -30,7 +30,7 @@ export default function TedForm(props) {
     }, [])
     return (
         <>
-            <EntityLayout
+            <Form
                 entity={props.data}
                 create={props.create}
                 label={props.asAddendum ? (props.create ? lang.newAddendum : lang.addendum) : (props.create ? lang.newTed : lang.ted)}

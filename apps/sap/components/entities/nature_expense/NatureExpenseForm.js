@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 
 import {DropDownField, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
-import EntityLayout from "../../shared/core/form/EntityLayout";
+import Form from "../../shared/core/form/Form";
 import ProjectRequests from "../../../utils/requests/ProjectRequests";
 import ProjectPT from "../../../packages/locales/ProjectPT";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
@@ -21,7 +21,7 @@ export default function NatureExpenseForm(props) {
     const content = (
         <>
 
-            <EntityLayout
+            <Form
                 entity={data}
                 create={props.create} label={props.create ? lang.newNatureOfExpense : lang.natureOfExpense}
                 dependencies={{

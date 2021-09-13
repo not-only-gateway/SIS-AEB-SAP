@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import EntityLayout from "../../../shared/core/form/EntityLayout";
+import Form from "../../../shared/core/form/Form";
 import {DateField, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import TedRequests from "../../../../utils/requests/TedRequests";
@@ -15,7 +15,7 @@ export default function AddendumForm(props) {
     return (
         <>
 
-            <EntityLayout
+            <Form
                 rootElementID={'root'} entity={props.data}
                 create={props.create} label={props.create ? lang.newAddendum : lang.eAddendum}
                 dependencies={{

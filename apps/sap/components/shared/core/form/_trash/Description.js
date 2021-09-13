@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import Modal from "../modal/Modal";
-import styles from "./styles/Overview.module.css";
+import Modal from "../../modal/Modal";
+import styles from "../styles/Overview.module.css";
 import {CloseRounded} from "@material-ui/icons";
 import React from "react";
 

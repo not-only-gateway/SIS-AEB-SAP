@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import ProjectPT from "../../../../packages/locales/ProjectPT";
-import EntityLayout from "../../../shared/core/form/EntityLayout";
+import Form from "../../../shared/core/form/Form";
 import {DateField, TextField} from "sis-aeb-core";
 
 import PropTypes from "prop-types";
@@ -21,7 +21,7 @@ export default function ObjectiveForm(props) {
     return (
         <>
 
-            <EntityLayout
+            <Form
                 rootElementID={'root'} entity={props.data}
                 create={props.create} label={lang.objectiveTitle}
                 dependencies={{

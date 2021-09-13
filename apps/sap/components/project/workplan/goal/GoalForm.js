@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import EntityLayout from "../../../shared/core/form/EntityLayout";
+import Form from "../../../shared/core/form/Form";
 import {TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import WorkPlanRequests from "../../../../utils/requests/WorkPlanRequests";
@@ -16,7 +16,7 @@ export default function GoalForm(props) {
     return (
         <>
 
-            <EntityLayout
+            <Form
                 rootElementID={'root'} entity={props.data}
                 create={props.create} label={props.create ? lang.newGoal : lang.goal}
                 dependencies={{

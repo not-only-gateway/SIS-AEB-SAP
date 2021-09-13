@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
-import EntityLayout from "../../shared/core/form/EntityLayout";
+import Form from "../../shared/core/form/Form";
 import WorkPlanPT from "../../../packages/locales/WorkPlanPT";
 import {DropDownField, TextField} from "sis-aeb-core";
 
@@ -37,7 +37,7 @@ export default function WorkPlanForm(props) {
 
             <div style={{width: '100%'}}>
 
-                <EntityLayout
+                <Form
                     rootElementID={'root'} entity={props.data}
                     create={props.create} label={lang.title}
                     dependencies={{

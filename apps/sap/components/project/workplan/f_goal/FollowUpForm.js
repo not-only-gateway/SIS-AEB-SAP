@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {DropDownField, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import OperationPT from "../../../../packages/locales/OperationPT";
-import EntityLayout from "../../../shared/core/form/EntityLayout";
+import Form from "../../../shared/core/form/Form";
 import OperationRequests from "../../../../utils/requests/OperationRequests";
 import FileField from "../../../shared/core/file/FileField";
 
@@ -24,7 +24,7 @@ export default function FollowUpForm(props) {
     }, [])
     return (
         <>
-            <EntityLayout
+            <Form
                 rootElementID={'root'} entity={props.data}
                 create={props.create} label={props.create ? lang.newFollowUpGoal : lang.followUpGoal}
                 dependencies={{

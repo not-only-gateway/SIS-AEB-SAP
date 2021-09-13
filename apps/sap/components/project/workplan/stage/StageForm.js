@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
-import EntityLayout from "../../../shared/core/form/EntityLayout";
+import Form from "../../../shared/core/form/Form";
 import WorkPlanRequests from "../../../../utils/requests/WorkPlanRequests";
 import GoalPT from "../../../../packages/locales/GoalPT";
 
@@ -18,7 +18,7 @@ export default function StageForm(props) {
         <>
 
 
-            <EntityLayout
+            <Form
                 entity={props.data}
                 create={props.create} label={props.create ? lang.newStage : lang.stage}
                 dependencies={{

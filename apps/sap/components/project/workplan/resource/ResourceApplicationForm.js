@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {DropDownField, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import OperationRequests from "../../../../utils/requests/OperationRequests";
-import EntityLayout from "../../../shared/core/form/EntityLayout";
+import Form from "../../../shared/core/form/Form";
 import ResourcePT from "../../../../packages/locales/ResourcePT";
 import Selector from "../../../shared/core/selector/Selector";
 import Host from "../../../../utils/shared/Host";
@@ -24,7 +24,7 @@ export default function ResourceApplicationForm(props) {
     return (
         <>
 
-            <EntityLayout
+            <Form
                 entity={props.data}
                 create={props.create} label={props.create ? lang.newResource : lang.resource}
                 dependencies={{
