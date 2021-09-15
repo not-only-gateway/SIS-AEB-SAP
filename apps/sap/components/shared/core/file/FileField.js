@@ -66,7 +66,7 @@ export default function FileField(props) {
 
 FileField.propTypes = {
     handleFileRemoval: PropTypes.func,
-    files: PropTypes.object,
+    files: PropTypes.array,
     multiple: PropTypes.bool,
     accept: PropTypes.array,
     handleChange: PropTypes.func,

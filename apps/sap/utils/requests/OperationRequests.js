@@ -31,9 +31,18 @@ export default class OperationRequests {
             url: Host(true) + 'file/'+submitProps.id,
             showSuccessAlert: false,
             token: (new Cookies()).get('jwt')
-        }).then(res => {
-            console.log(res)
-            response = res
+        }).then(async res => {
+            await Requester({
+                method:  'get',
+                url: Host(true) + 'file_name/'+submitProps.id,
+                showSuccessAlert: false,
+                token: (new Cookies()).get('jwt')
+            }).then(r => {
+                response = {
+                    data: res.data,
+                    fileName: r.data.data
+                }
+            })
         }).catch(e => console.log(e))
         return response
     }
@@ -162,12 +171,16 @@ export default class OperationRequests {
                 package: data,
                 headers: {"Content-Type": "multipart/form-data"},
                 method: 'post',
-                url: Host(true) + 'upload',
+                url: Host(true) + 'file',
                 showSuccessAlert: false,
                 token: (new Cookies()).get('jwt')
             }).then(async res => {
+                console.log(res)
                 await submitData(res.data.data)
-            }).catch(async e => await submitData(null))
+            }).catch(async e => {
+                console.log(e)
+                await submitData(null)
+            })
 
         } else
             await submitData(null)

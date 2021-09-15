@@ -11,12 +11,17 @@ export default function FollowUpForm(props) {
     const lang = OperationPT
     const [file, setFile] = useState(null)
     useEffect(() => {
+        console.log(props.data)
         if (!props.create && props.data.file !== undefined && props.data.file !== null) {
             OperationRequests.fetchFile({
                 id: props.data.file
             }).then(e => {
                 console.log(e)
-                // setFile(e.headers['Content-Disposition'])
+                if(e.data !== null)
+                    setFile({
+                        name: e.fileName,
+                        file: e.data
+                    })
             })
         }
         props.handleChange({name: 'operation_phase', value: props.operation.id})
