@@ -55,45 +55,6 @@
     font-size: .8rem;
 }
 
-.modalContainer {
-    height: clamp(500px, 75%, 1000px);
-    width: 1000px;
-    align-content: flex-start;
-    background: white;
-    position: relative;
-
-    border: #e0e0e0 1px solid;
-    border-radius: 8px;
-
-    padding: 16px;
-}
-
-.closeButton {
-    position: absolute;
-    z-index: 999;
-    width: 40px;
-    height: 40px;
-    top: -20px;
-    right: -20px;
-
-    outline: none;
-    cursor: pointer;
-    border: none;
-    background: white;
-    border-radius: 50%;
-    color: #555555;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    transition: 150ms linear;
-}
-
-.closeButton:hover {
-    background: #ff5555;
-    color: white;
-}
 
 .inputContainer {
 

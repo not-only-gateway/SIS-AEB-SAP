@@ -13,6 +13,7 @@ export default function ListContent(props) {
             className={[styles.rowContainer, styles.fadeIn].join(' ')}
             ref={ref}
             style={{
+
                 animationDelay: (props.index * 50) + 'ms',
                 borderBottom: props.isLast ? 'none' : '#ecedf2 1px solid'
             }}

@@ -1,6 +1,6 @@
 import React, {useMemo} from "react";
 import Loader from "../modules/Loader";
-import EmptyListIndicator from "../modules/EmptyListIndicator";
+import EmptyListIndicator from "../../shared/EmptyListIndicator";
 import ListContent from "../modules/ListContent";
 import PropTypes from 'prop-types'
 import ListPropsTemplate from "../../shared/ListPropsTemplate";

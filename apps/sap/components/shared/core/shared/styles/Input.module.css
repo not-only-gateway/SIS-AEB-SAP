@@ -79,14 +79,16 @@
 .uploadFormContainer {
     border-radius: 5px;
     border: #ecedf2 1px solid;
-
+    height: 56px;
     transition: 150ms linear;
     background: white;
-    width: 45px;
-    height: 45px;
+    width: 100%;
+
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    align-content: center;
+    padding: 8px;
     outline: none;
 
     font-size: 1rem;
@@ -106,24 +108,24 @@
     color: #0095ff;
 }
 
-.imageFieldContainer {
+/*.imageFieldContainer {*/
 
-    height: 56px;
+/*    height: 56px;*/
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: space-between;*/
 
-    padding: 4px;
+/*    padding: 4px;*/
 
-    border: #ecedf2 1px solid;
-    border-radius: 5px;
-    background: white;
+/*    border: #ecedf2 1px solid;*/
+/*    border-radius: 5px;*/
+/*    background: white;*/
 
-    overflow: hidden;
+/*    overflow: hidden;*/
 
-    transition: 150ms ease-in-out;
-}
+/*    transition: 150ms ease-in-out;*/
+/*}*/
 
 .textArea {
     border: #ecedf2 1px solid;
@@ -137,13 +139,13 @@
 
 }
 
-.selectContainer:hover, .imageFieldContainer:hover, .inputContainer:hover, .textArea:hover {
+.selectContainer:hover, .uploadFormContainer:hover, .inputContainer:hover, .textArea:hover {
     color: #262626;
     box-shadow: 0 0 2px 1px #0095ff;
     border: #0095ff 1px solid;
 }
 
-.textArea:focus, .textArea:focus-within, .inputContainer:focus, .inputContainer:focus-visible, .inputContainer:focus-within {
+.textArea:focus, .uploadFormContainer:active, .textArea:focus-within, .inputContainer:focus, .inputContainer:focus-visible, .inputContainer:focus-within {
     color: #262626;
     box-shadow: 0 0 2px 1px #0095ff;
     border: #0095ff 1px solid;
@@ -188,4 +190,53 @@
     color: #555555;
     font-family: Roboto;
     font-size: .95rem;
+}
+
+.modalContainer{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modalContent {
+    height: clamp(500px, 75%, 1000px);
+    width: 1000px;
+    align-content: flex-start;
+    background: white;
+    position: relative;
+
+    border: #e0e0e0 1px solid;
+    border-radius: 8px;
+
+    padding: 16px;
+}
+
+
+.closeButton {
+    position: absolute;
+    z-index: 999;
+    width: 40px;
+    height: 40px;
+    top: -20px;
+    right: -20px;
+
+    outline: none;
+    cursor: pointer;
+    border: none;
+    background: white;
+    border-radius: 50%;
+    color: #555555;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 150ms linear;
+}
+
+.closeButton:hover {
+    background: #ff5555;
+    color: white;
 }

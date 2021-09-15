@@ -11,7 +11,7 @@ import Checkbox from "./modules/Checkbox";
 import ControlHeader from "./modules/ControlHeader";
 import Content from "./modules/Content";
 import Footer from "./modules/Footer";
-import EmptyListIndicator from "./modules/EmptyListIndicator";
+import EmptyListIndicator from "../shared/EmptyListIndicator";
 import useData from "./hooks/useData";
 import useContent from "./hooks/useContent";
 

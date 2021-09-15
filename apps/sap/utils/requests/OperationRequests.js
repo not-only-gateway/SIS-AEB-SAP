@@ -10,11 +10,25 @@ const submitProps = PropTypes.shape({
     create: PropTypes.bool
 })
 export default class OperationRequests {
+
+    static async deleteFile(submitProps) {
+        let response = false
+        await Requester({
+            method:  'delete',
+            url: Host(true) + 'file/'+submitProps.id,
+            showSuccessAlert: true,
+            token: (new Cookies()).get('jwt')
+        }).then(res => {
+            console.log(res)
+            response = true
+        }).catch(e => console.log(e))
+        return response
+    }
     static async fetchFile(submitProps) {
         let response = null
         await Requester({
             method:  'get',
-            url: Host(true) + 'download/'+submitProps.id,
+            url: Host(true) + 'file/'+submitProps.id,
             showSuccessAlert: false,
             token: (new Cookies()).get('jwt')
         }).then(res => {

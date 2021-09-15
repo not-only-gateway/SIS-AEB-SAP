@@ -11,7 +11,7 @@ export default function FollowUpForm(props) {
     const lang = OperationPT
     const [file, setFile] = useState(null)
     useEffect(() => {
-        if(!props.create && props.data.file !== undefined && props.data.file !== null){
+        if (!props.create && props.data.file !== undefined && props.data.file !== null) {
             OperationRequests.fetchFile({
                 id: props.data.file
             }).then(e => {
@@ -71,17 +71,22 @@ export default function FollowUpForm(props) {
                                     setChanged(true)
                                     props.handleChange({name: 'accomplished', value: event})
                                 }} value={props.data === null ? null : props.data.accomplished} required={true}
-                                width={'calc(50% - 16px)'} choices={lang.options}/>
-                            <FileField label={'Importar PDF'} width={'calc(50% - 16px)'} required={false}
-                                       multiple={false} accept={'.pdf'}
-                                       file={file}
-                                       handleChange={files => {
-                                           setChanged(true)
-                                           if (files !== null)
-                                               setFile(files[0])
-                                           else
-                                               setFile(null)
-                                       }}/>
+                                width={'calc(50% - 16px)'} choices={lang.options}
+                            />
+
+                            <FileField
+                                handleChange={(e) => setFile(e[0])} accept={['.pdf']}
+                                width={'calc(50% - 16px)'} required={false} label={'Adicionar PDF'}
+                                disabled={false} multiple={false} files={file ? [file] : []}
+                                handleFileRemoval={() => {
+                                    OperationRequests.deleteFile({
+                                        id: props.data.file
+                                    }).then(e => {
+                                        if(e)
+                                            setFile(null)
+                                    })
+                                }}
+                            />
                         </>
                     )
                 }]}/>

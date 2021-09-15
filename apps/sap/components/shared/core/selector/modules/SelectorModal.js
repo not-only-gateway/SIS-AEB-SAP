@@ -92,14 +92,8 @@ export default function SelectorModal(props) {
                 props.setModal(false)
                 setOnCreate(false)
             }}>
-            <div style={{
-                height: '100vh',
-                width: '100vw',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}>
-                <div className={styles.modalContainer}>
+            <div className={shared.modalContainer}>
+                <div className={shared.modalContent}>
                     <span
                         style={{
                             display: onCreate ? 'none' : undefined,
@@ -120,7 +114,7 @@ export default function SelectorModal(props) {
                         onClick={() => {
                             props.setModal(false)
                         }}
-                        className={styles.closeButton}
+                        className={shared.closeButton}
                     >
                         <CloseRounded/>
                     </button>
