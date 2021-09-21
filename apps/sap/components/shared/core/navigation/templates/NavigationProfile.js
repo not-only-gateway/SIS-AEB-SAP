@@ -32,27 +32,21 @@ export default function NavigationProfile(props) {
                 }}
             >
                 <div style={{
-                    color: open ? '#0095ff' : '#555555',
-                    fontWeight: 620,
                     fontSize: '.85rem',
-                    transition: '300ms ease-in',
+                    fontWeight: 'bold',
+                    color: open ? '#0095ff' : undefined,
+                    transition: '150ms linear'
                 }}>
                     {props.lang.hello}
                 </div>
 
-                <div className={styles.overflowEllipsis} style={{
-                    color: '#555555',
-                    maxWidth: '43%',
-                    fontWeight: 575,
-                    fontSize: '.85rem',
-                    transition: '300ms ease-in'
-                }}>
+                <div className={styles.overflowEllipsis} style={{maxWidth: '50%'}}>
                     {props.profile.name}
                 </div>
                 <Avatar style={{width: '30px', height: '30px'}} src={props.profile.image}/>
 
             </button>
-            <AnimationFrame elementKey={'floating-profile'} children={
+            <AnimationFrame elementKey={'floating-profile'} render={open} type={"fade"}>
                 <div className={styles.floatingBox} style={{
                     width: '175px', transform: 'translateY(23%)', marginLeft: 'auto',
                     marginRight: 'auto',
@@ -92,13 +86,16 @@ export default function NavigationProfile(props) {
                         </Link>
                     ))}
                 </div>
-            } render={open} type={"fade"}/>
+            </AnimationFrame>
         </div>
     )
 }
 NavigationProfile.propTypes = {
-    profile: PropTypes.object,
-    accessProfile: PropTypes.object,
+    profile: PropTypes.shape({
+        name: PropTypes.string,
+        email: PropTypes.string,
+        image: PropTypes.string
+    }),
     lang: PropTypes.object,
     buttons: PropTypes.arrayOf(
         PropTypes.shape({

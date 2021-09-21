@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
 import Fetch from "../methods/Fetch";
 
 export default function useData(props) {
@@ -14,14 +14,14 @@ export default function useData(props) {
     const [selected, setSelected] = useState([])
     const [sorts, setSorts] = useState([])
     const [fetchSize, setFetchSize] = useState(props.fetchSize !== undefined ? props.fetchSize : 15)
-    const [size, setSize] = useState(0)
-    const [hasMore, setHasMore] = useState(undefined)
-    const getLength = () => {
+    const size = useMemo(() => {
         let l = 0
         for (let i = 0; i < data.length; i++)
             l = l + data[i].length
-        setSize(l)
-    }
+        return l
+    }, [data])
+    const [hasMore, setHasMore] = useState(undefined)
+
     const refresh = () => {
         setSelected([])
         setLoading(true)
@@ -45,7 +45,6 @@ export default function useData(props) {
             searchFieldName: props.searchFieldName
         }).then(() => {
             setLoading(false)
-            getLength()
         })
     }
 
@@ -92,7 +91,6 @@ export default function useData(props) {
         loading,
         maxHeight,
         ref, refresh,
-        getLength,
         selected, setSelected,
         sorts, setSorts,
         fetchSize,

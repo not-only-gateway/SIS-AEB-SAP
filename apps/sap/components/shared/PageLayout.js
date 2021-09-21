@@ -18,8 +18,10 @@ import {
 
 import CollaboratorRequests from "../../utils/requests/CollaboratorRequests";
 import PersonRequests from "../../utils/requests/PersonRequests";
-import {Modal, Navigation} from "sis-aeb-core";
+import {Modal} from "sis-aeb-core";
+
 import Authenticator from "./Authenticator";
+import Navigation from "./core/navigation/Navigation";
 
 
 const cookies = new Cookies()
@@ -30,33 +32,22 @@ export default function PageLayout(props) {
     const lang = LayoutPT
     const [openModal, setOpenModal] = useState(false)
     useEffect(() => {
-        console.log('REFRESHING STATE')
         let interval
         let timeout
         timeout = setTimeout(() => {
             interval = setInterval(() => {
-                console.log('REFRESHING COOKIES')
                 if (cookies.get('jwt') !== undefined) {
                     if (openModal)
                         setOpenModal(false)
-                    if (sessionStorage.getItem('profile') === null) {
-                        console.log(cookies.get('jwt'))
-                        CollaboratorRequests.fetchMemberByToken().then(res => {
-                            if (res !== null) {
-                                PersonRequests.FetchImage(res.person.image).then(imageRes => {
-                                    res.person.image = imageRes
-                                    sessionStorage.setItem('profile', JSON.stringify({
-                                        id: res.person.id,
-                                        corporate_email: res.collaborator.corporate_email,
-                                        member_id: res.collaborator.id,
-                                        image: imageRes,
-                                        name: res.person.name
-                                    }))
-                                    setProfile(res.person)
-                                })
-                            }
+                    if (profile === null)
+                        CollaboratorRequests.fetchCollaborator().then(collaborator => {
+                            if (collaborator !== null)
+                                CollaboratorRequests.fetchPerson(collaborator.person).then(person => setProfile({
+                                    ...person,
+                                    corporate_email: collaborator.corporate_email
+                                }))
                         })
-                    } else setProfile(JSON.parse(sessionStorage.getItem('profile')))
+                    else setProfile(JSON.parse(sessionStorage.getItem('profile')))
                 } else
                     setOpenModal(true)
             }, 1000)

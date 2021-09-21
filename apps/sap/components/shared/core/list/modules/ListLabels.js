@@ -17,7 +17,7 @@ export default function ListLabels(props) {
         <div style={{
             display: 'flex',
             alignItems: 'center',
-            width: ((100 / props.fields.length) + (props.fields[props.index].extraSize !== undefined ? props.fields[props.index].extraSize : 0)) + '%',
+            width: ((100 / props.fields.length) + (props.fields[props.index].extraSize !== undefined ? props.fields[props.index].extraSize : 0)) + '%'
         }}>
             <button className={styles.label}
                     onClick={() => {
@@ -53,6 +53,7 @@ export default function ListLabels(props) {
                     opacity: sortStatus === undefined ? '.5' : '1'
                 }}/>
             </button>
+            <ToolTip content={props.label}/>
         </div>
     )
 }

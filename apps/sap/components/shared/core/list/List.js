@@ -22,12 +22,13 @@ export default function List(props) {
         searchInput, setSearchInput,
         currentPage, setCurrentPage,
         mountingPoint, maxHeight,
-        loading, refresh, getLength,
+        loading, refresh,
         ref, selected, setSelected,
         sorts, setSorts,
         fetchSize, size,
         hasMore, setHasMore,
     } = useData(props)
+
     const {content, labels} = useContent({
         ...props,
         data: data,
@@ -73,17 +74,16 @@ export default function List(props) {
                                 fetchUrl: props.fetchUrl,
                                 params: props.fetchParams,
                                 searchFieldName: props.searchFieldName
-                            }).then(() => getLength())
+                            })
                         }}/>
                 }
             </div>
             <div className={styles.contentWrapper}>
                 <div className={styles.labelsContainer}>
                     <Checkbox
-                        noSelect={props.noSelect}
+                        noSelect={props.noSelect} disabled={size === 0}
                         checked={size === selected.length && size > 0}
                         handleCheck={checked => {
-                            getLength()
                             if (!isNaN(size) && !checked && size > 0) {
                                 let newA = new Array(size)
                                 for (let i = 0; i < size; i++)
@@ -101,7 +101,6 @@ export default function List(props) {
             <Footer
                 setCurrentPage={setCurrentPage} data={data} currentPage={currentPage} setData={setData}
                 fetchSize={fetchSize} fetchToken={props.fetchToken} maxID={maxID} setMaxID={setMaxID}
-                setSize={() => getLength()}
                 fetchUrl={props.fetchUrl} searchInput={searchInput} setHasMore={setHasMore} hasMore={hasMore}
             />
         </div>

@@ -13,7 +13,6 @@ export default function ListContent(props) {
             className={[styles.rowContainer, styles.fadeIn].join(' ')}
             ref={ref}
             style={{
-
                 animationDelay: (props.index * 50) + 'ms',
                 borderBottom: props.isLast ? 'none' : '#ecedf2 1px solid'
             }}
@@ -24,7 +23,7 @@ export default function ListContent(props) {
                     ref.current.style.background = '#f4f5fa'
                 }}
                 onMouseLeave={() => {
-                    if(ref.current.style.background !== 'rgb(232, 240, 254)')
+                    if (ref.current.style.background !== 'rgb(232, 240, 254)')
                         ref.current.style.background = ''
                 }}
                 onMouseDown={() => {
@@ -38,13 +37,27 @@ export default function ListContent(props) {
                 disabled={!props.create && props.onlyCreate}>
                 {props.fields.map((field, i) => (
                     <React.Fragment key={i + '-field-' + props.index}>
+                        <div style={{
+                            height: '50%',
+                            width: '1px',
+                            background: '#e0e0e0',
+                            display: i === 0 ? undefined : 'none'
+                        }}/>
                         <div className={styles.overflow} style={{
                             width: ((100 / props.fields.length) + (field.extraSize !== undefined ? field.extraSize : 0)) + '%',
                             color: typeof field.getColor === 'function' ? field.getColor(props.entity[field.name]) : undefined,
-                            textTransform: field.capitalize ? 'capitalize' : undefined
+                            textTransform: field.capitalize ? 'capitalize' : undefined,
+                            textAlign: 'center',
+                            padding: '4px 16px'
                         }} id={('*-' + props.index) + '-field'}>
                             {RenderListField(field, props.entity)}
                         </div>
+                        <div style={{
+                            height: '50%',
+                            width: '1px',
+                            background: '#e0e0e0',
+                            display: i === (props.fields.length - 1) ? 'none' : undefined
+                        }}/>
                     </React.Fragment>
                 ))}
             </button>

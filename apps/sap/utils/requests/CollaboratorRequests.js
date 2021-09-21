@@ -14,12 +14,12 @@ const byPersonProps = {
 const cookies = new Cookies()
 
 export default class CollaboratorRequests {
-    static async fetchMemberByToken() {
+    static async fetchCollaborator() {
         let response = null
 
         await axios({
             method: 'get',
-            url: Host() + 'token/collaborator',
+            url: Host() + 'collaborator',
             headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         }).then(res => {
             response = res.data
@@ -28,13 +28,13 @@ export default class CollaboratorRequests {
         })
         return response
     }
-
-    static async fetchLinkage(collaboratorID) {
+    static async fetchPerson(id) {
         let response = null
+
         await axios({
             method: 'get',
-            url: Host() + 'linkage/' + collaboratorID,
-            headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null
+            url: Host() + 'person/'+id,
+            headers: cookies.get('jwt') !== undefined ? {'authorization': cookies.get('jwt')} : null,
         }).then(res => {
             response = res.data
         }).catch(error => {
@@ -42,7 +42,6 @@ export default class CollaboratorRequests {
         })
         return response
     }
-
 }
 
 

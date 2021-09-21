@@ -3,6 +3,7 @@ import styles from "../styles/Navigation.module.css";
 import {AppsRounded} from "@material-ui/icons";
 import AnimationFrame from "./AnimationFrame";
 import PropTypes from 'prop-types'
+import ToolTip from "../../tooltip/ToolTip";
 
 export default function NavigationApps(props) {
     const [open, setOpen] = useState(false)
@@ -27,28 +28,28 @@ export default function NavigationApps(props) {
             </button>
             <AnimationFrame elementKey={'floating'} children={
                 <div className={styles.floatingBox}
-                     style={{transform: props.centered ? 'translate(calc(-50% + 25px), 25%)' : 'translate(calc(-80% - 4px), 25%)'}}>
+                     style={{transform: props.centered ? 'translate(-50%, 16px)' : 'translate(calc(-100% + 16px), 16px)'}}>
                     {props.buttons.map((button, index) => (
-                        <button
-                            className={styles.appsButtonContainer}
-                            key={button.label+ index}
-                            onClick={() => window.open(button.link)}
-                            style={{
-                                display: 'grid',
-                                justifyItems: 'center',
-                                justifyContent: 'center',
-                                height: '80px',
-                                width:  'calc(50% - 8px)'
-                            }}
-                        >
+                        <div key={button.label+ index}>
+                            <button
+                                className={styles.appsButtonContainer}
+                                onClick={() => window.open(button.link)}
+                                style={{
+                                    display: 'grid',
+                                    justifyItems: 'center',
+                                    justifyContent: 'center',
+                                    height: '75px',
+                                    width:  '75px'
+                                }}
+                            >
+                                {button.icon}
+                                <div className={[styles.overflowEllipsis, styles.buttonLabel].join(' ')} style={{
+                                    maxWidth: '100%'
+                                }}> {button.label}</div>
 
-                            {button.icon}
-
-                            <div style={{
-                                fontSize: '.9rem',
-                            }}> {button.label}</div>
-
-                        </button>
+                            </button>
+                            <ToolTip content={button.label}/>
+                        </div>
                     ))}
                 </div>
             } render={open}/>

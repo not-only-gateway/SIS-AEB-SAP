@@ -72,37 +72,58 @@ export default function useContent(props) {
             if (props.data.length === 0 || props.data[0] === undefined || props.data[0].length === 0)
                 c = <EmptyListIndicator/>
             else
-                c = sortedData.map((entity, index) => <ListContent
-                    index={index} entity={entity}
-                    setEntity={() => props.setEntity(entity)}
-                    checked={props.selected.includes(props.data[props.currentPage].indexOf(entity))}
-                    handleCheck={checked => {
-                        if (!checked)
-                            props.setSelected([...props.selected, ...[props.data[props.currentPage].indexOf(entity)]])
-                        else {
-                            let i
-                            let newSelected = [...props.selected]
-                            newSelected.find((e, iS) => {
-                                if (e === props.data[props.currentPage].indexOf(entity))
-                                    i = iS
-                            })
-                            newSelected.splice(i, 1)
-                            props.setSelected(newSelected)
-                        }
-                    }}
-                    fields={props.fields} noSelect={props.noSelect}
-                    clickEvent={props.clickEvent}
-                    isLast={props.data[props.currentPage].indexOf(entity) === (props.data[props.currentPage].length - 1)}
-                />)
+                c = sortedData.map((entity, index) => (
+                    <React.Fragment key={'list-content-'+index}>
+                        <ListContent
+                            index={index} entity={entity}
+                            setEntity={() => props.setEntity(entity)}
+                            checked={props.selected.includes(props.data[props.currentPage].indexOf(entity))}
+                            handleCheck={checked => {
+                                if (!checked)
+                                    props.setSelected([...props.selected, ...[props.data[props.currentPage].indexOf(entity)]])
+                                else {
+                                    let i
+                                    let newSelected = [...props.selected]
+                                    newSelected.find((e, iS) => {
+                                        if (e === props.data[props.currentPage].indexOf(entity))
+                                            i = iS
+                                    })
+                                    newSelected.splice(i, 1)
+                                    props.setSelected(newSelected)
+                                }
+                            }}
+                            fields={props.fields} noSelect={props.noSelect}
+                            clickEvent={props.clickEvent}
+                            isLast={props.data[props.currentPage].indexOf(entity) === (props.data[props.currentPage].length - 1)}
+                        />
+
+                    </React.Fragment>
+                ))
         }
 
         return c
     }, [props.currentPage, props.loading, props.selected, sortedData])
 
     const labels = useMemo(() => {
-        return props.labels.map((e, i) => <ListLabels sorts={props.sorts} setSorts={props.setSorts} data={props.data}
-                                                      index={i} label={e}
-                                                      fields={props.fields}/>)
+        return props.labels.map((e, i) => (
+            <React.Fragment key={'list-label-' + i}>
+                <div style={{
+                    height: '65%',
+                    width: '1px',
+                    background: '#e0e0e0',
+                    display: i === 0 ? undefined : 'none'
+                }}/>
+                <ListLabels sorts={props.sorts} setSorts={props.setSorts} data={props.data}
+                            index={i} label={e}
+                            fields={props.fields}/>
+                <div style={{
+                    height: '65%',
+                    width: '1px',
+                    background: '#e0e0e0',
+                    display: i === (props.labels.length - 1) ? 'none' : undefined
+                }}/>
+            </React.Fragment>
+        ))
     }, [props.sorts])
 
     return {content, labels}

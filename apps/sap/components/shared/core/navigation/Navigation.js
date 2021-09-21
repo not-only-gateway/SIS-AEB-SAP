@@ -20,10 +20,12 @@ export default function Navigation(props) {
                 <Loading loading={props.loading}/>
                 <div className={styles.logoContainer} style={{color: '#666666', fontWeight: "bold", fontFamily: 'Roboto'}}>
 
-                    <button style={{display: props.buttons.length > 0 ? undefined : 'none'}}
-                            className={styles.appsButtonContainer} onClick={() => setModal(!modal)}>
-                        <MenuRounded/>
-                    </button>
+                   <div style={{width: '50px', display: 'flex', justifyContent: 'center'}}>
+                       <button style={{display: props.buttons.length > 0 ? undefined : 'none'}}
+                               className={styles.appsButtonContainer} onClick={() => setModal(!modal)}>
+                           <MenuRounded/>
+                       </button>
+                   </div>
                     <img
                         style={{height: '35px'}}
                         src={props.logo} alt={'logo'}/>
@@ -37,13 +39,8 @@ export default function Navigation(props) {
                     {props.profile !== null && props.profile !== undefined ?
                         <NavigationProfile
                             buttons={props.profileButtons}
-                            profile={{
-                                id: props.profile.id,
-                                image: props.profile.image,
-                                corporate_email: props.profile.corporate_email,
-                                name: props.profile.name
-                            }} reduced={props.reduced}
-                            setReduced={props.setReduced} accessProfile={props.accessProfile}
+                            profile={props.profile} reduced={props.reduced}
+                            setReduced={props.setReduced}
                             lang={lang}/>
                         :
                         null
@@ -75,8 +72,11 @@ Navigation.propTypes = {
     path: PropTypes.string,
     appName: PropTypes.string,
     logo: PropTypes.any,
-    profile: PropTypes.object,
-    accessProfile: PropTypes.object,
+    profile: PropTypes.shape({
+        name: PropTypes.string,
+        email: PropTypes.string,
+        image: PropTypes.string
+    }),
     loading: PropTypes.bool,
     buttons: PropTypes.arrayOf(
         PropTypes.shape({
