@@ -2,6 +2,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+
 }
 
 
@@ -35,13 +36,47 @@
     outline: none;
     box-shadow: none;
     background-color: transparent;
-    border-radius: 8px;
-    border: none;
+    border-radius: 5px;
+    border: transparent 1px solid;
     color: #555555;
-    padding: 12px;
+    padding: 8px;
     cursor: pointer;
-    transition: 300ms ease;
+    transition: 150ms linear;
+
     font-family: 'Roboto' !important;
+}
+
+.buttonContainer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 50px;
+    height: 50px;
+    outline: none;
+    box-shadow: none;
+    background-color: transparent;
+    border-radius: 5px;
+    border: transparent 1px solid;
+    color: #666666;
+    font-size: .7rem;
+    font-family: Roboto;
+    font-weight: bold;
+    text-rendering: optimizeLegibility;
+    padding: 4px;
+    cursor: pointer;
+    transition: 150ms linear;
+
+}
+
+.buttonContainer:hover, .appsButtonContainer:hover {
+    background: #f4f5fa;
+    border: #ecedf2 1px solid;
+}
+.buttonContainer:disabled{
+    background: white;
+    color: #999999;
+    cursor: unset;
+    border: none;
 }
 
 .navigationContainer > div {
@@ -59,35 +94,6 @@
 }
 
 
-.buttonContainer {
-    height: 100%;
-
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    width: 100%;
-    outline: none;
-    box-shadow: none;
-    background-color: transparent;
-    border-radius: 5px;
-    border: none;
-    color: #666666;
-    padding: 4px;
-    cursor: pointer;
-    transition: 150ms linear;
-
-}
-
-.buttonContainer:hover, .appsButtonContainer:hover {
-    background: #f4f5fa;
-
-}
-.buttonContainer:disabled{
-  background: white;
-  color: #999999;
-  cursor: unset;
-
-}
 .appsContainer {
     position: relative;
     height: 100%;
@@ -96,21 +102,22 @@
 .floatingBox {
 
     position: absolute;
+    left: 50%;
     height: auto;
     width: 250px;
-    border: #ecedf2 2px solid;
+    /*border: #ecedf2 2px solid;*/
     background: white;
-    border-radius: 8px;
+    border-radius: 5px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
 
     display: inline-flex;
-
+    justify-content: space-between;
     flex-flow: row;
     flex-wrap: wrap;
 
-    gap: 16px;
-    padding: 8px;
+    gap: 4px;
+    padding: 4px;
 }
 
 
@@ -129,7 +136,7 @@
     transition: 150ms linear;
     background: white;
 
-
+    border-right: #ecedf2 1px solid;
     position: sticky;
     left: 0;
     height: 100%;
@@ -156,9 +163,19 @@
     height: 100%;
 }
 .buttonLabel{
-    font-size: .8rem;
+    outline: none;
+    background: none;
+    border: none;
+    padding: 0;
+
+    font-size: .75rem;
     overflow: hidden;
-    color: #555555;
+    color: #666666;
 
     font-family: Roboto;
+    font-weight: bold;
+}
+
+.buttonLabel:disabled{
+    color: #999999;
 }

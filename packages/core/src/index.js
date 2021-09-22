@@ -4,9 +4,7 @@ import List from './core/list/List'
 import Modal from './core/modal/Modal'
 import Selector from './core/selector/Selector'
 import SelectorModal from './core/selector/modules/SelectorModal'
-import EntityLayout from './core/form/EntityLayout'
-import Overview from './core/form/Overview'
-import Canvas from './core/canvas/Canvas'
+import Form from './core/form/Form'
 import DateField from './core/date/DateField'
 import DropDownField from './core/dropdown/DropDownField'
 import FileField from './core/file/FileField'
@@ -22,9 +20,7 @@ export {
   List,
   Modal,
   Selector,
-  EntityLayout,
-  Canvas,
-  Overview,
+  Form,
   DateField,
   DropDownField,
   FileField,

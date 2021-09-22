@@ -1,0 +1,162 @@
+
+.fieldsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    height: 56px;
+    border-radius: 5px;
+    border: #ecedf2 1px solid;
+
+
+    position: relative;
+}
+
+.inputContainer {
+    text-align: center;
+    border: none;
+    box-shadow: unset;
+
+    background: white;
+    font-family: 'Roboto' !important;
+    height: 100%;
+    width: 30px;
+    outline: none;
+    font-size: 1rem;
+
+    color: #555555;
+}
+
+.inputContainer::-webkit-outer-spin-button,
+.inputContainer::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+.inputContainer[type=number] {
+    -moz-appearance: textfield;
+}
+
+.buttonContainer {
+    outline: none;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #555555;
+    cursor: pointer;
+    transition: 150ms linear;
+    border-radius: 5px;
+
+    height: 35px;
+    width: 35px;
+    margin-right: 8px;
+}
+
+.buttonContainer:hover {
+    background: #f4f5fa;
+    color: #333333;
+}
+
+.buttonContainer:active {
+    background: #E8F0FE;
+    color: #0095ff;
+}
+
+
+.container {
+    height: 100px;
+    display: grid;
+    gap: 4px;
+
+}
+
+.divider {
+    width: 1px;
+    height: 20px;
+    background: #e0e0e0;
+}
+
+.calendar {
+    width: 350px;
+    margin: auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    height: 223px;
+    overflow-y: auto;
+
+}
+
+.monthContainer {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 999;
+    font-family: Roboto;
+    font-weight: bold;
+    font-size: .9rem;
+    height: 45px;
+    user-select: none;
+
+    transition: 150ms linear;
+
+    padding: 8px 4px;
+    color: #555555;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.activeContainer {
+    background: #E8F0FE;
+    color: #0095ff;
+}
+
+.daysContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7.45px;
+    width: 100%;
+    padding: 8px;
+    overflow: auto;
+}
+
+.dayContainer {
+    height: 35px;
+    width: 35px;
+    background: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    font-size: .85rem;
+    font-weight: bold;
+    font-family: Roboto;
+    color: #666666;
+    border-radius: 8px;
+    border: transparent 2px solid;
+
+    cursor: pointer;
+    transition: 150ms linear;
+}
+
+.dayContainer:hover {
+    color: #0095ff;
+    border: rgba(0, 149, 255, .5) 2px solid;
+}
+
+.dayContainer:active {
+    background: #E8F0FE;
+
+    color: #0095ff;
+    border: rgba(0, 149, 255, .5) 2px solid;
+}

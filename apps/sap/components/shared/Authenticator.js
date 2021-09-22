@@ -7,6 +7,7 @@ import React, {useEffect, useState} from "react";
 import AuthenticatePT from "../../packages/locales/AuthenticatePT";
 import Cookies from "universal-cookie/lib";
 import PropTypes from 'prop-types'
+
 export default function Authenticator(props) {
     const lang = AuthenticatePT
     const [loading, setLoading] = useState(false)

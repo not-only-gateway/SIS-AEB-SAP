@@ -12,7 +12,7 @@ cd scripts/builders
 sudo bash core.sh
 
 # INDEPENDENTES
-#sudo bash admin.sh
+sudo bash admin.sh
 sudo bash sap.sh
 #sudo bash public.sh
 #sudo bash statistics.sh

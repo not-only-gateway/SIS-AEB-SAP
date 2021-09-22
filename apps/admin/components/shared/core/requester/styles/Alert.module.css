@@ -1,0 +1,80 @@
+.alertContainer {
+    outline: none;
+    border: none;
+    background: transparent;
+    animation: slideUp ease-in-out 150ms forwards;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: visibility 150ms linear, opacity 150ms linear;
+
+    padding: 8px;
+    width: 500px;
+    height: 56px;
+
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+
+    z-index: 999;
+
+    border-radius: 8px;
+
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+    cursor: pointer;
+}
+
+.alertContainer:hover {
+    transform: scale(1.2);
+}
+
+.alertContainer:active {
+    transform: scale(.8);
+}
+
+@keyframes slideUp {
+    from {
+        transform: translate(-50%, 100%);
+    }
+    to {
+        transform: translate(-50%, 0);
+    }
+
+}
+
+
+.buttonContainer {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 8px;
+    box-shadow: none;
+
+    font-family: 'Roboto' !important;
+    outline: none;
+    border: none;
+    transition: 200ms ease-in-out;
+    cursor: pointer;
+
+    color: #555555;
+    background: transparent;
+
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+
+
+}
+
+
+.alertContentContainer {
+    display: flex;
+    gap: 10px;
+    justify-items: flex-start;
+    align-items: center;
+
+
+}
