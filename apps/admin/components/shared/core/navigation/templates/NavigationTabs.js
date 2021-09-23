@@ -12,7 +12,7 @@ export default function NavigationTabs(props) {
         >
             <div className={styles.modalButtonsContainer}>
                 {props.buttons.map((button, index) => button !== null ? (
-                    <React.Fragment key={button.label + index}>
+                    <React.Fragment key={button.label +'-nav-button-' + index}>
                         <NavigationButton
                             buttonKey={index}
                             linkPath={button.link}

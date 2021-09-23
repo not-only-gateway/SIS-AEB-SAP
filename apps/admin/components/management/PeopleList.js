@@ -14,12 +14,13 @@ import {
 import PersonRequests from "../../utils/requests/PersonRequests";
 import HandleUpload from "../../utils/shared/HandleUpload";
 import HandleDownload from "../../utils/shared/HandleDownload";
+import List from "../shared/core/REACTLIST/list/List";
+import PersonKeys from "../../packages/KEYS/PersonKeys";
 
-import useList from "../shared/core/REACT_LIST/hook/useList";
-import List from "../shared/core/REACT_LIST/List";
+
 
 export default function PeopleList(props) {
-    const listState = useList({
+    const listProps = {
         url: Host() + 'test/list/person',
         headers: {'authorization': new Cookies().get('jwt')},
         parsePackage: pack => {
@@ -27,15 +28,16 @@ export default function PeopleList(props) {
         },
         fetchSize: 15,
         identificationKey: 'id',
-        keys: [{key: 'name', label: 'Nome'}, {key: 'birth', label: 'Data nascimento'}],
+        keys: PersonKeys,
         controlButtons: [
             {
                 icon: <OpenInNewRounded/>,
                 label: 'Abrir',
                 onClick: (cell) => console.log(cell)
             }
-        ]
-    })
+        ],
+        title: 'Pessoas e colaboradores'
+    }
     const [open, setOpen] = useState(false)
     const [refreshed, setRefreshed] = useState(false)
     const ref = useRef()
@@ -43,7 +45,7 @@ export default function PeopleList(props) {
     return (
         <>
 
-            <List useList={listState}/>
+            <List {...listProps}/>
 
             {/*<div style={{display: open ? 'none' : undefined}}>*/}
             {/*    <List*/}
@@ -110,8 +112,4 @@ export default function PeopleList(props) {
             {/*</div>*/}
         </>
     )
-}
-
-PeopleList.propTypes = {
-    redirect: PropTypes.func
 }

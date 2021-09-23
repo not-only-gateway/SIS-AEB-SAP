@@ -5,6 +5,7 @@ import {VisibilityOffRounded, VisibilityRounded} from '@material-ui/icons'
 import LocalePT from '../packages/LocalePT'
 import TextFieldPropsTemplate from "./templates/TextFieldPropsTemplate";
 import GetInput from "./methods/GetInput";
+import PropTypes from "prop-types";
 
 export default function TextField(props) {
     const [visible, setVisible] = useState(false)
@@ -65,4 +66,23 @@ export default function TextField(props) {
     )
 }
 
-TextField.propTypes = TextFieldPropsTemplate
+TextField.propTypes = {
+    width: PropTypes.string,
+    placeholder: PropTypes.string,
+    label: PropTypes.string,
+    handleChange: PropTypes.func,
+    value: PropTypes.string,
+    required: PropTypes.bool,
+    locale: PropTypes.string,
+    passwordMask: PropTypes.bool,
+    phoneMask: PropTypes.bool,
+    maxLength: PropTypes.number,
+    disabled: PropTypes.bool,
+    variant: PropTypes.oneOf([
+        'default',
+        'area'
+    ]),
+    type: PropTypes.string,
+    currencyMask: PropTypes.bool,
+    maskStart: PropTypes.string
+}

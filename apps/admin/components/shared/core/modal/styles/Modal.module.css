@@ -5,14 +5,11 @@
 }
 
 .fadeIn {
-    position: relative;
-    animation: fadeIn ease-in-out 250ms forwards;
+    animation: fadeInAnim linear 150ms forwards;
 }
 
 .fadeOutAnimation {
-    position: relative;
-    animation: fadeOut ease-in-out 250ms;
-
+    animation: fadeOut linear 150ms;
 }
 
 
@@ -25,12 +22,60 @@
     }
 }
 
-@keyframes fadeIn {
-    from {
+@keyframes fadeInAnim {
+    0% {
         opacity: 0;
     }
-    to {
+    100% {
         opacity: 1;
     }
+}
 
+.slideLeftEnter{
+    animation: slideLeftEnterAnim linear 150ms;
+}
+.slideLeftExit{
+    animation: slideLeftExitAnim linear 150ms;
+}
+.slideRightEnter{
+    animation: slideRightEnterAnim linear 150ms;
+}
+.slideRightExit{
+    animation: slideRightExitAnim linear 150ms;
+}
+@keyframes slideLeftEnterAnim {
+    0% {
+        transform: translateX(-100%);
+
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideLeftExitAnim {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+@keyframes slideRightEnterAnim {
+    0% {
+        transform: translateX(100%);
+
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideRightExitAnim {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100%);
+    }
 }

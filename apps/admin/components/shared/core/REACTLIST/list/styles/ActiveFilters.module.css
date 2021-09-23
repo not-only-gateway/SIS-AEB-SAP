@@ -1,0 +1,37 @@
+
+.activeFiltersContainer {
+    height: 65px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    gap: 4px;
+    width: 100%;
+
+}
+
+.addFilterButton {
+    outline: none;
+    background-color: #0095ff;
+    color: white;
+    border: none;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    max-width: 10%;
+    border-radius: 32px;
+
+    height: 27.5px;
+    cursor: pointer;
+
+    transition: 150ms linear;
+}
+
+.addFilterButton:hover {
+    opacity: .9;
+}
+
+.addFilterButton:active {
+    opacity: .7;
+}

@@ -25,13 +25,13 @@ export default function NavigationButton(props) {
                 <span style={{color: props.disabled ? '#999999' : props.highlight ? '#0095ff' : '#777777'}}>
                     {props.icon}
                 </span>
-                <button className={[styles.buttonLabel, styles.overflowEllipsis].join(' ')} disabled={props.disabled}
+                <div className={[styles.buttonLabel, styles.overflowEllipsis].join(' ')} 
                         style={{
                             color: props.highlight ? '#0095ff' : undefined,
                             maxWidth: '100%',
                             fontSize: props.extended ? undefined : '.65rem',
                             textAlign: props.extended ? undefined : 'center',
-                        }}>{props.label}</button>
+                        }}>{props.label}</div>
             </button>
         </div>
 

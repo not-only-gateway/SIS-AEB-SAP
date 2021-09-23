@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import Requester from "../../../requester/Requester";
+import Requester from "../../../../requester/Requester";
 
 export default async function fetch(props) {
     let params = {
