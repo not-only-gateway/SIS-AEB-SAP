@@ -2,6 +2,7 @@ import {useCallback, useMemo, useState} from "react";
 import TextField from "../../../text/TextField";
 import DateField from "../../../date/DateField";
 import Checkbox from "../components/table/Checkbox";
+import styles from '../styles/ActiveFilters.module.css'
 
 export default function useFilters() {
     const [onInput, setOnInput] = useState(undefined)
@@ -11,7 +12,8 @@ export default function useFilters() {
 
     const handleChange = (value, key) => {
         const newValue = {...filters}
-        newValue[key] = value
+        newValue.key = key
+        newValue.value = value
         setChanged(true)
         setApplied(false)
         setFilters(newValue)
@@ -21,31 +23,53 @@ export default function useFilters() {
         switch (key.type) {
             case 'string': {
                 field = (
-                    <div>
+                    <div className={styles.fieldWrapper}>
                         <TextField
                             label={key.label} width={'100%'} disabled={false}
                             handleChange={value => handleChange(value.target.value, key.key)}
-                            value={filters[key.key]}
+                            value={filters.value}
                             placeholder={key.label}
                         />
 
-                        <div style={{display: 'flex', gap: '4px', width: '50%', justifyContent: 'space-between'}}>
+                        <div className={styles.selectWrapper}>
+                            <Checkbox
+                                checked={filters.different_from === false}
+                                handleCheck={() => {
+                                    setFilters(prevState => {
+                                        return {...prevState, different_from: false, contains: undefined}
+                                    })
+                                }}/>
                             <div>
-                                É igual a
+                                É igual a.
                             </div>
-                            <Checkbox checked={false}/>
+
                         </div>
-                        <div style={{display: 'flex', gap: '4px', width: '50%', justifyContent: 'space-between'}}>
+                        <div className={styles.selectWrapper}>
+                            <Checkbox
+                                checked={filters.different_from}
+                                handleCheck={() => {
+                                    setFilters(prevState => {
+                                        return {...prevState, different_from: true, contains: undefined}
+                                    })
+                                }}
+                            />
                             <div>
-                                Não é
+                                Não é.
                             </div>
-                            <Checkbox checked={false}/>
+
                         </div>
-                        <div style={{display: 'flex', gap: '4px', width: '50%', justifyContent: 'space-between'}}>
+                        <div className={styles.selectWrapper}>
+                            <Checkbox
+                                checked={filters.contains}
+                                handleCheck={() => {
+                                    setFilters(prevState => {
+                                        return {...prevState, contains: true, different_from: undefined}
+                                    })
+                                }}
+                            />
                             <div>
-                                Contém
+                                Contém.
                             </div>
-                            <Checkbox checked={false}/>
                         </div>
                     </div>
                 )

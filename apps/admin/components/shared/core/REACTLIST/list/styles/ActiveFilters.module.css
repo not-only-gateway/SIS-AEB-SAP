@@ -82,3 +82,17 @@
     color: #ff5555;
 
 }
+
+.fieldWrapper{
+    display: grid;
+    gap: 16px;
+}
+
+.selectWrapper{
+    display: flex;
+    gap: 8px;
+    font-size: .9rem;
+    width: 50%;
+    justify-content: flex-start;
+    align-items: center;
+}

@@ -27,7 +27,7 @@ export default function Filters(props) {
             </div>
 
             {onInput ?
-                <div style={{display: 'grid', alignContent: 'space-between', height: 'calc(100% - 32px)', paddingTop: '16px'}}>
+                <div style={{display: 'grid', alignContent: 'space-between', height: 'calc(100% - 32px)'}}>
                     {getField(props.keys.find(e => e.key === onInput))}
                     <div style={{display: 'flex', gap: '4px'}}>
                         <button
@@ -46,19 +46,17 @@ export default function Filters(props) {
                             disabled={!changed}
                             onClick={() => {
                                 props.clean()
-                                let newFilters = []
-                                Object.keys(filters).forEach((e) => {
-                                    const element = props.keys.find(i => i.key === e)
-                                    if (element.type !== 'string' || (element.type === 'string' && filters[e].length > 0))
-                                        newFilters.push({
-                                            key: e,
-                                            value: filters[e],
-                                            type: element.type,
-                                            label: element.label
-                                        })
+                                let newFilters = [...props.filters]
+                                const element = props.keys.find(e => e.key === filters.key)
+                                newFilters.push({
+                                    ...filters,
+                                    type: element.type,
+                                    label: element.label
                                 })
                                 setOnInput(undefined)
                                 props.setFilters(newFilters)
+
+                                setFilters({})
                                 setApplied(!applied)
                                 setChanged(false)
                             }}>
@@ -74,7 +72,6 @@ export default function Filters(props) {
                         <button
                             className={styles.fieldContainer}
                             onClick={() => setOnInput(e.key)}
-                            disabled={filters[e.key] !== undefined}
                         >
                             {e.label}
                         </button>
