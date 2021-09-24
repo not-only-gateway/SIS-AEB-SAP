@@ -1,16 +1,28 @@
 import PropTypes from 'prop-types'
 import Modal from "../../../../modal/Modal";
 import styles from '../../styles/Filters.module.css'
-import {useCallback, useState} from "react";
+import {useCallback, useMemo, useState} from "react";
 import DateField from "../../../../date/DateField";
 import TextField from "../../../../text/TextField";
 import {normalizeRouteRegex} from "next/dist/lib/load-custom-routes";
 import {CheckRounded} from "@material-ui/icons";
+import Form from "../../../../form/Form";
 
 export default function Filters(props) {
     const [applied, setApplied] = useState(false)
     const [changed, setChanged] = useState(false)
     const [filters, setFilters] = useState({})
+    const forms = useMemo(() => {
+        let dateFields = []
+        let textFields = []
+        props.keys.forEach(e => {
+            if (e.type === 'date')
+                dateFields.push(e)
+            else
+                textFields.push(e)
+        })
+        return [...dateFields, ...textFields]
+    }, [props.keys])
     const handleChange = (value, key) => {
         const newValue = {...filters}
         newValue[key] = value
@@ -24,7 +36,7 @@ export default function Filters(props) {
             case 'string': {
                 field = (
                     <TextField
-                        label={key.label} width={'100%'} disabled={false} required={false}
+                        label={key.label} width={'calc(50% - 16px)'} disabled={false}
                         handleChange={value => handleChange(value.target.value, key.key)}
                         value={filters[key.key]}
                         placeholder={key.label}
@@ -35,7 +47,7 @@ export default function Filters(props) {
             case 'number': {
                 field = (
                     <TextField
-                        label={key.label} width={'100%'} disabled={false} required={false}
+                        label={key.label} width={'calc(50% - 16px)'} disabled={false} required={false}
                         handleChange={value => handleChange(value.target.value, key.key)}
                         type={'number'} placeholder={key.label}
                         value={filters[key.key]}
@@ -61,12 +73,8 @@ export default function Filters(props) {
                 field = (
                     <DateField
                         label={key.label} width={'100%'} disabled={false} required={false}
-                        handleChange={e => null}
-                        value={props.filters.find(e => {
-                            if (e.key === key.key)
-                                return e.value
-                            else return undefined
-                        })}
+                        handleChange={value => handleChange(value, key.key)}
+                        value={filters[key.key]}
                     />
                 )
                 break
@@ -91,13 +99,17 @@ export default function Filters(props) {
                         props.clean()
                         let newFilters = []
                         Object.keys(filters).forEach((e) => {
-                            newFilters.push({
-                                key: e,
-                                value: filters[e]
-                            })
+                            const element = props.keys.find(i => i.key === e)
+                            if (element.type !== 'string' || (element.type === 'string' && filters[e].length > 0))
+                                newFilters.push({
+                                    key: e,
+                                    value: filters[e],
+                                    type: element.type,
+                                    label: element.label
+                                })
                         })
 
-                        props.setFilters( newFilters)
+                        props.setFilters(newFilters)
                         setApplied(!applied)
                         setChanged(false)
                     }}>
@@ -106,11 +118,9 @@ export default function Filters(props) {
                 </button>
             </div>
             <div className={styles.fields}>
-                {props.keys.map((e, i) => (
-                    <div key={e.key + '-key-' + i}>
-                        {getField(e)}
-                    </div>
-                ))}
+                <Form noHeader={true} forms={[
+                    {child: forms.map(e => getField(e))}
+                ]}/>
             </div>
         </Modal>
     )

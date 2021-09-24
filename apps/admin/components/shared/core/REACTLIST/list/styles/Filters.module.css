@@ -8,6 +8,8 @@
     background-color: white;
     padding: 16px;
     border-radius: 8px 0 0 8px;
+    border-left: #e0e0e0 1px solid;
+
 }
 
 .header{
@@ -18,13 +20,16 @@
     color: #555555;
     font-weight: bold;
     font-family: Roboto;
-
+    padding-bottom: 16px;
 }
 
 .fields{
-    display: grid;
-    align-items: flex-start;
-
+    display: flex;
+    flex-flow: column wrap;
+    gap: 4px;
+    /*column-gap: 16px;*/
+    /*align-items: flex-start;*/
+    /*align-content: flex-start;*/
     width: 100%;
 
 }

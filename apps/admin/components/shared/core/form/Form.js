@@ -4,6 +4,7 @@ import LayoutPropsTemplate from "./templates/FormProps";
 import useForm from "./hooks/useForm";
 import Header from "./templates/Header";
 import SubmitButton from "./templates/SubmitButton";
+import PropTypes from "prop-types";
 
 export default function Form(props) {
     const {
@@ -26,4 +27,26 @@ export default function Form(props) {
         </div>
     )
 }
-Form.propTypes = LayoutPropsTemplate
+Form.propTypes = {
+    noAutoHeight: PropTypes.bool,
+    noHeader: PropTypes.bool,
+    returnButton: PropTypes.bool,
+    label: PropTypes.string,
+    entity: PropTypes.object,
+    create: PropTypes.bool,
+    forms: PropTypes.arrayOf(
+        PropTypes.shape({
+            child: PropTypes.node,
+            title: PropTypes.string
+        })
+    ),
+    handleSubmit: PropTypes.func,
+    dependencies: PropTypes.shape({
+        fields: PropTypes.arrayOf(PropTypes.shape({
+            name: PropTypes.string,
+            type: PropTypes.oneOf(['string', 'number', 'object', 'bool', 'date'])
+        })),
+        changed: PropTypes.bool
+    }),
+    handleClose: PropTypes.func
+}

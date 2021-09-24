@@ -13,7 +13,7 @@ export default function ControlCell(props) {
                 alignItems: 'center',
                 padding: '16px',
                 width: '60px',
-                height: '60px'
+
             }}>
                 {!props.asCheckbox ?
                     <button

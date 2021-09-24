@@ -6,12 +6,13 @@ export default function ListHeader(props){
     return (
         <div className={styles.container}>
             {props.title}
-            <ActiveFilters setOpenFilters={props.setOpenFilters}/>
+            <ActiveFilters {...props}/>
         </div>
     )
 }
 
 ListHeader.propTypes={
     title: PropTypes.any,
-    setOpenFilters: PropTypes.func
+    setOpenFilters: PropTypes.func,
+    filters: PropTypes.array
 }

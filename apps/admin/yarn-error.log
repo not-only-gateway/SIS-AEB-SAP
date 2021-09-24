@@ -1,8 +1,8 @@
 Arguments: 
-  /usr/bin/node /usr/local/bin/yarn add draftjs
+  /usr/bin/node /usr/local/bin/yarn
 
 PATH: 
-  /sbin:/bin:/usr/bin:/usr/local/bin
+  /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
 
 Yarn version: 
   1.22.10
@@ -14,21 +14,11 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/draftjs: Not found
-      at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:66988:18)
-      at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:140662:22)
-      at Request.emit (events.js:315:20)
-      at Request.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141634:10)
-      at Request.emit (events.js:315:20)
-      at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141556:12)
-      at Object.onceWrapper (events.js:421:28)
-      at IncomingMessage.emit (events.js:327:22)
-      at endReadableNT (_stream_readable.js:1221:12)
-      at processTicksAndRejections (internal/process/task_queues.js:84:21)
+  Error: ENOSPC: no space left on device, copyfile '/usr/local/share/.cache/yarn/v6/npm-sis-aeb-core-1.0.0-19723221-7d0b-4753-a91c-462ab62cf11c-1632491714980/node_modules/sis-aeb-core/node_modules/lodash/fp/sum.js' -> '/home/aeb/SIS-AEB-FRONTEND/apps/admin/node_modules/sis-aeb-core/node_modules/lodash/fp/sum.js'
 
 npm manifest: 
   {
-    "name": "sis-aeb",
+    "name": "sis-aeb-admin",
     "version": "0.1.0",
     "private": true,
     "scripts": {
@@ -48,12 +38,10 @@ npm manifest:
       "public-ip": "^4.0.3",
       "react": "17.0.1",
       "react-dom": "17.0.1",
-      "react-infinite-scroll-component": "^6.0.0",
       "react-input-mask": "^2.0.4",
-      "sis-aeb-misc": "../../packages/misc",
-      "sis-aeb-inputs": "../../packages/inputs",
-      "sis-aeb-navigation": "../../packages/navigation",
-      "sis-aeb-chart": "../../packages/chart"
+      "sis-aeb-core": "../../packages/core",
+      "uuid": "^8.3.2"
+  
     },
     "devDependencies": {
       "@material-ui/pickers": "^3.3.10",
@@ -2202,13 +2190,6 @@ Lockfile:
       object-assign "^4.1.1"
       scheduler "^0.20.1"
   
-  react-infinite-scroll-component@^6.0.0:
-    version "6.1.0"
-    resolved "https://registry.yarnpkg.com/react-infinite-scroll-component/-/react-infinite-scroll-component-6.1.0.tgz#7e511e7aa0f728ac3e51f64a38a6079ac522407f"
-    integrity sha512-SQu5nCqy8DxQWpnUVLx7V7b7LcA37aM7tvoWjTLZp1dk6EJibM5/4EJKzOnl07/BsM1Y40sKLuqjCwwH/xV0TQ==
-    dependencies:
-      throttle-debounce "^2.1.0"
-  
   react-input-mask@^2.0.4:
     version "2.0.4"
     resolved "https://registry.yarnpkg.com/react-input-mask/-/react-input-mask-2.0.4.tgz#9ade5cf8196f4a856dbf010820fe75a795f3eb14"
@@ -2386,16 +2367,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.7.2.tgz#67a7d02c76c9da24f99d20808fcaded0e0e04be2"
     integrity sha512-mRz/m/JVscCrkMyPqHc/bczi3OQHkLTqXHEFu0zDhK/qfv3UcOA4SVmRCLmos4bhjr9ekVQubj/R7waKapmiQg==
   
-  sis-aeb-chart@../../packages/chart:
-    version "1.0.0"
-  
-  sis-aeb-inputs@../../packages/inputs:
-    version "1.0.0"
-  
-  sis-aeb-misc@../../packages/misc:
-    version "1.0.0"
-  
-  sis-aeb-navigation@../../packages/navigation:
+  sis-aeb-core@../../packages/core:
     version "1.0.0"
   
   source-map@0.7.3:
@@ -2563,11 +2535,6 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
     integrity sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
   
-  throttle-debounce@^2.1.0:
-    version "2.3.0"
-    resolved "https://registry.yarnpkg.com/throttle-debounce/-/throttle-debounce-2.3.0.tgz#fd31865e66502071e411817e241465b3e9c372e2"
-    integrity sha512-H7oLPV0P7+jgvrk+6mwwwBDmxTaxnu9HMXmloNLXwnNO0ZxZ31Orah2n8lU1eMPvsaowP2CX+USCgyovXfdOFQ==
-  
   timers-browserify@2.0.12, timers-browserify@^2.0.4:
     version "2.0.12"
     resolved "https://registry.yarnpkg.com/timers-browserify/-/timers-browserify-2.0.12.tgz#44a45c11fbf407f34f97bccd1577c652361b00ee"
@@ -2734,6 +2701,11 @@ Lockfile:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
     integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
+  
+  uuid@^8.3.2:
+    version "8.3.2"
+    resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
+    integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
   
   vary@~1.1.2:
     version "1.1.2"

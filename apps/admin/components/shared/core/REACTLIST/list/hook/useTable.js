@@ -3,9 +3,9 @@ import observer from "./deps/observer";
 
 const ACTIONS = {
     RESIZE: 'resize',
-    HIDE: 'hide',
+
     INIT: 'init',
-    SHOW: 'show'
+
 }
 
 function tableReducer(currentState, action) {
@@ -17,20 +17,6 @@ function tableReducer(currentState, action) {
             const value = [...currentState]
             if (value[action.payload.index] !== undefined)
                 value[action.payload.index].width = action.payload.width
-            console.log(value, action, currentState)
-            return value
-        }
-        case ACTIONS.HIDE: {
-            let value = [...currentState]
-            if (value[action.payload.index] !== undefined)
-                value[action.payload.index].hidden = true
-            console.log(value, action, currentState)
-            return value
-        }
-        case ACTIONS.SHOW: {
-            let value = [...currentState]
-            if (value[action.payload.index] !== undefined)
-                value[action.payload.index].hidden = false
             console.log(value, action, currentState)
             return value
         }
@@ -58,8 +44,7 @@ export default function useTable(keys, reference, setCurrentPage, currentPage, l
         keys.forEach(e => {
             values.push({
                 ...e,
-                width: 'auto',
-                hidden: false
+                width: '100%'
             })
         })
 

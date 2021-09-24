@@ -15,7 +15,7 @@ export default function TextField(props) {
         <div
             style={{
                 width: props.width,
-                height: props.variant === 'area' ? 'auto' : '100px',
+                height: 'auto',
                 display: 'grid',
                 alignItems: props.value ? 'unset' : 'flex-start',
                 gap: '4px',

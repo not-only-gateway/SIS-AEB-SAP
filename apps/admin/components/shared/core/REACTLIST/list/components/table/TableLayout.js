@@ -5,6 +5,7 @@ import HeaderCell from "./HeaderCell";
 import useTable from "../../hook/useTable";
 import React, {useEffect, useRef} from 'react'
 import ControlCell from "./ControlCell";
+import EmptyListIndicator from "../../../../shared/EmptyListIndicator";
 
 
 export default function TableLayout(props) {
@@ -18,56 +19,61 @@ export default function TableLayout(props) {
 
 
     return (
-        <table className={styles.table} ref={props.listRef}>
-            <thead style={{position: 'sticky', top: 0, background: 'white', boxShadow: '0 0 .8px #ecedf2'}}>
-            <tr>
-                <ControlCell onClick={() => null} asCheckbox={true}/>
-                {props.controlButtons?.map((e, i) => (
-                    <React.Fragment key={i + '-control-cell'}>
-                        <ControlCell onClick={e.onClick} icon={e.icon} label={e.label}/>
-                    </React.Fragment>
-                ))}
-                {columns.map((e, i) => (
-                    <React.Fragment key={i + '-header'}>
+        <table className={styles.table} ref={props.listRef} >
+            <thead>
+            <tr style={{height: '30px'}}>
+                    <ControlCell onClick={() => null} asCheckbox={true}/>
+                    {/*{props.controlButtons?.map((e, i) => (*/}
+                    {/*    <React.Fragment key={i + '-control-cell'}>*/}
+                    {/*        <ControlCell onClick={e.onClick} icon={e.icon} label={e.label}/>*/}
+                    {/*    </React.Fragment>*/}
+                    {/*))}*/}
+                    {columns.map((e, i) => (
+                        <React.Fragment key={i + '-header'}>
 
-                        <HeaderCell
-                            tableRef={props.listRef.current}
+                            <HeaderCell
+                                tableRef={props.listRef.current}
 
-                            width={e.width}
-                            hidden={e.hidden}
-                            index={i}
-                            dispatchColumns={dispatchColumns}
-                            actions={actions}
-                            quantity={columns.length}
-                            value={e.label}/>
-                    </React.Fragment>
-                ))}
+                                additionalWidth={e.additionalWidth !== undefined ? e.additionalWidth : '0px'}
+
+                                index={i}
+                                dispatchColumns={dispatchColumns}
+                                actions={actions}
+                                quantity={columns.length}
+                                value={e.label}/>
+                        </React.Fragment>
+                    ))}
+
             </tr>
             </thead>
+
             <tbody>
 
-            {props.data.map((e, i) => (
-                <tr key={'row-' + e.id} onClick={() => {
+            {props.data.length === 0 ?
+            <EmptyListIndicator/>
+                :
+                props.data.map((e, i) => (
+                <tr key={'row-' + e.id}
+                    className={styles.row}
+                    onClick={() => {
                     if (props.onRowClick !== undefined && typeof props.onRowClick === 'function')
                         props.onRowClick(e.data)
                 }} ref={i === (props.data.length - 1) ? lastElementRef : undefined}>
                     <ControlCell onClick={() => null} width={50} asCheckbox={true}/>
-                    {props.controlButtons?.map(val => (
-                        <React.Fragment key={i + '-control-cell-row-' + e.id}>
-                            <ControlCell onClick={() => val.onClick(e.data)} icon={val.icon} label={val.label}
-                                         width={50}
-                                         asCheckbox={false}/>
-                        </React.Fragment>
-                    ))}
+                    {/*{props.controlButtons?.map(val => (*/}
+                    {/*    <React.Fragment key={i + '-control-cell-row-' + e.id}>*/}
+                    {/*        <ControlCell onClick={() => val.onClick(e.data)} icon={val.icon} label={val.label}*/}
+                    {/*                     width={50}*/}
+                    {/*                     asCheckbox={false}/>*/}
+                    {/*    </React.Fragment>*/}
+                    {/*))}*/}
 
 
                     {columns.map((value, ic) => (
                         <React.Fragment key={i + '-row-cell-' + ic}>
 
                             <Cell
-                                width={value.width}
-                                hidden={value.hidden}
-
+                                additionalWidth={value.additionalWidth !== undefined ? value.additionalWidth : '0px'}
                                 value={e.data[value.key]}
                             />
                         </React.Fragment>
@@ -81,7 +87,14 @@ export default function TableLayout(props) {
 
 TableLayout.propTypes = {
     data: PropTypes.array,
-    keys: PropTypes.array,
+    keys: PropTypes.arrayOf(PropTypes.shape({
+        key: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+        type: PropTypes.oneOf(['string', 'number', 'object', 'date']),
+        maskStart: PropTypes.any,
+        maskEnd: PropTypes.any,
+        additionalWidth: PropTypes.string
+    })).isRequired,
     controlButtons: PropTypes.array,
     onRowClick: PropTypes.func,
     listRef: PropTypes.object,

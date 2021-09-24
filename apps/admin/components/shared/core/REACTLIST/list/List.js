@@ -12,17 +12,19 @@ export default function List(props) {
     const listRef = useRef()
     const [maxHeight, setMaxHeight] = useState()
     const [openFilters, setOpenFilters] = useState(false)
+
     useEffect(() => {
-        setMaxHeight(document.documentElement.offsetHeight - listRef.current.getBoundingClientRect().top - 16)
+        setMaxHeight((document.documentElement.offsetHeight - listRef.current.getBoundingClientRect().top - 16) + 'px')
     }, [])
 
     return (
         <div className={styles.container}>
-            <ListHeader title={props.title} setOpenFilters={setOpenFilters}/>
+            <ListHeader title={props.title} setOpenFilters={setOpenFilters} filters={hook.filters}/>
             <Filters open={openFilters} handleClose={() => setOpenFilters(false)} keys={props.keys}
                      setFilters={hook.setFilters} filters={hook.filters} clean={hook.clean}/>
 
-            <div className={styles.tableWrapper} style={{maxHeight: maxHeight + 'px'}}>
+            <div className={styles.tableWrapper}
+                 style={{height: hook.data.length === 0 ? maxHeight : undefined, maxHeight: maxHeight}}>
                 <TableLayout
                     data={hook.data} keys={props.keys} controlButtons={props.controlButtons}
                     setCurrentPage={hook.setCurrentPage} currentPage={hook.currentPage} refresh={hook.refresh}
@@ -57,7 +59,8 @@ List.propTypes = {
         label: PropTypes.string.isRequired,
         type: PropTypes.oneOf(['string', 'number', 'object', 'date']),
         maskStart: PropTypes.any,
-        maskEnd: PropTypes.any
+        maskEnd: PropTypes.any,
+        additionalWidth: PropTypes.string
     })).isRequired,
     controlButtons: PropTypes.arrayOf(PropTypes.shape({
         icon: PropTypes.element,
