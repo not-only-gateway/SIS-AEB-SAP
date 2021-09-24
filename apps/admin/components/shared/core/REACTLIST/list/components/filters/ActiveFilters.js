@@ -6,18 +6,12 @@ import ToolTip from "../../../../tooltip/ToolTip";
 export default function ActiveFilters(props) {
     return (
         <div className={styles.activeFiltersContainer}>
-            <button className={styles.filter} onClick={() => props.setOpenFilters(true)}>
-                <AddRounded/>
-                <div className={styles.overflow}>
-                    Adicionar filtro
-                </div>
-            </button>
             {
                 props.filters.map(e => (
                     <div className={[styles.filter, styles.notActive].join(' ')}>
-                        {/*<div className={styles.overflow} style={{fontSize: '.75rem'}}>*/}
-                        {/*    {e.label}:*/}
-                        {/*</div>*/}
+                        <div className={styles.overflow} style={{fontSize: '.75rem'}}>
+                            {e.label}:
+                        </div>
                         <div className={styles.overflow} style={{fontWeight: 'normal', fontSize: '.75rem'}}>
                             {e.type === 'date' ? new Date(e.value).toDateString() : e.value}
                         </div>
@@ -36,6 +30,10 @@ export default function ActiveFilters(props) {
                     </div>
                 ))
             }
+            <button className={styles.filter} style={{padding: '8px'}} onClick={() => props.setOpenFilters(true)}>
+                <AddRounded/>
+
+            </button>
         </div>
     )
 }

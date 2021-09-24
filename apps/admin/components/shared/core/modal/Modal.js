@@ -61,6 +61,7 @@ export default function Modal(props) {
                             background: `rgba(0, 0, 0, ${props.blurIntensity !== undefined ? props.blurIntensity : .4})`,
                             height: '100vh',
                             zIndex: 300,
+                            transition: '150ms linear',
                             bottom: 0,
                         }}
 
@@ -69,7 +70,7 @@ export default function Modal(props) {
                                 props.handleClose()
                         }}
                     >
-                        <div className={[className, props.wrapperClassName].join(' ')} ref={contentRef}>
+                        <div className={[className, props.wrapperClassName].join(' ') } style={props.componentStyle} ref={contentRef}>
                             {props.children}
                         </div>
 

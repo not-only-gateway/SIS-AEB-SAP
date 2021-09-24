@@ -49,10 +49,7 @@ export default function TableLayout(props) {
 
             <tbody>
 
-            {props.data.length === 0 ?
-            <EmptyListIndicator/>
-                :
-                props.data.map((e, i) => (
+            {props.data.map((e, i) => (
                 <tr key={'row-' + e.id}
                     className={styles.row}
                     onClick={() => {
