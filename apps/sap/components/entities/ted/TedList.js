@@ -7,7 +7,6 @@ import Host from "../../../utils/shared/Host";
 import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
 import HandleUpload from "../../../utils/shared/HandleUpload";
 import HandleDownload from "../../../utils/shared/HandleDownload";
-import ProjectRequests from "../../../utils/requests/ProjectRequests";
 import TedForm from "../../project/ted/TedForm";
 import TedRequests from "../../../utils/requests/TedRequests";
 

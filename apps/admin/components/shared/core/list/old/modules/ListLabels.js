@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import styles from "../styles/List.module.css";
 import React, {useState} from "react";
-import {ArrowDownwardRounded, CloseRounded} from "@material-ui/icons";
+import {ArrowDownwardRounded} from "@material-ui/icons";
 import ToolTip from "../../../misc/tooltip/ToolTip";
 
 export default function ListLabels(props) {

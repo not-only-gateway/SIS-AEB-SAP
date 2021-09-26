@@ -9,7 +9,6 @@ import ProjectForm from "./ProjectForm";
 import {ArrowForwardRounded, DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import HandleUpload from "../../utils/shared/HandleUpload";
-import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import HandleDownload from "../../utils/shared/HandleDownload";
 
 export default function ProjectList(props) {

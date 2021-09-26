@@ -6,7 +6,6 @@ import animations from "../../../styles/Animations.module.css";
 import handleObjectChange from "../../../utils/shared/HandleObjectChange";
 import List from "../../shared/core/list/List";
 import TedForm from "./TedForm";
-import Selector from "../../shared/core/selector/Selector";
 import {ArrowForwardRounded, DeleteRounded, GetAppRounded, PlaylistAddRounded} from "@material-ui/icons";
 import ProjectRequests from "../../../utils/requests/ProjectRequests";
 import TedRequests from "../../../utils/requests/TedRequests";

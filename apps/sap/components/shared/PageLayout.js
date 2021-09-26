@@ -17,7 +17,6 @@ import {
 } from "@material-ui/icons";
 
 import CollaboratorRequests from "../../utils/requests/CollaboratorRequests";
-import PersonRequests from "../../utils/requests/PersonRequests";
 import {Modal} from "sis-aeb-core";
 
 import Authenticator from "./Authenticator";

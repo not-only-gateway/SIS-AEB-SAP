@@ -2,14 +2,7 @@ import {Modal} from "sis-aeb-core";
 import React, {useMemo, useRef} from "react";
 import shared from '../../shared/styles/Input.module.css'
 import styles from '../styles/File.module.css'
-import {
-    CloseRounded,
-    DescriptionRounded,
-    FolderRounded,
-    ImageRounded,
-    LanguageRounded,
-    PictureAsPdfRounded
-} from "@material-ui/icons";
+import {CloseRounded} from "@material-ui/icons";
 import EmptyListIndicator from "../../shared/EmptyListIndicator";
 import File from "./File";
 import PropTypes from "prop-types";

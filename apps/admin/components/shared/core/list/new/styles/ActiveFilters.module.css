@@ -1,4 +1,4 @@
-
+@import '../../../theme/styles.module.css';
 
 
 .activeFiltersContainer {
@@ -33,18 +33,18 @@
 }
 
 .filter:hover {
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    opacity: .9;
 }
 
 .filter:active {
-    opacity: .9;
+    opacity: .7;
     box-shadow: none;
 }
 
 .notActive {
     background-color: white;
     border: #e0e0e0 1px solid;
-    color: #555555;
+    color: var(--color-1);
     font-size: .85rem;
     font-family: Roboto;
     cursor: unset;
@@ -68,7 +68,7 @@
 .removeButton {
 
     background: transparent;
-    color: #777777;
+    color: var(--color-3);
     padding: 0;
     justify-content: center;
     justify-items: center;
@@ -76,7 +76,7 @@
 
 .removeButton:hover {
     box-shadow: none;
-    color: #555555;
+    color: var(--color-1);
 }
 
 .removeButton:active {

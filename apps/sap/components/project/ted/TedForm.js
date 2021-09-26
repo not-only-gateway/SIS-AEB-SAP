@@ -7,7 +7,6 @@ import {DateField, DropDownField, TextField} from "sis-aeb-core";
 import Selector from "../../shared/core/selector/Selector";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import Modal from "../../shared/core/modal/Modal";
 import ActionForm from "../../entities/action/ActionForm";
 import UnitForm from "../../entities/unit/UnitForm";
 import DecentralizedUnitForm from "../../entities/decentralized/DecentralizedUnitForm";

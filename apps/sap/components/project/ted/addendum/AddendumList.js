@@ -7,11 +7,9 @@ import Cookies from "universal-cookie/lib";
 import Host from "../../../../utils/shared/Host";
 
 import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
-import AddendumForm from "./AddendumForm";
 import TedRequests from "../../../../utils/requests/TedRequests";
 import HandleUpload from "../../../../utils/shared/HandleUpload";
 import HandleDownload from "../../../../utils/shared/HandleDownload";
-import ProjectRequests from "../../../../utils/requests/ProjectRequests";
 import TedForm from "../TedForm";
 
 export default function AddendumList(props) {

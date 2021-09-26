@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 import styles from "./styles/Apps.module.css";
 import {AppsRounded} from "@material-ui/icons";
-import AnimationFrame from "../navigation/templates/AnimationFrame";
+// import AnimationFrame from "../navigation/templates/AnimationFrame";
 import PropTypes from 'prop-types'
-import ToolTip from "../../misc/tooltip/ToolTip";
 import AppsWrapper from "./templates/AppsWrapper";
 import App from "./templates/App";
+import AnimationFrame from "../navigation/templates/AnimationFrame";
 
 export default function Apps(props) {
     const [open, setOpen] = useState(false)
@@ -17,21 +17,19 @@ export default function Apps(props) {
         }}>
 
             <button
-                className={styles.appsButtonContainer}
+                className={styles.buttonContainer}
 
                 onClick={() => setOpen(!open)}
                 style={{
                     color: open ? 'white' : undefined,
-                    backgroundColor: open ? '#0095ff' : null,
-                    paddingTop: '16px',
-                    paddingBottom: '16px'
+                    background: open ? '#0095ff' : undefined,
                 }}>
                 <AppsRounded/>
             </button>
             <AnimationFrame render={open}>
-                <div className={styles.floatingBox}>
-                    <AppsWrapper>
-                        {props.buttons.map((button, index) => (
+
+                <AppsWrapper>
+                    {props.buttons.map((button, index) => (
                             <React.Fragment key={'app-button-' + index}>
                                 <App
                                     redirect={props.redirect}
@@ -42,8 +40,7 @@ export default function Apps(props) {
                                 />
                             </React.Fragment>
                         ))}
-                    </AppsWrapper>
-                </div>
+                </AppsWrapper>
             </AnimationFrame>
         </div>
     )

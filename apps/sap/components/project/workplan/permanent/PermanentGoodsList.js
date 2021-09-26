@@ -11,7 +11,6 @@ import PermanentGoodsForm from "./PermanentGoodsForm";
 import handleObjectChange from "../../../../utils/shared/HandleObjectChange";
 import HandleUpload from "../../../../utils/shared/HandleUpload";
 import HandleDownload from "../../../../utils/shared/HandleDownload";
-import WorkPlanRequests from "../../../../utils/requests/WorkPlanRequests";
 
 
 export default function PermanentGoodsList(props) {

@@ -3,7 +3,6 @@ import {ArrowBackRounded, MoreVertRounded} from "@material-ui/icons";
 import React from "react";
 import LayoutPropsTemplate from "./FormProps";
 import PropTypes from "prop-types";
-import SubmitButton from "./SubmitButton";
 
 export default function Header(props) {
     return (

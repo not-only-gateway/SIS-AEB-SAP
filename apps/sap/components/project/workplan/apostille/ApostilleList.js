@@ -6,8 +6,6 @@ import handleObjectChange from "../../../../utils/shared/HandleObjectChange";
 import List from "../../../shared/core/list/List";
 import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
-
-import OperationRequests from "../../../../utils/requests/OperationRequests";
 import HandleUpload from "../../../../utils/shared/HandleUpload";
 import HandleDownload from "../../../../utils/shared/HandleDownload";
 import WorkPlanRequests from "../../../../utils/requests/WorkPlanRequests";

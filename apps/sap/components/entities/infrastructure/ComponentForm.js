@@ -7,7 +7,6 @@ import {TextField} from "sis-aeb-core";
 import Selector from "../../shared/core/selector/Selector";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import ActionForm from "../action/ActionForm";
 import ClassificationForm from "../classification/ClassificationForm";
 
 

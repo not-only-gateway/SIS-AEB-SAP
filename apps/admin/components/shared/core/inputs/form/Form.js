@@ -1,6 +1,5 @@
 import styles from './styles/EntityLayout.module.css'
 import React from "react";
-import LayoutPropsTemplate from "./templates/FormProps";
 import useForm from "./hooks/useForm";
 import Header from "./templates/Header";
 import SubmitButton from "./templates/SubmitButton";

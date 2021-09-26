@@ -9,7 +9,6 @@ import Selector from "../../../shared/core/selector/Selector";
 import Host from "../../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import NatureExpenseForm from "../../../entities/nature_expense/NatureExpenseForm";
-import Modal from "../../../shared/core/modal/Modal";
 
 export default function ResourceApplicationForm(props) {
     const [changed, setChanged] = useState(false)

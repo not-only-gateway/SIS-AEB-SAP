@@ -1,9 +1,8 @@
 import styles from '../shared/Input.module.css'
-import React, {useMemo, useState} from 'react'
+import React, {useState} from 'react'
 import InputMask from 'react-input-mask'
 import {VisibilityOffRounded, VisibilityRounded} from '@material-ui/icons'
 import LocalePT from '../shared/LocalePT'
-import TextFieldPropsTemplate from "./templates/TextFieldPropsTemplate";
 import GetInput from "./methods/GetInput";
 import PropTypes from "prop-types";
 

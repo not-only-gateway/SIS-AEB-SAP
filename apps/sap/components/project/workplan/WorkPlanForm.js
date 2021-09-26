@@ -7,7 +7,6 @@ import {DropDownField, TextField} from "sis-aeb-core";
 import Selector from "../../shared/core/selector/Selector";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import Modal from "../../shared/core/modal/Modal";
 import BudgetPlanForm from "../../entities/budget_plan/BudgetPlanForm";
 import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
 import MultiSelectField from "../../shared/core/multiselect/MultiSelectField";

@@ -1,18 +1,14 @@
+@import '../../../theme/styles.module.css';
+
 .table {
     width: 100%;
-    /*max-width: 100%;*/
     user-select: none;
-    /*max-width: 100%;*/
-
     overflow: hidden;
-    /*table-layout: fixed;*/
     position: relative;
     table-layout: fixed;
-    /*width: 100%;*/
     border-collapse: collapse;
-    /*border-collapse: collapse;*/
     border-radius: 3px;
-    border-style: hidden; /* hide standard table (collapsed) border */
+    border-style: hidden;
 }
 
 
@@ -20,8 +16,7 @@
 
     width: fit-content;
     box-sizing: border-box;
-    border-bottom: #e0e0e0 1px solid;
-    /*border-collapse: collapse;*/
+    border-bottom: var(--border-1) 1px solid;
     overflow: hidden;
 }
 
@@ -32,7 +27,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
     font-size: .85rem;
-    color: #555555;
+    color: var(--color-1);
     font-family: Roboto;
 
 }
@@ -61,7 +56,7 @@
     justify-content: center;
     outline: none;
     transition: 150ms linear;
-    color: #555555;
+    color: var(--color-1);
     cursor: pointer;
     border-radius: 5px;
 }
@@ -82,45 +77,63 @@
     cursor: pointer;
 }
 
- .controlButton:hover {
+.controlButton:hover {
     color: #0095ff;
 
 }
-.hideButton:hover{
+
+.hideButton:hover {
     opacity: .9;
     color: #ff5555;
 }
-.hideButton:active{
+
+.hideButton:active {
     opacity: .7;
 }
 
 .controlButton:active {
     color: #0095ff;
 
-    border: #ecedf2 1px solid;
-    background-color: #E8F0FE;
+    border: var(--border-0) 1px solid;
+    background-color: var(--background-3);
 }
 
- .controlButton:disabled {
-    color: #999999;
+.controlButton:disabled {
+    color: var(--color-4);
     cursor: unset;
     border: transparent 1px solid;
     background-color: white;
 }
- 
- .row{
-     height: 60px;
-     max-height: 60px;
 
-     background-color: transparent;
-     cursor: pointer;
-     transition: 150ms ease;
- }
+.row {
+    height: 60px;
+    max-height: 60px;
 
- .row:hover{
-     background-color: #f4f5fa;
- }
-.row:active{
-    background-color: #E8F0FE;
+    background-color: transparent;
+    cursor: pointer;
+    transition: 150ms ease;
+}
 
+.row:hover {
+    background-color: var(--background-2);
+}
+
+.row:active {
+    background-color: var(--background-3);
+}
+
+.row:first-child {
+    border-top-left-radius: 10px;
+}
+
+.row:first-child {
+    border-top-right-radius: 10px;
+}
+
+.row:last-child {
+    border-bottom-left-radius: 10px;
+}
+
+.row:last-child {
+    border-bottom-right-radius: 10px;
 }

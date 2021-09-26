@@ -1,3 +1,5 @@
+@import '../../../theme/styles.module.css';
+
 .container {
 
     position: absolute;
@@ -7,12 +9,12 @@
     top: 50%;
     transform: translate(-50%, -50%);
 
-    background-color: white;
+    background: var(--background-1);
     padding: 16px;
     border-radius: 8px;
-    border: #e0e0e0 1px solid;
+    border: var(--border-1) 1px solid;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-
+    color: var(--color-2);
 }
 
 .header{
@@ -20,7 +22,7 @@
     align-items: center;
     justify-content: space-between;
     font-size: 1.2rem;
-    color: #555555;
+    color: var(--color-1);
     height: 32px;
     font-weight: bold;
     font-family: Roboto;
@@ -36,7 +38,7 @@
     padding: 4px;
     color: white;
 
-    background-color: #0095ff;
+    background: #0095ff;
     outline: none;
     display: flex;align-items: center;
     justify-content: center;
@@ -49,16 +51,16 @@
     border: transparent 1px solid;
 }
 .cancelButton{
-    background: white;
-    color: #555555;
+    background: var(--background-1);
+    color: var(--color-1);
     width: 30%;
-    border: #ecedf2 1px solid;
+    border: var(--border-0) 1px solid;
 }
 .cancelButton:hover{
-    background: #f4f5fa;
+    background: var(--background-2);
 }
 .cancelButton:active{
-    background: #E8F0FE;
+    background: var(--background-3);
 
 }
 .baseButton:active{
@@ -69,9 +71,9 @@
 }
 .baseButton:disabled, .cancelButton:disabled{
     cursor: unset;
-    border: #ecedf2 1px solid;
-    background-color: white;
-    color: #999999;
+    border: var(--border-0) 1px solid;
+    background: var(--background-1);
+    color: var(--color-4);
 }
 
 .fieldContainer{
@@ -84,17 +86,17 @@
     height: 50px;
     display: flex;
     align-items: center;
-    border: #ecedf2 1px solid;
+    border: var(--border-0) 1px solid;
     border-radius: 5px;
 
     transition: 150ms linear;
-    color: #555555;
+    color: var(--color-1);
 }
 .fieldContainer:hover{
-    background: #f4f5fa;
+    background: var(--background-2);
 }
 .fieldContainer:active{
-    background: #E8F0FE;
+    background: var(--background-3);
 
 }
 

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import styles from "../styles/List.module.css";
 import ReactDOM from 'react-dom'
-import React from 'react'
+
 export default function ContextMenu(props) {
     let entity = null
     let target = null

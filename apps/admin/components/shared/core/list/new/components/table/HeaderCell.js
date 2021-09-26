@@ -1,14 +1,6 @@
 import PropTypes from "prop-types";
-import Cell from "./Cell";
 import styles from "../../styles/Table.module.css";
-import {
-    CloseRounded,
-    DragIndicatorRounded,
-    RemoveRounded,
-    VisibilityOffRounded,
-    VisibilityRounded
-} from "@material-ui/icons";
-import {useEffect, useRef, useState} from "react";
+import {useRef} from "react";
 import ToolTip from "../../../../misc/tooltip/ToolTip";
 // import ToolTip from "../../../tooltip/ToolTip";
 

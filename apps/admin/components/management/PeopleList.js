@@ -1,22 +1,10 @@
 import React, {useRef, useState} from "react";
 import Cookies from "universal-cookie/lib";
 import Host from "../../utils/shared/Host";
-import PropTypes from "prop-types";
-import animations from "../../styles/Animations.module.css";
 // import ProjectForm from "./ProjectForm";
-import {
-    ArrowForwardRounded,
-    DeleteRounded,
-    GetAppRounded,
-    OpenInBrowserRounded, OpenInNewRounded,
-    PublishRounded
-} from "@material-ui/icons";
-import PersonRequests from "../../utils/requests/PersonRequests";
-import HandleUpload from "../../utils/shared/HandleUpload";
-import HandleDownload from "../../utils/shared/HandleDownload";
+import {OpenInNewRounded} from "@material-ui/icons";
 import List from "../shared/core/list/new/List";
 import PersonKeys from "../../packages/KEYS/PersonKeys";
-
 
 
 export default function PeopleList(props) {

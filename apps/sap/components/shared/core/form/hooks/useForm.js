@@ -1,6 +1,6 @@
-import {useEffect, useMemo, useRef, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import Row from "../templates/Row";
-import React from 'react'
+
 export default function useForm(noAutoHeight, fieldsToRender, data, dependencies) {
 
     const ref = useRef()

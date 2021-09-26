@@ -11,7 +11,6 @@ import ActionItemForm from "./ActionItemForm";
 import OperationRequests from "../../../../utils/requests/OperationRequests";
 import HandleUpload from "../../../../utils/shared/HandleUpload";
 import HandleDownload from "../../../../utils/shared/HandleDownload";
-import ProjectRequests from "../../../../utils/requests/ProjectRequests";
 import WorkPlanRequests from "../../../../utils/requests/WorkPlanRequests";
 
 export default function ActionItemList(props) {

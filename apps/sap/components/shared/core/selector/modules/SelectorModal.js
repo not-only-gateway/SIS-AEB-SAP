@@ -1,6 +1,6 @@
 import styles from '../styles/Selector.module.css'
-import {CloseRounded, RemoveRounded} from "@material-ui/icons";
-import React, {useEffect, useRef, useState} from "react";
+import {CloseRounded} from "@material-ui/icons";
+import React, {useEffect, useState} from "react";
 import SelectorsPT from "../locales/SelectorsPT";
 import Modal from "../../modal/Modal";
 import List from "../../list/List";

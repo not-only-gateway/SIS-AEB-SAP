@@ -1,3 +1,4 @@
+@import "../theme/styles.module.css";
 
 .content{
     user-select: none;
@@ -10,6 +11,15 @@
     justify-content: center;
     justify-items: center;
 
-    background: rgba(227, 232, 237, .5);
+    background: var(--background-2);
+    border: var(--border-0) 1px solid;
     border-radius: 10px;
+    color: var(--color-4);
+}
+
+.label{
+    font-size: .8rem;
+    font-weight: bold;
+    color: var(--color-3);
+    text-align: center;
 }

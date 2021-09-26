@@ -1,11 +1,11 @@
+@import '../../../theme/styles.module.css';
+
 .tableWrapper{
     max-width: 100%;
 
     overflow-y: auto;
     overflow-x: hidden;
     position: relative;
-    /*border: #e0e0e0 1px solid;*/
-    border-radius: 5px;
 
 }
 .container{

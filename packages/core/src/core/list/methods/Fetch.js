@@ -1,4 +1,3 @@
-import axios from "axios";
 import PropTypes from "prop-types";
 import React from "react";
 import Requester from "../../requester/Requester";

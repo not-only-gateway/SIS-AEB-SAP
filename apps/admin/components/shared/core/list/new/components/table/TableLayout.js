@@ -3,9 +3,7 @@ import PropTypes from 'prop-types'
 import styles from '../../styles/Table.module.css'
 import HeaderCell from "./HeaderCell";
 import useTable from "../../hook/useTable";
-import React, {useEffect, useRef} from 'react'
-import ControlCell from "./ControlCell";
-import EmptyListIndicator from "../../../../shared/EmptyListIndicator";
+import React from 'react'
 
 
 export default function TableLayout(props) {

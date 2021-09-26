@@ -1,11 +1,11 @@
-import React, {useCallback, useContext, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import styles from './styles/Navigation.module.css'
 import PropTypes from 'prop-types'
 import Profile from '../profile/Profile'
 import NavigationPT from './locales/NavigationPT'
 import Apps from '../apps/Apps'
 import {MenuRounded, SettingsRounded} from "@material-ui/icons";
-import SideBar from "./modules/SideBar";
+import SideBar from "../sidebar/SideBar";
 import Loading from "./templates/Loading";
 import ThemeProvider from "../../theme/ThemeProvider";
 import ThemeContext from "../../theme/ThemeContext";
@@ -18,29 +18,31 @@ export default function LayoutWrapper(props) {
     const [openSideBar, setOpenSideBar] = useState(false)
     const [onDark, setOnDark] = useState(false)
     const context = useContext(ThemeContext)
-    const [openSettings, setOpenSettings] = useState(false)
+
 
     return (
         <ThemeProvider onDark={onDark}>
-            <Modal open={openSettings} blurIntensity={.4} handleClose={() => setOpenSettings(false)} animationStyle={'fade'} wrapperClassName={styles.modalContainer}>
-                <div>
-                    <Checkbox handleCheck={() => setOnDark(true)}/>
-                    <Checkbox handleCheck={() => setOnDark(false)}/>
-                </div>
-            </Modal>
-            <div className={[styles.wrapper, context.dark ? context.styles.dark : context.styles.light].join(' ')}>
+
+            <div className={[styles.wrapper, onDark ? context.styles.dark : context.styles.light].join(' ')}>
                 <div className={styles.header}>
                     <Loading loading={props.loading}/>
                     <div className={styles.content}>
-                        <button
-                            className={styles.appsButtonContainer}
-                            onClick={() => setOpenSideBar(!openSideBar)}
-                        >
-                            <MenuRounded/>
-                        </button>
+                        <div style={{width: '50px'}}>
+                            <button
+                                className={styles.buttonContainer}
+                                style={{
+                                    margin: 'auto',
+                                    color: openSideBar ? 'white' : undefined,
+                                    background: openSideBar ? '#0095ff' : undefined,
+                                }}
+                                onClick={() => setOpenSideBar(!openSideBar)}
+                            >
+                                <MenuRounded/>
+                            </button>
+                        </div>
                         <img
                             style={{height: '35px'}}
-                            src={props.logo}
+                            src={onDark ? props.darkLogo : props.lightLogo}
                             alt={'logo'}
                         />
                         {props.appName}
@@ -55,6 +57,7 @@ export default function LayoutWrapper(props) {
                         <Profile
                             buttons={props.profileButtons}
                             redirect={props.redirect}
+                            redirectToLogin={props.redirectToLogin}
                             profile={props.profile}
                             lang={lang}
                         />
@@ -64,25 +67,19 @@ export default function LayoutWrapper(props) {
 
                 <div className={styles.contentWrapper}>
                     <SideBar
+                        setOnDark={setOnDark}
+                        onDark={onDark}
                         open={openSideBar}
                         setOpen={setOpenSideBar}
-                        buttons={[
-                            ...props.sideBarButtons,
-                            ...[{
-                                label: 'Configurações',
-                                icon: <SettingsRounded/>,
-                                onClick: () => setOpenSettings(true)
-                            }]
-                        ]}
+                        buttons={props.sideBarButtons}
                         logo={props.logo}
                     />
 
                     <div className={styles.children}
-                         style={{width: openSideBar ? 'calc(100% - 270px)' : 'calc(100% - 60px)'}}>
+                         style={{width: openSideBar ? 'calc(100% - 225px)' : 'calc(100% - 60px)', transition: '150ms linear', marginLeft: 'auto'}}>
                         {props.children}
                     </div>
                 </div>
-
             </div>
         </ThemeProvider>
     )
@@ -90,9 +87,11 @@ export default function LayoutWrapper(props) {
 }
 
 LayoutWrapper.propTypes = {
+    redirectToLogin: PropTypes.func,
     children: PropTypes.element,
     appName: PropTypes.string,
-    logo: PropTypes.any,
+    lightLogo: PropTypes.any,
+    darkLogo: PropTypes.any,
     profile: PropTypes.shape({
         name: PropTypes.string,
         email: PropTypes.string,

@@ -8,7 +8,6 @@ import DateField from "../../../shared/core/date/DateField";
 import Selector from "../../../shared/core/selector/Selector";
 import Host from "../../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import List from "../../../shared/core/list/List";
 
 export default function ExecutionForm(props) {
     const [changed, setChanged] = useState(false)

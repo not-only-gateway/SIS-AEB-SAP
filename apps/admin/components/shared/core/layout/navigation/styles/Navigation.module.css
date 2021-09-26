@@ -17,7 +17,7 @@
     width: 100%;
     justify-items: center;
 
-    transition: 250ms ease-in-out;
+    transition: 150ms linear;
     box-sizing: border-box;
     border-bottom: var(--border-0) 1px solid;
     display: flex;
@@ -25,39 +25,6 @@
     background: var(--background-1);
 
     padding: 4px;
-}
-
-.buttonContainer {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    width: 50px;
-    height: 50px;
-    outline: none;
-    box-shadow: none;
-    background-color: transparent;
-    border-radius: 5px;
-    border: transparent 1px solid;
-    color: var(--color-2);
-    font-size: .7rem;
-    font-family: Roboto;
-    font-weight: bold;
-    text-rendering: optimizeLegibility;
-    padding: 4px;
-    cursor: pointer;
-    transition: 150ms linear;
-
-}
-
-.buttonContainer:hover{
-    background: var(--background-2);
-    border: var(--border-0) 1px solid;
-}
-.buttonContainer:disabled{
-    background: var(--background-1);
-    color: var(--color-4);
-    cursor: unset;
-    border: none;
 }
 
 .navigationContainer > div {
@@ -91,26 +58,8 @@
 
 
 
-.modalButtonsContainer {
-    width: 100%;
-    display: grid;
-    align-content: flex-start;
-    padding: 4px;
-    gap: 8px;
-}
 
-.navigationTabsContainer {
-    overflow: hidden;
-    width: 60px;
-    transition: 150ms linear;
-    background: var(--background-1);
 
-    border-right: var(--border-0) 1px solid;
-    position: sticky;
-    left: 0;
-    height: 100%;
-
-}
 .children{
 
     background: var(--background-base);;
@@ -124,6 +73,8 @@
     width: 100%;
     background: var(--background-1);
 
+
+
 }
 .contentWrapper{
     border-radius: 5px 0 0 0;
@@ -135,22 +86,32 @@
 
     height: 100%;
 }
-.buttonLabel{
+
+
+.buttonContainer {
     outline: none;
-    background: none;
     border: none;
-    padding: 0;
+    background: transparent;
 
-    font-size: .75rem;
-    overflow: hidden;
-    color: var(--color-2);
+    display: flex;
+    align-items: center;
+    gap: 6px;
 
-    font-family: Roboto;
-    font-weight: bold;
+    color: var(--color-1);
+    cursor: pointer;
+    max-width: 225px;
+    height: 100%;
+
+    transition: 150ms linear;
+    border-radius: 5px;
+    padding: 8px;
 }
-
-.buttonLabel:disabled{
-    color: var(--color-4);
+.buttonContainer:hover{
+    background: var(--background-2);
+}
+.buttonContainer:active{
+    background: var(--background-3);
+    color: #0095ff;
 }
 
 

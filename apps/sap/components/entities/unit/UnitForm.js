@@ -9,7 +9,6 @@ import Selector from "../../shared/core/selector/Selector";
 import Host from "../../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import EntitiesPT from "../../../packages/locales/EntitiesPT";
-import ClassificationForm from "../classification/ClassificationForm";
 
 export default function UnitForm(props) {
     const [changed, setChanged] = useState(false)

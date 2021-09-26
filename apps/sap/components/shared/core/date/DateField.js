@@ -1,12 +1,12 @@
-import styles from '../shared/styles/Input.module.css'
 import PropTypes from 'prop-types'
 import React, {useEffect, useRef, useState} from 'react'
 import LocalePT from '../packages/LocalePT'
 import dStyles from './styles/DateField.module.css'
-import {ArrowBackIosRounded, ArrowBackRounded, ArrowForwardRounded, CalendarTodayRounded} from "@material-ui/icons";
+import {ArrowBackIosRounded, CalendarTodayRounded} from "@material-ui/icons";
 import Dates from "../packages/Dates";
 import SelectBox from "../../core/shared/SelectBox";
 import shared from '../../core/shared/styles/Input.module.css'
+
 export default function DateField(props) {
     const lang = LocalePT
     const [open, setOpen] = useState()

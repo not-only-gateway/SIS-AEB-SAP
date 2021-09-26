@@ -1,20 +1,20 @@
 Arguments: 
-  /usr/bin/node /usr/local/bin/yarn
+  /usr/bin/node /usr/bin/yarn add @mui/material
 
 PATH: 
-  /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+  /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Users/Gustavo/AppData/Local/Microsoft/WindowsApps:/snap/bin
 
 Yarn version: 
-  1.22.10
+  1.22.11
 
 Node version: 
-  12.18.2
+  12.22.6
 
 Platform: 
   linux x64
 
 Trace: 
-  Error: ENOSPC: no space left on device, copyfile '/usr/local/share/.cache/yarn/v6/npm-sis-aeb-core-1.0.0-19723221-7d0b-4753-a91c-462ab62cf11c-1632491714980/node_modules/sis-aeb-core/node_modules/lodash/fp/sum.js' -> '/home/aeb/SIS-AEB-FRONTEND/apps/admin/node_modules/sis-aeb-core/node_modules/lodash/fp/sum.js'
+  Error: EACCES: permission denied, unlink '/home/roque/SIS-AEB-FRONTEND/apps/admin/node_modules/.yarn-integrity'
 
 npm manifest: 
   {
@@ -31,6 +31,7 @@ npm manifest:
       "@material-ui/core": "^4.11.3",
       "@material-ui/icons": "^4.11.2",
       "@material-ui/lab": "^4.0.0-alpha.57",
+      "@mui/icons-material": "^5.0.1",
       "axios": "^0.21.1",
       "express": "^4.17.1",
       "next": "^10.2.3",
@@ -41,7 +42,6 @@ npm manifest:
       "react-input-mask": "^2.0.4",
       "sis-aeb-core": "../../packages/core",
       "uuid": "^8.3.2"
-  
     },
     "devDependencies": {
       "@material-ui/pickers": "^3.3.10",
@@ -83,6 +83,13 @@ Lockfile:
     version "7.12.5"
     resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.12.5.tgz#410e7e487441e1b360c29be715d870d9b985882e"
     integrity sha512-plcc+hbExy3McchJCEQG3knOsuh3HH+Prx1P6cLIkET/0dLuQDEnrT+s27Axgc9bqfsmNUNHfscgMUdBpC9xfg==
+    dependencies:
+      regenerator-runtime "^0.13.4"
+  
+  "@babel/runtime@^7.15.4":
+    version "7.15.4"
+    resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.15.4.tgz#fd17d16bfdf878e6dd02d19753a39fa8a8d9c84a"
+    integrity sha512-99catp6bHCaxr4sJ/DbTGgHS4+Rs2RVd2g7iOap6SLGPDknRK9ztKNsE/Fg6QhSeh1FGE5f6gHGQmvvn3I3xhw==
     dependencies:
       regenerator-runtime "^0.13.4"
   
@@ -230,6 +237,13 @@ Lockfile:
       "@babel/runtime" "^7.4.4"
       prop-types "^15.7.2"
       react-is "^16.8.0 || ^17.0.0"
+  
+  "@mui/icons-material@^5.0.1":
+    version "5.0.1"
+    resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.0.1.tgz#fb7ffeba0b3604aab4a9b91644d2fc1aabb3b4f1"
+    integrity sha512-AZehR/Uvi9VodsNPk9ae1lENKrf1evqx9suiP6VIqu7NxjZOlw/m/yA2gRAMmLEmIGr7EChfi/wcXuq6BpM9vw==
+    dependencies:
+      "@babel/runtime" "^7.15.4"
   
   "@next/env@10.2.3":
     version "10.2.3"

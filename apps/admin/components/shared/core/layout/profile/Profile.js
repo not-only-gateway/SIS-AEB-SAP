@@ -3,8 +3,8 @@ import {Avatar} from "@material-ui/core";
 import React, {useState} from 'react'
 import styles from './styles/Profile.module.css'
 import AnimationFrame from "../navigation/templates/AnimationFrame";
-
-import Link from "next/link";
+import {ExitToAppRounded} from "@material-ui/icons";
+// import AnimationFrame from "../navigation/templates/AnimationFrame";
 
 export default function Profile(props) {
     const [open, setOpen] = useState(false)
@@ -19,12 +19,19 @@ export default function Profile(props) {
         >
             <button
                 className={styles.buttonContainer}
-
+                onClick={() => props.redirectToLogin()}
+                style={{display: props.profile !== undefined && props.profile !== null ? 'none' : undefined}}
+            >
+                Entrar
+                <ExitToAppRounded style={{fontSize: '1.3rem'}}/>
+            </button>
+            <button
+                className={styles.buttonContainer}
                 onClick={() => setOpen(!open)}
                 style={{
-
-                    backgroundColor: open ? '#E8F0FE' : null,
-
+                    display: props.profile !== undefined && props.profile !== null ? undefined : 'none',
+                    backgroundColor: open ? '#0095ff' : null,
+                    color: open ? 'white' : null
                 }}
             >
                 <div style={{
@@ -37,10 +44,9 @@ export default function Profile(props) {
                 </div>
 
                 <div className={styles.overflowEllipsis} style={{maxWidth: '50%'}}>
-                    {props.profile.name}
+                    {props.profile?.name}
                 </div>
-                <Avatar style={{width: '30px', height: '30px'}} src={props.profile.image}/>
-
+                <Avatar style={{width: '30px', height: '30px'}} src={props.profile?.image}/>
             </button>
             <AnimationFrame render={open}>
                 <div className={styles.floatingBox}>
@@ -73,6 +79,7 @@ export default function Profile(props) {
     )
 }
 Profile.propTypes = {
+    redirectToLogin: PropTypes.func,
     redirect: PropTypes.func,
     profile: PropTypes.shape({
         name: PropTypes.string,

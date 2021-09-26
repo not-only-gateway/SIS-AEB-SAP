@@ -22,7 +22,6 @@
     "react-input-mask": "^2.0.4",
     "sis-aeb-core": "../../packages/core",
     "uuid": "^8.3.2"
-
   },
   "devDependencies": {
     "@material-ui/pickers": "^3.3.10",

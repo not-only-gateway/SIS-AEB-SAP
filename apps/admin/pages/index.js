@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {useRouter} from "next/router";
 import PeopleList from "../components/management/PeopleList";
 import ManagementPT from "../packages/locales/management/ManagementPT";
@@ -31,9 +31,9 @@ export default function management() {
             </Head>
 
 
-                <PeopleList
-                    redirect={id => router.push('/project/?id=' + id, undefined, {shallow: true})}
-                />
+            <PeopleList
+                redirect={id => router.push('/project/?id=' + id, undefined, {shallow: true})}
+            />
 
         </>
 

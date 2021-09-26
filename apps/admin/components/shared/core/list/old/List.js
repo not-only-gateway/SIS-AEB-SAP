@@ -1,17 +1,13 @@
-import React, {useEffect, useRef, useState} from "react";
+import React from "react";
 import Fetch from "./methods/Fetch";
-import Loader from "./modules/Loader";
 import styles from './styles/List.module.css'
 import SearchBar from "./modules/SearchBar";
 import ContextMenu from "./modules/ContextMenu";
 import ListPropsTemplate from "../../shared/ListPropsTemplate";
 import ListHeader from "./modules/Header";
-import ListLabels from "./modules/ListLabels";
 import Checkbox from "../../shared/Checkbox";
 import ControlHeader from "./modules/ControlHeader";
-import Content from "./modules/Content";
 import Footer from "./modules/Footer";
-import EmptyListIndicator from "../../shared/EmptyListIndicator";
 import useData from "./hooks/useData";
 import useContent from "./hooks/useContent";
 

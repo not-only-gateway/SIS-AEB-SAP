@@ -1,6 +1,5 @@
 import {useEffect, useMemo, useReducer, useState} from "react";
 import ACTIONS from "./actions/dataActions";
-import fetch from "./deps/fetch";
 import dataReducer from "./reducers/dataReducer";
 
 import axios from "axios";

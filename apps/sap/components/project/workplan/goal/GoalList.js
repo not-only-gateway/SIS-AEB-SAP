@@ -10,7 +10,6 @@ import GoalForm from "./GoalForm";
 import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
 import HandleUpload from "../../../../utils/shared/HandleUpload";
 import HandleDownload from "../../../../utils/shared/HandleDownload";
-import ProjectRequests from "../../../../utils/requests/ProjectRequests";
 
 export default function GoalList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)

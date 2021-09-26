@@ -1,7 +1,7 @@
-import React, {useRef, useState} from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import styles from '../shared/Input.module.css'
-import {AttachFileRounded, CloseRounded, GetAppRounded, LaunchRounded, OpenWithRounded} from '@material-ui/icons'
+import {AttachFileRounded} from '@material-ui/icons'
 import LocalePT from '../shared/LocalePT'
 import FileModal from "./templates/FileModal";
 

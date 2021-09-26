@@ -19,11 +19,11 @@ export default function AnimationFrame(props) {
             ref.current.classList.remove(animations.fadeOutAnimation)
             ref.current.classList.add(animations.fadeIn)
         }
-    })
+    }, [props.render])
 
     return (
         <div
-            className={animationClass} ref={ref}
+            ref={ref}
             style={{display: isInRender ? undefined : 'none'}}
         >
             {props.children}

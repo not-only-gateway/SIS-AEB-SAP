@@ -1,5 +1,4 @@
-import {useCallback, useEffect, useMemo, useReducer, useRef, useState} from "react";
-import observer from "./deps/observer";
+import {useCallback, useEffect, useReducer, useRef} from "react";
 
 const ACTIONS = {
     RESIZE: 'resize',

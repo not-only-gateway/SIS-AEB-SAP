@@ -1,13 +1,6 @@
 import PropTypes from 'prop-types'
-import React, {useRef, useState} from "react";
-import {
-    CloseRounded,
-    DeleteForeverRounded,
-    DescriptionRounded,
-    ImageRounded,
-    LanguageRounded,
-    PictureAsPdfRounded
-} from "@material-ui/icons";
+import React, {useState} from "react";
+import {CloseRounded, DescriptionRounded, ImageRounded, LanguageRounded, PictureAsPdfRounded} from "@material-ui/icons";
 import styles from "../styles/File.module.css";
 
 export default function File(props) {

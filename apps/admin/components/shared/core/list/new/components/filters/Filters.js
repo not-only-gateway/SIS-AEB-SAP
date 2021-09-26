@@ -1,12 +1,7 @@
 import PropTypes from 'prop-types'
 import Modal from "../../../../misc/modal/Modal";
 import styles from '../../styles/Filters.module.css'
-import {useCallback, useMemo, useState} from "react";
-import DateField from "../../../../inputs/date/DateField";
-import TextField from "../../../../inputs/text/TextField";
-import {normalizeRouteRegex} from "next/dist/lib/load-custom-routes";
 import {CheckRounded} from "@material-ui/icons";
-import Form from "../../../../inputs/form/Form";
 import useFilters from "../../hook/useFilters";
 
 export default function Filters(props) {

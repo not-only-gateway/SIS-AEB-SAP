@@ -29,11 +29,19 @@
 }
 
 .appsWrapper{
+    transform: translate(-50%, 16px);
+
+    position: absolute;
+    left: 50%;
+    height: auto;
+    min-height: 100px;
+    width: 250px;
+
     background: var(--background-1);
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    box-shadow: var(--box-shadow-1) 0px 2px 8px 0px;
     padding: 8px;
 
-    width: 100%;
+    border-radius: 5px;
     display: flex;
     flex-flow: row wrap;
     align-items: flex-start;
@@ -49,37 +57,28 @@
     position: relative;
     height: 100%;
 }
-.appsButtonContainer{
+.buttonContainer {
     outline: none;
-    width: 100%;
-    height: fit-content;
-
+    border: none;
     background: transparent;
-    border-radius: 5px;
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
 
     color: var(--color-1);
-
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    gap: 4px;
-    padding: 8px;
+    cursor: pointer;
+    max-width: 225px;
+    height: 100%;
 
     transition: 150ms linear;
+    border-radius: 5px;
+    padding: 8px;
 }
-.appsButtonContainer:hover {
+.buttonContainer:hover{
     background: var(--background-2);
-    border: var(--border-0) 1px solid;
 }
-
-.floatingBox {
-    transform: translate(-50%, 16px);
-
-    position: absolute;
-    left: 50%;
-    height: auto;
-    width: 250px;
-
-    gap: 4px;
-    padding: 4px;
+.buttonContainer:active{
+    background: var(--background-3);
+    color: #0095ff;
 }

@@ -10,7 +10,6 @@ import FollowUpForm from "./FollowUpForm";
 import OperationRequests from "../../../../utils/requests/OperationRequests";
 import HandleUpload from "../../../../utils/shared/HandleUpload";
 import HandleDownload from "../../../../utils/shared/HandleDownload";
-import WorkPlanRequests from "../../../../utils/requests/WorkPlanRequests";
 
 export default function FollowUpList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)

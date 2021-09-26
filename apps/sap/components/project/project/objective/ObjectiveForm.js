@@ -6,7 +6,6 @@ import {DateField, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import ProjectRequests from "../../../../utils/requests/ProjectRequests";
 import DropDownField from "../../../shared/core/dropdown/DropDownField";
-import FileField from "../../../shared/core/file/FileField";
 
 
 export default function ObjectiveForm(props) {

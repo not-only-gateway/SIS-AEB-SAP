@@ -8,7 +8,6 @@ import Infrastructure from "./Infrastructure";
 import WorkPlanRequests from "../../../utils/requests/WorkPlanRequests";
 import HandleUpload from "../../../utils/shared/HandleUpload";
 import HandleDownload from "../../../utils/shared/HandleDownload";
-import ProjectRequests from "../../../utils/requests/ProjectRequests";
 
 export default function InfrastructureList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
