@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import PageLayout from "../components/shared/PageLayout";
+import AppWrapper from "../components/AppWrapper";
 import Router from 'next/router';
 import {useEffect, useState} from "react"; //styles of nprogress
 
@@ -13,8 +13,8 @@ export default function _app({Component, pageProps}) {
         Router.events.on('routeChangeComplete', () => setLoading(false))
     })
     return (
-        <PageLayout loading={loading}>
+        <AppWrapper loading={loading}>
             <Component {...pageProps}/>
-        </PageLayout>
+        </AppWrapper>
     )
 }

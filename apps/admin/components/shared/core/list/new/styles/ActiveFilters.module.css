@@ -1,0 +1,100 @@
+
+
+
+.activeFiltersContainer {
+    height: auto;
+    max-height: 100px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 8px 0;
+    width: 100%;
+
+}
+
+.filter {
+    user-select: none;
+    outline: none;
+    background-color: #0095ff;
+    color: white;
+    border: none;
+    padding: 4px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    border-radius: 5px;
+
+    height: 27.5px;
+    cursor: pointer;
+
+    transition: 150ms linear;
+}
+
+.filter:hover {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.filter:active {
+    opacity: .9;
+    box-shadow: none;
+}
+
+.notActive {
+    background-color: white;
+    border: #e0e0e0 1px solid;
+    color: #555555;
+    font-size: .85rem;
+    font-family: Roboto;
+    cursor: unset;
+}
+
+.notActive:hover {
+    box-shadow: none;
+}
+
+.notActive:active {
+    opacity: 1;
+
+}
+
+.overflow {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.removeButton {
+
+    background: transparent;
+    color: #777777;
+    padding: 0;
+    justify-content: center;
+    justify-items: center;
+}
+
+.removeButton:hover {
+    box-shadow: none;
+    color: #555555;
+}
+
+.removeButton:active {
+    opacity: .7;
+    color: #ff5555;
+
+}
+
+.fieldWrapper{
+    display: grid;
+    gap: 16px;
+}
+
+.selectWrapper{
+    display: flex;
+    gap: 8px;
+    font-size: .9rem;
+    width: 50%;
+    justify-content: flex-start;
+    align-items: center;
+}

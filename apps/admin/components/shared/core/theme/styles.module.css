@@ -1,0 +1,32 @@
+.light{
+    --background-base: #f9fafb;
+    --background-1: white;
+    --background-2: #f4f5fa;
+    --background-3: #E8F0FE;
+
+    --border-0: #ecedf2;
+    --border-1: #e0e0e0;
+
+    --color-0: #333333;
+    --color-1: #555555;
+    --color-2: #666666;
+    --color-3: #777777;
+    --color-4: #999999;
+}
+
+.dark{
+    --background-base: #1B1D1E;
+    --background-1: #151617;
+    --background-2: #1d1f20;
+    --background-3: #1f2123;
+
+    --border-0: #2A2D2E;
+    --border-1: #393D3F;
+
+    --color-0: #eeeeee;
+    --color-1: #e0e0e0;
+    --color-2: #dddddd;
+    --color-3: #d0d0d0;
+    --color-4: #d0d0d0;
+}
+

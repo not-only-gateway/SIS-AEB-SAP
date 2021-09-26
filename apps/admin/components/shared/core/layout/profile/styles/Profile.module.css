@@ -1,0 +1,32 @@
+@import '../../../theme/styles.module.css';
+
+
+.buttonContainer {
+    justify-content: flex-end;
+    align-items: center;
+
+    cursor: pointer;
+    max-width: 225px;
+    height: 100%;
+    gap: 6px;
+}
+
+.appsContainer {
+    position: relative;
+    height: 100%;
+}
+.overflowEllipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.floatingBox{
+    background: var(--background-1);
+    position: absolute;
+    height: auto;
+    padding: 4px;
+    width: 200px;
+    transform: translateY(60px);
+    right: 0;
+}

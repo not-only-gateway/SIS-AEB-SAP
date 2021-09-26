@@ -14,7 +14,7 @@ import {
 import PersonRequests from "../../utils/requests/PersonRequests";
 import HandleUpload from "../../utils/shared/HandleUpload";
 import HandleDownload from "../../utils/shared/HandleDownload";
-import List from "../shared/core/REACTLIST/list/List";
+import List from "../shared/core/list/new/List";
 import PersonKeys from "../../packages/KEYS/PersonKeys";
 
 
