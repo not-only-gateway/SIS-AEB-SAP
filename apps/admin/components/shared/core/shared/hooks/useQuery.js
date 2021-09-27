@@ -49,7 +49,6 @@ export default function useQuery(props) {
         setHasMore(false)
         setCurrentPage(1)
     }
-
     return {
         data,
         filters,

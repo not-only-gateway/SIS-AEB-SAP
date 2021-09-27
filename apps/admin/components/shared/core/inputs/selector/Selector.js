@@ -3,8 +3,6 @@ import styles from './styles/Selector.module.css'
 import SelectorsPT from './locales/SelectorsPT'
 import SelectorModal from "./modules/SelectorModal";
 import {LaunchRounded} from "@material-ui/icons";
-import ParseCellContent from "../../shared/templates/parseCellContent";
-import ListPropsTemplate from "../../shared/templates/ListPropsTemplate";
 import PropTypes from "prop-types";
 import shared from '../shared/Input.module.css'
 import Row from "./modules/Row";

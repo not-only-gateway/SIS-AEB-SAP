@@ -1,7 +1,6 @@
 import styles from "../styles/Form.module.css";
 import React from "react";
 import EntityLayoutPT from "../locales/EntityLayoutPT";
-import LayoutPropsTemplate from "./FormProps";
 import PropTypes from "prop-types";
 
 export default function SubmitButton(props){

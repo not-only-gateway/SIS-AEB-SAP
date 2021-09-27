@@ -1,7 +1,6 @@
 import styles from '../styles/SelectorModal.module.css'
-import {ClearAllRounded, CloseRounded} from "@material-ui/icons";
-import React, {useCallback, useEffect, useRef, useState} from "react";
-import SelectorsPT from "../locales/SelectorsPT";
+import {ClearAllRounded} from "@material-ui/icons";
+import React from "react";
 import Modal from "../../../misc/modal/Modal";
 import PropTypes from "prop-types";
 import Row from "./Row";

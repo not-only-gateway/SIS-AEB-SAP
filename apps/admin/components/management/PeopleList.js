@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React from "react";
 import Cookies from "universal-cookie/lib";
 import Host from "../../utils/shared/Host";
 // import ProjectForm from "./ProjectForm";

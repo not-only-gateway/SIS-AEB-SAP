@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useMemo, useState} from "react";
+import React, {useMemo} from "react";
 import {CloseRounded, DescriptionRounded, ImageRounded, LanguageRounded, PictureAsPdfRounded} from "@material-ui/icons";
 import styles from "../styles/File.module.css";
 

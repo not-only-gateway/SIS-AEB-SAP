@@ -1,5 +1,4 @@
-import '../styles/globals.css'
-import PageLayout from "../components/shared/PageLayout";
+import '../packages/styles/globals.css'
 import Router from 'next/router';
 import {useEffect, useState} from "react"; //templates of nprogress
 
@@ -13,8 +12,6 @@ export default function _app({Component, pageProps}) {
         Router.events.on('routeChangeComplete', () => setLoading(false))
     })
     return (
-        <PageLayout loading={loading}>
-            <Component {...pageProps}/>
-        </PageLayout>
+        <Component {...pageProps}/>
     )
 }

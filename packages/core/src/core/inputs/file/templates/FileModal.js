@@ -1,11 +1,10 @@
 import {Modal} from "sis-aeb-core";
 import React, {useMemo, useRef} from "react";
-import shared from '../../shared/Input.module.css'
 import styles from '../styles/File.module.css'
 import {CloseRounded} from "@material-ui/icons";
-import EmptyListIndicator from "../../../shared/EmptyListIndicator";
 import File from "./File";
 import PropTypes from "prop-types";
+import EmptyListIndicator from "../../../shared/components/EmptyListIndicator";
 
 export default function FileModal(props) {
     const ref = useRef()
@@ -23,8 +22,8 @@ export default function FileModal(props) {
 
     return (
         <Modal open={props.open} handleClose={() => props.setOpen(false)}>
-            <div className={shared.modalContainer}>
-                <div className={[shared.modalContent, styles.modalGrid].join(' ')}>
+            <div className={styles.modalContainer}>
+                <div className={[styles.modalContent, styles.modalGrid].join(' ')}>
                     <div className={styles.header}>
                         Anexe seus arquivos
                         <div className={styles.divider}/>
@@ -86,7 +85,7 @@ export default function FileModal(props) {
                         onClick={() => {
                             props.setOpen(false)
                         }}
-                        className={shared.closeButton}
+                        className={styles.closeButton}
                     >
                         <CloseRounded/>
                     </button>

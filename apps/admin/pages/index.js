@@ -1,6 +1,4 @@
-import React, {useState} from 'react'
-import {useRouter} from "next/router";
-import PeopleList from "../components/management/PeopleList";
+import React from 'react'
 import ManagementPT from "../packages/locales/management/ManagementPT";
 import Head from "next/head";
 import Selector from "../components/shared/core/inputs/selector/Selector";
@@ -10,6 +8,7 @@ import Cookies from "universal-cookie/lib";
 import PersonKeys from "../packages/KEYS/PersonKeys";
 import Form from "../components/shared/core/inputs/form/Form";
 import FormRow from "../components/shared/core/inputs/form/FormRow";
+import PeopleList from "../components/management/PeopleList";
 
 
 export default function management() {
@@ -30,9 +29,9 @@ export default function management() {
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
 
-            {/*<PeopleList*/}
-            {/*    redirect={id => router.push('/project/?id=' + id, undefined, {shallow: true})}*/}
-            {/*/>*/}
+            <PeopleList
+                redirect={id => router.push('/project/?id=' + id, undefined, {shallow: true})}
+            />
             <div style={{padding: '10vw'}}>
 
                 <Form handleSubmit={() => null} returnButton={true} title={'Teste de t'} create={false}
