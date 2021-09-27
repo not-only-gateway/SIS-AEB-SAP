@@ -128,7 +128,7 @@
 
 
 .fieldsetContainer {
-    border-top: none;
+    border-top: var(--border-0) 1px solid;
     border-bottom: none;
     border-left: none;
     border-right: none;
@@ -158,7 +158,6 @@
 
 
 .saveButton {
-
     padding: 8px;
     display: flex;
     align-items: center;

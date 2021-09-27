@@ -31,7 +31,7 @@ export default function ListHeader(props){
                                 setSelectedField({
                                     ...{
                                         key: e.key,
-                                        value: '',
+                                        value: undefined,
                                         type: selected.type,
                                         label: selected.label
                                     },
@@ -63,7 +63,7 @@ export default function ListHeader(props){
                     }}
                 />
 
-                {props.filters.map(e => (
+                {props.filters.map((e, i) => (
                     <div className={[styles.filter, styles.filterWrapper].join(' ')}>
                         <div className={styles.overflow} style={{fontSize: '.75rem'}}>
                             {e.label}:
@@ -79,7 +79,12 @@ export default function ListHeader(props){
                                 {e.type === 'date' ? new Date(e.value).toDateString() : e.value}
                             </div>
                         </ToolTip>
-                        <button className={[styles.filter, styles.removeButton].join(' ')}>
+                        <button className={[styles.filter, styles.removeButton].join(' ')} onClick={() => {
+                            props.cleanState()
+                            let newFilters = [...props.filters]
+                            newFilters.splice(i, 1)
+                            props.setFilters(newFilters)
+                        }}>
                             <CloseRounded style={{fontSize: '1.1rem'}}/>
                         </button>
                     </div>

@@ -1,0 +1,102 @@
+
+.fadeIn {
+    position: relative;
+    animation: fadeIn linear 150ms forwards;
+
+}
+
+.fadeOutAnimation {
+    position: relative;
+    animation: fadeOut linear 150ms forwards;
+
+}
+
+
+@keyframes fadeOut {
+
+    0% {
+        opacity: 1;
+        height: inherit;
+    }
+    50% {
+        opacity: .5;
+        height: inherit;
+    }
+    90% {
+        opacity: .1;
+        height: inherit;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+        height: 0;
+        z-index: -1;
+    }
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+
+}
+
+.slideRight{
+    animation: slideRight ease-in-out 250ms forwards;
+}
+.slideLeft{
+    animation: slideLeft ease-in-out 250ms forwards;
+}
+@keyframes slideRight{
+    from {
+        transform: translateX(-15.5vw);
+    }
+    to {
+        transform: translateX(0);
+    }
+
+}
+
+@keyframes slideLeft {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-15.5vw);
+    }
+
+}
+
+
+.loading {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, .4);
+    backdrop-filter: blur(1px);
+    top: 0;
+    left: 0;
+    animation: loadingAnimation 2s ease-in-out infinite, fadeIn 250ms ease-in-out forwards;
+}
+@keyframes fadeIn {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+@keyframes loadingAnimation {
+    0% {
+        border-top: rgba(0, 149, 255, 1) 5px solid;
+    }
+    50% {
+        border-top: rgba(0, 149, 255, .5) 5px solid;
+    }
+    100% {
+        border-top: rgba(0, 149, 255, 1) 5px solid;
+    }
+}

@@ -10,7 +10,7 @@ export default function SubmitButton(props){
         <div className={[styles.headerContainer, styles.submitContainer].join(' ')}>
             <button
                 className={styles.saveButton}
-                onClick={() => props.handleSubmit()} disabled={props.disabled}
+                onClick={() => props.submit(props.data)} disabled={props.disabled}
             >
                 {props.create ? lang.create : lang.save}
             </button>
@@ -18,6 +18,8 @@ export default function SubmitButton(props){
     )
 }
 SubmitButton.propTypes={
-    ...LayoutPropsTemplate,
+    data: PropTypes.object,
+    submit: PropTypes.func,
+    create: PropTypes.bool,
     disabled: PropTypes.bool
 }

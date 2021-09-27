@@ -81,7 +81,7 @@ export default function Header(props) {
         <div className={styles.container}>
             <div className={styles.header}>
                 {/*<Link href={'/'}>*/}
-                {/*    <button className={[styles.homeButton, styles.headerButton].join(' ')}*/}
+                {/*    <button className={[templates.homeButton, templates.headerButton].join(' ')}*/}
                 {/*            style={{border: 'none'}}>*/}
                 {/*        <HomeRounded/>*/}
                 {/*    </button>*/}

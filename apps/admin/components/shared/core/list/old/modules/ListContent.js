@@ -1,8 +1,8 @@
 import React, {useRef} from "react";
 import PropTypes from 'prop-types'
 import styles from "../styles/List.module.css";
-import ParseCellContent from "../../../shared/parseCellContent";
-import Checkbox from "../../../shared/Checkbox";
+import ParseCellContent from "../../../shared/templates/parseCellContent";
+import Checkbox from "../../../shared/components/Checkbox";
 
 
 export default function ListContent(props) {

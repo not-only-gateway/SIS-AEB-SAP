@@ -16,5 +16,4 @@ export default function Cell(props) {
 Cell.propTypes = {
     additionalWidth: PropTypes.string,
     value: PropTypes.any,
-    // editable: PropTypes.bool
 }

@@ -3,9 +3,9 @@ import Fetch from "./methods/Fetch";
 import styles from './styles/List.module.css'
 import SearchBar from "./modules/SearchBar";
 import ContextMenu from "./modules/ContextMenu";
-import ListPropsTemplate from "../../shared/ListPropsTemplate";
+import ListPropsTemplate from "../../shared/templates/ListPropsTemplate";
 import ListHeader from "./modules/Header";
-import Checkbox from "../../shared/Checkbox";
+import Checkbox from "../../shared/components/Checkbox";
 import ControlHeader from "./modules/ControlHeader";
 import Footer from "./modules/Footer";
 import useData from "./hooks/useData";

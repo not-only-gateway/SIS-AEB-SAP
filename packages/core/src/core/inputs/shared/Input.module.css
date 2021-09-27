@@ -1,0 +1,223 @@
+@import "../../theme/styles.module.css";
+.visibilityContainer {
+    margin-left: auto;
+    cursor: pointer;
+    color: var(--color-1);
+}
+
+.visibilityContainer:hover {
+    color: #0095ff
+}
+
+.fieldsContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: auto;
+
+}
+
+.inputContainer {
+    border-radius: 5px;
+    border: var(--border-0) 1px solid;
+    box-shadow: unset;
+    transition: box-shadow 150ms linear, border 150ms linear, background 150ms linear;
+    background: var(--background-1);
+    width: 100%;
+    font-family: Roboto;
+    height: 56px;
+
+    outline: none;
+    padding: 5px;
+    font-size: 1rem;
+
+    color: var(--color-1);
+}
+
+.inputContainer::-webkit-outer-spin-button,
+.inputContainer::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+.inputContainer[type=number] {
+    -moz-appearance: textfield;
+}
+
+.labelContainer {
+    transition: visibility 150ms linear, opacity 150ms linear;
+
+    color: var(--color-2);
+    font-weight: bold;
+    font-size: .8rem;
+    margin-top: auto;
+    user-select: none;
+    font-family: Roboto;
+    text-transform: capitalize;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 75%;
+    overflow: hidden;
+
+}
+
+.alertLabel {
+    font-family: Roboto;
+    margin-left: auto;
+    font-size: .75rem;
+    user-select: none;
+
+}
+
+/*TEXT FIELD*/
+
+
+/*IMAGE FIELD*/
+.uploadFormContainer {
+    border-radius: 5px;
+    border: var(--border-0) 1px solid;
+    height: 56px;
+    transition: 150ms linear;
+    background: var(--background-1);
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    padding: 8px;
+    outline: none;
+
+    font-size: 1rem;
+    color: var(--color-1);
+
+    cursor: pointer;
+
+}
+
+.uploadFormContainer:hover {
+    background: var(--background-2);
+    color: var(--color-0);
+}
+
+.uploadFormContainer:active {
+    background: var(--background-3);
+    color: #0095ff;
+}
+
+
+.textArea {
+    border: var(--border-0) 1px solid;
+
+    font-size: 1rem;
+    color: var(--color-1);
+    transition: 150ms ease-in-out;
+    border-radius: 5px;
+    padding: 2px;
+    overflow-x: hidden;
+
+}
+
+.selectContainer:hover, .uploadFormContainer:hover, .inputContainer:hover, .textArea:hover {
+    color: var(--color-0);
+    box-shadow: 0 0 2px 1px #0095ff;
+    border: #0095ff 1px solid;
+}
+
+.textArea:focus, .uploadFormContainer:active, .textArea:focus-within, .inputContainer:focus, .inputContainer:focus-visible, .inputContainer:focus-within {
+    color: var(--color-0);
+    box-shadow: 0 0 2px 1px #0095ff;
+    border: #0095ff 1px solid;
+    background: var(--background-3);
+}
+
+
+.buttonContainer {
+    outline: none;
+    background: transparent;
+    border: none;
+    padding: 8px;
+    color: #333333;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+
+}
+
+.buttonContainer:hover {
+    color: #0095ff
+}
+
+
+.hidden {
+    display: none
+}
+
+.toolbarContainer {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    border: none;
+    border-bottom: var(--border-1) 1px solid;
+}
+
+.maskStart {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 8px;
+    color: var(--color-1);
+    font-family: Roboto;
+    font-size: .95rem;
+}
+
+.modalContainer{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modalContent {
+    height: clamp(500px, 75%, 1000px);
+    width: 1000px;
+    align-content: flex-start;
+    background: var(--background-1);
+    position: relative;
+
+    border: var(--border-1) 1px solid;
+    border-radius: 8px;
+
+    padding: 16px;
+}
+
+
+.closeButton {
+    position: absolute;
+    z-index: 999;
+    width: 40px;
+    height: 40px;
+    top: -20px;
+    right: -20px;
+
+    outline: none;
+    cursor: pointer;
+    border: none;
+    background: var(--background-1);
+    border-radius: 50%;
+    color: var(--color-1);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 150ms linear;
+}
+
+.closeButton:hover {
+    background: #ff5555;
+    color: white;
+}

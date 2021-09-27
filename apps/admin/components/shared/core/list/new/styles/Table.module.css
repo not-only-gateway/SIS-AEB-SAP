@@ -4,7 +4,8 @@
     box-shadow: 0 0 0 1px var(--border-0);
     width: 100%;
     user-select: none;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     position: relative;
     table-layout: fixed;
     border-collapse: collapse;
@@ -19,6 +20,7 @@
     box-sizing: border-box;
     border-bottom: var(--border-1) 1px solid;
     overflow: visible;
+
 }
 
 .cellContent {
@@ -27,8 +29,8 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    font-size: .85rem;
-    color: var(--color-1);
+    font-size: .8rem;
+    color: var(--color-2);
     font-family: Roboto;
 
 }
@@ -38,7 +40,7 @@
     table-layout: auto;
     height: 100%;
     /*resize: horizontal;*/
-    padding: 4px;
+    /*padding: 4px;*/
 
     display: flex;
     justify-content: space-between;
@@ -121,14 +123,13 @@
 
 .row:active {
     background-color: var(--background-3);
+    opacity: .8;
 }
 
 .headerRow {
-    /*height: 30px;*/
+    position: sticky;
+    top: 0;
     background: var(--background-1);
-
-    /*box-shadow: 0 1px 0 0 red, 0 -1px 0 0 red, -1px 0 0 0 red, 1px 0 0 0 red;*/
-    /*border: #e0e0e0 1px solid;*/
 }
 
 

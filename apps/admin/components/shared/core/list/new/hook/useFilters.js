@@ -3,7 +3,7 @@ import TextField from "../../../inputs/text/TextField";
 import DateField from "../../../inputs/date/DateField";
 
 import styles from '../styles/Header.module.css'
-import Checkbox from "../../../shared/Checkbox";
+import Checkbox from "../../../shared/components/Checkbox";
 
 export default function useFilter(filter, setFilter) {
     const [onInput, setOnInput] = useState(undefined)

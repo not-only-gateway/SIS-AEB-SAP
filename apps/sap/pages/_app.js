@@ -1,7 +1,7 @@
 import '../styles/globals.css'
 import PageLayout from "../components/shared/PageLayout";
 import Router from 'next/router';
-import {useEffect, useState} from "react"; //styles of nprogress
+import {useEffect, useState} from "react"; //templates of nprogress
 
 
 export default function _app({Component, pageProps}) {

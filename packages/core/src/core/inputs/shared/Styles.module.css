@@ -1,0 +1,10 @@
+@import "../../theme/styles.module.css";
+
+.selectBox{
+    transition: visibility 150ms linear,opacity 150ms linear;
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    width: 100%;
+    z-index: 999;
+}

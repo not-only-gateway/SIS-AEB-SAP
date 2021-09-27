@@ -1,0 +1,66 @@
+@import '../../../theme/styles.module.css';
+
+.wrapper{
+    position: relative;
+}
+.buttons{
+    width: 200px;
+    border-radius: 5px;
+    background: var(--background-1);
+
+    z-index: 999;
+    height: auto;
+    box-shadow: var(--box-shadow-1) 0 0 2px 1px;
+    position: absolute;
+    top: 100%;
+    right: 0;
+
+    overflow-y: auto;
+    max-height: clamp(250px, 10vh, 300px);
+
+    display: grid;
+    gap: 0;
+    /*animation: fadeIn 150ms linear forwards;*/
+    /*opacity: 0;*/
+
+    transition: 150ms ease;
+}
+/*@keyframes fadeIn {*/
+/*    0%{*/
+/*        opacity: 0;*/
+/*    }*/
+/*    100%{*/
+/*        opacity: 1;*/
+/*    }*/
+/*}*/
+
+.button{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+    outline: none;
+    border: none;
+    padding: 12px 8px;
+    text-align: left;
+    background: transparent;
+
+    transition: 150ms linear;
+    cursor: pointer;
+    color: var(--color-1);
+}
+.button:hover{
+    background: var(--background-2);
+}
+.button:active{
+    background: var(--background-3);
+}
+.button:disabled{
+    cursor: unset;
+    background: transparent;
+    color: var(--color-3);
+}
+
+.buttonLabel{
+
+}

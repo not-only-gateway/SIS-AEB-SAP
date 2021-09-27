@@ -5,10 +5,11 @@ import Host from "../../utils/shared/Host";
 import {OpenInNewRounded} from "@material-ui/icons";
 import List from "../shared/core/list/new/List";
 import PersonKeys from "../../packages/KEYS/PersonKeys";
+import useQuery from "../shared/core/shared/hooks/useQuery";
 
 
 export default function PeopleList(props) {
-    const listProps = {
+    const hook = useQuery( {
         url: Host() + 'test/list/person',
         headers: {'authorization': new Cookies().get('jwt')},
         parsePackage: pack => {
@@ -16,24 +17,21 @@ export default function PeopleList(props) {
         },
         fetchSize: 15,
         identificationKey: 'id',
-        keys: PersonKeys,
-        controlButtons: [
-            {
-                icon: <OpenInNewRounded/>,
-                label: 'Abrir',
-                onClick: (cell) => console.log(cell)
-            }
-        ],
-        title: 'Pessoas e colaboradores'
-    }
-    const [open, setOpen] = useState(false)
-    const [refreshed, setRefreshed] = useState(false)
-    const ref = useRef()
+    })
 
     return (
         <>
 
-            <List {...listProps}/>
+            <List
+                hook={hook}
+                keys={PersonKeys}
+                title={'Pessoas e colaboradores'}
+                controlButtons={[{
+                    icon: <OpenInNewRounded/>,
+                    label: 'Abrir',
+                    onClick: (cell) => console.log(cell)
+                }]} onRowClick={() => null}
+            />
 
             {/*<div style={{display: open ? 'none' : undefined}}>*/}
             {/*    <List*/}

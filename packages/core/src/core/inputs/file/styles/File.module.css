@@ -1,0 +1,131 @@
+@import "../../../theme/styles.module.css";
+
+.uploadButton {
+    width: fit-content;
+    outline: none;
+    background: #0095ff;
+    color: white;
+    border-radius: 5px;
+    border: transparent 1px solid;
+
+    transition: 150ms linear;
+    font-size: .8rem;
+    font-family: Roboto;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.uploadButton:hover {
+    opacity: .8;
+}
+
+.uploadButton:active {
+    opacity: .7;
+}
+
+.uploadButton:disabled {
+    background: var(--background-1);
+    border: var(--border-0) 1px solid;
+    color: var(--color-4);
+}
+
+.dropArea {
+    position: relative;
+    color: var(--color-3);
+    transition: 150ms linear;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    background: #f9fafb;
+    border: var(--border-1) 2px dashed;
+}
+.dropAreaContent{
+    display: flex;
+    align-items: flex-start;
+    align-content: flex-start;
+    justify-content: flex-start;
+
+    gap: 18.5px;
+
+    flex-flow: row wrap;
+    overflow-y: auto;
+    padding: 16px;
+}
+.modalGrid {
+    display: grid;
+    gap: 16px;
+    grid-template-rows: 45px 35px calc(100% - 114px);
+}
+
+.fileContainer{
+    position: relative;
+    width: 15%;
+    height: 25%;
+    background: var(--background-1);
+    border-radius: 5px;
+    border: var(--border-0) 1px solid;
+    display: grid;
+    align-content: space-between;
+    gap: 4px;
+    justify-content: center;
+    justify-items: center;
+    font-size: .9rem;
+    padding: 16px 8px 8px 8px;
+
+
+
+}
+
+.fileLabel{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100%;
+
+}
+
+.removeButton{
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    transition: 150ms linear;
+    cursor: pointer;
+
+}
+
+.removeButton:hover{
+    background: #ff5555;
+    color: white;
+}
+
+.header{
+    height: 45px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--color-1);
+    /*border-bottom: var(--border-1) 1px solid;*/
+    width: 100%;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+
+
+}
+.headerAccepted{
+    font-size: .7rem;
+    color: var(--color-3);
+}
+
+.divider{
+    height: 80%;
+    background: var(--border-0);
+    width: 1px;
+}

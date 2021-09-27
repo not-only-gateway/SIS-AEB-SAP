@@ -1,9 +1,9 @@
 import React, {useMemo} from "react";
 import Loader from "../modules/Loader";
-import EmptyListIndicator from "../../../shared/EmptyListIndicator";
+import EmptyListIndicator from "../../../shared/components/EmptyListIndicator";
 import ListContent from "../modules/ListContent";
 import PropTypes from 'prop-types'
-import ListPropsTemplate from "../../../shared/ListPropsTemplate";
+import ListPropsTemplate from "../../../shared/templates/ListPropsTemplate";
 import ListLabels from "../modules/ListLabels";
 
 export default function useContent(props) {

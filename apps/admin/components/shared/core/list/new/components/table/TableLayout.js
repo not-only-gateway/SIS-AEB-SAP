@@ -2,25 +2,18 @@ import Cell from "./Cell";
 import PropTypes from 'prop-types'
 import styles from '../../styles/Table.module.css'
 import HeaderCell from "./HeaderCell";
-import useTable from "../../hook/useTable";
+import useInfiniteScroll from "../../../../shared/hooks/useInfiniteScroll";
 import React from 'react'
 
 
 export default function TableLayout(props) {
-
-    const {
-        columns,
-        dispatchColumns,
-        actions,
-        lastElementRef
-    } = useTable(props.keys, props.listRef, props.setCurrentPage, props.currentPage, props.loading, props.hasMore)
-
+    const lastElementRef = useInfiniteScroll(props.setCurrentPage, props.currentPage, props.loading, props.hasMore)
 
     return (
-        <table className={styles.table} ref={props.listRef}>
+        <table className={styles.table} ref={props.listRef} style={{maxHeight: props.maxHeight}}>
             <thead>
             <tr className={styles.headerRow}>
-                {columns.map((e, i) => (
+                {props.keys.map((e, i) => (
                     <React.Fragment key={i + '-header'}>
 
                         <HeaderCell
@@ -29,9 +22,7 @@ export default function TableLayout(props) {
                             additionalWidth={e.additionalWidth !== undefined ? e.additionalWidth : '0px'}
 
                             index={i}
-                            dispatchColumns={dispatchColumns}
-                            actions={actions}
-                            quantity={columns.length}
+                            quantity={props.data.length}
                             value={e.label}/>
                     </React.Fragment>
                 ))}
@@ -49,7 +40,7 @@ export default function TableLayout(props) {
                             props.onRowClick(e.data)
                     }} ref={i === (props.data.length - 1) ? lastElementRef : undefined}
                 >
-                    {columns.map((value, ic) => (
+                    {props.keys.map((value, ic) => (
                         <React.Fragment key={i + '-row-cell-' + ic}>
 
                             <Cell

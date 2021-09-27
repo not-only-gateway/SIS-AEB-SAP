@@ -13,43 +13,16 @@ export default function Header(props) {
                         onClick={() => props.handleClose()}>
                     <ArrowBackRounded/>
                 </button>
-                {props.label}
+                {props.title}
 
             </div>
-
-            <button className={styles.buttonContainer} onClick={() => props.setOpenOptions(!props.openOptions)}
-                    style={{
-                        border: 'none',
-                        borderRadius: '8px',
-                        padding: '8px',
-                        color: props.openOptions ? '#0095ff' : undefined,
-                        background: props.openOptions ? '#E8F0FE' : undefined
-                    }}>
-                <MoreVertRounded/>
-            </button>
-            {props.openOptions ?
-                <div className={styles.optionsContainer}>
-
-                    {/*<button className={styles.buttonContainer}*/}
-                    {/*        onClick={() => setOpenHistory(true)} disabled={true}>*/}
-                    {/*    <HistoryRounded/>*/}
-                    {/*    {lang.history}*/}
-
-                    {/*</button>*/}
-                    {/*<button className={styles.buttonContainer} disabled={true}>*/}
-                    {/*    <InfoRounded/>*/}
-                    {/*    {lang.info}*/}
-                    {/*</button>*/}
-                </div>
-                :
-                null
-            }
         </div>
     )
 }
 
 Header.propTypes = {
-    ...LayoutPropsTemplate,
-    openOptions: PropTypes.bool,
-    setOpenOptions: PropTypes.func
+    noHeader: PropTypes.bool,
+    handleClose: PropTypes.func,
+    title: PropTypes.string,
+    returnButton : PropTypes.bool
 }
