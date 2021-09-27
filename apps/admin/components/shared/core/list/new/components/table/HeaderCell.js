@@ -8,7 +8,7 @@ export default function HeaderCell(props) {
     const ref = useRef()
 
     return (
-        <td className={styles.cell} style={{height: '30px', width:  'calc(100% + ' + props.additionalWidth}}>
+        <td className={styles.cell} style={{height: '30px', width:  'calc(100% + ' + props.additionalWidth, border: 'none'}}>
             <div className={styles.cellHeader}
                  style={{height: '30px', width: 'calc(100% + ' + props.additionalWidth}} ref={ref}>
                 <div className={styles.cellContent}

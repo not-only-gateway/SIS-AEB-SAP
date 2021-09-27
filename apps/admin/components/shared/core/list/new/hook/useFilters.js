@@ -2,41 +2,40 @@ import {useCallback, useState} from "react";
 import TextField from "../../../inputs/text/TextField";
 import DateField from "../../../inputs/date/DateField";
 
-import styles from '../styles/ActiveFilters.module.css'
+import styles from '../styles/Header.module.css'
 import Checkbox from "../../../shared/Checkbox";
 
-export default function useFilters() {
+export default function useFilter(filter, setFilter) {
     const [onInput, setOnInput] = useState(undefined)
-    const [applied, setApplied] = useState(false)
     const [changed, setChanged] = useState(false)
-    const [filters, setFilters] = useState({})
 
-    const handleChange = (value, key) => {
-        const newValue = {...filters}
-        newValue.key = key
-        newValue.value = value
+    const handleChange = (value) => {
+        setFilter(prevState => {
+            return {
+                ...prevState,
+                value: value
+            }
+        })
         setChanged(true)
-        setApplied(false)
-        setFilters(newValue)
     }
-    const getField = useCallback((key) => {
+    const getField = useCallback(() => {
         let field
-        switch (key.type) {
+        switch (filter.type) {
             case 'string': {
                 field = (
                     <div className={styles.fieldWrapper}>
                         <TextField
-                            label={key.label} width={'100%'} disabled={false}
-                            handleChange={value => handleChange(value.target.value, key.key)}
-                            value={filters.value}
-                            placeholder={key.label}
+                            label={filter.label} width={'100%'} disabled={false}
+                            handleChange={value => handleChange(value.target.value)}
+                            value={filter.value}
+                            placeholder={filter.label}
                         />
 
                         <div className={styles.selectWrapper}>
                             <Checkbox
-                                checked={filters.different_from === false}
+                                checked={filter.different_from === false}
                                 handleCheck={() => {
-                                    setFilters(prevState => {
+                                    setFilter(prevState => {
                                         return {...prevState, different_from: false, contains: undefined}
                                     })
                                 }}/>
@@ -47,9 +46,9 @@ export default function useFilters() {
                         </div>
                         <div className={styles.selectWrapper}>
                             <Checkbox
-                                checked={filters.different_from}
+                                checked={filter.different_from}
                                 handleCheck={() => {
-                                    setFilters(prevState => {
+                                    setFilter(prevState => {
                                         return {...prevState, different_from: true, contains: undefined}
                                     })
                                 }}
@@ -61,9 +60,9 @@ export default function useFilters() {
                         </div>
                         <div className={styles.selectWrapper}>
                             <Checkbox
-                                checked={filters.contains}
+                                checked={filter.contains}
                                 handleCheck={() => {
-                                    setFilters(prevState => {
+                                    setFilter(prevState => {
                                         return {...prevState, contains: true, different_from: undefined}
                                     })
                                 }}
@@ -79,10 +78,10 @@ export default function useFilters() {
             case 'number': {
                 field = (
                     <TextField
-                        label={key.label} width={'100%'} disabled={false} required={false}
-                        handleChange={value => handleChange(value.target.value, key.key)}
-                        type={'number'} placeholder={key.label}
-                        value={filters[key.key]}
+                        label={filter.label} width={'100%'} disabled={false} required={false}
+                        handleChange={value => handleChange(value.target.value)}
+                        type={'number'} placeholder={filter.label}
+                        value={filter.value}
                     />
                 )
                 break
@@ -92,7 +91,7 @@ export default function useFilters() {
                 //     <DateField
                 //         label={key.label} width={'100%'} disabled={false} required={false}
                 //         handleChange={e => null}
-                //         value={props.filters.find(e => {
+                //         value={props.filter.find(e => {
                 //             if (e.key === key.key)
                 //                 return e.value
                 //             else return undefined
@@ -104,9 +103,9 @@ export default function useFilters() {
             case 'date': {
                 field = (
                     <DateField
-                        label={key.label} width={'100%'} disabled={false} required={false}
-                        handleChange={value => handleChange(value, key.key)}
-                        value={filters[key.key]}
+                        label={filter.label} width={'100%'} disabled={false} required={false}
+                        handleChange={value => handleChange(value)}
+                        value={filter.value}
                     />
                 )
                 break
@@ -116,7 +115,7 @@ export default function useFilters() {
 
         }
         return field
-    }, [filters])
+    }, [filter])
 
-    return {getField, applied, changed, filters, setFilters, setApplied, setChanged, onInput, setOnInput}
+    return {getField,  changed, setChanged, onInput, setOnInput}
 }

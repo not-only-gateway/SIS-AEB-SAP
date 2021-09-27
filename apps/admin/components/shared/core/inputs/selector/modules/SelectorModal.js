@@ -91,9 +91,11 @@ export default function SelectorModal(props) {
             handleClose={() => {
                 props.setModal(false)
                 setOnCreate(false)
-            }}>
-            <div className={shared.modalContainer}>
-                <div className={shared.modalContent}>
+            }} animationStyle={'fade'}
+            blurIntensity={.2}
+            wrapperClassName={shared.modalContainer}
+        >
+            <div className={shared.modalContent}>
                     <span
                         style={{
                             display: onCreate ? 'none' : undefined,
@@ -102,23 +104,22 @@ export default function SelectorModal(props) {
                     >
                         {list}
                     </span>
-                    <span
-                        style={{
-                            display: !onCreate ? 'none' : undefined,
-                            transition: '150ms linear'
-                        }}
-                    >
+                <span
+                    style={{
+                        display: !onCreate ? 'none' : undefined,
+                        transition: '150ms linear'
+                    }}
+                >
                         {props.children}
                     </span>
-                    <button
-                        onClick={() => {
-                            props.setModal(false)
-                        }}
-                        className={shared.closeButton}
-                    >
-                        <CloseRounded/>
-                    </button>
-                </div>
+                <button
+                    onClick={() => {
+                        props.setModal(false)
+                    }}
+                    className={shared.closeButton}
+                >
+                    <CloseRounded/>
+                </button>
             </div>
         </Modal>
     )

@@ -1,9 +1,8 @@
-/*TEXT FIELD*/
-
+@import "../../theme/styles.module.css";
 .visibilityContainer {
     margin-left: auto;
     cursor: pointer;
-    color: #555555;
+    color: var(--color-1);
 }
 
 .visibilityContainer:hover {
@@ -20,19 +19,19 @@
 
 .inputContainer {
     border-radius: 5px;
-    border: #ecedf2 1px solid;
+    border: var(--border-0) 1px solid;
     box-shadow: unset;
     transition: box-shadow 150ms linear, border 150ms linear, background 150ms linear;
-    background: white;
+    background: var(--background-1);
     width: 100%;
-    font-family: 'Roboto' !important;
+    font-family: Roboto;
     height: 56px;
 
     outline: none;
     padding: 5px;
     font-size: 1rem;
 
-    color: #555555;
+    color: var(--color-1);
 }
 
 .inputContainer::-webkit-outer-spin-button,
@@ -49,7 +48,7 @@
 .labelContainer {
     transition: visibility 150ms linear, opacity 150ms linear;
 
-    color: #666666;
+    color: var(--color-2);
     font-weight: bold;
     font-size: .8rem;
     margin-top: auto;
@@ -78,10 +77,10 @@
 /*IMAGE FIELD*/
 .uploadFormContainer {
     border-radius: 5px;
-    border: #ecedf2 1px solid;
+    border: var(--border-0) 1px solid;
     height: 56px;
     transition: 150ms linear;
-    background: white;
+    background: var(--background-1);
     width: 100%;
 
     display: flex;
@@ -92,46 +91,28 @@
     outline: none;
 
     font-size: 1rem;
-    color: #555555;
+    color: var(--color-1);
 
     cursor: pointer;
 
 }
 
 .uploadFormContainer:hover {
-    background: #f4f5fa;
-    color: #333333;
+    background: var(--background-2);
+    color: var(--color-0);
 }
 
 .uploadFormContainer:active {
-    background: #E8F0FE;
+    background: var(--background-3);
     color: #0095ff;
 }
 
-/*.imageFieldContainer {*/
-
-/*    height: 56px;*/
-
-/*    display: flex;*/
-/*    align-items: center;*/
-/*    justify-content: space-between;*/
-
-/*    padding: 4px;*/
-
-/*    border: #ecedf2 1px solid;*/
-/*    border-radius: 5px;*/
-/*    background: white;*/
-
-/*    overflow: hidden;*/
-
-/*    transition: 150ms ease-in-out;*/
-/*}*/
 
 .textArea {
-    border: #ecedf2 1px solid;
+    border: var(--border-0) 1px solid;
 
     font-size: 1rem;
-    color: #555555;
+    color: var(--color-1);
     transition: 150ms ease-in-out;
     border-radius: 5px;
     padding: 2px;
@@ -140,16 +121,16 @@
 }
 
 .selectContainer:hover, .uploadFormContainer:hover, .inputContainer:hover, .textArea:hover {
-    color: #262626;
+    color: var(--color-0);
     box-shadow: 0 0 2px 1px #0095ff;
     border: #0095ff 1px solid;
 }
 
 .textArea:focus, .uploadFormContainer:active, .textArea:focus-within, .inputContainer:focus, .inputContainer:focus-visible, .inputContainer:focus-within {
-    color: #262626;
+    color: var(--color-0);
     box-shadow: 0 0 2px 1px #0095ff;
     border: #0095ff 1px solid;
-    background: #E8F0FE;
+    background: var(--background-3);
 }
 
 
@@ -179,7 +160,7 @@
     flex-flow: row;
     flex-wrap: wrap;
     border: none;
-    border-bottom: #e0e0e0 1px solid;
+    border-bottom: var(--border-1) 1px solid;
 }
 
 .maskStart {
@@ -187,7 +168,7 @@
     top: 50%;
     transform: translateY(-50%);
     left: 8px;
-    color: #555555;
+    color: var(--color-1);
     font-family: Roboto;
     font-size: .95rem;
 }
@@ -204,10 +185,10 @@
     height: clamp(500px, 75%, 1000px);
     width: 1000px;
     align-content: flex-start;
-    background: white;
+    background: var(--background-1);
     position: relative;
 
-    border: #e0e0e0 1px solid;
+    border: var(--border-1) 1px solid;
     border-radius: 8px;
 
     padding: 16px;
@@ -225,9 +206,9 @@
     outline: none;
     cursor: pointer;
     border: none;
-    background: white;
+    background: var(--background-1);
     border-radius: 50%;
-    color: #555555;
+    color: var(--color-1);
 
     display: flex;
     align-items: center;

@@ -1,5 +1,4 @@
-import styles from "../styles/EntityLayout.module.css";
-import fStyles from "../styles/Form.module.css";
+import styles from "../styles/Form.module.css";
 import React from "react";
 import EntityLayoutPT from "../locales/EntityLayoutPT";
 import LayoutPropsTemplate from "./FormProps";
@@ -10,7 +9,7 @@ export default function SubmitButton(props){
     return(
         <div className={[styles.headerContainer, styles.submitContainer].join(' ')}>
             <button
-                className={fStyles.saveButton}
+                className={styles.saveButton}
                 onClick={() => props.handleSubmit()} disabled={props.disabled}
             >
                 {props.create ? lang.create : lang.save}

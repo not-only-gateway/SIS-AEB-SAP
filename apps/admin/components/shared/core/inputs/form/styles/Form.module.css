@@ -1,155 +1,131 @@
-.formInfoContainer {
-    font-size: 1rem;
-    color: #555555;
-}
+@import "../../../theme/styles.module.css";
 
 .container {
-    background: white;
-
+    background: var(--background-1);
     border-radius: 5px;
-    width: 100%;
-    margin: auto;
+    height: 100%;
     display: grid;
-    overflow: visible;
-
+    overflow-y: auto;
+    border: var(--border-0) 1px solid;
 }
 
 .headerContainer {
-    margin-bottom: 32px;
-    font-size: 1.4rem;
-    text-transform: capitalize;
-
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding-bottom: 8px;
-    gap: 16px;
-    border-bottom: #e0e0e0 1px solid;
-}
-
-
-.formContainer > div {
-    width: 100%;
-
-}
-
-.formFieldsContainer {
-    overflow: visible;
-    display: inline-flex;
-    flex-flow: row wrap;
-    column-gap: 32px;
-    /*row-gap: 16px;*/
-    justify-content: center;
-    width: 100%;
-}
-
-.formContainer {
-    display: grid;
-    gap: 16px;
-    padding: 16px;
-    overflow: visible;
-    border-radius: 8px;
-
-    position: relative;
-}
-
-.formContainer > {
-    width: 100%;
-}
-
-.formFieldsContainer {
-    display: inline-flex;
-    flex-flow: row wrap;
-    column-gap: 32px;
-    row-gap: 8px;
-    justify-content: center;
-    width: 100%;
-}
-
-.saveButtonContainer {
     position: sticky;
-    bottom: 0;
-    z-index: 500;
-    width: 100%;
-    height: 10%;
-    padding-bottom: 16px;
-    /*border-top: #ecedf2 1px solid;*/
-}
+    top: 0;
+    z-index: 50;
+    background: var(--background-1);
+    height: 65px;
 
-.saveButton {
-
-    padding: 8px;
+    font-size: 1.4rem;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
     gap: 16px;
+    border-bottom: var(--border-0) 1px solid;
+}
 
-    border-radius: 8px;
-    background: #0095ff;
+.buttonContainer {
     outline: none;
-    border: #ecedf2 1px solid;
-    transition: 250ms ease-in-out;
-    cursor: pointer;
-    width: 100%;
-    color: white;
-}
-.saveButton:hover{
-    opacity: .8;
-}
-
-
-.saveButton:active {
-    opacity: .6;
-}
-
-.saveButton:disabled {
-    color: #777777;
-    cursor: unset;
     box-shadow: none;
     background: transparent;
-    opacity: 1;
-}
-
-.labelContainer {
+    border-radius: 8px;
+    border: none;
+    transition: 150ms ease-in-out;
+    padding: 12px 8px;
 
     display: flex;
-    font-size: 1.5rem;
-    align-items: center;
-    justify-items: flex-start;
     justify-content: flex-start;
-    width: 100%;
-    padding-bottom: 4px;
-    gap: 32px;
-    border-bottom: #e0e0e0 1px solid;
+    align-items: center;
+    gap: 8px;
+
+    cursor: pointer;
+    color: var(--color-1);
+}
+
+.buttonContainer:hover {
+    background: var(--background-1);
+    color: var(--color-0);
+}
+
+.buttonContainer:active {
+    background: var(--background-3);
+    color: #0095ff;
+}
+
+.buttonContainer:disabled {
+    background: var(--background-1);
+    color: #999999;
+    cursor: unset;
 }
 
 .returnButton {
-    outline: none;
-    background: transparent;
+    border-bottom: none;
     padding: 8px;
-    border: none;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
     border-radius: 50%;
-    color: #333333;
+    color: var(--color-0);
     height: 40px;
     width: 40px;
-    transition: 150ms ease-in-out;
-    cursor: pointer;
 }
 
 .returnButton:hover {
     color: #ff5555;
-    background: #f4f5fa;
+    background: var(--background-2);
 }
 
 .returnButton:active {
-    color: #333333;
-    background: #f4f5fa;
+    color: var(--color-0);
+    background: var(--background-2);
 }
+
+.optionsContainer {
+    display: grid;
+    gap: 4px;
+    padding: 8px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    border-radius: 8px;
+    position: absolute;
+    z-index: 999;
+    background: var(--background-1);
+    /*border: #0095ff 2px solid;*/
+    top: 56px;
+    right: 0px;
+    animation: popIn 150ms linear;
+}
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.header {
+    padding-left: 8px;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+
+    color: var(--color-1);
+}
+
+.submitContainer{
+    bottom: 0;
+    border-radius: 0 0 5px 5px;
+    border-bottom: none;
+    border-top: var(--border-0) 1px solid;
+    padding: 8px ;
+    z-index: 50
+}
+
 
 .fieldsetContainer {
     border-top: none;
@@ -167,5 +143,50 @@
     padding-right: 16px;
     font-size: 1.2rem;
     font-weight: 575;
-    color: #555555;
+    color: var(--color-1);
+}
+
+.formFieldsContainer {
+    overflow: visible;
+    display: inline-flex;
+    flex-flow: row wrap;
+    column-gap: 32px;
+    /*row-gap: 16px;*/
+    justify-content: center;
+    width: 100%;
+}
+
+
+.saveButton {
+
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+
+    border-radius: 8px;
+    background: #0095ff;
+    outline: none;
+    border: var(--border-0) 1px solid;
+    transition: 150ms linear;
+    cursor: pointer;
+    width: 100%;
+    color: white;
+}
+.saveButton:hover{
+    opacity: .8;
+}
+
+
+.saveButton:active {
+    opacity: .6;
+}
+
+.saveButton:disabled {
+    color: var(--color-3);
+    cursor: unset;
+    box-shadow: none;
+    background: transparent;
+    opacity: 1;
 }

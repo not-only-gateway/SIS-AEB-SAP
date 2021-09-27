@@ -8,7 +8,7 @@ import {WorkRounded} from "@material-ui/icons";
 export default function AppWrapper(props) {
     const router = useRouter()
     const [profile, setProfile] = useState(null)
-
+    const [onDark, setOnDark] = useState(false)
     // useEffect(() => {
     //     let interval
     //     let timeout
@@ -43,6 +43,7 @@ export default function AppWrapper(props) {
             loading={props.loading} profile={profile}
             lightLogo={'./light.png'}
             darkLogo={'./dark.png'}
+
             profileButtons={[]}
             appButtons={[]}
             redirectToLogin={() => router.push('authentication', 'authentication')}
@@ -59,5 +60,5 @@ export default function AppWrapper(props) {
     )
 }
 AppWrapper.propTypes = {
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
 }

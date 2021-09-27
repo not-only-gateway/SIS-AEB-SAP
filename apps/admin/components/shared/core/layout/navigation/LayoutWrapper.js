@@ -4,13 +4,11 @@ import PropTypes from 'prop-types'
 import Profile from '../profile/Profile'
 import NavigationPT from './locales/NavigationPT'
 import Apps from '../apps/Apps'
-import {MenuRounded, SettingsRounded} from "@material-ui/icons";
+import {MenuRounded} from "@material-ui/icons";
 import SideBar from "../sidebar/SideBar";
 import Loading from "./templates/Loading";
 import ThemeProvider from "../../theme/ThemeProvider";
 import ThemeContext from "../../theme/ThemeContext";
-import Modal from "../../misc/modal/Modal";
-import Checkbox from "../../shared/Checkbox";
 
 
 export default function LayoutWrapper(props) {
@@ -22,7 +20,6 @@ export default function LayoutWrapper(props) {
 
     return (
         <ThemeProvider onDark={onDark}>
-
             <div className={[styles.wrapper, onDark ? context.styles.dark : context.styles.light].join(' ')}>
                 <div className={styles.header}>
                     <Loading loading={props.loading}/>

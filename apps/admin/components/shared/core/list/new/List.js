@@ -4,7 +4,6 @@ import styles from './styles/List.module.css'
 import ListHeader from "./components/list/ListHeader";
 import React, {useEffect, useRef, useState} from "react";
 import useQuery from "./hook/useQuery";
-import Filters from "./components/filters/Filters";
 import EmptyListIndicator from "../../shared/EmptyListIndicator";
 
 
@@ -13,25 +12,27 @@ export default function List(props) {
     const listRef = useRef()
     const wrapperRef = useRef()
     const [maxHeight, setMaxHeight] = useState()
-    const [openFilters, setOpenFilters] = useState(false)
 
     useEffect(() => {
-        console.log((document.documentElement.offsetHeight - wrapperRef.current.getBoundingClientRect().top - 16) + 'px', hook.data.length )
         setMaxHeight((document.documentElement.offsetHeight - wrapperRef.current.getBoundingClientRect().top - 16) + 'px')
     }, [])
 
+
     return (
         <div className={styles.container}>
-            <ListHeader title={props.title} setOpenFilters={setOpenFilters} filters={hook.filters}/>
-            <Filters open={openFilters} handleClose={() => setOpenFilters(false)} keys={props.keys}
-                     setFilters={hook.setFilters} filters={hook.filters} clean={hook.clean}/>
-
+            <ListHeader
+                title={props.title}
+                setFilters={hook.setFilters}
+                filters={hook.filters}
+                cleanState={hook.clean}
+                keys={props.keys}
+            />
             <div className={styles.tableWrapper} ref={wrapperRef}
                  style={{height: hook.data.length === 0 ? maxHeight : undefined, maxHeight: maxHeight}}>
                 {hook.data.length === 0 ?
                     <EmptyListIndicator/>
-                :
-                null}
+                    :
+                    null}
 
                 <TableLayout
                     data={hook.data} keys={props.keys} controlButtons={props.controlButtons}

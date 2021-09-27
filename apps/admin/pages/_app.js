@@ -1,7 +1,7 @@
 import '../styles/globals.css'
 import AppWrapper from "../components/AppWrapper";
 import Router from 'next/router';
-import {useEffect, useState} from "react"; //styles of nprogress
+import {useEffect, useState} from "react";
 
 
 export default function _app({Component, pageProps}) {
@@ -13,8 +13,9 @@ export default function _app({Component, pageProps}) {
         Router.events.on('routeChangeComplete', () => setLoading(false))
     })
     return (
-        <AppWrapper loading={loading}>
-            <Component {...pageProps}/>
-        </AppWrapper>
+
+            <AppWrapper loading={loading}>
+                <Component {...pageProps}/>
+            </AppWrapper>
     )
 }

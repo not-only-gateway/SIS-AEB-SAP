@@ -1,3 +1,5 @@
+@import '../../../theme/styles.module.css';
+
 .wrapper {
     overflow: hidden;
     width: 100vw;

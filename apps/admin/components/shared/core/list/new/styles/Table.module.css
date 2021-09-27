@@ -1,13 +1,14 @@
 @import '../../../theme/styles.module.css';
 
 .table {
+    box-shadow: 0 0 0 1px var(--border-0);
     width: 100%;
     user-select: none;
     overflow: hidden;
     position: relative;
     table-layout: fixed;
     border-collapse: collapse;
-    border-radius: 3px;
+    /*border-radius: 3px;*/
     border-style: hidden;
 }
 
@@ -17,7 +18,7 @@
     width: fit-content;
     box-sizing: border-box;
     border-bottom: var(--border-1) 1px solid;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .cellContent {
@@ -122,18 +123,27 @@
     background-color: var(--background-3);
 }
 
-.row:first-child {
-    border-top-left-radius: 10px;
+.headerRow {
+    /*height: 30px;*/
+    background: var(--background-1);
+
+    /*box-shadow: 0 1px 0 0 red, 0 -1px 0 0 red, -1px 0 0 0 red, 1px 0 0 0 red;*/
+    /*border: #e0e0e0 1px solid;*/
 }
 
-.row:first-child {
-    border-top-right-radius: 10px;
+
+.headerRow:first-child {
+    border-top-left-radius: 5px;
 }
 
-.row:last-child {
-    border-bottom-left-radius: 10px;
+.headerRow:first-child {
+    border-top-right-radius: 5px;
 }
 
-.row:last-child {
-    border-bottom-right-radius: 10px;
+.headerRow:last-child {
+    border-bottom-left-radius: 5px;
+}
+
+.headerRow:last-child {
+    border-bottom-right-radius: 5px;
 }

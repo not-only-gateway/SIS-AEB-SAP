@@ -1,4 +1,4 @@
-import styles from "../styles/EntityLayout.module.css";
+import styles from "../styles/Form.module.css";
 import {ArrowBackRounded, MoreVertRounded} from "@material-ui/icons";
 import React from "react";
 import LayoutPropsTemplate from "./FormProps";

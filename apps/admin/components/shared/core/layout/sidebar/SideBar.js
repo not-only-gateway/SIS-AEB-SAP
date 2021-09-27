@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import React, {useMemo, useState} from "react";
+import React, {useMemo} from "react";
 import styles from "./styles/SideBar.module.css";
-import {BrightnessHighRounded, Brightness3Rounded} from "@material-ui/icons";
+import {Brightness3Rounded, BrightnessHighRounded} from "@material-ui/icons";
 
 export default function SideBar(props) {
     const buttonStyle = useMemo(() => {

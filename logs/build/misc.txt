@@ -638,7 +638,7 @@ src/index.js → dist/index.js, dist/index.modern.js...
 
    9 |
   10 |
-> 11 | export {Filters, Tabs, RenderTabs, List, Loader, Modal, Alert}
+> 11 | export {Filter, Tabs, RenderTabs, List, Loader, Modal, Alert}
      |                                                         ^
   12 |
   13 |
@@ -647,7 +647,7 @@ SyntaxError: /home/aeb/SIS-AEB-FRONTEND/packages/misc/src/index.js: Export 'Aler
 
    9 |
   10 |
-> 11 | export {Filters, Tabs, RenderTabs, List, Loader, Modal, Alert}
+> 11 | export {Filter, Tabs, RenderTabs, List, Loader, Modal, Alert}
      |                                                         ^
   12 |
   13 |

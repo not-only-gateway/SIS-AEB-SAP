@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types'
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 import {CloseRounded, DescriptionRounded, ImageRounded, LanguageRounded, PictureAsPdfRounded} from "@material-ui/icons";
 import styles from "../styles/File.module.css";
 
 export default function File(props) {
-    const [hover, setHover] = useState(false)
-    const getIcon = (type) => {
+    // const [hover, setHover] = useState(false)
+    const icon = useMemo(() => {
         let icon
-        switch (type) {
+        switch (props.type) {
             case 'pdf': {
                 icon = <PictureAsPdfRounded style={{fontSize: '65px'}}/>
                 break
@@ -36,18 +36,17 @@ export default function File(props) {
 
         }
         return icon
-    }
+    }, [props.type])
     return (
         <div className={styles.fileContainer}>
 
             <div onClick={() => props.handleDelete(props.index)} className={styles.removeButton}>
                 <CloseRounded style={{fontSize: '1rem'}}/>
             </div>
-            {getIcon(props.type)}
+            {icon}
             <div className={styles.fileLabel}>
                 {props.name.split('.')[0]}
             </div>
-
         </div>
     )
 }

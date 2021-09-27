@@ -1,4 +1,4 @@
-import styles from './styles/EntityLayout.module.css'
+import styles from './styles/Form.module.css'
 import React from "react";
 import useForm from "./hooks/useForm";
 import Header from "./templates/Header";

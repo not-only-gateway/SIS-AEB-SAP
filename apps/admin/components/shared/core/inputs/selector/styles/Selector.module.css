@@ -1,7 +1,10 @@
+
+@import "../../../theme/styles.module.css";
+
 .labelContainer {
-    /*animation: slideUp ease-in-out 250ms both;*/
-    transition: visibility 300ms ease-in-out;
-    color: #262626;
+    /*animation: slideUp linear 250ms both;*/
+    transition: visibility 150ms linear;
+    color: var(--color-0);
     font-size: .9rem;
     margin-top: auto;
     overflow: hidden;
@@ -24,27 +27,28 @@
 
 .selectContainer:focus, .selectContainer:focus-visible, .selectContainer:focus-within {
 
-    color: #262626;
+    color: var(--color-0);
     box-shadow: 0 0 2px 1px #0095ff;
     border-color: #0095ff;
-    background: #E8F0FE;
+    background: var(--background-3);
 }
 
 .selectContainer {
-    font-family: 'Roboto' !important;
+    font-family: Roboto;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: #ecedf2 1px solid;
+    border: var(--border-0) 1px solid;
 
     box-shadow: unset;
-    transition: 250ms ease-in-out;
-    background: white;
+    transition: 250ms linear;
+    background: var(--background-1);
     width: 100%;
     outline: none;
     padding: 5px;
     font-size: 1rem;
-    color: #555555;
+    color: var(--color-1);
     cursor: pointer;
     height: 40px;
 }
@@ -78,9 +82,9 @@
     align-items: center;
     height: 50px;
     border-radius: 8px;
-    transition: 150ms ease-in-out;
-    color: #555555;
-    background: white;
+    transition: 150ms linear;
+    color: var(--color-1);
+    background: var(--background-1);
     gap: 0;
     padding: 0 0 0 16px;
     border: #e0e0e0 1px solid;
@@ -94,7 +98,7 @@
 .fieldsContainer:focus, .fieldsContainer:focus-within {
     color: black;
     box-shadow: #0095ff 0px 0px 1px 1.5px;
-    background: #f4f5fa;
+    background: var(--background-2);
 }
 
 .searchButtonContainer {
@@ -103,7 +107,7 @@
     height: 44px;
     width: fit-content;
     border: none;
-    color: #555555;
+    color: var(--color-1);
     border-radius: 8px;
 
     cursor: pointer;
@@ -114,7 +118,7 @@
 
 
     background: transparent;
-    transition: 300ms ease-in-out;
+    transition: 150ms linear;
 }
 
 .searchButtonContainer:hover {
@@ -124,11 +128,11 @@
 .selectedEntityContainer {
     width: 100%;
     border: none;
-    border-bottom: #ecedf2 1px solid;
-    border-top: #ecedf2 1px solid;
+    border-bottom: var(--border-0) 1px solid;
+    border-top: var(--border-0) 1px solid;
 
     height: 56px;
-    color: #333333;
+    color: var(--color-0);
     font-size: .9rem;
 
     display: flex;
@@ -157,7 +161,7 @@
 .divider {
     height: 30px;
     width: 1px;
-    background: #e0e0e0;
+    background: var(--border-0);
 
 }
 

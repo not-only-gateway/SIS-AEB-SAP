@@ -1,3 +1,5 @@
+@import "../../theme/styles.module.css";
+
 .selectBox{
     transition: visibility 150ms linear,opacity 150ms linear;
     position: absolute;

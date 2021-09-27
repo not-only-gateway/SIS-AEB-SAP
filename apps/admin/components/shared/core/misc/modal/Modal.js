@@ -1,12 +1,15 @@
 import PropTypes from "prop-types";
-import React, {useEffect, useMemo, useRef, useState} from "react";
+import React, {useContext, useEffect, useMemo, useRef, useState} from "react";
 import ReactDOM from 'react-dom'
 import styles from "./styles/Modal.module.css";
+import ThemeContext from "../../theme/ThemeContext";
 
 export default function Modal(props) {
     const contentRef = useRef()
     const element = useRef()
     const lastOpenState = useRef(props.open)
+    const context = useContext(ThemeContext)
+
     const [mounted, setMounted] = useState(false)
     const animation = useMemo(() => {
         let anim = {
@@ -56,13 +59,14 @@ export default function Modal(props) {
                         style={{
                             background: `rgba(0, 0, 0, ${props.blurIntensity !== undefined ? props.blurIntensity : .4})`,
                         }}
-                        className={styles.wrapper}
+                        className={[styles.wrapper, context.dark ? context.styles.dark : context.styles.light].join(' ')}
                         onMouseDown={e => {
                             if (!document.elementsFromPoint(e.clientX, e.clientY).includes(contentRef.current) && props.open)
                                 props.handleClose()
                         }}
                     >
-                        <div className={[className, props.wrapperClassName].join(' ') } style={props.componentStyle} ref={contentRef}>
+                        <div className={[className, props.wrapperClassName].join(' ')} style={props.componentStyle}
+                             ref={contentRef}>
                             {props.children}
                         </div>
                     </div>,

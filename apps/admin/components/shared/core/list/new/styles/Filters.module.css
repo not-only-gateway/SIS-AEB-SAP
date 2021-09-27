@@ -3,8 +3,8 @@
 .container {
 
     position: absolute;
-    height: clamp(200px, 50%, 1000px);
-    width: clamp(200px, 35%, 750px);
+    /*height: clamp(200px, 50%, 1000px);*/
+    width: clamp(200px, 25%, 750px);
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -13,7 +13,6 @@
     padding: 16px;
     border-radius: 8px;
     border: var(--border-1) 1px solid;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     color: var(--color-2);
 }
 

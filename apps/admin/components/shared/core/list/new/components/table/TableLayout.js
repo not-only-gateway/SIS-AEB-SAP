@@ -19,7 +19,7 @@ export default function TableLayout(props) {
     return (
         <table className={styles.table} ref={props.listRef}>
             <thead>
-            <tr style={{height: '30px'}}>
+            <tr className={styles.headerRow}>
                 {columns.map((e, i) => (
                     <React.Fragment key={i + '-header'}>
 

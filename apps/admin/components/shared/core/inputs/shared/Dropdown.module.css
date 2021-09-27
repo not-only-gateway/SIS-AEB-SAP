@@ -1,3 +1,5 @@
+@import "../../theme/styles.module.css";
+
 .wrapper {
     height: 100px;
     display: grid;
@@ -8,7 +10,7 @@
 
 .labelContainer {
     transition: visibility 150ms linear, opacity 150ms linear;
-    color: #262626;
+    color: var(--color-0);
     font-size: .9rem;
     margin-top: auto;
     overflow: hidden;
@@ -34,16 +36,16 @@
     justify-content: flex-start;
     gap: 4px;
     align-items: center;
-    border: #ecedf2 1px solid;
+    border: var(--border-0) 1px solid;
 
     box-shadow: unset;
     transition: 150ms linear;
-    background: white;
+    background: var(--background-1);
     width: 100%;
     outline: none;
     padding: 5px;
     font-size: 1rem;
-    color: #555555;
+    color: var(--color-1);
     cursor: pointer;
 
     border-radius: 5px;
@@ -54,7 +56,7 @@
 }
 
 .dropDownChoicesContainer {
-    background-color: white;
+    background-color: var(--background-1);
     border-radius: 5px;
     box-shadow: 0 0 10px 2px rgba(0, 0, 0, .1);
     width: 100%;
@@ -68,13 +70,13 @@
     width: 100%;
     outline: none;
     border: none;
-    background: white;
+    background: var(--background-1);
     padding: 8px;
-    border-bottom: #ecedf2 1px solid;
+    border-bottom: var(--border-0) 1px solid;
     transition: 150ms linear;
     cursor: pointer;
 
-    color: #555555;
+    color: var(--color-1);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -85,11 +87,11 @@
 }
 
 .dropDownButton:hover {
-    background: #f4f5fa;
+    background: var(--background-2);
 }
 
 .dropDownButton:active {
-    background: #E8F0FE;
+    background: var(--background-3);
     color: #0095ff;
 }
 
@@ -101,14 +103,13 @@
     align-items: center;
     justify-content: flex-start;
     height: 40px;
-    background: white;
+    background: var(--background-1);
     gap: 8px;
-    user-select: none;
 }
 
 .multiSelectRowContent {
     user-select: none;
-    color: #555555;
+    color: var(--color-1);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -124,7 +125,7 @@
 
 .valueContainer{
     user-select: none;
-    color: #555555;
+    color: var(--color-1);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
