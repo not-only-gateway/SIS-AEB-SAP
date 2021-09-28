@@ -13,8 +13,8 @@ sudo bash core.sh
 
 # INDEPENDENTES
 sudo bash admin.sh
-sudo bash sap.sh
-#sudo bash public.sh
+#sudo bash sap.sh
+sudo bash core_app.sh
 #sudo bash statistics.sh
 
 echo "OK"

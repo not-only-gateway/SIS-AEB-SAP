@@ -1,6 +1,6 @@
-import React, {useEffect, useMemo, useReducer, useState} from "react";
-import ACTIONS from "../../list/hook/actions/dataActions";
-import dataReducer from "../../list/hook/reducers/dataReducer";
+import {useEffect, useMemo, useReducer, useState} from "react";
+import ACTIONS from "./dataActions";
+import dataReducer from "./dataReducer";
 import PropTypes from 'prop-types'
 import axios from "axios";
 
@@ -10,15 +10,13 @@ const init = (e) => {
 export default function useQuery(props) {
     const [data, dispatchData] = useReducer(dataReducer, [], init)
     const [loading, setLoading] = useState(false)
-    const maxID = useMemo(() => {
-        return data.length > 0 ? data[data.length - 1].data[props.identificationKey] : null
-    }, [data])
-
+    const [currentPage, setCurrentPage] = useState(0)
     const [filters, setFilters] = useState([])
     const [sorts, setSorts] = useState([])
     const [hasMore, setHasMore] = useState(false)
-    const fetchParams = useMemo(() => {
-        let pack = {max_id: maxID, quantity: props.fetchSize, filters: JSON.stringify(filters), sorts: sorts}
+
+    const fetchParams = () => {
+        let pack = {page: currentPage, quantity: props.fetchSize, filters: JSON.stringify(filters), sorts: JSON.stringify(sorts)}
         if (typeof props.parsePackage === 'function')
             pack = props.parsePackage(pack)
         return {
@@ -26,19 +24,17 @@ export default function useQuery(props) {
             headers: {...props.headers, 'content-type': 'application/json'}, url: props.url,
             params: pack,
         }
-    }, [data, maxID, props.fetchSize])
-    const [currentPage, setCurrentPage] = useState(1)
+    }
+
 
     useEffect(() => {
         setLoading(true)
+        const params = fetchParams()
+        console.log('PARAMS', params.params)
         axios(
-            fetchParams
+            params
         ).then(res => {
-            if (maxID === null) {
-                dispatchData({type: ACTIONS.EMPTY})
-                dispatchData({type: ACTIONS.PUSH, payload: res.data})
-            } else
-                dispatchData({type: ACTIONS.PUSH, payload: res.data})
+            dispatchData({type: ACTIONS.PUSH, payload: res.data})
             setHasMore(res.data.length > 0)
             setLoading(false)
         }).catch(() => null)
@@ -47,15 +43,14 @@ export default function useQuery(props) {
     const clean = () => {
         dispatchData({type: ACTIONS.EMPTY})
         setHasMore(false)
-        setCurrentPage(1)
+        setCurrentPage(0)
     }
 
     return {
         data,
         filters,
         setFilters,
-        sorts,
-        setSorts,
+        sorts, setSorts,
         setCurrentPage,
         currentPage,
         hasMore,
@@ -63,10 +58,9 @@ export default function useQuery(props) {
         clean
     }
 }
-useQuery.propTypes={
+useQuery.propTypes = {
     url: PropTypes.string.isRequired,
     headers: PropTypes.object,
     parsePackage: PropTypes.func,
-    fetchSize: PropTypes.number,
-    identificationKey: PropTypes.string.isRequired,
+    fetchSize: PropTypes.number
 }

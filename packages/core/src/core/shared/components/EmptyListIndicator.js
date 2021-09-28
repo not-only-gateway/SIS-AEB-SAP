@@ -5,8 +5,6 @@ import styles from './Indicator.module.css'
 import PropTypes from "prop-types";
 
 export default function EmptyListIndicator(props) {
-    const lang = ListsPT
-
     return (
         <div className={styles.content}>
             <FolderRounded style={{fontSize: '130px'}}/>

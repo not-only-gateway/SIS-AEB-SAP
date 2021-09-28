@@ -1,0 +1,107 @@
+@import '../../theme/styles.module.css';
+
+.container {
+
+    position: absolute;
+    /*height: clamp(200px, 50%, 1000px);*/
+    width: clamp(200px, 25%, 750px);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    background: var(--background-1);
+    padding: 16px;
+    border-radius: 8px;
+    border: var(--border-1) 1px solid;
+    color: var(--color-2);
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    color: var(--color-1);
+    height: 32px;
+    font-weight: bold;
+    font-family: Roboto;
+}
+
+.fields{
+    display: flex;
+    flex-flow: row wrap;
+    gap: 4px;
+}
+
+.baseButton{
+    padding: 4px;
+    color: white;
+
+    background: #0095ff;
+    outline: none;
+    display: flex;align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 30px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 150ms linear;
+    border: transparent 1px solid;
+}
+.cancelButton{
+    background: var(--background-1);
+    color: var(--color-1);
+    width: 30%;
+    border: var(--border-0) 1px solid;
+}
+.cancelButton:hover{
+    background: var(--background-2);
+}
+.cancelButton:active{
+    background: var(--background-3);
+
+}
+.baseButton:active{
+    opacity: .7
+}
+.baseButton:hover{
+    opacity: .9
+}
+.baseButton:disabled, .cancelButton:disabled{
+    cursor: unset;
+    border: var(--border-0) 1px solid;
+    background: var(--background-1);
+    color: var(--color-4);
+}
+
+.fieldContainer{
+    outline: none;
+    background: white;
+    cursor: pointer;
+    padding: 8px;
+
+    width: calc(25% - 4px);
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border: var(--border-0) 1px solid;
+    border-radius: 5px;
+
+    transition: 150ms linear;
+    color: var(--color-1);
+}
+.fieldContainer:hover{
+    background: var(--background-2);
+}
+.fieldContainer:active{
+    background: var(--background-3);
+
+}
+
+.fieldContainer:disabled{
+    background: #0095ff;
+    color: white;
+    cursor: unset;
+
+}
