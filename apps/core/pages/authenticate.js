@@ -1,14 +1,11 @@
 import React from "react";
-
 import {useRouter} from "next/router";
 import styles from '../styles/Authenticate.module.css'
 import Head from "next/head";
-import Authenticator from "../components/shared/Authenticator";
+import Authenticator from "../components/Authenticator";
 
 export default function authenticate() {
     const router = useRouter()
-    const lang = AuthenticatePT
-
     return (
         <>
 
@@ -19,7 +16,6 @@ export default function authenticate() {
             </Head>
 
             <div className={styles.pageContainer}>
-
                 <Authenticator redirect={() => router.push('/', '/', {locale: router.locale})}/>
             </div>
         </>

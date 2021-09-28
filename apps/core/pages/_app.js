@@ -13,9 +13,8 @@ export default function _app({Component, pageProps}) {
         Router.events.on('routeChangeComplete', () => setLoading(false))
     })
     return (
-
-            <AppWrapper loading={loading}>
-                <Component {...pageProps}/>
-            </AppWrapper>
+        <AppWrapper loading={loading}>
+            <Component {...pageProps}/>
+        </AppWrapper>
     )
 }

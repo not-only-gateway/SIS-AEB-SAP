@@ -16,13 +16,10 @@
     "express": "^4.17.1",
     "next": "^10.2.3",
     "prop-types": "^15.7.2",
-    "public-ip": "^4.0.3",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-input-mask": "^2.0.4",
     "sis-aeb-core": "../../packages/core",
-//    "sap": "../../packages/sap",
-//    "rh": "../../packages/rh",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

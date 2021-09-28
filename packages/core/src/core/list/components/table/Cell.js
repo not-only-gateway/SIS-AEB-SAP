@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import styles from '../../styles/Table.module.css'
-
+import React from 'react'
 export default function Cell(props) {
     return (
         <td className={styles.cell}>

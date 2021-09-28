@@ -3,7 +3,7 @@ import styles from "../../styles/Table.module.css";
 import {useEffect, useRef, useState} from "react";
 import ToolTip from "../../../misc/tooltip/ToolTip";
 import {ArrowDownward, ArrowDownwardRounded} from "@material-ui/icons";
-
+import React from 'react'
 
 export default function HeaderCell(props) {
     const ref = useRef()

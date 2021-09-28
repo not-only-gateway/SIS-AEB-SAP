@@ -9,10 +9,10 @@ fi
 cd scripts/builders
 
 # PRIMEIRO
-sudo bash core.sh
+sudo bash core.sh &&
 
 # INDEPENDENTES
-sudo bash admin.sh
+#sudo bash admin.sh
 #sudo bash sap.sh
 sudo bash core_app.sh
 #sudo bash statistics.sh
