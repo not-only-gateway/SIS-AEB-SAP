@@ -4,7 +4,7 @@ import React, {useState} from 'react'
 import styles from './styles/Profile.module.css'
 import AnimationFrame from "../navigation/templates/AnimationFrame";
 import {ExitToAppRounded} from "@material-ui/icons";
-// import AnimationFrame from "../navigation/templates/AnimationFrame";
+
 
 export default function Profile(props) {
     const [open, setOpen] = useState(false)
@@ -40,7 +40,7 @@ export default function Profile(props) {
                     color: open ? '#0095ff' : undefined,
                     transition: '150ms linear'
                 }}>
-                    {props.lang.hello}
+                    Bem vindo
                 </div>
 
                 <div className={styles.overflowEllipsis} style={{maxWidth: '50%'}}>
@@ -86,8 +86,6 @@ Profile.propTypes = {
         email: PropTypes.string,
         image: PropTypes.string
     }),
-
-    lang: PropTypes.object,
     buttons: PropTypes.arrayOf(
         PropTypes.shape({
             name: PropTypes.string,

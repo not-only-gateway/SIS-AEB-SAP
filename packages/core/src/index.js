@@ -9,11 +9,14 @@ import DateField from './core/inputs/date/DateField'
 import DropDownField from './core/inputs/dropdown/DropDownField'
 import FileField from './core/inputs/file/FileField'
 import MultiSelectField from './core/inputs/multiselect/MultiSelectField'
-import Navigation from './core/layout/navigation/LayoutWrapper'
+import LayoutWrapper from './core/layout/navigation/LayoutWrapper'
 import Requester from './core/misc/requester/Requester'
 import TextField from './core/inputs/text/TextField'
 import ToolTip from './core/misc/tooltip/ToolTip'
 import useQuery from './core/shared/hooks/useQuery'
+
+import ThemeContext from './core/theme/ThemeContext'
+import ThemeProvider from './core/theme/ThemeProvider'
 
 export {
   useQuery,
@@ -26,7 +29,7 @@ export {
   DropDownField,
   FileField,
   MultiSelectField,
-  Navigation,
+  LayoutWrapper, ThemeContext, ThemeProvider,
   Requester,
   TextField,
   ToolTip

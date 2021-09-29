@@ -1,5 +1,5 @@
 {
-  "name": "sis-aeb-admin",
+  "name": "sis-aeb-core",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -16,6 +16,7 @@
     "express": "^4.17.1",
     "next": "^10.2.3",
     "prop-types": "^15.7.2",
+    "public-ip": "^4.0.3",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-input-mask": "^2.0.4",

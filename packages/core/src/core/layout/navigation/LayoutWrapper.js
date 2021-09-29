@@ -2,7 +2,6 @@ import React, {useContext, useState} from 'react';
 import styles from './styles/Navigation.module.css'
 import PropTypes from 'prop-types'
 import Profile from '../profile/Profile'
-import NavigationPT from './locales/NavigationPT'
 import Apps from '../apps/Apps'
 import {MenuRounded} from "@material-ui/icons";
 import SideBar from "../sidebar/SideBar";
@@ -12,7 +11,6 @@ import ThemeContext from "../../theme/ThemeContext";
 
 
 export default function LayoutWrapper(props) {
-    const lang = NavigationPT
     const [openSideBar, setOpenSideBar] = useState(false)
     const [onDark, setOnDark] = useState(false)
     const context = useContext(ThemeContext)
@@ -46,7 +44,7 @@ export default function LayoutWrapper(props) {
                     </div>
                     <div className={styles.content} style={{justifyContent: 'flex-end', gap: '8px'}}>
                         <Apps
-                            lang={lang}
+
                             redirect={props.redirect}
                             buttons={props.appButtons}
                         />
@@ -56,7 +54,6 @@ export default function LayoutWrapper(props) {
                             redirect={props.redirect}
                             redirectToLogin={props.redirectToLogin}
                             profile={props.profile}
-                            lang={lang}
                         />
                     </div>
 

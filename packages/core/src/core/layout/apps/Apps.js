@@ -47,7 +47,7 @@ export default function Apps(props) {
 }
 Apps.propTypes = {
     redirect: PropTypes.func,
-    lang: PropTypes.object,
+
     buttons: PropTypes.arrayOf(
         PropTypes.shape({
             label: PropTypes.string,

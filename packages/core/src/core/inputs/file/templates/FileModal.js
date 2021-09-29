@@ -1,10 +1,11 @@
-import {Modal} from "sis-aeb-core";
+
 import React, {useMemo, useRef} from "react";
 import styles from '../styles/File.module.css'
 import {CloseRounded} from "@material-ui/icons";
 import File from "./File";
 import PropTypes from "prop-types";
 import EmptyListIndicator from "../../../shared/components/EmptyListIndicator";
+import Modal from "../../../misc/modal/Modal";
 
 export default function FileModal(props) {
     const ref = useRef()

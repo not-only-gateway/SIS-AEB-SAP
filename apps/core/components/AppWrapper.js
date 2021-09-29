@@ -2,14 +2,15 @@ import React, {useState} from "react";
 import {useRouter} from "next/router";
 import "@fontsource/roboto"
 import PropTypes from "prop-types";
-import {Navigation} from "sis-aeb-core";
+
 import {WorkRounded} from "@material-ui/icons";
+import {LayoutWrapper} from "sis-aeb-core";
 
 export default function AppWrapper(props) {
     const router = useRouter()
-    const [profile, setProfile] = useState(null)
+    const [profile, setProfile] = useState({})
     return (
-        <Navigation
+        <LayoutWrapper
             redirect={url => router.push(url, url)}
             loading={props.loading} profile={profile}
             lightLogo={'./light.png'}
@@ -27,7 +28,8 @@ export default function AppWrapper(props) {
             }]}
         >
             {props.children}
-        </Navigation>
+        </LayoutWrapper>
+
     )
 }
 AppWrapper.propTypes = {

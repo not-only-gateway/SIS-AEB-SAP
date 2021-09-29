@@ -13,3 +13,8 @@
 
     box-sizing: border-box;
 }
+
+.pageContainer{
+    display: flex;
+    place-content: center;
+}

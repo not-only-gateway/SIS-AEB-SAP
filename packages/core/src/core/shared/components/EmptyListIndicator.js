@@ -1,6 +1,5 @@
 import {FolderRounded} from "@material-ui/icons";
 import React from "react";
-
 import styles from './Indicator.module.css'
 import PropTypes from "prop-types";
 

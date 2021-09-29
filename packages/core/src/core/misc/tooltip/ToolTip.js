@@ -18,7 +18,6 @@ export default function ToolTip(props) {
     const ref = useRef()
     const mountingPoint = useRef();
 
-
     const hover = (event) => {
         ReactDOM.unmountComponentAtNode(
             mountingPoint.current
