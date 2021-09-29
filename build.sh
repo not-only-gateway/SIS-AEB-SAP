@@ -1,23 +1,14 @@
-if [ ! -d "logs" ]; then
-  mkdir logs
-  cd logs
-  mkdir build
-  mkdir run
-  cd ..
+
+cd packages/core
+if [ ! -d "dist" ]; then
+  mkdir dist
 fi
 
-cd scripts/builders
+yarn
+yarn start
 
-# PRIMEIRO
-sudo bash core.sh &&
-
-# INDEPENDENTES
-#sudo bash admin.sh
-#sudo bash sap.sh
-sudo bash core_app.sh
-#sudo bash statistics.sh
-
-echo "OK"
+cd ../../src
+yarn
 
 exit
 

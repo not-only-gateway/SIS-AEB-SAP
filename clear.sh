@@ -1,14 +1,10 @@
 
-cd apps/admin
-sudo rm -r node_modules
-sudo rm -r .next
-
-cd ../core
+cd src
 sudo rm -r node_modules
 sudo rm -r .next
 
 
-cd ../../packages/core
+cd ../packages/core
 sudo rm -r dist
 mkdir dist
 sudo rm -r node_modules
