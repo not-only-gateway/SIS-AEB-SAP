@@ -1,11 +1,11 @@
-import styles from './Checkbox.module.css'
+import styles from './styles/Checkbox.module.css'
 import PropTypes from 'prop-types'
 import {CheckRounded} from "@material-ui/icons";
 import React from 'react'
 
 export default function Checkbox(props) {
     return (
-        <div style={{padding: '0 12px'}}>
+        <div style={{display: 'flex', alignItems: 'center', gap: '16px'}}>
             <button
                 className={styles.container}
                 disabled={props.disabled}
@@ -22,12 +22,17 @@ export default function Checkbox(props) {
                     fontWeight: "bold"
                 }}/>
             </button>
+            {props.label ?
+                <div style={{fontSize: '.9rem'}}>
+                    {props.label}
+                </div>
+                : null}
         </div>
     )
 }
 Checkbox.propTypes = {
     checked: PropTypes.bool,
     handleCheck: PropTypes.func,
-    noSelect: PropTypes.bool,
+    label: PropTypes.string,
     disabled: PropTypes.bool
 }

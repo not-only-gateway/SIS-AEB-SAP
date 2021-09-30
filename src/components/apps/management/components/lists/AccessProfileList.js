@@ -1,11 +1,11 @@
 import { useQuery} from "sis-aeb-core";
-import {service_query} from "../../queries/queries";
+import {permission_query, service_query} from "../../queries/queries";
 import List from "../../../../core/list/List";
 import {useState} from "react";
 import ServiceForm from "../forms/ServiceForm";
 
-export default function ServiceList(props) {
-    const hook = useQuery(service_query)
+export default function AccessProfileList(props) {
+    const hook = useQuery(permission_query)
     const [openEntity, setOpenEntity] = useState(undefined)
     return (
         <>
@@ -22,24 +22,14 @@ export default function ServiceList(props) {
                             type: 'number',
                         },
                         {
-                            key: 'name',
-                            label: 'Nome',
-                            type: 'string',
-                        },
-                        {
-                            key: 'description',
-                            label: 'Descrição',
-                            type: 'string',
-                        },
-                        {
-                            key: 'host',
-                            label: 'Host',
+                            key: 'denomination',
+                            label: 'Denominação',
                             type: 'string',
                         }
                     ]}
                     hook={hook} onCreate={() => setOpenEntity({})}
                     onRowClick={row => setOpenEntity(row)}
-                    title={'Serviços registrados'}
+                    title={'Perfis de acesso'}
                 />
             </div>
         </>

@@ -10,7 +10,7 @@ import Row from "./modules/Row";
 export default function Selector(props) {
     const [open, setOpen] = useState(false)
     const lang = SelectorsPT
-
+    console.log(props.hook)
     return (
         <>
             <SelectorModal {...props} open={open} setOpen={setOpen}/>
@@ -31,7 +31,7 @@ export default function Selector(props) {
                         color: props.disabled ? '#666666' : undefined
                     }}
                 >
-                    {props.label}
+                    {props.title}
                 </div>
 
 
@@ -63,9 +63,8 @@ export default function Selector(props) {
 
 Selector.propTypes = {
     hook: PropTypes.func.isRequired,
-    identificationKey: PropTypes.string,
 
-    label: PropTypes.string,
+    title: PropTypes.string,
     placeholder: PropTypes.string,
     required: PropTypes.bool,
     value: PropTypes.object,

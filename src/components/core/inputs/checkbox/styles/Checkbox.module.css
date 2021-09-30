@@ -1,4 +1,4 @@
-@import "../../theme/styles.module.css";
+@import "../../../theme/styles.module.css";
 
 
 .container{
@@ -29,4 +29,18 @@
     background: transparent;
     border-color: var(--color-4);
     cursor: unset;
+}
+
+.wrapper{
+
+
+
+    border: var(--border-0) 1px solid;
+    border-radius: 5px;
+    padding: 8px;
+    width: fit-content;
+}
+.wrapperChildren{
+    display: grid;
+    gap: 8px;
 }

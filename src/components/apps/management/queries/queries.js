@@ -14,3 +14,24 @@ export const endpoint_query = {
     parsePackage: pack => pack,
     fetchSize: 15
 }
+
+export const permission_query = {
+    url: Host('auth/') + 'list/permission',
+    headers: {'authorization': cookies.get('jwt')},
+    parsePackage: pack => pack,
+    fetchSize: 15
+}
+
+export const access_profile_query = {
+    url: Host('auth/') + 'list/acess_profile',
+    headers: {'authorization': cookies.get('jwt')},
+    parsePackage: pack => pack,
+    fetchSize: 15
+}
+
+export const event_query = {
+    url: Host('api/') + 'list/event',
+    headers: {'authorization': cookies.get('jwt')},
+    parsePackage: pack => pack,
+    fetchSize: 15
+}

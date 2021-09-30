@@ -1,6 +1,5 @@
 {
-  "name": "sis-aeb-core",
-  "version": "0.1.0",
+  "name": "sis-aeb",
   "private": true,
   "scripts": {
     "dev": "NODE_OPTIONS=\"--max_old_space_size=8192\" next",

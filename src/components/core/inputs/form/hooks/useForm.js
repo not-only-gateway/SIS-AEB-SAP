@@ -5,12 +5,10 @@ export default function useForm({noAutoHeight, initialData, dependencies}) {
     const [data, setData] = useState(!initialData ? {} : initialData)
     const [changed, setChanged] = useState(false)
     const handleChange = ({event, key}) => {
-        setData(prevState => {
-            return {
-                ...prevState,
-                [key]: event
-            }
-        })
+        let newData = {...data}
+        newData[key] = event
+        setData(newData)
+
         setChanged(true)
     }
 
@@ -18,7 +16,7 @@ export default function useForm({noAutoHeight, initialData, dependencies}) {
         let response = dependencies === undefined || !changed
         let i
         if (dependencies !== undefined && changed)
-            for (i = 0; i < dependencies.fields.length; i++)
+            for (i = 0; i < dependencies.length; i++)
                 if (dependencies[i] !== undefined && dependencies[i] !== null)
                     response = (
                         response ||

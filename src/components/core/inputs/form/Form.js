@@ -19,7 +19,7 @@ export default function Form(props) {
         }}>
             <Header title={props.title} returnButton={props.returnButton} noHeader={props.noHeader} handleClose={props.handleClose}/>
             <div style={{padding: '16px'}}>
-                {props.children({data: data, handleChange: handleChange})}
+                {props.children(data, handleChange)}
             </div>
             <SubmitButton submit={props.handleSubmit} data={data} create={props.create} disabled={disabled}/>
         </div>

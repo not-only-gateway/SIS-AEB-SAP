@@ -5,6 +5,7 @@ import Modal from "../../../misc/modal/Modal";
 import PropTypes from "prop-types";
 import Row from "./Row";
 import useInfiniteScroll from "../../../shared/hooks/useInfiniteScroll";
+import EmptyListIndicator from "../../../shared/components/EmptyListIndicator";
 
 export default function SelectorModal(props) {
     const lastElementRef = useInfiniteScroll(props.hook.setCurrentPage, props.hook.currentPage, props.hook.loading, props.hook.hasMore)
@@ -38,7 +39,7 @@ export default function SelectorModal(props) {
             <div className={styles.divider}/>
             {/*</div>*/}
             <div className={styles.rows}>
-                {props.hook.data.map((e, i) => (
+                {props.hook.data.length === 0 ? <EmptyListIndicator/>  : props.hook.data.map((e, i) => (
                     <React.Fragment key={e.id + '-selector-modal-row-' + i}>
                         <Row
                             disabled={false} emptyIndicator={false}

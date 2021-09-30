@@ -2,7 +2,7 @@ import React, {useCallback, useState} from "react";
 import TextField from "../../inputs/text/TextField";
 import DateField from "../../inputs/date/DateField";
 import styles from '../styles/Header.module.css'
-import Checkbox from "../../shared/components/Checkbox";
+import Checkbox from "../../inputs/checkbox/Checkbox";
 
 export default function useFilter(filter, setFilter) {
     const [onInput, setOnInput] = useState(undefined)

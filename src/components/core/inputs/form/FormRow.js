@@ -10,7 +10,7 @@ export default function FormRow(props){
                       borderTop: props.title === undefined ? 'none' : undefined,
                       paddingTop: props.title === undefined ? '0' : undefined
                   }}>
-            <legend style={{display: props.title === undefined ? 'none' : undefined, fontSize: '1.1rem'}}>{props.title}</legend>
+            <legend style={{display: props.title === undefined ? 'none' : undefined}} className={styles.legend}>{props.title}</legend>
             {props.children}
         </fieldset>
     )
