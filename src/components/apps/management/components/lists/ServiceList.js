@@ -1,4 +1,4 @@
-import { useQuery} from "sis-aeb-core";
+import {useQuery} from "sis-aeb-core";
 import {service_query} from "../../queries/queries";
 import List from "../../../../core/list/List";
 import {useState} from "react";

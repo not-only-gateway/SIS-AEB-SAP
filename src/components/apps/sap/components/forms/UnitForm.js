@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import Host from "../../utils/shared/Host";

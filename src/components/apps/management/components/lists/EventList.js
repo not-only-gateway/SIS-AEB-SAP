@@ -1,5 +1,5 @@
-import { useQuery} from "sis-aeb-core";
-import {event_query, permission_query, service_query} from "../../queries/queries";
+import {useQuery} from "sis-aeb-core";
+import {event_query} from "../../queries/queries";
 import List from "../../../../core/list/List";
 import {useState} from "react";
 import ServiceForm from "../forms/ServiceForm";

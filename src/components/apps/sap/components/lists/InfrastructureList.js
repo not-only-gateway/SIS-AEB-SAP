@@ -1,18 +1,15 @@
 import React, {useRef, useState} from "react";
 
 import {List, useQuery} from "sis-aeb-core";
-import Cookies from "universal-cookie/lib";
-import Host from "../../utils/shared/Host";
-import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
+import {DeleteRounded} from "@material-ui/icons";
 import Infrastructure from "../entities/Infrastructure";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
-import HandleDownload from "../../utils/shared/HandleDownload";
 
 export default function InfrastructureList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const hook = useQuery()
-    const ref = useRef()
+    
     return (
         <>
             {!open ? null :
@@ -20,7 +17,7 @@ export default function InfrastructureList(props) {
                 <Infrastructure
                     returnToMain={() => {
                         setOpen(false)
-                        setRefreshed(false)
+                        hook.clean()
                     }}
                     asDefault={true}
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
@@ -32,6 +29,7 @@ export default function InfrastructureList(props) {
                 <List
 
                     createOption={true}
+                    onCreate={() => setOpen(true)}
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
@@ -44,7 +42,8 @@ export default function InfrastructureList(props) {
                         color: '#ff5555'
                     }]}
                     onRowClick={e => setCurrentEntity(e)}
-                    fields={[
+                    hook={hook}
+                    keys={[
                         {key: 'name', type: 'string', label: 'Nome'},
                         {key: 'type', type: 'string', label: 'Tipo'}
                     ]} labels={['Nome', 'Tipo']}

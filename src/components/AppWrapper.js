@@ -2,11 +2,10 @@ import React, {useMemo, useState} from "react";
 import {useRouter} from "next/router";
 import "@fontsource/roboto"
 import PropTypes from "prop-types";
-
-import {WorkRounded} from "@material-ui/icons";
 import LayoutWrapper from "./core/layout/navigation/LayoutWrapper";
 import sapProps from "./apps/sap/sapProps";
 import managementProps from "./apps/management/managementProps";
+import apps from "../packages/apps";
 
 export default function AppWrapper(props) {
     const router = useRouter()
@@ -34,7 +33,7 @@ export default function AppWrapper(props) {
             {...layoutParams}
 
             profileButtons={[]}
-            appButtons={[]}
+            appButtons={apps}
         >
             {props.children}
         </LayoutWrapper>

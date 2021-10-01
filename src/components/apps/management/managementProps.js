@@ -1,13 +1,5 @@
-import {
-    LinkRounded,
-    ListRounded,
-    LockRounded,
-    PublicRounded,
-    SettingsRounded,
-    VpnKeyRounded,
-    SupervisorAccountRounded
-} from "@material-ui/icons";
-import React, {useCallback} from "react";
+import {ListRounded, PublicRounded, SettingsRounded, SupervisorAccountRounded} from "@material-ui/icons";
+import React from "react";
 
 export default function managementProps (redirect, path) {
     return {

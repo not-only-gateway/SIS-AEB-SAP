@@ -1,6 +1,6 @@
 import styles from '../shared/Dropdown.module.css'
 import PropTypes from 'prop-types'
-import React, {useEffect, useMemo, useRef, useState} from 'react'
+import React, {useMemo, useRef, useState} from 'react'
 import {ArrowDropDownRounded} from '@material-ui/icons'
 import LocalePT from '../shared/LocalePT'
 import SelectBox from "../shared/SelectBox";

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useMemo, useState} from "react";
+import React, {useState} from "react";
 import styles from './styles/HeaderTabs.module.css'
 
 export default function HeaderTabs(props) {

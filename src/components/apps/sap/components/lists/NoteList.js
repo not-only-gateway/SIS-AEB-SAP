@@ -1,9 +1,7 @@
 import React, {useRef, useState} from "react";
-import Host from "../../utils/shared/Host";
-import Cookies from "universal-cookie/lib";
 import animations from "../../styles/Animations.module.css";
 import {List, useQuery} from "sis-aeb-core";
-import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
+import {DeleteRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import NoteForm from "../forms/NoteForm";
 import OperationRequests from "../../utils/requests/OperationRequests";
@@ -12,7 +10,7 @@ export default function NoteList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const hook = useQuery()
-    const ref = useRef()
+    
     return (
         <div>
 
@@ -20,7 +18,7 @@ export default function NoteList(props) {
                 <div className={animations.fadeIn} style={{width: '100%'}}>
                     <NoteForm
                         returnToMain={() => {
-                            setRefreshed(false)
+                            hook.clean()
                             setOpen(false)
                         }}
 
@@ -32,7 +30,9 @@ export default function NoteList(props) {
             <div style={{display: open ? 'none' : undefined, width: '100%'}}>
                 <List
                     createOption={true}
-                    fields={[
+                    onCreate={() => setOpen(true)}
+                    hook={hook}
+                    keys={[
                         {key: 'number', type: 'string', label: 'Número'},
                         {key: 'value', type: 'number', maskStart: 'R$', label: 'Valor'}
                     ]}

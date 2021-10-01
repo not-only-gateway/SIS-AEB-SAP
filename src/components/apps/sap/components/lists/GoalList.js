@@ -2,16 +2,14 @@ import PropTypes from 'prop-types'
 import React, {useRef, useState} from "react";
 import animations from "../../styles/Animations.module.css";
 import {List, useQuery} from "sis-aeb-core";
-import Cookies from "universal-cookie/lib";
-import Host from "../../utils/shared/Host";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import GoalForm from "../forms/GoalForm";
-import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
+import {DeleteRounded} from "@material-ui/icons";
 
 export default function GoalList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const ref = useRef()
+    
 
     const hook = useQuery()
     return (
@@ -21,7 +19,7 @@ export default function GoalList(props) {
                     <GoalForm
                         returnToMain={() => {
                             setOpen(false)
-                            setRefreshed(false)
+                            hook.clean()
                         }}
 
                         redirect={data => {
@@ -38,7 +36,9 @@ export default function GoalList(props) {
             <div style={{display: open ? 'none' : undefined}}>
                 <List
                     createOption={true}
-                    fields={[
+                    onCreate={() => setOpen(true)}
+                    hook={hook}
+                    keys={[
                         {key: 'goal_number', type: 'string', label: 'Número'},
                         {key: 'detailing', type: 'string', label: 'Detalhamento'},
                         {key: 'unit_of_measurement', type: 'string', label: 'unidade de medida'},

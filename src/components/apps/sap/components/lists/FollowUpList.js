@@ -1,10 +1,7 @@
 import React, {useRef, useState} from "react";
 import {List, useQuery} from "sis-aeb-core";
-import Cookies from "universal-cookie/lib";
-import Host from "../../utils/shared/Host";
-import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
+import {DeleteRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
-import animations from "../../styles/Animations.module.css";
 import FollowUpForm from "../forms/FollowUpForm";
 import OperationRequests from "../../utils/requests/OperationRequests";
 
@@ -12,14 +9,14 @@ export default function FollowUpList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const hook = useQuery()
-    const ref = useRef()
+    
     return (
         <>
             {!open ? null :
 
                 <FollowUpForm
                     returnToMain={() => {
-                        setRefreshed(false)
+                        hook.clean()
                         setOpen(false)
                     }}
 
@@ -30,6 +27,7 @@ export default function FollowUpList(props) {
                 <List
 
                     createOption={true}
+                    onCreate={() => setOpen(true)}
 
                     controlButtons={[{
                         label: 'Deletar',
@@ -43,7 +41,8 @@ export default function FollowUpList(props) {
                         disabled: false,
                         color: '#ff5555'
                     }]}
-                    fields={[
+                    hook={hook}
+                    keys={[
                         {key: 'description', type: 'string', label: 'descrição'},
                         {key: 'accomplished', type: 'bool', label: 'entregue'},
                     ]}

@@ -1,10 +1,7 @@
 import PropTypes from 'prop-types'
 import React, {useRef, useState} from "react";
-import animations from "../../styles/Animations.module.css";
 import {List, useQuery} from "sis-aeb-core";
-import Cookies from "universal-cookie/lib";
-import Host from "../../utils/shared/Host";
-import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
+import {DeleteRounded} from "@material-ui/icons";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import FinancialDisbursementForm from "../forms/FinancialDisbursementForm";
 
@@ -13,7 +10,7 @@ export default function FinancialDisbursementList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const hook = useQuery()
-    const ref = useRef()
+    
 
     return (
 
@@ -22,7 +19,7 @@ export default function FinancialDisbursementList(props) {
                 <FinancialDisbursementForm
                     returnToMain={() => {
                         setOpen(false)
-                        setRefreshed(false)
+                        hook.clean()
                     }}
 
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
@@ -32,6 +29,7 @@ export default function FinancialDisbursementList(props) {
             <div style={{display: open ? 'none' : undefined}}>
                 <List
                     createOption={true}
+                    onCreate={() => setOpen(true)}
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
@@ -44,7 +42,8 @@ export default function FinancialDisbursementList(props) {
                         disabled: false,
                         color: '#ff5555'
                     }]}
-                    fields={[
+                    hook={hook}
+                    keys={[
                         {key: 'year', type: 'string', label: 'ano'},
                         {key: 'month', type: 'string', label: 'mês'},
                         {key: 'value', type: 'number', label: 'valor', maskStart: 'R$ '},

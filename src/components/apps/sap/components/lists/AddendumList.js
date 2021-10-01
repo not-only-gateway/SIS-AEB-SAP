@@ -1,10 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useRef, useState} from "react";
-import animations from "../../styles/Animations.module.css";
-
-import Cookies from "universal-cookie/lib";
-import Host from "../../utils/shared/Host";
-import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
+import {DeleteRounded} from "@material-ui/icons";
 import TedRequests from "../../utils/requests/TedRequests";
 import TedForm from "../forms/TedForm";
 import {List, useQuery} from "sis-aeb-core";
@@ -14,7 +10,7 @@ export default function AddendumList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const hook = useQuery(addendum_query)
-    const ref = useRef()
+    
 
     return (
         <div style={{width: '100%'}}>
@@ -24,7 +20,7 @@ export default function AddendumList(props) {
                     <TedForm
                         returnToMain={() => {
                             setOpen(false)
-                            setRefreshed(false)
+                            hook.clean()
                         }} asAddendum={true}
                          ted={props.ted}
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
@@ -35,8 +31,9 @@ export default function AddendumList(props) {
                 <List
 
                     createOption={true}
-
-                    fields={[
+                    onCreate={() => setOpen(true)}
+                    hook={hook}
+                    keys={[
                         {key: 'number', type: 'string', label: 'Número'},
                         {key: 'responsible', type: 'object', subfieldKey: 'acronym', label: 'Responsável'},
                         {key: 'process', type: 'string', label: 'Processo'}

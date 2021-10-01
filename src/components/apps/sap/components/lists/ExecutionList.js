@@ -1,27 +1,23 @@
 import React, {useRef, useState} from "react";
 import {List, useQuery} from "sis-aeb-core";
-import Cookies from "universal-cookie/lib";
-import Host from "../../utils/shared/Host";
-import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
+import {DeleteRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
-import animations from "../../styles/Animations.module.css";
 import ExecutionForm from "../forms/ExecutionForm";
 import OperationRequests from "../../utils/requests/OperationRequests";
-import HandleDownload from "../../utils/shared/HandleDownload";
 
 export default function ExecutionList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const hook = useQuery()
-    const ref = useRef()
+    
     return (
         <>
             {!open ? null :
 
                     <ExecutionForm
                         returnToMain={() => {
-                            setRefreshed(false)
                             setOpen(false)
+                            hook.clean()
                         }}
                         workPlan={props.workPlan}
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
@@ -32,7 +28,9 @@ export default function ExecutionList(props) {
             <div style={{display: open ? 'none' : undefined}}>
                 <List
                     createOption={true}
-                    fields={[
+                    onCreate={() => setOpen(true)}
+                    hook={hook}
+                    keys={[
                         {key: 'operation_phase', type: 'object', subfieldKey: 'phase', label: 'Fase'},
                         {
                             key: 'operation_phase',

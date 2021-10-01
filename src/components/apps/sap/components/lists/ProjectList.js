@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import Cookies from "universal-cookie/lib";
 import Host from "../../utils/shared/Host";
 import PropTypes from "prop-types";
-import animations from "../../styles/Animations.module.css";
 import {List, useQuery} from "sis-aeb-core";
 import ProjectForm from "../forms/ProjectForm";
 import {ArrowForwardRounded, DeleteRounded} from "@material-ui/icons";
@@ -24,19 +23,15 @@ export default function ProjectList(props) {
 
     return (
         <>
-
-
             {!open ? null :
-                <div className={animations.fadeIn}>
-                    <ProjectForm
-                        returnToMain={() => {
-                            setOpen(false)
-                            props.setOpen(false)
-                        }} redirect={props.redirect}
+                <ProjectForm
+                    returnToMain={() => {
+                        setOpen(false)
+                        hook.clean()
+                    }} redirect={props.redirect}
 
-                        create={true}
-                        data={currentEntity}/>
-                </div>
+                    create={true}
+                    data={currentEntity}/>
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
@@ -63,8 +58,7 @@ export default function ProjectList(props) {
                             onClick: (entity) => {
                                 ProjectRequests.deleteProject({
                                     pk: entity.id
-                                })
-                                hook.clear()
+                                }).then(() => hook.clean())
                             },
                             disabled: false,
                             color: '#ff5555'

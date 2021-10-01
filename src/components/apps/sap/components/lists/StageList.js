@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useRef, useState} from "react";
-import Cookies from "universal-cookie/lib";
-import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
-import Host from "../../utils/shared/Host";
+import {DeleteRounded} from "@material-ui/icons";
 import {List, useQuery} from "sis-aeb-core";
 
 import StageForm from "../forms/StageForm";
@@ -14,7 +12,7 @@ export default function StageList(props) {
     const [open, setOpen] = useState(false)
     const hook = useQuery()
 
-    const ref = useRef()
+    
     return (
         <>
             {open ?
@@ -41,7 +39,8 @@ export default function StageList(props) {
             <div style={{display: open ? 'none' : undefined}}>
                 <List
                     createOption={true}
-                    fields={[
+                    hook={hook}
+                    keys={[
                         {name: 'stage', type: 'string', label: 'Etapa'},
                         {name: 'description', type: 'string',label: 'Descrição'},
                         {name: 'representation', type: 'string', maskEnd: ' %',label: 'Reresentação (%) da meta'},

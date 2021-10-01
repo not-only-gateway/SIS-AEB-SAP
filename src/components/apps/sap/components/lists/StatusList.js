@@ -1,20 +1,16 @@
 import PropTypes from 'prop-types'
 import React, {useRef, useState} from "react";
-import animations from "../../styles/Animations.module.css";
 import {List, useQuery} from "sis-aeb-core";
-import Cookies from "universal-cookie/lib";
-import Host from "../../utils/shared/Host";
-import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
+import {DeleteRounded} from "@material-ui/icons";
 import StatusForm from "../forms/StatusForm";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
-import HandleDownload from "../../utils/shared/HandleDownload";
 
 export default function StatusList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const hook = useQuery()
 
-    const ref = useRef()
+    
     return (
         <div style={{width: '100%'}}>
 
@@ -32,6 +28,7 @@ export default function StatusList(props) {
             <div style={{display: open ? 'none' : undefined}}>
                 <List
                     createOption={true}
+                    onCreate={() => setOpen(true)}
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
@@ -43,7 +40,8 @@ export default function StatusList(props) {
                         disabled: false,
                         color: '#ff5555'
                     }]}
-                    fields={[
+                    hook={hook}
+                    keys={[
                         {key: 'status', type: 'string', label: 'status'},
                         {key: 'difficulties', type: 'string', label: 'Dificuldades'},
                         {key: 'update_date', type: 'date', label: 'data da atualização'},

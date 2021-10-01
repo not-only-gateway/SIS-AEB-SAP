@@ -5,27 +5,37 @@
     font-weight: bold;
     font-family: Roboto;
     color: var(--color-1);
+    max-width: 100%;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .appButton{
     outline: none;
-    width: calc(25% - 16px);
+    width: calc(33.333% - 6px);
     height: 60px;
     border: var(--border-0) 1px solid;
     background: var(--background-1);
     border-radius: 5px;
-
+    color: var(--color-2);
     display: grid;
     justify-content: center;
+    justify-items: center;
     gap: 4px;
     padding: 8px;
 
     transition: 150ms linear;
+
+    cursor: pointer;
+
 }
 .appButton:hover{
     background: var(--background-2);
 }
 .appButton:active{
     background: var(--background-3);
+    color: #0095ff;
 }
 
 .appsWrapper{
@@ -34,7 +44,7 @@
     position: absolute;
     left: 50%;
     height: auto;
-    min-height: 100px;
+
     width: 250px;
 
     background: var(--background-1);

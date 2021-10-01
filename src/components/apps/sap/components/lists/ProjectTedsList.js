@@ -5,9 +5,8 @@ import PropTypes from "prop-types";
 import animations from "../../styles/Animations.module.css";
 import {List, useQuery} from "sis-aeb-core";
 import TedForm from "../forms/TedForm";
-import {ArrowForwardRounded, DeleteRounded, GetAppRounded, PlaylistAddRounded} from "@material-ui/icons";
+import {ArrowForwardRounded, DeleteRounded} from "@material-ui/icons";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
-import TedRequests from "../../utils/requests/TedRequests";
 
 
 export default function ProjectTedsList(props) {
@@ -33,7 +32,7 @@ export default function ProjectTedsList(props) {
                     handleChange={entity => {
                         ProjectRequests.submitProjectTed({
                             data: {ted: entity.id, activity_project: props.project.id}
-                        }).then(res => setRefreshed(false))
+                        }).then(res => hook.clean())
                     }} label={'Selecionar Instrumentos já cadastrados'}
                     setChanged={() => null}
                     fetchParams={{
@@ -56,7 +55,7 @@ export default function ProjectTedsList(props) {
                     <TedForm
                         returnToMain={() => {
                             setOpen(false)
-                            setRefreshed(false)
+                            hook.clean()
                         }} redirect={props.redirect}
 
                         create={true} project={props.project.id}
@@ -66,7 +65,9 @@ export default function ProjectTedsList(props) {
             <div style={{display: open ? 'none' : undefined, width: '100%'}}>
                 <List
                     createOption={true}
-                    fields={[
+                    onCreate={() => setOpen(true)}
+                    hook={hook}
+                    keys={[
                         {key: 'number', type: 'string', label: 'Número'},
                         {key: 'responsible', type: 'object', subfield: 'acronym', label: 'Responsável'},
                         {key: 'process', type: 'string', label: 'Processo'}

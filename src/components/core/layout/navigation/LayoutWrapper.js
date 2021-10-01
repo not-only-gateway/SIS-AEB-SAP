@@ -106,7 +106,8 @@ LayoutWrapper.propTypes = {
         PropTypes.shape({
             label: PropTypes.string,
             icon: PropTypes.any,
-            link: PropTypes.string
+            path: PropTypes.string,
+            disabled: PropTypes.bool
         })
     ),
     profileButtons: PropTypes.arrayOf(

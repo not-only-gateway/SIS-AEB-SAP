@@ -1,10 +1,7 @@
 import React, {useState} from "react";
-import Cookies from "universal-cookie/lib";
-
-import Host from "../../utils/shared/Host";
 import {List, useQuery} from "sis-aeb-core";
 import UnitForm from "../forms/UnitForm";
-import {DeleteRounded, GetAppRounded} from "@material-ui/icons";
+import {DeleteRounded} from "@material-ui/icons";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 
 export default function UnitList(props) {
@@ -19,7 +16,7 @@ export default function UnitList(props) {
                 <UnitForm
                     returnToMain={() => {
                         setOpen(false)
-                        setRefreshed(false)
+                        hook.clean()
                     }}
                     asDefault={true}
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
@@ -30,7 +27,9 @@ export default function UnitList(props) {
                 <List
 
                     createOption={true}
-                    fields={[
+                    onCreate={() => setOpen(true)}
+                    hook={hook}
+                    keys={[
                         {key: 'name', type: 'string', label: 'nome'},
                         {key: 'acronym', type: 'string', label: 'Acrônimo'},
                         {key: 'parent_unit', type: 'object', subfield: 'acronym', label: 'Unidade pai'},

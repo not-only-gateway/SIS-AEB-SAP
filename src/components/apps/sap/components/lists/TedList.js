@@ -1,9 +1,6 @@
 import React, {useRef, useState} from "react";
-import animations from "../../styles/Animations.module.css";
 import {List, useQuery} from "sis-aeb-core";
-import Cookies from "universal-cookie/lib";
-import Host from "../../utils/shared/Host";
-import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
+import {DeleteRounded} from "@material-ui/icons";
 import TedForm from "../forms/TedForm";
 import TedRequests from "../../utils/requests/TedRequests";
 
@@ -11,7 +8,7 @@ export default function TedList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const hook = useQuery()
-    const ref = useRef()
+    
     return (
         <>
 
@@ -20,7 +17,7 @@ export default function TedList(props) {
                     <TedForm
                         returnToMain={() => {
                             setOpen(false)
-                            setRefreshed(false)
+                            hook.clean()
                         }} asEntity={true}
                          asDefault={true}
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
@@ -31,6 +28,7 @@ export default function TedList(props) {
             <div style={{display: open ? 'none' : undefined}}>
                 <List
                     createOption={true}
+                    onCreate={() => setOpen(true)}
                     onRowClick={e => setCurrentEntity(e)}
                     controlButtons={[{
                         label: 'Deletar',
@@ -43,7 +41,8 @@ export default function TedList(props) {
                         disabled: false,
                         color: '#ff5555'
                     }]}
-                    fields={[
+                    hook={hook}
+                    keys={[
                         {key: 'number', type: 'string', label: 'Número'},
                         {key: 'responsible', type: 'object', subfield: 'acronym', label: 'Responsável'},
                         {key: 'process', type: 'string', label: 'Processo'}

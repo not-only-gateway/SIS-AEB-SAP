@@ -1,4 +1,3 @@
-
 import React, {useMemo, useRef} from "react";
 import styles from '../styles/File.module.css'
 import {CloseRounded} from "@material-ui/icons";

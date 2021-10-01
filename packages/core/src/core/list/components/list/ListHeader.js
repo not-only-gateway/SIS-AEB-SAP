@@ -4,11 +4,11 @@ import React, {useState} from "react";
 import Filter from "./Filter";
 import ToolTip from "../../../misc/tooltip/ToolTip";
 import {
-    CalendarTodayRounded,
-    CategoryRounded,
-    CloseRounded,
-    FilterListRounded,
-    TextFieldsRounded
+  CalendarTodayRounded,
+  CategoryRounded,
+  CloseRounded,
+  FilterListRounded,
+  TextFieldsRounded
 } from "@material-ui/icons";
 import Dropdown from "./Dropdown";
 

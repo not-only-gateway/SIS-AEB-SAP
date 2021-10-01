@@ -1,19 +1,16 @@
 import React, {useRef, useState} from "react";
-import Cookies from "universal-cookie/lib";
-import Host from "../../utils/shared/Host";
 import PropTypes from "prop-types";
-import animations from "../../styles/Animations.module.css";
 
 import {List, useQuery} from "sis-aeb-core";
 import WorkPlanForm from "../forms/WorkPlanForm";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
-import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
+import {DeleteRounded} from "@material-ui/icons";
 
 export default function WorkPlanList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const hook = useQuery()
-    const ref = useRef()
+    
     return (
         <>
             {!open ? null :
@@ -21,7 +18,8 @@ export default function WorkPlanList(props) {
                 <WorkPlanForm
                     returnToMain={() => {
                         setOpen(false)
-                    }} redirect={id => {
+                    }}
+                    redirect={id => {
                     WorkPlanRequests.fetchWorkPlan(id.id).then(res => {
                         if (res !== null)
                             props.setCurrentStructure(res)
@@ -36,6 +34,8 @@ export default function WorkPlanList(props) {
             <div style={{display: open ? 'none' : undefined}}>
                 <List
                     createOption={true}
+                    onCreate={() => setOpen(true)}
+
                     hook={hook}
                     keys={[
                         {key: 'object', type: 'string', label: 'objeto'},

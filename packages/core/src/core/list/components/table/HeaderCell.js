@@ -1,9 +1,8 @@
 import PropTypes from "prop-types";
 import styles from "../../styles/Table.module.css";
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import ToolTip from "../../../misc/tooltip/ToolTip";
-import {ArrowDownward, ArrowDownwardRounded} from "@material-ui/icons";
-import React from 'react'
+import {ArrowDownwardRounded} from "@material-ui/icons";
 
 export default function HeaderCell(props) {
     const ref = useRef()

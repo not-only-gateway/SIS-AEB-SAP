@@ -3,6 +3,7 @@ import styles from './styles/Checkbox.module.css'
 import shared from '../shared/Input.module.css'
 import React from "react";
 import LocalePT from "../shared/LocalePT";
+
 export default function CheckboxGroup(props){
     const lang = LocalePT
     return(

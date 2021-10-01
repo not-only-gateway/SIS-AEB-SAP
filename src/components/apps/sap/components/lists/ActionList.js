@@ -1,7 +1,5 @@
 import React, {useRef, useState} from "react";
-import Cookies from "universal-cookie/lib";
-import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
-import Host from "../../utils/shared/Host";
+import {DeleteRounded} from "@material-ui/icons";
 import ActionForm from "../forms/ActionForm";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import {List, useQuery} from "sis-aeb-core";
@@ -12,7 +10,7 @@ export default function ActionList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const hook = useQuery(action_query)
-    const ref = useRef()
+    
     return (
         <>
 
@@ -21,7 +19,7 @@ export default function ActionList(props) {
                 <ActionForm
                     returnToMain={() => {
                         setOpen(false)
-                        setRefreshed(false)
+                        hook.clean()
                     }}
                     asDefault={true}
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
@@ -32,6 +30,7 @@ export default function ActionList(props) {
                 <List
 
                     createOption={true}
+                    onCreate={() => setOpen(true)}
 
                     controlButtons={[{
                         label: 'Deletar',
@@ -44,8 +43,9 @@ export default function ActionList(props) {
                         disabled: false,
                         color: '#ff5555'
                     }]}
-                    fields={[
-                        {key: 'number', type: 'string', label: 'Número'},
+                    hook={hook}
+                    keys={[
+                        {key: 'number', type: 'string', label: 'Número', },
                         {key: 'detailing', type: 'string', label: 'Detalhamento'}
                     ]}
 

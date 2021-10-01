@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useReducer, useState} from "react";
+import {useEffect, useReducer, useState} from "react";
 import ACTIONS from "./dataActions";
 import dataReducer from "./dataReducer";
 import PropTypes from 'prop-types'

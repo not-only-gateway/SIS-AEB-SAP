@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useRef, useState} from "react";
-import Cookies from "universal-cookie/lib";
-import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
-import Host from "../../utils/shared/Host";
+import {DeleteRounded} from "@material-ui/icons";
 import {List, useQuery} from "sis-aeb-core";
 import ComponentForm from "../forms/ComponentForm";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
@@ -10,7 +8,7 @@ import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 export default function ComponentsList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const ref = useRef()
+    
     const hook = useQuery()
     return (
         <>
@@ -19,7 +17,7 @@ export default function ComponentsList(props) {
                 <ComponentForm
                     returnToMain={() => {
                         setOpen(false)
-                        setRefreshed(false)
+                        hook.clean()
                     }}
 
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
@@ -30,8 +28,10 @@ export default function ComponentsList(props) {
             <div style={{display: open ? 'none' : undefined}}>
                 <List
                     createOption={true}
+                    onCreate={() => setOpen(true)}
 
-                    fields={[
+                    hook={hook}
+                    keys={[
                         {key: 'classification', type: 'object',subfieldKey: 'classification', label: 'classificação'},
                         {key: 'classification', type: 'object',subfieldKey: 'type', label: 'tipo'},
                         {key: 'situation', type: 'string',label: 'situação'}

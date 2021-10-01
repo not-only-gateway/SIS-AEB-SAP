@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Form, FormRow, Selector, TextField} from "sis-aeb-core";
 
 import PropTypes from "prop-types";

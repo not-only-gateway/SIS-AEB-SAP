@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {DropDownField, Form, FormRow, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import ProjectRequests from "../../utils/requests/ProjectRequests";

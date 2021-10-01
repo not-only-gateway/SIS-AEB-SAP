@@ -1,8 +1,6 @@
 import React, {useRef, useState} from "react";
-import Cookies from "universal-cookie/lib";
-import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
+import {DeleteRounded} from "@material-ui/icons";
 import BudgetPlanForm from "../forms/BudgetPlanForm";
-import Host from "../../utils/shared/Host";
 import {List, useQuery} from "sis-aeb-core";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import {budget_plan_query} from "../../queries/entities";
@@ -11,7 +9,7 @@ export default function BudgetPlanList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const hook = useQuery(budget_plan_query)
-    const ref = useRef()
+    
 
     return (
         <>
@@ -20,7 +18,7 @@ export default function BudgetPlanList(props) {
                 <BudgetPlanForm
                     returnToMain={() => {
                         setOpen(false)
-                        setRefreshed(false)
+                        hook.clean()
                     }}
                     asDefault={true}
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
@@ -31,6 +29,7 @@ export default function BudgetPlanList(props) {
                 <List
 
                     createOption={true}
+                    onCreate={() => setOpen(true)}
 
                     controlButtons={[{
                         label: 'Deletar',
@@ -43,7 +42,8 @@ export default function BudgetPlanList(props) {
                         disabled: false,
                         color: '#ff5555'
                     }]}
-                    fields={[
+                    hook={hook}
+                    keys={[
                         {key: 'action', type: 'object', subfield: 'number', label: 'Ação'},
                         {key: 'number', type: 'string', label: 'Número'},
                         {key: 'detailing', type: 'string', extraSize: 50, label: 'Detalhamento'}

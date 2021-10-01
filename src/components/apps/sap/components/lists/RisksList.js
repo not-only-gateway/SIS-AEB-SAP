@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types'
 import React, {useRef, useState} from "react";
 import {List, useQuery} from "sis-aeb-core";
-import Cookies from "universal-cookie/lib";
-import Host from "../../utils/shared/Host";
 import RiskForm from "../forms/RiskForm";
-import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
+import {DeleteRounded} from "@material-ui/icons";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 
 export default function RisksList(props) {
@@ -12,7 +10,7 @@ export default function RisksList(props) {
     const [open, setOpen] = useState(false)
     const hook = useQuery()
 
-    const ref = useRef()
+    
     return (
         <div style={{width: '100%'}}>
 
@@ -29,7 +27,8 @@ export default function RisksList(props) {
                 <List
                     onRowClick={e => setCurrentEntity(e)}
                     createOption={true}
-                    fields={[
+                    hook={hook}
+                    keys={[
                         {name: 'description', type: 'string', label: 'Descrição'},
                         {
                             name: 'analysis', type: 'string', label: 'Análise', getColor: field => {

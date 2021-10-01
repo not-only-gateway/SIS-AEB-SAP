@@ -1,5 +1,5 @@
 import {LinkRounded, WorkRounded} from "@material-ui/icons";
-import React, {useCallback} from "react";
+import React from "react";
 
 export default function sapProps (redirect, path) {
     return {
@@ -8,8 +8,8 @@ export default function sapProps (redirect, path) {
             {
                 label: "Projetos",
                 icon: <WorkRounded/>,
-                onClick: () => redirect('/sap'),
-                highlight: path === '/sap'
+                onClick: () => redirect('/sap/home'),
+                highlight: path === '/sap/home'
             },
             {
                 label: "Entidades associativas",

@@ -1,18 +1,15 @@
 import PropTypes from "prop-types";
 import React, {useRef, useState} from "react";
-import animations from "../../styles/Animations.module.css";
 import {List, useQuery} from "sis-aeb-core";
-import Cookies from "universal-cookie/lib";
-import Host from "../../utils/shared/Host";
 import ObjectiveForm from "../forms/ObjectiveForm";
-import {DeleteRounded, GetAppRounded, PublishRounded} from "@material-ui/icons";
+import {DeleteRounded} from "@material-ui/icons";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 
 export default function ObjectivesList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const hook = useQuery()
-    const ref = useRef()
+    
 
 
     return (
@@ -29,11 +26,13 @@ export default function ObjectivesList(props) {
             <div style={{display: open ? 'none' : undefined}}>
                 <List
                     createOption={true}
-                    fields={[
-                        {name: 'description', type: 'string', label: 'Descrição'},
-                        {name: 'deadline', type: 'date', label: 'Prazo final'},
+                    onCreate={() => setOpen(true)}
+                    hook={hook}
+                    keys={[
+                        {key: 'description', type: 'string', label: 'Descrição'},
+                        {key: 'deadline', type: 'date', label: 'Prazo final'},
                         {
-                            name: 'status',
+                            key: 'status',
                             type: 'string',
                             getColor: field => {
                                 let res = undefined

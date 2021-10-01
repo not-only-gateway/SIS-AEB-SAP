@@ -1,7 +1,5 @@
 import HeaderTabs from "../../../core/misc/tabs/HeaderTabs";
 import styles from "../styles/Services.module.css";
-import ServiceList from "../components/lists/ServiceList";
-import EndpointList from "../components/lists/EndpointList";
 import PermissionList from "../components/lists/PermissionList";
 import AccessProfileList from "../components/lists/AccessProfileList";
 

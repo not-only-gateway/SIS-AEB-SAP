@@ -1,12 +1,9 @@
 import PropTypes from 'prop-types'
 import React, {useRef, useState} from "react";
 
-import Cookies from "universal-cookie/lib";
-
-import {DeleteRounded, GetAppRounded} from "@material-ui/icons";
+import {DeleteRounded} from "@material-ui/icons";
 import OperationRequests from "../../utils/requests/OperationRequests";
 import {List, useQuery} from "sis-aeb-core";
-import Host from "../../utils/shared/Host";
 import ResourceApplicationForm from "../forms/ResourceApplicationForm";
 
 
@@ -14,7 +11,7 @@ export default function ResourceApplicationList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const hook = useQuery()
-    const ref = useRef()
+    
 
     return (
         <div style={{width: '100%'}}>
@@ -24,7 +21,7 @@ export default function ResourceApplicationList(props) {
                     <ResourceApplicationForm
                         returnToMain={() => {
                             setOpen(false)
-                            setRefreshed(false)
+                            hook.clean()
                         }}
 
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
@@ -35,6 +32,7 @@ export default function ResourceApplicationList(props) {
                 <List
                     onRowClick={e => setCurrentEntity(e)}
                     createOption={true}
+                    onCreate={() => setOpen(true)}
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
@@ -46,7 +44,8 @@ export default function ResourceApplicationList(props) {
                         disabled: false,
                         color: '#ff5555'
                     }]}
-                    fields={[
+                    hook={hook}
+                    keys={[
                         {name: 'nature_of_expense', type: 'object', subfield: 'gnd', label: 'GND'},
                         {name: 'nature_of_expense', type: 'object', subfield: 'nature_of_expense', label: 'Natureza de despesa'},
                         {name: 'indirect_cost', type: 'bool', label: 'custo indireto'},
