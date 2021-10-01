@@ -17,53 +17,41 @@ export default function ActionList(props) {
         <>
 
             {!open ? null :
-                <>
-                    <ActionForm
-                        returnToMain={() => {
-                            setOpen(false)
-                            setRefreshed(false)
-                        }}
-                         asDefault={true}
-                        create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                        data={currentEntity}/>
-                </>
+
+                <ActionForm
+                    returnToMain={() => {
+                        setOpen(false)
+                        setRefreshed(false)
+                    }}
+                    asDefault={true}
+                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                    data={currentEntity}/>
+
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'budget'}
-                    createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/action'}
 
+                    createOption={true}
 
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             ProjectRequests.deleteAction({
-                                pk: entity.id,
-                                setRefreshed: setRefreshed
+                                pk: entity.id
                             })
                         },
                         disabled: false,
                         color: '#ff5555'
-                    },
-                        {
-                            label: 'Baixar dados',
-                            icon: <GetAppRounded/>,
-                            onClick: (entity) => {
-                                HandleDownload(entity, entity.id)
-                            },
-                            disabled: false
-                        }]}
+                    }]}
                     fields={[
-                        {name: 'number', type: 'string', label: 'Nome'},
-                        {name: 'detailing', type: 'string', label: 'Tipo'}
-                    ]} labels={['número', 'detalhamento']}
-                    clickEvent={() => setOpen(true)}
-                    setEntity={entity => {
+                        {key: 'number', type: 'string', label: 'Número'},
+                        {key: 'detailing', type: 'string', label: 'Detalhamento'}
+                    ]}
+
+                    onRowClick={entity => {
                         setCurrentEntity(entity)
-                    }}  title={'Ações'}
-                    fetchSize={15}
+                    }} title={'Ações'}
 
                 />
             </div>

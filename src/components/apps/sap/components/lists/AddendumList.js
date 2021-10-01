@@ -20,7 +20,7 @@ export default function AddendumList(props) {
         <div style={{width: '100%'}}>
 
             {!open ? null :
-                <div className={animations.fadeIn}>
+
                     <TedForm
                         returnToMain={() => {
                             setOpen(false)
@@ -29,37 +29,30 @@ export default function AddendumList(props) {
                          ted={props.ted}
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                         data={currentEntity}/>
-                </div>
+
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'project'}
+
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/addendum'}
+
                     fields={[
-                        {name: 'number', type: 'string', label: 'Número'},
-                        {name: 'responsible', type: 'object', subfield: 'acronym'},
-                        {name: 'process', type: 'string', label: 'Processo'}
+                        {key: 'number', type: 'string', label: 'Número'},
+                        {key: 'responsible', type: 'object', subfieldKey: 'acronym', label: 'Responsável'},
+                        {key: 'process', type: 'string', label: 'Processo'}
                     ]}
-                    labels={['Número', 'Responsável', 'Processo']}
 
-
-                    clickEvent={() => setOpen(true)}
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             TedRequests.deleteAddendum({
-                                pk: entity.id,
-
-                                setRefreshed: setRefreshed
+                                pk: entity.id
                             })
                         },
                         disabled: false,
                         color: '#ff5555'
                     }]} title={'Termos aditivos'}
-                      
-                    fetchSize={15}
                     fetchParams={{
                         ted: props.ted.id
                     }}

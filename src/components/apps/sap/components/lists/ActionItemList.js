@@ -21,28 +21,25 @@ export default function ActionItemList(props) {
     return (
         <>
             {!open ? null :
-                <div className={animations.fadeIn}>
-                    <ActionItemForm
-                        returnToMain={() => {
-                            setOpen(false)
-                            setRefreshed(false)
-                        }}
 
-                        create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                        data={currentEntity} operation={props.operation}/>
-                </div>
+                <ActionItemForm
+                    returnToMain={() => {
+                        setOpen(false)
+                        setRefreshed(false)
+                    }}
+
+                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                    data={currentEntity} operation={props.operation}/>
+
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'action'}
-                    createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/action_item'}
-                    labels={['Detalhamento', 'Realizada']}
-                    fields={[
-                        {name: 'detailing', type: 'string',label: 'Detalhamento'},
-                        {name: 'accomplished', type: 'bool',label: 'Realizada'},
-                    ]}
 
+                    createOption={true}
+                    fields={[
+                        {key: 'detailing', type: 'string', label: 'Detalhamento'},
+                        {key: 'accomplished', type: 'bool', label: 'Realizada'},
+                    ]}
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
@@ -54,20 +51,9 @@ export default function ActionItemList(props) {
                         },
                         disabled: false,
                         color: '#ff5555'
-                    }, {
-                        label: 'Baixar dados',
-                        icon: <GetAppRounded/>,
-                        onClick: (entity) => {
-                            HandleDownload(entity, entity.id)
-                        },
-                        disabled: false
                     }]}
-                    clickEvent={() => null}
-                    setEntity={entity => {
-                        setOpen(true)
-                        setCurrentEntity(entity)
-                    }}  title={'Itens / Ações'}
-                     fetchSize={15}
+
+                    title={'Itens / Ações'}
                     fetchParams={{
                         operation: props.operation.id
                     }}

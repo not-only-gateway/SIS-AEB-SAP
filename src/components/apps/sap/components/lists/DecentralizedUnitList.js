@@ -15,36 +15,23 @@ export default function DecentralizedUnitList(props) {
     return (
         <>
             {!open ? null :
-                <>
-                    <DecentralizedUnitForm
-                        returnToMain={() => {
-                            setOpen(false)
-                            setRefreshed(false)
-                        }}
+
+                <DecentralizedUnitForm
+                    returnToMain={() => {
+                        setOpen(false)
+                        setRefreshed(false)
+                    }}
 
 
-                        asDefault={true}
-                        create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                        data={currentEntity}/>
-                </>
+                    asDefault={true}
+                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                    data={currentEntity}/>
+
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'decentralized_unit'}
+
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/decentralized_unit'}
-
-                    controlOptions={[
-
-                        {
-                            label: 'Importar',
-                            icon: <PublishRounded/>,
-                            onClick: (d) => {
-                                ref.current.click()
-                            },
-                            disabled: false
-                        },
-                    ]}
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
@@ -65,14 +52,14 @@ export default function DecentralizedUnitList(props) {
                             disabled: false
                         }]}
                     fields={[
-                        {name: 'name', type: 'string'},
-                        {name: 'responsible', type: 'string'}
-                    ]} labels={['nome', 'responsável']}
+                        {key: 'name', type: 'string', label: 'Nome'},
+                        {key: 'responsible', type: 'string', label: 'responsável'}
+                    ]}
                     clickEvent={() => setOpen(true)}
-                    setEntity={entity => {
+                    onRowClick={entity => {
                         setCurrentEntity(entity)
-                    }} searchFieldName={'search_input'} title={'Unidades descentralizadas'}
-                    fetchSize={15}
+                    }}
+                    title={'Unidades descentralizadas'}
 
                 />
             </div>

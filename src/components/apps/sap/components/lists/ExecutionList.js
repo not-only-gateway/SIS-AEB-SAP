@@ -17,43 +17,41 @@ export default function ExecutionList(props) {
     return (
         <>
             {!open ? null :
-                <div className={animations.fadeIn}>
+
                     <ExecutionForm
                         returnToMain={() => {
                             setRefreshed(false)
                             setOpen(false)
                         }}
-                         workPlan={props.workPlan}
+                        workPlan={props.workPlan}
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                         data={currentEntity} operation={props.operation}
                     />
-                </div>
+
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'execution'}
-
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/execution'}
                     fields={[
-                        {name: 'operation_phase', type: 'object', subfield: 'phase'},
-                        {name: 'operation_phase', type: 'object', subfield: 'indicator_planned'},
-                        {name: 'operation_phase', type: 'object', subfield: 'estimated_cost', maskStart: 'R$ '},
-                        {name: 'current_execution', type: 'string', maskEnd: ' %'},
-                        {name: 'total_execution', type: 'string'},
-                        {name: 'committed', type: 'number', maskStart: 'R$ '},
-                        {name: 'liquidated', type: 'number', maskStart: 'R$ '},
-                        {name: 'paid', type: 'number', maskStart: 'R$ '},
-                    ]}
-                    labels={[
-                        'Fase',
-                        'Indicador planejado (fase)',
-                        'Custo estimado',
-                        'Execução atual (%)',
-                        'Execução total',
-                        'Valor empenhado',
-                        'Valor liquidado',
-                        'Valor pago'
+                        {key: 'operation_phase', type: 'object', subfieldKey: 'phase', label: 'Fase'},
+                        {
+                            key: 'operation_phase',
+                            type: 'object',
+                            subfieldKey: 'indicator_planned',
+                            label: 'Indicador planejado (fase)'
+                        },
+                        {
+                            key: 'operation_phase',
+                            type: 'object',
+                            subfieldKey: 'estimated_cost',
+                            maskStart: 'R$ ',
+                            label: 'Custo estimado'
+                        },
+                        {key: 'current_execution', type: 'string', maskEnd: ' %', label: 'Execução atual (%)'},
+                        {key: 'total_execution', type: 'string', label: 'Execução total'},
+                        {key: 'committed', type: 'number', maskStart: 'R$ ', label: 'Valor empenhado'},
+                        {key: 'liquidated', type: 'number', maskStart: 'R$ ', label: 'Valor liquidado'},
+                        {key: 'paid', type: 'number', maskStart: 'R$ ', label: 'Valor pago'},
                     ]}
                     clickEvent={() => null}
 
@@ -62,26 +60,16 @@ export default function ExecutionList(props) {
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             OperationRequests.deleteExecution({
-                                pk: entity.id,
-                                setRefreshed: setRefreshed
+                                pk: entity.id
                             })
                         },
                         disabled: false,
                         color: '#ff5555'
-                    }, {
-                        label: 'Baixar dados',
-                        icon: <GetAppRounded/>,
-                        onClick: (entity) => {
-                            HandleDownload(entity, entity.id)
-                        },
-                        disabled: false
                     }]}
-                    setEntity={entity => {
+                    onRowClick={entity => {
                         setCurrentEntity(entity)
-                        setOpen(true)
+                    }} title={'Execuções'}
 
-                    }}  title={'Execuções'}
-                    fetchSize={props.workPlan !== undefined ? 1 : 15}
                     fetchParams={
                         props.workPlan !== undefined ?
                             {work_plan: props.workPlan.id}

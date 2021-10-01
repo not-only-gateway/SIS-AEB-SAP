@@ -19,53 +19,37 @@ export default function StatusList(props) {
         <div style={{width: '100%'}}>
 
             {!open ? null :
-                <div className={animations.fadeIn}>
-                    <StatusForm
-                        returnToMain={() => {
-                            setOpen(false)
-                            setRefreshed(false)
-                        }}
 
-                        create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                        data={currentEntity} workPlan={props.workPlan}/>
-                </div>
+                <StatusForm
+                    returnToMain={() => {
+                        setOpen(false)
+                    }}
+
+                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                    data={currentEntity} workPlan={props.workPlan}/>
+
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'project'}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/work_plan_status'}
-                    
-
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             WorkPlanRequests.deleteStatus({
-                                pk: entity.id,
-                                setRefreshed: setRefreshed
+                                pk: entity.id
                             })
                         },
                         disabled: false,
                         color: '#ff5555'
-                    }, {
-                        label: 'Baixar dados',
-                        icon: <GetAppRounded/>,
-                        onClick: (entity) => {
-                            HandleDownload(entity, entity.id)
-                        },
-                        disabled: false
                     }]}
                     fields={[
-                        {name: 'status', type: 'string', label: 'status'},
-                        {name: 'difficulties', type: 'string'},
-                        {name: 'update_date', type: 'date', label: 'data da atualização'},
-                    ]} labels={['status', 'dificuldades', 'data da atualização']}
-                    clickEvent={() => setOpen(true)}
-                    setEntity={entity => {
-                        setCurrentEntity(entity)
-                    }}  title={'Status'} 
-                    fetchSize={15}
+                        {key: 'status', type: 'string', label: 'status'},
+                        {key: 'difficulties', type: 'string', label: 'Dificuldades'},
+                        {key: 'update_date', type: 'date', label: 'data da atualização'},
+                    ]}
+                    title={'Status'}
+                    onRowClick={e => setCurrentEntity(e)}
                     fetchParams={{
                         work_plan: props.workPlan.id
                     }}

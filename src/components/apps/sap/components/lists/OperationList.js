@@ -16,7 +16,7 @@ export default function OperationList(props) {
     return (
         <>
             {!open ? null :
-                <div className={animations.fadeIn}>
+
                     <Operation
                         returnToMain={() => {
                             setOpen(false)
@@ -26,50 +26,32 @@ export default function OperationList(props) {
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                         data={currentEntity} stage={props.stage}
                     />
-                </div>
+
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'operation_phase'}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/operation_phase'}
-
                     fields={[
 
-                        {name: 'phase', type: 'number'},
-                        {name: 'initial_situation', type: 'string'},
-                        {name: 'indicator_planned', type: 'string'},
-                        {name: 'detailing', type: 'string'},
-                        {name: 'estimated_cost', type: 'number', maskStart:'R$ '}
+                        {key: 'phase', type: 'number',label: 'Fase'},
+                        {key: 'initial_situation', type: 'string', label: 'Situação inicial'},
+                        {key: 'indicator_planned', type: 'string', label: 'indicador planejado'},
+                        {key: 'detailing', type: 'string', label: 'detalhamento da fase'},
+                        {key: 'estimated_cost', type: 'number', maskStart:'R$ ',label:  'custo estimado'}
 
-                    ]} labels={['Fase', 'Situação inicial', 'indicador planejado', 'detalhamento da fase', 'custo estimado']}
-
+                    ]}
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             OperationRequests.deleteOperation({
-                                pk: entity.id,
-                                setRefreshed: setRefreshed
+                                pk: entity.id
                             })
                         },
                         disabled: false,
                         color: '#ff5555'
-                    }, {
-                        label: 'Baixar dados',
-                        icon: <GetAppRounded/>,
-                        onClick: (entity) => {
-                            HandleDownload(entity, entity.id)
-                        },
-                        disabled: false
                     }]}
-                    
-                    clickEvent={() => null}
-                    setEntity={entity => {
-                        setOpen(true)
-                        setCurrentEntity(entity)
-                    }}  title={'Fases / operações'}
-                     fetchSize={15}
+                     title={'Fases / operações'}
                     fetchParams={props.stage !== null && props.stage !== undefined ? {
                         stage: props.stage.id
                     } : {

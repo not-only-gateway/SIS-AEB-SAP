@@ -16,65 +16,42 @@ export default function BudgetPlanList(props) {
     return (
         <>
             {!open ? null :
-                <>
-                    <BudgetPlanForm
-                        returnToMain={() => {
-                            setOpen(false)
-                            setRefreshed(false)
-                        }}
-                         asDefault={true}
-                        create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                        data={currentEntity}/>
-                </>
+
+                <BudgetPlanForm
+                    returnToMain={() => {
+                        setOpen(false)
+                        setRefreshed(false)
+                    }}
+                    asDefault={true}
+                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                    data={currentEntity}/>
+
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'budget'}
+
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/budget_plan'}
 
-                    controlOptions={[
-
-                        {
-                            label: 'Importar',
-                            icon: <PublishRounded/>,
-                            onClick: (d) => {
-                                ref.current.click()
-                            },
-                            disabled: false
-                        },
-                    ]}
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             ProjectRequests.deleteBudgetPlan({
-                                pk: entity.id,
-                                setRefreshed: setRefreshed
+                                pk: entity.id
                             })
                         },
                         disabled: false,
                         color: '#ff5555'
-                    },
-                        {
-                            label: 'Baixar dados',
-                            icon: <GetAppRounded/>,
-                            onClick: (entity) => {
-                                HandleDownload(entity, entity.id)
-                            },
-                            disabled: false
-                        }]}
+                    }]}
                     fields={[
-                        {name: 'action', type: 'object', subfield: 'number'},
-                        {name: 'number', type: 'string'},
-                        {name: 'detailing', type: 'string', extraSize: 50}
-                    ]} labels={['ação', 'número', 'detalhamento']}
-                    clickEvent={() => setOpen(true)}
-                    setEntity={entity => {
+                        {key: 'action', type: 'object', subfield: 'number', label: 'Ação'},
+                        {key: 'number', type: 'string', label: 'Número'},
+                        {key: 'detailing', type: 'string', extraSize: 50, label: 'Detalhamento'}
+                    ]}
+
+                    onRowClick={entity => {
                         setCurrentEntity(entity)
-                    }}  title={'Planos orçamentários'}
-                    
-                    fetchSize={15}
+                    }} title={'Planos orçamentários'}
 
                 />
             </div>

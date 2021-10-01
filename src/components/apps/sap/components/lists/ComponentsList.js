@@ -29,51 +29,28 @@ export default function ComponentsList(props) {
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'project'}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/component'}
 
-                    controlOptions={[
-
-                        {
-                            label: 'Importar',
-                            icon: <PublishRounded/>,
-                            onClick: (d) => {
-                                ref.current.click()
-                            },
-                            disabled: false
-                        },
-                    ]}
                     fields={[
-                        {name: 'classification', type: 'object',subfield: 'classification'},
-                        {name: 'classification', type: 'object',subfield: 'type'},
-                        {name: 'situation', type: 'string',label: 'situação'}
+                        {key: 'classification', type: 'object',subfieldKey: 'classification', label: 'classificação'},
+                        {key: 'classification', type: 'object',subfieldKey: 'type', label: 'tipo'},
+                        {key: 'situation', type: 'string',label: 'situação'}
                     ]}
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             WorkPlanRequests.deleteComponent({
-                                pk: entity.id,
-                                setRefreshed: setRefreshed
+                                pk: entity.id
                             })
                         },
                         disabled: false,
                         color: '#ff5555'
-                    },
-                        {
-                            label: 'Baixar dados',
-                            icon: <GetAppRounded/>,
-                            onClick: (entity) => {
-                                HandleDownload(entity, entity.id)
-                            },
-                            disabled: false
-                        }]}
-                    labels={['classificação', 'tipo', 'situação']}
-                    clickEvent={() => setOpen(true)}
-                    setEntity={entity => {
+                    }]}
+                    onRowClick={entity => {
                         setCurrentEntity(entity)
-                    }}  title={'Situações Operacionais de Componentes'}
+                    }}
+                    title={'Situações Operacionais de Componentes'}
                     fetchParams={{
                         infrastructure: props.infrastructure.id
                     }}

@@ -17,55 +17,37 @@ export default function NatureExpenseList(props) {
     return (
         <>
             {!open ? null :
-                <div className={animations.fadeIn}>
-                    <NatureExpenseForm
-                        returnToMain={() => {
-                            setOpen(false)
-                            setRefreshed(false)
-                        }}
-                         asDefault={true}
-                        create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                        data={currentEntity}/>
-                </div>
+                <NatureExpenseForm
+                    returnToMain={() => {
+                        setOpen(false)
+                        setRefreshed(false)
+                    }}
+                    asDefault={true}
+                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                    data={currentEntity}/>
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'nature'}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/nature_of_expense'}
-                    
-
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             ProjectRequests.deleteNatureOfExpense({
-                                pk: entity.id,
-                                setRefreshed: setRefreshed
+                                pk: entity.id
                             })
                         },
                         disabled: false,
                         color: '#ff5555'
-                    },
-                        {
-                            label: 'Baixar dados',
-                            icon: <GetAppRounded/>,
-                            onClick: (entity) => {
-                                HandleDownload(entity, entity.id)
-                            },
-                            disabled: false
-                        }]}
+                    }]}
+                    onRowClick={e => setCurrentEntity(e)}
                     fields={[
-                        {name: 'gnd', type: 'string'},
-                        {name: 'nature_of_expense', type: 'string'},
-                        {name: 'description', type: 'string'}
-                    ]} labels={['gnd', 'natureza de despesa', 'descrição']}
-                    clickEvent={() => setOpen(true)}
-                    setEntity={entity => {
-                        setCurrentEntity(entity)
-                    }}  title={'Naturezas de despesa'}
-                    
-                    fetchSize={15}
+                        {key: 'gnd', type: 'string', label: 'GND'},
+                        {key: 'nature_of_expense', type: 'string', label: 'Natureza de despesa'},
+                        {key: 'description', type: 'string', label: 'Descrição'}
+                    ]}
+                    title={'Naturezas de despesa'}
+
                 />
             </div>
         </>

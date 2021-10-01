@@ -20,7 +20,7 @@ export default function ResourceApplicationList(props) {
         <div style={{width: '100%'}}>
 
             {!open ? null :
-                <>
+
                     <ResourceApplicationForm
                         returnToMain={() => {
                             setOpen(false)
@@ -29,48 +29,30 @@ export default function ResourceApplicationList(props) {
 
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                         data={currentEntity} operation={props.operation}/>
-                </>
+
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'resource'}
+                    onRowClick={e => setCurrentEntity(e)}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/resource_application'}
-                    
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             OperationRequests.deleteResource({
                                 pk: entity.id,
-
-                                setRefreshed: setRefreshed
                             })
                         },
                         disabled: false,
                         color: '#ff5555'
-                    }, {
-                        label: 'Baixar dados',
-                        icon: <GetAppRounded/>,
-                        onClick: (entity) => {
-                            HandleDownload(entity, entity.id)
-                        },
-                        disabled: false
                     }]}
                     fields={[
-                        {name: 'nature_of_expense', type: 'object', subfield: 'gnd'},
-                        {name: 'nature_of_expense', type: 'object', subfield: 'nature_of_expense'},
-                        {name: 'indirect_cost', type: 'bool'},
-                        {name: 'value', type: 'number', maskStart: 'R$ '},
+                        {name: 'nature_of_expense', type: 'object', subfield: 'gnd', label: 'GND'},
+                        {name: 'nature_of_expense', type: 'object', subfield: 'nature_of_expense', label: 'Natureza de despesa'},
+                        {name: 'indirect_cost', type: 'bool', label: 'custo indireto'},
+                        {name: 'value', type: 'number', maskStart: 'R$ ',label: 'valor'},
                     ]}
-
-                    labels={['GND', 'Natureza de despesa', 'custo indireto', 'valor']}
-
-                    clickEvent={() => setOpen(true)}
-                    setEntity={entity => {
-                        setCurrentEntity(entity)
-                    }}  title={'Aplicação dos recursos'}
-                    fetchSize={15}
+                    title={'Aplicação dos recursos'}
                     fetchParams={{
                         operation: props.operation.id
                     }}

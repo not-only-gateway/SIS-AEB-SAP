@@ -16,23 +16,20 @@ export default function FollowUpList(props) {
     return (
         <>
             {!open ? null :
-                <div className={animations.fadeIn}>
-                    <FollowUpForm
-                        returnToMain={() => {
-                            setRefreshed(false)
-                            setOpen(false)
-                        }}
 
-                        create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                        data={currentEntity} operation={props.operation}/>
-                </div>
+                <FollowUpForm
+                    returnToMain={() => {
+                        setRefreshed(false)
+                        setOpen(false)
+                    }}
+
+                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                    data={currentEntity} operation={props.operation}/>
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'follow_up_goal'}
-                    createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/follow_up_goal'}
 
+                    createOption={true}
 
                     controlButtons={[{
                         label: 'Deletar',
@@ -45,25 +42,13 @@ export default function FollowUpList(props) {
                         },
                         disabled: false,
                         color: '#ff5555'
-                    }, {
-                        label: 'Baixar dados',
-                        icon: <GetAppRounded/>,
-                        onClick: (entity) => {
-                            HandleDownload(entity, entity.id)
-                        },
-                        disabled: false
                     }]}
                     fields={[
+                        {key: 'description', type: 'string', label: 'descrição'},
+                        {key: 'accomplished', type: 'bool', label: 'entregue'},
+                    ]}
+                    title={'Marcos do acompanhamento'}
 
-                        {name: 'description', type: 'string',label: 'descrição'},
-                        {name: 'accomplished', type: 'bool',label: 'entregue'},
-                    ]} labels={['descrição', 'entregue']}
-                    clickEvent={() => null}
-                    setEntity={entity => {
-                        setOpen(true)
-                        setCurrentEntity(entity)
-                    }}  title={'Marcos do acompanhamento'}
-                     fetchSize={15}
                     fetchParams={{
                         operation: props.operation.id
                     }}

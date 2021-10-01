@@ -31,53 +31,34 @@ export default function NoteList(props) {
             }
             <div style={{display: open ? 'none' : undefined, width: '100%'}}>
                 <List
-                    listKey={'notes'}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/note'}
-                    
                     fields={[
-                        {name: 'number', type: 'string'},
-                        {name: 'value', type: 'number', maskStart: 'R$'}
+                        {key: 'number', type: 'string', label: 'Número'},
+                        {key: 'value', type: 'number', maskStart: 'R$', label: 'Valor'}
                     ]}
-                    labels={['Número','Valor']}
-                    clickEvent={() => null}
-                    setEntity={entity => {
-                        setOpen(true)
-                        setCurrentEntity(entity)
-                    }}
-
-                    
                     title={'Notas de empenho'}
-                    
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             OperationRequests.deleteNote({
-                                pk: entity.id,
-                                setRefreshed: setRefreshed
+                                pk: entity.id
                             })
                         },
                         disabled: false,
                         color: '#ff5555'
-                    }, {
-                        label: 'Baixar dados',
-                        icon: <GetAppRounded/>,
-                        onClick: (entity) => {
-                            HandleDownload(entity, entity.id)
-                        },
-                        disabled: false
                     }]}
+                    onRowClick={e => setCurrentEntity(e)}
                     fetchParams={{
                         operation: props.operation.id
                     }}
-                    fetchSize={15}/>
+                />
             </div>
         </div>
     )
 
 
 }
-NoteList.propTypes ={
+NoteList.propTypes = {
     operation: PropTypes.object
 }

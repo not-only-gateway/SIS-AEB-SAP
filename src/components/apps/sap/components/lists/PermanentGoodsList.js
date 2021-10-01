@@ -19,7 +19,7 @@ export default function PermanentGoodsList(props) {
         <div style={{width: '100%'}}>
 
             {!open ? null :
-                <>
+
                     <PermanentGoodsForm
                         returnToMain={() => {
                             setOpen(false)
@@ -28,46 +28,31 @@ export default function PermanentGoodsList(props) {
 
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                         data={currentEntity} operation={props.operation}/>
-                </>
+
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'permanent_goods'}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/permanent_goods'}
-                    
-
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             OperationRequests.deletePermanentGoods({
-                                pk: entity.id,
-
-                                setRefreshed: setRefreshed
+                                pk: entity.id
                             })
                         },
                         disabled: false,
                         color: '#ff5555'
-                    }, {
-                        label: 'Baixar dados',
-                        icon: <GetAppRounded/>,
-                        onClick: (entity) => {
-                            HandleDownload(entity, entity.id)
-                        },
-                        disabled: false
                     }]}
+                    onRowClick={e => setCurrentEntity(e)}
                     fields={[
-                        {name: 'description', type: 'string'},
-                        {name: 'total_value', type: 'number', maskStart: 'R$ '},
-                        {name: 'quantity', type: 'string'},
-                        {name: 'acquisition_date', type: 'date'},
-                    ]} labels={['Descrição', 'valor total', 'quantidade', 'Data de aquisição']}
-                    clickEvent={() => setOpen(true)}
-                    setEntity={entity => {
-                        setCurrentEntity(entity)
-                    }}  title={'Bens permanentes'}
-                    fetchSize={15}
+                        {key: 'description', type: 'string', label: 'Descrição'},
+                        {key: 'total_value', type: 'number', maskStart: 'R$ ', label: 'valor total'},
+                        {key: 'quantity', type: 'string', label: 'quantidade'},
+                        {key: 'acquisition_date', type: 'date', label: 'Data de aquisição'},
+                    ]}
+                   title={'Bens permanentes'}
+
                     fetchParams={{
                         operation: props.operation.id
                     }}

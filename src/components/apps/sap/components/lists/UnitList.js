@@ -21,47 +21,33 @@ export default function UnitList(props) {
                         setOpen(false)
                         setRefreshed(false)
                     }}
-                     asDefault={true}
+                    asDefault={true}
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                     data={currentEntity}
                 />
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'unit'}
+
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/unit'}
-                    
                     fields={[
-                        {name: 'name', type: 'string'},
-                        {name: 'acronym', type: 'string'},
-                        {name: 'parent_unit', type: 'object', subfield: 'acronym', fallback: 'Nenhuma'},
-                    ]} labels={['nome', 'Acrônimo', 'Unidade pai']}
+                        {key: 'name', type: 'string', label: 'nome'},
+                        {key: 'acronym', type: 'string', label: 'Acrônimo'},
+                        {key: 'parent_unit', type: 'object', subfield: 'acronym', label: 'Unidade pai'},
+                    ]}
+                    onRowClick={e => setCurrentEntity(e)}
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             ProjectRequests.deleteUnit({
-                                pk: entity.id,
-                                setRefreshed: setRefreshed
+                                pk: entity.id
                             })
                         },
                         disabled: false,
                         color: '#ff5555'
-                    },
-                        {
-                            label: 'Baixar dados',
-                            icon: <GetAppRounded/>,
-                            onClick: (entity) => {
-                                HandleDownload(entity, entity.id)
-                            },
-                            disabled: false
-                        }]}
-                    clickEvent={() => setOpen(true)}
-                    setEntity={entity => {
-                        setCurrentEntity(entity)
-                    }}  title={'Unidades / Responsáveis'}
-                    fetchSize={15}
+                    }]}
+                    title={'Unidades / Responsáveis'}
                 />
             </div>
         </>

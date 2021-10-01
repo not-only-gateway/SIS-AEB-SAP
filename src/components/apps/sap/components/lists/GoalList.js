@@ -37,26 +37,15 @@ export default function GoalList(props) {
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'project'}
                     createOption={true}
-                    
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/work_plan_goal'}
-                  labels={['Número', 'Detalhamento','unidade de medida', 'situação inicial', 'valor planejado']}
                     fields={[
-                        {name: 'goal_number', type: 'string',label: 'Número'},
-                        {name: 'detailing', type: 'string',label: 'Detalhamento'},
-                        {name: 'unit_of_measurement', type: 'string'},
-                        {name: 'initial_situation', type: 'string'},
-                        {name: 'value', type: 'string'},
+                        {key: 'goal_number', type: 'string', label: 'Número'},
+                        {key: 'detailing', type: 'string', label: 'Detalhamento'},
+                        {key: 'unit_of_measurement', type: 'string', label: 'unidade de medida'},
+                        {key: 'initial_situation', type: 'string', label: 'situação inicial'},
+                        {key: 'value', type: 'string', label: 'valor planejado'},
                     ]}
-                    clickEvent={() => null}
-                    setEntity={entity => {
-                        if(entity !== null && entity !== undefined)
-                            props.setCurrentStructure(entity)
-                        else
-                            setOpen(true)
-                    }}
-
+                    onRowClick={e => setCurrentEntity(e)}
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
@@ -68,20 +57,13 @@ export default function GoalList(props) {
                         },
                         disabled: false,
                         color: '#ff5555'
-                    }, {
-                        label: 'Baixar dados',
-                        icon: <GetAppRounded/>,
-                        onClick: (entity) => {
-                            HandleDownload(entity, entity.id)
-                        },
-                        disabled: false
                     }]}
-                     title={'Metas'} 
-                    fetchSize={15}
+                    title={'Metas'}
+
                     fetchParams={{
                         work_plan: props.workPlan.id
                     }}
-          />
+                />
             </div>
         </div>
     )

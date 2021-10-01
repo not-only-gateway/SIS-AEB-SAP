@@ -69,7 +69,8 @@ export default function ProjectList(props) {
                             disabled: false,
                             color: '#ff5555'
                         }
-                    ]} onRowClick={() => null}
+                    ]}
+                    onRowClick={(entity) => props.redirect(entity.id)}
                 />
             </div>
         </>

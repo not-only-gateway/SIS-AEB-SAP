@@ -16,7 +16,7 @@ export default function TypeList(props) {
         <>
 
             {!open ? null :
-                <div className={animations.fadeIn}>
+
                     <TypeForm
                         returnToMain={() => {
                             setOpen(false)
@@ -25,43 +25,26 @@ export default function TypeList(props) {
                          asDefault={true}
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                         data={currentEntity}/>
-                </div>
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'nature'}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/type'}
-                    
-
+                    onRowClick={e => setCurrentEntity(e)}
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             ProjectRequests.deleteType({
-                                pk: entity.id,
-                                setRefreshed: setRefreshed
+                                pk: entity.id
                             })
                         },
                         disabled: false,
                         color: '#ff5555'
-                    },
-                        {
-                            label: 'Baixar dados',
-                            icon: <GetAppRounded/>,
-                            onClick: (entity) => {
-                                HandleDownload(entity, entity.id)
-                            },
-                            disabled: false
-                        }]}
+                    }]}
                     fields={[
-                        {name: 'type', type: 'string'},
-                    ]} labels={['tipo']}
-                    clickEvent={() => setOpen(true)}
-                    setEntity={entity => {
-                        setCurrentEntity(entity)
-                    }}  title={'Tipos'}
-
+                        {key: 'type', type: 'string', label: 'Tipo'},
+                    ]}
+                    title={'Tipos'}
                 />
             </div>
         </>

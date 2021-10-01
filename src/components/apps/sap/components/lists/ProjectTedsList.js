@@ -29,7 +29,7 @@ export default function ProjectTedsList(props) {
                         if (entity !== null && entity !== undefined)
                             return entity.id
                         else return -1
-                    }} 
+                    }}
                     handleChange={entity => {
                         ProjectRequests.submitProjectTed({
                             data: {ted: entity.id, activity_project: props.project.id}
@@ -65,42 +65,25 @@ export default function ProjectTedsList(props) {
             }
             <div style={{display: open ? 'none' : undefined, width: '100%'}}>
                 <List
-                    listKey={'teds'} noShadow={true}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/project_ted'}
-                    
                     fields={[
-                        {name: 'number', type: 'string', label: 'Número'},
-                        {name: 'responsible', type: 'object', subfield: 'acronym'},
-                        {name: 'process', type: 'string', label: 'Processo'}
+                        {key: 'number', type: 'string', label: 'Número'},
+                        {key: 'responsible', type: 'object', subfield: 'acronym', label: 'Responsável'},
+                        {key: 'process', type: 'string', label: 'Processo'}
                     ]}
-                    labels={['Número', 'Responsável', 'Processo']}
-                    clickEvent={() => null}
-                    setEntity={entity => {
-                        if (entity === null || entity === undefined) {
-                            setOpen(true)
-                        } else {
-                            props.redirect(entity.ted)
-                        }
-                    }}  title={'Instrumento de celebração'}
-                    controlOptions={[
-                        {
-                            label: 'Adicionar ted existente',
-                            icon: <PlaylistAddRounded/>,
-                            onClick: () => {
-                                setOpenModal(true)
-                            },
-                            disabled: false
-                        }
-                    ]}
+
+                    onRowClick={entity => {
+                        props.redirect(entity.ted)
+                    }}
+                    title={'Instrumento de celebração'}
+
                     controlButtons={[{
                         label: 'Remover vínculo',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             ProjectRequests.deleteProjectTed({
                                 pk: entity.ted,
-                                data: {project: props.project.id},
-                                setRefreshed: setRefreshed
+                                data: {project: props.project.id}
                             })
                         },
                         disabled: false,
@@ -113,24 +96,12 @@ export default function ProjectTedsList(props) {
                                 props.redirect(entity)
                             },
                             disabled: false
-                        },
-                        {
-                            label: 'Baixar dados',
-                            icon: <GetAppRounded/>,
-                            onClick: (entity) => {
-                                TedRequests.fetchTed(entity.ted).then(res => {
-                                    HandleDownload(res, res.id)
-                                })
-
-                            },
-                            disabled: false
                         }
-
                     ]}
                     fetchParams={{
                         project: props.project.id
                     }}
-                    fetchSize={15}/>
+                />
             </div>
         </>
     )

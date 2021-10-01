@@ -16,73 +16,53 @@ export default function ApostilleList(props) {
     const hook = useQuery(apostille_query)
     const ref = useRef()
     return (
-        <div>
-
+        <>
             {!open ? null :
-                <div className={animations.fadeIn} style={{width: '100%'}}>
-                    <WorkPlanForm
-                        returnToMain={() => {
-                            setRefreshed(false)
-                            setOpen(false)
-                        }}
-                         asApostille={true} ted={props.ted}
-                        create={currentEntity === undefined || currentEntity === null || currentEntity.id === undefined}
-                        workPlan={props.workPlan.id}
-                        data={currentEntity}/>
-                </div>
+                <WorkPlanForm
+                    returnToMain={() => {
+                        setRefreshed(false)
+                        setOpen(false)
+                    }}
+                    asApostille={true} ted={props.ted}
+                    create={currentEntity === undefined || currentEntity === null || currentEntity.id === undefined}
+                    workPlan={props.workPlan.id}
+                    data={currentEntity}/>
             }
             <div style={{display: open ? 'none' : undefined, width: '100%'}}>
                 <List
-                    listKey={'apostille'}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/apostille'}
-
                     fields={[
-                        {name: 'object', type: 'string'},
-                        {name: 'budget_plan', type: 'object', subfield: 'number'},
-                        {name: 'responsible', type: 'object', subfield: 'acronym'},
+                        {key: 'object', type: 'string', label: 'Objeto'},
+                        {key: 'budget_plan', type: 'object', subfield: 'number', label: 'Plano orçamentário'},
+                        {key: 'responsible', type: 'object', subfield: 'acronym', label: 'Responsável'},
                     ]}
-                    labels={['objeto', 'plano orçamentário', 'responsável']}
-                    clickEvent={() => null}
-                    setEntity={entity => {
-                        setOpen(true)
-                        if (entity === null || entity === undefined)
-                            setCurrentEntity(props.workPlan)
-                        else
-                            setCurrentEntity(entity)
+                    onCreate={() => setCurrentEntity(props.workPlan)}
+                    onRowClick={entity => {
+                        setCurrentEntity(entity)
                     }}
 
-                    
+
                     title={'Apostilamentos'}
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             WorkPlanRequests.deleteAppostile({
-                                pk: entity.id,
-                                setRefreshed: setRefreshed
+                                pk: entity.id
                             })
                         },
                         disabled: false,
                         color: '#ff5555'
-                    }, {
-                        label: 'Baixar dados',
-                        icon: <GetAppRounded/>,
-                        onClick: (entity) => {
-                            HandleDownload(entity, entity.id)
-                        },
-                        disabled: false
                     }]}
                     fetchParams={{
                         work_plan: props.workPlan.id
-                    }}
-                    fetchSize={15}/>
+                    }}/>
             </div>
-        </div>
+        </>
     )
 
 
 }
-ApostilleList.propTypes ={
+ApostilleList.propTypes = {
     workPlan: PropTypes.object
 }

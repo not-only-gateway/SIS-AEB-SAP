@@ -18,27 +18,20 @@ export default function ObjectivesList(props) {
     return (
         <div style={{width: '100%'}}>
             {!open ? null :
-                <div className={animations.fadeIn}>
-                    <ObjectiveForm
-                        returnToMain={() => {
-                            setOpen(false)
-                            setRefreshed(false)
-                        }}
+                <ObjectiveForm
+                    returnToMain={() => {
+                        setOpen(false)
+                    }}
+                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                    data={currentEntity} project={props.project}/>
 
-                        create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                        data={currentEntity} project={props.project}/>
-                </div>
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'project'}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/goal_project'}
-                    
-
                     fields={[
-                        {name: 'description', type: 'string'},
-                        {name: 'deadline', type: 'date'},
+                        {name: 'description', type: 'string', label: 'Descrição'},
+                        {name: 'deadline', type: 'date', label: 'Prazo final'},
                         {
                             name: 'status',
                             type: 'string',
@@ -69,34 +62,23 @@ export default function ObjectivesList(props) {
                                         break
                                 }
                                 return res
-                            }
+                            },
+                            label: 'Status'
                         }
                     ]}
-                    labels={['descrição', 'prazo final', 'status']}
-                    clickEvent={() => setOpen(true)}
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             ProjectRequests.deleteObjective({
-                                pk: entity.id,
-                                setRefreshed: setRefreshed
+                                pk: entity.id
                             })
                         },
                         disabled: false,
                         color: '#ff5555'
-                    }, {
-                        label: 'Baixar dados',
-                        icon: <GetAppRounded/>,
-                        onClick: (entity) => {
-                            HandleDownload(entity, entity.id)
-                        },
-                        disabled: false
                     }]}
-                    setEntity={entity => {
-                        setCurrentEntity(entity)
-                    }}  title={'Marcos do projeto'} 
-                    fetchSize={15}
+                    title={'Marcos do projeto'}
+                    onRowClick={e => setCurrentEntity(e)}
                     fetchParams={{
                         project: props.project.id
                     }}

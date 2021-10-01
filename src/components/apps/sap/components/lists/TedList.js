@@ -16,7 +16,7 @@ export default function TedList(props) {
         <>
 
             {!open ? null :
-                <div className={animations.fadeIn}>
+
                     <TedForm
                         returnToMain={() => {
                             setOpen(false)
@@ -26,46 +26,29 @@ export default function TedList(props) {
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                         data={currentEntity}
                     />
-                </div>
+
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'ted'}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/ted'}
-                    
-
+                    onRowClick={e => setCurrentEntity(e)}
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
                             TedRequests.deleteTed({
-                                pk: entity.id,
-                                setRefreshed: setRefreshed
+                                pk: entity.id
                             })
                         },
                         disabled: false,
                         color: '#ff5555'
-                    },
-                        {
-                            label: 'Baixar dados',
-                            icon: <GetAppRounded/>,
-                            onClick: (entity) => {
-                                HandleDownload(entity, entity.id)
-                            },
-                            disabled: false
-                        }]}
+                    }]}
                     fields={[
-                        {name: 'number', type: 'string', label: 'Número'},
-                        {name: 'responsible', type: 'object', subfield: 'acronym'},
-                        {name: 'process', type: 'string', label: 'Processo'}
+                        {key: 'number', type: 'string', label: 'Número'},
+                        {key: 'responsible', type: 'object', subfield: 'acronym', label: 'Responsável'},
+                        {key: 'process', type: 'string', label: 'Processo'}
                     ]}
-                    labels={['Número', 'Responsável', 'Processo']}
-                    clickEvent={() => setOpen(true)}
-                    setEntity={entity => {
-                        setCurrentEntity(entity)
-                    }}  title={'Instrumentos de celebração'}
-                    fetchSize={15}
+                    title={'Instrumentos de celebração'}
                 />
             </div>
         </>

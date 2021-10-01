@@ -19,24 +19,19 @@ export default function FinancialDisbursementList(props) {
 
         <div style={{width: '100%'}}>
             {!open ? null :
-                <div className={animations.fadeIn}>
-                    <FinancialDisbursementForm
-                        returnToMain={() => {
-                            setOpen(false)
-                            setRefreshed(false)
-                        }}
+                <FinancialDisbursementForm
+                    returnToMain={() => {
+                        setOpen(false)
+                        setRefreshed(false)
+                    }}
 
-                        create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                        data={currentEntity} workPlan={props.workPlan}/>
-                </div>
+                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                    data={currentEntity} workPlan={props.workPlan}/>
+
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'financial_disb'}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/financial_disbursement'}
-
-
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
@@ -48,33 +43,23 @@ export default function FinancialDisbursementList(props) {
                         },
                         disabled: false,
                         color: '#ff5555'
-                    }, {
-                        label: 'Baixar dados',
-                        icon: <GetAppRounded/>,
-                        onClick: (entity) => {
-                            HandleDownload(entity, entity.id)
-                        },
-                        disabled: false
                     }]}
                     fields={[
-                        {name: 'year', type: 'string', label: 'status'},
-                        {name: 'month', type: 'string'},
-                        {name: 'value', type: 'number', label: 'data da atualização', maskStart: 'R$ '},
-                    ]} labels={['ano', 'mês', 'valor']}
-                    clickEvent={() => setOpen(true)}
-                    setEntity={entity => {
-                        setCurrentEntity(entity)
-                    }}  title={'Desembolso financeiro'}
-                    
-                    fetchSize={15}
-                    fetchParams={{
-                        work_plan: props.workPlan.id
-                    }}
+                        {key: 'year', type: 'string', label: 'ano'},
+                        {key: 'month', type: 'string', label: 'mês'},
+                        {key: 'value', type: 'number', label: 'valor', maskStart: 'R$ '},
+                    ]}
+                    title={'Desembolso financeiro'}
+
+                    {/*fetchParams={{*/}
+                    {/*    work_plan: props.workPlan.id*/}
+                    {/*}}*/}
                 />
             </div>
         </div>
     )
 }
-FinancialDisbursementList.propTypes = {
-    workPlan: PropTypes.object
-}
+FinancialDisbursementList.propTypes =
+    {
+        workPlan: PropTypes.object
+    }

@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React, {useRef, useState} from "react";
-import animations from "../../styles/Animations.module.css";
 import {List, useQuery} from "sis-aeb-core";
 import Cookies from "universal-cookie/lib";
 import Host from "../../utils/shared/Host";
@@ -18,30 +17,24 @@ export default function RisksList(props) {
         <div style={{width: '100%'}}>
 
             {!open ? null :
-                <div className={animations.fadeIn}>
-                    <RiskForm
-                        returnToMain={() => {
-                            setOpen(false)
-                            setRefreshed(false)
-                            console.log('settingRefresh')
-                        }}
+                <RiskForm
+                    returnToMain={() => {
+                        setOpen(false)
+                    }}
+                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                    data={currentEntity} project={props.project}/>
 
-                        create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                        data={currentEntity} project={props.project}/>
-                </div>
             }
             <div style={{display: open ? 'none' : undefined}}>
                 <List
-                    listKey={'project'}
+                    onRowClick={e => setCurrentEntity(e)}
                     createOption={true}
-                    fetchToken={(new Cookies()).get('jwt')} fetchUrl={Host() + 'list/risk'}
-                    
-
                     fields={[
-                        {name: 'description', type: 'string',label: 'descrição'},
-                        {name: 'analysis', type: 'string', label: 'Análise', getColor: field => {
-                            let res = undefined
-                                switch (field){
+                        {name: 'description', type: 'string', label: 'Descrição'},
+                        {
+                            name: 'analysis', type: 'string', label: 'Análise', getColor: field => {
+                                let res = undefined
+                                switch (field) {
                                     case 'baixo': {
                                         res = '#00F400'
                                         break
@@ -58,15 +51,10 @@ export default function RisksList(props) {
                                         break
                                 }
                                 return res
-                            }}
+                            }
+                        }
                     ]}
-                    labels={['descrição', 'Análise']}
-                    clickEvent={() => setOpen(true)}
-                    setEntity={entity => setCurrentEntity(entity)}
-                    searchFieldName={'search_input'}
                     title={'Riscos'}
-                    scrollableElement={'scrollableDiv'}
-                    fetchSize={15}
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
@@ -77,15 +65,16 @@ export default function RisksList(props) {
                         },
                         disabled: false,
                         color: '#ff5555'
-                    }, ]}
+                    },]}
                     fetchParams={{
                         project: props.project.id
                     }}
-          />
+                />
             </div>
         </div>
     )
 }
-RisksList.propTypes = {
-    project: PropTypes.object
-}
+RisksList.propTypes =
+    {
+        project: PropTypes.object
+    }
