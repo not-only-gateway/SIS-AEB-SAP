@@ -1,7 +1,7 @@
 import ProjectForm from "../forms/ProjectForm";
 import React, {useState} from "react";
 import {Tabs} from "sis-aeb-core";
-import ObjectivesList from "../lists/ObjectivesList";
+import ProjectGoal from "../lists/ObjectivesList";
 import RisksList from "../lists/RisksList";
 import ProjectPT from "../../locales/ProjectPT";
 import PropTypes from 'prop-types'
@@ -39,7 +39,7 @@ export default function Project(props) {
                                 {
                                     key: 2,
                                     value: lang.objectives,
-                                    content: <ObjectivesList project={props.project}/>
+                                    content: <ProjectGoal project={props.project}/>
                                 },
                                 {
                                     key: 3,

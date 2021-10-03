@@ -21,8 +21,8 @@ export default function Dropdown(props) {
                 {props.label}
             </button>
             <div style={{visibility: open ? 'visible' : 'hidden', opacity: open ? '1' : '0'}} className={styles.buttons} ref={ref}>
-                {props.buttons.map(b => (
-                    <button disabled={b.disabled} onClick={() => {
+                {props.buttons.map((b, i) => (
+                    <button key={'dropdown-' + i} disabled={b.disabled} onClick={() => {
                         b.onClick()
                         setOpen(false)
                     }} className={styles.button}>
@@ -38,7 +38,7 @@ export default function Dropdown(props) {
 }
 
 Dropdown.propTypes = {
-    buttonClassname: PropTypes.object,
+    buttonClassname: PropTypes.string,
     label: PropTypes.any,
     disabled: PropTypes.bool,
     buttons: PropTypes.arrayOf(PropTypes.shape({

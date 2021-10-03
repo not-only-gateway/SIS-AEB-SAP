@@ -4,6 +4,7 @@ import {List, useQuery} from "sis-aeb-core";
 import RiskForm from "../forms/RiskForm";
 import {DeleteRounded} from "@material-ui/icons";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
+import projectKeys from "../../keys/projectKeys";
 
 export default function RisksList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -28,31 +29,7 @@ export default function RisksList(props) {
                     onRowClick={e => setCurrentEntity(e)}
                     createOption={true}
                     hook={hook}
-                    keys={[
-                        {name: 'description', type: 'string', label: 'Descrição'},
-                        {
-                            name: 'analysis', type: 'string', label: 'Análise', getColor: field => {
-                                let res = undefined
-                                switch (field) {
-                                    case 'baixo': {
-                                        res = '#00F400'
-                                        break
-                                    }
-                                    case 'moderado': {
-                                        res = '#FFBA3E'
-                                        break
-                                    }
-                                    case 'alto': {
-                                        res = '#ff5555'
-                                        break
-                                    }
-                                    default:
-                                        break
-                                }
-                                return res
-                            }
-                        }
-                    ]}
+                    keys={projectKeys.risks}
                     title={'Riscos'}
                     controlButtons={[{
                         label: 'Deletar',

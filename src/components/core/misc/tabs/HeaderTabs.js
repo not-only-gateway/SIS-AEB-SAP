@@ -8,7 +8,7 @@ export default function HeaderTabs(props) {
     return (
         <div className={styles.wrapper}>
             <div className={styles.header}>
-                {props.header}
+                {props.children}
                 <div className={styles.tabs}>
                     {props.buttons.map((e, i) => (
                         <button key={i + '-button-header-tab'} className={[styles.button, open === i ? styles.highlight : ''].join(' ')} onClick={() => setOpen(i)}>
@@ -33,5 +33,5 @@ HeaderTabs.proptypes = {
             children: PropTypes.node
         })
     ),
-    header: PropTypes.any
+    children: PropTypes.node
 }

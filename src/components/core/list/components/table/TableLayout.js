@@ -3,20 +3,26 @@ import PropTypes from 'prop-types'
 import styles from '../../styles/Table.module.css'
 import HeaderCell from "./HeaderCell";
 import useInfiniteScroll from "../../../shared/hooks/useInfiniteScroll";
-import React from 'react'
+import React, {useMemo, useRef} from 'react'
+import keyTemplate from "../../templates/keyTemplate";
 
 
 export default function TableLayout(props) {
     const lastElementRef = useInfiniteScroll(props.setCurrentPage, props.currentPage, props.loading, props.hasMore)
+    const listRef = useRef()
+    const keys = useMemo(() => {
+        return props.keys.filter(e => e.visible)
+    }, [props.keys])
+
 
     return (
-        <table className={styles.table} ref={props.listRef} style={{maxHeight: props.maxHeight}}>
+        <table className={styles.table} ref={listRef} style={{maxHeight: props.maxHeight}}>
             <thead>
             <tr className={styles.headerRow}>
-                {props.keys.map((e, i) => (
+                {keys.map((e, i) => (
                     <React.Fragment key={i + '-header'}>
                         <HeaderCell
-                            tableRef={props.listRef.current}
+                            tableRef={listRef.current}
                             sorts={props.sorts} columnKey={e.key}
                             setSorts={props.setSorts} clean={props.clean}
                             additionalWidth={e.additionalWidth !== undefined ? e.additionalWidth : '0px'}
@@ -39,7 +45,7 @@ export default function TableLayout(props) {
                             props.onRowClick(e.data)
                     }} ref={i === (props.data.length - 1) ? lastElementRef : undefined}
                 >
-                    {props.keys.map((value, ic) => (
+                    {keys.map((value, ic) => (
                         <React.Fragment key={i + '-row-cell-' + ic}>
 
                             <Cell
@@ -57,21 +63,10 @@ export default function TableLayout(props) {
 
 TableLayout.propTypes = {
     data: PropTypes.array,
-    keys: PropTypes.arrayOf(PropTypes.shape({
-        key: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-        type: PropTypes.oneOf(['string', 'number', 'object', 'date', 'bool']),
-        getColor: PropTypes.func,
-        subfieldKey: PropTypes.string,
-
-        maskStart: PropTypes.any,
-        maskEnd: PropTypes.any,
-        additionalWidth: PropTypes.string
-    })).isRequired,
+    keys: PropTypes.arrayOf(keyTemplate).isRequired,
 
     controlButtons: PropTypes.array,
     onRowClick: PropTypes.func,
-    listRef: PropTypes.object,
     currentPage: PropTypes.number,
     setCurrentPage: PropTypes.func,
     loading: PropTypes.bool,

@@ -5,6 +5,7 @@ import {DeleteRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import NoteForm from "../forms/NoteForm";
 import OperationRequests from "../../utils/requests/OperationRequests";
+import associativeKeys from "../../keys/associativeKeys";
 
 export default function NoteList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -32,10 +33,7 @@ export default function NoteList(props) {
                     createOption={true}
                     onCreate={() => setOpen(true)}
                     hook={hook}
-                    keys={[
-                        {key: 'number', type: 'string', label: 'Número'},
-                        {key: 'value', type: 'number', maskStart: 'R$', label: 'Valor'}
-                    ]}
+                    keys={associativeKeys.note}
                     title={'Notas de empenho'}
                     controlButtons={[{
                         label: 'Deletar',

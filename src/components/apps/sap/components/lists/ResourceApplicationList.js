@@ -5,6 +5,8 @@ import {DeleteRounded} from "@material-ui/icons";
 import OperationRequests from "../../utils/requests/OperationRequests";
 import {List, useQuery} from "sis-aeb-core";
 import ResourceApplicationForm from "../forms/ResourceApplicationForm";
+import associativeKeys from "../../keys/associativeKeys";
+import workPlanKeys from "../../keys/workPlanKeys";
 
 
 export default function ResourceApplicationList(props) {
@@ -45,12 +47,7 @@ export default function ResourceApplicationList(props) {
                         color: '#ff5555'
                     }]}
                     hook={hook}
-                    keys={[
-                        {name: 'nature_of_expense', type: 'object', subfield: 'gnd', label: 'GND'},
-                        {name: 'nature_of_expense', type: 'object', subfield: 'nature_of_expense', label: 'Natureza de despesa'},
-                        {name: 'indirect_cost', type: 'bool', label: 'custo indireto'},
-                        {name: 'value', type: 'number', maskStart: 'R$ ',label: 'valor'},
-                    ]}
+                    keys={workPlanKeys.resource}
                     title={'Aplicação dos recursos'}
                     fetchParams={{
                         operation: props.operation.id

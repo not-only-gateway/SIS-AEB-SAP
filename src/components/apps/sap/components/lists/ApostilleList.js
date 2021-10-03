@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import WorkPlanForm from "../forms/WorkPlanForm";
 import {apostille_query} from "../../queries/workplan";
+import workPlanKeys from "../../keys/workPlanKeys";
 
 export default function ApostilleList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -30,11 +31,7 @@ export default function ApostilleList(props) {
                     createOption={true}
 
                     hook={hook}
-                    keys={[
-                        {key: 'object', type: 'string', label: 'Objeto'},
-                        {key: 'budget_plan', type: 'object', subfield: 'number', label: 'Plano orçamentário'},
-                        {key: 'responsible', type: 'object', subfield: 'acronym', label: 'Responsável'},
-                    ]}
+                    keys={workPlanKeys.workPlan}
                     onCreate={() => setCurrentEntity(props.workPlan)}
                     onRowClick={entity => {
                         setCurrentEntity(entity)

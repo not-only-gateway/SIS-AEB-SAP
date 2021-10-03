@@ -3,6 +3,7 @@ import {DeleteRounded} from "@material-ui/icons";
 import {List, useQuery} from "sis-aeb-core";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import ClassificationForm from "../forms/ClassificationForm";
+import associativeKeys from "../../keys/associativeKeys";
 
 export default function ClassificationList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -38,10 +39,7 @@ export default function ClassificationList(props) {
                         color: '#ff5555'
                     }]}
                     hook={hook}
-                    keys={[
-                        {name: 'classification', type: 'string', label: 'classificação'},
-                        {name: 'type', type: 'string', label: 'tipo'}
-                    ]}
+                    keys={associativeKeys.classification}
 
                     onRowClick={entity => {
                         setCurrentEntity(entity)

@@ -4,6 +4,7 @@ import {DeleteRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import Operation from "../entities/Operation";
 import OperationRequests from "../../utils/requests/OperationRequests";
+import workPlanKeys from "../../keys/workPlanKeys";
 
 export default function OperationList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -30,15 +31,7 @@ export default function OperationList(props) {
                     createOption={true}
                     onCreate={() => setOpen(true)}
                     hook={hook}
-                    keys={[
-
-                        {key: 'phase', type: 'number',label: 'Fase'},
-                        {key: 'initial_situation', type: 'string', label: 'Situação inicial'},
-                        {key: 'indicator_planned', type: 'string', label: 'indicador planejado'},
-                        {key: 'detailing', type: 'string', label: 'detalhamento da fase'},
-                        {key: 'estimated_cost', type: 'number', maskStart:'R$ ',label:  'custo estimado'}
-
-                    ]}
+                    keys={workPlanKeys.operation}
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,

@@ -3,11 +3,12 @@ import React, {useRef, useState} from "react";
 import {DeleteRounded} from "@material-ui/icons";
 import {List, useQuery} from "sis-aeb-core";
 
-import StageForm from "../forms/StageForm";
+import ActivityForm from "../forms/StageForm";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
+import workPlanKeys from "../../keys/workPlanKeys";
 
 
-export default function StageList(props) {
+export default function ActivityList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const hook = useQuery()
@@ -16,7 +17,7 @@ export default function StageList(props) {
     return (
         <>
             {open ?
-                <StageForm
+                <ActivityForm
                     returnToMain={() => {
                         setOpen(false)
                         setCurrentEntity(null)
@@ -40,12 +41,7 @@ export default function StageList(props) {
                 <List
                     createOption={true}
                     hook={hook}
-                    keys={[
-                        {name: 'stage', type: 'string', label: 'Etapa'},
-                        {name: 'description', type: 'string',label: 'Descrição'},
-                        {name: 'representation', type: 'string', maskEnd: ' %',label: 'Reresentação (%) da meta'},
-
-                    ]}
+                    keys={workPlanKeys.activity}
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
@@ -67,7 +63,7 @@ export default function StageList(props) {
         </>
     )
 }
-StageList.propTypes = {
+ActivityList.propTypes = {
     goal: PropTypes.object,
     setCurrentStructure: PropTypes.func
 }

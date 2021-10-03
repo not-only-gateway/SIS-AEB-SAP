@@ -5,6 +5,7 @@ import {DeleteRounded} from "@material-ui/icons";
 import NatureExpenseForm from "../forms/NatureExpenseForm";
 
 import ProjectRequests from "../../utils/requests/ProjectRequests";
+import associativeKeys from "../../keys/associativeKeys";
 
 export default function NatureExpenseList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -40,11 +41,7 @@ export default function NatureExpenseList(props) {
                     }]}
                     onRowClick={e => setCurrentEntity(e)}
                     hook={hook}
-                    keys={[
-                        {key: 'gnd', type: 'string', label: 'GND'},
-                        {key: 'nature_of_expense', type: 'string', label: 'Natureza de despesa'},
-                        {key: 'description', type: 'string', label: 'Descrição'}
-                    ]}
+                    keys={associativeKeys.natureOfExpense}
                     title={'Naturezas de despesa'}
 
                 />

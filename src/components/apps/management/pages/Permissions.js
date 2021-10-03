@@ -6,11 +6,6 @@ import AccessProfileList from "../components/lists/AccessProfileList";
 export default function Permissions(){
     return(
         <HeaderTabs
-            header={
-                <div className={styles.header}>
-                    Permissões e perfis de acesso
-                </div>
-            }
             buttons={[
                 {
                     label: 'Perfis de acesso',
@@ -28,6 +23,10 @@ export default function Permissions(){
                         </div>
                     )
                 }
-            ]}/>
+            ]}>
+            <div className={styles.header}>
+                Permissões e perfis de acesso
+            </div>
+        </HeaderTabs>
     )
 }

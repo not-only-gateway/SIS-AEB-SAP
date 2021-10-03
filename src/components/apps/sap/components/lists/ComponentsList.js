@@ -4,6 +4,7 @@ import {DeleteRounded} from "@material-ui/icons";
 import {List, useQuery} from "sis-aeb-core";
 import ComponentForm from "../forms/ComponentForm";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
+import associativeKeys from "../../keys/associativeKeys";
 
 export default function ComponentsList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -31,11 +32,7 @@ export default function ComponentsList(props) {
                     onCreate={() => setOpen(true)}
 
                     hook={hook}
-                    keys={[
-                        {key: 'classification', type: 'object',subfieldKey: 'classification', label: 'classificação'},
-                        {key: 'classification', type: 'object',subfieldKey: 'type', label: 'tipo'},
-                        {key: 'situation', type: 'string',label: 'situação'}
-                    ]}
+                    keys={associativeKeys.components}
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,

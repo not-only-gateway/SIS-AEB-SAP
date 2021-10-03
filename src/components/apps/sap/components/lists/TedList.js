@@ -3,6 +3,8 @@ import {List, useQuery} from "sis-aeb-core";
 import {DeleteRounded} from "@material-ui/icons";
 import TedForm from "../forms/TedForm";
 import TedRequests from "../../utils/requests/TedRequests";
+import workPlanKeys from "../../keys/workPlanKeys";
+import tedKeys from "../../keys/tedKeys";
 
 export default function TedList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -42,11 +44,7 @@ export default function TedList(props) {
                         color: '#ff5555'
                     }]}
                     hook={hook}
-                    keys={[
-                        {key: 'number', type: 'string', label: 'Número'},
-                        {key: 'responsible', type: 'object', subfield: 'acronym', label: 'Responsável'},
-                        {key: 'process', type: 'string', label: 'Processo'}
-                    ]}
+                    keys={tedKeys.ted}
                     title={'Instrumentos de celebração'}
                 />
             </div>

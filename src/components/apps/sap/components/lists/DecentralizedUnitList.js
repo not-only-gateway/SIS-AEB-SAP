@@ -3,6 +3,7 @@ import {DeleteRounded, GetAppRounded} from "@material-ui/icons";
 import {List, useQuery} from "sis-aeb-core";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import DecentralizedUnitForm from "../forms/DecentralizedUnitForm";
+import associativeKeys from "../../keys/associativeKeys";
 
 
 export default function DecentralizedUnitList(props) {
@@ -41,10 +42,7 @@ export default function DecentralizedUnitList(props) {
                         color: '#ff5555'
                     }]}
                     hook={hook}
-                    keys={[
-                        {key: 'name', type: 'string', label: 'Nome'},
-                        {key: 'responsible', type: 'string', label: 'responsável'}
-                    ]}
+                    keys={associativeKeys.decentralizedUnit}
                     clickEvent={() => setOpen(true)}
                     onRowClick={entity => {
                         setCurrentEntity(entity)

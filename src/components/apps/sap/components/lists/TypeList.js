@@ -3,6 +3,8 @@ import {List, useQuery} from "sis-aeb-core";
 import {DeleteRounded} from "@material-ui/icons";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import TypeForm from "../forms/TypeForm";
+import workPlanKeys from "../../keys/workPlanKeys";
+import associativeKeys from "../../keys/associativeKeys";
 
 export default function TypeList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -40,9 +42,7 @@ export default function TypeList(props) {
                         color: '#ff5555'
                     }]}
                     hook={hook}
-                    keys={[
-                        {key: 'type', type: 'string', label: 'Tipo'},
-                    ]}
+                    keys={associativeKeys.type}
                     title={'Tipos'}
                 />
             </div>

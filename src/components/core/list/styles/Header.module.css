@@ -10,19 +10,20 @@
     font-family: Roboto;
 }
 .header{
-    font-family: Roboto;
+
 
     display: flex;
     height: fit-content;
     justify-content: space-between;
     width: 100%;
 
-    font-size: 1.4rem;
+
     /*background-color: var(--background-1);*/
     /*border: var(--border-0) 1px solid;*/
     border-radius: 5px;
 
-
+    font-family: Roboto;
+    font-size: 1.4rem;
     font-weight: bold;
     color: var(--color-0);
 

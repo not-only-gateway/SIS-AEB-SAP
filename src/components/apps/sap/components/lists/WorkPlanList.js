@@ -5,6 +5,7 @@ import {List, useQuery} from "sis-aeb-core";
 import WorkPlanForm from "../forms/WorkPlanForm";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import {DeleteRounded} from "@material-ui/icons";
+import workPlanKeys from "../../keys/workPlanKeys";
 
 export default function WorkPlanList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -37,11 +38,7 @@ export default function WorkPlanList(props) {
                     onCreate={() => setOpen(true)}
 
                     hook={hook}
-                    keys={[
-                        {key: 'object', type: 'string', label: 'objeto'},
-                        {key: 'budget_plan', type: 'object', subfield: 'number', label: 'plano orçamentário'},
-                        {key: 'responsible', type: 'object', subfield: 'acronym', label: 'responsável'},
-                    ]}
+                    keys={workPlanKeys.workPlan}
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,

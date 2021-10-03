@@ -4,6 +4,7 @@ import BudgetPlanForm from "../forms/BudgetPlanForm";
 import {List, useQuery} from "sis-aeb-core";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import {budget_plan_query} from "../../queries/entities";
+import associativeKeys from "../../keys/associativeKeys";
 
 export default function BudgetPlanList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -43,11 +44,7 @@ export default function BudgetPlanList(props) {
                         color: '#ff5555'
                     }]}
                     hook={hook}
-                    keys={[
-                        {key: 'action', type: 'object', subfield: 'number', label: 'Ação'},
-                        {key: 'number', type: 'string', label: 'Número'},
-                        {key: 'detailing', type: 'string', extraSize: 50, label: 'Detalhamento'}
-                    ]}
+                    keys={associativeKeys.budgetPlan}
 
                     onRowClick={entity => {
                         setCurrentEntity(entity)

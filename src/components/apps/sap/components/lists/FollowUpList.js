@@ -4,6 +4,8 @@ import {DeleteRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import FollowUpForm from "../forms/FollowUpForm";
 import OperationRequests from "../../utils/requests/OperationRequests";
+import associativeKeys from "../../keys/associativeKeys";
+import workPlanKeys from "../../keys/workPlanKeys";
 
 export default function FollowUpList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -42,10 +44,7 @@ export default function FollowUpList(props) {
                         color: '#ff5555'
                     }]}
                     hook={hook}
-                    keys={[
-                        {key: 'description', type: 'string', label: 'descrição'},
-                        {key: 'accomplished', type: 'bool', label: 'entregue'},
-                    ]}
+                    keys={workPlanKeys.followup}
                     title={'Marcos do acompanhamento'}
 
                     fetchParams={{

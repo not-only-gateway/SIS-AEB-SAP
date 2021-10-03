@@ -6,11 +6,6 @@ import EndpointList from "../components/lists/EndpointList";
 export default function Services() {
     return (
         <HeaderTabs
-            header={
-                <div className={styles.header}>
-                    Gerênciamento dos serviços
-                </div>
-            }
             buttons={[
             {
                 label: 'Serviços',
@@ -28,6 +23,10 @@ export default function Services() {
                     </div>
                 )
             }
-        ]}/>
+        ]}>
+            <div className={styles.header}>
+                Gerênciamento dos serviços
+            </div>
+        </HeaderTabs>
     )
 }

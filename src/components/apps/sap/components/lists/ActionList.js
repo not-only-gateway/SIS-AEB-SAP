@@ -4,6 +4,7 @@ import ActionForm from "../forms/ActionForm";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import {List, useQuery} from "sis-aeb-core";
 import {action_query} from "../../queries/workplan";
+import associativeKeys from "../../keys/associativeKeys";
 
 
 export default function ActionList(props) {
@@ -44,10 +45,7 @@ export default function ActionList(props) {
                         color: '#ff5555'
                     }]}
                     hook={hook}
-                    keys={[
-                        {key: 'number', type: 'string', label: 'Número', },
-                        {key: 'detailing', type: 'string', label: 'Detalhamento'}
-                    ]}
+                    keys={associativeKeys.action}
 
                     onRowClick={entity => {
                         setCurrentEntity(entity)

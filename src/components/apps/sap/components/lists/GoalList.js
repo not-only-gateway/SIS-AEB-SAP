@@ -5,6 +5,7 @@ import {List, useQuery} from "sis-aeb-core";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import GoalForm from "../forms/GoalForm";
 import {DeleteRounded} from "@material-ui/icons";
+import workPlanKeys from "../../keys/workPlanKeys";
 
 export default function GoalList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -38,13 +39,7 @@ export default function GoalList(props) {
                     createOption={true}
                     onCreate={() => setOpen(true)}
                     hook={hook}
-                    keys={[
-                        {key: 'goal_number', type: 'string', label: 'Número'},
-                        {key: 'detailing', type: 'string', label: 'Detalhamento'},
-                        {key: 'unit_of_measurement', type: 'string', label: 'unidade de medida'},
-                        {key: 'initial_situation', type: 'string', label: 'situação inicial'},
-                        {key: 'value', type: 'string', label: 'valor planejado'},
-                    ]}
+                    keys={workPlanKeys.goal}
                     onRowClick={e => setCurrentEntity(e)}
                     controlButtons={[{
                         label: 'Deletar',

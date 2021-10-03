@@ -5,6 +5,7 @@ import {DeleteRounded} from "@material-ui/icons";
 import OperationRequests from "../../utils/requests/OperationRequests";
 import {List, useQuery} from "sis-aeb-core";
 import PermanentGoodsForm from "../forms/PermanentGoodsForm";
+import workPlanKeys from "../../keys/workPlanKeys";
 
 
 export default function PermanentGoodsList(props) {
@@ -44,12 +45,7 @@ export default function PermanentGoodsList(props) {
                     }]}
                     onRowClick={e => setCurrentEntity(e)}
                     hook={hook}
-                    keys={[
-                        {key: 'description', type: 'string', label: 'Descrição'},
-                        {key: 'total_value', type: 'number', maskStart: 'R$ ', label: 'valor total'},
-                        {key: 'quantity', type: 'string', label: 'quantidade'},
-                        {key: 'acquisition_date', type: 'date', label: 'Data de aquisição'},
-                    ]}
+                    keys={workPlanKeys.permanentGoods}
                    title={'Bens permanentes'}
 
                     fetchParams={{

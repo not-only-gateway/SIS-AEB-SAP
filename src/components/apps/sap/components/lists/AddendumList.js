@@ -5,6 +5,7 @@ import TedRequests from "../../utils/requests/TedRequests";
 import TedForm from "../forms/TedForm";
 import {List, useQuery} from "sis-aeb-core";
 import {addendum_query} from "../../queries/ted";
+import tedKeys from "../../keys/tedKeys";
 
 export default function AddendumList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -33,11 +34,7 @@ export default function AddendumList(props) {
                     createOption={true}
                     onCreate={() => setOpen(true)}
                     hook={hook}
-                    keys={[
-                        {key: 'number', type: 'string', label: 'Número'},
-                        {key: 'responsible', type: 'object', subfieldKey: 'acronym', label: 'Responsável'},
-                        {key: 'process', type: 'string', label: 'Processo'}
-                    ]}
+                    keys={tedKeys.ted}
 
                     controlButtons={[{
                         label: 'Deletar',

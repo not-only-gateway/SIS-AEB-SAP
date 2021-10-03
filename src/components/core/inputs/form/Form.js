@@ -32,7 +32,7 @@ Form.propTypes = {
     title: PropTypes.string,
 
     initialData: PropTypes.object,
-    children: PropTypes.node,
+    children: PropTypes.func,
     create: PropTypes.bool,
 
     handleSubmit: PropTypes.func,

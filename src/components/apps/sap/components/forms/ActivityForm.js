@@ -6,7 +6,7 @@ import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import GoalPT from "../../locales/GoalPT";
 
 
-export default function StageForm(props) {
+export default function ActivityForm(props) {
     const lang = GoalPT
 
     useEffect(() => {
@@ -78,7 +78,7 @@ export default function StageForm(props) {
 
 }
 
-StageForm.propTypes = {
+ActivityForm.propTypes = {
     data: PropTypes.object,
     handleChange: PropTypes.func,
     returnToMain: PropTypes.func,

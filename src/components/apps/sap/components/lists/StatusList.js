@@ -4,6 +4,7 @@ import {List, useQuery} from "sis-aeb-core";
 import {DeleteRounded} from "@material-ui/icons";
 import StatusForm from "../forms/StatusForm";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
+import workPlanKeys from "../../keys/workPlanKeys";
 
 export default function StatusList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -41,11 +42,7 @@ export default function StatusList(props) {
                         color: '#ff5555'
                     }]}
                     hook={hook}
-                    keys={[
-                        {key: 'status', type: 'string', label: 'status'},
-                        {key: 'difficulties', type: 'string', label: 'Dificuldades'},
-                        {key: 'update_date', type: 'date', label: 'data da atualização'},
-                    ]}
+                    keys={workPlanKeys.status}
                     title={'Status'}
                     onRowClick={e => setCurrentEntity(e)}
                     fetchParams={{

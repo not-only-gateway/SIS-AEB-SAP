@@ -1,19 +1,15 @@
 import PropTypes from 'prop-types'
-// import TableLayout from "./components/table/TableLayout";
 import styles from './styles/List.module.css'
 import ListHeader from "./components/list/ListHeader";
-import React, {useEffect, useRef, useState} from "react";
+import React from "react";
 import EmptyListIndicator from "../shared/components/EmptyListIndicator";
 import TableLayout from "./components/table/TableLayout";
+import keyTemplate from "./templates/keyTemplate";
+import useList from "./hook/useList";
 
 export default function List(props) {
-    const listRef = useRef()
-    const wrapperRef = useRef()
-    const [maxHeight, setMaxHeight] = useState()
+    const {maxHeight, keys, keysDispatcher, actions, setOpenSettings, wrapperRef} = useList(props.keys)
 
-    useEffect(() => {
-        setMaxHeight((document.documentElement.offsetHeight - wrapperRef.current.getBoundingClientRect().top - 16) + 'px')
-    }, [])
     return (
         <div className={styles.container}>
             <ListHeader
@@ -23,7 +19,8 @@ export default function List(props) {
                 createOption={props.createOption}
                 onCreate={props.onCreate}
                 cleanState={props.hook.clean}
-                keys={props.keys}
+                keys={keys} actions={actions} dispatch={keysDispatcher}
+                setOpenSettings={setOpenSettings}
             />
             <div
                 className={styles.tableWrapper}
@@ -36,9 +33,9 @@ export default function List(props) {
                 }
 
                 <TableLayout
-                    data={props.hook.data} keys={props.keys} controlButtons={props.controlButtons} maxHeight={maxHeight}
+                    data={props.hook.data} keys={keys} controlButtons={props.controlButtons} maxHeight={maxHeight}
                     setCurrentPage={props.hook.setCurrentPage} currentPage={props.hook.currentPage}
-                    onRowClick={props.onRowClick} listRef={listRef} hasMore={props.hook.hasMore}
+                    onRowClick={props.onRowClick} hasMore={props.hook.hasMore}
                     sorts={props.hook.sorts} clean={props.hook.clean}
                     setSorts={props.hook.setSorts} loading={props.hook.loading}
                 />
@@ -50,17 +47,7 @@ export default function List(props) {
 List.propTypes = {
     hook: PropTypes.func.isRequired,
     onRowClick: PropTypes.func,
-    keys: PropTypes.arrayOf(PropTypes.shape({
-        key: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-        type: PropTypes.oneOf(['string', 'number', 'object', 'date', 'bool']),
-        getColor: PropTypes.func,
-        subfieldKey: PropTypes.string,
-
-        maskStart: PropTypes.any,
-        maskEnd: PropTypes.any,
-        additionalWidth: PropTypes.string
-    })).isRequired,
+    keys: PropTypes.arrayOf(keyTemplate).isRequired,
     controlButtons: PropTypes.arrayOf(PropTypes.shape({
         icon: PropTypes.element,
         label: PropTypes.any,

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import {Tabs} from "sis-aeb-core";
 import React, {useState} from "react";
-import StageList from "../lists/StageList";
+import ActivityList from "../lists/StageList";
 import GoalForm from "../forms/GoalForm";
 import GoalPT from "../../locales/GoalPT";
 
@@ -25,7 +25,7 @@ export default function Goal(props) {
                         key: 1,
                         value: lang.stages,
                         content: <div style={{width: '100%'}}>
-                            <StageList goal={props.data} setCurrentStructure={props.setCurrentStructure}/>
+                            <ActivityList goal={props.data} setCurrentStructure={props.setCurrentStructure}/>
                         </div>
                     }
                 ]}

@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 
 
-export default function ObjectiveForm(props) {
+export default function ProjectGoalForm(props) {
 
     const lang = ProjectPT
     const [initialData, setInitialData] = useState(null)
@@ -83,7 +83,7 @@ export default function ObjectiveForm(props) {
 
 }
 
-ObjectiveForm.propTypes = {
+ProjectGoalForm.propTypes = {
     id: PropTypes.number,
     data: PropTypes.object,
     handleChange: PropTypes.func,

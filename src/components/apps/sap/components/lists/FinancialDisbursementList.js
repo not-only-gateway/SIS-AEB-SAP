@@ -4,6 +4,7 @@ import {List, useQuery} from "sis-aeb-core";
 import {DeleteRounded} from "@material-ui/icons";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import FinancialDisbursementForm from "../forms/FinancialDisbursementForm";
+import associativeKeys from "../../keys/associativeKeys";
 
 
 export default function FinancialDisbursementList(props) {
@@ -43,11 +44,7 @@ export default function FinancialDisbursementList(props) {
                         color: '#ff5555'
                     }]}
                     hook={hook}
-                    keys={[
-                        {key: 'year', type: 'string', label: 'ano'},
-                        {key: 'month', type: 'string', label: 'mês'},
-                        {key: 'value', type: 'number', label: 'valor', maskStart: 'R$ '},
-                    ]}
+                    keys={associativeKeys.financialDisbursement}
                     title={'Desembolso financeiro'}
 
                     {/*fetchParams={{*/}

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
-import StageForm from "../forms/StageForm";
+import ActivityForm from "../forms/StageForm";
 import {Tabs} from "sis-aeb-core";
 import GoalPT from "../../locales/GoalPT";
 import OperationList from "../lists/OperationList";
@@ -17,7 +17,7 @@ export default function Stage(props) {
                     value: lang.details,
                     content: (
                         <div style={{width: '100%'}}>
-                            <StageForm {...props}/>
+                            <ActivityForm {...props}/>
                         </div>
                     )
                 }, {

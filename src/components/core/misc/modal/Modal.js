@@ -92,7 +92,7 @@ export default function Modal(props) {
 
 Modal.propTypes = {
     animationStyle: PropTypes.oneOf(['slide-left', 'slide-right', 'fade']),
-    wrapperClassName: PropTypes.object,
+    wrapperClassName: PropTypes.string,
     blurIntensity: PropTypes.number,
     componentStyle: PropTypes.object,
     open: PropTypes.bool,

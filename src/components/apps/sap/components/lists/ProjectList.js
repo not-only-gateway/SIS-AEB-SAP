@@ -6,6 +6,7 @@ import {List, useQuery} from "sis-aeb-core";
 import ProjectForm from "../forms/ProjectForm";
 import {ArrowForwardRounded, DeleteRounded} from "@material-ui/icons";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
+import projectKeys from "../../keys/projectKeys";
 
 export default function ProjectList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -36,12 +37,7 @@ export default function ProjectList(props) {
             <div style={{display: open ? 'none' : undefined}}>
                 <List
                     hook={hook}
-                    keys={[
-                        {key: 'name', type: 'string', label: 'Nome'},
-                        {key: 'description', type: 'string', label: 'Descrição'},
-                        {key: 'estimated_value', type: 'number', maskStart: 'R$ ', label: 'Valor estimado'},
-                        {key: 'type', type: 'string', capitalize: true, label: 'Tipo'}
-                    ]}
+                    keys={projectKeys.project}
                     title={'Projetos / Atividades'}
                     controlButtons={[
                         {
