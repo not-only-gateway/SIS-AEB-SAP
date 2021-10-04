@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import {List, useQuery} from "sis-aeb-core";
 import RiskForm from "../forms/RiskForm";
 import {DeleteRounded} from "@material-ui/icons";

@@ -1,5 +1,5 @@
-import React, {useRef, useState} from "react";
-import {DeleteRounded, GetAppRounded} from "@material-ui/icons";
+import React, {useState} from "react";
+import {DeleteRounded} from "@material-ui/icons";
 import {List, useQuery} from "sis-aeb-core";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import DecentralizedUnitForm from "../forms/DecentralizedUnitForm";

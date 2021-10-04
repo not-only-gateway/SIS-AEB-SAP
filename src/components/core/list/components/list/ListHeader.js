@@ -1,16 +1,9 @@
 import PropTypes from 'prop-types'
 import styles from '../../styles/Header.module.css'
-import React, {useState} from "react";
+import React from "react";
 import Filter from "./Filter";
 import ToolTip from "../../../misc/tooltip/ToolTip";
-import {
-    AddRounded,
-    CalendarTodayRounded,
-    CategoryRounded,
-    CloseRounded,
-    FilterListRounded, PlusOneRounded, SettingsRounded, TableChartRounded,
-    TextFieldsRounded, ViewColumnRounded
-} from "@material-ui/icons";
+import {AddRounded, CloseRounded, FilterListRounded, SettingsRounded} from "@material-ui/icons";
 import Dropdown from "./Dropdown";
 import useHeader from "../../hook/useHeader";
 

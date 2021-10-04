@@ -1,8 +1,5 @@
 import React, {useState} from "react";
-import Cookies from "universal-cookie/lib";
-import Host from "../../utils/shared/Host";
 import PropTypes from "prop-types";
-import animations from "../../styles/Animations.module.css";
 import {List, useQuery} from "sis-aeb-core";
 import TedForm from "../forms/TedForm";
 import {ArrowForwardRounded, DeleteRounded} from "@material-ui/icons";

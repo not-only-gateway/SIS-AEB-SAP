@@ -1,10 +1,9 @@
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import {List, useQuery} from "sis-aeb-core";
 import {DeleteRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import FollowUpForm from "../forms/FollowUpForm";
 import OperationRequests from "../../utils/requests/OperationRequests";
-import associativeKeys from "../../keys/associativeKeys";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
 import {followup_goal_query} from "../../queries/workplan";

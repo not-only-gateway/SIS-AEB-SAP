@@ -8,14 +8,14 @@ export default function sapProps (redirect, path) {
             {
                 label: "Projetos",
                 icon: <WorkRounded/>,
-                onClick: () => redirect('/sap/home'),
-                highlight: path === '/sap/home'
+                onClick: () => redirect('/sap/?page=index'),
+                highlight: path.includes('index')
             },
             {
                 label: "Entidades associativas",
                 icon: <LinkRounded/>,
-                onClick: () => redirect('/sap/entities'),
-                highlight: path === '/sap/entities'
+                onClick: () => redirect('/sap/?page=associative'),
+                highlight: path.includes('associative')
             }
         ],
         requireAuth: true

@@ -1,10 +1,9 @@
 import PropTypes from "prop-types";
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import {List, useQuery} from "sis-aeb-core";
 import ProjectGoalForm from "../forms/ObjectiveForm";
 import {DeleteRounded} from "@material-ui/icons";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
-import associativeKeys from "../../keys/associativeKeys";
 import projectKeys from "../../keys/projectKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
 import {project_goal_query} from "../../queries/project";

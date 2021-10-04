@@ -8,8 +8,8 @@ export default function managementProps (redirect, path) {
             {
                 label: "Overview",
                 icon: <PublicRounded/>,
-                onClick: () => redirect('/management/home'),
-                highlight: path === '/management/home'
+                onClick: () => redirect('/management'),
+                highlight: path === '/management/index'
             },
             {
                 label: "Permissões",

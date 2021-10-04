@@ -1,11 +1,11 @@
 import React from 'react'
 import Head from "next/head";
 import IndexPT from "../locales/ProjectPT";
-import ProjectList from "../components/lists/ProjectList";
+// import ProjectList from "../components/lists/ProjectList";
 // import ProjectList from "../sap/components/index/ProjectList";
 import PropTypes from 'prop-types'
 
-export default function HomePage(props) {
+export default function Index(props) {
     const lang = IndexPT
     return (
         <>
@@ -14,12 +14,12 @@ export default function HomePage(props) {
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
             <div style={{width: '75%', margin: '16px auto auto auto'}}>
-                <ProjectList redirect={id => props.redirect('/project/?id=' + id, undefined, {shallow: true})}
-                             setOpen={() => null}/>
+                {/*<ProjectList redirect={id => props.redirect('/project/?id=' + id, undefined, {shallow: true})}*/}
+                {/*             setOpen={() => null}/>*/}
             </div>
         </>
     )
 }
-HomePage.propTypes = {
+Index.propTypes = {
     redirect: PropTypes.func
 }

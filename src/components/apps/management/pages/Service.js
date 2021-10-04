@@ -5,9 +5,7 @@ import EndpointList from "../components/lists/EndpointList";
 import {useEffect, useState} from "react";
 import {Requester} from "sis-aeb-core";
 import PropTypes from "prop-types";
-import Cookies from "universal-cookie/lib";
 import Host from "../utils/shared/Host";
-import {router} from "next/client";
 import {useRouter} from "next/router";
 import useCookies from "../../../core/shared/hooks/useCookies";
 

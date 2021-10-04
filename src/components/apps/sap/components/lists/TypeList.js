@@ -1,9 +1,8 @@
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import {List, useQuery} from "sis-aeb-core";
 import {DeleteRounded} from "@material-ui/icons";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import TypeForm from "../forms/TypeForm";
-import workPlanKeys from "../../keys/workPlanKeys";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
 

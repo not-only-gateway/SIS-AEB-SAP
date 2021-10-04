@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import {List, useQuery} from "sis-aeb-core";
 import {DeleteRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
@@ -6,7 +6,7 @@ import ExecutionForm from "../forms/ExecutionForm";
 import OperationRequests from "../../utils/requests/OperationRequests";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import {activity_query, execution_query} from "../../queries/workplan";
+import {execution_query} from "../../queries/workplan";
 
 export default function ExecutionList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)

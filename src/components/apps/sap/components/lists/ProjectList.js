@@ -1,6 +1,4 @@
 import React, {useState} from "react";
-import Cookies from "universal-cookie/lib";
-import Host from "../../utils/shared/Host";
 import PropTypes from "prop-types";
 import {List, useQuery} from "sis-aeb-core";
 import ProjectForm from "../forms/ProjectForm";

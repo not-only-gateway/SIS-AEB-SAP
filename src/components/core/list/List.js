@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import styles from './styles/List.module.css'
 import ListHeader from "./components/list/ListHeader";
-import React, {useEffect} from "react";
+import React from "react";
 import EmptyListIndicator from "../shared/components/EmptyListIndicator";
 import TableLayout from "./components/table/TableLayout";
 import keyTemplate from "./templates/keyTemplate";

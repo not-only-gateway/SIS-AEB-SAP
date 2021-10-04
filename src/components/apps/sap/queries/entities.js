@@ -1,6 +1,5 @@
 import Host from "../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import {object} from "prop-types";
 
 const cookies = new Cookies()
 

@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useRef, useState} from "react";
-import animations from "../../styles/Animations.module.css";
+import React, {useState} from "react";
 import {List, useQuery} from "sis-aeb-core";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import GoalForm from "../forms/GoalForm";

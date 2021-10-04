@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import styles from "../../styles/Table.module.css";
-import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import ToolTip from "../../../misc/tooltip/ToolTip";
 import {ArrowDownwardRounded} from "@material-ui/icons";
 

@@ -5,7 +5,6 @@ import {useState} from "react";
 import ServiceForm from "../forms/ServiceForm";
 import Switcher from "../../../../core/misc/switcher/Switcher";
 import PropTypes from "prop-types";
-import EndpointList from "./EndpointList";
 
 export default function ServiceList(props) {
     const hook = useQuery(service_query)

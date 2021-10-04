@@ -1,7 +1,6 @@
 import styles from '../shared/Input.module.css'
-import React, {useMemo, useState} from 'react'
+import React from 'react'
 import InputMask from 'react-input-mask'
-import {VisibilityOffRounded, VisibilityRounded} from '@material-ui/icons'
 import LocalePT from '../shared/LocalePT'
 import PropTypes from "prop-types";
 import ParseCurrency from "./methods/ParseCurrency";

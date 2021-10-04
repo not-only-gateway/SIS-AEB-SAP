@@ -5,6 +5,7 @@ import {useState} from "react";
 import EndpointForm from "../forms/EndpointForm";
 import Switcher from "../../../../core/misc/switcher/Switcher";
 import PropTypes from 'prop-types'
+
 export default function EndpointList(props) {
     const hook = useQuery(endpoint_query)
     const [openEntity, setOpenEntity] = useState(undefined)

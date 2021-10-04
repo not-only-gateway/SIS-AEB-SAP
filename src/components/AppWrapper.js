@@ -31,8 +31,8 @@ export default function AppWrapper(props) {
         if (layoutParams.requireAuth)
             cookies.watch({
                 name: 'jwt', callback: (cookie) => {
-                    if(!cookie)
-                        setOpenAuthentication(true)
+                    // if(!cookie)
+                    //     setOpenAuthentication(true)
                 }
             })
     }, [layoutParams])
@@ -48,7 +48,8 @@ export default function AppWrapper(props) {
                 defaultBackground={true}
                 wrapperClassName={styles.modal}
                 blurIntensity={.1}
-                animationStyle={"fade"}>
+                animationStyle={"fade"}
+            >
                 <Authenticator redirect={() => null}/>
             </Modal>
             <LayoutWrapper
@@ -58,7 +59,6 @@ export default function AppWrapper(props) {
                 darkLogo={'../dark.png'}
                 redirectToLogin={() => router.push('authentication', 'authentication')}
                 {...layoutParams}
-
                 profileButtons={[]}
                 appButtons={apps}
             >

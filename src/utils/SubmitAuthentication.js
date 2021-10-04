@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types'
 import Cookies from "universal-cookie/lib";
 import Host from "../components/apps/sap/utils/shared/Host";
-import {Requester} from "sis-aeb-core";
-
-
+import Requester from "../components/core/misc/requester/Requester";
+// import {Requester} from "sis-aeb-core";
 const cookies = new Cookies()
 export default async function submitAuthentication(props) {
     let res = false

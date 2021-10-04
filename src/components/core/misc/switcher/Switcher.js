@@ -8,7 +8,7 @@ export default function Switcher(props) {
 
     const handleEnter = () => {
         ref.current.classList.add(styles.exitA)
-        ref.current.addEventListener('animationend', function switcher (e) {
+        ref.current.addEventListener('animationend', function switcher(e) {
             setCurrentChild(props.openChild)
             ref.current.classList.remove(styles.exitA)
             ref.current.classList.add(styles.enterA)
@@ -25,8 +25,8 @@ export default function Switcher(props) {
     return (
 
         <div ref={ref} style={{height: '100%', width: '100%'}}>
-            {React.Children.toArray(props.children).map((c, i) => (
-                <div key={i+'-child'} id={i+'-child'} style={{display: i !== currentChild ? 'none' : undefined, height: '100%', width: '100%'}}>
+            {React.Children.toArray(props.children).map((c, i) => i !== currentChild ? null : (
+                <div key={i + '-child'} id={i + '-child'} style={{height: '100%', width: '100%'}}>
                     {c}
                 </div>
             ))}

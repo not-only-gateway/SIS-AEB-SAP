@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types'
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 
 import {DeleteRounded} from "@material-ui/icons";
 import OperationRequests from "../../utils/requests/OperationRequests";
 import {List, useQuery} from "sis-aeb-core";
 import ResourceApplicationForm from "../forms/ResourceApplicationForm";
-import associativeKeys from "../../keys/associativeKeys";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
 import {operation_query} from "../../queries/workplan";

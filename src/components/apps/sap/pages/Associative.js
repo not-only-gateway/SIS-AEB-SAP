@@ -11,9 +11,10 @@ import DecentralizedUnitList from "../components/lists/DecentralizedUnitList";
 import UnitList from "../components/lists/UnitList";
 import TedList from "../components/lists/TedList";
 import TypeList from "../components/lists/TypeList";
+import PropTypes from "prop-types";
 
 
-export default function EntitiesPage() {
+export default function Associative() {
     const lang = OverviewPT
     const [openTab, setOpenTab] = useState(0)
     return (
@@ -117,4 +118,7 @@ export default function EntitiesPage() {
             </>
         </>
     )
+}
+Associative.propTypes = {
+    redirect: PropTypes.func
 }

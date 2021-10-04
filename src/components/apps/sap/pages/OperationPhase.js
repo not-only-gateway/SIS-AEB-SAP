@@ -9,7 +9,7 @@ import Stage from "../components/entities/Stage";
 import Header from "../components/Header";
 import PropTypes from 'prop-types'
 
-export default function ProjectPage(props) {
+export default function OperationPhase(props) {
     const [project, setProject] = useState(undefined)
     const [currentStructure, setCurrentStructure] = useState({
         ted: null
@@ -121,6 +121,7 @@ export default function ProjectPage(props) {
         </>
     )
 }
-Project.propTypes = {
-    id: PropTypes.number
+OperationPhase.propTypes = {
+    routerQuery: PropTypes.object,
+    redirect: PropTypes.func
 }

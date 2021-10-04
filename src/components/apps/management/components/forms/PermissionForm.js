@@ -6,10 +6,7 @@ import FormRow from "../../../../core/inputs/form/FormRow";
 import Checkbox from "../../../../core/inputs/checkbox/Checkbox";
 import CheckboxGroup from "../../../../core/inputs/checkbox/CheckboxGroup";
 import TextField from "../../../../core/inputs/text/TextField";
-import Selector from "../../../../core/inputs/selector/Selector";
-import {service_query} from "../../queries/queries";
-import {useQuery} from "sis-aeb-core";
-import {endpoint, service} from "../../utils/submits";
+import {endpoint} from "../../utils/submits";
 
 export default function PermissionForm(props) {
 

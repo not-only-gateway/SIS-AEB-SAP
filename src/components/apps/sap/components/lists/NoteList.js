@@ -1,5 +1,4 @@
-import React, {useRef, useState} from "react";
-import animations from "../../styles/Animations.module.css";
+import React, {useState} from "react";
 import {List, useQuery} from "sis-aeb-core";
 import {DeleteRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";

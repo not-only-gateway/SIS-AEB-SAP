@@ -2,8 +2,6 @@ import {useQuery} from "sis-aeb-core";
 import {event_query} from "../../queries/queries";
 import List from "../../../../core/list/List";
 import {useState} from "react";
-import ServiceForm from "../forms/ServiceForm";
-import Switcher from "../../../../core/misc/switcher/Switcher";
 
 export default function EventList(props) {
     const hook = useQuery(event_query)
