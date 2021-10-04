@@ -6,17 +6,19 @@ import PropTypes from "prop-types";
 import NoteForm from "../forms/NoteForm";
 import OperationRequests from "../../utils/requests/OperationRequests";
 import associativeKeys from "../../keys/associativeKeys";
+import Switcher from "../../../../core/misc/switcher/Switcher";
+import {note_query} from "../../queries/workplan";
 
 export default function NoteList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery()
+    const hook = useQuery(note_query({
+        operation: props.operation.id
+    }))
     
     return (
-        <div>
+        <Switcher openChild={open ? 0 : 1}>
 
-            {!open ? null :
-                <div className={animations.fadeIn} style={{width: '100%'}}>
                     <NoteForm
                         returnToMain={() => {
                             hook.clean()
@@ -26,9 +28,7 @@ export default function NoteList(props) {
                         create={currentEntity === undefined || currentEntity === null || currentEntity.id === undefined}
                         operation={props.operation.id}
                         data={currentEntity}/>
-                </div>
-            }
-            <div style={{display: open ? 'none' : undefined, width: '100%'}}>
+
                 <List
                     createOption={true}
                     onCreate={() => setOpen(true)}
@@ -47,12 +47,9 @@ export default function NoteList(props) {
                         color: '#ff5555'
                     }]}
                     onRowClick={e => setCurrentEntity(e)}
-                    fetchParams={{
-                        operation: props.operation.id
-                    }}
+                    
                 />
-            </div>
-        </div>
+        </Switcher>
     )
 
 

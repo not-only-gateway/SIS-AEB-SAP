@@ -7,37 +7,52 @@ import PropTypes from "prop-types";
 import ParseCurrency from "./methods/ParseCurrency";
 
 export default function TextField(props) {
-    const [visible, setVisible] = useState(false)
     const lang = LocalePT
-    const mask = useMemo(() => {
-        if (props.type === 'number')
-            return props.value && props.value.length > 1 ? props.value.replace(new RegExp("[0-9]", "g"), "9"): '9'
-        else
-            return props.mask
-    }, [props.mask, props.value])
-    return (
-        <div
-            style={{
-                width: props.width,
-                height: 'auto',
-                display: 'grid',
-                alignItems: props.value ? 'unset' : 'flex-start',
-                gap: '4px',
-            }}
-        >
-            <div className={styles.labelContainer}
-                 style={{
-                     visibility: (props.value !== undefined && props.value !== null && props.value.length > 0) || props.type === 'time' || props.type === 'number' ? 'visible' : 'hidden',
-                     opacity: (props.value !== undefined && props.value !== null && props.value.length > 0) || props.type === 'time' || props.type === 'number' ? '1' : '0',
-                     transition: 'visibility 0.2s ease,opacity 0.2s ease'
-                 }}>{props.label}</div>
 
-            <div className={styles.fieldsContainer}>
-                {props.variant === 'area' ?
+    const content = (value) => (
+        <>
+            <span className={styles.mask}>{props.maskStart}</span>
+            <input
+                disabled={props.disabled}
+                placeholder={props.placeholder}
+                type={props.type !== 'password' ? props.type : (!props.visible ? 'password' : 'text')}
+                value={value}
+                className={styles.inputContainer}
+                style={{
+                    height: props.size === 'small' ? '36px' : '56px',
+                    background: props.disabled ? 'white' : undefined,
+                    border: props.disabled ? '#ecedf2 1px solid' : undefined,
+                    boxShadow: props.disabled ? 'none' : undefined,
+                    paddingLeft: props.maskStart ? '32px' : undefined,
+                    paddingRight: props.maskEnd ? '32px' : undefined
+                }}
+                onChange={e => {
+
+                    let data = e.target.value
+                    if (props.type === 'number' && props.floatFilter)
+                        data = ParseCurrency(e.target.value)
+
+                    props.handleChange({target: {value: data}})
+                }}
+                maxLength={props.maxLength}
+            />
+            <span className={styles.mask} style={{right: '8px', left: 'unset'}}>{props.maskEnd}</span>
+        </>
+    )
+    const getField = () => {
+        switch (true) {
+            case !props.mask:
+                return (
+                    <div style={{width: '100%', position: 'relative'}}>
+                        {content(props.value ? props.value : '')}
+                    </div>
+                )
+            case props.variant === 'area':
+                return (
                     <textarea
                         disabled={props.disabled}
                         placeholder={props.placeholder}
-                        value={props.value}
+                        value={props.value ? props.value : ''}
                         className={styles.inputContainer}
                         style={{
                             background: props.disabled ? 'white' : undefined,
@@ -48,59 +63,53 @@ export default function TextField(props) {
                         onChange={props.handleChange}
                         maxLength={props.maxLength}
                     />
-                    :
+                )
+            case props.mask && props.mask !== 'currency':
+                return (
                     <InputMask
-                        mask={mask} maskPlaceholder={''}
-                        value={props.value} alwaysShowMask={false}
+                        mask={props.mask} maskPlaceholder={''}
+                        value={props.value ? props.value : ''} alwaysShowMask={false}
                     >
                         {event =>
                             <div style={{width: '100%', position: 'relative'}}>
-                                <input
-                                    disabled={props.disabled}
-                                    placeholder={props.placeholder}
-                                    type={props.type !== 'password' ? undefined : (!props.visible ? 'password' : 'text')}
-                                    value={event.value}
-                                    className={styles.inputContainer}
-                                    style={{
-                                        background: props.disabled ? 'white' : undefined,
-                                        border: props.disabled ? '#ecedf2 1px solid' : undefined,
-                                        boxShadow: props.disabled ? 'none' : undefined,
-                                        paddingLeft: props.maskStart ? '32px' : undefined
-                                    }}
-                                    onChange={e => {
-                                        console.log('THIS IS EVENT ', e.target.value)
-                                        let data = e.target.value
-                                        if (props.type === 'number') {
-                                            data = ParseCurrency(e.target.value)
-                                            console.log(data)
-                                        }
-                                        props.handleChange({target: {value: data}})
-                                    }}
-                                    maxLength={props.maxLength}
-                                />
-                                <span className={styles.maskStart}>{props.maskStart}</span>
+                                {content(event.value)}
                             </div>
                         }
-                    </InputMask>}
-                {props.passwordMask ?
-                    !visible ?
-                        <VisibilityOffRounded htmlFor={props.label + 'text_field'}
-                                              style={{transition: '300ms ease-in-out'}}
-                                              onClick={() => setVisible(true)}
-                                              className={styles.visibilityContainer}/>
-                        :
-                        <VisibilityRounded htmlFor={props.label + 'text_field'}
-                                           style={{transition: '300ms ease-in-out'}}
-                                           className={styles.visibilityContainer}
-                                           onClick={() => setVisible(false)}/>
-                    :
-                    null
-                }
+                    </InputMask>
+                )
+            default:
+                return null
+        }
+    }
+    return (
+        <div
+            style={{
+                width: props.width,
+                height: 'auto',
+                display: 'grid',
+                alignItems: props.value ? 'unset' : 'flex-start',
+                gap: '4px',
+            }}
+        >
+            <div
+                className={styles.labelContainer}
+                style={{
+                    visibility: (props.value !== undefined && props.value !== null && props.value.length > 0) || props.type === 'time' || props.type === 'number' ? 'visible' : 'hidden',
+                    opacity: (props.value !== undefined && props.value !== null && props.value.length > 0) || props.type === 'time' || props.type === 'number' ? '1' : '0',
+                    transition: 'visibility 0.2s ease,opacity 0.2s ease'
+                }}
+            >
+                {props.label}
             </div>
+            <div className={styles.fieldsContainer}>
+                {getField()}
+            </div>
+
             <div className={styles.alertLabel}
                  style={{
                      color: (props.value === null || !props.value || props.value.length === 0) ? '#ff5555' : '#262626',
-                     visibility: props.required ? 'visible' : 'hidden'
+                     visibility: props.required ? 'visible' : 'hidden',
+                     display: props.noMargin && !props.required ? 'none' : undefined
                  }}>{lang.required}
             </div>
 
@@ -116,7 +125,6 @@ TextField.propTypes = {
     value: PropTypes.string,
     required: PropTypes.bool,
 
-    passwordMask: PropTypes.bool,
     mask: PropTypes.string,
 
     maxLength: PropTypes.number,
@@ -127,5 +135,9 @@ TextField.propTypes = {
     ]),
     type: PropTypes.oneOf(['number', 'text']),
 
-    maskStart: PropTypes.string
+    maskStart: PropTypes.any,
+    maskEnd: PropTypes.any,
+    floatFilter: PropTypes.bool,
+    size: PropTypes.oneOf(['small', 'default']),
+    noMargin: PropTypes.bool
 }

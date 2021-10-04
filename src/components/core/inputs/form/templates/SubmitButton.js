@@ -9,9 +9,9 @@ export default function SubmitButton(props){
         <div className={[styles.headerContainer, styles.submitContainer].join(' ')}>
             <button
                 className={styles.saveButton}
-                onClick={() => props.submit(props.data)} disabled={props.disabled}
+                onClick={() => props.submit(props.data, props.clearState)} disabled={props.disabled}
             >
-                {props.create ? lang.create : lang.save}
+                {props.submitLabel ? props.submitLabel : (props.create ? lang.create : lang.save)}
             </button>
         </div>
     )
@@ -20,5 +20,7 @@ SubmitButton.propTypes={
     data: PropTypes.object,
     submit: PropTypes.func,
     create: PropTypes.bool,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    clearState: PropTypes.func,
+    submitLabel: PropTypes.string
 }

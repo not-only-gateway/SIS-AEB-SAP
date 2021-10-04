@@ -69,7 +69,7 @@ export default function TedForm(props) {
                     ]
                 } noHeader={!props.create && !props.asEntity}
                 returnButton={props.create || props.asEntity}
-                handleSubmit={(data) => {
+                handleSubmit={(data, clearState) => {
                     if (!props.asAddendum)
                         TedRequests.submitTed({
                             pk: data.id,

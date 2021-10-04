@@ -5,6 +5,7 @@ import ProjectRequests from "../../utils/requests/ProjectRequests";
 import {List, useQuery} from "sis-aeb-core";
 import {action_query} from "../../queries/workplan";
 import associativeKeys from "../../keys/associativeKeys";
+import Switcher from "../../../../core/misc/switcher/Switcher";
 
 
 export default function ActionList(props) {
@@ -13,9 +14,9 @@ export default function ActionList(props) {
     const hook = useQuery(action_query)
     
     return (
-        <>
+        <Switcher openChild={open ? 0 : 1}>
 
-            {!open ? null :
+            
 
                 <ActionForm
                     returnToMain={() => {
@@ -25,9 +26,8 @@ export default function ActionList(props) {
                     asDefault={true}
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                     data={currentEntity}/>
-
-            }
-            <div style={{display: open ? 'none' : undefined}}>
+            
+            
                 <List
 
                     createOption={true}
@@ -39,7 +39,7 @@ export default function ActionList(props) {
                         onClick: (entity) => {
                             ProjectRequests.deleteAction({
                                 pk: entity.id
-                            })
+                            }).then(() => hook.clean())
                         },
                         disabled: false,
                         color: '#ff5555'
@@ -52,7 +52,6 @@ export default function ActionList(props) {
                     }} title={'Ações'}
 
                 />
-            </div>
-        </>
+            </Switcher>
     )
 }

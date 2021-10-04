@@ -42,15 +42,17 @@ export default function BudgetPlanForm(props) {
                         {name: 'detailing', type: 'string'},
                     ]}
                 returnButton={true} noAutoHeight={!props.asDefault}
-                handleSubmit={(data) =>
+                handleSubmit={(data, clearState) =>
                     ProjectRequests.submitBudgetPlan({
                         pk: data.id,
                         data: data,
 
                         create: props.create
                     }).then(res => {
-                        if (props.create && res)
+                        if (props.create && res){
                             props.returnToMain()
+                            clearState()
+                        }
 
                     })}
                 handleClose={() => props.returnToMain()}>

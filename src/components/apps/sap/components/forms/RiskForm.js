@@ -32,14 +32,16 @@ export default function RiskForm(props){
 
                 }
                 returnButton={true}
-                handleSubmit={(data) =>
+                handleSubmit={(data, clearState) =>
                     ProjectRequests.submitRisk({
                         pk: data.id,
                         data: data,
                         create: props.create
                     }).then(res => {
-                        if(props.create && res)
+                        if(props.create && res) {
                             props.returnToMain()
+                            clearState()
+                        }
                     })}
                 handleClose={() => props.returnToMain()}>
                 {(data, handleChange) => (

@@ -35,7 +35,7 @@ export default function GoalForm(props) {
                     ]
                 }
                 returnButton={props.create}
-                handleSubmit={(data) =>
+                handleSubmit={(data, clearState) =>
                     WorkPlanRequests.submitGoal({
                         pk: data.id,
                         data: data,

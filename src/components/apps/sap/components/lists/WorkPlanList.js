@@ -6,65 +6,60 @@ import WorkPlanForm from "../forms/WorkPlanForm";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import {DeleteRounded} from "@material-ui/icons";
 import workPlanKeys from "../../keys/workPlanKeys";
+import Switcher from "../../../../core/misc/switcher/Switcher";
+import {work_plan_query} from "../../queries/workplan";
 
 export default function WorkPlanList(props) {
-    const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery()
-    
-    return (
-        <>
-            {!open ? null :
+    const hook = useQuery(work_plan_query({
+        ted: props.ted.id,
+        project: props.project.id
+    }))
 
-                <WorkPlanForm
-                    returnToMain={() => {
-                        setOpen(false)
-                    }}
-                    redirect={id => {
+    return (
+        <Switcher openChild={open ? 0 : 1}>
+            <WorkPlanForm
+                returnToMain={() => {
+                    setOpen(false)
+                }}
+                redirect={id => {
                     WorkPlanRequests.fetchWorkPlan(id.id).then(res => {
                         if (res !== null)
                             props.setCurrentStructure(res)
                     })
                 }}
-                    project={props.project}
-                    create={true} ted={props.ted}
-                    data={currentEntity}
-                />
+                project={props.project}
+                create={true} ted={props.ted}
+            />
 
-            }
-            <div style={{display: open ? 'none' : undefined}}>
-                <List
-                    createOption={true}
-                    onCreate={() => setOpen(true)}
+            <List
+                createOption={true}
+                onCreate={() => setOpen(true)}
 
-                    hook={hook}
-                    keys={workPlanKeys.workPlan}
-                    controlButtons={[{
-                        label: 'Deletar',
-                        icon: <DeleteRounded/>,
-                        onClick: (entity) => {
-                            WorkPlanRequests.deleteWorkPlan({
-                                pk: entity.id
-                            })
-                        },
-                        disabled: false,
-                        color: '#ff5555'
-                    }]}
-                    onRowClick={entity => {
-                        props.setCurrentStructure(entity)
-                    }}
-                    title={'Planos de trabalho'}
-                    fetchParams={{
-                        ted: props.ted.id,
-                        project: props.project.id
-                    }}
-                />
-            </div>
-        </>
+                hook={hook}
+                keys={workPlanKeys.workPlan}
+                controlButtons={[{
+                    label: 'Deletar',
+                    icon: <DeleteRounded/>,
+                    onClick: (entity) => {
+                        WorkPlanRequests.deleteWorkPlan({
+                            pk: entity.id
+                        })
+                    },
+                    disabled: false,
+                    color: '#ff5555'
+                }]}
+                onRowClick={entity => {
+                    props.redirect(entity.id)
+                }}
+                title={'Planos de trabalho'}
+                
+            />
+        </Switcher>
     )
 }
 WorkPlanList.propTypes = {
-    setCurrentStructure: PropTypes.func,
+    redirect: PropTypes.func,
     ted: PropTypes.object,
     project: PropTypes.object
 

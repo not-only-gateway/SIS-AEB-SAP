@@ -4,6 +4,7 @@ import {List, useQuery} from "sis-aeb-core";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import DecentralizedUnitForm from "../forms/DecentralizedUnitForm";
 import associativeKeys from "../../keys/associativeKeys";
+import Switcher from "../../../../core/misc/switcher/Switcher";
 
 
 export default function DecentralizedUnitList(props) {
@@ -12,9 +13,7 @@ export default function DecentralizedUnitList(props) {
     const hook = useQuery()
     
     return (
-        <>
-            {!open ? null :
-
+        <Switcher openChild={open ? 0 : 1}>
                 <DecentralizedUnitForm
                     returnToMain={() => {
                         setOpen(false)
@@ -24,8 +23,6 @@ export default function DecentralizedUnitList(props) {
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                     data={currentEntity}/>
 
-            }
-            <div style={{display: open ? 'none' : undefined}}>
                 <List
 
                     createOption={true}
@@ -50,7 +47,6 @@ export default function DecentralizedUnitList(props) {
                     title={'Unidades descentralizadas'}
 
                 />
-            </div>
-        </>
+            </Switcher>
     )
 }

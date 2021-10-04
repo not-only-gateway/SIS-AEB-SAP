@@ -19,7 +19,7 @@ export default async function Requester(props) {
     const axiosPackage = {
         method: props.method,
         url: props.url,
-        headers: {...props.token ? {'authorization': props.token} : {}, ...props.headers !== undefined ? props.headers : {}},
+        headers: props.headers,
         params: props.method === 'get' ? props.package : undefined,
         data: props.method === 'get' ? undefined : props.package
     }
@@ -83,7 +83,6 @@ export default async function Requester(props) {
 }
 Requester.propTypes = {
     headers: PropTypes.object,
-    token: PropTypes.string,
     package: PropTypes.object,
     url: PropTypes.string,
     method: PropTypes.oneOf(['get', 'put', 'post', 'delete', 'patch']),

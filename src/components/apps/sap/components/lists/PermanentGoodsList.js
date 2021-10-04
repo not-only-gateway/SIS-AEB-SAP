@@ -6,17 +6,19 @@ import OperationRequests from "../../utils/requests/OperationRequests";
 import {List, useQuery} from "sis-aeb-core";
 import PermanentGoodsForm from "../forms/PermanentGoodsForm";
 import workPlanKeys from "../../keys/workPlanKeys";
+import Switcher from "../../../../core/misc/switcher/Switcher";
+import {permanent_goods_query} from "../../queries/workplan";
 
 
 export default function PermanentGoodsList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery()
+    const hook = useQuery(permanent_goods_query({
+        operation: props.operation.id
+    }))
     
     return (
-        <div style={{width: '100%'}}>
-
-            {!open ? null :
+        <Switcher openChild={open ? 0 : 1}>
 
                     <PermanentGoodsForm
                         returnToMain={() => {
@@ -26,9 +28,6 @@ export default function PermanentGoodsList(props) {
 
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                         data={currentEntity} operation={props.operation}/>
-
-            }
-            <div style={{display: open ? 'none' : undefined}}>
                 <List
                     createOption={true}
                     onCreate={() => setOpen(true)}
@@ -48,12 +47,9 @@ export default function PermanentGoodsList(props) {
                     keys={workPlanKeys.permanentGoods}
                    title={'Bens permanentes'}
 
-                    fetchParams={{
-                        operation: props.operation.id
-                    }}
+                    
                 />
-            </div>
-        </div>
+        </Switcher>
     )
 }
 PermanentGoodsList.propTypes = {

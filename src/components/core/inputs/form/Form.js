@@ -8,7 +8,8 @@ import PropTypes from "prop-types";
 export default function Form(props) {
     const {
         ref, disabled,
-        data, handleChange
+        data, handleChange,
+        clearState
     } = useForm({noAutoHeight: props.noAutoHeight, initialData: props.data, dependencies: props.dependencies})
 
     return (
@@ -21,7 +22,7 @@ export default function Form(props) {
             <div style={{padding: '16px'}}>
                 {props.children(data, handleChange)}
             </div>
-            <SubmitButton submit={props.handleSubmit} data={data} create={props.create} disabled={disabled}/>
+            <SubmitButton submit={props.handleSubmit} data={data} clearState={clearState} create={props.create} disabled={disabled} submitLabel={props.submitLabel}/>
         </div>
     )
 }
@@ -40,5 +41,6 @@ Form.propTypes = {
         name: PropTypes.string,
         type: PropTypes.oneOf(['string', 'number', 'object', 'bool', 'date'])
     })),
-    handleClose: PropTypes.func
+    handleClose: PropTypes.func,
+    submitLabel: PropTypes.func
 }

@@ -23,16 +23,13 @@ export default function ListHeader(props) {
                 {props.title}
                 <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
 
-                    <Dropdown
-                        buttonClassname={[styles.filter, styles.secondaryButton].join(' ')}
-                        disabled={false} label={(
-                        <div className={styles.dropdownLabel}>
-                            Adicionar campo
-                            <PlusOneRounded style={{fontSize: '1.3rem'}}/>
-                        </div>
-                    )}
-                        buttons={props.keys.filter(val => !val.visible).map(e => getHiddenField(e))}
-                    />
+                    <button
+                        className={[styles.filter, styles.secondaryButton].join(' ')}
+                        onClick={() => props.setOpenSettings(true)}
+                    >
+                        Configurações
+                        <SettingsRounded style={{fontSize: '1.3rem'}}/>
+                    </button>
                     <Dropdown
                         buttonClassname={[styles.filter, styles.secondaryButton].join(' ')}
                         disabled={false} label={(
@@ -130,7 +127,7 @@ ListHeader.propTypes = {
         additionalWidth: PropTypes.string
     })).isRequired,
 
-
+    setOpenSettings: PropTypes.func,
 
     createOption: PropTypes.bool,
     onCreate: PropTypes.func

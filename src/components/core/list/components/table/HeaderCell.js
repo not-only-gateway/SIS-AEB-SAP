@@ -1,18 +1,20 @@
 import PropTypes from "prop-types";
 import styles from "../../styles/Table.module.css";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import ToolTip from "../../../misc/tooltip/ToolTip";
 import {ArrowDownwardRounded} from "@material-ui/icons";
 
 export default function HeaderCell(props) {
     const ref = useRef()
     const [currentSort, setCurrentSort] = useState(undefined)
-    useEffect(() => {
-        console.log(props.sorts)
-    }, [props.sorts])
+
     return (
         <td className={styles.cell}
-            style={{height: '30px', width: 'calc(100% + ' + props.additionalWidth, border: 'none'}}>
+            style={{
+                height: '30px',
+                border: 'none',
+                width: (1/props.quantity) * 100 + '%'
+            }}>
             <button
                 className={[styles.cellHeader, !currentSort ? styles.disabledSort : ''].join(' ')}
                 onClick={() => {
@@ -37,7 +39,7 @@ export default function HeaderCell(props) {
                     const exists = props.sorts.findIndex(e => e.key === props.columnKey)
                     props.clean()
 
-                    if(exists > -1)
+                    if (exists > -1)
                         props.setSorts(prevState => {
                             let value = [...prevState]
                             switch (newSort) {
@@ -63,7 +65,10 @@ export default function HeaderCell(props) {
                         props.setSorts([{key: props.columnKey, desc: true}])
 
                 }}
-                style={{height: '30px', width: 'calc(100% + ' + props.additionalWidth}}
+                style={{
+                    height: '30px',
+                    width: '100%'
+                }}
                 ref={ref}
             >
                 <div className={styles.cellContent}
@@ -72,7 +77,11 @@ export default function HeaderCell(props) {
                     <ToolTip content={props.value.toUpperCase()}/>
                 </div>
                 <ArrowDownwardRounded
-                    style={{transform: currentSort === 'desc' ? 'rotate(180deg)' : undefined, fontSize: '1.1rem', transition: '150ms linear'}}
+                    style={{
+                        transform: currentSort === 'desc' ? 'rotate(180deg)' : undefined,
+                        fontSize: '1.1rem',
+                        transition: '150ms linear'
+                    }}
                 />
             </button>
         </td>

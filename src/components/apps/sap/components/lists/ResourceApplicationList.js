@@ -7,19 +7,20 @@ import {List, useQuery} from "sis-aeb-core";
 import ResourceApplicationForm from "../forms/ResourceApplicationForm";
 import associativeKeys from "../../keys/associativeKeys";
 import workPlanKeys from "../../keys/workPlanKeys";
+import Switcher from "../../../../core/misc/switcher/Switcher";
+import {operation_query} from "../../queries/workplan";
 
 
 export default function ResourceApplicationList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery()
+    const hook = useQuery(operation_query({
+        operation: props.operation.id
+    }))
     
 
     return (
-        <div style={{width: '100%'}}>
-
-            {!open ? null :
-
+        <Switcher openChild={open ? 0 : 1}>
                     <ResourceApplicationForm
                         returnToMain={() => {
                             setOpen(false)
@@ -29,8 +30,6 @@ export default function ResourceApplicationList(props) {
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                         data={currentEntity} operation={props.operation}/>
 
-            }
-            <div style={{display: open ? 'none' : undefined}}>
                 <List
                     onRowClick={e => setCurrentEntity(e)}
                     createOption={true}
@@ -49,12 +48,9 @@ export default function ResourceApplicationList(props) {
                     hook={hook}
                     keys={workPlanKeys.resource}
                     title={'Aplicação dos recursos'}
-                    fetchParams={{
-                        operation: props.operation.id
-                    }}
+                    
                 />
-            </div>
-        </div>
+        </Switcher>
     )
 }
 ResourceApplicationList.propTypes = {

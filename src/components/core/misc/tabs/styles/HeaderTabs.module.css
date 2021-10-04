@@ -1,10 +1,5 @@
 @import "../../../theme/styles.module.css";
 
-.contentWrapper {
-    transition: 150ms ease;
-    height: 100%;
-    width: 100%;
-}
 
 .wrapper {
     position: relative;

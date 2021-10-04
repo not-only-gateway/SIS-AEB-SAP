@@ -29,14 +29,16 @@ export default function ActionItemForm(props) {
                     {name: 'accomplished', type: 'bool'}
                 ]}
 
-                handleSubmit={(data) =>
+                handleSubmit={(data, clearState) =>
                     OperationRequests.submitActionItem({
                         pk: data.id,
                         data: data,
                         create: props.create
                     }).then(res => {
-                        if (props.create && res)
+                        if (props.create && res){
                             props.returnToMain()
+                            clearState()
+                        }
                     })
                 }
             >

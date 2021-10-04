@@ -17,7 +17,7 @@ export default class OperationRequests {
             method: 'delete',
             url: Host(true) + 'file/' + submitProps.id,
             showSuccessAlert: true,
-            token: (new Cookies()).get('jwt')
+            headers: {'authorization': (new Cookies()).get('jwt')}
         }).then(res => {
             console.log(res)
             response = true
@@ -31,13 +31,13 @@ export default class OperationRequests {
             method: 'get',
             url: Host(true) + 'file/' + submitProps.id,
             showSuccessAlert: false,
-            token: (new Cookies()).get('jwt')
+            headers: {'authorization': (new Cookies()).get('jwt')}
         }).then(async res => {
             await Requester({
                 method: 'get',
                 url: Host(true) + 'file_name/' + submitProps.id,
                 showSuccessAlert: false,
-                token: (new Cookies()).get('jwt')
+                headers: {'authorization': (new Cookies()).get('jwt')}
             }).then(r => {
                 response = {
                     data: res.data,
@@ -62,7 +62,7 @@ export default class OperationRequests {
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'operation_phase' : Host() + 'operation_phase/' + submitProps.pk,
             showSuccessAlert: true,
-            token: (new Cookies()).get('jwt')
+            headers: {'authorization': (new Cookies()).get('jwt')}
         }).then(res => {
             response = submitProps.create ? res.data : true
         }).catch(e => {
@@ -82,7 +82,7 @@ export default class OperationRequests {
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'permanent_goods' : Host() + 'permanent_goods/' + submitProps.pk,
             showSuccessAlert: true,
-            token: (new Cookies()).get('jwt')
+            headers: {'authorization': (new Cookies()).get('jwt')}
         }).then(res => {
             response = true
         }).catch(e => {
@@ -104,7 +104,7 @@ export default class OperationRequests {
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'resource_application' : Host() + 'resource_application/' + submitProps.pk,
             showSuccessAlert: true,
-            token: (new Cookies()).get('jwt')
+            headers: {'authorization': (new Cookies()).get('jwt')}
         }).then(res => {
             response = true
         }).catch(e => {
@@ -120,7 +120,7 @@ export default class OperationRequests {
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'note' : Host() + 'note/' + submitProps.pk,
             showSuccessAlert: true,
-            token: (new Cookies()).get('jwt')
+            headers: {'authorization': (new Cookies()).get('jwt')}
         }).then(res => {
             response = true
         }).catch(e => {
@@ -138,7 +138,7 @@ export default class OperationRequests {
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'action_item' : Host() + 'action_item/' + submitProps.pk,
             showSuccessAlert: true,
-            token: (new Cookies()).get('jwt')
+            headers: {'authorization': (new Cookies()).get('jwt')}
         }).then(res => {
             response = true
         }).catch(e => {
@@ -159,7 +159,7 @@ export default class OperationRequests {
                 method: submitProps.create ? 'post' : 'put',
                 url: submitProps.create ? Host() + 'follow_up_goal' : Host() + 'follow_up_goal/' + submitProps.pk,
                 showSuccessAlert: true,
-                token: (new Cookies()).get('jwt')
+                headers: {'authorization': (new Cookies()).get('jwt')}
             }).then(res => {
                 response = true
             }).catch(e => {
@@ -174,8 +174,7 @@ export default class OperationRequests {
                 headers: {"Content-Type": "multipart/form-data"},
                 method: 'post',
                 url: Host(true) + 'file',
-                showSuccessAlert: false,
-                token: (new Cookies()).get('jwt')
+                showSuccessAlert: false
             }).then(async res => {
                 console.log(res)
                 await submitData(res.data.data)
@@ -196,7 +195,7 @@ export default class OperationRequests {
             method: 'delete',
             url: Host() + 'resource_application/' + submitProps.pk,
             showSuccessAlert: true,
-            token: (new Cookies()).get('jwt')
+            headers: {'authorization': (new Cookies()).get('jwt')}
         }).then(res => {
             submitProps.setRefreshed(false)
             response = true
@@ -215,7 +214,7 @@ export default class OperationRequests {
             method: 'delete',
             url: Host() + 'permanent_goods/' + submitProps.pk,
             showSuccessAlert: true,
-            token: (new Cookies()).get('jwt')
+            headers: {'authorization': (new Cookies()).get('jwt')}
         }).then(res => {
             submitProps.setRefreshed(false)
             response = true
@@ -234,7 +233,7 @@ export default class OperationRequests {
             method: 'delete',
             url: Host() + 'operation_phase/' + submitProps.pk,
             showSuccessAlert: true,
-            token: (new Cookies()).get('jwt')
+            headers: {'authorization': (new Cookies()).get('jwt')}
         }).then(res => {
             submitProps.setRefreshed(false)
             response = true
@@ -252,7 +251,7 @@ export default class OperationRequests {
             method: 'delete',
             url: Host() + 'action_item/' + submitProps.pk,
             showSuccessAlert: true,
-            token: (new Cookies()).get('jwt')
+            headers: {'authorization': (new Cookies()).get('jwt')}
         }).then(res => {
             submitProps.setRefreshed(false)
             response = true
@@ -269,7 +268,7 @@ export default class OperationRequests {
             method: 'delete',
             url: Host() + 'follow_up_goal/' + submitProps.pk,
             showSuccessAlert: true,
-            token: (new Cookies()).get('jwt')
+            headers: {'authorization': (new Cookies()).get('jwt')}
         }).then(res => {
             submitProps.setRefreshed(false)
             response = true
@@ -296,7 +295,7 @@ export default class OperationRequests {
             method: submitProps.create ? 'post' : 'put',
             url: submitProps.create ? Host() + 'execution' : Host() + 'execution/' + submitProps.pk,
             showSuccessAlert: true,
-            token: (new Cookies()).get('jwt')
+            headers: {'authorization': (new Cookies()).get('jwt')}
         }).then(res => {
             response = true
         }).catch(e => {
@@ -313,7 +312,7 @@ export default class OperationRequests {
             method: 'delete',
             url: Host() + 'execution/' + submitProps.pk,
             showSuccessAlert: true,
-            token: (new Cookies()).get('jwt')
+            headers: {'authorization': (new Cookies()).get('jwt')}
         }).then(res => {
             submitProps.setRefreshed(false)
             response = true
@@ -333,7 +332,7 @@ export default class OperationRequests {
             method: 'delete',
             url: Host() + 'note/' + submitProps.pk,
             showSuccessAlert: true,
-            token: (new Cookies()).get('jwt')
+            headers: {'authorization': (new Cookies()).get('jwt')}
         }).then(res => {
             submitProps.setRefreshed(false)
             response = true

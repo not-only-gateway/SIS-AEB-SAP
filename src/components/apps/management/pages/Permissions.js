@@ -1,11 +1,11 @@
-import HeaderTabs from "../../../core/misc/tabs/HeaderTabs";
+import Tabs from "../../../core/misc/tabs/Tabs";
 import styles from "../styles/Services.module.css";
 import PermissionList from "../components/lists/PermissionList";
 import AccessProfileList from "../components/lists/AccessProfileList";
 
 export default function Permissions(){
     return(
-        <HeaderTabs
+        <Tabs
             buttons={[
                 {
                     label: 'Perfis de acesso',
@@ -27,6 +27,6 @@ export default function Permissions(){
             <div className={styles.header}>
                 Permissões e perfis de acesso
             </div>
-        </HeaderTabs>
+        </Tabs>
     )
 }

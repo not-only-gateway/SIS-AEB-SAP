@@ -3,16 +3,19 @@ import {permission_query} from "../../queries/queries";
 import List from "../../../../core/list/List";
 import {useState} from "react";
 import ServiceForm from "../forms/ServiceForm";
+import Switcher from "../../../../core/misc/switcher/Switcher";
+import PermissionForm from "../forms/PermissionForm";
 
 export default function PermissionList(props) {
     const hook = useQuery(permission_query)
     const [openEntity, setOpenEntity] = useState(undefined)
     return (
-        <>
-            <div style={{display: !openEntity ? 'none' : undefined, marginTop: '48px'}}>
-                <ServiceForm initialData={openEntity ? openEntity : {}} handleClose={() => setOpenEntity(undefined)}/>
+        <Switcher openChild={openEntity ? 0 : 1}>
+
+        <div style={{marginTop: '48px'}}>
+                <PermissionForm initialData={openEntity ? openEntity : {}} handleClose={() => setOpenEntity(undefined)}/>
             </div>
-            <div style={{display: openEntity ? 'none' : undefined}}>
+
                 <List
                     createOption={true}
                     keys={[
@@ -36,7 +39,7 @@ export default function PermissionList(props) {
                     onRowClick={row => setOpenEntity(row)}
                     title={'Permissões'}
                 />
-            </div>
-        </>
+
+        </Switcher>
     )
 }

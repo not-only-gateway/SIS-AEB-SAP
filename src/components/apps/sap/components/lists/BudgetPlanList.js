@@ -5,53 +5,48 @@ import {List, useQuery} from "sis-aeb-core";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import {budget_plan_query} from "../../queries/entities";
 import associativeKeys from "../../keys/associativeKeys";
+import Switcher from "../../../../core/misc/switcher/Switcher";
 
 export default function BudgetPlanList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const hook = useQuery(budget_plan_query)
-    
+
 
     return (
-        <>
-            {!open ? null :
+        <Switcher openChild={open ? 0 : 1}>
+            <BudgetPlanForm
+                returnToMain={() => {
+                    setOpen(false)
+                    hook.clean()
+                }}
+                asDefault={true}
+                create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                data={currentEntity}/>
+            <List
 
-                <BudgetPlanForm
-                    returnToMain={() => {
-                        setOpen(false)
-                        hook.clean()
-                    }}
-                    asDefault={true}
-                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                    data={currentEntity}/>
+                createOption={true}
+                onCreate={() => setOpen(true)}
 
-            }
-            <div style={{display: open ? 'none' : undefined}}>
-                <List
+                controlButtons={[{
+                    label: 'Deletar',
+                    icon: <DeleteRounded/>,
+                    onClick: (entity) => {
+                        ProjectRequests.deleteBudgetPlan({
+                            pk: entity.id
+                        })
+                    },
+                    disabled: false,
+                    color: '#ff5555'
+                }]}
+                hook={hook}
+                keys={associativeKeys.budgetPlan}
 
-                    createOption={true}
-                    onCreate={() => setOpen(true)}
+                onRowClick={entity => {
+                    setCurrentEntity(entity)
+                }} title={'Planos orçamentários'}
 
-                    controlButtons={[{
-                        label: 'Deletar',
-                        icon: <DeleteRounded/>,
-                        onClick: (entity) => {
-                            ProjectRequests.deleteBudgetPlan({
-                                pk: entity.id
-                            })
-                        },
-                        disabled: false,
-                        color: '#ff5555'
-                    }]}
-                    hook={hook}
-                    keys={associativeKeys.budgetPlan}
-
-                    onRowClick={entity => {
-                        setCurrentEntity(entity)
-                    }} title={'Planos orçamentários'}
-
-                />
-            </div>
-        </>
+            />
+        </Switcher>
     )
 }

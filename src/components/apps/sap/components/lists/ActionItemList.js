@@ -7,17 +7,20 @@ import OperationRequests from "../../utils/requests/OperationRequests";
 import {List, useQuery} from "sis-aeb-core";
 import {action_query} from "../../queries/workplan";
 import workPlanKeys from "../../keys/workPlanKeys";
+import Switcher from "../../../../core/misc/switcher/Switcher";
 
 
 export default function ActionItemList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery(action_query)
+    const hook = useQuery(action_query({
+        operation: props.operation.id
+    }))
 
 
     return (
-        <>
-            {!open ? null :
+        <Switcher openChild={open ? 0 : 1}>
+
                 <ActionItemForm
                     returnToMain={() => {
                         setOpen(false)
@@ -26,8 +29,6 @@ export default function ActionItemList(props) {
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                     data={currentEntity} operation={props.operation}
                 />
-            }
-            <div style={{display: open ? 'none' : undefined}}>
                 <List
                     createOption={true}
                     onCreate={() => setOpen(true)}
@@ -46,12 +47,9 @@ export default function ActionItemList(props) {
                     }]}
 
                     title={'Itens / Ações'}
-                    fetchParams={{
-                        operation: props.operation.id
-                    }}
+
                 />
-            </div>
-        </>
+        </Switcher>
     )
 }
 ActionItemList.propTypes = {

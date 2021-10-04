@@ -18,14 +18,16 @@ export default function ActionForm(props) {
                     {name: 'number', type: 'string'},
                     {name: 'detailing', type: 'object'},
                 ]} returnButton={true} handleClose={() => props.returnToMain()}
-                handleSubmit={(data) =>
+                handleSubmit={(data, clearState) =>
                     ProjectRequests.submitAction({
                         pk: data.id,
                         data: data,
                         create: props.create
                     }).then(res => {
-                        if (props.create && res)
+                        if (props.create && res){
                             props.returnToMain()
+                            clearState()
+                        }
                     })}
                 noAutoHeight={!props.asDefault}>
                 {(data, handleChange) => (

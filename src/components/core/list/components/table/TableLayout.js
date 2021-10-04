@@ -27,7 +27,7 @@ export default function TableLayout(props) {
                             setSorts={props.setSorts} clean={props.clean}
                             additionalWidth={e.additionalWidth !== undefined ? e.additionalWidth : '0px'}
                             index={i}
-                            quantity={props.data.length}
+                            quantity={props.keys.length}
                             value={e.label}/>
                     </React.Fragment>
                 ))}

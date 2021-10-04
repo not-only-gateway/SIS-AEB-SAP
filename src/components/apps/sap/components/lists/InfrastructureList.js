@@ -5,6 +5,7 @@ import {DeleteRounded} from "@material-ui/icons";
 import Infrastructure from "../entities/Infrastructure";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import associativeKeys from "../../keys/associativeKeys";
+import Switcher from "../../../../core/misc/switcher/Switcher";
 
 export default function InfrastructureList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -12,9 +13,7 @@ export default function InfrastructureList(props) {
     const hook = useQuery()
     
     return (
-        <>
-            {!open ? null :
-
+        <Switcher openChild={open ? 0 : 1}>
                 <Infrastructure
                     returnToMain={() => {
                         setOpen(false)
@@ -24,9 +23,7 @@ export default function InfrastructureList(props) {
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                     data={currentEntity}
                 />
-
-            }
-            <div style={{display: open ? 'none' : undefined}}>
+            
                 <List
 
                     createOption={true}
@@ -48,7 +45,6 @@ export default function InfrastructureList(props) {
                     title={'Infraestruturas'}
 
                 />
-            </div>
-        </>
+            </Switcher>
     )
 }

@@ -9,6 +9,7 @@ import TextField from "../../../../core/inputs/text/TextField";
 import Selector from "../../../../core/inputs/selector/Selector";
 import {service_query} from "../../queries/queries";
 import {useQuery} from "sis-aeb-core";
+import {endpoint, service} from "../../utils/submits";
 
 export default function EndpointForm(props) {
     const hook = useQuery(service_query)
@@ -20,12 +21,19 @@ export default function EndpointForm(props) {
                 {name: 'host', type: 'string'},
                 {name: 'denomination', type: 'string'}
             ]} returnButton={true}
-            handleSubmit={data => {
-
+            handleSubmit={(data, clearState) => {
+                endpoint({
+                    pk: data.id,
+                    create: !data.id,
+                    data: data
+                }).then((res) => {
+                    if(res)
+                        clearState()
+                })
             }}
             create={!props.initialData.id}
-
         >
+
             {(data, handleChange) => (
                 <>
                     <FormRow title={'Informações'}>

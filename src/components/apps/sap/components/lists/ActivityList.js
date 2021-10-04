@@ -6,16 +6,20 @@ import {List, useQuery} from "sis-aeb-core";
 import ActivityForm from "../forms/StageForm";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import workPlanKeys from "../../keys/workPlanKeys";
+import Switcher from "../../../../core/misc/switcher/Switcher";
+import {activity_query} from "../../queries/workplan";
 
 
 export default function ActivityList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery()
+    const hook = useQuery(activity_query(props.goal !== null ? {
+        goal: props.goal.id
+    } : undefined))
 
-    
+
     return (
-        <>
+        <Switcher openChild={open ? 0 : 1}>
             {open ?
                 <ActivityForm
                     returnToMain={() => {
@@ -37,30 +41,27 @@ export default function ActivityList(props) {
                 null
             }
 
-            <div style={{display: open ? 'none' : undefined}}>
-                <List
-                    createOption={true}
-                    hook={hook}
-                    keys={workPlanKeys.activity}
-                    controlButtons={[{
-                        label: 'Deletar',
-                        icon: <DeleteRounded/>,
-                        onClick: (entity) => {
-                            WorkPlanRequests.deleteStage({
-                                pk: entity.id
-                            })
-                        },
-                        disabled: false,
-                        color: '#ff5555'
-                    }]}
-                    onRowClick={e => setCurrentEntity(e)}
-                    title={'Etapas'}
-                    fetchParams={props.goal !== null ? {
-                        goal: props.goal.id
-                    } : undefined}
-                />
-            </div>
-        </>
+
+            <List
+                createOption={true}
+                hook={hook}
+                keys={workPlanKeys.activity}
+                controlButtons={[{
+                    label: 'Deletar',
+                    icon: <DeleteRounded/>,
+                    onClick: (entity) => {
+                        WorkPlanRequests.deleteStage({
+                            pk: entity.id
+                        })
+                    },
+                    disabled: false,
+                    color: '#ff5555'
+                }]}
+                onRowClick={e => setCurrentEntity(e)}
+                title={'Etapas'}
+
+            />
+        </Switcher>
     )
 }
 ActivityList.propTypes = {

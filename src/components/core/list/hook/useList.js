@@ -13,14 +13,14 @@ const reducer = (state, action) => {
         case actions.UPDATE_SIZE: {
             let newValue = [...state]
             const i = newValue.findIndex(e => e.key === action.payload.key)
+            newValue[i].additionalWidth = action.payload.size
 
-
-            return state
+            return newValue
         }
         case actions.UPDATE_VISIBILITY: {
             let newValue = [...state]
             const i = newValue.findIndex(e => e.key === action.payload.key)
-            newValue[i].visibility = !newValue[i].visibility
+            newValue[i].visible = !newValue[i].visible
             console.log('HERE')
             return newValue
         }

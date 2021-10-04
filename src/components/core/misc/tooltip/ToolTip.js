@@ -97,7 +97,7 @@ export default function ToolTip(props) {
             )
             document.body.removeChild(newElement)
         }
-    }, [])
+    }, [props.children, props.content])
 
     return <div ref={ref} style={{display: 'none'}}/>
 }

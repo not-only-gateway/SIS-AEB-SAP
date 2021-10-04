@@ -42,15 +42,17 @@ export default function FollowUpForm(props) {
                     ]
                 }
                 returnButton={true}
-                handleSubmit={(data) =>
+                handleSubmit={(data, clearState) =>
                     OperationRequests.submitFollowUpGoal({
                         pk: data.id,
                         data: data,
                         create: props.create,
                         file: file
                     }).then(res => {
-                        if (props.create && res)
+                        if (props.create && res){
                             props.returnToMain()
+                            clearState()
+                        }
                     })
 
                 }

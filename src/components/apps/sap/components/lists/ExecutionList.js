@@ -5,16 +5,21 @@ import PropTypes from "prop-types";
 import ExecutionForm from "../forms/ExecutionForm";
 import OperationRequests from "../../utils/requests/OperationRequests";
 import associativeKeys from "../../keys/associativeKeys";
+import Switcher from "../../../../core/misc/switcher/Switcher";
+import {activity_query, execution_query} from "../../queries/workplan";
 
 export default function ExecutionList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery()
+    const hook = useQuery(execution_query(
+        props.workPlan !== undefined ?
+            {work_plan: props.workPlan.id}
+            :
+            {operation: props.operation.id}
+    ))
     
     return (
-        <>
-            {!open ? null :
-
+        <Switcher openChild={open ? 0 : 1}>
                     <ExecutionForm
                         returnToMain={() => {
                             setOpen(false)
@@ -24,9 +29,6 @@ export default function ExecutionList(props) {
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                         data={currentEntity} operation={props.operation}
                     />
-
-            }
-            <div style={{display: open ? 'none' : undefined}}>
                 <List
                     createOption={true}
                     onCreate={() => setOpen(true)}
@@ -49,15 +51,9 @@ export default function ExecutionList(props) {
                         setCurrentEntity(entity)
                     }} title={'Execuções'}
 
-                    fetchParams={
-                        props.workPlan !== undefined ?
-                            {work_plan: props.workPlan.id}
-                            :
-                            {operation: props.operation.id}
-                    }
+                    
                 />
-            </div>
-        </>
+            </Switcher>
     )
 }
 ExecutionList.propTypes = {

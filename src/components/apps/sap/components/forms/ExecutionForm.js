@@ -46,14 +46,16 @@ export default function ExecutionForm(props) {
 
                 }
                 returnButton={props.create}
-                handleSubmit={(data) =>
+                handleSubmit={(data, clearState) =>
                     OperationRequests.submitExecution({
                         pk: data.id,
                         data: data,
                         create: props.create
                     }).then(res => {
-                        if (props.create && res)
+                        if (props.create && res){
                             props.returnToMain()
+                            clearState()
+                        }
 
                     })
                 }

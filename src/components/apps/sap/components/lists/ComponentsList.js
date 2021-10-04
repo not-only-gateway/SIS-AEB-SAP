@@ -5,16 +5,17 @@ import {List, useQuery} from "sis-aeb-core";
 import ComponentForm from "../forms/ComponentForm";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import associativeKeys from "../../keys/associativeKeys";
+import Switcher from "../../../../core/misc/switcher/Switcher";
 
 export default function ComponentsList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     
-    const hook = useQuery()
+    const hook = useQuery(component_query({
+        infrastructure: props.infrastructure.id
+    }))
     return (
-        <>
-
-            {!open ? null :
+        <Switcher openChild={open ? 0 : 1}>
                 <ComponentForm
                     returnToMain={() => {
                         setOpen(false)
@@ -24,9 +25,6 @@ export default function ComponentsList(props) {
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                     data={currentEntity} infrastructure={props.infrastructure}
                 />
-
-            }
-            <div style={{display: open ? 'none' : undefined}}>
                 <List
                     createOption={true}
                     onCreate={() => setOpen(true)}
@@ -48,12 +46,9 @@ export default function ComponentsList(props) {
                         setCurrentEntity(entity)
                     }}
                     title={'Situações Operacionais de Componentes'}
-                    fetchParams={{
-                        infrastructure: props.infrastructure.id
-                    }}
+                    
                 />
-            </div>
-        </>
+            </Switcher>
     )
 }
 ComponentsList.propTypes = {

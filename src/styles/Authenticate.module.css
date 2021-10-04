@@ -2,14 +2,14 @@
     display: grid;
 
     align-items: center;
-    justify-items: center;
-    gap: 1px;
-    height: clamp(400px, 75%, 500px);
-    width: 425px;
+    justify-items: flex-start;
 
-    border: #ecedf2 1px solid;
+    gap: 8px;
+    height: clamp(400px, 75%, 500px);
+    width: 400px;
+
     border-radius: 8px;
-    padding: 32px;
+    padding: 16px;
 
     box-sizing: border-box;
 }
@@ -17,4 +17,26 @@
 .pageContainer{
     display: flex;
     place-content: center;
+}
+
+.button{
+    outline: none;
+    border: none;
+    background-color: transparent;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+
+    transition: 150ms linear;
+
+    image-rendering: optimizeQuality;
+}
+.button:hover{
+    opacity: .9;
+}
+.button:active{
+    opacity: .7;
 }

@@ -59,7 +59,7 @@ export default function WorkPlanForm(props) {
                 ]
                 } noHeader={!props.create}
                 returnButton={props.create}
-                handleSubmit={(data) => {
+                handleSubmit={(data, clearState) => {
                     if (!props.asApostille)
                         WorkPlanRequests.submitWorkPlan({
                             pk: data.id,

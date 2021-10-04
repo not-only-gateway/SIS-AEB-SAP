@@ -96,3 +96,6 @@
         transform: translateX(100%);
     }
 }
+.background{
+    background-color: var(--background-1);
+}

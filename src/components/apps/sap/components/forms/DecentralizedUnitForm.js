@@ -27,15 +27,17 @@ export default function DecentralizedUnitForm(props) {
                         {name: 'responsible', type: 'string'},
                     ]}
                 returnButton={true} noAutoHeight={!props.asDefault}
-                handleSubmit={(data) =>
+                handleSubmit={(data, clearState) =>
                     ProjectRequests.submitDecentralizedUnit({
                         pk: data.id,
                         data: data,
 
                         create: props.create
                     }).then(res => {
-                        if (props.create && res)
+                        if (props.create && res){
                             props.returnToMain()
+                            clearState()
+                        }
                     })}
                 handleClose={() => props.returnToMain()}>
                 {(data, handleChange) => (

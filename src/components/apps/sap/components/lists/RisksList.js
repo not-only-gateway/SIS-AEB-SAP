@@ -5,52 +5,51 @@ import RiskForm from "../forms/RiskForm";
 import {DeleteRounded} from "@material-ui/icons";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import projectKeys from "../../keys/projectKeys";
+import Switcher from "../../../../core/misc/switcher/Switcher";
+import {risk_query} from "../../queries/project";
 
 export default function RisksList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery()
+    const hook = useQuery(risk_query({
+        project: props.project.id
+    }))
 
-    
+
     return (
-        <div style={{width: '100%'}}>
+        <Switcher openChild={open ? 0 : 1}>
 
-            {!open ? null :
-                <RiskForm
-                    returnToMain={() => {
-                        setOpen(false)
-                    }}
-                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                    data={currentEntity} project={props.project}/>
+            <RiskForm
+                returnToMain={() => {
+                    setOpen(false)
+                }}
+                create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                data={currentEntity} project={props.project}/>
 
             }
-            <div style={{display: open ? 'none' : undefined}}>
-                <List
-                    onRowClick={e => setCurrentEntity(e)}
-                    createOption={true}
-                    hook={hook}
-                    keys={projectKeys.risks}
-                    title={'Riscos'}
-                    controlButtons={[{
-                        label: 'Deletar',
-                        icon: <DeleteRounded/>,
-                        onClick: (entity) => {
-                            ProjectRequests.deleteRisk({
-                                pk: entity.id
-                            })
-                        },
-                        disabled: false,
-                        color: '#ff5555'
-                    },]}
-                    fetchParams={{
-                        project: props.project.id
-                    }}
-                />
-            </div>
-        </div>
+
+            <List
+                onRowClick={e => setCurrentEntity(e)}
+                createOption={true}
+                hook={hook}
+                keys={projectKeys.risks}
+                title={'Riscos'}
+                controlButtons={[{
+                    label: 'Deletar',
+                    icon: <DeleteRounded/>,
+                    onClick: (entity) => {
+                        ProjectRequests.deleteRisk({
+                            pk: entity.id
+                        })
+                    },
+                    disabled: false,
+                    color: '#ff5555'
+                },]}
+                
+            />
+        </Switcher>
     )
 }
-RisksList.propTypes =
-    {
+RisksList.propTypes = {
         project: PropTypes.object
     }

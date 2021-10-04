@@ -1,17 +1,19 @@
 import PropTypes from 'prop-types'
 import styles from './styles/List.module.css'
 import ListHeader from "./components/list/ListHeader";
-import React from "react";
+import React, {useEffect} from "react";
 import EmptyListIndicator from "../shared/components/EmptyListIndicator";
 import TableLayout from "./components/table/TableLayout";
 import keyTemplate from "./templates/keyTemplate";
 import useList from "./hook/useList";
+import Settings from "./components/list/Settings";
 
 export default function List(props) {
-    const {maxHeight, keys, keysDispatcher, actions, setOpenSettings, wrapperRef} = useList(props.keys)
+    const {maxHeight, keys, keysDispatcher, actions, setOpenSettings,openSettings, wrapperRef} = useList(props.keys)
 
     return (
         <div className={styles.container}>
+            <Settings open={openSettings} keys={keys} actions={actions} setOpen={setOpenSettings} dispatchKeys={keysDispatcher}/>
             <ListHeader
                 title={props.title}
                 setFilters={props.hook.setFilters}

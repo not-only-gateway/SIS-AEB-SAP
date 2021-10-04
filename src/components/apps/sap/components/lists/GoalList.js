@@ -6,17 +6,21 @@ import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import GoalForm from "../forms/GoalForm";
 import {DeleteRounded} from "@material-ui/icons";
 import workPlanKeys from "../../keys/workPlanKeys";
+import Switcher from "../../../../core/misc/switcher/Switcher";
+import {goal_query} from "../../queries/workplan";
 
 export default function GoalList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     
 
-    const hook = useQuery()
+    const hook = useQuery(goal_query({
+        work_plan: props.workPlan.id
+    }))
     return (
-        <div style={{width: '100%'}}>
-            {!open ? null :
-                <div className={animations.fadeIn}>
+
+            <Switcher openChild={open ? 0 : 1}>
+
                     <GoalForm
                         returnToMain={() => {
                             setOpen(false)
@@ -32,9 +36,7 @@ export default function GoalList(props) {
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                         data={currentEntity} workPlan={props.workPlan}
                     />
-                </div>
-            }
-            <div style={{display: open ? 'none' : undefined}}>
+            
                 <List
                     createOption={true}
                     onCreate={() => setOpen(true)}
@@ -55,12 +57,9 @@ export default function GoalList(props) {
                     }]}
                     title={'Metas'}
 
-                    fetchParams={{
-                        work_plan: props.workPlan.id
-                    }}
+                    
                 />
-            </div>
-        </div>
+            </Switcher>
     )
 }
 GoalList.propTypes = {

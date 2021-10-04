@@ -44,14 +44,16 @@ export default function OperationForm(props) {
                     ]
                 }
                 returnButton={true}
-                handleSubmit={(data) =>
+                handleSubmit={(data, clearState) =>
                     OperationRequests.submitOperation({
                         pk: data.id,
                         data: data,
                         create: props.create
                     }).then(res => {
-                        if (props.create && res)
+                        if (props.create && res){
                             props.returnToMain()
+                            clearState()
+                        }
                     })
 
                 }

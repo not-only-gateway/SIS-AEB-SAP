@@ -6,6 +6,7 @@ import NatureExpenseForm from "../forms/NatureExpenseForm";
 
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import associativeKeys from "../../keys/associativeKeys";
+import Switcher from "../../../../core/misc/switcher/Switcher";
 
 export default function NatureExpenseList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -13,8 +14,7 @@ export default function NatureExpenseList(props) {
     const hook = useQuery()
     
     return (
-        <>
-            {!open ? null :
+        <Switcher openChild={open ? 0 : 1}>
                 <NatureExpenseForm
                     returnToMain={() => {
                         setOpen(false)
@@ -23,8 +23,6 @@ export default function NatureExpenseList(props) {
                     asDefault={true}
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                     data={currentEntity}/>
-            }
-            <div style={{display: open ? 'none' : undefined}}>
                 <List
                     createOption={true}
                     onCreate={() => setOpen(true)}
@@ -45,7 +43,6 @@ export default function NatureExpenseList(props) {
                     title={'Naturezas de despesa'}
 
                 />
-            </div>
-        </>
+            </Switcher>
     )
 }

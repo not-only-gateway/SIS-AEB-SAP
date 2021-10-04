@@ -26,15 +26,17 @@ export default function ClassificationForm(props) {
                         {name: 'type', type: 'object'},
                     ]} noAutoHeight={!props.asDefault}
                 returnButton={true}
-                handleSubmit={(data) =>
+                handleSubmit={(data, clearState) =>
                     ProjectRequests.submitClassification({
                         pk: data.id,
                         data: data,
 
                         create: props.create
                     }).then(res => {
-                        if (props.create && res)
+                        if (props.create && res){
                             props.returnToMain()
+                            clearState()
+                        }
                     })}
                 handleClose={() => props.returnToMain()}>
                 {(data, handleChange) => (

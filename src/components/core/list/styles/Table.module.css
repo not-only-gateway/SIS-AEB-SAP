@@ -7,7 +7,7 @@
     overflow-x: hidden;
     overflow-y: auto;
     position: relative;
-    table-layout: fixed;
+    table-layout: auto;
     border-collapse: collapse;
     /*border-radius: 3px;*/
     border-style: hidden;

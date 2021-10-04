@@ -29,7 +29,7 @@ export default function ProjectForm(props) {
                 {key: 'lessons_learned', type: 'string'}
             ]} noHeader={!props.create}
             returnButton={props.create}
-            handleSubmit={(data) =>
+            handleSubmit={(data, clearState) =>
                 ProjectRequests.submitProject({
                     pk: data.id,
                     data: data,

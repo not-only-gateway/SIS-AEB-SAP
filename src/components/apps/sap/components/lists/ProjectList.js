@@ -7,24 +7,17 @@ import ProjectForm from "../forms/ProjectForm";
 import {ArrowForwardRounded, DeleteRounded} from "@material-ui/icons";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import projectKeys from "../../keys/projectKeys";
+import Switcher from "../../../../core/misc/switcher/Switcher";
+import {project_query} from "../../queries/project";
 
 export default function ProjectList(props) {
-    const [currentEntity, setCurrentEntity] = useState(null)
+
     const [open, setOpen] = useState(false)
 
-    const hook = useQuery({
-        url: Host() + 'list/project',
-        headers: {'authorization': new Cookies().get('jwt')},
-        parsePackage: pack => {
-            return pack
-        },
-        fetchSize: 15,
-        identificationKey: 'id',
-    })
+    const hook = useQuery(project_query())
 
     return (
-        <>
-            {!open ? null :
+        <Switcher openChild={open ? 0 : 1}>
                 <ProjectForm
                     returnToMain={() => {
                         setOpen(false)
@@ -32,9 +25,7 @@ export default function ProjectList(props) {
                     }} redirect={props.redirect}
 
                     create={true}
-                    data={currentEntity}/>
-            }
-            <div style={{display: open ? 'none' : undefined}}>
+                  />
                 <List
                     hook={hook}
                     keys={projectKeys.project}
@@ -62,8 +53,7 @@ export default function ProjectList(props) {
                     ]}
                     onRowClick={(entity) => props.redirect(entity.id)}
                 />
-            </div>
-        </>
+            </Switcher>
     )
 }
 ProjectList.propTypes = {

@@ -11,7 +11,10 @@ export default function useForm({noAutoHeight, initialData, dependencies}) {
 
         setChanged(true)
     }
-
+    const clearState = () => {
+        setData({})
+        setChanged(false)
+    }
     const disabled = useMemo(() => {
         let response = dependencies === undefined || !changed
         let i
@@ -42,6 +45,7 @@ export default function useForm({noAutoHeight, initialData, dependencies}) {
 
     return {
         ref, disabled,
-        data, handleChange
+        data, handleChange,
+        clearState
     }
 }

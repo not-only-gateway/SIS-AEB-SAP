@@ -30,7 +30,7 @@ export default function ActivityForm(props) {
                 }
                 returnButton={props.create}
                 noHeader={!props.create}
-                handleSubmit={(data) =>
+                handleSubmit={(data, clearState) =>
                     WorkPlanRequests.submitStage({
                         pk: data.id,
                         data: data,
