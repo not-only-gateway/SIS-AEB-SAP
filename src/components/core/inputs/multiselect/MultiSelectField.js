@@ -10,21 +10,15 @@ import ToolTip from "../../misc/tooltip/ToolTip";
 
 export default function MultiSelectField(props) {
     const [open, setOpen] = useState(false)
-    const [value, setValue] = useState(undefined)
     const lang = LocalePT
     const ref = useRef()
     const [selected, setSelected] = useState([])
 
     useEffect(() => {
-        if (props.value !== undefined && props.value !== null && selected.length === 0)
+        if (typeof props.value === 'string' && selected.length === 0 && props.value.length > 0)
             setSelected(props.value.split('-*/'))
-        const filtered = props.choices.filter(element => {
-            if (element.key === props.value)
-                return element
-        })
-        if (filtered.length > 0)
-            setValue(filtered[0].value)
-
+        else if(Array.isArray(props.value))
+            setSelected(props.value)
     }, [props.value])
     return (
         <div
@@ -73,42 +67,38 @@ export default function MultiSelectField(props) {
                              <input
                                  type={'checkbox'}
 
-                                 onChange={event => {
+                                 onChange={() => {
+                                     let newSelected = [...selected]
                                      if (selected.includes(choice.key)) {
-                                         let newSelected = [...selected]
                                          newSelected.splice(newSelected.indexOf(choice.key), 1)
-
                                          setSelected(newSelected)
-
-                                         let newData = ''
-                                         newSelected.forEach(e => {
-                                             if(e.length > 0)
-                                                 newData = newData + '-*/' + e
-                                         })
-                                         props.handleChange(newData)
                                      } else {
-                                         let newSelected = [...selected]
                                          newSelected.push(choice.key)
                                          setSelected(newSelected)
+                                     }
 
+                                     if(!Array.isArray(props.value)) {
                                          let newData = ''
                                          newSelected.forEach(e => {
-                                             if(e.length > 0)
+                                             if (e.length > 0)
                                                  newData = newData + '-*/' + e
                                          })
                                          props.handleChange(newData)
                                      }
+                                     else
+                                         props.handleChange(newSelected)
+
                                      setOpen(false)
                                  }} className={styles.multiSelectRowCheckbox}
                                  checked={selected.includes(choice.key)}
                              />
                             <div
                                 key={index + '-choice-button'}
+                                style={{color: choice.color ? choice.color : undefined}}
                                 className={styles.multiSelectRowContent}
                             >
                                 {choice.value}
                             </div>
-
                             <ToolTip content={choice.value}/>
                         </span>
                     ))}
@@ -130,7 +120,11 @@ export default function MultiSelectField(props) {
 MultiSelectField.propTypes = {
     width: PropTypes.string,
     label: PropTypes.string,
-    choices: PropTypes.arrayOf(PropTypes.shape({key: PropTypes.any, value: PropTypes.any})),
+    choices: PropTypes.arrayOf(PropTypes.shape({
+        key: PropTypes.any,
+        value: PropTypes.any,
+        color: PropTypes.string
+    })),
     handleChange: PropTypes.func,
     value: PropTypes.any,
     required: PropTypes.bool,

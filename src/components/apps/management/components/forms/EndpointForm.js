@@ -10,6 +10,7 @@ import Selector from "../../../../core/inputs/selector/Selector";
 import {service_query} from "../../queries/queries";
 import {useQuery} from "sis-aeb-core";
 import {endpoint, service} from "../../utils/submits";
+import MultiSelectField from "../../../../core/inputs/multiselect/MultiSelectField";
 
 export default function EndpointForm(props) {
     const hook = useQuery(service_query)
@@ -59,13 +60,13 @@ export default function EndpointForm(props) {
                         </CheckboxGroup>
 
                         <TextField
-                            placeholder={'/máscara/url'} value={data.url}
-                            label={'URL'} disabled={false}
+                            placeholder={'url'} value={data.url}
+                            label={'URL'} disabled={false} maskStart={'/api/'}
                             handleChange={e => handleChange({event: e.target.value, key: 'url'})}
                             required={true} width={'calc(33.333% - 21.5px)'}
                         />
-                        <DropDownField
-                            placeholder={'Método HTTP'} value={data.method}
+                        <MultiSelectField
+                            placeholder={'Métodos HTTP'} value={data.method}
                             label={'Método HTTP'} disabled={false}
                             choices={[
                                 {key: 'POST', value: 'POST', color: '#fec02b'},
