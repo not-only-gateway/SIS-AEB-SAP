@@ -1,26 +1,14 @@
+@import '../../../theme/styles.module.css';
 
-.modalContainer{
-
-    background: rgba(0,0,0,.25);
-    width: 100vw;
+.wrapper {
+    text-rendering: optimizeLegibility !important;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 35%;
     height: 100vh;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    position: fixed;
-    z-index: 999;
-    top: 0;
-    left: 0;
-}
-.wrapper {
-    position: relative;
-    width: 50vw;
-    height: 75vh;
-
-    background: white;
-    border-radius: 8px;
+    border-radius: 5px 0 0 5px;
     padding: 16px;
 
     overflow-y: auto;
@@ -28,11 +16,14 @@
     display: grid;
     gap: 32px;
     align-content: flex-start;
+
+    transform: translateZ(0) scale(1.0, 1.0) ;
+    -webkit-transform: translateZ(0) scale(1.0, 1.0);
 }
 
 .header {
-    color: #393C44;
-    font-weight: bold;
+    color: var(--color-1);
+    font-weight: 600;
     font-size: 1.2rem;
     font-family: Roboto;
 
@@ -47,7 +38,7 @@
 .subHeader {
     margin-top: 4px;
 
-    color: #777777;
+    color: var(--color-4);
     font-size: .8rem;
     font-family: Roboto;
 
@@ -59,24 +50,24 @@
 
 .body {
     margin-top: 4px;
-
+    font-family: Roboto;
     overflow-x: auto;
-    color: #555555;
-    font-weight: bold;
+    color: var(--color-1);
+    font-weight: 600;
     font-size: .8rem;
     filter: none;
     min-height: 50px;
-    border: #ecedf2 1px solid;
-    background: #f4f5fa;
+    border: var(--border-0) 1px solid;
+    background: var(--background-2);
     padding: 4px;
     border-radius: 5px;
 }
 
 .footer {
     margin-top: 4px;
-    border: #ecedf2 1px solid;
-    color: #777777;
-    font-weight: bold;
+    border: var(--border-0) 1px solid;
+    color: var(--color-4);
+    font-weight: 600;
     font-size: .75rem;
     font-family: Roboto;
     padding: 8px;
@@ -97,8 +88,8 @@
     outline: none;
     cursor: pointer;
     border: none;
-    background: white;
-    color: #555555;
+    background: var(--background-1);
+    color: var(--color-1);
 
     display: flex;
     align-items: center;
@@ -126,7 +117,7 @@
     color: white;
     border-radius: 5px;
     font-family: Roboto;
-    font-weight: bold;
+    font-weight: 600;
     display: flex;
     align-items: center;
     justify-content: center;

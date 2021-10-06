@@ -56,8 +56,7 @@ export default function Authenticator(props) {
                         }).then(res => {
                                 if (res)
                                     props.redirect()
-                            }
-                        )
+                            })
                     }}>
                     {(data, handleChange) => (
                         <FormRow>
@@ -66,9 +65,9 @@ export default function Authenticator(props) {
                                 label={asManager ? 'Email gerente' : 'Email corporativo'}
                                 handleChange={event => handleChange({
                                     event: event.target.value,
-                                    key: 'corporate_email'
+                                    key: 'email'
                                 })}
-                                value={data.corporate_email}
+                                value={data.email}
                                 width={'100%'} maskEnd={asManager ? null : '@aeb.gov.br'}
                                 maxLength={undefined}/>
 

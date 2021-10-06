@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types'
 import Cookies from "universal-cookie/lib";
-import Host from "../components/apps/sap/utils/shared/Host";
 import Requester from "../components/core/misc/requester/Requester";
-// import {Requester} from "sis-aeb-core";
+import Host from "./Host";
 const cookies = new Cookies()
 export default async function submitAuthentication(props) {
     let res = false
@@ -16,7 +15,7 @@ export default async function submitAuthentication(props) {
             browser_engine: navigator.product,
             user_agent: navigator.userAgent
         },
-        url:`${Host(props.asManager ? 'auth' : 'gateway')}${!props.asManager ? '/authentication' : '/manager/authenticate'}`,
+        url:`${Host(!props.asManager ? 'auth' : 'gateway')}${!props.asManager ? '/authentication' : '/manager/authenticate'}`,
         method: 'post',
         showSuccessAlert: true
     }).then(response => {
