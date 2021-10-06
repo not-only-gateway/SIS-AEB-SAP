@@ -9,18 +9,21 @@ export default async function submitAuthentication(props) {
 
     await new Requester({
         package: {
-            corporate_email: props.email,
+            email: props.email,
             password: props.password,
             platform: navigator.platform,
             browser_version: navigator.appVersion,
             browser_engine: navigator.product,
             user_agent: navigator.userAgent
         },
-        url: Host() + 'authentication',
+        url:`${Host(props.asManager ? 'auth' : 'gateway')}${!props.asManager ? '/authentication' : '/manager/authenticate'}`,
         method: 'post',
         showSuccessAlert: true
     }).then(response => {
-        cookies.set('jwt', response.data.token, {expires: new Date(response.data.exp)})
+        if (props.asManager)
+            cookies.set('jwt', response.data.token)
+        else
+            cookies.set('jwt', response.data.token, {expires: new Date(response.data.exp)})
         res = true
     }).catch(e => {
         res = false
@@ -32,5 +35,5 @@ export default async function submitAuthentication(props) {
 submitAuthentication.propTypes = {
     email: PropTypes.string,
     password: PropTypes.string,
-    locale: PropTypes.string,
+    asManager: PropTypes.bool
 }

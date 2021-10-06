@@ -10,69 +10,85 @@ import {VisibilityOffRounded, VisibilityRounded} from "@material-ui/icons";
 import TextField from "./core/inputs/text/TextField";
 import FormRow from "./core/inputs/form/FormRow";
 import submitAuthentication from "../utils/SubmitAuthentication";
+import Tabs from "./core/misc/tabs/Tabs";
 
 export default function Authenticator(props) {
     const cookies = useCookies()
     const theme = useContext(ThemeContext)
+    const [asManager, setAsManager] = useState(false)
     useEffect(() => {
         cookies.remove('jwt')
         sessionStorage.removeItem('profile')
         sessionStorage.removeItem('accessProfile')
     }, [])
+
     const [visible, setVisible] = useState(false)
     return (
-        <div className={styles.inputContainer}>
+        <div className={styles.wrapper}>
             <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '16px',
-                fontFamily: 'Roboto',
-                fontWeight: '600',
                 color: theme.themes.color2,
-                fontSize: '.9rem'
-            }}>
+            }} className={styles.header}>
                 <img src={'/light.png'} style={{width: '135px'}} alt={'logo'}/>
                 Bem vindo
             </div>
-            <Form
-                dependencies={[{name: 'email', type: 'string'}, {name: 'password', type: 'string'}]}
-                noHeader={true}
-                submitLabel={'Entrar'}
-                handleSubmit={(data) => {
-                    submitAuthentication({
-                        email: data.email,
-                        password: data.password,
-                    }).then(res => {
-                            if (res)
-                                props.redirect()
+            <div style={{display: 'grid', gap: '4px', width: '100%'}}>
+                <Tabs
+                    buttons={[
+                        {
+                            label: 'Autenticação AEB',
+                            onClick: () => setAsManager(false)
+                        },
+                        {
+                            label: 'Gerente',
+                            onClick: () => setAsManager(true)
                         }
-                    )
-                }}>
-                {(data, handleChange) => (
-                    // null
-                    <FormRow>
-                        <TextField
-                            placeholder={'Email'} label={'Email'}
-                            handleChange={event => handleChange({event: event.target.value, key: 'corporate_email'})}
-                            value={data.corporate_email}
-                            width={'100%'}
-                            maxLength={undefined}/>
+                    ]}/>
+                <Form
+                    dependencies={[{name: 'email', type: 'string'}, {name: 'password', type: 'string'}]}
+                    submitLabel={'Entrar'}
+                    noPadding={true} noBorder={true} noHeader={true} noAutoHeight={true}
+                    handleSubmit={(data) => {
+                        submitAuthentication({
+                            email: data.email,
+                            password: data.password,
 
-                        <TextField
-                            placeholder={'Senha'} label={'Senha'}
-                            handleChange={event => handleChange({event: event.target.value, key: 'password'})}
-                            value={data.password}
-                            width={'100%'}
-                            type={visible ? undefined : 'password'}
-                            maskEnd={(
-                                <button className={styles.button} style={{color: theme.themes.color1}} onClick={() => setVisible(!visible)}>
-                                    {visible ? <VisibilityRounded/> : <VisibilityOffRounded/>}
-                                </button>
-                            )}
-                            maxLength={undefined}/>
-                    </FormRow>
-                )}
-            </Form>
+                            asManager: asManager
+                        }).then(res => {
+                                if (res)
+                                    props.redirect()
+                            }
+                        )
+                    }}>
+                    {(data, handleChange) => (
+                        <FormRow>
+                            <TextField
+                                placeholder={asManager ? 'Email gerente' : 'Email corporativo'}
+                                label={asManager ? 'Email gerente' : 'Email corporativo'}
+                                handleChange={event => handleChange({
+                                    event: event.target.value,
+                                    key: 'corporate_email'
+                                })}
+                                value={data.corporate_email}
+                                width={'100%'} maskEnd={asManager ? null : '@aeb.gov.br'}
+                                maxLength={undefined}/>
+
+                            <TextField
+                                placeholder={'Senha'} label={'Senha'}
+                                handleChange={event => handleChange({event: event.target.value, key: 'password'})}
+                                value={data.password}
+                                width={'100%'}
+                                type={visible ? undefined : 'password'}
+                                maskEnd={(
+                                    <button className={styles.button} style={{color: theme.themes.color1}}
+                                            onClick={() => setVisible(!visible)}>
+                                        {visible ? <VisibilityRounded/> : <VisibilityOffRounded/>}
+                                    </button>
+                                )}
+                                maxLength={undefined}/>
+                        </FormRow>
+                    )}
+                </Form>
+            </div>
 
         </div>
     )

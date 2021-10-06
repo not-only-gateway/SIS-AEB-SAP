@@ -70,7 +70,7 @@ export default function LayoutWrapper(props) {
                     />
 
                     <div className={styles.children}
-                         style={{width: openSideBar ? 'calc(100% - 225px)' : 'calc(100% - 60px)', transition: '150ms linear', marginLeft: 'auto'}}>
+                         style={{width: openSideBar ? 'calc(100% - 225px)' : 'calc(100% - 60px)'}}>
                         {props.children}
                     </div>
                 </div>

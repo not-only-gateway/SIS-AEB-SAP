@@ -63,6 +63,7 @@
     max-height: 200px;
     height: fit-content;
     overflow: auto;
+    padding: 2px 10px;
 }
 
 .dropDownButton {

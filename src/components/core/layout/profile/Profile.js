@@ -20,7 +20,7 @@ export default function Profile(props) {
             <button
                 className={styles.buttonContainer}
                 onClick={() => props.redirectToLogin()}
-                style={{display: props.profile !== undefined && props.profile !== null ? 'none' : undefined}}
+                style={{display: props.profile && Object.keys(props.profile).length > 0 ? 'none' : undefined}}
             >
                 Entrar
                 <ExitToAppRounded style={{fontSize: '1.3rem'}}/>
@@ -29,7 +29,7 @@ export default function Profile(props) {
                 className={styles.buttonContainer}
                 onClick={() => setOpen(!open)}
                 style={{
-                    display: props.profile !== undefined && props.profile !== null ? undefined : 'none',
+                    display: props.profile && Object.keys(props.profile).length > 0 ? undefined : 'none',
                     backgroundColor: open ? '#0095ff' : null,
                     color: open ? 'white' : null
                 }}

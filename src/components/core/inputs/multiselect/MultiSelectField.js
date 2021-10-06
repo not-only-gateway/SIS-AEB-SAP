@@ -6,6 +6,7 @@ import {ArrowDropDownRounded} from '@material-ui/icons'
 import LocalePT from '../shared/LocalePT'
 import SelectBox from "../shared/SelectBox";
 import ToolTip from "../../misc/tooltip/ToolTip";
+import Checkbox from "../checkbox/Checkbox";
 
 
 export default function MultiSelectField(props) {
@@ -63,11 +64,10 @@ export default function MultiSelectField(props) {
             <SelectBox open={open} setOpen={setOpen} reference={ref.current}>
                 <div className={styles.dropDownChoicesContainer}>
                     {props.choices.map((choice, index) => (
-                        <span style={{overflow: "hidden"}} className={styles.multiSelectRow}>
-                             <input
+                        <span style={{overflow: "hidden"}} className={styles.multiSelectRow} key={'multi-choice-'+index}>
+                             <Checkbox
                                  type={'checkbox'}
-
-                                 onChange={() => {
+                                 handleCheck={() => {
                                      let newSelected = [...selected]
                                      if (selected.includes(choice.key)) {
                                          newSelected.splice(newSelected.indexOf(choice.key), 1)
@@ -91,14 +91,16 @@ export default function MultiSelectField(props) {
                                      setOpen(false)
                                  }} className={styles.multiSelectRowCheckbox}
                                  checked={selected.includes(choice.key)}
+                                 label={
+                                     <div
+                                         style={{color: choice.color ? choice.color : undefined}}
+                                         className={styles.multiSelectRowContent}
+                                     >
+                                         {choice.value}
+                                     </div>
+                                 }
                              />
-                            <div
-                                key={index + '-choice-button'}
-                                style={{color: choice.color ? choice.color : undefined}}
-                                className={styles.multiSelectRowContent}
-                            >
-                                {choice.value}
-                            </div>
+
                             <ToolTip content={choice.value}/>
                         </span>
                     ))}

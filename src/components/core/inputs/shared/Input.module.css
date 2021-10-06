@@ -14,7 +14,7 @@
     align-items: center;
     gap: 10px;
     height: auto;
-
+    overflow-x: visible;
 }
 
 .inputContainer {
@@ -171,5 +171,10 @@
     color: var(--color-1);
     font-family: Roboto;
     font-size: .95rem;
+
+    max-width: 25%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 

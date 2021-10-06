@@ -33,6 +33,6 @@ export default function Checkbox(props) {
 Checkbox.propTypes = {
     checked: PropTypes.bool,
     handleCheck: PropTypes.func,
-    label: PropTypes.string,
+    label: PropTypes.any,
     disabled: PropTypes.bool
 }

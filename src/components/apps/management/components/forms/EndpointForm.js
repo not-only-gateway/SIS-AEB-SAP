@@ -1,19 +1,20 @@
 import PropTypes from 'prop-types'
 
 import Form from "../../../../core/inputs/form/Form";
-import DropDownField from "../../../../core/inputs/dropdown/DropDownField";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import Checkbox from "../../../../core/inputs/checkbox/Checkbox";
 import CheckboxGroup from "../../../../core/inputs/checkbox/CheckboxGroup";
 import TextField from "../../../../core/inputs/text/TextField";
 import Selector from "../../../../core/inputs/selector/Selector";
-import {service_query} from "../../queries/queries";
+import {entity_query, service_query} from "../../queries/queries";
 import {useQuery} from "sis-aeb-core";
 import {endpoint, service} from "../../utils/submits";
 import MultiSelectField from "../../../../core/inputs/multiselect/MultiSelectField";
+import {entityKeys, serviceKeys} from "../../keys/keys";
 
 export default function EndpointForm(props) {
-    const hook = useQuery(service_query)
+    const serviceHook = useQuery(service_query)
+    const entityHook = useQuery(entity_query)
     return (
         <Form
             title={!props.initialData.id ? 'Novo endpoint' : 'Endpoint'} initialData={props.initialData}
@@ -52,18 +53,23 @@ export default function EndpointForm(props) {
                         />
                     </FormRow>
                     <FormRow title={'Acesso'}>
-                        <CheckboxGroup label={'Requer autenticação'} width={'100%'} required={true} value={data.require_auth}>
+                        <CheckboxGroup label={'Requer autenticação'} width={'calc(50% - 16px)'} required={true} value={data.require_auth}>
                             <Checkbox checked={data.require_auth} label={'Sim'}
                                       handleCheck={() => handleChange({event: true, key: 'require_auth'})}/>
                             <Checkbox checked={!data.require_auth} label={'Não'}
                                       handleCheck={() => handleChange({event: false, key: 'require_auth'})}/>
                         </CheckboxGroup>
-
+                        <CheckboxGroup label={'Versionamento dos dados'} width={'calc(50% - 16px)'} required={true} value={data.versioning} disabled={!data.method?.includes('PUT')}>
+                            <Checkbox checked={data.versioning} label={'Sim'}
+                                      handleCheck={() => handleChange({event: true, key: 'versioning'})}/>
+                            <Checkbox checked={!data.versioning} label={'Não'}
+                                      handleCheck={() => handleChange({event: false, key: 'versioning'})}/>
+                        </CheckboxGroup>
                         <TextField
                             placeholder={'url'} value={data.url}
                             label={'URL'} disabled={false} maskStart={'/api/'}
                             handleChange={e => handleChange({event: e.target.value, key: 'url'})}
-                            required={true} width={'calc(33.333% - 21.5px)'}
+                            required={true} width={'calc(50% - 16px)'}
                         />
                         <MultiSelectField
                             placeholder={'Métodos HTTP'} value={data.method}
@@ -76,24 +82,19 @@ export default function EndpointForm(props) {
                                 {key: 'PATCH', value: 'PATCH', color: '#5f5f5f'}
                             ]}
                             handleChange={e => handleChange({event: e, key: 'method'})}
-                            required={true} width={'calc(33.333% - 21.5px)'}
+                            required={true} width={'calc(50% - 16px)'}
                         />
                         <Selector
-                            hook={hook}
-                            keys={[
-                                {
-                                    key: 'name',
-                                    label: 'Nome',
-                                    type: 'string',
-                                },
-                                {
-                                    key: 'host',
-                                    label: 'Host',
-                                    type: 'string',
-                                }
-                            ]}
+                            hook={serviceHook}
+                            keys={serviceKeys}
                             title={'Serviço'} placeholder={'Serviço'}
-                            value={data.service} width={'calc(33.333% - 21.5px)'} required={true}
+                            value={data.service} width={'calc(50% - 16px)'} required={true}
+                            handleChange={e => handleChange({event: e, key: 'service'})} />
+                        <Selector
+                            hook={entityHook}
+                            keys={entityKeys}
+                            title={'Entidade'} placeholder={'Entidade'}
+                            value={data.service} width={'calc(50% - 16px)'} required={true}
                             handleChange={e => handleChange({event: e, key: 'service'})} />
                     </FormRow>
                 </>

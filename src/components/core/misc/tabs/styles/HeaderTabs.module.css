@@ -41,6 +41,10 @@
     font-family: Roboto;
     font-size: .8rem;
     text-rendering: optimizeLegibility;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .button:hover{
     color: var(--color-1);

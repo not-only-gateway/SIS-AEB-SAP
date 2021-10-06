@@ -4,9 +4,11 @@
     background: var(--background-1);
     border-radius: 5px;
     height: 100%;
+    width: 100%;
     display: grid;
     overflow-y: auto;
     border: var(--border-0) 1px solid;
+
 }
 
 .headerContainer {
@@ -132,10 +134,10 @@
     border-bottom: none;
     border-left: none;
     border-right: none;
-    padding: 12px 0 32px 0;
+    padding: 12px 0 24px 0;
     outline: none;
     width: 100%;
-
+    overflow: visible;
     margin: auto;
 }
 
@@ -185,9 +187,9 @@
 }
 
 .saveButton:disabled {
-    color: var(--color-3);
+    color: var(--color-4);
     cursor: unset;
     box-shadow: none;
-    background: transparent;
+    background: var(--background-2);
     opacity: 1;
 }

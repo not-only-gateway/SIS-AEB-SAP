@@ -16,6 +16,8 @@ export default function Index(props) {
             <div style={{width: '75%', margin: '16px auto auto auto'}}>
                 {/*<ProjectList redirect={id => props.redirect('/project/?id=' + id, undefined, {shallow: true})}*/}
                 {/*             setOpen={() => null}/>*/}
+
+                teste
             </div>
         </>
     )

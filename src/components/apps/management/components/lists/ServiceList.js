@@ -5,6 +5,7 @@ import {useState} from "react";
 import ServiceForm from "../forms/ServiceForm";
 import Switcher from "../../../../core/misc/switcher/Switcher";
 import PropTypes from "prop-types";
+import {serviceKeys} from "../../keys/keys";
 
 export default function ServiceList(props) {
     const hook = useQuery(service_query)
@@ -17,28 +18,7 @@ export default function ServiceList(props) {
             </div>
             <List
                 createOption={true}
-                keys={[
-                    {
-                        key: 'id',
-                        label: 'id',
-                        type: 'number',
-                    },
-                    {
-                        key: 'name',
-                        label: 'Nome',
-                        type: 'string',
-                    },
-                    {
-                        key: 'description',
-                        label: 'Descrição',
-                        type: 'string',
-                    },
-                    {
-                        key: 'host',
-                        label: 'Host',
-                        type: 'string',
-                    }
-                ]}
+                keys={serviceKeys}
                 hook={hook} onCreate={() => setOpenEntity({})}
                 onRowClick={row => props.redirect(row.id)}
                 title={'Serviços registrados'}

@@ -1,5 +1,5 @@
 import styles from '../shared/Input.module.css'
-import React from 'react'
+import React, {useCallback, useState} from 'react'
 import InputMask from 'react-input-mask'
 import LocalePT from '../shared/LocalePT'
 import PropTypes from "prop-types";
@@ -7,10 +7,22 @@ import ParseCurrency from "./methods/ParseCurrency";
 
 export default function TextField(props) {
     const lang = LocalePT
+    const [maskStartWidth, setMaskStartWidth] = useState(32)
+    const [maskEndWidth, setMaskEndWidth] = useState(32)
 
+    const maskStartRef = useCallback(node => {
+        if (node !== null) {
+            setMaskStartWidth(node.getBoundingClientRect().width + 8)
+        }
+    }, [])
+    const maskEndRef = useCallback(node => {
+        if (node !== null) {
+            setMaskEndWidth(node.getBoundingClientRect().width + 8)
+        }
+    }, [])
     const content = (value) => (
         <>
-            <span className={styles.mask}>{props.maskStart}</span>
+            <div className={styles.mask} ref={maskStartRef}>{props.maskStart}</div>
             <input
                 disabled={props.disabled}
                 placeholder={props.placeholder}
@@ -22,11 +34,10 @@ export default function TextField(props) {
                     background: props.disabled ? 'white' : undefined,
                     border: props.disabled ? '#ecedf2 1px solid' : undefined,
                     boxShadow: props.disabled ? 'none' : undefined,
-                    paddingLeft: props.maskStart ? '32px' : undefined,
-                    paddingRight: props.maskEnd ? '32px' : undefined
+                    paddingLeft: props.maskStart ? maskStartWidth + 'px' : undefined,
+                    paddingRight: props.maskEnd ? maskEndWidth : undefined
                 }}
                 onChange={e => {
-
                     let data = e.target.value
                     if (props.type === 'number' && props.floatFilter)
                         data = ParseCurrency(e.target.value)
@@ -35,7 +46,7 @@ export default function TextField(props) {
                 }}
                 maxLength={props.maxLength}
             />
-            <span className={styles.mask} style={{right: '8px', left: 'unset'}}>{props.maskEnd}</span>
+            <div className={styles.mask} ref={maskEndRef} style={{right: '8px', left: 'unset'}}>{props.maskEnd}</div>
         </>
     )
     const getField = () => {
@@ -88,6 +99,7 @@ export default function TextField(props) {
                 display: 'grid',
                 alignItems: props.value ? 'unset' : 'flex-start',
                 gap: '4px',
+                overflow: 'visible'
             }}
         >
             <div

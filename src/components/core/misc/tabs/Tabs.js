@@ -14,7 +14,11 @@ export default function Tabs(props) {
                     {props.buttons.map((e, i) => (
                         <button key={i + '-button-header-tab'}
                                 className={[styles.button, open === i ? styles.highlight : ''].join(' ')}
-                                onClick={() => setOpen(i)}>
+                                onClick={() => {
+                                    if(e.onClick !== undefined)
+                                        e.onClick()
+                                    setOpen(i)
+                                }}>
                             {e.label}
                         </button>
                     ))}
@@ -31,7 +35,8 @@ Tabs.proptypes = {
     buttons: PropTypes.arrayOf(
         PropTypes.shape({
             label: PropTypes.string,
-            children: PropTypes.node
+            children: PropTypes.node,
+            onClick: PropTypes.func
         })
     ),
     children: PropTypes.node
