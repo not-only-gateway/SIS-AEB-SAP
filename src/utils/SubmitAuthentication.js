@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import Cookies from "universal-cookie/lib";
 import Requester from "../components/core/misc/requester/Requester";
 import Host from "./Host";
+
 const cookies = new Cookies()
 export default async function submitAuthentication(props) {
     let res = false

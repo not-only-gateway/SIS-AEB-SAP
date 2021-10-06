@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import styles from "../../styles/Details.module.css";
-import React, {useEffect} from "react";
-import ReactDOM from "react-dom";
+import React from "react";
 import AlertPT from "../../locales/LocalesPT";
 import {CloseRounded} from "@material-ui/icons";
 import Modal from "../../../modal/Modal";
