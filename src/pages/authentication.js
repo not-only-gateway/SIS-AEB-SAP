@@ -4,8 +4,8 @@ import styles from '../styles/Authenticate.module.css'
 import Head from "next/head";
 import Authenticator from "../components/Authenticator";
 import {ThemeContext, ThemeProvider} from "sis-aeb-core";
-
-export default function authentication() {
+import PropTypes from 'prop-types'
+export default function authentication(props) {
     const router = useRouter()
     const context = useContext(ThemeContext)
     return (
@@ -18,9 +18,13 @@ export default function authentication() {
                 </Head>
 
                 <div className={styles.contentWrapper}>
-                    <Authenticator redirect={() => router.push('/', '/', {locale: router.locale})}/>
+                    <Authenticator setManager={props.setManager} redirect={() => router.push('/', '/', {locale: router.locale})}/>
                 </div>
             </div>
         </ThemeProvider>
     )
+}
+
+authentication.propTypes={
+    setManager: PropTypes.func
 }

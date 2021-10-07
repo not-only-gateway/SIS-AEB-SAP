@@ -8,12 +8,13 @@ import Authenticator from "./Authenticator";
 import styles from '../styles/Wrapper.module.css'
 import useWrapper from "./useWrapper";
 import ProfileContext from "./ProfileContext";
+import {ExitToAppRounded} from "@material-ui/icons";
 
 export default function AppWrapper(props) {
 
     const {
 
-        profile,
+        profile, setProfile,
         layoutParams,
         openAuthentication,
         setOpenAuthentication,
@@ -22,10 +23,15 @@ export default function AppWrapper(props) {
     } = useWrapper()
 
     if (router.pathname.includes('authentication'))
-        return props.children
+        return props.children({
+            setManager: value => {
+                setProfile(value)
+                sessionStorage.setItem('profile', JSON.stringify(value))
+            }
+        })
     else
         return (
-            <ProfileContext value={profile}>
+            <ProfileContext.Provider value={profile}>
                 <Modal
                     open={openAuthentication}
                     handleClose={() => {
@@ -37,21 +43,33 @@ export default function AppWrapper(props) {
                     blurIntensity={.1}
                     animationStyle={"fade"}
                 >
-                    <Authenticator redirect={() => null}/>
+                    <Authenticator setManager={value => {
+                        setProfile(value)
+                        sessionStorage.setItem('profile', JSON.stringify(value))
+                    }} redirect={() => router.push('/', '/')}/>
                 </Modal>
                 <LayoutWrapper
                     redirect={url => router.push(url, url)}
                     loading={props.loading} profile={profile}
                     lightLogo={'../light.png'}
                     darkLogo={'../dark.png'}
-                    redirectToLogin={() => router.push('authentication', 'authentication')}
+                    redirectToLogin={() => router.push('/authentication', '/authentication')}
                     {...layoutParams}
-                    profileButtons={[]}
+                    profileButtons={[{
+                        label: 'Sair',
+                        icon: <ExitToAppRounded/>,
+                        path: '/authentication'
+                    }]}
+                    fallbackProfileButton={{
+                        label: 'Entrar',
+                        icon: <ExitToAppRounded/>,
+                        path: '/authentication'
+                    }}
                     appButtons={apps}
                 >
-                    {props.children}
+                    {props.children()}
                 </LayoutWrapper>
-            </ProfileContext>
+            </ProfileContext.Provider>
         )
 }
 AppWrapper.propTypes = {

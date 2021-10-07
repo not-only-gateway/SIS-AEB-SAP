@@ -20,17 +20,26 @@ export default function EndpointForm(props) {
             title={!props.initialData.id ? 'Novo endpoint' : 'Endpoint'} initialData={props.initialData}
             handleClose={() => props.handleClose()}
             dependencies={[
-                {name: 'host', type: 'string'},
+                {name: 'require_auth', type: 'bool'},
+                {name: 'url', type: 'string'},
+                {name: 'service', type: 'object'},
+                {name: 'methods', type: 'array'},
                 {name: 'denomination', type: 'string'}
             ]} returnButton={true}
             handleSubmit={(data, clearState) => {
                 endpoint({
                     pk: data.id,
                     create: !data.id,
-                    data: data
+                    data: {
+                        ...data,
+                        service: data.service.id,
+                        versioning: data.versioning !== null && data.versioning !== undefined ? data.versioning : false
+                    }
                 }).then((res) => {
-                    if(res)
+                    if (res) {
+                        props.handleClose()
                         clearState()
+                    }
                 })
             }}
             create={!props.initialData.id}
@@ -53,16 +62,18 @@ export default function EndpointForm(props) {
                         />
                     </FormRow>
                     <FormRow title={'Acesso'}>
-                        <CheckboxGroup label={'Requer autenticação'} width={'calc(50% - 16px)'} required={true} value={data.require_auth}>
+                        <CheckboxGroup label={'Requer autenticação'} width={'calc(50% - 16px)'} required={true}
+                                       value={data.require_auth}>
                             <Checkbox checked={data.require_auth} label={'Sim'}
                                       handleCheck={() => handleChange({event: true, key: 'require_auth'})}/>
-                            <Checkbox checked={!data.require_auth} label={'Não'}
+                            <Checkbox checked={data.require_auth === false} label={'Não'}
                                       handleCheck={() => handleChange({event: false, key: 'require_auth'})}/>
                         </CheckboxGroup>
-                        <CheckboxGroup label={'Versionamento dos dados'} width={'calc(50% - 16px)'} required={true} value={data.versioning} disabled={!data.method?.includes('PUT')}>
-                            <Checkbox checked={data.versioning} label={'Sim'}
+                        <CheckboxGroup label={'Versionamento dos dados'} width={'calc(50% - 16px)'} required={true}
+                                       value={data.versioning ? data.versioning : false}>
+                            <Checkbox checked={data.versioning} label={'Sim'} disabled={!data.method?.includes('PUT')}
                                       handleCheck={() => handleChange({event: true, key: 'versioning'})}/>
-                            <Checkbox checked={!data.versioning} label={'Não'}
+                            <Checkbox checked={!data.versioning} label={'Não'} disabled={!data.method?.includes('PUT')}
                                       handleCheck={() => handleChange({event: false, key: 'versioning'})}/>
                         </CheckboxGroup>
                         <TextField
@@ -72,8 +83,8 @@ export default function EndpointForm(props) {
                             required={true} width={'calc(50% - 16px)'}
                         />
                         <MultiSelectField
-                            placeholder={'Métodos HTTP'} value={data.method}
-                            label={'Método HTTP'} disabled={false}
+                            placeholder={'Métodos HTTP'} value={data.methods}
+                            label={'Método HTTP'} disabled={false} asArray={true}
                             choices={[
                                 {key: 'POST', value: 'POST', color: '#fec02b'},
                                 {key: 'GET', value: 'GET', color: '#20c060'},
@@ -81,7 +92,7 @@ export default function EndpointForm(props) {
                                 {key: 'DELETE', value: 'DELETE', color: '#ed4136'},
                                 {key: 'PATCH', value: 'PATCH', color: '#5f5f5f'}
                             ]}
-                            handleChange={e => handleChange({event: e, key: 'method'})}
+                            handleChange={e => handleChange({event: e, key: 'methods'})}
                             required={true} width={'calc(50% - 16px)'}
                         />
                         <Selector
@@ -89,13 +100,13 @@ export default function EndpointForm(props) {
                             keys={serviceKeys}
                             title={'Serviço'} placeholder={'Serviço'}
                             value={data.service} width={'calc(50% - 16px)'} required={true}
-                            handleChange={e => handleChange({event: e, key: 'service'})} />
+                            handleChange={e => handleChange({event: e, key: 'service'})}/>
                         <Selector
                             hook={entityHook}
                             keys={entityKeys}
                             title={'Entidade'} placeholder={'Entidade'}
-                            value={data.service} width={'calc(50% - 16px)'} required={true}
-                            handleChange={e => handleChange({event: e, key: 'service'})} />
+                            value={data.entity} width={'calc(50% - 16px)'} required={false}
+                            handleChange={e => handleChange({event: e, key: 'entity'})}/>
                     </FormRow>
                 </>
             )}
@@ -105,5 +116,5 @@ export default function EndpointForm(props) {
 
 EndpointForm.propTypes = {
     initialData: PropTypes.object,
-    handleClose: PropTypes.func
+    handleClose: PropTypes.func,
 }

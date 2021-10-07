@@ -9,7 +9,7 @@ export default async function submitAuthentication(props) {
 
     await new Requester({
         package: {
-            email: props.email,
+            email: `${props.email}${props.asManager ? '' : '@aeb.gov.br'}`,
             password: props.password,
             platform: navigator.platform,
             browser_version: navigator.appVersion,
@@ -20,8 +20,10 @@ export default async function submitAuthentication(props) {
         method: 'post',
         showSuccessAlert: true
     }).then(response => {
-        if (props.asManager)
+        if (props.asManager) {
             cookies.set('jwt', response.data.token)
+            cookies.set('asManager', true)
+        }
         else
             cookies.set('jwt', response.data.token, {expires: new Date(response.data.exp)})
         res = true

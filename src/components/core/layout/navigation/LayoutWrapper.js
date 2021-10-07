@@ -52,7 +52,7 @@ export default function LayoutWrapper(props) {
                         <Profile
                             buttons={props.profileButtons}
                             redirect={props.redirect}
-                            redirectToLogin={props.redirectToLogin}
+                            fallbackProfileButton={props.fallbackProfileButton}
                             profile={props.profile}
                         />
                     </div>
@@ -114,8 +114,14 @@ LayoutWrapper.propTypes = {
         PropTypes.shape({
             label: PropTypes.string,
             icon: PropTypes.any,
-            link: PropTypes.string,
-            linkProps: PropTypes.any
+            path: PropTypes.string,
+            disabled: PropTypes.bool
         })
-    )
+    ),
+    fallbackProfileButton: PropTypes.shape({
+        label: PropTypes.string,
+        icon: PropTypes.any,
+        path: PropTypes.string,
+        disabled: PropTypes.bool
+    })
 }

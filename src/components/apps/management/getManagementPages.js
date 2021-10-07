@@ -27,5 +27,9 @@ export default function getManagementPages(props) {
             asIndex: true,
             content: dynamic(() => import("./pages/Home"))
         },
+        {
+            basePath: 'access',
+            content: dynamic(() => import("./pages/AccessProfile"))
+        },
     ]
 }

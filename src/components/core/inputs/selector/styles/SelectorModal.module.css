@@ -123,14 +123,30 @@
     align-items: center;
     justify-content: center;
 }
-
-.asButton:active {
+.positiveButton {
+    color: white;
+    background: #0095ff;
+    border-color: transparent;
+}
+.positiveButton:active{
+    opacity:.7;
+    color: white;
+    background: #0095ff;
+    border-color: transparent;
+}
+.positiveButton:hover{
+    opacity:.9;
+    color: white;
+    background: #0095ff;
+    border-color: transparent;
+}
+.negativeButton:active {
     color: white;
     background: #ff5555;
     border-color: #ff5555;
 }
 
-.asButton:disabled {
+.asButton:disabled, .negativeButton:disabled, .positiveButton:disabled{
     border-color: var(--background-1);
     background: var(--background-1);
     color: var(--color-4);

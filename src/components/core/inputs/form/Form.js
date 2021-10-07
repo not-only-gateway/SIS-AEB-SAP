@@ -10,7 +10,7 @@ export default function Form(props) {
         ref, disabled,
         data, handleChange,
         clearState
-    } = useForm({noAutoHeight: props.noAutoHeight, initialData: props.data, dependencies: props.dependencies})
+    } = useForm({noAutoHeight: props.noAutoHeight, initialData: props.initialData, dependencies: props.dependencies})
 
     return (
 
@@ -45,7 +45,7 @@ Form.propTypes = {
     handleSubmit: PropTypes.func,
     dependencies: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string,
-        type: PropTypes.oneOf(['string', 'number', 'object', 'bool', 'date'])
+        type: PropTypes.oneOf(['string', 'number', 'object', 'bool', 'date', 'array'])
     })),
     handleClose: PropTypes.func,
     submitLabel: PropTypes.func

@@ -25,7 +25,7 @@ export default function useForm({noAutoHeight, initialData, dependencies}) {
                         response ||
                         data[dependencies[i].name] === null ||
                         data[dependencies[i].name] === undefined ||
-                        (dependencies[i].type === 'string' ?
+                        (dependencies[i].type === 'string' || dependencies[i].type === 'array' ?
                             data[dependencies[i].name].length === 0
                             :
                             false)
@@ -42,7 +42,10 @@ export default function useForm({noAutoHeight, initialData, dependencies}) {
                 ref.current.style.maxHeight = newHeight + 'px'
         }
     }, [])
-
+    useEffect(() => {
+        if (typeof initialData === 'object')
+            setData(initialData)
+    }, [initialData])
     return {
         ref, disabled,
         data, handleChange,

@@ -1,7 +1,8 @@
 import React, {useMemo} from 'react'
 
 export default function useField(field, entity) {
-    const parsed = useMemo(() => {
+    console.log(entity)
+    return useMemo(() => {
         switch (field.type) {
             case 'string':
                 return (field.maskStart ? field.maskStart : '') + entity[field.key] + (field.maskEnd ? field.maskEnd : '')
@@ -21,11 +22,18 @@ export default function useField(field, entity) {
                 else
                     return field.fallback
             }
+            case 'array': {
+                let value = ''
+                entity[field.key].forEach((e, i) => {
+                    if (i > 0)
+                        value = value + '-' + e
+                    else
+                        value = e
+                })
+                return value
+            }
             default:
                 return entity[field.key]
         }
     }, [field.type, entity])
-
-
-    return parsed
 }

@@ -47,10 +47,9 @@ export default function TableLayout(props) {
                 >
                     {keys.map((value, ic) => (
                         <React.Fragment key={i + '-row-cell-' + ic}>
-
                             <Cell
                                 additionalWidth={value.additionalWidth !== undefined ? value.additionalWidth : '0px'}
-                                value={e.data[value.key]}
+                                 entry={e.data} field={value} quantity={props.keys.length}
                             />
                         </React.Fragment>
                     ))}

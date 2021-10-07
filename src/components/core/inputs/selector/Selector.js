@@ -10,10 +10,11 @@ import Row from "./modules/Row";
 export default function Selector(props) {
     const [open, setOpen] = useState(false)
     const lang = SelectorsPT
-    console.log(props.hook)
+
     return (
         <>
-            <SelectorModal {...props} open={open} setOpen={setOpen}/>
+            <SelectorModal {...props} open={props.open === true ? props.open : open}
+                           setOpen={props.handleClose ? props.handleClose : setOpen}/>
             <div
                 style={{
                     width: props.width,
@@ -62,7 +63,7 @@ export default function Selector(props) {
 }
 
 Selector.propTypes = {
-    hook: PropTypes.func.isRequired,
+    hook: PropTypes.object.isRequired,
 
     title: PropTypes.string,
     placeholder: PropTypes.string,
@@ -81,5 +82,8 @@ Selector.propTypes = {
         maskEnd: PropTypes.any,
         additionalWidth: PropTypes.string
     })).isRequired,
+
+    open: PropTypes.bool,
+    handleClose: PropTypes.func
 }
 

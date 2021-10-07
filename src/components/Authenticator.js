@@ -54,8 +54,15 @@ export default function Authenticator(props) {
 
                             asManager: asManager
                         }).then(res => {
-                                if (res)
+                                if (res) {
+                                    if(asManager)
+                                        props.setManager({
+                                            email: data.email,
+                                            name: 'Gerente',
+                                            image: null
+                                        })
                                     props.redirect()
+                                }
                             })
                     }}>
                     {(data, handleChange) => (
@@ -94,5 +101,6 @@ export default function Authenticator(props) {
 }
 
 Authenticator.propTypes = {
-    redirect: PropTypes.func
+    redirect: PropTypes.func,
+    setManager: PropTypes.func
 }

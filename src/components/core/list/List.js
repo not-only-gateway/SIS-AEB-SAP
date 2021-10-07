@@ -47,7 +47,7 @@ export default function List(props) {
 }
 
 List.propTypes = {
-    hook: PropTypes.func.isRequired,
+    hook: PropTypes.object.isRequired,
     onRowClick: PropTypes.func,
     keys: PropTypes.arrayOf(keyTemplate).isRequired,
     controlButtons: PropTypes.arrayOf(PropTypes.shape({

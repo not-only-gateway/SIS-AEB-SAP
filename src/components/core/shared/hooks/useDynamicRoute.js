@@ -12,6 +12,7 @@ export default function useDynamicRoute(props) {
 
 
     return useMemo(() => {
+        console.log(contentIndex)
         if (contentIndex >= 0)
             return props.routes[contentIndex].content
         else

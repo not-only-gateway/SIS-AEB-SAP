@@ -18,8 +18,8 @@ export default function MultiSelectField(props) {
     useEffect(() => {
         if (typeof props.value === 'string' && selected.length === 0 && props.value.length > 0)
             setSelected(props.value.split('-*/'))
-        else if(Array.isArray(props.value))
-            setSelected(props.value)
+        else if(props.asArray)
+            setSelected(props.value ? props.value : [])
     }, [props.value])
     return (
         <div
@@ -56,7 +56,7 @@ export default function MultiSelectField(props) {
                     style={{transform: !open ? 'unset' : 'rotate(180deg)', transition: '150ms linear'}}/>
                 {props.value ?
                     <div className={styles.valueContainer}>
-                        {props.value.split('-*/').length - 1} - {lang.values}
+                        {props.asArray ? props.value.length : (props.value.split('-*/').length - 1)} - {lang.values}
                     </div>
                     : props.label}
             </button>
@@ -77,7 +77,7 @@ export default function MultiSelectField(props) {
                                          setSelected(newSelected)
                                      }
 
-                                     if(!Array.isArray(props.value)) {
+                                     if(!props.asArray) {
                                          let newData = ''
                                          newSelected.forEach(e => {
                                              if (e.length > 0)
@@ -130,5 +130,6 @@ MultiSelectField.propTypes = {
     handleChange: PropTypes.func,
     value: PropTypes.any,
     required: PropTypes.bool,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    asArray: PropTypes.bool
 }

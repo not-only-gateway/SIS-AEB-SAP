@@ -1,21 +1,20 @@
 import PropTypes from 'prop-types'
 import {FormRow} from "sis-aeb-core";
-import {service} from "../../utils/submits";
+import {entity, service} from "../../utils/submits";
 import Form from "../../../../core/inputs/form/Form";
 import TextField from "../../../../core/inputs/text/TextField";
 
-export default function ServiceForm(props) {
+export default function EntityForm(props) {
     return (
         <Form
-            title={!props.initialData.id ? 'Novo serviço' : 'Serviço'} initialData={props.initialData}
+            title={!props.initialData.id ? 'Nova entidade' : 'Entidade'} initialData={props.initialData}
             handleClose={() => props.handleClose()}
             dependencies={[
-                {name: 'host', type: 'string'},
-                {name: 'port', type: 'number'},
-                {name: 'denomination', type: 'string'}
+                {name: 'denomination', type: 'string'},
+                {name: 'identification_key', type: 'string'}
             ]} returnButton={true}
             handleSubmit={(data, clearState) => {
-                service({
+                entity({
                     pk: data.id,
                     create: data.id === undefined,
                     data: {
@@ -30,21 +29,14 @@ export default function ServiceForm(props) {
                 })
             }}
             create={!props.initialData.id}
-
         >
             {(data, handleChange) => (
                 <FormRow>
                     <TextField
-                        placeholder={'Host'} value={data.host}
-                        label={'Host'} disabled={false} mask={'999.999.9.999'}
-                        handleChange={e => handleChange({event: e.target.value, key: 'host'})}
-                        required={true} width={'calc(75% - 8px)'}
-                    />
-                    <TextField
-                        placeholder={'Porta'} value={data.port}
-                        label={'Porta'} disabled={false} type={'number'} maxLength={2}
-                        handleChange={e => handleChange({event: e.target.value, key: 'port'})}
-                        required={true} width={'calc(25% - 24px)'}
+                        placeholder={'Chave de identificação'} value={data.identification_key}
+                        label={'Chave de identificação'} disabled={false}
+                        handleChange={e => handleChange({event: e.target.value, key: 'identification_key'})}
+                        required={true} width={'calc(50% - 16px)'}
                     />
                     <TextField
                         placeholder={'Denominação'} value={data.denomination}
@@ -56,15 +48,17 @@ export default function ServiceForm(props) {
                         placeholder={'Descrição'} value={data.description}
                         label={'Descrição'} disabled={false}
                         handleChange={e => handleChange({event: e.target.value, key: 'description'})}
-                        required={false} width={'calc(50% - 16px)'}
+                        required={false} width={'100%'}
                     />
+
+
                 </FormRow>
             )}
         </Form>
     )
 }
 
-ServiceForm.propTypes = {
+EntityForm.propTypes = {
     initialData: PropTypes.object,
     handleClose: PropTypes.func
 }

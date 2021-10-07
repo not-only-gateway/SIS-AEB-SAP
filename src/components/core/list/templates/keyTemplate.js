@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 export default PropTypes.shape({
     key: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
-    type: PropTypes.oneOf(['string', 'number', 'object', 'date', 'bool']),
+    type: PropTypes.oneOf(['string', 'number', 'object', 'date', 'bool', 'array']),
     getColor: PropTypes.func,
     subfieldKey: PropTypes.string,
     visible: PropTypes.bool,

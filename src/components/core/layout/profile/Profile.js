@@ -19,11 +19,11 @@ export default function Profile(props) {
         >
             <button
                 className={styles.buttonContainer}
-                onClick={() => props.redirectToLogin()}
+                onClick={() =>props.redirect(props.fallbackProfileButton.path)}
                 style={{display: props.profile && Object.keys(props.profile).length > 0 ? 'none' : undefined}}
             >
-                Entrar
-                <ExitToAppRounded style={{fontSize: '1.3rem'}}/>
+                {props.fallbackProfileButton.label}
+                {props.fallbackProfileButton.icon}
             </button>
             <button
                 className={styles.buttonContainer}
@@ -31,13 +31,13 @@ export default function Profile(props) {
                 style={{
                     display: props.profile && Object.keys(props.profile).length > 0 ? undefined : 'none',
                     backgroundColor: open ? '#0095ff' : null,
-                    color: open ? 'white' : null
+                    color: open ? '#f4f5fa' : null
                 }}
             >
                 <div style={{
                     fontSize: '.85rem',
                     fontWeight: 'bold',
-                    color: open ? '#0095ff' : undefined,
+                    color: open ? 'white' : undefined,
                     transition: '150ms linear'
                 }}>
                     Bem vindo
@@ -52,7 +52,7 @@ export default function Profile(props) {
                 <div className={styles.floatingBox}>
                     {props.buttons.map((button, index) => (
                         <button
-                            className={styles.appsButtonContainer}
+                            className={styles.buttonContainer}
                             key={'profile-button-' + index}
                             disabled={button.disabled}
                             onClick={() => props.redirect(button.path)}
@@ -79,7 +79,12 @@ export default function Profile(props) {
     )
 }
 Profile.propTypes = {
-    redirectToLogin: PropTypes.func,
+    fallbackProfileButton: PropTypes.shape({
+        label: PropTypes.string,
+        icon: PropTypes.any,
+        path: PropTypes.string,
+        disabled: PropTypes.bool
+    }),
     redirect: PropTypes.func,
     profile: PropTypes.shape({
         name: PropTypes.string,

@@ -14,7 +14,12 @@ export default function ServiceList(props) {
         <Switcher openChild={openEntity ? 0 : 1}>
 
             <div style={{marginTop: '48px'}}>
-                <ServiceForm initialData={openEntity ? openEntity : {}} handleClose={() => setOpenEntity(undefined)}/>
+                <ServiceForm initialData={openEntity ? openEntity : {}}
+                             handleClose={() => {
+                                 setOpenEntity(undefined)
+                                 hook.clean()
+                             }}
+                />
             </div>
             <List
                 createOption={true}

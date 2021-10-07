@@ -2,8 +2,9 @@ import Tabs from "../../../core/misc/tabs/Tabs";
 import styles from "../styles/Services.module.css";
 import PermissionList from "../components/lists/PermissionList";
 import AccessProfileList from "../components/lists/AccessProfileList";
+import PropTypes from 'prop-types'
 
-export default function Permissions(){
+export default function Permissions(props){
     return(
         <Tabs
             buttons={[
@@ -11,7 +12,7 @@ export default function Permissions(){
                     label: 'Perfis de acesso',
                     children: (
                         <div className={styles.contentWrapper}>
-                            <AccessProfileList/>
+                            <AccessProfileList redirect={props.redirect}/>
                         </div>
                     )
                 },
@@ -29,4 +30,8 @@ export default function Permissions(){
             </div>
         </Tabs>
     )
+}
+
+Permissions.propTypes={
+    redirect: PropTypes.func
 }

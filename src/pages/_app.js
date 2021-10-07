@@ -15,7 +15,7 @@ export default function _app({Component, pageProps}) {
     return (
 
         <AppWrapper loading={loading}>
-            <Component {...pageProps}/>
+            {(props) => <Component {...{...pageProps, ...props}}/>}
         </AppWrapper>
     )
 }

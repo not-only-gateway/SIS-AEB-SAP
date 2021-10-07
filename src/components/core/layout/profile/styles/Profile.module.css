@@ -37,16 +37,23 @@
 }
 
 .floatingBox{
-    background: var(--background-1);
+
+
     position: absolute;
-    height: auto;
-    padding: 4px;
-    width: 200px;
-    transform: translateY(60px);
+    transform: translateY( 16px);
     right: 0;
+    height: auto;
+
+    width: 200px;
+
+    background: var(--background-1);
+    box-shadow: var(--box-shadow-1) 0 2px 8px 0px;
+
+
+    border-radius: 5px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    gap: 8px;
 }
 
-
-.appsButtonContainer{
-
-}

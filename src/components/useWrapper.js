@@ -5,7 +5,7 @@ import sapProps from "./apps/sap/sapProps";
 import managementProps from "./apps/management/managementProps";
 import {fetchProfile} from "../utils/fetch";
 
-export default function useWrapper(){
+export default function useWrapper() {
     const router = useRouter()
 
     const cookies = useCookies()
@@ -30,8 +30,9 @@ export default function useWrapper(){
                     //     setOpenAuthentication(true)
                 }
             })
-
-        if (sessionStorage.getItem('profile') === null && cookies.get('jwt'))
+        if(Object.keys(profile).length === 0  && cookies.get('jwt'))
+            setProfile(JSON.parse(sessionStorage.getItem('profile')))
+        if (sessionStorage.getItem('profile') === null && cookies.get('jwt') && Object.keys(profile).length === 0 && !JSON.parse(cookies.get('asManager')))
             fetchProfile().then(profile => {
                 if (profile.person !== null) {
                     sessionStorage.setItem('profile', JSON.stringify(profile))
@@ -45,5 +46,5 @@ export default function useWrapper(){
             })
     }, [layoutParams])
 
-    return {profile, layoutParams, openAuthentication, setOpenAuthentication, cookies, router}
+    return {profile, layoutParams, openAuthentication, setOpenAuthentication, cookies, router, setProfile}
 }
