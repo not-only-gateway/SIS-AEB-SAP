@@ -108,3 +108,70 @@ export const permissionKeys = [
         type: 'string'
     }
 ]
+
+export const eventKeys = [
+    {
+        key: 'method',
+        label: 'Método',
+        type: 'number',
+        visible: 'true',
+        getColor: (type) => {
+            switch (type) {
+                case 'POST':
+                    return '#fec02b'
+                case 'PUT':
+                    return '#57a2ed'
+                case 'PATCH':
+                    return '#5f5f5f'
+                case 'GET':
+                    return '#20c060'
+                case 'DELETE':
+                    return '#ed4136'
+                default:
+                    return undefined
+            }
+        }
+    },
+    {
+        key: 'url',
+        label: 'URL',
+        type: 'string',
+        visible: true
+    },
+    {
+        key: 'service',
+        label: 'Serviço',
+        type: 'object',
+        subfieldKey: 'name'
+    },
+    {
+        key: 'status_code',
+        label: 'Status HTTP',
+        type: 'number',
+        visible: true,
+        getColor: (type) => {
+            switch (true) {
+                case type < 300:
+                    return '#20c060'
+                case type >= 300 && type < 400:
+                    return '#fec02b'
+                case type >= 400:
+                    return '#ed4136'
+                default:
+                    return undefined
+            }
+        }
+    },
+    {
+        key: 'request_package_size',
+        label: 'Pacote entrada',
+        type: 'number',
+        maskEnd: 'bytes'
+    },
+    {
+        key: 'response_package_size',
+        label: 'Pacote saida',
+        type: 'number',
+        maskEnd: 'bytes'
+    }
+]

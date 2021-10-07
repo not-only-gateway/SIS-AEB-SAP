@@ -12,39 +12,7 @@ export default function EventList(props) {
         <div style={{padding: '0 32px'}}>
             <List
                 createOption={true}
-                keys={[
-                    {
-                        key: 'method',
-                        label: 'Método',
-                        type: 'number',
-                    },
-                    {
-                        key: 'url',
-                        label: 'URL',
-                        type: 'string',
-                    },
-                    {
-                        key: 'service',
-                        label: 'Serviço',
-                        type: 'object',
-                        subfieldKey: 'name'
-                    },
-                    {
-                        key: 'status_code',
-                        label: 'Denominação',
-                        type: 'string',
-                    },
-                    {
-                        key: 'request_package_size',
-                        label: 'Tamanho pacote entrada',
-                        type: 'string',
-                    },
-                    {
-                        key: 'response_package_size',
-                        label: 'Tamanho pacote saida',
-                        type: 'string',
-                    }
-                ]}
+                keys={}
                 hook={hook} onCreate={() => setOpenEntity({})}
                 onRowClick={row => setOpenEntity(row)}
                 title={'Registros de eventos'}
