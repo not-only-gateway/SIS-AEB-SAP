@@ -1,11 +1,9 @@
 import React, {useContext, useEffect, useState} from "react";
 import PropTypes from 'prop-types'
-// import submitAuthentication from "../utils/SubmitAuthentication";
 import styles from '../styles/Authenticate.module.css'
 import useCookies from "./core/shared/hooks/useCookies";
 import Form from "./core/inputs/form/Form";
 import ThemeContext from "./core/theme/ThemeContext";
-
 import {VisibilityOffRounded, VisibilityRounded} from "@material-ui/icons";
 import TextField from "./core/inputs/text/TextField";
 import FormRow from "./core/inputs/form/FormRow";

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import styles from "./styles/Apps.module.css";
 import {AppsRounded} from "@material-ui/icons";
-// import AnimationFrame from "../navigation/templates/AnimationFrame";
+// import AnimationFrame from "../layout/templates/AnimationFrame";
 import PropTypes from 'prop-types'
 import AppsWrapper from "./templates/AppsWrapper";
 import App from "./templates/App";

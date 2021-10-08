@@ -6,6 +6,7 @@ import ServiceForm from "../forms/ServiceForm";
 import Switcher from "../../../../core/misc/switcher/Switcher";
 import PropTypes from "prop-types";
 import {serviceKeys} from "../../keys/keys";
+import {DeleteRounded} from "@material-ui/icons";
 
 export default function ServiceList(props) {
     const hook = useQuery(service_query)
@@ -15,6 +16,7 @@ export default function ServiceList(props) {
 
             <div style={{marginTop: '48px'}}>
                 <ServiceForm initialData={openEntity ? openEntity : {}}
+                             redirect={id => props.redirect('/management/?page=service&id=' + id, '/management/?page=service&id=' + id, {})}
                              handleClose={() => {
                                  setOpenEntity(undefined)
                                  hook.clean()
@@ -24,13 +26,14 @@ export default function ServiceList(props) {
             <List
                 createOption={true}
                 keys={serviceKeys}
+                controlButtons={[{label: 'Deletar', icon: <DeleteRounded/>, onClick: data => null}]}
                 hook={hook} onCreate={() => setOpenEntity({})}
-                onRowClick={row => props.redirect(row.id)}
+                onRowClick={row => props.redirect('/management/?page=service&id=' + row.id, '/management/?page=service&id=' + row.id, {})}
                 title={'Serviços registrados'}
             />
         </Switcher>
     )
 }
-ServiceList.propTypes={
+ServiceList.propTypes = {
     redirect: PropTypes.func
 }

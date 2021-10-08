@@ -1,4 +1,4 @@
-import {ListRounded, PublicRounded, SettingsRounded, SupervisorAccountRounded} from "@material-ui/icons";
+import {HelpRounded, ListRounded, PublicRounded, SettingsRounded, SupervisorAccountRounded} from "@material-ui/icons";
 import React from "react";
 
 export default function managementProps (redirect, path, query={}) {
@@ -30,6 +30,13 @@ export default function managementProps (redirect, path, query={}) {
                 icon: <ListRounded/>,
                 onClick: () => redirect('/management/?page=logs'),
                 highlight: query.page === 'logs'
+            },
+            {
+                label: "Ajuda",
+                icon: <HelpRounded/>,
+                onClick: () => redirect('/management/?page=help'),
+                highlight: query.page === 'help',
+                position: 'bottom'
             }
         ],
         requireAuth: true

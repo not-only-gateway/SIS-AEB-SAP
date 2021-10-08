@@ -10,15 +10,15 @@ const submitProps = {
 }
 
 export async function endpoint(props) {
-    let response = false
+    let response = null
     await Requester({
         method: props.create ? 'post' : 'put',
-        url: !props.create ? Host('gateway') + '/endpoint/' + props.pk : Host('gateway') + '/endpoint',
+        url: Host('gateway') + '/endpoint',
         showSuccessAlert: true,
         headers: {'authorization': (new Cookies()).get('jwt')},
         package: props.data
     }).then(res => {
-        response = true
+        response = res.data.id
     }).catch(e => {
         console.log(e)
     })
@@ -26,7 +26,7 @@ export async function endpoint(props) {
 }
 
 export async function service(props) {
-    let response = false
+    let response = null
     await Requester({
         method: props.create ? 'post' : 'put',
         url: !props.create ? Host('gateway') + '/service/' + props.pk : Host('gateway') + '/service',
@@ -34,7 +34,7 @@ export async function service(props) {
         headers: {'authorization': (new Cookies()).get('jwt')},
         package: props.data,
     }).then(res => {
-        response = true
+        response = res.data.id
     }).catch(e => {
         console.log(e)
     })

@@ -53,7 +53,8 @@ List.propTypes = {
     controlButtons: PropTypes.arrayOf(PropTypes.shape({
         icon: PropTypes.element,
         label: PropTypes.any,
-        onClick: PropTypes.func
+        onClick: PropTypes.func,
+        disabled: PropTypes.bool
     })),
     title: PropTypes.any,
 

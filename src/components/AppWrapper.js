@@ -1,7 +1,7 @@
 import React from "react";
 import "@fontsource/roboto"
 import PropTypes from "prop-types";
-import LayoutWrapper from "./core/layout/navigation/LayoutWrapper";
+import LayoutWrapper from "./core/navigation/layout/LayoutWrapper";
 import apps from "../packages/apps";
 import Modal from "./core/misc/modal/Modal";
 import Authenticator from "./Authenticator";

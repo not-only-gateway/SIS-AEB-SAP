@@ -30,6 +30,9 @@ export default function getManagementPages(props) {
         {
             basePath: 'access',
             content: dynamic(() => import("./pages/AccessProfile"))
+        },   {
+            basePath: 'help',
+            content: dynamic(() => import("./pages/Help"))
         },
     ]
 }

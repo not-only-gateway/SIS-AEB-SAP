@@ -2,13 +2,10 @@ import Tabs from "../../../core/misc/tabs/Tabs";
 import styles from '../styles/Services.module.css'
 import ServiceList from "../components/lists/ServiceList";
 import EndpointList from "../components/lists/EndpointList";
-import {useRouter} from "next/router";
+
 import EntityList from "../components/lists/EntityList";
 
-export default function Services() {
-
-    const router = useRouter()
-
+export default function Services(props) {
     return (
         <Tabs
             buttons={[
@@ -17,7 +14,7 @@ export default function Services() {
                     children: (
                         <div className={styles.contentWrapper}>
                             <ServiceList
-                                redirect={id => router.push('/management/service', '/management/service', {query: {id: id}})}/>
+                                redirect={props.redirect}/>
                         </div>
                     )
                 },
@@ -26,7 +23,7 @@ export default function Services() {
                     children: (
                         <div className={styles.contentWrapper}>
                             <EndpointList
-                                redirect={id => router.push('/management/endpoint', '/management/endpoint', {query: {id: id}})}/>
+                                redirect={props.redirect}/>
                         </div>
                     )
                 },

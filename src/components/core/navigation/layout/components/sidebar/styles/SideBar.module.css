@@ -1,3 +1,10 @@
+.bottomOptions{
+    position: absolute;
+    bottom: 4px;
+    width: calc(100% - 8px);
+    transform: translateX(4px);
+}
+
 .buttons {
     width: 100%;
 

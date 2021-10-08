@@ -13,7 +13,7 @@ export default function HeaderCell(props) {
             style={{
                 height: '30px',
                 border: 'none',
-                width: (1/props.quantity) * 100 + '%'
+                width: `calc(${(1/props.quantity) * 100}% - ${props.hasOptions ? '30px' : '0px'})`
             }}>
             <button
                 className={[styles.cellHeader, !currentSort ? styles.disabledSort : ''].join(' ')}
@@ -89,6 +89,7 @@ export default function HeaderCell(props) {
 }
 
 HeaderCell.propTypes = {
+    hasOptions: PropTypes.bool,
     additionalWidth: PropTypes.string,
 
     index: PropTypes.number,

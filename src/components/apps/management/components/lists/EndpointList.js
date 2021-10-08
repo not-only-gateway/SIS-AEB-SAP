@@ -8,12 +8,13 @@ import PropTypes from 'prop-types'
 import {endpointKeys} from "../../keys/keys";
 
 export default function EndpointList(props) {
-    const hook = useQuery(endpoint_query)
+    const hook = useQuery(endpoint_query(props.service))
     const [openEntity, setOpenEntity] = useState(undefined)
     return (
         <Switcher openChild={openEntity ? 0 : 1}>
             <div style={{marginTop: '48px'}}>
                 <EndpointForm initialData={openEntity ? openEntity : {}}
+                              redirect={id => props.redirect('/management/?page=endpoint&id=' + id, '/management/?page=endpoint&id=' + id, {})}
                               handleClose={() => {
                                   setOpenEntity(undefined)
                                   hook.clean()
@@ -23,7 +24,7 @@ export default function EndpointList(props) {
             <List
                 keys={endpointKeys}
                 hook={hook} createOption={true}
-                onRowClick={row => props.redirect(row.id)}
+                onRowClick={row => props.redirect('/management/?page=endpoint&id=' + row.url, '/management/?page=endpoint&id=' + row.url, {})}
                 onCreate={() => setOpenEntity({})}
                 title={'Endpoints registrados'}
             />
@@ -33,5 +34,6 @@ export default function EndpointList(props) {
 }
 
 EndpointList.propTypes = {
-    redirect: PropTypes.func
+    redirect: PropTypes.func,
+    service: PropTypes.number
 }

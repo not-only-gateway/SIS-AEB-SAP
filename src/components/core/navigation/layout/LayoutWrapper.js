@@ -1,10 +1,10 @@
 import React, {useContext, useState} from 'react';
 import styles from './styles/Navigation.module.css'
 import PropTypes from 'prop-types'
-import Profile from '../profile/Profile'
-import Apps from '../apps/Apps'
+import Profile from './components/profile/Profile'
+import Apps from './components/apps/Apps'
 import {MenuRounded} from "@material-ui/icons";
-import SideBar from "../sidebar/SideBar";
+import SideBar from "./components/sidebar/SideBar";
 import Loading from "./templates/Loading";
 import ThemeProvider from "../../theme/ThemeProvider";
 import ThemeContext from "../../theme/ThemeContext";
@@ -44,11 +44,9 @@ export default function LayoutWrapper(props) {
                     </div>
                     <div className={styles.content} style={{justifyContent: 'flex-end', gap: '8px'}}>
                         <Apps
-
                             redirect={props.redirect}
                             buttons={props.appButtons}
                         />
-
                         <Profile
                             buttons={props.profileButtons}
                             redirect={props.redirect}
@@ -99,7 +97,9 @@ LayoutWrapper.propTypes = {
             label: PropTypes.string,
             icon: PropTypes.any,
             onClick: PropTypes.func,
-            highlight: PropTypes.bool
+            highlight: PropTypes.bool,
+            position: PropTypes.oneOf(['bottom', 'default'])
+
         }),
     ),
     appButtons: PropTypes.arrayOf(

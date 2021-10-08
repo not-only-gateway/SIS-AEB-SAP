@@ -24,7 +24,7 @@ export default function AccessProfileList(props) {
                 createOption={true}
                 keys={accessProfileKeys}
                 hook={hook} onCreate={() => setOpenEntity({})}
-                onRowClick={row => setOpenEntity(row)}
+                onRowClick={row => props.redirect('/management/?page=access&id='+row.id, '/management/?page=access&id='+row.id, {})}
                 title={'Perfis de acesso'}
             />
         </Switcher>

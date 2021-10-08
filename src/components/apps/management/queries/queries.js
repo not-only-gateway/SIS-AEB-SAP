@@ -8,11 +8,15 @@ export const service_query = {
     parsePackage: pack => pack,
     fetchSize: 15
 }
-export const endpoint_query = {
-    url: Host('gateway/') + 'list/endpoint',
-    headers: {'authorization': cookies.get('jwt')},
-    parsePackage: pack => pack,
-    fetchSize: 15
+export const endpoint_query = (pk) => {
+
+    return {
+        url: Host('gateway/') + 'list/endpoint' + (pk ? `/${pk}` : ''),
+        headers: {'authorization': cookies.get('jwt')},
+        parsePackage: pack => pack,
+        fetchSize: 15
+    }
+
 }
 export const access_profile_permissions_query = (pk) => {
     return {

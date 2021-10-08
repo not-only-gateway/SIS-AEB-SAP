@@ -20,10 +20,15 @@ export default function Dropdown(props) {
             <button onClick={() => setOpen(true)} disabled={props.disabled} className={props.buttonClassname}>
                 {props.label}
             </button>
-            <div style={{visibility: open ? 'visible' : 'hidden', opacity: open ? '1' : '0'}} className={styles.buttons} ref={ref}>
+            <div style={{
+                visibility: open ? 'visible' : 'hidden',
+                opacity: open ? '1' : '0',
+                top: props.align === 'top' ? '0px' : undefined,
+                transform: props.align === 'top' ? 'translateY(-100%)' : undefined
+            }} className={styles.buttons} ref={ref}>
                 {props.buttons.map((b, i) => (
                     <button key={'dropdown-' + i} disabled={b.disabled} onClick={() => {
-                        b.onClick()
+                        b.onClick(props.onClickProps)
                         setOpen(false)
                     }} className={styles.button}>
                         {b.icon}
@@ -38,6 +43,7 @@ export default function Dropdown(props) {
 }
 
 Dropdown.propTypes = {
+    onClickProps: PropTypes.any,
     buttonClassname: PropTypes.string,
     label: PropTypes.any,
     disabled: PropTypes.bool,
@@ -46,5 +52,7 @@ Dropdown.propTypes = {
         icon: PropTypes.object,
         onClick: PropTypes.func,
         disabled: PropTypes.bool
-    }))
+    })),
+
+    align: PropTypes.oneOf(['top', 'bottom'])
 }

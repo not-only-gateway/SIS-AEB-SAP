@@ -33,7 +33,7 @@ export const endpointKeys = [
     },
     {
         key: 'methods',
-        label: 'Método HTTP',
+        label: 'Métodos HTTP',
         type: 'array',
         visible: true
     },
@@ -47,7 +47,7 @@ export const endpointKeys = [
         key: 'service',
         label: 'Serviço',
         type: 'object',
-        subfieldKey: 'name',
+        subfieldKey: 'denomination',
         visible: true
     }
 ]

@@ -3,6 +3,7 @@
 .table {
     box-shadow: 0 0 0 1px var(--border-0);
     width: 100%;
+    height: auto;
     user-select: none;
     overflow-x: hidden;
     overflow-y: auto;
@@ -15,15 +16,20 @@
 
 
 .cell {
+    height: 60px;
+    max-height: 60px;
 
     width: fit-content;
     box-sizing: border-box;
     border-bottom: var(--border-1) 1px solid;
     overflow: visible;
 
+    color: var(--color-1);
 }
 
 .cellContent {
+    height: 60px;
+    display: table-cell;
     padding: 10px 4px;
 
     white-space: nowrap;
@@ -39,6 +45,7 @@
     width: 100%;
     table-layout: auto;
     height: 100%;
+    max-height: 60px;
 
     display: flex;
     justify-content: space-between;
@@ -132,14 +139,14 @@
     background-color: var(--background-2);
 }
 
-.row:active {
-    background-color: var(--background-3);
-    opacity: .8;
-}
+/*.row:active {*/
+
+/*}*/
 
 .headerRow {
     position: sticky;
     top: 0;
+
     background: var(--background-1);
 }
 
@@ -163,4 +170,28 @@
 
 .disabledSort{
     color: var(--color-4);
+}
+
+
+.optionsButton{
+    outline: none;
+    display: flex;
+    place-content: center;
+
+    padding: 0;
+    border-radius: 5px;
+    background: var(--background-1);
+    border: var(--border-1) 1px solid;
+
+    cursor: pointer;
+
+    transition: 150ms linear;
+}
+.optionsButton:hover{
+    color: #0095ff;
+}
+.optionsButton:active{
+
+    background: #0095ff;
+    color: white;
 }

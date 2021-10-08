@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, {useState} from 'react'
 import styles from './styles/Profile.module.css'
-import AnimationFrame from "../navigation/templates/AnimationFrame";
+import AnimationFrame from "../../templates/AnimationFrame";
 import {ExitToAppRounded} from "@material-ui/icons";
 import {Avatar} from "@material-ui/core";
 

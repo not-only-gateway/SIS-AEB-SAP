@@ -90,6 +90,7 @@
 .rows {
     position: relative;
     display: grid;
+    align-content: flex-start;
     gap: 8px;
     overflow-y: auto;
     height: 100%;

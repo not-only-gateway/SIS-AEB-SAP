@@ -3,8 +3,11 @@ import PropTypes from 'prop-types'
 import styles from '../../styles/Table.module.css'
 import HeaderCell from "./HeaderCell";
 import useInfiniteScroll from "../../../shared/hooks/useInfiniteScroll";
-import React, {useMemo, useRef} from 'react'
+import React, {useContext, useMemo, useRef} from 'react'
 import keyTemplate from "../../templates/keyTemplate";
+import {ArrowDropDownRounded, ArrowDropDownSharp, SettingsRounded} from "@material-ui/icons";
+import Dropdown from "../list/Dropdown";
+import ThemeContext from "../../../theme/ThemeContext";
 
 
 export default function TableLayout(props) {
@@ -13,7 +16,7 @@ export default function TableLayout(props) {
     const keys = useMemo(() => {
         return props.keys.filter(e => e.visible)
     }, [props.keys])
-
+    const theme = useContext(ThemeContext)
 
     return (
         <table className={styles.table} ref={listRef} style={{maxHeight: props.maxHeight}}>
@@ -26,11 +29,22 @@ export default function TableLayout(props) {
                             sorts={props.sorts} columnKey={e.key}
                             setSorts={props.setSorts} clean={props.clean}
                             additionalWidth={e.additionalWidth !== undefined ? e.additionalWidth : '0px'}
-                            index={i}
+                            index={i} hasOptions={props.controlButtons !== undefined && props.controlButtons.length > 0}
                             quantity={props.keys.length}
                             value={e.label}/>
                     </React.Fragment>
+
                 ))}
+                {props.controlButtons !== undefined && props.controlButtons.length > 0 ? <td className={styles.cell}
+                                                                                             style={{
+                                                                                                 height: '30px',
+                                                                                                 border: 'none',
+                                                                                                 width: `30px`
+                                                                                             }}>
+                    <div style={{display: 'flex', placeContent: 'center'}}>
+                        <SettingsRounded style={{fontSize: '1.1rem', color: theme.themes.color3}}/>
+                    </div>
+                </td> : null}
             </tr>
             </thead>
 
@@ -40,8 +54,26 @@ export default function TableLayout(props) {
                 <tr
                     key={'row-' + e.id}
                     className={styles.row}
-                    onClick={() => {
-                        if (props.onRowClick !== undefined && typeof props.onRowClick === 'function')
+                    onMouseDown={(event) => {
+                        if (!document.elementsFromPoint(event.clientX, event.clientY).includes(document.getElementById(('options-' + e.id)))) {
+                            event.currentTarget.style.background = theme.themes.background3
+                            event.currentTarget.style.opacity = '.8'
+                        }
+                    }}
+                    onMouseUp={(event) => {
+                        if (event.currentTarget.style.background === theme.themes.background3) {
+                            event.currentTarget.style.background = 'transparent'
+                            event.currentTarget.style.opacity = '1'
+                        }
+                    }}
+                    onMouseOut={(event) => {
+                        if (event.currentTarget.style.background === theme.themes.background3) {
+                            event.currentTarget.style.background = 'transparent'
+                            event.currentTarget.style.opacity = '1'
+                        }
+                    }}
+                    onClick={(event) => {
+                        if (!document.elementsFromPoint(event.clientX, event.clientY).includes(document.getElementById(('options-' + e.id))) && props.onRowClick !== undefined && typeof props.onRowClick === 'function')
                             props.onRowClick(e.data)
                     }} ref={i === (props.data.length - 1) ? lastElementRef : undefined}
                 >
@@ -49,10 +81,21 @@ export default function TableLayout(props) {
                         <React.Fragment key={i + '-row-cell-' + ic}>
                             <Cell
                                 additionalWidth={value.additionalWidth !== undefined ? value.additionalWidth : '0px'}
-                                 entry={e.data} field={value} quantity={props.keys.length}
+                                entry={e.data} field={value} quantity={props.keys.length}
+                                hasOptions={props.controlButtons !== undefined && props.controlButtons.length > 0}
                             />
                         </React.Fragment>
                     ))}
+                    {props.controlButtons !== undefined && props.controlButtons.length > 0 ?
+                        <td className={styles.cell} style={{width: '30px'}} id={'options-' + e.id}>
+                            <Dropdown
+                                label={<ArrowDropDownRounded style={{color: theme.themes.color3}}/>} buttons={props.controlButtons}
+                                align={i === (props.data.length - 1) ? 'top' : undefined}
+                                onClickProps={e.data} buttonClassname={styles.optionsButton}/>
+                        </td>
+                        :
+                        null
+                    }
                 </tr>
             ))}
             </tbody>
@@ -64,7 +107,12 @@ TableLayout.propTypes = {
     data: PropTypes.array,
     keys: PropTypes.arrayOf(keyTemplate).isRequired,
 
-    controlButtons: PropTypes.array,
+    controlButtons: PropTypes.arrayOf(PropTypes.shape({
+        icon: PropTypes.element,
+        label: PropTypes.any,
+        onClick: PropTypes.func,
+        disabled: PropTypes.bool
+    })),
     onRowClick: PropTypes.func,
     currentPage: PropTypes.number,
     setCurrentPage: PropTypes.func,

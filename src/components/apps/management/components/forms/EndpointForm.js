@@ -29,20 +29,24 @@ export default function EndpointForm(props) {
             handleSubmit={(data, clearState) => {
                 endpoint({
                     pk: data.id,
-                    create: !data.id,
+                    create: props.initialData.url === undefined,
                     data: {
                         ...data,
                         service: data.service.id,
                         versioning: data.versioning !== null && data.versioning !== undefined ? data.versioning : false
                     }
                 }).then((res) => {
-                    if (res) {
-                        props.handleClose()
+                    if(res !== null && props.initialData.url === undefined) {
+                        props.redirect(res)
                         clearState()
+                    }
+                    else {
+                        props.updateData(data)
                     }
                 })
             }}
-            create={!props.initialData.id}
+            noHeader={props.initialData.url !== undefined}
+            create={props.initialData.url === undefined}
         >
 
             {(data, handleChange) => (
