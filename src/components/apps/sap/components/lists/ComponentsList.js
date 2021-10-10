@@ -6,12 +6,13 @@ import ComponentForm from "../forms/ComponentForm";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import getQuery from "../../queries/entities";
 
 export default function ComponentsList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     
-    const hook = useQuery(component_query({
+    const hook = useQuery(getQuery('component', {
         infrastructure: props.infrastructure.id
     }))
     return (

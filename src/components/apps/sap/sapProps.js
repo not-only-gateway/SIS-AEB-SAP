@@ -7,7 +7,7 @@ export default function sapProps (redirect, path, query) {
         appName: 'Gestão de portfólio',
         sideBarButtons: [
             {
-                label: "Projetos",
+                label: "Processos",
                 icon: <WorkRounded/>,
                 onClick: () => redirect('/sap/?page=index'),
                 highlight: (path === '/sap' && !query.page)||  query.page === 'index'

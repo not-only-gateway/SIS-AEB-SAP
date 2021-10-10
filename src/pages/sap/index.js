@@ -1,5 +1,4 @@
 import {useRouter} from "next/router";
-
 import React from "react";
 import getSapPages from "../../components/apps/sap/getSapPages";
 import useDynamicRoute from "../../components/core/shared/hooks/useDynamicRoute";

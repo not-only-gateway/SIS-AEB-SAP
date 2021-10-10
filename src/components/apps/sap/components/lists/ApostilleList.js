@@ -5,14 +5,14 @@ import {DeleteRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import WorkPlanForm from "../forms/WorkPlanForm";
-import {apostille_query} from "../../queries/workplan";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import getQuery from "../../queries/entities";
 
 export default function ApostilleList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery(apostille_query({
+    const hook = useQuery(getQuery('apostille', {
         work_plan: props.workPlan.id
     }))
 

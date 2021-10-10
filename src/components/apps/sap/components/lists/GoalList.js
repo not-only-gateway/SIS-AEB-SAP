@@ -6,14 +6,14 @@ import GoalForm from "../forms/GoalForm";
 import {DeleteRounded} from "@material-ui/icons";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import {goal_query} from "../../queries/workplan";
+import getQuery from "../../queries/entities";
 
 export default function GoalList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     
 
-    const hook = useQuery(goal_query({
+    const hook = useQuery(getQuery('work_plan_goal', {
         work_plan: props.workPlan.id
     }))
     return (

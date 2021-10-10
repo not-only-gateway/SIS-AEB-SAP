@@ -7,15 +7,15 @@ import ActivityForm from "../forms/StageForm";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import {activity_query} from "../../queries/workplan";
+import getQuery from "../../queries/entities";
 
 
 export default function ActivityList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery(activity_query(props.goal !== null ? {
+    const hook = useQuery(getQuery('activity', props.goal !== null ? {
         goal: props.goal.id
-    } : undefined))
+    } : {}))
 
 
     return (

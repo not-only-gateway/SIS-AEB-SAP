@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import {FormRow} from "sis-aeb-core";
-import {entity, service} from "../../utils/submits";
+import {entity} from "../../utils/submits";
 import Form from "../../../../core/inputs/form/Form";
 import TextField from "../../../../core/inputs/text/TextField";
 

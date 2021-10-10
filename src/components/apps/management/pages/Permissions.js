@@ -1,5 +1,5 @@
 import Tabs from "../../../core/misc/tabs/Tabs";
-import styles from "../styles/Services.module.css";
+import styles from "../styles/Shared.module.css";
 import PermissionList from "../components/lists/PermissionList";
 import AccessProfileList from "../components/lists/AccessProfileList";
 import PropTypes from 'prop-types'

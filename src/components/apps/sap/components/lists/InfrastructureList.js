@@ -6,11 +6,12 @@ import Infrastructure from "../entities/Infrastructure";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import getQuery from "../../queries/entities";
 
 export default function InfrastructureList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery()
+    const hook = useQuery(getQuery('infrastructure'))
     
     return (
         <Switcher openChild={open ? 0 : 1}>

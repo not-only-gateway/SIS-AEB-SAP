@@ -5,11 +5,12 @@ import ProjectRequests from "../../utils/requests/ProjectRequests";
 import ClassificationForm from "../forms/ClassificationForm";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import getQuery from "../../queries/entities";
 
 export default function ClassificationList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery(classification_query)
+    const hook = useQuery(getQuery('classification'))
 
     return (
         <Switcher openChild={open ? 0 : 1}>

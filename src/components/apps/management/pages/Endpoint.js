@@ -1,17 +1,7 @@
-import Tabs from "../../../core/misc/tabs/Tabs";
-import styles from '../styles/Services.module.css'
-import ServiceList from "../components/lists/ServiceList";
-import EndpointList from "../components/lists/EndpointList";
+import styles from '../styles/Shared.module.css'
 import React, {useContext, useEffect, useState} from "react";
-import {Requester} from "sis-aeb-core";
 import PropTypes from "prop-types";
-import Host from "../utils/shared/Host";
-import {useRouter} from "next/router";
-import useCookies from "../../../core/shared/hooks/useCookies";
-import {fetchAccess, fetchEndpoint, fetchService} from "../utils/fetch";
-import AccessProfileForm from "../components/forms/AccessProfileForm";
-import PermissionList from "../components/lists/PermissionList";
-import ServiceForm from "../components/forms/ServiceForm";
+import {fetchEndpoint} from "../utils/fetch";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
 import ThemeContext from "../../../core/theme/ThemeContext";
 import EndpointForm from "../components/forms/EndpointForm";

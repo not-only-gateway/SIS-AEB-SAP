@@ -1,12 +1,12 @@
 import {useQuery} from "sis-aeb-core";
-import {access_profile_query, permission_query} from "../../queries/queries";
+import {access_profile_query} from "../../queries/queries";
 import List from "../../../../core/list/List";
 import {useState} from "react";
-import ServiceForm from "../forms/ServiceForm";
 import Switcher from "../../../../core/misc/switcher/Switcher";
 import {accessProfileKeys} from "../../keys/keys";
 import AccessProfileForm from "../forms/AccessProfileForm";
 import PropTypes from 'prop-types'
+
 export default function AccessProfileList(props) {
     const hook = useQuery(access_profile_query)
     const [openEntity, setOpenEntity] = useState(undefined)

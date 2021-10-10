@@ -1,20 +1,20 @@
 export default {
     project: [
-        {key: 'id', type: 'number', label: 'ID', visible: false},
+        {key: 'id', type: 'number', label: 'ID'},
         {key: 'name', type: 'string', label: 'Nome', visible: true},
-        {key: 'sponsor', type: 'string', label: 'Patrocinador', visible: false},
+        {key: 'sponsor', type: 'string', label: 'Patrocinador'},
         {key: 'estimated_value', type: 'number', label: 'Custo estimado', visible: true, maskStart: 'R$'},
         {key: 'description', type: 'string', label: 'Descrição', visible: true},
-        {key: 'manager', type: 'string', label: 'Gerente', visible: false},
-        {key: 'public_sector_team', type: 'string', label: 'Equipe do setor público', visible: false},
-        {key: 'private_sector_team', type: 'string', label: 'Equipe do setor privado', visible: false},
-        {key: 'objectives', type: 'string', label: 'Objetivos', visible: false},
-        {key: 'stakeholders', type: 'string', label: 'Stakeholders', visible: false},
-        {key: 'scope', type: 'string', label: 'Escopo', visible: false},
-        {key: 'critical_factors', type: 'string', label: 'Fatores críticos', visible: false},
+        {key: 'manager', type: 'string', label: 'Gerente'},
+        {key: 'public_sector_team', type: 'string', label: 'Equipe do setor público'},
+        {key: 'private_sector_team', type: 'string', label: 'Equipe do setor privado'},
+        {key: 'objectives', type: 'string', label: 'Objetivos'},
+        {key: 'stakeholders', type: 'string', label: 'Stakeholders'},
+        {key: 'scope', type: 'string', label: 'Escopo'},
+        {key: 'critical_factors', type: 'string', label: 'Fatores críticos'},
         {key: 'type', type: 'string', label: 'Tipo', visible: true},
-        {key: 'responsible', type: 'object', label: 'Responsável', visible: false, subfieldKey: 'acronym'},
-        {key: 'lessons_learned', type: 'string', label: 'Lições aprendidas', visible: false}
+        {key: 'responsible', type: 'object', label: 'Responsável', subfieldKey: 'acronym'},
+        {key: 'lessons_learned', type: 'string', label: 'Lições aprendidas'}
     ],
     risks: [
         {key: 'id', type: 'number', label: 'ID', visible: false},

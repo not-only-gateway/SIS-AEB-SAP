@@ -6,12 +6,12 @@ import FollowUpForm from "../forms/FollowUpForm";
 import OperationRequests from "../../utils/requests/OperationRequests";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import {followup_goal_query} from "../../queries/workplan";
+import getQuery from "../../queries/entities";
 
 export default function FollowUpList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery(followup_goal_query({
+    const hook = useQuery(getQuery('follow_up', {
         operation: props.operation.id
     }))
     

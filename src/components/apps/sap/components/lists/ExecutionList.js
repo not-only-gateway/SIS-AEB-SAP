@@ -6,12 +6,12 @@ import ExecutionForm from "../forms/ExecutionForm";
 import OperationRequests from "../../utils/requests/OperationRequests";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import {execution_query} from "../../queries/workplan";
+import getQuery from "../../queries/entities";
 
 export default function ExecutionList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery(execution_query(
+    const hook = useQuery(getQuery( 'execution',
         props.workPlan !== undefined ?
             {work_plan: props.workPlan.id}
             :

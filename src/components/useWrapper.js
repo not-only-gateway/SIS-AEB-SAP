@@ -30,7 +30,7 @@ export default function useWrapper() {
                     //     setOpenAuthentication(true)
                 }
             })
-        if(Object.keys(profile).length === 0  && cookies.get('jwt'))
+        if(sessionStorage.getItem('profile') !== null && profile !== null && profile && Object.keys(profile).length === 0  && cookies.get('jwt'))
             setProfile(JSON.parse(sessionStorage.getItem('profile')))
         if (sessionStorage.getItem('profile') === null && cookies.get('jwt') && Object.keys(profile).length === 0 && !JSON.parse(cookies.get('asManager')))
             fetchProfile().then(profile => {

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-
-import {List, useQuery} from "sis-aeb-core";
+import List from "../../../../core/list/List";
+import {useQuery} from "sis-aeb-core";
 import WorkPlanForm from "../forms/WorkPlanForm";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import {DeleteRounded} from "@material-ui/icons";
@@ -12,8 +12,8 @@ import {work_plan_query} from "../../queries/workplan";
 export default function WorkPlanList(props) {
     const [open, setOpen] = useState(false)
     const hook = useQuery(work_plan_query({
-        ted: props.ted.id,
-        project: props.project.id
+        ted: props.ted?.id,
+        project: props.project?.id
     }))
 
     return (
@@ -28,8 +28,11 @@ export default function WorkPlanList(props) {
                             props.setCurrentStructure(res)
                     })
                 }}
+
                 project={props.project}
-                create={true} ted={props.ted}
+                ted={props.ted}
+
+                create={true}
             />
 
             <List
@@ -53,7 +56,6 @@ export default function WorkPlanList(props) {
                     props.redirect(entity.id)
                 }}
                 title={'Planos de trabalho'}
-                
             />
         </Switcher>
     )

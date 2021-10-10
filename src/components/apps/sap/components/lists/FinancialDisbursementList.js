@@ -6,13 +6,13 @@ import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import FinancialDisbursementForm from "../forms/FinancialDisbursementForm";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import {financial_query} from "../../queries/workplan";
+import getQuery from "../../queries/entities";
 
 
 export default function FinancialDisbursementList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery(financial_query({
+    const hook = useQuery(getQuery('financial', {
         work_plan: props.workPlan.id
     }))
     

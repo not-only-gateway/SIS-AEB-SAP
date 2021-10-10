@@ -4,10 +4,9 @@ import List from "../../../../core/list/List";
 import {useState} from "react";
 import Switcher from "../../../../core/misc/switcher/Switcher";
 import PermissionForm from "../forms/PermissionForm";
-import {permissionKeys, serviceKeys} from "../../keys/keys";
+import {permissionKeys} from "../../keys/keys";
 import PropTypes from 'prop-types'
 import Selector from "../../../../core/inputs/selector/Selector";
-import FormRow from "../../../../core/inputs/form/FormRow";
 import {accessPrivilege} from "../../utils/submits";
 
 export default function PermissionList(props) {

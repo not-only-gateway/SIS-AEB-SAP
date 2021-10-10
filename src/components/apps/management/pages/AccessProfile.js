@@ -1,6 +1,6 @@
 import Tabs from "../../../core/misc/tabs/Tabs";
 import PermissionList from "../components/lists/PermissionList";
-import styles from '../styles/Services.module.css'
+import styles from '../styles/Shared.module.css'
 import AccessProfileForm from "../components/forms/AccessProfileForm";
 import React, {useContext, useEffect, useState} from "react";
 import {fetchAccess} from "../utils/fetch";

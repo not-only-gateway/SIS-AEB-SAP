@@ -4,14 +4,14 @@ import {DeleteRounded} from "@material-ui/icons";
 import TedRequests from "../../utils/requests/TedRequests";
 import TedForm from "../forms/TedForm";
 import {List, useQuery} from "sis-aeb-core";
-import {addendum_query} from "../../queries/ted";
 import tedKeys from "../../keys/tedKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import getQuery from "../../queries/entities";
 
 export default function AddendumList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery(addendum_query({
+    const hook = useQuery(getQuery('addendum', {
         ted: props.ted.id
     }))
 

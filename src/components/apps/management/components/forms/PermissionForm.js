@@ -1,12 +1,9 @@
 import PropTypes from 'prop-types'
 
 import Form from "../../../../core/inputs/form/Form";
-import DropDownField from "../../../../core/inputs/dropdown/DropDownField";
 import FormRow from "../../../../core/inputs/form/FormRow";
-import Checkbox from "../../../../core/inputs/checkbox/Checkbox";
-import CheckboxGroup from "../../../../core/inputs/checkbox/CheckboxGroup";
 import TextField from "../../../../core/inputs/text/TextField";
-import {endpoint, permission, service} from "../../utils/submits";
+import {permission} from "../../utils/submits";
 
 export default function PermissionForm(props) {
 

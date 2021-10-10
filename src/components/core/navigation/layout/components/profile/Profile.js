@@ -20,7 +20,7 @@ export default function Profile(props) {
             <button
                 className={styles.buttonContainer}
                 onClick={() =>props.redirect(props.fallbackProfileButton.path)}
-                style={{display: props.profile && Object.keys(props.profile).length > 0 ? 'none' : undefined}}
+                style={{display: props.profile !== null && props.profile && Object.keys(props.profile).length > 0 ? 'none' : undefined}}
             >
                 {props.fallbackProfileButton.label}
                 {props.fallbackProfileButton.icon}
@@ -29,7 +29,7 @@ export default function Profile(props) {
                 className={styles.buttonContainer}
                 onClick={() => setOpen(!open)}
                 style={{
-                    display: props.profile && Object.keys(props.profile).length > 0 ? undefined : 'none',
+                    display: props.profile !== null && props.profile && Object.keys(props.profile).length > 0 ? undefined : 'none',
                     backgroundColor: open ? '#0095ff' : null,
                     color: open ? '#f4f5fa' : null
                 }}

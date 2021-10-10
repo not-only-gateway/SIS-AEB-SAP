@@ -3,14 +3,14 @@ import {DeleteRounded} from "@material-ui/icons";
 import BudgetPlanForm from "../forms/BudgetPlanForm";
 import {List, useQuery} from "sis-aeb-core";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
-import {budget_plan_query} from "../../queries/entities";
+import getQuery from "../../queries/entities";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
 
 export default function BudgetPlanList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery(budget_plan_query)
+    const hook = useQuery(getQuery('budget_plan'))
 
 
     return (

@@ -3,15 +3,15 @@ import {DeleteRounded} from "@material-ui/icons";
 import ActionForm from "../forms/ActionForm";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import {List, useQuery} from "sis-aeb-core";
-import {action_query} from "../../queries/workplan";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import getQuery from "../../queries/entities";
 
 
 export default function ActionList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery(action_query)
+    const hook = useQuery(getQuery('action'))
     
     return (
         <Switcher openChild={open ? 0 : 1}>

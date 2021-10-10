@@ -5,15 +5,15 @@ import PropTypes from "prop-types";
 import ActionItemForm from "../forms/ActionItemForm";
 import OperationRequests from "../../utils/requests/OperationRequests";
 import {List, useQuery} from "sis-aeb-core";
-import {action_query} from "../../queries/workplan";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import getQuery from "../../queries/entities";
 
 
 export default function ActionItemList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery(action_query({
+    const hook = useQuery(getQuery('action_item', {
         operation: props.operation.id
     }))
 

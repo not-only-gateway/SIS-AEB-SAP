@@ -1,11 +1,6 @@
 import {useContext} from "react";
 import ProfileContext from "../../ProfileContext";
-import Tabs from "../../core/misc/tabs/Tabs";
-import styles from './styles/Profile.module.css'
-import Privileges from "./components/Privileges";
-import Drafts from "./components/Drafts";
-import Information from "./components/Information";
-import {Avatar} from "@material-ui/core";
+
 export default function Profile(){
     const profile = useContext(ProfileContext)
 

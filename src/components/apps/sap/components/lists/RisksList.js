@@ -6,12 +6,13 @@ import {DeleteRounded} from "@material-ui/icons";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import projectKeys from "../../keys/projectKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import {risk_query} from "../../queries/project";
+import getQuery from "../../queries/entities";
+
 
 export default function RisksList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery(risk_query({
+    const hook = useQuery(getQuery('risk', {
         project: props.project.id
     }))
 

@@ -1,11 +1,10 @@
 import {useQuery} from "sis-aeb-core";
-import {endpoint_query, entity_query} from "../../queries/queries";
+import {entity_query} from "../../queries/queries";
 import List from "../../../../core/list/List";
 import {useState} from "react";
-import EndpointForm from "../forms/EndpointForm";
 import Switcher from "../../../../core/misc/switcher/Switcher";
 import PropTypes from 'prop-types'
-import {endpointKeys, entityKeys} from "../../keys/keys";
+import {entityKeys} from "../../keys/keys";
 import EntityForm from "../forms/EntityForm";
 
 export default function EntityList(props) {

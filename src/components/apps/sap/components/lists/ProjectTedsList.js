@@ -5,13 +5,14 @@ import TedForm from "../forms/TedForm";
 import {ArrowForwardRounded, DeleteRounded} from "@material-ui/icons";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import getQuery from "../../queries/entities";
 
 
 export default function ProjectTedsList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const [openModal, setOpenModal] = useState(false)
-    const hook = useQuery(project_teds_query({
+    const hook = useQuery(getQuery('project_ted', {
         project: props.project.id
     }))
     return (
@@ -93,7 +94,7 @@ export default function ProjectTedsList(props) {
                         disabled: false
                     }
                 ]}
-                
+
             />
         </Switcher>
     )
