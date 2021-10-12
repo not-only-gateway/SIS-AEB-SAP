@@ -1,5 +1,6 @@
 import React, {useState} from "react";
-import {AddRounded, CalendarTodayRounded, CategoryRounded, TextFieldsRounded} from "@material-ui/icons";
+import {AddRounded, CalendarTodayRounded, CategoryRounded, LinkRounded, TextFieldsRounded} from "@material-ui/icons";
+import ToolTip from "../../misc/tooltip/ToolTip";
 
 export default function useHeader(dispatch, actions){
     const [open, setOpen] = useState(false)
@@ -18,7 +19,12 @@ export default function useHeader(dispatch, actions){
     const getField = (e) => {
         return {
             icon: getIcon(e.type),
-            label: e.label,
+            label: (
+                <div style={{textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', maxWidth: '100%'}}>
+                    {e.label}
+                    <ToolTip content={e.label}/>
+                </div>
+                    ),
             onClick: () => {
                 setSelectedField({
                     ...{
@@ -45,7 +51,10 @@ export default function useHeader(dispatch, actions){
                 icon = <TextFieldsRounded style={{fontSize: '1.2rem'}}/>
                 break
             }
-
+            case 'object': {
+                icon = <LinkRounded style={{fontSize: '1.2rem'}}/>
+                break
+            }
             default: {
                 icon = <CategoryRounded style={{fontSize: '1.2rem'}}/>
                 break

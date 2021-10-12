@@ -5,7 +5,7 @@ import ProjectRequests from "../../utils/requests/ProjectRequests";
 import {List, useQuery} from "sis-aeb-core";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import getQuery from "../../queries/entities";
+import getQuery from "../../queries/getQuery";
 
 
 export default function ActionList(props) {

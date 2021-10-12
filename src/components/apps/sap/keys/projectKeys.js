@@ -1,3 +1,5 @@
+import getQuery from "../queries/getQuery";
+
 export default {
     project: [
         {key: 'id', type: 'number', label: 'ID'},
@@ -13,7 +15,7 @@ export default {
         {key: 'scope', type: 'string', label: 'Escopo'},
         {key: 'critical_factors', type: 'string', label: 'Fatores críticos'},
         {key: 'type', type: 'string', label: 'Tipo', visible: true},
-        {key: 'responsible', type: 'object', label: 'Responsável', subfieldKey: 'acronym'},
+        {key: 'responsible', type: 'object', label: 'Responsável', subfieldKey: 'acronym', subType: 'string', query: getQuery('unit')},
         {key: 'lessons_learned', type: 'string', label: 'Lições aprendidas'}
     ],
     risks: [

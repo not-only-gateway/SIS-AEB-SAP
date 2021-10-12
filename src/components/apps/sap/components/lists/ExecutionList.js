@@ -6,7 +6,7 @@ import ExecutionForm from "../forms/ExecutionForm";
 import OperationRequests from "../../utils/requests/OperationRequests";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import getQuery from "../../queries/entities";
+import getQuery from "../../queries/getQuery";
 
 export default function ExecutionList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)

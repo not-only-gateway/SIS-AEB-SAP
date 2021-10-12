@@ -25,7 +25,7 @@ export default function TableLayout(props) {
                 {keys.map((e, i) => (
                     <React.Fragment key={i + '-header'}>
                         <HeaderCell
-                            tableRef={listRef.current}
+                            tableRef={listRef.current} type={e.type}
                             sorts={props.sorts} columnKey={e.key}
                             setSorts={props.setSorts} clean={props.clean}
                             additionalWidth={e.additionalWidth !== undefined ? e.additionalWidth : '0px'}
@@ -35,16 +35,18 @@ export default function TableLayout(props) {
                     </React.Fragment>
 
                 ))}
-                {props.controlButtons !== undefined && props.controlButtons.length > 0 ? <td className={styles.cell}
-                                                                                             style={{
-                                                                                                 height: '30px',
-                                                                                                 border: 'none',
-                                                                                                 width: `30px`
-                                                                                             }}>
-                    <div style={{display: 'flex', placeContent: 'center'}}>
-                        <SettingsRounded style={{fontSize: '1.1rem', color: theme.themes.color3}}/>
-                    </div>
-                </td> : null}
+                {props.controlButtons !== undefined && props.controlButtons.length > 0 ?
+                    <td
+                        className={styles.cell}
+                        style={{
+                            height: '30px',
+                            border: 'none',
+                            width: `30px`
+                        }}>
+                        <div style={{display: 'flex', placeContent: 'center'}}>
+                            <SettingsRounded style={{fontSize: '1.1rem', color: theme.themes.color3}}/>
+                        </div>
+                    </td> : null}
             </tr>
             </thead>
 
@@ -89,7 +91,8 @@ export default function TableLayout(props) {
                     {props.controlButtons !== undefined && props.controlButtons.length > 0 ?
                         <td className={styles.cell} style={{width: '30px'}} id={'options-' + e.id}>
                             <Dropdown
-                                label={<ArrowDropDownRounded style={{color: theme.themes.color3}}/>} buttons={props.controlButtons}
+                                label={<ArrowDropDownRounded style={{color: theme.themes.color3}}/>}
+                                buttons={props.controlButtons}
                                 align={i === (props.data.length - 1) ? 'top' : undefined}
                                 onClickProps={e.data} buttonClassname={styles.optionsButton}/>
                         </td>

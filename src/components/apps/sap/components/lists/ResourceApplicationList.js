@@ -7,13 +7,13 @@ import {List, useQuery} from "sis-aeb-core";
 import ResourceApplicationForm from "../forms/ResourceApplicationForm";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import {operation_query} from "../../queries/workplan";
+import getQuery from "../../queries/getQuery";
 
 
 export default function ResourceApplicationList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery(operation_query({
+    const hook = useQuery(getQuery('resource_application',{
         operation: props.operation.id
     }))
     

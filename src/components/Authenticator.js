@@ -8,7 +8,7 @@ import {VisibilityOffRounded, VisibilityRounded} from "@material-ui/icons";
 import TextField from "./core/inputs/text/TextField";
 import FormRow from "./core/inputs/form/FormRow";
 import submitAuthentication from "../utils/SubmitAuthentication";
-import Tabs from "./core/misc/tabs/Tabs";
+import Tabs from "./core/navigation/tabs/Tabs";
 
 export default function Authenticator(props) {
     const cookies = useCookies()

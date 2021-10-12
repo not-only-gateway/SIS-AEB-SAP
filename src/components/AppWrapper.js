@@ -1,7 +1,7 @@
 import React from "react";
 import "@fontsource/roboto"
 import PropTypes from "prop-types";
-import LayoutWrapper from "./core/navigation/layout/LayoutWrapper";
+import Navigation from "./core/navigation/layout/Navigation";
 import apps from "../packages/apps";
 import Modal from "./core/misc/modal/Modal";
 import Authenticator from "./Authenticator";
@@ -48,7 +48,7 @@ export default function AppWrapper(props) {
                         sessionStorage.setItem('profile', JSON.stringify(value))
                     }} redirect={() => router.push('/', '/')}/>
                 </Modal>
-                <LayoutWrapper
+                <Navigation
                     redirect={url => router.push(url, url)}
                     loading={props.loading} profile={profile}
                     lightLogo={'../light.png'}
@@ -68,7 +68,7 @@ export default function AppWrapper(props) {
                     appButtons={apps}
                 >
                     {props.children()}
-                </LayoutWrapper>
+                </Navigation>
             </ProfileContext.Provider>
         )
 }

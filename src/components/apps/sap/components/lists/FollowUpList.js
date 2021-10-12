@@ -6,7 +6,7 @@ import FollowUpForm from "../forms/FollowUpForm";
 import OperationRequests from "../../utils/requests/OperationRequests";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import getQuery from "../../queries/entities";
+import getQuery from "../../queries/getQuery";
 
 export default function FollowUpList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)

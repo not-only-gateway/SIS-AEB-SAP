@@ -30,7 +30,7 @@ export default function Endpoint(props) {
             </div>
 
             <div
-                className={styles.header} style={{background: themes.themes.background1, padding: '16px 10%'}}
+                className={styles.header} style={{padding: '16px 10%'}}
             >
                 {data?.denomination}
             </div>

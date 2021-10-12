@@ -6,7 +6,7 @@ import ComponentForm from "../forms/ComponentForm";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import getQuery from "../../queries/entities";
+import getQuery from "../../queries/getQuery";
 
 export default function ComponentsList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)

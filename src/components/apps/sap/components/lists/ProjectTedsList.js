@@ -5,7 +5,7 @@ import TedForm from "../forms/TedForm";
 import {ArrowForwardRounded, DeleteRounded} from "@material-ui/icons";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import getQuery from "../../queries/entities";
+import getQuery from "../../queries/getQuery";
 
 
 export default function ProjectTedsList(props) {

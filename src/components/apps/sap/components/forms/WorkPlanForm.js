@@ -32,7 +32,7 @@ export default function WorkPlanForm(props) {
                     }
                 })
         }
-    }, [])
+    }, [props.data])
     return (
         <div style={{width: '100%'}}>
             <Form

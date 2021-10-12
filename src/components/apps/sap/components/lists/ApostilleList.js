@@ -7,7 +7,7 @@ import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import WorkPlanForm from "../forms/WorkPlanForm";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import getQuery from "../../queries/entities";
+import getQuery from "../../queries/getQuery";
 
 export default function ApostilleList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)

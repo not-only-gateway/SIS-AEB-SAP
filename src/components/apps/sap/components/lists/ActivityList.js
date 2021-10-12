@@ -3,11 +3,11 @@ import React, {useState} from "react";
 import {DeleteRounded} from "@material-ui/icons";
 import {List, useQuery} from "sis-aeb-core";
 
-import ActivityForm from "../forms/StageForm";
+import ActivityForm from "../forms/ActivityForm";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import getQuery from "../../queries/entities";
+import getQuery from "../../queries/getQuery";
 
 
 export default function ActivityList(props) {

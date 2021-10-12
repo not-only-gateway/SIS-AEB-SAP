@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import styles from "../../styles/Table.module.css";
 import React, {useRef, useState} from "react";
 import ToolTip from "../../../misc/tooltip/ToolTip";
-import {ArrowDownwardRounded} from "@material-ui/icons";
+import {ArrowDownwardRounded, LinkRounded} from "@material-ui/icons";
 
 export default function HeaderCell(props) {
     const ref = useRef()
@@ -16,7 +16,7 @@ export default function HeaderCell(props) {
                 width: `calc(${(1/props.quantity) * 100}% - ${props.hasOptions ? '30px' : '0px'})`
             }}>
             <button
-                className={[styles.cellHeader, !currentSort ? styles.disabledSort : ''].join(' ')}
+                className={[styles.cellHeader, !currentSort ? styles.disabledSort : ''].join(' ')} disabled={props.type === 'object'}
                 onClick={() => {
                     let newSort
                     switch (currentSort) {
@@ -67,10 +67,15 @@ export default function HeaderCell(props) {
                 }}
                 style={{
                     height: '30px',
-                    width: '100%'
+                    width: '100%',
+                    justifyContent: props.type !== 'object' ? undefined : 'flex-start'
                 }}
                 ref={ref}
             >
+                <LinkRounded style={{
+                    display: props.type !== 'object' ? 'none' : undefined,
+                    fontSize: '1.1rem',
+                }}/>
                 <div className={styles.cellContent}
                      style={{fontSize: '.8rem', height: 'fit-content', textTransform: 'capitalize'}}>
                     {props.value}
@@ -78,6 +83,7 @@ export default function HeaderCell(props) {
                 </div>
                 <ArrowDownwardRounded
                     style={{
+                        display: props.type === 'object' ? 'none' : undefined,
                         transform: currentSort === 'desc' ? 'rotate(180deg)' : undefined,
                         fontSize: '1.1rem',
                         transition: '150ms linear'
@@ -91,7 +97,7 @@ export default function HeaderCell(props) {
 HeaderCell.propTypes = {
     hasOptions: PropTypes.bool,
     additionalWidth: PropTypes.string,
-
+    type: PropTypes.string,
     index: PropTypes.number,
     value: PropTypes.any,
     tableRef: PropTypes.object,

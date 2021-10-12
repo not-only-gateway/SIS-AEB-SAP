@@ -3,7 +3,7 @@ import Head from "next/head";
 import IndexPT from "../locales/ProjectPT";
 import styles from '../styles/Shared.module.css'
 import PropTypes from 'prop-types'
-import Tabs from "../../../core/misc/tabs/Tabs";
+import Tabs from "../../../core/navigation/tabs/Tabs";
 import ProjectList from "../components/lists/ProjectList";
 import TedList from "../components/lists/TedList";
 import WorkPlanList from "../components/lists/WorkPlanList";

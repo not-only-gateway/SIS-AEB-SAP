@@ -31,8 +31,8 @@ export default function Dropdown(props) {
                         b.onClick(props.onClickProps)
                         setOpen(false)
                     }} className={styles.button}>
-                        {b.icon}
-                        <div className={styles.buttonLabel}>
+                            {b.icon}
+                        <div className={styles.buttonLabel} >
                             {b.label}
                         </div>
                     </button>
@@ -48,7 +48,7 @@ Dropdown.propTypes = {
     label: PropTypes.any,
     disabled: PropTypes.bool,
     buttons: PropTypes.arrayOf(PropTypes.shape({
-        label: PropTypes.string,
+        label: PropTypes.any,
         icon: PropTypes.object,
         onClick: PropTypes.func,
         disabled: PropTypes.bool

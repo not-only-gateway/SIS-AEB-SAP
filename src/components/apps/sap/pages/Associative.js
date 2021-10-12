@@ -10,7 +10,7 @@ import DecentralizedUnitList from "../components/lists/DecentralizedUnitList";
 import UnitList from "../components/lists/UnitList";
 import TypeList from "../components/lists/TypeList";
 import PropTypes from "prop-types";
-import Tabs from "../../../core/misc/tabs/Tabs";
+import Tabs from "../../../core/navigation/tabs/Tabs";
 import styles from '../styles/Shared.module.css'
 
 export default function Associative() {

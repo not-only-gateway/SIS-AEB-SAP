@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
-import styles from './styles/HeaderTabs.module.css'
-import Switcher from "../switcher/Switcher";
+import styles from './styles/Tabs.module.css'
+import Switcher from "../../misc/switcher/Switcher";
 
 export default function Tabs(props) {
     const [open, setOpen] = useState(0)

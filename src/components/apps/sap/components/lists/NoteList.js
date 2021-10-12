@@ -6,12 +6,12 @@ import NoteForm from "../forms/NoteForm";
 import OperationRequests from "../../utils/requests/OperationRequests";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import {note_query} from "../../queries/workplan";
+import getQuery from "../../queries/getQuery";
 
 export default function NoteList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery(note_query({
+    const hook = useQuery(getQuery('note', {
         operation: props.operation.id
     }))
     

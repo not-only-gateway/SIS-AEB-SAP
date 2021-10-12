@@ -6,12 +6,12 @@ import StatusForm from "../forms/StatusForm";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import {status_query} from "../../queries/workplan";
+import getQuery from "../../queries/getQuery";
 
 export default function StatusList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery(status_query({
+    const hook = useQuery(getQuery('status', {
         work_plan: props.workPlan.id
     }))
 

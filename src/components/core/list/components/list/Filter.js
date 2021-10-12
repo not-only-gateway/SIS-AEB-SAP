@@ -4,6 +4,7 @@ import styles from '../../styles/Filters.module.css'
 import {CheckRounded} from "@material-ui/icons";
 import useFilter from "../../hook/useFilters";
 import React from 'react'
+import keyTemplate from "../../templates/keyTemplate";
 
 
 export default function Filter(props) {
@@ -55,17 +56,7 @@ export default function Filter(props) {
 
 Filter.propTypes = {
     applyFilter: PropTypes.func,
-    keys: PropTypes.arrayOf(PropTypes.shape({
-        key: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-        type: PropTypes.oneOf(['string', 'number', 'object', 'date', 'bool']),
-        getColor: PropTypes.func,
-        subfieldKey: PropTypes.string,
-
-        maskStart: PropTypes.any,
-        maskEnd: PropTypes.any,
-        additionalWidth: PropTypes.string
-    })).isRequired,
+    keys: PropTypes.arrayOf(keyTemplate).isRequired,
 
     selectedField: PropTypes.object,
     setSelectedField: PropTypes.func,

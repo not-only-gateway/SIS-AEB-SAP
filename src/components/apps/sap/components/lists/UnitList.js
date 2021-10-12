@@ -4,11 +4,12 @@ import UnitForm from "../forms/UnitForm";
 import {DeleteRounded} from "@material-ui/icons";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import getQuery from "../../queries/getQuery";
 
 export default function UnitList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery()
+    const hook = useQuery(getQuery('unit'))
 
     return (
         <Switcher openChild={open ? 0 : 1}>

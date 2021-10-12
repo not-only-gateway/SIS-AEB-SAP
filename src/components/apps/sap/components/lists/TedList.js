@@ -6,13 +6,13 @@ import TedRequests from "../../utils/requests/TedRequests";
 import tedKeys from "../../keys/tedKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
 import List from "../../../../core/list/List";
-import {ted_query} from "../../queries/ted";
 import PropTypes from "prop-types";
+import getQuery from "../../queries/getQuery";
 
 export default function TedList(props) {
 
     const [open, setOpen] = useState(false)
-    const hook = useQuery(ted_query())
+    const hook = useQuery(getQuery('ted'))
 
     return (
         <Switcher openChild={open ? 0 : 1}>

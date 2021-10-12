@@ -9,5 +9,8 @@ export default PropTypes.shape({
     visible: PropTypes.bool,
     maskStart: PropTypes.any,
     maskEnd: PropTypes.any,
-    additionalWidth: PropTypes.string
+    additionalWidth: PropTypes.string,
+    subType:  PropTypes.oneOf(['string', 'number', 'object', 'date', 'bool']),
+    query:  PropTypes.object,
+
 })

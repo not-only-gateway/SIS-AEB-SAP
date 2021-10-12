@@ -5,12 +5,13 @@ import ProjectRequests from "../../utils/requests/ProjectRequests";
 import DecentralizedUnitForm from "../forms/DecentralizedUnitForm";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import getQuery from "../../queries/getQuery";
 
 
 export default function DecentralizedUnitList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery()
+    const hook = useQuery(getQuery('decentralized_unit'))
     
     return (
         <Switcher openChild={open ? 0 : 1}>

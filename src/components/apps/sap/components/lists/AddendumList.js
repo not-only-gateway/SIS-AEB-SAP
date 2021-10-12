@@ -3,10 +3,11 @@ import React, {useState} from "react";
 import {DeleteRounded} from "@material-ui/icons";
 import TedRequests from "../../utils/requests/TedRequests";
 import TedForm from "../forms/TedForm";
-import {List, useQuery} from "sis-aeb-core";
+import {useQuery} from "sis-aeb-core";
 import tedKeys from "../../keys/tedKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import getQuery from "../../queries/entities";
+import getQuery from "../../queries/getQuery";
+import List from "../../../../core/list/List";
 
 export default function AddendumList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)

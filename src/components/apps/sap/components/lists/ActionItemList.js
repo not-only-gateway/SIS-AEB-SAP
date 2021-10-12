@@ -7,7 +7,7 @@ import OperationRequests from "../../utils/requests/OperationRequests";
 import {List, useQuery} from "sis-aeb-core";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import getQuery from "../../queries/entities";
+import getQuery from "../../queries/getQuery";
 
 
 export default function ActionItemList(props) {

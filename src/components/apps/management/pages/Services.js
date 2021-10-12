@@ -1,4 +1,4 @@
-import Tabs from "../../../core/misc/tabs/Tabs";
+import Tabs from "../../../core/navigation/tabs/Tabs";
 import styles from '../styles/Shared.module.css'
 import ServiceList from "../components/lists/ServiceList";
 import EndpointList from "../components/lists/EndpointList";

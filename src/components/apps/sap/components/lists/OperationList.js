@@ -7,7 +7,7 @@ import Operation from "../entities/Operation";
 import OperationRequests from "../../utils/requests/OperationRequests";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import {operation_query} from "../../queries/workplan";
+import getQuery from "../../queries/getQuery";
 
 export default function OperationList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -24,7 +24,7 @@ export default function OperationList(props) {
                 return undefined
         }
     }, [])
-    const hook = useQuery(operation_query(relation))
+    const hook = useQuery(getQuery('operation_phase', relation))
 
     return (
         <Switcher openChild={open ? 0 : 1}>

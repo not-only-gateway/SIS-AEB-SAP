@@ -5,11 +5,12 @@ import ProjectRequests from "../../utils/requests/ProjectRequests";
 import TypeForm from "../forms/TypeForm";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import getQuery from "../../queries/getQuery";
 
 export default function TypeList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery()
+    const hook = useQuery(getQuery('type'))
 
     return (
         <Switcher openChild={open ? 0 : 1}>

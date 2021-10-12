@@ -7,11 +7,12 @@ import NatureExpenseForm from "../forms/NatureExpenseForm";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import getQuery from "../../queries/getQuery";
 
 export default function NatureExpenseList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery()
+    const hook = useQuery(getQuery('nature_of_expense'))
     
     return (
         <Switcher openChild={open ? 0 : 1}>

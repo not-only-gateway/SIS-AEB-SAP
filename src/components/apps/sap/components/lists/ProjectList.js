@@ -6,14 +6,14 @@ import {ArrowForwardRounded, DeleteRounded} from "@material-ui/icons";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
 import projectKeys from "../../keys/projectKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import {project_query} from "../../queries/project";
 import List from "../../../../core/list/List";
+import getQuery from "../../queries/getQuery";
 
 export default function ProjectList(props) {
 
     const [open, setOpen] = useState(false)
 
-    const hook = useQuery(project_query())
+    const hook = useQuery(getQuery('project'))
 
     return (
         <Switcher openChild={open ? 0 : 1}>

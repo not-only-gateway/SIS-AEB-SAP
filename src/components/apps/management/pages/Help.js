@@ -1,4 +1,4 @@
-import Tabs from "../../../core/misc/tabs/Tabs";
+import Tabs from "../../../core/navigation/tabs/Tabs";
 import styles from '../styles/Shared.module.css'
 import HelpServices from "../components/misc/HelpServices";
 

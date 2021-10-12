@@ -3,7 +3,7 @@ import {DeleteRounded} from "@material-ui/icons";
 import BudgetPlanForm from "../forms/BudgetPlanForm";
 import {List, useQuery} from "sis-aeb-core";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
-import getQuery from "../../queries/entities";
+import getQuery from "../../queries/getQuery";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
 

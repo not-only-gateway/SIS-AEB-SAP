@@ -199,86 +199,86 @@ export default function TedForm(props) {
                         </FormRow>
 
                         <FormRow>
-                            <Selector
-                                getEntityKey={entity => {
-                                    if (entity !== null && entity !== undefined)
-                                        return entity.id
-                                    else return -1
-                                }} searchFieldName={'search_input'}
-                                handleChange={entity => {
-                                    handleChange({key: 'responsible', event: entity})
-                                }} label={'Vincular responsável'}
-                                selected={data === null || !data.responsible ? null : data.responsible}
-                                disabled={false}
-                                width={'calc(33.333% - 21.5px)'}
-                                fields={[
-                                    {key: 'name', type: 'string'},
-                                    {key: 'acronym', type: 'string'},
-                                ]} required={true}
-                                labels={['nome', 'Acrônimo']}
-                                fetchUrl={Host() + 'list/unit'}
-                                fetchToken={(new Cookies()).get('jwt')}
-                                createOption={true}
-                                returnToList={!open}
-                                setReturnToList={() => setOpen(true)}
-                            >
-                                <UnitForm create={true} returnToMain={() => setOpen(false)}/>
-                            </Selector>
-                            <Selector
-                                getEntityKey={entity => {
-                                    if (entity !== null && entity !== undefined)
-                                        return entity.id
-                                    else return -1
-                                }} searchFieldName={'search_input'}
-                                handleChange={entity => {
-                                    handleChange({key: 'decentralized_unit', event: entity})
-                                }} label={'Vincular unidade descentralizada'}
-                                selected={data === null || !data.decentralized_unit ? null : data.decentralized_unit}
-                                disabled={false}
-                                width={'calc(33.333% - 21.5px)'}
-                                fields={[
-                                    {key: 'name', type: 'string'},
-                                    {key: 'responsible', type: 'string'},
-                                ]}
-                                labels={['nome', 'responsável']}
-                                fetchUrl={Host() + 'list/decentralized_unit'}
-                                fetchToken={(new Cookies()).get('jwt')}
-                                createOption={true}
-                                returnToList={!open}
-                                setReturnToList={() => setOpen(true)}
-                            >
-                                <DecentralizedUnitForm create={true} returnToMain={() => setOpen(false)}/>
-                            </Selector>
+                            {/*<Selector*/}
+                            {/*    getEntityKey={entity => {*/}
+                            {/*        if (entity !== null && entity !== undefined)*/}
+                            {/*            return entity.id*/}
+                            {/*        else return -1*/}
+                            {/*    }} searchFieldName={'search_input'}*/}
+                            {/*    handleChange={entity => {*/}
+                            {/*        handleChange({key: 'responsible', event: entity})*/}
+                            {/*    }} label={'Vincular responsável'}*/}
+                            {/*    selected={data === null || !data.responsible ? null : data.responsible}*/}
+                            {/*    disabled={false}*/}
+                            {/*    width={'calc(33.333% - 21.5px)'}*/}
+                            {/*    fields={[*/}
+                            {/*        {key: 'name', type: 'string'},*/}
+                            {/*        {key: 'acronym', type: 'string'},*/}
+                            {/*    ]} required={true}*/}
+                            {/*    labels={['nome', 'Acrônimo']}*/}
+                            {/*    fetchUrl={Host() + 'list/unit'}*/}
+                            {/*    fetchToken={(new Cookies()).get('jwt')}*/}
+                            {/*    createOption={true}*/}
+                            {/*    returnToList={!open}*/}
+                            {/*    setReturnToList={() => setOpen(true)}*/}
+                            {/*>*/}
+                            {/*    <UnitForm create={true} returnToMain={() => setOpen(false)}/>*/}
+                            {/*</Selector>*/}
+                            {/*<Selector*/}
+                            {/*    getEntityKey={entity => {*/}
+                            {/*        if (entity !== null && entity !== undefined)*/}
+                            {/*            return entity.id*/}
+                            {/*        else return -1*/}
+                            {/*    }} searchFieldName={'search_input'}*/}
+                            {/*    handleChange={entity => {*/}
+                            {/*        handleChange({key: 'decentralized_unit', event: entity})*/}
+                            {/*    }} label={'Vincular unidade descentralizada'}*/}
+                            {/*    selected={data === null || !data.decentralized_unit ? null : data.decentralized_unit}*/}
+                            {/*    disabled={false}*/}
+                            {/*    width={'calc(33.333% - 21.5px)'}*/}
+                            {/*    fields={[*/}
+                            {/*        {key: 'name', type: 'string'},*/}
+                            {/*        {key: 'responsible', type: 'string'},*/}
+                            {/*    ]}*/}
+                            {/*    labels={['nome', 'responsável']}*/}
+                            {/*    fetchUrl={Host() + 'list/decentralized_unit'}*/}
+                            {/*    fetchToken={(new Cookies()).get('jwt')}*/}
+                            {/*    createOption={true}*/}
+                            {/*    returnToList={!open}*/}
+                            {/*    setReturnToList={() => setOpen(true)}*/}
+                            {/*>*/}
+                            {/*    <DecentralizedUnitForm create={true} returnToMain={() => setOpen(false)}/>*/}
+                            {/*</Selector>*/}
 
 
-                            <Selector
-                                getEntityKey={entity => {
-                                    if (entity !== null && entity !== undefined)
-                                        return entity.id
-                                    else return -1
-                                }} searchFieldName={'search_input'}
-                                handleChange={entity => {
-                                    handleChange({key: 'action', event: entity})
-                                }} label={'Vincular ação'}
-                                setChanged={() => null}
-                                selected={data === null || !data.action ? null : data.action}
-                                required={true}
-                                handleCreate={() => setOpen(true)}
-                                width={'calc(33.333% - 21.5px)'}
-                                fields={[
-                                    {key: 'number', type: 'string'},
-                                    {key: 'detailing', type: 'string'},
-                                ]}
-                                labels={['número', 'detalhamento']}
-                                fetchUrl={Host() + 'list/action'}
+                            {/*<Selector*/}
+                            {/*    getEntityKey={entity => {*/}
+                            {/*        if (entity !== null && entity !== undefined)*/}
+                            {/*            return entity.id*/}
+                            {/*        else return -1*/}
+                            {/*    }} searchFieldName={'search_input'}*/}
+                            {/*    handleChange={entity => {*/}
+                            {/*        handleChange({key: 'action', event: entity})*/}
+                            {/*    }} label={'Vincular ação'}*/}
+                            {/*    setChanged={() => null}*/}
+                            {/*    selected={data === null || !data.action ? null : data.action}*/}
+                            {/*    required={true}*/}
+                            {/*    handleCreate={() => setOpen(true)}*/}
+                            {/*    width={'calc(33.333% - 21.5px)'}*/}
+                            {/*    fields={[*/}
+                            {/*        {key: 'number', type: 'string'},*/}
+                            {/*        {key: 'detailing', type: 'string'},*/}
+                            {/*    ]}*/}
+                            {/*    labels={['número', 'detalhamento']}*/}
+                            {/*    fetchUrl={Host() + 'list/action'}*/}
 
-                                fetchToken={(new Cookies()).get('jwt')}
-                                createOption={true}
-                                returnToList={!open}
-                                setReturnToList={() => setOpen(true)}
-                            >
-                                <ActionForm create={true} returnToMain={() => setOpen(false)}/>
-                            </Selector>
+                            {/*    fetchToken={(new Cookies()).get('jwt')}*/}
+                            {/*    createOption={true}*/}
+                            {/*    returnToList={!open}*/}
+                            {/*    setReturnToList={() => setOpen(true)}*/}
+                            {/*>*/}
+                            {/*    <ActionForm create={true} returnToMain={() => setOpen(false)}/>*/}
+                            {/*</Selector>*/}
                         </FormRow>
                         <FormRow>
                             <TextField

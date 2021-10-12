@@ -6,7 +6,7 @@ import Infrastructure from "../entities/Infrastructure";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import getQuery from "../../queries/entities";
+import getQuery from "../../queries/getQuery";
 
 export default function InfrastructureList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)

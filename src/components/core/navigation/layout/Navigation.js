@@ -10,7 +10,7 @@ import ThemeProvider from "../../theme/ThemeProvider";
 import ThemeContext from "../../theme/ThemeContext";
 
 
-export default function LayoutWrapper(props) {
+export default function Navigation(props) {
     const [openSideBar, setOpenSideBar] = useState(false)
     const [onDark, setOnDark] = useState(false)
     const context = useContext(ThemeContext)
@@ -78,7 +78,7 @@ export default function LayoutWrapper(props) {
 
 }
 
-LayoutWrapper.propTypes = {
+Navigation.propTypes = {
     redirectToLogin: PropTypes.func,
     children: PropTypes.element,
     appName: PropTypes.string,

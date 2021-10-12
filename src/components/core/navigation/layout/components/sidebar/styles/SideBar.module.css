@@ -12,7 +12,7 @@
     height: 100%;
     display: grid;
     align-content: flex-start;
-    padding: 4px;
+
     gap: 8px;
 }
 

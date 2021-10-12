@@ -19,7 +19,7 @@ export default function SideBar(props) {
         <div
             className={styles.wrapper} style={{width: !props.open ? '60px' : '225px'}}
         >
-            <div className={styles.buttons}>
+            <div className={styles.buttons} style={{padding: props.open ? ' 4px 8px' : '4px'}}>
                 {props.buttons?.filter(e => e.position !== 'bottom').map((button, index) => (
                     <React.Fragment key={'side-bar-button-' + index}>
                         <button

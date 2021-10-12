@@ -69,6 +69,11 @@
     background: var(--background-3);
     opacity: .7;
 }
+.cellHeader:disabled{
+    background: transparent;
+    opacity: .7;
+    cursor: unset;
+}
 .hideButton {
     background-color: white;
     border: transparent 1px solid;

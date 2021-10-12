@@ -6,6 +6,7 @@ import ToolTip from "../../../misc/tooltip/ToolTip";
 import {AddRounded, CloseRounded, FilterListRounded, SettingsRounded} from "@material-ui/icons";
 import Dropdown from "./Dropdown";
 import useHeader from "../../hook/useHeader";
+import keyTemplate from "../../templates/keyTemplate";
 
 export default function ListHeader(props) {
     const {getType, parseDate, open, setOpen, selectedField, setSelectedField, getField, getHiddenField} = useHeader(props.dispatch, props.actions)
@@ -108,17 +109,7 @@ ListHeader.propTypes = {
     filters: PropTypes.array,
 
     cleanState: PropTypes.func,
-    keys: PropTypes.arrayOf(PropTypes.shape({
-        key: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-        type: PropTypes.oneOf(['string', 'number', 'object', 'date', 'bool']),
-        getColor: PropTypes.func,
-        subfieldKey: PropTypes.string,
-
-        maskStart: PropTypes.any,
-        maskEnd: PropTypes.any,
-        additionalWidth: PropTypes.string
-    })).isRequired,
+    keys: PropTypes.arrayOf(keyTemplate).isRequired,
 
     setOpenSettings: PropTypes.func,
 

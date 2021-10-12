@@ -6,7 +6,7 @@ import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import FinancialDisbursementForm from "../forms/FinancialDisbursementForm";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import getQuery from "../../queries/entities";
+import getQuery from "../../queries/getQuery";
 
 
 export default function FinancialDisbursementList(props) {
@@ -31,7 +31,7 @@ export default function FinancialDisbursementList(props) {
 
                 <List
                     createOption={true}
-                    onCreate={() => setOpen(true)}
+                    onCreate={() => setOpen(true)} onRowClick={e => setCurrentEntity(e)}
                     controlButtons={[{
                         label: 'Deletar',
                         icon: <DeleteRounded/>,

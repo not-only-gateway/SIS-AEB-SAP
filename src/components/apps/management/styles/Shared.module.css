@@ -3,6 +3,7 @@
     font-size: 1.3rem;
     font-weight: 600;
     padding: 0 10%;
+    background: var(--background-1);
 }
 
 .contentWrapper{

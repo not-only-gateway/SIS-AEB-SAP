@@ -7,13 +7,13 @@ import {List, useQuery} from "sis-aeb-core";
 import PermanentGoodsForm from "../forms/PermanentGoodsForm";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import {permanent_goods_query} from "../../queries/workplan";
+import getQuery from "../../queries/getQuery";
 
 
 export default function PermanentGoodsList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery(permanent_goods_query({
+    const hook = useQuery(getQuery('permanent_goods', {
         operation: props.operation.id
     }))
     
