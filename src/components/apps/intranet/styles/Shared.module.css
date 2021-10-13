@@ -1,0 +1,43 @@
+.header{
+    color: var(--color-1);
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: 0 10%;
+
+    background: var(--background-1);
+}
+
+.contentWrapper{
+    padding: 0 10%;
+    width: 100%;
+}
+
+.button{
+    outline: none;
+    background: none;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    font-family: Roboto;
+    color: var(--color-1);
+
+    cursor: pointer;
+
+    transition: 150ms linear;
+}
+
+.button:hover{
+    text-decoration: underline;
+}
+.button:active{
+    text-decoration: underline;
+    background: var(--background-3);
+    color: #0095ff;
+}
+
+.button:disabled{
+    cursor: unset;
+    background: none;
+    color: var(--color-1);
+    text-decoration: none;
+}
