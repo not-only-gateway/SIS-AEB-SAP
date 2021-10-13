@@ -6,6 +6,8 @@ import EndpointForm from "../forms/EndpointForm";
 import Switcher from "../../../../core/misc/switcher/Switcher";
 import PropTypes from 'prop-types'
 import {endpointKeys} from "../../keys/keys";
+import {DeleteRounded} from "@material-ui/icons";
+import deleteEntry from "../../utils/delete";
 
 export default function EndpointList(props) {
     const hook = useQuery(endpoint_query(props.service))
@@ -24,6 +26,15 @@ export default function EndpointList(props) {
             <List
                 keys={endpointKeys}
                 hook={hook} createOption={true}
+                controlButtons={[
+                    {
+                        label: 'Deletar',
+                        icon: <DeleteRounded/>,
+                        onClick: data => {
+                            // deleteEntry({pk: data.url, path: 'endpoint'})
+                        }
+                    }
+                ]}
                 onRowClick={row => props.redirect('/management/?page=endpoint&id=' + row.url, '/management/?page=endpoint&id=' + row.url, {})}
                 onCreate={() => setOpenEntity({})}
                 title={'Endpoints registrados'}

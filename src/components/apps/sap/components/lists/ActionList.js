@@ -15,9 +15,6 @@ export default function ActionList(props) {
     
     return (
         <Switcher openChild={open ? 0 : 1}>
-
-            
-
                 <ActionForm
                     returnToMain={() => {
                         setOpen(false)

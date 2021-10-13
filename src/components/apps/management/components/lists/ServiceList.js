@@ -7,6 +7,7 @@ import Switcher from "../../../../core/misc/switcher/Switcher";
 import PropTypes from "prop-types";
 import {serviceKeys} from "../../keys/keys";
 import {DeleteRounded} from "@material-ui/icons";
+import deleteEntry from "../../utils/delete";
 
 export default function ServiceList(props) {
     const hook = useQuery(service_query)
@@ -26,7 +27,15 @@ export default function ServiceList(props) {
             <List
                 createOption={true}
                 keys={serviceKeys}
-                controlButtons={[{label: 'Deletar', icon: <DeleteRounded/>, onClick: data => null}]}
+                controlButtons={[
+                    {
+                        label: 'Deletar',
+                        icon: <DeleteRounded/>,
+                        onClick: data => {
+                            deleteEntry({pk: data.id, path: 'service'}).then(() => hook.clean())
+                        }
+                    }
+                ]}
                 hook={hook} onCreate={() => setOpenEntity({})}
                 onRowClick={row => props.redirect('/management/?page=service&id=' + row.id, '/management/?page=service&id=' + row.id, {})}
                 title={'Serviços registrados'}

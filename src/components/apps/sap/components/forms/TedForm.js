@@ -2,18 +2,23 @@ import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import TedPT from "../../locales/TedPT";
 import TedRequests from "../../utils/requests/TedRequests";
-import {DateField, DropDownField, Form, FormRow, Selector, TextField} from "sis-aeb-core";
+import {DateField, DropDownField, Form, FormRow, Selector, TextField, useQuery} from "sis-aeb-core";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import ActionForm from "./ActionForm";
 import UnitForm from "./UnitForm";
 import DecentralizedUnitForm from "./DecentralizedUnitForm";
+import associativeKeys from "../../keys/associativeKeys";
+import getQuery from "../../queries/getQuery";
 
 
 export default function TedForm(props) {
     const lang = TedPT
 
-    const [open, setOpen] = useState(false)
+    const actionHook = useQuery(getQuery('action'))
+    const unitHook = useQuery(getQuery('unit'))
+    const decentralizedUnitHook = useQuery(getQuery('decentralized_unit'))
+
     const [initialData, setInitialData] = useState(props.data)
 
     useEffect(() => {
@@ -199,86 +204,36 @@ export default function TedForm(props) {
                         </FormRow>
 
                         <FormRow>
-                            {/*<Selector*/}
-                            {/*    getEntityKey={entity => {*/}
-                            {/*        if (entity !== null && entity !== undefined)*/}
-                            {/*            return entity.id*/}
-                            {/*        else return -1*/}
-                            {/*    }} searchFieldName={'search_input'}*/}
-                            {/*    handleChange={entity => {*/}
-                            {/*        handleChange({key: 'responsible', event: entity})*/}
-                            {/*    }} label={'Vincular responsável'}*/}
-                            {/*    selected={data === null || !data.responsible ? null : data.responsible}*/}
-                            {/*    disabled={false}*/}
-                            {/*    width={'calc(33.333% - 21.5px)'}*/}
-                            {/*    fields={[*/}
-                            {/*        {key: 'name', type: 'string'},*/}
-                            {/*        {key: 'acronym', type: 'string'},*/}
-                            {/*    ]} required={true}*/}
-                            {/*    labels={['nome', 'Acrônimo']}*/}
-                            {/*    fetchUrl={Host() + 'list/unit'}*/}
-                            {/*    fetchToken={(new Cookies()).get('jwt')}*/}
-                            {/*    createOption={true}*/}
-                            {/*    returnToList={!open}*/}
-                            {/*    setReturnToList={() => setOpen(true)}*/}
-                            {/*>*/}
-                            {/*    <UnitForm create={true} returnToMain={() => setOpen(false)}/>*/}
-                            {/*</Selector>*/}
-                            {/*<Selector*/}
-                            {/*    getEntityKey={entity => {*/}
-                            {/*        if (entity !== null && entity !== undefined)*/}
-                            {/*            return entity.id*/}
-                            {/*        else return -1*/}
-                            {/*    }} searchFieldName={'search_input'}*/}
-                            {/*    handleChange={entity => {*/}
-                            {/*        handleChange({key: 'decentralized_unit', event: entity})*/}
-                            {/*    }} label={'Vincular unidade descentralizada'}*/}
-                            {/*    selected={data === null || !data.decentralized_unit ? null : data.decentralized_unit}*/}
-                            {/*    disabled={false}*/}
-                            {/*    width={'calc(33.333% - 21.5px)'}*/}
-                            {/*    fields={[*/}
-                            {/*        {key: 'name', type: 'string'},*/}
-                            {/*        {key: 'responsible', type: 'string'},*/}
-                            {/*    ]}*/}
-                            {/*    labels={['nome', 'responsável']}*/}
-                            {/*    fetchUrl={Host() + 'list/decentralized_unit'}*/}
-                            {/*    fetchToken={(new Cookies()).get('jwt')}*/}
-                            {/*    createOption={true}*/}
-                            {/*    returnToList={!open}*/}
-                            {/*    setReturnToList={() => setOpen(true)}*/}
-                            {/*>*/}
-                            {/*    <DecentralizedUnitForm create={true} returnToMain={() => setOpen(false)}/>*/}
-                            {/*</Selector>*/}
 
 
-                            {/*<Selector*/}
-                            {/*    getEntityKey={entity => {*/}
-                            {/*        if (entity !== null && entity !== undefined)*/}
-                            {/*            return entity.id*/}
-                            {/*        else return -1*/}
-                            {/*    }} searchFieldName={'search_input'}*/}
-                            {/*    handleChange={entity => {*/}
-                            {/*        handleChange({key: 'action', event: entity})*/}
-                            {/*    }} label={'Vincular ação'}*/}
-                            {/*    setChanged={() => null}*/}
-                            {/*    selected={data === null || !data.action ? null : data.action}*/}
-                            {/*    required={true}*/}
-                            {/*    handleCreate={() => setOpen(true)}*/}
-                            {/*    width={'calc(33.333% - 21.5px)'}*/}
-                            {/*    fields={[*/}
-                            {/*        {key: 'number', type: 'string'},*/}
-                            {/*        {key: 'detailing', type: 'string'},*/}
-                            {/*    ]}*/}
-                            {/*    labels={['número', 'detalhamento']}*/}
-                            {/*    fetchUrl={Host() + 'list/action'}*/}
+                            <Selector
+                                hook={unitHook} keys={associativeKeys.responsible}
+                                width={'calc(33.333% - 21.5px)'}
+                                required={true}
+                                value={data.responsible}
+                                title={'Responsável'}
+                                placeholder={'Responsável'}
+                                handleChange={entity => handleChange({key: 'responsible', event: entity})}
+                            />
+                            <Selector
+                                hook={decentralizedUnitHook} keys={associativeKeys.decentralizedUnit}
+                                width={'calc(33.333% - 21.5px)'}
+                                required={true}
+                                value={data.decentralized_unit}
+                                title={'Unidade descentralizada'}
+                                placeholder={'Unidade descentralizada'}
+                                handleChange={entity => handleChange({key: 'decentralized_unit', event: entity})}
+                            />
+                            <Selector
+                                hook={actionHook} keys={associativeKeys.action}
+                                width={'calc(33.333% - 21.5px)'}
+                                required={true}
+                                value={data.action}
+                                title={'Ação'}
+                                placeholder={'Ação'}
+                                handleChange={entity => handleChange({key: 'action', event: entity})}
+                            />
 
-                            {/*    fetchToken={(new Cookies()).get('jwt')}*/}
-                            {/*    createOption={true}*/}
-                            {/*    returnToList={!open}*/}
-                            {/*    setReturnToList={() => setOpen(true)}*/}
-                            {/*>*/}
-                            {/*    <ActionForm create={true} returnToMain={() => setOpen(false)}/>*/}
-                            {/*</Selector>*/}
                         </FormRow>
                         <FormRow>
                             <TextField

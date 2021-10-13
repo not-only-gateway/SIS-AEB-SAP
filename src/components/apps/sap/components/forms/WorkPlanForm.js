@@ -7,16 +7,22 @@ import BudgetPlanForm from "./BudgetPlanForm";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import UnitForm from "./UnitForm";
 import InfrastructureForm from "./InfrastructureForm";
-import {DropDownField, Form, FormRow, MultiSelectField, Selector, TextField} from "sis-aeb-core";
+import {DropDownField, Form, FormRow, MultiSelectField, TextField, useQuery} from "sis-aeb-core";
+import associativeKeys from "../../keys/associativeKeys";
+import getQuery from "../../queries/getQuery";
+import Selector from "../../../../core/inputs/selector/Selector";
 
 
 export default function WorkPlanForm(props) {
     const lang = WorkPlanPT
-    const [open, setOpen] = useState(false)
     const [initialData, setInitialData] = useState(props.data)
+    const unitHook = useQuery(getQuery('unit'))
+    const budgetPlanHook = useQuery(getQuery('budget_plan'))
+    const infrastructureHook = useQuery(getQuery('infrastructure'))
+
     useEffect(() => {
         if (props.create) {
-            if (!props.asApostille) {
+            if (!props.asApostille && props.ted && props.project) {
                 setInitialData({
                     ...props.data,
                     ...{
@@ -33,6 +39,8 @@ export default function WorkPlanForm(props) {
                 })
         }
     }, [props.data])
+
+
     return (
         <div style={{width: '100%'}}>
             <Form
@@ -86,30 +94,14 @@ export default function WorkPlanForm(props) {
                         <FormRow>
 
                             <Selector
-                                getEntityKey={entity => {
-                                    if (entity !== null && entity !== undefined)
-                                        return entity.id
-                                    else return -1
-                                }} searchFieldName={'search_input'}
-                                handleChange={entity => {
-                                    handleChange({key: 'responsible', event: entity})
-                                }} label={'Vincular responsável'}
-                                selected={data === null || !data.responsible ? null : data.responsible}
-                                disabled={false}
+                                hook={unitHook} keys={associativeKeys.responsible}
                                 width={'calc(50% - 16px)'}
-                                fields={[
-                                    {key: 'name', type: 'string'},
-                                    {key: 'acronym', type: 'string'},
-                                ]} required={true}
-                                labels={['nome', 'Acrônimo']}
-                                fetchUrl={Host() + 'list/unit'}
-                                fetchToken={(new Cookies()).get('jwt')}
-                                createOption={true}
-                                returnToList={!open}
-                                setReturnToList={() => setOpen(true)}
-                            >
-                                <UnitForm create={true} returnToMain={() => setOpen(false)}/>
-                            </Selector>
+                                required={true}
+                                value={data.responsible}
+                                title={'Responsável'}
+                                placeholder={'Responsável'}
+                                handleChange={entity => handleChange({key: 'responsible', event: entity})}
+                            />
 
                             <DropDownField
                                 dark={true}
@@ -118,7 +110,7 @@ export default function WorkPlanForm(props) {
                                 handleChange={event => {
 
                                     handleChange({key: 'apostille', event: event})
-                                }} value={ data.apostille} required={false}
+                                }} value={data.apostille} required={false}
                                 width={'calc(50% - 16px)'} choices={lang.apostilleOptions}/>
 
                             <TextField
@@ -127,7 +119,7 @@ export default function WorkPlanForm(props) {
                                 handleChange={event => {
 
                                     handleChange({key: 'object', event: event.target.value})
-                                }} value={ data.object}
+                                }} value={data.object}
                                 required={true} variant={'area'}
                                 width={'100%'}/>
                             <DropDownField
@@ -137,9 +129,9 @@ export default function WorkPlanForm(props) {
                                 handleChange={event => {
 
                                     handleChange({key: 'sub_decentralization', event: event})
-                                }} value={ data.sub_decentralization}
+                                }} value={data.sub_decentralization}
                                 required={true}
-                                width={'calc(25% - 24px)'} choices={lang.baseOptions}/>
+                                width={'calc(33.333% - 21.5px)'} choices={lang.baseOptions}/>
 
                             <DropDownField
                                 placeholder={lang.indirectCosts}
@@ -147,33 +139,18 @@ export default function WorkPlanForm(props) {
                                 handleChange={event => {
 
                                     handleChange({key: 'indirect_costs', event: event})
-                                }} value={ data.indirect_costs} required={true}
-                                width={'calc(25% - 24px)'} choices={lang.baseOptions}/>
+                                }} value={data.indirect_costs} required={true}
+                                width={'calc(33.333% - 21.5px)'} choices={lang.baseOptions}/>
                             <Selector
-                                getEntityKey={entity => {
-                                    if (entity !== null && entity !== undefined)
-                                        return entity.id
-                                    else return -1
-                                }}
-                                searchFieldName={'search_input'}
-                                handleChange={entity => {
-                                    handleChange({key: 'infrastructure', event: entity})
-                                }} label={'Vincular infraestrutura'}
-                                selected={ data.infrastructure}
-                                width={'calc(50% - 16px)'}
-                                fields={[
-                                    {key: 'name', type: 'string'},
-                                    {key: 'type', type: 'string'}
-                                ]} required={false}
-                                labels={['Nome', 'tipo']}
-                                fetchUrl={Host() + 'list/infrastructure'}
-                                fetchToken={(new Cookies()).get('jwt')}
-                                createOption={true}
-                                returnToList={!open}
-                                setReturnToList={() => setOpen(true)}
-                            >
-                                <InfrastructureForm create={true} returnToMain={() => setOpen(false)}/>
-                            </Selector>
+                                hook={infrastructureHook} keys={associativeKeys.infrastructure}
+                                width={'calc(33.333% - 21.5px)'}
+                                required={true}
+                                value={data.infrastructure}
+                                title={'Infraestrutura'}
+                                placeholder={'Infraestrutura'}
+                                handleChange={entity => handleChange({key: 'infrastructure', event: entity})}
+                            />
+
 
                             <TextField
 
@@ -181,7 +158,7 @@ export default function WorkPlanForm(props) {
                                 handleChange={event => {
 
                                     handleChange({key: 'justification', event: event.target.value})
-                                }}                                 value={ data.justification}
+                                }} value={data.justification}
                                 required={true} variant={'area'}
                                 width={'100%'}/>
 
@@ -195,7 +172,7 @@ export default function WorkPlanForm(props) {
                                         key: 'detailing_of_indirect_costs',
                                         event: event.target.value
                                     })
-                                }}                                 value={ data.detailing_of_indirect_costs}
+                                }} value={data.detailing_of_indirect_costs}
                                 required={true} variant={'area'}
                                 width={'100%'}/>
 
@@ -205,42 +182,21 @@ export default function WorkPlanForm(props) {
                                 handleChange={event => {
 
                                     handleChange({key: 'ways_of_execution', event: event})
-                                }} value={ data.ways_of_execution}
+                                }} value={data.ways_of_execution}
                                 required={false}
                                 width={'calc(50% - 16px)'}
                                 choices={lang.waysOptions}
                             />
-                            <Selector
-                                getEntityKey={entity => {
-                                    if (entity !== null && entity !== undefined)
-                                        return entity.id
-                                    else return -1
-                                }} searchFieldName={'search_input'}
-                                handleChange={entity => {
-                                    handleChange({key: 'budget_plan', event: entity})
-                                }} label={'Vincular plano orçamentário'}
-                                setChanged={() => null}
-                                selected={ data.budget_plan}
-                                disabled={false}
-                                handleCreate={() => setOpen(true)}
-                                width={'calc(50% - 16px)'}
-                                fields={[
-                                    {key: 'number', type: 'string'},
-                                    {key: 'detailing', type: 'string'}
-                                ]} required={true}
-                                fetchParams={{
-                                    action: props.ted.action !== undefined && props.ted.action !== null ? props.ted.action.id : null
-                                }}
-                                labels={['número', 'detalhamento']}
-                                fetchUrl={Host() + 'list/budget_plan'}
 
-                                fetchToken={(new Cookies()).get('jwt')}
-                                createOption={true}
-                                returnToList={!open}
-                                setReturnToList={() => setOpen(true)}
-                            >
-                                <BudgetPlanForm create={true} returnToMain={() => setOpen(false)}/>
-                            </Selector>
+                            <Selector
+                                hook={budgetPlanHook} keys={associativeKeys.budgetPlan}
+                                width={'calc(50% - 16px)'}
+                                required={true}
+                                value={data.budget_plan}
+                                title={'Plano orçamentário'}
+                                placeholder={'Plano orçamentário'}
+                                handleChange={entity => handleChange({key: 'budget_plan', event: entity})}
+                            />
 
                         </FormRow>
 
@@ -254,7 +210,7 @@ export default function WorkPlanForm(props) {
                                         key: 'responsible_execution',
                                         event: event.target.value
                                     })
-                                }}                                 value={ data.responsible_execution}
+                                }} value={data.responsible_execution}
                                 required={true}
                                 width={'calc(50% - 16px)'}/>
                             <TextField
@@ -262,7 +218,7 @@ export default function WorkPlanForm(props) {
                                 handleChange={event => {
 
                                     handleChange({key: 'func', event: event.target.value})
-                                }} value={ data.func}
+                                }} value={data.func}
                                 required={true}
                                 width={'calc(50% - 16px)'}/>
                             <TextField
@@ -270,7 +226,7 @@ export default function WorkPlanForm(props) {
                                 handleChange={event => {
 
                                     handleChange({key: 'email', event: event.target.value})
-                                }} value={ data.email}
+                                }} value={data.email}
                                 required={true}
                                 width={'calc(50% - 16px)'}/>
                             <TextField
@@ -278,7 +234,7 @@ export default function WorkPlanForm(props) {
                                 handleChange={event => {
 
                                     handleChange({key: 'phone', event: event.target.value})
-                                }} value={ data.phone}
+                                }} value={data.phone}
                                 required={true} phoneMask={true}
                                 width={'calc(50% - 16px)'}/>
 

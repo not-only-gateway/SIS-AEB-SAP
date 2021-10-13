@@ -24,11 +24,10 @@ export default function ServiceForm(props) {
                         host: data.protocol + data.host.replace('_', '') + ':' + data.port
                     }
                 }).then((res) => {
-                    if(res !== null && !data.id) {
+                    if (res !== null && props.initialData?.id === undefined) {
                         props.redirect(res)
                         clearState()
-                    }
-                    else {
+                    } else if (res !== null) {
                         props.updateData(data)
                     }
                 })

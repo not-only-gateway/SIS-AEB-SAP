@@ -1,11 +1,15 @@
 import React, {useEffect, useState} from "react";
-import {DateField, Form, FormRow, Selector, TextField} from "sis-aeb-core";
+import {DateField, FormRow, TextField, useQuery} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import OperationPT from "../../locales/OperationPT";
 import OperationRequests from "../../utils/requests/OperationRequests";
 
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
+import associativeKeys from "../../keys/associativeKeys";
+import getQuery from "../../queries/getQuery";
+import Selector from "../../../../core/inputs/selector/Selector";
+import Form from "../../../../core/inputs/form/Form";
 
 
 export default function OperationForm(props) {
@@ -20,7 +24,7 @@ export default function OperationForm(props) {
             }
         })
     }, [])
-
+    const activityHook = useQuery(getQuery('work_plan_activity'))
     return (
         <>
 
@@ -50,7 +54,7 @@ export default function OperationForm(props) {
                         data: data,
                         create: props.create
                     }).then(res => {
-                        if (props.create && res){
+                        if (props.create && res) {
                             props.returnToMain()
                             clearState()
                         }
@@ -68,9 +72,9 @@ export default function OperationForm(props) {
                                 handleChange={event => {
 
                                     handleChange({key: 'phase', event: event.target.value})
-                                }}  value={ data.phase}
+                                }} value={data.phase}
                                 required={true}
-                                width={props.stage !== null && props.stage !== undefined ? 'calc(25% - 14px)' : 'calc(33.333% - 21.5px)'}/>
+                                width={'calc(33.333% - 21.5px)'}/>
 
 
                             <TextField
@@ -78,37 +82,19 @@ export default function OperationForm(props) {
                                 handleChange={event => {
 
                                     handleChange({key: 'detailing', event: event.target.value})
-                                }}  value={ data.detailing}
+                                }} value={data.detailing}
                                 required={true}
-                                width={props.stage !== null && props.stage !== undefined ? 'calc(75% - 18px)' : 'calc(33.333% - 21.5px)'}/>
-                            {props.stage !== null && props.stage !== undefined ?
-                                null
-                                :
-                                <Selector
-                                    getEntityKey={entity => {
-                                        if (entity !== null && entity !== undefined)
-                                            return entity.id
-                                        else return -1
-                                    }} searchFieldName={'search_input'}
-                                    handleChange={entity => {
-                                        handleChange({key: 'activity_stage', event: entity})
-                                    }} label={'Vincular atividade'}
-                                    setChanged={() => null}
-                                    selected={props.data === null || !data.activity_stage ? null : data.activity_stage}
-                                    disabled={false}
-                                    width={'calc(33.333% - 21.5px)'}
-                                    fields={[
-                                        {key: 'stage', type: 'string'},
-                                        {key: 'description', type: 'string'},
-                                    ]} required={true}
-                                    labels={['etapa', 'descrição']}
-                                    fetchUrl={Host() + 'list/work_plan_activity'}
-                                    fetchParams={{
-                                        work_plan: props.workPlan?.id
-                                    }}
-                                    fetchToken={(new Cookies()).get('jwt')}
-                                />
-                            }
+                                width={'calc(33.333% - 21.5px)'}/>
+
+                            <Selector
+                                hook={activityHook} keys={associativeKeys.action}
+                                width={'calc(33.333% - 21.5px)'}
+                                required={true}
+                                value={data.activity_stage}
+                                title={'Atividade'}
+                                placeholder={'Atividade'}
+                                handleChange={entity => handleChange({key: 'activity_stage', event: entity})}
+                            />
                         </FormRow>
 
                         <FormRow>
@@ -119,7 +105,7 @@ export default function OperationForm(props) {
 
                                     handleChange({key: 'version', event: event.target.value})
                                 }}
-                                value={ data.version}
+                                value={data.version}
                                 required={true}
                                 width={'calc(33.333% - 21.5px)'}/>
                             <TextField
@@ -127,8 +113,8 @@ export default function OperationForm(props) {
                                 handleChange={event => {
 
                                     handleChange({key: 'stage_representation', event: event.target.value})
-                                }}  currencyMask={true}
-                                value={ data.stage_representation}
+                                }} currencyMask={true}
+                                value={data.stage_representation}
                                 required={true} type={'number'}
                                 width={'calc(33.333% - 21.5px)'}/>
 
@@ -139,8 +125,8 @@ export default function OperationForm(props) {
 
                                     handleChange({key: 'indicator_planned', event: event.target.value})
                                 }}
-                                value={ data.indicator_planned}
-                                required={true}
+                                value={data.indicator_planned}
+                                required={true}  maskEnd={'%'}
                                 width={'calc(33.333% - 21.5px)'}/>
                             <TextField
                                 type={'number'}
@@ -149,8 +135,8 @@ export default function OperationForm(props) {
 
                                     handleChange({key: 'initial_situation', event: event.target.value})
                                 }}
-                                value={ data.initial_situation}
-                                required={true}
+                                value={data.initial_situation}
+                                required={true} maskEnd={'%'}
                                 width={'calc(50% - 16px)'}/>
                             <TextField
                                 type={'number'}
@@ -158,8 +144,8 @@ export default function OperationForm(props) {
                                 handleChange={event => {
 
                                     handleChange({key: 'estimated_cost', event: event.target.value})
-                                }}  maskStart={'R$'}
-                                value={ data.estimated_cost}
+                                }} maskStart={'R$'}
+                                value={data.estimated_cost}
                                 required={true}
                                 width={'calc(50% - 16px)'}/>
                         </FormRow>
@@ -173,7 +159,7 @@ export default function OperationForm(props) {
                                     handleChange({key: 'start_date', event: event})
                                 }}
                                 value={
-                                     data.start_date
+                                    data.start_date
                                 }
                                 required={true} width={'calc(50% - 16px)'}/>
                             <DateField
@@ -184,7 +170,7 @@ export default function OperationForm(props) {
                                     handleChange({key: 'end_date', event: event})
                                 }}
                                 value={
-                                     data.end_date
+                                    data.end_date
                                 }
                                 required={true} width={'calc(50% - 16px)'}/>
                         </FormRow>

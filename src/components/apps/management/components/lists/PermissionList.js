@@ -8,6 +8,8 @@ import {permissionKeys} from "../../keys/keys";
 import PropTypes from 'prop-types'
 import Selector from "../../../../core/inputs/selector/Selector";
 import {accessPrivilege} from "../../utils/submits";
+import {DeleteRounded} from "@material-ui/icons";
+import deleteEntry from "../../utils/delete";
 
 export default function PermissionList(props) {
     const hook = props.accessProfile ? useQuery(access_profile_permissions_query(props.accessProfile)) : undefined
@@ -47,6 +49,15 @@ export default function PermissionList(props) {
                 <List
                     createOption={true}
                     keys={permissionKeys}
+                    controlButtons={[
+                        {
+                            label: 'Deletar',
+                            icon: <DeleteRounded/>,
+                            onClick: data => {
+                                deleteEntry({pk: data.id, path: 'privilege'}).then(() => hook.clean())
+                            }
+                        }
+                    ]}
                     hook={props.accessProfile ? hook : permissionHook} onCreate={() => {
                     if (props.accessProfile)
                         setOpenModal(true)

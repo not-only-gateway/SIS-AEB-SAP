@@ -25,13 +25,6 @@ export default function GoalList(props) {
                             setOpen(false)
                             hook.clean()
                         }}
-
-                        redirect={data => {
-                            WorkPlanRequests.fetchGoal(data).then(res => {
-                                if (res !== null)
-                                    props.setCurrentStructure(res)
-                            })
-                        }}
                         create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                         data={currentEntity} workPlan={props.workPlan}
                     />
@@ -62,6 +55,5 @@ export default function GoalList(props) {
     )
 }
 GoalList.propTypes = {
-    workPlan: PropTypes.object,
-    setCurrentStructure: PropTypes.func
+    workPlan: PropTypes.object
 }

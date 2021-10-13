@@ -57,33 +57,30 @@ export default function TableLayout(props) {
                     key={'row-' + e.id}
                     className={styles.row}
                     onMouseDown={(event) => {
-                        if (!document.elementsFromPoint(event.clientX, event.clientY).includes(document.getElementById(('options-' + e.id)))) {
+
+                        if (!document.elementsFromPoint(event.clientX, event.clientY).includes(document.getElementById(('options-' + e.id))) && !event.target.className.includes('Dropdown')) {
                             event.currentTarget.style.background = theme.themes.background3
                             event.currentTarget.style.opacity = '.8'
                         }
                     }}
                     onMouseUp={(event) => {
-                        if (event.currentTarget.style.background === theme.themes.background3) {
-                            event.currentTarget.style.background = 'transparent'
-                            event.currentTarget.style.opacity = '1'
-                        }
+                        event.currentTarget.style.background = 'transparent'
+                        event.currentTarget.style.opacity = '1'
                     }}
                     onMouseOut={(event) => {
-                        if (event.currentTarget.style.background === theme.themes.background3) {
-                            event.currentTarget.style.background = 'transparent'
-                            event.currentTarget.style.opacity = '1'
-                        }
+                        event.currentTarget.style.background = 'transparent'
+                        event.currentTarget.style.opacity = '1'
                     }}
-                    onClick={(event) => {
-                        if (!document.elementsFromPoint(event.clientX, event.clientY).includes(document.getElementById(('options-' + e.id))) && props.onRowClick !== undefined && typeof props.onRowClick === 'function')
-                            props.onRowClick(e.data)
-                    }} ref={i === (props.data.length - 1) ? lastElementRef : undefined}
+                    ref={i === (props.data.length - 1) ? lastElementRef : undefined}
                 >
                     {keys.map((value, ic) => (
                         <React.Fragment key={i + '-row-cell-' + ic}>
                             <Cell
                                 additionalWidth={value.additionalWidth !== undefined ? value.additionalWidth : '0px'}
                                 entry={e.data} field={value} quantity={props.keys.length}
+                                onClick={() => {
+                                    props.onRowClick(e.data)
+                                }}
                                 hasOptions={props.controlButtons !== undefined && props.controlButtons.length > 0}
                             />
                         </React.Fragment>

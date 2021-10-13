@@ -11,7 +11,7 @@ import getQuery from "../../queries/getQuery";
 
 export default function WorkPlanList(props) {
     const [open, setOpen] = useState(false)
-    const hook = useQuery(getQuery('work_plan', {
+    const hook = useQuery(getQuery(props.asApostille ?'apostille' : 'work_plan', props.asApostille ? {work_plan: props.workPlan?.id} : {
         ted: props.ted ? props.ted.id : null,
         project: props.project ? props.project.id : null
     }))
@@ -31,13 +31,7 @@ export default function WorkPlanList(props) {
                 returnToMain={() => {
                     setOpen(false)
                 }}
-                redirect={id => {
-                    WorkPlanRequests.fetchWorkPlan(id.id).then(res => {
-                        if (res !== null)
-                            props.setCurrentStructure(res)
-                    })
-                }}
-
+                redirect={id => props.redirect(id)}
                 project={props.project}
                 ted={props.ted}
 
@@ -72,6 +66,7 @@ export default function WorkPlanList(props) {
 WorkPlanList.propTypes = {
     redirect: PropTypes.func,
     ted: PropTypes.object,
-    project: PropTypes.object
-
+    project: PropTypes.object,
+    asApostille: PropTypes.bool,
+    workPlan: PropTypes.object
 }

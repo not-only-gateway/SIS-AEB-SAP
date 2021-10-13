@@ -6,6 +6,8 @@ import Switcher from "../../../../core/misc/switcher/Switcher";
 import PropTypes from 'prop-types'
 import {entityKeys} from "../../keys/keys";
 import EntityForm from "../forms/EntityForm";
+import {DeleteRounded} from "@material-ui/icons";
+import deleteEntry from "../../utils/delete";
 
 export default function EntityList(props) {
     const hook = useQuery(entity_query)
@@ -24,6 +26,15 @@ export default function EntityList(props) {
             <List
                 keys={entityKeys}
                 hook={hook} createOption={true}
+                controlButtons={[
+                    {
+                        label: 'Deletar',
+                        icon: <DeleteRounded/>,
+                        onClick: data => {
+                            deleteEntry({pk: data.id, path: 'entity'}).then(() => hook.clean())
+                        }
+                    }
+                ]}
                 onRowClick={row => props.redirect(row.id)}
                 onCreate={() => setOpenEntity({})}
                 title={'Entidades'}

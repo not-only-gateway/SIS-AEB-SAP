@@ -4,6 +4,7 @@ import React, {useEffect, useMemo, useState} from "react";
 import sapProps from "./apps/sap/sapProps";
 import managementProps from "./apps/management/managementProps";
 import {fetchProfile} from "../utils/fetch";
+import hrProps from "./apps/hr/hrProps";
 
 export default function useWrapper() {
     const router = useRouter()
@@ -17,6 +18,8 @@ export default function useWrapper() {
                 return sapProps((url) => router.push(url, url), router.pathname, router.query)
             case router.pathname.includes('/management'):
                 return managementProps((url) => router.push(url, url), router.pathname, router.query)
+            case router.pathname.includes('/hr'):
+                return hrProps((url) => router.push(url, url), router.pathname, router.query)
             default:
                 return {}
         }

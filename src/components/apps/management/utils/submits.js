@@ -65,7 +65,9 @@ export async function accessProfile(props) {
         headers: {'authorization': (new Cookies()).get('jwt')},
         package: props.data
     }).then(res => {
-        response = res.data.id
+        if(props.create)
+            response = res.data.id
+        else response = props.data.id
     }).catch(e => {
         console.log(e)
     })

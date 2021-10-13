@@ -27,12 +27,6 @@ export default function ActivityList(props) {
                         setCurrentEntity(null)
                     }}
                     open={open}
-                    redirect={id => {
-                        WorkPlanRequests.fetchStage(id).then(res => {
-                            if (res !== null)
-                                props.setCurrentStructure(res)
-                        })
-                    }}
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                     data={currentEntity}
                     goal={props.goal}
@@ -65,6 +59,5 @@ export default function ActivityList(props) {
     )
 }
 ActivityList.propTypes = {
-    goal: PropTypes.object,
-    setCurrentStructure: PropTypes.func
+    goal: PropTypes.object
 }

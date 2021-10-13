@@ -9,7 +9,8 @@ export default function AccessProfileForm(props) {
 
     return (
         <Form
-            title={!props.initialData?.id ? 'Novo perfil de acesso' : 'Perfil de acesso'} initialData={props.initialData}
+            title={!props.initialData?.id ? 'Novo perfil de acesso' : 'Perfil de acesso'}
+            initialData={props.initialData}
             handleClose={() => props.handleClose()}
             dependencies={[
                 {name: 'denomination', type: 'string'}
@@ -18,16 +19,12 @@ export default function AccessProfileForm(props) {
                 accessProfile({
                     pk: data.id,
                     create: data.id === undefined,
-                    data: {
-                        ...data,
-                        host: data.host + '/' + data.port
-                    }
+                    data: data
                 }).then((res) => {
-                    if(res !== null && !data.id) {
+                    if (res !== null && props.initialData?.id === undefined) {
                         props.redirect(res)
                         clearState()
-                    }
-                    else {
+                    } else if (res !== null) {
                         props.updateData(data)
                     }
                 })
@@ -44,7 +41,6 @@ export default function AccessProfileForm(props) {
                         handleChange={e => handleChange({event: e.target.value, key: 'denomination'})}
                         required={true} width={'100%'}
                     />
-
                 </FormRow>
 
             )}

@@ -2,12 +2,15 @@ import React from "react";
 import PropTypes from 'prop-types'
 import ProjectPT from "../../locales/ProjectPT";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
-import {DropDownField, Form, FormRow, TextField} from "sis-aeb-core";
+import {DropDownField, Form, FormRow, TextField, useQuery} from "sis-aeb-core";
+import getQuery from "../../queries/getQuery";
+import Selector from "../../../../core/inputs/selector/Selector";
+import associativeKeys from "../../keys/associativeKeys";
 
 
 export default function ProjectForm(props) {
     const lang = ProjectPT
-
+    const unitHook = useQuery(getQuery('unit'))
     return (
         <Form
             initialData={props.data}
@@ -98,31 +101,15 @@ export default function ProjectForm(props) {
                         value={data.critical_factors}
                         required={true} width={'100%'}/>
 
-                    {/*<Selector*/}
-                    {/*    getEntityKey={entity => {*/}
-                    {/*        if (entity !== null && entity !== undefined)*/}
-                    {/*            return entity.id*/}
-                    {/*        else return -1*/}
-                    {/*    }} searchFieldName={'search_input'}*/}
-                    {/*    handleChange={entity => {*/}
-                    {/*        props.handleChange({key: 'responsible', event: entity})*/}
-                    {/*    }} label={'Vincular responsável'}*/}
-                    {/*    selected={props.data === null || !props.data.responsible ? null : props.data.responsible}*/}
-                    {/*    disabled={false}*/}
-                    {/*    width={'calc(50% - 16px)'}*/}
-                    {/*    fields={[*/}
-                    {/*        {key: 'name', type: 'string'},*/}
-                    {/*        {key: 'acronym', type: 'string'},*/}
-                    {/*    ]} required={true}*/}
-                    {/*    labels={['nome', 'Acrônimo']}*/}
-                    {/*    fetchUrl={Host() + 'list/unit'}*/}
-                    {/*    fetchToken={(new Cookies()).get('jwt')}*/}
-                    {/*    createOption={true}*/}
-                    {/*    returnToList={!open}*/}
-                    {/*    setReturnToList={() => setOpen(true)}*/}
-                    {/*>*/}
-                    {/*    <UnitForm create={true} returnToMain={() => setOpen(false)}/>*/}
-                    {/*</Selector>*/}
+                    <Selector
+                        hook={unitHook} keys={associativeKeys.responsible}
+                        width={'calc(50% - 16px)'}
+                        required={true}
+                        value={data.responsible}
+                        title={'Responsável'}
+                        placeholder={'Responsável'}
+                        handleChange={entity => handleChange({key: 'responsible', event: entity})}
+                    />
 
                     <TextField
                         placeholder={lang.manager}

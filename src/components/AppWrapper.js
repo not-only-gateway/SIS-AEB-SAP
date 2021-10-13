@@ -13,7 +13,6 @@ import {ExitToAppRounded} from "@material-ui/icons";
 export default function AppWrapper(props) {
 
     const {
-
         profile, setProfile,
         layoutParams,
         openAuthentication,

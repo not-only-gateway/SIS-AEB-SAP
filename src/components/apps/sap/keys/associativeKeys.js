@@ -8,20 +8,52 @@ export default {
     ],
     budgetPlan: [
         {key: 'id', type: 'number', label: 'ID', visible: false},
-        {key: 'action', type: 'object', label: 'Ação', visible: true, subfieldKey: 'number', subType: 'string', query: getQuery('action')},
+        {
+            key: 'action',
+            type: 'object',
+            label: 'Ação',
+            visible: true,
+            subfieldKey: 'number',
+            subType: 'string',
+            query: getQuery('action')
+        },
         {key: 'number', type: 'number', label: 'Número', visible: true},
         {key: 'detailing', type: 'string', label: 'Detalhamento', visible: true}
     ],
     classification: [
         {key: 'id', type: 'number', label: 'ID', visible: false},
         {key: 'classification', type: 'string', label: 'Classificação', visible: true},
-        {key: 'type', type: 'object', label: 'Tipo', visible: true, subfieldKey: 'type', subType: 'string', query: getQuery('type')}
+        {
+            key: 'type',
+            type: 'object',
+            label: 'Tipo',
+            visible: true,
+            subfieldKey: 'type',
+            subType: 'string',
+            query: getQuery('type')
+        }
     ],
     components: [
         {key: 'id', type: 'number', label: 'ID', visible: false},
         {key: 'situation', type: 'string', label: 'Situação', visible: true},
-        {key: 'classification', type: 'object', label: 'Classificação', visible: true, subfieldKey: 'classification', subType: 'string', query: getQuery('classification')},
-        {key: 'infrastructure', type: 'object', label: 'Infraestrutura', visible: true, subfieldKey: 'name', subType: 'string', query: getQuery('infrastructure')}
+        {
+            key: 'classification',
+            type: 'object',
+            label: 'Classificação',
+            visible: true,
+            subfieldKey: 'classification',
+            subType: 'string',
+            query: getQuery('classification')
+        },
+        {
+            key: 'infrastructure',
+            type: 'object',
+            label: 'Infraestrutura',
+            visible: true,
+            subfieldKey: 'name',
+            subType: 'string',
+            query: getQuery('infrastructure')
+        }
     ],
     decentralizedUnit: [
         {key: 'id', type: 'number', label: 'ID', visible: false},
@@ -33,7 +65,15 @@ export default {
         {key: 'uge', type: 'string', label: 'UGE', visible: true},
         {key: 'cnpj', type: 'string', label: 'CNPJ', visible: true},
         {key: 'ug', type: 'string', label: 'UG', visible: true},
-        {key: 'responsible', type: 'object', label: 'Responsável', visible: true, subfieldKey: 'acronym', subType: 'string', query: getQuery('unit')}
+        {
+            key: 'responsible',
+            type: 'object',
+            label: 'Responsável',
+            visible: true,
+            subfieldKey: 'acronym',
+            subType: 'string',
+            query: getQuery('unit')
+        }
     ],
     infrastructure: [
         {key: 'id', type: 'number', label: 'ID', visible: false},
@@ -49,5 +89,10 @@ export default {
     type: [
         {key: 'id', type: 'number', label: 'ID', visible: false},
         {key: 'type', type: 'string', label: 'Tipo', visible: true}
-    ]
+    ],
+    responsible: [
+        {key: 'id', type: 'number', label: 'ID', visible: false},
+        {key: 'acronym', type: 'string', label: 'Acrônomo', visible: true},
+        {key: 'name', type: 'string', label: 'Nome', visible: true}
+    ],
 }

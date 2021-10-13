@@ -6,6 +6,8 @@ import Switcher from "../../../../core/misc/switcher/Switcher";
 import {accessProfileKeys} from "../../keys/keys";
 import AccessProfileForm from "../forms/AccessProfileForm";
 import PropTypes from 'prop-types'
+import {DeleteRounded} from "@material-ui/icons";
+import deleteEntry from "../../utils/delete";
 
 export default function AccessProfileList(props) {
     const hook = useQuery(access_profile_query)
@@ -23,6 +25,15 @@ export default function AccessProfileList(props) {
             <List
                 createOption={true}
                 keys={accessProfileKeys}
+                controlButtons={[
+                    {
+                        label: 'Deletar',
+                        icon: <DeleteRounded/>,
+                        onClick: data => {
+                            deleteEntry({pk: data.id, path: 'access_profile'}).then(() => hook.clean())
+                        }
+                    }
+                ]}
                 hook={hook} onCreate={() => setOpenEntity({})}
                 onRowClick={row => props.redirect('/management/?page=access&id='+row.id, '/management/?page=access&id='+row.id, {})}
                 title={'Perfis de acesso'}

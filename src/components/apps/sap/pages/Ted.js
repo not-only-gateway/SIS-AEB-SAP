@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Head from "next/head";
 import shared from '../styles/Shared.module.css'
 import PropTypes from 'prop-types'
@@ -7,17 +7,20 @@ import Tabs from "../../../core/navigation/tabs/Tabs";
 import WorkPlanList from "../components/lists/WorkPlanList";
 import AddendumList from "../components/lists/AddendumList";
 import TedForm from "../components/forms/TedForm";
+import ProjectRequests from "../utils/requests/ProjectRequests";
+import TedRequests from "../utils/requests/TedRequests";
 
 
 export default function Ted(props) {
     const [ted, setTed] = useState({})
 
-    // useEffect(() => {
-    //     ProjectRequests.fetchProject(props.id).then(res => {
-    //         if (res !== null)
-    //             setProject(res)
-    //     })
-    // }, [])
+
+    useEffect(() => {
+        TedRequests.fetchTed(props.id).then(res => {
+            if (res !== null)
+                setTed(res)
+        })
+    }, [])
 
     return (
         <>
@@ -53,7 +56,7 @@ export default function Ted(props) {
                 }
             ]}>
                 <div className={shared.header} style={{paddingLeft: '16px'}}>
-                    Nome ted
+                    {ted?.number}
                 </div>
             </Tabs>
 
