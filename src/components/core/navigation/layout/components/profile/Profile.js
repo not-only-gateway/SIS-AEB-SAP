@@ -63,14 +63,7 @@ export default function Profile(props) {
                             }}>
 
                             {button.icon}
-                            <div
-                                style={{
-                                    marginLeft: '8px',
-                                    fontSize: '.9rem',
-                                    overflow: "hidden",
-                                    color: '#111111',
-                                    fontWeight: 590
-                                }}> {button.label}</div>
+                            <div className={styles.buttonLabel}> {button.label}</div>
                         </button>
                     ))}
                 </div>

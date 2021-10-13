@@ -6,6 +6,7 @@ import managementProps from "./apps/management/managementProps";
 import {fetchProfile} from "../utils/fetch";
 import hrProps from "./apps/hr/hrProps";
 import intranetProps from "./apps/intranet/intranetProps";
+import profileProps from "./apps/profile/profileProps";
 
 export default function useWrapper() {
     const router = useRouter()
@@ -17,6 +18,8 @@ export default function useWrapper() {
         switch (true) {
             case router.pathname === '/':
                 return intranetProps((url) => router.push(url, url), router.pathname, router.query)
+            case router.pathname.includes('/profile'):
+                return profileProps((url) => router.push(url, url), router.pathname, router.query)
             case router.pathname.includes('/sap'):
                 return sapProps((url) => router.push(url, url), router.pathname, router.query)
             case router.pathname.includes('/management'):

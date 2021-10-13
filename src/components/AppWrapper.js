@@ -8,7 +8,7 @@ import Authenticator from "./Authenticator";
 import styles from '../styles/Wrapper.module.css'
 import useWrapper from "./useWrapper";
 import ProfileContext from "./ProfileContext";
-import {ExitToAppRounded} from "@material-ui/icons";
+import {ExitToAppRounded, PersonRounded} from "@material-ui/icons";
 
 export default function AppWrapper(props) {
 
@@ -54,7 +54,13 @@ export default function AppWrapper(props) {
                     darkLogo={'../dark.png'}
                     redirectToLogin={() => router.push('/authentication', '/authentication')}
                     {...layoutParams}
-                    profileButtons={[{
+                    profileButtons={[
+                        {
+                            label: 'Perfil',
+                            icon: <PersonRounded/>,
+                            path: '/profile'
+                        },
+                        {
                         label: 'Sair',
                         icon: <ExitToAppRounded/>,
                         path: '/authentication'

@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import ProfileContext from "../../ProfileContext";
+import ProfileContext from "../../../ProfileContext";
 
 export default function Profile(){
     const profile = useContext(ProfileContext)
