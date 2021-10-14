@@ -20,7 +20,7 @@ export default function SideBar(props) {
             className={styles.wrapper} style={{width: !props.open ? '60px' : '225px'}}
         >
             <div className={styles.buttons} style={{padding: props.open ? ' 4px 8px' : '4px'}}>
-                {props.buttons?.filter(e => e.position !== 'bottom').map((button, index) => (
+                {props.buttons?.filter(e => e && e.position !== 'bottom').map((button, index) => !button ? null : (
                     <React.Fragment key={'side-bar-button-' + index}>
                         <button
                             className={styles.buttonContainer}
@@ -51,7 +51,7 @@ export default function SideBar(props) {
                 ))}
 
                 <div className={styles.bottomOptions}>
-                    {props.buttons?.filter(e => e.position === 'bottom').map((button, index) => (
+                    {props.buttons?.filter(e => e && e.position === 'bottom').map((button, index) => !button ? null : (
                         <React.Fragment key={'side-bar-button-' + index}>
                             <button
                                 className={styles.buttonContainer}
@@ -80,24 +80,6 @@ export default function SideBar(props) {
 
                         </React.Fragment>
                     ))}
-                    <button
-                        className={styles.buttonContainer} style={buttonStyle}
-                        onClick={() => props.setOnDark(!props.onDark)}
-                    >
-                        {props.onDark ? <Brightness3Rounded/> : <BrightnessHighRounded/>}
-                        <div
-                            className={[styles.buttonLabel, styles.overflowEllipsis].join(' ')}
-                            style={{
-                                maxWidth: '100%',
-                                fontSize: props.open ? undefined : '.65rem',
-                                textAlign: props.open ? undefined : 'center',
-                            }}
-                        >
-
-                            {props.onDark ? 'Escuro' : 'Claro'}
-                        </div>
-                        <ToolTip align={'middle'} justify={'end'} content={'Tema'}/>
-                    </button>
 
                 </div>
             </div>
@@ -120,6 +102,5 @@ SideBar.propTypes = {
 
     open: PropTypes.bool,
     setOpen: PropTypes.func,
-    setOnDark: PropTypes.func,
-    onDark: PropTypes.bool
+
 }

@@ -3,10 +3,13 @@ import {DropDownField, FormRow} from "sis-aeb-core";
 import {service} from "../../utils/submits";
 import Form from "../../../../core/inputs/form/Form";
 import TextField from "../../../../core/inputs/text/TextField";
+import useData from "../../../../core/inputs/form/useData";
 
 export default function ServiceForm(props) {
+    const formHook = useData(props.initialData)
     return (
         <Form
+            hook={formHook}
             title={!props.initialData.id ? 'Novo serviço' : 'Serviço'} initialData={props.initialData}
             handleClose={() => props.handleClose()}
             dependencies={[

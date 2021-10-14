@@ -9,6 +9,7 @@ import AddendumList from "../components/lists/AddendumList";
 import TedForm from "../components/forms/TedForm";
 import ProjectRequests from "../utils/requests/ProjectRequests";
 import TedRequests from "../utils/requests/TedRequests";
+import TedList from "../components/lists/TedList";
 
 
 export default function Ted(props) {
@@ -35,13 +36,26 @@ export default function Ted(props) {
                             classes={[
                                 {
                                     buttons: [
-                                        {label: 'Dados', children: <TedForm/>}
+                                        {
+                                            label: 'Dados', children:
+                                                (
+                                                    <div style={{padding: '16px 10%'}}>
+                                                        <TedForm data={ted}/>
+                                                    </div>
+                                                )
+                                        }
                                     ]
                                 },
                                 {
                                     label: 'Informações adicionais',
                                     buttons: [
-                                        {label: 'Termos aditivos', children: <AddendumList ted={ted}/>}
+                                        {
+                                            label: 'Termos aditivos', children: (
+                                                <div style={{padding: '16px 10%'}}>
+                                                    <TedList ted={ted}/>
+                                                </div>
+                                            )
+                                        }
                                     ]
                                 }]}
                         />

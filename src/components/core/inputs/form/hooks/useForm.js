@@ -1,20 +1,8 @@
 import React, {useEffect, useMemo, useRef, useState} from "react";
 
-export default function useForm({noAutoHeight, initialData, dependencies}) {
+export default function useForm({noAutoHeight, data, changed, dependencies}) {
     const ref = useRef()
-    const [data, setData] = useState(!initialData ? {} : initialData)
-    const [changed, setChanged] = useState(false)
-    const handleChange = ({event, key}) => {
-        let newData = {...data}
-        newData[key] = event
-        setData(newData)
 
-        setChanged(true)
-    }
-    const clearState = () => {
-        setData({})
-        setChanged(false)
-    }
     const disabled = useMemo(() => {
         let response = dependencies === undefined || !changed
         let i
@@ -42,13 +30,8 @@ export default function useForm({noAutoHeight, initialData, dependencies}) {
                 ref.current.style.maxHeight = newHeight + 'px'
         }
     }, [])
-    useEffect(() => {
-        if (typeof initialData === 'object')
-            setData(initialData)
-    }, [initialData])
+
     return {
-        ref, disabled,
-        data, handleChange,
-        clearState
+        ref, disabled
     }
 }

@@ -1,13 +1,24 @@
 import React, {useEffect, useState} from "react";
-import {DropDownField, Form, FormRow, TextField} from "sis-aeb-core";
+import {DropDownField, FormRow, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import StatusPT from "../../locales/StatusPT";
+import Form from "../../../../core/inputs/form/Form";
+import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
+import Cookies from "universal-cookie/lib";
 
 export default function FinancialDisbursementForm(props) {
 
     const lang = StatusPT
-const [initialData, setInitialData] = useState(null)
+    const [initialData, setInitialData] = useState(null)
+    const formHook = useDataWithDraft({
+        initialData: initialData,
+        draftUrl: '',
+        draftHeaders: {'authorization': (new Cookies()).get('jwt')},
+        interval: 120000
+    })
+
+
     useEffect(() => {
         setInitialData({
             ...props.data,
@@ -17,66 +28,64 @@ const [initialData, setInitialData] = useState(null)
         })
     }, [])
     return (
-        <>
+        <Form
+            hook={formHook}
+            initialData={initialData}
+            create={props.create} title={props.create ? lang.newFinancial : lang.financial}
+            dependencies={
+                [
+                    {key: 'year', type: 'number'},
+                    {key: 'month', type: 'number'},
+                    {key: 'value', type: 'number'},
+                ]
+            }
+            returnButton={true}
+            handleSubmit={(data, clearState) =>
+                WorkPlanRequests.submitFinancial({
+                    pk: data.id,
+                    data: data,
 
-            <Form
-                initialData={initialData}
-                create={props.create} title={props.create ? lang.newFinancial : lang.financial}
-                dependencies={
-                    [
-                        {key: 'year', type: 'number'},
-                        {key: 'month', type: 'number'},
-                        {key: 'value', type: 'number'},
-                    ]
-                }
-                returnButton={true}
-                handleSubmit={(data, clearState) =>
-                    WorkPlanRequests.submitFinancial({
-                        pk: data.id,
-                        data: data,
+                    create: props.create
+                }).then(res => {
+                    if (props.create && res) {
+                        props.returnToMain()
+                        clearState()
+                    }
+                })}
+            handleClose={() => props.returnToMain()}>
+            {(data, handleChange) => (
+                <FormRow>
 
-                        create: props.create
-                    }).then(res => {
-                        if (props.create && res){
-                            props.returnToMain()
-                            clearState()
-                        }
-                    })}
-                handleClose={() => props.returnToMain()}>
-                {(data, handleChange) => (
-                    <FormRow>
+                    <TextField
+                        placeholder={lang.year} label={lang.year}
+                        handleChange={event => {
 
-                        <TextField
-                            placeholder={lang.year} label={lang.year}
-                            handleChange={event => {
+                            handleChange({key: 'year', event: event.target.value})
+                        }} value={data.year}
+                        required={true} type={'number'}
+                        width={'calc(33.333% - 21.5px)'}/>
 
-                                handleChange({key: 'year', event: event.target.value})
-                            }}  value={ data.year}
-                            required={true} type={'number'}
-                            width={'calc(33.333% - 21.5px)'}/>
+                    <DropDownField
+                        placeholder={lang.month}
+                        label={lang.month}
+                        handleChange={event => {
 
-                        <DropDownField
-                            placeholder={lang.month}
-                            label={lang.month}
-                            handleChange={event => {
+                            handleChange({key: 'month', event: event})
+                        }} value={data.month} required={false}
+                        width={'calc(33.333% - 21.5px)'} choices={lang.monthOptions}/>
+                    <TextField
+                        placeholder={lang.value} label={lang.value}
+                        handleChange={event => {
 
-                                handleChange({key: 'month', event: event})
-                            }} value={ data.month} required={false}
-                            width={'calc(33.333% - 21.5px)'} choices={lang.monthOptions}/>
-                        <TextField
-                            placeholder={lang.value} label={lang.value}
-                            handleChange={event => {
-
-                                handleChange({key: 'value', event: event.target.value})
-                            }}  value={ data.value}
-                            required={true} type={'number'} maskStart={'R$'} currencyMask={true}
-                            width={'calc(33.333% - 21.5px)'}/>
+                            handleChange({key: 'value', event: event.target.value})
+                        }} value={data.value}
+                        required={true} type={'number'} maskStart={'R$'} currencyMask={true}
+                        width={'calc(33.333% - 21.5px)'}/>
 
 
-                    </FormRow>
-                )}
-            </Form>
-        </>
+                </FormRow>
+            )}
+        </Form>
     )
 
 }

@@ -12,7 +12,7 @@ import getQuery from "../../queries/getQuery";
 export default function TedList(props) {
 
     const [open, setOpen] = useState(false)
-    const hook = useQuery(getQuery('ted'))
+    const hook = useQuery(getQuery('ted', props.ted ? {ted: props.ted.id} : {}))
 
     return (
         <Switcher openChild={open ? 0 : 1}>
@@ -28,7 +28,7 @@ export default function TedList(props) {
             <List
                 createOption={true}
                 onCreate={() => setOpen(true)}
-                onRowClick={e => props.redirect(e.id)}
+                onRowClick={e => props.redirect(`/sap?page=ted&id=${e.id}`)}
                 controlButtons={[{
                     label: 'Deletar',
                     icon: <DeleteRounded/>,
@@ -42,12 +42,13 @@ export default function TedList(props) {
                 }]}
                 hook={hook}
                 keys={tedKeys.ted}
-                title={'Instrumentos de celebração'}
+                title={props.ted ? 'Instrumentos de celebração (aditivos)' : 'Instrumentos de celebração'}
             />
         </Switcher>
     )
 }
 
-TedList.propTypes={
-    redirect: PropTypes.func
+TedList.propTypes = {
+    redirect: PropTypes.func,
+    ted: PropTypes.func
 }

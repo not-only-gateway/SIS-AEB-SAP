@@ -1,3 +1,5 @@
 export default function Information(){
- return null
+ return (
+     'CAFE'
+ )
 }

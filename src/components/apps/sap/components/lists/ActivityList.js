@@ -13,29 +13,22 @@ import getQuery from "../../queries/getQuery";
 export default function ActivityList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery(getQuery('activity', props.goal !== null ? {
-        goal: props.goal.id
-    } : {}))
+    const hook = useQuery(getQuery('activity', {
+        workPlan: props.workPlan.id
+    }))
 
 
     return (
         <Switcher openChild={open ? 0 : 1}>
-            {open ?
-                <ActivityForm
-                    returnToMain={() => {
-                        setOpen(false)
-                        setCurrentEntity(null)
-                    }}
-                    open={open}
-                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                    data={currentEntity}
-                    goal={props.goal}
-                />
-                :
-                null
-            }
-
-
+            <ActivityForm
+                returnToMain={() => {
+                    setOpen(false)
+                    setCurrentEntity(null)
+                }}
+                open={open}
+                create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                data={currentEntity}
+            />
             <List
                 createOption={true}
                 hook={hook}
@@ -59,5 +52,5 @@ export default function ActivityList(props) {
     )
 }
 ActivityList.propTypes = {
-    goal: PropTypes.object
+    workPlan: PropTypes.object
 }

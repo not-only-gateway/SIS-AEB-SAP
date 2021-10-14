@@ -19,7 +19,7 @@ export default function Profile(props) {
         >
             <button
                 className={styles.buttonContainer}
-                onClick={() =>props.redirect(props.fallbackProfileButton.path)}
+                onClick={() => props.fallbackProfileButton.onClick()}
                 style={{display: props.profile !== null && props.profile && Object.keys(props.profile).length > 0 ? 'none' : undefined}}
             >
                 {props.fallbackProfileButton.label}
@@ -50,12 +50,12 @@ export default function Profile(props) {
             </button>
             <AnimationFrame render={open}>
                 <div className={styles.floatingBox}>
-                    {props.buttons.map((button, index) => (
+                    {props.buttons.map((button, index) => !button ? null : (
                         <button
                             className={styles.buttonContainer}
                             key={'profile-button-' + index}
                             disabled={button.disabled}
-                            onClick={() => props.redirect(button.path)}
+                            onClick={() => button.onClick()}
                             style={{
                                 width: '100%',
                                 justifyContent: 'space-between',
@@ -75,7 +75,7 @@ Profile.propTypes = {
     fallbackProfileButton: PropTypes.shape({
         label: PropTypes.string,
         icon: PropTypes.any,
-        path: PropTypes.string,
+        onClick: PropTypes.func,
         disabled: PropTypes.bool
     }),
     redirect: PropTypes.func,
@@ -88,7 +88,7 @@ Profile.propTypes = {
         PropTypes.shape({
             name: PropTypes.string,
             icon: PropTypes.any,
-            path: PropTypes.string,
+            onClick: PropTypes.func,
             disabled: PropTypes.bool
         })
     )

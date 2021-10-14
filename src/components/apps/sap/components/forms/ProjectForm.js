@@ -2,17 +2,29 @@ import React from "react";
 import PropTypes from 'prop-types'
 import ProjectPT from "../../locales/ProjectPT";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
-import {DropDownField, Form, FormRow, TextField, useQuery} from "sis-aeb-core";
+import {DropDownField, FormRow, TextField, useQuery} from "sis-aeb-core";
 import getQuery from "../../queries/getQuery";
 import Selector from "../../../../core/inputs/selector/Selector";
 import associativeKeys from "../../keys/associativeKeys";
-
+import Form from "../../../../core/inputs/form/Form";
+import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
+import Cookies from "universal-cookie/lib";
 
 export default function ProjectForm(props) {
     const lang = ProjectPT
     const unitHook = useQuery(getQuery('unit'))
+
+    const formHook = useDataWithDraft({
+        initialData: props.data,
+        draftUrl: '',
+        draftHeaders: {'authorization': (new Cookies()).get('jwt')},
+        interval: 120000
+    })
+
+
     return (
         <Form
+            hook={formHook}
             initialData={props.data}
             create={props.create} title={lang.title}
             dependencies={[
@@ -44,7 +56,7 @@ export default function ProjectForm(props) {
                 })}
             handleClose={() => props.returnToMain()}
         >
-            {({data, handleChange}) => (
+            {(data, handleChange) => (
                 <FormRow>
                     <TextField
                         placeholder={lang.name} label={lang.name}

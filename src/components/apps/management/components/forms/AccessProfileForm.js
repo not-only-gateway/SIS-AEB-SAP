@@ -4,11 +4,13 @@ import Form from "../../../../core/inputs/form/Form";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import TextField from "../../../../core/inputs/text/TextField";
 import {accessProfile} from "../../utils/submits";
+import useData from "../../../../core/inputs/form/useData";
 
 export default function AccessProfileForm(props) {
-
+    const formHook = useData(props.initialData)
     return (
         <Form
+            hook={formHook}
             title={!props.initialData?.id ? 'Novo perfil de acesso' : 'Perfil de acesso'}
             initialData={props.initialData}
             handleClose={() => props.handleClose()}

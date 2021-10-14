@@ -144,7 +144,7 @@ TextField.propTypes = {
         'default',
         'area'
     ]),
-    type: PropTypes.oneOf(['number', 'text']),
+    type: PropTypes.oneOf(['number', 'text', 'password']),
 
     maskStart: PropTypes.any,
     maskEnd: PropTypes.any,

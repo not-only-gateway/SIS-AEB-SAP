@@ -26,7 +26,9 @@ export default function ThemeProvider(props) {
                 boxShadow1: !props.onDark ? '#e0e0e0' : '#111111'
             }
         }}>
-            {props.children}
+            <div className={props.onDark ? styles.dark : styles.light}>
+                {props.children}
+            </div>
         </ThemeContext.Provider>
     )
 }

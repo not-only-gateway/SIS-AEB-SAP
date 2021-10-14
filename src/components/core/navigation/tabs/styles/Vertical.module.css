@@ -3,18 +3,21 @@
 
 .wrapper {
     position: relative;
-    max-width: 13vw;
+    width: 100%;
+    /*background: red;*/
     height: 100%;
-    border-right: var(--border-0) 1px solid;
+    display: flex;
+
 }
 
 .header {
+    border-right: var(--border-0) 1px solid;
+    width: 13vw;
     background-color: var(--background-1);
     display: grid;
     gap: 24px;
 
     transition: 150ms linear;
-    border-bottom: var(--border-0) 1px solid;
     height: 100%;
 }
 

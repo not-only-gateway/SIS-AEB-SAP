@@ -14,9 +14,10 @@ import OperationList from "../components/lists/OperationList";
 import ExecutionList from "../components/lists/ExecutionList";
 import ActivityList from "../components/lists/ActivityList";
 import GoalList from "../components/lists/GoalList";
+import WorkPlanForm from "../components/forms/WorkPlanForm";
 
 export default function WorkPlan(props) {
-    const [workPlan, setWorkPlan] = useState(undefined)
+    const [workPlan, setWorkPlan] = useState({})
 
     useEffect(() => {
         WorkPlanRequests.fetchWorkPlan(props.id).then(res => {
@@ -38,19 +39,46 @@ export default function WorkPlan(props) {
                             classes={[
                                 {
                                     buttons: [
-                                        {label: 'Dados', children: <TedForm/>}
+                                        {
+                                            label: 'Dados',
+                                            children: (
+                                                <div style={{padding: '16px 10%'}}>
+                                                    <WorkPlanForm data={workPlan}/>
+                                                </div>
+                                            )
+                                        }
                                     ]
                                 },
                                 {
                                     label: 'Informações adicionais',
                                     buttons: [
-                                        {label: 'Metas', children: <GoalList workPlan={workPlan}/>},
-                                        {label: 'Etapas', children: <ActivityList/>},
-                                        {label: 'Apostilamentos', children: <WorkPlanList asApostille={true}/>}
+                                        {
+                                            label: 'Metas',
+                                            children: (
+                                                <div style={{padding: '16px 10%'}}>
+                                                    <GoalList workPlan={workPlan}/>
+                                                </div>
+                                            )
+                                        },
+                                        {
+                                            label: 'Apostilamentos',
+                                            children: (
+                                                <div style={{padding: '16px 10%'}}>
+                                                    <WorkPlanList workPlan={workPlan}/>
+                                                </div>
+                                            )
+                                        }
                                     ]
                                 }
                             ]}
                         />
+                    )
+                },
+                {
+                    label: 'Etapas', children: (
+                        <div className={shared.contentWrapper}>
+                            <ActivityList workPlan={workPlan}/>
+                        </div>
                     )
                 },
                 {
@@ -66,7 +94,8 @@ export default function WorkPlan(props) {
                             <ExecutionList workPlan={workPlan}/>
                         </div>
                     )
-                }
+                },
+
             ]}>
                 <div className={shared.header} style={{paddingLeft: '16px'}}>
                     {workPlan?.object}

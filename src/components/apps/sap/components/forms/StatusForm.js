@@ -1,13 +1,23 @@
 import React, {useEffect, useState} from "react";
-import {Form, FormRow, TextField} from "sis-aeb-core";
+import {FormRow, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import StatusPT from "../../locales/StatusPT";
+import Form from "../../../../core/inputs/form/Form";
+import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
+import Cookies from "universal-cookie/lib";
 
-export default function StatusForm(props){
+export default function StatusForm(props) {
     const lang = StatusPT
 
     const [initialData, setInitialData] = useState(props.data)
+    const formHook = useDataWithDraft({
+        initialData: initialData,
+        draftUrl: '',
+        draftHeaders: {'authorization': (new Cookies()).get('jwt')},
+        interval: 120000
+    })
+
     useEffect(() => {
         if (props.create)
             setInitialData({
@@ -19,58 +29,55 @@ export default function StatusForm(props){
     }, [])
 
 
-
     return (
-        <>
+        <Form
+            hook={formHook}
+            initialData={initialData}
+            create={props.create} title={props.create ? lang.newStatus : lang.status}
+            dependencies={
+                [
+                    {key: 'status', type: 'string'},
+                    {key: 'difficulties', type: 'string'},
+                ]
+            }
+            returnButton={true}
+            handleSubmit={(data, clearState) =>
+                WorkPlanRequests.submitStatus({
+                    pk: data.id,
+                    data: data,
+                    create: props.create
+                }).then(res => {
+                    if (props.create && res) {
+                        props.returnToMain()
+                        clearState()
+                    }
+                })}
+            handleClose={() => props.returnToMain()}>
+            {(data, handleChange) => (
+                <FormRow>
 
-            <Form
-                initialData={initialData}
-                create={props.create} title={props.create ? lang.newStatus : lang.status}
-                dependencies={
-                 [
-                        {key: 'status', type: 'string'},
-                        {key: 'difficulties', type: 'string'},
-                    ]
-                }
-                returnButton={true}
-                handleSubmit={(data, clearState) =>
-                    WorkPlanRequests.submitStatus({
-                        pk: data.id,
-                        data: data,
-                        create: props.create
-                    }).then(res => {
-                        if(props.create && res) {
-                            props.returnToMain()
-                            clearState()
-                        }
-                    })}
-                handleClose={() => props.returnToMain()}>
-                {(data, handleChange) => (
-                    <FormRow>
+                    <TextField
 
-                            <TextField
+                        placeholder={lang.status} label={lang.status}
+                        handleChange={event => {
 
-                                placeholder={lang.status} label={lang.status}
-                                handleChange={event => {
+                            handleChange({key: 'status', event: event.target.value})
+                        }} value={data.status}
+                        required={true}
+                        width={'100%'} variant={'area'}/>
 
-                                    handleChange({key: 'status', event: event.target.value})
-                                }} value={ data.status}
-                                required={true}
-                                width={'100%'} variant={'area'}/>
+                    <TextField
+                        placeholder={lang.difficulties} label={lang.difficulties}
+                        handleChange={event => {
 
-                            <TextField
-                                placeholder={lang.difficulties} label={lang.difficulties}
-                                handleChange={event => {
+                            handleChange({key: 'difficulties', event: event.target.value})
+                        }} value={data.difficulties}
+                        required={true}
+                        width={'100%'} variant={'area'}/>
 
-                                    handleChange({key: 'difficulties', event: event.target.value})
-                                }} value={ data.difficulties}
-                                required={true}
-                                width={'100%'} variant={'area'}/>
-
-                    </FormRow>
-                )}
-            </Form>
-        </>
+                </FormRow>
+            )}
+        </Form>
     )
 
 }

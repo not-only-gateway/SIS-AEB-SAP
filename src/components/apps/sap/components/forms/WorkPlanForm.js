@@ -1,17 +1,14 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import WorkPlanPT from "../../locales/WorkPlanPT";
-import Host from "../../utils/shared/Host";
-import Cookies from "universal-cookie/lib";
-import BudgetPlanForm from "./BudgetPlanForm";
 import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
-import UnitForm from "./UnitForm";
-import InfrastructureForm from "./InfrastructureForm";
-import {DropDownField, Form, FormRow, MultiSelectField, TextField, useQuery} from "sis-aeb-core";
+import {DropDownField, FormRow, MultiSelectField, TextField, useQuery} from "sis-aeb-core";
 import associativeKeys from "../../keys/associativeKeys";
 import getQuery from "../../queries/getQuery";
 import Selector from "../../../../core/inputs/selector/Selector";
-
+import Form from "../../../../core/inputs/form/Form";
+import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
+import Cookies from "universal-cookie/lib";
 
 export default function WorkPlanForm(props) {
     const lang = WorkPlanPT
@@ -19,6 +16,12 @@ export default function WorkPlanForm(props) {
     const unitHook = useQuery(getQuery('unit'))
     const budgetPlanHook = useQuery(getQuery('budget_plan'))
     const infrastructureHook = useQuery(getQuery('infrastructure'))
+    const formHook = useDataWithDraft({
+        initialData: initialData,
+        draftUrl: '',
+        draftHeaders: {'authorization': (new Cookies()).get('jwt')},
+        interval: 120000
+    })
 
     useEffect(() => {
         if (props.create) {
@@ -44,6 +47,7 @@ export default function WorkPlanForm(props) {
     return (
         <div style={{width: '100%'}}>
             <Form
+                hook={formHook}
                 initialData={initialData}
                 create={props.create}
                 title={lang.title}
@@ -250,8 +254,6 @@ export default function WorkPlanForm(props) {
 WorkPlanForm.propTypes = {
     asApostille: PropTypes.bool,
     workPlan: PropTypes.bool,
-
-    id: PropTypes.number,
     data: PropTypes.object,
     handleChange: PropTypes.func,
     returnToMain: PropTypes.func,

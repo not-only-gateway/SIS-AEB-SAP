@@ -31,17 +31,16 @@ export default function WorkPlanList(props) {
                 returnToMain={() => {
                     setOpen(false)
                 }}
-                redirect={id => props.redirect(id)}
+                onRowClick={e => props.redirect(`/sap?page=ted&id=${e.id}`)}
                 project={props.project}
                 ted={props.ted}
-
+                workPlan={props.workPlan}
                 create={true}
             />
 
             <List
                 createOption={true}
                 onCreate={() => setOpen(true)}
-
                 hook={hook}
                 keys={keys}
                 controlButtons={[{
@@ -58,7 +57,7 @@ export default function WorkPlanList(props) {
                 onRowClick={entity => {
                     props.redirect(entity.id)
                 }}
-                title={'Planos de trabalho'}
+                title={props.workPlan ? 'Planos de trabalho (apostilamentos)': 'Planos de trabalho'}
             />
         </Switcher>
     )
@@ -67,6 +66,5 @@ WorkPlanList.propTypes = {
     redirect: PropTypes.func,
     ted: PropTypes.object,
     project: PropTypes.object,
-    asApostille: PropTypes.bool,
     workPlan: PropTypes.object
 }

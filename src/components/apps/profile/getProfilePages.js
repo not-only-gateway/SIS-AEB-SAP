@@ -5,7 +5,7 @@ export default function getProfilePages(props) {
         {
             basePath: 'index',
             asIndex: true,
-            content: dynamic(() => import("./pages/Profile"))
+            content: dynamic(() => import("./Profile"))
         }
     ]
 }

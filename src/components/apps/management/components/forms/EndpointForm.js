@@ -11,12 +11,15 @@ import {useQuery} from "sis-aeb-core";
 import {endpoint, service} from "../../utils/submits";
 import MultiSelectField from "../../../../core/inputs/multiselect/MultiSelectField";
 import {entityKeys, serviceKeys} from "../../keys/keys";
+import useData from "../../../../core/inputs/form/useData";
 
 export default function EndpointForm(props) {
     const serviceHook = useQuery(service_query)
     const entityHook = useQuery(entity_query)
+    const formHook = useData(props.initialData)
     return (
         <Form
+            hook={formHook}
             title={!props.initialData.id ? 'Novo endpoint' : 'Endpoint'} initialData={props.initialData}
             handleClose={() => props.handleClose()}
             dependencies={[

@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import TextField from "../../inputs/text/TextField";
 import DateField from "../../inputs/date/DateField";
 import styles from '../styles/Header.module.css'
@@ -10,6 +10,7 @@ import useQuery from "../../shared/hooks/useQuery";
 export default function useFilter(filter, setFilter) {
     const [onInput, setOnInput] = useState(undefined)
     const [changed, setChanged] = useState(false)
+    let hook =  useQuery(filter?.query ? filter.query : {})
 
     const handleChange = (value) => {
         setFilter(prevState => {
@@ -22,7 +23,7 @@ export default function useFilter(filter, setFilter) {
     }
     const getField = useCallback(() => {
         let field
-        let hook = filter.hook ? useQuery(filter.query) : undefined
+
         const baseProps = {
             type: filter.type,
             key: filter.key,
@@ -126,7 +127,7 @@ export default function useFilter(filter, setFilter) {
                 break
             }
             case 'object': {
-                field = dateNumber((
+                field = (
                     <Selector
                         keys={[{key: filter.key, label: filter.label, type: filter.subType}]}
                         hook={hook}
@@ -136,7 +137,7 @@ export default function useFilter(filter, setFilter) {
                         required={false}
                         placeholder={filter.label}
                         width={'100%'}/>
-                ))
+                )
                 break
             }
             case 'date': {
@@ -154,7 +155,7 @@ export default function useFilter(filter, setFilter) {
 
         }
         return field
-    }, [filter])
+    }, [filter, hook])
 
     return {getField, changed, setChanged, onInput, setOnInput}
 }

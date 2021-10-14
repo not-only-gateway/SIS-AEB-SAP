@@ -3,10 +3,13 @@ import {FormRow} from "sis-aeb-core";
 import {entity} from "../../utils/submits";
 import Form from "../../../../core/inputs/form/Form";
 import TextField from "../../../../core/inputs/text/TextField";
+import useData from "../../../../core/inputs/form/useData";
 
 export default function EntityForm(props) {
+    const formHook = useData(props.initialData)
     return (
         <Form
+            hook={formHook}
             title={!props.initialData.id ? 'Nova entidade' : 'Entidade'} initialData={props.initialData}
             handleClose={() => props.handleClose()}
             dependencies={[

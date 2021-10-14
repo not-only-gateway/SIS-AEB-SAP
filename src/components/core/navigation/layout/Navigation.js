@@ -3,7 +3,7 @@ import styles from './styles/Navigation.module.css'
 import PropTypes from 'prop-types'
 import Profile from './components/profile/Profile'
 import Apps from './components/apps/Apps'
-import {MenuRounded} from "@material-ui/icons";
+import {MenuOpen, MenuOpenRounded, MenuRounded} from "@material-ui/icons";
 import SideBar from "./components/sidebar/SideBar";
 import Loading from "./templates/Loading";
 import ThemeProvider from "../../theme/ThemeProvider";
@@ -12,78 +12,70 @@ import ThemeContext from "../../theme/ThemeContext";
 
 export default function Navigation(props) {
     const [openSideBar, setOpenSideBar] = useState(false)
-    const [onDark, setOnDark] = useState(false)
-    const context = useContext(ThemeContext)
-
 
     return (
-        <ThemeProvider onDark={onDark}>
-            <div className={[styles.wrapper, onDark ? context.styles.dark : context.styles.light].join(' ')}>
-                <div className={styles.header}>
-                    <Loading loading={props.loading}/>
-                    <div className={styles.content}>
-                        <div style={{width: '50px'}}>
-                            <button
-                                className={styles.buttonContainer}
-                                style={{
-                                    margin: 'auto',
-                                    color: openSideBar ? 'white' : undefined,
-                                    background: openSideBar ? '#0095ff' : undefined,
-                                }}
-                                onClick={() => setOpenSideBar(!openSideBar)}
-                            >
-                                <MenuRounded/>
-                            </button>
-                        </div>
-                        <img
-                            style={{height: '35px'}}
-                            src={onDark ? props.darkLogo : props.lightLogo}
-                            alt={'logo'}
-                        />
-                        {props.appName}
+        <div className={styles.wrapper}>
+            <div className={styles.header}>
+                <Loading loading={props.loading}/>
+                <div className={styles.content}>
+                    <div style={{width: '50px'}}>
+                        <button
+                            className={styles.buttonContainer}
+                            style={{
+                                margin: 'auto',
+                                color: openSideBar ? 'white' : undefined,
+                                background: openSideBar ? '#0095ff' : undefined,
+                            }}
+                            onClick={() => setOpenSideBar(!openSideBar)}
+                        >
+                            <MenuOpenRounded style={{transform: openSideBar ? undefined : 'rotate(180deg)'}}/>
+                        </button>
                     </div>
-                    <div className={styles.content} style={{justifyContent: 'flex-end', gap: '8px'}}>
-                        <Apps
-                            redirect={props.redirect}
-                            buttons={props.appButtons}
-                        />
-                        <Profile
-                            buttons={props.profileButtons}
-                            redirect={props.redirect}
-                            fallbackProfileButton={props.fallbackProfileButton}
-                            profile={props.profile}
-                        />
-                    </div>
-
+                    <img
+                        style={{height: '35px'}}
+                        src={props.logo}
+                        alt={'logo'}
+                    />
+                    {props.appName}
+                </div>
+                <div className={styles.content} style={{justifyContent: 'flex-end', gap: '8px'}}>
+                    <Apps
+                        redirect={props.redirect}
+                        buttons={props.appButtons}
+                    />
+                    <Profile
+                        buttons={props.profileButtons}
+                        fallbackProfileButton={props.fallbackProfileButton}
+                        profile={props.profile}
+                    />
                 </div>
 
-                <div className={styles.contentWrapper}>
-                    <SideBar
-                        setOnDark={setOnDark}
-                        onDark={onDark}
-                        open={openSideBar}
-                        setOpen={setOpenSideBar}
-                        buttons={props.sideBarButtons}
-                        logo={props.logo}
-                    />
+            </div>
 
-                    <div className={styles.children}
-                         style={{width: openSideBar ? 'calc(100% - 225px)' : 'calc(100% - 60px)'}}>
-                        {props.children}
-                    </div>
+            <div className={styles.contentWrapper}>
+                <SideBar
+
+                    open={openSideBar}
+                    setOpen={setOpenSideBar}
+                    buttons={props.sideBarButtons}
+                    logo={props.logo}
+                />
+
+                <div className={styles.children}
+                     style={{width: openSideBar ? 'calc(100% - 225px)' : 'calc(100% - 60px)'}}>
+                    {props.children}
                 </div>
             </div>
-        </ThemeProvider>
+        </div>
     )
 
 }
 
 Navigation.propTypes = {
-    redirectToLogin: PropTypes.func,
+    darkTheme: PropTypes.bool,
     children: PropTypes.element,
     appName: PropTypes.string,
-    lightLogo: PropTypes.any,
-    darkLogo: PropTypes.any,
+    logo: PropTypes.any,
     profile: PropTypes.shape({
         name: PropTypes.string,
         email: PropTypes.string,
@@ -114,14 +106,14 @@ Navigation.propTypes = {
         PropTypes.shape({
             label: PropTypes.string,
             icon: PropTypes.any,
-            path: PropTypes.string,
+            onClick: PropTypes.func,
             disabled: PropTypes.bool
         })
     ),
     fallbackProfileButton: PropTypes.shape({
         label: PropTypes.string,
         icon: PropTypes.any,
-        path: PropTypes.string,
+        onClick: PropTypes.func,
         disabled: PropTypes.bool
     })
 }

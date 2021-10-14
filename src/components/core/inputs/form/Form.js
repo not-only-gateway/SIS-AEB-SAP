@@ -7,13 +7,16 @@ import PropTypes from "prop-types";
 
 export default function Form(props) {
     const {
-        ref, disabled,
-        data, handleChange,
-        clearState
-    } = useForm({noAutoHeight: props.noAutoHeight, initialData: props.initialData, dependencies: props.dependencies})
+        ref, disabled
+    } = useForm({
+        noAutoHeight: props.noAutoHeight,
+        initialData: props.initialData,
+        dependencies: props.dependencies,
+        data: props.hook.data,
+        changed: props.hook.changed
+    })
 
     return (
-
         <div ref={ref} className={styles.container} style={{
             boxShadow: props.noShadow ? 'none' : undefined,
             alignContent: props.noAutoHeight ? 'space-between' : undefined,
@@ -22,11 +25,18 @@ export default function Form(props) {
             <Header title={props.title} returnButton={props.returnButton} noHeader={props.noHeader}
                     handleClose={props.handleClose}/>
             <div style={{padding: props.noPadding ? '0' : '16px', overflow: 'visible'}}>
-                {props.children(data, handleChange)}
+                {props.children(props.hook.data, props.hook.handleChange)}
             </div>
-            <SubmitButton noBorder={props.noBorder} noPadding={props.noPadding} submit={props.handleSubmit} data={data}
-                          clearState={clearState} create={props.create} disabled={disabled}
-                          submitLabel={props.submitLabel}/>
+            <SubmitButton
+                noBorder={props.noBorder} noPadding={props.noPadding}
+                submit={(e, i) => {
+                    props.handleSubmit(e, i)
+                    props.hook.setChanged(false)
+                }} data={props.hook.data}
+                clearState={props.hook.clearState} create={props.create}
+                disabled={disabled}
+                submitLabel={props.submitLabel}
+            />
         </div>
     )
 }
@@ -38,7 +48,7 @@ Form.propTypes = {
     returnButton: PropTypes.bool,
     title: PropTypes.string,
 
-    initialData: PropTypes.object,
+    hook: PropTypes.object.isRequired,
     children: PropTypes.func,
     create: PropTypes.bool,
 

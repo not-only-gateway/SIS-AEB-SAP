@@ -9,6 +9,7 @@ import TextField from "./core/inputs/text/TextField";
 import FormRow from "./core/inputs/form/FormRow";
 import submitAuthentication from "../utils/SubmitAuthentication";
 import Tabs from "./core/navigation/tabs/Tabs";
+import useData from "./core/inputs/form/useData";
 
 export default function Authenticator(props) {
     const cookies = useCookies()
@@ -19,7 +20,7 @@ export default function Authenticator(props) {
         sessionStorage.removeItem('profile')
         sessionStorage.removeItem('accessProfile')
     }, [])
-
+    const formHook = useData(null)
     const [visible, setVisible] = useState(false)
     return (
         <div className={styles.wrapper}>
@@ -42,6 +43,7 @@ export default function Authenticator(props) {
                         }
                     ]}/>
                 <Form
+                    hook={formHook}
                     dependencies={[{name: 'email', type: 'string'}, {name: 'password', type: 'string'}]}
                     submitLabel={'Entrar'}
                     noPadding={true} noBorder={true} noHeader={true} noAutoHeight={true}
@@ -49,7 +51,6 @@ export default function Authenticator(props) {
                         submitAuthentication({
                             email: data.email,
                             password: data.password,
-
                             asManager: asManager
                         }).then(res => {
                                 if (res) {

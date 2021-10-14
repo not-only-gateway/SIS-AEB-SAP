@@ -1,76 +1,83 @@
 import React, {useEffect, useState} from "react";
 import ProjectPT from "../../locales/ProjectPT";
-import {DropDownField, Form, FormRow, TextField} from "sis-aeb-core";
+import {DropDownField, FormRow, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import ProjectRequests from "../../utils/requests/ProjectRequests";
+import Form from "../../../../core/inputs/form/Form";
+import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
+import Cookies from "universal-cookie/lib";
 
-
-export default function RiskForm(props){
+export default function RiskForm(props) {
     const lang = ProjectPT
     const [initialData, setInitialData] = useState(props.data)
+    const formHook = useDataWithDraft({
+        initialData: initialData,
+        draftUrl: '',
+        draftHeaders: {'authorization': (new Cookies()).get('jwt')},
+        interval: 120000
+    })
 
     useEffect(() => {
 
-            setInitialData({
-                ...props.data,
-                ...{
-                    project: props.project.id
-                }
-            })
+        setInitialData({
+            ...props.data,
+            ...{
+                project: props.project.id
+            }
+        })
     }, [])
 
     return (
-        <>
+        <Form
+            hook={formHook}
+            initialData={initialData}
+            create={props.create} label={lang.risksTitle}
+            dependencies={[
+                {name: 'description', type: 'string'},
+                {name: 'analysis', type: 'string'},
+            ]
 
-            <Form
-                initialData={initialData}
-                create={props.create} label={lang.risksTitle}
-                dependencies={[
-                        {name: 'description', type: 'string'},
-                        {name: 'analysis', type: 'string'},
-                    ]
+            }
+            returnButton={true}
+            handleSubmit={(data, clearState) =>
+                ProjectRequests.submitRisk({
+                    pk: data.id,
+                    data: data,
+                    create: props.create
+                }).then(res => {
+                    if (props.create && res) {
+                        props.returnToMain()
+                        clearState()
+                    }
+                })}
+            handleClose={() => props.returnToMain()}>
+            {(data, handleChange) => (
+                <FormRow>
 
-                }
-                returnButton={true}
-                handleSubmit={(data, clearState) =>
-                    ProjectRequests.submitRisk({
-                        pk: data.id,
-                        data: data,
-                        create: props.create
-                    }).then(res => {
-                        if(props.create && res) {
-                            props.returnToMain()
-                            clearState()
-                        }
-                    })}
-                handleClose={() => props.returnToMain()}>
-                {(data, handleChange) => (
-                    <FormRow>
+                    <TextField
 
-                            <TextField
+                        placeholder={lang.description} label={lang.description}
+                        handleChange={event => {
 
-                                placeholder={lang.description} label={lang.description}
-                                handleChange={event => {
+                            handleChange({key: 'description', event: event.target.value})
+                        }} value={data.description}
+                        required={true}
+                        width={'100%'}/>
 
-                                    handleChange({key: 'description', event: event.target.value})
-                                }}  value={ data.description}
-                                required={true}
-                                width={'100%'}/>
+                    <DropDownField
+                        dark={true}
+                        placeholder={lang.analysis}
+                        label={lang.analysis}
+                        handleChange={event => {
 
-                            <DropDownField
-                                dark={true}
-                                placeholder={lang.analysis}
-                                label={lang.analysis}
-                                handleChange={event => {
+                            handleChange({key: 'analysis', event: event})
+                        }} value={data.analysis} required={true}
+                        width={'100%'} choices={lang.riskOptions}/>
+                </FormRow>
+            )}
 
-                                 handleChange({key: 'analysis', event: event})
-                                }} value={ data.analysis} required={true}
-                                width={'100%'} choices={lang.riskOptions}/>
-                    </FormRow>
-                )}
+        </Form>
 
-            </Form>
-        </>
     )
 
 }
