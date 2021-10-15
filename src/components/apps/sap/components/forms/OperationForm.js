@@ -2,14 +2,13 @@ import React, {useEffect, useState} from "react";
 import {DateField, FormRow, TextField, useQuery} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import OperationPT from "../../locales/OperationPT";
-import OperationRequests from "../../utils/requests/OperationRequests";
 import Form from "../../../../core/inputs/form/Form";
 import associativeKeys from "../../keys/associativeKeys";
 import getQuery from "../../queries/getQuery";
 import Selector from "../../../../core/inputs/selector/Selector";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
-
+import submit from "../../utils/requests/submit";
 
 export default function OperationForm(props) {
 
@@ -58,12 +57,13 @@ export default function OperationForm(props) {
             }
             returnButton={true}
             handleSubmit={(data, clearState) =>
-                OperationRequests.submitOperation({
+                submit({
+                    suffix: 'operation_phase',
                     pk: data.id,
                     data: data,
                     create: props.create
                 }).then(res => {
-                    if (props.create && res) {
+                    if (props.create && res.success) {
                         props.returnToMain()
                         clearState()
                     }

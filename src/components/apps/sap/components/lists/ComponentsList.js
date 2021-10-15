@@ -3,9 +3,9 @@ import React, {useState} from "react";
 import {DeleteRounded} from "@material-ui/icons";
 import {List, useQuery} from "sis-aeb-core";
 import ComponentForm from "../forms/ComponentForm";
-import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import deleteEntry from "../../../management/utils/delete";
 import getQuery from "../../queries/getQuery";
 
 export default function ComponentsList(props) {
@@ -36,9 +36,10 @@ export default function ComponentsList(props) {
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
-                            WorkPlanRequests.deleteComponent({
+                            deleteEntry({
+                                suffix: 'component',
                                 pk: entity.id
-                            })
+                            }).then(() => hook.clean())
                         },
                         disabled: false,
                         color: '#ff5555'

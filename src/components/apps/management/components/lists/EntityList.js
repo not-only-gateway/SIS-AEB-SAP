@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import {entityKeys} from "../../keys/keys";
 import EntityForm from "../forms/EntityForm";
 import {DeleteRounded} from "@material-ui/icons";
-import deleteEntry from "../../utils/delete";
+import deleteEntry from "../../utils/requests/delete";
 
 export default function EntityList(props) {
     const hook = useQuery(entity_query)
@@ -31,7 +31,11 @@ export default function EntityList(props) {
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: data => {
-                            deleteEntry({pk: data.id, path: 'entity'}).then(() => hook.clean())
+                            deleteEntry({
+                                prefix: 'gateway',
+                                suffix: 'entity',
+                                pk: data.id,
+                            }).then(() => hook.clean())
                         }
                     }
                 ]}

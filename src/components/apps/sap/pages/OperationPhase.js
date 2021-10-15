@@ -7,7 +7,6 @@ import ThemeContext from "../../../core/theme/ThemeContext";
 import ActionList from "../components/lists/ActionList";
 import FollowUpList from "../components/lists/FollowUpList";
 import ExecutionList from "../components/lists/ExecutionList";
-import PermanentGoodsForm from "../components/forms/PermanentGoodsForm";
 import PermanentGoodsList from "../components/lists/PermanentGoodsList";
 import ResourceApplicationList from "../components/lists/ResourceApplicationList";
 import NoteList from "../components/lists/NoteList";

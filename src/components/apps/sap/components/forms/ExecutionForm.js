@@ -1,17 +1,15 @@
 import React, {useEffect, useState} from "react";
 
 import PropTypes from "prop-types";
-import OperationRequests from "../../utils/requests/OperationRequests";
 import ExecutionPT from "../../locales/ExecutionPT";
-import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import {DateField, FormRow, Selector, TextField} from "sis-aeb-core";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
-import associativeKeys from "../../keys/associativeKeys";
 import workPlanKeys from "../../keys/workPlanKeys";
 import useQuery from "../../../../core/shared/hooks/useQuery";
 import getQuery from "../../queries/getQuery";
+import submit from "../../utils/requests/submit";
 
 export default function ExecutionForm(props) {
 
@@ -60,24 +58,23 @@ export default function ExecutionForm(props) {
 
             }
             returnButton={props.create}
-            handleSubmit={(data, clearState) =>
-                OperationRequests.submitExecution({
+            handleSubmit={(data, clearState) =>{
+                const date = data.execution_date.split('-')
+                submit({
+                    suffix: 'execution',
                     pk: data.id,
-                    data: data,
+                    data: {...data, execution_date: date[1] + '-' + date[2] + '-' + date[0]},
                     create: props.create
                 }).then(res => {
-                    if (props.create && res) {
+                    if (props.create && res.success) {
                         props.returnToMain()
                         clearState()
                     }
-
                 })
-            }
+            }}
             handleClose={() => props.returnToMain()}>
             {(data, handleChange) => (
                 <FormRow>
-
-
                     <TextField
                         placeholder={lang.description} label={lang.description}
                         handleChange={event => {

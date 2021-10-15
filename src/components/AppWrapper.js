@@ -47,7 +47,7 @@ export default function AppWrapper(props) {
                         blurIntensity={.1}
                         animationStyle={"fade"}
                     >
-                        <Authenticator setManager={setManager} redirect={() => router.push('/', '/')}/>
+                        <Authenticator setManager={setManager} redirect={() => setOpenAuthentication(false)} />
                     </Modal>
                     <Navigation
                         redirect={url => router.push(url, url)}
@@ -56,7 +56,7 @@ export default function AppWrapper(props) {
                         {...layoutParams}
                         sideBarButtons={[
                             ...layoutParams.sideBarButtons,
-                            ...[profile && !isManager ? {
+                            ...[profile && !isManager && cookies.get('jwt') ? {
                                 label: 'Perfil',
                                 icon: <PersonRounded/>,
                                 onClick: () => router.push(router.pathname + '?page=profile'),

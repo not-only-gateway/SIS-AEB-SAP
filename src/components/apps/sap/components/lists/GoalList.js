@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
 import {List, useQuery} from "sis-aeb-core";
-import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import GoalForm from "../forms/GoalForm";
 import {DeleteRounded} from "@material-ui/icons";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import deleteEntry from "../../../management/utils/delete";
 import getQuery from "../../queries/getQuery";
 
 export default function GoalList(props) {
@@ -39,10 +39,11 @@ export default function GoalList(props) {
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
-                            WorkPlanRequests.deleteGoal({
+                            deleteEntry({
+                                suffix: 'goal',
                                 pk: entity.id,
                                 setRefreshed: setRefreshed
-                            })
+                            }).then(() => hook.clean())
                         },
                         disabled: false,
                         color: '#ff5555'

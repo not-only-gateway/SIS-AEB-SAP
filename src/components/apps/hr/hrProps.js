@@ -1,11 +1,4 @@
-import {
-    HelpRounded,
-    ListRounded,
-    PeopleRounded,
-    PublicRounded,
-    SettingsRounded,
-    SupervisorAccountRounded
-} from "@material-ui/icons";
+import {PeopleRounded} from "@material-ui/icons";
 import React from "react";
 
 export default function hrProps (redirect, path, query={}) {
@@ -20,6 +13,6 @@ export default function hrProps (redirect, path, query={}) {
                 highlight:(path === '/hr' && !query.page)||  query.page === 'index'
             }
         ],
-        requireAuth: true
+        requireAuth: false
     }
 }

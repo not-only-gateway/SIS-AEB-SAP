@@ -2,11 +2,11 @@ import React from "react";
 
 import {FormRow, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
-import ProjectRequests from "../../utils/requests/ProjectRequests";
 import ProjectPT from "../../locales/ProjectPT";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
+import submit from "../../utils/requests/submit";
 
 export default function ActionForm(props) {
 
@@ -24,16 +24,17 @@ export default function ActionForm(props) {
             title={props.create ? lang.newAction : lang.action}
             initialData={props.data} create={props.create}
             dependencies={[
-                {name: 'number', type: 'string'},
-                {name: 'detailing', type: 'object'},
+                {key: 'number', type: 'string'},
+                {key: 'detailing', type: 'object'},
             ]} returnButton={true} handleClose={() => props.returnToMain()}
             handleSubmit={(data, clearState) =>
-                ProjectRequests.submitAction({
+                submit({
+                    suffix: 'action',
                     pk: data.id,
                     data: data,
                     create: props.create
                 }).then(res => {
-                    if (props.create && res) {
+                    if (props.create && res.success) {
                         props.returnToMain()
                         clearState()
                     }

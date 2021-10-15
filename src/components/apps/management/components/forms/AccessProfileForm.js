@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import Form from "../../../../core/inputs/form/Form";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import TextField from "../../../../core/inputs/text/TextField";
-import {accessProfile} from "../../utils/submits";
 import useData from "../../../../core/inputs/form/useData";
+import submit from "../../utils/requests/submit";
 
 export default function AccessProfileForm(props) {
     const formHook = useData(props.initialData)
@@ -15,18 +15,20 @@ export default function AccessProfileForm(props) {
             initialData={props.initialData}
             handleClose={() => props.handleClose()}
             dependencies={[
-                {name: 'denomination', type: 'string'}
+                {key:  'denomination', type: 'string'}
             ]} returnButton={true}
             handleSubmit={(data, clearState) => {
-                accessProfile({
+                submit({
+                    suffix: 'access_profile',
                     pk: data.id,
                     create: data.id === undefined,
-                    data: data
+                    data: data,
+                    prefix: 'auth'
                 }).then((res) => {
-                    if (res !== null && props.initialData?.id === undefined) {
+                    if (res.success && props.initialData?.id === undefined) {
                         props.redirect(res)
                         clearState()
-                    } else if (res !== null) {
+                    } else if (res.success) {
                         props.updateData(data)
                     }
                 })

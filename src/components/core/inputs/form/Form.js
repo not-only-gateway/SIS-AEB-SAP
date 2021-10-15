@@ -10,7 +10,6 @@ export default function Form(props) {
         ref, disabled
     } = useForm({
         noAutoHeight: props.noAutoHeight,
-        initialData: props.initialData,
         dependencies: props.dependencies,
         data: props.hook.data,
         changed: props.hook.changed

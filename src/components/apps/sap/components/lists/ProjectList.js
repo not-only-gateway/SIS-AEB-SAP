@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import {useQuery} from "sis-aeb-core";
 import ProjectForm from "../forms/ProjectForm";
 import {ArrowForwardRounded, DeleteRounded} from "@material-ui/icons";
-import ProjectRequests from "../../utils/requests/ProjectRequests";
 import projectKeys from "../../keys/projectKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import deleteEntry from "../../../management/utils/delete";
 import List from "../../../../core/list/List";
 import getQuery from "../../queries/getQuery";
 
@@ -43,7 +43,8 @@ export default function ProjectList(props) {
                             label: 'Deletar',
                             icon: <DeleteRounded/>,
                             onClick: (entity) => {
-                                ProjectRequests.deleteProject({
+                                deleteEntry({
+                                    suffix: 'project',
                                     pk: entity.id
                                 }).then(() => hook.clean())
                             },

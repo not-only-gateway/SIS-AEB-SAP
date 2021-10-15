@@ -1,26 +1,17 @@
 import Requester from "../../../core/misc/requester/Requester";
 import Host from "./shared/Host";
 import Cookies from "universal-cookie/lib";
+import PropTypes from "prop-types";
 
-export async function fetchAccess(pk){
+export async function fetchEntry(props){
     let response = null
     await Requester({
         method: 'get',
-        url: Host('auth') + '/access_profile/'+pk,
+        url: Host(props.prefix)+ props.suffix,
         headers: {'authorization': (new Cookies()).get('jwt')},
-    }).then(res => {
-        response = res.data
-    }).catch(e => {
-        console.log(e)
-    })
-    return response
-}
-export async function fetchService(pk){
-    let response = null
-    await Requester({
-        method: 'get',
-        url: Host('gateway') + '/service/'+pk,
-        headers: {'authorization': (new Cookies()).get('jwt')},
+        package: {
+            identifier: props.pk
+        }
     }).then(res => {
         response = res.data
     }).catch(e => {
@@ -29,17 +20,9 @@ export async function fetchService(pk){
     return response
 }
 
-export async function fetchEndpoint(pk){
-    let response = null
-    await Requester({
-        method: 'get',
-        url: Host('gateway') + '/endpoint',
-        headers: {'authorization': (new Cookies()).get('jwt')},
-        package: {id: pk}
-    }).then(res => {
-        response = res.data
-    }).catch(e => {
-        console.log(e)
-    })
-    return response
+
+fetchEntry.propTypes={
+    pk: PropTypes.any,
+    suffix: PropTypes.string,
+    prefix: PropTypes.string
 }

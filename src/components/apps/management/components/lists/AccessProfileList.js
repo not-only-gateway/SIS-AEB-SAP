@@ -7,7 +7,7 @@ import {accessProfileKeys} from "../../keys/keys";
 import AccessProfileForm from "../forms/AccessProfileForm";
 import PropTypes from 'prop-types'
 import {DeleteRounded} from "@material-ui/icons";
-import deleteEntry from "../../utils/delete";
+import deleteEntry from "../../utils/requests/delete";
 
 export default function AccessProfileList(props) {
     const hook = useQuery(access_profile_query)
@@ -17,9 +17,9 @@ export default function AccessProfileList(props) {
         <Switcher openChild={openEntity ? 0 : 1}>
             <div style={{marginTop: '48px'}}>
                 <AccessProfileForm
-                    redirect={id => props.redirect('/management/?page=access&id='+id, '/management/?page=access&id='+id, {})}
+                    redirect={id => props.redirect('/management/?page=access&id=' + id, '/management/?page=access&id=' + id, {})}
                     initialData={openEntity ? openEntity : {}}
-                             handleClose={() => setOpenEntity(undefined)}
+                    handleClose={() => setOpenEntity(undefined)}
                 />
             </div>
             <List
@@ -30,18 +30,22 @@ export default function AccessProfileList(props) {
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: data => {
-                            deleteEntry({pk: data.id, path: 'access_profile'}).then(() => hook.clean())
+                            deleteEntry({
+                                prefix: 'auth',
+                                suffix: 'access_profile',
+                                pk: data.id
+                            }).then(() => hook.clean())
                         }
                     }
                 ]}
                 hook={hook} onCreate={() => setOpenEntity({})}
-                onRowClick={row => props.redirect('/management/?page=access&id='+row.id, '/management/?page=access&id='+row.id, {})}
+                onRowClick={row => props.redirect('/management/?page=access&id=' + row.id, '/management/?page=access&id=' + row.id, {})}
                 title={'Perfis de acesso'}
             />
         </Switcher>
     )
 }
 
-AccessProfileList.propTypes={
+AccessProfileList.propTypes = {
     redirect: PropTypes.func
 }

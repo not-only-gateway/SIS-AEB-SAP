@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {DropDownField, FormRow, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
-import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import StatusPT from "../../locales/StatusPT";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
+import submit from "../../utils/requests/submit";
 
 export default function FinancialDisbursementForm(props) {
 
@@ -41,13 +41,14 @@ export default function FinancialDisbursementForm(props) {
             }
             returnButton={true}
             handleSubmit={(data, clearState) =>
-                WorkPlanRequests.submitFinancial({
+                submit({
+                    suffix: 'financial_disbursement',
                     pk: data.id,
                     data: data,
 
                     create: props.create
                 }).then(res => {
-                    if (props.create && res) {
+                    if (props.create && res.success) {
                         props.returnToMain()
                         clearState()
                     }

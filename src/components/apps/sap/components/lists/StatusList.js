@@ -3,9 +3,9 @@ import React, {useState} from "react";
 import {List, useQuery} from "sis-aeb-core";
 import {DeleteRounded} from "@material-ui/icons";
 import StatusForm from "../forms/StatusForm";
-import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import deleteEntry from "../../../management/utils/delete";
 import getQuery from "../../queries/getQuery";
 
 export default function StatusList(props) {
@@ -33,9 +33,10 @@ export default function StatusList(props) {
                     label: 'Deletar',
                     icon: <DeleteRounded/>,
                     onClick: (entity) => {
-                        WorkPlanRequests.deleteStatus({
+                        deleteEntry({
+                            suffix: 'status',
                             pk: entity.id
-                        })
+                        }).then(() => hook.clean())
                     },
                     disabled: false,
                     color: '#ff5555'

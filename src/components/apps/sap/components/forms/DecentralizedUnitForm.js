@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ProjectRequests from "../../utils/requests/ProjectRequests";
 import Form from "../../../../core/inputs/form/Form";
 import EntitiesPT from "../../locales/EntitiesPT";
 import {FormRow, TextField} from "sis-aeb-core";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
 
+import submit from "../../utils/requests/submit";
 
 export default function DecentralizedUnitForm(props) {
 
@@ -25,24 +25,25 @@ export default function DecentralizedUnitForm(props) {
             create={props.create} title={props.create ? lang.newDecentralizedUnit : lang.decentralizedUnit}
             dependencies={
                 [
-                    {name: 'name', type: 'string'},
-                    {name: 'competent_authority', type: 'string'},
-                    {name: 'cpf', type: 'string'},
-                    {name: 'identification', type: 'string'},
-                    {name: 'uge', type: 'string'},
-                    {name: 'ug', type: 'string'},
-                    {name: 'cnpj', type: 'string'},
-                    {name: 'responsible', type: 'string'},
+                    {key: 'name', type: 'string'},
+                    {key: 'competent_authority', type: 'string'},
+                    {key: 'cpf', type: 'string'},
+                    {key: 'identification', type: 'string'},
+                    {key: 'uge', type: 'string'},
+                    {key: 'ug', type: 'string'},
+                    {key: 'cnpj', type: 'string'},
+                    {key: 'responsible', type: 'string'},
                 ]}
             returnButton={true} noAutoHeight={!props.asDefault}
             handleSubmit={(data, clearState) =>
-                ProjectRequests.submitDecentralizedUnit({
+                submit({
+                    suffix: 'decentralized_unit',
                     pk: data.id,
                     data: data,
 
                     create: props.create
                 }).then(res => {
-                    if (props.create && res) {
+                    if (props.create && res.success) {
                         props.returnToMain()
                         clearState()
                     }

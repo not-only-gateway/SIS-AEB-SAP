@@ -1,12 +1,4 @@
-import {
-    AccountTreeRounded, ApartmentRounded, EventRounded,
-    HelpRounded, HomeRounded, InfoRounded,
-    ListRounded,
-    PeopleRounded,
-    PublicRounded,
-    SettingsRounded,
-    SupervisorAccountRounded
-} from "@material-ui/icons";
+import {AccountTreeRounded, ApartmentRounded, EventRounded, HomeRounded, InfoRounded} from "@material-ui/icons";
 import React from "react";
 
 export default function intranetProps(redirect, path, query = {}) {
@@ -45,6 +37,6 @@ export default function intranetProps(redirect, path, query = {}) {
                 highlight:  query.page === 'commission'
             }
         ],
-        requireAuth: true
+        requireAuth: false
     }
 }

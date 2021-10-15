@@ -1,5 +1,5 @@
 import styles from '../styles/SelectorModal.module.css'
-import {ClearAllRounded, FilterListRounded, FilterRounded} from "@material-ui/icons";
+import {ClearAllRounded, FilterListRounded} from "@material-ui/icons";
 import React, {useState} from "react";
 import Modal from "../../../misc/modal/Modal";
 import PropTypes from "prop-types";
@@ -12,6 +12,7 @@ import Switcher from "../../../misc/switcher/Switcher";
 export default function SelectorModal(props) {
     const lastElementRef = useInfiniteScroll(props.hook.setCurrentPage, props.hook.currentPage, props.hook.loading, props.hook.hasMore)
     const [openFilters, setOpenFilters] = useState(false)
+
     return (
         <Modal
             open={props.open}

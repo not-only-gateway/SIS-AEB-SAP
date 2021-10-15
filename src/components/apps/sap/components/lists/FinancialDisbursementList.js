@@ -2,10 +2,10 @@ import PropTypes from 'prop-types'
 import React, {useState} from "react";
 import {List, useQuery} from "sis-aeb-core";
 import {DeleteRounded} from "@material-ui/icons";
-import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import FinancialDisbursementForm from "../forms/FinancialDisbursementForm";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import deleteEntry from "../../../management/utils/delete";
 import getQuery from "../../queries/getQuery";
 
 
@@ -36,7 +36,8 @@ export default function FinancialDisbursementList(props) {
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
-                            WorkPlanRequests.deleteFinancial({
+                            deleteEntry({
+                                suffix: 'financial_disbursement',
                                 pk: entity.id
                             }).then(() => hook.clean())
                         },

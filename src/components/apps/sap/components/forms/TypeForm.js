@@ -1,11 +1,11 @@
 import React from "react";
 import {FormRow, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
-import ProjectRequests from "../../utils/requests/ProjectRequests";
 import EntitiesPT from "../../locales/EntitiesPT";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
+import submit from "../../utils/requests/submit";
 
 export default function TypeForm(props) {
     const lang = EntitiesPT
@@ -25,18 +25,19 @@ export default function TypeForm(props) {
             title={props.create ? lang.newType : lang.type}
             dependencies={
                 [
-                    {name: 'type', type: 'string'},
+                    {key: 'type', type: 'string'},
                 ]
             }
             returnButton={true}
             handleSubmit={(data, clearState) =>
-                ProjectRequests.submitType({
+                submit({
+                    suffix: 'type',
                     pk: data.id,
                     data: data,
 
                     create: props.create
                 }).then(res => {
-                    if (props.create && res) {
+                    if (props.create && res.success) {
                         props.returnToMain()
                         clearState()
                     }

@@ -3,10 +3,9 @@ import React, {useState} from "react";
 import {List, useQuery} from "sis-aeb-core";
 import {DeleteRounded} from "@material-ui/icons";
 import NatureExpenseForm from "../forms/NatureExpenseForm";
-
-import ProjectRequests from "../../utils/requests/ProjectRequests";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import deleteEntry from "../../../management/utils/delete";
 import getQuery from "../../queries/getQuery";
 
 export default function NatureExpenseList(props) {
@@ -31,9 +30,10 @@ export default function NatureExpenseList(props) {
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
-                            ProjectRequests.deleteNatureOfExpense({
+                            deleteEntry({
+                                suffix: 'nature_of_expense',
                                 pk: entity.id
-                            })
+                            }).then(() => hook.clean())
                         },
                         disabled: false,
                         color: '#ff5555'

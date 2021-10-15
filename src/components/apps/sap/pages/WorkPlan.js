@@ -1,12 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import Head from "next/head";
-import ProjectRequests from "../utils/requests/ProjectRequests";
 
 import PropTypes from 'prop-types'
 import WorkPlanRequests from "../utils/requests/WorkPlanRequests";
 import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";
-import TedForm from "../components/forms/TedForm";
-import AddendumList from "../components/lists/AddendumList";
 import shared from "../styles/Shared.module.css";
 import WorkPlanList from "../components/lists/WorkPlanList";
 import Tabs from "../../../core/navigation/tabs/Tabs";

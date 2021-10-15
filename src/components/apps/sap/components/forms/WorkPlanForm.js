@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import WorkPlanPT from "../../locales/WorkPlanPT";
-import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import {DropDownField, FormRow, MultiSelectField, TextField, useQuery} from "sis-aeb-core";
 import associativeKeys from "../../keys/associativeKeys";
 import getQuery from "../../queries/getQuery";
@@ -9,6 +8,7 @@ import Selector from "../../../../core/inputs/selector/Selector";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
+import submit from "../../utils/requests/submit";
 
 export default function WorkPlanForm(props) {
     const lang = WorkPlanPT
@@ -72,26 +72,16 @@ export default function WorkPlanForm(props) {
                 } noHeader={!props.create}
                 returnButton={props.create}
                 handleSubmit={(data, clearState) => {
-                    if (!props.asApostille)
-                        WorkPlanRequests.submitWorkPlan({
-                            pk: data.id,
-                            data: data,
-                            create: props.create
-                        }).then(res => {
-                            if (res !== null && props.create)
-                                props.redirect(res)
-                        })
-                    else
-                        WorkPlanRequests.submitApostille({
-                            pk: data.id,
-                            data: data,
-                            create: props.create
-                        }).then(res => {
-                            if (res !== null)
-                                props.returnToMain()
-                        })
-                }
-                }
+                    submit({
+                        suffix: 'work_plan',
+                        pk: data.id,
+                        data: data,
+                        create: props.create
+                    }).then(res => {
+                        if (res.success && props.create)
+                            props.redirect(res.data)
+                    })
+                }}
                 handleClose={() => props.returnToMain()}>
                 {(data, handleChange) => (
                     <>

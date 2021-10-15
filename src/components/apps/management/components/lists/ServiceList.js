@@ -7,7 +7,8 @@ import Switcher from "../../../../core/misc/switcher/Switcher";
 import PropTypes from "prop-types";
 import {serviceKeys} from "../../keys/keys";
 import {DeleteRounded} from "@material-ui/icons";
-import deleteEntry from "../../utils/delete";
+import deleteEntry from "../../utils/requests/delete";
+
 
 export default function ServiceList(props) {
     const hook = useQuery(service_query)
@@ -32,7 +33,9 @@ export default function ServiceList(props) {
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: data => {
-                            deleteEntry({pk: data.id, path: 'service'}).then(() => hook.clean())
+                            deleteEntry({
+                                prefix: 'gateway', pk: data.id, suffix: 'service'
+                            }).then(() => hook.clean())
                         }
                     }
                 ]}

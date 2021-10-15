@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {FormRow, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
-import OperationRequests from "../../utils/requests/OperationRequests";
 import ExecutionPT from "../../locales/ExecutionPT";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
+import submit from "../../utils/requests/submit";
 
 export default function NoteForm(props) {
     const lang = ExecutionPT
@@ -34,19 +34,20 @@ export default function NoteForm(props) {
             create={props.create} title={props.create ? lang.newNote : lang.note}
             dependencies={
                 [
-                    {name: 'number', type: 'string'},
-                    {name: 'value', type: 'number'}
+                    {key: 'number', type: 'string'},
+                    {key: 'value', type: 'number'}
                 ]
 
             }
             returnButton={props.create}
             handleSubmit={(data, clearState) =>
-                OperationRequests.submitNote({
+                submit({
+                    suffix: 'commitment_note',
                     pk: data.id,
                     data: data,
                     create: props.create
                 }).then(res => {
-                    if (props.create && res) {
+                    if (props.create && res.success) {
                         props.returnToMain()
                         clearState()
                     }

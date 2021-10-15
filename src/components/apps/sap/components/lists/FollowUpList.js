@@ -3,9 +3,9 @@ import {List, useQuery} from "sis-aeb-core";
 import {DeleteRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import FollowUpForm from "../forms/FollowUpForm";
-import OperationRequests from "../../utils/requests/OperationRequests";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import deleteEntry from "../../../management/utils/delete";
 import getQuery from "../../queries/getQuery";
 
 export default function FollowUpList(props) {
@@ -35,7 +35,8 @@ export default function FollowUpList(props) {
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
-                            OperationRequests.deleteFollowUpGoal({
+                            deleteEntry({
+                                suffix: 'follow_up_goal',
                                 pk: entity.id
                             }).then(() => hook.clean())
                         },

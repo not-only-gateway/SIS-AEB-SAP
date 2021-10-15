@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import {DeleteRounded} from "@material-ui/icons";
 import ActionForm from "../forms/ActionForm";
-import ProjectRequests from "../../utils/requests/ProjectRequests";
 import {List, useQuery} from "sis-aeb-core";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import deleteEntry from "../../../management/utils/delete";
 import getQuery from "../../queries/getQuery";
 
 
@@ -34,7 +34,8 @@ export default function ActionList(props) {
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
-                            ProjectRequests.deleteAction({
+                            deleteEntry({
+                                suffix: 'action',
                                 pk: entity.id
                             }).then(() => hook.clean())
                         },

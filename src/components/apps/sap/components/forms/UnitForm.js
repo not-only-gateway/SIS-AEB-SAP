@@ -1,23 +1,24 @@
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import ProjectRequests from "../../utils/requests/ProjectRequests";
-import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import EntitiesPT from "../../locales/EntitiesPT";
-import {FormRow, Selector, TextField} from "sis-aeb-core";
+import {FormRow, TextField, useQuery} from "sis-aeb-core";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
+import associativeKeys from "../../keys/associativeKeys";
+import getQuery from "../../queries/getQuery";
+import Selector from "../../../../core/inputs/selector/Selector";
+import submit from "../../utils/requests/submit";
 
 export default function UnitForm(props) {
     const lang = EntitiesPT
-    const [open, setOpen] = useState(false)
     const formHook = useDataWithDraft({
         initialData: props.data,
         draftUrl: '',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
         interval: 120000
     })
-
+    const unitHook = useQuery(getQuery('unit'))
 
     return (
         <Form
@@ -25,18 +26,19 @@ export default function UnitForm(props) {
             initialData={props.data}
             create={props.create} title={props.create ? lang.newUnit : lang.unit}
             dependencies={[
-                {name: 'name', type: 'string'},
-                {name: 'acronym', type: 'string'},
+                {key: 'name', type: 'string'},
+                {key: 'acronym', type: 'string'},
             ]}
 
             returnButton={true} noAutoHeight={!props.asDefault}
             handleSubmit={(data, clearState) =>
-                ProjectRequests.submitUnit({
+                submit({
+                    suffix: 'unit',
                     pk: data.id,
                     data: data,
                     create: props.create
                 }).then(res => {
-                    if (props.create && res) {
+                    if (props.create && res.success) {
                         props.returnToMain()
                         clearState()
                     }
@@ -55,7 +57,7 @@ export default function UnitForm(props) {
                             })
                         }} value={data.name}
                         required={true}
-                        width={'calc(50% - 16px'}/>
+                        width={'calc(33.333% - 21.5px'}/>
                     <TextField
                         placeholder={lang.acronym} label={lang.acronym}
                         handleChange={event => {
@@ -64,38 +66,17 @@ export default function UnitForm(props) {
                                 key: 'acronym'
                             })
                         }} value={data.acronym}
-                        required={true} width={'calc(50% - 16px'}
-                    />
+                        required={true}
+                        width={'calc(33.333% - 21.5px'}/>
                     <Selector
-                        getEntityKey={entity => {
-                            if (entity !== null && entity !== undefined)
-                                return entity.id
-                            else return -1
-                        }} searchFieldName={'search_input'}
-                        handleChange={entity => {
-                            handleObjectChange({
-                                event: ({name: 'parent_unit', value: entity}),
-                                setData: setData
-                            })
-                        }} label={'Vincular unidade pai'}
-                        selected={data === null || !data.parent_unit ? null : data.parent_unit}
-                        width={'100%'}
-                        fields={[
-                            {name: 'name', type: 'string'},
-                            {name: 'acronym', type: 'string'},
-                        ]}
-                        labels={['nome', 'Acrônimo']}
-                        fetchUrl={Host() + 'list/unit'}
-                        fetchParams={{
-                            unit: data !== null && data !== undefined && data.id !== undefined ? data.id : null
-                        }}
-                        fetchToken={(new Cookies()).get('jwt')}
-                        createOption={true}
-                        returnToList={!open}
-                        setReturnToList={() => setOpen(true)}
-                    >
-                        <UnitForm create={true} returnToMain={() => setOpen(false)}/>
-                    </Selector>
+                        hook={unitHook} keys={associativeKeys.responsible}
+                        width={'calc(33.333% - 21.5px'}
+
+                        value={data.responsible}
+                        title={'Responsável'}
+                        placeholder={'Responsável'}
+                        handleChange={entity => handleChange({key: 'responsible', event: entity})}
+                    />
                 </FormRow>
             )}
         </Form>

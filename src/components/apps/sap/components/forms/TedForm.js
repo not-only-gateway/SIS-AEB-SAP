@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import TedPT from "../../locales/TedPT";
-import TedRequests from "../../utils/requests/TedRequests";
 import {DateField, DropDownField, FormRow, Selector, TextField, useQuery} from "sis-aeb-core";
 import associativeKeys from "../../keys/associativeKeys";
 import getQuery from "../../queries/getQuery";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
+import submit from "../../utils/requests/submit";
 
 export default function TedForm(props) {
     const lang = TedPT
@@ -79,7 +79,8 @@ export default function TedForm(props) {
             returnButton={props.create || props.asEntity}
             handleSubmit={(data, clearState) => {
                 if (!props.asAddendum)
-                    TedRequests.submitTed({
+                    submit({
+                        suffix: 'ted',
                         pk: data.id,
                         data: data,
                         create: props.create
@@ -91,7 +92,7 @@ export default function TedForm(props) {
                             props.returnToMain()
                     })
                 else
-                    TedRequests.submitAddendum({
+                    submitAddendum({
                         pk: data.id,
                         data: data,
                         create: props.create

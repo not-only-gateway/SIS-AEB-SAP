@@ -2,11 +2,11 @@ import PropTypes from 'prop-types'
 import React, {useState} from "react";
 
 import {DeleteRounded} from "@material-ui/icons";
-import OperationRequests from "../../utils/requests/OperationRequests";
 import {List, useQuery} from "sis-aeb-core";
 import PermanentGoodsForm from "../forms/PermanentGoodsForm";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import deleteEntry from "../../../management/utils/delete";
 import getQuery from "../../queries/getQuery";
 
 
@@ -35,9 +35,10 @@ export default function PermanentGoodsList(props) {
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
-                            OperationRequests.deletePermanentGoods({
+                            deleteEntry({
+                                suffix: 'permanent_goods',
                                 pk: entity.id
-                            })
+                            }).then(() => hook.clean())
                         },
                         disabled: false,
                         color: '#ff5555'

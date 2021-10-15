@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react";
-import PropTypes from "prop-types";
 
 export default function useData(initialData) {
     const [changed, setChanged] = useState(false)
-    const [data, setData] = useState(!initialData ? {} : initialData)
+    const [data, setData] = useState(initialData === undefined || initialData === null ? {} : initialData)
     const handleChange = ({event, key}) => {
+        console.log('ON CHANGE')
         let newData = {...data}
         newData[key] = event
         setData(newData)
@@ -17,7 +17,7 @@ export default function useData(initialData) {
         setChanged(false)
     }
     useEffect(() => {
-        if (typeof initialData === 'object')
+        if (initialData !== undefined && initialData !== null)
             setData(initialData)
     }, [initialData])
 

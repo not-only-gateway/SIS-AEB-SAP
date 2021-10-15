@@ -1,11 +1,4 @@
-import {
-    HelpRounded,
-    ListRounded,
-    PersonRounded,
-    PublicRounded,
-    SettingsRounded,
-    SupervisorAccountRounded
-} from "@material-ui/icons";
+import {PersonRounded} from "@material-ui/icons";
 import React from "react";
 
 export default function profileProps (redirect, path, query={}) {

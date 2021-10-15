@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import {FormRow} from "sis-aeb-core";
-import {entity} from "../../utils/submits";
 import Form from "../../../../core/inputs/form/Form";
 import TextField from "../../../../core/inputs/text/TextField";
 import useData from "../../../../core/inputs/form/useData";
+import submit from "../../utils/requests/submit";
 
 export default function EntityForm(props) {
     const formHook = useData(props.initialData)
@@ -13,17 +13,19 @@ export default function EntityForm(props) {
             title={!props.initialData.id ? 'Nova entidade' : 'Entidade'} initialData={props.initialData}
             handleClose={() => props.handleClose()}
             dependencies={[
-                {name: 'denomination', type: 'string'},
-                {name: 'identification_key', type: 'string'}
+                {key:  'denomination', type: 'string'},
+                {key:  'identification_key', type: 'string'}
             ]} returnButton={true}
             handleSubmit={(data, clearState) => {
-                entity({
+                submit({
+                    suffix: 'entity',
                     pk: data.id,
                     create: data.id === undefined,
                     data: {
                         ...data,
                         host: data.host + '/' + data.port
-                    }
+                    },
+                    prefix: 'gateway'
                 }).then((res) => {
                     if(res) {
                         props.handleClose()

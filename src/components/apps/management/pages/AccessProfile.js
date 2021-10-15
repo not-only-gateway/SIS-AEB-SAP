@@ -3,7 +3,7 @@ import PermissionList from "../components/lists/PermissionList";
 import styles from '../styles/Shared.module.css'
 import AccessProfileForm from "../components/forms/AccessProfileForm";
 import React, {useContext, useEffect, useState} from "react";
-import {fetchAccess} from "../utils/fetch";
+import {fetchAccess, fetchEntry} from "../utils/fetch";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
 import ThemeContext from "../../../core/theme/ThemeContext";
 
@@ -11,6 +11,9 @@ export default function AccessProfile(props) {
     const [data, setData] = useState(null)
     const themes = useContext(ThemeContext)
     useEffect(() => {
+        fetchEntry({suffix: 'access_profile', prefix: 'auth', pk: props.query.id}).then(r => {
+            setData(r)
+        })
         fetchAccess(props.query.id).then(r => setData(r))
     }, [])
 

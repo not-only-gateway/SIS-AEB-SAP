@@ -2,10 +2,13 @@ import React, {useEffect, useState} from "react";
 import {DropDownField, FileField, FormRow, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import OperationPT from "../../locales/OperationPT";
-import OperationRequests from "../../utils/requests/OperationRequests";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
+import submit from "../../utils/requests/submit";
+import Requester from "../../../../core/misc/requester/Requester";
+import Host from "../../utils/shared/Host";
+import deleteEntry from "../../utils/requests/delete";
 
 export default function FollowUpForm(props) {
     const lang = OperationPT
@@ -20,16 +23,27 @@ export default function FollowUpForm(props) {
 
     useEffect(() => {
         if (!props.create && props.data.file !== undefined && props.data.file !== null) {
-            OperationRequests.fetchFile({
-                id: data.file
-            }).then(e => {
-                console.log(e)
-                if (e.data !== null)
-                    setFile({
-                        key: e.fileName,
-                        file: e.data
-                    })
-            })
+            Requester({
+                method: 'get',
+                url: Host().replace('/api', '/drive') + '/file',
+                package: {
+                    identifier: initialData.file
+                },
+                headers: {'authorization': (new Cookies()).get('jwt')}
+            }).then(res => {
+                Requester({
+                    method: 'get',
+                    url: Host(true) + 'file_name/' + submitProps.id,
+                    showSuccessAlert: false,
+                    headers: {'authorization': (new Cookies()).get('jwt')}
+                }).then(r => {
+                    if (r.data && r.data.data)
+                        setFile({
+                            key: r.data.data,
+                            file: res.data
+                        })
+                })
+            }).catch(e => console.log(e))
         }
         setInitialData({
             ...props.data,
@@ -52,24 +66,22 @@ export default function FollowUpForm(props) {
             }
             returnButton={true}
             handleSubmit={(data, clearState) =>
-                OperationRequests.submitFollowUpGoal({
+                submit({
+                    suffix: 'follow_up_goal',
                     pk: data.id,
                     data: data,
                     create: props.create,
                     file: file
                 }).then(res => {
-                    if (props.create && res) {
+                    if (props.create && res.success) {
                         props.returnToMain()
                         clearState()
                     }
                 })
-
             }
             handleClose={() => props.returnToMain()}>
             {(data, handleChange) => (
                 <FormRow>
-
-
                     <TextField
                         placeholder={lang.description} label={lang.description}
                         handleChange={event => {
@@ -79,8 +91,7 @@ export default function FollowUpForm(props) {
                         required={true}
                         width={'100%'}
                     />
-
-
+                    
                     <DropDownField
                         dark={true}
                         placeholder={lang.delivered}
@@ -91,16 +102,16 @@ export default function FollowUpForm(props) {
                         }} value={data.accomplished} required={true}
                         width={'calc(50% - 16px)'} choices={lang.options}
                     />
-
                     <FileField
                         handleChange={(e) => setFile(e[0])} accept={['.pdf']}
                         width={'calc(50% - 16px)'} required={false} label={'Adicionar PDF'}
                         disabled={false} multiple={false} files={file ? [file] : []}
                         handleFileRemoval={() => {
-                            OperationRequests.deleteFile({
-                                id: data.file
+                            deleteEntry({
+                                pk: data.file,
+                                url: Host().replace('/api', '/drive') + '/file'
                             }).then(e => {
-                                if (e)
+                                if (e.success)
                                     setFile(null)
                             })
                         }}

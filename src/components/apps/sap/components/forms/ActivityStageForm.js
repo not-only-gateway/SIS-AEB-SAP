@@ -1,15 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import Form from "../../../../core/inputs/form/Form";
 import {FormRow, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
-
-import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import GoalPT from "../../locales/GoalPT";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
+import submit from "../../utils/requests/submit";
 
-
-export default function ActivityForm(props) {
+export default function ActivityStageForm(props) {
     const lang = GoalPT
     const formHook = useDataWithDraft({
         initialData: props.data,
@@ -33,13 +31,14 @@ export default function ActivityForm(props) {
             returnButton={props.create}
             noHeader={!props.create}
             handleSubmit={(data, clearState) =>
-                WorkPlanRequests.submitStage({
+                submit({
+                    suffix: 'activity',
                     pk: data.id,
                     data: data,
                     create: props.create
                 }).then(res => {
-                    if (res !== null && props.create)
-                        props.redirect(res)
+                    if (res.success && props.create)
+                        props.redirect(res.data)
                 })}
             handleClose={() => props.returnToMain()}>
             {(data, handleChange) => (
@@ -79,7 +78,7 @@ export default function ActivityForm(props) {
 
 }
 
-ActivityForm.propTypes = {
+ActivityStageForm.propTypes = {
     data: PropTypes.object,
     handleChange: PropTypes.func,
     returnToMain: PropTypes.func,

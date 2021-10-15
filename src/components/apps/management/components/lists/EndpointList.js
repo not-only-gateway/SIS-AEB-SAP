@@ -7,7 +7,8 @@ import Switcher from "../../../../core/misc/switcher/Switcher";
 import PropTypes from 'prop-types'
 import {endpointKeys} from "../../keys/keys";
 import {DeleteRounded} from "@material-ui/icons";
-import deleteEntry from "../../utils/delete";
+import deleteEntry from "../../utils/requests/delete";
+
 
 export default function EndpointList(props) {
     const hook = useQuery(endpoint_query(props.service))
@@ -15,12 +16,14 @@ export default function EndpointList(props) {
     return (
         <Switcher openChild={openEntity ? 0 : 1}>
             <div style={{marginTop: '48px'}}>
-                <EndpointForm initialData={openEntity ? openEntity : {}}
-                              redirect={id => props.redirect('/management/?page=endpoint&id=' + id, '/management/?page=endpoint&id=' + id, {})}
-                              handleClose={() => {
-                                  setOpenEntity(undefined)
-                                  hook.clean()
-                              }}
+                <EndpointForm
+                    initialData={openEntity ? openEntity : {}}
+                    service={props.service}
+                    redirect={id => props.redirect('/management/?page=endpoint&id=' + id, '/management/?page=endpoint&id=' + id, {})}
+                    handleClose={() => {
+                        setOpenEntity(undefined)
+                        hook.clean()
+                    }}
                 />
             </div>
             <List
@@ -31,11 +34,15 @@ export default function EndpointList(props) {
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: data => {
-                            // deleteEntry({pk: data.url, path: 'endpoint'})
+                            deleteEntry({
+                                prefix: 'gateway',
+                                suffix: 'endpoint',
+                                pk: data.url
+                            }).then(() => hook.clean())
                         }
                     }
                 ]}
-                onRowClick={row => props.redirect('/management/?page=endpoint&id=' + row.url, '/management/?page=endpoint&id=' + row.url, {})}
+                onRowClick={row => props.service ? setOpenEntity(row) : props.redirect('/management/?page=endpoint&id=' + row.url, '/management/?page=endpoint&id=' + row.url, {})}
                 onCreate={() => setOpenEntity({})}
                 title={'Endpoints registrados'}
             />

@@ -1,38 +1,51 @@
 import PropTypes from 'prop-types'
 import {DropDownField, FormRow} from "sis-aeb-core";
-import {service} from "../../utils/submits";
 import Form from "../../../../core/inputs/form/Form";
 import TextField from "../../../../core/inputs/text/TextField";
 import useData from "../../../../core/inputs/form/useData";
+import {useMemo} from "react";
+import submit from "../../utils/requests/submit";
 
 export default function ServiceForm(props) {
-    const formHook = useData(props.initialData)
+    const initialData = useMemo(() => {
+        if (props.initialData !== undefined && props.initialData.host !== undefined) {
+            let value = {...props.initialData}
+            value.protocol = value.host.split(':')[0] + '://'
+            value.port = value.host.split(':')[2]
+            value.host = value.host.split(':')[1].replaceAll('/', '')
+            return value
+        } else
+            return props.initialData
+    }, [])
+    const formHook = useData(initialData)
     return (
         <Form
             hook={formHook}
-            title={!props.initialData.id ? 'Novo serviço' : 'Serviço'} initialData={props.initialData}
+            title={!props.initialData.id ? 'Novo serviço' : 'Serviço'}
             handleClose={() => props.handleClose()}
             dependencies={[
-                {name: 'protocol', type: 'string'},
-                {name: 'host', type: 'string'},
-                {name: 'port', type: 'number'},
-                {name: 'denomination', type: 'string'}
+                {key: 'protocol', type: 'string'},
+                {key: 'host', type: 'string'},
+                {key: 'port', type: 'number'},
+                {key: 'denomination', type: 'string'}
             ]} returnButton={true}
             handleSubmit={(data, clearState) => {
-                service({
+                submit({
+                    suffix: 'service',
                     pk: data.id,
                     create: data.id === undefined,
                     data: {
                         ...data,
                         host: data.protocol + data.host.replace('_', '') + ':' + data.port
-                    }
+                    },
+                    prefix: 'gateway'
                 }).then((res) => {
-                    if (res !== null && props.initialData?.id === undefined) {
+                    if (res.success && props.initialData?.id === undefined) {
                         props.redirect(res)
                         clearState()
-                    } else if (res !== null) {
+                    } else if (res.success)
                         props.updateData(data)
-                    }
+
                 })
             }}
             noHeader={props.initialData.id !== undefined}
@@ -43,7 +56,8 @@ export default function ServiceForm(props) {
                 <FormRow>
                     <DropDownField
                         placeholder={'Protocolo'} value={data.protocol}
-                        label={'Protocolo'} disabled={false} choices={[{key: 'https://', value: 'HTTPS'}, {key: 'http://', value: 'HTTP'}]}
+                        label={'Protocolo'} disabled={false}
+                        choices={[{key: 'https://', value: 'HTTPS'}, {key: 'http://', value: 'HTTP'}]}
                         handleChange={e => handleChange({event: e, key: 'protocol'})}
                         required={true} width={'calc(25% - 24px)'}
                     />

@@ -3,10 +3,10 @@ import {DeleteRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 
 import ActionItemForm from "../forms/ActionItemForm";
-import OperationRequests from "../../utils/requests/OperationRequests";
 import {List, useQuery} from "sis-aeb-core";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import deleteEntry from "../../../management/utils/delete";
 import getQuery from "../../queries/getQuery";
 
 
@@ -38,16 +38,15 @@ export default function ActionItemList(props) {
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
-                            OperationRequests.deleteActionItem({
+                            deleteEntry({
+                                suffix: 'action_item',
                                 pk: entity.id
                             }).then(() => hook.clean())
                         },
                         disabled: false,
                         color: '#ff5555'
                     }]}
-
                     title={'Itens / Ações'}
-
                 />
         </Switcher>
     )

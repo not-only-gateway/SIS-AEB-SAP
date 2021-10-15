@@ -1,10 +1,12 @@
 import React, {useState} from "react";
-import {List, useQuery} from "sis-aeb-core";
+import {useQuery} from "sis-aeb-core";
 import UnitForm from "../forms/UnitForm";
 import {DeleteRounded} from "@material-ui/icons";
-import ProjectRequests from "../../utils/requests/ProjectRequests";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import deleteEntry from "../../../management/utils/delete";
 import getQuery from "../../queries/getQuery";
+import List from "../../../../core/list/List";
+import associativeKeys from "../../keys/associativeKeys";
 
 export default function UnitList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -23,23 +25,19 @@ export default function UnitList(props) {
                 data={currentEntity}
             />
             <List
-
                 createOption={true}
                 onCreate={() => setOpen(true)}
                 hook={hook}
-                keys={[
-                    {key: 'name', type: 'string', label: 'nome'},
-                    {key: 'acronym', type: 'string', label: 'Acrônimo'},
-                    {key: 'parent_unit', type: 'object', subfield: 'acronym', label: 'Unidade pai'},
-                ]}
+                keys={associativeKeys.responsible}
                 onRowClick={e => setCurrentEntity(e)}
                 controlButtons={[{
                     label: 'Deletar',
                     icon: <DeleteRounded/>,
                     onClick: (entity) => {
-                        ProjectRequests.deleteUnit({
+                        deleteEntry({
+                            suffix: 'unit',
                             pk: entity.id
-                        })
+                        }).then(() => hook.clean())
                     },
                     disabled: false,
                     color: '#ff5555'

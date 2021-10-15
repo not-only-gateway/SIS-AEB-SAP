@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import Form from "../../../../core/inputs/form/Form";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import TextField from "../../../../core/inputs/text/TextField";
-import {permission} from "../../utils/submits";
 import useData from "../../../../core/inputs/form/useData";
+import submit from "../../utils/requests/submit";
 
 export default function PermissionForm(props) {
     const formHook = useData(props.initialData)
@@ -14,16 +14,18 @@ export default function PermissionForm(props) {
             title={!props.initialData.id ? 'Nova permissão' : 'Permissão'} initialData={props.initialData}
             handleClose={() => props.handleClose()}
             dependencies={[
-                {name: 'denomination', type: 'string'}
+                {key:  'denomination', type: 'string'}
             ]} returnButton={true}
             handleSubmit={(data, clearState) => {
-                permission({
+                submit({
+                    suffix: 'privilege',
                     pk: data.id,
                     create: data.id === undefined,
                     data: {
                         ...data,
                         host: data.host + '/' + data.port
-                    }
+                    },
+                    prefix: 'auth'
                 }).then((res) => {
                     if(res) {
                         props.handleClose()

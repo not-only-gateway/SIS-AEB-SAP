@@ -1,13 +1,11 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import styles from './styles/Navigation.module.css'
 import PropTypes from 'prop-types'
 import Profile from './components/profile/Profile'
 import Apps from './components/apps/Apps'
-import {MenuOpen, MenuOpenRounded, MenuRounded} from "@material-ui/icons";
+import {MenuOpenRounded} from "@material-ui/icons";
 import SideBar from "./components/sidebar/SideBar";
 import Loading from "./templates/Loading";
-import ThemeProvider from "../../theme/ThemeProvider";
-import ThemeContext from "../../theme/ThemeContext";
 
 
 export default function Navigation(props) {

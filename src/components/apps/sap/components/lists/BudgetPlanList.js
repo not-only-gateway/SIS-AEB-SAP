@@ -2,10 +2,10 @@ import React, {useState} from "react";
 import {DeleteRounded} from "@material-ui/icons";
 import BudgetPlanForm from "../forms/BudgetPlanForm";
 import {List, useQuery} from "sis-aeb-core";
-import ProjectRequests from "../../utils/requests/ProjectRequests";
 import getQuery from "../../queries/getQuery";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import deleteEntry from "../../../management/utils/delete";
 
 export default function BudgetPlanList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -32,9 +32,10 @@ export default function BudgetPlanList(props) {
                     label: 'Deletar',
                     icon: <DeleteRounded/>,
                     onClick: (entity) => {
-                        ProjectRequests.deleteBudgetPlan({
+                        deleteEntry({
+                            suffix: 'budget_plan',
                             pk: entity.id
-                        })
+                        }).then(() => hook.clean())
                     },
                     disabled: false,
                     color: '#ff5555'

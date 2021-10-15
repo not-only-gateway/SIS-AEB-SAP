@@ -1,4 +1,3 @@
-
 import Cookies from "universal-cookie/lib";
 import Host from "../utils/Host";
 

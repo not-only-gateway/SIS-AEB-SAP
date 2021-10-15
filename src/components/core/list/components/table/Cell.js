@@ -10,7 +10,9 @@ export default function Cell(props) {
         <td className={styles.cell} onClick={() => props.onClick()} style={{width: `calc(${(1/props.quantity) * 100}% - ${props.hasOptions ? '30px' : '0px'})`}}>
             <div className={styles.cellContent} style={{
                  color: color, paddingLeft: '8px'}}>
-                {content}
+                <div className={styles.overflow}>
+                    {content}
+                </div>
             </div>
 
         </td>

@@ -6,6 +6,7 @@ import {Avatar} from "@material-ui/core";
 import Information from "./components/Information";
 import Privileges from "./components/Privileges";
 import Drafts from "./components/Drafts";
+
 export default function Profile(){
     const profile = useContext(ProfileContext)
 

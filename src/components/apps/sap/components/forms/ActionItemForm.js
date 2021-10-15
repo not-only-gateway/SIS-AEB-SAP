@@ -2,10 +2,10 @@ import React, {useEffect, useState} from "react";
 import {DropDownField, FormRow, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import OperationPT from "../../locales/OperationPT";
-import OperationRequests from "../../utils/requests/OperationRequests";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
+import submit from "../../utils/requests/submit";
 
 export default function ActionItemForm(props) {
     const lang = OperationPT
@@ -36,17 +36,18 @@ export default function ActionItemForm(props) {
 
                 title={props.create ? lang.newAction : lang.action}
                 dependencies={[
-                    {name: 'detailing', type: 'string'},
-                    {name: 'accomplished', type: 'bool'}
+                    {key: 'detailing', type: 'string'},
+                    {key: 'accomplished', type: 'bool'}
                 ]}
 
                 handleSubmit={(data, clearState) =>
-                    OperationRequests.submitActionItem({
+                    submit({
+                        suffix: 'action_item',
                         pk: data.id,
                         data: data,
                         create: props.create
                     }).then(res => {
-                        if (props.create && res) {
+                        if (props.create && res.success) {
                             props.returnToMain()
                             clearState()
                         }

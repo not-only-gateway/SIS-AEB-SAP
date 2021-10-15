@@ -5,7 +5,7 @@ import HeaderCell from "./HeaderCell";
 import useInfiniteScroll from "../../../shared/hooks/useInfiniteScroll";
 import React, {useContext, useMemo, useRef} from 'react'
 import keyTemplate from "../../templates/keyTemplate";
-import {ArrowDropDownRounded, ArrowDropDownSharp, SettingsRounded} from "@material-ui/icons";
+import {ArrowDropDownRounded, SettingsRounded} from "@material-ui/icons";
 import Dropdown from "../list/Dropdown";
 import ThemeContext from "../../../theme/ThemeContext";
 

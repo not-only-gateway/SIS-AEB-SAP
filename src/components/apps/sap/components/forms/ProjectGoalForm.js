@@ -3,10 +3,10 @@ import ProjectPT from "../../locales/ProjectPT";
 
 import {DateField, DropDownField, FormRow, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
-import ProjectRequests from "../../utils/requests/ProjectRequests";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
+import submit from "../../utils/requests/submit";
 
 export default function ProjectGoalForm(props) {
 
@@ -41,12 +41,13 @@ export default function ProjectGoalForm(props) {
             }
             returnButton={true}
             handleSubmit={(data, clearState) =>
-                ProjectRequests.submitObjective({
+                submit({
+                    suffix: 'goal_project',
                     pk: data.id,
                     data: data,
                     create: props.create
                 }).then(res => {
-                    if (props.create && res) {
+                    if (props.create && res.success) {
                         props.returnToMain()
                         clearState()
                     }

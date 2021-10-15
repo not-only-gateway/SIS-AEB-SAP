@@ -1,11 +1,11 @@
 import React from "react";
-import {DropDownField,  FormRow, TextField} from "sis-aeb-core";
+import {DropDownField, FormRow, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
-import ProjectRequests from "../../utils/requests/ProjectRequests";
 import ProjectPT from "../../locales/ProjectPT";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
+import submit from "../../utils/requests/submit";
 
 export default function NatureExpenseForm(props) {
     const lang = ProjectPT
@@ -24,19 +24,20 @@ export default function NatureExpenseForm(props) {
             create={props.create} title={props.create ? lang.newNatureOfExpense : lang.natureOfExpense}
             dependencies={
                 [
-                    {name: 'description', type: 'string'},
-                    {name: 'nature_of_expense', type: 'string'},
-                    {name: 'gnd', type: 'number'},
+                    {key: 'description', type: 'string'},
+                    {key: 'nature_of_expense', type: 'string'},
+                    {key: 'gnd', type: 'number'},
                 ]
             }
             returnButton={true}
             handleSubmit={(data, clearState) =>
-                ProjectRequests.submitNatureOfExpense({
+                submit({
+                    suffix: 'nature_of_expense',
                     pk: data.id,
                     data: data,
                     create: props.create
                 }).then(res => {
-                    if (props.create && res) {
+                    if (props.create && res.success) {
                         props.returnToMain()
                         clearState()
                     }

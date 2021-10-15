@@ -2,7 +2,6 @@ import React from 'react'
 import Head from "next/head";
 
 import PropTypes from 'prop-types'
-import Tabs from "../../../core/navigation/tabs/Tabs";
 import styles from '../styles/Shared.module.css'
 import PersonList from "../components/PersonList";
 

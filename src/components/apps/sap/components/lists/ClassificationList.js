@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import {DeleteRounded} from "@material-ui/icons";
 import {List, useQuery} from "sis-aeb-core";
-import ProjectRequests from "../../utils/requests/ProjectRequests";
 import ClassificationForm from "../forms/ClassificationForm";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import deleteEntry from "../../../management/utils/delete";
 import getQuery from "../../queries/getQuery";
 
 export default function ClassificationList(props) {
@@ -29,9 +29,10 @@ export default function ClassificationList(props) {
                     label: 'Deletar',
                     icon: <DeleteRounded/>,
                     onClick: (entity) => {
-                        ProjectRequests.deleteClassification({
+                        deleteEntry({
+                            suffix: 'classification',
                             pk: entity.id
-                        })
+                        }).then(() => hook.clean())
                     },
                     disabled: false,
                     color: '#ff5555'

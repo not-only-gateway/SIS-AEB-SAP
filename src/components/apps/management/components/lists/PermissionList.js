@@ -7,9 +7,10 @@ import PermissionForm from "../forms/PermissionForm";
 import {permissionKeys} from "../../keys/keys";
 import PropTypes from 'prop-types'
 import Selector from "../../../../core/inputs/selector/Selector";
-import {accessPrivilege} from "../../utils/submits";
 import {DeleteRounded} from "@material-ui/icons";
-import deleteEntry from "../../utils/delete";
+import deleteEntry from "../../utils/requests/delete";
+import submit from "../../utils/requests/submit";
+import Host from "../../utils/shared/Host";
 
 export default function PermissionList(props) {
     const hook = props.accessProfile ? useQuery(access_profile_permissions_query(props.accessProfile)) : undefined
@@ -28,10 +29,12 @@ export default function PermissionList(props) {
                         width={'calc(50% - 16px)'} required={true}
                         handleChange={e => {
                             hook.clean()
-                            accessPrivilege({
-                                data: e.id,
-                                accessProfile: props.accessProfile
-                            })
+                            deleteEntry({
+                                prefix: 'auth',
+                                pk:  props.accessProfile,
+                                fk:  e.id,
+                                url: Host('auth') + '/access_profile/privilege'
+                            }).then(() => hook.clean())
                         }
                         }/>
                 </div>
@@ -54,7 +57,7 @@ export default function PermissionList(props) {
                             label: 'Deletar',
                             icon: <DeleteRounded/>,
                             onClick: data => {
-                                deleteEntry({pk: data.id, path: 'privilege'}).then(() => hook.clean())
+                                deleteEntry({pk: data.id, suffix: 'privilege'}).then(() => hook.clean())
                             }
                         }
                     ]}

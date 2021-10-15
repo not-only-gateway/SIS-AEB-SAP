@@ -1,9 +1,8 @@
-import Tabs from "../../../core/navigation/tabs/Tabs";
 import styles from '../styles/Shared.module.css'
 import EndpointList from "../components/lists/EndpointList";
 import React, {useContext, useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import {fetchService} from "../utils/fetch";
+import {fetchEntry} from "../utils/fetch";
 import ServiceForm from "../components/forms/ServiceForm";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
 import ThemeContext from "../../../core/theme/ThemeContext";
@@ -13,16 +12,11 @@ export default function Service(props) {
     const [data, setData] = useState(null)
     const themes = useContext(ThemeContext)
     useEffect(() => {
-        fetchService(props.query.id).then(r => {
+        fetchEntry({suffix: 'service', prefix: 'gateway', pk: props.query.id}).then(r => {
             if (r !== null) {
                 let host = r.host.split('//')
                 console.log(host)
-                setData({
-                    ...r,
-                    host: host[1].split(':')[0],
-                    port: host[1].split(':')[1],
-                    protocol: host[0]
-                })
+                setData(r)
             }
         })
     }, [])

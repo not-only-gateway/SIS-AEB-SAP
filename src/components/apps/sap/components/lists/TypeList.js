@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import {List, useQuery} from "sis-aeb-core";
 import {DeleteRounded} from "@material-ui/icons";
-import ProjectRequests from "../../utils/requests/ProjectRequests";
 import TypeForm from "../forms/TypeForm";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import deleteEntry from "../../../management/utils/delete";
 import getQuery from "../../queries/getQuery";
 
 export default function TypeList(props) {
@@ -30,9 +30,10 @@ export default function TypeList(props) {
                     label: 'Deletar',
                     icon: <DeleteRounded/>,
                     onClick: (entity) => {
-                        ProjectRequests.deleteType({
+                        deleteEntry({
+                            suffix: 'type',
                             pk: entity.id
-                        })
+                        }).then(() => hook.clean())
                     },
                     disabled: false,
                     color: '#ff5555'

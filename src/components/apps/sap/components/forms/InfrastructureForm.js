@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {DropDownField,  FormRow, TextField} from "sis-aeb-core";
+import {DropDownField, FormRow, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
-import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import InfrastructurePT from "../../locales/InfrastructurePT";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
+import submit from "../../utils/requests/submit";
 
 export default function InfrastructureForm(props) {
     const lang = InfrastructurePT
@@ -43,18 +43,22 @@ export default function InfrastructureForm(props) {
             create={props.create} title={props.create ? lang.newInfrastructure : lang.infrastructure}
             dependencies={
                 [
-                    {name: 'name', type: 'string'},
-                    {name: 'type', type: 'string'},
+                    {key: 'name', type: 'string'},
+                    {key: 'type', type: 'string'},
                 ]
             }
             returnButton={true} noAutoHeight={!props.asDefault}
             handleSubmit={(data, clearState) =>
-                WorkPlanRequests.submitInfrastructure({
+                submit({
+                    suffix: 'infrastructure',
                     pk: data.id,
-                    data: data,
+                    data: {
+                        ...data,
+                        address: data.latitude + ', ' + data.longitude
+                    },
                     create: props.create
                 }).then(res => {
-                    if (props.create && res) {
+                    if (props.create && res.success) {
                         props.returnToMain()
                         clearState()
                     }

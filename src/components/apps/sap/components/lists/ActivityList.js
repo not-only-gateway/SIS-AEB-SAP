@@ -3,10 +3,10 @@ import React, {useState} from "react";
 import {DeleteRounded} from "@material-ui/icons";
 import {List, useQuery} from "sis-aeb-core";
 
-import ActivityForm from "../forms/ActivityForm";
-import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
+import ActivityStageForm from "../forms/ActivityStageForm";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import deleteEntry from "../../../management/utils/delete";
 import getQuery from "../../queries/getQuery";
 
 
@@ -20,7 +20,7 @@ export default function ActivityList(props) {
 
     return (
         <Switcher openChild={open ? 0 : 1}>
-            <ActivityForm
+            <ActivityStageForm
                 returnToMain={() => {
                     setOpen(false)
                     setCurrentEntity(null)
@@ -37,9 +37,10 @@ export default function ActivityList(props) {
                     label: 'Deletar',
                     icon: <DeleteRounded/>,
                     onClick: (entity) => {
-                        WorkPlanRequests.deleteStage({
+                        deleteEntry({
+                            suffix: 'activity',
                             pk: entity.id
-                        })
+                        }).then(() => hook.clean())
                     },
                     disabled: false,
                     color: '#ff5555'

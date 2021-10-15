@@ -1,9 +1,8 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useState} from "react";
 import TextField from "../../inputs/text/TextField";
 import DateField from "../../inputs/date/DateField";
 import styles from '../styles/Header.module.css'
 import Checkbox from "../../inputs/checkbox/Checkbox";
-import {Select} from "@material-ui/core";
 import Selector from "../../inputs/selector/Selector";
 import useQuery from "../../shared/hooks/useQuery";
 

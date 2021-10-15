@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import React, {useMemo} from "react";
 import styles from "./styles/SideBar.module.css";
-import {Brightness3Rounded, BrightnessHighRounded} from "@material-ui/icons";
 import ToolTip from "../../../../misc/tooltip/ToolTip";
 
 export default function SideBar(props) {

@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useRef, useState} from "react";
+import React, {useEffect, useMemo, useRef} from "react";
 
 export default function useForm({noAutoHeight, data, changed, dependencies}) {
     const ref = useRef()
@@ -11,10 +11,10 @@ export default function useForm({noAutoHeight, data, changed, dependencies}) {
                 if (dependencies[i] !== undefined && dependencies[i] !== null)
                     response = (
                         response ||
-                        data[dependencies[i].name] === null ||
-                        data[dependencies[i].name] === undefined ||
+                        data[dependencies[i].key] === null ||
+                        data[dependencies[i].key] === undefined ||
                         (dependencies[i].type === 'string' || dependencies[i].type === 'array' ?
-                            data[dependencies[i].name].length === 0
+                            data[dependencies[i].key].length === 0
                             :
                             false)
                     )

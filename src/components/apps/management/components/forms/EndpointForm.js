@@ -8,47 +8,57 @@ import TextField from "../../../../core/inputs/text/TextField";
 import Selector from "../../../../core/inputs/selector/Selector";
 import {entity_query, service_query} from "../../queries/queries";
 import {useQuery} from "sis-aeb-core";
-import {endpoint, service} from "../../utils/submits";
 import MultiSelectField from "../../../../core/inputs/multiselect/MultiSelectField";
 import {entityKeys, serviceKeys} from "../../keys/keys";
 import useData from "../../../../core/inputs/form/useData";
+import {useMemo} from "react";
+import submit from "../../utils/requests/submit";
 
 export default function EndpointForm(props) {
     const serviceHook = useQuery(service_query)
     const entityHook = useQuery(entity_query)
-    const formHook = useData(props.initialData)
+    const initialData = useMemo(() => {
+        return !props.initialData.url ? {service: {id: props.service}} : props.initialData
+    }, [])
+    const formHook = useData(initialData)
+
     return (
         <Form
             hook={formHook}
-            title={!props.initialData.id ? 'Novo endpoint' : 'Endpoint'} initialData={props.initialData}
+            title={props.initialData.url === undefined ? 'Novo endpoint' : 'Endpoint'}
             handleClose={() => props.handleClose()}
             dependencies={[
-                {name: 'require_auth', type: 'bool'},
-                {name: 'url', type: 'string'},
-                {name: 'service', type: 'object'},
-                {name: 'methods', type: 'array'},
-                {name: 'denomination', type: 'string'}
+                {key:  'require_auth', type: 'bool'},
+                {key:  'url', type: 'string'},
+                {key:  'service', type: 'object'},
+                {key:  'methods', type: 'array'},
+                {key:  'denomination', type: 'string'}
             ]} returnButton={true}
             handleSubmit={(data, clearState) => {
-                endpoint({
+                submit({
+                    suffix: 'endpoint',
                     pk: data.id,
                     create: props.initialData.url === undefined,
                     data: {
                         ...data,
                         service: data.service.id,
                         versioning: data.versioning !== null && data.versioning !== undefined ? data.versioning : false
-                    }
+                    },
+                    prefix: 'gateway'
                 }).then((res) => {
-                    if(res !== null && props.initialData.url === undefined) {
-                        props.redirect(res)
-                        clearState()
-                    }
-                    else {
-                        props.updateData(data)
+                    if(props.service){
+                        props.handleClose()
+                    }else {
+                        if (res.success && props.initialData.url === undefined) {
+                            props.redirect(res)
+                            clearState()
+                        } else {
+                            props.updateData(data)
+                        }
                     }
                 })
             }}
-            noHeader={props.initialData.url !== undefined}
+            noHeader={props.initialData.url !== undefined && !props.service}
             create={props.initialData.url === undefined}
         >
 
@@ -87,7 +97,7 @@ export default function EndpointForm(props) {
                             placeholder={'url'} value={data.url}
                             label={'URL'} disabled={false} maskStart={'/api/'}
                             handleChange={e => handleChange({event: e.target.value, key: 'url'})}
-                            required={true} width={'calc(50% - 16px)'}
+                            required={true} width={props.service ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
                         />
                         <MultiSelectField
                             placeholder={'Métodos HTTP'} value={data.methods}
@@ -100,19 +110,22 @@ export default function EndpointForm(props) {
                                 {key: 'PATCH', value: 'PATCH', color: '#5f5f5f'}
                             ]}
                             handleChange={e => handleChange({event: e, key: 'methods'})}
-                            required={true} width={'calc(50% - 16px)'}
+                            required={true} width={props.service ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
                         />
-                        <Selector
-                            hook={serviceHook}
-                            keys={serviceKeys}
-                            title={'Serviço'} placeholder={'Serviço'}
-                            value={data.service} width={'calc(50% - 16px)'} required={true}
-                            handleChange={e => handleChange({event: e, key: 'service'})}/>
+                        {props.service ? null :
+                            <Selector
+                                hook={serviceHook}
+                                keys={serviceKeys}
+                                title={'Serviço'} placeholder={'Serviço'}
+                                value={data.service} width={'calc(50% - 16px)'} required={true}
+                                handleChange={e => handleChange({event: e, key: 'service'})}/>
+                        }
                         <Selector
                             hook={entityHook}
                             keys={entityKeys}
                             title={'Entidade'} placeholder={'Entidade'}
-                            value={data.entity} width={'calc(50% - 16px)'} required={false}
+                            value={data.entity} width={props.service ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
+                            required={false}
                             handleChange={e => handleChange({event: e, key: 'entity'})}/>
                     </FormRow>
                 </>
@@ -124,4 +137,5 @@ export default function EndpointForm(props) {
 EndpointForm.propTypes = {
     initialData: PropTypes.object,
     handleClose: PropTypes.func,
+    service: PropTypes.number
 }

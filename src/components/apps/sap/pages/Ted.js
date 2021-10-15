@@ -5,9 +5,7 @@ import PropTypes from 'prop-types'
 import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";
 import Tabs from "../../../core/navigation/tabs/Tabs";
 import WorkPlanList from "../components/lists/WorkPlanList";
-import AddendumList from "../components/lists/AddendumList";
 import TedForm from "../components/forms/TedForm";
-import ProjectRequests from "../utils/requests/ProjectRequests";
 import TedRequests from "../utils/requests/TedRequests";
 import TedList from "../components/lists/TedList";
 

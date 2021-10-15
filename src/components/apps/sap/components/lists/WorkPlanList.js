@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import List from "../../../../core/list/List";
 import {useQuery} from "sis-aeb-core";
 import WorkPlanForm from "../forms/WorkPlanForm";
-import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import {DeleteRounded} from "@material-ui/icons";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import deleteEntry from "../../../management/utils/delete";
 import getQuery from "../../queries/getQuery";
 
 export default function WorkPlanList(props) {
@@ -47,9 +47,10 @@ export default function WorkPlanList(props) {
                     label: 'Deletar',
                     icon: <DeleteRounded/>,
                     onClick: (entity) => {
-                        WorkPlanRequests.deleteWorkPlan({
+                        deleteEntry({
+                            suffix: 'work_plan',
                             pk: entity.id
-                        })
+                        }).then(() => hook.clean())
                     },
                     disabled: false,
                     color: '#ff5555'

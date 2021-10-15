@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {FormRow, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
-import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import GoalPT from "../../locales/GoalPT";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
+import submit from "../../utils/requests/submit";
 
 export default function GoalForm(props) {
     const lang = GoalPT
@@ -46,14 +46,15 @@ export default function GoalForm(props) {
             }
             returnButton={props.create}
             handleSubmit={(data, clearState) =>
-                WorkPlanRequests.submitGoal({
+                submit({
+                    suffix: 'work_plan_goal',
                     pk: data.id,
                     data: data,
 
                     create: props.create
                 }).then(res => {
-                    if (res !== null && props.create)
-                        props.redirect(res)
+                    if (res.success && props.create)
+                        props.redirect(res.data)
                 })}
             handleClose={() => props.returnToMain()}>
             {(data, handleChange) => (

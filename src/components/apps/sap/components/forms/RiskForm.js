@@ -2,10 +2,10 @@ import React, {useEffect, useState} from "react";
 import ProjectPT from "../../locales/ProjectPT";
 import {DropDownField, FormRow, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
-import ProjectRequests from "../../utils/requests/ProjectRequests";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
+import submit from "../../utils/requests/submit";
 
 export default function RiskForm(props) {
     const lang = ProjectPT
@@ -33,19 +33,20 @@ export default function RiskForm(props) {
             initialData={initialData}
             create={props.create} label={lang.risksTitle}
             dependencies={[
-                {name: 'description', type: 'string'},
-                {name: 'analysis', type: 'string'},
+                {key: 'description', type: 'string'},
+                {key: 'analysis', type: 'string'},
             ]
 
             }
             returnButton={true}
             handleSubmit={(data, clearState) =>
-                ProjectRequests.submitRisk({
+                submit({
+                    suffix: 'risk',
                     pk: data.id,
                     data: data,
                     create: props.create
                 }).then(res => {
-                    if (props.create && res) {
+                    if (props.create && res.success) {
                         props.returnToMain()
                         clearState()
                     }

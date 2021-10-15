@@ -2,11 +2,11 @@ import React, {useEffect, useState} from "react";
 
 import {DateField, DropDownField, FormRow, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
-import OperationRequests from "../../utils/requests/OperationRequests";
 import Form from "../../../../core/inputs/form/Form";
 import PermanentGoodsPT from "../../locales/PermanentGoodsPT";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
+import submit from "../../utils/requests/submit";
 
 export default function PermanentGoodsForm(props) {
     const lang = PermanentGoodsPT
@@ -48,12 +48,13 @@ export default function PermanentGoodsForm(props) {
             }
             returnButton={true}
             handleSubmit={(data, clearState) =>
-                OperationRequests.submitPermanentGoods({
+                submit({
+                    suffix: 'permanent_goods',
                     pk: data.id,
                     data: data,
                     create: props.create
                 }).then(res => {
-                    if (props.create && res) {
+                    if (props.create && res.success) {
                         props.returnToMain()
                         clearState()
                     }

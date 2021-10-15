@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {FormRow, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
-import WorkPlanRequests from "../../utils/requests/WorkPlanRequests";
 import StatusPT from "../../locales/StatusPT";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
+import submit from "../../utils/requests/submit";
 
 export default function StatusForm(props) {
     const lang = StatusPT
@@ -42,12 +42,13 @@ export default function StatusForm(props) {
             }
             returnButton={true}
             handleSubmit={(data, clearState) =>
-                WorkPlanRequests.submitStatus({
+                submit({
+                    suffix: 'status',
                     pk: data.id,
                     data: data,
                     create: props.create
                 }).then(res => {
-                    if (props.create && res) {
+                    if (props.create && res.success) {
                         props.returnToMain()
                         clearState()
                     }

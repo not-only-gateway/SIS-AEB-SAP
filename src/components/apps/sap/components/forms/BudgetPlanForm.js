@@ -2,18 +2,14 @@ import React, {useEffect, useState} from "react";
 
 import Form from "../../../../core/inputs/form/Form";
 import PropTypes from "prop-types";
-
-import ProjectRequests from "../../utils/requests/ProjectRequests";
 import ProjectPT from "../../locales/ProjectPT";
-
-import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
-import ActionForm from "./ActionForm";
 import {FormRow, Selector, TextField} from "sis-aeb-core";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import useQuery from "../../../../core/shared/hooks/useQuery";
 import getQuery from "../../queries/getQuery";
 import associativeKeys from "../../keys/associativeKeys";
+import submit from "../../utils/requests/submit";
 
 export default function BudgetPlanForm(props) {
     const lang = ProjectPT
@@ -49,19 +45,20 @@ export default function BudgetPlanForm(props) {
             create={props.create} title={props.create ? lang.newBudgetPlan : lang.budgetPlan}
             dependencies={
                 [
-                    {name: 'number', type: 'string'},
-                    {name: 'action', type: 'object'},
-                    {name: 'detailing', type: 'string'},
+                    {key: 'number', type: 'string'},
+                    {key: 'action', type: 'object'},
+                    {key: 'detailing', type: 'string'},
                 ]}
             returnButton={true} noAutoHeight={!props.asDefault}
             handleSubmit={(data, clearState) =>
-                ProjectRequests.submitBudgetPlan({
+                submit({
+                    suffix: 'budget_plan',
                     pk: data.id,
                     data: data,
 
                     create: props.create
                 }).then(res => {
-                    if (props.create && res) {
+                    if (props.create && res.success) {
                         props.returnToMain()
                         clearState()
                     }

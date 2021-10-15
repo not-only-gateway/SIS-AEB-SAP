@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types'
 import ProjectPT from "../../locales/ProjectPT";
-import ProjectRequests from "../../utils/requests/ProjectRequests";
 import {DropDownField, FormRow, TextField, useQuery} from "sis-aeb-core";
 import getQuery from "../../queries/getQuery";
 import Selector from "../../../../core/inputs/selector/Selector";
@@ -9,6 +8,7 @@ import associativeKeys from "../../keys/associativeKeys";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
+import submit from "../../utils/requests/submit";
 
 export default function ProjectForm(props) {
     const lang = ProjectPT
@@ -40,18 +40,19 @@ export default function ProjectForm(props) {
                 {key: 'scope', type: 'string'},
                 {key: 'critical_factors', type: 'string'},
                 {key: 'type', type: 'string'},
-                {key: 'responsible', type: 'string'},
+                {key: 'responsible', type: 'object'},
                 {key: 'lessons_learned', type: 'string'}
             ]} noHeader={!props.create}
             returnButton={props.create}
             handleSubmit={(data, clearState) =>
-                ProjectRequests.submitProject({
+                submit({
+                    suffix: 'project',
                     pk: data.id,
                     data: data,
                     create: props.create
                 }).then(res => {
-                    if (res !== null && props.create)
-                        props.redirect(res)
+                    if (res.success && props.create)
+                        props.redirect(res.data)
 
                 })}
             handleClose={() => props.returnToMain()}

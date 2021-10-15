@@ -30,18 +30,23 @@
 
 .cellContent {
     height: 60px;
-    display: table-cell;
-    padding: 10px 4px;
 
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    padding: 10px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
     font-size: .8rem;
     color: var(--color-2);
     font-family: Roboto;
 
 }
-
+.overflow{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+}
 .cellHeader {
     width: 100%;
     table-layout: auto;

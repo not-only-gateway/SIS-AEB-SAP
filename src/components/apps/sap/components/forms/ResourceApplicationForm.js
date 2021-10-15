@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import OperationRequests from "../../utils/requests/OperationRequests";
 import ResourcePT from "../../locales/ResourcePT";
 import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
@@ -8,6 +7,7 @@ import NatureExpenseForm from "./NatureExpenseForm";
 import {DropDownField, FormRow, Selector, TextField} from "sis-aeb-core";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
+import submit from "../../utils/requests/submit";
 
 export default function ResourceApplicationForm(props) {
 
@@ -47,13 +47,14 @@ export default function ResourceApplicationForm(props) {
             }
             returnButton={true}
             handleSubmit={(data, clearState) =>
-                OperationRequests.submitResource({
+                submit({
+                    suffix: 'resource_application',
                     pk: data.id,
                     data: data,
 
                     create: props.create
                 }).then(res => {
-                    if (props.create && res) {
+                    if (props.create && res.success) {
                         props.returnToMain()
                         clearState()
                     }

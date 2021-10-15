@@ -2,9 +2,9 @@ import React, {useState} from "react";
 import {useQuery} from "sis-aeb-core";
 import {DeleteRounded} from "@material-ui/icons";
 import TedForm from "../forms/TedForm";
-import TedRequests from "../../utils/requests/TedRequests";
 import tedKeys from "../../keys/tedKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import deleteEntry from "../../../management/utils/delete";
 import List from "../../../../core/list/List";
 import PropTypes from "prop-types";
 import getQuery from "../../queries/getQuery";
@@ -33,9 +33,10 @@ export default function TedList(props) {
                     label: 'Deletar',
                     icon: <DeleteRounded/>,
                     onClick: (entity) => {
-                        TedRequests.deleteTed({
+                        deleteEntry({
+                            suffix: 'ted',
                             pk: entity.id
-                        })
+                        }).then(() => hook.clean())
                     },
                     disabled: false,
                     color: '#ff5555'

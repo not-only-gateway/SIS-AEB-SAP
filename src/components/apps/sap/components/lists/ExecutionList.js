@@ -3,9 +3,8 @@ import {useQuery} from "sis-aeb-core";
 import {DeleteRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import ExecutionForm from "../forms/ExecutionForm";
-import OperationRequests from "../../utils/requests/OperationRequests";
-import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import deleteEntry from "../../../management/utils/delete";
 import getQuery from "../../queries/getQuery";
 import List from "../../../../core/list/List";
 import workPlanKeys from "../../keys/workPlanKeys";
@@ -41,9 +40,10 @@ export default function ExecutionList(props) {
                     label: 'Deletar',
                     icon: <DeleteRounded/>,
                     onClick: (entity) => {
-                        OperationRequests.deleteExecution({
+                        deleteEntry({
+                            suffix: 'execution',
                             pk: entity.id
-                        })
+                        }).then(() => hook.clean())
                     },
                     disabled: false,
                     color: '#ff5555'

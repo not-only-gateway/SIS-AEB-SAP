@@ -3,9 +3,9 @@ import React, {useState} from "react";
 import {List, useQuery} from "sis-aeb-core";
 import RiskForm from "../forms/RiskForm";
 import {DeleteRounded} from "@material-ui/icons";
-import ProjectRequests from "../../utils/requests/ProjectRequests";
 import projectKeys from "../../keys/projectKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
+import deleteEntry from "../../../management/utils/delete";
 import getQuery from "../../queries/getQuery";
 
 
@@ -39,9 +39,10 @@ export default function RisksList(props) {
                     label: 'Deletar',
                     icon: <DeleteRounded/>,
                     onClick: (entity) => {
-                        ProjectRequests.deleteRisk({
+                        deleteEntry({
+                            suffix: 'risk',
                             pk: entity.id
-                        })
+                        }).then(() => hook.clean())
                     },
                     disabled: false,
                     color: '#ff5555'

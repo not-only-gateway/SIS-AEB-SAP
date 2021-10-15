@@ -3,33 +3,32 @@ import {useCallback, useEffect, useState} from "react";
 
 export default function useDataWithDraft(props) {
     const [changed, setChanged] = useState(false)
-    const [data, setData] = useState(props.initialData === undefined || props.initialData === null? {} : props.initialData)
+    const [changedDraft, setChangedDraft] = useState(false)
+    const [data, setData] = useState({})
     const handleChange = ({event, key}) => {
         let newData = {...data}
         newData[key] = event
         setData(newData)
 
+        setChangedDraft(true)
         setChanged(true)
     }
     const saveDraft = useCallback(() => {
-        console.log('called', data)
-    }, [data, changed])
+        if(changedDraft) {
+            setChangedDraft(false)
+            console.log('called', data, changedDraft)
+        }
+    }, [data, changedDraft])
     const clearState = () => {
         setData({})
         setChanged(false)
     }
-    const interval = setInterval(saveDraft, props.interval)
+    setInterval(saveDraft, props.interval)
 
 
     useEffect(() => {
-        if (props.initialData === undefined || props.initialData === null)
+        if (props.initialData !== undefined && props.initialData !== null)
             setData(props.initialData)
-        else if (data === undefined || data === null)
-            setData({})
-        return () => {
-            if (interval)
-                clearInterval(interval)
-        }
     }, [props.initialData])
 
 
