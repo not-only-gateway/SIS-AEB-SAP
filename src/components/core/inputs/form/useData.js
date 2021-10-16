@@ -4,7 +4,6 @@ export default function useData(initialData) {
     const [changed, setChanged] = useState(false)
     const [data, setData] = useState(initialData === undefined || initialData === null ? {} : initialData)
     const handleChange = ({event, key}) => {
-        console.log('ON CHANGE')
         let newData = {...data}
         newData[key] = event
         setData(newData)

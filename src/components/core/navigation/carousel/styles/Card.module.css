@@ -1,0 +1,137 @@
+.cardWrapper {
+    /*border: var(--border-0) 1px solid;*/
+    background: var(--background-1);
+    border-radius: 8px;
+    height: 115px;
+
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+    cursor: pointer;
+
+    transition: 150ms linear;
+}
+.cardWrapper:active{
+    transform: scale(.98);
+}
+.cardImage {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 8px;
+    z-index: 0;
+    transition: 150ms linear;
+}
+
+.cardTitle {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(4px, -50%);
+    transition: 250ms linear;
+}
+
+.cardHeaderBackground{
+    z-index: 0;
+    opacity: .8;
+    background: var(--background-1);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.cardHeader {
+    overflow: hidden;
+
+    display: grid;
+    align-items: center;
+    justify-content: flex-start;
+
+    padding: 4px 0;
+    user-select: none;
+    height: 30%;
+    width: 50%;
+
+    color: var(--color-0);
+    position: relative;
+    z-index: 5;
+
+    border-radius: 0 5px 5px 0;
+    transition: 150ms linear;
+
+    font-family: Roboto;
+    font-weight: 600;
+    font-size: 1rem;
+}
+.cardWrapper:hover, .onRender{
+    border: #0095ff 2px solid;
+
+}
+.cardWrapper:hover .cardTitle {
+    position: relative;
+    top: 0;
+    transform: translateX(4px);
+}
+
+.cardWrapper:hover .cardHeader {
+    height: 50%;
+    width: 75%;
+    align-items: flex-start;
+}
+
+.cardWrapper:hover .cardImage {
+    transform: scale(1.2);
+}
+
+
+.onRender .cardTitle {
+    position: relative;
+    top: 0;
+    transform: translateX(4px);
+}
+
+.onRender .cardHeader {
+    height: 50%;
+    width: 75%;
+    align-items: flex-start;
+}
+
+.onRender .cardImage {
+    transform: scale(1.2);
+}
+
+
+.cardDescription {
+    position: relative;
+    z-index: 5;
+    visibility: hidden;
+    opacity: 0;
+    transition: 150ms linear;
+
+    font-weight: normal;
+    font-size: .8rem;
+    color: var(--color-3);
+    padding-left: 4px;
+}
+
+.cardWrapper:hover .cardDescription {
+    visibility: visible;
+    opacity: 1;
+}
+.onRender .cardDescription {
+    visibility: visible;
+    opacity: 1;
+}
+
+.overflow {
+    overflow: hidden;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+

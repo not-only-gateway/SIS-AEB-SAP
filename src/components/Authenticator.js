@@ -20,7 +20,7 @@ export default function Authenticator(props) {
         sessionStorage.removeItem('profile')
         sessionStorage.removeItem('accessProfile')
     }, [])
-    const formHook = useData(null)
+    const formHook = useData()
     const [visible, setVisible] = useState(false)
     return (
         <div className={styles.wrapper}>
@@ -44,7 +44,7 @@ export default function Authenticator(props) {
                     ]}/>
                 <Form
                     hook={formHook}
-                    dependencies={[{name: 'email', type: 'string'}, {name: 'password', type: 'string'}]}
+                    dependencies={[{key: 'email', type: 'string'}, {key: 'password', type: 'string'}]}
                     submitLabel={'Entrar'}
                     noPadding={true} noBorder={true} noHeader={true} noAutoHeight={true}
                     handleSubmit={(data) => {
