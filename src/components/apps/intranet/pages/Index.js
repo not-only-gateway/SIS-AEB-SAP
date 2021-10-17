@@ -25,7 +25,7 @@ export default function Index(props) {
             image: 'https://i.redd.it/ar20z4aiejc51.jpg',
             onClick: () => console.log('CAFE'),
             title: 'Halo infinite',
-            details: 'Gaming - Tech Gaming - TechGaming - TechGaming - TechGaming - TechGaming - TechGaming - TechGaming - TechGaming - TechGaming - TechGaming - TechGaming - TechGaming - TechGaming - TechGaming - TechGaming - TechGaming - TechGaming - TechGaming - TechGaming - TechGaming - TechGaming - TechGaming - TechGaming - Tech'
+            details: 'cafe'
         },
         {
             image: 'https://i.redd.it/ar20z4aiejc51.jpg',
@@ -65,18 +65,25 @@ export default function Index(props) {
         },
     ]
     return (
-        <div style={{padding: '0 32px', overflowY: 'auto', height: 'calc(100% - ' + offset + 'px)'}} ref={ref}>
+        <div style={{padding: '0 32px', overflowY: 'auto', height: 'calc(100% - ' + offset + 'px)', maxWidth: '100%'}} ref={ref}>
             <Head>
                 <title>Ramais</title>
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
             <Carousel data={data}/>
 
-            <Feed data={data} title={'Noticias recentes'} onCardClick={(entry) => null} keys={{
-                image: 'image',
-                title: 'title',
-                description: 'details'
-            }}/>
+           <div style={{display: 'flex', width: '100%'}}>
+               <Feed data={data} title={'Noticias recentes'} width={'85%'} onCardClick={(entry) => null} keys={{
+                   image: 'image',
+                   title: 'title',
+                   description: 'details'
+               }}/>
+               <Feed data={data} title={'Noticias recentes'} width={'15%'} onCardClick={(entry) => null} keys={{
+                   image: 'image',
+                   title: 'title',
+                   description: 'details'
+               }}/>
+           </div>
         </div>
     )
 }

@@ -9,6 +9,9 @@ export default function Panel(props) {
             </div>
             <div className={styles.title}>
                 {props.data.title}
+                <div className={[styles.description, styles.overflow].join(' ')}>
+                    {props.data.details}
+                </div>
             </div>
         </div>
     )

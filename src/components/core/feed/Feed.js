@@ -5,7 +5,7 @@ import React from "react";
 
 export default function Feed(props) {
     return (
-        <div>
+        <div style={{width: props.width}}>
             <div className={styles.title}>
                 {props.title}
                 <div className={styles.titleDivider}/>
@@ -32,5 +32,6 @@ Feed.propTypes = {
         image: PropTypes.string,
         description: PropTypes.string
     }),
-    title: PropTypes.string
+    title: PropTypes.string,
+    width: PropTypes.string
 }
