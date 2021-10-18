@@ -39,11 +39,11 @@ export default function UnitForm(props) {
                     create: props.create
                 }).then(res => {
                     if (props.create && res.success) {
-                        props.returnToMain()
+                        props.handleClose()
                         clearState()
                     }
                 })}
-            handleClose={() => props.returnToMain()}>
+            handleClose={() => props.handleClose()}>
             {(data, handleChange) => (
                 <FormRow>
 
@@ -76,7 +76,12 @@ export default function UnitForm(props) {
                         title={'Responsável'}
                         placeholder={'Responsável'}
                         handleChange={entity => handleChange({key: 'responsible', event: entity})}
-                    />
+                        createOption={true}
+                    >
+                        {handleClose => (
+                            <UnitForm create={true} asDefault={true} handleClose={() => handleClose()}/>
+                        )}
+                    </Selector>
                 </FormRow>
             )}
         </Form>
@@ -86,7 +91,7 @@ export default function UnitForm(props) {
 
 UnitForm.propTypes = {
     data: PropTypes.object,
-    returnToMain: PropTypes.func,
+    handleClose: PropTypes.func,
     create: PropTypes.bool,
     asDefault: PropTypes.bool,
     action: PropTypes.object

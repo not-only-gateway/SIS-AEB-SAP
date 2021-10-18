@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import Head from "next/head";
-
 import PropTypes from 'prop-types'
-import WorkPlanRequests from "../utils/requests/WorkPlanRequests";
 import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";
 import shared from "../styles/Shared.module.css";
 import WorkPlanList from "../components/lists/WorkPlanList";
@@ -12,15 +10,16 @@ import ExecutionList from "../components/lists/ExecutionList";
 import ActivityList from "../components/lists/ActivityList";
 import GoalList from "../components/lists/GoalList";
 import WorkPlanForm from "../components/forms/WorkPlanForm";
+import {fetchEntry} from "../utils/requests/fetch";
 
 export default function WorkPlan(props) {
     const [workPlan, setWorkPlan] = useState({})
 
     useEffect(() => {
-        WorkPlanRequests.fetchWorkPlan(props.id).then(res => {
-            if (res !== null)
-                setWorkPlan(res)
-        })
+        fetchEntry({
+            pk: props.query.id,
+            suffix: 'work_plan'
+        }).then(res => setWorkPlan(res))
     }, [])
 
     return (
@@ -102,6 +101,6 @@ export default function WorkPlan(props) {
     )
 }
 WorkPlan.propTypes = {
-    routerQuery: PropTypes.object,
+    query: PropTypes.object,
     redirect: PropTypes.func
 }

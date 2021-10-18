@@ -5,6 +5,8 @@ import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
 import ThemeContext from "../../../core/theme/ThemeContext";
 import EndpointForm from "../components/forms/EndpointForm";
 import {fetchEntry} from "../utils/fetch";
+import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";
+import EndpointPrivilegeList from "../components/lists/EndpointPrivilegeList";
 
 export default function Endpoint(props) {
     const [data, setData] = useState(null)
@@ -18,8 +20,7 @@ export default function Endpoint(props) {
     return (
         <>
             <div style={{
-                padding: '0 calc(10% - 16px)', background: themes.themes.background1,
-                borderBottom: themes.themes.border0 + ' 1px solid'
+                padding: '0 calc(10% - 16px)', background: themes.themes.background1
             }}>
                 <Breadcrumbs divider={'/'} justify={'start'}>
                     <button className={styles.button}
@@ -33,14 +34,32 @@ export default function Endpoint(props) {
             </div>
 
             <div
-                className={styles.header} style={{padding: '16px 10%'}}
+                className={styles.header}
+                style={{padding: '16px 10%', borderBottom: themes.themes.border0 + ' 1px solid'}}
             >
                 {data?.denomination}
             </div>
 
-            <div className={styles.contentWrapper} style={{paddingTop: '32px'}}>
-                {data !== null ? <EndpointForm initialData={data} updateData={setData}/> : null}
-            </div>
+            <VerticalTabs classes={[
+                {
+                    buttons: [{
+                        label: 'Informações',
+                        children: (
+                            <div className={styles.contentWrapper} style={{paddingTop: '32px'}}>
+                                {data !== null ? <EndpointForm initialData={data} updateData={setData}/> : null}
+                            </div>
+                        ),
+                    },
+                        {
+                            label: 'Privilégios',
+                            children: (
+                                <div className={styles.contentWrapper}>
+                                    <EndpointPrivilegeList endpoint={props.query.id}/>
+                                </div>
+                            )
+                        }]
+                },
+            ]}/>
         </>
     )
 }

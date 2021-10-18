@@ -1,19 +1,20 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import ResourcePT from "../../locales/ResourcePT";
-import Host from "../../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 import NatureExpenseForm from "./NatureExpenseForm";
-import {DropDownField, FormRow, Selector, TextField} from "sis-aeb-core";
+import {DropDownField, FormRow, Selector, TextField, useQuery} from "sis-aeb-core";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import submit from "../../utils/requests/submit";
+import associativeKeys from "../../keys/associativeKeys";
+import getQuery from "../../queries/getQuery";
 
 export default function ResourceApplicationForm(props) {
 
     const lang = ResourcePT
 
-    const [open, setOpen] = useState(false)
+    const natureHook = useQuery(getQuery('nature_of_expense'))
     const [initialData, setInitialData] = useState(null)
     const formHook = useDataWithDraft({
         initialData: initialData,
@@ -55,42 +56,24 @@ export default function ResourceApplicationForm(props) {
                     create: props.create
                 }).then(res => {
                     if (props.create && res.success) {
-                        props.returnToMain()
+                        props.handleClose()
                         clearState()
                     }
                 })}
-            handleClose={() => props.returnToMain()}>
+            handleClose={() => props.handleClose()}>
             {(data, handleChange) => (
                 <FormRow>
-
                     <Selector
-                        getEntityKey={entity => {
-                            if (entity !== null && entity !== undefined)
-                                return entity.id
-                            else return -1
-                        }} searchFieldName={'search_input'}
-                        handleChange={entity => {
-                            handleChange({key: 'nature_of_expense', event: entity})
-                        }} label={'Vincular natureza de despesa'}
-                        setChanged={() => null}
-                        selected={props.data === null || !data.nature_of_expense ? null : data.nature_of_expense}
-                        disabled={false}
-                        handleCreate={() => setOpen(true)}
-                        width={'100%'}
-                        fields={[
-                            {key: 'gnd', type: 'string'},
-                            {key: 'nature_of_expense', type: 'string'},
-                            {key: 'description', type: 'string'},
-                        ]} required={true}
-                        labels={['gnd', 'natureza de despesa', 'descrição']}
-                        fetchUrl={Host() + 'list/nature_of_expense'}
+                        hook={natureHook} keys={associativeKeys.natureOfExpense}
+                        width={'calc(50% - 16px)'}
+                        required={true}
+                        value={data.nature_of_expense}
+                        title={'Natureza de despesas'}
+                        placeholder={'Natureza de despesas'}
+                        handleChange={entity => handleChange({key: 'nature_of_expense', event: entity})}
                         createOption={true}
-                        fetchToken={(new Cookies()).get('jwt')}
-
-                        returnToList={!open}
-                        setReturnToList={() => setOpen(true)}
                     >
-                        <NatureExpenseForm create={true} returnToMain={() => setOpen(false)}/>
+                        <NatureExpenseForm asDefault={true}/>
                     </Selector>
                     <DropDownField
                         dark={true}
@@ -121,7 +104,7 @@ ResourceApplicationForm.propTypes = {
     id: PropTypes.number,
     data: PropTypes.object,
     handleChange: PropTypes.func,
-    returnToMain: PropTypes.func,
+    handleClose: PropTypes.func,
     create: PropTypes.bool,
     operation: PropTypes.object
 }

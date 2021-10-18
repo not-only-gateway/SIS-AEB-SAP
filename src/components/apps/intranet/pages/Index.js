@@ -2,11 +2,8 @@ import React, {useEffect, useRef, useState} from 'react'
 import Head from "next/head";
 
 import PropTypes from 'prop-types'
-import styles from '../styles/Shared.module.css'
-import PersonList from "../components/PersonList";
 import Carousel from "../../../core/navigation/carousel/Carousel";
 import Feed from "../../../core/feed/Feed";
-import FeedCard from "../../../core/feed/FeedCard";
 
 export default function Index(props) {
     const [offset, setOffset] = useState(0)

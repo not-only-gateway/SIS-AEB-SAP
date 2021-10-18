@@ -11,8 +11,7 @@ export default function EventList(props) {
             <List
                 createOption={true}
                 keys={eventKeys}
-                hook={hook}
-                onRowClick={row => null}
+                hook={hook} onlyVisualization={true}
                 title={'Registros de eventos'}
             />
         </div>

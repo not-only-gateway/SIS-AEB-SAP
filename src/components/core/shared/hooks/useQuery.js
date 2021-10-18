@@ -16,9 +16,13 @@ export default function useQuery(props) {
     const [hasMore, setHasMore] = useState(false)
 
     const fetchParams = () => {
-        let pack = {page: currentPage, quantity: props.fetchSize, filters: JSON.stringify(filters), sorts: JSON.stringify(sorts)}
+        let pack = {page: currentPage, quantity: props.fetchSize, filters: filters, sorts: sorts}
         if (typeof props.parsePackage === 'function')
             pack = props.parsePackage(pack)
+
+        pack.filters = JSON.stringify(pack.filters)
+        pack.sorts = JSON.stringify(pack.sorts)
+
         return {
             method: 'GET',
             headers: {...props.headers, 'content-type': 'application/json'}, url: props.url,
@@ -30,7 +34,7 @@ export default function useQuery(props) {
     useEffect(() => {
         setLoading(true)
         const params = fetchParams()
-        console.log('PARAMS', params.params)
+
         axios(
             params
         ).then(res => {

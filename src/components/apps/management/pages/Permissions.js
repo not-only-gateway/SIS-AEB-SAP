@@ -17,7 +17,7 @@ export default function Permissions(props){
                     )
                 },
                 {
-                    label: 'Permissões',
+                    label: 'Privilégios',
                     children: (
                         <div className={styles.contentWrapper}>
                             <PermissionList/>
@@ -26,7 +26,7 @@ export default function Permissions(props){
                 }
             ]}>
             <div className={styles.header}>
-                Permissões e perfis de acesso
+                Privilégios e perfis de acesso
             </div>
         </Tabs>
     )

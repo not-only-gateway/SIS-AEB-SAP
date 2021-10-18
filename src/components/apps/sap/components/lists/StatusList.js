@@ -5,7 +5,7 @@ import {DeleteRounded} from "@material-ui/icons";
 import StatusForm from "../forms/StatusForm";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import deleteEntry from "../../../management/utils/delete";
+import deleteEntry from "../../utils/requests/delete";
 import getQuery from "../../queries/getQuery";
 
 export default function StatusList(props) {
@@ -18,14 +18,15 @@ export default function StatusList(props) {
 
     return (
         <Switcher openChild={open ? 0 : 1}>
-            <StatusForm
-                returnToMain={() => {
-                    setOpen(false)
-                }}
+            <div style={{paddingTop: '32px'}}>
+                <StatusForm
+                    handleClose={() => {
+                        setOpen(false)
+                    }}
 
-                create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                data={currentEntity} workPlan={props.workPlan}/>
-
+                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                    data={currentEntity} workPlan={props.workPlan}/>
+            </div>
             <List
                 createOption={true}
                 onCreate={() => setOpen(true)}
@@ -45,7 +46,7 @@ export default function StatusList(props) {
                 keys={workPlanKeys.status}
                 title={'Status'}
                 onRowClick={e => setCurrentEntity(e)}
-                
+
             />
         </Switcher>
     )

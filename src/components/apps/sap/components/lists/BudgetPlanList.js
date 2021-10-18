@@ -5,7 +5,7 @@ import {List, useQuery} from "sis-aeb-core";
 import getQuery from "../../queries/getQuery";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import deleteEntry from "../../../management/utils/delete";
+import deleteEntry from "../../utils/requests/delete";
 
 export default function BudgetPlanList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -15,16 +15,17 @@ export default function BudgetPlanList(props) {
 
     return (
         <Switcher openChild={open ? 0 : 1}>
-            <BudgetPlanForm
-                returnToMain={() => {
-                    setOpen(false)
-                    hook.clean()
-                }}
-                asDefault={true}
-                create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                data={currentEntity}/>
+            <div style={{paddingTop: '32px'}}>
+                <BudgetPlanForm
+                    handleClose={() => {
+                        setOpen(false)
+                        hook.clean()
+                    }}
+                    asDefault={true}
+                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                    data={currentEntity}/>
+            </div>
             <List
-
                 createOption={true}
                 onCreate={() => setOpen(true)}
 

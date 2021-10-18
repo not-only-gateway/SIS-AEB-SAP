@@ -4,7 +4,7 @@ import ActionForm from "../forms/ActionForm";
 import {List, useQuery} from "sis-aeb-core";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import deleteEntry from "../../../management/utils/delete";
+import deleteEntry from "../../utils/requests/delete";
 import getQuery from "../../queries/getQuery";
 
 
@@ -15,15 +15,16 @@ export default function ActionList(props) {
     
     return (
         <Switcher openChild={open ? 0 : 1}>
+            <div style={{paddingTop: '32px'}}>
                 <ActionForm
-                    returnToMain={() => {
+                    handleClose={() => {
                         setOpen(false)
                         hook.clean()
                     }}
                     asDefault={true}
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                     data={currentEntity}/>
-            
+            </div>
             
                 <List
 

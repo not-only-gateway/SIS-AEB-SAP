@@ -4,7 +4,7 @@ import {List, useQuery} from "sis-aeb-core";
 import ClassificationForm from "../forms/ClassificationForm";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import deleteEntry from "../../../management/utils/delete";
+import deleteEntry from "../../utils/requests/delete";
 import getQuery from "../../queries/getQuery";
 
 export default function ClassificationList(props) {
@@ -14,14 +14,16 @@ export default function ClassificationList(props) {
 
     return (
         <Switcher openChild={open ? 0 : 1}>
-            <ClassificationForm
-                returnToMain={() => {
-                    setOpen(false)
-                    hook.clean()
-                }}
-                asDefault={true}
-                create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                data={currentEntity}/>
+            <div style={{paddingTop: '32px'}}>
+                <ClassificationForm
+                    handleClose={() => {
+                        setOpen(false)
+                        hook.clean()
+                    }}
+                    asDefault={true}
+                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                    data={currentEntity}/>
+            </div>
             <List
                 createOption={true}
                 onCreate={() => setOpen(true)}

@@ -1,5 +1,6 @@
 import ACTIONS from "./dataActions";
 import {v4 as uuid4} from "uuid";
+import {array} from "prop-types";
 
 export default function dataReducer(currentState, action) {
     switch (action.type) {
@@ -7,12 +8,17 @@ export default function dataReducer(currentState, action) {
             return []
         }
         case ACTIONS.PUSH: {
-            let data  = [...currentState].map(e => e.data)
-            let value = [...new Set([...data, ...action.payload])]
+            if(Array.isArray(action.payload)) {
+                let data = [...currentState].map(e => e.data)
+                let value = [...new Set([...data, ...action.payload])]
 
-            value = value.map(e => {return {id: uuid4().toString(), data: e}})
+                value = value.map(e => {
+                    return {id: uuid4().toString(), data: e}
+                })
 
-            return value
+                return value
+            }
+            else return currentState
         }
         default:
             return currentState

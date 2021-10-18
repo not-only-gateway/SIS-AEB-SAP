@@ -29,7 +29,7 @@ const reducer = (state, action) => {
     }
 }
 
-export default function useList(initialKeys) {
+export default function useList(initialKeys, noAutoHeight=undefined) {
 
 
     const wrapperRef = useRef()
@@ -38,7 +38,8 @@ export default function useList(initialKeys) {
     const [openSettings, setOpenSettings] = useState(false)
 
     useEffect(() => {
-        setMaxHeight((document.documentElement.offsetHeight - wrapperRef.current.getBoundingClientRect().top - 16) + 'px')
+        if (!noAutoHeight)
+            setMaxHeight((document.documentElement.offsetHeight - wrapperRef.current.getBoundingClientRect().top - 16) + 'px')
     }, [])
 
     return {maxHeight, keys, keysDispatcher, actions, openSettings, setOpenSettings, wrapperRef}

@@ -10,6 +10,7 @@ import workPlanKeys from "../../keys/workPlanKeys";
 import useQuery from "../../../../core/shared/hooks/useQuery";
 import getQuery from "../../queries/getQuery";
 import submit from "../../utils/requests/submit";
+import OperationForm from "./OperationForm";
 
 export default function ExecutionForm(props) {
 
@@ -67,12 +68,12 @@ export default function ExecutionForm(props) {
                     create: props.create
                 }).then(res => {
                     if (props.create && res.success) {
-                        props.returnToMain()
+                        props.handleClose()
                         clearState()
                     }
                 })
             }}
-            handleClose={() => props.returnToMain()}>
+            handleClose={() => props.handleClose()}>
             {(data, handleChange) => (
                 <FormRow>
                     <TextField
@@ -113,7 +114,12 @@ export default function ExecutionForm(props) {
                         handleChange={e => handleChange({event: e, key: 'operation_phase'})}
                         value={data.operation_phase} width={'calc(33.333% - 21.5px)'} required={true}
                         keys={workPlanKeys.operation}
-                    />
+                        createOption={true}
+                    >
+                        {handleClose => (
+                            <OperationForm create={true} asDefault={true} handleClose={() => handleClose()}/>
+                        )}
+                    </Selector>
                     <TextField
 
                         placeholder={lang.currentExecution} label={lang.currentExecution}
@@ -177,7 +183,7 @@ ExecutionForm.propTypes = {
     id: PropTypes.number,
     data: PropTypes.object,
     handleChange: PropTypes.func,
-    returnToMain: PropTypes.func,
+    handleClose: PropTypes.func,
     create: PropTypes.bool,
     operation: PropTypes.object
 }

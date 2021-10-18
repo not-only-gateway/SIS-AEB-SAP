@@ -9,6 +9,7 @@ import associativeKeys from "../../keys/associativeKeys";
 import useQuery from "../../../../core/shared/hooks/useQuery";
 import getQuery from "../../queries/getQuery";
 import submit from "../../utils/requests/submit";
+import TypeForm from "./TypeForm";
 
 export default function ClassificationForm(props) {
 
@@ -41,15 +42,13 @@ export default function ClassificationForm(props) {
                     create: props.create
                 }).then(res => {
                     if (props.create && res.success) {
-                        props.returnToMain()
+                        props.handleClose()
                         clearState()
                     }
                 })}
-            handleClose={() => props.returnToMain()}>
+            handleClose={() => props.handleClose()}>
             {(data, handleChange) => (
                 <FormRow>
-
-
                     <TextField
                         placeholder={lang.classification} label={lang.classification}
                         handleChange={event => {
@@ -68,7 +67,12 @@ export default function ClassificationForm(props) {
                         handleChange={e => handleChange({event: e, key: 'type'})}
                         value={data.type} width={'calc(50% - 16px)'} required={true}
                         keys={associativeKeys.type}
-                    />
+                        createOption={true}
+                    >
+                        {handleClose => (
+                            <TypeForm create={true} asDefault={true} handleClose={() => handleClose()}/>
+                        )}
+                    </Selector>
 
                 </FormRow>
             )}
@@ -78,7 +82,7 @@ export default function ClassificationForm(props) {
 }
 
 ClassificationForm.propTypes = {
-    returnToMain: PropTypes.func,
+    handleClose: PropTypes.func,
     create: PropTypes.bool,
     asDefault: PropTypes.bool,
     action: PropTypes.object

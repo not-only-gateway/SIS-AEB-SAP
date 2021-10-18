@@ -59,11 +59,11 @@ export default function InfrastructureForm(props) {
                     create: props.create
                 }).then(res => {
                     if (props.create && res.success) {
-                        props.returnToMain()
+                        props.handleClose()
                         clearState()
                     }
                 })}
-            handleClose={() => props.returnToMain()}>
+            handleClose={() => props.handleClose()}>
             {(data, handleChange) => (
                 <FormRow>
 
@@ -123,8 +123,8 @@ export default function InfrastructureForm(props) {
 
 InfrastructureForm.propTypes = {
     data: PropTypes.object,
-    handleChange: PropTypes.func,
-    returnToMain: PropTypes.func,
+    
+    handleClose: PropTypes.func,
     create: PropTypes.bool,
     asDefault: PropTypes.bool
 }

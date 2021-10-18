@@ -6,8 +6,9 @@ import ActionItemForm from "../forms/ActionItemForm";
 import {List, useQuery} from "sis-aeb-core";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import deleteEntry from "../../../management/utils/delete";
+
 import getQuery from "../../queries/getQuery";
+import deleteEntry from "../../utils/requests/delete";
 
 
 export default function ActionItemList(props) {
@@ -20,15 +21,17 @@ export default function ActionItemList(props) {
 
     return (
         <Switcher openChild={open ? 0 : 1}>
+                <div style={{paddingTop: '32px'}}>
+                    <ActionItemForm
+                        handleClose={() => {
+                            setOpen(false)
+                            hook.clean()
+                        }}
+                        create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                        data={currentEntity} operation={props.operation}
+                    />
+                </div>
 
-                <ActionItemForm
-                    returnToMain={() => {
-                        setOpen(false)
-                        hook.clean()
-                    }}
-                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                    data={currentEntity} operation={props.operation}
-                />
                 <List
                     createOption={true}
                     onCreate={() => setOpen(true)}

@@ -40,7 +40,7 @@ export default function ActivityStageForm(props) {
                     if (res.success && props.create)
                         props.redirect(res.data)
                 })}
-            handleClose={() => props.returnToMain()}>
+            handleClose={() => props.handleClose()}>
             {(data, handleChange) => (
                 <FormRow>
 
@@ -81,7 +81,7 @@ export default function ActivityStageForm(props) {
 ActivityStageForm.propTypes = {
     data: PropTypes.object,
     handleChange: PropTypes.func,
-    returnToMain: PropTypes.func,
+    handleClose: PropTypes.func,
     create: PropTypes.bool,
     goal: PropTypes.object
 }

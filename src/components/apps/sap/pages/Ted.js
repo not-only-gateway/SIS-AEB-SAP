@@ -6,8 +6,8 @@ import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";
 import Tabs from "../../../core/navigation/tabs/Tabs";
 import WorkPlanList from "../components/lists/WorkPlanList";
 import TedForm from "../components/forms/TedForm";
-import TedRequests from "../utils/requests/TedRequests";
 import TedList from "../components/lists/TedList";
+import {fetchEntry} from "../utils/requests/fetch";
 
 
 export default function Ted(props) {
@@ -15,10 +15,10 @@ export default function Ted(props) {
 
 
     useEffect(() => {
-        TedRequests.fetchTed(props.id).then(res => {
-            if (res !== null)
-                setTed(res)
-        })
+        fetchEntry({
+            pk: props.query.id,
+            suffix: 'ted'
+        }).then(res => setTed(res))
     }, [])
 
     return (
@@ -76,6 +76,6 @@ export default function Ted(props) {
     )
 }
 Ted.propTypes = {
-    routerQuery: PropTypes.object,
+    query: PropTypes.object,
     redirect: PropTypes.func
 }

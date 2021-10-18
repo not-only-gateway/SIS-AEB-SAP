@@ -9,6 +9,7 @@ import Selector from "../../../../core/inputs/selector/Selector";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
+import ActivityStageForm from "./ActivityStageForm";
 
 export default function OperationForm(props) {
 
@@ -64,13 +65,13 @@ export default function OperationForm(props) {
                     create: props.create
                 }).then(res => {
                     if (props.create && res.success) {
-                        props.returnToMain()
+                        props.handleClose()
                         clearState()
                     }
                 })
 
             }
-            handleClose={() => props.returnToMain()}>
+            handleClose={() => props.handleClose()}>
             {(data, handleChange) => (
                 <>
                     <FormRow>
@@ -103,7 +104,12 @@ export default function OperationForm(props) {
                             title={'Atividade'}
                             placeholder={'Atividade'}
                             handleChange={entity => handleChange({key: 'activity_stage', event: entity})}
-                        />
+                            createOption={true}
+                        >
+                            {handleClose => (
+                                <ActivityStageForm create={true} asDefault={true} handleClose={() => handleClose()}/>
+                            )}
+                        </Selector>
                     </FormRow>
 
                     <FormRow>
@@ -194,7 +200,7 @@ OperationForm.propTypes = {
     id: PropTypes.number,
     data: PropTypes.object,
     handleChange: PropTypes.func,
-    returnToMain: PropTypes.func,
+    handleClose: PropTypes.func,
     create: PropTypes.bool,
     stage: PropTypes.object
 }

@@ -31,12 +31,7 @@ export const endpointKeys = [
         type: 'string',
         visible: true
     },
-    {
-        key: 'methods',
-        label: 'Métodos HTTP',
-        type: 'array',
-        visible: true
-    },
+
     {
         key: 'require_auth',
         label: 'Requer autenticação',
@@ -89,6 +84,43 @@ export const accessProfileKeys = [
     }
 ]
 
+export const endpointPrivilegeKeys = [
+    {
+        key: 'endpoint',
+        label: 'Endpoint',
+        type: 'string'
+    },
+    {
+        key: 'privilege',
+        label: 'Privilégio',
+        type: 'object',
+        subfieldKey: 'denomination',
+        subType: 'string',
+        visible: true
+    },
+    {
+        key: 'method',
+        label: 'Método',
+        type: 'number',
+        visible: true,
+        getColor: (type) => {
+            switch (type) {
+                case 'POST':
+                    return '#fec02b'
+                case 'PUT':
+                    return '#57a2ed'
+                case 'PATCH':
+                    return '#5f5f5f'
+                case 'GET':
+                    return '#20c060'
+                case 'DELETE':
+                    return '#ed4136'
+                default:
+                    return undefined
+            }
+        }
+    },
+]
 export const permissionKeys = [
     {
         key: 'id',

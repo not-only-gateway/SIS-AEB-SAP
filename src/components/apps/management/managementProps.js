@@ -13,7 +13,7 @@ export default function managementProps (redirect, path, query={}) {
                 highlight:(path === '/management' && !query.page)||  query.page === 'index'
             },
             {
-                label: "Permissões",
+                label: "Privilégios",
                 icon: <SupervisorAccountRounded/>,
                 onClick: () => redirect('/management/?page=permissions'),
                 highlight: query.page === 'permissions'

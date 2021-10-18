@@ -9,8 +9,8 @@ import PropTypes from 'prop-types'
 import Selector from "../../../../core/inputs/selector/Selector";
 import {DeleteRounded} from "@material-ui/icons";
 import deleteEntry from "../../utils/requests/delete";
-import submit from "../../utils/requests/submit";
 import Host from "../../utils/shared/Host";
+import EndpointPrivilegeForm from "../forms/EndpointPrivilegeForm";
 
 export default function PermissionList(props) {
     const hook = props.accessProfile ? useQuery(access_profile_permissions_query(props.accessProfile)) : undefined
@@ -45,8 +45,10 @@ export default function PermissionList(props) {
 
 
                 <div style={{marginTop: '48px'}}>
-                    <PermissionForm initialData={openEntity ? openEntity : {}}
-                                    handleClose={() => setOpenEntity(undefined)}/>
+                    {props.endpoint ? <EndpointPrivilegeForm/>
+                        :
+                        <PermissionForm initialData={openEntity ? openEntity : {}}
+                                        handleClose={() => setOpenEntity(undefined)}/>}
                 </div>
 
                 <List
@@ -68,14 +70,14 @@ export default function PermissionList(props) {
                         setOpenEntity({})
                 }}
                     onRowClick={row => setOpenEntity(row)}
-                    title={'Permissões'}
+                    title={'Privilégios'}
                 />
 
             </Switcher>
         </>
     )
 }
-PermissionList.propTypes =
-{
+PermissionList.propTypes = {
+    endpoint: PropTypes.string,
     accessProfile: PropTypes.number
 }

@@ -33,12 +33,11 @@ export default function List(props) {
                     :
                     null
                 }
-
                 <TableLayout
                     data={props.hook.data} keys={keys} controlButtons={props.controlButtons} maxHeight={maxHeight}
                     setCurrentPage={props.hook.setCurrentPage} currentPage={props.hook.currentPage}
                     onRowClick={props.onRowClick} hasMore={props.hook.hasMore}
-                    sorts={props.hook.sorts} clean={props.hook.clean}
+                    sorts={props.hook.sorts} clean={props.hook.clean}  onlyVisualization={props.onlyVisualization}
                     setSorts={props.hook.setSorts} loading={props.hook.loading}
                 />
             </div>
@@ -59,5 +58,6 @@ List.propTypes = {
     title: PropTypes.any,
 
     createOption: PropTypes.bool,
-    onCreate: PropTypes.func
+    onCreate: PropTypes.func,
+    onlyVisualization: PropTypes.bool
 }

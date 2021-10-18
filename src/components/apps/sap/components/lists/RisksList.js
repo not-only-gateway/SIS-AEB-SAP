@@ -5,7 +5,7 @@ import RiskForm from "../forms/RiskForm";
 import {DeleteRounded} from "@material-ui/icons";
 import projectKeys from "../../keys/projectKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import deleteEntry from "../../../management/utils/delete";
+import deleteEntry from "../../utils/requests/delete";
 import getQuery from "../../queries/getQuery";
 
 
@@ -19,16 +19,14 @@ export default function RisksList(props) {
 
     return (
         <Switcher openChild={open ? 0 : 1}>
-
-            <RiskForm
-                returnToMain={() => {
-                    setOpen(false)
-                }}
-                create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                data={currentEntity} project={props.project}/>
-
-            }
-
+            <div style={{paddingTop: '32px'}}>
+                <RiskForm
+                    handleClose={() => {
+                        setOpen(false)
+                    }}
+                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                    data={currentEntity} project={props.project}/>
+            </div>
             <List
                 onRowClick={e => setCurrentEntity(e)}
                 createOption={true}
@@ -47,11 +45,11 @@ export default function RisksList(props) {
                     disabled: false,
                     color: '#ff5555'
                 },]}
-                
+
             />
         </Switcher>
     )
 }
 RisksList.propTypes = {
-        project: PropTypes.object
-    }
+    project: PropTypes.object
+}

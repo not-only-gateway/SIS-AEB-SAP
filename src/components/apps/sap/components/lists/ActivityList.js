@@ -6,7 +6,7 @@ import {List, useQuery} from "sis-aeb-core";
 import ActivityStageForm from "../forms/ActivityStageForm";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import deleteEntry from "../../../management/utils/delete";
+import deleteEntry from "../../utils/requests/delete";
 import getQuery from "../../queries/getQuery";
 
 
@@ -20,15 +20,17 @@ export default function ActivityList(props) {
 
     return (
         <Switcher openChild={open ? 0 : 1}>
-            <ActivityStageForm
-                returnToMain={() => {
-                    setOpen(false)
-                    setCurrentEntity(null)
-                }}
-                open={open}
-                create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                data={currentEntity}
-            />
+            <div style={{paddingTop: '32px'}}>
+                <ActivityStageForm
+                    handleClose={() => {
+                        setOpen(false)
+                        setCurrentEntity(null)
+                    }}
+                    open={open}
+                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                    data={currentEntity}
+                />
+            </div>
             <List
                 createOption={true}
                 hook={hook}

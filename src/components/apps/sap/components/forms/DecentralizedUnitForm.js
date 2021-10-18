@@ -44,11 +44,11 @@ export default function DecentralizedUnitForm(props) {
                     create: props.create
                 }).then(res => {
                     if (props.create && res.success) {
-                        props.returnToMain()
+                        props.handleClose()
                         clearState()
                     }
                 })}
-            handleClose={() => props.returnToMain()}>
+            handleClose={() => props.handleClose()}>
             {(data, handleChange) => (
                 <FormRow>
 
@@ -164,7 +164,7 @@ export default function DecentralizedUnitForm(props) {
 }
 
 DecentralizedUnitForm.propTypes = {
-    returnToMain: PropTypes.func,
+    handleClose: PropTypes.func,
     create: PropTypes.bool,
     asDefault: PropTypes.bool,
     action: PropTypes.object

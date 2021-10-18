@@ -26,7 +26,7 @@ export default function ActionForm(props) {
             dependencies={[
                 {key: 'number', type: 'string'},
                 {key: 'detailing', type: 'object'},
-            ]} returnButton={true} handleClose={() => props.returnToMain()}
+            ]} returnButton={true} handleClose={() => props.handleClose()}
             handleSubmit={(data, clearState) =>
                 submit({
                     suffix: 'action',
@@ -35,7 +35,7 @@ export default function ActionForm(props) {
                     create: props.create
                 }).then(res => {
                     if (props.create && res.success) {
-                        props.returnToMain()
+                        props.handleClose()
                         clearState()
                     }
                 })}
@@ -71,7 +71,7 @@ export default function ActionForm(props) {
 }
 
 ActionForm.propTypes = {
-    returnToMain: PropTypes.func,
+    handleClose: PropTypes.func,
     create: PropTypes.bool,
     asDefault: PropTypes.bool
 }

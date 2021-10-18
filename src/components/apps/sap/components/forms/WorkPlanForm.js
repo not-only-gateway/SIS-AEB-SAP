@@ -9,12 +9,19 @@ import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
+import projectKeys from "../../keys/projectKeys";
+import tedKeys from "../../keys/tedKeys";
+import UnitForm from "./UnitForm";
+import BudgetPlanForm from "./BudgetPlanForm";
+import InfrastructureForm from "./InfrastructureForm";
 
 export default function WorkPlanForm(props) {
     const lang = WorkPlanPT
     const [initialData, setInitialData] = useState(props.data)
     const unitHook = useQuery(getQuery('unit'))
     const budgetPlanHook = useQuery(getQuery('budget_plan'))
+    const projectHook = useQuery(getQuery('project'))
+    const tedHook = useQuery(getQuery('ted'))
     const infrastructureHook = useQuery(getQuery('infrastructure'))
     const formHook = useDataWithDraft({
         initialData: initialData,
@@ -55,7 +62,7 @@ export default function WorkPlanForm(props) {
                     {key: 'responsible', type: 'string'},
                     {key: 'object', type: 'string'},
 
-                    // NEW FIELDS
+
                     {key: 'sub_decentralization', type: 'bool'},
                     {key: 'justification', type: 'string'},
                     {key: 'ways_of_execution', type: 'string'},
@@ -63,7 +70,6 @@ export default function WorkPlanForm(props) {
                     {key: 'detailing_of_indirect_costs', type: 'string'},
                     {key: 'budget_plan', type: 'string'},
 
-                    // NEW CATEGORY
                     {key: 'responsible_execution', type: 'string'},
                     {key: 'func', type: 'string'},
                     {key: 'email', type: 'string'},
@@ -79,33 +85,63 @@ export default function WorkPlanForm(props) {
                         create: props.create
                     }).then(res => {
                         if (res.success && props.create)
-                            props.redirect(res.data)
+                            props.redirect(res.data.id)
                     })
                 }}
-                handleClose={() => props.returnToMain()}>
+                handleClose={() => props.handleClose()}>
                 {(data, handleChange) => (
                     <>
                         <FormRow>
-
+                            {props.project ?
+                                <Selector
+                                    hook={tedHook} keys={tedKeys.ted}
+                                    width={'calc(33.333% - 21.5px)'}
+                                    required={true}
+                                    value={data.ted}
+                                    title={'Instrumento de celebração'}
+                                    placeholder={'Instrumento de celebração'}
+                                    handleChange={entity => handleChange({key: 'ted', event: entity})}
+                                />
+                                :
+                                null
+                            }
+                            {props.ted ?
+                                <Selector
+                                    hook={projectHook} keys={projectKeys.project}
+                                    width={'calc(33.333% - 21.5px)'}
+                                    required={true}
+                                    value={data.project}
+                                    title={'Projeto / atividade'}
+                                    placeholder={'Projeto / atividade'}
+                                    handleChange={entity => handleChange({key: 'project', event: entity})}
+                                />
+                                :
+                                null
+                            }
                             <Selector
                                 hook={unitHook} keys={associativeKeys.responsible}
-                                width={'calc(50% - 16px)'}
+                                width={props.project || props.ted ? 'calc(33.333% - 21.5px' : 'calc(50% - 16px)'}
                                 required={true}
                                 value={data.responsible}
                                 title={'Responsável'}
                                 placeholder={'Responsável'}
                                 handleChange={entity => handleChange({key: 'responsible', event: entity})}
-                            />
-
+                                createOption={true}
+                            >
+                                {handleClose => (
+                                    <UnitForm create={true} asDefault={true} handleClose={() => handleClose()}/>
+                                )}
+                            </Selector>
                             <DropDownField
-                                dark={true}
                                 placeholder={lang.apostille}
                                 label={lang.apostille}
                                 handleChange={event => {
 
                                     handleChange({key: 'apostille', event: event})
                                 }} value={data.apostille} required={false}
-                                width={'calc(50% - 16px)'} choices={lang.apostilleOptions}/>
+                                width={props.project || props.ted ? 'calc(33.333% - 21.5px' : 'calc(50% - 16px)'}
+                                choices={lang.apostilleOptions}
+                            />
 
                             <TextField
 
@@ -143,7 +179,12 @@ export default function WorkPlanForm(props) {
                                 title={'Infraestrutura'}
                                 placeholder={'Infraestrutura'}
                                 handleChange={entity => handleChange({key: 'infrastructure', event: entity})}
-                            />
+                                createOption={true}
+                            >
+                                {handleClose => (
+                                    <InfrastructureForm create={true} asDefault={true} handleClose={() => handleClose()}/>
+                                )}
+                            </Selector>
 
 
                             <TextField
@@ -190,7 +231,12 @@ export default function WorkPlanForm(props) {
                                 title={'Plano orçamentário'}
                                 placeholder={'Plano orçamentário'}
                                 handleChange={entity => handleChange({key: 'budget_plan', event: entity})}
-                            />
+                                createOption={true}
+                            >
+                                {handleClose => (
+                                    <BudgetPlanForm create={true} asDefault={true} handleClose={() => handleClose()}/>
+                                )}
+                            </Selector>
 
                         </FormRow>
 
@@ -246,7 +292,7 @@ WorkPlanForm.propTypes = {
     workPlan: PropTypes.bool,
     data: PropTypes.object,
     handleChange: PropTypes.func,
-    returnToMain: PropTypes.func,
+    handleClose: PropTypes.func,
     create: PropTypes.bool,
     ted: PropTypes.object,
     project: PropTypes.object,

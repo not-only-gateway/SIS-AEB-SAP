@@ -15,7 +15,8 @@ export default async function deleteEntry(props) {
         showSuccessAlert: true,
         headers: {'authorization': (new Cookies()).get('jwt')},
         package: {
-            identifier: props.pk
+            identifier: props.pk,
+            foreign_identifier: props.fk
         }
     }).then(res => {
         response = {
@@ -32,5 +33,6 @@ deleteEntry.propTypes = {
     prefix: PropTypes.string,
     suffix: PropTypes.string,
     pk: PropTypes.any,
+    fk: PropTypes.any,
     url: PropTypes.string
 }

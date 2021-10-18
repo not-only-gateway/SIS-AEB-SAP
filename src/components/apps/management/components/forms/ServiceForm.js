@@ -41,7 +41,7 @@ export default function ServiceForm(props) {
                     prefix: 'gateway'
                 }).then((res) => {
                     if (res.success && props.initialData?.id === undefined) {
-                        props.redirect(res)
+                        props.redirect(res.data.id)
                         clearState()
                     } else if (res.success)
                         props.updateData(data)

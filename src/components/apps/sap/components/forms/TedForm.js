@@ -1,13 +1,17 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import TedPT from "../../locales/TedPT";
-import {DateField, DropDownField, FormRow, Selector, TextField, useQuery} from "sis-aeb-core";
+import {DateField, DropDownField, FormRow, TextField, useQuery} from "sis-aeb-core";
 import associativeKeys from "../../keys/associativeKeys";
 import getQuery from "../../queries/getQuery";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
+import Selector from "../../../../core/inputs/selector/Selector";
+import UnitForm from "./UnitForm";
+import DecentralizedUnitForm from "./DecentralizedUnitForm";
+import ActionForm from "./ActionForm";
 
 export default function TedForm(props) {
     const lang = TedPT
@@ -78,30 +82,22 @@ export default function TedForm(props) {
             } noHeader={!props.create && !props.asEntity}
             returnButton={props.create || props.asEntity}
             handleSubmit={(data, clearState) => {
-                if (!props.asAddendum)
-                    submit({
-                        suffix: 'ted',
-                        pk: data.id,
-                        data: data,
-                        create: props.create
-                    }).then(res => {
-                        if (res !== null && props.create && !props.asEntity)
-                            props.redirect(res)
 
-                        if (props.asEntity && props.create)
-                            props.returnToMain()
-                    })
-                else
-                    submitAddendum({
-                        pk: data.id,
-                        data: data,
-                        create: props.create
-                    }).then(res => {
-                        if (props.asEntity)
-                            props.returnToMain()
-                    })
+                submit({
+                    suffix: 'ted',
+                    pk: data.id,
+                    data: data,
+                    create: props.create
+                }).then(res => {
+                    if (res !== null && props.create && !props.asEntity)
+                        props.redirect(res)
+
+                    if (props.asEntity && props.create)
+                        props.handleClose()
+                })
+
             }}
-            handleClose={() => props.returnToMain()}>
+            handleClose={() => props.handleClose()}>
             {(data, handleChange) => (
                 <>
                     <FormRow>
@@ -211,6 +207,8 @@ export default function TedForm(props) {
 
 
                         <Selector
+
+
                             hook={unitHook} keys={associativeKeys.responsible}
                             width={'calc(33.333% - 21.5px)'}
                             required={true}
@@ -218,7 +216,13 @@ export default function TedForm(props) {
                             title={'Responsável'}
                             placeholder={'Responsável'}
                             handleChange={entity => handleChange({key: 'responsible', event: entity})}
-                        />
+
+                            createOption={true}
+                        >
+                            {handleClose => (
+                                <UnitForm create={true} asDefault={true} handleClose={() => handleClose()}/>
+                            )}
+                        </Selector>
                         <Selector
                             hook={decentralizedUnitHook} keys={associativeKeys.decentralizedUnit}
                             width={'calc(33.333% - 21.5px)'}
@@ -227,7 +231,13 @@ export default function TedForm(props) {
                             title={'Unidade descentralizada'}
                             placeholder={'Unidade descentralizada'}
                             handleChange={entity => handleChange({key: 'decentralized_unit', event: entity})}
-                        />
+
+                            createOption={true}
+                        >
+                            {handleClose => (
+                                <DecentralizedUnitForm create={true} asDefault={true} handleClose={() => handleClose()}/>
+                            )}
+                        </Selector>
                         <Selector
                             hook={actionHook} keys={associativeKeys.action}
                             width={'calc(33.333% - 21.5px)'}
@@ -236,8 +246,12 @@ export default function TedForm(props) {
                             title={'Ação'}
                             placeholder={'Ação'}
                             handleChange={entity => handleChange({key: 'action', event: entity})}
-                        />
-
+                            createOption={true}
+                        >
+                            {handleClose => (
+                                <ActionForm create={true} asDefault={true} handleClose={() => handleClose()}/>
+                            )}
+                        </Selector>
                     </FormRow>
                     <FormRow>
                         <TextField
@@ -305,7 +319,7 @@ TedForm.propTypes = {
     id: PropTypes.number,
     data: PropTypes.object,
     handleChange: PropTypes.func,
-    returnToMain: PropTypes.func,
+    handleClose: PropTypes.func,
     create: PropTypes.bool,
     project: PropTypes.number,
     asEntity: PropTypes.bool,

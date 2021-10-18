@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import FollowUpForm from "../forms/FollowUpForm";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import deleteEntry from "../../../management/utils/delete";
+import deleteEntry from "../../utils/requests/delete";
 import getQuery from "../../queries/getQuery";
 
 export default function FollowUpList(props) {
@@ -14,40 +14,41 @@ export default function FollowUpList(props) {
     const hook = useQuery(getQuery('follow_up', {
         operation: props.operation.id
     }))
-    
+
     return (
         <Switcher openChild={open ? 0 : 1}>
+            <div style={{paddingTop: '32px'}}>
                 <FollowUpForm
-                    returnToMain={() => {
+                    handleClose={() => {
                         hook.clean()
                         setOpen(false)
                     }}
 
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                     data={currentEntity} operation={props.operation}/>
-            
-                <List
+            </div>
+            <List
 
-                    createOption={true}
-                    onCreate={() => setOpen(true)}
+                createOption={true}
+                onCreate={() => setOpen(true)}
 
-                    controlButtons={[{
-                        label: 'Deletar',
-                        icon: <DeleteRounded/>,
-                        onClick: (entity) => {
-                            deleteEntry({
-                                suffix: 'follow_up_goal',
-                                pk: entity.id
-                            }).then(() => hook.clean())
-                        },
-                        disabled: false,
-                        color: '#ff5555'
-                    }]}
-                    hook={hook}
-                    keys={workPlanKeys.followup}
-                    title={'Marcos do acompanhamento'}
-                />
-            </Switcher>
+                controlButtons={[{
+                    label: 'Deletar',
+                    icon: <DeleteRounded/>,
+                    onClick: (entity) => {
+                        deleteEntry({
+                            suffix: 'follow_up_goal',
+                            pk: entity.id
+                        }).then(() => hook.clean())
+                    },
+                    disabled: false,
+                    color: '#ff5555'
+                }]}
+                hook={hook}
+                keys={workPlanKeys.followup}
+                title={'Marcos do acompanhamento'}
+            />
+        </Switcher>
     )
 }
 FollowUpList.propTypes = {

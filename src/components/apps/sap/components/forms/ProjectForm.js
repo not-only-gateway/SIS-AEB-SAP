@@ -9,6 +9,7 @@ import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
+import UnitForm from "./UnitForm";
 
 export default function ProjectForm(props) {
     const lang = ProjectPT
@@ -55,7 +56,7 @@ export default function ProjectForm(props) {
                         props.redirect(res.data)
 
                 })}
-            handleClose={() => props.returnToMain()}
+            handleClose={() => props.handleClose()}
         >
             {(data, handleChange) => (
                 <FormRow>
@@ -122,7 +123,12 @@ export default function ProjectForm(props) {
                         title={'Responsável'}
                         placeholder={'Responsável'}
                         handleChange={entity => handleChange({key: 'responsible', event: entity})}
-                    />
+                        createOption={true}
+                    >
+                        {handleClose => (
+                            <UnitForm create={true} asDefault={true} handleClose={() => handleClose()}/>
+                        )}
+                    </Selector>
 
                     <TextField
                         placeholder={lang.manager}
@@ -186,9 +192,7 @@ export default function ProjectForm(props) {
 }
 
 ProjectForm.propTypes = {
-    id: PropTypes.number,
     data: PropTypes.object,
-    handleChange: PropTypes.func,
-    returnToMain: PropTypes.func,
+    handleClose: PropTypes.func,
     create: PropTypes.bool,
 }

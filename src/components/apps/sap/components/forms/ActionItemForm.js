@@ -27,59 +27,59 @@ export default function ActionItemForm(props) {
     }, [])
 
     return (
-        <>
-
-            <Form
-                hook={formHook}
-                initialData={initialData} create={props.create}
-                returnButton={true} handleClose={() => props.returnToMain()}
-
-                title={props.create ? lang.newAction : lang.action}
-                dependencies={[
-                    {key: 'detailing', type: 'string'},
-                    {key: 'accomplished', type: 'bool'}
-                ]}
-
-                handleSubmit={(data, clearState) =>
-                    submit({
-                        suffix: 'action_item',
-                        pk: data.id,
-                        data: data,
-                        create: props.create
-                    }).then(res => {
-                        if (props.create && res.success) {
-                            props.returnToMain()
-                            clearState()
-                        }
-                    })
-                }
-            >
-
-                {(data, handleChange) => (
-                    <FormRow>
 
 
-                        <TextField
-                            placeholder={lang.detailing} label={lang.detailing}
-                            handleChange={event => {
+        <Form
+            hook={formHook}
+            initialData={initialData} create={props.create}
+            returnButton={true} handleClose={() => props.handleClose()}
 
-                                handleChange({key: 'detailing', value: event.target.value})
-                            }} value={data.detailing}
-                            required={true}
-                            width={'100%'}/>
-                        <DropDownField
-                            dark={true}
-                            placeholder={lang.accomplished}
-                            label={lang.accomplished}
-                            handleChange={event => {
+            title={props.create ? lang.newAction : lang.action}
+            dependencies={[
+                {key: 'detailing', type: 'string'},
+                {key: 'accomplished', type: 'bool'}
+            ]}
 
-                                handleChange({key: 'accomplished', value: event.target.value})
-                            }} value={data.accomplished} required={true}
-                            width={'100%'} choices={lang.options}/>
-                    </FormRow>
-                )}
-            </Form>
-        </>
+            handleSubmit={(data, clearState) =>
+                submit({
+                    suffix: 'action_item',
+                    pk: data.id,
+                    data: data,
+                    create: props.create
+                }).then(res => {
+                    if (props.create && res.success) {
+                        props.handleClose()
+                        clearState()
+                    }
+                })
+            }
+        >
+
+            {(data, handleChange) => (
+                <FormRow>
+
+
+                    <TextField
+                        placeholder={lang.detailing} label={lang.detailing}
+                        handleChange={event => {
+
+                            handleChange({key: 'detailing', value: event.target.value})
+                        }} value={data.detailing}
+                        required={true}
+                        width={'100%'}/>
+                    <DropDownField
+                        dark={true}
+                        placeholder={lang.accomplished}
+                        label={lang.accomplished}
+                        handleChange={event => {
+
+                            handleChange({key: 'accomplished', value: event.target.value})
+                        }} value={data.accomplished} required={true}
+                        width={'100%'} choices={lang.options}/>
+                </FormRow>
+            )}
+        </Form>
+
     )
 
 }
@@ -88,7 +88,7 @@ ActionItemForm.propTypes = {
     id: PropTypes.number,
     data: PropTypes.object,
     handleChange: PropTypes.func,
-    returnToMain: PropTypes.func,
+    handleClose: PropTypes.func,
     create: PropTypes.bool,
     operation: PropTypes.object
 }

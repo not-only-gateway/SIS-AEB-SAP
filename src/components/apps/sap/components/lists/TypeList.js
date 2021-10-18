@@ -4,7 +4,7 @@ import {DeleteRounded} from "@material-ui/icons";
 import TypeForm from "../forms/TypeForm";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import deleteEntry from "../../../management/utils/delete";
+import deleteEntry from "../../utils/requests/delete";
 import getQuery from "../../queries/getQuery";
 
 export default function TypeList(props) {
@@ -14,14 +14,16 @@ export default function TypeList(props) {
 
     return (
         <Switcher openChild={open ? 0 : 1}>
-            <TypeForm
-                returnToMain={() => {
-                    setOpen(false)
-                    hook.clean()
-                }} asEntity={true}
-                asDefault={true}
-                create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                data={currentEntity}/>
+            <div style={{paddingTop: '32px'}}>
+                <TypeForm
+                    handleClose={() => {
+                        setOpen(false)
+                        hook.clean()
+                    }} asEntity={true}
+                    asDefault={true}
+                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                    data={currentEntity}/>
+            </div>
             <List
                 createOption={true}
                 onCreate={() => setOpen(true)}

@@ -56,7 +56,7 @@ export default function GoalForm(props) {
                     if (res.success && props.create)
                         props.redirect(res.data)
                 })}
-            handleClose={() => props.returnToMain()}>
+            handleClose={() => props.handleClose()}>
             {(data, handleChange) => (
                 <>
                     <FormRow>
@@ -134,7 +134,7 @@ GoalForm.propTypes = {
     id: PropTypes.number,
     data: PropTypes.object,
     handleChange: PropTypes.func,
-    returnToMain: PropTypes.func,
+    handleClose: PropTypes.func,
     create: PropTypes.bool,
     workPlan: PropTypes.object
 }

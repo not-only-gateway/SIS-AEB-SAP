@@ -4,7 +4,7 @@ import {DeleteRounded} from "@material-ui/icons";
 import TedForm from "../forms/TedForm";
 import tedKeys from "../../keys/tedKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import deleteEntry from "../../../management/utils/delete";
+import deleteEntry from "../../utils/requests/delete";
 import List from "../../../../core/list/List";
 import PropTypes from "prop-types";
 import getQuery from "../../queries/getQuery";
@@ -16,15 +16,17 @@ export default function TedList(props) {
 
     return (
         <Switcher openChild={open ? 0 : 1}>
-            <TedForm
-                returnToMain={() => {
-                    setOpen(false)
-                    hook.clean()
-                }} asEntity={true}
-                asDefault={true}
-                create={true}
-            />
 
+            <div style={{paddingTop: '32px'}}>
+                <TedForm
+                    handleClose={() => {
+                        setOpen(false)
+                        hook.clean()
+                    }} asEntity={true}
+                    asDefault={true}
+                    create={true}
+                />
+            </div>
             <List
                 createOption={true}
                 onCreate={() => setOpen(true)}

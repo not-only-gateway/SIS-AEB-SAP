@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import Head from "next/head";
 import shared from '../styles/Shared.module.css'
 import PropTypes from 'prop-types'
@@ -10,17 +10,19 @@ import ExecutionList from "../components/lists/ExecutionList";
 import PermanentGoodsList from "../components/lists/PermanentGoodsList";
 import ResourceApplicationList from "../components/lists/ResourceApplicationList";
 import NoteList from "../components/lists/NoteList";
+import {fetchEntry} from "../utils/requests/fetch";
 
 
 export default function OperationPhase(props) {
     const [operation, setOperation] = useState({})
     const theme = useContext(ThemeContext)
-    // useEffect(() => {
-    //     ProjectRequests.fetchProject(props.id).then(res => {
-    //         if (res !== null)
-    //             setProject(res)
-    //     })
-    // }, [])
+
+    useEffect(() => {
+        fetchEntry({
+            pk: props.query.id,
+            suffix: 'operation_phase'
+        }).then(res => setOperation(res))
+    }, [])
 
     return (
         <>
@@ -57,6 +59,6 @@ export default function OperationPhase(props) {
     )
 }
 OperationPhase.propTypes = {
-    routerQuery: PropTypes.object,
+    query: PropTypes.object,
     redirect: PropTypes.func
 }

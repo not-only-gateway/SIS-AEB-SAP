@@ -4,7 +4,7 @@ import {DeleteRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import ExecutionForm from "../forms/ExecutionForm";
 import Switcher from "../../../../core/misc/switcher/Switcher";
-import deleteEntry from "../../../management/utils/delete";
+import deleteEntry from "../../utils/requests/delete";
 import getQuery from "../../queries/getQuery";
 import List from "../../../../core/list/List";
 import workPlanKeys from "../../keys/workPlanKeys";
@@ -21,16 +21,17 @@ export default function ExecutionList(props) {
 
     return (
         <Switcher openChild={open ? 0 : 1}>
-            <ExecutionForm
-                returnToMain={() => {
-                    setOpen(false)
-                    hook.clean()
-                }}
-                workPlan={props.workPlan}
-                create={currentEntity === undefined}
-                data={currentEntity} operation={props.operation}
-            />
-
+            <div style={{paddingTop: '32px'}}>
+                <ExecutionForm
+                    handleClose={() => {
+                        setOpen(false)
+                        hook.clean()
+                    }}
+                    workPlan={props.workPlan}
+                    create={currentEntity === undefined}
+                    data={currentEntity} operation={props.operation}
+                />
+            </div>
             <List
                 createOption={true}
                 onCreate={() => setOpen(true)}

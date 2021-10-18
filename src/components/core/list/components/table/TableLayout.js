@@ -55,22 +55,28 @@ export default function TableLayout(props) {
             {props.data.map((e, i) => (
                 <tr
                     key={'row-' + e.id}
-                    className={styles.row}
+                    className={styles.row} style={{cursor: props.onlyVisualization ? 'default' : undefined}}
                     onMouseDown={(event) => {
 
-                        if (!document.elementsFromPoint(event.clientX, event.clientY).includes(document.getElementById(('options-' + e.id))) && !event.target.className.includes('Dropdown')) {
+                        if (!props.onlyVisualization && !document.elementsFromPoint(event.clientX, event.clientY).includes(document.getElementById(('options-' + e.id))) && !event.target.className.includes('Dropdown')) {
                             event.currentTarget.style.background = theme.themes.background3
                             event.currentTarget.style.opacity = '.8'
                         }
                     }}
-                    onMouseUp={(event) => {
-                        event.currentTarget.style.background = 'transparent'
-                        event.currentTarget.style.opacity = '1'
+                    onMouseEnter={(event) => {
+                        if (props.onlyVisualization) {
+                            event.currentTarget.style.background = 'transparent'
+                            event.currentTarget.style.opacity = '1'
+                        }
                     }}
-                    onMouseOut={(event) => {
-                        event.currentTarget.style.background = 'transparent'
-                        event.currentTarget.style.opacity = '1'
-                    }}
+                    // onMouseUp={(event) => {
+                    //     event.currentTarget.style.background = 'transparent'
+                    //     event.currentTarget.style.opacity = '1'
+                    // }}
+                    // onMouseOut={(event) => {
+                    //     event.currentTarget.style.background = 'transparent'
+                    //     event.currentTarget.style.opacity = '1'
+                    // }}
                     ref={i === (props.data.length - 1) ? lastElementRef : undefined}
                 >
                     {keys.map((value, ic) => (
@@ -79,7 +85,8 @@ export default function TableLayout(props) {
                                 additionalWidth={value.additionalWidth !== undefined ? value.additionalWidth : '0px'}
                                 entry={e.data} field={value} quantity={props.keys.length}
                                 onClick={() => {
-                                    props.onRowClick(e.data)
+                                    if (!props.onlyVisualization)
+                                        props.onRowClick(e.data)
                                 }}
                                 hasOptions={props.controlButtons !== undefined && props.controlButtons.length > 0}
                             />
@@ -120,5 +127,6 @@ TableLayout.propTypes = {
     hasMore: PropTypes.bool,
     sorts: PropTypes.array,
     setSorts: PropTypes.func,
-    clean: PropTypes.func
+    clean: PropTypes.func,
+    onlyVisualization: PropTypes.bool
 }

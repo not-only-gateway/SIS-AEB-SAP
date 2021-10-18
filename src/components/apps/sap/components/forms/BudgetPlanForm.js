@@ -10,6 +10,7 @@ import useQuery from "../../../../core/shared/hooks/useQuery";
 import getQuery from "../../queries/getQuery";
 import associativeKeys from "../../keys/associativeKeys";
 import submit from "../../utils/requests/submit";
+import ActionForm from "./ActionForm";
 
 export default function BudgetPlanForm(props) {
     const lang = ProjectPT
@@ -59,12 +60,12 @@ export default function BudgetPlanForm(props) {
                     create: props.create
                 }).then(res => {
                     if (props.create && res.success) {
-                        props.returnToMain()
+                        props.handleClose()
                         clearState()
                     }
 
                 })}
-            handleClose={() => props.returnToMain()}>
+            handleClose={() => props.handleClose()}>
             {(data, handleChange) => (
                 <FormRow>
 
@@ -86,7 +87,12 @@ export default function BudgetPlanForm(props) {
                             handleChange={e => handleChange({event: e, key: 'action'})}
                             value={data.action} width={'calc(50% - 16px)'} required={true}
                             keys={associativeKeys.action}
-                        />
+                            createOption={true}
+                        >
+                            {handleClose => (
+                                <ActionForm create={true} asDefault={true} handleClose={() => handleClose()}/>
+                            )}
+                        </Selector>
                     }
 
 
@@ -107,7 +113,7 @@ export default function BudgetPlanForm(props) {
 }
 
 BudgetPlanForm.propTypes = {
-    returnToMain: PropTypes.func,
+    handleClose: PropTypes.func,
     create: PropTypes.bool,
     asDefault: PropTypes.bool,
     action: PropTypes.object

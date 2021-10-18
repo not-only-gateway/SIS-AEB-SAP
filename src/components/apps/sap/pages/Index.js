@@ -22,7 +22,7 @@ export default function Index(props) {
                     label: 'Projetos',
                     children: (
                         <div className={styles.contentWrapper}>
-                            <ProjectList redirect={id => props.redirect('/sap/?page=project&id=' + id, '/sap/?page=project&id=' + id, {})}/>
+                            <ProjectList redirect={query => props.redirect(query)}/>
                         </div>
                     )
                 },
@@ -30,7 +30,7 @@ export default function Index(props) {
                     label: 'Instrumentos de celebração',
                     children: (
                         <div className={styles.contentWrapper}>
-                            <TedList redirect={id => props.redirect('/sap/?page=ted&id=' + id, '/sap/?page=ted&id=' + id, {})}/>
+                            <TedList redirect={query => props.redirect(query)}/>
                         </div>
                     )
                 },
@@ -38,7 +38,7 @@ export default function Index(props) {
                     label: 'Planos de trabalho',
                     children: (
                         <div className={styles.contentWrapper}>
-                            <WorkPlanList redirect={id => props.redirect('/sap/?page=wp&id=' + id, '/sap/?page=wp&id=' + id, {})}/>
+                            <WorkPlanList redirect={query => props.redirect(query)}/>
                         </div>
                     )
                 },
@@ -46,7 +46,7 @@ export default function Index(props) {
                     label: 'Fases / operações',
                     children: (
                         <div className={styles.contentWrapper}>
-                            <OperationList redirect={id => props.redirect('/sap/?page=operation&id=' + id, '/sap/?page=operation&id=' + id, {})}/>
+                            <OperationList redirect={query => props.redirect(query)}/>
                         </div>
                     )
                 }

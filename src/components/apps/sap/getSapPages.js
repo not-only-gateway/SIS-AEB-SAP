@@ -27,6 +27,10 @@ export default function getSapPages(props) {
             basePath: 'index',
             asIndex: true,
             content: dynamic(() => import("./pages/Index"))
+        },  {
+            basePath: 'infrastructure',
+
+            content: dynamic(() => import("./pages/Infrastructure"))
         },
     ]
 }
