@@ -1,5 +1,5 @@
 import styles from '../styles/SelectorModal.module.css'
-import {AddRounded, ClearAllRounded, FilterListRounded} from "@material-ui/icons";
+import {AddRounded, ClearAllRounded, FilterListRounded, RefreshRounded} from "@material-ui/icons";
 import React, {useState} from "react";
 import Modal from "../../../misc/modal/Modal";
 import PropTypes from "prop-types";
@@ -14,8 +14,6 @@ import ListFilter from "../../../shared/components/ListFilter";
 
 export default function SelectorModal(props) {
     const lastElementRef = useInfiniteScroll(props.hook.setCurrentPage, props.hook.currentPage, props.hook.loading, props.hook.hasMore)
-    const [openFilters, setOpenFilters] = useState(false)
-    const {keys, keysDispatcher, actions} = useList(props.keys, true)
     const {
         getType,
         parseDate,
@@ -37,30 +35,37 @@ export default function SelectorModal(props) {
         >
             <div className={styles.header}>
                 {props.title}
-
             </div>
             <div className={styles.headerButtons}>
-                <button onClick={() => props.onCreate()}
-                        style={{display: props.createOption ? undefined : 'none'}}
-                        className={styles.headerButton}
-                >
-                    <AddRounded/>
-                    Criar
-                    <ToolTip content={'Criar novo'}/>
-                </button>
 
-                <Dropdown
-                    align={'end'}
-                    buttonClassname={styles.headerButton}
-                    label={(
-                        <>
-                            <FilterListRounded/>
-                            Filtros
-                            <ToolTip content={'Filtros'}/>
-                        </>
-                    )}
-                    buttons={props.keys.map(e => getField(e))}/>
+                  <div style={{display: 'flex', gap: '8px'}}>
+                      <button onClick={() => props.onCreate()}
+                              style={{display: props.createOption ? undefined : 'none'}}
+                              className={styles.headerButton}
+                      >
+                          <AddRounded/>
+                          <ToolTip content={'Criar novo'}/>
+                      </button>
+                      <button onClick={() => props.hook.clean()}
+                              className={styles.headerButton}
+                      >
+                          <RefreshRounded/>
+                          <ToolTip content={'Recarregar dados'}/>
+                      </button>
 
+                      <Dropdown
+                          align={'end'}
+                          buttonClassname={styles.headerButton}
+                          label={(
+                              <>
+                                  <FilterListRounded/>
+                                  Filtros
+                                  <ToolTip content={'Filtros'}/>
+                              </>
+                          )}
+                          buttons={props.keys.map(e => getField(e))}/>
+
+                  </div>
                 <button onClick={() => props.handleChange(null)}
                         className={styles.headerButton}
                         disabled={!props.value}>

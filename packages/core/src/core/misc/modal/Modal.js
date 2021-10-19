@@ -54,6 +54,7 @@ export default function Modal(props) {
                     element.current.classList.add(styles.fadeIn)
                     className = animation.enter
                 }
+
                 ReactDOM.render(
                     <div
                         style={{
@@ -65,7 +66,7 @@ export default function Modal(props) {
                                 props.handleClose()
                         }}
                     >
-                        <div className={[className, props.wrapperClassName].join(' ')} style={props.componentStyle}
+                        <div className={[className, props.wrapperClassName, props.defaultBackground ? styles.background : ''].join(' ')} style={props.componentStyle}
                              ref={contentRef}>
                             {props.children}
                         </div>
@@ -92,10 +93,11 @@ export default function Modal(props) {
 
 Modal.propTypes = {
     animationStyle: PropTypes.oneOf(['slide-left', 'slide-right', 'fade']),
-    wrapperClassName: PropTypes.object,
+    wrapperClassName: PropTypes.string,
     blurIntensity: PropTypes.number,
     componentStyle: PropTypes.object,
     open: PropTypes.bool,
     handleClose: PropTypes.func,
-    children: PropTypes.node
+    children: PropTypes.node,
+    defaultBackground: PropTypes.bool
 }

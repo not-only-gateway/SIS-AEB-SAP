@@ -22,6 +22,7 @@ export default function StatusList(props) {
                 <StatusForm
                     handleClose={() => {
                         setOpen(false)
+                        hook.clean()
                     }}
 
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}

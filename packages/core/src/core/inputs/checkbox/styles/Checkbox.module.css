@@ -1,0 +1,46 @@
+@import "../../../theme/styles.module.css";
+
+
+.container{
+    outline: none;
+
+    border: var(--color-2) 1px solid;
+    width: 17px;
+    height: 17px;
+
+    border-radius: 50%;
+    background: transparent;
+    transition: 150ms linear;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.container:hover{
+    border: #0095ff 1px solid;
+}
+.container:active{
+    background: var(--background-3);
+    border: #0095ff 1px solid;
+}
+.container:disabled{
+    background: transparent;
+    border-color: var(--color-4);
+    cursor: unset;
+}
+
+.wrapper{
+
+
+
+    border: var(--border-0) 1px solid;
+    border-radius: 5px;
+    padding: 8px;
+    width: fit-content;
+}
+.wrapperChildren{
+    display: grid;
+    gap: 8px;
+}

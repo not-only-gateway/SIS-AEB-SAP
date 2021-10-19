@@ -1,0 +1,10 @@
+.wrapper{
+    padding: 16px;
+    height: 50vh;
+    overflow: hidden;
+    position: relative;
+
+    display: grid;
+    align-content: space-between;
+    user-select: none;
+}

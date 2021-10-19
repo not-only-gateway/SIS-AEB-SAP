@@ -1,0 +1,67 @@
+@import '../../../../../theme/styles.module.css';
+
+.buttonLabel{
+    margin-left: 8px;
+    font-size: .8rem;
+    overflow: hidden;
+    color: var(--color-1);
+    font-weight: 600;
+    font-family: Roboto;
+}
+.buttonContainer {
+    outline: none;
+    border: none;
+    background: transparent;
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    color: var(--color-1);
+    cursor: pointer;
+    max-width: 225px;
+    height: 100%;
+
+
+    transition: 150ms linear;
+    border-radius: 5px;
+}
+.buttonContainer:hover{
+    background: var(--background-2);
+}
+.buttonContainer:active{
+    background: var(--background-3);
+    color: #0095ff;
+}
+
+.appsContainer {
+    position: relative;
+    height: 100%;
+}
+.overflowEllipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.floatingBox{
+
+
+    position: absolute;
+    transform: translateY( 16px);
+    right: 0;
+    height: auto;
+
+    width: 180px;
+
+    background: var(--background-1);
+    box-shadow: var(--box-shadow-1) 0 2px 8px 0px;
+
+
+    border-radius: 5px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    gap: 8px;
+}
+

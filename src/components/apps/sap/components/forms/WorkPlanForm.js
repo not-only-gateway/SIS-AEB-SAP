@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useMemo} from "react";
 import PropTypes from 'prop-types'
 import WorkPlanPT from "../../locales/WorkPlanPT";
 import {DropDownField, FormRow, MultiSelectField, TextField, useQuery} from "sis-aeb-core";
@@ -17,12 +17,33 @@ import InfrastructureForm from "./InfrastructureForm";
 
 export default function WorkPlanForm(props) {
     const lang = WorkPlanPT
-    const [initialData, setInitialData] = useState(props.data)
     const unitHook = useQuery(getQuery('unit'))
     const budgetPlanHook = useQuery(getQuery('budget_plan'))
     const projectHook = useQuery(getQuery('project'))
     const tedHook = useQuery(getQuery('ted'))
     const infrastructureHook = useQuery(getQuery('infrastructure'))
+
+    const initialData = useMemo(() => {
+        if (props.create) {
+            if (props.asApostille)
+                return {
+                    ...props.data,
+                    apostille_work_plan: props.workPlan
+                }
+            else if (props.ted)
+                return {
+                    ...props.data,
+                    ted: props.ted
+                }
+            else if (props.project)
+                return {
+                    ...props.data,
+                    project: props.project
+                }
+            else return props.data
+        } else return props.data
+    }, [props.data])
+
     const formHook = useDataWithDraft({
         initialData: initialData,
         draftUrl: '',
@@ -30,32 +51,10 @@ export default function WorkPlanForm(props) {
         interval: 120000
     })
 
-    useEffect(() => {
-        if (props.create) {
-            if (!props.asApostille && props.ted && props.project) {
-                setInitialData({
-                    ...props.data,
-                    ...{
-                        ted: props.ted.id,
-                        project: props.project.id
-                    }
-                })
-            } else
-                setInitialData({
-                    ...props.data,
-                    ...{
-                        work_plan: props.workPlan
-                    }
-                })
-        }
-    }, [props.data])
-
-
     return (
         <div style={{width: '100%'}}>
             <Form
                 hook={formHook}
-                initialData={initialData}
                 create={props.create}
                 title={lang.title}
                 dependencies={[
@@ -74,8 +73,7 @@ export default function WorkPlanForm(props) {
                     {key: 'func', type: 'string'},
                     {key: 'email', type: 'string'},
                     {key: 'phone', type: 'string'},
-                ]
-                } noHeader={!props.create}
+                ]} noHeader={!props.create}
                 returnButton={props.create}
                 handleSubmit={(data, clearState) => {
                     submit({
@@ -85,18 +83,18 @@ export default function WorkPlanForm(props) {
                         create: props.create
                     }).then(res => {
                         if (res.success && props.create)
-                            props.redirect(res.data.id)
+                            props.handleClose()
                     })
                 }}
                 handleClose={() => props.handleClose()}>
                 {(data, handleChange) => (
                     <>
                         <FormRow>
-                            {props.project ?
+                            {!props.ted ?
                                 <Selector
                                     hook={tedHook} keys={tedKeys.ted}
                                     width={'calc(33.333% - 21.5px)'}
-                                    required={true}
+                                    required={true} createOption={false}
                                     value={data.ted}
                                     title={'Instrumento de celebração'}
                                     placeholder={'Instrumento de celebração'}
@@ -105,7 +103,7 @@ export default function WorkPlanForm(props) {
                                 :
                                 null
                             }
-                            {props.ted ?
+                            {!props.project ?
                                 <Selector
                                     hook={projectHook} keys={projectKeys.project}
                                     width={'calc(33.333% - 21.5px)'}
@@ -120,7 +118,7 @@ export default function WorkPlanForm(props) {
                             }
                             <Selector
                                 hook={unitHook} keys={associativeKeys.responsible}
-                                width={props.project || props.ted ? 'calc(33.333% - 21.5px' : 'calc(50% - 16px)'}
+                                width={!props.project || !props.ted ? 'calc(33.333% - 21.5px' : 'calc(50% - 16px)'}
                                 required={true}
                                 value={data.responsible}
                                 title={'Responsável'}
@@ -132,16 +130,6 @@ export default function WorkPlanForm(props) {
                                     <UnitForm create={true} asDefault={true} handleClose={() => handleClose()}/>
                                 )}
                             </Selector>
-                            <DropDownField
-                                placeholder={lang.apostille}
-                                label={lang.apostille}
-                                handleChange={event => {
-
-                                    handleChange({key: 'apostille', event: event})
-                                }} value={data.apostille} required={false}
-                                width={props.project || props.ted ? 'calc(33.333% - 21.5px' : 'calc(50% - 16px)'}
-                                choices={lang.apostilleOptions}
-                            />
 
                             <TextField
 
@@ -182,7 +170,8 @@ export default function WorkPlanForm(props) {
                                 createOption={true}
                             >
                                 {handleClose => (
-                                    <InfrastructureForm create={true} asDefault={true} handleClose={() => handleClose()}/>
+                                    <InfrastructureForm create={true} asDefault={true}
+                                                        handleClose={() => handleClose()}/>
                                 )}
                             </Selector>
 
@@ -275,7 +264,7 @@ export default function WorkPlanForm(props) {
 
                                     handleChange({key: 'phone', event: event.target.value})
                                 }} value={data.phone}
-                                required={true} phoneMask={true}
+                                required={true} maskStart={'(99) 9-9999-9999'}
                                 width={'calc(50% - 16px)'}/>
 
                         </FormRow>

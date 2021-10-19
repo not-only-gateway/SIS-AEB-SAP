@@ -1,0 +1,47 @@
+.groupWrapper {
+    display: flex;
+    gap: 16px;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+
+    height: fit-content;
+
+    padding: 0 16px;
+
+}
+.button{
+    color: var(--color-2);
+    position: absolute;
+    right: 0;
+    bottom: 65px;
+    transform: translateY(25%);
+
+    background: var(--background-1);
+    border-radius: 5px;
+    width: 20px;
+    height: 45px;
+
+    z-index: 50;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 150ms linear;
+
+    border: var(--border-0) 1px solid;
+    outline: none;
+    cursor: pointer;
+}
+.button:hover{
+
+    background: var(--background-3);
+    color: #0095ff;
+}
+.button:active{
+    background: #0095ff;
+    color: white;
+    border-color: #0095ff;
+}
+

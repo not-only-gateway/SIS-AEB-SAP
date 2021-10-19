@@ -30,7 +30,7 @@ export default function ProjectGoalForm(props) {
     return (
         <Form
             hook={formHook}
-            initialData={initialData}
+            initialData={initialData} title={props.create ? 'Novo marco' : 'Marco'}
             create={props.create} label={lang.objectiveTitle}
             dependencies={
                 [

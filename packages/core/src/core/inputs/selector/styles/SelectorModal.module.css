@@ -88,8 +88,9 @@
 }
 
 .rows {
-    /*padding: 8px;*/
+    position: relative;
     display: grid;
+    align-content: flex-start;
     gap: 8px;
     overflow-y: auto;
     height: 100%;
@@ -106,39 +107,59 @@
     border-style: solid;
 }
 
-.dropTarget, .dropTarget:active{
+.dropTarget, .dropTarget:active {
     border-style: dashed;
     /*border-color: #0095ff;*/
     background: var(--background-2);
     cursor: unset;
 }
 
-.emptyRow{
+.emptyRow {
     color: var(--color-4);
 }
-.asButton {
-    height: fit-content;
-    width: fit-content;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
-.asButton:active {
-    color: white;
-    background: #ff5555;
-    border-color: #ff5555;
-}
-
-.asButton:disabled {
-    border-color: var(--background-1);
-    background: var(--background-1);
-    color: var(--color-4);
-    cursor: unset;
-}
-
-.divider{
+.divider {
     height: 1px;
     width: 100%;
     background: var(--border-1);
+}
+
+.headerButton {
+    outline: none;
+    background: transparent;
+    border: var(--border-0) 1px solid;
+    border-radius: 5px;
+    padding: 4px 8px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: var(--color-1);
+
+    cursor: pointer;
+    transition: 150ms linear;
+}
+
+.headerButton:hover {
+    background: var(--background-2);
+}
+
+.headerButton:active {
+    background: var(--background-3);
+    transform: scale(.98);
+    border-color: transparent;
+    color: #0095ff;
+}
+
+.headerButton:disabled {
+    cursor: unset;
+    color: var(--color-4);
+    background: transparent;
+}
+
+.headerButtons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

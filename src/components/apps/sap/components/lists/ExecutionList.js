@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 import {useQuery} from "sis-aeb-core";
 import {DeleteRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
@@ -12,6 +12,21 @@ import workPlanKeys from "../../keys/workPlanKeys";
 export default function ExecutionList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
+    const relation = useMemo(() => {
+            return {
+                key: 'goal',
+                sub_relation: {
+                    key: 'activity',
+                    sub_relation: {
+                        key: 'operation_phase'
+                    }
+                },
+                value: props.workPlan.id,
+                type: 'object'
+            }
+        }, [props]
+    )
+
     const hook = useQuery(getQuery('execution',
         props.workPlan !== undefined ?
             {work_plan: props.workPlan?.id}

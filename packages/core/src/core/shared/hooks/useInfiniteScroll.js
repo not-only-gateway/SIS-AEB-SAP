@@ -1,4 +1,5 @@
 import {useCallback, useRef} from "react";
+import React from 'react'
 
 export default function useInfiniteScroll(setCurrentPage, currentPage, loading, hasMore) {
     const observer = useRef()

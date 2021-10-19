@@ -6,25 +6,20 @@ import {ArrowDropDownRounded} from '@material-ui/icons'
 import LocalePT from '../shared/LocalePT'
 import SelectBox from "../shared/SelectBox";
 import ToolTip from "../../misc/tooltip/ToolTip";
+import Checkbox from "../checkbox/Checkbox";
 
 
 export default function MultiSelectField(props) {
     const [open, setOpen] = useState(false)
-    const [value, setValue] = useState(undefined)
     const lang = LocalePT
     const ref = useRef()
     const [selected, setSelected] = useState([])
 
     useEffect(() => {
-        if (props.value !== undefined && props.value !== null && selected.length === 0)
+        if (typeof props.value === 'string' && selected.length === 0 && props.value.length > 0)
             setSelected(props.value.split('-*/'))
-        const filtered = props.choices.filter(element => {
-            if (element.key === props.value)
-                return element
-        })
-        if (filtered.length > 0)
-            setValue(filtered[0].value)
-
+        else if(props.asArray)
+            setSelected(props.value ? props.value : [])
     }, [props.value])
     return (
         <div
@@ -61,7 +56,7 @@ export default function MultiSelectField(props) {
                     style={{transform: !open ? 'unset' : 'rotate(180deg)', transition: '150ms linear'}}/>
                 {props.value ?
                     <div className={styles.valueContainer}>
-                        {props.value.split('-*/').length - 1} - {lang.values}
+                        {props.asArray ? props.value.length : (props.value.split('-*/').length - 1)} - {lang.values}
                     </div>
                     : props.label}
             </button>
@@ -69,45 +64,42 @@ export default function MultiSelectField(props) {
             <SelectBox open={open} setOpen={setOpen} reference={ref.current}>
                 <div className={styles.dropDownChoicesContainer}>
                     {props.choices.map((choice, index) => (
-                        <span style={{overflow: "hidden"}} className={styles.multiSelectRow}>
-                             <input
+                        <span style={{overflow: "hidden"}} className={styles.multiSelectRow} key={'multi-choice-'+index}>
+                             <Checkbox
                                  type={'checkbox'}
-
-                                 onChange={event => {
+                                 handleCheck={() => {
+                                     let newSelected = [...selected]
                                      if (selected.includes(choice.key)) {
-                                         let newSelected = [...selected]
                                          newSelected.splice(newSelected.indexOf(choice.key), 1)
-
                                          setSelected(newSelected)
-
-                                         let newData = ''
-                                         newSelected.forEach(e => {
-                                             if(e.length > 0)
-                                                 newData = newData + '-*/' + e
-                                         })
-                                         props.handleChange(newData)
                                      } else {
-                                         let newSelected = [...selected]
                                          newSelected.push(choice.key)
                                          setSelected(newSelected)
+                                     }
 
+                                     if(!props.asArray) {
                                          let newData = ''
                                          newSelected.forEach(e => {
-                                             if(e.length > 0)
+                                             if (e.length > 0)
                                                  newData = newData + '-*/' + e
                                          })
                                          props.handleChange(newData)
                                      }
+                                     else
+                                         props.handleChange(newSelected)
+
                                      setOpen(false)
                                  }} className={styles.multiSelectRowCheckbox}
                                  checked={selected.includes(choice.key)}
+                                 label={
+                                     <div
+                                         style={{color: choice.color ? choice.color : undefined}}
+                                         className={styles.multiSelectRowContent}
+                                     >
+                                         {choice.value}
+                                     </div>
+                                 }
                              />
-                            <div
-                                key={index + '-choice-button'}
-                                className={styles.multiSelectRowContent}
-                            >
-                                {choice.value}
-                            </div>
 
                             <ToolTip content={choice.value}/>
                         </span>
@@ -130,9 +122,14 @@ export default function MultiSelectField(props) {
 MultiSelectField.propTypes = {
     width: PropTypes.string,
     label: PropTypes.string,
-    choices: PropTypes.arrayOf(PropTypes.shape({key: PropTypes.any, value: PropTypes.any})),
+    choices: PropTypes.arrayOf(PropTypes.shape({
+        key: PropTypes.any,
+        value: PropTypes.any,
+        color: PropTypes.string
+    })),
     handleChange: PropTypes.func,
     value: PropTypes.any,
     required: PropTypes.bool,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    asArray: PropTypes.bool
 }

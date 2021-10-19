@@ -22,13 +22,13 @@ export default function ProjectGoalList(props) {
                 <ProjectGoalForm
                     handleClose={() => {
                         setOpen(false)
+                        hook.clean()
                     }}
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                     data={currentEntity} project={props.project}/>
             </div>
             <List
-                createOption={true}
-                onCreate={() => setOpen(true)}
+                createOption={true} onCreate={() => setOpen(true)}
                 hook={hook}
                 keys={projectKeys.goal}
                 controlButtons={[{

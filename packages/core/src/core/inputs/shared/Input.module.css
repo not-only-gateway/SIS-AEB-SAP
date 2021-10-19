@@ -14,7 +14,7 @@
     align-items: center;
     gap: 10px;
     height: auto;
-
+    overflow-x: visible;
 }
 
 .inputContainer {
@@ -25,7 +25,7 @@
     background: var(--background-1);
     width: 100%;
     font-family: Roboto;
-    height: 56px;
+
 
     outline: none;
     padding: 5px;
@@ -163,7 +163,7 @@
     border-bottom: var(--border-1) 1px solid;
 }
 
-.maskStart {
+.mask {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -171,5 +171,10 @@
     color: var(--color-1);
     font-family: Roboto;
     font-size: .95rem;
+
+    max-width: 25%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 

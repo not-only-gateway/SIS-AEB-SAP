@@ -6,14 +6,20 @@ import {LaunchRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import shared from '../shared/Input.module.css'
 import Row from "./modules/Row";
+import Modal from "../../misc/modal/Modal";
 
 export default function Selector(props) {
     const [open, setOpen] = useState(false)
+    const [openCreate, setOpenCreate] = useState(false)
     const lang = SelectorsPT
 
     return (
         <>
-            <SelectorModal {...props} open={open} setOpen={setOpen}/>
+
+            <SelectorModal
+                {...props} open={props.open === true ? props.open : open}
+                onCreate={() => setOpenCreate(true)}
+                setOpen={props.handleClose ? props.handleClose : setOpen}/>
             <div
                 style={{
                     width: props.width,
@@ -31,7 +37,7 @@ export default function Selector(props) {
                         color: props.disabled ? '#666666' : undefined
                     }}
                 >
-                    {props.label}
+                    {props.title}
                 </div>
 
 
@@ -57,22 +63,35 @@ export default function Selector(props) {
                          visibility: props.required ? 'visible' : 'hidden',
                      }}>{lang.required}</div>
             </div>
+            <Modal
+                open={openCreate}
+                handleClose={() => setOpenCreate(false)}
+                animationStyle={'fade'}
+                blurIntensity={.1}
+                wrapperClassName={styles.createModal}
+            >
+                {typeof props.children === 'function' ? props.children(() => {
+                    setOpenCreate(false)
+                    props.hook.clean()
+                }) : undefined}
+            </Modal>
         </>
     )
 }
 
 Selector.propTypes = {
-    hook: PropTypes.func.isRequired,
-    identificationKey: PropTypes.string,
+    children: PropTypes.func,
 
-    label: PropTypes.string,
+    hook: PropTypes.object.isRequired,
+
+    title: PropTypes.string,
     placeholder: PropTypes.string,
     required: PropTypes.bool,
     value: PropTypes.object,
     handleChange: PropTypes.func,
     disabled: PropTypes.bool,
     width: PropTypes.string,
-
+    createOption: PropTypes.bool,
 
     keys: PropTypes.arrayOf(PropTypes.shape({
         key: PropTypes.string.isRequired,
@@ -82,5 +101,8 @@ Selector.propTypes = {
         maskEnd: PropTypes.any,
         additionalWidth: PropTypes.string
     })).isRequired,
+
+    open: PropTypes.bool,
+    handleClose: PropTypes.func
 }
 

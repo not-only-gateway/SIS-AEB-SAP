@@ -1,0 +1,74 @@
+@import "../../../theme/styles.module.css";
+
+
+.wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.header {
+    background-color: var(--background-1);
+    height: auto;
+    display: grid;
+    gap: 16px;
+    padding: 8px 0;
+    transition: 150ms linear;
+    border-bottom: var(--border-0) 1px solid;
+}
+
+.tabs {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.button {
+    outline: none;
+    border: var(--border-0) 1px solid;
+
+    border-radius: 8px;
+    padding: 8px 24px;
+    cursor: pointer;
+
+
+    background-color: var(--background-1);
+
+    transition: 150ms linear;
+
+    color: var(--color-2);
+    font-weight: 600;
+    font-family: Roboto;
+    font-size: .8rem;
+    text-rendering: optimizeLegibility;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.button:hover{
+    color: var(--color-1);
+    background-color: var(--background-2);
+}
+.button:active{
+    color: var(--color-1);
+    background-color: var(--background-3);
+    border-color: #0095ff;
+}
+.button:disabled{
+    color: var(--color-4);
+    background-color: var(--background-1);
+    border-color: var(--border-0);
+}
+.highlight {
+    background-color: #0095ff;
+    color: white;
+    border-color: transparent;
+}
+.highlight:hover{
+    background-color: #0095ff;
+    color: white;
+    border-color: transparent;
+    opacity: .9;
+}

@@ -23,13 +23,14 @@ export default function RisksList(props) {
                 <RiskForm
                     handleClose={() => {
                         setOpen(false)
+                        hook.clean()
                     }}
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                     data={currentEntity} project={props.project}/>
             </div>
             <List
                 onRowClick={e => setCurrentEntity(e)}
-                createOption={true}
+                createOption={true} onCreate={() => setOpen(true)}
                 hook={hook}
                 keys={projectKeys.risks}
                 title={'Riscos'}

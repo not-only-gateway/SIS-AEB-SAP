@@ -13,9 +13,12 @@ import getQuery from "../../queries/getQuery";
 export default function ActivityList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery(getQuery('activity', {
-        workPlan: props.workPlan.id
-    }))
+    const hook = useQuery(getQuery('activity', undefined, [{
+        key: 'goal',
+        sub_key: 'work_plan',
+        value: props.workPlan.id,
+        type: 'object'
+    }]))
 
 
     return (
@@ -25,7 +28,8 @@ export default function ActivityList(props) {
                     handleClose={() => {
                         setOpen(false)
                         setCurrentEntity(null)
-                    }}
+                        hook.clean()
+                    }} workPlan={props.workPlan}
                     open={open}
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                     data={currentEntity}
@@ -46,7 +50,9 @@ export default function ActivityList(props) {
                     },
                     disabled: false,
                     color: '#ff5555'
-                }]}
+                }]} onCreate={() => {
+                setOpen(true)
+            }}
                 onRowClick={e => setCurrentEntity(e)}
                 title={'Etapas'}
 

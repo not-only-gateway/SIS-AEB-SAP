@@ -7,38 +7,55 @@ import PropTypes from "prop-types";
 
 export default function Form(props) {
     const {
-        ref, disabled,
-        data, handleChange
-    } = useForm({noAutoHeight: props.noAutoHeight, initialData: props.data, dependencies: props.dependencies})
+        ref, disabled
+    } = useForm({
+        noAutoHeight: props.noAutoHeight,
+        dependencies: props.dependencies,
+        data: props.hook.data,
+        changed: props.hook.changed
+    })
 
     return (
-
         <div ref={ref} className={styles.container} style={{
             boxShadow: props.noShadow ? 'none' : undefined,
-            alignContent: props.noAutoHeight ? 'space-between' : undefined
+            alignContent: props.noAutoHeight ? 'space-between' : undefined,
+            borderColor: props.noBorder ? 'transparent' : undefined
         }}>
-            <Header title={props.title} returnButton={props.returnButton} noHeader={props.noHeader} handleClose={props.handleClose}/>
-            <div style={{padding: '16px'}}>
-                {props.children({data: data, handleChange: handleChange})}
+            <Header title={props.title} returnButton={props.returnButton} noHeader={props.noHeader}
+                    handleClose={props.handleClose}/>
+            <div style={{padding: props.noPadding ? '0' : '16px', overflow: 'visible'}}>
+                {props.children(props.hook.data, props.hook.handleChange)}
             </div>
-            <SubmitButton submit={props.handleSubmit} data={data} create={props.create} disabled={disabled}/>
+            <SubmitButton
+                noBorder={props.noBorder} noPadding={props.noPadding}
+                submit={(e, i) => {
+                    props.handleSubmit(e, i)
+                    props.hook.setChanged(false)
+                }} data={props.hook.data}
+                clearState={props.hook.clearState} create={props.create}
+                disabled={disabled}
+                submitLabel={props.submitLabel}
+            />
         </div>
     )
 }
 Form.propTypes = {
     noAutoHeight: PropTypes.bool,
     noHeader: PropTypes.bool,
+    noPadding: PropTypes.bool,
+    noBorder: PropTypes.bool,
     returnButton: PropTypes.bool,
     title: PropTypes.string,
 
-    initialData: PropTypes.object,
-    children: PropTypes.node,
+    hook: PropTypes.object.isRequired,
+    children: PropTypes.func,
     create: PropTypes.bool,
 
     handleSubmit: PropTypes.func,
     dependencies: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string,
-        type: PropTypes.oneOf(['string', 'number', 'object', 'bool', 'date'])
+        type: PropTypes.oneOf(['string', 'number', 'object', 'bool', 'date', 'array'])
     })),
-    handleClose: PropTypes.func
+    handleClose: PropTypes.func,
+    submitLabel: PropTypes.func
 }

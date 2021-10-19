@@ -1,16 +1,18 @@
 @import '../../theme/styles.module.css';
 
-.wrapper{
+.wrapper {
     position: relative;
 }
-.buttons{
+
+.buttons {
     width: 200px;
     border-radius: 5px;
     background: var(--background-1);
 
-    z-index: 999;
+
     height: auto;
     box-shadow: var(--box-shadow-1) 0 0 2px 1px;
+    z-index: 999;
     position: absolute;
     top: 100%;
     right: 0;
@@ -25,6 +27,7 @@
 
     transition: 150ms ease;
 }
+
 /*@keyframes fadeIn {*/
 /*    0%{*/
 /*        opacity: 0;*/
@@ -34,14 +37,13 @@
 /*    }*/
 /*}*/
 
-.button{
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+.button {
 
+
+    overflow: hidden;
     outline: none;
     border: none;
-    padding: 12px 8px;
+    padding: 12px 0 12px 8px;
     text-align: left;
     background: transparent;
 
@@ -53,18 +55,25 @@
     align-items: center;
     justify-content: space-between;
 }
-.button:hover{
+
+.button:hover {
     background: var(--background-2);
 }
-.button:active{
+
+.button:active {
     background: var(--background-3);
+    color: #0095ff;
 }
-.button:disabled{
+
+.button:disabled {
     cursor: unset;
     background: transparent;
     color: var(--color-3);
 }
 
-.buttonLabel{
-
+.buttonLabel {
+    display: flex;
+    padding: 0 10px;
+    justify-content: flex-end;
+    width: 100%;
 }

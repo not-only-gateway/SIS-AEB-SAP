@@ -30,7 +30,7 @@ export default function RiskForm(props) {
     return (
         <Form
             hook={formHook}
-            initialData={initialData}
+            initialData={initialData} title={props.create ? 'Novo risco' : 'Risco'}
             create={props.create} label={lang.risksTitle}
             dependencies={[
                 {key: 'description', type: 'string'},

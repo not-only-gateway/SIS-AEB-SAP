@@ -53,7 +53,7 @@ export default function ProjectForm(props) {
                     create: props.create
                 }).then(res => {
                     if (res.success && props.create)
-                        props.redirect(res.data)
+                        props.handleClose()
 
                 })}
             handleClose={() => props.handleClose()}

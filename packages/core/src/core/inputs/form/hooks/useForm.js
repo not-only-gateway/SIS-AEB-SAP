@@ -1,31 +1,20 @@
-import React, {useEffect, useMemo, useRef, useState} from "react";
+import React, {useEffect, useMemo, useRef} from "react";
 
-export default function useForm({noAutoHeight, initialData, dependencies}) {
+export default function useForm({noAutoHeight, data, changed, dependencies}) {
     const ref = useRef()
-    const [data, setData] = useState(!initialData ? {} : initialData)
-    const [changed, setChanged] = useState(false)
-    const handleChange = ({event, key}) => {
-        setData(prevState => {
-            return {
-                ...prevState,
-                [key]: event
-            }
-        })
-        setChanged(true)
-    }
 
     const disabled = useMemo(() => {
         let response = dependencies === undefined || !changed
         let i
         if (dependencies !== undefined && changed)
-            for (i = 0; i < dependencies.fields.length; i++)
+            for (i = 0; i < dependencies.length; i++)
                 if (dependencies[i] !== undefined && dependencies[i] !== null)
                     response = (
                         response ||
-                        data[dependencies[i].name] === null ||
-                        data[dependencies[i].name] === undefined ||
-                        (dependencies[i].type === 'string' ?
-                            data[dependencies[i].name].length === 0
+                        data[dependencies[i].key] === null ||
+                        data[dependencies[i].key] === undefined ||
+                        (dependencies[i].type === 'string' || dependencies[i].type === 'array' ?
+                            data[dependencies[i].key].length === 0
                             :
                             false)
                     )
@@ -43,7 +32,6 @@ export default function useForm({noAutoHeight, initialData, dependencies}) {
     }, [])
 
     return {
-        ref, disabled,
-        data, handleChange
+        ref, disabled
     }
 }

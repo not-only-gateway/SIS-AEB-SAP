@@ -143,6 +143,12 @@ export const permissionKeys = [
 
 export const eventKeys = [
     {
+        key: 'id',
+        label: 'ID',
+        type: 'number',
+        visible: true
+    },
+    {
         key: 'method',
         label: 'Método',
         type: 'number',

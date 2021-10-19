@@ -19,7 +19,7 @@ export default async function Requester(props) {
     const axiosPackage = {
         method: props.method,
         url: props.url,
-        headers: {...props.token ? {'authorization': props.token} : {}, ...props.headers !== undefined ? props.headers : {}},
+        headers: props.headers,
         params: props.method === 'get' ? props.package : undefined,
         data: props.method === 'get' ? undefined : props.package
     }
@@ -29,7 +29,7 @@ export default async function Requester(props) {
             error: false,
             data: response
         }
-
+        ReactDOM.unmountComponentAtNode(loader)
         if (props.showSuccessAlert) {
             const newElement = document.createElement('div')
             document.body.appendChild(newElement)
@@ -51,6 +51,7 @@ export default async function Requester(props) {
 
         }
     }).catch(error => {
+        ReactDOM.unmountComponentAtNode(loader)
         const newElement = document.createElement('div')
         document.body.appendChild(newElement)
         res = {
@@ -73,8 +74,7 @@ export default async function Requester(props) {
         )
     })
 
-    ReactDOM.unmountComponentAtNode(loader)
-    document.body.removeChild(loader)
+
 
     if (res.error)
         throw res.data
@@ -83,7 +83,6 @@ export default async function Requester(props) {
 }
 Requester.propTypes = {
     headers: PropTypes.object,
-    token: PropTypes.string,
     package: PropTypes.object,
     url: PropTypes.string,
     method: PropTypes.oneOf(['get', 'put', 'post', 'delete', 'patch']),

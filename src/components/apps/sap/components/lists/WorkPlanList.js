@@ -13,7 +13,7 @@ import useQuery from "../../../../core/shared/hooks/useQuery";
 export default function WorkPlanList(props) {
     const [open, setOpen] = useState(false)
     const relations = useMemo(() => {
-        if (props.asApostille && props.workPlan) {
+        if (props.workPlan) {
             return {work_plan: props.workPlan?.id}
         } else if (props.project) {
             return {project: props.project.id}
@@ -25,7 +25,7 @@ export default function WorkPlanList(props) {
 
     const keys = useMemo(() => {
         let value = [...workPlanKeys.workPlan]
-        if (!props.ted)
+        if (!props.project)
             value.push({
                 key: 'ted',
                 label: 'Instrumento de celebração',
@@ -33,7 +33,7 @@ export default function WorkPlanList(props) {
                 subfieldKey: 'number',
                 visible: true
             })
-        else if (!props.project)
+        if (!props.ted)
             value.push({key: 'project', label: 'Projeto', type: 'object', subfieldKey: 'name', visible: true})
         return value
     }, [props])
@@ -44,11 +44,13 @@ export default function WorkPlanList(props) {
                 <WorkPlanForm
                     handleClose={() => {
                         setOpen(false)
+                        hook.clean()
                     }}
                     onRowClick={e => props.redirect(`/sap?page=ted&id=${e.id}`)}
                     project={props.project}
                     ted={props.ted}
                     workPlan={props.workPlan}
+                    data={props.workPlan}
                     create={true}
                 />
             </div>

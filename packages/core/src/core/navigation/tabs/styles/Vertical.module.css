@@ -1,0 +1,86 @@
+@import "../../../theme/styles.module.css";
+
+
+.wrapper {
+    position: relative;
+    width: 100%;
+    /*background: red;*/
+    height: 100%;
+    display: flex;
+
+}
+
+.header {
+    border-right: var(--border-0) 1px solid;
+    width: 13vw;
+    background-color: var(--background-1);
+    display: grid;
+    gap: 24px;
+
+    transition: 150ms linear;
+    height: 100%;
+}
+
+.tabs {
+    display: grid;
+    align-content: flex-start;
+
+    padding: 4px 0;
+}
+
+.button {
+    outline: none;
+    border: none;
+
+
+    padding: 12px 0 12px 20%;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    background-color: var(--background-1);
+
+    transition: 150ms linear;
+
+    color: var(--color-3);
+    font-weight: 600;
+    font-family: Roboto;
+    font-size: .75rem;
+    text-rendering: optimizeLegibility;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.button:hover {
+    background-color: var(--background-2);
+}
+
+.button:active {
+    background-color: var(--background-2);
+    color: #0095ff;
+}
+
+.button:disabled {
+    color: var(--color-4);
+    background-color: var(--background-1);
+}
+
+.highlight, .highlight:hover {
+    background-color: var(--background-3);
+    color: #0095ff;
+}
+
+
+.rowLabel {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    font-family: Roboto;
+    color: var(--color-1);
+    font-size: .8rem;
+    padding: 4px 0 4px 16px;
+    margin-top: 8px;
+}

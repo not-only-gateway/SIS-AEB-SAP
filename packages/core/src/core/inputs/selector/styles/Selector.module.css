@@ -1,5 +1,17 @@
 @import "../../../theme/styles.module.css";
 
+.createModal{
+    position: absolute;
+    background: var(--background-1);
+    border-radius: 8px;
+    border: var(--border-0) 1px solid;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50vw;
+    max-height: 75vh;
+}
+
 .labelContainer {
     /*animation: slideUp linear 250ms both;*/
     transition: visibility 150ms linear;

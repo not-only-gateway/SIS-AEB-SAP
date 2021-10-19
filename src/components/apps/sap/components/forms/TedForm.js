@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import PropTypes from 'prop-types'
 import TedPT from "../../locales/TedPT";
 import {DateField, DropDownField, FormRow, TextField, useQuery} from "sis-aeb-core";
@@ -20,7 +20,12 @@ export default function TedForm(props) {
     const unitHook = useQuery(getQuery('unit'))
     const decentralizedUnitHook = useQuery(getQuery('decentralized_unit'))
 
-    const [initialData, setInitialData] = useState(props.data)
+    const initialData = useMemo(() => {
+        return {
+            ...props.data,
+            ted: props.ted?.id
+        }
+    }, [props])
     const formHook = useDataWithDraft({
         initialData: initialData,
         draftUrl: '',
@@ -28,29 +33,9 @@ export default function TedForm(props) {
         interval: 120000
     })
 
-    useEffect(() => {
-        if (props.create) {
-            if (!props.asAddendum)
-                setInitialData({
-                    ...props.data,
-                    ...{
-                        projects: [props.project]
-                    }
-                })
-            else
-                setInitialData({
-                    ...props.data,
-                    ...{
-                        ted: props.ted.id
-                    }
-                })
-
-        }
-    }, [])
     return (
         <Form
             hook={formHook}
-            initialData={initialData}
             create={props.create}
             title={props.asAddendum ? (props.create ? lang.newAddendum : lang.addendum) : (props.create ? lang.newTed : lang.ted)}
             dependencies={
@@ -89,10 +74,10 @@ export default function TedForm(props) {
                     data: data,
                     create: props.create
                 }).then(res => {
-                    if (res !== null && props.create && !props.asEntity)
-                        props.redirect(res)
+                    if (res.success && res.data !== null && props.create && !props.asEntity)
+                        props.handleClose()
 
-                    if (props.asEntity && props.create)
+                    if (res.success && props.asEntity && props.create)
                         props.handleClose()
                 })
 

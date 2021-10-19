@@ -16,7 +16,7 @@ export default function useQuery(props) {
     const [hasMore, setHasMore] = useState(false)
 
     const fetchParams = () => {
-        let pack = {page: currentPage, quantity: props.fetchSize, filters: filters, sorts: sorts}
+        let pack = {page: currentPage, quantity: props.fetchSize, filters: [...filters], sorts: [...sorts]}
         if (typeof props.parsePackage === 'function')
             pack = props.parsePackage(pack)
 
@@ -30,8 +30,7 @@ export default function useQuery(props) {
         }
     }
 
-
-    useEffect(() => {
+    const fetch = () => {
         setLoading(true)
         const params = fetchParams()
 
@@ -42,12 +41,17 @@ export default function useQuery(props) {
             setHasMore(res.data.length > 0)
             setLoading(false)
         }).catch(() => null)
+    }
+    useEffect(() => {
+        fetch()
     }, [filters, sorts, currentPage])
 
     const clean = () => {
         dispatchData({type: ACTIONS.EMPTY})
         setHasMore(false)
         setCurrentPage(0)
+
+        fetch()
     }
 
     return {

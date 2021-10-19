@@ -1,0 +1,91 @@
+.bottomOptions{
+    position: absolute;
+    bottom: 4px;
+    width: calc(100% - 8px);
+    transform: translateX(4px);
+}
+
+.buttons {
+    width: 100%;
+
+    position: relative;
+    height: 100%;
+    display: grid;
+    align-content: flex-start;
+
+    gap: 8px;
+}
+
+
+.wrapper {
+    overflow: hidden;
+    /*width: 60px;*/
+    transition: 150ms linear;
+    background: var(--background-1);
+
+    border-right: var(--border-0) 1px solid;
+    position: sticky;
+    left: 0;
+    height: calc(100% - 45px);
+
+}
+
+.buttonContainer {
+    outline: none;
+    border: none;
+    background: transparent;
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    color: var(--color-1);
+    cursor: pointer;
+    max-width: 225px;
+    height: 50px;
+    width: 100%;
+
+    transition: 150ms linear;
+    border-radius: 5px;
+    padding: 8px 2px;
+}
+.buttonContainer:hover{
+    background: var(--background-2);
+}
+.buttonContainer:active{
+    background: var(--background-3);
+    color: #0095ff;
+}
+
+.buttonLabel{
+    outline: none;
+    background: none;
+    border: none;
+    padding: 0;
+
+    font-size: .75rem;
+    overflow: hidden;
+    color: var(--color-3);
+
+    font-family: Roboto;
+    /*font-weight: 575;*/
+}
+
+.buttonLabel:disabled{
+    color: var(--color-4);
+}
+.overflowEllipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+/*.modalContainer{*/
+/*    padding: 16px;*/
+/*    background: var(--background-1);*/
+/*    border-radius: 5px;*/
+/*    width: 25%;*/
+/*    height: 50%;*/
+/*    transform: translateY(50%);*/
+/*    margin: auto;*/
+/*}*/

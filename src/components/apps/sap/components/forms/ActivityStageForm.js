@@ -1,31 +1,37 @@
-import React from "react";
+import React, {useMemo} from "react";
 import Form from "../../../../core/inputs/form/Form";
-import {FormRow, TextField} from "sis-aeb-core";
+import {FormRow, TextField, useQuery} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import GoalPT from "../../locales/GoalPT";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
+import getQuery from "../../queries/getQuery";
+import Selector from "../../../../core/inputs/selector/Selector";
+import workPlanKeys from "../../keys/workPlanKeys";
 
 export default function ActivityStageForm(props) {
     const lang = GoalPT
+    const initialData = useMemo(() => {
+        return {...props.data, goal: props.goal?.id}
+    }, [])
     const formHook = useDataWithDraft({
-        initialData: props.data,
+        initialData: initialData,
         draftUrl: '',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
         interval: 120000
     })
+    const goalHook = useQuery(getQuery('work_plan_goal', props.workPlan ? {work_plan: props.workPlan.id} : undefined))
     return (
         <Form
             hook={formHook}
-            initialData={props.data}
             create={props.create} title={props.create ? lang.newStage : lang.stage}
             dependencies={
                 [
                     {key: 'stage', type: 'string'},
                     {key: 'description', type: 'string'},
                     {key: 'representation', type: 'number'},
-                    {key: 'goal', type: 'number'},
+                    {key: 'goal', type: 'object'},
                 ]
             }
             returnButton={props.create}
@@ -34,16 +40,23 @@ export default function ActivityStageForm(props) {
                 submit({
                     suffix: 'activity',
                     pk: data.id,
-                    data: data,
+                    data: {...data, goal: data.goal.id},
                     create: props.create
                 }).then(res => {
                     if (res.success && props.create)
-                        props.redirect(res.data)
+                        props.handleClose()
                 })}
             handleClose={() => props.handleClose()}>
             {(data, handleChange) => (
                 <FormRow>
-
+                    {props.goal !== null && props.goal !== undefined ? null :
+                        <Selector
+                            hook={goalHook} keys={workPlanKeys.goal} value={data.goal}
+                            width={'calc(50% - 16px)'} required={true} handleChange={e => {
+                            handleChange({key: 'goal', event: e})
+                        }} title={'Meta plano de tabalho'} placeholder={'Meta plano de tabalho'}
+                        />
+                    }
                     <TextField
                         type={'number'}
                         placeholder={lang.stage} label={lang.stage}
@@ -67,7 +80,7 @@ export default function ActivityStageForm(props) {
                         handleChange={event => {
 
                             handleChange({key: 'representation', event: event.target.value})
-                        }} currencyMask={true}
+                        }} currencyMask={true} maskEnd={'%'}
                         value={data.representation}
                         required={true} type={'number'}
                         width={props.goal !== null && props.goal !== undefined ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}/>
@@ -83,5 +96,6 @@ ActivityStageForm.propTypes = {
     handleChange: PropTypes.func,
     handleClose: PropTypes.func,
     create: PropTypes.bool,
-    goal: PropTypes.object
+    goal: PropTypes.object,
+    workPlan: PropTypes.object
 }

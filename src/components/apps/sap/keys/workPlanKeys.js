@@ -8,6 +8,10 @@ export default {
     ],
     activity: [
         {key: 'id', type: 'number', label: 'ID'},
+        {
+            key: 'goal', type: 'object', subfieldKey: 'goal_number', subtype: 'string', label: 'Meta', visible: true,
+            query: getQuery('work_plan_goal')
+        },
         {key: 'stage', type: 'string', label: 'Etapa', visible: true},
         {key: 'description', type: 'string', label: 'Descrição', visible: true},
         {key: 'representation', type: 'string', label: 'Representação', visible: true},
@@ -74,7 +78,15 @@ export default {
         {key: 'id', type: 'number', label: 'ID'},
         {key: 'indirect_cost', type: 'bool', label: 'Custos indiretos', visible: true},
         {key: 'value', type: 'number', label: 'Valor', visible: true, maskStart: 'R$'},
-        {key: 'nature_of_expense', type: 'object', label: 'Natureza de despesa', visible: true, subfieldKey: 'nature_of_expense', subType: 'string', query: getQuery('nature_of_expense')},
+        {
+            key: 'nature_of_expense',
+            type: 'object',
+            label: 'Natureza de despesa',
+            visible: true,
+            subfieldKey: 'nature_of_expense',
+            subType: 'string',
+            query: getQuery('nature_of_expense')
+        },
     ],
     status: [
         {key: 'id', type: 'number', label: 'ID'},
@@ -85,18 +97,41 @@ export default {
     ],
     workPlan: [
         {key: 'id', type: 'number', label: 'ID'},
-        {key: 'responsible', type: 'object', label: 'Responsável', visible: true, subfieldKey: 'acronym', subType: 'string', query: getQuery('unit')},
+        {
+            key: 'responsible',
+            type: 'object',
+            label: 'Responsável',
+            visible: true,
+            subfieldKey: 'acronym',
+            subType: 'string',
+            query: getQuery('unit')
+        },
         {key: 'object', type: 'string', label: 'Objeto', visible: true},
         {key: 'additive', type: 'string', label: 'Termo aditivo'},
         {key: 'email', type: 'string', label: 'Email'},
         {key: 'phone', type: 'string', label: 'Telefone'},
-        {key: 'infrastructure', type: 'object', label: 'Infraestrutura', subfieldKey: 'name', subType: 'string', query: getQuery('infrastructure')},
+        {
+            key: 'infrastructure',
+            type: 'object',
+            label: 'Infraestrutura',
+            subfieldKey: 'name',
+            subType: 'string',
+            query: getQuery('infrastructure')
+        },
         {key: 'ways_of_execution', type: 'string', label: 'Formas de execução'},
         {key: 'sub_decentralization', type: 'bool', label: 'Sub-descentralização'},
         {key: 'justification', type: 'string', label: 'Justificativa'},
         {key: 'indirect_costs', type: 'bool', label: 'Custos indiretos'},
         {key: 'detailing_of_indirect_costs', type: 'string', label: 'Detalhamento dos custos indiretos'},
-        {key: 'budget_plan', type: 'object', label: 'Plano orçamentário', visible: true, subfieldKey: 'number', subType: 'string', query: getQuery('budget_plan')},
+        {
+            key: 'budget_plan',
+            type: 'object',
+            label: 'Plano orçamentário',
+            visible: true,
+            subfieldKey: 'number',
+            subType: 'string',
+            query: getQuery('budget_plan')
+        },
         {key: 'responsible_execution', type: 'string', label: 'Responsável pela execução'},
         {key: 'func', type: 'string', label: 'Função'}
     ],

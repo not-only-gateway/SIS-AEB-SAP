@@ -10,21 +10,23 @@
     font-family: Roboto;
 }
 .header{
-    font-family: Roboto;
+
 
     display: flex;
     height: fit-content;
     justify-content: space-between;
     width: 100%;
 
-    font-size: 1.4rem;
+
     /*background-color: var(--background-1);*/
     /*border: var(--border-0) 1px solid;*/
     border-radius: 5px;
 
+    font-family: Roboto;
+    font-size: 1.2rem;
 
-    font-weight: bold;
-    color: var(--color-0);
+    font-weight: 600;
+    color: var(--color-1);
 
 }
 
@@ -32,9 +34,11 @@
     height: auto;
     max-height: 100px;
     display: flex;
-    flex-flow: row wrap;
     align-items: flex-start;
-    gap: 16px;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 100%;
     padding: 8px 0;
     width: 100%;
 
@@ -126,4 +130,18 @@
     width: 50%;
     justify-content: flex-start;
     align-items: center;
+}
+
+.secondaryButton{
+    background-color: var(--background-1);
+    border: var(--border-0) 1px solid;
+    color: var(--color-2);
+}
+.secondaryButton:hover{
+    background-color: var(--background-2);
+    color: var(--color-2);
+}
+.secondaryButton:active{
+    background-color: var(--background-3);
+    color: #0095ff;
 }

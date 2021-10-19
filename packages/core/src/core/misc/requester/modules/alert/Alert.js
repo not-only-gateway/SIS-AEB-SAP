@@ -9,7 +9,7 @@ import Details from "../details/Details";
 export default function Alert(props) {
     const lang = AlertPT
     const [open, setOpen] = useState(false)
-    const [visuals, setVisuals] = useState( {
+    const [visuals, setVisuals] = useState({
         style: {},
         icon: undefined,
         message: undefined,
@@ -105,21 +105,18 @@ export default function Alert(props) {
         setVisuals(getColor(props.type))
         const parent = ref.current.parentNode
         setTimeout(() => {
-            if(!openRef.current)
-                try{
+            if (!openRef.current)
+                try {
                     ReactDOM.unmountComponentAtNode(ref.current?.parentNode);
-                }
-                catch (e) {
+                } catch (e) {
                     console.log(e)
                 }
         }, 7000)
 
         return () => {
-            try{
-                document.body.removeChild(parent)
+            try {
                 ReactDOM.unmountComponentAtNode(parent);
-            }
-            catch (e) {
+            } catch (e) {
                 console.log(e)
             }
         }
@@ -127,21 +124,17 @@ export default function Alert(props) {
 
     return (
         <>
-            <Details open={open} setOpen={() => {
-                setOpen(false)
-                try{
-                    ReactDOM.unmountComponentAtNode(ref.current?.parentNode);
-                }
-                catch (e) {
-                    console.log(e)
-                }
-            }} data={props.data}/>
+            <Details
+                open={open}
+                setOpen={() => setOpen(false)}
+                data={props.data}
+            />
             <button
-
+                ref={ref}
                 className={styles.alertContainer}
                 onClick={() => setOpen(true)}
                 style={{...visuals.style, ...{opacity: open ? 0 : 1, visibility: open ? 'hidden' : 'visible'}}}
-                ref={ref}
+
             >
                 <div className={styles.alertContentContainer}>
                     {visuals.icon}

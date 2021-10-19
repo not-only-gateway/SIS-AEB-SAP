@@ -54,7 +54,7 @@ export default function GoalForm(props) {
                     create: props.create
                 }).then(res => {
                     if (res.success && props.create)
-                        props.redirect(res.data)
+                        props.handleClose()
                 })}
             handleClose={() => props.handleClose()}>
             {(data, handleChange) => (
@@ -83,6 +83,8 @@ export default function GoalForm(props) {
                         <TextField
                             type={'number'}
                             placeholder={lang.value} label={lang.value}
+                            currencyMask={true}
+                            maskStart={'R$'}
                             handleChange={event => {
 
                                 handleChange({key: 'value', event: event.target.value})
@@ -131,9 +133,9 @@ export default function GoalForm(props) {
 }
 
 GoalForm.propTypes = {
-    id: PropTypes.number,
+
     data: PropTypes.object,
-    handleChange: PropTypes.func,
+
     handleClose: PropTypes.func,
     create: PropTypes.bool,
     workPlan: PropTypes.object

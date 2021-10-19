@@ -1,0 +1,13 @@
+@import "../../../theme/styles.module.css";
+
+.wrapper{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    gap: 8px;
+
+    background: var(--background-1);
+    width: 100%;
+    padding: 8px;
+}

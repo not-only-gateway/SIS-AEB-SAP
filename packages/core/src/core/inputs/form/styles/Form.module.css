@@ -4,9 +4,11 @@
     background: var(--background-1);
     border-radius: 5px;
     height: 100%;
+    width: 100%;
     display: grid;
     overflow-y: auto;
     border: var(--border-0) 1px solid;
+
 }
 
 .headerContainer {
@@ -117,12 +119,12 @@
     color: var(--color-1);
 }
 
-.submitContainer{
+.submitContainer {
     bottom: 0;
     border-radius: 0 0 5px 5px;
     border-bottom: none;
     border-top: var(--border-0) 1px solid;
-    padding: 8px ;
+    padding: 8px;
     z-index: 50
 }
 
@@ -132,18 +134,19 @@
     border-bottom: none;
     border-left: none;
     border-right: none;
-    padding: 32px 0 0;
+    padding: 12px 0 24px 0;
     outline: none;
     width: 100%;
-
+    overflow: visible;
     margin: auto;
 }
 
-.fieldsetContainer > legend {
+.legend {
     padding-right: 16px;
-    font-size: 1.2rem;
-    font-weight: 575;
-    color: var(--color-1);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-2);
+    padding-left: 0;
 }
 
 .formFieldsContainer {
@@ -173,7 +176,8 @@
     width: 100%;
     color: white;
 }
-.saveButton:hover{
+
+.saveButton:hover {
     opacity: .8;
 }
 
@@ -183,9 +187,9 @@
 }
 
 .saveButton:disabled {
-    color: var(--color-3);
+    color: var(--color-4);
     cursor: unset;
     box-shadow: none;
-    background: transparent;
+    background: var(--background-2);
     opacity: 1;
 }

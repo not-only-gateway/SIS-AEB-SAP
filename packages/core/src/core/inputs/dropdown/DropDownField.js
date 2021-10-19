@@ -1,6 +1,6 @@
 import styles from '../shared/Dropdown.module.css'
 import PropTypes from 'prop-types'
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useMemo, useRef, useState} from 'react'
 import {ArrowDropDownRounded} from '@material-ui/icons'
 import LocalePT from '../shared/LocalePT'
 import SelectBox from "../shared/SelectBox";
@@ -10,17 +10,14 @@ import shared from '../shared/Input.module.css'
 
 export default function DropDownField(props) {
     const [open, setOpen] = useState(false)
-    const [value, setValue] = useState(undefined)
+
     const lang = LocalePT
     const ref = useRef()
-    useEffect(() => {
-        const filtered = props.choices.filter(element => {
-            if (element.key === props.value)
-                return element
-        })
-        if (filtered.length > 0)
-            setValue(filtered[0].value)
+    const selected = useMemo(() => {
+
+        return props.choices.find(e => e.key === props.value)
     }, [props.value])
+
     return (
         <div
             style={{
@@ -51,23 +48,23 @@ export default function DropDownField(props) {
             >
                 <ArrowDropDownRounded
                     style={{transform: !open ? 'unset' : 'rotate(180deg)', transition: '150ms linear'}}/>
-                {value ?
-                    <div className={styles.valueContainer}>
-                        {value}
-                </div>
+                {selected ?
+                    <div className={styles.valueContainer} style={{color: selected.color}}>
+                        {selected.value}
+                    </div>
                     : props.label}
 
             </button>
             <SelectBox open={open} setOpen={setOpen} reference={ref.current}>
 
-                <div className={styles.dropDownChoicesContainer} >
+                <div className={styles.dropDownChoicesContainer}>
                     {props.choices.map((choice, index) => (
                         <div>
                             <button
                                 key={index + '-choice-button'}
 
                                 style={{
-                                    color: choice.key === props.value ? 'white' : undefined,
+                                    color: choice.key === props.value ? 'white' : choice.color ? choice.color : undefined,
                                     background: choice.key === props.value ? '#0095ff' : undefined
                                 }}
 
@@ -81,8 +78,6 @@ export default function DropDownField(props) {
                             </button>
                             <ToolTip content={choice.value}/>
                         </div>
-
-
                     ))}
                 </div>
             </SelectBox>
@@ -102,7 +97,11 @@ export default function DropDownField(props) {
 DropDownField.propTypes = {
     width: PropTypes.string,
     label: PropTypes.string,
-    choices: PropTypes.arrayOf(PropTypes.shape({key: PropTypes.any, value: PropTypes.any})),
+    choices: PropTypes.arrayOf(PropTypes.shape({
+        key: PropTypes.any.isRequired,
+        value: PropTypes.any.isRequired,
+        color: PropTypes.string
+    })).isRequired,
     handleChange: PropTypes.func,
     value: PropTypes.any,
     required: PropTypes.bool,

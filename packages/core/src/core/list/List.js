@@ -1,28 +1,28 @@
 import PropTypes from 'prop-types'
-// import TableLayout from "./components/table/TableLayout";
 import styles from './styles/List.module.css'
 import ListHeader from "./components/list/ListHeader";
-import React, {useEffect, useRef, useState} from "react";
+import React from "react";
 import EmptyListIndicator from "../shared/components/EmptyListIndicator";
 import TableLayout from "./components/table/TableLayout";
+import keyTemplate from "./templates/keyTemplate";
+import useList from "./hook/useList";
+import Settings from "./components/list/Settings";
 
 export default function List(props) {
-    const listRef = useRef()
-    const wrapperRef = useRef()
-    const [maxHeight, setMaxHeight] = useState()
+    const {maxHeight, keys, keysDispatcher, actions, setOpenSettings,openSettings, wrapperRef} = useList(props.keys)
 
-    useEffect(() => {
-        setMaxHeight((document.documentElement.offsetHeight - wrapperRef.current.getBoundingClientRect().top - 16) + 'px')
-    }, [])
     return (
         <div className={styles.container}>
+            <Settings open={openSettings} keys={keys} actions={actions} setOpen={setOpenSettings} dispatchKeys={keysDispatcher}/>
             <ListHeader
                 title={props.title}
                 setFilters={props.hook.setFilters}
                 filters={props.hook.filters}
-
+                createOption={props.createOption}
+                onCreate={props.onCreate}
                 cleanState={props.hook.clean}
-                keys={props.keys}
+                keys={keys} actions={actions} dispatch={keysDispatcher}
+                setOpenSettings={setOpenSettings}
             />
             <div
                 className={styles.tableWrapper}
@@ -33,12 +33,11 @@ export default function List(props) {
                     :
                     null
                 }
-
                 <TableLayout
-                    data={props.hook.data} keys={props.keys} controlButtons={props.controlButtons} maxHeight={maxHeight}
+                    data={props.hook.data} keys={keys} controlButtons={props.controlButtons} maxHeight={maxHeight}
                     setCurrentPage={props.hook.setCurrentPage} currentPage={props.hook.currentPage}
-                    onRowClick={props.onRowClick} listRef={listRef} hasMore={props.hook.hasMore}
-                    sorts={props.hook.sorts} clean={props.hook.clean}
+                    onRowClick={props.onRowClick} hasMore={props.hook.hasMore}
+                    sorts={props.hook.sorts} clean={props.hook.clean}  onlyVisualization={props.onlyVisualization}
                     setSorts={props.hook.setSorts} loading={props.hook.loading}
                 />
             </div>
@@ -47,20 +46,18 @@ export default function List(props) {
 }
 
 List.propTypes = {
-    hook: PropTypes.func.isRequired,
+    hook: PropTypes.object.isRequired,
     onRowClick: PropTypes.func,
-    keys: PropTypes.arrayOf(PropTypes.shape({
-        key: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-        type: PropTypes.oneOf(['string', 'number', 'object', 'date']),
-        maskStart: PropTypes.any,
-        maskEnd: PropTypes.any,
-        additionalWidth: PropTypes.string
-    })).isRequired,
+    keys: PropTypes.arrayOf(keyTemplate).isRequired,
     controlButtons: PropTypes.arrayOf(PropTypes.shape({
         icon: PropTypes.element,
         label: PropTypes.any,
-        onClick: PropTypes.func
+        onClick: PropTypes.func,
+        disabled: PropTypes.bool
     })),
-    title: PropTypes.any
+    title: PropTypes.any,
+
+    createOption: PropTypes.bool,
+    onCreate: PropTypes.func,
+    onlyVisualization: PropTypes.bool
 }
