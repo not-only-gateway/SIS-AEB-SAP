@@ -43,18 +43,6 @@
     font-family: Roboto;
 }
 
-
-.floatingBox {
-    position: absolute;
-    left: 50%;
-    height: auto;
-    width: 250px;
-
-    gap: 4px;
-    padding: 4px;
-}
-
-
 .children {
     color: var(--color-2);
     background: var(--background-base);

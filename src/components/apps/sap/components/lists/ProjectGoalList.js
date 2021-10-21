@@ -44,7 +44,10 @@ export default function ProjectGoalList(props) {
                     color: '#ff5555'
                 }]}
                 title={'Marcos do projeto'}
-                onRowClick={e => setCurrentEntity(e)}
+                onRowClick={e => {
+                    setOpen(true)
+                    setCurrentEntity(e)
+                }}
 
             />
         </Switcher>

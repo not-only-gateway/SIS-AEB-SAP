@@ -5,7 +5,7 @@ import InfrastructureList from "../components/lists/InfrastructureList";
 import BudgetPlanList from "../components/lists/BudgetPlanList";
 import NatureExpenseList from "../components/lists/NatureExpenseList";
 import ActionList from "../components/lists/ActionList";
-import ClassificationList from "../components/lists/ClassificationList";
+import ComponentClassificationList from "../components/lists/ComponentClassificationList";
 import DecentralizedUnitList from "../components/lists/DecentralizedUnitList";
 import UnitList from "../components/lists/UnitList";
 import TypeList from "../components/lists/TypeList";
@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 import Tabs from "../../../core/navigation/tabs/Tabs";
 import styles from '../styles/Shared.module.css'
 
-export default function Associative() {
+export default function Associative(props) {
     const lang = OverviewPT
 
     return (
@@ -44,7 +44,7 @@ export default function Associative() {
                         label: lang.infrastructures,
                         children: (
                             <div className={styles.contentWrapper}>
-                                <InfrastructureList/>
+                                <InfrastructureList redirect={props.redirect}/>
                             </div>
                         )
                     },
@@ -52,7 +52,7 @@ export default function Associative() {
                         label: lang.classifications,
                         children: (
                             <div className={styles.contentWrapper}>
-                                <ClassificationList/>
+                                <ComponentClassificationList/>
                             </div>
                         )
                     },

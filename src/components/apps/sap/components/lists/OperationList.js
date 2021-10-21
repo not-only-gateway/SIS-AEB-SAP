@@ -13,18 +13,24 @@ import OperationForm from "../forms/OperationForm";
 export default function OperationList(props) {
     const [open, setOpen] = useState(false)
     const relation = useMemo(() => {
-        switch (true) {
-            case props.stage: {
-                return props.stage.id
-            }
-            case props.workPlan: {
-                return props.workPlan.id
-            }
-            default:
-                return undefined
-        }
+
+        if (props.stage)
+            return [{
+                key: 'activity_stage',
+                value: props.stage.id,
+                type: 'object'
+            }]
+        else if(props.workPlan)
+            return [{
+                key: 'activity_stage',
+                sub_relation: {key: 'goal', sub_relation: {key: 'work_plan'}},
+                value: props.workPlan.id,
+                type: 'object'
+            }]
+        else return []
+
     }, [])
-    const hook = useQuery(getQuery('operation_phase', relation))
+    const hook = useQuery(getQuery('operation_phase', undefined, relation))
 
     return (
         <Switcher openChild={open ? 0 : 1}>

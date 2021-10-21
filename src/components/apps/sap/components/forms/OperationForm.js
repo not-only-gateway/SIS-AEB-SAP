@@ -1,44 +1,40 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {DateField, FormRow, TextField, useQuery} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import OperationPT from "../../locales/OperationPT";
 import Form from "../../../../core/inputs/form/Form";
-import associativeKeys from "../../keys/associativeKeys";
 import getQuery from "../../queries/getQuery";
 import Selector from "../../../../core/inputs/selector/Selector";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
 import ActivityStageForm from "./ActivityStageForm";
+import workPlanKeys from "../../keys/workPlanKeys";
 
 export default function OperationForm(props) {
 
-    const activityHook = useQuery(getQuery('work_plan_activity'))
+    const activityHook = useQuery(getQuery('activity_stage', undefined,
+        props.workPlan ? [{
+            key: 'goal',
+            sub_relation: {
+                key: 'work_plan'
+            },
+            value: props.workPlan.id,
+            type: 'object'
+        }] : []))
     const lang = OperationPT
-    const [initialData, setInitialData] = useState(null)
 
     const formHook = useDataWithDraft({
-        initialData: initialData,
+        initialData: props.data,
         draftUrl: '',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
         interval: 120000
     })
 
-
-    useEffect(() => {
-        setInitialData({
-            ...props.data,
-            ...{
-                activity_stage: props.stage
-            }
-        })
-    }, [])
-
-
     return (
         <Form
             hook={formHook}
-            initialData={initialData}
+            noHeader={!props.create}
             create={props.create} title={props.create ? lang.newOperation : lang.operation}
             dependencies={
                 [
@@ -68,6 +64,8 @@ export default function OperationForm(props) {
                         props.handleClose()
                         clearState()
                     }
+                    else if (res.success)
+                        props.update()
                 })
 
             }
@@ -97,12 +95,12 @@ export default function OperationForm(props) {
                             width={'calc(33.333% - 21.5px)'}/>
 
                         <Selector
-                            hook={activityHook} keys={associativeKeys.action}
+                            hook={activityHook} keys={workPlanKeys.activity}
                             width={'calc(33.333% - 21.5px)'}
                             required={true}
                             value={data.activity_stage}
-                            title={'Atividade'}
-                            placeholder={'Atividade'}
+                            title={'Etapa'}
+                            placeholder={'Etapa'}
                             handleChange={entity => handleChange({key: 'activity_stage', event: entity})}
                             createOption={true}
                         >
@@ -197,9 +195,9 @@ export default function OperationForm(props) {
 }
 
 OperationForm.propTypes = {
-    id: PropTypes.number,
+
     data: PropTypes.object,
-    handleChange: PropTypes.func,
+    update: PropTypes.func,
     handleClose: PropTypes.func,
     create: PropTypes.bool,
     stage: PropTypes.object

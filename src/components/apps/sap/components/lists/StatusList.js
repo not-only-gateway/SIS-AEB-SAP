@@ -46,7 +46,10 @@ export default function StatusList(props) {
                 hook={hook}
                 keys={workPlanKeys.status}
                 title={'Status'}
-                onRowClick={e => setCurrentEntity(e)}
+                onRowClick={e => {
+                    setOpen(true)
+                    setCurrentEntity(e)
+                }}
 
             />
         </Switcher>

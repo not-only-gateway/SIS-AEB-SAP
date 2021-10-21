@@ -22,7 +22,7 @@ export default function ActionList(props) {
                         hook.clean()
                     }}
                     asDefault={true}
-                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                    create={!currentEntity}
                     data={currentEntity}/>
             </div>
             
@@ -45,9 +45,9 @@ export default function ActionList(props) {
                     }]}
                     hook={hook}
                     keys={associativeKeys.action}
-
-                    onRowClick={entity => {
-                        setCurrentEntity(entity)
+                    onRowClick={e => {
+                        setOpen(true)
+                        setCurrentEntity(e)
                     }} title={'Ações'}
 
                 />

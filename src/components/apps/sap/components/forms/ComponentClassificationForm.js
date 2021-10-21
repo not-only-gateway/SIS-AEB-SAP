@@ -11,7 +11,7 @@ import getQuery from "../../queries/getQuery";
 import submit from "../../utils/requests/submit";
 import TypeForm from "./TypeForm";
 
-export default function ClassificationForm(props) {
+export default function ComponentClassificationForm(props) {
 
     const lang = EntitiesPT
     const formHook = useDataWithDraft({
@@ -81,7 +81,7 @@ export default function ClassificationForm(props) {
 
 }
 
-ClassificationForm.propTypes = {
+ComponentClassificationForm.propTypes = {
     handleClose: PropTypes.func,
     create: PropTypes.bool,
     asDefault: PropTypes.bool,

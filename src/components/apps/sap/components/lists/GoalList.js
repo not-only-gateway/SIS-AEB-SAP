@@ -33,7 +33,10 @@ export default function GoalList(props) {
                 onCreate={() => setOpen(true)}
                 hook={hook}
                 keys={workPlanKeys.goal}
-                onRowClick={e => setCurrentEntity(e)}
+                onRowClick={e => {
+                    setOpen(true)
+                    setCurrentEntity(e)
+                }}
                 controlButtons={[{
                     label: 'Deletar',
                     icon: <DeleteRounded/>,

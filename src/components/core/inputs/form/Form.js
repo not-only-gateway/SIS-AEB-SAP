@@ -17,7 +17,7 @@ export default function Form(props) {
 
     return (
         <div ref={ref} className={styles.container} style={{
-            boxShadow: props.noShadow ? 'none' : undefined,
+
             alignContent: props.noAutoHeight ? 'space-between' : undefined,
             borderColor: props.noBorder ? 'transparent' : undefined
         }}>

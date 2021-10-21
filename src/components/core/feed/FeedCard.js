@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import styles from './styles/Card.module.css'
 import React from "react";
+
 export default function FeedCard(props){
     return(
         <div className={styles.cardWrapper}>

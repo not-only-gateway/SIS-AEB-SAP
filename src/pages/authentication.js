@@ -5,6 +5,7 @@ import Head from "next/head";
 import Authenticator from "../components/Authenticator";
 import {ThemeContext, ThemeProvider} from "sis-aeb-core";
 import PropTypes from 'prop-types'
+
 export default function authentication(props) {
     const router = useRouter()
     const context = useContext(ThemeContext)

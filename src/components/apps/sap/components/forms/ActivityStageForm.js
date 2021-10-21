@@ -34,11 +34,11 @@ export default function ActivityStageForm(props) {
                     {key: 'goal', type: 'object'},
                 ]
             }
-            returnButton={props.create}
+            returnButton={true}
             noHeader={!props.create}
             handleSubmit={(data, clearState) =>
                 submit({
-                    suffix: 'activity',
+                    suffix: 'activity_stage',
                     pk: data.id,
                     data: {...data, goal: data.goal.id},
                     create: props.create

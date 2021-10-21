@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import PropTypes from "prop-types";
 import InfrastructurePT from "../../locales/InfrastructurePT";
 import Cookies from "universal-cookie/lib";
@@ -9,12 +9,19 @@ import associativeKeys from "../../keys/associativeKeys";
 import useQuery from "../../../../core/shared/hooks/useQuery";
 import getQuery from "../../queries/getQuery";
 import submit from "../../utils/requests/submit";
-import ClassificationForm from "./ClassificationForm";
+import ComponentClassificationForm from "./ComponentClassificationForm";
 
-export default function ComponentForm(props) {
+export default function InfrastructureComponentForm(props) {
     const classificationHook = useQuery(getQuery('classification'))
     const lang = InfrastructurePT
-    const [initialData, setInitialData] = useState(null)
+    const initialData = useMemo(() => {
+        return{
+            ...props.data,
+            ...{
+                infrastructure: props.infrastructure.id
+            }
+        }
+    }, [props])
 
     const formHook = useDataWithDraft({
         initialData: initialData,
@@ -23,19 +30,11 @@ export default function ComponentForm(props) {
         interval: 120000
     })
 
-    useEffect(() => {
-        setInitialData({
-            ...props.data,
-            ...{
-                infrastructure: props.infrastructure.id
-            }
-        })
-    }, [])
 
     return (
         <Form
             hook={formHook}
-            initialData={initialData}
+
             create={props.create} title={props.create ? lang.newComponent : lang.component}
             dependencies={
                 [
@@ -81,7 +80,7 @@ export default function ComponentForm(props) {
                         createOption={true}
                     >
                         {handleClose => (
-                            <ClassificationForm create={true} asDefault={true} handleClose={() => handleClose()}/>
+                            <ComponentClassificationForm create={true} asDefault={true} handleClose={() => handleClose()}/>
                         )}
                     </Selector>
                 </FormRow>
@@ -91,7 +90,7 @@ export default function ComponentForm(props) {
 
 }
 
-ComponentForm.propTypes = {
+InfrastructureComponentForm.propTypes = {
     data: PropTypes.object,
     handleChange: PropTypes.func,
     handleClose: PropTypes.func,

@@ -27,7 +27,10 @@ export default function TypeList(props) {
             <List
                 createOption={true}
                 onCreate={() => setOpen(true)}
-                onRowClick={e => setCurrentEntity(e)}
+                onRowClick={e => {
+                    setOpen(true)
+                    setCurrentEntity(e)
+                }}
                 controlButtons={[{
                     label: 'Deletar',
                     icon: <DeleteRounded/>,

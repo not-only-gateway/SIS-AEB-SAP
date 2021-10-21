@@ -6,7 +6,7 @@ import shared from "../styles/Shared.module.css";
 import WorkPlanList from "../components/lists/WorkPlanList";
 import OperationList from "../components/lists/OperationList";
 import ExecutionList from "../components/lists/ExecutionList";
-import ActivityList from "../components/lists/ActivityList";
+import ActivityStageList from "../components/lists/ActivityStageList";
 import GoalList from "../components/lists/GoalList";
 import WorkPlanForm from "../components/forms/WorkPlanForm";
 import {fetchEntry} from "../utils/requests/fetch";
@@ -101,7 +101,7 @@ export default function WorkPlan(props) {
                             {
                                 label: 'Etapas', children: (
                                     <div className={shared.contentWrapper}>
-                                        <ActivityList workPlan={workPlan} redirect={props.redirect}/>
+                                        <ActivityStageList workPlan={workPlan} redirect={props.redirect}/>
                                     </div>
                                 )
                             },

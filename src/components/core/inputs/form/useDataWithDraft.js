@@ -9,7 +9,7 @@ export default function useDataWithDraft(props) {
         let newData = {...data}
         newData[key] = event
         setData(newData)
-
+        console.log('ON CHANGE')
         setChangedDraft(true)
         setChanged(true)
     }
@@ -27,6 +27,7 @@ export default function useDataWithDraft(props) {
 
 
     useEffect(() => {
+        console.log('ON EFFECT CHANGE')
         if (props.initialData !== undefined && props.initialData !== null)
             setData(props.initialData)
     }, [props.initialData])

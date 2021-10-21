@@ -42,7 +42,7 @@
     transform: translate(50%, 16px);
     right: 50%;
     position: absolute;
-
+    z-index: 999;
     height: auto;
 
     width: 250px;
@@ -66,6 +66,7 @@
 .appsContainer {
     position: relative;
     height: 100%;
+
 }
 .buttonContainer {
     outline: none;

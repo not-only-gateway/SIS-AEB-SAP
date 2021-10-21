@@ -14,10 +14,11 @@ import deleteEntry from "../../utils/requests/delete";
 export default function ActionItemList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery(getQuery('action_item', {
-        operation: props.operation.id
-    }))
-
+    const hook = useQuery(getQuery('action_item', undefined, [{
+        key: 'operation_phase',
+        value: props.operation?.id,
+        type: 'object'
+    }]))
 
     return (
         <Switcher openChild={open ? 0 : 1}>
@@ -27,7 +28,7 @@ export default function ActionItemList(props) {
                             setOpen(false)
                             hook.clean()
                         }}
-                        create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                        create={!currentEntity}
                         data={currentEntity} operation={props.operation}
                     />
                 </div>
@@ -36,6 +37,10 @@ export default function ActionItemList(props) {
                     createOption={true}
                     onCreate={() => setOpen(true)}
                     hook={hook}
+                    onRowClick={e => {
+                        setOpen(true)
+                        setCurrentEntity(e)
+                    }}
                     keys={workPlanKeys.action}
                     controlButtons={[{
                         label: 'Deletar',

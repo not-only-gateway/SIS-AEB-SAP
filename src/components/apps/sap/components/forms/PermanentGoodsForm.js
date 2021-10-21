@@ -51,7 +51,10 @@ export default function PermanentGoodsForm(props) {
                 submit({
                     suffix: 'permanent_goods',
                     pk: data.id,
-                    data: data,
+                    data: {
+                        ...data,
+                        total_value: data.unit_price * data.quantity
+                    },
                     create: props.create
                 }).then(res => {
                     if (props.create && res.success) {

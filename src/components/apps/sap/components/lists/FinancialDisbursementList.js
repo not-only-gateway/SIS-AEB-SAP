@@ -32,7 +32,11 @@ export default function FinancialDisbursementList(props) {
             </div>
             <List
                 createOption={true}
-                onCreate={() => setOpen(true)} onRowClick={e => setCurrentEntity(e)}
+                onCreate={() => setOpen(true)}
+                onRowClick={e => {
+                    setOpen(true)
+                    setCurrentEntity(e)
+                }}
                 controlButtons={[{
                     label: 'Deletar',
                     icon: <DeleteRounded/>,

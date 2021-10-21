@@ -13,9 +13,11 @@ import getQuery from "../../queries/getQuery";
 export default function ResourceApplicationList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery(getQuery('resource_application', {
-        operation: props.operation.id
-    }))
+    const hook = useQuery(getQuery('resource_application', undefined, [{
+        key: 'operation_phase',
+        value: props.operation?.id,
+        type: 'object'
+    }]))
 
 
     return (
@@ -27,11 +29,14 @@ export default function ResourceApplicationList(props) {
                         hook.clean()
                     }}
 
-                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                    create={!currentEntity}
                     data={currentEntity} operation={props.operation}/>
             </div>
             <List
-                onRowClick={e => setCurrentEntity(e)}
+                onRowClick={e => {
+                    setOpen(true)
+                    setCurrentEntity(e)
+                }}
                 createOption={true}
                 onCreate={() => setOpen(true)}
                 controlButtons={[{

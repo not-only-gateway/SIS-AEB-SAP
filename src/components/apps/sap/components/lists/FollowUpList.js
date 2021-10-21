@@ -11,9 +11,11 @@ import getQuery from "../../queries/getQuery";
 export default function FollowUpList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery(getQuery('follow_up', {
-        operation: props.operation.id
-    }))
+    const hook = useQuery(getQuery('follow_up_goal', undefined, [{
+        key: 'operation_phase',
+        value: props.operation?.id,
+        type: 'object'
+    }]))
 
     return (
         <Switcher openChild={open ? 0 : 1}>
@@ -31,7 +33,10 @@ export default function FollowUpList(props) {
 
                 createOption={true}
                 onCreate={() => setOpen(true)}
-
+                onRowClick={e => {
+                    setOpen(true)
+                    setCurrentEntity(e)
+                }}
                 controlButtons={[{
                     label: 'Deletar',
                     icon: <DeleteRounded/>,

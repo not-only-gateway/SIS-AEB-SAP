@@ -44,7 +44,7 @@ export default function GoalForm(props) {
                     {key: 'final_situation', type: 'number'}
                 ]
             }
-            returnButton={props.create}
+            returnButton={true}
             handleSubmit={(data, clearState) =>
                 submit({
                     suffix: 'work_plan_goal',

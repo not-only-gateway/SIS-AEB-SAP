@@ -22,7 +22,12 @@ export default function ExecutionForm(props) {
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
         interval: 120000
     })
-    const operationHook = useQuery(getQuery('operation_phase'))
+    const operationHook = useQuery(getQuery('operation_phase', undefined, props.workPlan ? [{
+        key: 'activity_stage',
+        sub_relation: {key: 'goal', sub_relation: {key: 'work_plan'}},
+        value: props.workPlan.id,
+        type: 'object'
+    }] : []))
 
     useEffect(() => {
         if (props.create) {
@@ -30,8 +35,6 @@ export default function ExecutionForm(props) {
             setInitialData({
                 ...props.data,
                 ...{
-                    infrastructure: props.infrastructure.id,
-                    operation_phase: props.operation,
                     execution_date: (date.getFullYear()) + '-' + (date.getMonth() + 1) + '-' + (date.getDate())
                 }
             })
@@ -58,13 +61,13 @@ export default function ExecutionForm(props) {
                 ]
 
             }
-            returnButton={props.create}
-            handleSubmit={(data, clearState) =>{
+            returnButton={true}
+            handleSubmit={(data, clearState) => {
                 const date = data.execution_date.split('-')
                 submit({
                     suffix: 'execution',
                     pk: data.id,
-                    data: {...data, execution_date: date[1] + '-' + date[2] + '-' + date[0]},
+                    data: {...data, execution_date: date[2] + '-' + date[1] + '-' + date[0]},
                     create: props.create
                 }).then(res => {
                     if (props.create && res.success) {
@@ -107,19 +110,21 @@ export default function ExecutionForm(props) {
                         required={true} variant={'area'}
                         width={'100%'}/>
 
-                    <Selector
-                        hook={operationHook}
-                        placeholder={'Fase / operação'}
-                        title={'Fase / operação'}
-                        handleChange={e => handleChange({event: e, key: 'operation_phase'})}
-                        value={data.operation_phase} width={'calc(33.333% - 21.5px)'} required={true}
-                        keys={workPlanKeys.operation}
-                        createOption={true}
-                    >
-                        {handleClose => (
-                            <OperationForm create={true} asDefault={true} handleClose={() => handleClose()}/>
-                        )}
-                    </Selector>
+                    {props.operation ? null :
+                        <Selector
+                            hook={operationHook}
+                            placeholder={'Fase / operação'}
+                            title={'Fase / operação'}
+                            handleChange={e => handleChange({event: e, key: 'operation_phase'})}
+                            value={data.operation_phase} width={'calc(33.333% - 21.5px)'} required={true}
+                            keys={workPlanKeys.operation}
+                            createOption={true}
+                        >
+                            {handleClose => (
+                                <OperationForm create={true} asDefault={true} handleClose={() => handleClose()}/>
+                            )}
+                        </Selector>
+                    }
                     <TextField
 
                         placeholder={lang.currentExecution} label={lang.currentExecution}

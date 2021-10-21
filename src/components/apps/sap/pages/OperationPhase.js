@@ -11,17 +11,25 @@ import PermanentGoodsList from "../components/lists/PermanentGoodsList";
 import ResourceApplicationList from "../components/lists/ResourceApplicationList";
 import NoteList from "../components/lists/NoteList";
 import {fetchEntry} from "../utils/requests/fetch";
+import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
+import styles from "../../management/styles/Shared.module.css";
+import {CategoryRounded} from "@material-ui/icons";
+import OperationForm from "../components/forms/OperationForm";
+import ActionItemList from "../components/lists/ActionItemList";
 
 
 export default function OperationPhase(props) {
     const [operation, setOperation] = useState({})
-    const theme = useContext(ThemeContext)
 
-    useEffect(() => {
+    const themes = useContext(ThemeContext)
+    const fetchData =() => {
         fetchEntry({
             pk: props.query.id,
             suffix: 'operation_phase'
         }).then(res => setOperation(res))
+    }
+    useEffect(() => {
+        fetchData()
     }, [])
 
     return (
@@ -30,27 +38,93 @@ export default function OperationPhase(props) {
                 <title>{operation?.phase}</title>
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
+            <div style={{
+                padding: '0 32px', background: themes.themes.background1
+            }}>
+                <Breadcrumbs divider={'-'} justify={'start'}>
+                    <button className={styles.button}
+                            onClick={() => props.redirect('/sap?page=index')}>
+                        Processos
+                    </button>
 
-            <div className={shared.header} style={{padding: '16px', borderBottom: theme.themes.border0 + ' 1px solid'}}>
-                Nome operacao
+                    <button className={styles.button} disabled={true}>
+                        {operation?.phase}
+                    </button>
+                </Breadcrumbs>
+            </div>
+            <div className={shared.header}
+                 style={{padding: '16px 48px', borderBottom: themes.themes.border0 + ' 1px solid'}}>
+                {operation?.phase}
+                <div className={shared.typeLabel}>
+                    <CategoryRounded style={{fontSize: '1.15rem'}}/> Fase / operação
+                </div>
             </div>
 
             <VerticalTabs
                 classes={[
                     {
                         buttons: [
-                            {label: 'Dados', children: null}
+                            {
+                                label: 'Dados',
+                                children: (
+                                    <div style={{padding: '16px 10%'}}>
+                                        <OperationForm update={() => fetchData()} data={operation} create={false}/>
+                                    </div>
+                                )
+                            }
                         ]
                     },
                     {
                         label: 'Informações adicionais',
                         buttons: [
-                            {label: 'Items de Ação', children: <ActionList/>},
-                            {label: 'Marcos do acompanhamento', children: <FollowUpList/>},
-                            {label: 'Execuções', children: <ExecutionList/>},
-                            {label: 'Bens permanentes', children: <PermanentGoodsList/>},
-                            {label: 'Aplicação dos recursos', children: <ResourceApplicationList/>},
-                            {label: 'Notas de empenho', children: <NoteList/>},
+                            {
+                                label: 'Items de Ação',
+                                children: (
+                                    <div style={{padding: '0 10%'}}>
+                                        <ActionItemList operation={operation}/>
+                                    </div>
+                                )
+                            },
+                            {
+                                label: 'Marcos do acompanhamento',
+                                children: (
+                                    <div style={{padding: '0 10%'}}>
+                                        <FollowUpList operation={operation}/>
+                                    </div>
+                                )
+                            },
+                            {
+                                label: 'Execuções',
+                                children: (
+                                    <div style={{padding: '0 10%'}}>
+                                        <ExecutionList operation={operation}/>
+                                    </div>
+                                )
+                            },
+                            {
+                                label: 'Bens permanentes',
+                                children: (
+                                    <div style={{padding: '0 10%'}}>
+                                        <PermanentGoodsList operation={operation}/>
+                                    </div>
+                                )
+                            },
+                            {
+                                label: 'Aplicação dos recursos',
+                                children: (
+                                    <div style={{padding: '0 10%'}}>
+                                        <ResourceApplicationList operation={operation}/>
+                                    </div>
+                                )
+                            },
+                            {
+                                label: 'Notas de empenho',
+                                children: (
+                                    <div style={{padding: '0 10%'}}>
+                                        <NoteList operation={operation}/>
+                                    </div>
+                                )
+                            },
                         ]
                     }]}
             />

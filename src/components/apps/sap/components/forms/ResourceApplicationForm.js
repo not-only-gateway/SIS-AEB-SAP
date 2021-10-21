@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useMemo} from "react";
 import PropTypes from "prop-types";
 import ResourcePT from "../../locales/ResourcePT";
 import Cookies from "universal-cookie/lib";
@@ -15,23 +15,20 @@ export default function ResourceApplicationForm(props) {
     const lang = ResourcePT
 
     const natureHook = useQuery(getQuery('nature_of_expense'))
-    const [initialData, setInitialData] = useState(null)
+    const initialData = useMemo(() => {
+        return {
+            ...props.data,
+            ...{
+                operation_phase: props.operation?.id
+            }
+        }
+    }, [])
     const formHook = useDataWithDraft({
         initialData: initialData,
         draftUrl: '',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
         interval: 120000
     })
-
-    useEffect(() => {
-        if (props.create)
-            setInitialData({
-                ...props.data,
-                ...{
-                    operation_phase: props.operation.id
-                }
-            })
-    }, [])
 
     return (
         <Form
@@ -65,7 +62,7 @@ export default function ResourceApplicationForm(props) {
                 <FormRow>
                     <Selector
                         hook={natureHook} keys={associativeKeys.natureOfExpense}
-                        width={'calc(50% - 16px)'}
+                        width={'calc(33.333% - 21.5px)'}
                         required={true}
                         value={data.nature_of_expense}
                         title={'Natureza de despesas'}
@@ -73,7 +70,9 @@ export default function ResourceApplicationForm(props) {
                         handleChange={entity => handleChange({key: 'nature_of_expense', event: entity})}
                         createOption={true}
                     >
-                        <NatureExpenseForm asDefault={true}/>
+                        {handleClose => (
+                            <NatureExpenseForm asDefault={true} create={true} handleClose={handleClose}/>
+                        )}
                     </Selector>
                     <DropDownField
                         dark={true}
@@ -83,7 +82,7 @@ export default function ResourceApplicationForm(props) {
 
                             handleChange({key: 'indirect_cost', event: event})
                         }} value={data.indirect_cost} required={false}
-                        width={'calc(50% - 16px)'} choices={lang.baseOptions}/>
+                        width={'calc(33.333% - 21.5px)'} choices={lang.baseOptions}/>
 
                     <TextField
                         placeholder={lang.value} label={lang.value}
@@ -92,7 +91,7 @@ export default function ResourceApplicationForm(props) {
                             handleChange({key: 'value', event: event.target.value})
                         }} value={data.value}
                         required={true} type={'number'} maskStart={'R$'} currencyMask={true}
-                        width={'calc(50% - 16px)'}/>
+                        width={'calc(33.333% - 21.5px)'}/>
                 </FormRow>
             )}
         </Form>

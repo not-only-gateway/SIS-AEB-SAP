@@ -1,6 +1,6 @@
 import styles from '../styles/SelectorModal.module.css'
 import {AddRounded, ClearAllRounded, FilterListRounded, RefreshRounded} from "@material-ui/icons";
-import React, {useState} from "react";
+import React from "react";
 import Modal from "../../../misc/modal/Modal";
 import PropTypes from "prop-types";
 import Row from "./Row";
@@ -8,7 +8,6 @@ import useInfiniteScroll from "../../../shared/hooks/useInfiniteScroll";
 import EmptyListIndicator from "../../../shared/components/EmptyListIndicator";
 import ToolTip from "../../../misc/tooltip/ToolTip";
 import Dropdown from "../../../list/components/list/Dropdown";
-import useList from "../../../list/hook/useList";
 import useHeader from "../../../list/hook/useHeader";
 import ListFilter from "../../../shared/components/ListFilter";
 

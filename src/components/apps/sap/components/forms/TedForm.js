@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useMemo} from "react";
 import PropTypes from 'prop-types'
 import TedPT from "../../locales/TedPT";
 import {DateField, DropDownField, FormRow, TextField, useQuery} from "sis-aeb-core";

@@ -1,6 +1,6 @@
 import styles from '../styles/CardGroup.module.css'
 import PropTypes from "prop-types";
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import {ArrowDropDownRounded} from "@material-ui/icons";
 
 export default function CardGroup(props) {

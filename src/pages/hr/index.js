@@ -1,26 +1,16 @@
 import {useRouter} from "next/router";
 import React from "react";
-
-import useDynamicRoute from "../../components/core/shared/hooks/useDynamicRoute";
 import getHRPages from "../../components/apps/hr/getHRPages";
+import DynamicRoutes from "../../components/core/navigation/routing/DynamicRoutes";
 
 
 export default function index() {
     const router = useRouter()
-    const {page} = router.query
+    const query = router.query
 
-    const Content = useDynamicRoute({
-        routes: getHRPages(),
-        ready: router.isReady,
-        path: page,
-    })
-
-    if (Content !== null)
-        return (
-            <Content
-                redirect={(url, asUrl, params) => router.push(url, asUrl, params)} query={router.query}
-            />
-        )
-    else
-        return null
+    return (
+        <DynamicRoutes routes={getHRPages()} ready={router.isReady} path={query.page} componentProps={{
+            redirect: (url, asUrl, params) => router.push(url, asUrl, params), query: router.query
+        }}/>
+    )
 }

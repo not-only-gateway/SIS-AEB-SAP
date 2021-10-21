@@ -2,13 +2,13 @@ import PropTypes from 'prop-types'
 import React, {useState} from "react";
 import {DeleteRounded} from "@material-ui/icons";
 import {List, useQuery} from "sis-aeb-core";
-import ComponentForm from "../forms/ComponentForm";
+import InfrastructureComponentForm from "../forms/InfrastructureComponentForm";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
 import deleteEntry from "../../utils/requests/delete";
 import getQuery from "../../queries/getQuery";
 
-export default function ComponentsList(props) {
+export default function InfrastructureComponentsList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
 
@@ -18,7 +18,7 @@ export default function ComponentsList(props) {
     return (
         <Switcher openChild={open ? 0 : 1}>
             <div style={{paddingTop: '32px'}}>
-                <ComponentForm
+                <InfrastructureComponentForm
                     handleClose={() => {
                         setOpen(false)
                         hook.clean()
@@ -46,8 +46,9 @@ export default function ComponentsList(props) {
                     disabled: false,
                     color: '#ff5555'
                 }]}
-                onRowClick={entity => {
-                    setCurrentEntity(entity)
+                onRowClick={e => {
+                    setOpen(true)
+                    setCurrentEntity(e)
                 }}
                 title={'Situações Operacionais de Componentes'}
 
@@ -55,6 +56,6 @@ export default function ComponentsList(props) {
         </Switcher>
     )
 }
-ComponentsList.propTypes = {
+InfrastructureComponentsList.propTypes = {
     infrastructure: PropTypes.object
 }

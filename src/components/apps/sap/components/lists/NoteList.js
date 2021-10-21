@@ -7,13 +7,16 @@ import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/misc/switcher/Switcher";
 import deleteEntry from "../../utils/requests/delete";
 import getQuery from "../../queries/getQuery";
+import workPlanKeys from "../../keys/workPlanKeys";
 
 export default function NoteList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery(getQuery('note', {
-        operation: props.operation.id
-    }))
+    const hook = useQuery(getQuery('commitment_note',  undefined, [{
+        key: 'operation_phase',
+        value: props.operation?.id,
+        type: 'object'
+    }]))
 
     return (
         <Switcher openChild={open ? 0 : 1}>
@@ -24,15 +27,15 @@ export default function NoteList(props) {
                         setOpen(false)
                     }}
 
-                    create={currentEntity === undefined || currentEntity === null || currentEntity.id === undefined}
-                    operation={props.operation.id}
+                    create={!currentEntity}
+                    operation={props.operation}
                     data={currentEntity}/>
             </div>
             <List
                 createOption={true}
                 onCreate={() => setOpen(true)}
                 hook={hook}
-                keys={associativeKeys.note}
+                keys={workPlanKeys.note}
                 title={'Notas de empenho'}
                 controlButtons={[{
                     label: 'Deletar',
@@ -46,8 +49,10 @@ export default function NoteList(props) {
                     disabled: false,
                     color: '#ff5555'
                 }]}
-                onRowClick={e => setCurrentEntity(e)}
-
+                onRowClick={e => {
+                    setOpen(true)
+                    setCurrentEntity(e)
+                }}
             />
         </Switcher>
     )

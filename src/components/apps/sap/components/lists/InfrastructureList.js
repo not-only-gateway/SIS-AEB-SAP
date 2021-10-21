@@ -27,7 +27,6 @@ export default function InfrastructureList(props) {
                 />
             </div>
             <List
-
                 createOption={true}
 
                 controlButtons={[{

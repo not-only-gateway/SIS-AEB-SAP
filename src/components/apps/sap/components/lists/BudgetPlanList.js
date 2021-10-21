@@ -43,9 +43,9 @@ export default function BudgetPlanList(props) {
                 }]}
                 hook={hook}
                 keys={associativeKeys.budgetPlan}
-
-                onRowClick={entity => {
-                    setCurrentEntity(entity)
+                onRowClick={e => {
+                    setOpen(true)
+                    setCurrentEntity(e)
                 }} title={'Planos orçamentários'}
 
             />

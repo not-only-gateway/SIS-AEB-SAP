@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useMemo} from "react";
 import {DropDownField, FormRow, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import OperationPT from "../../locales/OperationPT";
@@ -9,7 +9,14 @@ import submit from "../../utils/requests/submit";
 
 export default function ActionItemForm(props) {
     const lang = OperationPT
-    const [initialData, setInitialData] = useState(null)
+    const initialData = useMemo(() => {
+        return {
+            ...props.data,
+            ...{
+                operation_phase: props.operation?.id
+            }
+        }
+    }, [])
     const formHook = useDataWithDraft({
         initialData: initialData,
         draftUrl: '',
@@ -17,21 +24,10 @@ export default function ActionItemForm(props) {
         interval: 120000
     })
 
-    useEffect(() => {
-        setInitialData({
-            ...props.data,
-            ...{
-                operation_phase: props.operation.id
-            }
-        })
-    }, [])
-
     return (
-
-
         <Form
             hook={formHook}
-            initialData={initialData} create={props.create}
+            create={props.create}
             returnButton={true} handleClose={() => props.handleClose()}
 
             title={props.create ? lang.newAction : lang.action}
@@ -54,16 +50,13 @@ export default function ActionItemForm(props) {
                 })
             }
         >
-
             {(data, handleChange) => (
+
                 <FormRow>
-
-
                     <TextField
                         placeholder={lang.detailing} label={lang.detailing}
                         handleChange={event => {
-
-                            handleChange({key: 'detailing', value: event.target.value})
+                            handleChange({key: 'detailing', event: event.target.value})
                         }} value={data.detailing}
                         required={true}
                         width={'100%'}/>
@@ -72,8 +65,7 @@ export default function ActionItemForm(props) {
                         placeholder={lang.accomplished}
                         label={lang.accomplished}
                         handleChange={event => {
-
-                            handleChange({key: 'accomplished', value: event.target.value})
+                            handleChange({key: 'accomplished', event: event})
                         }} value={data.accomplished} required={true}
                         width={'100%'} choices={lang.options}/>
                 </FormRow>

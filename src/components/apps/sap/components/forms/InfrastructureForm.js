@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useMemo} from "react";
 import {DropDownField, FormRow, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import InfrastructurePT from "../../locales/InfrastructurePT";
@@ -9,7 +9,17 @@ import submit from "../../utils/requests/submit";
 
 export default function InfrastructureForm(props) {
     const lang = InfrastructurePT
-    const [initialData, setInitialData] = useState(props.data)
+    const initialData = useMemo(() => {
+        if (!props.create)
+            return {
+                ...props.data,
+                ...{
+                    latitude: props.data.address.split(", ")[0],
+                    longitude: props.data.address.split(", ")[1]
+                }
+            }
+        else return props.data
+    }, [props])
 
     const formHook = useDataWithDraft({
         initialData: initialData,
@@ -17,37 +27,20 @@ export default function InfrastructureForm(props) {
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
         interval: 120000
     })
-    useEffect(() => {
-        if (props.data !== undefined)
-            setInitialData(props.data)
-        if (!props.create) {
-            try {
-                setInitialData({
-                    ...props.data,
-                    ...{
-                        latitude: props.data.address.split(", ")[0],
-                        longitude: props.data.address.split(", ")[1]
-                    }
-                })
 
-            } catch (e) {
-                console.log(e)
-            }
-        }
-    }, [])
 
     return (
         <Form
             hook={formHook}
-            initialData={initialData}
-            create={props.create} title={props.create ? lang.newInfrastructure : lang.infrastructure}
+            create={props.create}
+            title={props.create ? lang.newInfrastructure : lang.infrastructure}
             dependencies={
                 [
                     {key: 'name', type: 'string'},
                     {key: 'type', type: 'string'},
                 ]
             }
-            returnButton={true} noAutoHeight={!props.asDefault}
+            returnButton={props.create} noAutoHeight={!props.asDefault}
             handleSubmit={(data, clearState) =>
                 submit({
                     suffix: 'infrastructure',
@@ -123,7 +116,7 @@ export default function InfrastructureForm(props) {
 
 InfrastructureForm.propTypes = {
     data: PropTypes.object,
-    
+
     handleClose: PropTypes.func,
     create: PropTypes.bool,
     asDefault: PropTypes.bool

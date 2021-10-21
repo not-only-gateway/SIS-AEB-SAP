@@ -1,7 +1,7 @@
 import React, {useMemo} from "react";
 import PropTypes from 'prop-types'
 import WorkPlanPT from "../../locales/WorkPlanPT";
-import {DropDownField, FormRow, MultiSelectField, TextField, useQuery} from "sis-aeb-core";
+import {FormRow, MultiSelectField, useQuery} from "sis-aeb-core";
 import associativeKeys from "../../keys/associativeKeys";
 import getQuery from "../../queries/getQuery";
 import Selector from "../../../../core/inputs/selector/Selector";
@@ -14,6 +14,8 @@ import tedKeys from "../../keys/tedKeys";
 import UnitForm from "./UnitForm";
 import BudgetPlanForm from "./BudgetPlanForm";
 import InfrastructureForm from "./InfrastructureForm";
+import TextField from "../../../../core/inputs/text/TextField";
+import DropDownField from "../../../../core/inputs/dropdown/DropDownField";
 
 export default function WorkPlanForm(props) {
     const lang = WorkPlanPT
@@ -93,7 +95,7 @@ export default function WorkPlanForm(props) {
                             {!props.ted ?
                                 <Selector
                                     hook={tedHook} keys={tedKeys.ted}
-                                    width={'calc(33.333% - 21.5px)'}
+                                    width={!props.project ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
                                     required={true} createOption={false}
                                     value={data.ted}
                                     title={'Instrumento de celebração'}
@@ -106,7 +108,7 @@ export default function WorkPlanForm(props) {
                             {!props.project ?
                                 <Selector
                                     hook={projectHook} keys={projectKeys.project}
-                                    width={'calc(33.333% - 21.5px)'}
+                                    width={!props.ted ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
                                     required={true}
                                     value={data.project}
                                     title={'Projeto / atividade'}
@@ -118,7 +120,7 @@ export default function WorkPlanForm(props) {
                             }
                             <Selector
                                 hook={unitHook} keys={associativeKeys.responsible}
-                                width={!props.project || !props.ted ? 'calc(33.333% - 21.5px' : 'calc(50% - 16px)'}
+                                width={!props.project && !props.ted ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px'}
                                 required={true}
                                 value={data.responsible}
                                 title={'Responsável'}
@@ -264,7 +266,7 @@ export default function WorkPlanForm(props) {
 
                                     handleChange({key: 'phone', event: event.target.value})
                                 }} value={data.phone}
-                                required={true} maskStart={'(99) 9-9999-9999'}
+                                required={true} mask={'(99) 9-9999-9999'}
                                 width={'calc(50% - 16px)'}/>
 
                         </FormRow>

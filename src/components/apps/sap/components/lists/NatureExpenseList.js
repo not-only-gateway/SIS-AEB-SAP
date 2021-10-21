@@ -40,7 +40,10 @@ export default function NatureExpenseList(props) {
                     disabled: false,
                     color: '#ff5555'
                 }]}
-                onRowClick={e => setCurrentEntity(e)}
+                onRowClick={e => {
+                    setOpen(true)
+                    setCurrentEntity(e)
+                }}
                 hook={hook}
                 keys={associativeKeys.natureOfExpense}
                 title={'Naturezas de despesa'}

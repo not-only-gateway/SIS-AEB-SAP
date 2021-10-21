@@ -13,26 +13,31 @@ export default function ExecutionList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const relation = useMemo(() => {
-            return {
-                key: 'goal',
-                sub_relation: {
-                    key: 'activity',
+            if (props.operation)
+                return [{
+                    key: 'operation_phase',
+                    value: props.operation.id,
+                    type: 'object'
+                }]
+            else
+                return [{
+                    key: 'operation_phase',
                     sub_relation: {
-                        key: 'operation_phase'
-                    }
-                },
-                value: props.workPlan.id,
-                type: 'object'
-            }
+                        key: 'activity_stage',
+                        sub_relation: {
+                            key: 'goal',
+                            sub_relation: {
+                                key: 'work_plan'
+                            }
+                        }
+                    },
+                    value: props.workPlan.id,
+                    type: 'object'
+                }]
         }, [props]
     )
 
-    const hook = useQuery(getQuery('execution',
-        props.workPlan !== undefined ?
-            {work_plan: props.workPlan?.id}
-            :
-            {operation: props.operation?.id}
-    ))
+    const hook = useQuery(getQuery('execution', undefined, relation))
 
     return (
         <Switcher openChild={open ? 0 : 1}>
@@ -43,7 +48,7 @@ export default function ExecutionList(props) {
                         hook.clean()
                     }}
                     workPlan={props.workPlan}
-                    create={currentEntity === undefined}
+                    create={!currentEntity}
                     data={currentEntity} operation={props.operation}
                 />
             </div>
@@ -64,8 +69,9 @@ export default function ExecutionList(props) {
                     disabled: false,
                     color: '#ff5555'
                 }]}
-                onRowClick={entity => {
-                    setCurrentEntity(entity)
+                onRowClick={e => {
+                    setOpen(true)
+                    setCurrentEntity(e)
                 }} title={'Execuções'}
 
 

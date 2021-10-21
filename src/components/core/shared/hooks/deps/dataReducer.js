@@ -1,6 +1,5 @@
 import ACTIONS from "./dataActions";
 import {v4 as uuid4} from "uuid";
-import {array} from "prop-types";
 
 export default function dataReducer(currentState, action) {
     switch (action.type) {

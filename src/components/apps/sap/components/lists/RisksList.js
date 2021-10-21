@@ -29,7 +29,10 @@ export default function RisksList(props) {
                     data={currentEntity} project={props.project}/>
             </div>
             <List
-                onRowClick={e => setCurrentEntity(e)}
+                onRowClick={e => {
+                    setOpen(true)
+                    setCurrentEntity(e)
+                }}
                 createOption={true} onCreate={() => setOpen(true)}
                 hook={hook}
                 keys={projectKeys.risks}

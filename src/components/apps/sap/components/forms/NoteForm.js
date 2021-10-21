@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useMemo} from "react";
 import {FormRow, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import ExecutionPT from "../../locales/ExecutionPT";
@@ -9,7 +9,14 @@ import submit from "../../utils/requests/submit";
 
 export default function NoteForm(props) {
     const lang = ExecutionPT
-    const [initialData, setInitialData] = useState(props.data)
+    const initialData = useMemo(() => {
+        return {
+            ...props.data,
+            ...{
+                operation_phase: props.operation
+            }
+        }
+    }, [])
     const formHook = useDataWithDraft({
         initialData: initialData,
         draftUrl: '',
@@ -17,15 +24,6 @@ export default function NoteForm(props) {
         interval: 120000
     })
 
-    useEffect(() => {
-        if (props.create)
-            setInitialData({
-                ...props.data,
-                ...{
-                    operation_phase: props.operation
-                }
-            })
-    }, [])
 
     return (
         <Form
@@ -37,9 +35,8 @@ export default function NoteForm(props) {
                     {key: 'number', type: 'string'},
                     {key: 'value', type: 'number'}
                 ]
-
             }
-            returnButton={props.create}
+            returnButton={true}
             handleSubmit={(data, clearState) =>
                 submit({
                     suffix: 'commitment_note',
@@ -63,7 +60,7 @@ export default function NoteForm(props) {
                         placeholder={lang.number} label={lang.number}
                         handleChange={event => {
 
-                            handleChange({key: 'number', value: event.target.value})
+                            handleChange({key: 'number', event: event.target.value})
 
                         }}
                         value={data.number}
@@ -75,7 +72,7 @@ export default function NoteForm(props) {
                         placeholder={lang.value} label={lang.value} maskStart={'R$'} currencyMask={true}
                         handleChange={event => {
 
-                            handleChange({key: 'value', value: event.target.value})
+                            handleChange({key: 'value', event: event.target.value})
                         }} value={data.value}
                         required={true} type={'number'}
                         width={'calc(50% - 16px)'}/>

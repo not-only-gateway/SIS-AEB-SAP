@@ -22,7 +22,7 @@ export default function UnitList(props) {
                         hook.clean()
                     }}
                     asDefault={true}
-                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                    create={!currentEntity}
                     data={currentEntity}
                 />
             </div>
@@ -31,7 +31,10 @@ export default function UnitList(props) {
                 onCreate={() => setOpen(true)}
                 hook={hook}
                 keys={associativeKeys.responsible}
-                onRowClick={e => setCurrentEntity(e)}
+                onRowClick={e => {
+                    setOpen(true)
+                    setCurrentEntity(e)
+                }}
                 controlButtons={[{
                     label: 'Deletar',
                     icon: <DeleteRounded/>,

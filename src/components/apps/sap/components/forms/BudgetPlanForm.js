@@ -15,7 +15,7 @@ import ActionForm from "./ActionForm";
 export default function BudgetPlanForm(props) {
     const lang = ProjectPT
     const [initialData, setInitialData] = useState(null)
-    const [open, setOpen] = useState(false)
+
     const formHook = useDataWithDraft({
         initialData: initialData,
         draftUrl: '',

@@ -44,8 +44,9 @@ export default function DecentralizedUnitList(props) {
                     hook={hook}
                     keys={associativeKeys.decentralizedUnit}
                     clickEvent={() => setOpen(true)}
-                    onRowClick={entity => {
-                        setCurrentEntity(entity)
+                    onRowClick={e => {
+                        setOpen(true)
+                        setCurrentEntity(e)
                     }}
                     title={'Unidades descentralizadas'}
 

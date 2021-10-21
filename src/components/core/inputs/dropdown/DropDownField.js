@@ -59,25 +59,26 @@ export default function DropDownField(props) {
 
                 <div className={styles.dropDownChoicesContainer}>
                     {props.choices.map((choice, index) => (
-                        <div>
-                            <button
-                                key={index + '-choice-button'}
 
-                                style={{
-                                    color: choice.key === props.value ? 'white' : choice.color ? choice.color : undefined,
-                                    background: choice.key === props.value ? '#0095ff' : undefined
-                                }}
+                        <button
+                            key={index + '-choice-button'}
 
-                                onClick={() => {
-                                    props.handleChange(choice.key)
-                                    setOpen(false)
-                                }}
-                                className={styles.dropDownButton}
-                            >
-                                {choice.value}
-                            </button>
+                            style={{
+                                color: choice.key === props.value ? 'white' : choice.color ? choice.color : undefined,
+                                background: choice.key === props.value ? '#0095ff' : undefined
+                            }}
+
+                            onClick={() => {
+                                props.handleChange(choice.key)
+                                setOpen(false)
+                            }}
+                            className={styles.dropDownButton}
+                        >
+                            {choice.value}
                             <ToolTip content={choice.value}/>
-                        </div>
+                        </button>
+
+
                     ))}
                 </div>
             </SelectBox>
