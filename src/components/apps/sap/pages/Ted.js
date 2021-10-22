@@ -11,19 +11,23 @@ import ThemeContext from "../../../core/theme/ThemeContext";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
 import styles from "../../management/styles/Shared.module.css";
 import {CategoryRounded} from "@material-ui/icons";
-
+import Link from 'next/link'
 
 export default function Ted(props) {
     const [ted, setTed] = useState({})
 
-
     useEffect(() => {
-        fetchEntry({
-            pk: props.query.id,
-            suffix: 'ted'
-        }).then(res => setTed(res))
-    }, [])
+        if (ted.id !== undefined)
+            props.refresh()
+        else
+            fetchEntry({
+                pk: props.query.id,
+                suffix: 'ted'
+            }).then(res => setTed(res))
+    }, [props.query])
+
     const themes = useContext(ThemeContext)
+
     return (
         <>
             <Head>
@@ -38,6 +42,13 @@ export default function Ted(props) {
                             onClick={() => props.redirect('/sap?page=index')}>
                         Processos
                     </button>
+                    {!ted.ted ? null :
+                        <Link href={'/sap?page=ted&id=' + ted.ted.id}>
+                            <button className={styles.button}>
+                                {ted?.ted?.number}
+                            </button>
+                        </Link>
+                    }
 
                     <button className={styles.button} disabled={true}>
                         {ted?.number}
@@ -94,6 +105,7 @@ export default function Ted(props) {
     )
 }
 Ted.propTypes = {
+    refresh: PropTypes.func,
     query: PropTypes.object,
     redirect: PropTypes.func
 }

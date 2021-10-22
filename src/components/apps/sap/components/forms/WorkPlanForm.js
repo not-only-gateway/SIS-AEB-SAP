@@ -1,4 +1,4 @@
-import React, {useMemo} from "react";
+import React, {useMemo, useState} from "react";
 import PropTypes from 'prop-types'
 import WorkPlanPT from "../../locales/WorkPlanPT";
 import {FormRow, MultiSelectField, useQuery} from "sis-aeb-core";
@@ -16,6 +16,8 @@ import BudgetPlanForm from "./BudgetPlanForm";
 import InfrastructureForm from "./InfrastructureForm";
 import TextField from "../../../../core/inputs/text/TextField";
 import DropDownField from "../../../../core/inputs/dropdown/DropDownField";
+import Host from "../../utils/shared/Host";
+
 
 export default function WorkPlanForm(props) {
     const lang = WorkPlanPT
@@ -40,25 +42,37 @@ export default function WorkPlanForm(props) {
             else if (props.project)
                 return {
                     ...props.data,
-                    project: props.project
+                    activity_project: props.project
                 }
             else return props.data
         } else return props.data
     }, [props.data])
 
+    const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: initialData,
-        draftUrl: '',
+        draftUrl: Host().replace('api', 'draft') + 'action',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000
+        interval: 120000,
+        parsePackage: pack => {
+            return {
+                ...pack,
+                identifier: draftID
+            }
+        },
+        draftMethod: draftID ? 'put' : 'post',
+        onSuccess: (res) => {
+            setDraftID(res.data.id)
+        }
     })
+
 
     return (
         <div style={{width: '100%'}}>
             <Form
                 hook={formHook}
                 create={props.create}
-                title={lang.title}
+                title={props.asApostille ? 'Novo apostilamento' : 'Novo plano de trabalho'}
                 dependencies={[
                     {key: 'responsible', type: 'string'},
                     {key: 'object', type: 'string'},
@@ -79,7 +93,7 @@ export default function WorkPlanForm(props) {
                 returnButton={props.create}
                 handleSubmit={(data, clearState) => {
                     submit({
-                        suffix: 'work_plan',
+                        suffix: props.asApostille ? 'apostille' : 'work_plan',
                         pk: data.id,
                         data: data,
                         create: props.create
@@ -110,10 +124,10 @@ export default function WorkPlanForm(props) {
                                     hook={projectHook} keys={projectKeys.project}
                                     width={!props.ted ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
                                     required={true}
-                                    value={data.project}
+                                    value={data.activity_project}
                                     title={'Projeto / atividade'}
                                     placeholder={'Projeto / atividade'}
-                                    handleChange={entity => handleChange({key: 'project', event: entity})}
+                                    handleChange={entity => handleChange({key: 'activity_project', event: entity})}
                                 />
                                 :
                                 null
@@ -279,6 +293,7 @@ export default function WorkPlanForm(props) {
 }
 
 WorkPlanForm.propTypes = {
+    draftID: PropTypes.number,
     asApostille: PropTypes.bool,
     workPlan: PropTypes.bool,
     data: PropTypes.object,

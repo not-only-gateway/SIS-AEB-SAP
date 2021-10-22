@@ -10,6 +10,8 @@ import useQuery from "../../../../core/shared/hooks/useQuery";
 import getQuery from "../../queries/getQuery";
 import submit from "../../utils/requests/submit";
 import ComponentClassificationForm from "./ComponentClassificationForm";
+import Host from "../../utils/shared/Host";
+
 
 export default function InfrastructureComponentForm(props) {
     const classificationHook = useQuery(getQuery('classification'))
@@ -23,12 +25,24 @@ export default function InfrastructureComponentForm(props) {
         }
     }, [props])
 
+        const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: initialData,
-        draftUrl: '',
+    draftUrl: Host().replace('api', 'draft') + 'action',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000
+        interval: 120000,
+        parsePackage: pack => {
+            return {
+                ...pack,
+                identifier: draftID
+            }
+        },
+        draftMethod: draftID ? 'put' : 'post',
+        onSuccess: (res) => {
+            setDraftID(res.data.id)
+        }
     })
+    
 
 
     return (
@@ -95,5 +109,6 @@ InfrastructureComponentForm.propTypes = {
     handleChange: PropTypes.func,
     handleClose: PropTypes.func,
     create: PropTypes.bool,
-    infrastructure: PropTypes.object
+    infrastructure: PropTypes.object,
+    draftID: PropTypes.number,
 }

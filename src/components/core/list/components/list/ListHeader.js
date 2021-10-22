@@ -64,6 +64,8 @@ export default function ListHeader(props) {
 }
 
 ListHeader.propTypes = {
+    hook: PropTypes.object,
+
     dispatch: PropTypes.func,
     actions: PropTypes.object,
 

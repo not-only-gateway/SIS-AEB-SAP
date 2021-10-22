@@ -107,7 +107,6 @@ export default {
             query: getQuery('unit')
         },
         {key: 'object', type: 'string', label: 'Objeto', visible: true},
-        {key: 'additive', type: 'string', label: 'Termo aditivo'},
         {key: 'email', type: 'string', label: 'Email'},
         {key: 'phone', type: 'string', label: 'Telefone'},
         {
@@ -123,6 +122,7 @@ export default {
         {key: 'justification', type: 'string', label: 'Justificativa'},
         {key: 'indirect_costs', type: 'bool', label: 'Custos indiretos'},
         {key: 'detailing_of_indirect_costs', type: 'string', label: 'Detalhamento dos custos indiretos'},
+
         {
             key: 'budget_plan',
             type: 'object',

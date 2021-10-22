@@ -11,17 +11,31 @@ import useQuery from "../../../../core/shared/hooks/useQuery";
 import getQuery from "../../queries/getQuery";
 import submit from "../../utils/requests/submit";
 import OperationForm from "./OperationForm";
+import Host from "../../utils/shared/Host";
+
 
 export default function ExecutionForm(props) {
 
     const lang = ExecutionPT
     const [initialData, setInitialData] = useState(props.data)
+        const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: initialData,
-        draftUrl: '',
+    draftUrl: Host().replace('api', 'draft') + 'action',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000
+        interval: 120000,
+        parsePackage: pack => {
+            return {
+                ...pack,
+                identifier: draftID
+            }
+        },
+        draftMethod: draftID ? 'put' : 'post',
+        onSuccess: (res) => {
+            setDraftID(res.data.id)
+        }
     })
+    
     const operationHook = useQuery(getQuery('operation_phase', undefined, props.workPlan ? [{
         key: 'activity_stage',
         sub_relation: {key: 'goal', sub_relation: {key: 'work_plan'}},
@@ -190,5 +204,6 @@ ExecutionForm.propTypes = {
     handleChange: PropTypes.func,
     handleClose: PropTypes.func,
     create: PropTypes.bool,
-    operation: PropTypes.object
+    operation: PropTypes.object,
+    draftID: PropTypes.number,
 }

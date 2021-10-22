@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {DropDownField, FormRow, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import ProjectPT from "../../locales/ProjectPT";
@@ -6,15 +6,29 @@ import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
+import Host from "../../utils/shared/Host";
+
 
 export default function NatureExpenseForm(props) {
     const lang = ProjectPT
+        const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: props.data,
-        draftUrl: '',
+    draftUrl: Host().replace('api', 'draft') + 'action',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000
+        interval: 120000,
+        parsePackage: pack => {
+            return {
+                ...pack,
+                identifier: draftID
+            }
+        },
+        draftMethod: draftID ? 'put' : 'post',
+        onSuccess: (res) => {
+            setDraftID(res.data.id)
+        }
     })
+    
 
 
     return (
@@ -88,5 +102,6 @@ export default function NatureExpenseForm(props) {
 NatureExpenseForm.propTypes = {
     handleClose: PropTypes.func,
     create: PropTypes.bool,
-    asDefault: PropTypes.bool
+    asDefault: PropTypes.bool,
+    draftID: PropTypes.number,
 }

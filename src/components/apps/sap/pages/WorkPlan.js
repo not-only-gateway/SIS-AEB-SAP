@@ -14,17 +14,22 @@ import ThemeContext from "../../../core/theme/ThemeContext";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
 import styles from "../../management/styles/Shared.module.css";
 import {CategoryRounded} from "@material-ui/icons";
+import StatusList from "../components/lists/StatusList";
 
 export default function WorkPlan(props) {
     const [workPlan, setWorkPlan] = useState({})
+    const themes = useContext(ThemeContext)
 
     useEffect(() => {
-        fetchEntry({
-            pk: props.query.id,
-            suffix: 'work_plan'
-        }).then(res => setWorkPlan(res))
-    }, [])
-    const themes = useContext(ThemeContext)
+        if (workPlan.id !== undefined)
+            props.refresh()
+        else
+            fetchEntry({
+                pk: props.query.id,
+                suffix: 'work_plan'
+            }).then(res => setWorkPlan(res))
+    }, [props.query])
+
     return (
         <>
             <Head>
@@ -53,7 +58,8 @@ export default function WorkPlan(props) {
                     </button>
                 </Breadcrumbs>
             </div>
-            <div className={shared.header} style={{padding: '16px 48px',  borderBottom: themes.themes.border0 + ' 1px solid'}}>
+            <div className={shared.header}
+                 style={{padding: '16px 48px', borderBottom: themes.themes.border0 + ' 1px solid'}}>
                 {workPlan?.object}
                 <div className={shared.typeLabel}>
                     <CategoryRounded style={{fontSize: '1.15rem'}}/> Plano de trabalho
@@ -78,10 +84,18 @@ export default function WorkPlan(props) {
                         label: 'Informações adicionais',
                         buttons: [
                             {
+                                label: 'Status',
+                                children: (
+                                    <div style={{padding: '16px 10%'}}>
+                                        <StatusList workPlan={workPlan}/>
+                                    </div>
+                                )
+                            },
+                            {
                                 label: 'Metas',
                                 children: (
                                     <div style={{padding: '16px 10%'}}>
-                                        <GoalList workPlan={workPlan} redirect={props.redirect}/>
+                                        <GoalList workPlan={workPlan}/>
                                     </div>
                                 )
                             },
@@ -123,7 +137,6 @@ export default function WorkPlan(props) {
                     },
                 ]}
             />
-
         </>
     )
 }

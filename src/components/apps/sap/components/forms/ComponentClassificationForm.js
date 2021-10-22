@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {FormRow, Selector, TextField} from "sis-aeb-core";
 import Form from "../../../../core/inputs/form/Form";
 import PropTypes from "prop-types";
@@ -10,16 +10,29 @@ import useQuery from "../../../../core/shared/hooks/useQuery";
 import getQuery from "../../queries/getQuery";
 import submit from "../../utils/requests/submit";
 import TypeForm from "./TypeForm";
+import Host from "../../utils/shared/Host";
 
 export default function ComponentClassificationForm(props) {
 
     const lang = EntitiesPT
+        const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: props.data,
-        draftUrl: '',
+    draftUrl: Host().replace('api', 'draft') + 'action',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000
+        interval: 120000,
+        parsePackage: pack => {
+            return {
+                ...pack,
+                identifier: draftID
+            }
+        },
+        draftMethod: draftID ? 'put' : 'post',
+        onSuccess: (res) => {
+            setDraftID(res.data.id)
+        }
     })
+    
     const typeHook = useQuery(getQuery('type'))
 
     return (
@@ -85,5 +98,6 @@ ComponentClassificationForm.propTypes = {
     handleClose: PropTypes.func,
     create: PropTypes.bool,
     asDefault: PropTypes.bool,
-    action: PropTypes.object
+    action: PropTypes.object,
+    draftID: PropTypes.number,
 }

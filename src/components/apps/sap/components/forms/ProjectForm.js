@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import PropTypes from 'prop-types'
 import ProjectPT from "../../locales/ProjectPT";
 import {DropDownField, FormRow, TextField, useQuery} from "sis-aeb-core";
@@ -10,17 +10,31 @@ import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
 import UnitForm from "./UnitForm";
+import Host from "../../utils/shared/Host";
+
 
 export default function ProjectForm(props) {
     const lang = ProjectPT
     const unitHook = useQuery(getQuery('unit'))
 
+        const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: props.data,
-        draftUrl: '',
+    draftUrl: Host().replace('api', 'draft') + 'action',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000
+        interval: 120000,
+        parsePackage: pack => {
+            return {
+                ...pack,
+                identifier: draftID
+            }
+        },
+        draftMethod: draftID ? 'put' : 'post',
+        onSuccess: (res) => {
+            setDraftID(res.data.id)
+        }
     })
+    
 
 
     return (
@@ -195,4 +209,5 @@ ProjectForm.propTypes = {
     data: PropTypes.object,
     handleClose: PropTypes.func,
     create: PropTypes.bool,
+    draftID: PropTypes.number,
 }

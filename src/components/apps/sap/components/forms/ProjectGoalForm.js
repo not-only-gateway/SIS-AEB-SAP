@@ -7,17 +7,30 @@ import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
+import Host from "../../utils/shared/Host";
 
 export default function ProjectGoalForm(props) {
 
     const lang = ProjectPT
     const [initialData, setInitialData] = useState(null)
+        const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: initialData,
-        draftUrl: '',
+    draftUrl: Host().replace('api', 'draft') + 'action',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000
+        interval: 120000,
+        parsePackage: pack => {
+            return {
+                ...pack,
+                identifier: draftID
+            }
+        },
+        draftMethod: draftID ? 'put' : 'post',
+        onSuccess: (res) => {
+            setDraftID(res.data.id)
+        }
     })
+    
 
     useEffect(() => {
         setInitialData({
@@ -99,5 +112,6 @@ ProjectGoalForm.propTypes = {
     handleChange: PropTypes.func,
     handleClose: PropTypes.func,
     create: PropTypes.bool,
-    project: PropTypes.object
+    project: PropTypes.object,
+    draftID: PropTypes.number,
 }

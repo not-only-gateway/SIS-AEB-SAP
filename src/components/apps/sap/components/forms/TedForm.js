@@ -1,4 +1,4 @@
-import React, {useMemo} from "react";
+import React, {useMemo, useState} from "react";
 import PropTypes from 'prop-types'
 import TedPT from "../../locales/TedPT";
 import {DateField, DropDownField, FormRow, TextField, useQuery} from "sis-aeb-core";
@@ -12,6 +12,8 @@ import Selector from "../../../../core/inputs/selector/Selector";
 import UnitForm from "./UnitForm";
 import DecentralizedUnitForm from "./DecentralizedUnitForm";
 import ActionForm from "./ActionForm";
+import Host from "../../utils/shared/Host";
+
 
 export default function TedForm(props) {
     const lang = TedPT
@@ -20,24 +22,31 @@ export default function TedForm(props) {
     const unitHook = useQuery(getQuery('unit'))
     const decentralizedUnitHook = useQuery(getQuery('decentralized_unit'))
 
-    const initialData = useMemo(() => {
-        return {
-            ...props.data,
-            ted: props.ted?.id
-        }
-    }, [props])
+
+        const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
-        initialData: initialData,
-        draftUrl: '',
+        initialData: props.data,
+    draftUrl: Host().replace('api', 'draft') + 'action',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000
+        interval: 120000,
+        parsePackage: pack => {
+            return {
+                ...pack,
+                identifier: draftID
+            }
+        },
+        draftMethod: draftID ? 'put' : 'post',
+        onSuccess: (res) => {
+            setDraftID(res.data.id)
+        }
     })
+    
 
     return (
         <Form
             hook={formHook}
             create={props.create}
-            title={props.asAddendum ? (props.create ? lang.newAddendum : lang.addendum) : (props.create ? lang.newTed : lang.ted)}
+            title={props.asAddendum ? 'Novo termo aditivo' : (props.create ? 'Novo instrumento de celebração' : 'Instrumento de celebração')}
             dependencies={
                 [
                     {key: 'number', type: 'string'},
@@ -55,14 +64,7 @@ export default function TedForm(props) {
                     {key: 'summary_justification', type: 'string'},
                     {key: 'programmatic_functional_classification', type: 'string'},
                     {key: 'remaining_assets', type: 'bool'},
-                    // data === null || !data.remaining_assets ? null : {
-                    //     key: 'ownership_destination_assets',
-                    //     type: 'string'
-                    // },
-                    // !props.asAddendum ? null : {
-                    //     key: 'ted',
-                    //     type: 'object'
-                    // },
+
                 ]
             } noHeader={!props.create && !props.asEntity}
             returnButton={props.create || props.asEntity}
@@ -220,7 +222,8 @@ export default function TedForm(props) {
                             createOption={true}
                         >
                             {handleClose => (
-                                <DecentralizedUnitForm create={true} asDefault={true} handleClose={() => handleClose()}/>
+                                <DecentralizedUnitForm create={true} asDefault={true}
+                                                       handleClose={() => handleClose()}/>
                             )}
                         </Selector>
                         <Selector
@@ -309,5 +312,6 @@ TedForm.propTypes = {
     project: PropTypes.number,
     asEntity: PropTypes.bool,
     asAddendum: PropTypes.bool,
-    ted: PropTypes.object
+    ted: PropTypes.object,
+    draftID: PropTypes.number,
 }

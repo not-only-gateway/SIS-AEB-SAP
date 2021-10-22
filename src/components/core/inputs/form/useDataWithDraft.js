@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import {useCallback, useEffect, useState} from "react";
+import Requester from "../../misc/requester/Requester";
 
 export default function useDataWithDraft(props) {
     const [changed, setChanged] = useState(false)
@@ -9,25 +10,39 @@ export default function useDataWithDraft(props) {
         let newData = {...data}
         newData[key] = event
         setData(newData)
-        console.log('ON CHANGE')
+        console.log('Setting draft')
         setChangedDraft(true)
         setChanged(true)
     }
-    const saveDraft = useCallback(() => {
-        if(changedDraft) {
+    const saveDraft = useCallback(async () => {
+        console.log('On draft', changedDraft)
+        await Requester({
+            headers: props.draftHeaders,
+            package: props.parsePackage(data),
+            url: props.draftUrl,
+            method: props.draftMethod
+        }).then(res => {
+            props.onSuccess(res)
             setChangedDraft(false)
-            console.log('called', data, changedDraft)
-        }
+        }).catch(e =>    setChangedDraft(false))
     }, [data, changedDraft])
     const clearState = () => {
         setData({})
         setChanged(false)
     }
-    setInterval(saveDraft, props.interval)
 
-
+    let interval = undefined
     useEffect(() => {
-        console.log('ON EFFECT CHANGE')
+
+        if (!interval)
+            interval = changedDraft ? setInterval(saveDraft, props.interval) : undefined
+        return () => {
+            if (interval)
+                clearInterval(interval)
+        }
+    }, [changedDraft, data])
+    useEffect(() => {
+
         if (props.initialData !== undefined && props.initialData !== null)
             setData(props.initialData)
     }, [props.initialData])
@@ -40,7 +55,10 @@ export default function useDataWithDraft(props) {
 }
 useDataWithDraft.propTypes = {
     initialData: PropTypes.object,
-    draftUrl: PropTypes.string,
+    draftUrl: PropTypes.string.isRequired,
     draftHeaders: PropTypes.object,
-    interval: PropTypes.number
+    interval: PropTypes.number.isRequired,
+    draftMethod:PropTypes.string,
+    parsePackage: PropTypes.func.isRequired,
+    onSuccess: PropTypes.func.isRequired
 }

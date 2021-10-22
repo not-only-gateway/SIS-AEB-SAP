@@ -1,4 +1,4 @@
-import React, {useMemo} from "react";
+import React, {useMemo, useState} from "react";
 import Form from "../../../../core/inputs/form/Form";
 import {FormRow, TextField, useQuery} from "sis-aeb-core";
 import PropTypes from "prop-types";
@@ -9,18 +9,30 @@ import submit from "../../utils/requests/submit";
 import getQuery from "../../queries/getQuery";
 import Selector from "../../../../core/inputs/selector/Selector";
 import workPlanKeys from "../../keys/workPlanKeys";
-
+import Host from "../../utils/shared/Host";
 export default function ActivityStageForm(props) {
     const lang = GoalPT
     const initialData = useMemo(() => {
         return {...props.data, goal: props.goal?.id}
     }, [])
+        const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: initialData,
-        draftUrl: '',
+    draftUrl: Host().replace('api', 'draft') + 'action',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000
+        interval: 120000,
+        parsePackage: pack => {
+            return {
+                ...pack,
+                identifier: draftID
+            }
+        },
+        draftMethod: draftID ? 'put' : 'post',
+        onSuccess: (res) => {
+            setDraftID(res.data.id)
+        }
     })
+    
     const goalHook = useQuery(getQuery('work_plan_goal', props.workPlan ? {work_plan: props.workPlan.id} : undefined))
     return (
         <Form
@@ -97,5 +109,6 @@ ActivityStageForm.propTypes = {
     handleClose: PropTypes.func,
     create: PropTypes.bool,
     goal: PropTypes.object,
-    workPlan: PropTypes.object
+    workPlan: PropTypes.object,
+    draftID: PropTypes.number,
 }

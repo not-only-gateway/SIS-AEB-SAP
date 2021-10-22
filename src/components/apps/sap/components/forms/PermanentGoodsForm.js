@@ -7,17 +7,30 @@ import PermanentGoodsPT from "../../locales/PermanentGoodsPT";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
+import Host from "../../utils/shared/Host";
 
 export default function PermanentGoodsForm(props) {
     const lang = PermanentGoodsPT
     const [initialData, setInitialData] = useState(props.data)
 
+        const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: initialData,
-        draftUrl: '',
+    draftUrl: Host().replace('api', 'draft') + 'action',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000
+        interval: 120000,
+        parsePackage: pack => {
+            return {
+                ...pack,
+                identifier: draftID
+            }
+        },
+        draftMethod: draftID ? 'put' : 'post',
+        onSuccess: (res) => {
+            setDraftID(res.data.id)
+        }
     })
+    
 
     useEffect(() => {
         if (props.create)
@@ -129,5 +142,6 @@ PermanentGoodsForm.propTypes = {
     handleChange: PropTypes.func,
     handleClose: PropTypes.func,
     create: PropTypes.bool,
-    operation: PropTypes.object
+    operation: PropTypes.object,
+    draftID: PropTypes.number,
 }

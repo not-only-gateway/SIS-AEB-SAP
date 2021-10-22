@@ -1,4 +1,4 @@
-import React, {useMemo} from "react";
+import React, {useMemo, useState} from "react";
 import PropTypes from "prop-types";
 import ResourcePT from "../../locales/ResourcePT";
 import Cookies from "universal-cookie/lib";
@@ -9,6 +9,8 @@ import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import submit from "../../utils/requests/submit";
 import associativeKeys from "../../keys/associativeKeys";
 import getQuery from "../../queries/getQuery";
+import Host from "../../utils/shared/Host";
+
 
 export default function ResourceApplicationForm(props) {
 
@@ -23,12 +25,24 @@ export default function ResourceApplicationForm(props) {
             }
         }
     }, [])
+        const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: initialData,
-        draftUrl: '',
+    draftUrl: Host().replace('api', 'draft') + 'action',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000
+        interval: 120000,
+        parsePackage: pack => {
+            return {
+                ...pack,
+                identifier: draftID
+            }
+        },
+        draftMethod: draftID ? 'put' : 'post',
+        onSuccess: (res) => {
+            setDraftID(res.data.id)
+        }
     })
+    
 
     return (
         <Form
@@ -105,5 +119,6 @@ ResourceApplicationForm.propTypes = {
     handleChange: PropTypes.func,
     handleClose: PropTypes.func,
     create: PropTypes.bool,
-    operation: PropTypes.object
+    operation: PropTypes.object,
+    draftID: PropTypes.number,
 }

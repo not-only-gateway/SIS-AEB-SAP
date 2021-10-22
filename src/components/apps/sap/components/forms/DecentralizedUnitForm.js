@@ -1,22 +1,34 @@
-import React from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 import Form from "../../../../core/inputs/form/Form";
 import EntitiesPT from "../../locales/EntitiesPT";
 import {FormRow, TextField} from "sis-aeb-core";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
-
+import Host from "../../utils/shared/Host";
 import submit from "../../utils/requests/submit";
 
 export default function DecentralizedUnitForm(props) {
 
     const lang = EntitiesPT
+        const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: props.data,
-        draftUrl: '',
+    draftUrl: Host().replace('api', 'draft') + 'action',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000
+        interval: 120000,
+        parsePackage: pack => {
+            return {
+                ...pack,
+                identifier: draftID
+            }
+        },
+        draftMethod: draftID ? 'put' : 'post',
+        onSuccess: (res) => {
+            setDraftID(res.data.id)
+        }
     })
+    
 
     return (
         <Form
@@ -167,5 +179,6 @@ DecentralizedUnitForm.propTypes = {
     handleClose: PropTypes.func,
     create: PropTypes.bool,
     asDefault: PropTypes.bool,
-    action: PropTypes.object
+    action: PropTypes.object,
+    draftID: PropTypes.number,
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {DateField, FormRow, TextField, useQuery} from "sis-aeb-core";
 import PropTypes from "prop-types";
 import OperationPT from "../../locales/OperationPT";
@@ -10,6 +10,8 @@ import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
 import ActivityStageForm from "./ActivityStageForm";
 import workPlanKeys from "../../keys/workPlanKeys";
+import Host from "../../utils/shared/Host";
+
 
 export default function OperationForm(props) {
 
@@ -24,12 +26,24 @@ export default function OperationForm(props) {
         }] : []))
     const lang = OperationPT
 
+        const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: props.data,
-        draftUrl: '',
+    draftUrl: Host().replace('api', 'draft') + 'action',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000
+        interval: 120000,
+        parsePackage: pack => {
+            return {
+                ...pack,
+                identifier: draftID
+            }
+        },
+        draftMethod: draftID ? 'put' : 'post',
+        onSuccess: (res) => {
+            setDraftID(res.data.id)
+        }
     })
+    
 
     return (
         <Form
@@ -200,5 +214,6 @@ OperationForm.propTypes = {
     update: PropTypes.func,
     handleClose: PropTypes.func,
     create: PropTypes.bool,
-    stage: PropTypes.object
+    stage: PropTypes.object,
+    draftID: PropTypes.number,
 }

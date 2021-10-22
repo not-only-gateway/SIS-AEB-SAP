@@ -6,17 +6,31 @@ import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
+import Host from "../../utils/shared/Host";
+
 
 export default function StatusForm(props) {
     const lang = StatusPT
 
     const [initialData, setInitialData] = useState(props.data)
+        const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: initialData,
-        draftUrl: '',
+    draftUrl: Host().replace('api', 'draft') + 'action',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000
+        interval: 120000,
+        parsePackage: pack => {
+            return {
+                ...pack,
+                identifier: draftID
+            }
+        },
+        draftMethod: draftID ? 'put' : 'post',
+        onSuccess: (res) => {
+            setDraftID(res.data.id)
+        }
     })
+    
 
     useEffect(() => {
         if (props.create)
@@ -32,7 +46,6 @@ export default function StatusForm(props) {
     return (
         <Form
             hook={formHook}
-            initialData={initialData}
             create={props.create} title={props.create ? lang.newStatus : lang.status}
             dependencies={
                 [
@@ -45,7 +58,9 @@ export default function StatusForm(props) {
                 submit({
                     suffix: 'status',
                     pk: data.id,
-                    data: data,
+                    data: {...data,
+                        update_date: (new Date()).toDateString()
+                    },
                     create: props.create
                 }).then(res => {
                     if (props.create && res.success) {
@@ -89,5 +104,6 @@ StatusForm.propTypes = {
     handleChange: PropTypes.func,
     handleClose: PropTypes.func,
     create: PropTypes.bool,
-    workPlan: PropTypes.object
+    workPlan: PropTypes.object,
+    draftID: PropTypes.number,
 }

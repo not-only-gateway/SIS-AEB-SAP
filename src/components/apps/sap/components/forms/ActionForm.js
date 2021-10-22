@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 import {FormRow, TextField} from "sis-aeb-core";
 import PropTypes from "prop-types";
@@ -7,15 +7,29 @@ import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
+import Host from "../../utils/shared/Host";
 
 export default function ActionForm(props) {
 
     const lang = ProjectPT
+    const [draftID, setDraftID] = useState(props.draftID)
+
     const formHook = useDataWithDraft({
         initialData: props.data,
-        draftUrl: '',
+        draftUrl: Host().replace('api', 'draft') + 'action',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000
+        interval: 5000,
+        parsePackage: pack => {
+            return {
+                ...pack,
+                identifier: draftID
+            }
+        },
+        draftMethod: draftID ? 'put' : 'post',
+        onSuccess: (res) => {
+            console.log(res)
+            setDraftID(res.data.id)
+        }
     })
 
     return (
@@ -73,5 +87,6 @@ export default function ActionForm(props) {
 ActionForm.propTypes = {
     handleClose: PropTypes.func,
     create: PropTypes.bool,
-    asDefault: PropTypes.bool
+    asDefault: PropTypes.bool,
+    draftID: PropTypes.number,
 }

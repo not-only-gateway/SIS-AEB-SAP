@@ -43,7 +43,7 @@ export default function useQuery(props) {
         }).catch(() => null)
     }
     useEffect(() => {
-        fetch()
+        clean()
     }, [filters, sorts, currentPage])
 
     const clean = () => {

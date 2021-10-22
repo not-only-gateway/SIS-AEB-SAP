@@ -31,12 +31,29 @@ export default function WorkPlanList(props) {
                 label: 'Instrumento de celebração',
                 type: 'object',
                 subfieldKey: 'number',
-                visible: true
+                visible: true,
+                query: getQuery('ted')
             })
         if (!props.ted)
-            value.push({key: 'project', label: 'Projeto', type: 'object', subfieldKey: 'name', visible: true})
+            value.push({
+                key: 'activity_project',
+                label: 'Projeto',
+                type: 'object',
+                subfieldKey: 'name',
+                visible: true,
+                query: getQuery('project')
+            })
         return value
     }, [props])
+
+    const apostilleData = useMemo(() => {
+        if (props.workPlan) {
+            let value = {...props.workPlan}
+            delete value.id
+
+            return {...value, work_plan: props.workPlan?.id}
+        } else return undefined
+    }, [props.workPlan])
 
     return (
         <Switcher openChild={open ? 0 : 1}>
@@ -45,12 +62,11 @@ export default function WorkPlanList(props) {
                     handleClose={() => {
                         setOpen(false)
                         hook.clean()
-                    }}
+                    }} asApostille={props.workPlan}
                     onRowClick={e => props.redirect(`/sap?page=ted&id=${e.id}`)}
                     project={props.project}
                     ted={props.ted}
-                    workPlan={props.workPlan}
-                    data={props.workPlan}
+                    data={apostilleData}
                     create={true}
                 />
             </div>

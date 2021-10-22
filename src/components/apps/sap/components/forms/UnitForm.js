@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 import Cookies from "universal-cookie/lib";
 import EntitiesPT from "../../locales/EntitiesPT";
@@ -9,15 +9,29 @@ import associativeKeys from "../../keys/associativeKeys";
 import getQuery from "../../queries/getQuery";
 import Selector from "../../../../core/inputs/selector/Selector";
 import submit from "../../utils/requests/submit";
+import Host from "../../utils/shared/Host";
+
 
 export default function UnitForm(props) {
     const lang = EntitiesPT
+        const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: props.data,
-        draftUrl: '',
+    draftUrl: Host().replace('api', 'draft') + 'action',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000
+        interval: 120000,
+        parsePackage: pack => {
+            return {
+                ...pack,
+                identifier: draftID
+            }
+        },
+        draftMethod: draftID ? 'put' : 'post',
+        onSuccess: (res) => {
+            setDraftID(res.data.id)
+        }
     })
+    
     const unitHook = useQuery(getQuery('unit'))
 
     return (
@@ -94,5 +108,6 @@ UnitForm.propTypes = {
     handleClose: PropTypes.func,
     create: PropTypes.bool,
     asDefault: PropTypes.bool,
-    action: PropTypes.object
+    action: PropTypes.object,
+    draftID: PropTypes.number,
 }

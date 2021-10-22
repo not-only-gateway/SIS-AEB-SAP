@@ -14,12 +14,24 @@ export default function FollowUpForm(props) {
     const lang = OperationPT
     const [file, setFile] = useState(null)
     const [initialData, setInitialData] = useState(props.data)
+        const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: initialData,
-        draftUrl: '',
+    draftUrl: Host().replace('api', 'draft') + 'action',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000
+        interval: 120000,
+        parsePackage: pack => {
+            return {
+                ...pack,
+                identifier: draftID
+            }
+        },
+        draftMethod: draftID ? 'put' : 'post',
+        onSuccess: (res) => {
+            setDraftID(res.data.id)
+        }
     })
+    
 
     useEffect(() => {
         if (!props.create && props.data.file !== undefined && props.data.file !== null) {
@@ -130,5 +142,6 @@ FollowUpForm.propTypes = {
     handleChange: PropTypes.func,
     handleClose: PropTypes.func,
     create: PropTypes.bool,
-    operation: PropTypes.object
+    operation: PropTypes.object,
+    draftID: PropTypes.number,
 }

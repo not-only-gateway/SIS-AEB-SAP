@@ -9,8 +9,14 @@ export default function index() {
     const query = router.query
 
     return (
-        <DynamicRoutes routes={getSapPages()} ready={router.isReady} path={query.page} componentProps={{
-            redirect: (url, asUrl, params) => router.push(url, asUrl, params), query: router.query
-        }}/>
+        <DynamicRoutes
+            routes={getSapPages()}
+            ready={router.isReady}
+            path={query.page}
+            componentProps={{
+                redirect: (url, asUrl, params) => router.push(url, asUrl, params),
+                query: router.query,
+                refresh: () => router.reload()
+            }}/>
     )
 }
