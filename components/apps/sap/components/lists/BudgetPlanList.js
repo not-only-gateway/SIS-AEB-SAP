@@ -4,7 +4,7 @@ import BudgetPlanForm from "../forms/BudgetPlanForm";
 import {List, useQuery} from "mfc-core";
 import getQuery from "../../queries/getQuery";
 import associativeKeys from "../../keys/associativeKeys";
-import Switcher from "../../../../core/misc/switcher/Switcher";
+import Switcher from "../../../../core/navigation/switcher/Switcher";
 import deleteEntry from "../../utils/requests/delete";
 
 export default function BudgetPlanList(props) {

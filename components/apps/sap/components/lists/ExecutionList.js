@@ -3,10 +3,10 @@ import {useQuery} from "mfc-core";
 import {DeleteRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import ExecutionForm from "../forms/ExecutionForm";
-import Switcher from "../../../../core/misc/switcher/Switcher";
+import Switcher from "../../../../core/navigation/switcher/Switcher";
 import deleteEntry from "../../utils/requests/delete";
 import getQuery from "../../queries/getQuery";
-import List from "../../../../core/list/List";
+import List from "../../../../core/visualization/list/List";
 import workPlanKeys from "../../keys/workPlanKeys";
 
 export default function ExecutionList(props) {

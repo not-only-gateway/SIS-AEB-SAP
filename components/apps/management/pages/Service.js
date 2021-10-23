@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import {fetchEntry} from "../utils/fetch";
 import ServiceForm from "../components/forms/ServiceForm";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
-import ThemeContext from "../../../core/theme/ThemeContext";
+import ThemeContext from "../../../core/misc/theme/ThemeContext";
 import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";
 
 export default function Service(props) {

@@ -4,9 +4,8 @@ body {
     margin: 0;
     /*font-family: 'Source Sans Pro', sans-serif !important;*/
     width: 100vw;
-    image-rendering: optimizeQuality;
-    text-rendering: optimizeLegibility;
-    font-family: Roboto !important;
+
+    font-family: "Roboto" !important;
 }
 
 h2{

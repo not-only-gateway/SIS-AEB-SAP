@@ -6,7 +6,7 @@ import ProjectPT from "../../locales/ProjectPT";
 import Cookies from "universal-cookie/lib";
 import {FormRow, Selector, TextField} from "mfc-core";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
-import useQuery from "../../../../core/shared/hooks/useQuery";
+import useQuery from "../../../../core/visualization/hooks/useQuery";
 import getQuery from "../../queries/getQuery";
 import associativeKeys from "../../keys/associativeKeys";
 import submit from "../../utils/requests/submit";

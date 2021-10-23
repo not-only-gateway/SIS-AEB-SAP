@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import Host from "../shared/Host";
 import Cookies from "universal-cookie/lib";
-import Requester from "../../../../core/misc/requester/Requester";
+import Requester from "../../../../core/feedback/requester/Requester";
 
 export default async function submit(props) {
     let response = {

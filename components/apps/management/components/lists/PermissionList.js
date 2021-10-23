@@ -1,8 +1,8 @@
 import {useQuery} from "mfc-core";
 import {access_profile_permissions_query, permission_query} from "../../queries/queries";
-import List from "../../../../core/list/List";
+import List from "../../../../core/visualization/list/List";
 import {useState} from "react";
-import Switcher from "../../../../core/misc/switcher/Switcher";
+import Switcher from "../../../../core/navigation/switcher/Switcher";
 import PermissionForm from "../forms/PermissionForm";
 import {permissionKeys} from "../../keys/keys";
 import PropTypes from 'prop-types'

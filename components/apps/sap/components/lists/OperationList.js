@@ -1,11 +1,11 @@
 import React, {useMemo, useState} from "react";
 import {useQuery} from "mfc-core";
-import List from "../../../../core/list/List";
+import List from "../../../../core/visualization/list/List";
 import {DeleteRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 
 import workPlanKeys from "../../keys/workPlanKeys";
-import Switcher from "../../../../core/misc/switcher/Switcher";
+import Switcher from "../../../../core/navigation/switcher/Switcher";
 import deleteEntry from "../../utils/requests/delete";
 import getQuery from "../../queries/getQuery";
 import OperationForm from "../forms/OperationForm";

@@ -3,10 +3,10 @@ import {DeleteRounded} from "@material-ui/icons";
 import { useQuery} from "mfc-core";
 import ComponentClassificationForm from "../forms/ComponentClassificationForm";
 import associativeKeys from "../../keys/associativeKeys";
-import Switcher from "../../../../core/misc/switcher/Switcher";
+import Switcher from "../../../../core/navigation/switcher/Switcher";
 import deleteEntry from "../../utils/requests/delete";
 import getQuery from "../../queries/getQuery";
-import List from "../../../../core/list/List";
+import List from "../../../../core/visualization/list/List";
 
 export default function ComponentClassificationList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)

@@ -2,8 +2,7 @@ import {useRouter} from "next/router";
 import React from "react";
 import getIntranetPages from "../components/apps/intranet/getIntranetPages";
 import DynamicRoutes from "../components/core/navigation/routing/DynamicRoutes";
-import getSapPages from "../components/apps/sap/getSapPages";
-
+import "@fontsource/roboto";
 
 export default function index() {
     const router = useRouter()

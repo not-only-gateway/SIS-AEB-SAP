@@ -19,6 +19,6 @@ export default function sapProps (redirect, path, query) {
                 highlight: query.page === 'associative'
             }
         ],
-        requireAuth: true
+        requireAuth: false
     }
 }

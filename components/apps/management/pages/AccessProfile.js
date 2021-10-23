@@ -5,7 +5,7 @@ import AccessProfileForm from "../components/forms/AccessProfileForm";
 import React, {useContext, useEffect, useState} from "react";
 import {fetchAccess, fetchEntry} from "../utils/fetch";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
-import ThemeContext from "../../../core/theme/ThemeContext";
+import ThemeContext from "../../../core/misc/theme/ThemeContext";
 
 export default function AccessProfile(props) {
     const [data, setData] = useState(null)

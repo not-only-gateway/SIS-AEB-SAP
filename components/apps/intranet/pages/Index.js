@@ -3,7 +3,7 @@ import Head from "next/head";
 
 import PropTypes from 'prop-types'
 import Carousel from "../../../core/navigation/carousel/Carousel";
-import Feed from "../../../core/feed/Feed";
+import Feed from "../../../core/visualization/feed/Feed";
 
 export default function Index(props) {
     const [offset, setOffset] = useState(0)

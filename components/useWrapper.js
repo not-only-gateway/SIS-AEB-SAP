@@ -1,5 +1,5 @@
 import {useRouter} from "next/router";
-import useCookies from "./core/shared/hooks/useCookies";
+import useCookies from "./core/misc/useCookies";
 import React, {useEffect, useMemo, useState} from "react";
 import sapProps from "./apps/sap/sapProps";
 import managementProps from "./apps/management/managementProps";

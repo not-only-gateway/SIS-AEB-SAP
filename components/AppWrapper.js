@@ -1,16 +1,16 @@
 import React from "react";
 import "@fontsource/roboto"
 import PropTypes from "prop-types";
-import Navigation from "./core/navigation/layout/Navigation";
+import Layout from "./core/navigation/layout/Layout";
 import apps from "../packages/apps";
-import Modal from "./core/misc/modal/Modal";
+import Modal from "./core/navigation/modal/Modal";
 import Authenticator from "./Authenticator";
 import styles from '../styles/Wrapper.module.css'
 import useWrapper from "./useWrapper";
 import ProfileContext from "./apps/profile/ProfileContext";
 import {Brightness3Rounded, BrightnessHighRounded, ExitToAppRounded, PersonRounded} from "@material-ui/icons";
 import Profile from "./apps/profile/Profile";
-import ThemeProvider from "./core/theme/ThemeProvider";
+import ThemeProvider from "./core/misc/theme/ThemeProvider";
 
 export default function AppWrapper(props) {
 
@@ -49,7 +49,7 @@ export default function AppWrapper(props) {
                     >
                         <Authenticator setManager={setManager} redirect={() => setOpenAuthentication(false)} />
                     </Modal>
-                    <Navigation
+                    <Layout
                         redirect={url => router.push(url, url)}
                         loading={props.loading} profile={profile}
                         logo={darkTheme ? '../dark.png' : '../light.png'} theme={'dark'}
@@ -89,7 +89,7 @@ export default function AppWrapper(props) {
                         appButtons={apps}
                     >
                         {router.query.page === 'profile' ? <Profile/> : props.children()}
-                    </Navigation>
+                    </Layout>
                 </ThemeProvider>
             </ProfileContext.Provider>
         )

@@ -5,7 +5,7 @@ import {List, useQuery} from "mfc-core";
 
 import ActivityStageForm from "../forms/ActivityStageForm";
 import workPlanKeys from "../../keys/workPlanKeys";
-import Switcher from "../../../../core/misc/switcher/Switcher";
+import Switcher from "../../../../core/navigation/switcher/Switcher";
 import deleteEntry from "../../utils/requests/delete";
 import getQuery from "../../queries/getQuery";
 

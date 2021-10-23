@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import ActionItemForm from "../forms/ActionItemForm";
 import {List, useQuery} from "mfc-core";
 import workPlanKeys from "../../keys/workPlanKeys";
-import Switcher from "../../../../core/misc/switcher/Switcher";
+import Switcher from "../../../../core/navigation/switcher/Switcher";
 
 import getQuery from "../../queries/getQuery";
 import deleteEntry from "../../utils/requests/delete";

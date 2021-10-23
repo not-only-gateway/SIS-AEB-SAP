@@ -11,7 +11,7 @@ import ProjectGoalList from "../components/lists/ProjectGoalList";
 import {fetchEntry} from "../utils/requests/fetch";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
 import styles from "../../management/styles/Shared.module.css";
-import ThemeContext from "../../../core/theme/ThemeContext";
+import ThemeContext from "../../../core/misc/theme/ThemeContext";
 import {CategoryRounded} from "@material-ui/icons";
 
 

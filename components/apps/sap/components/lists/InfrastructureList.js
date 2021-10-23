@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import {List, useQuery} from "mfc-core";
 import {DeleteRounded} from "@material-ui/icons";
 import associativeKeys from "../../keys/associativeKeys";
-import Switcher from "../../../../core/misc/switcher/Switcher";
+import Switcher from "../../../../core/navigation/switcher/Switcher";
 import deleteEntry from "../../utils/requests/delete";
 import getQuery from "../../queries/getQuery";
 import InfrastructureForm from "../forms/InfrastructureForm";

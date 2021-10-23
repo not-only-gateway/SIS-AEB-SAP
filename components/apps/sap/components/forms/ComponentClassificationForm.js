@@ -6,7 +6,7 @@ import EntitiesPT from "../../locales/EntitiesPT";
 import Cookies from "universal-cookie/lib";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import associativeKeys from "../../keys/associativeKeys";
-import useQuery from "../../../../core/shared/hooks/useQuery";
+import useQuery from "../../../../core/visualization/hooks/useQuery";
 import getQuery from "../../queries/getQuery";
 import submit from "../../utils/requests/submit";
 import TypeForm from "./TypeForm";

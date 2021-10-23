@@ -4,7 +4,7 @@ import {List, useQuery} from "mfc-core";
 import {DeleteRounded} from "@material-ui/icons";
 import NatureExpenseForm from "../forms/NatureExpenseForm";
 import associativeKeys from "../../keys/associativeKeys";
-import Switcher from "../../../../core/misc/switcher/Switcher";
+import Switcher from "../../../../core/navigation/switcher/Switcher";
 import deleteEntry from "../../utils/requests/delete";
 import getQuery from "../../queries/getQuery";
 

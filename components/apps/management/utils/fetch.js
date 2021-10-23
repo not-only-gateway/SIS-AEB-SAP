@@ -1,4 +1,4 @@
-import Requester from "../../../core/misc/requester/Requester";
+import Requester from "../../../core/feedback/requester/Requester";
 import Host from "./shared/Host";
 import Cookies from "universal-cookie/lib";
 import PropTypes from "prop-types";

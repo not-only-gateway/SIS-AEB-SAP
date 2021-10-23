@@ -1,6 +1,6 @@
 import {useQuery} from "mfc-core";
 import {event_query} from "../../queries/queries";
-import List from "../../../../core/list/List";
+import List from "../../../../core/visualization/list/List";
 import {eventKeys} from "../../keys/keys";
 
 export default function EventList(props) {

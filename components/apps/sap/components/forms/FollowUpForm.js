@@ -6,7 +6,7 @@ import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
-import Requester from "../../../../core/misc/requester/Requester";
+import Requester from "../../../../core/feedback/requester/Requester";
 import Host from "../../utils/shared/Host";
 import deleteEntry from "../../utils/requests/delete";
 

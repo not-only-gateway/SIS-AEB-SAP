@@ -4,7 +4,7 @@ import {DeleteRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import FollowUpForm from "../forms/FollowUpForm";
 import workPlanKeys from "../../keys/workPlanKeys";
-import Switcher from "../../../../core/misc/switcher/Switcher";
+import Switcher from "../../../../core/navigation/switcher/Switcher";
 import deleteEntry from "../../utils/requests/delete";
 import getQuery from "../../queries/getQuery";
 

@@ -6,7 +6,7 @@ import {FormRow, Selector, TextField} from "mfc-core";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import associativeKeys from "../../keys/associativeKeys";
-import useQuery from "../../../../core/shared/hooks/useQuery";
+import useQuery from "../../../../core/visualization/hooks/useQuery";
 import getQuery from "../../queries/getQuery";
 import submit from "../../utils/requests/submit";
 import ComponentClassificationForm from "./ComponentClassificationForm";

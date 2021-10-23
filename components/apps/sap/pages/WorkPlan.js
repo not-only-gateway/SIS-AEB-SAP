@@ -10,7 +10,7 @@ import ActivityStageList from "../components/lists/ActivityStageList";
 import GoalList from "../components/lists/GoalList";
 import WorkPlanForm from "../components/forms/WorkPlanForm";
 import {fetchEntry} from "../utils/requests/fetch";
-import ThemeContext from "../../../core/theme/ThemeContext";
+import ThemeContext from "../../../core/misc/theme/ThemeContext";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
 import styles from "../../management/styles/Shared.module.css";
 import {CategoryRounded} from "@material-ui/icons";

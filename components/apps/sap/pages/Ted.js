@@ -7,7 +7,7 @@ import WorkPlanList from "../components/lists/WorkPlanList";
 import TedForm from "../components/forms/TedForm";
 import TedList from "../components/lists/TedList";
 import {fetchEntry} from "../utils/requests/fetch";
-import ThemeContext from "../../../core/theme/ThemeContext";
+import ThemeContext from "../../../core/misc/theme/ThemeContext";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
 import styles from "../../management/styles/Shared.module.css";
 import {CategoryRounded} from "@material-ui/icons";

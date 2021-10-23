@@ -1,14 +1,14 @@
 import React, {useMemo, useState} from "react";
 import PropTypes from "prop-types";
-import List from "../../../../core/list/List";
+import List from "../../../../core/visualization/list/List";
 
 import WorkPlanForm from "../forms/WorkPlanForm";
 import {DeleteRounded} from "@material-ui/icons";
 import workPlanKeys from "../../keys/workPlanKeys";
-import Switcher from "../../../../core/misc/switcher/Switcher";
+import Switcher from "../../../../core/navigation/switcher/Switcher";
 import deleteEntry from "../../utils/requests/delete";
 import getQuery from "../../queries/getQuery";
-import useQuery from "../../../../core/shared/hooks/useQuery";
+import useQuery from "../../../../core/visualization/hooks/useQuery";
 
 export default function WorkPlanList(props) {
     const [open, setOpen] = useState(false)

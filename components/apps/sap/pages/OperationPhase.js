@@ -3,7 +3,7 @@ import Head from "next/head";
 import shared from '../styles/Shared.module.css'
 import PropTypes from 'prop-types'
 import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";
-import ThemeContext from "../../../core/theme/ThemeContext";
+import ThemeContext from "../../../core/misc/theme/ThemeContext";
 import ActionList from "../components/lists/ActionList";
 import FollowUpList from "../components/lists/FollowUpList";
 import ExecutionList from "../components/lists/ExecutionList";
