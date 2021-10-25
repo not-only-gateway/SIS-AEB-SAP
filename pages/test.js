@@ -22,6 +22,9 @@ export default function test() {
                 <Button>
                     Default
                 </Button>
+                <Button variant={'outlined'} color={"secondary"}>
+                    Outlined
+                </Button>
                 <Button disabled={true}>
                     Default disabled
                 </Button>
@@ -90,7 +93,7 @@ export default function test() {
                     handleChange={entity => null}
                  />
                 <FileField/>
-                <DateField/>
+                <DateField handleChange={e => sc(e)}/>
             </div>
         </div>
     )
