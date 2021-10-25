@@ -36,7 +36,7 @@ export default function useWrapper() {
             case router.pathname.includes('/hr'):
                 return hrProps((url) => router.push(url, url), router.pathname, router.query)
             default:
-                return {}
+                return {sideBarButtons: []}
         }
     }, [router.pathname, router.query])
     useEffect(() => {
