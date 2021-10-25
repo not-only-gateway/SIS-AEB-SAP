@@ -2,9 +2,19 @@ import Button from "../components/core/inputs/button/Button";
 import React, {useState} from "react";
 import TextField from "../components/core/inputs/text/TextField";
 import DropDownField from "../components/core/inputs/dropdown/DropDownField";
+import MultiSelectField from "../components/core/inputs/multiselect/MultiSelectField";
+import {useQuery} from "mfc-core";
+import getQuery from "../components/apps/sap/queries/getQuery";
+import Selector from "../components/core/inputs/selector/Selector";
+import associativeKeys from "../components/apps/sap/keys/associativeKeys";
+import InfrastructureForm from "../components/apps/sap/components/forms/InfrastructureForm";
+import FileField from "../components/core/inputs/file/FileField";
+import DateField from "../components/core/inputs/date/DateField";
 
 export default function test() {
     const [c, sc] = useState()
+    const infrastructureHook = useQuery(getQuery('infrastructure'))
+
     return (
         <div>
 
@@ -49,51 +59,38 @@ export default function test() {
                     label={'Input '}
                     placeholder={'Input'}
                     handleChange={e => sc(e.target.value)}
-                    disabled={false} size={'small'}
+                    disabled={false} variant={"area"}
                     width={'100%'} value={c}
                 />
-                <TextField
-                    label={'Input secondary'}
-                    placeholder={'Input secondary'}
-                    colorVariant={'secondary'}
-                    handleChange={e => sc(e.target.value)}
-                    disabled={false}
-                    width={'100%'} value={c}
-                />
-                <TextField
-                    label={'Input disabled'}
-                    placeholder={'Input disabled'}
-                    handleChange={e => sc(e.target.value)}
-                    disabled={true}
-                    width={'100%'}
-                />
-                <DropDownField
-                    label={'Test'} placeholder={'Test'}
-                    choices={[{key: 'cafe', value: 'CAFE'}, {key: 'cafe', value: 'CAFE'}, {
-                        key: 'cafe',
-                        value: 'CAFE'
-                    }]}/>
-                <DropDownField
-                    label={'Test'} placeholder={'Test'} colorVariant={'secondary'}
-                    choices={[{key: 'cafe', value: 'CAFE'}, {key: 'cafe', value: 'CAFE'}, {
-                        key: 'cafe',
-                        value: 'CAFE'
-                    }]}/>
-                <DropDownField
-                    label={'Test'} placeholder={'Test'} disabled={true}
-                    choices={[{key: 'cafe', value: 'CAFE'}, {key: 'cafe', value: 'CAFE'}, {
-                        key: 'cafe',
-                        value: 'CAFE'
-                    }]}/>
+
+
                 <DropDownField
                     label={'Test'} placeholder={'Test'}
                     choices={[{key: 'cafe', value: 'CAFE'}, {key: 'cafe', value: 'CAFE'}, {
                         key: 'cafe',
                         value: 'CAFE'
                     }]}
+                    handleChange={() => null}/>
+
+                <MultiSelectField
+                    label={'Test'} placeholder={'Test'}
+                    choices={[{key: 'cafe', value: 'CAFE'}, {key: 'cafe', value: 'CAFE'}, {
+                        key: 'cafe',
+                        value: 'CAFE'
+                    }]} handleChange={() => null}
                     disabled={false} size={'small'}
                 />
-
+                <Selector
+                    hook={infrastructureHook} keys={associativeKeys.infrastructure}
+                    width={'calc(33.333% - 21.5px)'}
+                    required={true}
+                    value={null}
+                    title={'Infraestrutura'}
+                    placeholder={'Infraestrutura'}
+                    handleChange={entity => null}
+                 />
+                <FileField/>
+                <DateField/>
             </div>
         </div>
     )
