@@ -19,7 +19,7 @@ export default function Index(props) {
             </Head>
             <Tabs buttons={[
                 {
-                    label: 'Projetos',
+                    label: 'Projetos / Atividades',
                     children: (
                         <div className={styles.contentWrapper}>
                             <ProjectList redirect={query => props.redirect(query)}/>

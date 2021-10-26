@@ -10,9 +10,10 @@ import RisksList from "../components/lists/RisksList";
 import ProjectGoalList from "../components/lists/ProjectGoalList";
 import {fetchEntry} from "../utils/requests/fetch";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
-import styles from "../../management/styles/Shared.module.css";
 import ThemeContext from "../../../core/misc/theme/ThemeContext";
 import {CategoryRounded} from "@material-ui/icons";
+import Button from "../../../core/inputs/button/Button";
+import ProjectTedList from "../components/lists/ProjectTedList";
 
 
 export default function Project(props) {
@@ -34,22 +35,23 @@ export default function Project(props) {
             <div style={{
                 padding: '0 32px', background: themes.themes.background1
             }}>
-                <Breadcrumbs divider={'-'} justify={'start'}>
-                    <button className={styles.button}
-                            onClick={() => props.redirect('/sap?page=index')}>
+                <Breadcrumbs justify={'start'}>
+                    <Button
+                        variant={'minimal'}
+                        onClick={() => props.redirect('/sap?page=index')}>
                         Processos
-                    </button>
+                    </Button>
 
-                    <button className={styles.button} disabled={true}>
+                    <Button variant={'minimal'}  highlight={true}>
                         {project?.name}
-                    </button>
+                    </Button>
                 </Breadcrumbs>
             </div>
             <div className={shared.header}
                  style={{padding: '16px 48px', borderBottom: themes.themes.border0 + ' 1px solid'}}>
                 {project?.name}
                 <div className={shared.typeLabel}>
-                    <CategoryRounded style={{fontSize: '1.15rem'}}/> Projeto
+                    <CategoryRounded style={{fontSize: '1.15rem'}}/> Projeto / Atividade
                 </div>
             </div>
             <VerticalTabs
@@ -95,7 +97,15 @@ export default function Project(props) {
 
                                 </div>
                             )
-                        }]
+                        },
+                            {
+                                label: 'Instrumentos de celebração relacionados', children: (
+                                    <div className={shared.contentWrapper}>
+                                        <ProjectTedList project={project} redirect={props.redirect}/>
+                                    </div>
+                                )
+                            }
+                        ]
                     }]}
             />
 

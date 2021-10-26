@@ -67,5 +67,5 @@ export default function TedList(props) {
 
 TedList.propTypes = {
     redirect: PropTypes.func,
-    ted: PropTypes.func
+    ted: PropTypes.object
 }

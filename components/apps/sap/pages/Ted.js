@@ -9,9 +9,10 @@ import TedList from "../components/lists/TedList";
 import {fetchEntry} from "../utils/requests/fetch";
 import ThemeContext from "../../../core/misc/theme/ThemeContext";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
-import styles from "../../management/styles/Shared.module.css";
 import {CategoryRounded} from "@material-ui/icons";
 import Link from 'next/link'
+import Button from "../../../core/inputs/button/Button";
+import ProjectTedList from "../components/lists/ProjectTedList";
 
 export default function Ted(props) {
     const [ted, setTed] = useState({})
@@ -38,21 +39,23 @@ export default function Ted(props) {
                 padding: '0 32px', background: themes.themes.background1
             }}>
                 <Breadcrumbs divider={'-'} justify={'start'}>
-                    <button className={styles.button}
-                            onClick={() => props.redirect('/sap?page=index')}>
+                    <Button
+                        variant={'minimal'}
+                        onClick={() => props.redirect('/sap?page=index')}>
                         Processos
-                    </button>
+                    </Button>
                     {!ted.ted ? null :
                         <Link href={'/sap?page=ted&id=' + ted.ted.id}>
-                            <button className={styles.button}>
+                            <Button
+                                variant={'minimal'}
+                            >
                                 {ted?.ted?.number}
-                            </button>
+                            </Button>
                         </Link>
                     }
-
-                    <button className={styles.button} disabled={true}>
+                    <Button variant={'minimal'} highlight={true}>
                         {ted?.number}
-                    </button>
+                    </Button>
                 </Breadcrumbs>
             </div>
             <div className={shared.header}
@@ -96,7 +99,15 @@ export default function Ted(props) {
                                     <WorkPlanList ted={ted} redirect={props.redirect}/>
                                 </div>
                             )
-                        }]
+                        },
+
+                            {
+                                label: 'Projetos / Atividades relacionados', children: (
+                                    <div className={shared.contentWrapper}>
+                                        <ProjectTedList ted={ted} redirect={props.redirect}/>
+                                    </div>
+                                )
+                            }]
                     }]}
             />
 

@@ -37,7 +37,7 @@ export default function WorkPlanList(props) {
         if (!props.ted)
             value.push({
                 key: 'activity_project',
-                label: 'Projeto',
+                label: 'Projeto / atividade',
                 type: 'object',
                 subfieldKey: 'name',
                 visible: true,

@@ -12,9 +12,9 @@ import WorkPlanForm from "../components/forms/WorkPlanForm";
 import {fetchEntry} from "../utils/requests/fetch";
 import ThemeContext from "../../../core/misc/theme/ThemeContext";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
-import styles from "../../management/styles/Shared.module.css";
 import {CategoryRounded} from "@material-ui/icons";
 import StatusList from "../components/lists/StatusList";
+import Button from "../../../core/inputs/button/Button";
 
 export default function WorkPlan(props) {
     const [workPlan, setWorkPlan] = useState({})
@@ -40,22 +40,22 @@ export default function WorkPlan(props) {
                 padding: '0 32px', background: themes.themes.background1
             }}>
                 <Breadcrumbs divider={'-'} justify={'start'}>
-                    <button className={styles.button}
+                    <Button variant={'minimal'}
                             onClick={() => props.redirect('/sap?page=index')}>
                         Processos
-                    </button>
+                    </Button>
 
-                    <button className={styles.button}
+                    <Button variant={'minimal'}
                             onClick={() => props.redirect('/sap?page=ted&id=' + workPlan?.ted?.id)}>
                         {workPlan?.ted?.number} (Instrumento de celebração)
-                    </button>
-                    <button className={styles.button}
-                            onClick={() => props.redirect('/sap?page=project&id=' + workPlan?.project?.id)}>
-                        {workPlan?.project?.name} (Projeto)
-                    </button>
-                    <button className={styles.button} disabled={true}>
+                    </Button>
+                    <Button variant={'minimal'}
+                            onClick={() => props.redirect('/sap?page=project&id=' + workPlan.activity_project.id)}>
+                        {workPlan.activity_project?.name} (Projeto)
+                    </Button>
+                    <Button highlight={true} variant={'minimal'}>
                         {workPlan?.object}
-                    </button>
+                    </Button>
                 </Breadcrumbs>
             </div>
             <div className={shared.header}
@@ -91,14 +91,7 @@ export default function WorkPlan(props) {
                                     </div>
                                 )
                             },
-                            {
-                                label: 'Metas',
-                                children: (
-                                    <div style={{padding: '16px 10%'}}>
-                                        <GoalList workPlan={workPlan}/>
-                                    </div>
-                                )
-                            },
+
                             {
                                 label: 'Apostilamentos',
                                 children: (
@@ -112,6 +105,14 @@ export default function WorkPlan(props) {
                     {
                         label: 'Acesso rápido',
                         buttons: [
+                            {
+                                label: 'Metas',
+                                children: (
+                                    <div style={{padding: '16px 10%'}}>
+                                        <GoalList workPlan={workPlan}/>
+                                    </div>
+                                )
+                            },
                             {
                                 label: 'Etapas', children: (
                                     <div className={shared.contentWrapper}>

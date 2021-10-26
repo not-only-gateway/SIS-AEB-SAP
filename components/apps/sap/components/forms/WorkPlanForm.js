@@ -109,7 +109,7 @@ export default function WorkPlanForm(props) {
                             {!props.ted ?
                                 <Selector
                                     hook={tedHook} keys={tedKeys.ted}
-                                    width={!props.project ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
+                                    width={'calc(50% - 16px)'}
                                     required={true} createOption={false}
                                     value={data.ted}
                                     title={'Instrumento de celebração'}
@@ -122,7 +122,7 @@ export default function WorkPlanForm(props) {
                             {!props.project ?
                                 <Selector
                                     hook={projectHook} keys={projectKeys.project}
-                                    width={!props.ted ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
+                                    width={'calc(50% - 16px)'}
                                     required={true}
                                     value={data.activity_project}
                                     title={'Projeto / atividade'}
@@ -134,7 +134,7 @@ export default function WorkPlanForm(props) {
                             }
                             <Selector
                                 hook={unitHook} keys={associativeKeys.responsible}
-                                width={!props.project && !props.ted ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px'}
+                                width={'calc(50% - 16px)'}
                                 required={true}
                                 value={data.responsible}
                                 title={'Responsável'}
@@ -146,7 +146,20 @@ export default function WorkPlanForm(props) {
                                     <UnitForm create={true} asDefault={true} handleClose={() => handleClose()}/>
                                 )}
                             </Selector>
-
+                            <Selector
+                                hook={budgetPlanHook} keys={associativeKeys.budgetPlan}
+                                width={'calc(50% - 16px)'}
+                                required={true}
+                                value={data.budget_plan}
+                                title={'Plano orçamentário'}
+                                placeholder={'Plano orçamentário'}
+                                handleChange={entity => handleChange({key: 'budget_plan', event: entity})}
+                                createOption={true}
+                            >
+                                {handleClose => (
+                                    <BudgetPlanForm create={true} asDefault={true} handleClose={() => handleClose()}/>
+                                )}
+                            </Selector>
                             <TextField
 
                                 placeholder={lang.object} label={lang.object}
@@ -165,7 +178,8 @@ export default function WorkPlanForm(props) {
                                     handleChange({key: 'sub_decentralization', event: event})
                                 }} value={data.sub_decentralization}
                                 required={true}
-                                width={'calc(33.333% - 21.5px)'} choices={lang.baseOptions}/>
+                                width={'calc(50% - 16px)'}
+                                choices={lang.baseOptions}/>
 
                             <DropDownField
                                 placeholder={lang.indirectCosts}
@@ -174,10 +188,12 @@ export default function WorkPlanForm(props) {
 
                                     handleChange({key: 'indirect_costs', event: event})
                                 }} value={data.indirect_costs} required={true}
-                                width={'calc(33.333% - 21.5px)'} choices={lang.baseOptions}/>
+                                width={'calc(50% - 16px)'}
+                                choices={lang.baseOptions}/>
                             <Selector
-                                hook={infrastructureHook} keys={associativeKeys.infrastructure}
-                                width={'calc(33.333% - 21.5px)'}
+                                hook={infrastructureHook}
+                                keys={associativeKeys.infrastructure}
+                                width={'calc(50% - 16px)'}
                                 required={true}
                                 value={data.infrastructure}
                                 title={'Infraestrutura'}
@@ -190,6 +206,18 @@ export default function WorkPlanForm(props) {
                                                         handleClose={() => handleClose()}/>
                                 )}
                             </Selector>
+
+                            <MultiSelectField
+                                placeholder={lang.ways}
+                                label={lang.ways}
+                                handleChange={event => {
+
+                                    handleChange({key: 'ways_of_execution', event: event})
+                                }} value={data.ways_of_execution}
+                                required={false}
+                                width={'calc(50% - 16px)'}
+                                choices={lang.waysOptions}
+                            />
 
 
                             <TextField
@@ -216,32 +244,6 @@ export default function WorkPlanForm(props) {
                                 required={true} variant={'area'}
                                 width={'100%'}/>
 
-                            <MultiSelectField
-                                placeholder={lang.ways}
-                                label={lang.ways}
-                                handleChange={event => {
-
-                                    handleChange({key: 'ways_of_execution', event: event})
-                                }} value={data.ways_of_execution}
-                                required={false}
-                                width={'calc(50% - 16px)'}
-                                choices={lang.waysOptions}
-                            />
-
-                            <Selector
-                                hook={budgetPlanHook} keys={associativeKeys.budgetPlan}
-                                width={'calc(50% - 16px)'}
-                                required={true}
-                                value={data.budget_plan}
-                                title={'Plano orçamentário'}
-                                placeholder={'Plano orçamentário'}
-                                handleChange={entity => handleChange({key: 'budget_plan', event: entity})}
-                                createOption={true}
-                            >
-                                {handleClose => (
-                                    <BudgetPlanForm create={true} asDefault={true} handleClose={() => handleClose()}/>
-                                )}
-                            </Selector>
 
                         </FormRow>
 

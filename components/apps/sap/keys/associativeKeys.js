@@ -1,6 +1,27 @@
 import getQuery from "../queries/getQuery";
 
 export default {
+    projectTed: [
+        {
+            key: 'activity_project',
+            type: 'object',
+            label: 'Projeto / atividade',
+            subfieldKey: 'name',
+            subType: 'string',
+
+            visible: true
+        },
+        {
+            key: 'ted',
+            type: 'object',
+            label: 'Instrumento de celebração',
+            subfieldKey: 'number',
+            subType: 'string',
+
+            visible: true
+        }
+    ],
+
     action: [
         {key: 'id', type: 'number', label: 'ID', visible: false},
         {key: 'number', type: 'number', label: 'Número', visible: true},
