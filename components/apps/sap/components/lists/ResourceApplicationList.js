@@ -2,7 +2,9 @@ import PropTypes from 'prop-types'
 import React, {useState} from "react";
 
 import {DeleteRounded} from "@material-ui/icons";
-import {List, useQuery} from "mfc-core";
+import useQuery from "../../../../core/visualization/hooks/useQuery";
+import List from "../../../../core/visualization/list/List";
+
 import ResourceApplicationForm from "../forms/ResourceApplicationForm";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/navigation/switcher/Switcher";

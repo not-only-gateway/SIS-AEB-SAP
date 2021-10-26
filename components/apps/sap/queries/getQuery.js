@@ -4,6 +4,7 @@ import Cookies from "universal-cookie/lib";
 const cookies = new Cookies()
 
 export default function getQuery(suffix, relations = {}, deep_relations=[]) {
+    console.log('CALLED')
     return {
         url: Host() + 'list/' + suffix,
         headers: {'authorization': cookies.get('jwt')},

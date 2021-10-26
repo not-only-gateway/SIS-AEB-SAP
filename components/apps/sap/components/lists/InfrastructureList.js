@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 
-import {List, useQuery} from "mfc-core";
+import useQuery from "../../../../core/visualization/hooks/useQuery";
+import List from "../../../../core/visualization/list/List";
+
 import {DeleteRounded} from "@material-ui/icons";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/navigation/switcher/Switcher";

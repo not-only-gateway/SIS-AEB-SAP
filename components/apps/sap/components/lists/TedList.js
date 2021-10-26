@@ -1,11 +1,10 @@
 import React, {useEffect, useMemo, useState} from "react";
-// import {useQuery} from "mfc-core";
 import {DeleteRounded} from "@material-ui/icons";
 import TedForm from "../forms/TedForm";
 import tedKeys from "../../keys/tedKeys";
 import Switcher from "../../../../core/navigation/switcher/Switcher";
 import deleteEntry from "../../utils/requests/delete";
-import List from "../../../../core/visualization/list/List";
+import {List} from "mfc-core";
 import PropTypes from "prop-types";
 import getQuery from "../../queries/getQuery";
 import useQuery from "../../../../core/visualization/hooks/useQuery";
@@ -13,7 +12,10 @@ import useQuery from "../../../../core/visualization/hooks/useQuery";
 export default function TedList(props) {
 
     const [open, setOpen] = useState(false)
-    const hook = useQuery(getQuery('ted', props.ted ? {ted: props.ted.id} : {}))
+    const query = useMemo(() => {
+        return getQuery('ted', props.ted ? {ted: props.ted.id} : {})
+    }, [])
+    const hook = useQuery(query)
     const addendumData = useMemo(() => {
         if (props.ted) {
             let value = {...props.ted}

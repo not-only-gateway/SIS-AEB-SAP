@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {DeleteRounded} from "@material-ui/icons";
-import { useQuery} from "mfc-core";
+import useQuery from "../../../../core/visualization/hooks/useQuery";
+
 import ComponentClassificationForm from "../forms/ComponentClassificationForm";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/navigation/switcher/Switcher";

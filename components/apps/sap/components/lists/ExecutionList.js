@@ -1,5 +1,6 @@
 import React, {useMemo, useState} from "react";
-import {useQuery} from "mfc-core";
+import useQuery from "../../../../core/visualization/hooks/useQuery";
+
 import {DeleteRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import ExecutionForm from "../forms/ExecutionForm";

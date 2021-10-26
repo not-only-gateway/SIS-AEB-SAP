@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
-import {List, useQuery} from "mfc-core";
+import useQuery from "../../../../core/visualization/hooks/useQuery";
+import List from "../../../../core/visualization/list/List";
+
 import {DeleteRounded} from "@material-ui/icons";
 import StatusForm from "../forms/StatusForm";
 import workPlanKeys from "../../keys/workPlanKeys";
