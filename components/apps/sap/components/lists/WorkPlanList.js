@@ -16,7 +16,7 @@ export default function WorkPlanList(props) {
         if (props.workPlan) {
             return {work_plan: props.workPlan?.id}
         } else if (props.project) {
-            return {project: props.project.id}
+            return {activity_project: props.project.id}
         } else if (props.ted) {
             return {ted: props.ted.id}
         } else return {}

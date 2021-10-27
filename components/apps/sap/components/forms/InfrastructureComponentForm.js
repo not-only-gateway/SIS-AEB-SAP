@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useMemo, useState} from "react";
 import PropTypes from "prop-types";
 import InfrastructurePT from "../../locales/InfrastructurePT";
 import Cookies from "universal-cookie/lib";

@@ -14,7 +14,7 @@ export default async function deleteEntry(props) {
         url: props.url ? props.url : Host() + props.suffix,
         showSuccessAlert: true,
         headers: {'authorization': (new Cookies()).get('jwt')},
-        package: {
+        package: props.customPackage ? props.customPackage : {
             identifier: props.pk
         }
     }).then(res => {
@@ -31,5 +31,6 @@ export default async function deleteEntry(props) {
 deleteEntry.propTypes = {
     suffix: PropTypes.string,
     pk: PropTypes.any,
-    url: PropTypes.string
+    url: PropTypes.string,
+    customPackage: PropTypes.object
 }

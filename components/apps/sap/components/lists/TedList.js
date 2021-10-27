@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useMemo, useState} from "react";
 import {DeleteRounded} from "@material-ui/icons";
 import TedForm from "../forms/TedForm";
 import tedKeys from "../../keys/tedKeys";

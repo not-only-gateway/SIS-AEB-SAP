@@ -49,8 +49,11 @@ export default function ProjectTedList(props) {
                 icon: <DeleteRounded/>,
                 onClick: (entity) => {
                     deleteEntry({
-                        suffix: 'ted',
-                        pk: entity.id
+                        suffix: 'project_ted',
+                        customPackage: {
+                            project: entity.activity_project.id,
+                            ted: entity.ted.id
+                        }
                     }).then(() => hook.clean())
                 },
                 disabled: false,

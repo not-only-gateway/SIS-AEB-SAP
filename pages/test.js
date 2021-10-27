@@ -54,17 +54,15 @@ export default function test() {
                 <TextField
                     label={'Input '}
                     placeholder={'Input'}
-                    handleChange={e => sc(e.target.value)}
-                    disabled={false}
+                    handleChange={e => {
+                        console.log(e.target.value)
+                        sc(e.target.value)
+                    }}
+                    disabled={false} type={'number'}
+
                     width={'100%'} value={c}
                 />
-                <TextField
-                    label={'Input '}
-                    placeholder={'Input'}
-                    handleChange={e => sc(e.target.value)}
-                    disabled={false} variant={"area"}
-                    width={'100%'} value={c}
-                />
+
 
 
                 <DropDownField
