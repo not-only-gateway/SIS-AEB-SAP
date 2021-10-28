@@ -1,4 +1,4 @@
-import {useQuery} from "mfc-core";
+
 import {endpoint_query} from "../../queries/queries";
 import List from "../../../../core/visualization/list/List";
 import {useState} from "react";
@@ -8,6 +8,7 @@ import PropTypes from 'prop-types'
 import {endpointKeys} from "../../keys/keys";
 import {DeleteRounded} from "@material-ui/icons";
 import deleteEntry from "../../utils/requests/delete";
+import useQuery from "../../../../core/visualization/hooks/useQuery";
 
 
 export default function EndpointList(props) {

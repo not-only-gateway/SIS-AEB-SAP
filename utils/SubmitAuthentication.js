@@ -5,7 +5,7 @@ import Host from "./Host";
 
 const cookies = new Cookies()
 export default async function submitAuthentication(props) {
-    let res = false
+    let res = null
 
     await new Requester({
         package: {
@@ -26,10 +26,8 @@ export default async function submitAuthentication(props) {
         }
         else
             cookies.set('jwt', response.data.token, {expires: new Date(response.data.exp)})
-        res = true
-    }).catch(e => {
-        res = false
-    })
+        res = response.data
+    }).catch(error => console.log(error))
 
 
     return res

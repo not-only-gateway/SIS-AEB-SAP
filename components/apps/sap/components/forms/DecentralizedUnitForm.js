@@ -11,10 +11,10 @@ import submit from "../../utils/requests/submit";
 export default function DecentralizedUnitForm(props) {
 
     const lang = EntitiesPT
-        const [draftID, setDraftID] = useState(props.draftID)
+    const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: props.data,
-    draftUrl: Host().replace('api', 'draft') + 'action',
+        draftUrl: Host().replace('api', 'draft') + 'action',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
         interval: 120000,
         parsePackage: pack => {
@@ -28,7 +28,7 @@ export default function DecentralizedUnitForm(props) {
             setDraftID(res.data.id)
         }
     })
-    
+
 
     return (
         <Form
@@ -44,7 +44,7 @@ export default function DecentralizedUnitForm(props) {
                     {key: 'uge', type: 'string'},
                     {key: 'ug', type: 'string'},
                     {key: 'cnpj', type: 'string'},
-                    {key: 'responsible', type: 'string'},
+                    {key: 'unit_responsible ', type: 'string'},
                 ]}
             returnButton={true} noAutoHeight={!props.asDefault}
             handleSubmit={(data, clearState) =>
@@ -63,8 +63,6 @@ export default function DecentralizedUnitForm(props) {
             handleClose={() => props.handleClose()}>
             {(data, handleChange) => (
                 <FormRow>
-
-
                     <TextField
                         placeholder={lang.name} label={lang.name}
                         handleChange={event => {
@@ -82,9 +80,9 @@ export default function DecentralizedUnitForm(props) {
 
                             handleChange({
                                 event: event.target.value,
-                                key: 'responsible'
+                                key: 'unit_responsible'
                             })
-                        }} value={data.responsible}
+                            }} value={data.unit_responsible}
                         required={true}
                         width={'calc(33.333% - 21.5px'}/>
                     <TextField

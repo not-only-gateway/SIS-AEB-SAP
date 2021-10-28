@@ -74,7 +74,7 @@ export default function ProjectGoalForm(props) {
                         placeholder={lang.description} label={lang.description}
                         handleChange={event => {
 
-                            handleChange({key: 'description', value: event.target.value})
+                            handleChange({key: 'description', event: event.target.value})
                         }} value={data.description}
                         required={true} width={'100%'}/>
 
@@ -84,7 +84,7 @@ export default function ProjectGoalForm(props) {
                         label={lang.status}
                         handleChange={event => {
 
-                            handleChange({key: 'status', value: event})
+                            handleChange({key: 'status', event: event})
                         }} value={data.status} required={true}
                         width={'calc(50% - 16px)'} choices={lang.statusOptions}/>
 
@@ -92,8 +92,7 @@ export default function ProjectGoalForm(props) {
 
                         placeholder={lang.deadline} label={lang.deadline}
                         handleChange={event => {
-
-                            handleChange({key: 'deadline', value: event})
+                            handleChange({key: 'deadline', event: event})
                         }}
                         value={
                             data.deadline

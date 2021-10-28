@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import "@fontsource/roboto"
 import PropTypes from "prop-types";
 import Layout from "./core/navigation/layout/Layout";
@@ -28,9 +28,29 @@ export default function AppWrapper(props) {
         sessionStorage.setItem('profile', JSON.stringify(value))
         sessionStorage.setItem('isManager', JSON.stringify(true))
     }
+    const sidebar = useMemo(() => {
+        let res = [...layoutParams.sideBarButtons]
+        if (profile && !isManager && cookies.get('jwt'))
+            res.push({
+                label: 'Perfil',
+                icon: <PersonRounded/>,
+                onClick: () => router.push(router.pathname + '?page=profile'),
+                highlight: router.query.page === 'profile',
+                position: 'bottom'
+            })
+        res.push({
+            label: darkTheme ? 'Escuro' : 'Claro',
+            icon: darkTheme ? <Brightness3Rounded/> : <BrightnessHighRounded/>,
+            onClick: () => setDarkTheme(!darkTheme),
+            position: 'bottom'
+        })
+        return res
+    }, [darkTheme, isManager, profile, layoutParams, router.query])
+
     if (router.pathname.includes('authentication'))
         return props.children({
-            setManager: setManager
+            setManager: setManager,
+            setProfile: setProfile
         })
     else
         return (
@@ -47,29 +67,17 @@ export default function AppWrapper(props) {
                         blurIntensity={.1}
                         animationStyle={"fade"}
                     >
-                        <Authenticator setManager={setManager} redirect={() => setOpenAuthentication(false)} />
+                        <Authenticator
+                            setManager={setManager} setProfile={setProfile}
+                            redirect={() => setOpenAuthentication(false)}
+                        />
                     </Modal>
                     <Layout
                         redirect={url => router.push(url, url)}
                         loading={props.loading} profile={profile}
                         logo={darkTheme ? '../dark.png' : '../light.png'} theme={'dark'}
                         {...layoutParams}
-                        sideBarButtons={[
-                            ...layoutParams.sideBarButtons,
-                            ...[profile && !isManager && cookies.get('jwt') ? {
-                                label: 'Perfil',
-                                icon: <PersonRounded/>,
-                                onClick: () => router.push(router.pathname + '?page=profile'),
-                                highlight: router.query.page === 'profile',
-                                position: 'bottom'
-                            } : undefined,
-                                {
-                                    label: darkTheme ? 'Escuro' : 'Claro',
-                                    icon: darkTheme ? <Brightness3Rounded/> : <BrightnessHighRounded/>,
-                                    onClick: () => setDarkTheme(!darkTheme),
-                                    position: 'bottom'
-                                }
-                            ]]}
+                        sideBarButtons={sidebar}
                         profileButtons={[
                             profile && !isManager ? {
                                 label: 'Perfil',

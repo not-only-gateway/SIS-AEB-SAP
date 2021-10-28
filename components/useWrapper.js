@@ -55,18 +55,7 @@ export default function useWrapper() {
             if (sessionStorage.getItem('isManager'))
                 setIsManager(JSON.parse(sessionStorage.getItem('isManager')))
         }
-        if (sessionStorage.getItem('profile') === null && cookies.get('jwt') && Object.keys(profile).length === 0 && !JSON.parse(cookies.get('asManager')))
-            fetchProfile().then(profile => {
-                if (profile.person !== null) {
-                    sessionStorage.setItem('profile', JSON.stringify(profile))
-                    setProfile({
-                        email: profile.collaborator?.corporate_email,
-                        name: profile.person.name,
-                        image: null
-                    })
-                }
 
-            })
     }, [layoutParams])
 
     return {

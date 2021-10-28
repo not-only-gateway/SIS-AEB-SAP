@@ -10,6 +10,7 @@ import FormRow from "./core/inputs/form/FormRow";
 import submitAuthentication from "../utils/SubmitAuthentication";
 import Tabs from "./core/navigation/tabs/Tabs";
 import useData from "./core/inputs/form/useData";
+import {fetchProfile} from "../utils/fetch";
 
 export default function Authenticator(props) {
     const cookies = useCookies()
@@ -53,16 +54,25 @@ export default function Authenticator(props) {
                             password: data.password,
                             asManager: asManager
                         }).then(res => {
-                                if (res) {
-                                    if(asManager)
-                                        props.setManager({
-                                            email: data.email,
-                                            name: 'Gerente',
-                                            image: null
-                                        })
-                                    props.redirect()
+                            if (res) {
+                                if (asManager)
+                                    props.setManager({
+                                        email: data.email,
+                                        name: 'Gerente',
+                                        image: null
+                                    })
+                                else {
+                                    const profile = {
+                                        name: res.user?.name,
+                                        email: res.user?.email,
+                                        image: res.user?.pic
+                                    }
+                                    props.setProfile(profile)
+                                    sessionStorage.setItem('profile', JSON.stringify(profile))
                                 }
-                            })
+                                props.redirect()
+                            }
+                        })
                     }}>
                     {(data, handleChange) => (
                         <FormRow>
@@ -101,5 +111,6 @@ export default function Authenticator(props) {
 
 Authenticator.propTypes = {
     redirect: PropTypes.func,
-    setManager: PropTypes.func
+    setManager: PropTypes.func,
+    setProfile: PropTypes.func
 }

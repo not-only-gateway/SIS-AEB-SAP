@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import PropTypes from 'prop-types'
 import TedPT from "../../locales/TedPT";
-import {DateField, DropDownField, FormRow, TextField, useQuery} from "mfc-core";
+import {DateField, DropDownField, TextField, useQuery} from "mfc-core";
 import associativeKeys from "../../keys/associativeKeys";
 import getQuery from "../../queries/getQuery";
 import Form from "../../../../core/inputs/form/Form";
@@ -13,6 +13,7 @@ import UnitForm from "./UnitForm";
 import DecentralizedUnitForm from "./DecentralizedUnitForm";
 import ActionForm from "./ActionForm";
 import Host from "../../utils/shared/Host";
+import FormRow from "../../../../core/inputs/form/FormRow";
 
 
 export default function TedForm(props) {

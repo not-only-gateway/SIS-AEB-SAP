@@ -109,7 +109,7 @@ export default function WorkPlanForm(props) {
                             {!props.ted ?
                                 <Selector
                                     hook={tedHook} keys={tedKeys.ted}
-                                    width={'calc(50% - 16px)'}
+                                    width={props.project ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
                                     required={true} createOption={false}
                                     value={data.ted}
                                     title={'Instrumento de celebração'}
@@ -122,7 +122,7 @@ export default function WorkPlanForm(props) {
                             {!props.project ?
                                 <Selector
                                     hook={projectHook} keys={projectKeys.project}
-                                    width={'calc(50% - 16px)'}
+                                    width={props.ted ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
                                     required={true}
                                     value={data.activity_project}
                                     title={'Projeto / atividade'}
@@ -134,7 +134,7 @@ export default function WorkPlanForm(props) {
                             }
                             <Selector
                                 hook={unitHook} keys={associativeKeys.responsible}
-                                width={'calc(50% - 16px)'}
+                                width={(!props.ted && props.project) || (!props.project && props.ted) ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
                                 required={true}
                                 value={data.responsible}
                                 title={'Responsável'}
@@ -148,7 +148,7 @@ export default function WorkPlanForm(props) {
                             </Selector>
                             <Selector
                                 hook={budgetPlanHook} keys={associativeKeys.budgetPlan}
-                                width={'calc(50% - 16px)'}
+                                width={(!props.ted && props.project) || (!props.project && props.ted) ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
                                 required={true}
                                 value={data.budget_plan}
                                 title={'Plano orçamentário'}

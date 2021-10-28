@@ -19,7 +19,7 @@ export default function authentication(props) {
                 </Head>
 
                 <div className={styles.contentWrapper}>
-                    <Authenticator setManager={props.setManager} redirect={() => router.push('/', '/', {locale: router.locale})}/>
+                    <Authenticator setManager={props.setManager} redirect={() => router.push('/', '/', {locale: router.locale})} setProfile={props.setProfile}/>
                 </div>
             </div>
         </ThemeProvider>

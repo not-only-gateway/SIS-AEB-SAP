@@ -38,14 +38,14 @@ export default {
             subType: 'string',
             query: getQuery('action')
         },
-        {key: 'number', type: 'number', label: 'Número', visible: true},
+        {key: 'number', type: 'string', label: 'Número', visible: true},
         {key: 'detailing', type: 'string', label: 'Detalhamento', visible: true}
     ],
     classification: [
         {key: 'id', type: 'number', label: 'ID', visible: false},
         {key: 'classification', type: 'string', label: 'Classificação', visible: true},
         {
-            key: 'type',
+            key: 'classification_type',
             type: 'object',
             label: 'Tipo',
             visible: true,
@@ -99,7 +99,7 @@ export default {
     infrastructure: [
         {key: 'id', type: 'number', label: 'ID', visible: false},
         {key: 'name', type: 'string', label: 'Nome', visible: true},
-        {key: 'type', type: 'object', label: 'Tipo', visible: true, subType: 'string', query: getQuery('type')},
+        {key: 'type', label: 'Tipo', visible: true, type: 'string'}
     ],
     natureOfExpense: [
         {key: 'id', type: 'number', label: 'ID', visible: false},

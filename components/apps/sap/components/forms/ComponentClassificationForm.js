@@ -43,7 +43,7 @@ export default function ComponentClassificationForm(props) {
             dependencies={
                 [
                     {key: 'classification', type: 'string'},
-                    {key: 'type', type: 'object'},
+                    {key: 'classification_type', type: 'object'},
                 ]} noAutoHeight={!props.asDefault}
             returnButton={true}
             handleSubmit={(data, clearState) =>
@@ -77,8 +77,8 @@ export default function ComponentClassificationForm(props) {
                         hook={typeHook}
                         placeholder={'Tipo'}
                         title={'Tipo'}
-                        handleChange={e => handleChange({event: e, key: 'type'})}
-                        value={data.type} width={'calc(50% - 16px)'} required={true}
+                        handleChange={e => handleChange({event: e, key: 'classification_type '})}
+                        value={data.classification_type } width={'calc(50% - 16px)'} required={true}
                         keys={associativeKeys.type}
                         createOption={true}
                     >
