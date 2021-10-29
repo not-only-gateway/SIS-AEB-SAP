@@ -16,11 +16,7 @@ export default function Authenticator(props) {
     const cookies = useCookies()
     const theme = useContext(ThemeContext)
     const [asManager, setAsManager] = useState(false)
-    useEffect(() => {
-        cookies.remove('jwt')
-        sessionStorage.removeItem('profile')
-        sessionStorage.removeItem('accessProfile')
-    }, [])
+
     const formHook = useData()
     const [visible, setVisible] = useState(false)
     return (
@@ -32,7 +28,7 @@ export default function Authenticator(props) {
                 Bem vindo
             </div>
             <div style={{display: 'grid', gap: '4px', width: '100%'}}>
-                <Tabs
+                <Tabs noChildHighlight={true}
                     buttons={[
                         {
                             label: 'Autenticação AEB',
@@ -64,8 +60,9 @@ export default function Authenticator(props) {
                                 else {
                                     const profile = {
                                         name: res.user?.name,
-                                        email: res.user?.email,
-                                        image: res.user?.pic
+                                        email: res.user?.user_email,
+                                        image: res.user?.pic,
+                                        about: res.user?.about
                                     }
                                     props.setProfile(profile)
                                     sessionStorage.setItem('profile', JSON.stringify(profile))

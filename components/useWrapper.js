@@ -57,14 +57,16 @@ export default function useWrapper() {
         }
 
     }, [layoutParams])
-
+    const requiresAuth = useMemo(() => {
+        return layoutParams.requireAuth
+    }, [layoutParams])
     return {
         profile,
         layoutParams,
         openAuthentication,
         setOpenAuthentication,
         cookies,
-        router,
+        router, requiresAuth,
         setProfile,
         isManager, setIsManager,
         darkTheme, setDarkTheme

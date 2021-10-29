@@ -18,7 +18,6 @@ import Button from "../../../core/inputs/button/Button";
 
 export default function WorkPlan(props) {
     const [workPlan, setWorkPlan] = useState({})
-    const themes = useContext(ThemeContext)
 
     useEffect(() => {
         if (workPlan.id !== undefined)
@@ -37,7 +36,7 @@ export default function WorkPlan(props) {
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
             <div style={{
-                padding: '0 32px', background: themes.themes.background1
+                background: 'var(--background-1)'
             }}>
                 <Breadcrumbs divider={'-'} justify={'start'}>
                     <Button variant={'minimal'}
@@ -59,7 +58,7 @@ export default function WorkPlan(props) {
                 </Breadcrumbs>
             </div>
             <div className={shared.header}
-                 style={{padding: '16px 48px', borderBottom: themes.themes.border0 + ' 1px solid'}}>
+                 style={{padding: '16px 24px'}}>
                 {workPlan?.object}
                 <div className={shared.typeLabel}>
                     <CategoryRounded style={{fontSize: '1.15rem'}}/> Plano de trabalho

@@ -28,9 +28,9 @@ export default function InfrastructureComponentForm(props) {
         const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: initialData,
-    draftUrl: Host().replace('api', 'draft') + 'action',
+    draftUrl: Host().replace('api', 'draft') + 'component',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000,
+        interval: 5000,
         parsePackage: pack => {
             return {
                 ...pack,
@@ -110,5 +110,4 @@ InfrastructureComponentForm.propTypes = {
     handleClose: PropTypes.func,
     create: PropTypes.bool,
     infrastructure: PropTypes.object,
-    draftID: PropTypes.number,
 }

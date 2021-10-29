@@ -7,10 +7,12 @@ import EndpointForm from "../components/forms/EndpointForm";
 import {fetchEntry} from "../utils/fetch";
 import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";
 import EndpointPrivilegeList from "../components/lists/EndpointPrivilegeList";
+import Button from "../../../core/inputs/button/Button";
+import {CategoryRounded} from "@material-ui/icons";
 
 export default function Endpoint(props) {
-    const [data, setData] = useState(null)
-    const themes = useContext(ThemeContext)
+    const [data, setData] = useState({})
+
     useEffect(() => {
         fetchEntry({suffix: 'endpoint', prefix: 'gateway', pk: props.query.id}).then(r => {
             setData(r)
@@ -20,45 +22,54 @@ export default function Endpoint(props) {
     return (
         <>
             <div style={{
-                padding: '0 calc(10% - 16px)', background: themes.themes.background1
+                background: 'var(--background-1)'
             }}>
                 <Breadcrumbs divider={'/'} justify={'start'}>
-                    <button className={styles.button}
+                    <Button variant={'minimal'}
                             onClick={() => props.redirect('/management?page=services', '/management?page=services')}>
                         Serviços
-                    </button>
-                    <button className={styles.button} disabled={true}>
-                        {data?.denomination}
-                    </button>
+                    </Button>
+                    <Button variant={'minimal'}
+                            onClick={() => props.redirect('/management?page=service&id=' + data.service.id)}>
+                        {data.service?.denomination} (serviço)
+                    </Button>
+                    <Button variant={'minimal'} disabled={true}>
+                        {data.denomination}
+                    </Button>
                 </Breadcrumbs>
+
             </div>
 
-            <div
-                className={styles.header}
-                style={{padding: '16px 10%', borderBottom: themes.themes.border0 + ' 1px solid'}}
-            >
+            <div className={styles.header}
+                 style={{padding: '16px 24px'}}>
                 {data?.denomination}
+                <div className={styles.typeLabel}>
+                    <CategoryRounded style={{fontSize: '1.15rem'}}/> Endpoint
+                </div>
             </div>
-
             <VerticalTabs classes={[
                 {
                     buttons: [{
                         label: 'Informações',
                         children: (
                             <div className={styles.contentWrapper} style={{paddingTop: '32px'}}>
-                                {data !== null ? <EndpointForm initialData={data} updateData={setData}/> : null}
+                                {Object.keys(data).length > 0 ?
+                                    <EndpointForm initialData={data} updateData={setData}/> : null}
                             </div>
                         ),
-                    },
-                        {
-                            label: 'Privilégios',
-                            children: (
-                                <div className={styles.contentWrapper}>
-                                    <EndpointPrivilegeList endpoint={props.query.id}/>
-                                </div>
-                            )
-                        }]
+                    }]
                 },
+                {
+                    label: 'Relações',
+                    buttons: [{
+                        label: 'Privilégios',
+                        children: (
+                            <div className={styles.contentWrapper}>
+                                <EndpointPrivilegeList endpoint={props.query.id}/>
+                            </div>
+                        )
+                    }]
+                }
             ]}/>
         </>
     )

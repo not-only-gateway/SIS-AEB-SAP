@@ -19,9 +19,9 @@ export default function ActivityStageForm(props) {
         const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: initialData,
-    draftUrl: Host().replace('api', 'draft') + 'action',
+    draftUrl: Host().replace('api', 'draft') + 'activity_stage',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000,
+        interval: 5000,
         parsePackage: pack => {
             return {
                 ...pack,
@@ -111,5 +111,4 @@ ActivityStageForm.propTypes = {
     create: PropTypes.bool,
     goal: PropTypes.object,
     workPlan: PropTypes.object,
-    draftID: PropTypes.number,
 }

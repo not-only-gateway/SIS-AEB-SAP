@@ -7,27 +7,12 @@ import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
 import Host from "../../utils/shared/Host";
+import useData from "../../../../core/inputs/form/useData";
 
 
 export default function TypeForm(props) {
     const lang = EntitiesPT
-        const [draftID, setDraftID] = useState(props.draftID)
-    const formHook = useDataWithDraft({
-        initialData: props.data,
-    draftUrl: Host().replace('api', 'draft') + 'action',
-        draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000,
-        parsePackage: pack => {
-            return {
-                ...pack,
-                identifier: draftID
-            }
-        },
-        draftMethod: draftID ? 'put' : 'post',
-        onSuccess: (res) => {
-            setDraftID(res.data.id)
-        }
-    })
+    const formHook = useData(props.data)
     
 
     return (
@@ -85,5 +70,4 @@ TypeForm.propTypes = {
     handleClose: PropTypes.func,
     create: PropTypes.bool,
     action: PropTypes.object,
-    draftID: PropTypes.number,
 }

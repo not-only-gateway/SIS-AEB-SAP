@@ -8,6 +8,8 @@
 
     display: grid;
     gap: 8px;
+    height: fit-content;
+    overflow: hidden;
 
 }
 
@@ -22,10 +24,19 @@
 }
 
 .contentWrapper {
+    flex-grow: 1;
+
+    max-height: 100%;
     padding: 0 10%;
+    display: flex;
     width: 100%;
+
+    overflow: hidden;
 }
 
+.wrapper{
+    flex-grow: 1;
+}
 .button {
     outline: none;
     background: none;

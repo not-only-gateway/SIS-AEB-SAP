@@ -11,7 +11,7 @@ export default function PermissionForm(props) {
     return (
         <Form
             hook={formHook}
-            title={!props.initialData.id ? 'Nova permissão' : 'Permissão'} initialData={props.initialData}
+            title={!props.initialData.id ? 'Novo privilégio' : 'Privilégio'} initialData={props.initialData}
             handleClose={() => props.handleClose()}
             dependencies={[
                 {key:  'denomination', type: 'string'}

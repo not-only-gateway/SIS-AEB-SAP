@@ -8,9 +8,11 @@ import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
 import ThemeContext from "../../../core/misc/theme/ThemeContext";
 import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";
 
+import {CategoryRounded} from "@material-ui/icons";
+import Button from "../../../core/inputs/button/Button";
+
 export default function Service(props) {
     const [data, setData] = useState(null)
-    const themes = useContext(ThemeContext)
     useEffect(() => {
         fetchEntry({suffix: 'service', prefix: 'gateway', pk: props.query.id}).then(r => {
             if (r !== null) {
@@ -24,24 +26,25 @@ export default function Service(props) {
     return (
         <>
             <div style={{
-                padding: '0 calc(10% - 16px)',
-                background: themes.themes.background1,
-                borderBottom: themes.themes.border0 + ' 1px solid'
+                background: 'var(--background-1)'
             }}>
                 <Breadcrumbs divider={'/'} justify={'start'}>
-                    <button className={styles.button}
+                    <Button variant={'minimal'}
                             onClick={() => props.redirect('/management?page=services', '/management?page=services')}>
                         Serviços
-                    </button>
-                    <button className={styles.button} disabled={true}>
+                    </Button>
+                    <Button variant={'minimal'} disabled={true}>
                         {data?.denomination}
-                    </button>
+                    </Button>
                 </Breadcrumbs>
-                <div
-                    className={styles.header}
-                    style={{padding: '10px 0 16px 12px'}}
-                >
-                    {data?.denomination}
+
+            </div>
+
+            <div className={styles.header}
+                 style={{padding: '16px 24px'}}>
+                {data?.denomination}
+                <div className={styles.typeLabel}>
+                    <CategoryRounded style={{fontSize: '1.15rem'}}/> Serviço
                 </div>
             </div>
             <VerticalTabs classes={[
@@ -62,15 +65,13 @@ export default function Service(props) {
                             label: 'Endpoints',
                             children: (
                                 <div className={styles.contentWrapper}>
-                                    <EndpointList service={parseInt(props.query.id)}/>
+                                    <EndpointList redirect={props.redirect} service={parseInt(props.query.id)}/>
                                 </div>
                             )
                         }
                     ]
                 }
-            ]}>
-
-            </VerticalTabs>
+            ]}/>
         </>
     )
 }

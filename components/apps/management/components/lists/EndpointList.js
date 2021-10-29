@@ -43,7 +43,7 @@ export default function EndpointList(props) {
                         }
                     }
                 ]}
-                onRowClick={row => props.service ? setOpenEntity(row) : props.redirect('/management/?page=endpoint&id=' + row.url, '/management/?page=endpoint&id=' + row.url, {})}
+                onRowClick={row => props.redirect('/management/?page=endpoint&id=' + row.url)}
                 onCreate={() => setOpenEntity({})}
                 title={'Endpoints registrados'}
             />

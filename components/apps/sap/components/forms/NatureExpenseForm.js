@@ -14,9 +14,9 @@ export default function NatureExpenseForm(props) {
         const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: props.data,
-    draftUrl: Host().replace('api', 'draft') + 'action',
+    draftUrl: Host().replace('api', 'draft') + 'nature_of_expense',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000,
+        interval: 5000,
         parsePackage: pack => {
             return {
                 ...pack,
@@ -103,5 +103,4 @@ NatureExpenseForm.propTypes = {
     handleClose: PropTypes.func,
     create: PropTypes.bool,
     asDefault: PropTypes.bool,
-    draftID: PropTypes.number,
 }

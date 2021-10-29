@@ -16,83 +16,9 @@ export default function test() {
     const infrastructureHook = useQuery(getQuery('infrastructure'))
 
     return (
-        <div>
-
-            <div style={{padding: '0 10%'}}>
-                <Button>
-                    Default
-                </Button>
-                <Button variant={'outlined'} color={"secondary"}>
-                    Outlined
-                </Button>
-                <Button disabled={true}>
-                    Default disabled
-                </Button>
-                <Button color={"secondary"} highlight={true}>
-                    Default secondary
-                </Button>
-                <Button variant={'minimal'}>
-                    Minimal
-                </Button>
-                <Button variant={'minimal'} disabled={true}>
-                    Minimal disabled
-                </Button>
-                <Button variant={'minimal'} color={"secondary"} highlight={true}>
-                    Minimal secondary
-                </Button>
-                <Button variant={'filled'}>
-                    Filled
-                </Button>
-                <Button variant={'filled'} disabled={true}>
-                    Filled disabled
-                </Button>
-                <Button variant={'filled'} color={"secondary"} highlight={true}>
-                    Filled secondary
-                </Button>
-
-
-                <TextField
-                    label={'Input '}
-                    placeholder={'Input'}
-                    handleChange={e => {
-                        console.log(e.target.value)
-                        sc(e.target.value)
-                    }}
-                    disabled={false} type={'number'}
-
-                    width={'100%'} value={c}
-                />
-
-
-
-                <DropDownField
-                    label={'Test'} placeholder={'Test'}
-                    choices={[{key: 'cafe', value: 'CAFE'}, {key: 'cafe', value: 'CAFE'}, {
-                        key: 'cafe',
-                        value: 'CAFE'
-                    }]}
-                    handleChange={() => null}/>
-
-                <MultiSelectField
-                    label={'Test'} placeholder={'Test'}
-                    choices={[{key: 'cafe', value: 'CAFE'}, {key: 'cafe', value: 'CAFE'}, {
-                        key: 'cafe',
-                        value: 'CAFE'
-                    }]} handleChange={() => null}
-                    disabled={false} size={'small'}
-                />
-                <Selector
-                    hook={infrastructureHook} keys={associativeKeys.infrastructure}
-                    width={'calc(33.333% - 21.5px)'}
-                    required={true}
-                    value={null}
-                    title={'Infraestrutura'}
-                    placeholder={'Infraestrutura'}
-                    handleChange={entity => null}
-                 />
-                <FileField/>
-                <DateField handleChange={e => sc(e)}/>
-            </div>
-        </div>
+        <>
+            <div style={{height: '10%', background: 'green'}}/>
+            <div style={{height: '100%', background: 'red'}}/>
+        </>
     )
 }

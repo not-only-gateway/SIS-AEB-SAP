@@ -16,9 +16,9 @@ export default function ProjectGoalForm(props) {
         const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: initialData,
-    draftUrl: Host().replace('api', 'draft') + 'action',
+    draftUrl: Host().replace('api', 'draft') + 'goal_project',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000,
+        interval: 5000,
         parsePackage: pack => {
             return {
                 ...pack,
@@ -112,5 +112,4 @@ ProjectGoalForm.propTypes = {
     handleClose: PropTypes.func,
     create: PropTypes.bool,
     project: PropTypes.object,
-    draftID: PropTypes.number,
 }

@@ -25,7 +25,7 @@ export default function Project(props) {
             suffix: 'project'
         }).then(res => setProject(res))
     }, [])
-    const themes = useContext(ThemeContext)
+
     return (
         <>
             <Head>
@@ -33,7 +33,7 @@ export default function Project(props) {
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
             <div style={{
-                padding: '0 32px', background: themes.themes.background1
+                background: 'var(--background-1)'
             }}>
                 <Breadcrumbs justify={'start'}>
                     <Button
@@ -42,13 +42,13 @@ export default function Project(props) {
                         Processos
                     </Button>
 
-                    <Button variant={'minimal'}  highlight={true}>
+                    <Button variant={'minimal'} highlight={true}>
                         {project?.name}
                     </Button>
                 </Breadcrumbs>
             </div>
             <div className={shared.header}
-                 style={{padding: '16px 48px', borderBottom: themes.themes.border0 + ' 1px solid'}}>
+                 style={{padding: '16px 24px'}}>
                 {project?.name}
                 <div className={shared.typeLabel}>
                     <CategoryRounded style={{fontSize: '1.15rem'}}/> Projeto / Atividade
@@ -60,7 +60,7 @@ export default function Project(props) {
                         buttons: [
                             {
                                 label: 'Dados', children: (
-                                    <div className={shared.contentWrapper} style={{paddingTop: '32px'}}>
+                                    <div className={shared.contentWrapper}>
                                         <ProjectForm data={project}/>
                                     </div>
                                 )

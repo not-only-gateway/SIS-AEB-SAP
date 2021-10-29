@@ -152,7 +152,7 @@ export const eventKeys = [
         key: 'method',
         label: 'Método',
         type: 'number',
-        visible: 'true',
+        visible: true,
         getColor: (type) => {
             switch (type) {
                 case 'POST':

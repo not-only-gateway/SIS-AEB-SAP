@@ -14,12 +14,12 @@ import Host from "../../utils/shared/Host";
 
 export default function UnitForm(props) {
     const lang = EntitiesPT
-        const [draftID, setDraftID] = useState(props.draftID)
+    const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: props.data,
-    draftUrl: Host().replace('api', 'draft') + 'action',
+        draftUrl: Host().replace('api', 'draft') + 'unit',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000,
+        interval: 5000,
         parsePackage: pack => {
             return {
                 ...pack,
@@ -31,7 +31,7 @@ export default function UnitForm(props) {
             setDraftID(res.data.id)
         }
     })
-    
+
     const unitHook = useQuery(getQuery('unit'))
 
     return (
@@ -109,5 +109,4 @@ UnitForm.propTypes = {
     create: PropTypes.bool,
     asDefault: PropTypes.bool,
     action: PropTypes.object,
-    draftID: PropTypes.number,
 }

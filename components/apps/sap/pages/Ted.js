@@ -27,7 +27,6 @@ export default function Ted(props) {
             }).then(res => setTed(res))
     }, [props.query])
 
-    const themes = useContext(ThemeContext)
 
     return (
         <>
@@ -36,7 +35,7 @@ export default function Ted(props) {
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
             <div style={{
-                padding: '0 32px', background: themes.themes.background1
+                background: 'var(--background-1)'
             }}>
                 <Breadcrumbs divider={'-'} justify={'start'}>
                     <Button
@@ -59,7 +58,7 @@ export default function Ted(props) {
                 </Breadcrumbs>
             </div>
             <div className={shared.header}
-                 style={{padding: '16px 48px', borderBottom: themes.themes.border0 + ' 1px solid'}}>
+                 style={{padding: '16px 24px'}}>
                 {ted?.number}
                 <div className={shared.typeLabel}>
                     <CategoryRounded style={{fontSize: '1.15rem'}}/> Instrumento de celebração
@@ -70,12 +69,12 @@ export default function Ted(props) {
                     {
                         buttons: [
                             {
-                                label: 'Dados', children:
-                                    (
-                                        <div style={{padding: '16px 10%'}}>
-                                            <TedForm data={ted}/>
-                                        </div>
-                                    )
+                                label: 'Dados',
+                                children: (
+                                    <div className={shared.contentWrapper}>
+                                        <TedForm data={ted}/>
+                                    </div>
+                                )
                             }
                         ]
                     },
@@ -84,7 +83,7 @@ export default function Ted(props) {
                         buttons: [
                             {
                                 label: 'Termos aditivos', children: (
-                                    <div style={{padding: '16px 10%'}}>
+                                    <div className={shared.contentWrapper}>
                                         <TedList ted={ted} redirect={props.redirect}/>
                                     </div>
                                 )
@@ -110,8 +109,6 @@ export default function Ted(props) {
                             }]
                     }]}
             />
-
-
         </>
     )
 }

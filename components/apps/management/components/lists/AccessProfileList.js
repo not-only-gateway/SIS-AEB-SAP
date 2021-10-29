@@ -17,7 +17,7 @@ export default function AccessProfileList(props) {
         <Switcher openChild={openEntity ? 0 : 1}>
             <div style={{marginTop: '48px'}}>
                 <AccessProfileForm
-                    redirect={id => props.redirect('/management/?page=access&id=' + id, '/management/?page=access&id=' + id, {})}
+                    redirect={entry => props.redirect('/management/?page=access&id=' + entry.id)}
                     initialData={openEntity ? openEntity : {}}
                     handleClose={() => setOpenEntity(undefined)}
                 />
@@ -39,7 +39,7 @@ export default function AccessProfileList(props) {
                     }
                 ]}
                 hook={hook} onCreate={() => setOpenEntity({})}
-                onRowClick={row => props.redirect('/management/?page=access&id=' + row.id, '/management/?page=access&id=' + row.id, {})}
+                onRowClick={row => props.redirect('/management/?page=access&id=' + row.id)}
                 title={'Perfis de acesso'}
             />
         </Switcher>

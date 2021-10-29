@@ -88,5 +88,4 @@ ActionForm.propTypes = {
     handleClose: PropTypes.func,
     create: PropTypes.bool,
     asDefault: PropTypes.bool,
-    draftID: PropTypes.number,
 }

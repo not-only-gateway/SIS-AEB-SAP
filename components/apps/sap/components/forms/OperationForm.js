@@ -29,9 +29,9 @@ export default function OperationForm(props) {
         const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: props.data,
-    draftUrl: Host().replace('api', 'draft') + 'action',
+    draftUrl: Host().replace('api', 'draft') + 'operation_phase',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000,
+        interval: 5000,
         parsePackage: pack => {
             return {
                 ...pack,
@@ -215,5 +215,4 @@ OperationForm.propTypes = {
     handleClose: PropTypes.func,
     create: PropTypes.bool,
     stage: PropTypes.object,
-    draftID: PropTypes.number,
 }

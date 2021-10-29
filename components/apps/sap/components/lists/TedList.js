@@ -4,10 +4,11 @@ import TedForm from "../forms/TedForm";
 import tedKeys from "../../keys/tedKeys";
 import Switcher from "../../../../core/navigation/switcher/Switcher";
 import deleteEntry from "../../utils/requests/delete";
-import {List} from "mfc-core";
+
 import PropTypes from "prop-types";
 import getQuery from "../../queries/getQuery";
 import useQuery from "../../../../core/visualization/hooks/useQuery";
+import List from "../../../../core/visualization/list/List";
 
 export default function TedList(props) {
 

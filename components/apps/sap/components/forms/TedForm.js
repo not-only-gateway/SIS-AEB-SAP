@@ -27,9 +27,9 @@ export default function TedForm(props) {
         const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: props.data,
-    draftUrl: Host().replace('api', 'draft') + 'action',
+    draftUrl: Host().replace('api', 'draft') + 'ted',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000,
+        interval: 5000,
         parsePackage: pack => {
             return {
                 ...pack,
@@ -314,5 +314,4 @@ TedForm.propTypes = {
     asEntity: PropTypes.bool,
     asAddendum: PropTypes.bool,
     ted: PropTypes.object,
-    draftID: PropTypes.number,
 }

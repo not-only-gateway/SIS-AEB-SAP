@@ -20,9 +20,9 @@ export default function BudgetPlanForm(props) {
     const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: initialData,
-        draftUrl: Host().replace('api', 'draft') + 'action',
+        draftUrl: Host().replace('api', 'draft') + 'budget_plan',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000,
+        interval: 5000,
         parsePackage: pack => {
             return {
                 ...pack,
@@ -130,5 +130,4 @@ BudgetPlanForm.propTypes = {
     create: PropTypes.bool,
     asDefault: PropTypes.bool,
     action: PropTypes.object,
-    draftID: PropTypes.number,
 }

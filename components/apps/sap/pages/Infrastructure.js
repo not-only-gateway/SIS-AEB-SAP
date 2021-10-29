@@ -10,11 +10,11 @@ import InfrastructureForm from "../components/forms/InfrastructureForm";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
 import styles from "../../management/styles/Shared.module.css";
 import {CategoryRounded} from "@material-ui/icons";
+import Button from "../../../core/inputs/button/Button";
 
 
 export default function Infrastructure(props) {
     const [infrastructure, setInfrastructure] = useState({})
-    const theme = useContext(ThemeContext)
     useEffect(() => {
         fetchEntry({
             pk: props.query.id,
@@ -30,20 +30,20 @@ export default function Infrastructure(props) {
             </Head>
 
             <div style={{
-                padding: '0 32px', background: theme.themes.background1
+                background: 'var(--background-1)'
             }}>
                 <Breadcrumbs divider={'-'} justify={'start'}>
-                    <button className={styles.button}
+                    <Button variant={'minimal'}
                             onClick={() => props.redirect('/sap?page=associative')}>
                         Entidades
-                    </button>
-                    <button className={styles.button} disabled={true}>
+                    </Button>
+                    <Button variant={'minimal'} disabled={true}>
                         {infrastructure?.name}
-                    </button>
+                    </Button>
                 </Breadcrumbs>
             </div>
             <div className={shared.header}
-                 style={{padding: '16px 48px', borderBottom: theme.themes.border0 + ' 1px solid'}}>
+                 style={{padding: '16px 24px'}}>
                 {infrastructure?.name}
                 <div className={shared.typeLabel}>
                     <CategoryRounded style={{fontSize: '1.15rem'}}/> Infraestrutura

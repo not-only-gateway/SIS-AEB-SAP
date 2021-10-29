@@ -51,9 +51,9 @@ export default function WorkPlanForm(props) {
     const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: initialData,
-        draftUrl: Host().replace('api', 'draft') + 'action',
+        draftUrl: Host().replace('api', 'draft') + 'work_plan',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 120000,
+        interval: 5000,
         parsePackage: pack => {
             return {
                 ...pack,
@@ -295,7 +295,6 @@ export default function WorkPlanForm(props) {
 }
 
 WorkPlanForm.propTypes = {
-    draftID: PropTypes.number,
     asApostille: PropTypes.bool,
     workPlan: PropTypes.bool,
     data: PropTypes.object,
