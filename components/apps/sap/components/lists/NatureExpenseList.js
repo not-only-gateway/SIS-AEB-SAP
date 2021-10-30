@@ -16,7 +16,7 @@ export default function NatureExpenseList(props) {
     const hook = useQuery(getQuery('nature_of_expense'))
 
     return (
-        <Switcher openChild={open ? 0 : 1}>
+        <Switcher openChild={open ? 0 : 1} styles={{width: '100%'}}>
             <div style={{paddingTop: '32px'}}>
                 <NatureExpenseForm
                     handleClose={() => {

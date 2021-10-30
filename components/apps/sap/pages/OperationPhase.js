@@ -53,9 +53,7 @@ export default function OperationPhase(props) {
                 <title>{operation?.phase}</title>
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
-            <div style={{
-                background: 'var(--background-1)'
-            }}>
+
                 <Breadcrumbs divider={'-'} justify={'start'}>
                     <Button variant={"minimal"}
                             onClick={() => props.redirect('/sap?page=index')}>
@@ -77,7 +75,7 @@ export default function OperationPhase(props) {
                         {operation.phase}
                     </Button>
                 </Breadcrumbs>
-            </div>
+
             <div className={shared.header}
                  style={{padding: '16px 24px'}}>
                 {operation?.phase}

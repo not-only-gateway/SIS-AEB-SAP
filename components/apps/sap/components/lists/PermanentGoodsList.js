@@ -18,7 +18,7 @@ export default function PermanentGoodsList(props) {
     const hook = useQuery(getQuery('permanent_goods', {operation_phase: props.operation?.id}))
 
     return (
-        <Switcher openChild={open ? 0 : 1}>
+        <Switcher openChild={open ? 0 : 1} styles={{width: '100%'}}>
             <div style={{paddingTop: '32px'}}>
                 <PermanentGoodsForm
                     handleClose={() => {

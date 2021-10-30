@@ -34,9 +34,12 @@
     overflow: hidden;
 }
 
-.wrapper{
-    flex-grow: 1;
+.wrapper {
+    overflow: auto;
+    height: 100%;
+    width: 100%;
 }
+
 .button {
     outline: none;
     background: none;

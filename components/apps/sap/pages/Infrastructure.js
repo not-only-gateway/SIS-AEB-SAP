@@ -29,19 +29,17 @@ export default function Infrastructure(props) {
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
 
-            <div style={{
-                background: 'var(--background-1)'
-            }}>
-                <Breadcrumbs divider={'-'} justify={'start'}>
-                    <Button variant={'minimal'}
-                            onClick={() => props.redirect('/sap?page=associative')}>
-                        Entidades
-                    </Button>
-                    <Button variant={'minimal'} disabled={true}>
-                        {infrastructure?.name}
-                    </Button>
-                </Breadcrumbs>
-            </div>
+
+            <Breadcrumbs divider={'-'} justify={'start'}>
+                <Button variant={'minimal'}
+                        onClick={() => props.redirect('/sap?page=associative')}>
+                    Entidades
+                </Button>
+                <Button variant={'minimal'} disabled={true}>
+                    {infrastructure?.name}
+                </Button>
+            </Breadcrumbs>
+
             <div className={shared.header}
                  style={{padding: '16px 24px'}}>
                 {infrastructure?.name}

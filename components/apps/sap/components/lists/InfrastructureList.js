@@ -17,7 +17,7 @@ export default function InfrastructureList(props) {
     const hook = useQuery(getQuery('infrastructure'))
 
     return (
-        <Switcher openChild={open ? 0 : 1}>
+        <Switcher openChild={open ? 0 : 1} styles={{width: '100%'}}>
             <div style={{paddingTop: '32px'}}>
                 <InfrastructureForm
                     handleClose={() => {

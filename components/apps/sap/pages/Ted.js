@@ -24,7 +24,7 @@ export default function Ted(props) {
             fetchEntry({
                 pk: props.query.id,
                 suffix: 'ted'
-            }).then(res => setTed(res))
+            }).then(res => setTed(res ? res : {}))
     }, [props.query])
 
 
@@ -34,29 +34,27 @@ export default function Ted(props) {
                 <title>{ted?.number}</title>
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
-            <div style={{
-                background: 'var(--background-1)'
-            }}>
-                <Breadcrumbs divider={'-'} justify={'start'}>
-                    <Button
-                        variant={'minimal'}
-                        onClick={() => props.redirect('/sap?page=index')}>
-                        Processos
-                    </Button>
-                    {!ted.ted ? null :
-                        <Link href={'/sap?page=ted&id=' + ted.ted.id}>
-                            <Button
-                                variant={'minimal'}
-                            >
-                                {ted?.ted?.number}
-                            </Button>
-                        </Link>
-                    }
-                    <Button variant={'minimal'} highlight={true}>
-                        {ted?.number}
-                    </Button>
-                </Breadcrumbs>
-            </div>
+
+            <Breadcrumbs divider={'-'} justify={'start'}>
+                <Button
+                    variant={'minimal'}
+                    onClick={() => props.redirect('/sap?page=index')}>
+                    Processos
+                </Button>
+                {!ted.ted ? null :
+                    <Link href={'/sap?page=ted&id=' + ted.ted.id}>
+                        <Button
+                            variant={'minimal'}
+                        >
+                            {ted?.ted?.number}
+                        </Button>
+                    </Link>
+                }
+                <Button variant={'minimal'} highlight={true}>
+                    {ted?.number}
+                </Button>
+            </Breadcrumbs>
+
             <div className={shared.header}
                  style={{padding: '16px 24px'}}>
                 {ted?.number}

@@ -16,7 +16,7 @@ export default function ActionList(props) {
     const hook = useQuery(getQuery('action'))
     
     return (
-        <Switcher openChild={open ? 0 : 1}>
+        <Switcher openChild={open ? 0 : 1} styles={{width: '100%'}}>
             <div style={{paddingTop: '32px'}}>
                 <ActionForm
                     handleClose={() => {

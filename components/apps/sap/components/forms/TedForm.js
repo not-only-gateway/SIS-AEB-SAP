@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import PropTypes from 'prop-types'
 import TedPT from "../../locales/TedPT";
-import {DateField, DropDownField, TextField, useQuery} from "mfc-core";
+import {useQuery} from "mfc-core";
 import associativeKeys from "../../keys/associativeKeys";
 import getQuery from "../../queries/getQuery";
 import Form from "../../../../core/inputs/form/Form";
@@ -14,6 +14,10 @@ import DecentralizedUnitForm from "./DecentralizedUnitForm";
 import ActionForm from "./ActionForm";
 import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
+import TextField from "../../../../core/inputs/text/TextField";
+import DateField from "../../../../core/inputs/date/DateField";
+import DropDownField from "../../../../core/inputs/dropdown/DropDownField";
+import {AssignmentRounded, HistoryRounded} from "@material-ui/icons";
 
 
 export default function TedForm(props) {
@@ -24,10 +28,10 @@ export default function TedForm(props) {
     const decentralizedUnitHook = useQuery(getQuery('decentralized_unit'))
 
 
-        const [draftID, setDraftID] = useState(props.draftID)
+    const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: props.data,
-    draftUrl: Host().replace('api', 'draft') + 'ted',
+        draftUrl: Host().replace('api', 'draft') + 'ted',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
         interval: 5000,
         parsePackage: pack => {
@@ -41,7 +45,7 @@ export default function TedForm(props) {
             setDraftID(res.data.id)
         }
     })
-    
+
 
     return (
         <Form
@@ -69,8 +73,19 @@ export default function TedForm(props) {
                 ]
             } noHeader={!props.create && !props.asEntity}
             returnButton={props.create || props.asEntity}
+            options={[
+                {
+                    label: 'Histórico de mudanças',
+                    icon: <HistoryRounded/>,
+                    onClick: () => null,
+                    disabled: props.create
+                },
+                {
+                    label: 'Rascunhos',
+                    icon: <AssignmentRounded/>,
+                    onClick: () => null
+                }]}
             handleSubmit={(data, clearState) => {
-
                 submit({
                     suffix: 'ted',
                     pk: data.id,

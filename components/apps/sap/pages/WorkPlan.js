@@ -35,28 +35,27 @@ export default function WorkPlan(props) {
                 <title>{workPlan?.object}</title>
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
-            <div style={{
-                background: 'var(--background-1)'
-            }}>
-                <Breadcrumbs divider={'-'} justify={'start'}>
-                    <Button variant={'minimal'}
-                            onClick={() => props.redirect('/sap?page=index')}>
-                        Processos
-                    </Button>
 
-                    <Button variant={'minimal'}
-                            onClick={() => props.redirect('/sap?page=ted&id=' + workPlan?.ted?.id)}>
-                        {workPlan?.ted?.number} (Instrumento de celebração)
-                    </Button>
-                    <Button variant={'minimal'}
-                            onClick={() => props.redirect('/sap?page=project&id=' + workPlan.activity_project.id)}>
-                        {workPlan.activity_project?.name} (Projeto)
-                    </Button>
-                    <Button highlight={true} variant={'minimal'}>
-                        {workPlan?.object}
-                    </Button>
-                </Breadcrumbs>
-            </div>
+
+            <Breadcrumbs divider={'-'} justify={'start'}>
+                <Button variant={'minimal'}
+                        onClick={() => props.redirect('/sap?page=index')}>
+                    Processos
+                </Button>
+
+                <Button variant={'minimal'}
+                        onClick={() => props.redirect('/sap?page=ted&id=' + workPlan?.ted?.id)}>
+                    {workPlan?.ted?.number} (Instrumento de celebração)
+                </Button>
+                <Button variant={'minimal'}
+                        onClick={() => props.redirect('/sap?page=project&id=' + workPlan.activity_project.id)}>
+                    {workPlan.activity_project?.name} (Projeto)
+                </Button>
+                <Button highlight={true} variant={'minimal'}>
+                    {workPlan?.object}
+                </Button>
+            </Breadcrumbs>
+
             <div className={shared.header}
                  style={{padding: '16px 24px'}}>
                 {workPlan?.object}

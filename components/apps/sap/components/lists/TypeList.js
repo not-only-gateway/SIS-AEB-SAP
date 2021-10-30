@@ -15,7 +15,7 @@ export default function TypeList(props) {
     const hook = useQuery(getQuery('type'))
 
     return (
-        <Switcher openChild={open ? 0 : 1}>
+        <Switcher openChild={open ? 0 : 1} styles={{width: '100%'}}>
             <div style={{paddingTop: '32px'}}>
                 <TypeForm
                     handleClose={() => {

@@ -32,21 +32,19 @@ export default function Project(props) {
                 <title>{project?.name}</title>
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
-            <div style={{
-                background: 'var(--background-1)'
-            }}>
-                <Breadcrumbs justify={'start'}>
-                    <Button
-                        variant={'minimal'}
-                        onClick={() => props.redirect('/sap?page=index')}>
-                        Processos
-                    </Button>
 
-                    <Button variant={'minimal'} highlight={true}>
-                        {project?.name}
-                    </Button>
-                </Breadcrumbs>
-            </div>
+            <Breadcrumbs justify={'start'}>
+                <Button
+                    variant={'minimal'}
+                    onClick={() => props.redirect('/sap?page=index')}>
+                    Processos
+                </Button>
+
+                <Button variant={'minimal'} highlight={true}>
+                    {project?.name}
+                </Button>
+            </Breadcrumbs>
+
             <div className={shared.header}
                  style={{padding: '16px 24px'}}>
                 {project?.name}
