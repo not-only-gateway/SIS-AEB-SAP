@@ -1,4 +1,3 @@
-
 import {endpoint_query} from "../../queries/queries";
 import List from "../../../../core/visualization/list/List";
 import {useState} from "react";

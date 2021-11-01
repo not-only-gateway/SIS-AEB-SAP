@@ -3,7 +3,6 @@ import React from "react";
 import getSapPages from "../../components/apps/sap/getSapPages";
 import DynamicRoutes from "../../components/core/navigation/routing/DynamicRoutes";
 import "@fontsource/roboto";
-import Button from "../../components/core/inputs/button/Button";
 
 export default function index() {
     const router = useRouter()

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Head from "next/head";
 import shared from '../styles/Shared.module.css'
 import PropTypes from 'prop-types'
@@ -7,7 +7,6 @@ import WorkPlanList from "../components/lists/WorkPlanList";
 import TedForm from "../components/forms/TedForm";
 import TedList from "../components/lists/TedList";
 import {fetchEntry} from "../utils/requests/fetch";
-import ThemeContext from "../../../core/misc/theme/ThemeContext";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
 import {CategoryRounded} from "@material-ui/icons";
 import Link from 'next/link'

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import PropTypes from 'prop-types'
 import ProjectPT from "../../locales/ProjectPT";
-import {DropDownField, FormRow, TextField, useQuery} from "mfc-core";
+import {DropDownField, TextField, useQuery} from "mfc-core";
 import getQuery from "../../queries/getQuery";
 import Selector from "../../../../core/inputs/selector/Selector";
 import associativeKeys from "../../keys/associativeKeys";
@@ -11,6 +11,7 @@ import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
 import UnitForm from "./UnitForm";
 import Host from "../../utils/shared/Host";
+import FormRow from "../../../../core/inputs/form/FormRow";
 
 
 export default function ProjectForm(props) {

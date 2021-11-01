@@ -1,8 +1,7 @@
 import styles from '../styles/Shared.module.css'
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
-import ThemeContext from "../../../core/misc/theme/ThemeContext";
 import EndpointForm from "../components/forms/EndpointForm";
 import {fetchEntry} from "../utils/fetch";
 import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";

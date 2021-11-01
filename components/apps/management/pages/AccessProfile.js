@@ -1,11 +1,9 @@
-import Tabs from "../../../core/navigation/tabs/Tabs";
 import PermissionList from "../components/lists/PermissionList";
 import styles from '../styles/Shared.module.css'
 import AccessProfileForm from "../components/forms/AccessProfileForm";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {fetchEntry} from "../utils/fetch";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
-import ThemeContext from "../../../core/misc/theme/ThemeContext";
 import Button from "../../../core/inputs/button/Button";
 import {CategoryRounded} from "@material-ui/icons";
 import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";

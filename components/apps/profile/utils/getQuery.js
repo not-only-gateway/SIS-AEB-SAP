@@ -1,4 +1,3 @@
-import Host from "../utils/shared/Host";
 import Cookies from "universal-cookie/lib";
 
 const cookies = new Cookies()

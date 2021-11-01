@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 
-import {DateField, DropDownField, FormRow, TextField} from "mfc-core";
+import {DateField, DropDownField, TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import Form from "../../../../core/inputs/form/Form";
 import PermanentGoodsPT from "../../locales/PermanentGoodsPT";
@@ -8,6 +8,8 @@ import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
 import Host from "../../utils/shared/Host";
+import FormRow from "../../../../core/inputs/form/FormRow";
+
 
 export default function PermanentGoodsForm(props) {
     const lang = PermanentGoodsPT

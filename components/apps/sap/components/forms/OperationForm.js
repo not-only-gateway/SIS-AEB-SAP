@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {DateField, FormRow, TextField, useQuery} from "mfc-core";
+import {DateField, TextField, useQuery} from "mfc-core";
 import PropTypes from "prop-types";
 import OperationPT from "../../locales/OperationPT";
 import Form from "../../../../core/inputs/form/Form";
@@ -11,7 +11,7 @@ import submit from "../../utils/requests/submit";
 import ActivityStageForm from "./ActivityStageForm";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Host from "../../utils/shared/Host";
-
+import FormRow from "../../../../core/inputs/form/FormRow";
 
 export default function OperationForm(props) {
 

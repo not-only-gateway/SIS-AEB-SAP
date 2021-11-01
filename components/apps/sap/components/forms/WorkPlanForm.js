@@ -1,7 +1,7 @@
 import React, {useMemo, useState} from "react";
 import PropTypes from 'prop-types'
 import WorkPlanPT from "../../locales/WorkPlanPT";
-import {FormRow, MultiSelectField, useQuery} from "mfc-core";
+import {MultiSelectField, useQuery} from "mfc-core";
 import associativeKeys from "../../keys/associativeKeys";
 import getQuery from "../../queries/getQuery";
 import Selector from "../../../../core/inputs/selector/Selector";
@@ -17,6 +17,7 @@ import InfrastructureForm from "./InfrastructureForm";
 import TextField from "../../../../core/inputs/text/TextField";
 import DropDownField from "../../../../core/inputs/dropdown/DropDownField";
 import Host from "../../utils/shared/Host";
+import FormRow from "../../../../core/inputs/form/FormRow";
 
 
 export default function WorkPlanForm(props) {

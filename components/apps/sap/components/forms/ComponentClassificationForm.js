@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {FormRow, Selector, TextField} from "mfc-core";
+import { Selector, TextField} from "mfc-core";
 import Form from "../../../../core/inputs/form/Form";
 import PropTypes from "prop-types";
 import EntitiesPT from "../../locales/EntitiesPT";
@@ -11,6 +11,8 @@ import getQuery from "../../queries/getQuery";
 import submit from "../../utils/requests/submit";
 import TypeForm from "./TypeForm";
 import Host from "../../utils/shared/Host";
+import FormRow from "../../../../core/inputs/form/FormRow";
+
 
 export default function ComponentClassificationForm(props) {
 

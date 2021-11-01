@@ -1,13 +1,11 @@
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import {DeleteRounded} from "@material-ui/icons";
-import PropTypes from "prop-types";
 import Switcher from "../../../../core/navigation/switcher/Switcher";
 
 import useQuery from "../../../../core/visualization/hooks/useQuery";
 import List from "../../../../core/visualization/list/List";
 import deleteEntry from "../../utils/shared/delete";
 import getQuery from "../../utils/getQuery";
-import ProfileContext from "../../ProfileContext";
 import Host from "../../utils/shared/Host";
 import DynamicRoutes from "../../../../core/navigation/routing/DynamicRoutes";
 import getForms from "../../../sap/getForms";

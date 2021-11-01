@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Head from "next/head";
 import PropTypes from 'prop-types'
 import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";
@@ -10,7 +10,6 @@ import ActivityStageList from "../components/lists/ActivityStageList";
 import GoalList from "../components/lists/GoalList";
 import WorkPlanForm from "../components/forms/WorkPlanForm";
 import {fetchEntry} from "../utils/requests/fetch";
-import ThemeContext from "../../../core/misc/theme/ThemeContext";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
 import {CategoryRounded} from "@material-ui/icons";
 import StatusList from "../components/lists/StatusList";

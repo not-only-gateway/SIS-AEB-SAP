@@ -2,11 +2,13 @@ import React, {useState} from "react";
 import PropTypes from "prop-types";
 import Form from "../../../../core/inputs/form/Form";
 import EntitiesPT from "../../locales/EntitiesPT";
-import {FormRow, TextField} from "mfc-core";
+import { TextField} from "mfc-core";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
 import Host from "../../utils/shared/Host";
 import submit from "../../utils/requests/submit";
+import FormRow from "../../../../core/inputs/form/FormRow";
+
 
 export default function DecentralizedUnitForm(props) {
 

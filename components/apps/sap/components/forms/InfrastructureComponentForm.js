@@ -2,7 +2,7 @@ import React, {useMemo, useState} from "react";
 import PropTypes from "prop-types";
 import InfrastructurePT from "../../locales/InfrastructurePT";
 import Cookies from "universal-cookie/lib";
-import {FormRow, Selector, TextField} from "mfc-core";
+import { Selector, TextField} from "mfc-core";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import associativeKeys from "../../keys/associativeKeys";
@@ -11,6 +11,7 @@ import getQuery from "../../queries/getQuery";
 import submit from "../../utils/requests/submit";
 import ComponentClassificationForm from "./ComponentClassificationForm";
 import Host from "../../utils/shared/Host";
+import FormRow from "../../../../core/inputs/form/FormRow";
 
 
 export default function InfrastructureComponentForm(props) {

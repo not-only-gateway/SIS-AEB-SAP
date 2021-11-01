@@ -3,13 +3,14 @@ import PropTypes from "prop-types";
 import ResourcePT from "../../locales/ResourcePT";
 import Cookies from "universal-cookie/lib";
 import NatureExpenseForm from "./NatureExpenseForm";
-import {DropDownField, FormRow, Selector, TextField, useQuery} from "mfc-core";
+import {DropDownField, Selector, TextField, useQuery} from "mfc-core";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import submit from "../../utils/requests/submit";
 import associativeKeys from "../../keys/associativeKeys";
 import getQuery from "../../queries/getQuery";
 import Host from "../../utils/shared/Host";
+import FormRow from "../../../../core/inputs/form/FormRow";
 
 
 export default function ResourceApplicationForm(props) {

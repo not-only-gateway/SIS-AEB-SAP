@@ -1,11 +1,10 @@
 import styles from '../styles/Shared.module.css'
 import EndpointList from "../components/lists/EndpointList";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {fetchEntry} from "../utils/fetch";
 import ServiceForm from "../components/forms/ServiceForm";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
-import ThemeContext from "../../../core/misc/theme/ThemeContext";
 import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";
 
 import {CategoryRounded} from "@material-ui/icons";

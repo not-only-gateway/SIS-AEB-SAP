@@ -1,4 +1,4 @@
-import {LinkRounded, WorkRounded} from "@material-ui/icons";
+import {HomeRounded, LinkRounded} from "@material-ui/icons";
 import React from "react";
 
 export default function sapProps (redirect, path, query) {
@@ -7,8 +7,8 @@ export default function sapProps (redirect, path, query) {
         appName: 'Gestão de portfólio',
         sideBarButtons: [
             {
-                label: "Processos",
-                icon: <WorkRounded/>,
+                label: "Início",
+                icon: <HomeRounded/>,
                 onClick: () => redirect('/sap/?page=index'),
                 highlight: (path === '/sap' && !query.page)||  query.page === 'index'
             },

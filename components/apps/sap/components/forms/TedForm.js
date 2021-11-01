@@ -33,7 +33,7 @@ export default function TedForm(props) {
         initialData: props.data,
         draftUrl: Host().replace('api', 'draft') + 'ted',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 5000,
+        interval: 5000000,
         parsePackage: pack => {
             return {
                 ...pack,
@@ -103,8 +103,7 @@ export default function TedForm(props) {
             handleClose={() => props.handleClose()}>
             {(data, handleChange) => (
                 <>
-                    <FormRow>
-
+                    <FormRow title={'Básico'}>
                         <TextField
                             placeholder={lang.number} label={lang.number}
                             handleChange={event => {
@@ -120,9 +119,10 @@ export default function TedForm(props) {
                             type={'number'}
                             placeholder={lang.year} label={lang.year}
                             handleChange={event => {
-
+                                console.log('HANDLING CHANGE', event.target.value)
                                 handleChange({key: 'year', event: event.target.value})
-                            }} value={data.year}
+                            }}
+                            value={data.year}
                             required={true}
                             width={'calc(50% - 16px)'}
                         />
@@ -320,9 +320,7 @@ export default function TedForm(props) {
 }
 
 TedForm.propTypes = {
-    id: PropTypes.number,
     data: PropTypes.object,
-    handleChange: PropTypes.func,
     handleClose: PropTypes.func,
     create: PropTypes.bool,
     project: PropTypes.number,

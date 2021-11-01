@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import PropTypes from "prop-types";
 import Cookies from "universal-cookie/lib";
 import EntitiesPT from "../../locales/EntitiesPT";
-import {FormRow, TextField, useQuery} from "mfc-core";
+import {TextField, useQuery} from "mfc-core";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import associativeKeys from "../../keys/associativeKeys";
@@ -10,6 +10,7 @@ import getQuery from "../../queries/getQuery";
 import Selector from "../../../../core/inputs/selector/Selector";
 import submit from "../../utils/requests/submit";
 import Host from "../../utils/shared/Host";
+import FormRow from "../../../../core/inputs/form/FormRow";
 
 
 export default function UnitForm(props) {

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useState} from "react";
 import PropTypes from 'prop-types'
 import styles from '../styles/Authenticate.module.css'
 import useCookies from "./core/misc/useCookies";
@@ -10,7 +10,6 @@ import FormRow from "./core/inputs/form/FormRow";
 import submitAuthentication from "../utils/SubmitAuthentication";
 import Tabs from "./core/navigation/tabs/Tabs";
 import useData from "./core/inputs/form/useData";
-import {fetchProfile} from "../utils/fetch";
 
 export default function Authenticator(props) {
     const cookies = useCookies()

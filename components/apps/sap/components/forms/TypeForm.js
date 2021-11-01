@@ -1,13 +1,11 @@
-import React, {useState} from "react";
-import {FormRow, TextField} from "mfc-core";
+import React from "react";
+import { TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import EntitiesPT from "../../locales/EntitiesPT";
 import Form from "../../../../core/inputs/form/Form";
-import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
-import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
-import Host from "../../utils/shared/Host";
 import useData from "../../../../core/inputs/form/useData";
+import FormRow from "../../../../core/inputs/form/FormRow";
 
 
 export default function TypeForm(props) {

@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import ExecutionPT from "../../locales/ExecutionPT";
 import Cookies from "universal-cookie/lib";
-import {DateField, FormRow, Selector, TextField} from "mfc-core";
+import {DateField,  Selector, TextField} from "mfc-core";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import workPlanKeys from "../../keys/workPlanKeys";
@@ -12,6 +12,7 @@ import getQuery from "../../queries/getQuery";
 import submit from "../../utils/requests/submit";
 import OperationForm from "./OperationForm";
 import Host from "../../utils/shared/Host";
+import FormRow from "../../../../core/inputs/form/FormRow";
 
 
 export default function ExecutionForm(props) {

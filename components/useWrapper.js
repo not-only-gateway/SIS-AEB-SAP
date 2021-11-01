@@ -3,7 +3,6 @@ import useCookies from "./core/misc/useCookies";
 import React, {useEffect, useMemo, useState} from "react";
 import sapProps from "./apps/sap/sapProps";
 import managementProps from "./apps/management/managementProps";
-import {fetchProfile} from "../utils/fetch";
 import hrProps from "./apps/hr/hrProps";
 import intranetProps from "./apps/intranet/intranetProps";
 import profileProps from "./apps/profile/profileProps";

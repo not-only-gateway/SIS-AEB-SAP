@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {DropDownField, FileField, FormRow, TextField} from "mfc-core";
+import {DropDownField, FileField, TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import OperationPT from "../../locales/OperationPT";
 import Form from "../../../../core/inputs/form/Form";
@@ -9,6 +9,8 @@ import submit from "../../utils/requests/submit";
 import Requester from "../../../../core/feedback/requester/Requester";
 import Host from "../../utils/shared/Host";
 import deleteEntry from "../../utils/requests/delete";
+import FormRow from "../../../../core/inputs/form/FormRow";
+
 
 export default function FollowUpForm(props) {
     const lang = OperationPT
