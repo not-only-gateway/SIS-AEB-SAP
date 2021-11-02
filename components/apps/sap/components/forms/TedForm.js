@@ -103,7 +103,7 @@ export default function TedForm(props) {
             handleClose={() => props.handleClose()}>
             {(data, handleChange) => (
                 <>
-                    <FormRow title={'Básico'}>
+                    <FormRow>
                         <TextField
                             placeholder={lang.number} label={lang.number}
                             handleChange={event => {

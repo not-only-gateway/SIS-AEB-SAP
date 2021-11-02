@@ -1,10 +1,10 @@
 .header {
-    color: var(--color-0);
+    color: var(--mfc-color-primary);
     font-size: 1.4rem;
     font-weight: 600;
     padding: 0 10%;
 
-    background: var(--background-1);
+    background: var(--mfc-background-primary);
 
     display: grid;
     gap: 8px;
@@ -14,7 +14,7 @@
 }
 
 .typeLabel {
-    color: var(--color-2);
+    color: var(--mfc-color-tertiary);
     font-size: .85rem;
     font-weight: 600;
     display: flex;
@@ -47,7 +47,7 @@
     border-radius: 5px;
     font-weight: 600;
     font-family: Roboto;
-    color: var(--color-1);
+    color: var(--mfc-color-secondary);
 
     cursor: pointer;
 
@@ -60,13 +60,13 @@
 
 .button:active {
     text-decoration: underline;
-    background: var(--background-3);
+    background: var(--mfc-background-quaternary);
     color: #0095ff;
 }
 
 .button:disabled {
     cursor: unset;
     background: none;
-    color: var(--color-1);
+    color: var(--mfc-color-secondary);
     text-decoration: none;
 }

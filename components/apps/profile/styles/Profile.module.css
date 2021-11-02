@@ -5,7 +5,7 @@
     display: flex;
     align-items: center;
 
-    background: var(--background-1);
+    background: var(--mfc-background-primary);
 }
 .headerLabels{
     display: grid;
@@ -15,10 +15,10 @@
     padding: 8px 0 8px 8px;
     font-weight: 600;
     font-size: 1.1rem;
-    color: var(--color-1);
+    color: var(--mfc-color-secondary);
 }
 .secondaryLabel{
     font-weight: normal;
     font-size: .8rem;
-    color: var(--color-3);
+    color: var(--mfc-color-quaternary);
 }

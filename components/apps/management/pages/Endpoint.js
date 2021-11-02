@@ -21,7 +21,7 @@ export default function Endpoint(props) {
     return (
         <>
             <div style={{
-                background: 'var(--background-1)'
+                background: 'var(--mfc-background-primary)'
             }}>
                 <Breadcrumbs divider={'/'} justify={'start'}>
                     <Button variant={'minimal'}

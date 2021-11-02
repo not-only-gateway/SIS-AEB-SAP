@@ -11,8 +11,8 @@ export default function EventList(props) {
         <div style={{
             padding: '0 64px',
             borderRadius: '8px',
-            background: 'var(--background-base)',
-            border: 'var(--border-0) 1px solid'
+            background: 'var(--mfc-background-primary)',
+            border: 'var(--mfc-border-primary) 1px solid'
         }}>
             <Modal animationStyle={'slide-right'} blurIntensity={.1} open={false} defaultBackground={true} handleClose={() => null} >
 

@@ -1,9 +1,9 @@
 .header{
-    color: var(--color-0);
+    color: var(--mfc-color-primary);
     font-size: 1.3rem;
     font-weight: 600;
     padding: 0 10%;
-    background: var(--background-1);
+    background: var(--mfc-background-primary);
 }
 
 .contentWrapper{
@@ -15,13 +15,13 @@
 .button:disabled{
     cursor: unset;
     background: none;
-    color: var(--color-1);
+    color: var(--mfc-color-secondary);
     text-decoration: none;
 }
 
 
 .typeLabel{
-    color: var(--color-2);
+    color: var(--mfc-color-tertiary);
     font-size: .85rem;
     font-weight: 600;
     display: flex;
