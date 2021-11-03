@@ -35,20 +35,8 @@ export default function DecentralizedUnitForm(props) {
     return (
         <Form
             hook={formHook}
-            initialData={props.data}
             create={props.create} title={props.create ? lang.newDecentralizedUnit : lang.decentralizedUnit}
-            dependencies={
-                [
-                    {key: 'name', type: 'string'},
-                    {key: 'competent_authority', type: 'string'},
-                    {key: 'cpf', type: 'string'},
-                    {key: 'identification', type: 'string'},
-                    {key: 'uge', type: 'string'},
-                    {key: 'ug', type: 'string'},
-                    {key: 'cnpj', type: 'string'},
-                    {key: 'unit_responsible ', type: 'string'},
-                ]}
-            returnButton={true} noAutoHeight={!props.asDefault}
+            returnButton={true}
             handleSubmit={(data, clearState) =>
                 submit({
                     suffix: 'decentralized_unit',

@@ -23,20 +23,21 @@
 
 }
 
+.formWrapper {
+    padding-top: 32px;
+    overflow: auto;
+}
+
 .contentWrapper {
-    flex-grow: 1;
-
-    max-height: 100%;
     padding: 0 10%;
-    display: flex;
+    height: 100%;
     width: 100%;
-
-    overflow: hidden;
 }
 
 .wrapper {
+    flex-grow: 1;
     overflow: auto;
-    height: 100%;
+    max-height: 100%;
     width: 100%;
 }
 

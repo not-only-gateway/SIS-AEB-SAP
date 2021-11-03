@@ -26,10 +26,10 @@ export default function ResourceApplicationForm(props) {
             }
         }
     }, [])
-        const [draftID, setDraftID] = useState(props.draftID)
+    const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: initialData,
-    draftUrl: Host().replace('api', 'draft') + 'resource_application',
+        draftUrl: Host().replace('api', 'draft') + 'resource_application',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
         interval: 5000,
         parsePackage: pack => {
@@ -43,21 +43,12 @@ export default function ResourceApplicationForm(props) {
             setDraftID(res.data.id)
         }
     })
-    
+
 
     return (
         <Form
             hook={formHook}
-            initialData={initialData}
             create={props.create} title={props.create ? lang.newResource : lang.resource}
-            dependencies={
-                [
-                    {key: 'nature_of_expense', type: 'object'},
-                    {key: 'indirect_cost', type: 'bool'},
-                    {key: 'value', type: 'number'}
-                ]
-
-            }
             returnButton={true}
             handleSubmit={(data, clearState) =>
                 submit({

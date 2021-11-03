@@ -11,11 +11,9 @@ export default function PermissionForm(props) {
     return (
         <Form
             hook={formHook}
-            title={!props.initialData.id ? 'Novo privilégio' : 'Privilégio'} initialData={props.initialData}
+            title={!props.initialData.id ? 'Novo privilégio' : 'Privilégio'}
             handleClose={() => props.handleClose()}
-            dependencies={[
-                {key:  'denomination', type: 'string'}
-            ]} returnButton={true}
+            returnButton={true}
             handleSubmit={(data, clearState) => {
                 submit({
                     suffix: 'privilege',

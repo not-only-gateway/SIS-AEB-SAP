@@ -13,10 +13,10 @@ import FormRow from "../../../../core/inputs/form/FormRow";
 export default function RiskForm(props) {
     const lang = ProjectPT
     const [initialData, setInitialData] = useState(props.data)
-        const [draftID, setDraftID] = useState(props.draftID)
+    const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: initialData,
-    draftUrl: Host().replace('api', 'draft') + 'risk',
+        draftUrl: Host().replace('api', 'draft') + 'risk',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
         interval: 5000,
         parsePackage: pack => {
@@ -30,7 +30,7 @@ export default function RiskForm(props) {
             setDraftID(res.data.id)
         }
     })
-    
+
 
     useEffect(() => {
 
@@ -45,14 +45,8 @@ export default function RiskForm(props) {
     return (
         <Form
             hook={formHook}
-            initialData={initialData} title={props.create ? 'Novo risco' : 'Risco'}
+           title={props.create ? 'Novo risco' : 'Risco'}
             create={props.create} label={lang.risksTitle}
-            dependencies={[
-                {key: 'description', type: 'string'},
-                {key: 'analysis', type: 'string'},
-            ]
-
-            }
             returnButton={true}
             handleSubmit={(data, clearState) =>
                 submit({

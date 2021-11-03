@@ -17,7 +17,7 @@ export default function ActionList(props) {
     
     return (
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%'}}>
-            <div style={{paddingTop: '32px'}}>
+
                 <ActionForm
                     handleClose={() => {
                         setOpen(false)
@@ -26,7 +26,7 @@ export default function ActionList(props) {
                     asDefault={true}
                     create={!currentEntity}
                     data={currentEntity}/>
-            </div>
+
             
                 <List
 

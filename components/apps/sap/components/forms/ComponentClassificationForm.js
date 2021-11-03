@@ -40,13 +40,9 @@ export default function ComponentClassificationForm(props) {
     return (
         <Form
             hook={formHook}
-            initialData={props.data}
+
             create={props.create} title={props.create ? lang.newClassification : lang.classification}
-            dependencies={
-                [
-                    {key: 'classification', type: 'string'},
-                    {key: 'classification_type', type: 'object'},
-                ]} noAutoHeight={!props.asDefault}
+
             returnButton={true}
             handleSubmit={(data, clearState) =>
                 submit({

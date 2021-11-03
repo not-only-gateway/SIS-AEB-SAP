@@ -22,8 +22,7 @@ export default function FinancialDisbursementList(props) {
     return (
 
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%'}}>
-            <div style={{paddingTop: '32px'}}>
-                <FinancialDisbursementForm
+                 <FinancialDisbursementForm
                     handleClose={() => {
                         setOpen(false)
                         hook.clean()
@@ -31,7 +30,7 @@ export default function FinancialDisbursementList(props) {
 
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                     data={currentEntity} workPlan={props.workPlan}/>
-            </div>
+
             <List
                 createOption={true}
                 onCreate={() => setOpen(true)}

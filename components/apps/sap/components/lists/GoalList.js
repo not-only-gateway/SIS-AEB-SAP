@@ -20,7 +20,7 @@ export default function GoalList(props) {
     }))
     return (
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%'}}>
-            <div style={{paddingTop: '32px'}}>
+
                 <GoalForm
                     handleClose={() => {
                         setOpen(false)
@@ -29,7 +29,7 @@ export default function GoalList(props) {
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                     data={currentEntity} workPlan={props.workPlan}
                 />
-            </div>
+
             <List
                 createOption={true}
                 onCreate={() => setOpen(true)}

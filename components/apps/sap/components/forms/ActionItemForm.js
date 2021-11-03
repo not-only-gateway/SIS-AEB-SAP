@@ -46,10 +46,7 @@ export default function ActionItemForm(props) {
             returnButton={true} handleClose={() => props.handleClose()}
 
             title={props.create ? lang.newAction : lang.action}
-            dependencies={[
-                {key: 'detailing', type: 'string'},
-                {key: 'accomplished', type: 'bool'}
-            ]}
+
 
             handleSubmit={(data, clearState) =>
                 submit({

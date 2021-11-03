@@ -26,10 +26,7 @@ export default function EndpointPrivilegeForm(props) {
             hook={formHook}
             title={'Vincular privilégio'}
             handleClose={() => props.handleClose()}
-            dependencies={[
-                {key: 'method', type: 'string'},
-                {key: 'privilege', type: 'object'}
-            ]} returnButton={true}
+            returnButton={true}
             handleSubmit={(data, clearState) => {
                 submit({
                     suffix: 'endpoint/privilege',

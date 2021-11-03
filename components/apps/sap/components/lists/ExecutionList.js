@@ -42,7 +42,7 @@ export default function ExecutionList(props) {
 
     return (
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%'}}>
-            <div style={{paddingTop: '32px'}}>
+
                 <ExecutionForm
                     handleClose={() => {
                         setOpen(false)
@@ -52,7 +52,7 @@ export default function ExecutionList(props) {
                     create={!currentEntity}
                     data={currentEntity} operation={props.operation}
                 />
-            </div>
+
             <List
                 createOption={true}
                 onCreate={() => setOpen(true)}

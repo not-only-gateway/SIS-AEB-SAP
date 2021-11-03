@@ -27,12 +27,7 @@ export default function EndpointForm(props) {
             hook={formHook}
             title={props.initialData.url === undefined ? 'Novo endpoint' : 'Endpoint'}
             handleClose={() => props.handleClose()}
-            dependencies={[
-                {key: 'require_auth', type: 'bool'},
-                {key: 'url', type: 'string'},
-                {key: 'service', type: 'object'},
-                {key: 'denomination', type: 'string'}
-            ]} returnButton={true}
+            returnButton={true}
             handleSubmit={(data, clearState) => {
                 submit({
                     suffix: 'endpoint',

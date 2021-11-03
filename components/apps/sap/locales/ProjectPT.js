@@ -30,7 +30,11 @@ export default {
     projects: 'Projetos / Atividades',
 
     workPlan: 'Planos de trabalho',
-    riskOptions: [{key: 'alto', value: 'Alto'}, {key: 'moderado', value: 'Moderado'}, {key: 'baixo', value: 'Baixo'}],
+    riskOptions: [
+        {key: 'alto', value: 'Alto', color: '#ff5555'},
+        {key: 'moderado', value: 'Moderado', color: '#FFBA3E'},
+        {key: 'baixo', value: 'Baixo', color: '#00F400'}
+    ],
     projectTypes: [{key: 'projeto', value: 'Projeto'}, {key: 'atividade', value: 'Atividade'}],
     infrastructure: 'Infraestruturas',
     statusOptions: [{key: 'A iniciar', value: 'A iniciar'}, {

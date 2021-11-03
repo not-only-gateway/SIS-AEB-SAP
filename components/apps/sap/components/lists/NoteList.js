@@ -21,7 +21,7 @@ export default function NoteList(props) {
 
     return (
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%'}}>
-            <div style={{paddingTop: '32px'}}>
+
                 <NoteForm
                     handleClose={() => {
                         hook.clean()
@@ -31,7 +31,7 @@ export default function NoteList(props) {
                     create={!currentEntity}
                     operation={props.operation}
                     data={currentEntity}/>
-            </div>
+
             <List
                 createOption={true}
                 onCreate={() => setOpen(true)}

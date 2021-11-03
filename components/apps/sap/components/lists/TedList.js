@@ -30,7 +30,6 @@ export default function TedList(props) {
     return (
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%'}}>
 
-            <div style={{paddingTop: '32px'}}>
                 <TedForm
                     handleClose={() => {
                         setOpen(false)
@@ -41,7 +40,7 @@ export default function TedList(props) {
                     asDefault={true}
                     create={true}
                 />
-            </div>
+
             <List
                 createOption={true}
                 onCreate={() => setOpen(true)}

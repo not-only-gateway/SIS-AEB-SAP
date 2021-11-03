@@ -57,15 +57,10 @@ export default function BudgetPlanForm(props) {
 
         <Form
             hook={formHook}
-            initialData={initialData}
+
             create={props.create} title={props.create ? lang.newBudgetPlan : lang.budgetPlan}
-            dependencies={
-                [
-                    {key: 'number', type: 'string'},
-                    {key: 'action', type: 'object'},
-                    {key: 'detailing', type: 'string'},
-                ]}
-            returnButton={true} noAutoHeight={!props.asDefault}
+
+            returnButton={true}
             handleSubmit={(data, clearState) =>
                 submit({
                     suffix: 'budget_plan',

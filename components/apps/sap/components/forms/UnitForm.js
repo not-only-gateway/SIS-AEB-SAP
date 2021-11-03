@@ -38,14 +38,9 @@ export default function UnitForm(props) {
     return (
         <Form
             hook={formHook}
-            initialData={props.data}
-            create={props.create} title={props.create ? lang.newUnit : lang.unit}
-            dependencies={[
-                {key: 'name', type: 'string'},
-                {key: 'acronym', type: 'string'},
-            ]}
-
-            returnButton={true} noAutoHeight={!props.asDefault}
+            create={props.create}
+            title={props.create ? lang.newUnit : lang.unit}
+            returnButton={true}
             handleSubmit={(data, clearState) =>
                 submit({
                     suffix: 'unit',

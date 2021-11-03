@@ -19,7 +19,7 @@ export default function InfrastructureComponentsList(props) {
     }))
     return (
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%'}}>
-            <div style={{paddingTop: '32px'}}>
+
                 <InfrastructureComponentForm
                     handleClose={() => {
                         setOpen(false)
@@ -29,7 +29,7 @@ export default function InfrastructureComponentsList(props) {
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                     data={currentEntity} infrastructure={props.infrastructure}
                 />
-            </div>
+
             <List
                 createOption={true}
                 onCreate={() => setOpen(true)}

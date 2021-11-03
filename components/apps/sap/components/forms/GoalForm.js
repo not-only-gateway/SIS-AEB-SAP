@@ -46,19 +46,7 @@ export default function GoalForm(props) {
     return (
         <Form
             hook={formHook}
-            initialData={initialData}
             create={props.create} title={props.create ? lang.newGoal : lang.goal}
-            dependencies={
-                [
-                    {key: 'goal_number', type: 'string'},
-                    {key: 'detailing', type: 'string'},
-
-                    {key: 'unit_of_measurement', type: 'string'},
-                    {key: 'value', type: 'number'},
-                    {key: 'initial_situation', type: 'number'},
-                    {key: 'final_situation', type: 'number'}
-                ]
-            }
             returnButton={true}
             handleSubmit={(data, clearState) =>
                 submit({

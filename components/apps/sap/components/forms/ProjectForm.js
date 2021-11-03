@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import PropTypes from 'prop-types'
 import ProjectPT from "../../locales/ProjectPT";
-import {DropDownField, TextField, useQuery} from "mfc-core";
+import {DropDownField, useQuery} from "mfc-core";
 import getQuery from "../../queries/getQuery";
 import Selector from "../../../../core/inputs/selector/Selector";
 import associativeKeys from "../../keys/associativeKeys";
@@ -12,16 +12,17 @@ import submit from "../../utils/requests/submit";
 import UnitForm from "./UnitForm";
 import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
+import TextField from "../../../../core/inputs/text/TextField";
 
 
 export default function ProjectForm(props) {
     const lang = ProjectPT
     const unitHook = useQuery(getQuery('unit'))
 
-        const [draftID, setDraftID] = useState(props.draftID)
+    const [draftID, setDraftID] = useState()
     const formHook = useDataWithDraft({
         initialData: props.data,
-    draftUrl: Host().replace('api', 'draft') + 'activity_project',
+        draftUrl: Host().replace('api', 'draft') + 'project',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
         interval: 5000,
         parsePackage: pack => {
@@ -35,30 +36,13 @@ export default function ProjectForm(props) {
             setDraftID(res.data.id)
         }
     })
-    
 
 
     return (
         <Form
             hook={formHook}
-            initialData={props.data}
             create={props.create} title={lang.title}
-            dependencies={[
-                {key: 'name', type: 'string'},
-                {key: 'sponsor', type: 'string'},
-                {key: 'estimated_value', type: 'number'},
-                {key: 'description', type: 'string'},
-                {key: 'manager', type: 'string'},
-                {key: 'public_sector_team', type: 'string'},
-                {key: 'private_sector_team', type: 'string'},
-                {key: 'objectives', type: 'string'},
-                {key: 'stakeholders', type: 'string'},
-                {key: 'scope', type: 'string'},
-                {key: 'critical_factors', type: 'string'},
-                {key: 'type', type: 'string'},
-                {key: 'responsible', type: 'object'},
-                {key: 'lessons_learned', type: 'string'}
-            ]} noHeader={!props.create}
+         noHeader={!props.create}
             returnButton={props.create}
             handleSubmit={(data, clearState) =>
                 submit({

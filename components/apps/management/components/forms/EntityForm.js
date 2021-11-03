@@ -10,12 +10,9 @@ export default function EntityForm(props) {
     return (
         <Form
             hook={formHook}
-            title={!props.initialData?.id ? 'Nova entidade' : 'Entidade'} initialData={props.initialData}
+            title={!props.initialData?.id ? 'Nova entidade' : 'Entidade'}
             handleClose={() => props.handleClose()}
-            dependencies={[
-                {key:  'denomination', type: 'string'},
-                {key:  'identification_key', type: 'string'}
-            ]} returnButton={true}
+           returnButton={true}
             handleSubmit={(data, clearState) => {
                 submit({
                     suffix: 'entity',
@@ -32,7 +29,7 @@ export default function EntityForm(props) {
                         clearState()
                     }
                 })
-            }} noAutoHeight={props.asModal}
+            }}
             create={!props.initialData?.id}
         >
             {(data, handleChange) => (

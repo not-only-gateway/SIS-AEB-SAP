@@ -12,11 +12,8 @@ export default function AccessProfileForm(props) {
         <Form
             hook={formHook}
             title={!props.initialData?.id ? 'Novo perfil de acesso' : 'Perfil de acesso'}
-            initialData={props.initialData}
             handleClose={() => props.handleClose()}
-            dependencies={[
-                {key:  'denomination', type: 'string'}
-            ]} returnButton={true}
+            returnButton={true}
             handleSubmit={(data, clearState) => {
                 submit({
                     suffix: 'access_profile',
@@ -33,7 +30,6 @@ export default function AccessProfileForm(props) {
                     }
                 })
             }}
-            noHeader={props.initialData && props.initialData.id}
             create={!props.initialData?.id}
 
         >

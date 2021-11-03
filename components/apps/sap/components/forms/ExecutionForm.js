@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import ExecutionPT from "../../locales/ExecutionPT";
 import Cookies from "universal-cookie/lib";
-import {DateField,  Selector, TextField} from "mfc-core";
+import {DateField, Selector, TextField} from "mfc-core";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import workPlanKeys from "../../keys/workPlanKeys";
@@ -19,10 +19,10 @@ export default function ExecutionForm(props) {
 
     const lang = ExecutionPT
     const [initialData, setInitialData] = useState(props.data)
-        const [draftID, setDraftID] = useState(props.draftID)
+    const [draftID, setDraftID] = useState()
     const formHook = useDataWithDraft({
         initialData: initialData,
-    draftUrl: Host().replace('api', 'draft') + 'execution',
+        draftUrl: Host().replace('api', 'draft') + 'execution',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
         interval: 5000,
         parsePackage: pack => {
@@ -36,7 +36,7 @@ export default function ExecutionForm(props) {
             setDraftID(res.data.id)
         }
     })
-    
+
     const operationHook = useQuery(getQuery('operation_phase', undefined, props.workPlan ? [{
         key: 'activity_stage',
         sub_relation: {key: 'goal', sub_relation: {key: 'work_plan'}},
@@ -45,12 +45,18 @@ export default function ExecutionForm(props) {
     }] : []))
 
     useEffect(() => {
+
         if (props.create) {
+
             const date = new Date()
+            const newMonth = date.getMonth() + 1
+            const newDay = date.getDate()
+
             setInitialData({
                 ...props.data,
                 ...{
-                    execution_date: (date.getFullYear()) + '-' + (date.getMonth() + 1) + '-' + (date.getDate())
+                    execution_date: `${newDay < 10 ? ('0' + newDay) : newDay}/${newMonth < 10 ? ('0' + newMonth) : newMonth}/${(date.getFullYear())}`,
+                    operation_phase: props.operation ? props.operation.id : props.data.operation_phase
                 }
             })
         }
@@ -60,32 +66,16 @@ export default function ExecutionForm(props) {
     return (
         <Form
             hook={formHook}
-            initialData={initialData}
             create={props.create} title={props.create ? lang.newExecution : lang.execution}
-            dependencies={
-                [
-                    {key: 'current_execution', type: 'number'},
-                    {key: 'operation_phase', type: 'object'},
-                    {key: 'committed', type: 'number'},
-                    {key: 'liquidated', type: 'number'},
-                    {key: 'paid', type: 'number'},
-                    {key: 'description', type: 'string'},
-                    {key: 'difficulties', type: 'string'},
-                    {key: 'measures_taken', type: 'string'},
-                    {key: 'execution_date', type: 'date'},
-                ]
-
-            }
             returnButton={true}
             handleSubmit={(data, clearState) => {
-                const date = data.execution_date.split('-')
                 submit({
                     suffix: 'execution',
                     pk: data.id,
-                    data: {...data, execution_date: date[2] + '-' + date[1] + '-' + date[0]},
+                    data: data,
                     create: props.create
                 }).then(res => {
-                    if (props.create && res.success) {
+                    if (res.success) {
                         props.handleClose()
                         clearState()
                     }

@@ -23,12 +23,7 @@ export default function ServiceForm(props) {
             hook={formHook}
             title={!props.initialData.id ? 'Novo serviço' : 'Serviço'}
             handleClose={() => props.handleClose()}
-            dependencies={[
-                {key: 'protocol', type: 'string'},
-                {key: 'host', type: 'string'},
-                {key: 'port', type: 'number'},
-                {key: 'denomination', type: 'string'}
-            ]} returnButton={true}
+            returnButton={true}
             handleSubmit={(data, clearState) => {
                 submit({
                     suffix: 'service',
@@ -48,7 +43,6 @@ export default function ServiceForm(props) {
 
                 })
             }}
-            noHeader={props.initialData.id !== undefined}
             create={props.initialData.id === undefined}
 
         >

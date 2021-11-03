@@ -49,14 +49,8 @@ export default function InfrastructureComponentForm(props) {
     return (
         <Form
             hook={formHook}
-
-            create={props.create} title={props.create ? lang.newComponent : lang.component}
-            dependencies={
-                [
-                    {key: 'situation', type: 'string'},
-                    {key: 'classification', type: 'object'}
-                ]
-            }
+            create={props.create}
+            title={props.create ? lang.newComponent : lang.component}
             returnButton={true}
             handleSubmit={(data, clearState) =>
                 submit({

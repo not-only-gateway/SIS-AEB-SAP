@@ -17,19 +17,18 @@ export default function DraftList(props) {
     const hook = useQuery(getQuery(Host() + '/list_draft'))
 
     return (
-        <Switcher openChild={currentEntity !== null ? 0 : 1}>
-            <div style={{paddingTop: '32px'}}>
-                <DynamicRoutes
-                    routes={getForms()}
-                    componentProps={{
-                        data: currentEntity?.data,
-                        handleClose: () => setCurrentEntity(null),
-                        create: true
-                    }}
-                    path={currentEntity?.endpoint}
-                    ready={true}
-                />
-            </div>
+        <Switcher openChild={currentEntity !== null ? 0 : 1}
+                  styles={{flexGrow: 1, maxHeight: '100%', padding: '0 10%'}}>
+            <DynamicRoutes
+                routes={getForms()}
+                componentProps={{
+                    data: currentEntity?.data,
+                    handleClose: () => setCurrentEntity(null),
+                    create: true
+                }}
+                path={currentEntity?.endpoint.url}
+                ready={true}
+            />
             <List
                 hook={hook}
                 onRowClick={e => {
@@ -41,17 +40,18 @@ export default function DraftList(props) {
                         key: 'id',
                         type: 'number',
                         visible: true,
-
                     },
                     {
                         label: 'endpoint',
                         key: 'endpoint',
-                        type: 'string',
+                        type: 'object',
                         visible: true,
+                        subfieldKey: 'url',
+                        subtype: 'string'
                     },
                     {
                         label: 'Formulário',
-                        key: 'entity',
+                        key: 'endpoint',
                         type: 'object',
                         visible: true,
                         subfieldKey: 'denomination',
@@ -59,7 +59,7 @@ export default function DraftList(props) {
                     },
                     {
                         label: 'Descrição do formulário',
-                        key: 'entity',
+                        key: 'endpoint',
                         type: 'object',
                         visible: true,
                         subfieldKey: 'description',

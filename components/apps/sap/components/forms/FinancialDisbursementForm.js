@@ -45,15 +45,8 @@ export default function FinancialDisbursementForm(props) {
     return (
         <Form
             hook={formHook}
-            initialData={initialData}
-            create={props.create} title={props.create ? lang.newFinancial : lang.financial}
-            dependencies={
-                [
-                    {key: 'year', type: 'number'},
-                    {key: 'month', type: 'number'},
-                    {key: 'value', type: 'number'},
-                ]
-            }
+            create={props.create}
+            title={props.create ? lang.newFinancial : lang.financial}
             returnButton={true}
             handleSubmit={(data, clearState) =>
                 submit({

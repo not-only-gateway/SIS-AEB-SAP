@@ -15,10 +15,10 @@ export default function ProjectGoalForm(props) {
 
     const lang = ProjectPT
     const [initialData, setInitialData] = useState(null)
-        const [draftID, setDraftID] = useState(props.draftID)
+    const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: initialData,
-    draftUrl: Host().replace('api', 'draft') + 'goal_project',
+        draftUrl: Host().replace('api', 'draft') + 'goal_project',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
         interval: 5000,
         parsePackage: pack => {
@@ -32,7 +32,7 @@ export default function ProjectGoalForm(props) {
             setDraftID(res.data.id)
         }
     })
-    
+
 
     useEffect(() => {
         setInitialData({
@@ -42,18 +42,12 @@ export default function ProjectGoalForm(props) {
             }
         })
     }, [])
+
     return (
         <Form
             hook={formHook}
-            initialData={initialData} title={props.create ? 'Novo marco' : 'Marco'}
+           title={props.create ? 'Novo marco' : 'Marco'}
             create={props.create} label={lang.objectiveTitle}
-            dependencies={
-                [
-                    {key: 'description', type: 'string'},
-                    {key: 'deadline', type: 'string'},
-                    {key: 'status', type: 'string'},
-                ]
-            }
             returnButton={true}
             handleSubmit={(data, clearState) =>
                 submit({

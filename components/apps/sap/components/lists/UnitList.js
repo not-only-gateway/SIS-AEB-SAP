@@ -15,7 +15,7 @@ export default function UnitList(props) {
 
     return (
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%'}}>
-            <div style={{paddingTop: '32px'}}>
+
                 <UnitForm
                     handleClose={() => {
                         setOpen(false)
@@ -25,7 +25,7 @@ export default function UnitList(props) {
                     create={!currentEntity}
                     data={currentEntity}
                 />
-            </div>
+
             <List
                 createOption={true}
                 onCreate={() => setOpen(true)}

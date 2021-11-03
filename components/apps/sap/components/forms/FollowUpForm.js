@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {DropDownField, FileField, TextField} from "mfc-core";
+import {DropDownField, TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import OperationPT from "../../locales/OperationPT";
 import Form from "../../../../core/inputs/form/Form";
@@ -10,16 +10,17 @@ import Requester from "../../../../core/feedback/requester/Requester";
 import Host from "../../utils/shared/Host";
 import deleteEntry from "../../utils/requests/delete";
 import FormRow from "../../../../core/inputs/form/FormRow";
+import FileField from "../../../../core/inputs/file/FileField";
 
 
 export default function FollowUpForm(props) {
     const lang = OperationPT
     const [file, setFile] = useState(null)
     const [initialData, setInitialData] = useState(props.data)
-        const [draftID, setDraftID] = useState(props.draftID)
+    const [draftID, setDraftID] = useState(props.draftID)
     const formHook = useDataWithDraft({
         initialData: initialData,
-    draftUrl: Host().replace('api', 'draft') + 'follow_up_goal',
+        draftUrl: Host().replace('api', 'draft') + 'follow_up_goal',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
         interval: 5000,
         parsePackage: pack => {
@@ -33,7 +34,7 @@ export default function FollowUpForm(props) {
             setDraftID(res.data.id)
         }
     })
-    
+
 
     useEffect(() => {
         if (!props.create && props.data.file !== undefined && props.data.file !== null) {
@@ -70,14 +71,8 @@ export default function FollowUpForm(props) {
     return (
         <Form
             hook={formHook}
-            initialData={initialData}
-            create={props.create} title={props.create ? lang.newFollowUpGoal : lang.followUpGoal}
-            dependencies={
-                [
-                    {key: 'description', type: 'string'},
-                    {key: 'accomplished', type: 'bool'},
-                ]
-            }
+            create={props.create}
+            title={props.create ? lang.newFollowUpGoal : lang.followUpGoal}
             returnButton={true}
             handleSubmit={(data, clearState) =>
                 submit({
@@ -105,7 +100,7 @@ export default function FollowUpForm(props) {
                         required={true}
                         width={'100%'}
                     />
-                    
+
                     <DropDownField
                         dark={true}
                         placeholder={lang.delivered}
@@ -119,7 +114,7 @@ export default function FollowUpForm(props) {
                     <FileField
                         handleChange={(e) => setFile(e[0])} accept={['.pdf']}
                         width={'calc(50% - 16px)'} required={false} label={'Adicionar PDF'}
-                        disabled={false} multiple={false} files={file ? [file] : []}
+                        disabled={false} multiple={false} value={file ? [file] : []}
                         handleFileRemoval={() => {
                             deleteEntry({
                                 pk: data.file,

@@ -17,7 +17,7 @@ export default function DecentralizedUnitList(props) {
     
     return (
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%'}}>
-            <div style={{paddingTop: '32px'}}>
+
                 <DecentralizedUnitForm
                     handleClose={() => {
                         setOpen(false)
@@ -26,7 +26,7 @@ export default function DecentralizedUnitList(props) {
                     asDefault={true}
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                     data={currentEntity}/>
-            </div>
+
                 <List
 
                     createOption={true}

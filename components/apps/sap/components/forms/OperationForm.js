@@ -48,25 +48,8 @@ export default function OperationForm(props) {
     return (
         <Form
             hook={formHook}
-            noHeader={!props.create}
             create={props.create} title={props.create ? lang.newOperation : lang.operation}
-            dependencies={
-                [
-                    {key: 'phase', type: 'string'},
-                    {key: 'detailing', type: 'string'},
-
-                    {key: 'stage_representation', type: 'number'},
-                    {key: 'indicator_planned', type: 'number'},
-                    {key: 'initial_situation', type: 'number'},
-                    {key: 'estimated_cost', type: 'number'},
-
-                    {key: 'start_date', type: 'date'},
-                    {key: 'end_date', type: 'date'},
-                    {key: 'version', type: 'number'},
-                    {key: 'activity_stage', type: 'number'},
-                ]
-            }
-            returnButton={true}
+            returnButton={props.create}
             handleSubmit={(data, clearState) =>
                 submit({
                     suffix: 'operation_phase',

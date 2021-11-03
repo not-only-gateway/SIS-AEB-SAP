@@ -16,15 +16,8 @@ export default function TypeForm(props) {
     return (
         <Form
             hook={formHook}
-            initialData={props.data}
             create={props.create}
-            noAutoHeight={props.create}
             title={props.create ? lang.newType : lang.type}
-            dependencies={
-                [
-                    {key: 'type', type: 'string'},
-                ]
-            }
             returnButton={true}
             handleSubmit={(data, clearState) =>
                 submit({

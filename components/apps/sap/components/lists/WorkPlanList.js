@@ -57,19 +57,19 @@ export default function WorkPlanList(props) {
 
     return (
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%'}}>
-            <div style={{paddingTop: '32px'}}>
-                <WorkPlanForm
-                    handleClose={() => {
-                        setOpen(false)
-                        hook.clean()
-                    }} asApostille={props.workPlan}
-                    onRowClick={e => props.redirect(`/sap?page=ted&id=${e.id}`)}
-                    project={props.project}
-                    ted={props.ted}
-                    data={apostilleData}
-                    create={true}
-                />
-            </div>
+
+            <WorkPlanForm
+                handleClose={() => {
+                    setOpen(false)
+                    hook.clean()
+                }} asApostille={props.workPlan}
+                onRowClick={e => props.redirect(`/sap?page=ted&id=${e.id}`)}
+                project={props.project}
+                ted={props.ted}
+                data={apostilleData}
+                create={true}
+            />
+
             <List
                 createOption={true}
                 onCreate={() => setOpen(true)}

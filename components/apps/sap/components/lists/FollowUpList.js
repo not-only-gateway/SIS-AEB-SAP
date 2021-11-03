@@ -21,16 +21,15 @@ export default function FollowUpList(props) {
 
     return (
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%'}}>
-            <div style={{paddingTop: '32px'}}>
-                <FollowUpForm
-                    handleClose={() => {
-                        hook.clean()
-                        setOpen(false)
-                    }}
+            <FollowUpForm
+                handleClose={() => {
+                    hook.clean()
+                    setOpen(false)
+                }}
 
-                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                    data={currentEntity} operation={props.operation}/>
-            </div>
+                create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                data={currentEntity} operation={props.operation}/>
+
             <List
 
                 createOption={true}

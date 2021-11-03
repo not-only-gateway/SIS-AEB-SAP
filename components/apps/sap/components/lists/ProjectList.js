@@ -8,6 +8,7 @@ import deleteEntry from "../../utils/requests/delete";
 import List from "../../../../core/visualization/list/List";
 import getQuery from "../../queries/getQuery";
 import useQuery from "../../../../core/visualization/hooks/useQuery";
+import styles from '../../styles/Shared.module.css'
 
 export default function ProjectList(props) {
 
@@ -16,8 +17,8 @@ export default function ProjectList(props) {
     const hook = useQuery(getQuery('project'))
 
     return (
-        <Switcher openChild={open ? 0 : 1} styles={{width: '100%'}}>
-            <div style={{paddingTop: '32px'}}>
+        <Switcher openChild={open ? 0 : 1} styles={{width: '100%', flexGrow: 1, maxHeight: '100%'}}>
+
                 <ProjectForm
                     handleClose={() => {
                         setOpen(false)
@@ -26,7 +27,7 @@ export default function ProjectList(props) {
 
                     create={true}
                 />
-            </div>
+
             <List
                 hook={hook}
                 keys={projectKeys.project}

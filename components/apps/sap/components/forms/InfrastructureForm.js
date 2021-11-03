@@ -49,13 +49,7 @@ export default function InfrastructureForm(props) {
             hook={formHook}
             create={props.create}
             title={props.create ? lang.newInfrastructure : lang.infrastructure}
-            dependencies={
-                [
-                    {key: 'name', type: 'string'},
-                    {key: 'type', type: 'string'},
-                ]
-            }
-            returnButton={props.create} noAutoHeight={!props.asDefault}
+            returnButton={props.create}
             handleSubmit={(data, clearState) =>
                 submit({
                     suffix: 'infrastructure',

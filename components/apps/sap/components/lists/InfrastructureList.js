@@ -18,7 +18,7 @@ export default function InfrastructureList(props) {
 
     return (
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%'}}>
-            <div style={{paddingTop: '32px'}}>
+
                 <InfrastructureForm
                     handleClose={() => {
                         setOpen(false)
@@ -27,7 +27,7 @@ export default function InfrastructureList(props) {
                     asDefault={true}
                     create={true}
                 />
-            </div>
+
             <List
                 createOption={true}
 

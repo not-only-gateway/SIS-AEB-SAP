@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import dynamic from "next/dynamic";
 
-export default function getForms(props) {
+export default function getForms() {
     return [
         {
             basePath: 'action',
@@ -97,9 +97,4 @@ export default function getForms(props) {
             content: dynamic(() => import( "./components/forms/WorkPlanForm"))
         },
     ]
-}
-
-getForms.propTypes = {
-    redirect: PropTypes.func,
-    query: PropTypes.object
 }

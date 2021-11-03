@@ -5,12 +5,12 @@ import styles from './styles/Profile.module.css'
 import {Avatar} from "@material-ui/core";
 import Information from "./components/Information";
 import Privileges from "./components/Privileges";
-import Drafts from "./components/Drafts";
+import DraftList from "./components/lists/DraftList";
 
-export default function Profile(){
+export default function Profile() {
     const profile = useContext(ProfileContext)
 
-    return(
+    return (
         <>
             <div className={styles.header}>
                 <Avatar style={{height: '85px', width: '85px'}} src={profile.image}/>
@@ -23,7 +23,7 @@ export default function Profile(){
             </div>
             <VerticalTabs classes={[
                 {
-                    label:'Dados',
+                    label: 'Dados',
                     buttons: [
                         {
                             label: 'Dados',
@@ -40,7 +40,7 @@ export default function Profile(){
                     label: 'Outros',
                     buttons: [{
                         label: 'Rascunhos',
-                        children: <Drafts/>
+                        children: <DraftList/>
                     }]
                 }
             ]}/>

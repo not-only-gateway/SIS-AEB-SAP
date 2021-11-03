@@ -38,11 +38,8 @@ export default function ActionForm(props) {
         <Form
             hook={formHook}
             title={props.create ? lang.newAction : lang.action}
-            initialData={props.data} create={props.create}
-            dependencies={[
-                {key: 'number', type: 'string'},
-                {key: 'detailing', type: 'object'},
-            ]} returnButton={true} handleClose={() => props.handleClose()}
+            create={props.create}
+            returnButton={true} handleClose={() => props.handleClose()}
             handleSubmit={(data, clearState) =>
                 submit({
                     suffix: 'action',

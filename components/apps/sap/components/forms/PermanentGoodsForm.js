@@ -48,19 +48,9 @@ export default function PermanentGoodsForm(props) {
     return (
         <Form
             hook={formHook}
-            initialData={initialData}
-            create={props.create} title={props.create ? lang.newPermanent : lang.permanent}
-            dependencies={
-                [
-                    {key: 'description', type: 'string'},
-                    {key: 'unit_of_measurement', type: 'string'},
-                    {key: 'unit_price', type: 'number'},
-                    {key: 'quantity', type: 'number'},
 
-                    {key: 'acquisition_date', type: 'date'},
-                    {key: 'invoice', type: 'string'},
-                ]
-            }
+            create={props.create}
+            title={props.create ? lang.newPermanent : lang.permanent}
             returnButton={true}
             handleSubmit={(data, clearState) =>
                 submit({

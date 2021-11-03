@@ -47,13 +47,8 @@ export default function StatusForm(props) {
     return (
         <Form
             hook={formHook}
-            create={props.create} title={props.create ? lang.newStatus : lang.status}
-            dependencies={
-                [
-                    {key: 'status', type: 'string'},
-                    {key: 'difficulties', type: 'string'},
-                ]
-            }
+            create={props.create}
+            title={props.create ? lang.newStatus : lang.status}
             returnButton={true}
             handleSubmit={(data, clearState) =>
                 submit({

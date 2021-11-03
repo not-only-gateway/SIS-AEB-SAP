@@ -43,14 +43,7 @@ export default function NoteForm(props) {
     return (
         <Form
             hook={formHook}
-            initialData={initialData}
             create={props.create} title={props.create ? lang.newNote : lang.note}
-            dependencies={
-                [
-                    {key: 'number', type: 'string'},
-                    {key: 'value', type: 'number'}
-                ]
-            }
             returnButton={true}
             handleSubmit={(data, clearState) =>
                 submit({

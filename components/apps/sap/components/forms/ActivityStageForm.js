@@ -41,16 +41,9 @@ export default function ActivityStageForm(props) {
         <Form
             hook={formHook}
             create={props.create} title={props.create ? lang.newStage : lang.stage}
-            dependencies={
-                [
-                    {key: 'stage', type: 'string'},
-                    {key: 'description', type: 'string'},
-                    {key: 'representation', type: 'number'},
-                    {key: 'goal', type: 'object'},
-                ]
-            }
+
             returnButton={true}
-            noHeader={!props.create}
+
             handleSubmit={(data, clearState) =>
                 submit({
                     suffix: 'activity_stage',

@@ -35,15 +35,9 @@ export default function NatureExpenseForm(props) {
     return (
         <Form
             hook={formHook}
-            initialData={props.data}
-            create={props.create} title={props.create ? lang.newNatureOfExpense : lang.natureOfExpense}
-            dependencies={
-                [
-                    {key: 'description', type: 'string'},
-                    {key: 'nature_of_expense', type: 'string'},
-                    {key: 'gnd', type: 'number'},
-                ]
-            }
+            create={props.create}
+            title={props.create ? lang.newNatureOfExpense : lang.natureOfExpense}
+
             returnButton={true}
             handleSubmit={(data, clearState) =>
                 submit({
@@ -58,7 +52,7 @@ export default function NatureExpenseForm(props) {
                     }
                 })}
             handleClose={() => props.handleClose()}
-            noAutoHeight={!props.asDefault}>
+         >
             {(data, handleChange) => (
                 <FormRow>
 

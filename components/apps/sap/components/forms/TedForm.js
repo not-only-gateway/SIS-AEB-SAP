@@ -33,7 +33,7 @@ export default function TedForm(props) {
         initialData: props.data,
         draftUrl: Host().replace('api', 'draft') + 'ted',
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 5000000,
+        interval: 5000,
         parsePackage: pack => {
             return {
                 ...pack,
@@ -52,26 +52,6 @@ export default function TedForm(props) {
             hook={formHook}
             create={props.create}
             title={props.asAddendum ? 'Novo termo aditivo' : (props.create ? 'Novo instrumento de celebração' : 'Instrumento de celebração')}
-            dependencies={
-                [
-                    {key: 'number', type: 'string'},
-                    {key: 'process', type: 'string'},
-                    {key: 'year', type: 'number'},
-                    {key: 'status', type: 'string'},
-                    {key: 'start_date', type: 'date'},
-                    {key: 'end_date', type: 'date'},
-                    {key: 'responsible', type: 'string'},
-                    {key: 'global_value', type: 'number'},
-                    {key: 'object', type: 'string'},
-                    {key: 'object_summary', type: 'string'},
-                    {key: 'justification', type: 'string'},
-                    {key: 'action', type: 'object'},
-                    {key: 'summary_justification', type: 'string'},
-                    {key: 'programmatic_functional_classification', type: 'string'},
-                    {key: 'remaining_assets', type: 'bool'},
-
-                ]
-            } noHeader={!props.create && !props.asEntity}
             returnButton={props.create || props.asEntity}
             options={[
                 {

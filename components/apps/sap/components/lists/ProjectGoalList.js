@@ -20,7 +20,7 @@ export default function ProjectGoalList(props) {
 
     return (
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%'}}>
-            <div style={{paddingTop: '32px'}}>
+
                 <ProjectGoalForm
                     handleClose={() => {
                         setOpen(false)
@@ -28,7 +28,7 @@ export default function ProjectGoalList(props) {
                     }}
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                     data={currentEntity} project={props.project}/>
-            </div>
+
             <List
                 createOption={true} onCreate={() => setOpen(true)}
                 hook={hook}

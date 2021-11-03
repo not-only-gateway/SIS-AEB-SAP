@@ -21,7 +21,7 @@ export default function RisksList(props) {
 
     return (
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%'}}>
-            <div style={{paddingTop: '32px'}}>
+
                 <RiskForm
                     handleClose={() => {
                         setOpen(false)
@@ -29,7 +29,7 @@ export default function RisksList(props) {
                     }}
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                     data={currentEntity} project={props.project}/>
-            </div>
+
             <List
                 onRowClick={e => {
                     setOpen(true)
