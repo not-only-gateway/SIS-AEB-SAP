@@ -28,7 +28,7 @@ export default function TedList(props) {
 
 
     return (
-        <Switcher openChild={open ? 0 : 1} styles={{width: '100%'}}>
+        <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
 
                 <TedForm
                     handleClose={() => {

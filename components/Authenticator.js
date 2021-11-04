@@ -1,25 +1,23 @@
 import React, {useContext, useState} from "react";
 import PropTypes from 'prop-types'
 import styles from '../styles/Authenticate.module.css'
-import useCookies from "./core/misc/useCookies";
-import Form from "./core/inputs/form/Form";
 import ThemeContext from "./core/misc/theme/ThemeContext";
 import {VisibilityOffRounded, VisibilityRounded} from "@material-ui/icons";
 import TextField from "./core/inputs/text/TextField";
-import FormRow from "./core/inputs/form/FormRow";
 import submitAuthentication from "../utils/SubmitAuthentication";
 import Tabs from "./core/navigation/tabs/Tabs";
-import useData from "./core/inputs/form/useData";
 import Button from "./core/inputs/button/Button";
+import Cookies from "universal-cookie/lib";
 
 export default function Authenticator(props) {
     const theme = useContext(ThemeContext)
     const [asManager, setAsManager] = useState(false)
 
-    const formHook = useData()
     const [visible, setVisible] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+
     return (
         <div className={styles.wrapper}>
             <div style={{
@@ -29,17 +27,18 @@ export default function Authenticator(props) {
                 Bem vindo
             </div>
             <div style={{display: 'grid', gap: '4px', width: '100%'}}>
-                <Tabs noChildHighlight={true}
-                      buttons={[
-                          {
-                              label: 'Autenticação AEB',
-                              onClick: () => setAsManager(false)
-                          },
-                          {
-                              label: 'Gerente',
-                              onClick: () => setAsManager(true)
-                          }
-                      ]}/>
+                <Tabs
+                    noChildHighlight={true}
+                    buttons={[
+                        {
+                            label: 'Autenticação AEB',
+                            onClick: () => setAsManager(false)
+                        },
+                        {
+                            label: 'Gerente',
+                            onClick: () => setAsManager(true)
+                        }
+                    ]}/>
 
                 <TextField
                     placeholder={asManager ? 'Email gerente' : 'Email corporativo'}
@@ -69,9 +68,10 @@ export default function Authenticator(props) {
                         asManager: asManager
                     }).then(res => {
                         if (res) {
+                            (new Cookies()).set('jwt', res.token)
                             if (asManager)
                                 props.setManager({
-                                    email: data.email,
+                                    email: email,
                                     name: 'Gerente',
                                     image: null
                                 })

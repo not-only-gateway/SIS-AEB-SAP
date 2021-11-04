@@ -13,6 +13,7 @@ import UnitForm from "./UnitForm";
 import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import TextField from "../../../../core/inputs/text/TextField";
+import tedKeys from "../../keys/tedKeys";
 
 
 export default function ProjectForm(props) {
@@ -39,10 +40,16 @@ export default function ProjectForm(props) {
 
 
     return (
+        <FormOptions
+            keys={tedKeys.ted}
+            endpoint={'ted'}
+            initialData={props.data}
+        >
+            {({setOpen, formHook, asDraft, asHistory}) => (
         <Form
             hook={formHook}
-            create={props.create} title={lang.title}
-         noHeader={!props.create}
+            create={props.create}
+            title={props.create ? 'Novo projeto / atividade' : 'Projeto / Atividade'}
             returnButton={props.create}
             handleSubmit={(data, clearState) =>
                 submit({
@@ -69,10 +76,10 @@ export default function ProjectForm(props) {
 
                     <TextField
                         type={'number'}
-                        placeholder={lang.estimatedValue} label={lang.estimatedValue}
+                        placeholder={lang.estimatedValue}
+                        label={lang.estimatedValue}
                         value={data.estimated_value}
                         handleChange={event => handleChange({key: 'estimated_value', event: event.target.value})}
-
                         maskStart={'R$'}
                         required={true} currencyMask={true}
                         width={'calc(33.333% - 21.5px)'}/>
@@ -185,7 +192,8 @@ export default function ProjectForm(props) {
             )}
 
         </Form>
-
+            )}
+        </FormOptions>
     )
 
 }

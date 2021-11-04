@@ -12,6 +12,7 @@ import ActivityStageForm from "./ActivityStageForm";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
+import tedKeys from "../../keys/tedKeys";
 
 export default function OperationForm(props) {
 
@@ -46,6 +47,12 @@ export default function OperationForm(props) {
     
 
     return (
+        <FormOptions
+            keys={tedKeys.ted}
+            endpoint={'ted'}
+            initialData={props.data}
+        >
+            {({setOpen, formHook, asDraft, asHistory}) => (
         <Form
             hook={formHook}
             create={props.create} title={props.create ? lang.newOperation : lang.operation}
@@ -187,6 +194,8 @@ export default function OperationForm(props) {
                 </>
             )}
         </Form>
+            )}
+        </FormOptions>
     )
 
 }

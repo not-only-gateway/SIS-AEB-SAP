@@ -35,9 +35,7 @@
 }
 
 .wrapper {
-    flex-grow: 1;
-    overflow: auto;
-    max-height: 100%;
+    height: 100%;
     width: 100%;
 }
 
@@ -70,4 +68,21 @@
     background: none;
     color: var(--mfc-color-secondary);
     text-decoration: none;
+}
+
+
+.pageWrapper {
+
+    background: var(--mfc-background-primary);
+    height: 100%;
+    width: 100%;
+}
+
+.pageContent {
+    height: 100%;
+    background: var(--mfc-background-secondary);
+    /*padding: 8px;*/
+    border-radius: 5px 5px 0 0;
+    border: var(--mfc-border-primary) 1px solid;
+
 }

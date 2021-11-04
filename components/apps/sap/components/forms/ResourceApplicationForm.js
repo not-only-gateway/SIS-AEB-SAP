@@ -11,6 +11,7 @@ import associativeKeys from "../../keys/associativeKeys";
 import getQuery from "../../queries/getQuery";
 import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
+import tedKeys from "../../keys/tedKeys";
 
 
 export default function ResourceApplicationForm(props) {
@@ -46,6 +47,12 @@ export default function ResourceApplicationForm(props) {
 
 
     return (
+        <FormOptions
+            keys={tedKeys.ted}
+            endpoint={'ted'}
+            initialData={props.data}
+        >
+            {({setOpen, formHook, asDraft, asHistory}) => (
         <Form
             hook={formHook}
             create={props.create} title={props.create ? lang.newResource : lang.resource}
@@ -101,6 +108,8 @@ export default function ResourceApplicationForm(props) {
                 </FormRow>
             )}
         </Form>
+            )}
+        </FormOptions>
     )
 
 }

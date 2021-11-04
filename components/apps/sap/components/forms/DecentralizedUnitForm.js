@@ -8,31 +8,23 @@ import Cookies from "universal-cookie/lib";
 import Host from "../../utils/shared/Host";
 import submit from "../../utils/requests/submit";
 import FormRow from "../../../../core/inputs/form/FormRow";
+import tedKeys from "../../keys/tedKeys";
+import associativeKeys from "../../keys/associativeKeys";
 
 
 export default function DecentralizedUnitForm(props) {
 
     const lang = EntitiesPT
-    const [draftID, setDraftID] = useState(props.draftID)
-    const formHook = useDataWithDraft({
-        initialData: props.data,
-        draftUrl: Host().replace('api', 'draft') + 'decentralized_unit',
-        draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 5000,
-        parsePackage: pack => {
-            return {
-                ...pack,
-                identifier: draftID
-            }
-        },
-        draftMethod: draftID ? 'put' : 'post',
-        onSuccess: (res) => {
-            setDraftID(res.data.id)
-        }
-    })
+
 
 
     return (
+        <FormOptions
+            keys={associativeKeys.decentralizedUnit}
+            endpoint={'decentralized_unit'}
+            initialData={props.data}
+        >
+            {({setOpen, formHook, asDraft, asHistory}) => (
         <Form
             hook={formHook}
             create={props.create} title={props.create ? lang.newDecentralizedUnit : lang.decentralizedUnit}
@@ -159,6 +151,8 @@ export default function DecentralizedUnitForm(props) {
                 </FormRow>
             )}
         </Form>
+            )}
+        </FormOptions>
     )
 
 }

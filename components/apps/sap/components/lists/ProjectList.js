@@ -8,7 +8,6 @@ import deleteEntry from "../../utils/requests/delete";
 import List from "../../../../core/visualization/list/List";
 import getQuery from "../../queries/getQuery";
 import useQuery from "../../../../core/visualization/hooks/useQuery";
-import styles from '../../styles/Shared.module.css'
 
 export default function ProjectList(props) {
 
@@ -17,16 +16,16 @@ export default function ProjectList(props) {
     const hook = useQuery(getQuery('project'))
 
     return (
-        <Switcher openChild={open ? 0 : 1} styles={{width: '100%', flexGrow: 1, maxHeight: '100%'}}>
+        <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
 
-                <ProjectForm
-                    handleClose={() => {
-                        setOpen(false)
-                        hook.clean()
-                    }} redirect={props.redirect}
+            <ProjectForm
+                handleClose={() => {
+                    setOpen(false)
+                    hook.clean()
+                }} redirect={props.redirect}
 
-                    create={true}
-                />
+                create={true}
+            />
 
             <List
                 hook={hook}

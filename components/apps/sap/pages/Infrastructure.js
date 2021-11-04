@@ -21,7 +21,7 @@ export default function Infrastructure(props) {
     }, [])
 
     return (
-        <>
+        <div className={shared.pageWrapper}>
             <Head>
                 <title>{infrastructure?.name}</title>
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
@@ -45,36 +45,37 @@ export default function Infrastructure(props) {
                     <CategoryRounded style={{fontSize: '1.15rem'}}/> Infraestrutura
                 </div>
             </div>
-            <VerticalTabs
-                classes={[
-                    {
-                        buttons: [
-                            {
-                                label: 'Dados',
-                                children: (
-                                    <div style={{padding: '16px 10%'}}>
-                                        <InfrastructureForm asDefault={true} data={infrastructure}/>
-                                    </div>
-                                )
-                            }
-                        ]
-                    },
-                    {
-                        label: 'Informações adicionais',
-                        buttons: [
-                            {
-                                label: 'Componentes', children: (
-                                    <div style={{padding: '0 10%'}}>
-                                        <InfrastructureComponentsList infrastructure={infrastructure}/>
-                                    </div>
-                                )
-                            },
+            <div className={shared.pageContent}>
+                <VerticalTabs
+                    classes={[
+                        {
+                            buttons: [
+                                {
+                                    label: 'Dados',
+                                    children: (
+                                        <div style={{padding: '16px 10%'}}>
+                                            <InfrastructureForm asDefault={true} data={infrastructure}/>
+                                        </div>
+                                    )
+                                }
+                            ]
+                        },
+                        {
+                            label: 'Informações adicionais',
+                            buttons: [
+                                {
+                                    label: 'Componentes', children: (
+                                        <div style={{padding: '0 10%'}}>
+                                            <InfrastructureComponentsList infrastructure={infrastructure}/>
+                                        </div>
+                                    )
+                                },
 
-                        ]
-                    }]}
-            />
-
-        </>
+                            ]
+                        }]}
+                />
+            </div>
+        </div>
     )
 }
 Infrastructure.propTypes = {

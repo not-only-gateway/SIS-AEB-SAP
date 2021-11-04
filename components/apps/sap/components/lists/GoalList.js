@@ -19,7 +19,7 @@ export default function GoalList(props) {
         work_plan: props.workPlan.id
     }))
     return (
-        <Switcher openChild={open ? 0 : 1} styles={{width: '100%'}}>
+        <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
 
                 <GoalForm
                     handleClose={() => {

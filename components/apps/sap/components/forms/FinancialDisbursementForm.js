@@ -8,30 +8,14 @@ import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
 import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
+import tedKeys from "../../keys/tedKeys";
+import workPlanKeys from "../../keys/workPlanKeys";
 
 
 export default function FinancialDisbursementForm(props) {
 
     const lang = StatusPT
     const [initialData, setInitialData] = useState(null)
-        const [draftID, setDraftID] = useState(props.draftID)
-    const formHook = useDataWithDraft({
-        initialData: initialData,
-    draftUrl: Host().replace('api', 'draft') + 'financial_disbursement',
-        draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 5000,
-        parsePackage: pack => {
-            return {
-                ...pack,
-                identifier: draftID
-            }
-        },
-        draftMethod: draftID ? 'put' : 'post',
-        onSuccess: (res) => {
-            setDraftID(res.data.id)
-        }
-    })
-    
 
 
     useEffect(() => {
@@ -43,6 +27,12 @@ export default function FinancialDisbursementForm(props) {
         })
     }, [])
     return (
+        <FormOptions
+            keys={workPlanKeys.financialDisbursement}
+            endpoint={'financial_disbursement'}
+            initialData={initialData}
+        >
+            {({setOpen, formHook, asDraft, asHistory}) => (
         <Form
             hook={formHook}
             create={props.create}
@@ -95,6 +85,8 @@ export default function FinancialDisbursementForm(props) {
                 </FormRow>
             )}
         </Form>
+            )}
+        </FormOptions>
     )
 
 }

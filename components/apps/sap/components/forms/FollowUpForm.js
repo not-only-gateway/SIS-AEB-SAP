@@ -3,7 +3,6 @@ import {DropDownField, TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import OperationPT from "../../locales/OperationPT";
 import Form from "../../../../core/inputs/form/Form";
-import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
 import Requester from "../../../../core/feedback/requester/Requester";
@@ -11,29 +10,13 @@ import Host from "../../utils/shared/Host";
 import deleteEntry from "../../utils/requests/delete";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import FileField from "../../../../core/inputs/file/FileField";
+import workPlanKeys from "../../keys/workPlanKeys";
 
 
 export default function FollowUpForm(props) {
     const lang = OperationPT
     const [file, setFile] = useState(null)
     const [initialData, setInitialData] = useState(props.data)
-    const [draftID, setDraftID] = useState(props.draftID)
-    const formHook = useDataWithDraft({
-        initialData: initialData,
-        draftUrl: Host().replace('api', 'draft') + 'follow_up_goal',
-        draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 5000,
-        parsePackage: pack => {
-            return {
-                ...pack,
-                identifier: draftID
-            }
-        },
-        draftMethod: draftID ? 'put' : 'post',
-        onSuccess: (res) => {
-            setDraftID(res.data.id)
-        }
-    })
 
 
     useEffect(() => {
@@ -69,66 +52,74 @@ export default function FollowUpForm(props) {
 
     }, [])
     return (
-        <Form
-            hook={formHook}
-            create={props.create}
-            title={props.create ? lang.newFollowUpGoal : lang.followUpGoal}
-            returnButton={true}
-            handleSubmit={(data, clearState) =>
-                submit({
-                    suffix: 'follow_up_goal',
-                    pk: data.id,
-                    data: data,
-                    create: props.create,
-                    file: file
-                }).then(res => {
-                    if (props.create && res.success) {
-                        props.handleClose()
-                        clearState()
+        <FormOptions
+            keys={workPlanKeys.followup}
+            endpoint={'follow_up_goal'}
+            initialData={initialData}
+        >
+            {({setOpen, formHook, asDraft, asHistory}) => (
+                <Form
+                    hook={formHook}
+                    create={props.create}
+                    title={props.create ? lang.newFollowUpGoal : lang.followUpGoal}
+                    returnButton={true}
+                    handleSubmit={(data, clearState) =>
+                        submit({
+                            suffix: 'follow_up_goal',
+                            pk: data.id,
+                            data: data,
+                            create: props.create,
+                            file: file
+                        }).then(res => {
+                            if (props.create && res.success) {
+                                props.handleClose()
+                                clearState()
+                            }
+                        })
                     }
-                })
-            }
-            handleClose={() => props.handleClose()}>
-            {(data, handleChange) => (
-                <FormRow>
-                    <TextField
-                        placeholder={lang.description} label={lang.description}
-                        handleChange={event => {
+                    handleClose={() => props.handleClose()}>
+                    {(data, handleChange) => (
+                        <FormRow>
+                            <TextField
+                                placeholder={lang.description} label={lang.description}
+                                handleChange={event => {
 
-                            handleChange({key: 'description', event: event.target.value})
-                        }} value={data.description}
-                        required={true}
-                        width={'100%'}
-                    />
+                                    handleChange({key: 'description', event: event.target.value})
+                                }} value={data.description}
+                                required={true}
+                                width={'100%'}
+                            />
 
-                    <DropDownField
-                        dark={true}
-                        placeholder={lang.delivered}
-                        label={lang.delivered}
-                        handleChange={event => {
+                            <DropDownField
+                                dark={true}
+                                placeholder={lang.delivered}
+                                label={lang.delivered}
+                                handleChange={event => {
 
-                            handleChange({key: 'accomplished', event: event})
-                        }} value={data.accomplished} required={true}
-                        width={'calc(50% - 16px)'} choices={lang.options}
-                    />
-                    <FileField
-                        handleChange={(e) => setFile(e[0])} accept={['.pdf']}
-                        width={'calc(50% - 16px)'} required={false} label={'Adicionar PDF'}
-                        disabled={false} multiple={false} value={file ? [file] : []}
-                        handleFileRemoval={() => {
-                            deleteEntry({
-                                pk: data.file,
-                                url: Host().replace('/api', '/drive') + '/file'
-                            }).then(e => {
-                                if (e.success)
-                                    setFile(null)
-                            })
-                        }}
-                    />
+                                    handleChange({key: 'accomplished', event: event})
+                                }} value={data.accomplished} required={true}
+                                width={'calc(50% - 16px)'} choices={lang.options}
+                            />
+                            <FileField
+                                handleChange={(e) => setFile(e[0])} accept={['.pdf']}
+                                width={'calc(50% - 16px)'} required={false} label={'Adicionar PDF'}
+                                disabled={false} multiple={false} value={file ? [file] : []}
+                                handleFileRemoval={() => {
+                                    deleteEntry({
+                                        pk: data.file,
+                                        url: Host().replace('/api', '/drive') + '/file'
+                                    }).then(e => {
+                                        if (e.success)
+                                            setFile(null)
+                                    })
+                                }}
+                            />
 
-                </FormRow>
+                        </FormRow>
+                    )}
+                </Form>
             )}
-        </Form>
+        </FormOptions>
     )
 
 }

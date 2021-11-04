@@ -8,6 +8,7 @@ import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
 import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
+import tedKeys from "../../keys/tedKeys";
 
 
 export default function RiskForm(props) {
@@ -43,6 +44,12 @@ export default function RiskForm(props) {
     }, [])
 
     return (
+        <FormOptions
+            keys={tedKeys.ted}
+            endpoint={'ted'}
+            initialData={props.data}
+        >
+            {({setOpen, formHook, asDraft, asHistory}) => (
         <Form
             hook={formHook}
            title={props.create ? 'Novo risco' : 'Risco'}
@@ -87,7 +94,8 @@ export default function RiskForm(props) {
             )}
 
         </Form>
-
+            )}
+        </FormOptions>
     )
 
 }

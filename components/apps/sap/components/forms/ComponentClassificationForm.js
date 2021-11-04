@@ -12,32 +12,22 @@ import submit from "../../utils/requests/submit";
 import TypeForm from "./TypeForm";
 import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
+import tedKeys from "../../keys/tedKeys";
 
 
 export default function ComponentClassificationForm(props) {
 
     const lang = EntitiesPT
-        const [draftID, setDraftID] = useState(props.draftID)
-    const formHook = useDataWithDraft({
-        initialData: props.data,
-    draftUrl: Host().replace('api', 'draft') + 'classification',
-        draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 5000,
-        parsePackage: pack => {
-            return {
-                ...pack,
-                identifier: draftID
-            }
-        },
-        draftMethod: draftID ? 'put' : 'post',
-        onSuccess: (res) => {
-            setDraftID(res.data.id)
-        }
-    })
-    
+
     const typeHook = useQuery(getQuery('type'))
 
     return (
+        <FormOptions
+            keys={associativeKeys.classification}
+            endpoint={'classification'}
+            initialData={props.data}
+        >
+            {({setOpen, formHook, asDraft, asHistory}) => (
         <Form
             hook={formHook}
 
@@ -88,6 +78,8 @@ export default function ComponentClassificationForm(props) {
                 </FormRow>
             )}
         </Form>
+            )}
+        </FormOptions>
     )
 
 }

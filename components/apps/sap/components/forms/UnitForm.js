@@ -11,6 +11,7 @@ import Selector from "../../../../core/inputs/selector/Selector";
 import submit from "../../utils/requests/submit";
 import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
+import tedKeys from "../../keys/tedKeys";
 
 
 export default function UnitForm(props) {
@@ -36,6 +37,12 @@ export default function UnitForm(props) {
     const unitHook = useQuery(getQuery('unit'))
 
     return (
+        <FormOptions
+            keys={tedKeys.ted}
+            endpoint={'ted'}
+            initialData={props.data}
+        >
+            {({setOpen, formHook, asDraft, asHistory}) => (
         <Form
             hook={formHook}
             create={props.create}
@@ -95,6 +102,8 @@ export default function UnitForm(props) {
                 </FormRow>
             )}
         </Form>
+            )}
+        </FormOptions>
     )
 
 }

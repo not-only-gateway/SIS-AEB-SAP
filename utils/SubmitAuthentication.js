@@ -20,6 +20,7 @@ export default async function submitAuthentication(props) {
         method: 'post',
         showSuccessAlert: true
     }).then(response => {
+        console.log(response.data)
         if (props.asManager) {
             cookies.set('jwt', response.data.token)
             cookies.set('asManager', true)

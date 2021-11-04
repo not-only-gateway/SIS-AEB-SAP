@@ -26,7 +26,7 @@ export default function Project(props) {
     }, [])
 
     return (
-        <>
+        <div className={shared.pageWrapper}>
             <Head>
                 <title>{project?.name}</title>
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
@@ -51,63 +51,65 @@ export default function Project(props) {
                     <CategoryRounded style={{fontSize: '1.15rem'}}/> Projeto / Atividade
                 </div>
             </div>
-            <VerticalTabs
-                classes={[
-                    {
-                        buttons: [
-                            {
-                                label: 'Dados', children: (
+            <div className={shared.pageContent}>
+                <VerticalTabs
+                    classes={[
+                        {
+                            buttons: [
+                                {
+                                    label: 'Dados', children: (
+                                        <div className={shared.contentWrapper}>
+                                            <ProjectForm data={project}/>
+                                        </div>
+                                    )
+                                }
+                            ]
+                        },
+                        {
+                            label: 'Informações adicionais',
+                            buttons: [
+                                {
+                                    label: 'Riscos',
+                                    children: (
+                                        <div className={shared.contentWrapper}>
+                                            <RisksList project={project}/>
+                                        </div>
+                                    )
+                                },
+                                {
+                                    label: 'Marcos',
+                                    children: (
+                                        <div className={shared.contentWrapper}>
+                                            <ProjectGoalList project={project}/>
+                                        </div>
+                                    )
+                                }
+                            ]
+                        },
+                        {
+                            label: 'Acesso rápido',
+                            buttons: [{
+                                label: 'Planos de trabalho', children: (
                                     <div className={shared.contentWrapper}>
-                                        <ProjectForm data={project}/>
-                                    </div>
-                                )
-                            }
-                        ]
-                    },
-                    {
-                        label: 'Informações adicionais',
-                        buttons: [
-                            {
-                                label: 'Riscos',
-                                children: (
-                                    <div className={shared.contentWrapper}>
-                                        <RisksList project={project}/>
+                                        <WorkPlanList project={project} redirect={props.redirect}/>
+
                                     </div>
                                 )
                             },
-                            {
-                                label: 'Marcos',
-                                children: (
-                                    <div className={shared.contentWrapper}>
-                                        <ProjectGoalList project={project}/>
-                                    </div>
-                                )
-                            }
-                        ]
-                    },
-                    {
-                        label: 'Acesso rápido',
-                        buttons: [{
-                            label: 'Planos de trabalho', children: (
-                                <div className={shared.contentWrapper}>
-                                    <WorkPlanList project={project} redirect={props.redirect}/>
-
-                                </div>
-                            )
-                        },
-                            {
-                                label: 'Instrumentos de celebração relacionados', children: (
-                                    <div className={shared.contentWrapper}>
-                                        <ProjectTedList project={project} redirect={props.redirect}/>
-                                    </div>
-                                )
-                            }
-                        ]
-                    }]}
-            />
+                                {
+                                    label: 'Instrumentos de celebração relacionados', children: (
+                                        <div className={shared.contentWrapper}>
+                                            <ProjectTedList project={project} redirect={props.redirect}/>
+                                        </div>
+                                    )
+                                }
+                            ]
+                        }]}
+                />
+            </div>
 
 
-        </>
+        </div>
     )
 }
 Project.propTypes = {

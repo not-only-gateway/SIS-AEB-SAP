@@ -13,39 +13,20 @@ import submit from "../../utils/requests/submit";
 import OperationForm from "./OperationForm";
 import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
+import tedKeys from "../../keys/tedKeys";
 
 
 export default function ExecutionForm(props) {
 
     const lang = ExecutionPT
     const [initialData, setInitialData] = useState(props.data)
-    const [draftID, setDraftID] = useState()
-    const formHook = useDataWithDraft({
-        initialData: initialData,
-        draftUrl: Host().replace('api', 'draft') + 'execution',
-        draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 5000,
-        parsePackage: pack => {
-            return {
-                ...pack,
-                identifier: draftID
-            }
-        },
-        draftMethod: draftID ? 'put' : 'post',
-        onSuccess: (res) => {
-            setDraftID(res.data.id)
-        }
-    })
-
     const operationHook = useQuery(getQuery('operation_phase', undefined, props.workPlan ? [{
         key: 'activity_stage',
         sub_relation: {key: 'goal', sub_relation: {key: 'work_plan'}},
         value: props.workPlan.id,
         type: 'object'
     }] : []))
-
     useEffect(() => {
-
         if (props.create) {
 
             const date = new Date()
@@ -64,6 +45,12 @@ export default function ExecutionForm(props) {
 
 
     return (
+        <FormOptions
+            keys={workPlanKeys.execution}
+            endpoint={'execution'}
+            initialData={initialData}
+        >
+            {({setOpen, formHook, asDraft, asHistory}) => (
         <Form
             hook={formHook}
             create={props.create} title={props.create ? lang.newExecution : lang.execution}
@@ -184,6 +171,8 @@ export default function ExecutionForm(props) {
                 </FormRow>
             )}
         </Form>
+            )}
+        </FormOptions>
     )
 
 }

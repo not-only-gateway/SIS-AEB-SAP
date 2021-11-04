@@ -1,13 +1,22 @@
-.header{
+
+.wrapper {
+    background: var(--mfc-background-primary);
+    height: 100%;
+    width: 100%;
+
+}
+
+.header {
     height: 10vh;
     width: 100%;
     padding: 8px 16px;
     display: flex;
     align-items: center;
 
-    background: var(--mfc-background-primary);
+
 }
-.headerLabels{
+
+.headerLabels {
     display: grid;
     justify-content: flex-start;
     align-content: space-between;
@@ -17,8 +26,18 @@
     font-size: 1.1rem;
     color: var(--mfc-color-secondary);
 }
-.secondaryLabel{
+
+.secondaryLabel {
     font-weight: normal;
     font-size: .8rem;
     color: var(--mfc-color-quaternary);
+}
+
+.content {
+    height: 100%;
+    background: var(--mfc-background-secondary);
+    /*padding: 8px;*/
+    border-radius: 5px 5px 0 0;
+    border: var(--mfc-border-primary) 1px solid;
+
 }

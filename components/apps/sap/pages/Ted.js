@@ -28,7 +28,7 @@ export default function Ted(props) {
 
 
     return (
-        <>
+        <div className={shared.pageWrapper}>
             <Head>
                 <title>{ted?.number}</title>
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
@@ -61,6 +61,7 @@ export default function Ted(props) {
                     <CategoryRounded style={{fontSize: '1.15rem'}}/> Instrumento de celebração
                 </div>
             </div>
+            <div className={shared.pageContent}>
             <VerticalTabs
                 classes={[
                     {
@@ -106,7 +107,8 @@ export default function Ted(props) {
                             }]
                     }]}
             />
-        </>
+            </div>
+        </div>
     )
 }
 Ted.propTypes = {

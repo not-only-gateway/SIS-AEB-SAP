@@ -33,7 +33,7 @@ export default function OperationList(props) {
     const hook = useQuery(getQuery('operation_phase', undefined, relation))
 
     return (
-        <Switcher openChild={open ? 0 : 1} styles={{width: '100%'}}>
+        <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
 
                 <OperationForm
                     handleClose={() => {

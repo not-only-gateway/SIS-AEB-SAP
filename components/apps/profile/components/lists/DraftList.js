@@ -18,7 +18,7 @@ export default function DraftList(props) {
 
     return (
         <Switcher openChild={currentEntity !== null ? 0 : 1}
-                  styles={{flexGrow: 1, maxHeight: '100%', padding: '0 10%'}}>
+                  styles={{ height: '100%', padding: '0 10%'}}>
             <DynamicRoutes
                 routes={getForms()}
                 componentProps={{

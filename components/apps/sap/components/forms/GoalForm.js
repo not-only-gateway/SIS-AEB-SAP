@@ -8,6 +8,7 @@ import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
 import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
+import tedKeys from "../../keys/tedKeys";
 
 
 export default function GoalForm(props) {
@@ -44,6 +45,12 @@ export default function GoalForm(props) {
 
     }, [])
     return (
+        <FormOptions
+            keys={tedKeys.ted}
+            endpoint={'ted'}
+            initialData={props.data}
+        >
+            {({setOpen, formHook, asDraft, asHistory}) => (
         <Form
             hook={formHook}
             create={props.create} title={props.create ? lang.newGoal : lang.goal}
@@ -131,6 +138,8 @@ export default function GoalForm(props) {
                 </>
             )}
         </Form>
+            )}
+        </FormOptions>
     )
 
 }

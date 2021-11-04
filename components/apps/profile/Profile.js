@@ -11,7 +11,7 @@ export default function Profile() {
     const profile = useContext(ProfileContext)
 
     return (
-        <>
+        <div className={styles.wrapper}>
             <div className={styles.header}>
                 <Avatar style={{height: '85px', width: '85px'}} src={profile.image}/>
                 <div className={styles.headerLabels}>
@@ -21,30 +21,33 @@ export default function Profile() {
                     </div>
                 </div>
             </div>
-            <VerticalTabs classes={[
-                {
-                    label: 'Dados',
-                    buttons: [
+            <div className={styles.content}>
+                <VerticalTabs
+
+                    classes={[
                         {
                             label: 'Dados',
-                            children: <Information/>
+                            buttons: [
+                                {
+                                    label: 'Dados',
+                                    children: <Information/>
+                                },
+                                {
+                                    label: 'Privilégios',
+                                    children: <Privileges/>
+                                },
+
+                            ]
                         },
                         {
-                            label: 'Privilégios',
-                            children: <Privileges/>
-                        },
-
-                    ]
-                },
-                {
-                    label: 'Outros',
-                    buttons: [{
-                        label: 'Rascunhos',
-                        children: <DraftList/>
-                    }]
-                }
-            ]}/>
-
-        </>
+                            label: 'Outros',
+                            buttons: [{
+                                label: 'Rascunhos',
+                                children: <DraftList/>
+                            }]
+                        }
+                    ]}/>
+            </div>
+        </div>
     )
 }

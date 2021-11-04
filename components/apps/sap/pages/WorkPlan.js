@@ -29,7 +29,7 @@ export default function WorkPlan(props) {
     }, [props.query])
 
     return (
-        <>
+        <div className={shared.pageWrapper}>
             <Head>
                 <title>{workPlan?.object}</title>
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
@@ -63,79 +63,81 @@ export default function WorkPlan(props) {
                 </div>
             </div>
 
-            <VerticalTabs
-                classes={[
-                    {
-                        buttons: [
-                            {
-                                label: 'Dados',
-                                children: (
-                                    <div style={{padding: '16px 10%'}}>
-                                        <WorkPlanForm data={workPlan}/>
-                                    </div>
-                                )
-                            }
-                        ]
-                    },
-                    {
-                        label: 'Informações adicionais',
-                        buttons: [
-                            {
-                                label: 'Status',
-                                children: (
-                                    <div style={{padding: '16px 10%'}}>
-                                        <StatusList workPlan={workPlan}/>
-                                    </div>
-                                )
-                            },
+            <div className={shared.pageContent}>
+                <VerticalTabs
+                    classes={[
+                        {
+                            buttons: [
+                                {
+                                    label: 'Dados',
+                                    children: (
+                                        <div style={{padding: '16px 10%'}}>
+                                            <WorkPlanForm data={workPlan}/>
+                                        </div>
+                                    )
+                                }
+                            ]
+                        },
+                        {
+                            label: 'Informações adicionais',
+                            buttons: [
+                                {
+                                    label: 'Status',
+                                    children: (
+                                        <div style={{padding: '16px 10%'}}>
+                                            <StatusList workPlan={workPlan}/>
+                                        </div>
+                                    )
+                                },
 
-                            {
-                                label: 'Apostilamentos',
-                                children: (
-                                    <div style={{padding: '16px 10%'}}>
-                                        <WorkPlanList workPlan={workPlan} redirect={props.redirect}/>
-                                    </div>
-                                )
-                            }
-                        ]
-                    },
-                    {
-                        label: 'Acesso rápido',
-                        buttons: [
-                            {
-                                label: 'Metas',
-                                children: (
-                                    <div style={{padding: '16px 10%'}}>
-                                        <GoalList workPlan={workPlan}/>
-                                    </div>
-                                )
-                            },
-                            {
-                                label: 'Etapas', children: (
-                                    <div className={shared.contentWrapper}>
-                                        <ActivityStageList workPlan={workPlan} redirect={props.redirect}/>
-                                    </div>
-                                )
-                            },
-                            {
-                                label: 'Fases / operações', children: (
-                                    <div className={shared.contentWrapper}>
-                                        <OperationList workPlan={workPlan} redirect={props.redirect}/>
-                                    </div>
-                                )
-                            },
-                            {
-                                label: 'Execuções', children: (
-                                    <div className={shared.contentWrapper}>
-                                        <ExecutionList workPlan={workPlan} redirect={props.redirect}/>
-                                    </div>
-                                )
-                            }
-                        ]
-                    },
-                ]}
-            />
-        </>
+                                {
+                                    label: 'Apostilamentos',
+                                    children: (
+                                        <div style={{padding: '16px 10%'}}>
+                                            <WorkPlanList workPlan={workPlan} redirect={props.redirect}/>
+                                        </div>
+                                    )
+                                }
+                            ]
+                        },
+                        {
+                            label: 'Acesso rápido',
+                            buttons: [
+                                {
+                                    label: 'Metas',
+                                    children: (
+                                        <div style={{padding: '16px 10%'}}>
+                                            <GoalList workPlan={workPlan}/>
+                                        </div>
+                                    )
+                                },
+                                {
+                                    label: 'Etapas', children: (
+                                        <div className={shared.contentWrapper}>
+                                            <ActivityStageList workPlan={workPlan} redirect={props.redirect}/>
+                                        </div>
+                                    )
+                                },
+                                {
+                                    label: 'Fases / operações', children: (
+                                        <div className={shared.contentWrapper}>
+                                            <OperationList workPlan={workPlan} redirect={props.redirect}/>
+                                        </div>
+                                    )
+                                },
+                                {
+                                    label: 'Execuções', children: (
+                                        <div className={shared.contentWrapper}>
+                                            <ExecutionList workPlan={workPlan} redirect={props.redirect}/>
+                                        </div>
+                                    )
+                                }
+                            ]
+                        },
+                    ]}
+                />
+            </div>
+        </div>
     )
 }
 WorkPlan.propTypes = {

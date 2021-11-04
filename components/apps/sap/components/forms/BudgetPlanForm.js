@@ -13,30 +13,12 @@ import submit from "../../utils/requests/submit";
 import ActionForm from "./ActionForm";
 import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
+import tedKeys from "../../keys/tedKeys";
 
 
 export default function BudgetPlanForm(props) {
     const lang = ProjectPT
     const [initialData, setInitialData] = useState(null)
-
-    const [draftID, setDraftID] = useState(props.draftID)
-    const formHook = useDataWithDraft({
-        initialData: initialData,
-        draftUrl: Host().replace('api', 'draft') + 'budget_plan',
-        draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 5000,
-        parsePackage: pack => {
-            return {
-                ...pack,
-                identifier: draftID
-            }
-        },
-        draftMethod: draftID ? 'put' : 'post',
-        onSuccess: (res) => {
-            setDraftID(res.data.id)
-        }
-    })
-
     const actionHook = useQuery(getQuery('action'))
 
     useEffect(() => {
@@ -54,7 +36,12 @@ export default function BudgetPlanForm(props) {
     }, [])
 
     return (
-
+        <FormOptions
+            keys={associativeKeys.budgetPlan}
+            endpoint={'budget_plan'}
+            initialData={initialData}
+        >
+            {({setOpen, formHook, asDraft, asHistory}) => (
         <Form
             hook={formHook}
 
@@ -118,6 +105,8 @@ export default function BudgetPlanForm(props) {
                 </FormRow>
             )}
         </Form>
+            )}
+        </FormOptions>
     )
 
 }
