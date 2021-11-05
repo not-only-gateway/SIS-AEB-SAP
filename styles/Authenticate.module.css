@@ -1,4 +1,4 @@
-.header{
+.header {
     display: grid;
     justify-content: center;
     justify-items: center;
@@ -21,9 +21,11 @@
 
     border-radius: 8px;
     padding: 16px;
+
+    background: var(--mfc-background-primary);
 }
 
-.button{
+.button {
     outline: none;
     border: none;
     background-color: transparent;
@@ -38,18 +40,22 @@
 
     image-rendering: optimizeQuality;
 }
-.button:hover{
+
+.button:hover {
     opacity: .9;
 }
-.button:active{
+
+.button:active {
     opacity: .7;
 }
-.button:disabled{
+
+.button:disabled {
     background-color: #f4f5fa;
     cursor: unset;
     color: #999999;
 }
-.contentWrapper{
+
+.contentWrapper {
     overflow: visible;
     position: absolute;
     left: 50%;
@@ -60,7 +66,7 @@
     border: #ecedf2 1px solid;
 }
 
-.pageWrapper{
+.pageWrapper {
     height: 100vh;
     width: 100vw;
     position: relative;

@@ -1,23 +1,21 @@
-import React, {useState} from "react";
+import React from "react";
 
 import {TextField} from "mfc-core";
 
 import PropTypes from "prop-types";
 import ProjectPT from "../../locales/ProjectPT";
 import Form from "../../../../core/inputs/form/Form";
-import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
-import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
-import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
-import tedKeys from "../../keys/tedKeys";
 import associativeKeys from "../../keys/associativeKeys";
+import FormTemplate from "../../templates/FormTemplate";
+import formOptions from "../../templates/formOptions";
 
 export default function ActionForm(props) {
     const lang = ProjectPT
 
     return (
-        <FormOptions
+        <FormTemplate
             keys={associativeKeys.action}
             endpoint={'action'}
             initialData={props.data}
@@ -25,6 +23,12 @@ export default function ActionForm(props) {
             {({setOpen, formHook, asDraft, asHistory}) => (
                 <Form
                     hook={formHook}
+                    options={formOptions({
+                        asDraft: asDraft,
+                        asHistory: asHistory,
+                        setOpen: setOpen,
+                        create: props.create
+                    })}
                     title={props.create ? lang.newAction : lang.action}
                     create={props.create}
                     returnButton={true} handleClose={() => props.handleClose()}
@@ -68,7 +72,7 @@ export default function ActionForm(props) {
                     )}
                 </Form>
             )}
-        </FormOptions>
+        </FormTemplate>
     )
 
 }

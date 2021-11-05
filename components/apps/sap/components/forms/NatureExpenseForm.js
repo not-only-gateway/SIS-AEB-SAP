@@ -9,34 +9,18 @@ import submit from "../../utils/requests/submit";
 import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import tedKeys from "../../keys/tedKeys";
+import associativeKeys from "../../keys/associativeKeys";
+import FormTemplate from "../../templates/FormTemplate";
+import formOptions from "../../templates/formOptions";
 
 
 export default function NatureExpenseForm(props) {
     const lang = ProjectPT
-        const [draftID, setDraftID] = useState(props.draftID)
-    const formHook = useDataWithDraft({
-        initialData: props.data,
-    draftUrl: Host().replace('api', 'draft') + 'nature_of_expense',
-        draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 5000,
-        parsePackage: pack => {
-            return {
-                ...pack,
-                identifier: draftID
-            }
-        },
-        draftMethod: draftID ? 'put' : 'post',
-        onSuccess: (res) => {
-            setDraftID(res.data.id)
-        }
-    })
-    
-
 
     return (
-        <FormOptions
-            keys={tedKeys.ted}
-            endpoint={'ted'}
+        <FormTemplate
+            keys={associativeKeys.natureOfExpense}
+            endpoint={'nature_of_expense'}
             initialData={props.data}
         >
             {({setOpen, formHook, asDraft, asHistory}) => (
@@ -44,7 +28,12 @@ export default function NatureExpenseForm(props) {
             hook={formHook}
             create={props.create}
             title={props.create ? lang.newNatureOfExpense : lang.natureOfExpense}
-
+            options={formOptions({
+                asDraft: asDraft,
+                asHistory: asHistory,
+                setOpen: setOpen,
+                create: props.create
+            })}
             returnButton={true}
             handleSubmit={(data, clearState) =>
                 submit({
@@ -98,7 +87,7 @@ export default function NatureExpenseForm(props) {
             )}
         </Form>
             )}
-        </FormOptions>
+        </FormTemplate>
     )
 
 }

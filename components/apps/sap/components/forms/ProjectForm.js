@@ -14,40 +14,31 @@ import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import TextField from "../../../../core/inputs/text/TextField";
 import tedKeys from "../../keys/tedKeys";
+import projectKeys from "../../keys/projectKeys";
+import FormTemplate from "../../templates/FormTemplate";
+import formOptions from "../../templates/formOptions";
 
 
 export default function ProjectForm(props) {
     const lang = ProjectPT
     const unitHook = useQuery(getQuery('unit'))
 
-    const [draftID, setDraftID] = useState()
-    const formHook = useDataWithDraft({
-        initialData: props.data,
-        draftUrl: Host().replace('api', 'draft') + 'project',
-        draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 5000,
-        parsePackage: pack => {
-            return {
-                ...pack,
-                identifier: draftID
-            }
-        },
-        draftMethod: draftID ? 'put' : 'post',
-        onSuccess: (res) => {
-            setDraftID(res.data.id)
-        }
-    })
-
 
     return (
-        <FormOptions
-            keys={tedKeys.ted}
-            endpoint={'ted'}
+        <FormTemplate
+            keys={projectKeys.project}
+            endpoint={'project'}
             initialData={props.data}
         >
             {({setOpen, formHook, asDraft, asHistory}) => (
         <Form
             hook={formHook}
+            options={formOptions({
+                asDraft: asDraft,
+                asHistory: asHistory,
+                setOpen: setOpen,
+                create: props.create
+            })}
             create={props.create}
             title={props.create ? 'Novo projeto / atividade' : 'Projeto / Atividade'}
             returnButton={props.create}
@@ -193,7 +184,7 @@ export default function ProjectForm(props) {
 
         </Form>
             )}
-        </FormOptions>
+        </FormTemplate>
     )
 
 }

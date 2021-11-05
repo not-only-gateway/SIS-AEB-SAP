@@ -15,8 +15,9 @@ import TextField from "../../../../core/inputs/text/TextField";
 import DateField from "../../../../core/inputs/date/DateField";
 import DropDownField from "../../../../core/inputs/dropdown/DropDownField";
 import {AssignmentRounded, HistoryRounded} from "@material-ui/icons";
-import FormOptions from "../../templates/FormOptions";
+import FormTemplate from "../../templates/FormTemplate";
 import tedKeys from "../../keys/tedKeys";
+import formOptions from "../../templates/formOptions";
 
 
 export default function TedForm(props) {
@@ -27,7 +28,7 @@ export default function TedForm(props) {
     const decentralizedUnitHook = useQuery(getQuery('decentralized_unit'))
 
     return (
-        <FormOptions
+        <FormTemplate
             keys={tedKeys.ted}
             endpoint={'ted'}
             initialData={props.data}
@@ -38,24 +39,12 @@ export default function TedForm(props) {
                     create={props.create}
                     title={props.asAddendum ? 'Novo termo aditivo' : (props.create ? 'Novo instrumento de celebração' : 'Instrumento de celebração')}
                     returnButton={props.create || props.asEntity}
-                    options={[
-                        {
-                            label: 'Histórico de mudanças',
-                            icon: <HistoryRounded/>,
-                            onClick: () => {
-                                asHistory()
-                                setOpen(true)
-                            },
-                            disabled: props.create
-                        },
-                        {
-                            label: 'Rascunhos',
-                            icon: <AssignmentRounded/>,
-                            onClick: () => {
-                                asDraft()
-                                setOpen(true)
-                            },
-                        }]}
+                    options={formOptions({
+                        asDraft: asDraft,
+                        asHistory: asHistory,
+                        setOpen: setOpen,
+                        create: props.create
+                    })}
                     handleSubmit={(data, clearState) => {
                         submit({
                             suffix: 'ted',
@@ -178,11 +167,7 @@ export default function TedForm(props) {
                             </FormRow>
 
                             <FormRow>
-
-
                                 <Selector
-
-
                                     hook={unitHook} keys={associativeKeys.responsible}
                                     width={'calc(33.333% - 21.5px)'}
                                     required={true}
@@ -286,7 +271,7 @@ export default function TedForm(props) {
                     )}
                 </Form>
             )}
-        </FormOptions>
+        </FormTemplate>
     )
 
 }

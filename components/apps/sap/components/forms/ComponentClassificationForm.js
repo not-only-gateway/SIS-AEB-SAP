@@ -13,6 +13,8 @@ import TypeForm from "./TypeForm";
 import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import tedKeys from "../../keys/tedKeys";
+import FormTemplate from "../../templates/FormTemplate";
+import formOptions from "../../templates/formOptions";
 
 
 export default function ComponentClassificationForm(props) {
@@ -22,7 +24,7 @@ export default function ComponentClassificationForm(props) {
     const typeHook = useQuery(getQuery('type'))
 
     return (
-        <FormOptions
+        <FormTemplate
             keys={associativeKeys.classification}
             endpoint={'classification'}
             initialData={props.data}
@@ -30,7 +32,12 @@ export default function ComponentClassificationForm(props) {
             {({setOpen, formHook, asDraft, asHistory}) => (
         <Form
             hook={formHook}
-
+            options={formOptions({
+                asDraft: asDraft,
+                asHistory: asHistory,
+                setOpen: setOpen,
+                create: props.create
+            })}
             create={props.create} title={props.create ? lang.newClassification : lang.classification}
 
             returnButton={true}
@@ -79,7 +86,7 @@ export default function ComponentClassificationForm(props) {
             )}
         </Form>
             )}
-        </FormOptions>
+        </FormTemplate>
     )
 
 }

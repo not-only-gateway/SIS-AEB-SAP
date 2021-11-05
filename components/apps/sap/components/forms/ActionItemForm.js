@@ -7,6 +7,8 @@ import submit from "../../utils/requests/submit";
 
 import FormRow from "../../../../core/inputs/form/FormRow";
 import workPlanKeys from "../../keys/workPlanKeys";
+import FormTemplate from "../../templates/FormTemplate";
+import formOptions from "../../templates/formOptions";
 
 export default function ActionItemForm(props) {
     const lang = OperationPT
@@ -17,11 +19,11 @@ export default function ActionItemForm(props) {
                 operation_phase: props.operation?.id
             }
         }
-    }, [])
+    }, [props])
 
 
     return (
-        <FormOptions
+        <FormTemplate
             keys={workPlanKeys.action}
             endpoint={'action_item'}
             initialData={initialData}
@@ -31,7 +33,12 @@ export default function ActionItemForm(props) {
                     hook={formHook}
                     create={props.create}
                     returnButton={true} handleClose={() => props.handleClose()}
-
+                    options={formOptions({
+                        asDraft: asDraft,
+                        asHistory: asHistory,
+                        setOpen: setOpen,
+                        create: props.create
+                    })}
                     title={props.create ? lang.newAction : lang.action}
 
 
@@ -71,7 +78,7 @@ export default function ActionItemForm(props) {
                     )}
                 </Form>
             )}
-        </FormOptions>
+        </FormTemplate>
 
     )
 

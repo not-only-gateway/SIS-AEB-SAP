@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from "react";
+import React, {useMemo} from "react";
 import PropTypes from 'prop-types'
 import WorkPlanPT from "../../locales/WorkPlanPT";
 import {useQuery} from "mfc-core";
@@ -6,8 +6,6 @@ import associativeKeys from "../../keys/associativeKeys";
 import getQuery from "../../queries/getQuery";
 import Selector from "../../../../core/inputs/selector/Selector";
 import Form from "../../../../core/inputs/form/Form";
-import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
-import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
 import projectKeys from "../../keys/projectKeys";
 import tedKeys from "../../keys/tedKeys";
@@ -16,9 +14,11 @@ import BudgetPlanForm from "./BudgetPlanForm";
 import InfrastructureForm from "./InfrastructureForm";
 import TextField from "../../../../core/inputs/text/TextField";
 import DropDownField from "../../../../core/inputs/dropdown/DropDownField";
-import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import MultiSelectField from "../../../../core/inputs/multiselect/MultiSelectField";
+import workPlanKeys from "../../keys/workPlanKeys";
+import FormTemplate from "../../templates/FormTemplate";
+import formOptions from "../../templates/formOptions";
 
 
 export default function WorkPlanForm(props) {
@@ -48,37 +48,24 @@ export default function WorkPlanForm(props) {
                 }
             else return props.data
         } else return props.data
-    }, [props.data])
-
-    const [draftID, setDraftID] = useState(props.draftID)
-    const formHook = useDataWithDraft({
-        initialData: initialData,
-        draftUrl: Host().replace('api', 'draft') + 'work_plan',
-        draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 5000,
-        parsePackage: pack => {
-            return {
-                ...pack,
-                identifier: draftID
-            }
-        },
-        draftMethod: draftID ? 'put' : 'post',
-        onSuccess: (res) => {
-            setDraftID(res.data.id)
-        }
-    })
-
+    }, [props])
 
     return (
-        <FormOptions
-            keys={tedKeys.ted}
-            endpoint={'ted'}
-            initialData={props.data}
+        <FormTemplate
+            keys={workPlanKeys.workPlan}
+            endpoint={'work_plan'}
+            initialData={initialData}
         >
             {({setOpen, formHook, asDraft, asHistory}) => (
                 <Form
                     hook={formHook}
                     create={props.create}
+                    options={formOptions({
+                        asDraft: asDraft,
+                        asHistory: asHistory,
+                        setOpen: setOpen,
+                        create: props.create
+                    })}
                     title={props.asApostille ? 'Novo apostilamento' : props.create ? 'Novo plano de trabalho' : 'Plano de trabalho'}
                     returnButton={props.create}
                     handleSubmit={(data, clearState) => {
@@ -281,7 +268,7 @@ export default function WorkPlanForm(props) {
                     )}
                 </Form>
             )}
-        </FormOptions>
+        </FormTemplate>
     )
 
 }

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {DropDownField,  TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import StatusPT from "../../locales/StatusPT";
@@ -10,24 +10,25 @@ import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import tedKeys from "../../keys/tedKeys";
 import workPlanKeys from "../../keys/workPlanKeys";
+import FormTemplate from "../../templates/FormTemplate";
+import formOptions from "../../templates/formOptions";
 
 
 export default function FinancialDisbursementForm(props) {
 
     const lang = StatusPT
-    const [initialData, setInitialData] = useState(null)
-
-
-    useEffect(() => {
-        setInitialData({
+    const initialData = useMemo(() => {
+        return{
             ...props.data,
             ...{
                 work_plan: props.workPlan.id
             }
-        })
-    }, [])
+        }
+    }, [props])
+
+
     return (
-        <FormOptions
+        <FormTemplate
             keys={workPlanKeys.financialDisbursement}
             endpoint={'financial_disbursement'}
             initialData={initialData}
@@ -38,6 +39,12 @@ export default function FinancialDisbursementForm(props) {
             create={props.create}
             title={props.create ? lang.newFinancial : lang.financial}
             returnButton={true}
+            options={formOptions({
+                asDraft: asDraft,
+                asHistory: asHistory,
+                setOpen: setOpen,
+                create: props.create
+            })}
             handleSubmit={(data, clearState) =>
                 submit({
                     suffix: 'financial_disbursement',
@@ -86,7 +93,7 @@ export default function FinancialDisbursementForm(props) {
             )}
         </Form>
             )}
-        </FormOptions>
+        </FormTemplate>
     )
 
 }

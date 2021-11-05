@@ -12,6 +12,9 @@ import getQuery from "../../queries/getQuery";
 import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import tedKeys from "../../keys/tedKeys";
+import workPlanKeys from "../../keys/workPlanKeys";
+import FormTemplate from "../../templates/FormTemplate";
+import formOptions from "../../templates/formOptions";
 
 
 export default function ResourceApplicationForm(props) {
@@ -26,37 +29,25 @@ export default function ResourceApplicationForm(props) {
                 operation_phase: props.operation?.id
             }
         }
-    }, [])
-    const [draftID, setDraftID] = useState(props.draftID)
-    const formHook = useDataWithDraft({
-        initialData: initialData,
-        draftUrl: Host().replace('api', 'draft') + 'resource_application',
-        draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 5000,
-        parsePackage: pack => {
-            return {
-                ...pack,
-                identifier: draftID
-            }
-        },
-        draftMethod: draftID ? 'put' : 'post',
-        onSuccess: (res) => {
-            setDraftID(res.data.id)
-        }
-    })
-
+    }, [props])
 
     return (
-        <FormOptions
-            keys={tedKeys.ted}
-            endpoint={'ted'}
-            initialData={props.data}
+        <FormTemplate
+            keys={workPlanKeys.resource}
+            endpoint={'resource_application'}
+            initialData={initialData}
         >
             {({setOpen, formHook, asDraft, asHistory}) => (
         <Form
             hook={formHook}
             create={props.create} title={props.create ? lang.newResource : lang.resource}
             returnButton={true}
+            options={formOptions({
+                asDraft: asDraft,
+                asHistory: asHistory,
+                setOpen: setOpen,
+                create: props.create
+            })}
             handleSubmit={(data, clearState) =>
                 submit({
                     suffix: 'resource_application',
@@ -109,7 +100,7 @@ export default function ResourceApplicationForm(props) {
             )}
         </Form>
             )}
-        </FormOptions>
+        </FormTemplate>
     )
 
 }

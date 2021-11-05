@@ -5,7 +5,7 @@ import Alert from "../components/core/feedback/alert/Alert";
 import Button from "../components/core/inputs/button/Button";
 
 export default function test() {
-    const [c, sc] = useState()
+    const [c, sc] = useState(false)
     const infrastructureHook = useQuery(getQuery('infrastructure'))
 
     return (
@@ -16,7 +16,8 @@ export default function test() {
             <Button onClick={() => sc(true)}>
                 Abrir
             </Button>
-            <Alert handleClose={() => sc(false)} open={c} delay={5000} onClick={() => null} status={'info'}>
+            <Alert handleClose={() => sc(false)} open={c}
+                   delay={5000} onClick={() => null} status={'info'}>
                 cafe
             </Alert>
         </div>

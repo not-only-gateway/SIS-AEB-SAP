@@ -11,35 +11,18 @@ import Selector from "../../../../core/inputs/selector/Selector";
 import submit from "../../utils/requests/submit";
 import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
-import tedKeys from "../../keys/tedKeys";
+import FormTemplate from "../../templates/FormTemplate";
+import formOptions from "../../templates/formOptions";
 
 
 export default function UnitForm(props) {
     const lang = EntitiesPT
-    const [draftID, setDraftID] = useState(props.draftID)
-    const formHook = useDataWithDraft({
-        initialData: props.data,
-        draftUrl: Host().replace('api', 'draft') + 'unit',
-        draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 5000,
-        parsePackage: pack => {
-            return {
-                ...pack,
-                identifier: draftID
-            }
-        },
-        draftMethod: draftID ? 'put' : 'post',
-        onSuccess: (res) => {
-            setDraftID(res.data.id)
-        }
-    })
-
     const unitHook = useQuery(getQuery('unit'))
 
     return (
-        <FormOptions
-            keys={tedKeys.ted}
-            endpoint={'ted'}
+        <FormTemplate
+            keys={associativeKeys.responsible}
+            endpoint={'unit'}
             initialData={props.data}
         >
             {({setOpen, formHook, asDraft, asHistory}) => (
@@ -48,6 +31,12 @@ export default function UnitForm(props) {
             create={props.create}
             title={props.create ? lang.newUnit : lang.unit}
             returnButton={true}
+            options={formOptions({
+                asDraft: asDraft,
+                asHistory: asHistory,
+                setOpen: setOpen,
+                create: props.create
+            })}
             handleSubmit={(data, clearState) =>
                 submit({
                     suffix: 'unit',
@@ -63,8 +52,6 @@ export default function UnitForm(props) {
             handleClose={() => props.handleClose()}>
             {(data, handleChange) => (
                 <FormRow>
-
-
                     <TextField
                         placeholder={'Nome'} label={'Nome'}
                         handleChange={event => {
@@ -103,7 +90,7 @@ export default function UnitForm(props) {
             )}
         </Form>
             )}
-        </FormOptions>
+        </FormTemplate>
     )
 
 }

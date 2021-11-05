@@ -1,14 +1,15 @@
 import PropTypes from "prop-types";
 import Selector from "../../../core/inputs/selector/Selector";
 
-import {useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import useQuery from "../../../core/visualization/hooks/useQuery";
 import Cookies from "universal-cookie/lib";
 import Host from "../utils/shared/Host";
 import useDataWithDraft from "../../../core/inputs/form/useDataWithDraft";
+import draftKeys from "./draftKeys";
 
-export default function FormOptions(props) {
-    const [option, setOption] = useState('draft')
+export default function FormTemplate(props) {
+    const [option, setOption] = useState('list_draft')
 
     const url = useMemo(() => {
         return Host().replace('api', option) + props.endpoint
@@ -24,7 +25,7 @@ export default function FormOptions(props) {
     const [draftID, setDraftID] = useState()
 
     const formHook = useDataWithDraft({
-        initialData:data ,
+        initialData: data,
         draftUrl: Host().replace('api', 'draft') + props.endpoint,
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
         interval: 5000,
@@ -40,31 +41,35 @@ export default function FormOptions(props) {
         }
     })
 
+    useEffect(() => {
+        setData(props.initialData)
+    }, [props.initialData])
 
     return (
         <>
             <div style={{display: 'none'}}>
                 <Selector
                     hook={hook}
-                    keys={props.keys}
+                    keys={option === 'list_draft' ? draftKeys : props.keys}
+                    title={option === 'list_draft' ? 'Rascunhos' : 'Histórico'}
                     open={open}
-                    andleClose={() => setOpen(false)}
-                    handleChange={entry => setData(entry)}
+                    handleClose={() => setOpen(false)}
+                    handleChange={entry => setData(entry?.data)}
                 />
             </div>
             {props.children({
                 formHook,
                 setOpen,
-                asDraft: () => setOption('draft'),
-                asHistory: () => setOption('registry')
+                asDraft: () => setOption('list_draft'),
+                asHistory: () => setOption('entry_history')
             })}
         </>
     )
 }
 
-FormOptions.propTypes = {
+FormTemplate.propTypes = {
     initialData: PropTypes.any,
     keys: PropTypes.arrayOf(PropTypes.object).isRequired,
-    children: PropTypes.node.isRequired,
+    children: PropTypes.func.isRequired,
     endpoint: PropTypes.string,
 }

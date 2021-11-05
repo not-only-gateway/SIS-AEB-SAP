@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import { TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import GoalPT from "../../locales/GoalPT";
@@ -9,52 +9,40 @@ import submit from "../../utils/requests/submit";
 import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import tedKeys from "../../keys/tedKeys";
+import workPlanKeys from "../../keys/workPlanKeys";
+import FormTemplate from "../../templates/FormTemplate";
+import formOptions from "../../templates/formOptions";
 
 
 export default function GoalForm(props) {
     const lang = GoalPT
-    const [initialData, setInitialData] = useState(null)
-        const [draftID, setDraftID] = useState(props.draftID)
-    const formHook = useDataWithDraft({
-        initialData: initialData,
-    draftUrl: Host().replace('api', 'draft') + 'work_plan_goal',
-        draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 5000,
-        parsePackage: pack => {
-            return {
-                ...pack,
-                identifier: draftID
+    const initialData = useMemo(() => {
+        return props.create ? {
+            ...props.data,
+            ...{
+                work_plan: props.workPlan.id
             }
-        },
-        draftMethod: draftID ? 'put' : 'post',
-        onSuccess: (res) => {
-            setDraftID(res.data.id)
-        }
-    })
-    
+        } : props.data
+    }, [props])
 
-
-    useEffect(() => {
-        if (props.create)
-            setInitialData({
-                ...props.data,
-                ...{
-                    work_plan: props.workPlan.id
-                }
-            })
-
-    }, [])
     return (
-        <FormOptions
-            keys={tedKeys.ted}
-            endpoint={'ted'}
-            initialData={props.data}
+        <FormTemplate
+
+            keys={workPlanKeys.goal}
+            endpoint={'work_plan_goal'}
+            initialData={initialData}
         >
             {({setOpen, formHook, asDraft, asHistory}) => (
         <Form
             hook={formHook}
             create={props.create} title={props.create ? lang.newGoal : lang.goal}
             returnButton={true}
+            options={formOptions({
+                asDraft: asDraft,
+                asHistory: asHistory,
+                setOpen: setOpen,
+                create: props.create
+            })}
             handleSubmit={(data, clearState) =>
                 submit({
                     suffix: 'work_plan_goal',
@@ -139,7 +127,7 @@ export default function GoalForm(props) {
             )}
         </Form>
             )}
-        </FormOptions>
+        </FormTemplate>
     )
 
 }

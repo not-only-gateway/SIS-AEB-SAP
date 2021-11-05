@@ -13,6 +13,8 @@ import ComponentClassificationForm from "./ComponentClassificationForm";
 import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import tedKeys from "../../keys/tedKeys";
+import FormTemplate from "../../templates/FormTemplate";
+import formOptions from "../../templates/formOptions";
 
 
 export default function InfrastructureComponentForm(props) {
@@ -27,31 +29,14 @@ export default function InfrastructureComponentForm(props) {
         }
     }, [props])
 
-        const [draftID, setDraftID] = useState(props.draftID)
-    const formHook = useDataWithDraft({
-        initialData: initialData,
-    draftUrl: Host().replace('api', 'draft') + 'component',
-        draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 5000,
-        parsePackage: pack => {
-            return {
-                ...pack,
-                identifier: draftID
-            }
-        },
-        draftMethod: draftID ? 'put' : 'post',
-        onSuccess: (res) => {
-            setDraftID(res.data.id)
-        }
-    })
-    
+
 
 
     return (
-        <FormOptions
-            keys={tedKeys.ted}
-            endpoint={'ted'}
-            initialData={props.data}
+        <FormTemplate
+            keys={associativeKeys.components}
+            endpoint={'component'}
+            initialData={initialData}
         >
             {({setOpen, formHook, asDraft, asHistory}) => (
         <Form
@@ -59,6 +44,12 @@ export default function InfrastructureComponentForm(props) {
             create={props.create}
             title={props.create ? lang.newComponent : lang.component}
             returnButton={true}
+            options={formOptions({
+                asDraft: asDraft,
+                asHistory: asHistory,
+                setOpen: setOpen,
+                create: props.create
+            })}
             handleSubmit={(data, clearState) =>
                 submit({
                     suffix: 'component',
@@ -103,7 +94,7 @@ export default function InfrastructureComponentForm(props) {
             )}
         </Form>
             )}
-        </FormOptions>
+        </FormTemplate>
     )
 
 }

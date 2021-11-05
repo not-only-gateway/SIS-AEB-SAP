@@ -13,6 +13,8 @@ import workPlanKeys from "../../keys/workPlanKeys";
 import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import tedKeys from "../../keys/tedKeys";
+import FormTemplate from "../../templates/FormTemplate";
+import formOptions from "../../templates/formOptions";
 
 export default function OperationForm(props) {
 
@@ -27,34 +29,23 @@ export default function OperationForm(props) {
         }] : []))
     const lang = OperationPT
 
-        const [draftID, setDraftID] = useState(props.draftID)
-    const formHook = useDataWithDraft({
-        initialData: props.data,
-    draftUrl: Host().replace('api', 'draft') + 'operation_phase',
-        draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 5000,
-        parsePackage: pack => {
-            return {
-                ...pack,
-                identifier: draftID
-            }
-        },
-        draftMethod: draftID ? 'put' : 'post',
-        onSuccess: (res) => {
-            setDraftID(res.data.id)
-        }
-    })
-    
+
 
     return (
-        <FormOptions
-            keys={tedKeys.ted}
-            endpoint={'ted'}
+        <FormTemplate
+            keys={workPlanKeys.operation}
+            endpoint={'operation_phase'}
             initialData={props.data}
         >
             {({setOpen, formHook, asDraft, asHistory}) => (
         <Form
             hook={formHook}
+            options={formOptions({
+                asDraft: asDraft,
+                asHistory: asHistory,
+                setOpen: setOpen,
+                create: props.create
+            })}
             create={props.create} title={props.create ? lang.newOperation : lang.operation}
             returnButton={props.create}
             handleSubmit={(data, clearState) =>
@@ -195,7 +186,7 @@ export default function OperationForm(props) {
             )}
         </Form>
             )}
-        </FormOptions>
+        </FormTemplate>
     )
 
 }

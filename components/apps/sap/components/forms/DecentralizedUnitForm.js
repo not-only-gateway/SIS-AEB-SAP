@@ -10,16 +10,15 @@ import submit from "../../utils/requests/submit";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import tedKeys from "../../keys/tedKeys";
 import associativeKeys from "../../keys/associativeKeys";
+import FormTemplate from "../../templates/FormTemplate";
+import formOptions from "../../templates/formOptions";
 
 
 export default function DecentralizedUnitForm(props) {
-
     const lang = EntitiesPT
 
-
-
     return (
-        <FormOptions
+        <FormTemplate
             keys={associativeKeys.decentralizedUnit}
             endpoint={'decentralized_unit'}
             initialData={props.data}
@@ -29,6 +28,12 @@ export default function DecentralizedUnitForm(props) {
             hook={formHook}
             create={props.create} title={props.create ? lang.newDecentralizedUnit : lang.decentralizedUnit}
             returnButton={true}
+            options={formOptions({
+                asDraft: asDraft,
+                asHistory: asHistory,
+                setOpen: setOpen,
+                create: props.create
+            })}
             handleSubmit={(data, clearState) =>
                 submit({
                     suffix: 'decentralized_unit',
@@ -152,7 +157,7 @@ export default function DecentralizedUnitForm(props) {
             )}
         </Form>
             )}
-        </FormOptions>
+        </FormTemplate>
     )
 
 }

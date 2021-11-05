@@ -15,19 +15,22 @@ import getQuery from "../../queries/getQuery";
 export default function PermanentGoodsList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
-    const hook = useQuery(getQuery('permanent_goods', {operation_phase: props.operation?.id}))
+    const hook = useQuery(getQuery('permanent_goods', {
+        operation_phase: props.operation?.id,
+        work_plan: props.workPlan?.id
+    }))
 
     return (
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
-
-                <PermanentGoodsForm
-                    handleClose={() => {
-                        setOpen(false)
-                        hook.clean()
-                    }}
-
-                    create={!currentEntity}
-                    data={currentEntity} operation={props.operation}/>
+            <PermanentGoodsForm
+                handleClose={() => {
+                    setOpen(false)
+                    hook.clean()
+                }}
+                create={!currentEntity}
+                data={currentEntity}
+                operation={props.operation}
+            />
             <List
                 createOption={true}
                 onCreate={() => setOpen(true)}
@@ -57,5 +60,6 @@ export default function PermanentGoodsList(props) {
     )
 }
 PermanentGoodsList.propTypes = {
-    operation: PropTypes.object
+    operation: PropTypes.object,
+    workPlan: PropTypes.object
 }

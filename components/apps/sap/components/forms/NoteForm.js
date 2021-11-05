@@ -9,6 +9,9 @@ import submit from "../../utils/requests/submit";
 import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import tedKeys from "../../keys/tedKeys";
+import workPlanKeys from "../../keys/workPlanKeys";
+import FormTemplate from "../../templates/FormTemplate";
+import formOptions from "../../templates/formOptions";
 
 
 export default function NoteForm(props) {
@@ -20,36 +23,24 @@ export default function NoteForm(props) {
                 operation_phase: props.operation
             }
         }
-    }, [])
-        const [draftID, setDraftID] = useState(props.draftID)
-    const formHook = useDataWithDraft({
-        initialData: initialData,
-    draftUrl: Host().replace('api', 'draft') + 'commitment_note',
-        draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 5000,
-        parsePackage: pack => {
-            return {
-                ...pack,
-                identifier: draftID
-            }
-        },
-        draftMethod: draftID ? 'put' : 'post',
-        onSuccess: (res) => {
-            setDraftID(res.data.id)
-        }
-    })
-    
+    }, [props])
 
 
     return (
-        <FormOptions
-            keys={tedKeys.ted}
-            endpoint={'ted'}
-            initialData={props.data}
+        <FormTemplate
+            keys={workPlanKeys.note}
+            endpoint={'commitment_note'}
+            initialData={initialData}
         >
             {({setOpen, formHook, asDraft, asHistory}) => (
         <Form
             hook={formHook}
+            options={formOptions({
+                asDraft: asDraft,
+                asHistory: asHistory,
+                setOpen: setOpen,
+                create: props.create
+            })}
             create={props.create} title={props.create ? lang.newNote : lang.note}
             returnButton={true}
             handleSubmit={(data, clearState) =>
@@ -96,7 +87,7 @@ export default function NoteForm(props) {
             )}
         </Form>
             )}
-        </FormOptions>
+        </FormTemplate>
     )
 
 }

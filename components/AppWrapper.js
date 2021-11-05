@@ -72,7 +72,7 @@ export default function AppWrapper(props) {
                             setOpenAuthentication(false)
                     }}
                     defaultBackground={true}
-                    wrapperClassName={styles.modal}
+                    className={styles.modal}
                     blurIntensity={.25}
                     animationStyle={"fade"}
                 >

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {DropDownField, TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import OperationPT from "../../locales/OperationPT";
@@ -11,12 +11,21 @@ import deleteEntry from "../../utils/requests/delete";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import FileField from "../../../../core/inputs/file/FileField";
 import workPlanKeys from "../../keys/workPlanKeys";
+import FormTemplate from "../../templates/FormTemplate";
+import formOptions from "../../templates/formOptions";
 
 
 export default function FollowUpForm(props) {
     const lang = OperationPT
     const [file, setFile] = useState(null)
-    const [initialData, setInitialData] = useState(props.data)
+    const initialData = useMemo(() => {
+        return{
+            ...props.data,
+            ...{
+                operation_phase: props.operation.id
+            }
+        }
+    }, [props])
 
 
     useEffect(() => {
@@ -43,16 +52,9 @@ export default function FollowUpForm(props) {
                 })
             }).catch(e => console.log(e))
         }
-        setInitialData({
-            ...props.data,
-            ...{
-                operation_phase: props.operation.id
-            }
-        })
-
     }, [])
     return (
-        <FormOptions
+        <FormTemplate
             keys={workPlanKeys.followup}
             endpoint={'follow_up_goal'}
             initialData={initialData}
@@ -63,6 +65,12 @@ export default function FollowUpForm(props) {
                     create={props.create}
                     title={props.create ? lang.newFollowUpGoal : lang.followUpGoal}
                     returnButton={true}
+                    options={formOptions({
+                        asDraft: asDraft,
+                        asHistory: asHistory,
+                        setOpen: setOpen,
+                        create: props.create
+                    })}
                     handleSubmit={(data, clearState) =>
                         submit({
                             suffix: 'follow_up_goal',
@@ -119,7 +127,7 @@ export default function FollowUpForm(props) {
                     )}
                 </Form>
             )}
-        </FormOptions>
+        </FormTemplate>
     )
 
 }

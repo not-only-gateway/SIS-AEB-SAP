@@ -1,14 +1,13 @@
-import React, {useMemo, useState} from "react";
-import {DropDownField,  TextField} from "mfc-core";
+import React, {useMemo} from "react";
+import {DropDownField, TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import InfrastructurePT from "../../locales/InfrastructurePT";
 import Form from "../../../../core/inputs/form/Form";
-import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
-import Cookies from "universal-cookie/lib";
 import submit from "../../utils/requests/submit";
-import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
-import tedKeys from "../../keys/tedKeys";
+import associativeKeys from "../../keys/associativeKeys";
+import FormTemplate from "../../templates/FormTemplate";
+import formOptions from "../../templates/formOptions";
 
 
 export default function InfrastructureForm(props) {
@@ -25,109 +24,95 @@ export default function InfrastructureForm(props) {
         else return props.data
     }, [props])
 
-        const [draftID, setDraftID] = useState(props.draftID)
-    const formHook = useDataWithDraft({
-        initialData: initialData,
-    draftUrl: Host().replace('api', 'draft') + 'infrastructure',
-        draftHeaders: {'authorization': (new Cookies()).get('jwt')},
-        interval: 5000,
-        parsePackage: pack => {
-            return {
-                ...pack,
-                identifier: draftID
-            }
-        },
-        draftMethod: draftID ? 'put' : 'post',
-        onSuccess: (res) => {
-            setDraftID(res.data.id)
-        }
-    })
-    
-
-
     return (
-        <FormOptions
-            keys={tedKeys.ted}
-            endpoint={'ted'}
-            initialData={props.data}
+        <FormTemplate
+            keys={associativeKeys.infrastructure}
+            endpoint={'infrastructure'}
+            initialData={initialData}
         >
             {({setOpen, formHook, asDraft, asHistory}) => (
-        <Form
-            hook={formHook}
-            create={props.create}
-            title={props.create ? lang.newInfrastructure : lang.infrastructure}
-            returnButton={props.create}
-            handleSubmit={(data, clearState) =>
-                submit({
-                    suffix: 'infrastructure',
-                    pk: data.id,
-                    data: {
-                        ...data,
-                        address: data.latitude + ', ' + data.longitude
-                    },
-                    create: props.create
-                }).then(res => {
-                    if (props.create && res.success) {
-                        props.handleClose()
-                        clearState()
-                    }
-                })}
-            handleClose={() => props.handleClose()}>
-            {(data, handleChange) => (
-                <FormRow>
+                <Form
+                    hook={formHook}
+                    create={props.create}
+                    options={formOptions({
+                        asDraft: asDraft,
+                        asHistory: asHistory,
+                        setOpen: setOpen,
+                        create: props.create
+                    })}
+                    title={props.create ? lang.newInfrastructure : lang.infrastructure}
+                    returnButton={props.create}
+                    handleSubmit={(data, clearState) =>
+                        submit({
+                            suffix: 'infrastructure',
+                            pk: data.id,
+                            data: {
+                                ...data,
+                                address: data.latitude + ', ' + data.longitude
+                            },
+                            create: props.create
+                        }).then(res => {
+                            if (props.create && res.success) {
+                                props.handleClose()
+                                clearState()
+                            }
+                        })}
+                    handleClose={() => props.handleClose()}>
+                    {(data, handleChange) => (
+                        <FormRow>
 
-                    <TextField
+                            <TextField
 
-                        placeholder={lang.name} label={lang.name}
-                        handleChange={event => {
-                            handleChange({
-                                event: event.target.value,
-                                key: 'name'
-                            })
-                        }} value={data.name}
-                        required={true}
-                        width={'calc(50% - 16px)'}/>
+                                placeholder={lang.name} label={lang.name}
+                                handleChange={event => {
+                                    handleChange({
+                                        event: event.target.value,
+                                        key: 'name'
+                                    })
+                                }} value={data.name}
+                                required={true}
+                                width={'calc(50% - 16px)'}/>
 
 
-                    <DropDownField
-                        placeholder={lang.type}
-                        label={lang.type}
-                        handleChange={event => {
+                            <DropDownField
+                                placeholder={lang.type}
+                                label={lang.type}
+                                handleChange={event => {
 
-                            handleChange({
-                                event: event,
-                                key: 'type'
-                            })
-                        }} value={data.type} required={true}
-                        width={'calc(50% - 16px)'} choices={lang.typeOptions}/>
+                                    handleChange({
+                                        event: event,
+                                        key: 'type'
+                                    })
+                                }} value={data.type} required={true}
+                                width={'calc(50% - 16px)'} choices={lang.typeOptions}/>
 
-                    <TextField
-                        placeholder={lang.latitude} label={lang.latitude} type={'number'}
-                        handleChange={event => {
-                            handleChange({
-                                event: event.target.value,
-                                key: 'latitude'
-                            })
-                        }}
-                        value={data.latitude}
-                        required={false}
-                        width={'calc(50% - 16px)'}/>
-                    <TextField
-                        placeholder={lang.longitude} label={lang.longitude} type={'number'}
-                        handleChange={event => {
-                            handleChange({
-                                event: event.target.value,
-                                key: 'longitude'
-                            })
-                        }} value={data.longitude}
-                        required={false}
-                        width={'calc(50% - 16px)'}
-                    />
-                </FormRow>
+                            <TextField
+                                placeholder={lang.latitude} label={lang.latitude} type={'number'}
+                                handleChange={event => {
+                                    handleChange({
+                                        event: event.target.value,
+                                        key: 'latitude'
+                                    })
+                                }}
+                                value={data.latitude}
+                                required={false}
+                                width={'calc(50% - 16px)'}/>
+                            <TextField
+                                placeholder={lang.longitude} label={lang.longitude} type={'number'}
+                                handleChange={event => {
+                                    handleChange({
+                                        event: event.target.value,
+                                        key: 'longitude'
+                                    })
+                                }} value={data.longitude}
+                                required={false}
+                                width={'calc(50% - 16px)'}
+                            />
+                        </FormRow>
+                    )}
+                </Form>
             )}
-        </Form>
-            )}
-        </FormOptions>
+        </FormTemplate>
     )
 
 }

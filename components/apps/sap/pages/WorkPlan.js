@@ -14,6 +14,7 @@ import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
 import {CategoryRounded} from "@material-ui/icons";
 import StatusList from "../components/lists/StatusList";
 import Button from "../../../core/inputs/button/Button";
+import PermanentGoodsList from "../components/lists/PermanentGoodsList";
 
 export default function WorkPlan(props) {
     const [workPlan, setWorkPlan] = useState({})
@@ -97,7 +98,15 @@ export default function WorkPlan(props) {
                                             <WorkPlanList workPlan={workPlan} redirect={props.redirect}/>
                                         </div>
                                     )
-                                }
+                                },
+                                {
+                                    label: 'Bens permanentes',
+                                    children: (
+                                        <div style={{padding: '16px 10%'}}>
+                                            <PermanentGoodsList workPlan={workPlan}/>
+                                        </div>
+                                    )
+                                },
                             ]
                         },
                         {

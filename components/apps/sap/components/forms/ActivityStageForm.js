@@ -12,17 +12,19 @@ import workPlanKeys from "../../keys/workPlanKeys";
 import Host from "../../utils/shared/Host";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import tedKeys from "../../keys/tedKeys";
+import FormTemplate from "../../templates/FormTemplate";
+import formOptions from "../../templates/formOptions";
 
 
 export default function ActivityStageForm(props) {
     const lang = GoalPT
     const initialData = useMemo(() => {
         return {...props.data, goal: props.goal?.id}
-    }, [])
+    }, [props])
 
     const goalHook = useQuery(getQuery('work_plan_goal', props.workPlan ? {work_plan: props.workPlan.id} : undefined))
     return (
-        <FormOptions
+        <FormTemplate
             keys={workPlanKeys.activity}
             endpoint={'activity_stage'}
             initialData={initialData}
@@ -33,7 +35,12 @@ export default function ActivityStageForm(props) {
             create={props.create} title={props.create ? lang.newStage : lang.stage}
 
             returnButton={true}
-
+            options={formOptions({
+                asDraft: asDraft,
+                asHistory: asHistory,
+                setOpen: setOpen,
+                create: props.create
+            })}
             handleSubmit={(data, clearState) =>
                 submit({
                     suffix: 'activity_stage',
@@ -86,7 +93,7 @@ export default function ActivityStageForm(props) {
             )}
         </Form>
             )}
-        </FormOptions>
+        </FormTemplate>
     )
 
 }
