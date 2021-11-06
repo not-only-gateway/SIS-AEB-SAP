@@ -10,10 +10,13 @@ import ResourceApplicationList from "../components/lists/ResourceApplicationList
 import NoteList from "../components/lists/NoteList";
 import {fetchEntry} from "../utils/requests/fetch";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
-import {CategoryRounded} from "@material-ui/icons";
+import {CategoryRounded, HomeRounded} from "@material-ui/icons";
 import OperationForm from "../components/forms/OperationForm";
 import ActionItemList from "../components/lists/ActionItemList";
 import Button from "../../../core/inputs/button/Button";
+import Tab from "../../../core/navigation/tabs/Tab";
+import InfrastructureForm from "../components/forms/InfrastructureForm";
+import InfrastructureComponentsList from "../components/lists/InfrastructureComponentsList";
 
 
 export default function OperationPhase(props) {
@@ -25,18 +28,23 @@ export default function OperationPhase(props) {
             suffix: 'operation_phase'
         }).then(res => {
             fetchEntry({
-                pk: res.activity_stage.id,
+                pk: res.activity_stage?.id,
                 suffix: 'activity_stage'
             }).then(activity => {
                 fetchEntry({
-                    pk: activity.goal.id,
+                    pk: activity.goal?.id,
                     suffix: 'work_plan_goal'
                 }).then(goal => {
-                    setOperation({
-                        ...res,
-                        activity_stage: activity,
-                        goal: goal,
-                        work_plan: goal.work_plan
+                    fetchEntry({
+                        pk: goal.work_plan.id,
+                        suffix: 'work_plan'
+                    }).then(wp => {
+                        setOperation({
+                            ...res,
+                            activity_stage: activity,
+                            goal: goal,
+                            work_plan: wp
+                        })
                     })
                 })
             })
@@ -53,10 +61,23 @@ export default function OperationPhase(props) {
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
 
-            <Breadcrumbs divider={'-'} justify={'start'}>
+            <Breadcrumbs justify={'start'}>
+                <Button variant={"minimal-horizontal"}
+                        onClick={() => props.redirect('/sap?page=index')}
+                        styles={{display: 'flex', alignItems: 'center', gap: '4px'}}>
+                    <HomeRounded style={{fontSize: '1.1rem'}}/> Início
+                </Button>
                 <Button variant={"minimal"}
-                        onClick={() => props.redirect('/sap?page=index')}>
-                    Processos
+                        onClick={() => props.redirect('/sap?page=project&id=' + operation.work_plan?.activity_project.id)}>
+                    {operation.work_plan?.activity_project.name} (Projeto / Atividade)
+                </Button>
+                <Button variant={"minimal"}
+                        onClick={() => props.redirect('/sap?page=ted&id=' + operation.work_plan?.ted.id)}>
+                    {operation.work_plan?.ted.number} (Instrumento de celebração)
+                </Button>
+                <Button variant={"minimal"}
+                        onClick={() => props.redirect('/sap?page=wp&id=' + operation.work_plan?.id)}>
+                    {operation.work_plan?.object} (Plano de trabalho)
                 </Button>
                 <Button variant={"minimal"}
                         onClick={() => props.redirect('/sap?page=wp&id=' + operation.work_plan?.id)}>
@@ -84,73 +105,33 @@ export default function OperationPhase(props) {
             </div>
             <div className={shared.pageContent}>
                 <VerticalTabs
-                    classes={[
-                        {
-                            buttons: [
-                                {
-                                    label: 'Dados',
-                                    children: (
-                                        <div style={{padding: '16px 10%'}}>
-                                            <OperationForm update={() => fetchData()} data={operation} create={false}/>
-                                        </div>
-                                    )
-                                }
-                            ]
-                        },
-                        {
-                            label: 'Informações adicionais',
-                            buttons: [
-                                {
-                                    label: 'Items de Ação',
-                                    children: (
-                                        <div style={{padding: '0 10%'}}>
-                                            <ActionItemList operation={operation}/>
-                                        </div>
-                                    )
-                                },
-                                {
-                                    label: 'Marcos do acompanhamento',
-                                    children: (
-                                        <div style={{padding: '0 10%'}}>
-                                            <FollowUpList operation={operation}/>
-                                        </div>
-                                    )
-                                },
-                                {
-                                    label: 'Execuções',
-                                    children: (
-                                        <div style={{padding: '0 10%'}}>
-                                            <ExecutionList operation={operation}/>
-                                        </div>
-                                    )
-                                },
-                                {
-                                    label: 'Bens permanentes',
-                                    children: (
-                                        <div style={{padding: '0 10%'}}>
-                                            <PermanentGoodsList operation={operation}/>
-                                        </div>
-                                    )
-                                },
-                                {
-                                    label: 'Aplicação dos recursos',
-                                    children: (
-                                        <div style={{padding: '0 10%'}}>
-                                            <ResourceApplicationList operation={operation}/>
-                                        </div>
-                                    )
-                                },
-                                {
-                                    label: 'Notas de empenho',
-                                    children: (
-                                        <div style={{padding: '0 10%'}}>
-                                            <NoteList operation={operation}/>
-                                        </div>
-                                    )
-                                },
-                            ]
-                        }]}
-                />
+                    className={shared.wrapper}
+                    styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset'}}
+                >
+                    <Tab label={'Dados'} className={shared.tabWrapper}>
+                        <OperationForm update={() => fetchData()} data={operation} create={false}/>
+                    </Tab>
+                    <Tab label={'Items de Ação'} group={'Informações adicionais'} className={shared.tabWrapper}>
+                        <ActionItemList operation={operation}/>
+                    </Tab>
+                    <Tab label={'Marcos do acompanhamento'} group={'Informações adicionais'}
+                         className={shared.tabWrapper}>
+                        <FollowUpList operation={operation}/>
+                    </Tab>
+                    <Tab label={'Execuções'} group={'Informações adicionais'} className={shared.tabWrapper}>
+                        <ExecutionList operation={operation}/>
+                    </Tab>
+                    <Tab label={'Bens permanentes'} group={'Informações adicionais'} className={shared.tabWrapper}>
+                        <PermanentGoodsList operation={operation}/>
+                    </Tab>
+                    <Tab label={'Aplicação dos recursos'} group={'Informações adicionais'}
+                         className={shared.tabWrapper}>
+                        <ResourceApplicationList operation={operation}/>
+                    </Tab>
+                    <Tab label={'Notas de empenho'} group={'Informações adicionais'} className={shared.tabWrapper}>
+                        <NoteList operation={operation}/>
+                    </Tab>
+                </VerticalTabs>
             </div>
         </div>
     )

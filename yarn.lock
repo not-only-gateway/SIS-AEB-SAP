@@ -1632,10 +1632,12 @@ methods@~1.1.2:
   resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
   integrity sha1-VSmk1nZUE07cxSZmVoNbD4Ua/O4=
 
-mfc-core@^0.9.6:
-  version "0.9.6"
-  resolved "https://registry.yarnpkg.com/mfc-core/-/mfc-core-0.9.6.tgz#4450c89588f44ac9d2612c4128c67b855cdc80f0"
-  integrity sha512-Rvi14Vm6wTBzpvN0+CW4wYOTMk2ejsT4CWs4zVpbv9Ofaf63ADPLy34DoQ7q4MqniUPY5zFMQ7cSEA/J2ioyVA==
+mfc-core@^0.9.76:
+  version "0.9.76"
+  resolved "https://registry.yarnpkg.com/mfc-core/-/mfc-core-0.9.76.tgz#c4564f37ec8ad6b230b46d99c1f787afe62af808"
+  integrity sha512-fwOMRuuuOd+Ju+G0s4S5vttsDziFuO5BPWocBEHB1/KzDhcNP48YmnS9GAYccF/bLQKC9U4EyjgMmPisyMd22w==
+  dependencies:
+    "@material-ui/icons" "^4.11.2"
 
 miller-rabin@^4.0.0:
   version "4.0.1"

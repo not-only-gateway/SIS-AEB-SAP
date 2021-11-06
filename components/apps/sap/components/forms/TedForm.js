@@ -37,7 +37,7 @@ export default function TedForm(props) {
                 <Form
                     hook={formHook}
                     create={props.create}
-                    title={props.asAddendum ? 'Novo termo aditivo' : (props.create ? 'Novo instrumento de celebração' : 'Instrumento de celebração')}
+                    title={(props.create ? 'Novo instrumento de celebração' : 'Instrumento de celebração') + (props.asAddendum ? ' (termo aditivo)' : '')}
                     returnButton={props.create || props.asEntity}
                     options={formOptions({
                         asDraft: asDraft,

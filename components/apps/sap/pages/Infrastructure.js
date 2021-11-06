@@ -7,8 +7,10 @@ import InfrastructureComponentsList from "../components/lists/InfrastructureComp
 import {fetchEntry} from "../utils/requests/fetch";
 import InfrastructureForm from "../components/forms/InfrastructureForm";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
-import {CategoryRounded} from "@material-ui/icons";
+import {CategoryRounded, HomeRounded, LinkRounded} from "@material-ui/icons";
 import Button from "../../../core/inputs/button/Button";
+import Tab from "../../../core/navigation/tabs/Tab";
+import ProjectForm from "../components/forms/ProjectForm";
 
 
 export default function Infrastructure(props) {
@@ -29,9 +31,10 @@ export default function Infrastructure(props) {
 
 
             <Breadcrumbs divider={'-'} justify={'start'}>
-                <Button variant={'minimal'}
-                        onClick={() => props.redirect('/sap?page=associative')}>
-                    Entidades
+                <Button variant={"minimal-horizontal"}
+                        onClick={() => props.redirect('/sap?page=associative')}
+                        styles={{display: 'flex', alignItems: 'center', gap: '4px'}}>
+                    <LinkRounded style={{fontSize: '1.1rem'}}/> Entidades associativas
                 </Button>
                 <Button variant={'minimal'} disabled={true}>
                     {infrastructure?.name}
@@ -47,33 +50,16 @@ export default function Infrastructure(props) {
             </div>
             <div className={shared.pageContent}>
                 <VerticalTabs
-                    classes={[
-                        {
-                            buttons: [
-                                {
-                                    label: 'Dados',
-                                    children: (
-                                        <div style={{padding: '16px 10%'}}>
-                                            <InfrastructureForm asDefault={true} data={infrastructure}/>
-                                        </div>
-                                    )
-                                }
-                            ]
-                        },
-                        {
-                            label: 'Informações adicionais',
-                            buttons: [
-                                {
-                                    label: 'Componentes', children: (
-                                        <div style={{padding: '0 10%'}}>
-                                            <InfrastructureComponentsList infrastructure={infrastructure}/>
-                                        </div>
-                                    )
-                                },
-
-                            ]
-                        }]}
-                />
+                    className={shared.wrapper}
+                    styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset'}}
+                >
+                    <Tab label={'Dados'} className={shared.tabWrapper}>
+                        <InfrastructureForm asDefault={true} data={infrastructure}/>
+                    </Tab>
+                    <Tab label={'Componentes'} group={'Informações adicionais'} className={shared.tabWrapper}>
+                        <InfrastructureComponentsList infrastructure={infrastructure}/>
+                    </Tab>
+                </VerticalTabs>
             </div>
         </div>
     )

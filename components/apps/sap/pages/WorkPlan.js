@@ -11,10 +11,12 @@ import GoalList from "../components/lists/GoalList";
 import WorkPlanForm from "../components/forms/WorkPlanForm";
 import {fetchEntry} from "../utils/requests/fetch";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
-import {CategoryRounded} from "@material-ui/icons";
+import {CategoryRounded, HomeRounded} from "@material-ui/icons";
 import StatusList from "../components/lists/StatusList";
 import Button from "../../../core/inputs/button/Button";
 import PermanentGoodsList from "../components/lists/PermanentGoodsList";
+import Tab from "../../../core/navigation/tabs/Tab";
+import TedForm from "../components/forms/TedForm";
 
 export default function WorkPlan(props) {
     const [workPlan, setWorkPlan] = useState({})
@@ -38,9 +40,10 @@ export default function WorkPlan(props) {
 
 
             <Breadcrumbs divider={'-'} justify={'start'}>
-                <Button variant={'minimal'}
-                        onClick={() => props.redirect('/sap?page=index')}>
-                    Processos
+                <Button variant={"minimal-horizontal"}
+                        onClick={() => props.redirect('/sap?page=index')}
+                        styles={{display: 'flex', alignItems: 'center', gap: '4px'}}>
+                    <HomeRounded style={{fontSize: '1.1rem'}}/> Início
                 </Button>
 
                 <Button variant={'minimal'}
@@ -66,85 +69,35 @@ export default function WorkPlan(props) {
 
             <div className={shared.pageContent}>
                 <VerticalTabs
-                    classes={[
-                        {
-                            buttons: [
-                                {
-                                    label: 'Dados',
-                                    children: (
-                                        <div style={{padding: '16px 10%'}}>
-                                            <WorkPlanForm data={workPlan}/>
-                                        </div>
-                                    )
-                                }
-                            ]
-                        },
-                        {
-                            label: 'Informações adicionais',
-                            buttons: [
-                                {
-                                    label: 'Status',
-                                    children: (
-                                        <div style={{padding: '16px 10%'}}>
-                                            <StatusList workPlan={workPlan}/>
-                                        </div>
-                                    )
-                                },
+                    className={shared.wrapper}
+                    styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset'}}
+                >
+                    <Tab label={'Dados'} className={shared.tabWrapper}>
+                        <WorkPlanForm data={workPlan}/>
+                    </Tab>
+                    <Tab label={'Status'} group={'Informações adicionais'} className={shared.tabWrapper}>
+                        <StatusList workPlan={workPlan}/>
+                    </Tab>
+                    <Tab label={'Apostilamentos'} group={'Informações adicionais'} className={shared.tabWrapper}>
+                        <WorkPlanList workPlan={workPlan} redirect={props.redirect}/>
+                    </Tab>
+                    <Tab label={'Bens permanentes'} group={'Informações adicionais'} className={shared.tabWrapper}>
+                        <PermanentGoodsList workPlan={workPlan}/>
+                    </Tab>
 
-                                {
-                                    label: 'Apostilamentos',
-                                    children: (
-                                        <div style={{padding: '16px 10%'}}>
-                                            <WorkPlanList workPlan={workPlan} redirect={props.redirect}/>
-                                        </div>
-                                    )
-                                },
-                                {
-                                    label: 'Bens permanentes',
-                                    children: (
-                                        <div style={{padding: '16px 10%'}}>
-                                            <PermanentGoodsList workPlan={workPlan}/>
-                                        </div>
-                                    )
-                                },
-                            ]
-                        },
-                        {
-                            label: 'Acesso rápido',
-                            buttons: [
-                                {
-                                    label: 'Metas',
-                                    children: (
-                                        <div style={{padding: '16px 10%'}}>
-                                            <GoalList workPlan={workPlan}/>
-                                        </div>
-                                    )
-                                },
-                                {
-                                    label: 'Etapas', children: (
-                                        <div className={shared.contentWrapper}>
-                                            <ActivityStageList workPlan={workPlan} redirect={props.redirect}/>
-                                        </div>
-                                    )
-                                },
-                                {
-                                    label: 'Fases / operações', children: (
-                                        <div className={shared.contentWrapper}>
-                                            <OperationList workPlan={workPlan} redirect={props.redirect}/>
-                                        </div>
-                                    )
-                                },
-                                {
-                                    label: 'Execuções', children: (
-                                        <div className={shared.contentWrapper}>
-                                            <ExecutionList workPlan={workPlan} redirect={props.redirect}/>
-                                        </div>
-                                    )
-                                }
-                            ]
-                        },
-                    ]}
-                />
+                    <Tab label={'Metas'} group={'Acesso rápido'} className={shared.tabWrapper}>
+                        <GoalList workPlan={workPlan}/>
+                    </Tab>
+                    <Tab label={'Etapas'} group={'Acesso rápido'} className={shared.tabWrapper}>
+                        <ActivityStageList workPlan={workPlan} redirect={props.redirect}/>
+                    </Tab>
+                    <Tab label={'Fases / operações'} group={'Acesso rápido'} className={shared.tabWrapper}>
+                        <OperationList workPlan={workPlan} redirect={props.redirect}/>
+                    </Tab>
+                    <Tab label={'Execuções'} group={'Acesso rápido'} className={shared.tabWrapper}>
+                        <ExecutionList workPlan={workPlan} redirect={props.redirect}/>
+                    </Tab>
+                </VerticalTabs>
             </div>
         </div>
     )

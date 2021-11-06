@@ -8,10 +8,11 @@ import TedForm from "../components/forms/TedForm";
 import TedList from "../components/lists/TedList";
 import {fetchEntry} from "../utils/requests/fetch";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
-import {CategoryRounded} from "@material-ui/icons";
+import {CategoryRounded, HomeRounded} from "@material-ui/icons";
 import Link from 'next/link'
 import Button from "../../../core/inputs/button/Button";
 import ProjectTedList from "../components/lists/ProjectTedList";
+import Tab from "../../../core/navigation/tabs/Tab";
 
 export default function Ted(props) {
     const [ted, setTed] = useState({})
@@ -34,20 +35,18 @@ export default function Ted(props) {
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
 
+            {/*<div style={{height: 'fit-content', overflow: 'hidden'}}>*/}
             <Breadcrumbs divider={'-'} justify={'start'}>
-                <Button
-                    variant={'minimal'}
-                    onClick={() => props.redirect('/sap?page=index')}>
-                    Processos
+                <Button variant={"minimal-horizontal"}
+                        onClick={() => props.redirect('/sap?page=index')}
+                        styles={{display: 'flex', alignItems: 'center', gap: '4px'}}>
+                    <HomeRounded style={{fontSize: '1.1rem'}}/> Início
                 </Button>
                 {!ted.ted ? null :
-                    <Link href={'/sap?page=ted&id=' + ted.ted.id}>
-                        <Button
-                            variant={'minimal'}
-                        >
-                            {ted?.ted?.number}
-                        </Button>
-                    </Link>
+                    <Button variant={"minimal"}
+                            onClick={() => props.redirect('/sap?page=ted&id=' + ted.ted.id)}>
+                        {ted.ted.number} (Instrumento de celebração)
+                    </Button>
                 }
                 <Button variant={'minimal'} highlight={true}>
                     {ted?.number}
@@ -61,52 +60,26 @@ export default function Ted(props) {
                     <CategoryRounded style={{fontSize: '1.15rem'}}/> Instrumento de celebração
                 </div>
             </div>
+            {/*</div>*/}
             <div className={shared.pageContent}>
-            <VerticalTabs
-                classes={[
-                    {
-                        buttons: [
-                            {
-                                label: 'Dados',
-                                children: (
-                                    <div className={shared.contentWrapper}>
-                                        <TedForm data={ted}/>
-                                    </div>
-                                )
-                            }
-                        ]
-                    },
-                    {
-                        label: 'Informações adicionais',
-                        buttons: [
-                            {
-                                label: 'Termos aditivos', children: (
-                                    <div className={shared.contentWrapper}>
-                                        <TedList ted={ted} redirect={props.redirect}/>
-                                    </div>
-                                )
-                            }
-                        ]
-                    },
-                    {
-                        label: 'Acesso rápido',
-                        buttons: [{
-                            label: 'Planos de trabalho', children: (
-                                <div className={shared.contentWrapper}>
-                                    <WorkPlanList ted={ted} redirect={props.redirect}/>
-                                </div>
-                            )
-                        },
-
-                            {
-                                label: 'Projetos / Atividades relacionados', children: (
-                                    <div className={shared.contentWrapper}>
-                                        <ProjectTedList ted={ted} redirect={props.redirect}/>
-                                    </div>
-                                )
-                            }]
-                    }]}
-            />
+                <VerticalTabs
+                    className={shared.wrapper}
+                    styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset'}}
+                >
+                    <Tab label={'Dados'} className={shared.tabWrapper}>
+                        <TedForm data={ted}/>
+                    </Tab>
+                    <Tab label={'Termos aditivos'} group={'Informações adicionais'} className={shared.tabWrapper}>
+                        <TedList ted={ted} redirect={props.redirect}/>
+                    </Tab>
+                    <Tab label={'Acesso rápido'} group={'Informações adicionais'} className={shared.tabWrapper}>
+                        <WorkPlanList ted={ted} redirect={props.redirect}/>
+                    </Tab>
+                    <Tab label={'Projetos / Atividades relacionados'} group={'Informações adicionais'}
+                         className={shared.tabWrapper}>
+                        <ProjectTedList ted={ted} redirect={props.redirect}/>
+                    </Tab>
+                </VerticalTabs>
             </div>
         </div>
     )

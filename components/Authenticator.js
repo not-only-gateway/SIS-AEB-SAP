@@ -27,18 +27,14 @@ export default function Authenticator(props) {
                 Bem vindo
             </div>
             <div style={{display: 'grid', gap: '4px', width: '100%'}}>
-                <Tabs
-                    noChildHighlight={true}
-                    buttons={[
-                        {
-                            label: 'Autenticação AEB',
-                            onClick: () => setAsManager(false)
-                        },
-                        {
-                            label: 'Gerente',
-                            onClick: () => setAsManager(true)
-                        }
-                    ]}/>
+                <div style={{display: 'flex', width: '100%', gap: '4px', justifyContent: 'center'}}>
+                    <Button variant={"minimal"} onClick={() => setAsManager(false)} highlight={!asManager}>
+                        Autenticação AEB
+                    </Button>
+                    <Button variant={"minimal"} onClick={() => setAsManager(true)} highlight={asManager}>
+                        Gerente
+                    </Button>
+                </div>
 
                 <TextField
                     placeholder={asManager ? 'Email gerente' : 'Email corporativo'}

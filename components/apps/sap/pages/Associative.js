@@ -12,6 +12,8 @@ import TypeList from "../components/lists/TypeList";
 import PropTypes from "prop-types";
 import Tabs from "../../../core/navigation/tabs/Tabs";
 import styles from '../styles/Shared.module.css'
+import Tab from "../../../core/navigation/tabs/Tab";
+import shared from '../styles/Shared.module.css'
 
 export default function Associative(props) {
     const lang = OverviewPT
@@ -23,75 +25,39 @@ export default function Associative(props) {
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
             <Tabs
-                buttons={[
-                    {
-                        label: lang.actions,
-                        children: (
-                            <div className={styles.contentWrapper}>
-                                <ActionList/>
-                            </div>
-                        )
-                    },
-                    {
-                        label: lang.budgetPlans,
-                        children: (
-                            <div className={styles.contentWrapper}>
-                                <BudgetPlanList/>
-                            </div>
-                        )
-                    },
-                    {
-                        label: lang.infrastructures,
-                        children: (
-                            <div className={styles.contentWrapper}>
-                                <InfrastructureList redirect={props.redirect}/>
-                            </div>
-                        )
-                    },
-                    {
-                        label: lang.classifications,
-                        children: (
-                            <div className={styles.contentWrapper}>
-                                <ComponentClassificationList/>
-                            </div>
-                        )
-                    },
+                className={shared.wrapper}
+            >
+                <Tab label={lang.actions} className={shared.tabWrapper}>
+                    <ActionList/>
+                </Tab>
+                <Tab label={lang.budgetPlans} className={shared.tabWrapper}>
+                    <BudgetPlanList/>
+                </Tab>
 
-                    {
-                        label: lang.types,
-                        children: (
-                            <div className={styles.contentWrapper}>
-                                <TypeList/>
-                            </div>
-                        )
-                    },
-                    {
-                        label: lang.decentralizedUnit,
-                        children: (
-                            <div className={styles.contentWrapper}>
-                                <DecentralizedUnitList/>
-                            </div>
-                        )
-                    },
+                <Tab label={lang.infrastructures} className={shared.tabWrapper}>
+                    <InfrastructureList redirect={props.redirect}/>
+                </Tab>
+                <Tab label={lang.classifications} className={shared.tabWrapper}>
+                    <ComponentClassificationList/>
+                </Tab>
+                <Tab label={lang.types} className={shared.tabWrapper}>
+                    <TypeList/>
+                </Tab>
 
-                    {
-                        label: lang.unit,
-                        children: (
-                            <div className={styles.contentWrapper}>
-                                <UnitList/>
-                            </div>
-                        )
-                    },
-                    {
-                        label: lang.natureOfExpense,
-                        children: (
-                            <div className={styles.contentWrapper}>
-                                <NatureExpenseList/>
-                            </div>
-                        )
-                    },
-                ]}
-            />
+                <Tab label={lang.decentralizedUnit} className={shared.tabWrapper}>
+                    <DecentralizedUnitList/>
+                </Tab>
+
+                <Tab label={lang.unit} className={shared.tabWrapper}>
+                    <UnitList/>
+                </Tab>
+
+                <Tab label={lang.natureOfExpense} className={shared.tabWrapper}>
+                    <NatureExpenseList/>
+                </Tab>
+
+
+            </Tabs>
         </>
     )
 }

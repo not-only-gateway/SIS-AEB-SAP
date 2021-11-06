@@ -1,8 +1,7 @@
 import React, {useState} from "react";
-import {useQuery} from "mfc-core";
+import {Button, useQuery} from "mfc-core";
 import getQuery from "../components/apps/sap/queries/getQuery";
 import Alert from "../components/core/feedback/alert/Alert";
-import Button from "../components/core/inputs/button/Button";
 
 export default function test() {
     const [c, sc] = useState(false)

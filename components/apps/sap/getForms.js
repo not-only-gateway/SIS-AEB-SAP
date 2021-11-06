@@ -4,6 +4,10 @@ import dynamic from "next/dynamic";
 export default function getForms() {
     return [
         {
+            basePath: 'status',
+            content: dynamic(() => import( "./components/forms/StatusForm"))
+        },
+        {
             basePath: 'action',
             content: dynamic(() => import( "./components/forms/ActionForm"))
         },

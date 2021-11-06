@@ -18,7 +18,7 @@ export default function StatusForm(props) {
             return {
                 ...props.data,
                 ...{
-                    work_plan: props.workPlan.id
+                    work_plan: props.workPlan?.id
                 }
             }
         else return props.data

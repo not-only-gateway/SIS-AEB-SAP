@@ -17,8 +17,8 @@ export default function InfrastructureForm(props) {
             return {
                 ...props.data,
                 ...{
-                    latitude: props.data.address.split(", ")[0],
-                    longitude: props.data.address.split(", ")[1]
+                    latitude: props.data.address?.split(", ")[0],
+                    longitude: props.data.address?.split(", ")[1]
                 }
             }
         else return props.data
