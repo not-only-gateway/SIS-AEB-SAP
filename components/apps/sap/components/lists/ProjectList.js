@@ -34,14 +34,6 @@ export default function ProjectList(props) {
                 title={'Projetos / Atividades'}
                 controlButtons={[
                     {
-                        label: 'Abrir',
-                        icon: <ArrowForwardRounded/>,
-                        onClick: (entity) => {
-                            props.redirect(entity.id)
-                        },
-                        disabled: false
-                    },
-                    {
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {

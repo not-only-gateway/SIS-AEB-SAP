@@ -1,6 +1,6 @@
 import React from "react";
 
-import {TextField} from "mfc-core";
+
 
 import PropTypes from "prop-types";
 import ProjectPT from "../../locales/ProjectPT";
@@ -10,6 +10,7 @@ import FormRow from "../../../../core/inputs/form/FormRow";
 import associativeKeys from "../../keys/associativeKeys";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";
+import TextField from "../../../../core/inputs/text/TextField";
 
 export default function ActionForm(props) {
     const lang = ProjectPT

@@ -1,4 +1,4 @@
-import React, {useMemo} from "react";
+import React, {useMemo, useState} from "react";
 import PropTypes from 'prop-types'
 import WorkPlanPT from "../../locales/WorkPlanPT";
 import {useQuery} from "mfc-core";
@@ -24,7 +24,12 @@ import formOptions from "../../templates/formOptions";
 export default function WorkPlanForm(props) {
     const lang = WorkPlanPT
     const unitHook = useQuery(getQuery('unit'))
-    const budgetPlanHook = useQuery(getQuery('budget_plan'))
+    const [selectedAction, setSelectedAction] = useState()
+    const budgetHookFilter = useMemo(() => {
+        return {action: props.ted ? props.ted.action?.id : selectedAction?.id}
+    }, [props.ted, props.data, selectedAction])
+
+    const budgetPlanHook = useQuery(getQuery('budget_plan', budgetHookFilter))
     const projectHook = useQuery(getQuery('project'))
     const tedHook = useQuery(getQuery('ted'))
     const infrastructureHook = useQuery(getQuery('infrastructure'))
@@ -91,7 +96,10 @@ export default function WorkPlanForm(props) {
                                         value={data.ted}
                                         title={'Instrumento de celebração'}
                                         placeholder={'Instrumento de celebração'}
-                                        handleChange={entity => handleChange({key: 'ted', event: entity})}
+                                        handleChange={entity => {
+                                            setSelectedAction(entity?.action)
+                                            handleChange({key: 'ted', event: entity})
+                                        }}
                                     />
                                     :
                                     null
@@ -128,14 +136,17 @@ export default function WorkPlanForm(props) {
                                     width={(!props.ted && props.project) || (!props.project && props.ted) ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
                                     required={true}
                                     value={data.budget_plan}
-                                    title={'Plano orçamentário'}
+                                    title={`Plano orçamentário ${selectedAction ? `(Ação ${selectedAction.number})` : ''}`}
                                     placeholder={'Plano orçamentário'}
                                     handleChange={entity => handleChange({key: 'budget_plan', event: entity})}
                                     createOption={true}
                                 >
                                     {handleClose => (
-                                        <BudgetPlanForm create={true} asDefault={true}
-                                                        handleClose={() => handleClose()}/>
+                                        <BudgetPlanForm
+                                            action={selectedAction}
+                                            create={true}
+                                            asDefault={true}
+                                            handleClose={() => handleClose()}/>
                                     )}
                                 </Selector>
                                 <TextField

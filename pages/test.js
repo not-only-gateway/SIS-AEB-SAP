@@ -6,6 +6,12 @@ import HorizontalChart from "../components/core/visualization/charts/horizontal/
 import PieChart from "../components/core/visualization/charts/pie/PieChart";
 import VerticalChart from "../components/core/visualization/charts/vertical/VerticalChart";
 import LineChart from "../components/core/visualization/charts/line/LineChart";
+import TextField from "../components/core/inputs/text/TextField";
+import Selector from "../components/core/inputs/selector/Selector";
+import MultiSelectField from "../components/core/inputs/multiselect/MultiSelectField";
+import DateField from "../components/core/inputs/date/DateField";
+import DropDownField from "../components/core/inputs/dropdown/DropDownField";
+import FileField from "../components/core/inputs/file/FileField";
 
 export default function test() {
     const randomSet = (quantity) => {
@@ -16,6 +22,9 @@ export default function test() {
 
         return res
     }
+
+    const actionHook = useQuery(getQuery('action'))
+
     return (
         <div style={{
             padding: '64px',
@@ -23,6 +32,13 @@ export default function test() {
             display: 'flex', flexFlow: 'row wrap', gap: '16px'
         }}>
 
+            <TextField handleChange={() => null}/>
+            <TextField handleChange={() => null} variant={'area'}/>
+            <Selector hook={actionHook} keys={[]}/>
+            <MultiSelectField choices={[]} handleChange={() => null}/>
+            <DateField handleChange={() => null}/>
+            <DropDownField choices={[]} handleChange={() => null}/>
+            <FileField/>
 
             <HorizontalChart
                 title={'Titulo do gráfico'}

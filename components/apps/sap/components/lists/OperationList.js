@@ -20,7 +20,7 @@ export default function OperationList(props) {
                 value: props.stage.id,
                 type: 'object'
             }]
-        else if(props.workPlan)
+        else if (props.workPlan)
             return [{
                 key: 'activity_stage',
                 sub_relation: {key: 'goal', sub_relation: {key: 'work_plan'}},
@@ -34,16 +34,15 @@ export default function OperationList(props) {
 
     return (
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
-
-                <OperationForm
-                    handleClose={() => {
-                        setOpen(false)
-                        hook.clean()
-                    }}
-                    workPlan={props.workPlan}
-                    create={true}
-                    stage={props.stage}
-                />
+            <OperationForm
+                handleClose={() => {
+                    setOpen(false)
+                    hook.clean()
+                }}
+                workPlan={props.workPlan}
+                create={true}
+                stage={props.stage}
+            />
 
             <List
                 createOption={true}
@@ -57,7 +56,7 @@ export default function OperationList(props) {
                     icon: <DeleteRounded/>,
                     onClick: (entity) => {
                         deleteEntry({
-                            suffix: 'operation',
+                            suffix: 'operation_phase',
                             pk: entity.id
                         }).then(() => hook.clean())
                     },
@@ -65,7 +64,6 @@ export default function OperationList(props) {
                     color: '#ff5555'
                 }]}
                 title={'Fases / operações'}
-
             />
         </Switcher>
     )
