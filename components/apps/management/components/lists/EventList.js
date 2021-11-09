@@ -7,14 +7,9 @@ import Modal from "../../../../core/navigation/modal/Modal";
 export default function EventList(props) {
     const hook = useQuery(event_query)
     return (
-
-        <div style={{
-            padding: '0 64px',
-            borderRadius: '8px',
-            background: 'var(--mfc-background-primary)',
-            border: 'var(--mfc-border-primary) 1px solid'
-        }}>
-            <Modal animationStyle={'slide-right'} blurIntensity={.1} open={false} defaultBackground={true} handleClose={() => null} >
+        <>
+            <Modal animationStyle={'slide-right'} blurIntensity={.1} open={false} defaultBackground={true}
+                   handleClose={() => null}>
 
             </Modal>
             <List
@@ -23,7 +18,7 @@ export default function EventList(props) {
                 hook={hook} onlyVisualization={true}
                 title={'Registros de eventos'}
             />
-        </div>
+        </>
 
     )
 }

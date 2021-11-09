@@ -3,7 +3,7 @@ import {FormRow} from "mfc-core";
 import Form from "../../../../core/inputs/form/Form";
 import TextField from "../../../../core/inputs/text/TextField";
 import useData from "../../../../core/inputs/form/useData";
-import submit from "../../utils/requests/submit";
+import submit from "../../utils/submit";
 
 export default function EntityForm(props) {
     const formHook = useData(props.initialData)
@@ -12,7 +12,7 @@ export default function EntityForm(props) {
             hook={formHook}
             title={!props.initialData?.id ? 'Nova entidade' : 'Entidade'}
             handleClose={() => props.handleClose()}
-           returnButton={true}
+            returnButton={true}
             handleSubmit={(data, clearState) => {
                 submit({
                     suffix: 'entity',
@@ -24,7 +24,7 @@ export default function EntityForm(props) {
                     },
                     prefix: 'gateway'
                 }).then((res) => {
-                    if(res) {
+                    if (res) {
                         props.handleClose()
                         clearState()
                     }

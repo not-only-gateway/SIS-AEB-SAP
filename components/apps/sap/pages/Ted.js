@@ -6,7 +6,7 @@ import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";
 import WorkPlanList from "../components/lists/WorkPlanList";
 import TedForm from "../components/forms/TedForm";
 import TedList from "../components/lists/TedList";
-import {fetchEntry} from "../utils/requests/fetch";
+import {fetchEntry} from "../utils/fetchData";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
 import {CategoryRounded, HomeRounded} from "@material-ui/icons";
 import Link from 'next/link'

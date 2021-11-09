@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import WorkPlanPT from "../../locales/WorkPlanPT";
 import {useQuery} from "mfc-core";
 import associativeKeys from "../../keys/associativeKeys";
-import getQuery from "../../queries/getQuery";
+import getQuery from "../../utils/getQuery";
 import Selector from "../../../../core/inputs/selector/Selector";
 import Form from "../../../../core/inputs/form/Form";
-import submit from "../../utils/requests/submit";
+import submit from "../../utils/submit";
 import projectKeys from "../../keys/projectKeys";
 import tedKeys from "../../keys/tedKeys";
 import UnitForm from "./UnitForm";

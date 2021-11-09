@@ -1,5 +1,5 @@
 import {Requester} from "mfc-core";
-import Host from "../../management/utils/shared/Host";
+import Host from "../../management/utils/host";
 import Cookies from "universal-cookie/lib";
 
 

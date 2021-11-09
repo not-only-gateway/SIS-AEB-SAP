@@ -1,4 +1,4 @@
-import getQuery from "../queries/getQuery";
+import getQuery from "../utils/getQuery";
 
 export default {
     project: [

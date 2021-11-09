@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import Host from "./Host";
 import Cookies from "universal-cookie/lib";
-import Requester from "../../../../core/feedback/requester/Requester";
+import Request from "../../../../core/feedback/requester/request";
 
 export default async function deleteEntry(props) {
     let response = {
@@ -9,7 +9,7 @@ export default async function deleteEntry(props) {
         success: false
     }
 
-    await Requester({
+    await Request({
         method: 'delete',
         url: props.url ? props.url : Host() + props.suffix,
         showSuccessAlert: true,

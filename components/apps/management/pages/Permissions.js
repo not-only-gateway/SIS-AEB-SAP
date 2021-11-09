@@ -1,37 +1,24 @@
-import Tabs from "../../../core/navigation/tabs/Tabs";
-import styles from "../styles/Shared.module.css";
+import {Tab, Tabs} from "mfc-core";
+import shared from "../styles/Shared.module.css";
 import PermissionList from "../components/lists/PermissionList";
 import AccessProfileList from "../components/lists/AccessProfileList";
 import PropTypes from 'prop-types'
 
-export default function Permissions(props){
-    return(
-        <Tabs
-            buttons={[
-                {
-                    label: 'Perfis de acesso',
-                    children: (
-                        <div className={styles.contentWrapper}>
-                            <AccessProfileList redirect={props.redirect}/>
-                        </div>
-                    )
-                },
-                {
-                    label: 'Privilégios',
-                    children: (
-                        <div className={styles.contentWrapper}>
-                            <PermissionList/>
-                        </div>
-                    )
-                }
-            ]}>
-            <div className={styles.header}>
-                Privilégios e perfis de acesso
-            </div>
+export default function Permissions(props) {
+    return (
+
+        <Tabs className={shared.wrapper}>
+            <Tab label={'Perfis de acesso'} className={shared.tabWrapper}>
+                <AccessProfileList redirect={props.redirect}/>
+            </Tab>
+            <Tab label={'Privilégios'} className={shared.tabWrapper}>
+                <PermissionList/>
+            </Tab>
         </Tabs>
+
     )
 }
 
-Permissions.propTypes={
+Permissions.propTypes = {
     redirect: PropTypes.func
 }

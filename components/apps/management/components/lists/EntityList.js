@@ -7,13 +7,13 @@ import PropTypes from 'prop-types'
 import {entityKeys} from "../../keys/keys";
 import EntityForm from "../forms/EntityForm";
 import {DeleteRounded} from "@material-ui/icons";
-import deleteEntry from "../../utils/requests/delete";
+import deleteEntry from "../../utils/delete";
 
 export default function EntityList(props) {
     const hook = useQuery(entity_query)
     const [openEntity, setOpenEntity] = useState(undefined)
     return (
-        <Switcher openChild={openEntity ? 0 : 1}>
+        <Switcher openChild={openEntity ? 0 : 1} styles={{width: '100%', height: '100%'}}>
             <div style={{marginTop: '48px'}}>
                 <EntityForm
                     initialData={openEntity ? openEntity : {}}

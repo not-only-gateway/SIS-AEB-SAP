@@ -6,8 +6,8 @@ import PropTypes from "prop-types";
 
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/navigation/switcher/Switcher";
-import deleteEntry from "../../utils/requests/delete";
-import getQuery from "../../queries/getQuery";
+import deleteEntry from "../../utils/delete";
+import getQuery from "../../utils/getQuery";
 import OperationForm from "../forms/OperationForm";
 
 export default function OperationList(props) {

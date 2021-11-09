@@ -2,15 +2,15 @@ import React, {useState} from "react";
 import PropTypes from 'prop-types'
 import ProjectPT from "../../locales/ProjectPT";
 import {DropDownField, useQuery} from "mfc-core";
-import getQuery from "../../queries/getQuery";
+import getQuery from "../../utils/getQuery";
 import Selector from "../../../../core/inputs/selector/Selector";
 import associativeKeys from "../../keys/associativeKeys";
 import Form from "../../../../core/inputs/form/Form";
 import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import Cookies from "universal-cookie/lib";
-import submit from "../../utils/requests/submit";
+import submit from "../../utils/submit";
 import UnitForm from "./UnitForm";
-import Host from "../../utils/shared/Host";
+import Host from "../../utils/host";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import TextField from "../../../../core/inputs/text/TextField";
 import tedKeys from "../../keys/tedKeys";

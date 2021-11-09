@@ -1,4 +1,4 @@
-import getQuery from "../queries/getQuery";
+import getQuery from "../utils/getQuery";
 
 export default {
     projectTed: [
@@ -24,7 +24,7 @@ export default {
 
     action: [
         {key: 'id', type: 'number', label: 'ID', visible: false},
-        {key: 'number', type: 'number', label: 'Número', visible: true},
+        {key: 'number', type: 'string', label: 'Número', visible: true},
         {key: 'detailing', type: 'string', label: 'Detalhamento', visible: true}
     ],
     budgetPlan: [

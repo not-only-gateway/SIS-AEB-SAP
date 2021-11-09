@@ -7,14 +7,14 @@ import {accessProfileKeys} from "../../keys/keys";
 import AccessProfileForm from "../forms/AccessProfileForm";
 import PropTypes from 'prop-types'
 import {DeleteRounded} from "@material-ui/icons";
-import deleteEntry from "../../utils/requests/delete";
+import deleteEntry from "../../utils/delete";
 
 export default function AccessProfileList(props) {
     const hook = useQuery(access_profile_query)
     const [openEntity, setOpenEntity] = useState(undefined)
     return (
 
-        <Switcher openChild={openEntity ? 0 : 1}>
+        <Switcher openChild={openEntity ? 0 : 1}  styles={{width: '100%', height: '100%'}}>
             <div style={{marginTop: '48px'}}>
                 <AccessProfileForm
                     redirect={entry => props.redirect('/management/?page=access&id=' + entry.id)}

@@ -4,9 +4,9 @@ import ProjectForm from "../forms/ProjectForm";
 import {ArrowForwardRounded, DeleteRounded} from "@material-ui/icons";
 import projectKeys from "../../keys/projectKeys";
 import Switcher from "../../../../core/navigation/switcher/Switcher";
-import deleteEntry from "../../utils/requests/delete";
+import deleteEntry from "../../utils/delete";
 import List from "../../../../core/visualization/list/List";
-import getQuery from "../../queries/getQuery";
+import getQuery from "../../utils/getQuery";
 import useQuery from "../../../../core/visualization/hooks/useQuery";
 
 export default function ProjectList(props) {

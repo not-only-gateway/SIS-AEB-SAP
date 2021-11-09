@@ -32,6 +32,11 @@ export default function getSapPages(props) {
 
             content: dynamic(() => import("./pages/Infrastructure"))
         },
+        {
+            basePath: 'dashboard',
+
+            content: dynamic(() => import("./pages/Dashboard"))
+        },
     ]
 }
 

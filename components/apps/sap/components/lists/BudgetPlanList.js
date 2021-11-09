@@ -4,10 +4,10 @@ import BudgetPlanForm from "../forms/BudgetPlanForm";
 import useQuery from "../../../../core/visualization/hooks/useQuery";
 import List from "../../../../core/visualization/list/List";
 
-import getQuery from "../../queries/getQuery";
+import getQuery from "../../utils/getQuery";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/navigation/switcher/Switcher";
-import deleteEntry from "../../utils/requests/delete";
+import deleteEntry from "../../utils/delete";
 
 export default function BudgetPlanList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)

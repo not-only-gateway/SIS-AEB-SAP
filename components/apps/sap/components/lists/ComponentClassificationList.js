@@ -5,8 +5,8 @@ import useQuery from "../../../../core/visualization/hooks/useQuery";
 import ComponentClassificationForm from "../forms/ComponentClassificationForm";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/navigation/switcher/Switcher";
-import deleteEntry from "../../utils/requests/delete";
-import getQuery from "../../queries/getQuery";
+import deleteEntry from "../../utils/delete";
+import getQuery from "../../utils/getQuery";
 import List from "../../../../core/visualization/list/List";
 
 export default function ComponentClassificationList(props) {

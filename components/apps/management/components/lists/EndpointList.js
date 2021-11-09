@@ -6,7 +6,7 @@ import Switcher from "../../../../core/navigation/switcher/Switcher";
 import PropTypes from 'prop-types'
 import {endpointKeys} from "../../keys/keys";
 import {DeleteRounded} from "@material-ui/icons";
-import deleteEntry from "../../utils/requests/delete";
+import deleteEntry from "../../utils/delete";
 import useQuery from "../../../../core/visualization/hooks/useQuery";
 
 
@@ -14,7 +14,7 @@ export default function EndpointList(props) {
     const hook = useQuery(endpoint_query(props.service))
     const [openEntity, setOpenEntity] = useState(undefined)
     return (
-        <Switcher openChild={openEntity ? 0 : 1}>
+        <Switcher openChild={openEntity ? 0 : 1} styles={{width: '100%', height: '100%'}}>
             <div style={{marginTop: '48px'}}>
                 <EndpointForm
                     initialData={openEntity ? openEntity : {}}

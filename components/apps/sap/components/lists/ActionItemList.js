@@ -7,8 +7,8 @@ import ActionItemForm from "../forms/ActionItemForm";
 import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/navigation/switcher/Switcher";
 
-import getQuery from "../../queries/getQuery";
-import deleteEntry from "../../utils/requests/delete";
+import getQuery from "../../utils/getQuery";
+import deleteEntry from "../../utils/delete";
 import useQuery from "../../../../core/visualization/hooks/useQuery";
 import List from "../../../../core/visualization/list/List";
 

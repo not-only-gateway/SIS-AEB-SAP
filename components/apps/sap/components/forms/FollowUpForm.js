@@ -4,10 +4,10 @@ import PropTypes from "prop-types";
 import OperationPT from "../../locales/OperationPT";
 import Form from "../../../../core/inputs/form/Form";
 import Cookies from "universal-cookie/lib";
-import submit from "../../utils/requests/submit";
-import Requester from "../../../../core/feedback/requester/Requester";
-import Host from "../../utils/shared/Host";
-import deleteEntry from "../../utils/requests/delete";
+import submit from "../../utils/submit";
+import Request from "../../../../core/feedback/requester/request";
+import Host from "../../utils/host";
+import deleteEntry from "../../utils/delete";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import FileField from "../../../../core/inputs/file/FileField";
 import workPlanKeys from "../../keys/workPlanKeys";
@@ -30,7 +30,7 @@ export default function FollowUpForm(props) {
 
     useEffect(() => {
         if (!props.create && props.data.file !== undefined && props.data.file !== null) {
-            Requester({
+            Request({
                 method: 'get',
                 url: Host().replace('/api', '/drive') + '/file',
                 package: {
@@ -38,7 +38,7 @@ export default function FollowUpForm(props) {
                 },
                 headers: {'authorization': (new Cookies()).get('jwt')}
             }).then(res => {
-                Requester({
+                Request({
                     method: 'get',
                     url: Host(true) + 'file_name/' + submitProps.id,
                     showSuccessAlert: false,

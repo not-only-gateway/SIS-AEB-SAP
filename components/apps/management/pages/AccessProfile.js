@@ -1,13 +1,10 @@
 import PermissionList from "../components/lists/PermissionList";
-import styles from '../styles/Shared.module.css'
+import shared from '../styles/Shared.module.css'
 import AccessProfileForm from "../components/forms/AccessProfileForm";
 import React, {useEffect, useState} from "react";
 import {fetchEntry} from "../utils/fetch";
-import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
-import Button from "../../../core/inputs/button/Button";
+import {Breadcrumbs, Button, VerticalTabs, Tab} from "mfc-core";
 import {CategoryRounded} from "@material-ui/icons";
-import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";
-
 export default function AccessProfile(props) {
     const [data, setData] = useState({})
 
@@ -34,10 +31,10 @@ export default function AccessProfile(props) {
 
             </div>
 
-            <div className={styles.header}
+            <div className={shared.header}
                  style={{padding: '16px 24px'}}>
                 {data?.denomination}
-                <div className={styles.typeLabel}>
+                <div className={shared.typeLabel}>
                     <CategoryRounded style={{fontSize: '1.15rem'}}/> Perfil de acesso
                 </div>
             </div>
@@ -47,7 +44,7 @@ export default function AccessProfile(props) {
                         buttons: [{
                             label: 'Informações',
                             children: (
-                                <div className={styles.contentWrapper} style={{paddingTop: '32px'}}>
+                                <div className={shared.contentWrapper} style={{paddingTop: '32px'}}>
                                     {Object.keys(data).length > 0 ?
                                         <AccessProfileForm initialData={data} updateData={setData}/> : null}
                                 </div>
@@ -60,13 +57,17 @@ export default function AccessProfile(props) {
                         buttons: [{
                             label: 'Privilégios',
                             children: (
-                                <div className={styles.contentWrapper}>
+                                <div className={shared.contentWrapper}>
                                     <PermissionList accessProfile={parseInt(props.query.id)}/>
                                 </div>
                             )
                         }]
                     }
-                ]}/>
+                ]}>
+                <Tab className={shared.tab}>
+
+                </Tab>
+            </VerticalTabs>
         </>
     )
 }

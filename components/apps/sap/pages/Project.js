@@ -8,7 +8,7 @@ import ProjectForm from "../components/forms/ProjectForm";
 
 import RisksList from "../components/lists/RisksList";
 import ProjectGoalList from "../components/lists/ProjectGoalList";
-import {fetchEntry} from "../utils/requests/fetch";
+import {fetchEntry} from "../utils/fetchData";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
 import {CategoryRounded, HomeRounded} from "@material-ui/icons";
 import Button from "../../../core/inputs/button/Button";

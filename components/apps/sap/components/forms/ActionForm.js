@@ -5,7 +5,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import ProjectPT from "../../locales/ProjectPT";
 import Form from "../../../../core/inputs/form/Form";
-import submit from "../../utils/requests/submit";
+import submit from "../../utils/submit";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import associativeKeys from "../../keys/associativeKeys";
 import FormTemplate from "../../templates/FormTemplate";

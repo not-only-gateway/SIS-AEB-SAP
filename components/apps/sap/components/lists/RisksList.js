@@ -7,8 +7,8 @@ import RiskForm from "../forms/RiskForm";
 import {DeleteRounded} from "@material-ui/icons";
 import projectKeys from "../../keys/projectKeys";
 import Switcher from "../../../../core/navigation/switcher/Switcher";
-import deleteEntry from "../../utils/requests/delete";
-import getQuery from "../../queries/getQuery";
+import deleteEntry from "../../utils/delete";
+import getQuery from "../../utils/getQuery";
 
 
 export default function RisksList(props) {

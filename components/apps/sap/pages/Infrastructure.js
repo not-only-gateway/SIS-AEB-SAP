@@ -4,7 +4,7 @@ import shared from '../styles/Shared.module.css'
 import PropTypes from 'prop-types'
 import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";
 import InfrastructureComponentsList from "../components/lists/InfrastructureComponentsList";
-import {fetchEntry} from "../utils/requests/fetch";
+import {fetchEntry} from "../utils/fetchData";
 import InfrastructureForm from "../components/forms/InfrastructureForm";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
 import {CategoryRounded, HomeRounded, LinkRounded} from "@material-ui/icons";

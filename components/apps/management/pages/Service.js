@@ -1,21 +1,18 @@
-import styles from '../styles/Shared.module.css'
+import shared from '../styles/Shared.module.css'
 import EndpointList from "../components/lists/EndpointList";
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {fetchEntry} from "../utils/fetch";
 import ServiceForm from "../components/forms/ServiceForm";
-import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
-import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";
-
 import {CategoryRounded} from "@material-ui/icons";
-import Button from "../../../core/inputs/button/Button";
+import {Breadcrumbs, Button, Tab, VerticalTabs} from "mfc-core";
 
 export default function Service(props) {
-    const [data, setData] = useState(null)
+    const [data, setData] = useState({})
     useEffect(() => {
         fetchEntry({suffix: 'service', prefix: 'gateway', pk: props.query.id}).then(r => {
             if (r !== null) {
-                let host = r.host.split('//')
+                let host = r.host?.split('//')
                 console.log(host)
                 setData(r)
             }
@@ -23,7 +20,7 @@ export default function Service(props) {
     }, [])
 
     return (
-        <>
+        <div className={shared.pageWrapper}>
             <div style={{
                 background: 'var(--mfc-background-primary)'
             }}>
@@ -39,39 +36,27 @@ export default function Service(props) {
 
             </div>
 
-            <div className={styles.header}
+            <div className={shared.header}
                  style={{padding: '16px 24px'}}>
                 {data?.denomination}
-                <div className={styles.typeLabel}>
+                <div className={shared.typeLabel}>
                     <CategoryRounded style={{fontSize: '1.15rem'}}/> Serviço
                 </div>
             </div>
-            <VerticalTabs classes={[
-                {
-                    buttons: [{
-                        label: 'Informações',
-                        children: (
-                            <div className={styles.contentWrapper} style={{paddingTop: '32px'}}>
-                                {data !== null ? <ServiceForm initialData={data} updateData={setData}/> : null}
-                            </div>
-                        )
-                    }]
-                },
-                {
-                    label: 'Relações',
-                    buttons: [
-                        {
-                            label: 'Endpoints',
-                            children: (
-                                <div className={styles.contentWrapper}>
-                                    <EndpointList redirect={props.redirect} service={parseInt(props.query.id)}/>
-                                </div>
-                            )
-                        }
-                    ]
-                }
-            ]}/>
-        </>
+            <div className={shared.pageContent}>
+                <VerticalTabs
+                    className={shared.wrapper}
+                    styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset'}}
+                >
+                    <Tab label={'Informações'} className={shared.tabWrapper}>
+                        {data !== null ? <ServiceForm initialData={data} updateData={setData}/> : null}
+                    </Tab>
+                    <Tab label={'Endpoints'} group={'Relações'} className={shared.tabWrapper}>
+                        <EndpointList redirect={props.redirect} service={parseInt(props.query.id)}/>
+                    </Tab>
+                </VerticalTabs>
+            </div>
+        </div>
     )
 }
 

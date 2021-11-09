@@ -11,7 +11,7 @@ import {useQuery} from "mfc-core";
 import {entityKeys, serviceKeys} from "../../keys/keys";
 import useData from "../../../../core/inputs/form/useData";
 import {useMemo} from "react";
-import submit from "../../utils/requests/submit";
+import submit from "../../utils/submit";
 import EntityForm from "./EntityForm";
 
 export default function EndpointForm(props) {

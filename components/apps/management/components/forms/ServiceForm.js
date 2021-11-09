@@ -4,7 +4,7 @@ import Form from "../../../../core/inputs/form/Form";
 import TextField from "../../../../core/inputs/text/TextField";
 import useData from "../../../../core/inputs/form/useData";
 import {useMemo} from "react";
-import submit from "../../utils/requests/submit";
+import submit from "../../utils/submit";
 
 export default function ServiceForm(props) {
     const initialData = useMemo(() => {
@@ -21,9 +21,9 @@ export default function ServiceForm(props) {
     return (
         <Form
             hook={formHook}
-            title={!props.initialData.id ? 'Novo serviço' : 'Serviço'}
+            title={props.create? 'Novo serviço' : 'Serviço'}
             handleClose={() => props.handleClose()}
-            returnButton={true}
+            returnButton={props.create}
             handleSubmit={(data, clearState) => {
                 submit({
                     suffix: 'service',

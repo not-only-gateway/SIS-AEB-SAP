@@ -7,14 +7,14 @@ import Switcher from "../../../../core/navigation/switcher/Switcher";
 import PropTypes from "prop-types";
 import {serviceKeys} from "../../keys/keys";
 import {DeleteRounded} from "@material-ui/icons";
-import deleteEntry from "../../utils/requests/delete";
+import deleteEntry from "../../utils/delete";
 
 
 export default function ServiceList(props) {
     const hook = useQuery(service_query)
     const [openEntity, setOpenEntity] = useState(undefined)
     return (
-        <Switcher openChild={openEntity ? 0 : 1}>
+        <Switcher openChild={openEntity ? 0 : 1}   styles={{width: '100%', height: '100%'}}>
 
             <div style={{marginTop: '48px'}}>
                 <ServiceForm initialData={openEntity ? openEntity : {}}

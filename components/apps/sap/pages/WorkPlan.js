@@ -9,7 +9,7 @@ import ExecutionList from "../components/lists/ExecutionList";
 import ActivityStageList from "../components/lists/ActivityStageList";
 import GoalList from "../components/lists/GoalList";
 import WorkPlanForm from "../components/forms/WorkPlanForm";
-import {fetchEntry} from "../utils/requests/fetch";
+import {fetchEntry} from "../utils/fetchData";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
 import {CategoryRounded, HomeRounded} from "@material-ui/icons";
 import StatusList from "../components/lists/StatusList";

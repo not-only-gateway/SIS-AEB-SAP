@@ -3,7 +3,7 @@ import {DropDownField, TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import InfrastructurePT from "../../locales/InfrastructurePT";
 import Form from "../../../../core/inputs/form/Form";
-import submit from "../../utils/requests/submit";
+import submit from "../../utils/submit";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import associativeKeys from "../../keys/associativeKeys";
 import FormTemplate from "../../templates/FormTemplate";

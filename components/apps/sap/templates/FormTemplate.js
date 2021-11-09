@@ -4,7 +4,7 @@ import Selector from "../../../core/inputs/selector/Selector";
 import {useEffect, useMemo, useState} from "react";
 import useQuery from "../../../core/visualization/hooks/useQuery";
 import Cookies from "universal-cookie/lib";
-import Host from "../utils/shared/Host";
+import Host from "../utils/host";
 import useDataWithDraft from "../../../core/inputs/form/useDataWithDraft";
 import draftKeys from "./draftKeys";
 

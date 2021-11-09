@@ -3,7 +3,7 @@ import ProjectPT from "../../locales/ProjectPT";
 import {DropDownField, TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import Form from "../../../../core/inputs/form/Form";
-import submit from "../../utils/requests/submit";
+import submit from "../../utils/submit";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import tedKeys from "../../keys/tedKeys";
 import projectKeys from "../../keys/projectKeys";

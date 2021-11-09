@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import TedPT from "../../locales/TedPT";
 import {useQuery} from "mfc-core";
 import associativeKeys from "../../keys/associativeKeys";
-import getQuery from "../../queries/getQuery";
+import getQuery from "../../utils/getQuery";
 import Form from "../../../../core/inputs/form/Form";
-import submit from "../../utils/requests/submit";
+import submit from "../../utils/submit";
 import Selector from "../../../../core/inputs/selector/Selector";
 import UnitForm from "./UnitForm";
 import DecentralizedUnitForm from "./DecentralizedUnitForm";

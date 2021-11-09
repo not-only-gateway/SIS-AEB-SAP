@@ -3,7 +3,7 @@ import { TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import EntitiesPT from "../../locales/EntitiesPT";
 import Form from "../../../../core/inputs/form/Form";
-import submit from "../../utils/requests/submit";
+import submit from "../../utils/submit";
 import useData from "../../../../core/inputs/form/useData";
 import FormRow from "../../../../core/inputs/form/FormRow";
 

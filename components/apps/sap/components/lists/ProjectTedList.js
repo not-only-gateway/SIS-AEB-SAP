@@ -1,9 +1,9 @@
 import React, {useMemo} from "react";
 import {DeleteRounded} from "@material-ui/icons";
-import deleteEntry from "../../utils/requests/delete";
+import deleteEntry from "../../utils/delete";
 
 import PropTypes from "prop-types";
-import getQuery from "../../queries/getQuery";
+import getQuery from "../../utils/getQuery";
 import useQuery from "../../../../core/visualization/hooks/useQuery";
 import associativeKeys from "../../keys/associativeKeys";
 import List from "../../../../core/visualization/list/List";

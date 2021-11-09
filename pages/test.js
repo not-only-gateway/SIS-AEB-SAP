@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Button, useQuery} from "mfc-core";
-import getQuery from "../components/apps/sap/queries/getQuery";
+import getQuery from "../components/apps/sap/utils/getQuery";
 import Alert from "../components/core/feedback/alert/Alert";
 import HorizontalChart from "../components/core/visualization/charts/horizontal/HorizontalChart";
 import PieChart from "../components/core/visualization/charts/pie/PieChart";

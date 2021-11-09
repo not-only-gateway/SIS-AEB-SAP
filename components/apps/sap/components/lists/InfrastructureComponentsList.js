@@ -7,8 +7,8 @@ import List from "../../../../core/visualization/list/List";
 import InfrastructureComponentForm from "../forms/InfrastructureComponentForm";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/navigation/switcher/Switcher";
-import deleteEntry from "../../utils/requests/delete";
-import getQuery from "../../queries/getQuery";
+import deleteEntry from "../../utils/delete";
+import getQuery from "../../utils/getQuery";
 
 export default function InfrastructureComponentsList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)

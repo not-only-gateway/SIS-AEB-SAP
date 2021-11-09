@@ -4,7 +4,7 @@ import {DateField, DropDownField, TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import Form from "../../../../core/inputs/form/Form";
 import PermanentGoodsPT from "../../locales/PermanentGoodsPT";
-import submit from "../../utils/requests/submit";
+import submit from "../../utils/submit";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import workPlanKeys from "../../keys/workPlanKeys";
 import FormTemplate from "../../templates/FormTemplate";

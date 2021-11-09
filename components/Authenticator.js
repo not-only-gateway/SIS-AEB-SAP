@@ -1,11 +1,10 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import styles from '../styles/Authenticate.module.css'
 import ThemeContext from "./core/misc/theme/ThemeContext";
 import {VisibilityOffRounded, VisibilityRounded} from "@material-ui/icons";
 import TextField from "./core/inputs/text/TextField";
 import submitAuthentication from "../utils/SubmitAuthentication";
-import Tabs from "./core/navigation/tabs/Tabs";
 import Button from "./core/inputs/button/Button";
 import Cookies from "universal-cookie/lib";
 
@@ -17,6 +16,15 @@ export default function Authenticator(props) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    useEffect(() => {
+        const cookies = new Cookies()
+        if (props.open) {
+            cookies.remove('jwt')
+            cookies.remove('asManager')
+            sessionStorage.removeItem('isManager')
+            sessionStorage.removeItem('profile')
+        }
+    }, [props.open])
 
     return (
         <div className={styles.wrapper}>

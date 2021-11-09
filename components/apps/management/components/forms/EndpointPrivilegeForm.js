@@ -1,6 +1,6 @@
 import useData from "../../../../core/inputs/form/useData";
 import Form from "../../../../core/inputs/form/Form";
-import submit from "../../utils/requests/submit";
+import submit from "../../utils/submit";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import PropTypes from "prop-types";
 import DropDownField from "../../../../core/inputs/dropdown/DropDownField";

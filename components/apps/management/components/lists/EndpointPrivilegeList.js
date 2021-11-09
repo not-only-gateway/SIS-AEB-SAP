@@ -6,7 +6,7 @@ import Switcher from "../../../../core/navigation/switcher/Switcher";
 import {endpointPrivilegeKeys} from "../../keys/keys";
 import PropTypes from 'prop-types'
 import {DeleteRounded} from "@material-ui/icons";
-import deleteEntry from "../../utils/requests/delete";
+import deleteEntry from "../../utils/delete";
 import EndpointPrivilegeForm from "../forms/EndpointPrivilegeForm";
 
 export default function EndpointPrivilegeList(props) {

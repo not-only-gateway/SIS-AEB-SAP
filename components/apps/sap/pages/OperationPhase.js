@@ -8,7 +8,7 @@ import ExecutionList from "../components/lists/ExecutionList";
 import PermanentGoodsList from "../components/lists/PermanentGoodsList";
 import ResourceApplicationList from "../components/lists/ResourceApplicationList";
 import NoteList from "../components/lists/NoteList";
-import {fetchEntry} from "../utils/requests/fetch";
+import {fetchEntry} from "../utils/fetchData";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
 import {CategoryRounded, HomeRounded} from "@material-ui/icons";
 import OperationForm from "../components/forms/OperationForm";

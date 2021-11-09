@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types'
 import Cookies from "universal-cookie/lib";
-import Requester from "../components/core/feedback/requester/Requester";
+import Request from '/components/core/feedback/requester/request'
 import Host from "./Host";
 
 const cookies = new Cookies()
 export default async function submitAuthentication(props) {
     let res = null
 
-    await new Requester({
+    await Request({
         package: {
             email: `${props.email}${props.asManager ? '' : '@aeb.gov.br'}`,
             password: props.password,
@@ -16,17 +16,16 @@ export default async function submitAuthentication(props) {
             browser_engine: navigator.product,
             user_agent: navigator.userAgent
         },
-        url:`${Host(!props.asManager ? 'auth' : 'gateway')}${!props.asManager ? '/authentication' : '/manager/authenticate'}`,
+        url: `${Host(!props.asManager ? 'auth' : 'gateway')}${!props.asManager ? '/authentication' : '/manager/authenticate'}`,
         method: 'post',
         showSuccessAlert: true
     }).then(response => {
-        console.log(response.data)
+        console.log(response)
         if (props.asManager) {
             cookies.set('jwt', response.data.token)
             cookies.set('asManager', true)
-        }
-        else
-            cookies.set('jwt', response.data.token, {expires: new Date(response.data.exp)})
+        } else
+            cookies.set('jwt', response.data.token)
         res = response.data
     }).catch(error => console.log(error))
 

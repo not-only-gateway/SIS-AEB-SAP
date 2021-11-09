@@ -66,7 +66,7 @@
 }
 
 .pageContent {
-    /*align-self: stretch;*/
+
     display: flex;
     flex-flow: column;
     align-content: stretch;
@@ -81,4 +81,8 @@
     border-radius: 5px 5px 0 0;
     border: var(--mfc-border-primary) 1px solid;
 
+}
+.iframe {
+    width: 100%;
+    height: 100%;    padding: 0 10%;
 }

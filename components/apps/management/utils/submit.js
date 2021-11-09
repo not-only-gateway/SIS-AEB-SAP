@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import Host from "../shared/Host";
+import Host from "./host";
 import Cookies from "universal-cookie/lib";
-import Requester from "../../../../core/feedback/requester/Requester";
+import Request from "../../../core/feedback/requester/request";
 
 export default async function submit(props) {
     let response = {
@@ -19,7 +19,7 @@ export default async function submit(props) {
 
     })
     console.log(data)
-    await Requester({
+    await Request({
         method: props.create ? 'post' : 'put',
         url: props.url ? props.url : Host(props.prefix) + props.suffix,
         showSuccessAlert: true,

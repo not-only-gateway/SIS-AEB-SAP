@@ -15,11 +15,11 @@ import {
     PersonAddRounded,
     PersonRounded
 } from "@material-ui/icons";
-import Profile from "./apps/profile/Profile";
-import LayoutProfile from './core/navigation/layout/components/profile/Profile'
+import Profile from "./core/navigation/profile/Profile"
 import ThemeProvider from "./core/misc/theme/ThemeProvider";
-import SideBar from "./core/navigation/layout/components/sidebar/SideBar";
-import Apps from "./core/navigation/layout/components/apps/Apps";
+import SideBar from "./core/navigation/sidebar/SideBar";
+import Apps from "./core/navigation/apps/Apps";
+
 
 export default function AppWrapper(props) {
     const [openSideBar, setOpenSideBar] = useState(false)
@@ -78,7 +78,7 @@ export default function AppWrapper(props) {
                 >
                     <Authenticator
                         setManager={setManager} setProfile={setProfile}
-                        redirect={() => setOpenAuthentication(false)}
+                        redirect={() => setOpenAuthentication(false)} open={openAuthentication}
                     />
                 </Modal>
                 <Layout
@@ -97,7 +97,7 @@ export default function AppWrapper(props) {
                         logo={darkTheme ? '../dark.png' : '../light.png'}
                     />
 
-                    <LayoutProfile
+                    <Profile
                         profile={profile} disabledProfile={isManager}
                         registeredProfiles={profiles}
                         onProfileClick={() => router.push(router.pathname + '?page=profile')}
@@ -139,3 +139,4 @@ export default function AppWrapper(props) {
 AppWrapper.propTypes = {
     loading: PropTypes.bool,
 }
+

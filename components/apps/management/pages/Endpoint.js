@@ -1,13 +1,11 @@
-import styles from '../styles/Shared.module.css'
+import shared from '../styles/Shared.module.css'
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
 import EndpointForm from "../components/forms/EndpointForm";
 import {fetchEntry} from "../utils/fetch";
-import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";
 import EndpointPrivilegeList from "../components/lists/EndpointPrivilegeList";
-import Button from "../../../core/inputs/button/Button";
 import {CategoryRounded} from "@material-ui/icons";
+import {Breadcrumbs, Button, Tab, VerticalTabs} from "mfc-core";
 
 export default function Endpoint(props) {
     const [data, setData] = useState({})
@@ -19,7 +17,7 @@ export default function Endpoint(props) {
     }, [])
 
     return (
-        <>
+        <div className={shared.pageWrapper}>
             <div style={{
                 background: 'var(--mfc-background-primary)'
             }}>
@@ -30,7 +28,7 @@ export default function Endpoint(props) {
                     </Button>
                     <Button variant={'minimal'}
                             onClick={() => props.redirect('/management?page=service&id=' + data.service.id)}>
-                        {data.service?.denomination} (serviço)
+                        {data?.service?.denomination} (serviço)
                     </Button>
                     <Button variant={'minimal'} disabled={true}>
                         {data.denomination}
@@ -39,38 +37,28 @@ export default function Endpoint(props) {
 
             </div>
 
-            <div className={styles.header}
+            <div className={shared.header}
                  style={{padding: '16px 24px'}}>
                 {data?.denomination}
-                <div className={styles.typeLabel}>
+                <div className={shared.typeLabel}>
                     <CategoryRounded style={{fontSize: '1.15rem'}}/> Endpoint
                 </div>
             </div>
-            <VerticalTabs classes={[
-                {
-                    buttons: [{
-                        label: 'Informações',
-                        children: (
-                            <div className={styles.contentWrapper} style={{paddingTop: '32px'}}>
-                                {Object.keys(data).length > 0 ?
-                                    <EndpointForm initialData={data} updateData={setData}/> : null}
-                            </div>
-                        ),
-                    }]
-                },
-                {
-                    label: 'Relações',
-                    buttons: [{
-                        label: 'Privilégios',
-                        children: (
-                            <div className={styles.contentWrapper}>
-                                <EndpointPrivilegeList endpoint={props.query.id}/>
-                            </div>
-                        )
-                    }]
-                }
-            ]}/>
-        </>
+            <div className={shared.pageContent}>
+                <VerticalTabs
+                    className={shared.wrapper}
+                    styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset'}}
+                >
+                    <Tab label={'Informações'} className={shared.tabWrapper}>
+                        {Object.keys(data).length > 0 ?
+                            <EndpointForm initialData={data} updateData={setData}/> : null}
+                    </Tab>
+                    <Tab label={'Privilégios'} group={'Relações'} className={shared.tabWrapper}>
+                        <EndpointPrivilegeList endpoint={props.query.id}/>
+                    </Tab>
+                </VerticalTabs>
+            </div>
+        </div>
     )
 }
 

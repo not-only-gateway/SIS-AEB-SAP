@@ -1,11 +1,11 @@
 import Cookies from "universal-cookie/lib";
 import PropTypes from "prop-types";
-import Requester from "../../../../core/feedback/requester/Requester";
-import Host from "../shared/Host";
+import Request from "../../../core/feedback/requester/request";
+import Host from "./host";
 
 export async function fetchEntry(props) {
     let response = {}
-    await Requester({
+    await Request({
         method: 'get',
         url: Host() + props.suffix,
         headers: {'authorization': (new Cookies()).get('jwt')},

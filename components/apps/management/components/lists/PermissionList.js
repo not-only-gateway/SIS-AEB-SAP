@@ -8,8 +8,8 @@ import {permissionKeys} from "../../keys/keys";
 import PropTypes from 'prop-types'
 import Selector from "../../../../core/inputs/selector/Selector";
 import {DeleteRounded} from "@material-ui/icons";
-import deleteEntry from "../../utils/requests/delete";
-import Host from "../../utils/shared/Host";
+import deleteEntry from "../../utils/delete";
+import Host from "../../utils/host";
 import EndpointPrivilegeForm from "../forms/EndpointPrivilegeForm";
 
 export default function PermissionList(props) {
@@ -31,8 +31,8 @@ export default function PermissionList(props) {
                             hook.clean()
                             deleteEntry({
                                 prefix: 'auth',
-                                pk:  props.accessProfile,
-                                fk:  e.id,
+                                pk: props.accessProfile,
+                                fk: e.id,
                                 url: Host('auth') + '/access_profile/privilege'
                             }).then(() => hook.clean())
                         }
@@ -41,7 +41,7 @@ export default function PermissionList(props) {
                 :
                 null
             }
-            <Switcher openChild={openEntity ? 0 : 1}>
+            <Switcher openChild={openEntity ? 0 : 1} styles={{width: '100%', height: '100%'}}>
 
 
                 <div style={{marginTop: '48px'}}>
