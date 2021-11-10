@@ -15,8 +15,7 @@ import OperationForm from "../components/forms/OperationForm";
 import ActionItemList from "../components/lists/ActionItemList";
 import Button from "../../../core/inputs/button/Button";
 import Tab from "../../../core/navigation/tabs/Tab";
-import InfrastructureForm from "../components/forms/InfrastructureForm";
-import InfrastructureComponentsList from "../components/lists/InfrastructureComponentsList";
+import {ToolTip} from "mfc-core";
 
 
 export default function OperationPhase(props) {
@@ -68,30 +67,48 @@ export default function OperationPhase(props) {
                     <HomeRounded style={{fontSize: '1.1rem'}}/> Início
                 </Button>
                 <Button variant={"minimal"}
-                        onClick={() => props.redirect('/sap?page=project&id=' + operation.work_plan?.activity_project.id)}>
-                    {operation.work_plan?.activity_project.name} (Projeto / Atividade)
+                        onClick={() => props.redirect('/sap?page=project&id=' + operation.work_plan?.activity_project.id)}
+                        className={shared.button}>
+                    {operation.work_plan?.activity_project.name}
+                    <ToolTip>
+                        Projeto / Atividade
+                    </ToolTip>
                 </Button>
                 <Button variant={"minimal"}
-                        onClick={() => props.redirect('/sap?page=ted&id=' + operation.work_plan?.ted.id)}>
-                    {operation.work_plan?.ted.number} (Instrumento de celebração)
+                        onClick={() => props.redirect('/sap?page=ted&id=' + operation.work_plan?.ted.id)}
+                        className={shared.button}>
+                    {operation.work_plan?.ted.number}
+                    <ToolTip>
+                        Instrumento de celebração
+                    </ToolTip>
                 </Button>
                 <Button variant={"minimal"}
-                        onClick={() => props.redirect('/sap?page=wp&id=' + operation.work_plan?.id)}>
-                    {operation.work_plan?.object} (Plano de trabalho)
+                        onClick={() => props.redirect('/sap?page=wp&id=' + operation.work_plan?.id)}
+                        className={shared.button}>
+                    {operation.work_plan?.object}
+                    <ToolTip>
+                        Plano de trabalho
+                    </ToolTip>
+
+                </Button>
+
+                <Button variant={"minimal"}
+                        onClick={() => props.redirect('/sap?page=wp&id=' + operation.work_plan?.id)}
+                        className={shared.button}>
+                    {operation.goal?.goal_number}
+                    <ToolTip>
+                        Meta
+                    </ToolTip>
                 </Button>
                 <Button variant={"minimal"}
-                        onClick={() => props.redirect('/sap?page=wp&id=' + operation.work_plan?.id)}>
-                    {operation.work_plan?.object} (Plano de trabalho)
+                        onClick={() => props.redirect('/sap?page=wp&id=' + operation.work_plan?.id)}
+                        className={shared.button}>
+                    {operation.activity_stage?.stage}
+                    <ToolTip>
+                        Etapa
+                    </ToolTip>
                 </Button>
-                <Button variant={"minimal"}
-                        onClick={() => props.redirect('/sap?page=wp&id=' + operation.work_plan?.id)}>
-                    {operation.goal?.goal_number} (Meta)
-                </Button>
-                <Button variant={"minimal"}
-                        onClick={() => props.redirect('/sap?page=wp&id=' + operation.work_plan?.id)}>
-                    {operation.activity_stage?.stage} (Etapa)
-                </Button>
-                <Button highlight={true} variant={'minimal'}>
+                <Button highlight={true} variant={'minimal'} className={shared.button}>
                     {operation.phase}
                 </Button>
             </Breadcrumbs>

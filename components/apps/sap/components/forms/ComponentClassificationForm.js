@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Selector, TextField} from "mfc-core";
+import { TextField} from "mfc-core";
 import Form from "../../../../core/inputs/form/Form";
 import PropTypes from "prop-types";
 import EntitiesPT from "../../locales/EntitiesPT";
@@ -15,6 +15,7 @@ import FormRow from "../../../../core/inputs/form/FormRow";
 import tedKeys from "../../keys/tedKeys";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";
+import Selector from "../../../../core/inputs/selector/Selector";
 
 
 export default function ComponentClassificationForm(props) {
@@ -63,17 +64,17 @@ export default function ComponentClassificationForm(props) {
 
                             handleChange({
                                 event: event.target.value,
-                                key: 'classification'
+                                key: 'description'
                             })
-                        }} value={data.classification}
+                        }} value={data.description}
                         required={true}
                         width={'calc(50% - 16px'}/>
                     <Selector
                         hook={typeHook}
                         placeholder={'Tipo'}
                         title={'Tipo'}
-                        handleChange={e => handleChange({event: e, key: 'classification_type '})}
-                        value={data.classification_type } width={'calc(50% - 16px)'} required={true}
+                        handleChange={e => handleChange({event: e, key: 'classification_type'})}
+                        value={data.classification_type} width={'calc(50% - 16px)'} required={true}
                         keys={associativeKeys.type}
                         createOption={true}
                     >

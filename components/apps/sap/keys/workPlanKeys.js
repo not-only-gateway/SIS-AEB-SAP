@@ -1,6 +1,49 @@
 import getQuery from "../utils/getQuery";
 
-export default {
+const QUERIES = {
+    goal: {
+        ...getQuery('work_plan_goal'), ...{
+            keys: [{
+                key: 'goal_number',
+                type: 'string',
+                label: 'Número da meta',
+                visible: true
+            }]
+        }
+    },
+    nature: {
+        ...getQuery('nature_of_expense'), ...{
+            keys: [{
+                key: 'nature_of_expense',
+                type: 'string',
+                label: 'Natureza de despesa',
+                visible: true
+            }]
+        }
+    },
+    infrastructure: {
+        ...getQuery('infrastructure'), ...{
+            keys: [{
+                key: 'name',
+                type: 'string',
+                label: 'Nome',
+                visible: true
+            }]
+        }
+    },
+    unit: {...getQuery('unit'), ...{keys: [{key: 'acronym', type: 'string', label: 'Acrônomo', visible: true}]}},
+    budget_plan: {
+        ...getQuery('budget_plan'), ...{
+            keys: [{
+                key: 'number',
+                type: 'string',
+                label: 'Número',
+                visible: true
+            }]
+        }
+    },
+}
+const KEYS = {
     action: [
         {key: 'id', type: 'number', label: 'ID'},
         {key: 'detailing', type: 'string', label: 'Detalhamento', visible: true},
@@ -10,7 +53,7 @@ export default {
         {key: 'id', type: 'number', label: 'ID'},
         {
             key: 'goal', type: 'object', subfieldKey: 'goal_number', subtype: 'string', label: 'Meta', visible: true,
-            query: getQuery('work_plan_goal')
+            query: QUERIES?.goal
         },
         {key: 'stage', type: 'string', label: 'Etapa', visible: true},
         {key: 'description', type: 'string', label: 'Descrição', visible: true},
@@ -25,7 +68,8 @@ export default {
         {key: 'execution_date', type: 'date', label: 'Data da execução', visible: true},
         {key: 'description', type: 'string', label: 'Descrição', visible: true},
         {key: 'difficulties', type: 'string', label: 'Dificuldades'},
-        {key: 'measures_taken', type: 'string', label: 'Medidas tomadas'}
+        {key: 'measures_taken', type: 'string', label: 'Medidas tomadas'},
+        // {key: 'measures_taken', type: 'string', label: 'Medidas tomadas'}
     ],
     financialDisbursement: [
         {key: 'id', type: 'number', label: 'ID'},
@@ -85,7 +129,7 @@ export default {
             visible: true,
             subfieldKey: 'nature_of_expense',
             subType: 'string',
-            query: getQuery('nature_of_expense')
+            query: QUERIES?.nature
         },
     ],
     status: [
@@ -100,11 +144,11 @@ export default {
         {
             key: 'responsible',
             type: 'object',
-            label: 'Responsável',
+            label: 'Unidade da AEB responsável',
             visible: true,
             subfieldKey: 'acronym',
             subType: 'string',
-            query: getQuery('unit')
+            query: QUERIES?.unit
         },
         {key: 'object', type: 'string', label: 'Objeto', visible: true},
         {key: 'email', type: 'string', label: 'Email'},
@@ -115,7 +159,7 @@ export default {
             label: 'Infraestrutura',
             subfieldKey: 'name',
             subType: 'string',
-            query: getQuery('infrastructure')
+            query: QUERIES?.infrastructure
         },
         {key: 'ways_of_execution', type: 'string', label: 'Formas de execução'},
         {key: 'sub_decentralization', type: 'bool', label: 'Sub-descentralização'},
@@ -130,9 +174,12 @@ export default {
             visible: true,
             subfieldKey: 'number',
             subType: 'string',
-            query: getQuery('budget_plan')
+            query: QUERIES?.budget_plan
         },
+
         {key: 'responsible_execution', type: 'string', label: 'Responsável pela execução'},
         {key: 'func', type: 'string', label: 'Função'}
     ],
 }
+
+export default KEYS

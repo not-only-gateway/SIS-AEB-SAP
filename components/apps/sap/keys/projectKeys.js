@@ -1,6 +1,10 @@
 import getQuery from "../utils/getQuery";
 
-export default {
+const QUERIES = {
+    unit: {...getQuery('unit'), ...{keys: [{key: 'acronym', type: 'string', label: 'Acrônomo', visible: true}]}},
+}
+
+const KEYS = {
     project: [
         {key: 'id', type: 'number', label: 'ID'},
         {key: 'name', type: 'string', label: 'Nome', visible: true},
@@ -15,13 +19,21 @@ export default {
         {key: 'scope', type: 'string', label: 'Escopo'},
         {key: 'critical_factors', type: 'string', label: 'Fatores críticos'},
         {key: 'type', type: 'string', label: 'Tipo', visible: true},
-        {key: 'responsible', type: 'object', label: 'Responsável', subfieldKey: 'acronym', subType: 'string', query: getQuery('unit')},
+        {
+            key: 'responsible',
+            type: 'object',
+            label: 'Unidade da AEB responsável',
+            subfieldKey: 'acronym',
+            subType: 'string',
+            query: QUERIES.unit
+        },
         {key: 'lessons_learned', type: 'string', label: 'Lições aprendidas'}
     ],
     risks: [
         {key: 'id', type: 'number', label: 'ID', visible: false},
         {key: 'description', type: 'string', label: 'Descrição', visible: true},
-        {key: 'analysis', type: 'string', label: 'Análise', visible: true, getColor: field => {
+        {
+            key: 'analysis', type: 'string', label: 'Análise', visible: true, getColor: field => {
                 let res = undefined
                 switch (field.toLowerCase()) {
                     case 'baixo': {
@@ -40,7 +52,8 @@ export default {
                         break
                 }
                 return res
-            }}
+            }
+        }
     ],
     goal: [
         {key: 'id', type: 'number', label: 'ID', visible: false},
@@ -82,3 +95,4 @@ export default {
         }
     ]
 }
+export default KEYS

@@ -9,6 +9,8 @@ import Switcher from "../../../../core/navigation/switcher/Switcher";
 import deleteEntry from "../../utils/delete";
 import getQuery from "../../utils/getQuery";
 import useQuery from "../../../../core/visualization/hooks/useQuery";
+import projectKeys from "../../keys/projectKeys";
+import tedKeys from "../../keys/tedKeys";
 
 export default function WorkPlanList(props) {
     const [open, setOpen] = useState(false)
@@ -32,7 +34,7 @@ export default function WorkPlanList(props) {
                 type: 'object',
                 subfieldKey: 'number',
                 visible: true,
-                query: getQuery('ted')
+                query: {...getQuery('ted'), ...{keys: tedKeys.ted}}
             })
         if (!props.ted)
             value.push({
@@ -41,7 +43,7 @@ export default function WorkPlanList(props) {
                 type: 'object',
                 subfieldKey: 'name',
                 visible: true,
-                query: getQuery('project')
+                query: {...getQuery('project'), ...{keys: projectKeys.project}}
             })
         return value
     }, [props])

@@ -20,7 +20,6 @@ import ThemeProvider from "./core/misc/theme/ThemeProvider";
 import SideBar from "./core/navigation/sidebar/SideBar";
 import Apps from "./core/navigation/apps/Apps";
 
-
 export default function AppWrapper(props) {
     const [openSideBar, setOpenSideBar] = useState(false)
     const {

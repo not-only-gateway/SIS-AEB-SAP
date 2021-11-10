@@ -1,6 +1,14 @@
 import getQuery from "../utils/getQuery";
 
-export default {
+const QUERIES = {
+    action: {...getQuery('action'), ...{keys: [{key: 'number', type: 'string', label: 'Número', visible: true}]}},
+    type: {...getQuery('type'), ...{keys: [{key: 'type', type: 'string', label: 'Tipo', visible: true}]}},
+    classification: {...getQuery('classification'), ...{keys: [{key: 'description', type: 'string', label: 'Classificação', visible: true}]}},
+    infrastructure: {...getQuery('infrastructure'), ...{keys: [{key: 'name', type: 'string', label: 'Nome', visible: true}]}},
+    unit: {...getQuery('unit'), ...{keys: [  {key: 'acronym', type: 'string', label: 'Acrônomo', visible: true}]}},
+}
+
+const KEYS = {
     projectTed: [
         {
             key: 'activity_project',
@@ -36,14 +44,14 @@ export default {
             visible: true,
             subfieldKey: 'number',
             subType: 'string',
-            query: getQuery('action')
+            query: QUERIES?.action
         },
         {key: 'number', type: 'string', label: 'Número', visible: true},
         {key: 'detailing', type: 'string', label: 'Detalhamento', visible: true}
     ],
     classification: [
         {key: 'id', type: 'number', label: 'ID', visible: false},
-        {key: 'classification', type: 'string', label: 'Classificação', visible: true},
+        {key: 'description', type: 'string', label: 'Classificação', visible: true},
         {
             key: 'classification_type',
             type: 'object',
@@ -51,7 +59,7 @@ export default {
             visible: true,
             subfieldKey: 'type',
             subType: 'string',
-            query: getQuery('type')
+            query:QUERIES?.type
         }
     ],
     components: [
@@ -64,7 +72,7 @@ export default {
             visible: true,
             subfieldKey: 'classification',
             subType: 'string',
-            query: getQuery('classification')
+            query: QUERIES?.classification
         },
         {
             key: 'infrastructure',
@@ -73,7 +81,7 @@ export default {
             visible: true,
             subfieldKey: 'name',
             subType: 'string',
-            query: getQuery('infrastructure')
+            query: QUERIES?.infrastructure
         }
     ],
     decentralizedUnit: [
@@ -89,11 +97,11 @@ export default {
         {
             key: 'responsible',
             type: 'object',
-            label: 'Responsável',
+            label: 'Unidade da AEB responsável',
             visible: true,
             subfieldKey: 'acronym',
             subType: 'string',
-            query: getQuery('unit')
+            query: QUERIES?.unit
         }
     ],
     infrastructure: [
@@ -117,3 +125,6 @@ export default {
         {key: 'name', type: 'string', label: 'Nome', visible: true}
     ],
 }
+
+
+export default KEYS

@@ -17,6 +17,7 @@ import Button from "../../../core/inputs/button/Button";
 import PermanentGoodsList from "../components/lists/PermanentGoodsList";
 import Tab from "../../../core/navigation/tabs/Tab";
 import TedForm from "../components/forms/TedForm";
+import {ToolTip} from "mfc-core";
 
 export default function WorkPlan(props) {
     const [workPlan, setWorkPlan] = useState({})
@@ -47,14 +48,20 @@ export default function WorkPlan(props) {
                 </Button>
 
                 <Button variant={'minimal'}
-                        onClick={() => props.redirect('/sap?page=ted&id=' + workPlan?.ted?.id)}>
-                    {workPlan?.ted?.number} (Instrumento de celebração)
+                        onClick={() => props.redirect('/sap?page=ted&id=' + workPlan?.ted?.id)} className={shared.button}>
+                    {workPlan?.ted?.number}
+                    <ToolTip>
+                        Instrumento de celebração
+                    </ToolTip>
                 </Button>
                 <Button variant={'minimal'}
-                        onClick={() => props.redirect('/sap?page=project&id=' + workPlan.activity_project.id)}>
-                    {workPlan.activity_project?.name} (Projeto)
+                        onClick={() => props.redirect('/sap?page=project&id=' + workPlan.activity_project.id)} className={shared.button}>
+                    {workPlan.activity_project?.name}
+                    <ToolTip>
+                        Projeto
+                    </ToolTip>
                 </Button>
-                <Button highlight={true} variant={'minimal'}>
+                <Button highlight={true} variant={'minimal'} className={shared.button}>
                     {workPlan?.object}
                 </Button>
             </Breadcrumbs>

@@ -44,7 +44,7 @@ export default function Ted(props) {
                 </Button>
                 {!ted.ted ? null :
                     <Button variant={"minimal"}
-                            onClick={() => props.redirect('/sap?page=ted&id=' + ted.ted.id)}>
+                            onClick={() => props.redirect('/sap?page=ted&id=' + ted.ted.id)} className={shared.button}>
                         {ted.ted.number} (Instrumento de celebração)
                     </Button>
                 }
@@ -72,13 +72,14 @@ export default function Ted(props) {
                     <Tab label={'Termos aditivos'} group={'Informações adicionais'} className={shared.tabWrapper}>
                         <TedList ted={ted} redirect={props.redirect}/>
                     </Tab>
-                    <Tab label={'Acesso rápido'} group={'Informações adicionais'} className={shared.tabWrapper}>
-                        <WorkPlanList ted={ted} redirect={props.redirect}/>
-                    </Tab>
-                    <Tab label={'Projetos / Atividades relacionados'} group={'Informações adicionais'}
+                    <Tab label={'Projetos / Atividades relacionados'} group={'Acesso rápido'}
                          className={shared.tabWrapper}>
                         <ProjectTedList ted={ted} redirect={props.redirect}/>
                     </Tab>
+                    <Tab label={'Planos de trabalho'} group={'Acesso rápido'} className={shared.tabWrapper}>
+                        <WorkPlanList ted={ted} redirect={props.redirect}/>
+                    </Tab>
+
                 </VerticalTabs>
             </div>
         </div>

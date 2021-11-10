@@ -21,7 +21,7 @@ export default function ServiceForm(props) {
     return (
         <Form
             hook={formHook}
-            title={props.create? 'Novo serviço' : 'Serviço'}
+            title={props.create ? 'Novo serviço' : 'Serviço'}
             handleClose={() => props.handleClose()}
             returnButton={props.create}
             handleSubmit={(data, clearState) => {
@@ -57,7 +57,7 @@ export default function ServiceForm(props) {
                     />
                     <TextField
                         placeholder={'Host'} value={data.host}
-                        label={'Host'} disabled={false} mask={'999.999.9.999'}
+                        label={'Host'} disabled={false}
                         handleChange={e => handleChange({event: e.target.value, key: 'host'})}
                         required={true} width={'calc(50% - 16px)'}
                     />

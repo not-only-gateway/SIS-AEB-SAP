@@ -69,14 +69,14 @@ export default function Project(props) {
                         <ProjectGoalList project={project}/>
                     </Tab>
 
-
-                    <Tab label={'Planos de trabalho'} group={'Acesso rápido'} className={shared.tabWrapper}>
-                        <WorkPlanList project={project} redirect={props.redirect}/>
-                    </Tab>
                     <Tab label={'Instrumentos de celebração relacionados'} group={'Acesso rápido'}
                          className={shared.tabWrapper}>
                         <ProjectTedList project={project} redirect={props.redirect}/>
                     </Tab>
+                    <Tab label={'Planos de trabalho'} group={'Acesso rápido'} className={shared.tabWrapper}>
+                        <WorkPlanList project={project} redirect={props.redirect}/>
+                    </Tab>
+
                 </VerticalTabs>
             </div>
 

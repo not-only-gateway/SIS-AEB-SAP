@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from 'prop-types'
 import ProjectPT from "../../locales/ProjectPT";
 import {DropDownField, useQuery} from "mfc-core";
@@ -6,14 +6,10 @@ import getQuery from "../../utils/getQuery";
 import Selector from "../../../../core/inputs/selector/Selector";
 import associativeKeys from "../../keys/associativeKeys";
 import Form from "../../../../core/inputs/form/Form";
-import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
-import Cookies from "universal-cookie/lib";
 import submit from "../../utils/submit";
 import UnitForm from "./UnitForm";
-import Host from "../../utils/host";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import TextField from "../../../../core/inputs/text/TextField";
-import tedKeys from "../../keys/tedKeys";
 import projectKeys from "../../keys/projectKeys";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";
@@ -31,158 +27,185 @@ export default function ProjectForm(props) {
             initialData={props.data}
         >
             {({setOpen, formHook, asDraft, asHistory}) => (
-        <Form
-            hook={formHook}
-            options={formOptions({
-                asDraft: asDraft,
-                asHistory: asHistory,
-                setOpen: setOpen,
-                create: props.create
-            })}
-            create={props.create}
-            title={props.create ? 'Novo projeto / atividade' : 'Projeto / Atividade'}
-            returnButton={props.create}
-            handleSubmit={(data, clearState) =>
-                submit({
-                    suffix: 'project',
-                    pk: data.id,
-                    data: data,
-                    create: props.create
-                }).then(res => {
-                    if (res.success && props.create)
-                        props.handleClose()
+                <Form
+                    hook={formHook}
+                    options={formOptions({
+                        asDraft: asDraft,
+                        asHistory: asHistory,
+                        setOpen: setOpen,
+                        create: props.create
+                    })}
+                    create={props.create}
+                    title={props.create ? 'Novo projeto / atividade' : 'Projeto / Atividade'}
+                    returnButton={props.create}
+                    handleSubmit={(data, clearState) =>
+                        submit({
+                            suffix: 'project',
+                            pk: data.id,
+                            data: data,
+                            create: props.create
+                        }).then(res => {
+                            if (res.success && props.create)
+                                props.handleClose()
 
-                })}
-            handleClose={() => props.handleClose()}
-        >
-            {(data, handleChange) => (
-                <FormRow>
-                    <TextField
-                        placeholder={lang.name} label={lang.name}
-                        value={data.name}
-                        handleChange={event => handleChange({key: 'name', event: event.target.value})}
-                        required={true}
-                        width={'calc(33.333% - 21.5px)'}
-                    />
+                        })}
+                    handleClose={() => props.handleClose()}
+                >
+                    {(data, handleChange) => (
+                        <>
+                            <FormRow>
+                                <TextField
+                                    placeholder={lang.name} label={lang.name}
+                                    value={data.name}
+                                    handleChange={event => handleChange({key: 'name', event: event.target.value})}
+                                    required={true}
+                                    width={'calc(33.333% - 21.5px)'}
+                                />
 
-                    <TextField
-                        type={'number'}
-                        placeholder={lang.estimatedValue}
-                        label={lang.estimatedValue}
-                        value={data.estimated_value}
-                        handleChange={event => handleChange({key: 'estimated_value', event: event.target.value})}
-                        maskStart={'R$'}
-                        required={true} currencyMask={true}
-                        width={'calc(33.333% - 21.5px)'}/>
-                    <DropDownField
-                        placeholder={lang.type}
-                        label={lang.type}
-                        handleChange={event => handleChange({key: 'type', event: event})}
-                        value={data.type} required={true}
-                        width={'calc(33.333% - 21.5px)'} choices={lang.projectTypes}/>
-                    <TextField
-                        variant={'area'}
-                        placeholder={lang.description} label={lang.description}
-                        handleChange={event => handleChange({key: 'description', event: event.target.value})}
-                        value={data.description}
-                        required={true}
-                        width={'100%'}/>
-                    <TextField
-                        variant={'area'}
-                        placeholder={lang.projectObjectives}
-                        label={lang.projectObjectives}
+                                <TextField
+                                    type={'number'}
+                                    placeholder={lang.estimatedValue}
+                                    label={lang.estimatedValue}
+                                    value={data.estimated_value}
+                                    handleChange={event => handleChange({
+                                        key: 'estimated_value',
+                                        event: event.target.value
+                                    })}
+                                    maskStart={'R$'}
+                                    required={true} currencyMask={true}
+                                    width={'calc(33.333% - 21.5px)'}/>
+                                <DropDownField
+                                    placeholder={lang.type}
+                                    label={lang.type}
+                                    handleChange={event => handleChange({key: 'type', event: event})}
+                                    value={data.type} required={true}
+                                    width={'calc(33.333% - 21.5px)'} choices={lang.projectTypes}/>
+                                <TextField
+                                    variant={'area'}
+                                    placeholder={lang.description} label={lang.description}
+                                    handleChange={event => handleChange({
+                                        key: 'description',
+                                        event: event.target.value
+                                    })}
+                                    value={data.description}
+                                    required={true}
+                                    width={'100%'}/>
+                                <TextField
+                                    variant={'area'}
+                                    placeholder={lang.projectObjectives}
+                                    label={lang.projectObjectives}
 
-                        handleChange={event => handleChange({key: 'objectives', event: event.target.value})}
-                        value={data.objectives}
-                        required={true} width={'100%'}/>
-                    <TextField
-                        variant={'area'}
-                        placeholder={lang.scope}
-                        label={lang.scope}
+                                    handleChange={event => handleChange({key: 'objectives', event: event.target.value})}
+                                    value={data.objectives}
+                                    required={true} width={'100%'}/>
+                                <TextField
+                                    variant={'area'}
+                                    placeholder={lang.scope}
+                                    label={lang.scope}
 
-                        handleChange={event => handleChange({key: 'scope', event: event.target.value})}
-                        value={data.scope}
-                        required={true} width={'100%'}/>
+                                    handleChange={event => handleChange({key: 'scope', event: event.target.value})}
+                                    value={data.scope}
+                                    required={true} width={'100%'}/>
 
-                    <TextField
-                        variant={'area'}
-                        placeholder={lang.criticalFactors}
-                        label={lang.criticalFactors}
-                        handleChange={event => handleChange({key: 'critical_factors', event: event.target.value})}
-                        value={data.critical_factors}
-                        required={true} width={'100%'}/>
+                                <TextField
+                                    variant={'area'}
+                                    placeholder={lang.criticalFactors}
+                                    label={lang.criticalFactors}
+                                    handleChange={event => handleChange({
+                                        key: 'critical_factors',
+                                        event: event.target.value
+                                    })}
+                                    value={data.critical_factors}
+                                    required={true} width={'100%'}/>
+                            </FormRow>
+                            <FormRow>
 
-                    <Selector
-                        hook={unitHook} keys={associativeKeys.responsible}
-                        width={'calc(50% - 16px)'}
-                        required={true}
-                        value={data.responsible}
-                        title={'Responsável'}
-                        placeholder={'Responsável'}
-                        handleChange={entity => handleChange({key: 'responsible', event: entity})}
-                        createOption={true}
-                    >
-                        {handleClose => (
-                            <UnitForm create={true} asDefault={true} handleClose={() => handleClose()}/>
-                        )}
-                    </Selector>
+                                <Selector
+                                    hook={unitHook} keys={associativeKeys.responsible}
+                                    width={'calc(50% - 16px)'}
+                                    required={true}
+                                    value={data.responsible}
+                                    title={'Unidade da AEB responsável'}
+                                    placeholder={'Unidade da AEB responsável'}
+                                    handleChange={entity => handleChange({key: 'responsible', event: entity})}
+                                    createOption={true}
+                                >
+                                    {handleClose => (
+                                        <UnitForm create={true} asDefault={true} handleClose={() => handleClose()}/>
+                                    )}
+                                </Selector>
 
-                    <TextField
-                        placeholder={lang.manager}
-                        label={lang.manager}
-                        handleChange={event => handleChange({key: 'manager', event: event.target.value})}
-                        value={data.manager}
-                        required={true}
-                        width={'calc(50% - 16px)'}/>
+                                <TextField
+                                    placeholder={lang.manager}
+                                    label={lang.manager}
+                                    handleChange={event => handleChange({key: 'manager', event: event.target.value})}
+                                    value={data.manager}
+                                    required={true}
+                                    width={'calc(50% - 16px)'}/>
 
-                    <TextField
-                        variant={'area'}
-                        placeholder={lang.publicTeam}
-                        label={lang.publicTeam}
-                        handleChange={event => handleChange({key: 'public_sector_team', event: event.target.value})}
-                        value={data.public_sector_team}
-                        required={true}
-                        width={'100%'}/>
-                    <TextField
-                        variant={'area'}
-                        placeholder={lang.privateTeam}
-                        label={lang.privateTeam}
+                                <TextField
+                                    variant={'area'}
+                                    placeholder={lang.publicTeam}
+                                    label={lang.publicTeam}
+                                    handleChange={event => handleChange({
+                                        key: 'public_sector_team',
+                                        event: event.target.value
+                                    })}
+                                    value={data.public_sector_team}
+                                    required={true}
+                                    width={'100%'}/>
+                                <TextField
+                                    variant={'area'}
+                                    placeholder={lang.privateTeam}
+                                    label={lang.privateTeam}
 
-                        handleChange={event => handleChange({key: 'private_sector_team', event: event.target.value})}
-                        value={data.private_sector_team}
-                        required={true}
-                        width={'100%'}/>
+                                    handleChange={event => handleChange({
+                                        key: 'private_sector_team',
+                                        event: event.target.value
+                                    })}
+                                    value={data.private_sector_team}
+                                    required={true}
+                                    width={'100%'}/>
 
-                    <TextField
-                        variant={'area'}
-                        placeholder={lang.sponsor} label={lang.sponsor}
+                                <TextField
+                                    variant={'area'}
+                                    placeholder={lang.sponsor} label={lang.sponsor}
 
-                        handleChange={event => handleChange({key: 'sponsor', event: event.target.value})}
-                        value={data.sponsor}
-                        required={true}
-                        width={'100%'}/>
+                                    handleChange={event => handleChange({key: 'sponsor', event: event.target.value})}
+                                    value={data.sponsor}
+                                    required={true}
+                                    width={'100%'}/>
 
-                    <TextField
-                        variant={'area'}
-                        placeholder={lang.stakeholders}
-                        label={lang.stakeholders}
-                        handleChange={event => handleChange({key: 'stakeholders', event: event.target.value})}
-                        value={data.stakeholders}
-                        required={true} width={'100%'}/>
+                                <TextField
+                                    variant={'area'}
+                                    placeholder={lang.stakeholders}
+                                    label={lang.stakeholders}
+                                    handleChange={event => handleChange({
+                                        key: 'stakeholders',
+                                        event: event.target.value
+                                    })}
+                                    value={data.stakeholders}
+                                    required={true} width={'100%'}/>
 
-                    <TextField
-                        variant={'area'}
-                        placeholder={lang.learnedLessons}
-                        label={lang.learnedLessons}
-                        handleChange={event => handleChange({key: 'lessons_learned', event: event.target.value})}
-                        value={data.lessons_learned}
-                        required={true} width={'100%'}
-                    />
 
-                </FormRow>
-            )}
+                            </FormRow>
+                            <FormRow>
+                                <TextField
+                                    variant={'area'}
+                                    placeholder={lang.learnedLessons}
+                                    label={lang.learnedLessons}
+                                    handleChange={event => handleChange({
+                                        key: 'lessons_learned',
+                                        event: event.target.value
+                                    })}
+                                    value={data.lessons_learned}
+                                    required={true} width={'100%'}
+                                />
+                            </FormRow>
+                        </>
+                    )}
 
-        </Form>
+                </Form>
             )}
         </FormTemplate>
     )

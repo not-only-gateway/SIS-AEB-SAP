@@ -172,8 +172,8 @@ export default function TedForm(props) {
                                     width={'calc(33.333% - 21.5px)'}
                                     required={true}
                                     value={data.responsible}
-                                    title={'Responsável'}
-                                    placeholder={'Responsável'}
+                                    title={'Unidade da AEB responsável'}
+                                    placeholder={'Unidade da AEB responsável'}
                                     handleChange={entity => handleChange({key: 'responsible', event: entity})}
 
                                     createOption={true}

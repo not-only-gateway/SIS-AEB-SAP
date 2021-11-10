@@ -47,7 +47,7 @@ export default function UnitList(props) {
                     disabled: false,
                     color: '#ff5555'
                 }]}
-                title={'Unidades / Responsáveis'}
+                title={'Unidades da AEB'}
             />
         </Switcher>
     )

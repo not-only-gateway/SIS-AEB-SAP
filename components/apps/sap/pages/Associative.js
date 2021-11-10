@@ -48,7 +48,7 @@ export default function Associative(props) {
                     <DecentralizedUnitList/>
                 </Tab>
 
-                <Tab label={lang.unit} className={shared.tabWrapper}>
+                <Tab label={'Unidades da AEB'} className={shared.tabWrapper}>
                     <UnitList/>
                 </Tab>
 

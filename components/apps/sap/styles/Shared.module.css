@@ -1,16 +1,19 @@
 .header {
-    color: var(--mfc-color-primary);
-    font-size: 1.4rem;
+    color: var(--mfc-color-secondary);
+    font-size: 1.3rem;
     font-weight: 600;
     padding: 0 10%;
 
     background: var(--mfc-background-primary);
 
-    display: grid;
-    gap: 8px;
-    height: fit-content;
-    overflow: hidden;
+    /*display: grid;*/
+    /*gap: 8px;*/
+    /*height: fit-content;*/
 
+    max-width: 30%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .typeLabel {
@@ -54,8 +57,6 @@
 }
 
 
-
-
 .pageWrapper {
     display: flex;
     flex-flow: column;
@@ -82,7 +83,16 @@
     border: var(--mfc-border-primary) 1px solid;
 
 }
+
 .iframe {
     width: 100%;
-    height: 100%;    padding: 0 10%;
+    height: 100%;
+    padding: 0 10%;
+}
+
+.button{
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 10vw;
+    text-overflow: ellipsis;
 }

@@ -38,26 +38,50 @@ export default function ExecutionList(props) {
         }, [props]
     )
 
+    const keys = useMemo(() => {
+        if (props.workPlan)
+            return [ {
+
+                key: 'operation_phase',
+                type: 'object',
+                label: 'Fase/operação',
+                subfieldKey: 'phase',
+                subType: 'string',
+                query: {
+                    ...getQuery('operation_phase', undefined, [{
+                        key: 'activity_stage',
+                        sub_relation: {key: 'goal', sub_relation: {key: 'work_plan'}},
+                        value: props.workPlan.id,
+                        type: 'object'
+                    }]), ...{
+                        keys: workPlanKeys.operation
+                    }
+                },
+                visible: true
+
+            }, ...workPlanKeys.execution,]
+        else return workPlanKeys.execution
+    }, [props.workPlan])
     const hook = useQuery(getQuery('execution', undefined, relation))
 
     return (
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
 
-                <ExecutionForm
-                    handleClose={() => {
-                        setOpen(false)
-                        hook.clean()
-                    }}
-                    workPlan={props.workPlan}
-                    create={!currentEntity}
-                    data={currentEntity} operation={props.operation}
-                />
+            <ExecutionForm
+                handleClose={() => {
+                    setOpen(false)
+                    hook.clean()
+                }}
+                workPlan={props.workPlan}
+                create={!currentEntity}
+                data={currentEntity} operation={props.operation}
+            />
 
             <List
                 createOption={true}
                 onCreate={() => setOpen(true)}
                 hook={hook}
-                keys={workPlanKeys.execution}
+                keys={keys}
                 controlButtons={[{
                     label: 'Deletar',
                     icon: <DeleteRounded/>,

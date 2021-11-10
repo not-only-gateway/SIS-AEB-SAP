@@ -122,8 +122,8 @@ export default function WorkPlanForm(props) {
                                     width={(!props.ted && props.project) || (!props.project && props.ted) ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
                                     required={true}
                                     value={data.responsible}
-                                    title={'Responsável'}
-                                    placeholder={'Responsável'}
+                                    title={'Unidade da AEB responsável'}
+                                    placeholder={'Unidade da AEB responsável'}
                                     handleChange={entity => handleChange({key: 'responsible', event: entity})}
                                     createOption={true}
                                 >
@@ -183,7 +183,7 @@ export default function WorkPlanForm(props) {
                                     hook={infrastructureHook}
                                     keys={associativeKeys.infrastructure}
                                     width={'calc(50% - 16px)'}
-                                    required={true}
+
                                     value={data.infrastructure}
                                     title={'Infraestrutura'}
                                     placeholder={'Infraestrutura'}
