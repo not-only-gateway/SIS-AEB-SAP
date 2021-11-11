@@ -75,11 +75,14 @@ export default function NoteForm(props) {
 
 
                     <TextField
-                        placeholder={lang.value} label={lang.value} maskStart={'R$'} currencyMask={true}
+                        placeholder={lang.value} label={lang.value}
+                        maskStart={'R$'}
+                        floatFilter={true}
                         handleChange={event => {
 
                             handleChange({key: 'value', event: event.target.value})
                         }} value={data.value}
+
                         required={true} type={'number'}
                         width={'calc(50% - 16px)'}/>
 

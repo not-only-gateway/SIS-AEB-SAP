@@ -85,7 +85,7 @@ export default function ActivityStageForm(props) {
                         handleChange={event => {
 
                             handleChange({key: 'representation', event: event.target.value})
-                        }} currencyMask={true} maskEnd={'%'}
+                        }} floatFilter={true} maskEnd={'%'}
                         value={data.representation}
                         required={true} type={'number'}
                         width={props.goal !== null && props.goal !== undefined ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}/>

@@ -11,7 +11,7 @@ const KEYS = {
         {key: 'sponsor', type: 'string', label: 'Patrocinador'},
         {key: 'estimated_value', type: 'number', label: 'Custo estimado', visible: true, maskStart: 'R$'},
         {key: 'description', type: 'string', label: 'Descrição', visible: true},
-        {key: 'manager', type: 'string', label: 'Gerente'},
+        {key: 'manager', type: 'string', label: 'Gerente na Descentralizada'},
         {key: 'public_sector_team', type: 'string', label: 'Equipe do setor público'},
         {key: 'private_sector_team', type: 'string', label: 'Equipe do setor privado'},
         {key: 'objectives', type: 'string', label: 'Objetivos'},

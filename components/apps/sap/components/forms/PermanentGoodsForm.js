@@ -14,7 +14,7 @@ import formOptions from "../../templates/formOptions";
 export default function PermanentGoodsForm(props) {
     const lang = PermanentGoodsPT
     const initialData = useMemo(() => {
-        return props.create ? {...props.data, ...{operation_phase: props.operation.id}} : props.data
+        return props.create ? {...props.data, ...{operation_phase: props.operation?.id}} : props.data
     }, [props])
 
 
@@ -78,7 +78,8 @@ export default function PermanentGoodsForm(props) {
 
                                     handleChange({key: 'unit_price', event: event.target.value})
                                 }} value={data.unit_price}
-                                required={true} type={'number'} maskStart={'R$'} currencyMask={true}
+                                required={true} type={'number'} maskStart={'R$'}
+                                floatFilter={true}
                                 width={'calc(33.333% - 21.5px)'}/>
                             <TextField
                                 placeholder={lang.quantity} label={lang.quantity}

@@ -16,7 +16,7 @@ export default function WorkPlanList(props) {
     const [open, setOpen] = useState(false)
     const relations = useMemo(() => {
         if (props.workPlan) {
-            return {work_plan: props.workPlan?.id}
+            return {apostille_work_plan: props.workPlan?.id}
         } else if (props.project) {
             return {activity_project: props.project.id}
         } else if (props.ted) {
@@ -64,7 +64,8 @@ export default function WorkPlanList(props) {
                 handleClose={() => {
                     setOpen(false)
                     hook.clean()
-                }} asApostille={props.workPlan}
+                }}
+                workPlan={props.workPlan}
                 onRowClick={e => props.redirect(`/sap?page=ted&id=${e.id}`)}
                 project={props.project}
                 ted={props.ted}

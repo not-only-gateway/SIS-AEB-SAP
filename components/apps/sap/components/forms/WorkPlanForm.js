@@ -36,7 +36,7 @@ export default function WorkPlanForm(props) {
 
     const initialData = useMemo(() => {
         if (props.create) {
-            if (props.asApostille)
+            if (props.workPlan)
                 return {
                     ...props.data,
                     apostille_work_plan: props.workPlan
@@ -71,11 +71,11 @@ export default function WorkPlanForm(props) {
                         setOpen: setOpen,
                         create: props.create
                     })}
-                    title={props.asApostille ? 'Novo apostilamento' : props.create ? 'Novo plano de trabalho' : 'Plano de trabalho'}
+                    title={props.workPlan ? 'Novo apostilamento' : props.create ? 'Novo plano de trabalho' : 'Plano de trabalho'}
                     returnButton={props.create}
                     handleSubmit={(data, clearState) => {
                         submit({
-                            suffix: props.asApostille ? 'apostille' : 'work_plan',
+                            suffix: props.workPlan ? 'apostille' : 'work_plan',
                             pk: data.id,
                             data: data,
                             create: props.create
@@ -285,8 +285,7 @@ export default function WorkPlanForm(props) {
 }
 
 WorkPlanForm.propTypes = {
-    asApostille: PropTypes.bool,
-    workPlan: PropTypes.bool,
+    workPlan: PropTypes.object,
     data: PropTypes.object,
     handleChange: PropTypes.func,
     handleClose: PropTypes.func,

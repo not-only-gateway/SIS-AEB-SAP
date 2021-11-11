@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import PropTypes from 'prop-types'
 import TedPT from "../../locales/TedPT";
 import {useQuery} from "mfc-core";
@@ -27,11 +27,17 @@ export default function TedForm(props) {
     const unitHook = useQuery(getQuery('unit'))
     const decentralizedUnitHook = useQuery(getQuery('decentralized_unit'))
 
+    const initialData = useMemo(() => {
+        return {
+            ...props.data,
+            addendum_ted: props.ted?.id
+        }
+    }, [props])
     return (
         <FormTemplate
             keys={tedKeys.ted}
             endpoint={'ted'}
-            initialData={props.data}
+            initialData={initialData}
         >
             {({setOpen, formHook, asDraft, asHistory}) => (
                 <Form
@@ -107,7 +113,8 @@ export default function TedForm(props) {
 
                                 <TextField
                                     type={'number'}
-                                    placeholder={lang.globalValue} maskStart={'R$'} currencyMask={true}
+                                    placeholder={lang.globalValue} maskStart={'R$'}
+                                    floatFilter={true}
                                     label={lang.globalValue}
                                     handleChange={event => {
 
@@ -147,9 +154,7 @@ export default function TedForm(props) {
 
                                         handleChange({key: 'start_date', event: event})
                                     }}
-                                    value={
-                                        data.start_date
-                                    }
+                                    value={data.start_date}
                                     required={true} width={'calc(50% - 16px)'}/>
                                 <DateField
                                     dark={true}

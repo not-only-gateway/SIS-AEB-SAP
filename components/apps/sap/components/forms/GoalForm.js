@@ -81,7 +81,7 @@ export default function GoalForm(props) {
                         <TextField
                             type={'number'}
                             placeholder={lang.value} label={lang.value}
-                            currencyMask={true}
+                            floatFilter={true}
                             maskStart={'R$'}
                             handleChange={event => {
 

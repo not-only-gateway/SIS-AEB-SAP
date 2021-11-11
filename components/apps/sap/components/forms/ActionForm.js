@@ -49,7 +49,9 @@ export default function ActionForm(props) {
                     {(data, handleChange) => (
                         <FormRow>
                             <TextField
-                                placeholder={lang.number} label={lang.number}
+                                placeholder={lang.number}
+
+                                label={lang.number}
                                 handleChange={event => {
                                     handleChange({
                                         event: event.target.value,
@@ -59,7 +61,9 @@ export default function ActionForm(props) {
                                 }} value={data.number}
                                 required={true} width={'100%'}/>
                             <TextField
-                                placeholder={lang.detailing} label={lang.detailing}
+                                placeholder={lang.detailing}
+
+                                label={lang.detailing}
                                 handleChange={event => {
 
                                     handleChange({

@@ -94,15 +94,6 @@ const KEYS = {
         {key: 'uge', type: 'string', label: 'UGE', visible: true},
         {key: 'cnpj', type: 'string', label: 'CNPJ', visible: true},
         {key: 'ug', type: 'string', label: 'UG', visible: true},
-        {
-            key: 'responsible',
-            type: 'object',
-            label: 'Unidade da AEB responsável',
-            visible: true,
-            subfieldKey: 'acronym',
-            subType: 'string',
-            query: QUERIES?.unit
-        }
     ],
     infrastructure: [
         {key: 'id', type: 'number', label: 'ID', visible: false},
@@ -122,7 +113,16 @@ const KEYS = {
     responsible: [
         {key: 'id', type: 'number', label: 'ID', visible: false},
         {key: 'acronym', type: 'string', label: 'Acrônomo', visible: true},
-        {key: 'name', type: 'string', label: 'Nome', visible: true}
+        {key: 'name', type: 'string', label: 'Nome', visible: true},
+        {
+            key: 'responsible',
+            type: 'object',
+            label: 'Unidade da AEB responsável',
+            visible: true,
+            subfieldKey: 'acronym',
+            subType: 'string',
+            query: QUERIES?.unit
+        }
     ],
 }
 

@@ -72,7 +72,8 @@ export default function ProjectForm(props) {
                                         event: event.target.value
                                     })}
                                     maskStart={'R$'}
-                                    required={true} currencyMask={true}
+                                    required={true}
+                                    floatFilter={true}
                                     width={'calc(33.333% - 21.5px)'}/>
                                 <DropDownField
                                     placeholder={lang.type}

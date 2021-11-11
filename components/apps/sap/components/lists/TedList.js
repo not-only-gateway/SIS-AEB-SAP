@@ -14,7 +14,7 @@ export default function TedList(props) {
 
     const [open, setOpen] = useState(false)
     const query = useMemo(() => {
-        return getQuery('ted', props.ted ? {ted: props.ted.id} : {})
+        return getQuery('ted', props.ted ? {addendum_ted: props.ted.id} : {})
     }, [])
     const hook = useQuery(query)
     const addendumData = useMemo(() => {
@@ -35,7 +35,7 @@ export default function TedList(props) {
                         setOpen(false)
                         hook.clean()
                     }} asEntity={true}
-                    asAddendum={props.ted}
+                    ted={props.ted}
                     data={addendumData}
                     asDefault={true}
                     create={true}

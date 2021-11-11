@@ -121,7 +121,7 @@ export default function OperationForm(props) {
                             handleChange={event => {
 
                                 handleChange({key: 'stage_representation', event: event.target.value})
-                            }} currencyMask={true}
+                            }} floatFilter={true}
                             value={data.stage_representation}
                             required={true} type={'number'}
                             width={'calc(33.333% - 21.5px)'}/>
@@ -148,7 +148,8 @@ export default function OperationForm(props) {
                             width={'calc(50% - 16px)'}/>
                         <TextField
                             type={'number'}
-                            placeholder={lang.estimatedCost} label={lang.estimatedCost} currencyMask={true}
+                            placeholder={lang.estimatedCost} label={lang.estimatedCost}
+                            floatFilter={true}
                             handleChange={event => {
 
                                 handleChange({key: 'estimated_cost', event: event.target.value})

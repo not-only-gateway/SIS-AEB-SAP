@@ -19,7 +19,7 @@ export default {
     type: 'Tipo',
     control: 'Gerentes',
     responsible: 'Responsável',
-    manager: 'Gerente',
+    manager: 'Gerente na Descentralizada',
     publicTeam: 'Equipe setor público',
     privateTeam: 'Equipe setor privado',
     sponsor: 'Patrocinador',

@@ -94,7 +94,8 @@ export default function ResourceApplicationForm(props) {
 
                             handleChange({key: 'value', event: event.target.value})
                         }} value={data.value}
-                        required={true} type={'number'} maskStart={'R$'} currencyMask={true}
+                        required={true} type={'number'} maskStart={'R$'}
+                        floatFilter={true}
                         width={'calc(33.333% - 21.5px)'}/>
                 </FormRow>
             )}
