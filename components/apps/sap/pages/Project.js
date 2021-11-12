@@ -57,7 +57,7 @@ export default function Project(props) {
             <div className={shared.pageContent}>
                 <VerticalTabs
                     className={shared.wrapper}
-                    styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset'}}
+                    styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset', padding: '8px'}}
                 >
                     <Tab label={'Dados'} className={shared.tabWrapper}>
                         <ProjectForm data={project}/>

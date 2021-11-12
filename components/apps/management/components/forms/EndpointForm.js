@@ -103,7 +103,7 @@ export default function EndpointForm(props) {
                             <Selector
                                 hook={serviceHook}
                                 keys={serviceKeys}
-                                title={'Serviço'} placeholder={'Serviço'}
+                                label={'Serviço'} placeholder={'Serviço'}
                                 value={data.service} width={'calc(50% - 16px)'} required={true}
                                 handleChange={e => handleChange({event: e, key: 'service'})}
                             />
@@ -111,7 +111,7 @@ export default function EndpointForm(props) {
                         <Selector
                             hook={entityHook}
                             keys={entityKeys}
-                            title={'Entidade'} placeholder={'Entidade'}
+                            label={'Entidade'} placeholder={'Entidade'}
                             value={data.entity} width={props.service ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
                             required={false}
                             handleChange={e => handleChange({event: e, key: 'entity'})}

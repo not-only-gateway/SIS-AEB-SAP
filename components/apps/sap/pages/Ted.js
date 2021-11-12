@@ -35,7 +35,6 @@ export default function Ted(props) {
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
 
-            {/*<div style={{height: 'fit-content', overflow: 'hidden'}}>*/}
             <Breadcrumbs divider={'-'} justify={'start'}>
                 <Button variant={"minimal-horizontal"}
                         onClick={() => props.redirect('/sap?page=index')}
@@ -64,7 +63,7 @@ export default function Ted(props) {
             <div className={shared.pageContent}>
                 <VerticalTabs
                     className={shared.wrapper}
-                    styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset'}}
+                    styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset', padding: '8px'}}
                 >
                     <Tab label={'Dados'} className={shared.tabWrapper}>
                         <TedForm data={ted}/>

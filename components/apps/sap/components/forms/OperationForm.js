@@ -62,7 +62,6 @@ export default function OperationForm(props) {
                     else if (res.success)
                         props.update()
                 })
-
             }
             handleClose={() => props.handleClose()}>
             {(data, handleChange) => (
@@ -94,7 +93,7 @@ export default function OperationForm(props) {
                             width={'calc(33.333% - 21.5px)'}
                             required={true}
                             value={data.activity_stage}
-                            title={'Etapa'}
+                            label={'Etapa'}
                             placeholder={'Etapa'}
                             handleChange={entity => handleChange({key: 'activity_stage', event: entity})}
                             createOption={true}

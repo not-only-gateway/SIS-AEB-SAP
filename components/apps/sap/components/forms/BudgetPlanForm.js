@@ -82,7 +82,7 @@ export default function BudgetPlanForm(props) {
                                 <Selector
                                     hook={actionHook}
                                     placeholder={'Ação'}
-                                    title={'Ação'}
+                                    label={'Ação'}
                                     handleChange={e => handleChange({event: e, key: 'action'})}
                                     value={data.action} width={'calc(50% - 16px)'} required={true}
                                     keys={associativeKeys.action}

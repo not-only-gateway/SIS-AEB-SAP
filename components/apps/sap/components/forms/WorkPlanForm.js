@@ -19,6 +19,8 @@ import MultiSelectField from "../../../../core/inputs/multiselect/MultiSelectFie
 import workPlanKeys from "../../keys/workPlanKeys";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";
+import {InfoRounded} from "@material-ui/icons";
+import ToolTip from "../../../../core/feedback/tooltip/ToolTip";
 
 
 export default function WorkPlanForm(props) {
@@ -26,10 +28,10 @@ export default function WorkPlanForm(props) {
     const unitHook = useQuery(getQuery('unit'))
     const [selectedAction, setSelectedAction] = useState()
     const budgetHookFilter = useMemo(() => {
-        return {action: props.ted ? props.ted.action?.id : selectedAction?.id}
-    }, [props.ted, props.data, selectedAction])
+        return !props.create ? props.data?.ted?.action : selectedAction?.id
+    }, [props.data, selectedAction])
 
-    const budgetPlanHook = useQuery(getQuery('budget_plan', budgetHookFilter))
+    const budgetPlanHook = useQuery(getQuery('budget_plan', {action: budgetHookFilter}))
     const projectHook = useQuery(getQuery('project'))
     const tedHook = useQuery(getQuery('ted'))
     const infrastructureHook = useQuery(getQuery('infrastructure'))
@@ -54,7 +56,11 @@ export default function WorkPlanForm(props) {
             else return props.data
         } else return props.data
     }, [props])
-
+    const removeAction = () => {
+        let l = [...associativeKeys.budgetPlan]
+        l = l.splice(l.indexOf(e => e.key === 'action'), 1)
+        return l
+    }
     return (
         <FormTemplate
             keys={workPlanKeys.workPlan}
@@ -88,13 +94,14 @@ export default function WorkPlanForm(props) {
                     {(data, handleChange) => (
                         <>
                             <FormRow>
-                                {!props.ted ?
+                                {!props.ted && !props.workPlan?
                                     <Selector
-                                        hook={tedHook} keys={tedKeys.ted}
+
+                                        hook={tedHook} keys={tedKeys.ted} disabled={!props.create}
                                         width={props.project ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
                                         required={true} createOption={false}
                                         value={data.ted}
-                                        title={'Instrumento de celebração'}
+                                        label={'Instrumento de celebração'}
                                         placeholder={'Instrumento de celebração'}
                                         handleChange={entity => {
                                             setSelectedAction(entity?.action)
@@ -104,13 +111,13 @@ export default function WorkPlanForm(props) {
                                     :
                                     null
                                 }
-                                {!props.project ?
+                                {!props.project && !props.workPlan?
                                     <Selector
-                                        hook={projectHook} keys={projectKeys.project}
+                                        hook={projectHook} keys={projectKeys.project} disabled={!props.create}
                                         width={props.ted ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
                                         required={true}
                                         value={data.activity_project}
-                                        title={'Projeto / atividade'}
+                                        label={'Projeto / atividade'}
                                         placeholder={'Projeto / atividade'}
                                         handleChange={entity => handleChange({key: 'activity_project', event: entity})}
                                     />
@@ -118,11 +125,13 @@ export default function WorkPlanForm(props) {
                                     null
                                 }
                                 <Selector
+                                    helperText={props.workPlan && props.data?.responsible !== data.responsible ? 'Campo alterado' : undefined}
+
                                     hook={unitHook} keys={associativeKeys.responsible}
-                                    width={(!props.ted && props.project) || (!props.project && props.ted) ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
+                                    width={((!props.ted && props.project) || (!props.project && props.ted)) && !props.workPlan ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
                                     required={true}
                                     value={data.responsible}
-                                    title={'Unidade da AEB responsável'}
+                                    label={'Unidade da AEB responsável'}
                                     placeholder={'Unidade da AEB responsável'}
                                     handleChange={entity => handleChange({key: 'responsible', event: entity})}
                                     createOption={true}
@@ -132,11 +141,13 @@ export default function WorkPlanForm(props) {
                                     )}
                                 </Selector>
                                 <Selector
-                                    hook={budgetPlanHook} keys={associativeKeys.budgetPlan}
-                                    width={(!props.ted && props.project) || (!props.project && props.ted) ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
-                                    required={true}
+                                    helperText={props.workPlan && props.data?.budget_plan !== data.budget_plan ? 'Campo alterado' : 'Dependente da ação do instrumento de celebração selecionado'}
+
+                                    hook={budgetPlanHook} keys={removeAction()}
+                                    width={((!props.ted && props.project) || (!props.project && props.ted)&& !props.workPlan)? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
+                                    required={true} disabled={!data.ted || !data.ted.id}
                                     value={data.budget_plan}
-                                    title={`Plano orçamentário ${selectedAction ? `(Ação ${selectedAction.number})` : ''}`}
+                                    label={`Plano orçamentário ${selectedAction ? `(Ação ${selectedAction.number})` : ''}`}
                                     placeholder={'Plano orçamentário'}
                                     handleChange={entity => handleChange({key: 'budget_plan', event: entity})}
                                     createOption={true}
@@ -150,7 +161,7 @@ export default function WorkPlanForm(props) {
                                     )}
                                 </Selector>
                                 <TextField
-
+                                    helperText={props.workPlan && props.data?.object !== data.object ? 'Campo alterado' : undefined}
                                     placeholder={lang.object} label={lang.object}
                                     handleChange={event => {
 
@@ -159,6 +170,7 @@ export default function WorkPlanForm(props) {
                                     required={true} variant={'area'}
                                     width={'100%'}/>
                                 <DropDownField
+                                    helperText={props.workPlan && props.data?.sub_decentralization !== data.sub_decentralization ? 'Campo alterado' : undefined}
 
                                     placeholder={lang.subDecentralization}
                                     label={lang.subDecentralization}
@@ -171,6 +183,8 @@ export default function WorkPlanForm(props) {
                                     choices={lang.baseOptions}/>
 
                                 <DropDownField
+                                    helperText={props.workPlan && props.data?.indirect_costs !== data.indirect_costs ? 'Campo alterado' : undefined}
+
                                     placeholder={lang.indirectCosts}
                                     label={lang.indirectCosts}
                                     handleChange={event => {
@@ -180,12 +194,14 @@ export default function WorkPlanForm(props) {
                                     width={'calc(50% - 16px)'}
                                     choices={lang.baseOptions}/>
                                 <Selector
+                                    helperText={props.workPlan && props.data?.infrastructure !== data.infrastructure ? 'Campo alterado' : undefined}
+
                                     hook={infrastructureHook}
                                     keys={associativeKeys.infrastructure}
                                     width={'calc(50% - 16px)'}
 
                                     value={data.infrastructure}
-                                    title={'Infraestrutura'}
+                                    label={'Infraestrutura'}
                                     placeholder={'Infraestrutura'}
                                     handleChange={entity => handleChange({key: 'infrastructure', event: entity})}
                                     createOption={true}
@@ -197,6 +213,8 @@ export default function WorkPlanForm(props) {
                                 </Selector>
 
                                 <MultiSelectField
+                                    helperText={props.workPlan && props.data?.ways_of_execution !== data.ways_of_execution ? 'Campo alterado' : undefined}
+
                                     placeholder={lang.ways}
                                     label={lang.ways}
                                     handleChange={event => {
@@ -210,6 +228,7 @@ export default function WorkPlanForm(props) {
 
 
                                 <TextField
+                                    helperText={props.workPlan && props.data?.justification !== data.justification ? 'Campo alterado' : undefined}
 
                                     placeholder={lang.justification} label={lang.justification}
                                     handleChange={event => {
@@ -221,6 +240,7 @@ export default function WorkPlanForm(props) {
 
 
                                 <TextField
+                                    helperText={props.workPlan && props.data?.detailing_of_indirect_costs !== data.detailing_of_indirect_costs ? 'Campo alterado' : undefined}
 
                                     placeholder={lang.detailingIndirect} label={lang.detailingIndirect}
                                     handleChange={event => {
@@ -239,6 +259,8 @@ export default function WorkPlanForm(props) {
                             <FormRow
                                 title={'Responsável pela execução do Plano de Trabalho na Unidade Descentralizada'}>
                                 <TextField
+                                    helperText={props.workPlan && props.data?.responsible_execution !== data.responsible_execution ? 'Campo alterado' : undefined}
+
                                     placeholder={lang.responsibleExecution} label={lang.responsibleExecution}
                                     handleChange={event => {
 
@@ -250,6 +272,8 @@ export default function WorkPlanForm(props) {
                                     required={true}
                                     width={'calc(50% - 16px)'}/>
                                 <TextField
+                                    helperText={props.workPlan && props.data?.func !== data.func ? 'Campo alterado' : undefined}
+
                                     placeholder={lang.func} label={lang.func}
                                     handleChange={event => {
 
@@ -258,6 +282,8 @@ export default function WorkPlanForm(props) {
                                     required={true}
                                     width={'calc(50% - 16px)'}/>
                                 <TextField
+                                    helperText={props.workPlan && props.data?.email !== data.email ? 'Campo alterado' : undefined}
+
                                     placeholder={lang.email} label={lang.email}
                                     handleChange={event => {
 
@@ -266,6 +292,8 @@ export default function WorkPlanForm(props) {
                                     required={true}
                                     width={'calc(50% - 16px)'}/>
                                 <TextField
+                                    helperText={props.workPlan && props.data?.phone !== data.phone ? 'Campo alterado' : undefined}
+
                                     placeholder={lang.phone} label={lang.phone}
                                     handleChange={event => {
 

@@ -20,17 +20,11 @@ export default function Index(props) {
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
             <Tabs className={shared.wrapper}>
-                <Tab label={'Projetos / Atividades'} className={shared.tabWrapper}>
+                <Tab label={'Projetos / Atividades'} className={shared.tabWrapper} styles={{padding: 0}}>
                     <ProjectList redirect={query => props.redirect(query)}/>
                 </Tab>
-                <Tab label={'Instrumentos de celebração'} className={shared.tabWrapper}>
+                <Tab label={'Instrumentos de celebração'} className={shared.tabWrapper} styles={{padding: 0}}>
                     <TedList redirect={query => props.redirect(query)}/>
-                </Tab>
-                <Tab label={'Planos de trabalho'} className={shared.tabWrapper}>
-                    <WorkPlanList redirect={query => props.redirect(query)}/>
-                </Tab>
-                <Tab label={'Fases / operações'} className={shared.tabWrapper}>
-                    <OperationList redirect={query => props.redirect(query)}/>
                 </Tab>
             </Tabs>
         </>

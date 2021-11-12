@@ -59,7 +59,7 @@ export default function ActivityStageForm(props) {
                             hook={goalHook} keys={workPlanKeys.goal} value={data.goal}
                             width={'calc(50% - 16px)'} required={true} handleChange={e => {
                             handleChange({key: 'goal', event: e})
-                        }} title={'Meta plano de tabalho'} placeholder={'Meta plano de tabalho'}
+                        }} label={'Meta plano de tabalho'} placeholder={'Meta plano de tabalho'}
                         />
                     }
                     <TextField

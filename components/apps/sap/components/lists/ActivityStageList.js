@@ -61,7 +61,7 @@ export default function ActivityStageList(props) {
                     setOpen(true)
                     setCurrentEntity(e)
                 }}
-                title={'Etapas'}
+                title={'Etapas / Atividades'}
 
             />
         </Switcher>

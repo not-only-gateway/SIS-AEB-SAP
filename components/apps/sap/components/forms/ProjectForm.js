@@ -126,7 +126,7 @@ export default function ProjectForm(props) {
                                     width={'calc(50% - 16px)'}
                                     required={true}
                                     value={data.responsible}
-                                    title={'Unidade da AEB responsável'}
+                                    label={'Unidade da AEB responsável'}
                                     placeholder={'Unidade da AEB responsável'}
                                     handleChange={entity => handleChange({key: 'responsible', event: entity})}
                                     createOption={true}

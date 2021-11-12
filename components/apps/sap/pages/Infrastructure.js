@@ -11,6 +11,8 @@ import {CategoryRounded, HomeRounded, LinkRounded} from "@material-ui/icons";
 import Button from "../../../core/inputs/button/Button";
 import Tab from "../../../core/navigation/tabs/Tab";
 import ProjectForm from "../components/forms/ProjectForm";
+import ComponentClassificationList from "../components/lists/ComponentClassificationList";
+import ClassificationInfrastructureList from "../components/lists/ClassificationInfrastructureList";
 
 
 export default function Infrastructure(props) {
@@ -51,14 +53,19 @@ export default function Infrastructure(props) {
             <div className={shared.pageContent}>
                 <VerticalTabs
                     className={shared.wrapper}
-                    styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset'}}
+                    styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset', padding: '8px'}}
                 >
                     <Tab label={'Dados'} className={shared.tabWrapper}>
                         <InfrastructureForm asDefault={true} data={infrastructure}/>
                     </Tab>
                     <Tab label={'Componentes'} group={'Informações adicionais'} className={shared.tabWrapper}>
+                        <ClassificationInfrastructureList infrastructure={infrastructure}/>
+                    </Tab>
+                    <Tab label={'Situações Operacionais de Componentes'} group={'Informações adicionais'} className={shared.tabWrapper}>
                         <InfrastructureComponentsList infrastructure={infrastructure}/>
                     </Tab>
+
+
                 </VerticalTabs>
             </div>
         </div>

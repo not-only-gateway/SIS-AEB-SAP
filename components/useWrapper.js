@@ -6,11 +6,12 @@ import managementProps from "./apps/management/managementProps";
 import hrProps from "./apps/hr/hrProps";
 import intranetProps from "./apps/intranet/intranetProps";
 import profileProps from "./apps/profile/profileProps";
+import {Brightness3Rounded, BrightnessHighRounded, PersonRounded} from "@material-ui/icons";
 
 
 export default function useWrapper() {
     const router = useRouter()
-
+    const [loading, setLoading] = useState(false)
     const cookies = useCookies()
     const [profile, setProfile] = useState({})
     const [isManager, setIsManager] = useState(false)
@@ -45,7 +46,7 @@ export default function useWrapper() {
         if (layoutParams.requireAuth)
             cookies.watch({
                 name: 'jwt', callback: (cookie) => {
-                    if(!cookie)
+                    if (!cookie)
                         setOpenAuthentication(true)
                 }
             })
@@ -59,15 +60,54 @@ export default function useWrapper() {
     const requiresAuth = useMemo(() => {
         return layoutParams.requireAuth
     }, [layoutParams])
+
+
+    const [profiles, setProfiles] = useState([])
+    const setManager = (value) => {
+        setIsManager(true)
+        setProfile(value)
+        sessionStorage.setItem('profile', JSON.stringify(value))
+        sessionStorage.setItem('isManager', JSON.stringify(true))
+    }
+
+    useEffect(() => {
+        setProfiles(sessionStorage.getItem('profiles') ? JSON.parse(sessionStorage.getItem('profiles')) : [])
+    }, [])
+
+
+    const sidebar = useMemo(() => {
+        let res = [...layoutParams.sideBarButtons]
+        if (router.query.page === 'profile' && profile && Object.keys(profile).length > 0 && !isManager && cookies.get('jwt'))
+            res.push({
+                label: 'Perfil',
+                icon: <PersonRounded/>,
+                onClick: () => router.push(router.pathname + '?page=profile'),
+                highlight: router.query.page === 'profile',
+                position: 'bottom'
+            })
+        res.push({
+            label: darkTheme ? 'Escuro' : 'Claro',
+            icon: darkTheme ? <Brightness3Rounded/> : <BrightnessHighRounded/>,
+            onClick: () => setDarkTheme(!darkTheme),
+            position: 'bottom'
+        })
+        return res
+    }, [darkTheme, isManager, profile, layoutParams, router.query])
+
+
+
     return {
-        profile,
+        loading, setLoading,
+        sidebar,
+        setManager,
+        profile, profiles,
         layoutParams,
         openAuthentication,
         setOpenAuthentication,
         cookies,
         router, requiresAuth,
         setProfile,
-        isManager, setIsManager,
-        darkTheme, setDarkTheme
+        isManager,
+        darkTheme
     }
 }

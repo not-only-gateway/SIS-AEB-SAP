@@ -11,9 +11,8 @@ import UnitList from "../components/lists/UnitList";
 import TypeList from "../components/lists/TypeList";
 import PropTypes from "prop-types";
 import Tabs from "../../../core/navigation/tabs/Tabs";
-import styles from '../styles/Shared.module.css'
-import Tab from "../../../core/navigation/tabs/Tab";
 import shared from '../styles/Shared.module.css'
+import Tab from "../../../core/navigation/tabs/Tab";
 
 export default function Associative(props) {
     const lang = OverviewPT
@@ -27,32 +26,32 @@ export default function Associative(props) {
             <Tabs
                 className={shared.wrapper}
             >
-                <Tab label={lang.actions} className={shared.tabWrapper}>
+                <Tab label={lang.actions} className={shared.tabWrapper} styles={{padding: 0}}>
                     <ActionList/>
                 </Tab>
-                <Tab label={lang.budgetPlans} className={shared.tabWrapper}>
+                <Tab label={lang.budgetPlans} className={shared.tabWrapper} styles={{padding: 0}}>
                     <BudgetPlanList/>
                 </Tab>
 
-                <Tab label={lang.infrastructures} className={shared.tabWrapper}>
+                <Tab label={lang.infrastructures} className={shared.tabWrapper} styles={{padding: 0}}>
                     <InfrastructureList redirect={props.redirect}/>
                 </Tab>
-                <Tab label={lang.classifications} className={shared.tabWrapper}>
+                <Tab label={lang.classifications} className={shared.tabWrapper} styles={{padding: 0}}>
                     <ComponentClassificationList/>
                 </Tab>
-                <Tab label={lang.types} className={shared.tabWrapper}>
+                <Tab label={lang.types} className={shared.tabWrapper} styles={{padding: 0}}>
                     <TypeList/>
                 </Tab>
 
-                <Tab label={lang.decentralizedUnit} className={shared.tabWrapper}>
+                <Tab label={lang.decentralizedUnit} className={shared.tabWrapper} styles={{padding: 0}}>
                     <DecentralizedUnitList/>
                 </Tab>
 
-                <Tab label={'Unidades da AEB'} className={shared.tabWrapper}>
+                <Tab label={'Unidades da AEB'} className={shared.tabWrapper} styles={{padding: 0}}>
                     <UnitList/>
                 </Tab>
 
-                <Tab label={lang.natureOfExpense} className={shared.tabWrapper}>
+                <Tab label={lang.natureOfExpense} className={shared.tabWrapper} styles={{padding: 0}}>
                     <NatureExpenseList/>
                 </Tab>
 

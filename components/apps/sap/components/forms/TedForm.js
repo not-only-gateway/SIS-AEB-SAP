@@ -14,7 +14,6 @@ import FormRow from "../../../../core/inputs/form/FormRow";
 import TextField from "../../../../core/inputs/text/TextField";
 import DateField from "../../../../core/inputs/date/DateField";
 import DropDownField from "../../../../core/inputs/dropdown/DropDownField";
-import {AssignmentRounded, HistoryRounded} from "@material-ui/icons";
 import FormTemplate from "../../templates/FormTemplate";
 import tedKeys from "../../keys/tedKeys";
 import formOptions from "../../templates/formOptions";
@@ -58,11 +57,13 @@ export default function TedForm(props) {
                             data: data,
                             create: props.create
                         }).then(res => {
-                            if (res.success && res.data !== null && props.create && !props.asEntity)
-                                props.handleClose()
 
-                            if (res.success && props.asEntity && props.create)
+                            if (res.success && props.create) {
                                 props.handleClose()
+                                if(props.onCreationSuccess)
+                                    props.onCreationSuccess(res.data)
+                            }
+
                         })
 
                     }}
@@ -71,7 +72,10 @@ export default function TedForm(props) {
                         <>
                             <FormRow>
                                 <TextField
-                                    placeholder={lang.number} label={lang.number}
+                                    helperText={props.ted && props.data?.number !== data.number ? 'Campo alterado' : undefined}
+
+                                    placeholder={lang.number}
+                                    label={lang.number}
                                     handleChange={event => {
 
                                         handleChange({key: 'number', event: event.target.value})
@@ -82,10 +86,11 @@ export default function TedForm(props) {
 
 
                                 <TextField
+                                    helperText={props.ted && props.data?.year !== data.year ? 'Campo alterado' : undefined}
+
                                     type={'number'}
                                     placeholder={lang.year} label={lang.year}
                                     handleChange={event => {
-                                        console.log('HANDLING CHANGE', event.target.value)
                                         handleChange({key: 'year', event: event.target.value})
                                     }}
                                     value={data.year}
@@ -94,6 +99,7 @@ export default function TedForm(props) {
                                 />
 
                                 <TextField
+                                    helperText={props.ted && props.data?.process !== data.process ? 'Campo alterado' : undefined}
 
                                     placeholder={lang.process} label={lang.process}
                                     handleChange={event => {
@@ -103,6 +109,8 @@ export default function TedForm(props) {
                                     required={true}
                                     width={'calc(33.333% - 21.5px)'}/>
                                 <DropDownField
+                                    helperText={props.ted && props.data?.status !== data.status ? 'Campo alterado' : undefined}
+
                                     placeholder={lang.status}
                                     label={lang.status}
                                     handleChange={event => {
@@ -112,6 +120,8 @@ export default function TedForm(props) {
                                     width={'calc(33.333% - 21.5px)'} choices={lang.statusOptions}/>
 
                                 <TextField
+                                    helperText={props.ted && props.data?.global_value !== data.global_value ? 'Campo alterado' : undefined}
+
                                     type={'number'}
                                     placeholder={lang.globalValue} maskStart={'R$'}
                                     floatFilter={true}
@@ -124,6 +134,8 @@ export default function TedForm(props) {
                                     required={true} width={'calc(33.333% - 21.5px)'}/>
 
                                 <DropDownField
+                                    helperText={props.ted && props.data?.remaining_assets !== data.remaining_assets ? 'Campo alterado' : undefined}
+
                                     placeholder={lang.remainingAssets}
                                     label={lang.remainingAssets}
                                     handleChange={event => {
@@ -134,6 +146,8 @@ export default function TedForm(props) {
                                     width={'calc(50% - 16px)'}
                                     choices={lang.remainingAssetsOptions}/>
                                 <TextField
+                                    helperText={props.ted && props.data?.ownership_destination_assets !== data.ownership_destination_assets ? 'Campo alterado' : undefined}
+
                                     placeholder={lang.ownership} label={lang.ownership}
                                     handleChange={event => {
 
@@ -149,6 +163,8 @@ export default function TedForm(props) {
                                     width={'calc(50% - 16px)'}/>
 
                                 <DateField
+                                    helperText={props.ted && props.data?.start_date !== data.start_date ? 'Campo alterado' : undefined}
+
                                     placeholder={lang.startDate} label={lang.startDate}
                                     handleChange={event => {
 
@@ -157,6 +173,8 @@ export default function TedForm(props) {
                                     value={data.start_date}
                                     required={true} width={'calc(50% - 16px)'}/>
                                 <DateField
+                                    helperText={props.ted && props.data?.end_date !== data.end_date ? 'Campo alterado' : undefined}
+
                                     dark={true}
                                     placeholder={lang.endDate} label={lang.endDate}
                                     handleChange={event => {
@@ -173,11 +191,13 @@ export default function TedForm(props) {
 
                             <FormRow>
                                 <Selector
+                                    helperText={props.ted && props.data?.responsible !== data.responsible ? 'Campo alterado' : undefined}
+
                                     hook={unitHook} keys={associativeKeys.responsible}
                                     width={'calc(33.333% - 21.5px)'}
                                     required={true}
                                     value={data.responsible}
-                                    title={'Unidade da AEB responsável'}
+                                    label={'Unidade da AEB responsável'}
                                     placeholder={'Unidade da AEB responsável'}
                                     handleChange={entity => handleChange({key: 'responsible', event: entity})}
 
@@ -188,11 +208,13 @@ export default function TedForm(props) {
                                     )}
                                 </Selector>
                                 <Selector
+                                    helperText={props.ted && props.data?.decentralized_unit !== data.decentralized_unit ? 'Campo alterado' : undefined}
+
                                     hook={decentralizedUnitHook} keys={associativeKeys.decentralizedUnit}
                                     width={'calc(33.333% - 21.5px)'}
                                     required={true}
                                     value={data.decentralized_unit}
-                                    title={'Unidade descentralizada'}
+                                    label={'Unidade descentralizada'}
                                     placeholder={'Unidade descentralizada'}
                                     handleChange={entity => handleChange({key: 'decentralized_unit', event: entity})}
 
@@ -204,11 +226,13 @@ export default function TedForm(props) {
                                     )}
                                 </Selector>
                                 <Selector
+                                    helperText={props.ted && props.data?.action !== data.action ? 'Campo alterado' : undefined}
+
                                     hook={actionHook} keys={associativeKeys.action}
                                     width={'calc(33.333% - 21.5px)'}
                                     required={true}
                                     value={data.action}
-                                    title={'Ação'}
+                                    label={'Ação'}
                                     placeholder={'Ação'}
                                     handleChange={entity => handleChange({key: 'action', event: entity})}
                                     createOption={true}
@@ -220,6 +244,8 @@ export default function TedForm(props) {
                             </FormRow>
                             <FormRow>
                                 <TextField
+                                    helperText={props.ted && props.data?.object !== data.object ? 'Campo alterado' : undefined}
+
                                     placeholder={lang.object} label={lang.object}
                                     handleChange={event => {
 
@@ -229,6 +255,8 @@ export default function TedForm(props) {
                                     required={true} variant={'area'}
                                     width={'100%'}/>
                                 <TextField
+                                    helperText={props.ted && props.data?.object_summary !== data.object_summary ? 'Campo alterado' : undefined}
+
                                     placeholder={lang.objectSummary} label={lang.objectSummary}
                                     handleChange={event => {
 
@@ -239,6 +267,8 @@ export default function TedForm(props) {
                                     width={'100%'}/>
 
                                 <TextField
+                                    helperText={props.ted && props.data?.justification !== data.justification ? 'Campo alterado' : undefined}
+
                                     placeholder={lang.justification} label={lang.justification}
                                     handleChange={event => {
 
@@ -249,6 +279,8 @@ export default function TedForm(props) {
                                     width={'100%'}/>
 
                                 <TextField
+                                    helperText={props.ted && props.data?.summary_justification !== data.summary_justification ? 'Campo alterado' : undefined}
+
                                     placeholder={lang.summaryJustification} label={lang.summaryJustification}
                                     handleChange={event => {
 
@@ -259,6 +291,8 @@ export default function TedForm(props) {
                                     width={'100%'}/>
 
                                 <TextField
+                                    helperText={props.ted && props.data?.programmatic_functional_classification !== data.programmatic_functional_classification ? 'Campo alterado' : undefined}
+
                                     placeholder={lang.programmaticFunctional} label={lang.programmaticFunctional}
                                     handleChange={event => {
 
@@ -289,5 +323,7 @@ TedForm.propTypes = {
     asEntity: PropTypes.bool,
     asAddendum: PropTypes.bool,
     ted: PropTypes.object,
+    onCreationSuccess: PropTypes.func,
 }
+
 

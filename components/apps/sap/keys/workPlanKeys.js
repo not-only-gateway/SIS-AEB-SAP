@@ -52,10 +52,15 @@ const KEYS = {
     activity: [
         {key: 'id', type: 'number', label: 'ID'},
         {
-            key: 'goal', type: 'object', subfieldKey: 'goal_number', subtype: 'string', label: 'Meta', visible: true,
+            key: 'goal',
+            type: 'object',
+            subfieldKey: 'goal_number',
+            subtype: 'string',
+            label: 'Meta',
+            visible: true,
             query: QUERIES?.goal
         },
-        {key: 'stage', type: 'string', label: 'Etapa', visible: true},
+        {key: 'stage', type: 'string', label: 'Etapa / Atividade', visible: true},
         {key: 'description', type: 'string', label: 'Descrição', visible: true},
         {key: 'representation', type: 'string', label: 'Representação', visible: true},
     ],
@@ -115,8 +120,7 @@ const KEYS = {
         {key: 'initial_situation', type: 'string', label: 'Situação inicial', visible: true},
         {key: 'start_date', type: 'date', label: 'Data inicial'},
         {key: 'end_date', type: 'date', label: 'Data final'},
-        {key: 'estimated_cost', type: 'number', label: 'Custo estimado', maskStart: 'R$', visible: true},
-        {key: 'version', type: 'string', label: 'Versão'}
+        {key: 'estimated_cost', type: 'number', label: 'Custo estimado', maskStart: 'R$', visible: true}
     ],
     resource: [
         {key: 'id', type: 'number', label: 'ID'},

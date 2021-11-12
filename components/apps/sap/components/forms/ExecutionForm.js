@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from "react";
+import React, {useMemo} from "react";
 
 import PropTypes from "prop-types";
 import ExecutionPT from "../../locales/ExecutionPT";
@@ -26,7 +26,7 @@ export default function ExecutionForm(props) {
                 ...props.data,
                 ...{
                     execution_date: `${newDay < 10 ? ('0' + newDay) : newDay}/${newMonth < 10 ? ('0' + newMonth) : newMonth}/${(date.getFullYear())}`,
-                    operation_phase: props.operation ? props.operation.id : props.data.operation_phase
+                    operation_phase: props.operation ? props.operation : props.data.operation_phase
                 }
             }
         } else
@@ -38,7 +38,6 @@ export default function ExecutionForm(props) {
         value: props.workPlan.id,
         type: 'object'
     }] : []))
-
 
 
     return (
@@ -109,7 +108,7 @@ export default function ExecutionForm(props) {
                                 <Selector
                                     hook={operationHook}
                                     placeholder={'Fase / operação'}
-                                    title={'Fase / operação'}
+                                    label={'Fase / operação'}
                                     handleChange={e => handleChange({event: e, key: 'operation_phase'})}
                                     value={data.operation_phase} width={'calc(33.333% - 21.5px)'} required={true}
                                     keys={workPlanKeys.operation}

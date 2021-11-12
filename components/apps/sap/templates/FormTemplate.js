@@ -7,6 +7,7 @@ import Cookies from "universal-cookie/lib";
 import Host from "../utils/host";
 import useDataWithDraft from "../../../core/inputs/form/useDataWithDraft";
 import draftKeys from "./draftKeys";
+import useData from "../../../core/inputs/form/useData";
 
 export default function FormTemplate(props) {
     const [option, setOption] = useState('list_draft')
@@ -24,7 +25,7 @@ export default function FormTemplate(props) {
     const [data, setData] = useState(props.initialData)
     const [draftID, setDraftID] = useState()
 
-    const formHook = useDataWithDraft({
+    const formHook = props.noDraft ? useData(data) : useDataWithDraft({
         initialData: data,
         draftUrl: Host().replace('api', 'draft') + props.endpoint,
         draftHeaders: {'authorization': (new Cookies()).get('jwt')},
@@ -72,4 +73,5 @@ FormTemplate.propTypes = {
     keys: PropTypes.arrayOf(PropTypes.object).isRequired,
     children: PropTypes.func.isRequired,
     endpoint: PropTypes.string,
+    noDraft: PropTypes.bool
 }

@@ -80,7 +80,7 @@ export default function InfrastructureComponentForm(props) {
                     <Selector
                         hook={classificationHook}
                         placeholder={'Classificação'}
-                        title={'Classificação'}
+                        label={'Classificação'}
                         handleChange={e => handleChange({event: e, key: 'classification'})}
                         value={data.classification} width={'calc(50% - 16px)'} required={true}
                         keys={associativeKeys.classification}

@@ -33,7 +33,8 @@ const KEYS = {
         {key: 'id', type: 'number', label: 'ID', visible: false},
         {key: 'description', type: 'string', label: 'Descrição', visible: true},
         {
-            key: 'analysis', type: 'string', label: 'Análise', visible: true, getColor: field => {
+            key: 'analysis', type: 'string', label: 'Análise', visible: true,
+            getColor: field => {
                 let res = undefined
                 switch (field.toLowerCase()) {
                     case 'baixo': {

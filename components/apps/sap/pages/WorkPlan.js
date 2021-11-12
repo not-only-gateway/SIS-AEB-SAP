@@ -77,7 +77,7 @@ export default function WorkPlan(props) {
             <div className={shared.pageContent}>
                 <VerticalTabs
                     className={shared.wrapper}
-                    styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset'}}
+                    styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset', padding: '8px'}}
                 >
                     <Tab label={'Dados'} className={shared.tabWrapper}>
                         <WorkPlanForm data={workPlan}/>
@@ -95,7 +95,7 @@ export default function WorkPlan(props) {
                     <Tab label={'Metas'} group={'Acesso rápido'} className={shared.tabWrapper}>
                         <GoalList workPlan={workPlan}/>
                     </Tab>
-                    <Tab label={'Etapas'} group={'Acesso rápido'} className={shared.tabWrapper}>
+                    <Tab label={'Etapas / Atividades'} group={'Acesso rápido'} className={shared.tabWrapper}>
                         <ActivityStageList workPlan={workPlan} redirect={props.redirect}/>
                     </Tab>
                     <Tab label={'Fases / operações'} group={'Acesso rápido'} className={shared.tabWrapper}>

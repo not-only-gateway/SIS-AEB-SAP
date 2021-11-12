@@ -105,7 +105,7 @@ export default function OperationPhase(props) {
                         className={shared.button}>
                     {operation.activity_stage?.stage}
                     <ToolTip>
-                        Etapa
+                        Etapa / Atividades
                     </ToolTip>
                 </Button>
                 <Button highlight={true} variant={'minimal'} className={shared.button}>
@@ -123,7 +123,7 @@ export default function OperationPhase(props) {
             <div className={shared.pageContent}>
                 <VerticalTabs
                     className={shared.wrapper}
-                    styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset'}}
+                    styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset', padding: '8px'}}
                 >
                     <Tab label={'Dados'} className={shared.tabWrapper}>
                         <OperationForm update={() => fetchData()} data={operation} create={false}/>

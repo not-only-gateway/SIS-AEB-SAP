@@ -3,9 +3,27 @@ import getQuery from "../utils/getQuery";
 const QUERIES = {
     action: {...getQuery('action'), ...{keys: [{key: 'number', type: 'string', label: 'Número', visible: true}]}},
     type: {...getQuery('type'), ...{keys: [{key: 'type', type: 'string', label: 'Tipo', visible: true}]}},
-    classification: {...getQuery('classification'), ...{keys: [{key: 'description', type: 'string', label: 'Classificação', visible: true}]}},
-    infrastructure: {...getQuery('infrastructure'), ...{keys: [{key: 'name', type: 'string', label: 'Nome', visible: true}]}},
-    unit: {...getQuery('unit'), ...{keys: [  {key: 'acronym', type: 'string', label: 'Acrônomo', visible: true}]}},
+    classification: {
+        ...getQuery('classification'), ...{
+            keys: [{
+                key: 'description',
+                type: 'string',
+                label: 'Classificação',
+                visible: true
+            }]
+        }
+    },
+    infrastructure: {
+        ...getQuery('infrastructure'), ...{
+            keys: [{
+                key: 'name',
+                type: 'string',
+                label: 'Nome',
+                visible: true
+            }]
+        }
+    },
+    unit: {...getQuery('unit'), ...{keys: [{key: 'acronym', type: 'string', label: 'Acrônomo', visible: true}]}},
 }
 
 const KEYS = {
@@ -49,6 +67,37 @@ const KEYS = {
         {key: 'number', type: 'string', label: 'Número', visible: true},
         {key: 'detailing', type: 'string', label: 'Detalhamento', visible: true}
     ],
+    classificationInfrastructure: (infra) => {
+        return [
+            {
+                key: 'classification',
+                subfieldKey: 'description',
+                type: 'object',
+                label: 'Descrição da classificação',
+                visible: true
+            },
+            {
+                key: 'infrastructure', subfieldKey: 'name', type: 'object', label: 'Infraestrutura', visible: true,
+                getColor: (entry) => {
+                    if (entry.id !== infra)
+                        return '#ff5555'
+                    else
+                        return '#00F400'
+                }
+            },
+
+            // {
+            //     key: 'classification_type',
+            //     type: 'object',
+            //     label: 'Tipo',
+            //     visible: true,
+            //     subfieldKey: 'type',
+            //     subType: 'string',
+            //     query:QUERIES?.type
+            // },
+
+        ]
+    },
     classification: [
         {key: 'id', type: 'number', label: 'ID', visible: false},
         {key: 'description', type: 'string', label: 'Classificação', visible: true},
@@ -59,7 +108,7 @@ const KEYS = {
             visible: true,
             subfieldKey: 'type',
             subType: 'string',
-            query:QUERIES?.type
+            query: QUERIES?.type
         }
     ],
     components: [

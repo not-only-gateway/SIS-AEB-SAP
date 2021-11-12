@@ -72,7 +72,7 @@ export default function ComponentClassificationForm(props) {
                     <Selector
                         hook={typeHook}
                         placeholder={'Tipo'}
-                        title={'Tipo'}
+                        label={'Tipo'}
                         handleChange={e => handleChange({event: e, key: 'classification_type'})}
                         value={data.classification_type} width={'calc(50% - 16px)'} required={true}
                         keys={associativeKeys.type}

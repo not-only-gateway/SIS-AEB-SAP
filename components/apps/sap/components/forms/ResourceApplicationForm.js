@@ -69,7 +69,7 @@ export default function ResourceApplicationForm(props) {
                         width={'calc(33.333% - 21.5px)'}
                         required={true}
                         value={data.nature_of_expense}
-                        title={'Natureza de despesas'}
+                        label={'Natureza de despesas'}
                         placeholder={'Natureza de despesas'}
                         handleChange={entity => handleChange({key: 'nature_of_expense', event: entity})}
                         createOption={true}

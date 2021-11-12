@@ -30,20 +30,18 @@ export default function TedList(props) {
     return (
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
 
-                <TedForm
-                    handleClose={() => {
-                        setOpen(false)
-                        hook.clean()
-                    }} asEntity={true}
-                    ted={props.ted}
-                    data={addendumData}
-                    asDefault={true}
-                    create={true}
-                />
+            <TedForm
+                handleClose={() => {
+                    setOpen(false)
+                    hook.clean()
+                }} asEntity={true}
+                ted={props.ted}
+                data={addendumData}
+                asDefault={true}
+                create={true}
+            />
 
             <List
-                createOption={true}
-                onCreate={() => setOpen(true)}
                 onRowClick={e => props.redirect(`/sap?page=ted&id=${e.id}`)}
                 controlButtons={[{
                     label: 'Deletar',

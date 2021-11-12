@@ -77,7 +77,7 @@ export default function UnitForm(props) {
                         width={'calc(33.333% - 21.5px'}
 
                         value={data.responsible}
-                        title={'Unidade da AEB superior'}
+                        label={'Unidade da AEB superior'}
                         placeholder={'Unidade da AEB superior'}
                         handleChange={entity => handleChange({key: 'responsible', event: entity})}
                         createOption={true}

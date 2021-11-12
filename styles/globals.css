@@ -9,14 +9,10 @@ body {
     font-family: "Roboto" !important;
     box-sizing:border-box;
 }
-body > *{
-    font-family: "Roboto" !important;
-    box-sizing:border-box;
-}
 
 
 * {
-
+    font-family: "Roboto" !important;
     -webkit-font-smoothing: subpixel-antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;

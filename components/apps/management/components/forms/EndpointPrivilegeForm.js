@@ -63,7 +63,7 @@ export default function EndpointPrivilegeForm(props) {
                     <Selector
                         hook={permissionHook}
                         keys={permissionKeys}
-                        title={'Privilégio'} placeholder={'Privilégio'}
+                        label={'Privilégio'} placeholder={'Privilégio'}
                         value={data.privilege} width={'calc(50% - 16px)'}
                         required={true}
                         handleChange={e => handleChange({event: e, key: 'privilege'})}/>
