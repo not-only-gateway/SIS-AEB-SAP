@@ -1,7 +1,6 @@
-import React, {useState} from "react";
-import {Button, useQuery} from "mfc-core";
+import React from "react";
+import {useQuery} from "mfc-core";
 import getQuery from "../components/apps/sap/utils/getQuery";
-import Alert from "../components/core/feedback/alert/Alert";
 import HorizontalChart from "../components/core/visualization/charts/horizontal/HorizontalChart";
 import PieChart from "../components/core/visualization/charts/pie/PieChart";
 import VerticalChart from "../components/core/visualization/charts/vertical/VerticalChart";
@@ -9,9 +8,9 @@ import LineChart from "../components/core/visualization/charts/line/LineChart";
 import TextField from "../components/core/inputs/text/TextField";
 import Selector from "../components/core/inputs/selector/Selector";
 import MultiSelectField from "../components/core/inputs/multiselect/MultiSelectField";
-import DateField from "../components/core/inputs/date/DateField";
-import DropDownField from "../components/core/inputs/dropdown/DropDownField";
+import SelectField from "../components/core/inputs/select/SelectField";
 import FileField from "../components/core/inputs/file/FileField";
+import DateField from "../components/core/inputs/date/DateField";
 
 export default function test() {
     const randomSet = (quantity) => {
@@ -36,8 +35,8 @@ export default function test() {
             <TextField handleChange={() => null} variant={'area'}/>
             <Selector hook={actionHook} keys={[]}/>
             <MultiSelectField choices={[]} handleChange={() => null}/>
-            <DateField handleChange={() => null}/>
-            <DropDownField choices={[]} handleChange={() => null}/>
+            <DateField pattern={'yyyy/dd/mm'} handleChange={() => null}/>
+            <SelectField choices={[]} handleChange={() => null}/>
             <FileField/>
 
             <HorizontalChart

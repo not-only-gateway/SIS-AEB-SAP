@@ -9,7 +9,6 @@ import TedList from "../components/lists/TedList";
 import {fetchEntry} from "../utils/fetchData";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
 import {CategoryRounded, HomeRounded} from "@material-ui/icons";
-import Link from 'next/link'
 import Button from "../../../core/inputs/button/Button";
 import ProjectTedList from "../components/lists/ProjectTedList";
 import Tab from "../../../core/navigation/tabs/Tab";
@@ -65,17 +64,19 @@ export default function Ted(props) {
                     className={shared.wrapper}
                     styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset', padding: '8px'}}
                 >
-                    <Tab label={'Dados'} className={shared.tabWrapper}>
+                    <Tab label={'Dados'} className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <TedForm data={ted}/>
                     </Tab>
-                    <Tab label={'Termos aditivos'} group={'Informações adicionais'} className={shared.tabWrapper}>
+                    <Tab label={'Termos aditivos'} group={'Informações adicionais'} className={shared.tabWrapper}
+                         styles={{padding: '0 10%'}}>
                         <TedList ted={ted} redirect={props.redirect}/>
                     </Tab>
                     <Tab label={'Projetos / Atividades relacionados'} group={'Acesso rápido'}
-                         className={shared.tabWrapper}>
+                         className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <ProjectTedList ted={ted} redirect={props.redirect}/>
                     </Tab>
-                    <Tab label={'Planos de trabalho'} group={'Acesso rápido'} className={shared.tabWrapper}>
+                    <Tab label={'Planos de trabalho'} group={'Acesso rápido'} className={shared.tabWrapper}
+                         styles={{padding: '0 10%'}}>
                         <WorkPlanList ted={ted} redirect={props.redirect}/>
                     </Tab>
 

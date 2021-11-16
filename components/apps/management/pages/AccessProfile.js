@@ -3,8 +3,9 @@ import shared from '../styles/Shared.module.css'
 import AccessProfileForm from "../components/forms/AccessProfileForm";
 import React, {useEffect, useState} from "react";
 import {fetchEntry} from "../utils/fetch";
-import {Breadcrumbs, Button, VerticalTabs, Tab} from "mfc-core";
+import {Breadcrumbs, Button, Tab, VerticalTabs} from "mfc-core";
 import {CategoryRounded} from "@material-ui/icons";
+
 export default function AccessProfile(props) {
     const [data, setData] = useState({})
 

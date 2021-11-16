@@ -14,8 +14,6 @@ import {CategoryRounded, HomeRounded} from "@material-ui/icons";
 import Button from "../../../core/inputs/button/Button";
 import ProjectTedList from "../components/lists/ProjectTedList";
 import Tab from "../../../core/navigation/tabs/Tab";
-import TedForm from "../components/forms/TedForm";
-import TedList from "../components/lists/TedList";
 
 
 export default function Project(props) {
@@ -59,21 +57,21 @@ export default function Project(props) {
                     className={shared.wrapper}
                     styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset', padding: '8px'}}
                 >
-                    <Tab label={'Dados'} className={shared.tabWrapper}>
+                    <Tab label={'Dados'} className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <ProjectForm data={project}/>
                     </Tab>
-                    <Tab label={'Riscos'} group={'Informações adicionais'} className={shared.tabWrapper}>
+                    <Tab label={'Riscos'} group={'Informações adicionais'} className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <RisksList project={project}/>
                     </Tab>
-                    <Tab label={'Marcos'} group={'Informações adicionais'} className={shared.tabWrapper}>
+                    <Tab label={'Marcos'} group={'Informações adicionais'} className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <ProjectGoalList project={project}/>
                     </Tab>
 
                     <Tab label={'Instrumentos de celebração relacionados'} group={'Acesso rápido'}
-                         className={shared.tabWrapper}>
+                         className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <ProjectTedList project={project} redirect={props.redirect}/>
                     </Tab>
-                    <Tab label={'Planos de trabalho'} group={'Acesso rápido'} className={shared.tabWrapper}>
+                    <Tab label={'Planos de trabalho'} group={'Acesso rápido'} className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <WorkPlanList project={project} redirect={props.redirect}/>
                     </Tab>
 

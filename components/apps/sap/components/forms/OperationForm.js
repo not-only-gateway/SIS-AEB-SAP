@@ -1,18 +1,14 @@
-import React, {useState} from "react";
+import React from "react";
 import {DateField, TextField, useQuery} from "mfc-core";
 import PropTypes from "prop-types";
 import OperationPT from "../../locales/OperationPT";
 import Form from "../../../../core/inputs/form/Form";
 import getQuery from "../../utils/getQuery";
 import Selector from "../../../../core/inputs/selector/Selector";
-import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
-import Cookies from "universal-cookie/lib";
 import submit from "../../utils/submit";
 import ActivityStageForm from "./ActivityStageForm";
 import workPlanKeys from "../../keys/workPlanKeys";
-import Host from "../../utils/host";
 import FormRow from "../../../../core/inputs/form/FormRow";
-import tedKeys from "../../keys/tedKeys";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";
 

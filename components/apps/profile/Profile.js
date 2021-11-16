@@ -7,8 +7,6 @@ import Information from "./components/Information";
 import Privileges from "./components/Privileges";
 import DraftList from "./components/lists/DraftList";
 import Tab from "../../core/navigation/tabs/Tab";
-import InfrastructureForm from "../sap/components/forms/InfrastructureForm";
-import InfrastructureComponentsList from "../sap/components/lists/InfrastructureComponentsList";
 
 export default function Profile() {
     const profile = useContext(ProfileContext)

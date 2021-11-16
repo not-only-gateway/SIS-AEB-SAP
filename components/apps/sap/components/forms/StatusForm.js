@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from "react";
+import React, {useMemo} from "react";
 import {TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import StatusPT from "../../locales/StatusPT";

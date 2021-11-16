@@ -3,7 +3,7 @@ import Form from "../../../../core/inputs/form/Form";
 import submit from "../../utils/submit";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import PropTypes from "prop-types";
-import DropDownField from "../../../../core/inputs/dropdown/DropDownField";
+import SelectField from "../../../../core/inputs/select/SelectField";
 import {useQuery} from "mfc-core";
 import {permission_query} from "../../queries/queries";
 import {permissionKeys} from "../../keys/keys";
@@ -47,7 +47,7 @@ export default function EndpointPrivilegeForm(props) {
             {(data, handleChange) => (
                 <FormRow>
 
-                    <DropDownField
+                    <SelectField
                         placeholder={'Método HTTP'} value={data.method}
                         label={'Método HTTP'} disabled={false} asArray={true}
                         choices={[

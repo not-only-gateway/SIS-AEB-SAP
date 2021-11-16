@@ -1,14 +1,10 @@
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import Form from "../../../../core/inputs/form/Form";
 import EntitiesPT from "../../locales/EntitiesPT";
-import { TextField} from "mfc-core";
-import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
-import Cookies from "universal-cookie/lib";
-import Host from "../../utils/host";
+import {TextField} from "mfc-core";
 import submit from "../../utils/submit";
 import FormRow from "../../../../core/inputs/form/FormRow";
-import tedKeys from "../../keys/tedKeys";
 import associativeKeys from "../../keys/associativeKeys";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";

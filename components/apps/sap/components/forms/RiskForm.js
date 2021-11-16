@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import Form from "../../../../core/inputs/form/Form";
 import submit from "../../utils/submit";
 import FormRow from "../../../../core/inputs/form/FormRow";
-import tedKeys from "../../keys/tedKeys";
 import projectKeys from "../../keys/projectKeys";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";

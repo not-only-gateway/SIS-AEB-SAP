@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField} from "mfc-core";
+import {TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import EntitiesPT from "../../locales/EntitiesPT";
 import Form from "../../../../core/inputs/form/Form";

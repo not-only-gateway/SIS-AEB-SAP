@@ -1,17 +1,13 @@
-import React, {useMemo, useState} from "react";
+import React, {useMemo} from "react";
 import PropTypes from "prop-types";
 import ResourcePT from "../../locales/ResourcePT";
-import Cookies from "universal-cookie/lib";
 import NatureExpenseForm from "./NatureExpenseForm";
 import {DropDownField, Selector, TextField, useQuery} from "mfc-core";
 import Form from "../../../../core/inputs/form/Form";
-import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
 import submit from "../../utils/submit";
 import associativeKeys from "../../keys/associativeKeys";
 import getQuery from "../../utils/getQuery";
-import Host from "../../utils/host";
 import FormRow from "../../../../core/inputs/form/FormRow";
-import tedKeys from "../../keys/tedKeys";
 import workPlanKeys from "../../keys/workPlanKeys";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";

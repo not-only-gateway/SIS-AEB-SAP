@@ -1,14 +1,10 @@
-import React, {useState} from "react";
-import {DropDownField,  TextField} from "mfc-core";
+import React from "react";
+import {DropDownField, TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import ProjectPT from "../../locales/ProjectPT";
 import Form from "../../../../core/inputs/form/Form";
-import useDataWithDraft from "../../../../core/inputs/form/useDataWithDraft";
-import Cookies from "universal-cookie/lib";
 import submit from "../../utils/submit";
-import Host from "../../utils/host";
 import FormRow from "../../../../core/inputs/form/FormRow";
-import tedKeys from "../../keys/tedKeys";
 import associativeKeys from "../../keys/associativeKeys";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";

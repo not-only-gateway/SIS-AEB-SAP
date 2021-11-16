@@ -13,14 +13,12 @@ import UnitForm from "./UnitForm";
 import BudgetPlanForm from "./BudgetPlanForm";
 import InfrastructureForm from "./InfrastructureForm";
 import TextField from "../../../../core/inputs/text/TextField";
-import DropDownField from "../../../../core/inputs/dropdown/DropDownField";
+import SelectField from "../../../../core/inputs/select/SelectField";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import MultiSelectField from "../../../../core/inputs/multiselect/MultiSelectField";
 import workPlanKeys from "../../keys/workPlanKeys";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";
-import {InfoRounded} from "@material-ui/icons";
-import ToolTip from "../../../../core/feedback/tooltip/ToolTip";
 
 
 export default function WorkPlanForm(props) {
@@ -169,7 +167,7 @@ export default function WorkPlanForm(props) {
                                     }} value={data.object}
                                     required={true} variant={'area'}
                                     width={'100%'}/>
-                                <DropDownField
+                                <SelectField
                                     helperText={props.workPlan && props.data?.sub_decentralization !== data.sub_decentralization ? 'Campo alterado' : undefined}
 
                                     placeholder={lang.subDecentralization}
@@ -182,7 +180,7 @@ export default function WorkPlanForm(props) {
                                     width={'calc(50% - 16px)'}
                                     choices={lang.baseOptions}/>
 
-                                <DropDownField
+                                <SelectField
                                     helperText={props.workPlan && props.data?.indirect_costs !== data.indirect_costs ? 'Campo alterado' : undefined}
 
                                     placeholder={lang.indirectCosts}

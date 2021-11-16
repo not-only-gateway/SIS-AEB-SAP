@@ -7,11 +7,9 @@ import InfrastructureComponentsList from "../components/lists/InfrastructureComp
 import {fetchEntry} from "../utils/fetchData";
 import InfrastructureForm from "../components/forms/InfrastructureForm";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
-import {CategoryRounded, HomeRounded, LinkRounded} from "@material-ui/icons";
+import {CategoryRounded, LinkRounded} from "@material-ui/icons";
 import Button from "../../../core/inputs/button/Button";
 import Tab from "../../../core/navigation/tabs/Tab";
-import ProjectForm from "../components/forms/ProjectForm";
-import ComponentClassificationList from "../components/lists/ComponentClassificationList";
 import ClassificationInfrastructureList from "../components/lists/ClassificationInfrastructureList";
 
 
@@ -55,13 +53,15 @@ export default function Infrastructure(props) {
                     className={shared.wrapper}
                     styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset', padding: '8px'}}
                 >
-                    <Tab label={'Dados'} className={shared.tabWrapper}>
+                    <Tab label={'Dados'} className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <InfrastructureForm asDefault={true} data={infrastructure}/>
                     </Tab>
-                    <Tab label={'Componentes'} group={'Informações adicionais'} className={shared.tabWrapper}>
+                    <Tab label={'Componentes'} group={'Informações adicionais'} className={shared.tabWrapper}
+                         styles={{padding: '0 10%'}}>
                         <ClassificationInfrastructureList infrastructure={infrastructure}/>
                     </Tab>
-                    <Tab label={'Situações Operacionais de Componentes'} group={'Informações adicionais'} className={shared.tabWrapper}>
+                    <Tab label={'Situações Operacionais de Componentes'} group={'Informações adicionais'}
+                         className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <InfrastructureComponentsList infrastructure={infrastructure}/>
                     </Tab>
 

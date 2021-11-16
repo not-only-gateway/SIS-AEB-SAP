@@ -13,7 +13,7 @@ import ActionForm from "./ActionForm";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import TextField from "../../../../core/inputs/text/TextField";
 import DateField from "../../../../core/inputs/date/DateField";
-import DropDownField from "../../../../core/inputs/dropdown/DropDownField";
+import SelectField from "../../../../core/inputs/select/SelectField";
 import FormTemplate from "../../templates/FormTemplate";
 import tedKeys from "../../keys/tedKeys";
 import formOptions from "../../templates/formOptions";
@@ -108,7 +108,7 @@ export default function TedForm(props) {
                                     }} value={data.process}
                                     required={true}
                                     width={'calc(33.333% - 21.5px)'}/>
-                                <DropDownField
+                                <SelectField
                                     helperText={props.ted && props.data?.status !== data.status ? 'Campo alterado' : undefined}
 
                                     placeholder={lang.status}
@@ -133,7 +133,7 @@ export default function TedForm(props) {
                                     value={data.global_value}
                                     required={true} width={'calc(33.333% - 21.5px)'}/>
 
-                                <DropDownField
+                                <SelectField
                                     helperText={props.ted && props.data?.remaining_assets !== data.remaining_assets ? 'Campo alterado' : undefined}
 
                                     placeholder={lang.remainingAssets}

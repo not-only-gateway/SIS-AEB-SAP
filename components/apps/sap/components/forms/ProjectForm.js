@@ -1,15 +1,11 @@
 import React from "react";
 import PropTypes from 'prop-types'
 import ProjectPT from "../../locales/ProjectPT";
-import {DropDownField, useQuery} from "mfc-core";
+import {DropDownField, Form, FormRow, Selector, TextField, useQuery} from "mfc-core";
 import getQuery from "../../utils/getQuery";
-import Selector from "../../../../core/inputs/selector/Selector";
 import associativeKeys from "../../keys/associativeKeys";
-import Form from "../../../../core/inputs/form/Form";
 import submit from "../../utils/submit";
 import UnitForm from "./UnitForm";
-import FormRow from "../../../../core/inputs/form/FormRow";
-import TextField from "../../../../core/inputs/text/TextField";
 import projectKeys from "../../keys/projectKeys";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";

@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from "react";
+import React, {useMemo} from "react";
 
 import {DateField, DropDownField, TextField} from "mfc-core";
 import PropTypes from "prop-types";

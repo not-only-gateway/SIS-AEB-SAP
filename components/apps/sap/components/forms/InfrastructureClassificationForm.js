@@ -1,5 +1,4 @@
 import React, {useMemo} from "react";
-import {TextField} from "mfc-core";
 import Form from "../../../../core/inputs/form/Form";
 import PropTypes from "prop-types";
 import EntitiesPT from "../../locales/EntitiesPT";
@@ -7,10 +6,8 @@ import associativeKeys from "../../keys/associativeKeys";
 import useQuery from "../../../../core/visualization/hooks/useQuery";
 import getQuery from "../../utils/getQuery";
 import submit from "../../utils/submit";
-import TypeForm from "./TypeForm";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import FormTemplate from "../../templates/FormTemplate";
-import formOptions from "../../templates/formOptions";
 import Selector from "../../../../core/inputs/selector/Selector";
 import ComponentClassificationForm from "./ComponentClassificationForm";
 

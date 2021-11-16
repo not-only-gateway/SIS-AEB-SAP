@@ -1,7 +1,6 @@
 import React from "react";
 
 
-
 import PropTypes from "prop-types";
 import ProjectPT from "../../locales/ProjectPT";
 import Form from "../../../../core/inputs/form/Form";

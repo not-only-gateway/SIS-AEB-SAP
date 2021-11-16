@@ -1,15 +1,12 @@
 import React from 'react'
 import Head from "next/head";
 import IndexPT from "../locales/ProjectPT";
-import styles from '../styles/Shared.module.css'
 import shared from '../styles/Shared.module.css'
 import PropTypes from 'prop-types'
-import Tabs from "../../../core/navigation/tabs/Tabs";
 import ProjectList from "../components/lists/ProjectList";
 import TedList from "../components/lists/TedList";
-import WorkPlanList from "../components/lists/WorkPlanList";
-import OperationList from "../components/lists/OperationList";
-import Tab from "../../../core/navigation/tabs/Tab";
+import {Tab, Tabs} from "mfc-core";
+
 
 export default function Index(props) {
     const lang = IndexPT

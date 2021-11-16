@@ -2,29 +2,35 @@
   "name": "sis-aeb",
   "private": true,
   "scripts": {
-    "dev": "NODE_OPTIONS=\"--max_old_space_size=8192\" next",
+    "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
+    "next": "12.0.4",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+
+
     "@fontsource/roboto": "^4.5.1",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
-    "@material-ui/lab": "^4.0.0-alpha.57",
-    "axios": "^0.21.1",
+
     "express": "^4.17.1",
-    "mfc-core": "latest",
-    "next": "^10.2.3",
     "prop-types": "^15.7.2",
-    "public-ip": "^4.0.3",
-    "react": "17.0.1",
-    "react-dom": "17.0.1",
+
+
     "react-input-mask": "^2.0.4",
-    "uuid": "^8.3.2"
+    "axios": "^0.24.0",
+    "mfc-core": "^1.0.7",
+
+    "universal-cookie": "^4.0.4"
   },
   "devDependencies": {
-    "@material-ui/pickers": "^3.3.10",
-    "@material-ui/styles": "^4.11.3",
-    "universal-cookie": "^4.0.4"
+    "@swc/cli": "^0.1.51",
+    "@swc/core": "^1.2.108",
+    "eslint": "7",
+    "eslint-config-next": "12.0.4"
   }
 }

@@ -125,27 +125,27 @@ export default function OperationPhase(props) {
                     className={shared.wrapper}
                     styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset', padding: '8px'}}
                 >
-                    <Tab label={'Dados'} className={shared.tabWrapper}>
+                    <Tab label={'Dados'} className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <OperationForm update={() => fetchData()} data={operation} create={false}/>
                     </Tab>
                     <Tab label={'Items de Ação'} group={'Informações adicionais'} className={shared.tabWrapper}>
                         <ActionItemList operation={operation}/>
                     </Tab>
                     <Tab label={'Marcos do acompanhamento'} group={'Informações adicionais'}
-                         className={shared.tabWrapper}>
+                         className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <FollowUpList operation={operation}/>
                     </Tab>
-                    <Tab label={'Execuções'} group={'Informações adicionais'} className={shared.tabWrapper}>
+                    <Tab label={'Execuções'} group={'Informações adicionais'} className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <ExecutionList operation={operation}/>
                     </Tab>
-                    <Tab label={'Bens permanentes'} group={'Informações adicionais'} className={shared.tabWrapper}>
+                    <Tab label={'Bens permanentes'} group={'Informações adicionais'} className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <PermanentGoodsList operation={operation}/>
                     </Tab>
                     <Tab label={'Aplicação dos recursos'} group={'Informações adicionais'}
-                         className={shared.tabWrapper}>
+                         className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <ResourceApplicationList operation={operation}/>
                     </Tab>
-                    <Tab label={'Notas de empenho'} group={'Informações adicionais'} className={shared.tabWrapper}>
+                    <Tab label={'Notas de empenho'} group={'Informações adicionais'} className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <NoteList operation={operation}/>
                     </Tab>
                 </VerticalTabs>

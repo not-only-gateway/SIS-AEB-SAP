@@ -1,11 +1,9 @@
-import {Tabs, Tab} from "mfc-core";
+import {Tab, Tabs} from "mfc-core";
 import shared from '../styles/Shared.module.css'
 import ServiceList from "../components/lists/ServiceList";
 import EndpointList from "../components/lists/EndpointList";
 
 import EntityList from "../components/lists/EntityList";
-import AccessProfileList from "../components/lists/AccessProfileList";
-import PermissionList from "../components/lists/PermissionList";
 
 export default function Services(props) {
     return (
