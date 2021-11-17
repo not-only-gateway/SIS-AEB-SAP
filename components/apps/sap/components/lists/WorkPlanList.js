@@ -27,7 +27,7 @@ export default function WorkPlanList(props) {
 
     const keys = useMemo(() => {
         let value = [...workPlanKeys.workPlan]
-        if (!props.project)
+        if (!props.ted)
             value.push({
                 key: 'ted',
                 label: 'Instrumento de celebração',
@@ -36,7 +36,7 @@ export default function WorkPlanList(props) {
                 visible: true,
                 query: {...getQuery('ted'), ...{keys: tedKeys.ted}}
             })
-        if (!props.ted)
+        if (!props.project)
             value.push({
                 key: 'activity_project',
                 label: 'Projeto / atividade',
