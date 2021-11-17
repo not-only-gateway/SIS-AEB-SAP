@@ -67,40 +67,28 @@ const KEYS = {
         {key: 'number', type: 'string', label: 'Número', visible: true},
         {key: 'detailing', type: 'string', label: 'Detalhamento', visible: true}
     ],
-    classificationInfrastructure: (infra) => {
-        return [
+    classificationInfrastructure:[
             {
                 key: 'classification',
                 subfieldKey: 'description',
                 type: 'object',
-                label: 'Descrição da classificação',
+                label: 'Descrição do componente',
                 visible: true
             },
             {
-                key: 'infrastructure', subfieldKey: 'name', type: 'object', label: 'Infraestrutura', visible: true,
-                getColor: (entry) => {
-                    if (entry.id !== infra)
-                        return '#ff5555'
-                    else
-                        return '#00F400'
-                }
-            },
-
-            // {
-            //     key: 'classification_type',
-            //     type: 'object',
-            //     label: 'Tipo',
-            //     visible: true,
-            //     subfieldKey: 'type',
-            //     subType: 'string',
-            //     query:QUERIES?.type
-            // },
-
-        ]
-    },
+                key: 'infrastructure',
+                subfieldKey: 'name',
+                type: 'object', label: 'Infraestrutura', visible: true
+            }
+        ],
     classification: [
-        {key: 'id', type: 'number', label: 'ID', visible: false},
-        {key: 'description', type: 'string', label: 'Classificação', visible: true},
+        {
+            key: 'description',
+            subfieldKey: 'description',
+            type: 'object',
+            label: 'Descrição do componente',
+            visible: true
+        },
         {
             key: 'classification_type',
             type: 'object',
@@ -166,7 +154,7 @@ const KEYS = {
         {
             key: 'responsible',
             type: 'object',
-            label: 'Unidade da AEB responsável',
+            label: 'Unidade da AEB superior',
             visible: true,
             subfieldKey: 'acronym',
             subType: 'string',

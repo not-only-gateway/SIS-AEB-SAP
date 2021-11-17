@@ -4,13 +4,13 @@ import {DeleteRounded} from "@material-ui/icons";
 import useQuery from "../../../../core/visualization/hooks/useQuery";
 import List from "../../../../core/visualization/list/List";
 
-import InfrastructureComponentForm from "../forms/InfrastructureComponentForm";
+import SOCForm from "../forms/SOCForm";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/navigation/switcher/Switcher";
 import deleteEntry from "../../utils/delete";
 import getQuery from "../../utils/getQuery";
 
-export default function InfrastructureComponentsList(props) {
+export default function SOCList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
 
@@ -20,7 +20,7 @@ export default function InfrastructureComponentsList(props) {
     return (
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
 
-                <InfrastructureComponentForm
+                <SOCForm
                     handleClose={() => {
                         setOpen(false)
                         hook.clean()
@@ -58,6 +58,6 @@ export default function InfrastructureComponentsList(props) {
         </Switcher>
     )
 }
-InfrastructureComponentsList.propTypes = {
+SOCList.propTypes = {
     infrastructure: PropTypes.object
 }

@@ -3,14 +3,14 @@ import Head from "next/head";
 import shared from '../styles/Shared.module.css'
 import PropTypes from 'prop-types'
 import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";
-import InfrastructureComponentsList from "../components/lists/InfrastructureComponentsList";
+import SOCList from "../components/lists/SOCList";
 import {fetchEntry} from "../utils/fetchData";
 import InfrastructureForm from "../components/forms/InfrastructureForm";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
 import {CategoryRounded, LinkRounded} from "@material-ui/icons";
 import Button from "../../../core/inputs/button/Button";
 import Tab from "../../../core/navigation/tabs/Tab";
-import InfrastructureComponentDescriptionList from "../components/lists/ClassificationInfrastructureList";
+import InfrastructureComponentDescriptionList from "../components/lists/ComponentList";
 
 
 export default function Infrastructure(props) {
@@ -56,13 +56,13 @@ export default function Infrastructure(props) {
                     <Tab label={'Dados'} className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <InfrastructureForm asDefault={true} data={infrastructure}/>
                     </Tab>
-                    <Tab label={'Descrição do componente'} group={'Informações adicionais'} className={shared.tabWrapper}
+                    <Tab label={'Componente'} group={'Informações adicionais'} className={shared.tabWrapper}
                          styles={{padding: '0 10%'}}>
                         <InfrastructureComponentDescriptionList infrastructure={infrastructure}/>
                     </Tab>
                     <Tab label={'Situações Operacionais de Componentes'} group={'Informações adicionais'}
                          className={shared.tabWrapper} styles={{padding: '0 10%'}}>
-                        <InfrastructureComponentsList infrastructure={infrastructure}/>
+                        <SOCList infrastructure={infrastructure}/>
                     </Tab>
 
 

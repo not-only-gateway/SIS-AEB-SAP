@@ -5,7 +5,6 @@ import InfrastructureList from "../components/lists/InfrastructureList";
 import BudgetPlanList from "../components/lists/BudgetPlanList";
 import NatureExpenseList from "../components/lists/NatureExpenseList";
 import ActionList from "../components/lists/ActionList";
-import ComponentClassificationList from "../components/lists/ComponentClassificationList";
 import DecentralizedUnitList from "../components/lists/DecentralizedUnitList";
 import UnitList from "../components/lists/UnitList";
 import TypeList from "../components/lists/TypeList";
