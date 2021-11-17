@@ -24,7 +24,7 @@ export default function getForms() {
         },
         {
             basePath: 'classification',
-            content: dynamic(() => import( "./components/forms/ComponentClassificationForm"))
+            content: dynamic(() => import( "./components/forms/ComponentDescriptionForm"))
         },
         {
             basePath: 'decentralized_unit',

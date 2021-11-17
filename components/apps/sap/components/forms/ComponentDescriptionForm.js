@@ -14,7 +14,7 @@ import formOptions from "../../templates/formOptions";
 import Selector from "../../../../core/inputs/selector/Selector";
 
 
-export default function ComponentClassificationForm(props) {
+export default function ComponentDescriptionForm(props) {
 
     const lang = EntitiesPT
 
@@ -88,7 +88,7 @@ export default function ComponentClassificationForm(props) {
 
 }
 
-ComponentClassificationForm.propTypes = {
+ComponentDescriptionForm.propTypes = {
     handleClose: PropTypes.func,
     create: PropTypes.bool,
     asDefault: PropTypes.bool,

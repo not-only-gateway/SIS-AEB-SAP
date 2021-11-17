@@ -10,7 +10,7 @@ import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
 import {CategoryRounded, LinkRounded} from "@material-ui/icons";
 import Button from "../../../core/inputs/button/Button";
 import Tab from "../../../core/navigation/tabs/Tab";
-import ClassificationInfrastructureList from "../components/lists/ClassificationInfrastructureList";
+import InfrastructureComponentDescriptionList from "../components/lists/ClassificationInfrastructureList";
 
 
 export default function Infrastructure(props) {
@@ -56,9 +56,9 @@ export default function Infrastructure(props) {
                     <Tab label={'Dados'} className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <InfrastructureForm asDefault={true} data={infrastructure}/>
                     </Tab>
-                    <Tab label={'Componentes'} group={'Informações adicionais'} className={shared.tabWrapper}
+                    <Tab label={'Descrição do componente'} group={'Informações adicionais'} className={shared.tabWrapper}
                          styles={{padding: '0 10%'}}>
-                        <ClassificationInfrastructureList infrastructure={infrastructure}/>
+                        <InfrastructureComponentDescriptionList infrastructure={infrastructure}/>
                     </Tab>
                     <Tab label={'Situações Operacionais de Componentes'} group={'Informações adicionais'}
                          className={shared.tabWrapper} styles={{padding: '0 10%'}}>

@@ -13,34 +13,38 @@ import Selector from "../../../../core/inputs/selector/Selector";
 
 export default function ProjectTedForm(props) {
 
-    const lang = EntitiesPT
-
-    const typeHook = useQuery(getQuery(
-        'project_ted_free',
+    const projectHook = useQuery(getQuery(
+        'project_ted',
         undefined,
         [{
-            key: 'ted',
+            key:props.ted? 'ted' : 'activity_project',
             type: 'object',
-            value: props.ted?.id,
+            value: props.ted ? props.ted.id : props.project.id,
             different_from: true
         }]))
     const initialData = useMemo(() => {
-        return {
-            ...props.data,
-            infrastructure: props.infrastructure?.id
-        }
-    }, [props.infrastructure])
+        if(props.ted)
+            return {
+                ...props.data,
+                ted: props.ted?.id
+            }
+        else
+            return {
+                ...props.data,
+                activity_project: props.ted?.id
+            }
+    }, [props])
+
     return (
-        <FormTemplate
-            keys={associativeKeys.classification}
-            endpoint={'classification'} noDraft={true}
+        <FormTemplate keys={associativeKeys.projectTed}
+             noDraft={true}
             initialData={initialData}
         >
             {({setOpen, formHook, asDraft, asHistory}) => (
                 <Form
                     hook={formHook} submitLabel={'Vincular'}
                     create={props.create}
-                    title={'Vincular projeto / atividade'}
+                    title={props.ted ? 'Vincular projeto / atividade' : 'Vincular instrumento de celebração'}
 
                     returnButton={true}
                     handleSubmit={(data, clearState) =>
@@ -60,14 +64,24 @@ export default function ProjectTedForm(props) {
                     handleClose={() => props.handleClose()}>
                     {(data, handleChange) => (
                         <FormRow>
-                            <Selector
-                                hook={typeHook}
+                            {props.ted ? <Selector
+                                hook={projectHook}
                                 placeholder={'Projeto / atividade'}
                                 label={'Projeto / atividade'}
                                 handleChange={e => handleChange({event: e, key: 'activity_project'})}
                                 value={data.activity_project} width={'100%'} required={true}
                                 keys={associativeKeys.projectTed.filter(e => e.key !== 'ted')}
                             />
+                                :
+                                <Selector
+                                    hook={projectHook}
+                                    placeholder={'Instrumento de celebração'}
+                                    label={'Instrumento de celebração'}
+                                    handleChange={e => handleChange({event: e, key: 'ted'})}
+                                    value={data.ted} width={'100%'} required={true}
+                                    keys={associativeKeys.projectTed.filter(e => e.key !== 'activity_project')}
+                                />
+                            }
                         </FormRow>
                     )}
                 </Form>
@@ -80,4 +94,5 @@ export default function ProjectTedForm(props) {
 ProjectTedForm.propTypes = {
     handleClose: PropTypes.func,
     ted: PropTypes.object,
+    project: PropTypes.object
 }

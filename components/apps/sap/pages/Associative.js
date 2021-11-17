@@ -36,9 +36,6 @@ export default function Associative(props) {
                 <Tab label={lang.infrastructures} className={shared.tabWrapper} styles={{padding: 0}}>
                     <InfrastructureList redirect={props.redirect}/>
                 </Tab>
-                <Tab label={lang.classifications} className={shared.tabWrapper} styles={{padding: 0}}>
-                    <ComponentClassificationList/>
-                </Tab>
                 <Tab label={lang.types} className={shared.tabWrapper} styles={{padding: 0}}>
                     <TypeList/>
                 </Tab>

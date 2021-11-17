@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {DeleteRounded} from "@material-ui/icons";
 import useQuery from "../../../../core/visualization/hooks/useQuery";
 
-import ComponentClassificationForm from "../forms/ComponentClassificationForm";
+import ComponentDescriptionForm from "../forms/ComponentDescriptionForm";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/navigation/switcher/Switcher";
 import deleteEntry from "../../utils/delete";
@@ -17,7 +17,7 @@ export default function ComponentClassificationList(props) {
     return (
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
 
-                <ComponentClassificationForm
+                <ComponentDescriptionForm
                     handleClose={() => {
                         setOpen(false)
                         hook.clean()

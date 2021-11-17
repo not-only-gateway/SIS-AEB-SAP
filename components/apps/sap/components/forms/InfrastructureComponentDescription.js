@@ -9,10 +9,10 @@ import submit from "../../utils/submit";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import FormTemplate from "../../templates/FormTemplate";
 import Selector from "../../../../core/inputs/selector/Selector";
-import ComponentClassificationForm from "./ComponentClassificationForm";
+import ComponentDescriptionForm from "./ComponentDescriptionForm";
 
 
-export default function InfrastructureClassificationForm(props) {
+export default function InfrastructureComponentDescription(props) {
 
     const lang = EntitiesPT
 
@@ -32,7 +32,7 @@ export default function InfrastructureClassificationForm(props) {
             {({setOpen, formHook, asDraft, asHistory}) => (
                 <Form
                     hook={formHook}
-                    create={props.create} title={props.create ? lang.newClassification : lang.classification}
+                    create={props.create} title={props.create ? 'Nova descrição do componente' : 'Descrição do componente'}
 
                     returnButton={true}
                     handleSubmit={(data, clearState) =>
@@ -60,7 +60,7 @@ export default function InfrastructureClassificationForm(props) {
                                 createOption={true}
                             >
                                 {handleClose => (
-                                    <ComponentClassificationForm create={true} asDefault={true} handleClose={() => handleClose()}/>
+                                    <ComponentDescriptionForm create={true} asDefault={true} handleClose={() => handleClose()}/>
                                 )}
                             </Selector>
                         </FormRow>
@@ -72,7 +72,7 @@ export default function InfrastructureClassificationForm(props) {
 
 }
 
-InfrastructureClassificationForm.propTypes = {
+InfrastructureComponentDescription.propTypes = {
     handleClose: PropTypes.func,
     create: PropTypes.bool,
     asDefault: PropTypes.bool,

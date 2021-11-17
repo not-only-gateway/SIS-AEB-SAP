@@ -7,32 +7,23 @@ import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/navigation/switcher/Switcher";
 import deleteEntry from "../../utils/delete";
 import getQuery from "../../utils/getQuery";
-import InfrastructureClassificationForm from "../forms/InfrastructureClassificationForm";
+import InfrastructureComponentDescription from "../forms/InfrastructureComponentDescription";
 import submit from "../../utils/submit";
 
 export default function ClassificationInfrastructureList(props) {
-    const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
 
-    const hook = useQuery(getQuery('classification_infrastructure', undefined, [
-        // {
-        //     key: 'infrastructure',
-        //     value: props.infrastructure?.id,
-        //     type: 'object',
-        //     // different_from: true
-        // }
-        ]))
+    const hook = useQuery(getQuery('classification_infrastructure'))
     return (
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
 
-            <InfrastructureClassificationForm
+            <InfrastructureComponentDescription
                 handleClose={() => {
                     setOpen(false)
                     hook.clean()
                 }}
-
-                create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                data={currentEntity} infrastructure={props.infrastructure}
+                create={true}
+                infrastructure={props.infrastructure}
             />
 
             <List
@@ -68,7 +59,7 @@ export default function ClassificationInfrastructureList(props) {
                             hook.clean()
                         })
                 }}
-                title={'Componentes'}
+                title={'Descrição do componente'}
 
             />
         </Switcher>

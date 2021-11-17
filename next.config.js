@@ -1,4 +1,7 @@
 module.exports = {
-  swcMinify: false,
-  reactStrictMode: true,
+    devIndicators: {
+        buildActivity: false
+    },
+    swcMinify: false,
+    reactStrictMode: true,
 }

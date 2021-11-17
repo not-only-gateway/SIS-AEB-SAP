@@ -13,7 +13,7 @@ import submit from "../../utils/submit";
 import ProjectTedForm from "../forms/ProjectTedForm";
 
 export default function ProjectTedList(props) {
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(props.project ? 2 : 1)
 
     const relations = useMemo(() => {
         if (props.ted)
@@ -38,15 +38,22 @@ export default function ProjectTedList(props) {
         else
             return associativeKeys.projectTed.filter(e => e.key !== 'activity_project')
     }, [props.project, props.ted])
+    const options = useMemo(() => {
+        let r = [{label: 'Vincular novo instrumento de celebração', onClick: () => setOpen(props.project ? 1 : 0)}]
 
+        if (props.project)
+            r.push({label: 'Criar novo instrumento de celebração', onClick: () => setOpen(0)},)
+
+        return r
+    }, [props])
     return (
-        <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
-            {props.project ? <TedForm
+        <Switcher openChild={open} styles={{width: '100%', height: '100%'}}>
+            {props.project ?
+                <TedForm
                     handleClose={() => {
-                        setOpen(false)
+                        setOpen(2)
                         hook.clean()
                     }}
-                    ted={props.ted}
                     onCreationSuccess={(ted) => {
                         if (ted)
                             submit({
@@ -64,15 +71,16 @@ export default function ProjectTedList(props) {
                     create={true}
                 />
                 :
-                <ProjectTedForm ted={props.ted} handleClose={() => {
-                    setOpen(false)
-                    hook.clean()
-                }}/>
+                null
             }
-
+            <ProjectTedForm ted={props.ted} project={props.project} handleClose={() => {
+                setOpen(props.project ? 2 : 1)
+                hook.clean()
+            }}
+            />
             <List
-                createOption={true}
-                onCreate={() => setOpen(true)}
+                options={options}
+
                 noFilters={true}
                 onRowClick={e => {
                     if (!props.ted)

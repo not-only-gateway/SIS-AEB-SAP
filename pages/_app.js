@@ -8,9 +8,13 @@ import styles from "../styles/Wrapper.module.css";
 import Authenticator from "../components/Authenticator";
 import Profile from "../components/addons/profile/Profile";
 import RailActionButton from "../components/core/navigation/rail/RailActionButton";
-import {Modal, ThemeProvider} from "mfc-core";
+import {Button, Modal, ThemeProvider, ToolTip} from "mfc-core";
 import RailActionWrapper from "../components/core/navigation/rail/RailActionWrapper";
 import NavigationRail from "../components/core/navigation/rail/NavigationRail";
+import Apps from "../components/addons/apps/Apps";
+import apps from "../packages/apps";
+import {Brightness3Rounded, BrightnessHighRounded} from "@material-ui/icons";
+import Loader from "../components/core/navigation/loader/Loader";
 
 export default function SisAeb({Component, pageProps}) {
 
@@ -22,6 +26,7 @@ export default function SisAeb({Component, pageProps}) {
         setOpenAuthentication,
         cookies, darkTheme,
         router, isManager,
+        setDarkTheme,
         setManager, profiles, sidebar
     } = useWrapper()
 
@@ -34,6 +39,7 @@ export default function SisAeb({Component, pageProps}) {
     return (
         <ProfileContext.Provider value={profile}>
             <ThemeProvider onDark={darkTheme} className={styles.wrapper}>
+                <Loader loading={loading}/>
                 <Modal
                     open={openAuthentication}
                     handleClose={() => {
@@ -55,17 +61,11 @@ export default function SisAeb({Component, pageProps}) {
 
                 <div className={styles.contentWrapper}>
                     <NavigationRail>
-                        {/*<RailActionWrapper className={styles.logoWrapper}>*/}
-                        {/*    <img className={styles.logo} src={darkTheme ? '../dark.png' : '../light.png'} alt={'logo'}/>*/}
-                        {/*</RailActionWrapper>*/}
-                        {/*<RailActionWrapper className={styles.appName}>*/}
-                        {/*    {layoutParams.appName}*/}
-                        {/*</RailActionWrapper>*/}
-                        {/*<RailActionWrapper place={"end"}>*/}
-                        {/*    <Apps buttons={apps.map(e => {*/}
-                        {/*        return {...e, onClick: () => router.push(e.path, e.path)}*/}
-                        {/*    })}/>*/}
-                        {/*</RailActionWrapper>*/}
+
+                        <RailActionWrapper>
+                            <img style={{width: '100%'}} src={darkTheme ? './dark.png' : './light.png'} alt={'AEB'}/>
+                        </RailActionWrapper>
+
                         {sidebar.filter(e => e.position !== 'bottom').map((b, i) => (
                             <React.Fragment key={'top-' + i}>
                                 <RailActionWrapper place={"start"}>
@@ -83,8 +83,23 @@ export default function SisAeb({Component, pageProps}) {
                         ))}
 
 
+                        <RailActionWrapper place={'end'}>
+                            <Button onClick={() => setDarkTheme(!darkTheme)}>
+                                {darkTheme ? <Brightness3Rounded/> : <BrightnessHighRounded/>}
+                                <ToolTip content={'Tema'} align={'middle'} justify={'end'}/>
+                            </Button>
+                        </RailActionWrapper>
+                        <RailActionWrapper place={"end"}>
+                            <Apps
+                                buttons={apps.map(e => {
+                                    return {...e, onClick: () => router.push(e.path, e.path)}
+                                })}
+                            />
+                        </RailActionWrapper>
+
                         <RailActionWrapper place={"end"}>
                             <Profile
+                                openAuth={() => setOpenAuthentication(true)}
                                 profile={profile}
                                 redirect={o => {
                                     if (o === 0)

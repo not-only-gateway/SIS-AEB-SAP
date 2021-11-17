@@ -85,12 +85,7 @@ export default function useWrapper() {
                 highlight: router.query.page === 'profile',
                 position: 'bottom'
             })
-        res.push({
-            label: darkTheme ? 'Escuro' : 'Claro',
-            icon: darkTheme ? <Brightness3Rounded/> : <BrightnessHighRounded/>,
-            onClick: () => setDarkTheme(!darkTheme),
-            position: 'bottom'
-        })
+
         return res
     }, [darkTheme, isManager, profile, layoutParams, router.query])
 
@@ -108,6 +103,7 @@ export default function useWrapper() {
         router, requiresAuth,
         setProfile,
         isManager,
-        darkTheme
+        darkTheme,
+        setDarkTheme
     }
 }
