@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
-import {DeleteRounded} from "@material-ui/icons";
+import {DeleteForeverRounded, RemoveRounded} from "@material-ui/icons";
 import useQuery from "../../../../core/visualization/hooks/useQuery";
 import List from "../../../../core/visualization/list/List";
 import associativeKeys from "../../keys/associativeKeys";
@@ -71,8 +71,8 @@ export default function ComponentList(props) {
                 hook={hook}
                 keys={associativeKeys.classificationInfrastructure.filter(e => e.key !== 'infrastructure')}
                 controlButtons={[{
-                    label: 'Deletar',
-                    icon: <DeleteRounded/>,
+                    label: 'Remover relação',
+                    icon: <RemoveRounded/>,
                     onClick: (entity) => {
                         deleteEntry({
                             suffix: 'classification_infrastructure',
@@ -84,7 +84,20 @@ export default function ComponentList(props) {
                     },
                     disabled: false,
                     color: '#ff5555'
-                }]}
+                },
+                    {
+                        label: 'Deletar componente',
+                        icon: <DeleteForeverRounded/>,
+                        onClick: (entity) => {
+                            deleteEntry({
+                                suffix: 'classification',
+                                pk: entity.classification.id
+                            }).then(() => hook.clean())
+                        },
+                        disabled: false,
+                        color: '#ff5555'
+                    }
+                ]}
                 onRowClick={e => {
                     setOpen(1)
                     setCurrentComponent(e)
