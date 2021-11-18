@@ -1,5 +1,5 @@
 import React, {useMemo} from "react";
-import {DropDownField, TextField} from "mfc-core";
+import {SelectField, TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import StatusPT from "../../locales/StatusPT";
 import Form from "../../../../core/inputs/form/Form";
@@ -67,7 +67,7 @@ export default function FinancialDisbursementForm(props) {
                         required={true} type={'number'}
                         width={'calc(33.333% - 21.5px)'}/>
 
-                    <DropDownField
+                    <SelectField
                         placeholder={lang.month}
                         label={lang.month}
                         handleChange={event => {

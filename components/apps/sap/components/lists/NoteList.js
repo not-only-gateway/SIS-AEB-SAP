@@ -24,6 +24,7 @@ export default function NoteList(props) {
 
                 <NoteForm
                     handleClose={() => {
+                        setCurrentEntity(null)
                         hook.clean()
                         setOpen(false)
                     }}

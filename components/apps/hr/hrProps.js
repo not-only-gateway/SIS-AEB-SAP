@@ -2,7 +2,7 @@ import {PeopleRounded} from "@material-ui/icons";
 import React from "react";
 
 export default function hrProps (redirect, path, query={}) {
-    console.log(path)
+
     return {
         appName: 'Recursos humanos',
         sideBarButtons: [

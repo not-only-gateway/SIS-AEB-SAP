@@ -25,6 +25,7 @@ export default function PermanentGoodsList(props) {
             <PermanentGoodsForm
                 handleClose={() => {
                     setOpen(false)
+                    setCurrentEntity(null)
                     hook.clean()
                 }}
                 create={!currentEntity}

@@ -60,7 +60,7 @@ export default function Infrastructure(props) {
                          styles={{padding: '0 10%'}}>
                         <InfrastructureComponentDescriptionList infrastructure={infrastructure}/>
                     </Tab>
-                    <Tab label={'Situações Operacionais de Componentes'} group={'Informações adicionais'}
+                    <Tab label={'Situação Operacional de Componentes'} group={'Informações adicionais'}
                          className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <SOCList infrastructure={infrastructure}/>
                     </Tab>

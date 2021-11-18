@@ -20,6 +20,7 @@ export default function DecentralizedUnitList(props) {
 
                 <DecentralizedUnitForm
                     handleClose={() => {
+                        setCurrentEntity(null)
                         setOpen(false)
                         hook.clean()
                     }}

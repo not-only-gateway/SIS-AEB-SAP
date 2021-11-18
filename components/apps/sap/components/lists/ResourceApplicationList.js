@@ -27,6 +27,7 @@ export default function ResourceApplicationList(props) {
 
                 <ResourceApplicationForm
                     handleClose={() => {
+                        setCurrentEntity(null)
                         setOpen(false)
                         hook.clean()
                     }}

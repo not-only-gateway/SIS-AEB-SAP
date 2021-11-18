@@ -20,6 +20,7 @@ export default function UnitList(props) {
                     handleClose={() => {
                         setOpen(false)
                         hook.clean()
+                        setCurrentEntity(null)
                     }}
                     asDefault={true}
                     create={!currentEntity}

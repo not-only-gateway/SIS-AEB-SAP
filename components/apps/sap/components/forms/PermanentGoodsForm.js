@@ -1,6 +1,6 @@
 import React, {useMemo} from "react";
 
-import {DateField, DropDownField, TextField} from "mfc-core";
+import {DateField, SelectField, TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import Form from "../../../../core/inputs/form/Form";
 import PermanentGoodsPT from "../../locales/PermanentGoodsPT";
@@ -64,7 +64,7 @@ export default function PermanentGoodsForm(props) {
                                 }} value={data.description}
                                 required={true} width={'100%'} variant={'area'}/>
 
-                            <DropDownField
+                            <SelectField
                                 placeholder={lang.unitOfMeasurement}
                                 label={lang.unitOfMeasurement}
                                 handleChange={event => {

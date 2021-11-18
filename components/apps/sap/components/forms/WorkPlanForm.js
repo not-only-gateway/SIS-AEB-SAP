@@ -26,12 +26,49 @@ export default function WorkPlanForm(props) {
     const unitHook = useQuery(getQuery('unit'))
     const [selectedAction, setSelectedAction] = useState()
     const budgetHookFilter = useMemo(() => {
-        return !props.create ? props.data?.ted?.action : selectedAction?.id
+        switch (true) {
+            case props.ted !== undefined: {
+
+                return props.ted?.action
+            }
+            case !props.create && !props.ted: {
+
+                return props.data?.ted?.action
+            }
+            case selectedAction !== undefined: {
+
+                return selectedAction?.id
+            }
+            default: {
+                return undefined
+            }
+        }
     }, [props.data, selectedAction])
 
-    const budgetPlanHook = useQuery(getQuery('budget_plan', {action: budgetHookFilter}))
-    const projectHook = useQuery(getQuery('project'))
-    const tedHook = useQuery(getQuery('ted'))
+    const budgetPlanHook = useQuery(getQuery('budget_plan', budgetHookFilter ? {action: budgetHookFilter} : undefined))
+
+    const tedFilter = useMemo(() => {
+        if(props.ted)
+            return [{
+                type: 'object',
+                value: props.ted.id,
+                key: 'ted'
+            }]
+        else
+            return []
+    }, [props])
+    const projectHook = useQuery(getQuery('project_ted', undefined, tedFilter))
+    const projectFilter = useMemo(() => {
+        if(props.project)
+            return [{
+                type: 'object',
+                value: props.project.id,
+                key: 'activity_project'
+            }]
+        else
+            return []
+    }, [props])
+    const tedHook = useQuery(getQuery('project_ted', undefined, projectFilter))
     const infrastructureHook = useQuery(getQuery('infrastructure'))
 
     const initialData = useMemo(() => {
@@ -92,10 +129,10 @@ export default function WorkPlanForm(props) {
                     {(data, handleChange) => (
                         <>
                             <FormRow>
-                                {!props.ted && !props.workPlan?
+                                {!props.ted && !props.workPlan ?
                                     <Selector
 
-                                        hook={tedHook} keys={tedKeys.ted} disabled={!props.create}
+                                        hook={tedHook} keys={associativeKeys.projectTed.filter(e => e.key === 'ted')} disabled={!props.create}
                                         width={props.project ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
                                         required={true} createOption={false}
                                         value={data.ted}
@@ -109,9 +146,10 @@ export default function WorkPlanForm(props) {
                                     :
                                     null
                                 }
-                                {!props.project && !props.workPlan?
+                                {!props.project && !props.workPlan ?
                                     <Selector
-                                        hook={projectHook} keys={projectKeys.project} disabled={!props.create}
+                                        hook={projectHook} keys={associativeKeys.projectTed.filter(e => e.key === 'activity_project')}
+                                        disabled={!props.create}
                                         width={props.ted ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
                                         required={true}
                                         value={data.activity_project}
@@ -142,7 +180,7 @@ export default function WorkPlanForm(props) {
                                     helperText={props.workPlan && props.data?.budget_plan !== data.budget_plan ? 'Campo alterado' : 'Dependente da ação do instrumento de celebração selecionado'}
 
                                     hook={budgetPlanHook} keys={removeAction()}
-                                    width={((!props.ted && props.project) || (!props.project && props.ted)&& !props.workPlan)? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
+                                    width={((!props.ted && props.project) || (!props.project && props.ted) && !props.workPlan) ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
                                     required={true} disabled={!data.ted || !data.ted.id}
                                     value={data.budget_plan}
                                     label={`Plano orçamentário ${selectedAction ? `(Ação ${selectedAction.number})` : ''}`}

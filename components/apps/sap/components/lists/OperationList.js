@@ -38,6 +38,7 @@ export default function OperationList(props) {
                 handleClose={() => {
                     setOpen(false)
                     hook.clean()
+
                 }}
                 workPlan={props.workPlan}
                 create={true}

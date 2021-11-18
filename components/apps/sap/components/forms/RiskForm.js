@@ -1,6 +1,6 @@
 import React, {useMemo} from "react";
 import ProjectPT from "../../locales/ProjectPT";
-import {DropDownField, TextField} from "mfc-core";
+import {SelectField, TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import Form from "../../../../core/inputs/form/Form";
 import submit from "../../utils/submit";
@@ -66,7 +66,7 @@ export default function RiskForm(props) {
                                 required={true}
                                 width={'100%'}/>
 
-                            <DropDownField
+                            <SelectField
                                 dark={true}
                                 placeholder={lang.analysis}
                                 label={lang.analysis}

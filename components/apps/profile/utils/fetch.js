@@ -12,7 +12,7 @@ export async function fetchDrafts() {
     }).then(res => {
         response = res.data
     }).catch(e => {
-        console.log(e)
+
     })
     return response
 }
@@ -26,7 +26,7 @@ export async function fetchPrivileges() {
     }).then(res => {
         response = res.data
     }).catch(e => {
-        console.log(e)
+
     })
     return response
 }

@@ -1,7 +1,7 @@
 import React, {useMemo} from "react";
 import PropTypes from "prop-types";
 import InfrastructurePT from "../../locales/InfrastructurePT";
-import {DropDownField, Selector} from "mfc-core";
+import {SelectField, Selector} from "mfc-core";
 import Form from "../../../../core/inputs/form/Form";
 import associativeKeys from "../../keys/associativeKeys";
 import useQuery from "../../../../core/visualization/hooks/useQuery";
@@ -14,12 +14,19 @@ import formOptions from "../../templates/formOptions";
 
 
 export default function SOCForm(props) {
-    const classificationHook = useQuery(getQuery('classification'))
+    const classificationHook = useQuery(
+        getQuery('classification_infrastructure',
+            undefined, [{
+                key: 'infrastructure',
+                type: 'object',
+                value: props.infrastructure?.id
+            }]))
     const lang = InfrastructurePT
     const initialData = useMemo(() => {
         return {
             ...props.data,
             ...{
+                component_classification: props.data ? {component_classification: props.data.component_classification} : undefined,
                 infrastructure: props.infrastructure.id
             }
         }
@@ -48,7 +55,7 @@ export default function SOCForm(props) {
                         submit({
                             suffix: 'component',
                             pk: data.id,
-                            data: data,
+                            data: props.create ? {...data, component_classification: data.component_classification.classification} : data,
                             create: props.create
                         }).then(res => {
                             if (props.create && res.success) {
@@ -64,9 +71,12 @@ export default function SOCForm(props) {
                                 hook={classificationHook}
                                 placeholder={'Componente'}
                                 label={'Componente'}
-                                handleChange={e => handleChange({event: e, key: 'classification'})}
-                                value={data.classification} width={'calc(50% - 16px)'} required={true}
-                                keys={associativeKeys.classification}
+                                handleChange={e => {
+
+                                    handleChange({event: e, key: 'component_classification'})
+                                }}
+                                value={data.component_classification} width={'calc(50% - 16px)'} required={true}
+                                keys={associativeKeys.classificationInfrastructure.filter(e => e.key !== 'infrastructure')}
                                 createOption={true}
                             >
                                 {handleClose => (
@@ -74,7 +84,7 @@ export default function SOCForm(props) {
                                                    handleClose={() => handleClose()}/>
                                 )}
                             </Selector>
-                            <DropDownField
+                            <SelectField
                                 choices={[
                                     {key: 'operacional', value: 'Operacional'},
                                     {key: 'em manutenção', value: 'Em manutenção'},
@@ -85,7 +95,7 @@ export default function SOCForm(props) {
                                 placeholder={lang.situation}
                                 label={lang.situation}
                                 handleChange={event => {
-                                    console.log(event)
+
                                     handleChange({
                                         event: event,
                                         key: 'situation'

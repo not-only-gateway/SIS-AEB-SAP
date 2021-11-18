@@ -15,7 +15,7 @@ export async function fetchEntry(props) {
     }).then(res => {
         response = res.data !== null && res.data !== undefined ? res.data : {}
     }).catch(e => {
-        console.log(e)
+
     })
     return response
 }

@@ -13,7 +13,7 @@ export default function Service(props) {
         fetchEntry({suffix: 'service', prefix: 'gateway', pk: props.query.id}).then(r => {
             if (r !== null) {
                 let host = r.host?.split('//')
-                console.log(host)
+
                 setData(r)
             }
         })

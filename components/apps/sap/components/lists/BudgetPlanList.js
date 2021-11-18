@@ -14,12 +14,12 @@ export default function BudgetPlanList(props) {
     const [open, setOpen] = useState(false)
     const hook = useQuery(getQuery('budget_plan'))
 
-
     return (
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
 
                 <BudgetPlanForm
                     handleClose={() => {
+                        setCurrentEntity(null)
                         setOpen(false)
                         hook.clean()
                     }}

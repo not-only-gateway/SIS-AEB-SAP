@@ -10,6 +10,7 @@ import getQuery from "../../utils/getQuery";
 import useQuery from "../../../../core/visualization/hooks/useQuery";
 import List from "../../../../core/visualization/list/List";
 
+
 export default function TedList(props) {
 
     const [open, setOpen] = useState(false)
@@ -18,11 +19,11 @@ export default function TedList(props) {
     }, [])
     const hook = useQuery(query)
     const addendumData = useMemo(() => {
-        if (props.ted) {
-            let value = {...props.ted}
+        if (props.copyFrom) {
+            let value = {...props.copyFrom}
             delete value.id
 
-            return {...value, ted: props.ted?.id}
+            return value
         } else return undefined
     }, [props.ted])
 
@@ -34,6 +35,7 @@ export default function TedList(props) {
                 handleClose={() => {
                     setOpen(false)
                     hook.clean()
+
                 }} asEntity={true}
                 ted={props.ted}
                 data={addendumData}
@@ -42,6 +44,8 @@ export default function TedList(props) {
             />
 
             <List
+                createOption={props.ted}
+                onCreate={() => setOpen(true)}
                 onRowClick={e => props.redirect(`/sap?page=ted&id=${e.id}`)}
                 controlButtons={[{
                     label: 'Deletar',
@@ -65,5 +69,6 @@ export default function TedList(props) {
 
 TedList.propTypes = {
     redirect: PropTypes.func,
-    ted: PropTypes.object
+    ted: PropTypes.object,
+    copyFrom: PropTypes.object
 }

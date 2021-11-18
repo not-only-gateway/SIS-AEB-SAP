@@ -23,7 +23,7 @@ export default async function deleteEntry(props) {
             success: true
         }
     }).catch(e => {
-        console.log(e)
+
     })
     return response
 }

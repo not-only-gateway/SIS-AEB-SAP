@@ -69,7 +69,7 @@ const KEYS = {
     ],
     classificationInfrastructure:[
             {
-                key: 'classification',
+                key: 'component_classification',
                 subfieldKey: 'description',
                 type: 'object',
                 label: 'Descrição do componente',
@@ -103,11 +103,11 @@ const KEYS = {
         {key: 'id', type: 'number', label: 'ID', visible: false},
         {key: 'situation', type: 'string', label: 'Situação', visible: true},
         {
-            key: 'classification',
+            key: 'component_classification',
             type: 'object',
-            label: 'Classificação',
+            label: 'Componente',
             visible: true,
-            subfieldKey: 'classification',
+            subfieldKey: 'description',
             subType: 'string',
             query: QUERIES?.classification
         },
@@ -115,7 +115,7 @@ const KEYS = {
             key: 'infrastructure',
             type: 'object',
             label: 'Infraestrutura',
-            visible: true,
+            visible: false,
             subfieldKey: 'name',
             subType: 'string',
             query: QUERIES?.infrastructure
@@ -124,12 +124,12 @@ const KEYS = {
     decentralizedUnit: [
         {key: 'id', type: 'number', label: 'ID', visible: false},
         {key: 'name', type: 'string', label: 'Nome', visible: true},
-        {key: 'competent_authority', type: 'string', label: 'Autoridade competente', visible: true},
-        {key: 'cpf', type: 'string', label: 'CPF', visible: true},
-        {key: 'identification', type: 'string', label: 'Identificação', visible: true},
-        {key: 'ugi', type: 'string', label: 'UGI', visible: true},
+        {key: 'competent_authority', type: 'string', label: 'Autoridade competente', visible: false},
+        {key: 'cpf', type: 'string', label: 'CPF', visible: false},
+        {key: 'identification', type: 'string', label: 'Identificação', visible: false},
+        {key: 'ugi', type: 'string', label: 'UGI', visible: false},
         {key: 'uge', type: 'string', label: 'UGE', visible: true},
-        {key: 'cnpj', type: 'string', label: 'CNPJ', visible: true},
+        {key: 'cnpj', type: 'string', label: 'CNPJ', visible: false},
         {key: 'ug', type: 'string', label: 'UG', visible: true},
     ],
     infrastructure: [
@@ -152,7 +152,7 @@ const KEYS = {
         {key: 'acronym', type: 'string', label: 'Acrônomo', visible: true},
         {key: 'name', type: 'string', label: 'Nome', visible: true},
         {
-            key: 'responsible',
+            key: 'parent_unit',
             type: 'object',
             label: 'Unidade da AEB superior',
             visible: true,

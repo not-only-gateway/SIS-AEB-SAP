@@ -23,6 +23,7 @@ export default function GoalList(props) {
 
                 <GoalForm
                     handleClose={() => {
+                        setCurrentEntity(null)
                         setOpen(false)
                         hook.clean()
                     }}

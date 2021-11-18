@@ -26,6 +26,7 @@ export default function RisksList(props) {
                     handleClose={() => {
                         setOpen(false)
                         hook.clean()
+                        setCurrentEntity(null)
                     }}
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
                     data={currentEntity} project={props.project}/>

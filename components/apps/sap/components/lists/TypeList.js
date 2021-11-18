@@ -21,6 +21,7 @@ export default function TypeList(props) {
                     handleClose={() => {
                         setOpen(false)
                         hook.clean()
+                        setCurrentEntity(null)
                     }} asEntity={true}
                     asDefault={true}
                     create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}

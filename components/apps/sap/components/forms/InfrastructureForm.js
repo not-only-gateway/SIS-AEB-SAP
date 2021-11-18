@@ -1,5 +1,5 @@
 import React, {useMemo} from "react";
-import {DropDownField, TextField} from "mfc-core";
+import {SelectField, TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import InfrastructurePT from "../../locales/InfrastructurePT";
 import Form from "../../../../core/inputs/form/Form";
@@ -74,7 +74,7 @@ export default function InfrastructureForm(props) {
                                 width={'calc(50% - 16px)'}/>
 
 
-                            <DropDownField
+                            <SelectField
                                 placeholder={lang.type}
                                 label={lang.type}
                                 handleChange={event => {

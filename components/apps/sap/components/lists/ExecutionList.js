@@ -69,6 +69,7 @@ export default function ExecutionList(props) {
 
             <ExecutionForm
                 handleClose={() => {
+                    setCurrentEntity(null)
                     setOpen(false)
                     hook.clean()
                 }}

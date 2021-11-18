@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import styles from '../styles/Authenticate.module.css'
-import ThemeContext from "./core/misc/theme/ThemeContext";
 import {VisibilityOffRounded, VisibilityRounded} from "@material-ui/icons";
 import TextField from "./core/inputs/text/TextField";
 import submitAuthentication from "../utils/SubmitAuthentication";
@@ -9,7 +8,7 @@ import Button from "./core/inputs/button/Button";
 import Cookies from "universal-cookie/lib";
 
 export default function Authenticator(props) {
-    const theme = useContext(ThemeContext)
+
     const [asManager, setAsManager] = useState(false)
 
     const [visible, setVisible] = useState(false)
@@ -29,7 +28,7 @@ export default function Authenticator(props) {
     return (
         <div className={styles.wrapper}>
             <div style={{
-                color: theme.themes.color2,
+                color: 'var(--mfc-color-secondary)',
             }} className={styles.header}>
                 <img src={'/light.png'} style={{width: '135px'}} alt={'logo'}/>
                 Bem vindo
@@ -59,7 +58,7 @@ export default function Authenticator(props) {
                     width={'100%'}
                     type={visible ? undefined : 'password'}
                     maskEnd={(
-                        <button className={styles.button} style={{color: theme.themes.color1}}
+                        <button className={styles.button} style={{color: 'var(--mfc-color-primary)'}}
                                 onClick={() => setVisible(!visible)}>
                             {visible ? <VisibilityRounded/> : <VisibilityOffRounded/>}
                         </button>

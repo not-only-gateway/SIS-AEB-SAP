@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from "react";
-import PropTypes from "prop-types";
+import PropTypes, {object} from "prop-types";
 import List from "../../../../core/visualization/list/List";
 
 import WorkPlanForm from "../forms/WorkPlanForm";
@@ -23,7 +23,18 @@ export default function WorkPlanList(props) {
             return {ted: props.ted.id}
         } else return {}
     }, [props.project, props.ted])
-    const hook = useQuery(getQuery('work_plan', relations))
+    const deep = useMemo(() => {
+        let res = []
+        if(props.workPlan === undefined)
+            res.push({
+                key: 'apostille_work_plan',
+                value: null,
+                type: 'object'
+            })
+        return res
+    }, [props])
+
+    const hook = useQuery(getQuery('work_plan', relations, deep))
 
     const keys = useMemo(() => {
         let value = [...workPlanKeys.workPlan]
@@ -64,6 +75,7 @@ export default function WorkPlanList(props) {
                 handleClose={() => {
                     setOpen(false)
                     hook.clean()
+
                 }}
                 workPlan={props.workPlan}
                 onRowClick={e => props.redirect(`/sap?page=ted&id=${e.id}`)}

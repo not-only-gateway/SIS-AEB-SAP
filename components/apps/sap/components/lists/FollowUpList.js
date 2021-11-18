@@ -23,6 +23,7 @@ export default function FollowUpList(props) {
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
             <FollowUpForm
                 handleClose={() => {
+                    setCurrentEntity(null)
                     hook.clean()
                     setOpen(false)
                 }}

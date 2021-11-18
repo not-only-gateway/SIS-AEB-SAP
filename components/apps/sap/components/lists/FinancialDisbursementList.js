@@ -24,6 +24,7 @@ export default function FinancialDisbursementList(props) {
         <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
                  <FinancialDisbursementForm
                     handleClose={() => {
+                        setCurrentEntity(null)
                         setOpen(false)
                         hook.clean()
                     }}

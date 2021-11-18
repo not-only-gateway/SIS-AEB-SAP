@@ -1,5 +1,5 @@
 import React from "react";
-import {DropDownField, TextField} from "mfc-core";
+import {SelectField, TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import ProjectPT from "../../locales/ProjectPT";
 import Form from "../../../../core/inputs/form/Form";
@@ -59,7 +59,7 @@ export default function NatureExpenseForm(props) {
                         }} value={data.description}
                         required={true} width={'100%'} variant={'area'}/>
 
-                    <DropDownField
+                    <SelectField
                         placeholder={'gnd'}
                         label={'gnd'}
                         handleChange={event => {

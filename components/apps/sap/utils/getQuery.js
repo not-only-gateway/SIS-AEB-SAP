@@ -3,7 +3,7 @@ import Cookies from "universal-cookie/lib";
 
 const cookies = new Cookies()
 
-export default function getQuery(suffix, relations = {}, deep_relations=[]) {
+export default function getQuery(suffix, relations = {}, deep_relations = []) {
 
     return {
         url: Host() + 'list/' + suffix,
@@ -24,8 +24,10 @@ export default function getQuery(suffix, relations = {}, deep_relations=[]) {
             }
             value.filters = [...value.filters, ...deep_relations]
             value.filters.forEach((e, index) => {
-                if (e.type === 'object' && typeof e.value === 'object')
+                if (e.type === 'object' && e.value && typeof e.value === 'object')
                     value.filters[index] = {...e, value: e.value.id}
+                else
+                    value.filters[index] = {...e, value: e.value}
             })
 
             return value

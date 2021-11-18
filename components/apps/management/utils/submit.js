@@ -18,7 +18,7 @@ export default async function submit(props) {
             data[d] = Array.isArray(props.data[d]) ? JSON.stringify(props.data[d]) : props.data[d]
 
     })
-    console.log(data)
+
     await Request({
         method: props.create ? 'post' : 'put',
         url: props.url ? props.url : Host(props.prefix) + props.suffix,
@@ -31,7 +31,7 @@ export default async function submit(props) {
             success: true
         }
     }).catch(e => {
-        console.log(e)
+
     })
     return response
 }

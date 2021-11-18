@@ -8,22 +8,52 @@ import TedForm from "../components/forms/TedForm";
 import TedList from "../components/lists/TedList";
 import {fetchEntry} from "../utils/fetchData";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
-import {CategoryRounded, HomeRounded} from "@material-ui/icons";
+import {CategoryRounded, CloseRounded, HomeRounded, InfoRounded, RemoveRounded} from "@material-ui/icons";
 import Button from "../../../core/inputs/button/Button";
 import ProjectTedList from "../components/lists/ProjectTedList";
 import Tab from "../../../core/navigation/tabs/Tab";
+import Request from "../../../core/feedback/requester/request";
+import Host from "../utils/host";
+import {ToolTip} from "mfc-core";
 
 export default function Ted(props) {
     const [ted, setTed] = useState({})
+    const [project, setProject] = useState(null)
+    const [lastAddendum, setLastAddendum] = useState(null)
 
     useEffect(() => {
         if (ted.id !== undefined)
             props.refresh()
-        else
+        else {
             fetchEntry({
                 pk: props.query.id,
                 suffix: 'ted'
-            }).then(res => setTed(res ? res : {}))
+            }).then(res => {
+                if (res) {
+                    setTed(res)
+
+                    Request({
+                        method: 'get',
+                        url: Host() + 'list/ted',
+                        package: {
+                            filters: JSON.stringify([{key: 'addendum_ted', value: res.id, type: 'object'}]),
+                            sorts: JSON.stringify([{key: 'id', desc: true}]),
+                            quantity: 1
+                        }
+                    }).then(r => setLastAddendum(r.data.length > 0 ? r.data[0] : null))
+                }
+            })
+            if (props.query.project_id !== undefined)
+                fetchEntry({
+                    pk: props.query.project_id,
+                    suffix: 'project'
+                }).then(res => {
+                    setProject(res)
+                })
+
+        }
+
+
     }, [props.query])
 
 
@@ -43,7 +73,10 @@ export default function Ted(props) {
                 {!ted.ted ? null :
                     <Button variant={"minimal"}
                             onClick={() => props.redirect('/sap?page=ted&id=' + ted.ted.id)} className={shared.button}>
-                        {ted.ted.number} (Instrumento de celebração)
+                        Termo aditivo de {ted.ted.number}
+                        <ToolTip>
+                            Instrumento de celebração
+                        </ToolTip>
                     </Button>
                 }
                 <Button variant={'minimal'} highlight={true}>
@@ -51,13 +84,28 @@ export default function Ted(props) {
                 </Button>
             </Breadcrumbs>
 
-            <div className={shared.header}
-                 style={{padding: '16px 24px'}}>
-                {ted?.number}
-                <div className={shared.typeLabel}>
-                    <CategoryRounded style={{fontSize: '1.15rem'}}/> Instrumento de celebração
+            <div style={{display:'flex', width: '100%', alignItems: 'center'}}>
+                <div className={shared.header}
+                     style={{padding: '16px 24px'}}>
+                    {ted?.number}
+
+                    <div className={shared.typeLabel}>
+                        <CategoryRounded style={{fontSize: '1.15rem'}}/> Instrumento de celebração
+                    </div>
                 </div>
+                {project ?
+                    <Button variant={"outlined"} color={"secondary"}
+                            onClick={() => props.redirect('/sap?page=ted&id='+ted.id)}
+                            styles={{display: 'flex', alignItems: 'center', gap: '4px', height: '30px'}}>
+                        <CloseRounded style={{fontSize: '1.1rem'}}/>
+                        Mapeando para Projeto/Atividade: {project?.name}
+                        <ToolTip content={'Clique para remover mapeamento'}/>
+                    </Button>
+                    :
+                    null
+                }
             </div>
+
             {/*</div>*/}
             <div className={shared.pageContent}>
                 <VerticalTabs
@@ -69,15 +117,18 @@ export default function Ted(props) {
                     </Tab>
                     <Tab label={'Termos aditivos'} group={'Informações adicionais'} className={shared.tabWrapper}
                          styles={{padding: '0 10%'}}>
-                        <TedList ted={ted} redirect={props.redirect}/>
+                        <TedList ted={ted} copyFrom={lastAddendum ? lastAddendum : ted} redirect={props.redirect}/>
                     </Tab>
-                    <Tab label={'Projetos / Atividades relacionados'} group={'Acesso rápido'}
-                         className={shared.tabWrapper} styles={{padding: '0 10%'}}>
-                        <ProjectTedList ted={ted} redirect={props.redirect}/>
-                    </Tab>
+                    {project ? null
+                        :
+                        <Tab label={'Projetos / Atividades relacionados'} group={'Acesso rápido'}
+                             className={shared.tabWrapper} styles={{padding: '0 10%'}}>
+                            <ProjectTedList project={project} ted={ted} redirect={props.redirect}/>
+                        </Tab>
+                    }
                     <Tab label={'Planos de trabalho'} group={'Acesso rápido'} className={shared.tabWrapper}
                          styles={{padding: '0 10%'}}>
-                        <WorkPlanList ted={ted} redirect={props.redirect}/>
+                        <WorkPlanList project={project} ted={ted} redirect={props.redirect}/>
                     </Tab>
 
                 </VerticalTabs>

@@ -1,7 +1,7 @@
 import React, {useMemo} from "react";
 import ProjectPT from "../../locales/ProjectPT";
 
-import {DateField, DropDownField, TextField} from "mfc-core";
+import {DateField, SelectField, TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import Form from "../../../../core/inputs/form/Form";
 import submit from "../../utils/submit";
@@ -67,7 +67,7 @@ export default function ProjectGoalForm(props) {
                                 }} value={data.description}
                                 required={true} width={'100%'}/>
 
-                            <DropDownField
+                            <SelectField
                                 dark={true}
                                 placeholder={lang.status}
                                 label={lang.status}

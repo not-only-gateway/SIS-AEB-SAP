@@ -23,6 +23,7 @@ export default function ProjectList(props) {
                 handleClose={() => {
                     setOpen(false)
                     hook.clean()
+
                 }} redirect={props.redirect}
 
                 create={true}

@@ -16,7 +16,7 @@ export async function fetchEntry(props) {
 
         response = res.data ? res.data : {}
     }).catch(e => {
-        console.log(e)
+
     })
     return response
 }

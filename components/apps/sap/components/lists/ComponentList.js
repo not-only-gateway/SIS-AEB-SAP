@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
-import {DeleteForeverRounded, RemoveRounded} from "@material-ui/icons";
+import {AddRounded, CreateRounded, DeleteForeverRounded, LinkRounded, RemoveRounded} from "@material-ui/icons";
 import useQuery from "../../../../core/visualization/hooks/useQuery";
 import List from "../../../../core/visualization/list/List";
 import associativeKeys from "../../keys/associativeKeys";
@@ -36,17 +36,17 @@ export default function ComponentList(props) {
             <ComponentForm
                 handleClose={() => {
                     setOpen(2)
-                    hook.clean()
                     setCurrentComponent(null)
                 }}
                 asDefault={true}
                 onCreationSuccess={(data) => {
+
                     if (data)
                         submit({
                             suffix: 'classification_infrastructure',
                             data: {
                                 'infrastructure': props.infrastructure?.id,
-                                'classification': data.id
+                                'component_classification': data.id
                             },
                             create: true
                         }).then(res => {
@@ -60,13 +60,16 @@ export default function ComponentList(props) {
             <List
                 options={[
                     {
-                        label: 'Vincular novo componente',
-                        onClick: () => setOpen(0)
-                    },
-                    {
+                        icon: <AddRounded/>,
                         label: 'Criar novo componente',
                         onClick: () => setOpen(1)
+                    },
+                    {
+                        icon: <LinkRounded/>,
+                        label: 'Vincular novo componente',
+                        onClick: () => setOpen(0)
                     }
+
                 ]}
                 hook={hook}
                 keys={associativeKeys.classificationInfrastructure.filter(e => e.key !== 'infrastructure')}
@@ -74,10 +77,11 @@ export default function ComponentList(props) {
                     label: 'Remover relação',
                     icon: <RemoveRounded/>,
                     onClick: (entity) => {
+
                         deleteEntry({
                             suffix: 'classification_infrastructure',
                             customPackage: {
-                                classification: entity.classification.id,
+                                component_classification: entity.component_classification.id,
                                 infrastructure: entity.infrastructure.id
                             }
                         }).then(() => hook.clean())
@@ -89,9 +93,10 @@ export default function ComponentList(props) {
                         label: 'Deletar componente',
                         icon: <DeleteForeverRounded/>,
                         onClick: (entity) => {
+
                             deleteEntry({
                                 suffix: 'classification',
-                                pk: entity.classification.id
+                                pk: entity.component_classification.id
                             }).then(() => hook.clean())
                         },
                         disabled: false,

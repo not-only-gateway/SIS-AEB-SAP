@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import {DropDownField, FormRow} from "mfc-core";
+import {SelectField, FormRow} from "mfc-core";
 import Form from "../../../../core/inputs/form/Form";
 import TextField from "../../../../core/inputs/text/TextField";
 import useData from "../../../../core/inputs/form/useData";
@@ -48,7 +48,7 @@ export default function ServiceForm(props) {
         >
             {(data, handleChange) => (
                 <FormRow>
-                    <DropDownField
+                    <SelectField
                         placeholder={'Protocolo'} value={data.protocol}
                         label={'Protocolo'} disabled={false}
                         choices={[{key: 'https://', value: 'HTTPS'}, {key: 'http://', value: 'HTTP'}]}

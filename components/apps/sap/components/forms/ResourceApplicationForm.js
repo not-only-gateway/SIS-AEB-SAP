@@ -2,7 +2,7 @@ import React, {useMemo} from "react";
 import PropTypes from "prop-types";
 import ResourcePT from "../../locales/ResourcePT";
 import NatureExpenseForm from "./NatureExpenseForm";
-import {DropDownField, Selector, TextField, useQuery} from "mfc-core";
+import {SelectField, Selector, TextField, useQuery} from "mfc-core";
 import Form from "../../../../core/inputs/form/Form";
 import submit from "../../utils/submit";
 import associativeKeys from "../../keys/associativeKeys";
@@ -74,7 +74,7 @@ export default function ResourceApplicationForm(props) {
                             <NatureExpenseForm asDefault={true} create={true} handleClose={handleClose}/>
                         )}
                     </Selector>
-                    <DropDownField
+                    <SelectField
                         dark={true}
                         placeholder={lang.indirectCosts}
                         label={lang.indirectCosts}

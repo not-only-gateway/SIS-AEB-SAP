@@ -2,7 +2,7 @@ import {HelpRounded, ListRounded, PublicRounded, SettingsRounded, SupervisorAcco
 import React from "react";
 
 export default function managementProps (redirect, path, query={}) {
-    console.log(path)
+
     return {
         appName: 'Gerênciamento',
         sideBarButtons: [

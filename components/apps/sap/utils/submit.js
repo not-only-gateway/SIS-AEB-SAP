@@ -27,7 +27,7 @@ export default async function submit(props){
             success: true
         }
     }).catch(e => {
-        console.log(e)
+
     })
     return response
 }

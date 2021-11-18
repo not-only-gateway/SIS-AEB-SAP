@@ -2,7 +2,7 @@ import {AccountTreeRounded, ApartmentRounded, EventRounded, HomeRounded, InfoRou
 import React from "react";
 
 export default function intranetProps(redirect, path, query = {}) {
-    console.log(path)
+
     return {
         appName: 'Intranet',
         sideBarButtons: [

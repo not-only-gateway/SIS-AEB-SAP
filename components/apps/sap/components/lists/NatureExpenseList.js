@@ -20,6 +20,7 @@ export default function NatureExpenseList(props) {
 
                 <NatureExpenseForm
                     handleClose={() => {
+                        setCurrentEntity(null)
                         setOpen(false)
                         hook.clean()
                     }}

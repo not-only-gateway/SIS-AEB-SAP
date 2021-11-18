@@ -27,6 +27,7 @@ export default function ActionItemList(props) {
 
                     <ActionItemForm
                         handleClose={() => {
+                            setCurrentEntity(null)
                             setOpen(false)
                             hook.clean()
                         }}

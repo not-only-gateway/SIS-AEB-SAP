@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types'
 import ProjectPT from "../../locales/ProjectPT";
-import {DropDownField, Form, FormRow, Selector, TextField, useQuery} from "mfc-core";
+import {SelectField, Form, FormRow, Selector, TextField, useQuery} from "mfc-core";
 import getQuery from "../../utils/getQuery";
 import associativeKeys from "../../keys/associativeKeys";
 import submit from "../../utils/submit";
@@ -71,7 +71,7 @@ export default function ProjectForm(props) {
                                     required={true}
                                     floatFilter={true}
                                     width={'calc(33.333% - 21.5px)'}/>
-                                <DropDownField
+                                <SelectField
                                     placeholder={lang.type}
                                     label={lang.type}
                                     handleChange={event => handleChange({key: 'type', event: event})}

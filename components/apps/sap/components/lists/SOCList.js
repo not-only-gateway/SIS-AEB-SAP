@@ -52,7 +52,7 @@ export default function SOCList(props) {
                     setOpen(true)
                     setCurrentEntity(e)
                 }}
-                title={'Situações Operacionais de Componentes'}
+                title={'Situação Operacional de Componentes'}
 
             />
         </Switcher>

@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from "react";
-import {DeleteRounded} from "@material-ui/icons";
+import {AddRounded, CreateRounded, DeleteRounded, LinkRounded} from "@material-ui/icons";
 import deleteEntry from "../../utils/delete";
 
 import PropTypes from "prop-types";
@@ -39,10 +39,14 @@ export default function ProjectTedList(props) {
             return associativeKeys.projectTed.filter(e => e.key !== 'activity_project')
     }, [props.project, props.ted])
     const options = useMemo(() => {
-        let r = [{label: 'Vincular novo instrumento de celebração', onClick: () => setOpen(props.project ? 1 : 0)}]
+        let r = [{
+            icon: <LinkRounded/>,
+            label: 'Vincular novo ' + props.project ? 'instrumento de celebração' : 'projeto/atividade',
+            onClick: () => setOpen(props.project ? 1 : 0)
+        }]
 
         if (props.project)
-            r.push({label: 'Criar novo instrumento de celebração', onClick: () => setOpen(0)},)
+            r.push({icon: <AddRounded/>, label: 'Criar novo instrumento de celebração', onClick: () => setOpen(0)},)
 
         return r
     }, [props])
@@ -84,9 +88,9 @@ export default function ProjectTedList(props) {
                 noFilters={true}
                 onRowClick={e => {
                     if (!props.ted)
-                        props.redirect(`/sap?page=ted&id=${e.ted.id}`)
+                        props.redirect(`/sap?page=ted&id=${e.ted.id}&project_id=${e.activity_project.id}`)
                     else if (!props.project)
-                        props.redirect(`/sap?page=project&id=${e.activity_project.id}`)
+                        props.redirect(`/sap?page=project&id=${e.activity_project.id}&ted=${e.ted.id}`)
                 }}
                 controlButtons={[{
                     label: 'Deletar',

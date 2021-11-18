@@ -1,5 +1,5 @@
 import React, {useMemo} from "react";
-import {DropDownField, TextField} from "mfc-core";
+import {SelectField, TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import OperationPT from "../../locales/OperationPT";
 import Form from "../../../../core/inputs/form/Form";
@@ -66,7 +66,7 @@ export default function ActionItemForm(props) {
                                 }} value={data.detailing}
                                 required={true}
                                 width={'100%'}/>
-                            <DropDownField
+                            <SelectField
                                 dark={true}
                                 placeholder={lang.accomplished}
                                 label={lang.accomplished}

@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from "react";
-import {DropDownField, TextField} from "mfc-core";
+import {SelectField, TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import OperationPT from "../../locales/OperationPT";
 import Form from "../../../../core/inputs/form/Form";
@@ -50,7 +50,7 @@ export default function FollowUpForm(props) {
                             file: res.data
                         })
                 })
-            }).catch(e => console.log(e))
+            }).catch(e =>{})
         }
     }, [])
     return (
@@ -98,7 +98,7 @@ export default function FollowUpForm(props) {
                                 width={'100%'}
                             />
 
-                            <DropDownField
+                            <SelectField
                                 dark={true}
                                 placeholder={lang.delivered}
                                 label={lang.delivered}

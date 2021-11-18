@@ -39,18 +39,19 @@ export default function InfrastructureComponentForm(props) {
                     create={props.create} title={props.create ? 'Novo componente' : 'Componente'}
 
                     returnButton={true}
-                    handleSubmit={(data, clearState) =>
+                    handleSubmit={(data, clearState) => {
                         submit({
                             suffix: 'classification_infrastructure',
                             // pk: data.id,
-                            data: data,
+                            data: {...data, component_classification: data.component_classification.component_classification.id},
                             create: props.create,
                         }).then(res => {
                             if (props.create && res.success) {
                                 props.handleClose()
                                 clearState()
                             }
-                        })}
+                        })
+                    }}
                     handleClose={() => props.handleClose()}>
                     {(data, handleChange) => (
                         <FormRow>
@@ -58,8 +59,8 @@ export default function InfrastructureComponentForm(props) {
                                 hook={typeHook}
                                 placeholder={'Componente'}
                                 label={'Componente'}
-                                handleChange={e => handleChange({event: e, key: 'classification'})}
-                                value={data.classification} width={'100%'} required={true}
+                                handleChange={e => handleChange({event: e, key: 'component_classification'})}
+                                value={data.component_classification} width={'100%'} required={true}
                                 keys={associativeKeys.classificationInfrastructure}
                                 createOption={true}
                             >

@@ -8,13 +8,14 @@ import styles from "../styles/Wrapper.module.css";
 import Authenticator from "../components/Authenticator";
 import Profile from "../components/addons/profile/Profile";
 import RailActionButton from "../components/core/navigation/rail/RailActionButton";
-import {Button, Modal, ThemeProvider, ToolTip} from "mfc-core";
+import {Button, Modal, ToolTip} from "mfc-core";
 import RailActionWrapper from "../components/core/navigation/rail/RailActionWrapper";
 import NavigationRail from "../components/core/navigation/rail/NavigationRail";
 import Apps from "../components/addons/apps/Apps";
 import apps from "../packages/apps";
 import {Brightness3Rounded, BrightnessHighRounded} from "@material-ui/icons";
 import Loader from "../components/core/navigation/loader/Loader";
+import MfcWrapper from "../components/core/misc/theme/MfcWrapper";
 
 export default function SisAeb({Component, pageProps}) {
 
@@ -38,7 +39,7 @@ export default function SisAeb({Component, pageProps}) {
     })
     return (
         <ProfileContext.Provider value={profile}>
-            <ThemeProvider onDark={darkTheme} className={styles.wrapper}>
+            <MfcWrapper onDark={darkTheme} className={styles.wrapper} language={'pt'}>
                 <Loader loading={loading}/>
                 <Modal
                     open={openAuthentication}
@@ -120,7 +121,7 @@ export default function SisAeb({Component, pageProps}) {
                     </NavigationRail>
                     {router.query.page === 'profile' ? <Profile/> : <Component {...pageProps}/>}
                 </div>
-            </ThemeProvider>
+            </MfcWrapper>
         </ProfileContext.Provider>
     )
 }
