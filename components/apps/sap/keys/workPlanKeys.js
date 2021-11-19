@@ -1,6 +1,7 @@
 import getQuery from "../utils/getQuery";
 
 const QUERIES = {
+
     goal: {
         ...getQuery('work_plan_goal'), ...{
             keys: [{

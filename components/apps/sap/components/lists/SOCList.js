@@ -22,11 +22,12 @@ export default function SOCList(props) {
 
                 <SOCForm
                     handleClose={() => {
+                        setCurrentEntity(null)
                         setOpen(false)
                         hook.clean()
                     }}
 
-                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                    create={currentEntity === null}
                     data={currentEntity} infrastructure={props.infrastructure}
                 />
 

@@ -41,7 +41,7 @@ export default function ProjectTedList(props) {
     const options = useMemo(() => {
         let r = [{
             icon: <LinkRounded/>,
-            label: 'Vincular novo ' + props.project ? 'instrumento de celebração' : 'projeto/atividade',
+            label: 'Utilizar ' + (props.project ? 'instrumento de celebração' : 'projeto/atividade') + ' cadastrado',
             onClick: () => setOpen(props.project ? 1 : 0)
         }]
 

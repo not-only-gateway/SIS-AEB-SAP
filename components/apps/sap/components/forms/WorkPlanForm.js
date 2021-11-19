@@ -93,15 +93,18 @@ export default function WorkPlanForm(props) {
     }, [props])
     const removeAction = () => {
         let l = [...associativeKeys.budgetPlan]
-        l = l.splice(l.indexOf(e => e.key === 'action'), 1)
+        l = l.filter(e => e.key !== 'action')
+
         return l
     }
+
     return (
         <FormTemplate
             keys={workPlanKeys.workPlan}
             endpoint={'work_plan'}
             initialData={initialData}
         >
+
             {({setOpen, formHook, asDraft, asHistory}) => (
                 <Form
                     hook={formHook}
@@ -129,7 +132,7 @@ export default function WorkPlanForm(props) {
                     {(data, handleChange) => (
                         <>
                             <FormRow>
-                                {!props.ted && !props.workPlan ?
+                                {props.project && (props.ted === undefined || props.ted === null)  && (props.workPlan === null || props.workPlan === undefined)?
                                     <Selector
 
                                         hook={tedHook} keys={associativeKeys.projectTed.filter(e => e.key === 'ted')} disabled={!props.create}
@@ -146,7 +149,8 @@ export default function WorkPlanForm(props) {
                                     :
                                     null
                                 }
-                                {!props.project && !props.workPlan ?
+
+                                {props.ted && (props.project === undefined || props.project === null) && (props.workPlan === null || props.workPlan === undefined)?
                                     <Selector
                                         hook={projectHook} keys={associativeKeys.projectTed.filter(e => e.key === 'activity_project')}
                                         disabled={!props.create}

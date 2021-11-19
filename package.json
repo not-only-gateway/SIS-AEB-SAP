@@ -23,7 +23,7 @@
 
     "react-input-mask": "^2.0.4",
     "axios": "^0.24.0",
-    "mfc-core": "^1.1.1",
+    "mfc-core": "^1.1.2",
 
     "universal-cookie": "^4.0.4"
   },

@@ -41,7 +41,7 @@ export default function WorkPlanList(props) {
         if (!props.ted)
             value.push({
                 key: 'ted',
-                label: 'Instrumento de celebração',
+                label: 'Número do TED',
                 type: 'object',
                 subfieldKey: 'number',
                 visible: true,

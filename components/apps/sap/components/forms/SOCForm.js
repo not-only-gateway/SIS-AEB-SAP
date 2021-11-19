@@ -26,7 +26,6 @@ export default function SOCForm(props) {
         return {
             ...props.data,
             ...{
-                component_classification: props.data ? {component_classification: props.data.component_classification} : undefined,
                 infrastructure: props.infrastructure.id
             }
         }
@@ -51,18 +50,20 @@ export default function SOCForm(props) {
                         setOpen: setOpen,
                         create: props.create
                     })}
-                    handleSubmit={(data, clearState) =>
+                    handleSubmit={(data, clearState) =>{
+                        console.log(data)
                         submit({
                             suffix: 'component',
                             pk: data.id,
-                            data: props.create ? {...data, component_classification: data.component_classification.classification} : data,
+                            data: props.create ? {...data, component_classification: data.component_classification.component_classification.id} : data,
                             create: props.create
                         }).then(res => {
                             if (props.create && res.success) {
                                 props.handleClose()
                                 clearState()
                             }
-                        })}
+                        })
+                    }}
                     handleClose={() => props.handleClose()}>
                     {(data, handleChange) => (
                         <FormRow>
