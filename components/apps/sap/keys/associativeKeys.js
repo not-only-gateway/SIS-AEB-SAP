@@ -76,20 +76,31 @@ const KEYS = {
         {key: 'number', type: 'string', label: 'Número', visible: true},
         {key: 'detailing', type: 'string', label: 'Detalhamento', visible: true}
     ],
-    classificationInfrastructure:[
-            {
-                key: 'component_classification',
-                subfieldKey: 'description',
-                type: 'object',
-                label: 'Descrição do componente',
-                visible: true
-            },
-            {
-                key: 'infrastructure',
-                subfieldKey: 'name',
-                type: 'object', label: 'Infraestrutura', visible: true
-            }
-        ],
+    classificationInfrastructure: [
+        {
+            key: 'component_classification',
+            subfieldKey: 'description',
+            type: 'object',
+            label: 'Descrição do componente',
+            visible: true
+        },
+        {
+            key: 'component_classification',
+            type: 'object',
+            label: 'Tipo',
+            visible: true,
+            subfieldKey: 'classification_type',
+            subType: 'object',
+            deeperFieldKey: 'type',
+            deeperFieldType: 'string',
+            query: QUERIES?.type
+        },
+        {
+            key: 'infrastructure',
+            subfieldKey: 'name',
+            type: 'object', label: 'Infraestrutura', visible: true
+        }
+    ],
     classification: [
         {
             key: 'description',
@@ -110,7 +121,6 @@ const KEYS = {
     ],
     components: [
         {key: 'id', type: 'number', label: 'ID', visible: false},
-        {key: 'situation', type: 'string', label: 'Situação', visible: true},
         {
             key: 'component_classification',
             type: 'object',
@@ -120,6 +130,7 @@ const KEYS = {
             subType: 'string',
             query: QUERIES?.classification
         },
+        {key: 'situation', type: 'string', label: 'Situação', visible: true},
         {
             key: 'infrastructure',
             type: 'object',

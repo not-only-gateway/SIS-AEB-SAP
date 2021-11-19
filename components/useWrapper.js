@@ -6,7 +6,6 @@ import managementProps from "./apps/management/managementProps";
 import hrProps from "./apps/hr/hrProps";
 import intranetProps from "./apps/intranet/intranetProps";
 import profileProps from "./apps/profile/profileProps";
-import {Brightness3Rounded, BrightnessHighRounded, PersonRounded} from "@material-ui/icons";
 
 
 export default function useWrapper() {
@@ -76,17 +75,7 @@ export default function useWrapper() {
 
 
     const sidebar = useMemo(() => {
-        let res = [...layoutParams.sideBarButtons]
-        if (router.query.page === 'profile' && profile && Object.keys(profile).length > 0 && !isManager && cookies.get('jwt'))
-            res.push({
-                label: 'Perfil',
-                icon: <PersonRounded/>,
-                onClick: () => router.push(router.pathname + '?page=profile'),
-                highlight: router.query.page === 'profile',
-                position: 'bottom'
-            })
-
-        return res
+        return [...layoutParams.sideBarButtons]
     }, [darkTheme, isManager, profile, layoutParams, router.query])
 
 

@@ -2,9 +2,9 @@ import React, {useContext, useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import styles from '../styles/Authenticate.module.css'
 import {VisibilityOffRounded, VisibilityRounded} from "@material-ui/icons";
-import TextField from "./core/inputs/text/TextField";
+import {TextField, Button} from "mfc-core";
 import submitAuthentication from "../utils/SubmitAuthentication";
-import Button from "./core/inputs/button/Button";
+
 import Cookies from "universal-cookie/lib";
 
 export default function Authenticator(props) {

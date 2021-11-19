@@ -16,20 +16,12 @@ import {fetchEntry} from "../../utils/fetchData";
 
 export default function ComponentForm(props) {
     const typeHook = useQuery(getQuery('type'))
-    const [data, setData] = useState()
 
-    useEffect(() => {
-        if(props.data && props.data.classification)
-            fetchEntry({
-                pk: props.data.classification.id,
-                suffix: 'classification'
-            }).then(res => setData(res))
-    }, [props.data])
     return (
         <FormTemplate
             keys={associativeKeys.classification}
             endpoint={'classification'} noDraft={true}
-            initialData={data}
+            initialData={props.data}
         >
             {({setOpen, formHook, asDraft, asHistory}) => (
                 <Form

@@ -105,7 +105,8 @@ export default function ComponentList(props) {
                 ]}
                 onRowClick={e => {
                     setOpen(1)
-                    setCurrentComponent(e)
+                    console.log(e.component_classification)
+                    setCurrentComponent(e.component_classification)
                 }}
                 title={'Componentes'}
 

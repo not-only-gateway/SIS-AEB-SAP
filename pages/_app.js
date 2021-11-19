@@ -3,6 +3,7 @@ import "@fontsource/roboto";
 import Router from 'next/router';
 import React, {useEffect} from "react";
 import ProfileContext from "../components/apps/profile/ProfileContext";
+import ProfilePage from "../components/apps/profile/Profile";
 import useWrapper from "../components/useWrapper";
 import styles from "../styles/Wrapper.module.css";
 import Authenticator from "../components/Authenticator";
@@ -36,6 +37,7 @@ export default function SisAeb({Component, pageProps}) {
         })
         Router.events.on('routeChangeComplete', () => setLoading(false))
     })
+
     return (
         <ProfileContext.Provider value={profile}>
             <MfcWrapper onDark={darkTheme} className={styles.wrapper} language={'pt'}>
@@ -61,9 +63,12 @@ export default function SisAeb({Component, pageProps}) {
 
                 <div className={styles.contentWrapper}>
                     <NavigationRail>
-
-                        <RailActionWrapper>
-                            <img style={{width: '100%'}} src={darkTheme ? './dark.png' : './light.png'} alt={'AEB'}/>
+                        <RailActionWrapper styles={{display: 'flex', justifyContent: 'center'}}>
+                            {(extended) => (
+                                <img style={{width: extended ? '50%' : '85%'}}
+                                     src={extended ? (darkTheme ? './dark.png' : './light.png') : darkTheme ? './dark-small.png' : './light-small.png'}
+                                     alt={'AEB'}/>
+                            )}
                         </RailActionWrapper>
 
                         {sidebar.filter(e => e.position !== 'bottom').map((b, i) => (
@@ -97,8 +102,9 @@ export default function SisAeb({Component, pageProps}) {
                             />
                         </RailActionWrapper>
 
-                        <RailActionWrapper place={"end"}>
+                        <RailActionWrapper place={"end"} styles={{maxWidth: '100%', overflow: 'hidden'}}>
                             <Profile
+                                highlight={router.query.page === 'profile'}
                                 openAuth={() => setOpenAuthentication(true)}
                                 profile={profile}
                                 redirect={o => {
@@ -118,7 +124,7 @@ export default function SisAeb({Component, pageProps}) {
                         </RailActionWrapper>
 
                     </NavigationRail>
-                    {router.query.page === 'profile' ? <Profile/> : <Component {...pageProps}/>}
+                    {router.query.page === 'profile' ? <ProfilePage/> : <Component {...pageProps}/>}
                 </div>
             </MfcWrapper>
         </ProfileContext.Provider>
