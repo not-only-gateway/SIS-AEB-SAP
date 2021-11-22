@@ -22,7 +22,7 @@ export default function Ted(props) {
     const [lastAddendum, setLastAddendum] = useState(null)
 
     useEffect(() => {
-        if (ted.id !== undefined)
+        if (ted.id !== ted.id && ted.id !== undefined)
             props.refresh()
         else {
             fetchEntry({
@@ -56,6 +56,12 @@ export default function Ted(props) {
 
     }, [props.query])
 
+    const [open, setOpen] = useState(0)
+
+    useEffect(() => {
+        const t = props.query.tab
+        setOpen(t !== undefined && !isNaN(parseInt(t)) ? parseInt(t) : 0)
+    }, [props.query])
 
     return (
         <div className={shared.pageWrapper}>
@@ -109,6 +115,11 @@ export default function Ted(props) {
             {/*</div>*/}
             <div className={shared.pageContent}>
                 <VerticalTabs
+                    open={open}
+                    setOpen={index => {
+                        const url = {pathname: props.pathname, query: {...props.query, tab: index}}
+                        props.redirect(url, url, {shallow: true})
+                    }}
                     className={shared.wrapper}
                     styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset', padding: '8px'}}
                 >

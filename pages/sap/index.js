@@ -14,7 +14,10 @@ export default function index() {
             ready={router.isReady}
             path={query.page}
             componentProps={{
-                redirect: (url, asUrl, params) => router.push(url, asUrl, params),
+                redirect: (url, asUrl, params) => {
+                    console.log(params)
+                    router.push(url, asUrl, params)
+                },
                 query: router.query,
                 refresh: () => router.reload(),
                 pathname: router.pathname

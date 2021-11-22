@@ -1,7 +1,7 @@
 import React, {useMemo} from "react";
 import PropTypes from "prop-types";
 import InfrastructurePT from "../../locales/InfrastructurePT";
-import {SelectField, Selector} from "mfc-core";
+import {SelectField} from "mfc-core";
 import Form from "../../../../core/inputs/form/Form";
 import associativeKeys from "../../keys/associativeKeys";
 import useQuery from "../../../../core/visualization/hooks/useQuery";
@@ -11,6 +11,7 @@ import ComponentForm from "./ComponentForm";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";
+import Selector from "../../../../core/inputs/selector/Selector";
 
 
 export default function SOCForm(props) {

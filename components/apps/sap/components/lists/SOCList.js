@@ -36,7 +36,7 @@ export default function SOCList(props) {
                 onCreate={() => setOpen(true)}
 
                 hook={hook}
-                keys={associativeKeys.components}
+                keys={associativeKeys.classificationInfrastructure}
                 controlButtons={[{
                     label: 'Deletar',
                     icon: <DeleteRounded/>,
