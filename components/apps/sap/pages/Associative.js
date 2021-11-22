@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Head from "next/head";
 import OverviewPT from "../locales/OverviewPT";
 import InfrastructureList from "../components/lists/InfrastructureList";
@@ -9,20 +9,32 @@ import DecentralizedUnitList from "../components/lists/DecentralizedUnitList";
 import UnitList from "../components/lists/UnitList";
 import TypeList from "../components/lists/TypeList";
 import PropTypes from "prop-types";
-import Tabs from "../../../core/navigation/tabs/Tabs";
 import shared from '../styles/Shared.module.css'
 import Tab from "../../../core/navigation/tabs/Tab";
+import Tabs from "../../../core/navigation/tabs/Tabs";
+
 
 export default function Associative(props) {
     const lang = OverviewPT
+    const [open, setOpen] = useState(0)
+
+    useEffect(() => {
+        const t = props.query.tab
+        setOpen(t !== undefined && !isNaN(parseInt(t)) ? parseInt(t) : 0)
+    }, [props.query])
 
     return (
         <>
             <Head>
                 <title>Entidades</title>
-                <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
+                <link rel='icon' href={'/light-small.png'} type='image/x-icon'/>
             </Head>
             <Tabs
+                open={open}
+                setOpen={index => {
+                    const url = {pathname: props.pathname, query: {...props.query, tab: index}}
+                    props.redirect(url, url, {shallow: false})
+                }}
                 className={shared.wrapper}
             >
                 <Tab label={lang.actions} className={shared.tabWrapper} styles={{padding: 0}}>
@@ -57,5 +69,7 @@ export default function Associative(props) {
     )
 }
 Associative.propTypes = {
-    redirect: PropTypes.func
+    pathname: PropTypes.string,
+    redirect: PropTypes.func,
+    query: PropTypes.object
 }
