@@ -14,8 +14,10 @@ import RailActionWrapper from "../components/core/navigation/rail/RailActionWrap
 import NavigationRail from "../components/core/navigation/rail/NavigationRail";
 import Apps from "../components/addons/apps/Apps";
 import apps from "../packages/apps";
-import {Brightness3Rounded, BrightnessHighRounded} from "@material-ui/icons";
+import {Brightness3Rounded, BrightnessHighRounded, NotificationsRounded} from "@material-ui/icons";
 import Loader from "../components/core/navigation/loader/Loader";
+import Notification from "../components/addons/notifications/Notification";
+import Host from "../utils/Host";
 
 export default function SisAeb({Component, pageProps}) {
 
@@ -87,7 +89,12 @@ export default function SisAeb({Component, pageProps}) {
                             </RailActionWrapper>
                         ))}
 
-
+                        {profile && Object.keys(profile).length > 0 && router.pathname.includes('sap')?
+                            <RailActionWrapper place={'end'}>
+                                <Notification host={Host('api')}/>
+                            </RailActionWrapper>
+                        :
+                        null}
                         <RailActionWrapper place={'end'}>
                             <Button onClick={() => setDarkTheme(!darkTheme)}>
                                 {darkTheme ? <Brightness3Rounded/> : <BrightnessHighRounded/>}

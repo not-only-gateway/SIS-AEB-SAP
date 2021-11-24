@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/f.iml" filepath="$PROJECT_DIR$/.idea/f.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/sis-aeb-frontend.iml" filepath="$PROJECT_DIR$/.idea/sis-aeb-frontend.iml" />
     </modules>
   </component>
 </project>

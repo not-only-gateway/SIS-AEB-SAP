@@ -1,12 +1,13 @@
-import Host from "../utils/shared/Host";
+
 import Cookies from "universal-cookie/lib";
+import Host from "./host";
 
 const cookies = new Cookies()
 
 export default function getQuery(suffix, relations = {}, deep_relations=[]) {
 
     return {
-        url: Host() + 'list/' + suffix,
+        url: Host('gateway') + 'list/' + suffix,
         headers: {'authorization': cookies.get('jwt')},
         parsePackage: pack => {
 

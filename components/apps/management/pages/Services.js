@@ -4,10 +4,12 @@ import ServiceList from "../components/lists/ServiceList";
 import EndpointList from "../components/lists/EndpointList";
 
 import EntityList from "../components/lists/EntityList";
+import {useState} from "react";
 
 export default function Services(props) {
+    const [open, setOpen] = useState(0)
     return (
-        <Tabs className={shared.wrapper}>
+        <Tabs className={shared.wrapper} open={open} setOpen={setOpen}>
             <Tab label={'Serviços'} className={shared.tabWrapper}>
                 <ServiceList
                     redirect={props.redirect}/>

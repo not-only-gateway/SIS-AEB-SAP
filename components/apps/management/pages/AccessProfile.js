@@ -14,7 +14,7 @@ export default function AccessProfile(props) {
             setData(r)
         })
     }, [])
-
+    const [open, setOpen] = useState(0)
     return (
         <>
             <div style={{
@@ -40,6 +40,7 @@ export default function AccessProfile(props) {
                 </div>
             </div>
             <VerticalTabs
+                open={open} setOpen={setOpen}
                 classes={[
                     {
                         buttons: [{

@@ -18,7 +18,7 @@ export default function Service(props) {
             }
         })
     }, [])
-
+    const [open, setOpen] = useState(0)
     return (
         <div className={shared.pageWrapper}>
             <div style={{
@@ -45,6 +45,7 @@ export default function Service(props) {
             </div>
             <div className={shared.pageContent}>
                 <VerticalTabs
+                    open={open} setOpen={setOpen}
                     className={shared.wrapper}
                     styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset'}}
                 >
