@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import ProfileContext from "./ProfileContext";
 import VerticalTabs from "../../core/navigation/tabs/VerticalTabs";
 import styles from './styles/Profile.module.css'
@@ -10,7 +10,7 @@ import Tab from "../../core/navigation/tabs/Tab";
 
 export default function Profile() {
     const profile = useContext(ProfileContext)
-
+    const [open, setOpen] = useState(0)
     return (
         <div className={styles.pageWrapper}>
             <div className={styles.header}>
@@ -24,6 +24,8 @@ export default function Profile() {
             </div>
             <div className={styles.pageContent}>
                 <VerticalTabs
+                    open={open}
+                    setOpen={setOpen}
                     className={styles.wrapper}
                     styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset'}}
                 >

@@ -100,7 +100,7 @@ export default function OperationPhase(props) {
                 </Button>
 
                 <Button variant={"minimal"}
-                        onClick={() => props.redirect('/sap?page=wp&id=' + operation.work_plan?.id)}
+                        onClick={() => props.redirect('/sap?page=wp&tab=4&id=' + operation.work_plan?.id)}
                         className={shared.button}>
                     {operation.goal?.goal_number}
                     <ToolTip>
@@ -108,7 +108,7 @@ export default function OperationPhase(props) {
                     </ToolTip>
                 </Button>
                 <Button variant={"minimal"}
-                        onClick={() => props.redirect('/sap?page=wp&id=' + operation.work_plan?.id)}
+                        onClick={() => props.redirect('/sap?page=wp&tab=5&id=' + operation.work_plan?.id)}
                         className={shared.button}>
                     {operation.activity_stage?.stage}
                     <ToolTip>

@@ -117,10 +117,6 @@ export default function Project(props) {
                             <ProjectTedList project={project} redirect={props.redirect}/>
                         </Tab>
                     }
-                    <Tab label={'Planos de trabalho'} group={'Acesso rápido'} className={shared.tabWrapper}
-                         styles={{padding: '0 10%'}}>
-                        <WorkPlanList ted={ted} project={project} redirect={props.redirect}/>
-                    </Tab>
 
                 </VerticalTabs>
             </div>

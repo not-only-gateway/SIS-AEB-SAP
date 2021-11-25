@@ -8,7 +8,7 @@ import TedForm from "../components/forms/TedForm";
 import TedList from "../components/lists/TedList";
 import {fetchEntry} from "../utils/fetchData";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
-import {CategoryRounded, CloseRounded, HomeRounded, InfoRounded, RemoveRounded} from "@material-ui/icons";
+import {CategoryRounded, CloseRounded, HomeRounded} from "@material-ui/icons";
 import Button from "../../../core/inputs/button/Button";
 import ProjectTedList from "../components/lists/ProjectTedList";
 import Tab from "../../../core/navigation/tabs/Tab";
@@ -22,7 +22,7 @@ export default function Ted(props) {
     const [lastAddendum, setLastAddendum] = useState(null)
 
     useEffect(() => {
-        if (ted.id !== ted.id && ted.id !== undefined)
+        if (ted.id !== parseInt(props.query.id) && ted.id !== undefined)
             props.refresh()
         else {
             fetchEntry({
@@ -90,7 +90,7 @@ export default function Ted(props) {
                 </Button>
             </Breadcrumbs>
 
-            <div style={{display:'flex', width: '100%', alignItems: 'center'}}>
+            <div style={{display: 'flex', width: '100%', alignItems: 'center'}}>
                 <div className={shared.header}
                      style={{padding: '16px 24px'}}>
                     {ted?.number}
@@ -101,7 +101,7 @@ export default function Ted(props) {
                 </div>
                 {project ?
                     <Button variant={"outlined"} color={"secondary"}
-                            onClick={() => props.redirect('/sap?page=ted&id='+ted.id)}
+                            onClick={() => props.redirect('/sap?page=ted&id=' + ted.id)}
                             styles={{display: 'flex', alignItems: 'center', gap: '4px', height: '30px'}}>
                         <CloseRounded style={{fontSize: '1.1rem'}}/>
                         Mapeando para Projeto/Atividade: {project?.name}

@@ -22,8 +22,9 @@ export default function WorkPlan(props) {
     const [workPlan, setWorkPlan] = useState({})
 
     useEffect(() => {
-        if (workPlan.id !== undefined)
+        if (workPlan.id !== parseInt(props.query.id) && workPlan.id !== undefined) {
             props.refresh()
+        }
         else
             fetchEntry({
                 pk: props.query.id,

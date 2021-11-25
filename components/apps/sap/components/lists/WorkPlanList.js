@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from "react";
-import PropTypes, {object} from "prop-types";
+import PropTypes from "prop-types";
 import List from "../../../../core/visualization/list/List";
 
 import WorkPlanForm from "../forms/WorkPlanForm";
@@ -14,27 +14,38 @@ import tedKeys from "../../keys/tedKeys";
 
 export default function WorkPlanList(props) {
     const [open, setOpen] = useState(false)
-    const relations = useMemo(() => {
-        if (props.workPlan) {
-            return {apostille_work_plan: props.workPlan?.id}
-        } else if (props.project) {
-            return {activity_project: props.project.id}
-        } else if (props.ted) {
-            return {ted: props.ted.id}
-        } else return {}
-    }, [props.project, props.ted])
+
     const deep = useMemo(() => {
         let res = []
-        if(props.workPlan === undefined)
+        if (props.workPlan === undefined)
             res.push({
                 key: 'apostille_work_plan',
                 value: null,
                 type: 'object'
             })
+        else
+            res.push({
+                key: 'apostille_work_plan',
+                value: props.workPlan?.id,
+                type: 'object'
+            })
+
+        if (props.project)
+            res.push({
+                key: 'activity_project',
+                value: props.project?.id,
+                type: 'object'
+            })
+        if (props.ted)
+            res.push({
+                key: 'ted',
+                value: props.ted?.id,
+                type: 'object'
+            })
         return res
     }, [props])
 
-    const hook = useQuery(getQuery('work_plan', relations, deep))
+    const hook = useQuery(getQuery('work_plan', undefined, deep))
 
     const keys = useMemo(() => {
         let value = [...workPlanKeys.workPlan]

@@ -45,15 +45,6 @@ const KEYS = {
             subType: 'string',
 
             visible: true
-        },
-        {
-            key: 'ted',
-            type: 'object',
-            label: 'Plano orçamentário',
-            subfieldKey: 'budget_plan',
-            subType: 'string',
-
-            visible: true
         }
     ],
 
