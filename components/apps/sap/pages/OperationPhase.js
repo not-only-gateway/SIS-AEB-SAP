@@ -140,7 +140,7 @@ export default function OperationPhase(props) {
                     <Tab label={'Dados'} className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <OperationForm update={() => fetchData()} data={operation} create={false}/>
                     </Tab>
-                    <Tab label={'Items de Ação'} group={'Informações adicionais'} className={shared.tabWrapper}>
+                    <Tab label={'Items de Ação'} group={'Informações adicionais'} className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <ActionItemList operation={operation}/>
                     </Tab>
                     <Tab label={'Marcos do acompanhamento'} group={'Informações adicionais'}

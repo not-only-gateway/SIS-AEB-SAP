@@ -79,7 +79,7 @@ export default function ExecutionList(props) {
             />
 
             <List
-                createOption={true}
+                createOption={props.workPlan === undefined || props.workPlan === null}
                 onCreate={() => setOpen(true)}
                 hook={hook}
                 keys={keys}

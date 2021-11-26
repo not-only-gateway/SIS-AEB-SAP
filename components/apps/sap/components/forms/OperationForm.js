@@ -1,5 +1,5 @@
 import React from "react";
-import {DateField, TextField, useQuery} from "mfc-core";
+import {useQuery} from "mfc-core";
 import PropTypes from "prop-types";
 import OperationPT from "../../locales/OperationPT";
 import Form from "../../../../core/inputs/form/Form";
@@ -11,6 +11,8 @@ import workPlanKeys from "../../keys/workPlanKeys";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";
+import TextField from "../../../../core/inputs/text/TextField";
+import DateField from "../../../../core/inputs/date/DateField";
 
 export default function OperationForm(props) {
 
@@ -117,6 +119,7 @@ export default function OperationForm(props) {
 
                                 handleChange({key: 'stage_representation', event: event.target.value})
                             }} floatFilter={true}
+                            maskEnd={'%'}
                             value={data.stage_representation}
                             required={true} type={'number'}
                             width={'calc(33.333% - 21.5px)'}/>

@@ -3,7 +3,7 @@ export default {
     phase: 'Fase',
     detailing: 'Detalhamento',
     version: 'Versão',
-    stageRepresentation: 'Representação (%) da etapa',
+    stageRepresentation: 'Representação da etapa (%)',
     indicatorPlanned: 'Indicador planejado (%)',
     initialSituation: 'Situação inicial (%)',
     estimatedCost: 'Custo estimado (R$)',

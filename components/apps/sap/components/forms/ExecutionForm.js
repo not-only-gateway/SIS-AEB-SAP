@@ -127,7 +127,7 @@ export default function ExecutionForm(props) {
 
                                     handleChange({key: 'difficulties', event: event.target.value})
                                     handleChange({key: 'current_execution', event: event.target.value})
-                                }}
+                                }} maskEnd={'%'}
                                 value={data.current_execution}
                                 required={true} type={'number'}
                                 width={props.workPlan !== undefined ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}/>

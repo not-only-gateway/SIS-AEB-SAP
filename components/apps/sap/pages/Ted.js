@@ -15,6 +15,7 @@ import Tab from "../../../core/navigation/tabs/Tab";
 import Request from "../../../core/feedback/requester/request";
 import Host from "../utils/host";
 import {ToolTip} from "mfc-core";
+import Cookies from "universal-cookie/lib";
 
 export default function Ted(props) {
     const [ted, setTed] = useState({})
@@ -33,6 +34,7 @@ export default function Ted(props) {
                     setTed(res)
 
                     Request({
+                        headers: {'authorization': (new Cookies()).get('jwt')},
                         method: 'get',
                         url: Host() + 'list/ted',
                         package: {
@@ -40,7 +42,7 @@ export default function Ted(props) {
                             sorts: JSON.stringify([{key: 'id', desc: true}]),
                             quantity: 1
                         }
-                    }).then(r => setLastAddendum(r.data.length > 0 ? r.data[0] : null))
+                    }).then(r => setLastAddendum(r.data && r.data.length > 0 ? r.data[0] : null))
                 }
             })
             if (props.query.project_id !== undefined)
@@ -72,13 +74,18 @@ export default function Ted(props) {
 
             <Breadcrumbs divider={'-'} justify={'start'}>
                 <Button variant={"minimal-horizontal"}
-                        onClick={() => props.redirect('/sap?page=index')}
+                        onClick={() => {
+                            props.redirect('/sap?page=index')
+                        }}
                         styles={{display: 'flex', alignItems: 'center', gap: '4px'}}>
                     <HomeRounded style={{fontSize: '1.1rem'}}/> Início
                 </Button>
                 {!ted.ted ? null :
                     <Button variant={"minimal"}
-                            onClick={() => props.redirect('/sap?page=ted&id=' + ted.ted.id)} className={shared.button}>
+                            onClick={() => {
+
+                                props.redirect('/sap?page=ted&id=' + ted.ted.id)}
+                            } className={shared.button}>
                         Termo aditivo de {ted.ted.number}
                         <ToolTip>
                             Instrumento de celebração
@@ -101,7 +108,10 @@ export default function Ted(props) {
                 </div>
                 {project ?
                     <Button variant={"outlined"} color={"secondary"}
-                            onClick={() => props.redirect('/sap?page=ted&id=' + ted.id)}
+                            onClick={() => {
+                                setProject(null)
+                                props.redirect('/sap?page=ted&id=' + ted.id)
+                            }}
                             styles={{display: 'flex', alignItems: 'center', gap: '4px', height: '30px'}}>
                         <CloseRounded style={{fontSize: '1.1rem'}}/>
                         Mapeando para Projeto/Atividade: {project?.name}

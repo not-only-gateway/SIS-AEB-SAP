@@ -5,6 +5,7 @@ import EndpointList from "../components/lists/EndpointList";
 
 import EntityList from "../components/lists/EntityList";
 import {useState} from "react";
+import PublishList from "../components/lists/PublishList";
 
 export default function Services(props) {
     const [open, setOpen] = useState(0)
@@ -20,6 +21,9 @@ export default function Services(props) {
             </Tab>
             <Tab label={'Entidades'} className={shared.tabWrapper}>
                 <EntityList/>
+            </Tab>
+            <Tab label={'Publicações'} className={shared.tabWrapper}>
+                <PublishList/>
             </Tab>
         </Tabs>
     )

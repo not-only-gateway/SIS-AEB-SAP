@@ -1,13 +1,12 @@
 import Host from "./host";
 import Cookies from "universal-cookie/lib";
 
-const cookies = new Cookies()
 
 export default function getQuery(suffix, relations = {}, deep_relations = []) {
 
     return {
         url: Host() + 'list/' + suffix,
-        headers: {'authorization': cookies.get('jwt')},
+        headers: {'authorization': (new Cookies()).get('jwt')},
         parsePackage: pack => {
 
             let value = {...pack}

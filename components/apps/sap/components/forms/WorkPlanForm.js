@@ -7,8 +7,6 @@ import getQuery from "../../utils/getQuery";
 import Selector from "../../../../core/inputs/selector/Selector";
 import Form from "../../../../core/inputs/form/Form";
 import submit from "../../utils/submit";
-import projectKeys from "../../keys/projectKeys";
-import tedKeys from "../../keys/tedKeys";
 import UnitForm from "./UnitForm";
 import BudgetPlanForm from "./BudgetPlanForm";
 import InfrastructureForm from "./InfrastructureForm";
@@ -48,7 +46,7 @@ export default function WorkPlanForm(props) {
     const budgetPlanHook = useQuery(getQuery('budget_plan', budgetHookFilter ? {action: budgetHookFilter} : undefined))
 
     const tedFilter = useMemo(() => {
-        if(props.ted)
+        if (props.ted)
             return [{
                 type: 'object',
                 value: props.ted.id,
@@ -59,7 +57,7 @@ export default function WorkPlanForm(props) {
     }, [props])
     const projectHook = useQuery(getQuery('project_ted', undefined, tedFilter))
     const projectFilter = useMemo(() => {
-        if(props.project)
+        if (props.project)
             return [{
                 type: 'object',
                 value: props.project.id,
@@ -73,22 +71,19 @@ export default function WorkPlanForm(props) {
 
     const initialData = useMemo(() => {
         if (props.create) {
+            let data = {...props.data}
             if (props.workPlan)
-                return {
-                    ...props.data,
-                    apostille_work_plan: props.workPlan
-                }
-            else if (props.ted)
-                return {
-                    ...props.data,
-                    ted: props.ted
-                }
-            else if (props.project)
-                return {
-                    ...props.data,
-                    activity_project: props.project
-                }
-            else return props.data
+                data.apostille_work_plan = props.workPlan
+
+            if (props.ted)
+                data.ted = props.ted
+
+            if (props.project)
+                data.activity_project = props.project
+
+
+            console.log(props.project)
+            return data
         } else return props.data
     }, [props])
     const removeAction = () => {
@@ -121,7 +116,11 @@ export default function WorkPlanForm(props) {
                         submit({
                             suffix: props.workPlan ? 'apostille' : 'work_plan',
                             pk: data.id,
-                            data: data,
+                            data: {
+                                ...data,
+                                activity_project: props.project !== undefined && props.project !== null ? props.project.id : typeof data.activity_project === "object" ? data.activity_project.activity_project: data.activity_project,
+                                ted: props.ted?.id
+                            },
                             create: props.create
                         }).then(res => {
                             if (res.success && props.create)
@@ -132,10 +131,11 @@ export default function WorkPlanForm(props) {
                     {(data, handleChange) => (
                         <>
                             <FormRow>
-                                {props.project && (props.ted === undefined || props.ted === null)  && (props.workPlan === null || props.workPlan === undefined)?
+                                {props.project && (props.ted === undefined || props.ted === null) && (props.workPlan === null || props.workPlan === undefined) ?
                                     <Selector
 
-                                        hook={tedHook} keys={associativeKeys.projectTed.filter(e => e.key === 'ted')} disabled={!props.create}
+                                        hook={tedHook} keys={associativeKeys.projectTed.filter(e => e.key === 'ted')}
+                                        disabled={!props.create}
                                         width={props.project ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
                                         required={true} createOption={false}
                                         value={data.ted}
@@ -150,9 +150,10 @@ export default function WorkPlanForm(props) {
                                     null
                                 }
 
-                                {props.ted && (props.project === undefined || props.project === null) && (props.workPlan === null || props.workPlan === undefined)?
+                                {props.ted && (props.project === undefined || props.project === null) && (props.workPlan === null || props.workPlan === undefined) ?
                                     <Selector
-                                        hook={projectHook} keys={associativeKeys.projectTed.filter(e => e.key === 'activity_project')}
+                                        hook={projectHook}
+                                        keys={associativeKeys.projectTed.filter(e => e.key === 'activity_project')}
                                         disabled={!props.create}
                                         width={props.ted ? 'calc(33.333% - 21.5px)' : 'calc(50% - 16px)'}
                                         required={true}
@@ -261,7 +262,7 @@ export default function WorkPlanForm(props) {
 
                                         handleChange({key: 'ways_of_execution', event: event})
                                     }} value={data.ways_of_execution}
-                                    required={false}
+                                    required={true}
                                     width={'calc(50% - 16px)'}
                                     choices={lang.waysOptions}
                                 />

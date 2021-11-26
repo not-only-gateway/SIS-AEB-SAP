@@ -17,13 +17,13 @@ export default function WorkPlanList(props) {
 
     const deep = useMemo(() => {
         let res = []
-        if (props.workPlan === undefined)
+        if (props.workPlan === undefined && !props.project && !props.ted)
             res.push({
                 key: 'apostille_work_plan',
                 value: null,
                 type: 'object'
             })
-        else
+        else if (props.workPlan)
             res.push({
                 key: 'apostille_work_plan',
                 value: props.workPlan?.id,
@@ -44,7 +44,7 @@ export default function WorkPlanList(props) {
             })
         return res
     }, [props])
-
+    console.log(deep)
     const hook = useQuery(getQuery('work_plan', undefined, deep))
 
     const keys = useMemo(() => {

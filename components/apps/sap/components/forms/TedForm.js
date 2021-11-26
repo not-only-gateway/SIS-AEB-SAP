@@ -107,17 +107,7 @@ export default function TedForm(props) {
                                         handleChange({key: 'process', event: event.target.value})
                                     }} value={data.process}
                                     required={true}
-                                    width={'calc(33.333% - 21.5px)'}/>
-                                <SelectField
-                                    helperText={props.ted && props.data?.status !== data.status ? 'Campo alterado' : undefined}
-
-                                    placeholder={lang.status}
-                                    label={lang.status}
-                                    handleChange={event => {
-
-                                        handleChange({key: 'status', event: event})
-                                    }} value={data.status} required={true}
-                                    width={'calc(33.333% - 21.5px)'} choices={lang.statusOptions}/>
+                                    width={'calc(50% - 16px)'}/>
 
                                 <TextField
                                     helperText={props.ted && props.data?.global_value !== data.global_value ? 'Campo alterado' : undefined}
@@ -131,7 +121,7 @@ export default function TedForm(props) {
                                         handleChange({key: 'global_value', event: event.target.value})
                                     }}
                                     value={data.global_value}
-                                    required={true} width={'calc(33.333% - 21.5px)'}/>
+                                    required={true}  width={'calc(50% - 16px)'}/>
 
                                 <SelectField
                                     helperText={props.ted && props.data?.remaining_assets !== data.remaining_assets ? 'Campo alterado' : undefined}

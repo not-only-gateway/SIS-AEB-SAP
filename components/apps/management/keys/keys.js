@@ -1,3 +1,18 @@
+export const publishKeys = [
+    {
+        key: 'routing',
+        label: 'Roteamento',
+        type: 'string',
+        visible: true
+    },
+    {
+        key: 'method',
+        label: 'Método',
+        type: 'string',
+        visible: true
+    },
+]
+
 export const serviceKeys = [
     {
         key: 'denomination',

@@ -61,13 +61,6 @@ export default function Project(props) {
                 </Button>
             </Breadcrumbs>
 
-            <div className={shared.header}
-                 style={{padding: '16px 24px'}}>
-
-                <div className={shared.typeLabel}>
-                    <CategoryRounded style={{fontSize: '1.15rem'}}/>
-                </div>
-            </div>
             <div style={{display: 'flex', width: '100%', alignItems: 'center'}}>
                 <div className={shared.header}
                      style={{padding: '16px 24px'}}>
@@ -78,7 +71,10 @@ export default function Project(props) {
                 </div>
                 {ted ?
                     <Button variant={"outlined"} color={"secondary"}
-                            onClick={() => props.redirect('/sap?page=project&id=' + project.id)}
+                            onClick={() => {
+                                setTed(null)
+                                props.redirect('/sap?page=project&id=' + project.id)
+                            }}
                             styles={{display: 'flex', alignItems: 'center', gap: '4px', height: '30px'}}>
                         <CloseRounded style={{fontSize: '1.1rem'}}/>
                         Mapeando para Instrumento de celebração: {ted?.number}

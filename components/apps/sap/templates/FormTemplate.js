@@ -55,7 +55,24 @@ export default function FormTemplate(props) {
                     title={option === 'list_draft' ? 'Rascunhos' : 'Histórico'}
                     open={open}
                     handleClose={() => setOpen(false)}
-                    handleChange={entry => setData(entry?.data)}
+                    handleChange={entry => {
+                        if(entry){
+                            let data = {...entry?.data}
+                            let newData = {}
+                            Object.keys(data).forEach(k => {
+                                if(typeof data[k] !== 'object')
+                                    newData[k] = data[k]
+                            })
+                            if(props.initialData){
+                                Object.keys(props.initialData).forEach(k => {
+                                    if(Object.keys(newData).indexOf(k) === -1)
+                                        newData[k] = props.initialData[k]
+                                })
+                            }
+                            setData(newData)
+                        }
+
+                    }}
                 />
             </div>
             {props.children({
