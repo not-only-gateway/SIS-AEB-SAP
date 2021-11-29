@@ -3,7 +3,7 @@ import React, {useEffect, useMemo} from "react";
 import Form from "../../../../core/inputs/form/Form";
 import PropTypes from "prop-types";
 import ProjectPT from "../../locales/ProjectPT";
-import {Selector, TextField} from "mfc-core";
+import {TextField} from "mfc-core";
 import useQuery from "../../../../core/visualization/hooks/useQuery";
 import getQuery from "../../utils/getQuery";
 import associativeKeys from "../../keys/associativeKeys";
@@ -12,6 +12,7 @@ import ActionForm from "./ActionForm";
 import FormRow from "../../../../core/inputs/form/FormRow";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";
+import Selector from "../../../../core/inputs/selector/Selector";
 
 
 export default function BudgetPlanForm(props) {

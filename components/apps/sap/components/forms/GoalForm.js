@@ -43,7 +43,7 @@ export default function GoalForm(props) {
                 submit({
                     suffix: 'work_plan_goal',
                     pk: data.id,
-                    data: data,
+                    data: {...data, value: parseFloat(data.value)},
 
                     create: props.create
                 }).then(res => {
@@ -79,10 +79,11 @@ export default function GoalForm(props) {
                             placeholder={lang.value} label={lang.value}
                             floatFilter={true}
                             handleChange={event => {
-                                handleChange({key: 'value', event: parseFloat(event.target.value)})
+                                handleChange({key: 'value', event: event.target.value})
                             }} value={data.value}
                             required={true}
-                            width={'calc(33.333% - 21.5px)'}/>
+                            width={'calc(33.333% - 21.5px)'}
+                        />
                         <TextField
                             placeholder={lang.detailing} label={lang.detailing}
                             handleChange={event => {
