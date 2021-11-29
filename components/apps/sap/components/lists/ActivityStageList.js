@@ -10,6 +10,8 @@ import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/navigation/switcher/Switcher";
 import deleteEntry from "../../utils/delete";
 import getQuery from "../../utils/getQuery";
+import useList from "../../templates/useList";
+import ListTemplate from "../../templates/ListTemplate";
 
 
 export default function ActivityStageList(props) {
@@ -23,21 +25,32 @@ export default function ActivityStageList(props) {
         value: props.workPlan.id,
         type: 'object'
     }]))
+    const {
+        message,
+        setMessage,
+        openModal,
+        setOpenModal,
+        onDecline,
+        setCurrentEl,
+        onAccept
+    } = useList('activity_stage', () => hook.clean())
 
 
     return (
-        <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
+        <>
+            <ListTemplate open={openModal} onAccept={onAccept} onDecline={onDecline} message={message}/>
+            <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
 
-                <ActivityStageForm
-                    handleClose={() => {
-                        setOpen(false)
-                        setCurrentEntity(null)
-                        hook.clean()
-                    }} workPlan={props.workPlan}
-                    open={open}
-                    create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
-                    data={currentEntity}
-                />
+            <ActivityStageForm
+                handleClose={() => {
+                    setOpen(false)
+                    setCurrentEntity(null)
+                    hook.clean()
+                }} workPlan={props.workPlan}
+                open={open}
+                create={!(currentEntity !== null && currentEntity !== undefined && currentEntity.id !== undefined)}
+                data={currentEntity}
+            />
 
             <List
                 createOption={true}
@@ -47,10 +60,9 @@ export default function ActivityStageList(props) {
                     label: 'Deletar',
                     icon: <DeleteRounded/>,
                     onClick: (entity) => {
-                        deleteEntry({
-                            suffix: 'activity_stage',
-                            pk: entity.id
-                        }).then(() => hook.clean())
+                        setMessage(`Deseja deletar entidade ${entity.id}?`)
+                        setCurrentEl(entity.id)
+                        setOpenModal(true)
                     },
                     disabled: false,
                     color: '#ff5555'
@@ -64,7 +76,7 @@ export default function ActivityStageList(props) {
                 title={'Etapas / Atividades'}
 
             />
-        </Switcher>
+        </Switcher></>
     )
 }
 ActivityStageList.propTypes = {

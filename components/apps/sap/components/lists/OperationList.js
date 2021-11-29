@@ -9,6 +9,8 @@ import Switcher from "../../../../core/navigation/switcher/Switcher";
 import deleteEntry from "../../utils/delete";
 import getQuery from "../../utils/getQuery";
 import OperationForm from "../forms/OperationForm";
+import useList from "../../templates/useList";
+import ListTemplate from "../../templates/ListTemplate";
 
 export default function OperationList(props) {
     const [open, setOpen] = useState(false)
@@ -31,9 +33,20 @@ export default function OperationList(props) {
 
     }, [])
     const hook = useQuery(getQuery('operation_phase', undefined, relation))
+    const {
+        message,
+        setMessage,
+        openModal,
+        setOpenModal,
+        onDecline,
+        setCurrentEl,
+        onAccept
+    } = useList('operation_phase', () => hook.clean())
 
     return (
-        <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
+        <>
+            <ListTemplate open={openModal} onAccept={onAccept} onDecline={onDecline} message={message}/>
+            <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
             <OperationForm
                 handleClose={() => {
                     setOpen(false)
@@ -56,17 +69,16 @@ export default function OperationList(props) {
                     label: 'Deletar',
                     icon: <DeleteRounded/>,
                     onClick: (entity) => {
-                        deleteEntry({
-                            suffix: 'operation_phase',
-                            pk: entity.id
-                        }).then(() => hook.clean())
+                        setMessage(`Deseja deletar entidade ${entity.id}?`)
+                        setCurrentEl(entity.id)
+                        setOpenModal(true)
                     },
                     disabled: false,
                     color: '#ff5555'
                 }]}
                 title={'Fases / operações'}
             />
-        </Switcher>
+        </Switcher></>
     )
 }
 OperationList.propTypes = {

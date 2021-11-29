@@ -10,6 +10,8 @@ import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/navigation/switcher/Switcher";
 import deleteEntry from "../../utils/delete";
 import getQuery from "../../utils/getQuery";
+import useList from "../../templates/useList";
+import ListTemplate from "../../templates/ListTemplate";
 
 
 export default function PermanentGoodsList(props) {
@@ -19,9 +21,20 @@ export default function PermanentGoodsList(props) {
         operation_phase: props.operation?.id,
         work_plan: props.workPlan?.id
     }))
+    const {
+        message,
+        setMessage,
+        openModal,
+        setOpenModal,
+        onDecline,
+        setCurrentEl,
+        onAccept
+    } = useList('permanent_goods', () => hook.clean())
 
     return (
-        <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
+        <>
+            <ListTemplate open={openModal} onAccept={onAccept} onDecline={onDecline} message={message}/>
+            <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
             <PermanentGoodsForm
                 handleClose={() => {
                     setOpen(false)
@@ -39,10 +52,9 @@ export default function PermanentGoodsList(props) {
                     label: 'Deletar',
                     icon: <DeleteRounded/>,
                     onClick: (entity) => {
-                        deleteEntry({
-                            suffix: 'permanent_goods',
-                            pk: entity.id
-                        }).then(() => hook.clean())
+                        setMessage(`Deseja deletar entidade ${entity.id}?`)
+                        setCurrentEl(entity.id)
+                        setOpenModal(true)
                     },
                     disabled: false,
                     color: '#ff5555'
@@ -57,7 +69,7 @@ export default function PermanentGoodsList(props) {
 
 
             />
-        </Switcher>
+        </Switcher></>
     )
 }
 PermanentGoodsList.propTypes = {

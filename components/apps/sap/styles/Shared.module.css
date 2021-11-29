@@ -91,9 +91,27 @@
     padding: 0 10%;
 }
 
-.button{
+.button {
     white-space: nowrap;
     overflow: hidden;
     max-width: 10vw;
     text-overflow: ellipsis;
+}
+
+.notificationModal {
+    font-weight: bold;
+    color: var(--mfc-color-secondary);
+    display: grid;
+    justify-items: center;
+    gap: 32px;
+    padding: 16px;
+    background: var(--mfc-background-primary);
+    border-radius: 5px;
+    width: fit-content;
+    height: fit-content;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }

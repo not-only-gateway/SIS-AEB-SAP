@@ -2,8 +2,8 @@ import React, {useState} from "react";
 import {DeleteRounded} from "@material-ui/icons";
 import Switcher from "../../../../core/navigation/switcher/Switcher";
 
-import useQuery from "../../../../core/visualization/hooks/useQuery";
-import List from "../../../../core/visualization/list/List";
+import {List, useQuery} from "mfc-core";
+
 import deleteEntry from "../../utils/shared/delete";
 import getQuery from "../../utils/getQuery";
 import Host from "../../utils/shared/Host";

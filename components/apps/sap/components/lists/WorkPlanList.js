@@ -11,6 +11,8 @@ import getQuery from "../../utils/getQuery";
 import useQuery from "../../../../core/visualization/hooks/useQuery";
 import projectKeys from "../../keys/projectKeys";
 import tedKeys from "../../keys/tedKeys";
+import useList from "../../templates/useList";
+import ListTemplate from "../../templates/ListTemplate";
 
 export default function WorkPlanList(props) {
     const [open, setOpen] = useState(false)
@@ -44,7 +46,7 @@ export default function WorkPlanList(props) {
             })
         return res
     }, [props])
-    console.log(deep)
+
     const hook = useQuery(getQuery('work_plan', undefined, deep))
 
     const keys = useMemo(() => {
@@ -79,44 +81,54 @@ export default function WorkPlanList(props) {
         } else return undefined
     }, [props.workPlan])
 
+    const {
+        message,
+        setMessage,
+        openModal,
+        setOpenModal,
+        onDecline,
+        setCurrentEl,
+        onAccept
+    } = useList('work_plan', () => hook.clean())
+
     return (
-        <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
+        <>
+            <ListTemplate open={openModal} onAccept={onAccept} onDecline={onDecline} message={message}/>
+            <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
+                <WorkPlanForm
+                    handleClose={() => {
+                        setOpen(false)
+                        hook.clean()
 
-            <WorkPlanForm
-                handleClose={() => {
-                    setOpen(false)
-                    hook.clean()
+                    }}
+                    workPlan={props.workPlan}
+                    onRowClick={e => props.redirect(`/sap?page=ted&id=${e.id}`)}
+                    project={props.project}
+                    ted={props.ted}
+                    data={apostilleData}
+                    create={true}
+                />
 
-                }}
-                workPlan={props.workPlan}
-                onRowClick={e => props.redirect(`/sap?page=ted&id=${e.id}`)}
-                project={props.project}
-                ted={props.ted}
-                data={apostilleData}
-                create={true}
-            />
-
-            <List
-                createOption={true}
-                onCreate={() => setOpen(true)}
-                hook={hook}
-                keys={keys}
-                controlButtons={[{
-                    label: 'Deletar',
-                    icon: <DeleteRounded/>,
-                    onClick: (entity) => {
-                        deleteEntry({
-                            suffix: 'work_plan',
-                            pk: entity.id
-                        }).then(() => hook.clean())
-                    },
-                    disabled: false,
-                    color: '#ff5555'
-                }]}
-                onRowClick={e => props.redirect('sap/?page=wp&id=' + e.id)}
-                title={props.workPlan ? 'Planos de trabalho (apostilamentos)' : 'Planos de trabalho'}
-            />
-        </Switcher>
+                <List
+                    createOption={true}
+                    onCreate={() => setOpen(true)}
+                    hook={hook}
+                    keys={keys}
+                    controlButtons={[{
+                        label: 'Deletar',
+                        icon: <DeleteRounded/>,
+                        onClick: (entity) => {
+                            setMessage(`Deseja deletar entidade ${entity.id}?`)
+                            setCurrentEl(entity.id)
+                            setOpenModal(true)
+                        },
+                        disabled: false,
+                        color: '#ff5555'
+                    }]}
+                    onRowClick={e => props.redirect('sap/?page=wp&id=' + e.id)}
+                    title={props.workPlan ? 'Planos de trabalho (apostilamentos)' : 'Planos de trabalho'}
+                />
+            </Switcher></>
     )
 }
 WorkPlanList.propTypes = {

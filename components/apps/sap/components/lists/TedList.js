@@ -9,6 +9,8 @@ import PropTypes from "prop-types";
 import getQuery from "../../utils/getQuery";
 import useQuery from "../../../../core/visualization/hooks/useQuery";
 import List from "../../../../core/visualization/list/List";
+import useList from "../../templates/useList";
+import ListTemplate from "../../templates/ListTemplate";
 
 
 export default function TedList(props) {
@@ -27,9 +29,21 @@ export default function TedList(props) {
         } else return undefined
     }, [props.ted])
 
+    const {
+        message,
+        setMessage,
+        openModal,
+        setOpenModal,
+        onDecline,
+        setCurrentEl,
+        onAccept
+    } = useList('ted', () => hook.clean())
+
 
     return (
-        <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
+        <>
+            <ListTemplate open={openModal} onAccept={onAccept} onDecline={onDecline} message={message}/>
+            <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
 
             <TedForm
                 handleClose={() => {
@@ -51,10 +65,9 @@ export default function TedList(props) {
                     label: 'Deletar',
                     icon: <DeleteRounded/>,
                     onClick: (entity) => {
-                        deleteEntry({
-                            suffix: 'ted',
-                            pk: entity.id
-                        }).then(() => hook.clean())
+                        setMessage(`Deseja deletar entidade ${entity.id}?`)
+                        setCurrentEl(entity.id)
+                        setOpenModal(true)
                     },
                     disabled: false,
                     color: '#ff5555'
@@ -63,7 +76,7 @@ export default function TedList(props) {
                 keys={tedKeys.ted}
                 title={props.ted ? 'Instrumentos de celebração (aditivos)' : 'Instrumentos de celebração'}
             />
-        </Switcher>
+        </Switcher></>
     )
 }
 

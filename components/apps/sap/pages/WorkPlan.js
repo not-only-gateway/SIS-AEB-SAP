@@ -17,6 +17,7 @@ import Button from "../../../core/inputs/button/Button";
 import PermanentGoodsList from "../components/lists/PermanentGoodsList";
 import Tab from "../../../core/navigation/tabs/Tab";
 import {ToolTip} from "mfc-core";
+import FinancialDisbursementList from "../components/lists/FinancialDisbursementList";
 
 export default function WorkPlan(props) {
     const [workPlan, setWorkPlan] = useState({})
@@ -102,7 +103,9 @@ export default function WorkPlan(props) {
                     <Tab label={'Bens permanentes'} group={'Informações adicionais'} className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <PermanentGoodsList workPlan={workPlan}/>
                     </Tab>
-
+                    <Tab label={'Desembolso financeiro'} group={'Informações adicionais'} className={shared.tabWrapper} styles={{padding: '0 10%'}}>
+                        <FinancialDisbursementList workPlan={workPlan}/>
+                    </Tab>
                     <Tab label={'Metas'} group={'Acesso rápido'} className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <GoalList workPlan={workPlan}/>
                     </Tab>

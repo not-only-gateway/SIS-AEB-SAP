@@ -10,6 +10,8 @@ import workPlanKeys from "../../keys/workPlanKeys";
 import Switcher from "../../../../core/navigation/switcher/Switcher";
 import deleteEntry from "../../utils/delete";
 import getQuery from "../../utils/getQuery";
+import useList from "../../templates/useList";
+import ListTemplate from "../../templates/ListTemplate";
 
 
 export default function ResourceApplicationList(props) {
@@ -21,9 +23,20 @@ export default function ResourceApplicationList(props) {
         type: 'object'
     }]))
 
+    const {
+        message,
+        setMessage,
+        openModal,
+        setOpenModal,
+        onDecline,
+        setCurrentEl,
+        onAccept
+    } = useList('resource_application', () => hook.clean())
 
     return (
-        <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
+        <>
+            <ListTemplate open={openModal} onAccept={onAccept} onDecline={onDecline} message={message}/>
+            <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
 
                 <ResourceApplicationForm
                     handleClose={() => {
@@ -35,31 +48,31 @@ export default function ResourceApplicationList(props) {
                     create={!currentEntity}
                     data={currentEntity} operation={props.operation}/>
 
-            <List
-                onRowClick={e => {
-                    setOpen(true)
-                    setCurrentEntity(e)
-                }}
-                createOption={true}
-                onCreate={() => setOpen(true)}
-                controlButtons={[{
-                    label: 'Deletar',
-                    icon: <DeleteRounded/>,
-                    onClick: (entity) => {
-                        deleteEntry({
-                            suffix: 'resource_application',
-                            pk: entity.id,
-                        }).then(() => hook.clean())
-                    },
-                    disabled: false,
-                    color: '#ff5555'
-                }]}
-                hook={hook}
-                keys={workPlanKeys.resource}
-                title={'Aplicação dos recursos'}
+                <List
+                    onRowClick={e => {
+                        setOpen(true)
+                        setCurrentEntity(e)
+                    }}
+                    createOption={true}
+                    onCreate={() => setOpen(true)}
+                    controlButtons={[{
+                        label: 'Deletar',
+                        icon: <DeleteRounded/>,
+                        onClick: (entity) => {
+                            setMessage(`Deseja deletar entidade ${entity.id}?`)
+                            setCurrentEl(entity.id)
+                            setOpenModal(true)
+                        },
+                        disabled: false,
+                        color: '#ff5555'
+                    }]}
+                    hook={hook}
+                    keys={workPlanKeys.resource}
+                    title={'Aplicação dos recursos'}
 
-            />
-        </Switcher>
+                />
+            </Switcher>
+        </>
     )
 }
 ResourceApplicationList.propTypes = {

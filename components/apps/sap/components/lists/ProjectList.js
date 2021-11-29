@@ -8,6 +8,8 @@ import deleteEntry from "../../utils/delete";
 
 import getQuery from "../../utils/getQuery";
 import {List, Switcher, useQuery} from "mfc-core";
+import useList from "../../templates/useList";
+import ListTemplate from "../../templates/ListTemplate";
 
 
 export default function ProjectList(props) {
@@ -15,9 +17,20 @@ export default function ProjectList(props) {
     const [open, setOpen] = useState(false)
 
     const hook = useQuery(getQuery('project'))
+    const {
+        message,
+        setMessage,
+        openModal,
+        setOpenModal,
+        onDecline,
+        setCurrentEl,
+        onAccept
+    } = useList('project', () => hook.clean())
 
     return (
-        <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
+        <>
+            <ListTemplate open={openModal} onAccept={onAccept} onDecline={onDecline} message={message}/>
+            <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
 
             <ProjectForm
                 handleClose={() => {
@@ -39,10 +52,9 @@ export default function ProjectList(props) {
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
-                            deleteEntry({
-                                suffix: 'project',
-                                pk: entity.id
-                            }).then(() => hook.clean())
+                            setMessage(`Deseja deletar entidade ${entity.id}?`)
+                            setCurrentEl(entity.id)
+                            setOpenModal(true)
                         },
                         disabled: false,
                         color: '#ff5555'
@@ -50,7 +62,7 @@ export default function ProjectList(props) {
                 ]} onCreate={() => setOpen(true)}
                 onRowClick={e => props.redirect(`/sap?page=project&id=${e.id}`)}
             />
-        </Switcher>
+        </Switcher></>
     )
 }
 ProjectList.propTypes = {

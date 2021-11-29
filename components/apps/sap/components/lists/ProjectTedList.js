@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from "react";
-import {AddRounded, CreateRounded, DeleteRounded, LinkRounded} from "@material-ui/icons";
+import {AddRounded, DeleteForeverRounded, LinkRounded, RemoveRounded} from "@material-ui/icons";
 import deleteEntry from "../../utils/delete";
 
 import PropTypes from "prop-types";
@@ -11,6 +11,8 @@ import TedForm from "../forms/TedForm";
 import {Switcher} from "mfc-core";
 import submit from "../../utils/submit";
 import ProjectTedForm from "../forms/ProjectTedForm";
+import useList from "../../templates/useList";
+import ListTemplate from "../../templates/ListTemplate";
 
 export default function ProjectTedList(props) {
     const [open, setOpen] = useState(props.project ? 2 : 1)
@@ -50,68 +52,95 @@ export default function ProjectTedList(props) {
 
         return r
     }, [props])
-    return (
-        <Switcher openChild={open} styles={{width: '100%', height: '100%'}}>
-            {props.project ?
-                <TedForm
-                    handleClose={() => {
-                        setOpen(2)
-                        hook.clean()
-                    }}
-                    onCreationSuccess={(ted) => {
-                        if (ted)
-                            submit({
-                                suffix: 'project_ted',
-                                data: {
-                                    'activity_project': props.project?.id,
-                                    'ted': ted.id
-                                },
-                                create: true
-                            }).then(res => {
-                                hook.clean()
-                            })
-                    }}
-                    data={{}}
-                    create={true}
-                />
-                :
-                null
-            }
-            <ProjectTedForm ted={props.ted} project={props.project} handleClose={() => {
-                setOpen(props.project ? 2 : 1)
-                hook.clean()
-            }}
-            />
-            <List
-                options={options}
 
-                noFilters={true}
-                onRowClick={e => {
-                    if (!props.ted)
-                        props.redirect(`/sap?page=ted&id=${e.ted.id}&project_id=${e.activity_project.id}`)
-                    else if (!props.project)
-                        props.redirect(`/sap?page=project&id=${e.activity_project.id}&ted=${e.ted.id}`)
+    const {
+        message,
+        setMessage,
+        openModal,
+        setOpenModal,
+        onDecline,
+        setCurrentEl,
+        onAccept
+    } = useList('ted', () => hook.clean())
+
+
+    return (
+        <>
+            <ListTemplate open={openModal} onAccept={onAccept} onDecline={onDecline} message={message}/>
+            <Switcher openChild={open} styles={{width: '100%', height: '100%'}}>
+                {props.project ?
+                    <TedForm
+                        handleClose={() => {
+                            setOpen(2)
+                            hook.clean()
+                        }}
+                        onCreationSuccess={(ted) => {
+                            if (ted)
+                                submit({
+                                    suffix: 'project_ted',
+                                    data: {
+                                        'activity_project': props.project?.id,
+                                        'ted': ted.id
+                                    },
+                                    create: true
+                                }).then(res => {
+                                    hook.clean()
+                                })
+                        }}
+                        data={{}}
+                        create={true}
+                    />
+                    :
+                    null
+                }
+                <ProjectTedForm ted={props.ted} project={props.project} handleClose={() => {
+                    setOpen(props.project ? 2 : 1)
+                    hook.clean()
                 }}
-                controlButtons={[{
-                    label: 'Deletar',
-                    icon: <DeleteRounded/>,
-                    onClick: (entity) => {
-                        deleteEntry({
-                            suffix: 'project_ted',
-                            customPackage: {
-                                project: entity.activity_project.id,
-                                ted: entity.ted.id
-                            }
-                        }).then(() => hook.clean())
-                    },
-                    disabled: false,
-                    color: '#ff5555'
-                }]}
-                hook={hook}
-                keys={keys}
-                title={props.project ? 'Instrumentos de celebração relacionados' : 'Projetos / Atividades relacionados'}
-            />
-        </Switcher>
+                />
+                <List
+                    options={options}
+
+                    noFilters={true}
+                    onRowClick={e => {
+                        if (!props.ted)
+                            props.redirect(`/sap?page=ted&id=${e.ted.id}&project_id=${e.activity_project.id}`)
+                        else if (!props.project)
+                            props.redirect(`/sap?page=project&id=${e.activity_project.id}&ted=${e.ted.id}`)
+                    }}
+                    controlButtons={[
+                        {
+                            label: 'Remover relação',
+                            icon: <RemoveRounded/>,
+                            onClick: (entity) => {
+                                deleteEntry({
+                                    suffix: 'project_ted',
+                                    customPackage: {
+                                        project: entity.activity_project.id,
+                                        ted: entity.ted.id
+                                    }
+                                }).then(() => hook.clean())
+                            },
+                            disabled: false,
+                            color: '#ff5555'
+                        },
+                        {
+                            label: 'Deletar TED',
+                            icon: <DeleteForeverRounded/>,
+                            onClick: (entity) => {
+                                setMessage(`Deseja deletar entidade ${entity.ted.id}?`)
+                                setCurrentEl(entity.ted.id)
+                                setOpenModal(true)
+                            },
+                            disabled: false,
+                            color: '#ff5555'
+                        }
+                    ]}
+                    hook={hook}
+                    keys={keys}
+                    title={props.project ? 'Instrumentos de celebração relacionados' : 'Projetos / Atividades relacionados'}
+                />
+            </Switcher></>
     )
 }
 

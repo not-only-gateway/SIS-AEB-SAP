@@ -9,6 +9,8 @@ import deleteEntry from "../../utils/delete";
 import getQuery from "../../utils/getQuery";
 import List from "../../../../core/visualization/list/List";
 import workPlanKeys from "../../keys/workPlanKeys";
+import useList from "../../templates/useList";
+import ListTemplate from "../../templates/ListTemplate";
 
 export default function ExecutionList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
@@ -63,9 +65,21 @@ export default function ExecutionList(props) {
         else return workPlanKeys.execution
     }, [props.workPlan])
     const hook = useQuery(getQuery('execution', undefined, relation))
+    const {
+        message,
+        setMessage,
+        openModal,
+        setOpenModal,
+        onDecline,
+        setCurrentEl,
+        onAccept
+    } = useList('execution', () => hook.clean())
+
 
     return (
-        <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
+        <>
+            <ListTemplate open={openModal} onAccept={onAccept} onDecline={onDecline} message={message}/>
+            <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
 
             <ExecutionForm
                 handleClose={() => {
@@ -87,10 +101,9 @@ export default function ExecutionList(props) {
                     label: 'Deletar',
                     icon: <DeleteRounded/>,
                     onClick: (entity) => {
-                        deleteEntry({
-                            suffix: 'execution',
-                            pk: entity.id
-                        }).then(() => hook.clean())
+                        setMessage(`Deseja deletar entidade ${entity.id}?`)
+                        setCurrentEl(entity.id)
+                        setOpenModal(true)
                     },
                     disabled: false,
                     color: '#ff5555'
@@ -102,7 +115,7 @@ export default function ExecutionList(props) {
 
 
             />
-        </Switcher>
+        </Switcher></>
     )
 }
 ExecutionList.propTypes = {

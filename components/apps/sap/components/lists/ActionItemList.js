@@ -11,6 +11,8 @@ import getQuery from "../../utils/getQuery";
 import deleteEntry from "../../utils/delete";
 import useQuery from "../../../../core/visualization/hooks/useQuery";
 import List from "../../../../core/visualization/list/List";
+import useList from "../../templates/useList";
+import ListTemplate from "../../templates/ListTemplate";
 
 
 export default function ActionItemList(props) {
@@ -21,21 +23,29 @@ export default function ActionItemList(props) {
         value: props.operation?.id,
         type: 'object'
     }]))
+    const {
+        message,
+        setMessage,
+        openModal,
+        setOpenModal,
+        onDecline,
+        setCurrentEl,
+        onAccept
+    } = useList('action_item', () => hook.clean())
 
     return (
-        <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
-
-                    <ActionItemForm
-                        handleClose={() => {
-                            setCurrentEntity(null)
-                            setOpen(false)
-                            hook.clean()
-                        }}
-                        create={!currentEntity}
-                        data={currentEntity} operation={props.operation}
-                    />
-
-
+        <>
+            <ListTemplate open={openModal} onAccept={onAccept} onDecline={onDecline} message={message}/>
+            <Switcher openChild={open ? 0 : 1} styles={{width: '100%', height: '100%'}}>
+                <ActionItemForm
+                    handleClose={() => {
+                        setCurrentEntity(null)
+                        setOpen(false)
+                        hook.clean()
+                    }}
+                    create={!currentEntity}
+                    data={currentEntity} operation={props.operation}
+                />
                 <List
                     createOption={true}
                     onCreate={() => setOpen(true)}
@@ -49,17 +59,17 @@ export default function ActionItemList(props) {
                         label: 'Deletar',
                         icon: <DeleteRounded/>,
                         onClick: (entity) => {
-                            deleteEntry({
-                                suffix: 'action_item',
-                                pk: entity.id
-                            }).then(() => hook.clean())
+                            setMessage(`Deseja deletar entidade ${entity.id}?`)
+                            setCurrentEl(entity.id)
+                            setOpenModal(true)
                         },
                         disabled: false,
                         color: '#ff5555'
                     }]}
                     title={'Itens / Ações'}
                 />
-        </Switcher>
+            </Switcher>
+        </>
     )
 }
 ActionItemList.propTypes = {

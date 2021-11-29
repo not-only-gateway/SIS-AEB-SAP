@@ -81,8 +81,6 @@ export default function WorkPlanForm(props) {
             if (props.project)
                 data.activity_project = props.project
 
-
-            console.log(props.project)
             return data
         } else return props.data
     }, [props])
