@@ -24,13 +24,13 @@ export default function SisAeb({Component, pageProps}) {
     const {
         loading, setLoading,
         profile, setProfile,
-        layoutParams, requiresAuth,
+         requiresAuth,
         openAuthentication,
         setOpenAuthentication,
         cookies, darkTheme,
-        router, isManager,
+        router,
         setDarkTheme,
-        setManager, profiles, sidebar
+        setManager,  sidebar
     } = useWrapper()
 
     useEffect(() => {
@@ -59,7 +59,10 @@ export default function SisAeb({Component, pageProps}) {
                 >
                     <Authenticator
                         setManager={setManager} setProfile={setProfile}
-                        redirect={() => setOpenAuthentication(false)} open={openAuthentication}
+                        redirect={() => {
+                            setOpenAuthentication(false)
+                            router.reload()
+                        }} open={openAuthentication}
                     />
                 </Modal>
 

@@ -78,10 +78,8 @@ export default function GoalForm(props) {
                             type={'number'}
                             placeholder={lang.value} label={lang.value}
                             floatFilter={true}
-                            maskStart={'R$'}
                             handleChange={event => {
-
-                                handleChange({key: 'value', event: event.target.value})
+                                handleChange({key: 'value', event: parseFloat(event.target.value)})
                             }} value={data.value}
                             required={true}
                             width={'calc(33.333% - 21.5px)'}/>
