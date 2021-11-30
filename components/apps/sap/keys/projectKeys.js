@@ -59,7 +59,7 @@ const KEYS = {
     goal: [
         {key: 'id', type: 'number', label: 'ID', visible: false},
         {key: 'description', type: 'string', label: 'Descrição', visible: true},
-        {key: 'deadline', type: 'date', label: 'Prazo final', visible: true},
+        {key: 'deadline', hoursOffset: 4, type: 'date', label: 'Prazo final', visible: true},
         {
             key: 'status',
             type: 'string',

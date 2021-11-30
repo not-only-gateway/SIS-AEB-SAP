@@ -18,7 +18,6 @@ export default function PermanentGoodsList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
     const [open, setOpen] = useState(false)
     const hook = useQuery(getQuery('permanent_goods', {
-        operation_phase: props.operation?.id,
         work_plan: props.workPlan?.id
     }))
     const {
@@ -43,7 +42,7 @@ export default function PermanentGoodsList(props) {
                 }}
                 create={!currentEntity}
                 data={currentEntity}
-                operation={props.operation}
+                workPlan={props.workPlan}
             />
             <List
                 createOption={true}
@@ -73,6 +72,5 @@ export default function PermanentGoodsList(props) {
     )
 }
 PermanentGoodsList.propTypes = {
-    operation: PropTypes.object,
     workPlan: PropTypes.object
 }

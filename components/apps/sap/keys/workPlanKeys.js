@@ -48,7 +48,7 @@ const KEYS = {
     action: [
         {key: 'id', type: 'number', label: 'ID'},
         {key: 'detailing', type: 'string', label: 'Detalhamento', visible: true},
-        {key: 'accomplished', type: 'string', label: 'Realizado', visible: true},
+        {key: 'accomplished', type: 'bool', label: 'Realizado', visible: true},
     ],
     activity: [
         {key: 'id', type: 'number', label: 'ID'},
@@ -71,7 +71,7 @@ const KEYS = {
         {key: 'committed', type: 'number', label: 'Empenhado', visible: true, maskStart: 'R$'},
         {key: 'liquidated', type: 'number', label: 'Liquidado', visible: true, maskStart: 'R$'},
         {key: 'paid', type: 'number', label: 'Pago', visible: true, maskStart: 'R$'},
-        {key: 'execution_date', type: 'date', label: 'Data da execução', visible: true},
+        {key: 'execution_date', hoursOffset: 4, type: 'date', label: 'Data da execução', visible: true},
         {key: 'description', type: 'string', label: 'Descrição', visible: true},
         {key: 'difficulties', type: 'string', label: 'Dificuldades'},
         {key: 'measures_taken', type: 'string', label: 'Medidas tomadas'},
@@ -93,7 +93,7 @@ const KEYS = {
         {key: 'goal_number', type: 'string', label: 'Número', visible: true},
         {key: 'detailing', type: 'string', label: 'Detalhamento', visible: true},
         {key: 'unit_of_measurement', type: 'string', label: 'Unidade de medida', visible: true},
-        {key: 'value', type: 'number', label: 'Valor', visible: true, maskStart: 'R$'},
+        {key: 'value', type: 'number', label: 'Valor', visible: true},
         {key: 'initial_situation', type: 'string', label: 'Situação inicial', visible: true},
         {key: 'final_situation', type: 'string', label: 'Situação final', visible: true}
     ],
@@ -104,7 +104,7 @@ const KEYS = {
         {key: 'unit_of_measurement', type: 'string', label: 'Unidade de medida', visible: true},
         {key: 'unit_price', type: 'number', label: 'Preço unitário', visible: true, maskStart: 'R$'},
         {key: 'total_value', type: 'number', label: 'Valor', visible: true, maskStart: 'R$'},
-        {key: 'acquisition_date', type: 'date', label: 'Data de aquisição', visible: true},
+        {key: 'acquisition_date',hoursOffset: 4, type: 'date', label: 'Data de aquisição', visible: true},
         {key: 'invoice', type: 'string', label: 'Nota fiscal', visible: true},
     ],
     note: [
@@ -119,8 +119,8 @@ const KEYS = {
         {key: 'stage_representation', type: 'string', label: 'Representação da etapa', maskEnd: '%'},
         {key: 'indicator_planned', type: 'string', label: 'Indicador planejado', visible: true},
         {key: 'initial_situation', type: 'string', label: 'Situação inicial', visible: true},
-        {key: 'start_date', type: 'date', label: 'Data inicial'},
-        {key: 'end_date', type: 'date', label: 'Data final'},
+        {key: 'start_date', hoursOffset: 4, type: 'date', label: 'Data inicial'},
+        {key: 'end_date', hoursOffset: 4, type: 'date', label: 'Data final'},
         {key: 'estimated_cost', type: 'number', label: 'Custo estimado', maskStart: 'R$', visible: true}
     ],
     resource: [
@@ -128,18 +128,18 @@ const KEYS = {
         {key: 'indirect_cost', type: 'bool', label: 'Custos indiretos', visible: true},
         {key: 'value', type: 'number', label: 'Valor', visible: true, maskStart: 'R$'},
         {
-            key: 'nature_of_expense',
+            key: 'nature_of_expense_field',
             type: 'object',
             label: 'Natureza de despesa',
             visible: true,
-            subfieldKey: 'nature_of_expense',
+            subfieldKey: 'nature_of_expense_field',
             subType: 'string',
             query: QUERIES?.nature
         },
     ],
     status: [
         {key: 'id', type: 'number', label: 'ID'},
-        {key: 'update_date', type: 'date', label: 'Data de atualização', visible: true},
+        {key: 'update_date', hoursOffset: 4, type: 'date', label: 'Data de atualização', visible: true},
         {key: 'status', type: 'string', label: 'Status', visible: true},
         {key: 'difficulties', type: 'string', label: 'Dificuldades'},
 

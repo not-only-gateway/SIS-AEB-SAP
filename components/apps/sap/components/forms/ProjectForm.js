@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types'
 import ProjectPT from "../../locales/ProjectPT";
-import {SelectField, Form, FormRow, Selector, TextField, useQuery} from "mfc-core";
+import {SelectField, Form, FormRow, Selector, useQuery} from "mfc-core";
 import getQuery from "../../utils/getQuery";
 import associativeKeys from "../../keys/associativeKeys";
 import submit from "../../utils/submit";
@@ -9,9 +9,7 @@ import UnitForm from "./UnitForm";
 import projectKeys from "../../keys/projectKeys";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";
-import Modal from "../../../../core/navigation/modal/Modal";
-import styles from "../../../../core/inputs/selector/styles/Selector.module.css";
-import Button from "../../../../core/inputs/button/Button";
+import TextField from "../../../../core/inputs/text/TextField";
 
 
 export default function ProjectForm(props) {
@@ -52,7 +50,7 @@ export default function ProjectForm(props) {
                 >
                     {(data, handleChange) => (
                         <>
-                            <FormRow>
+                            <FormRow title={'Dados do Projeto/Atividade'}>
                                 <TextField
                                     placeholder={lang.name} label={lang.name}
                                     value={data.name}
@@ -118,7 +116,7 @@ export default function ProjectForm(props) {
                                     value={data.critical_factors}
                                     required={true} width={'100%'}/>
                             </FormRow>
-                            <FormRow>
+                            <FormRow title={'Equipes envolvidas'}>
 
                                 <Selector
                                     hook={unitHook} keys={associativeKeys.responsible}
@@ -178,8 +176,8 @@ export default function ProjectForm(props) {
 
                                 <TextField
                                     variant={'area'}
-                                    placeholder={lang.stakeholders}
-                                    label={lang.stakeholders}
+                                    placeholder={'Partes Interessadas'}
+                                    label={'Partes Interessadas'}
                                     handleChange={event => handleChange({
                                         key: 'stakeholders',
                                         event: event.target.value
@@ -189,7 +187,7 @@ export default function ProjectForm(props) {
 
 
                             </FormRow>
-                            <FormRow>
+                            <FormRow title={'Gestão de Conhecimento'}>
                                 <TextField
                                     variant={'area'}
                                     placeholder={lang.learnedLessons}

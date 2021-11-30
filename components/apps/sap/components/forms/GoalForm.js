@@ -77,7 +77,7 @@ export default function GoalForm(props) {
                         <TextField
                             type={'number'}
                             placeholder={lang.value} label={lang.value}
-                            floatFilter={true}
+
                             handleChange={event => {
                                 handleChange({key: 'value', event: event.target.value})
                             }} value={data.value}

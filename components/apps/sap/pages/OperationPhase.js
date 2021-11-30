@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";
 import FollowUpList from "../components/lists/FollowUpList";
 import ExecutionList from "../components/lists/ExecutionList";
-import PermanentGoodsList from "../components/lists/PermanentGoodsList";
 import ResourceApplicationList from "../components/lists/ResourceApplicationList";
 import NoteList from "../components/lists/NoteList";
 import {fetchEntry} from "../utils/fetchData";
@@ -149,9 +148,6 @@ export default function OperationPhase(props) {
                     </Tab>
                     <Tab label={'Execuções'} group={'Informações adicionais'} className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <ExecutionList operation={operation}/>
-                    </Tab>
-                    <Tab label={'Bens permanentes'} group={'Informações adicionais'} className={shared.tabWrapper} styles={{padding: '0 10%'}}>
-                        <PermanentGoodsList operation={operation}/>
                     </Tab>
                     <Tab label={'Aplicação dos recursos'} group={'Informações adicionais'}
                          className={shared.tabWrapper} styles={{padding: '0 10%'}}>

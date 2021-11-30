@@ -152,7 +152,7 @@ export default function TedForm(props) {
                                     variant={'area'}
                                     width={'calc(50% - 16px)'}/>
 
-                                <DateField
+                                <DateField hoursOffset={4}
                                     helperText={props.ted && props.data?.start_date !== data.start_date ? 'Campo alterado' : undefined}
 
                                     placeholder={lang.startDate} label={lang.startDate}
@@ -162,7 +162,7 @@ export default function TedForm(props) {
                                     }}
                                     value={data.start_date}
                                     required={true} width={'calc(50% - 16px)'}/>
-                                <DateField
+                                <DateField hoursOffset={4}
                                     helperText={props.ted && props.data?.end_date !== data.end_date ? 'Campo alterado' : undefined}
 
                                     dark={true}

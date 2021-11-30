@@ -2403,10 +2403,10 @@ methods@~1.1.2:
   resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
   integrity sha1-VSmk1nZUE07cxSZmVoNbD4Ua/O4=
 
-mfc-core@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/mfc-core/-/mfc-core-1.1.2.tgz#b59be2c8f90cce0b4be46c2edc150ee897cc1046"
-  integrity sha512-TsNlkn9Vr/WY6Yj7U9QKMruFCSlIoA49et4qG51wtRVtK6Mi9zQ3xrv+iKUHbYka3D9UAPOqm/Lt7ZqFMIvLpA==
+mfc-core@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/mfc-core/-/mfc-core-1.2.1.tgz#140669d1458386568ae5416195271ef09fe2c839"
+  integrity sha512-7dPuGh1XTsWV3cYS70loXnY70zK5ojRv1PfSvkiVttawcgdPSihBUy6QNTUCOLDAWR0NHdd52eCuOQ60RcQwJw==
 
 micromatch@^4.0.4:
   version "4.0.4"

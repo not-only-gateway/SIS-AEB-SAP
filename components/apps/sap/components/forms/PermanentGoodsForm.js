@@ -1,6 +1,6 @@
 import React, {useMemo} from "react";
 
-import {DateField, SelectField, TextField} from "mfc-core";
+import {SelectField, TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import Form from "../../../../core/inputs/form/Form";
 import PermanentGoodsPT from "../../locales/PermanentGoodsPT";
@@ -9,12 +9,13 @@ import FormRow from "../../../../core/inputs/form/FormRow";
 import workPlanKeys from "../../keys/workPlanKeys";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";
+import DateField from "../../../../core/inputs/date/DateField";
 
 
 export default function PermanentGoodsForm(props) {
     const lang = PermanentGoodsPT
     const initialData = useMemo(() => {
-        return props.create ? {...props.data, ...{operation_phase: props.operation?.id}} : props.data
+        return props.create ? {...props.data, ...{work_plan: props.workPlan?.id}} : props.data
     }, [props])
 
 
@@ -89,10 +90,9 @@ export default function PermanentGoodsForm(props) {
                                 }} value={data.quantity}
                                 required={true} type={'number'}
                                 width={'calc(33.333% - 21.5px)'}/>
-                            <DateField
+                            <DateField hoursOffset={4}
                                 placeholder={lang.acquisitionDate} label={lang.acquisitionDate}
                                 handleChange={event => {
-
                                     handleChange({key: 'acquisition_date', event: event})
                                 }}
                                 value={

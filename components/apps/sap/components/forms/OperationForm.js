@@ -103,16 +103,7 @@ export default function OperationForm(props) {
                     </FormRow>
 
                     <FormRow>
-                        <TextField
-                            type={'number'}
-                            placeholder={lang.version} label={lang.version}
-                            handleChange={event => {
 
-                                handleChange({key: 'version', event: event.target.value})
-                            }}
-                            value={data.version}
-                            required={true}
-                            width={'calc(33.333% - 21.5px)'}/>
                         <TextField
                             placeholder={lang.stageRepresentation} label={lang.stageRepresentation}
                             handleChange={event => {
@@ -122,7 +113,7 @@ export default function OperationForm(props) {
                             maskEnd={'%'}
                             value={data.stage_representation}
                             required={true} type={'number'}
-                            width={'calc(33.333% - 21.5px)'}/>
+                            width={'calc(50% - 16px)'}/>
 
                         <TextField
                             type={'number'}
@@ -133,7 +124,7 @@ export default function OperationForm(props) {
                             }}
                             value={data.indicator_planned}
                             required={true} maskEnd={'%'}
-                            width={'calc(33.333% - 21.5px)'}/>
+                            width={'calc(50% - 16px)'}/>
                         <TextField
                             type={'number'}
                             placeholder={lang.initialSituation} label={lang.initialSituation}
@@ -158,7 +149,7 @@ export default function OperationForm(props) {
                     </FormRow>
 
                     <FormRow>
-                        <DateField
+                        <DateField hoursOffset={4}
                             dark={true}
                             placeholder={lang.startDate} label={lang.startDate}
                             handleChange={event => {
@@ -169,7 +160,7 @@ export default function OperationForm(props) {
                                 data.start_date
                             }
                             required={true} width={'calc(50% - 16px)'}/>
-                        <DateField
+                        <DateField hoursOffset={4}
                             dark={true}
                             placeholder={lang.endDate} label={lang.endDate}
                             handleChange={event => {

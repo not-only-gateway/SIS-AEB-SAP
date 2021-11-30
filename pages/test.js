@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from "react";
-import Chart from "../components/core/visualization/charts/Chart";
+import TextField from "../components/core/inputs/text/TextField";
 
 const randomSet = (quantity) => {
     let res = []
@@ -11,9 +11,6 @@ const randomSet = (quantity) => {
 }
 export default function test() {
     const [content, setContent] = useState('')
-    const data = useMemo(() => {
-        return randomSet(15)
-    }, [])
 
     return (
         <div style={{
@@ -22,14 +19,7 @@ export default function test() {
             display: 'flex', flexFlow: 'row wrap', gap: '16px',
 
         }}>
-            <Chart
-                title={'Title here'}
-                color={'#0095ff'}
-                type={'line-chart'}
-                axis={{label: 'Axis', field: 'axis'}}
-                data={data}
-                value={{label: 'Value', field: 'value'}}
-            />
+            <TextField required={true} helperText={'TESTE'} handleChange={e => setContent(e.target.value)} value={content} label={'TESTE'} placeholder={'TESTE'} type={'number'}/>
         </div>
     )
 }

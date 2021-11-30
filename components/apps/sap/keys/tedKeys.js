@@ -32,8 +32,8 @@ const KEYS = {
         {key: 'process', type: 'string', label: 'Processo', visible: true},
         {key: 'year', type: 'number', label: 'Ano'},
         {key: 'status', type: 'string', label: 'Status'},
-        {key: 'start_date', type: 'date', label: 'Data de inicio'},
-        {key: 'end_date', type: 'date', label: 'Data de termino'},
+        {key: 'start_date', hoursOffset: 4, type: 'date', label: 'Data de inicio'},
+        {key: 'end_date', hoursOffset: 4, type: 'date', label: 'Data de termino'},
         {
             key: 'responsible',
             type: 'object',

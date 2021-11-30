@@ -167,7 +167,7 @@ export default function ExecutionForm(props) {
                                 required={true} type={'number'}
                                 width={'calc(50% - 16px)'}/>
 
-                            <DateField
+                            <DateField hoursOffset={4}
                                 placeholder={lang.executionDate} label={lang.executionDate}
                                 handleChange={event => {
 

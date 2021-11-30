@@ -77,7 +77,7 @@ export default function ProjectGoalForm(props) {
                                 }} value={data.status} required={true}
                                 width={'calc(50% - 16px)'} choices={lang.statusOptions}/>
 
-                            <DateField
+                            <DateField hoursOffset={4}
 
                                 placeholder={lang.deadline} label={lang.deadline}
                                 handleChange={event => {

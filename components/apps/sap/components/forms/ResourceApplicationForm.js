@@ -64,10 +64,10 @@ export default function ResourceApplicationForm(props) {
                         hook={natureHook} keys={associativeKeys.natureOfExpense}
                         width={'calc(33.333% - 21.5px)'}
                         required={true}
-                        value={data.nature_of_expense}
+                        value={data.nature_of_expense_field}
                         label={'Natureza de despesas'}
                         placeholder={'Natureza de despesas'}
-                        handleChange={entity => handleChange({key: 'nature_of_expense', event: entity})}
+                        handleChange={entity => handleChange({key: 'nature_of_expense_field', event: entity})}
                         createOption={true}
                     >
                         {handleClose => (
