@@ -1,23 +1,21 @@
 import React, {useMemo} from "react";
 import PropTypes from 'prop-types'
 import TedPT from "../../locales/TedPT";
-import {useQuery} from "mfc-core";
+
 import associativeKeys from "../../keys/associativeKeys";
 import getQuery from "../../utils/getQuery";
-import Form from "../../../../core/inputs/form/Form";
+
 import submit from "../../utils/submit";
-import Selector from "../../../../core/inputs/selector/Selector";
+
 import UnitForm from "./UnitForm";
 import DecentralizedUnitForm from "./DecentralizedUnitForm";
 import ActionForm from "./ActionForm";
-import FormRow from "../../../../core/inputs/form/FormRow";
-import TextField from "../../../../core/inputs/text/TextField";
-import DateField from "../../../../core/inputs/date/DateField";
-import SelectField from "../../../../core/inputs/select/SelectField";
+
+
 import FormTemplate from "../../templates/FormTemplate";
 import tedKeys from "../../keys/tedKeys";
 import formOptions from "../../templates/formOptions";
-
+import {DateField, Form, FormRow, SelectField, Selector, TextField, useQuery} from 'mfc-core'
 
 export default function TedForm(props) {
     const lang = TedPT

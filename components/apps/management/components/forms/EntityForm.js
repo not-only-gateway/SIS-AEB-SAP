@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
-import {FormRow} from "mfc-core";
-import Form from "../../../../core/inputs/form/Form";
-import TextField from "../../../../core/inputs/text/TextField";
+
+
 import useData from "../../../../core/inputs/form/useData";
+import {Form, FormRow, TextField} from "mfc-core";
 import submit from "../../utils/submit";
 
 export default function EntityForm(props) {

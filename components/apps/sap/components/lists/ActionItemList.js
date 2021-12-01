@@ -5,15 +5,14 @@ import PropTypes from "prop-types";
 import ActionItemForm from "../forms/ActionItemForm";
 
 import workPlanKeys from "../../keys/workPlanKeys";
-import Switcher from "../../../../core/navigation/switcher/Switcher";
+
 
 import getQuery from "../../utils/getQuery";
-import deleteEntry from "../../utils/delete";
-import useQuery from "../../../../core/visualization/hooks/useQuery";
-import List from "../../../../core/visualization/list/List";
+
+
 import useList from "../../templates/useList";
 import ListTemplate from "../../templates/ListTemplate";
-
+import {List, Switcher, useQuery} from 'mfc-core'
 
 export default function ActionItemList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)

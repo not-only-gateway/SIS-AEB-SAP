@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import Host from "./host";
 import Cookies from "universal-cookie/lib";
-import Request from "../../../core/feedback/requester/request";
+import {request} from "mfc-core";
 
 export default async function submit(props){
     let response = {
@@ -15,7 +15,7 @@ export default async function submit(props){
         else
             data[d] = props.data[d]
     })
-    await Request({
+    await request({
         method: props.create ? 'post' : 'put',
         url: Host()+props.suffix ,
         showSuccessAlert: true,

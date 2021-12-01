@@ -2,20 +2,19 @@ import React, {useEffect, useState} from 'react'
 import Head from "next/head";
 import shared from '../styles/Shared.module.css'
 import PropTypes from 'prop-types'
-import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";
+
 import FollowUpList from "../components/lists/FollowUpList";
 import ExecutionList from "../components/lists/ExecutionList";
 import ResourceApplicationList from "../components/lists/ResourceApplicationList";
 import NoteList from "../components/lists/NoteList";
 import {fetchEntry} from "../utils/fetchData";
-import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
+
 import {CategoryRounded, HomeRounded} from "@material-ui/icons";
 import OperationForm from "../components/forms/OperationForm";
 import ActionItemList from "../components/lists/ActionItemList";
-import Button from "../../../core/inputs/button/Button";
-import Tab from "../../../core/navigation/tabs/Tab";
-import {ToolTip} from "mfc-core";
 
+
+import {Breadcrumbs, Button, Tab, ToolTip, VerticalTabs} from 'mfc-core'
 
 export default function OperationPhase(props) {
     const [operation, setOperation] = useState({})

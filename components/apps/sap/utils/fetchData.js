@@ -1,11 +1,11 @@
 import Cookies from "universal-cookie/lib";
 import PropTypes from "prop-types";
-import Request from "../../../core/feedback/requester/request";
+import {request} from "mfc-core";
 import Host from "./host";
 
 export async function fetchEntry(props) {
     let response = {}
-    await Request({
+    await request({
         method: 'get',
         url: Host() + props.suffix,
         headers: {'authorization': (new Cookies()).get('jwt')},

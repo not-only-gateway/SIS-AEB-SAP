@@ -1,4 +1,4 @@
-import Empty from "../../../core/feedback/empty/Empty";
+import {Empty} from "mfc-core";
 
 export default function Information() {
     return (

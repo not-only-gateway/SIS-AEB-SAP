@@ -1,18 +1,18 @@
 import React, {useMemo} from "react";
 import PropTypes from "prop-types";
 import InfrastructurePT from "../../locales/InfrastructurePT";
-import {SelectField} from "mfc-core";
-import Form from "../../../../core/inputs/form/Form";
+
+
 import associativeKeys from "../../keys/associativeKeys";
-import useQuery from "../../../../core/visualization/hooks/useQuery";
+
 import getQuery from "../../utils/getQuery";
 import submit from "../../utils/submit";
 import ComponentForm from "./ComponentForm";
-import FormRow from "../../../../core/inputs/form/FormRow";
+
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";
-import Selector from "../../../../core/inputs/selector/Selector";
 
+import {Form, FormRow, SelectField, Selector, useQuery} from 'mfc-core'
 
 export default function SOCForm(props) {
     const classificationHook = useQuery(

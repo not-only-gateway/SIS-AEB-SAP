@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 import React, {useState} from "react";
 import {AddRounded, DeleteForeverRounded, LinkRounded, RemoveRounded} from "@material-ui/icons";
-import useQuery from "../../../../core/visualization/hooks/useQuery";
-import List from "../../../../core/visualization/list/List";
+
+
 import associativeKeys from "../../keys/associativeKeys";
-import Switcher from "../../../../core/navigation/switcher/Switcher";
+
 import deleteEntry from "../../utils/delete";
 import getQuery from "../../utils/getQuery";
 import InfrastructureComponentForm from "../forms/InfrastructureComponentForm";
@@ -12,6 +12,7 @@ import submit from "../../utils/submit";
 import ComponentForm from "../forms/ComponentForm";
 import useList from "../../templates/useList";
 import ListTemplate from "../../templates/ListTemplate";
+import {List, Switcher, useQuery} from 'mfc-core'
 
 export default function ComponentList(props) {
     const [open, setOpen] = useState(2)

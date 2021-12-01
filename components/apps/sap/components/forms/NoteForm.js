@@ -1,10 +1,11 @@
 import React, {useMemo} from "react";
-import {TextField} from "mfc-core";
+
+import {Form, FormRow, TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import ExecutionPT from "../../locales/ExecutionPT";
-import Form from "../../../../core/inputs/form/Form";
+
 import submit from "../../utils/submit";
-import FormRow from "../../../../core/inputs/form/FormRow";
+
 import workPlanKeys from "../../keys/workPlanKeys";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";

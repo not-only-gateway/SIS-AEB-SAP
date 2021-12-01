@@ -2,17 +2,17 @@ import React, {useMemo} from "react";
 
 import PropTypes from "prop-types";
 import ExecutionPT from "../../locales/ExecutionPT";
-import {DateField, Selector, TextField} from "mfc-core";
-import Form from "../../../../core/inputs/form/Form";
+
+
 import workPlanKeys from "../../keys/workPlanKeys";
-import useQuery from "../../../../core/visualization/hooks/useQuery";
+
 import getQuery from "../../utils/getQuery";
 import submit from "../../utils/submit";
 import OperationForm from "./OperationForm";
-import FormRow from "../../../../core/inputs/form/FormRow";
+
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";
-
+import {DateField, Form, FormRow, Selector, TextField, useQuery} from "mfc-core";
 
 export default function ExecutionForm(props) {
 
@@ -26,7 +26,7 @@ export default function ExecutionForm(props) {
                 ...props.data,
                 ...{
                     execution_date: `${newDay < 10 ? ('0' + newDay) : newDay}/${newMonth < 10 ? ('0' + newMonth) : newMonth}/${(date.getFullYear())}`,
-                    operation_phase: props.operation ? props.operation : props.data.operation_phase
+                    operation_phase: props.operation ? props.operation : props.data?.operation_phase
                 }
             }
         } else

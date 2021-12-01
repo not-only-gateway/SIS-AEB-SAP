@@ -1,9 +1,9 @@
-import {useQuery} from "mfc-core";
 import {service_query} from "../../queries/queries";
-import List from "../../../../core/visualization/list/List";
+
 import {useState} from "react";
 import ServiceForm from "../forms/ServiceForm";
-import Switcher from "../../../../core/navigation/switcher/Switcher";
+
+import {List, Switcher, useQuery} from "mfc-core";
 import PropTypes from "prop-types";
 import {serviceKeys} from "../../keys/keys";
 import {DeleteRounded} from "@material-ui/icons";

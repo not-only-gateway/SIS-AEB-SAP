@@ -1,13 +1,11 @@
-import {useQuery} from "mfc-core";
 import {access_profile_query} from "../../queries/queries";
-import List from "../../../../core/visualization/list/List";
 import {useState} from "react";
-import Switcher from "../../../../core/navigation/switcher/Switcher";
 import {accessProfileKeys} from "../../keys/keys";
 import AccessProfileForm from "../forms/AccessProfileForm";
 import PropTypes from 'prop-types'
 import {DeleteRounded} from "@material-ui/icons";
 import deleteEntry from "../../utils/delete";
+import {List, Switcher, useQuery} from "mfc-core";
 
 export default function AccessProfileList(props) {
     const hook = useQuery(access_profile_query)

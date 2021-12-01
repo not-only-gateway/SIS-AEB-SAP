@@ -3,7 +3,6 @@ import {DeleteRounded} from "@material-ui/icons";
 import TedForm from "../forms/TedForm";
 import tedKeys from "../../keys/tedKeys";
 import Switcher from "../../../../core/navigation/switcher/Switcher";
-import deleteEntry from "../../utils/delete";
 
 import PropTypes from "prop-types";
 import getQuery from "../../utils/getQuery";

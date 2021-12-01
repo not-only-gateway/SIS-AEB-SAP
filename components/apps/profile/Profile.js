@@ -1,12 +1,13 @@
 import React, {useContext, useState} from "react";
 import ProfileContext from "./ProfileContext";
-import VerticalTabs from "../../core/navigation/tabs/VerticalTabs";
+
 import styles from './styles/Profile.module.css'
 import {Avatar} from "@material-ui/core";
 import Information from "./components/Information";
 import Privileges from "./components/Privileges";
 import DraftList from "./components/lists/DraftList";
-import Tab from "../../core/navigation/tabs/Tab";
+
+import {Tab, VerticalTabs} from 'mfc-core'
 
 export default function Profile() {
     const profile = useContext(ProfileContext)

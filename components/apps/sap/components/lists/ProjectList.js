@@ -4,8 +4,6 @@ import ProjectForm from "../forms/ProjectForm";
 import {DeleteRounded} from "@material-ui/icons";
 import projectKeys from "../../keys/projectKeys";
 
-import deleteEntry from "../../utils/delete";
-
 import getQuery from "../../utils/getQuery";
 import {List, Switcher, useQuery} from "mfc-core";
 import useList from "../../templates/useList";

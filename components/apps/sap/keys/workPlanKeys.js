@@ -132,7 +132,7 @@ const KEYS = {
             type: 'object',
             label: 'Natureza de despesa',
             visible: true,
-            subfieldKey: 'nature_of_expense_field',
+            subfieldKey: 'nature_of_expense',
             subType: 'string',
             query: QUERIES?.nature
         },

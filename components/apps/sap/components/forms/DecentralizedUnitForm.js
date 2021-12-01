@@ -1,14 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Form from "../../../../core/inputs/form/Form";
+
 import EntitiesPT from "../../locales/EntitiesPT";
-import {TextField} from "mfc-core";
+
 import submit from "../../utils/submit";
-import FormRow from "../../../../core/inputs/form/FormRow";
+
 import associativeKeys from "../../keys/associativeKeys";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";
-
+import {Form, FormRow, TextField} from "mfc-core";
 
 export default function DecentralizedUnitForm(props) {
     const lang = EntitiesPT

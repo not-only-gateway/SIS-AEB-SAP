@@ -1,8 +1,8 @@
-import {useQuery} from "mfc-core";
 import {entity_query} from "../../queries/queries";
-import List from "../../../../core/visualization/list/List";
+
 import {useState} from "react";
-import Switcher from "../../../../core/navigation/switcher/Switcher";
+
+import {List, Switcher, useQuery} from "mfc-core";
 import PropTypes from 'prop-types'
 import {entityKeys} from "../../keys/keys";
 import EntityForm from "../forms/EntityForm";

@@ -1,18 +1,18 @@
 import React, {useMemo, useState} from "react";
 import PropTypes from "prop-types";
-import List from "../../../../core/visualization/list/List";
+
 
 import WorkPlanForm from "../forms/WorkPlanForm";
 import {DeleteRounded} from "@material-ui/icons";
 import workPlanKeys from "../../keys/workPlanKeys";
-import Switcher from "../../../../core/navigation/switcher/Switcher";
-import deleteEntry from "../../utils/delete";
+
 import getQuery from "../../utils/getQuery";
-import useQuery from "../../../../core/visualization/hooks/useQuery";
+
 import projectKeys from "../../keys/projectKeys";
 import tedKeys from "../../keys/tedKeys";
 import useList from "../../templates/useList";
 import ListTemplate from "../../templates/ListTemplate";
+import {List, Switcher, useQuery} from 'mfc-core'
 
 export default function WorkPlanList(props) {
     const [open, setOpen] = useState(false)

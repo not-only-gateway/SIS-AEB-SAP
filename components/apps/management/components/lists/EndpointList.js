@@ -1,13 +1,12 @@
-import {endpoint_query} from "../../queries/queries";
-import List from "../../../../core/visualization/list/List";
 import {useMemo, useState} from "react";
 import EndpointForm from "../forms/EndpointForm";
-import Switcher from "../../../../core/navigation/switcher/Switcher";
+
 import PropTypes from 'prop-types'
 import {endpointKeys} from "../../keys/keys";
 import {DeleteRounded} from "@material-ui/icons";
 import deleteEntry from "../../utils/delete";
-import useQuery from "../../../../core/visualization/hooks/useQuery";
+
+import {List, Switcher, useQuery} from "mfc-core";
 import getQuery from "../../utils/getQuery";
 
 

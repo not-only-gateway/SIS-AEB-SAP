@@ -1,14 +1,14 @@
 import React, {useState} from "react";
-import {useQuery} from "mfc-core";
+
 import UnitForm from "../forms/UnitForm";
 import {DeleteRounded} from "@material-ui/icons";
-import Switcher from "../../../../core/navigation/switcher/Switcher";
-import deleteEntry from "../../utils/delete";
+
 import getQuery from "../../utils/getQuery";
-import List from "../../../../core/visualization/list/List";
+
 import associativeKeys from "../../keys/associativeKeys";
 import useList from "../../templates/useList";
 import ListTemplate from "../../templates/ListTemplate";
+import {List, Switcher, useQuery} from 'mfc-core'
 
 export default function UnitList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)

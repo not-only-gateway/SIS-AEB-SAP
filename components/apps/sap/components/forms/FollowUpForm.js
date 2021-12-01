@@ -1,11 +1,10 @@
 import React, {useEffect, useMemo, useState} from "react";
-import {SelectField, TextField} from "mfc-core";
+import {request, SelectField, TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import OperationPT from "../../locales/OperationPT";
 import Form from "../../../../core/inputs/form/Form";
 import Cookies from "universal-cookie/lib";
 import submit from "../../utils/submit";
-import Request from "../../../../core/feedback/requester/request";
 import Host from "../../utils/host";
 import deleteEntry from "../../utils/delete";
 import FormRow from "../../../../core/inputs/form/FormRow";
@@ -30,7 +29,7 @@ export default function FollowUpForm(props) {
 
     useEffect(() => {
         if (!props.create && props.data.file !== undefined && props.data.file !== null) {
-            Request({
+            request({
                 method: 'get',
                 url: Host().replace('/api', '/drive') + '/file',
                 package: {
@@ -38,7 +37,7 @@ export default function FollowUpForm(props) {
                 },
                 headers: {'authorization': (new Cookies()).get('jwt')}
             }).then(res => {
-                Request({
+                request({
                     method: 'get',
                     url: Host(true) + 'file_name/' + submitProps.id,
                     showSuccessAlert: false,

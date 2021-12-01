@@ -2,16 +2,16 @@ import React, {useMemo} from "react";
 import PropTypes from "prop-types";
 import ResourcePT from "../../locales/ResourcePT";
 import NatureExpenseForm from "./NatureExpenseForm";
-import {SelectField, Selector, TextField, useQuery} from "mfc-core";
-import Form from "../../../../core/inputs/form/Form";
+
+
 import submit from "../../utils/submit";
 import associativeKeys from "../../keys/associativeKeys";
 import getQuery from "../../utils/getQuery";
-import FormRow from "../../../../core/inputs/form/FormRow";
+
 import workPlanKeys from "../../keys/workPlanKeys";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";
-
+import {Form, FormRow, SelectField, Selector, TextField, useQuery} from 'mfc-core'
 
 export default function ResourceApplicationForm(props) {
 

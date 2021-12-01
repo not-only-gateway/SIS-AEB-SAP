@@ -1,11 +1,11 @@
 import React, {useMemo} from "react";
 import ProjectPT from "../../locales/ProjectPT";
+import {DateField, Form, FormRow, SelectField, TextField} from 'mfc-core'
 
-import {DateField, SelectField, TextField} from "mfc-core";
 import PropTypes from "prop-types";
-import Form from "../../../../core/inputs/form/Form";
+
 import submit from "../../utils/submit";
-import FormRow from "../../../../core/inputs/form/FormRow";
+
 import projectKeys from "../../keys/projectKeys";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";
@@ -56,7 +56,7 @@ export default function ProjectGoalForm(props) {
                         })}
                     handleClose={() => props.handleClose()}>
                     {(data, handleChange) => (
-                        <FormRow>
+                        <FormRow title={'Identificação do Marco do Projeto/Atividade'}>
 
 
                             <TextField

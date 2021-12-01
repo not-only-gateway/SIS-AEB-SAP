@@ -2,20 +2,20 @@ import React, {useEffect, useState} from 'react'
 import Head from "next/head";
 import shared from '../styles/Shared.module.css'
 import PropTypes from 'prop-types'
-import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";
+
 import WorkPlanList from "../components/lists/WorkPlanList";
 import TedForm from "../components/forms/TedForm";
 import TedList from "../components/lists/TedList";
 import {fetchEntry} from "../utils/fetchData";
-import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
+
 import {CategoryRounded, CloseRounded, HomeRounded} from "@material-ui/icons";
-import Button from "../../../core/inputs/button/Button";
+
 import ProjectTedList from "../components/lists/ProjectTedList";
-import Tab from "../../../core/navigation/tabs/Tab";
-import Request from "../../../core/feedback/requester/request";
+
+
 import Host from "../utils/host";
-import {ToolTip} from "mfc-core";
 import Cookies from "universal-cookie/lib";
+import {Breadcrumbs, Button, request, Tab, ToolTip, VerticalTabs} from 'mfc-core'
 
 export default function Ted(props) {
     const [ted, setTed] = useState({})
@@ -33,7 +33,7 @@ export default function Ted(props) {
                 if (res) {
                     setTed(res)
 
-                    Request({
+                    request({
                         headers: {'authorization': (new Cookies()).get('jwt')},
                         method: 'get',
                         url: Host() + 'list/ted',

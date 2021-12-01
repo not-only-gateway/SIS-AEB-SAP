@@ -1,16 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import EntitiesPT from "../../locales/EntitiesPT";
-import {TextField, useQuery} from "mfc-core";
-import Form from "../../../../core/inputs/form/Form";
+
+
 import associativeKeys from "../../keys/associativeKeys";
 import getQuery from "../../utils/getQuery";
-import Selector from "../../../../core/inputs/selector/Selector";
+
 import submit from "../../utils/submit";
-import FormRow from "../../../../core/inputs/form/FormRow";
+
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";
-
+import {Form, FormRow, Selector, TextField, useQuery} from 'mfc-core'
 
 export default function UnitForm(props) {
     const lang = EntitiesPT

@@ -10,9 +10,9 @@ import UnitList from "../components/lists/UnitList";
 import TypeList from "../components/lists/TypeList";
 import PropTypes from "prop-types";
 import shared from '../styles/Shared.module.css'
-import Tab from "../../../core/navigation/tabs/Tab";
-import Tabs from "../../../core/navigation/tabs/Tabs";
 
+
+import {Tab, Tabs} from 'mfc-core'
 
 export default function Associative(props) {
     const lang = OverviewPT

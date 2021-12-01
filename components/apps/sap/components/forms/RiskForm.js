@@ -1,14 +1,14 @@
 import React, {useMemo} from "react";
 import ProjectPT from "../../locales/ProjectPT";
-import {SelectField, TextField} from "mfc-core";
+
 import PropTypes from "prop-types";
-import Form from "../../../../core/inputs/form/Form";
+
 import submit from "../../utils/submit";
-import FormRow from "../../../../core/inputs/form/FormRow";
+
 import projectKeys from "../../keys/projectKeys";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";
-
+import {Form, FormRow, SelectField, TextField} from 'mfc-core'
 
 export default function RiskForm(props) {
     const lang = ProjectPT
@@ -54,7 +54,7 @@ export default function RiskForm(props) {
                         })}
                     handleClose={() => props.handleClose()}>
                     {(data, handleChange) => (
-                        <FormRow>
+                        <FormRow title={'Identificação do Risco'}>
 
                             <TextField
 

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
-import {FormRow} from "mfc-core";
-import Form from "../../../../core/inputs/form/Form";
-import TextField from "../../../../core/inputs/text/TextField";
+
+
+import {Form, FormRow, TextField} from "mfc-core";
 import useData from "../../../../core/inputs/form/useData";
 import submit from "../../utils/submit";
 

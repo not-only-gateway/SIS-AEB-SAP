@@ -1,13 +1,14 @@
 import useData from "../../../../core/inputs/form/useData";
-import Form from "../../../../core/inputs/form/Form";
+
 import submit from "../../utils/submit";
-import FormRow from "../../../../core/inputs/form/FormRow";
+
 import PropTypes from "prop-types";
-import SelectField from "../../../../core/inputs/select/SelectField";
-import {useQuery} from "mfc-core";
+
+
 import {permission_query} from "../../queries/queries";
 import {permissionKeys} from "../../keys/keys";
-import Selector from "../../../../core/inputs/selector/Selector";
+
+import {Form, FormRow, SelectField, Selector, useQuery} from "mfc-core";
 import {useMemo} from "react";
 
 export default function EndpointPrivilegeForm(props) {

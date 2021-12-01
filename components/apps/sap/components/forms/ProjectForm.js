@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types'
 import ProjectPT from "../../locales/ProjectPT";
-import {SelectField, Form, FormRow, Selector, useQuery} from "mfc-core";
+import {Form, FormRow, SelectField, Selector, useQuery} from "mfc-core";
 import getQuery from "../../utils/getQuery";
 import associativeKeys from "../../keys/associativeKeys";
 import submit from "../../utils/submit";

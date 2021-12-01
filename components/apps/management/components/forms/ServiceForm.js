@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
-import {SelectField, FormRow} from "mfc-core";
-import Form from "../../../../core/inputs/form/Form";
-import TextField from "../../../../core/inputs/text/TextField";
+
+
 import useData from "../../../../core/inputs/form/useData";
+import {Form, FormRow, SelectField, TextField} from "mfc-core";
 import {useMemo} from "react";
 import submit from "../../utils/submit";
 
@@ -48,36 +48,43 @@ export default function ServiceForm(props) {
         >
             {(data, handleChange) => (
                 <FormRow>
-                    <SelectField
-                        placeholder={'Protocolo'} value={data.protocol}
-                        label={'Protocolo'} disabled={false}
-                        choices={[{key: 'https://', value: 'HTTPS'}, {key: 'http://', value: 'HTTP'}]}
-                        handleChange={e => handleChange({event: e, key: 'protocol'})}
-                        required={true} width={'calc(25% - 24px)'}
+                    <TextField
+                        placeholder={'Máscara'} value={data.mask}
+                        label={'Máscara'} disabled={false}
+                        handleChange={e => handleChange({event: e.target.value, key: 'mask'})}
+                        required={true} width={'calc(33.333% - 21.5px)'}
                     />
                     <TextField
                         placeholder={'Host'} value={data.host}
                         label={'Host'} disabled={false}
                         handleChange={e => handleChange({event: e.target.value, key: 'host'})}
-                        required={true} width={'calc(50% - 16px)'}
+                        required={true} width={'calc(33.333% - 21.5px)'}
                     />
                     <TextField
                         placeholder={'Porta'} value={data.port}
                         label={'Porta'} disabled={false} type={'number'} maxLength={2}
                         handleChange={e => handleChange({event: e.target.value, key: 'port'})}
-                        required={true} width={'calc(25% - 24px)'}
+                        required={true} width={'calc(33.333% - 21.5px)'}
+                    />
+
+                    <SelectField
+                        placeholder={'Protocolo'} value={data.protocol}
+                        label={'Protocolo'} disabled={false}
+                        choices={[{key: 'https://', value: 'HTTPS'}, {key: 'http://', value: 'HTTP'}]}
+                        handleChange={e => handleChange({event: e, key: 'protocol'})}
+                        required={true} width={'calc(33.333% - 21.5px)'}
                     />
                     <TextField
                         placeholder={'Denominação'} value={data.denomination}
                         label={'Denominação'} disabled={false}
                         handleChange={e => handleChange({event: e.target.value, key: 'denomination'})}
-                        required={true} width={'calc(50% - 16px)'}
+                        required={true} width={'calc(33.333% - 21.5px)'}
                     />
                     <TextField
                         placeholder={'Descrição'} value={data.description}
                         label={'Descrição'} disabled={false}
                         handleChange={e => handleChange({event: e.target.value, key: 'description'})}
-                        required={false} width={'calc(50% - 16px)'}
+                        required={false} width={'calc(33.333% - 21.5px)'}
                     />
                 </FormRow>
             )}

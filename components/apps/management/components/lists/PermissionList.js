@@ -1,16 +1,16 @@
-import {useQuery} from "mfc-core";
 import {access_profile_permissions_query, permission_query} from "../../queries/queries";
-import List from "../../../../core/visualization/list/List";
+
 import {useState} from "react";
-import Switcher from "../../../../core/navigation/switcher/Switcher";
+
 import PermissionForm from "../forms/PermissionForm";
 import {permissionKeys} from "../../keys/keys";
 import PropTypes from 'prop-types'
-import Selector from "../../../../core/inputs/selector/Selector";
+
 import {DeleteRounded} from "@material-ui/icons";
 import deleteEntry from "../../utils/delete";
 import Host from "../../utils/host";
 import EndpointPrivilegeForm from "../forms/EndpointPrivilegeForm";
+import {List, Selector, Switcher, useQuery} from "mfc-core";
 
 export default function PermissionList(props) {
     const hook = props.accessProfile ? useQuery(access_profile_permissions_query(props.accessProfile)) : undefined

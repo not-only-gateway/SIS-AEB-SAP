@@ -1,10 +1,11 @@
 import React, {useMemo} from "react";
-import {SelectField, TextField} from "mfc-core";
+
+import {Form, FormRow, SelectField, TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import InfrastructurePT from "../../locales/InfrastructurePT";
-import Form from "../../../../core/inputs/form/Form";
+
 import submit from "../../utils/submit";
-import FormRow from "../../../../core/inputs/form/FormRow";
+
 import associativeKeys from "../../keys/associativeKeys";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";

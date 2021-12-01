@@ -1,14 +1,14 @@
 import React, {useMemo} from "react";
-import Form from "../../../../core/inputs/form/Form";
+
 import PropTypes from "prop-types";
-import EntitiesPT from "../../locales/EntitiesPT";
 import associativeKeys from "../../keys/associativeKeys";
-import useQuery from "../../../../core/visualization/hooks/useQuery";
+
 import getQuery from "../../utils/getQuery";
 import submit from "../../utils/submit";
-import FormRow from "../../../../core/inputs/form/FormRow";
+
 import FormTemplate from "../../templates/FormTemplate";
-import Selector from "../../../../core/inputs/selector/Selector";
+
+import {Form, FormRow, Selector, useQuery} from "mfc-core";
 import ComponentForm from "./ComponentForm";
 
 

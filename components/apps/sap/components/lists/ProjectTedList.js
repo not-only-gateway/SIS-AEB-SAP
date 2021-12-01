@@ -4,15 +4,16 @@ import deleteEntry from "../../utils/delete";
 
 import PropTypes from "prop-types";
 import getQuery from "../../utils/getQuery";
-import useQuery from "../../../../core/visualization/hooks/useQuery";
+
 import associativeKeys from "../../keys/associativeKeys";
-import List from "../../../../core/visualization/list/List";
+
 import TedForm from "../forms/TedForm";
-import {Switcher} from "mfc-core";
+
 import submit from "../../utils/submit";
 import ProjectTedForm from "../forms/ProjectTedForm";
 import useList from "../../templates/useList";
 import ListTemplate from "../../templates/ListTemplate";
+import {List, Switcher, useQuery} from 'mfc-core'
 
 export default function ProjectTedList(props) {
     const [open, setOpen] = useState(props.project ? 2 : 1)

@@ -1,10 +1,11 @@
 import React from "react";
-import {SelectField, TextField} from "mfc-core";
+
 import PropTypes from "prop-types";
 import ProjectPT from "../../locales/ProjectPT";
-import Form from "../../../../core/inputs/form/Form";
+
+import {Form, FormRow, SelectField, TextField} from "mfc-core";
 import submit from "../../utils/submit";
-import FormRow from "../../../../core/inputs/form/FormRow";
+
 import associativeKeys from "../../keys/associativeKeys";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";

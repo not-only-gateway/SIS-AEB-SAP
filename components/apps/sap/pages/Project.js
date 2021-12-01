@@ -3,14 +3,13 @@ import Head from "next/head";
 import shared from '../styles/Shared.module.css'
 import PropTypes from 'prop-types'
 import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";
-import WorkPlanList from "../components/lists/WorkPlanList";
 import ProjectForm from "../components/forms/ProjectForm";
 
 import RisksList from "../components/lists/RisksList";
 import ProjectGoalList from "../components/lists/ProjectGoalList";
 import {fetchEntry} from "../utils/fetchData";
 import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
-import {CategoryRounded, CloseRounded, HomeRounded, InfoRounded} from "@material-ui/icons";
+import {CategoryRounded, CloseRounded, HomeRounded} from "@material-ui/icons";
 import Button from "../../../core/inputs/button/Button";
 import ProjectTedList from "../components/lists/ProjectTedList";
 import Tab from "../../../core/navigation/tabs/Tab";

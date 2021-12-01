@@ -1,18 +1,15 @@
 import PropTypes from 'prop-types'
 
-import Form from "../../../../core/inputs/form/Form";
-import FormRow from "../../../../core/inputs/form/FormRow";
-import Checkbox from "../../../../core/inputs/checkbox/Checkbox";
-import CheckboxGroup from "../../../../core/inputs/checkbox/CheckboxGroup";
-import TextField from "../../../../core/inputs/text/TextField";
-import Selector from "../../../../core/inputs/selector/Selector";
+
 import {entity_query, service_query} from "../../queries/queries";
-import {useQuery} from "mfc-core";
+
 import {entityKeys, serviceKeys} from "../../keys/keys";
-import useData from "../../../../core/inputs/form/useData";
+
 import {useMemo} from "react";
 import submit from "../../utils/submit";
 import EntityForm from "./EntityForm";
+import {Checkbox, CheckboxGroup, Form, FormRow, Selector, TextField, useQuery} from "mfc-core";
+import useData from "../../../../core/inputs/form/useData";
 
 export default function EndpointForm(props) {
     const serviceHook = useQuery(service_query)

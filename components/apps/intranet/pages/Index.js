@@ -2,8 +2,9 @@ import React, {useEffect, useRef, useState} from 'react'
 import Head from "next/head";
 
 import PropTypes from 'prop-types'
-import Carousel from "../../../core/navigation/carousel/Carousel";
-import Feed from "../../../core/visualization/feed/Feed";
+
+
+import {Carousel, Feed} from "mfc-core";
 
 export default function Index(props) {
     const [offset, setOffset] = useState(0)

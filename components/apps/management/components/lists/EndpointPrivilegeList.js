@@ -1,13 +1,13 @@
-import {useQuery} from "mfc-core";
 import {endpoint_privilege_query} from "../../queries/queries";
-import List from "../../../../core/visualization/list/List";
+
 import {useState} from "react";
-import Switcher from "../../../../core/navigation/switcher/Switcher";
+
 import {endpointPrivilegeKeys} from "../../keys/keys";
 import PropTypes from 'prop-types'
 import {DeleteRounded} from "@material-ui/icons";
 import deleteEntry from "../../utils/delete";
 import EndpointPrivilegeForm from "../forms/EndpointPrivilegeForm";
+import {List, Switcher, useQuery} from "mfc-core";
 
 export default function EndpointPrivilegeList(props) {
     const hook = useQuery(endpoint_privilege_query(props.endpoint))

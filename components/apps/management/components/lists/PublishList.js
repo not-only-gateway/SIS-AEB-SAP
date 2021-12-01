@@ -1,8 +1,6 @@
-import {useQuery} from "mfc-core";
+import {List, Switcher, useQuery} from "mfc-core";
 import {useState} from "react";
-import Switcher from "../../../../core/navigation/switcher/Switcher";
-import EntityForm from "../forms/EntityForm";
-import List from "../../../../core/visualization/list/List";
+
 import {publishKeys} from "../../keys/keys";
 import {DeleteRounded} from "@material-ui/icons";
 import deleteEntry from "../../utils/delete";

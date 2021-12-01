@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import Head from "next/head";
-import IndexPT from "../locales/ProjectPT";
 import shared from '../styles/Shared.module.css'
 import PropTypes from 'prop-types'
 import ProjectList from "../components/lists/ProjectList";

@@ -1,8 +1,9 @@
 import {event_query} from "../../queries/queries";
-import List from "../../../../core/visualization/list/List";
+
 import {eventKeys} from "../../keys/keys";
-import useQuery from "../../../../core/visualization/hooks/useQuery";
-import Modal from "../../../../core/navigation/modal/Modal";
+
+
+import {List, Modal, useQuery} from "mfc-core";
 
 export default function EventList(props) {
     const hook = useQuery(event_query)

@@ -6,7 +6,6 @@ import List from "../../../../core/visualization/list/List";
 import DecentralizedUnitForm from "../forms/DecentralizedUnitForm";
 import associativeKeys from "../../keys/associativeKeys";
 import Switcher from "../../../../core/navigation/switcher/Switcher";
-import deleteEntry from "../../utils/delete";
 import getQuery from "../../utils/getQuery";
 import useList from "../../templates/useList";
 import ListTemplate from "../../templates/ListTemplate";

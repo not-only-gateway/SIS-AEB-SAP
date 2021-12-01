@@ -1,16 +1,16 @@
 import React, {useMemo, useState} from "react";
-import {useQuery} from "mfc-core";
-import List from "../../../../core/visualization/list/List";
+
+
 import {DeleteRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 
 import workPlanKeys from "../../keys/workPlanKeys";
-import Switcher from "../../../../core/navigation/switcher/Switcher";
-import deleteEntry from "../../utils/delete";
+
 import getQuery from "../../utils/getQuery";
 import OperationForm from "../forms/OperationForm";
 import useList from "../../templates/useList";
 import ListTemplate from "../../templates/ListTemplate";
+import {List, Switcher, useQuery} from 'mfc-core'
 
 export default function OperationList(props) {
     const [open, setOpen] = useState(false)

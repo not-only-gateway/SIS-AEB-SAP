@@ -1,13 +1,12 @@
 import React, {useState} from "react";
 import {DeleteRounded} from "@material-ui/icons";
-import Switcher from "../../../../core/navigation/switcher/Switcher";
 
-import {List, useQuery} from "mfc-core";
 
 import deleteEntry from "../../utils/shared/delete";
 import getQuery from "../../utils/getQuery";
 import Host from "../../utils/shared/Host";
-import DynamicRoutes from "../../../../core/navigation/routing/DynamicRoutes";
+
+import {DynamicRoutes, List, Switcher, useQuery} from 'mfc-core'
 import getForms from "../../../sap/getForms";
 
 
