@@ -6,9 +6,9 @@ import {useEffect, useMemo, useState} from "react";
 import Cookies from "universal-cookie/lib";
 import Host from "../utils/host";
 import {Selector, useQuery} from 'mfc-core'
-import useDataWithDraft from "../../../core/inputs/form/useDataWithDraft";
+import useDataWithDraft from "../../../addons/useDataWithDraft";
 import draftKeys from "./draftKeys";
-import useData from "../../../core/inputs/form/useData";
+import useData from "../../../addons/useData";
 
 export default function FormTemplate(props) {
     const [option, setOption] = useState('list_draft')

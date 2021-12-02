@@ -1,7 +1,7 @@
 import {useRouter} from "next/router";
 import React from "react";
 import getHRPages from "../../components/apps/hr/getHRPages";
-import DynamicRoutes from "../../components/core/navigation/routing/DynamicRoutes";
+import {DynamicRoutes} from "mfc-core";
 
 
 export default function index() {

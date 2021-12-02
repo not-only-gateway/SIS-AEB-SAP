@@ -1,7 +1,7 @@
 import {useRouter} from "next/router";
 import React from "react";
 import getSapPages from "../../components/apps/sap/getSapPages";
-import DynamicRoutes from "../../components/core/navigation/routing/DynamicRoutes";
+import {DynamicRoutes} from "mfc-core";
 import "@fontsource/roboto";
 
 export default function index() {

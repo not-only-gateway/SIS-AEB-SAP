@@ -9,7 +9,7 @@ import {useMemo} from "react";
 import submit from "../../utils/submit";
 import EntityForm from "./EntityForm";
 import {Checkbox, CheckboxGroup, Form, FormRow, Selector, TextField, useQuery} from "mfc-core";
-import useData from "../../../../core/inputs/form/useData";
+import useData from "../../../../addons/useData";
 
 export default function EndpointForm(props) {
     const serviceHook = useQuery(service_query)

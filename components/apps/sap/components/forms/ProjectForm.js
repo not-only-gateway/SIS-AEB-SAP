@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types'
 import ProjectPT from "../../locales/ProjectPT";
-import {Form, FormRow, SelectField, Selector, useQuery} from "mfc-core";
+import {Form, FormRow, SelectField, Selector, useQuery, TextField} from "mfc-core";
 import getQuery from "../../utils/getQuery";
 import associativeKeys from "../../keys/associativeKeys";
 import submit from "../../utils/submit";
@@ -9,7 +9,7 @@ import UnitForm from "./UnitForm";
 import projectKeys from "../../keys/projectKeys";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";
-import TextField from "../../../../core/inputs/text/TextField";
+
 
 
 export default function ProjectForm(props) {

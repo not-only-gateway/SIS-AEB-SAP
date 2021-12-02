@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types'
 import Cookies from "universal-cookie/lib";
-import Request from '/components/core/feedback/requester/request'
+import {request} from 'mfc-core'
 import Host from "./Host";
 
 const cookies = new Cookies()
 export default async function submitAuthentication(props) {
     let res = null
 
-    await Request({
+    await request({
         package: {
             email: `${props.email}${props.asManager ? '' : '@aeb.gov.br'}`,
             password: props.password,

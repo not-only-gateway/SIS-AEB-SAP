@@ -1,9 +1,29 @@
 import React from "react";
-import {useQuery} from "mfc-core";
+
 import {personKeys} from "../keys/keys";
 import getQuery from "../queries/getQuery";
-import List from "../../../core/visualization/list/List";
+import {
+    useCopyToClipboard, useFile,
 
+    Empty,
+    request, Alert, ToolTip,
+
+    Selector, Form, FormRow, DateField,
+    SelectField, MultiSelectField,
+    TextField, Button, Checkbox, CheckboxGroup,
+    FileField,
+
+    ThemeContext, MfcWrapper, Ripple,
+
+    ScrollStepper, StepperWrapper,
+    Tab, Tabs, VerticalTabs, Modal, Breadcrumbs,
+    Carousel, DynamicRoutes, Switcher, RailActionButton,
+    RailContext, NavigationRail, Dropdown, RailActionWrapper,
+
+    List,  Feed, FeedCard, Filter,
+    useInfiniteScroll, useQuery
+
+} from 'mfc-core';
 export default function PersonList(){
     const hook = useQuery(getQuery('person'))
 

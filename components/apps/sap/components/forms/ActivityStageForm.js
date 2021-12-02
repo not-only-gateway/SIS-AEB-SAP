@@ -1,16 +1,36 @@
 import React, {useMemo} from "react";
-import Form from "../../../../core/inputs/form/Form";
-import {TextField, useQuery} from "mfc-core";
+
 import PropTypes from "prop-types";
 import GoalPT from "../../locales/GoalPT";
 import submit from "../../utils/submit";
 import getQuery from "../../utils/getQuery";
-import Selector from "../../../../core/inputs/selector/Selector";
+
 import workPlanKeys from "../../keys/workPlanKeys";
-import FormRow from "../../../../core/inputs/form/FormRow";
+
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";
+import {
+    useCopyToClipboard, useFile,
 
+    Empty,
+    request, Alert, ToolTip,
+
+    Selector, Form, FormRow, DateField,
+    SelectField, MultiSelectField,
+    TextField, Button, Checkbox, CheckboxGroup,
+    FileField,
+
+    ThemeContext, MfcWrapper, Ripple,
+
+    ScrollStepper, StepperWrapper,
+    Tab, Tabs, VerticalTabs, Modal, Breadcrumbs,
+    Carousel, DynamicRoutes, Switcher, RailActionButton,
+    RailContext, NavigationRail, Dropdown, RailActionWrapper,
+
+    List,  Feed, FeedCard, Filter,
+    useInfiniteScroll, useQuery
+
+} from 'mfc-core';
 
 export default function ActivityStageForm(props) {
     const lang = GoalPT

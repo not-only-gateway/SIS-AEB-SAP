@@ -1,8 +1,7 @@
 import {useRouter} from "next/router";
 import React from "react";
 import getProfilePages from "../../components/apps/profile/getProfilePages";
-import DynamicRoutes from "../../components/core/navigation/routing/DynamicRoutes";
-
+import {DynamicRoutes} from "mfc-core";
 
 export default function index() {
     const router = useRouter()
