@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useState} from "react";
 import TextField from "../components/core/inputs/text/TextField";
 
 const randomSet = (quantity) => {

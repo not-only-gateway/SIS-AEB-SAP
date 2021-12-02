@@ -19,28 +19,8 @@ import PermanentGoodsList from "../components/lists/PermanentGoodsList";
 
 import FinancialDisbursementList from "../components/lists/FinancialDisbursementList";
 
-import {
-    useCopyToClipboard, useFile,
+import {Breadcrumbs, Button, Tab, ToolTip, VerticalTabs} from 'mfc-core';
 
-    Empty,
-    request, Alert, ToolTip,
-
-    Selector, Form, FormRow, DateField,
-    SelectField, MultiSelectField,
-    TextField, Button, Checkbox, CheckboxGroup,
-    FileField,
-
-    ThemeContext, MfcWrapper, Ripple,
-
-    ScrollStepper, StepperWrapper,
-    Tab, Tabs, VerticalTabs, Modal, Breadcrumbs,
-    Carousel, DynamicRoutes, Switcher, RailActionButton,
-    RailContext, NavigationRail, Dropdown, RailActionWrapper,
-
-    List,  Feed, FeedCard, Filter,
-    useInfiniteScroll, useQuery
-
-} from 'mfc-core';
 export default function WorkPlan(props) {
     const [workPlan, setWorkPlan] = useState({})
 

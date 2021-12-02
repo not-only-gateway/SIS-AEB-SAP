@@ -2,33 +2,11 @@ import React, {useState} from "react";
 import {DeleteRounded} from "@material-ui/icons";
 
 
-
 import DecentralizedUnitForm from "../forms/DecentralizedUnitForm";
 import associativeKeys from "../../keys/associativeKeys";
 
 
-import {
-    useCopyToClipboard, useFile,
-
-    Empty,
-    request, Alert, ToolTip,
-
-    Selector, Form, FormRow, DateField,
-    SelectField, MultiSelectField,
-    TextField, Button, Checkbox, CheckboxGroup,
-    FileField,
-
-    ThemeContext, MfcWrapper, Ripple,
-
-    ScrollStepper, StepperWrapper,
-    Tab, Tabs, VerticalTabs, Modal, Breadcrumbs,
-    Carousel, DynamicRoutes, Switcher, RailActionButton,
-    RailContext, NavigationRail, Dropdown, RailActionWrapper,
-
-    List,  Feed, FeedCard, Filter,
-    useInfiniteScroll, useQuery
-
-} from 'mfc-core';
+import {List, Switcher, useQuery} from 'mfc-core';
 import getQuery from "../../utils/getQuery";
 import useList from "../../templates/useList";
 import ListTemplate from "../../templates/ListTemplate";

@@ -9,28 +9,7 @@ import workPlanKeys from "../../keys/workPlanKeys";
 
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";
-import {
-    useCopyToClipboard, useFile,
-
-    Empty,
-    request, Alert, ToolTip,
-
-    Selector, Form, FormRow, DateField,
-    SelectField, MultiSelectField,
-    TextField, Button, Checkbox, CheckboxGroup,
-    FileField,
-
-    ThemeContext, MfcWrapper, Ripple,
-
-    ScrollStepper, StepperWrapper,
-    Tab, Tabs, VerticalTabs, Modal, Breadcrumbs,
-    Carousel, DynamicRoutes, Switcher, RailActionButton,
-    RailContext, NavigationRail, Dropdown, RailActionWrapper,
-
-    List,  Feed, FeedCard, Filter,
-    useInfiniteScroll, useQuery
-
-} from 'mfc-core';
+import {Form, FormRow, Selector, TextField, useQuery} from 'mfc-core';
 
 export default function ActivityStageForm(props) {
     const lang = GoalPT

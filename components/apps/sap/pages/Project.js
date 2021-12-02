@@ -14,29 +14,7 @@ import {CategoryRounded, CloseRounded, HomeRounded} from "@material-ui/icons";
 import ProjectTedList from "../components/lists/ProjectTedList";
 
 
-import {
-    useCopyToClipboard, useFile,
-
-    Empty,
-    request, Alert, ToolTip,
-
-    Selector, Form, FormRow, DateField,
-    SelectField, MultiSelectField,
-    TextField, Button, Checkbox, CheckboxGroup,
-    FileField,
-
-    ThemeContext, MfcWrapper, Ripple,
-
-    ScrollStepper, StepperWrapper,
-    Tab, Tabs, VerticalTabs, Modal, Breadcrumbs,
-    Carousel, DynamicRoutes, Switcher, RailActionButton,
-    RailContext, NavigationRail, Dropdown, RailActionWrapper,
-
-    List,  Feed, FeedCard, Filter,
-    useInfiniteScroll, useQuery
-
-} from 'mfc-core';
-
+import {Breadcrumbs, Button, Tab, ToolTip, VerticalTabs} from 'mfc-core';
 
 
 export default function Project(props) {

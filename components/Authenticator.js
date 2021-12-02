@@ -1,8 +1,8 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types'
 import styles from '../styles/Authenticate.module.css'
 import {VisibilityOffRounded, VisibilityRounded} from "@material-ui/icons";
-import {TextField, Button} from "mfc-core";
+import {Button, TextField} from "mfc-core";
 import submitAuthentication from "../utils/SubmitAuthentication";
 
 import Cookies from "universal-cookie/lib";
