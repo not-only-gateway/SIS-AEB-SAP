@@ -8,18 +8,20 @@ import Host from "../../utils/shared/Host";
 
 import {DynamicRoutes, List, Switcher, useQuery} from 'mfc-core'
 import getForms from "../../../sap/getForms";
+import {useRouter} from "next/router";
+import getWikiForms from "../../../wiki/getWikiForms";
 
 
 export default function DraftList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)
-
+    const router = useRouter()
     const hook = useQuery(getQuery(Host() + '/list_draft'))
 
     return (
         <Switcher openChild={currentEntity !== null ? 0 : 1}
                   styles={{ height: '100%'}}>
             <DynamicRoutes
-                routes={getForms()}
+                routes={router.pathname.includes('sap')  ? getForms() : getWikiForms()}
                 componentProps={{
                     data: currentEntity?.data,
                     handleClose: () => setCurrentEntity(null),

@@ -1,4 +1,4 @@
-import {PeopleRounded, SettingsRounded, WorkRounded} from "@material-ui/icons";
+import {BookRounded, PeopleRounded, SettingsRounded, WorkRounded} from "@material-ui/icons";
 
 export default [
     {
@@ -15,5 +15,10 @@ export default [
         label: 'Recursos humanos',
         path: '/hr',
         icon: <PeopleRounded/>
+    },
+    {
+        label: 'Wiki',
+        path: '/wiki',
+        icon: <BookRounded/>
     },
 ]

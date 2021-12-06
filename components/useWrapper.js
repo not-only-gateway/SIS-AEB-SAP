@@ -6,6 +6,7 @@ import managementProps from "./apps/management/managementProps";
 import hrProps from "./apps/hr/hrProps";
 import intranetProps from "./apps/intranet/intranetProps";
 import profileProps from "./apps/profile/profileProps";
+import wikiProps from "./apps/wiki/wikiProps";
 
 
 export default function useWrapper() {
@@ -32,6 +33,8 @@ export default function useWrapper() {
                 return sapProps((url) => router.push(url, url), router.pathname, router.query)
             case router.pathname.includes('/management'):
                 return managementProps((url) => router.push(url, url), router.pathname, router.query)
+            case router.pathname.includes('/wiki'):
+                return wikiProps((url) => router.push(url, url), router.pathname, router.query)
             case router.pathname.includes('/hr'):
                 return hrProps((url) => router.push(url, url), router.pathname, router.query)
             default:

@@ -13,7 +13,7 @@ app.prepare()
             return handle(req, res)
         })
 
-        server.listen(80, '192.168.0.217',(err) => {
+        server.listen(443, '192.168.1.251',(err) => {
             if (err) throw err
             console.log('> Ready')
         })
