@@ -1,5 +1,5 @@
 import getHostAddress from "../../../../getHostAddress";
 
-export default function Host(){
-    return `http://${getHostAddress()}/sap/api/`
+export default function Host(suffix){
+    return `${getHostAddress()}/api/${suffix === 'unit' ? 'structural' : 'sap'}/`
 }

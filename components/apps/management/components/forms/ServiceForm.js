@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 
 
-import useData from "../../../../core/inputs/form/useData";
+import useData from "../../../../addons/useData";
 import {Form, FormRow, SelectField, TextField} from "mfc-core";
 import {useMemo} from "react";
 import submit from "../../utils/submit";

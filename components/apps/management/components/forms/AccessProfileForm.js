@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 
 import {Form, FormRow, TextField} from "mfc-core";
-import useData from "../../../../core/inputs/form/useData";
+import useData from "../../../../addons/useData";
 import submit from "../../utils/submit";
 
 export default function AccessProfileForm(props) {

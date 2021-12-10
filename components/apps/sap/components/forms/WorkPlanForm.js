@@ -1,19 +1,37 @@
 import React, {useMemo, useState} from "react";
 import PropTypes from 'prop-types'
 import WorkPlanPT from "../../locales/WorkPlanPT";
-import {useQuery} from "mfc-core";
+
+
 import associativeKeys from "../../keys/associativeKeys";
 import getQuery from "../../utils/getQuery";
-import Selector from "../../../../core/inputs/selector/Selector";
-import Form from "../../../../core/inputs/form/Form";
+import {
+    useCopyToClipboard, useFile,
+
+    Empty,
+    request, Alert, ToolTip,
+
+    Selector, Form, FormRow, DateField,
+    SelectField, MultiSelectField,
+    TextField, Button, Checkbox, CheckboxGroup,
+    FileField,
+
+    ThemeContext, MfcWrapper, Ripple,
+
+    ScrollStepper, StepperWrapper,
+    Tab, Tabs, VerticalTabs, Modal, Breadcrumbs,
+    Carousel, DynamicRoutes, Switcher, RailActionButton,
+    RailContext, NavigationRail, Dropdown, RailActionWrapper,
+
+    List,  Feed, FeedCard, Filter,
+    useInfiniteScroll, useQuery
+
+} from 'mfc-core'
 import submit from "../../utils/submit";
 import UnitForm from "./UnitForm";
 import BudgetPlanForm from "./BudgetPlanForm";
 import InfrastructureForm from "./InfrastructureForm";
-import TextField from "../../../../core/inputs/text/TextField";
-import SelectField from "../../../../core/inputs/select/SelectField";
-import FormRow from "../../../../core/inputs/form/FormRow";
-import MultiSelectField from "../../../../core/inputs/multiselect/MultiSelectField";
+
 import workPlanKeys from "../../keys/workPlanKeys";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";

@@ -1,4 +1,4 @@
-import useData from "../../../../core/inputs/form/useData";
+import useData from "../../../../addons/useData";
 
 import submit from "../../utils/submit";
 

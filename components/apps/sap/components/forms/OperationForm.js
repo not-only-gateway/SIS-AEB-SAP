@@ -1,18 +1,43 @@
 import React from "react";
-import {useQuery} from "mfc-core";
+
+
 import PropTypes from "prop-types";
 import OperationPT from "../../locales/OperationPT";
-import Form from "../../../../core/inputs/form/Form";
+
+
 import getQuery from "../../utils/getQuery";
-import Selector from "../../../../core/inputs/selector/Selector";
+
+
 import submit from "../../utils/submit";
 import ActivityStageForm from "./ActivityStageForm";
 import workPlanKeys from "../../keys/workPlanKeys";
-import FormRow from "../../../../core/inputs/form/FormRow";
+
+
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";
-import TextField from "../../../../core/inputs/text/TextField";
-import DateField from "../../../../core/inputs/date/DateField";
+
+import {
+    useCopyToClipboard, useFile,
+
+    Empty,
+    request, Alert, ToolTip,
+
+    Selector, Form, FormRow, DateField,
+    SelectField, MultiSelectField,
+    TextField, Button, Checkbox, CheckboxGroup,
+    FileField,
+
+    ThemeContext, MfcWrapper, Ripple,
+
+    ScrollStepper, StepperWrapper,
+    Tab, Tabs, VerticalTabs, Modal, Breadcrumbs,
+    Carousel, DynamicRoutes, Switcher, RailActionButton,
+    RailContext, NavigationRail, Dropdown, RailActionWrapper,
+
+    List,  Feed, FeedCard, Filter,
+    useInfiniteScroll, useQuery
+
+} from 'mfc-core'
 
 export default function OperationForm(props) {
 

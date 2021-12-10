@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types'
 import ProjectPT from "../../locales/ProjectPT";
-import {Form, FormRow, SelectField, Selector, useQuery} from "mfc-core";
+
+
 import getQuery from "../../utils/getQuery";
 import associativeKeys from "../../keys/associativeKeys";
 import submit from "../../utils/submit";
@@ -9,8 +10,28 @@ import UnitForm from "./UnitForm";
 import projectKeys from "../../keys/projectKeys";
 import FormTemplate from "../../templates/FormTemplate";
 import formOptions from "../../templates/formOptions";
-import TextField from "../../../../core/inputs/text/TextField";
+import {
+    useCopyToClipboard, useFile,
 
+    Empty,
+    request, Alert, ToolTip,
+
+    Selector, Form, FormRow, DateField,
+    SelectField, MultiSelectField,
+    TextField, Button, Checkbox, CheckboxGroup,
+    FileField,
+
+    ThemeContext, MfcWrapper, Ripple,
+
+    ScrollStepper, StepperWrapper,
+    Tab, Tabs, VerticalTabs, Modal, Breadcrumbs,
+    Carousel, DynamicRoutes, Switcher, RailActionButton,
+    RailContext, NavigationRail, Dropdown, RailActionWrapper,
+
+    List,  Feed, FeedCard, Filter,
+    useInfiniteScroll, useQuery
+
+} from 'mfc-core'
 
 export default function ProjectForm(props) {
     const lang = ProjectPT

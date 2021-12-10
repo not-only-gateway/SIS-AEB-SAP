@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import Head from "next/head";
 import PropTypes from 'prop-types'
-import VerticalTabs from "../../../core/navigation/tabs/VerticalTabs";
 import shared from "../styles/Shared.module.css";
 import WorkPlanList from "../components/lists/WorkPlanList";
 import OperationList from "../components/lists/OperationList";
@@ -10,13 +9,31 @@ import ActivityStageList from "../components/lists/ActivityStageList";
 import GoalList from "../components/lists/GoalList";
 import WorkPlanForm from "../components/forms/WorkPlanForm";
 import {fetchEntry} from "../utils/fetchData";
-import Breadcrumbs from "../../../core/navigation/breadcrumbs/Breadcrumbs";
+import {
+    useCopyToClipboard, useFile,
+
+    Empty,
+    request, Alert, ToolTip,
+
+    Selector, Form, FormRow, DateField,
+    SelectField, MultiSelectField,
+    TextField, Button, Checkbox, CheckboxGroup,
+    FileField,
+
+    ThemeContext, MfcWrapper, Ripple,
+
+    ScrollStepper, StepperWrapper,
+    Tab, Tabs, VerticalTabs, Modal, Breadcrumbs,
+    Carousel, DynamicRoutes, Switcher, RailActionButton,
+    RailContext, NavigationRail, Dropdown, RailActionWrapper,
+
+    List,  Feed, FeedCard, Filter,
+    useInfiniteScroll, useQuery
+
+} from 'mfc-core'
 import {CategoryRounded, HomeRounded} from "@material-ui/icons";
 import StatusList from "../components/lists/StatusList";
-import Button from "../../../core/inputs/button/Button";
 import PermanentGoodsList from "../components/lists/PermanentGoodsList";
-import Tab from "../../../core/navigation/tabs/Tab";
-import {ToolTip} from "mfc-core";
 import FinancialDisbursementList from "../components/lists/FinancialDisbursementList";
 
 export default function WorkPlan(props) {

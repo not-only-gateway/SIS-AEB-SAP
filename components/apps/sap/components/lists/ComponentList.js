@@ -33,7 +33,7 @@ export default function ComponentList(props) {
         onDecline,
         setCurrentEl,
         onAccept
-    } = useList('budget_plan', () => hook.clean())
+    } = useList('classification', () => hook.clean())
 
     return (
         <>

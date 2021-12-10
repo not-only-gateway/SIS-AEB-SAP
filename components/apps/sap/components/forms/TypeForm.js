@@ -1,11 +1,32 @@
 import React from "react";
-import {TextField} from "mfc-core";
 import PropTypes from "prop-types";
 import EntitiesPT from "../../locales/EntitiesPT";
-import Form from "../../../../core/inputs/form/Form";
+
+
 import submit from "../../utils/submit";
-import useData from "../../../../core/inputs/form/useData";
-import FormRow from "../../../../core/inputs/form/FormRow";
+import useData from "../../../../addons/useData";
+import {
+    useCopyToClipboard, useFile,
+
+    Empty,
+    request, Alert, ToolTip,
+
+    Selector, Form, FormRow, DateField,
+    SelectField, MultiSelectField,
+    TextField, Button, Checkbox, CheckboxGroup,
+    FileField,
+
+    ThemeContext, MfcWrapper, Ripple,
+
+    ScrollStepper, StepperWrapper,
+    Tab, Tabs, VerticalTabs, Modal, Breadcrumbs,
+    Carousel, DynamicRoutes, Switcher, RailActionButton,
+    RailContext, NavigationRail, Dropdown, RailActionWrapper,
+
+    List,  Feed, FeedCard, Filter,
+    useInfiniteScroll, useQuery
+
+} from 'mfc-core'
 
 
 export default function TypeForm(props) {

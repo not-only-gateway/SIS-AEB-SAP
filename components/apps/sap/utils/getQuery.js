@@ -5,7 +5,7 @@ import Cookies from "universal-cookie/lib";
 export default function getQuery(suffix, relations = {}, deep_relations = []) {
 
     return {
-        url: Host() + 'list/' + suffix,
+        url: Host(suffix) + 'list/' + suffix,
         headers: {'authorization': (new Cookies()).get('jwt')},
         parsePackage: pack => {
 
