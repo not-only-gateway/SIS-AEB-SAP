@@ -45,6 +45,7 @@
 }
 
 .pageContent {
+    padding: 8px 10%;
     /*align-self: stretch;*/
     display: flex;
     flex-flow: column;

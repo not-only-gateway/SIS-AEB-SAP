@@ -77,7 +77,7 @@ export default function TypeList(props) {
                 }]}
                 hook={hook}
                 keys={associativeKeys.type}
-                title={'Tipos'}
+                title={'Tipos de componente de infraestrutura'}
             />
         </Switcher></>
     )

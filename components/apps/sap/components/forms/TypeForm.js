@@ -38,7 +38,7 @@ export default function TypeForm(props) {
         <Form
             hook={formHook}
             create={props.create}
-            title={props.create ? lang.newType : lang.type}
+            title={props.create ? 'Novo tipo de componente de infraestrutura' : 'Tipo de componente de infraestrutura'}
             returnButton={true}
             handleSubmit={(data, clearState) =>
                 submit({

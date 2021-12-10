@@ -23,5 +23,5 @@ export default{
     unit: 'Unidades / Responsáveis',
     classifications: 'Componentes',
     classification: 'Componente',
-    types: 'Tipos'
+    types: 'Tipo de componente de infraestrutura'
 }

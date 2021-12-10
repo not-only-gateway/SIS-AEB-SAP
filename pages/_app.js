@@ -10,28 +10,22 @@ import Authenticator from "../components/Authenticator";
 import Profile from "../components/addons/profile/Profile";
 import Apps from "../components/addons/apps/Apps";
 import apps from "../packages/apps";
-import {Brightness3Rounded, BrightnessHighRounded, NotificationsRounded} from "@material-ui/icons";
 import {
-    useCopyToClipboard, useFile,
-
-    Empty,
-    request, Alert, ToolTip,
-
-    Selector, Form, FormRow, DateField,
-    SelectField, MultiSelectField,
-    TextField, Button, Checkbox, CheckboxGroup,
-    FileField,
-
-    ThemeContext, MfcWrapper, Ripple,
-
-    ScrollStepper, StepperWrapper,
-    Tab, Tabs, VerticalTabs, Modal, Breadcrumbs,
-    Carousel, DynamicRoutes, Switcher, RailActionButton,
-    RailContext, NavigationRail, Dropdown, RailActionWrapper,
-
-    List,  Feed, FeedCard, Filter,
-    useInfiniteScroll, useQuery
-
+    AddRounded,
+    ArrowForwardRounded,
+    Brightness3Rounded,
+    BrightnessHighRounded,
+    BugReportRounded, ListRounded
+} from "@material-ui/icons";
+import {
+    Button,
+    Dropdown,
+    MfcWrapper,
+    Modal,
+    NavigationRail,
+    RailActionButton,
+    RailActionWrapper,
+    ToolTip
 } from 'mfc-core'
 import Notification from "../components/addons/notifications/Notification";
 import Host from "../utils/Host";
@@ -42,13 +36,13 @@ export default function SisAeb({Component, pageProps}) {
     const {
         loading, setLoading,
         profile, setProfile,
-         requiresAuth,
+        requiresAuth,
         openAuthentication,
         setOpenAuthentication,
         cookies, darkTheme,
         router,
         setDarkTheme,
-        setManager,  sidebar
+        setManager, sidebar
     } = useWrapper()
 
     useEffect(() => {
@@ -109,13 +103,33 @@ export default function SisAeb({Component, pageProps}) {
                                 <RailActionButton {...b}/>
                             </RailActionWrapper>
                         ))}
-
-                        {profile && Object.keys(profile).length > 0 && router.pathname.includes('sap')?
+                        <RailActionWrapper place={'end'}>
+                            <Dropdown
+                                align={"top"} justify={'start'}
+                                options={[
+                                    {
+                                        label: 'Reportar problema',
+                                        icon: <ArrowForwardRounded/>,
+                                        onClick: () => window.open('https://newgit.aeb.gov.br/sis-aeb/sis-aeb-backend/issues/new')
+                                    },
+                                    {
+                                        label: 'Visualizar problemas',
+                                        icon: <ListRounded/>,
+                                        onClick: () => window.open('https://newgit.aeb.gov.br/sis-aeb/sis-aeb-backend/issues')
+                                    }
+                                ]}
+                            >
+                                <BugReportRounded/>
+                                <ToolTip content={'Reportar erro'} align={'middle'} justify={'end'}/>
+                            </Dropdown>
+                        </RailActionWrapper>
+                        {profile && Object.keys(profile).length > 0 && router.pathname.includes('sap') ?
                             <RailActionWrapper place={'end'}>
                                 <Notification host={Host('api')}/>
                             </RailActionWrapper>
-                        :
-                        null}
+                            :
+                            null}
+
                         <RailActionWrapper place={'end'}>
                             <Button onClick={() => setDarkTheme(!darkTheme)}>
                                 {darkTheme ? <Brightness3Rounded/> : <BrightnessHighRounded/>}

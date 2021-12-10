@@ -49,7 +49,7 @@ export default function SOCList(props) {
             <List
                 createOption={true}
                 onCreate={() => setOpen(true)}
-
+                noFilters={true}
                 hook={hook}
                 keys={associativeKeys.classificationInfrastructure}
                 controlButtons={[{

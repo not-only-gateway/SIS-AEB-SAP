@@ -77,7 +77,7 @@ export default function DraftList(props) {
                     disabled: false,
                     color: '#ff5555'
                 }]}
-                title={'Rascunhos'}
+                title={'Rascunhos (ALPHA)'}
             />
         </Switcher>
     )

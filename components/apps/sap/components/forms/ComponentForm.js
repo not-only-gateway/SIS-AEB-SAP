@@ -65,8 +65,8 @@ export default function ComponentForm(props) {
                                 width={'calc(50% - 16px'}/>
                             <Selector
                                 hook={typeHook}
-                                placeholder={'Tipo'}
-                                label={'Tipo'}
+                                placeholder={'Tipo de componente de infraestrutura'}
+                                label={'Tipo de componente de infraestrutura'}
                                 handleChange={e => handleChange({event: e, key: 'classification_type'})}
                                 value={data.classification_type} width={'calc(50% - 16px)'} required={true}
                                 keys={associativeKeys.type}

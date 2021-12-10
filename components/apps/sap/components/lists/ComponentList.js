@@ -86,7 +86,7 @@ export default function ComponentList(props) {
                         }
 
                     ]}
-                    hook={hook}
+                    hook={hook} noFilters={true}
                     keys={associativeKeys.classificationInfrastructure.filter(e => e.key !== 'infrastructure')}
                     controlButtons={[{
                         label: 'Remover relação',

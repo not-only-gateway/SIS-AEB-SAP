@@ -2,7 +2,7 @@ import getQuery from "../utils/getQuery";
 
 const QUERIES = {
     action: {...getQuery('action'), ...{keys: [{key: 'number', type: 'string', label: 'Número', visible: true}]}},
-    type: {...getQuery('type'), ...{keys: [{key: 'type', type: 'string', label: 'Tipo', visible: true}]}},
+    type: {...getQuery('type'), ...{keys: [{key: 'type', type: 'string', label: 'Tipo de componente de infraestrutura', visible: true}]}},
     classification: {
         ...getQuery('classification'), ...{
             keys: [{
@@ -78,7 +78,7 @@ const KEYS = {
         {
             key: 'component_classification',
             type: 'object',
-            label: 'Tipo',
+            label: 'Tipo de componente de infraestrutura',
             visible: true,
             subfieldKey: 'classification_type',
             subType: 'object',
@@ -103,7 +103,7 @@ const KEYS = {
         {
             key: 'classification_type',
             type: 'object',
-            label: 'Tipo',
+            label: 'Tipo de componente de infraestrutura',
             visible: true,
             subfieldKey: 'type',
             subType: 'string',
@@ -146,7 +146,7 @@ const KEYS = {
     infrastructure: [
         {key: 'id', type: 'number', label: 'ID', visible: false},
         {key: 'name', type: 'string', label: 'Nome', visible: true},
-        {key: 'type', label: 'Tipo', visible: true, type: 'string'}
+        {key: 'type', label: 'Tipo de componente de infraestrutura', visible: true, type: 'string'}
     ],
     natureOfExpense: [
         {key: 'id', type: 'number', label: 'ID', visible: false},
@@ -156,7 +156,7 @@ const KEYS = {
     ],
     type: [
         {key: 'id', type: 'number', label: 'ID', visible: false},
-        {key: 'type', type: 'string', label: 'Tipo', visible: true}
+        {key: 'type', type: 'string', label: 'Tipo de componente de infraestrutura', visible: true}
     ],
     responsible: [
         {key: 'id', type: 'number', label: 'ID', visible: false},

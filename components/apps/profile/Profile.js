@@ -3,11 +3,7 @@ import ProfileContext from "./ProfileContext";
 
 import styles from './styles/Profile.module.css'
 import {Avatar} from "@material-ui/core";
-import Information from "./components/Information";
-import Privileges from "./components/Privileges";
 import DraftList from "./components/lists/DraftList";
-
-import {Tab, VerticalTabs} from 'mfc-core'
 
 export default function Profile() {
     const profile = useContext(ProfileContext)
@@ -24,23 +20,8 @@ export default function Profile() {
                 </div>
             </div>
             <div className={styles.pageContent}>
-                <VerticalTabs
-                    open={open}
-                    setOpen={setOpen}
-                    className={styles.wrapper}
-                    styles={{display: 'flex', justifyContent: 'stretch', alignContent: 'unset'}}
-                >
-                    <Tab label={'Dados'} className={styles.tabWrapper}>
-                        <Information/>
-                    </Tab>
-                    <Tab label={'Privilégios'} className={styles.tabWrapper}>
-                        <Privileges/>
-                    </Tab>
-                    <Tab label={'Rascunhos'} className={styles.tabWrapper}>
-                        <DraftList/>
-                    </Tab>
 
-                </VerticalTabs>
+                <DraftList/>
             </div>
         </div>
     )
