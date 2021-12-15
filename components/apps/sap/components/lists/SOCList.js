@@ -28,7 +28,8 @@ export default function SOCList(props) {
         setCurrentEl,
         onAccept
     } = useList('component', () => hook.clean())
-
+    let keys = [...associativeKeys.classificationInfrastructure]
+    keys.splice(2, 1)
 
     return (
         <>
@@ -46,31 +47,36 @@ export default function SOCList(props) {
                     data={currentEntity} infrastructure={props.infrastructure}
                 />
 
-            <List
-                createOption={true}
-                onCreate={() => setOpen(true)}
-                noFilters={true}
-                hook={hook}
-                keys={associativeKeys.classificationInfrastructure}
-                controlButtons={[{
-                    label: 'Deletar',
-                    icon: <DeleteRounded/>,
-                    onClick: (entity) => {
-                        setMessage(`Deseja deletar entidade ${entity.id}?`)
-                        setCurrentEl(entity.id)
-                        setOpenModal(true)
-                    },
-                    disabled: false,
-                    color: '#ff5555'
-                }]}
-                onRowClick={e => {
-                    setOpen(true)
-                    setCurrentEntity(e)
-                }}
-                title={'Situação Operacional de Componentes'}
+                <List
+                    createOption={true}
+                    onCreate={() => setOpen(true)}
+                    noFilters={true}
+                    hook={hook}
+                    keys={[...keys, {
+                        key: 'situation',
+                        type: 'string',
+                        label: 'Situação operacional',
+                        visible: true
+                    }]}
+                    controlButtons={[{
+                        label: 'Deletar',
+                        icon: <DeleteRounded/>,
+                        onClick: (entity) => {
+                            setMessage(`Deseja deletar entidade ${entity.id}?`)
+                            setCurrentEl(entity.id)
+                            setOpenModal(true)
+                        },
+                        disabled: false,
+                        color: '#ff5555'
+                    }]}
+                    onRowClick={e => {
+                        setOpen(true)
+                        setCurrentEntity(e)
+                    }}
+                    title={'Situação Operacional de Componentes'}
 
-            />
-        </Switcher></>
+                />
+            </Switcher></>
     )
 }
 SOCList.propTypes = {

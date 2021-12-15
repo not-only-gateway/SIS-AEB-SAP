@@ -74,7 +74,6 @@ export default function SOCForm(props) {
                                 placeholder={'Componente'}
                                 label={'Componente'}
                                 handleChange={e => {
-
                                     handleChange({event: e, key: 'component_classification'})
                                 }}
                                 value={data.component_classification} width={'calc(50% - 16px)'} required={true}
@@ -97,7 +96,6 @@ export default function SOCForm(props) {
                                 placeholder={lang.situation}
                                 label={lang.situation}
                                 handleChange={event => {
-
                                     handleChange({
                                         event: event,
                                         key: 'situation'
@@ -116,7 +114,6 @@ export default function SOCForm(props) {
 
 SOCForm.propTypes = {
     data: PropTypes.object,
-    handleChange: PropTypes.func,
     handleClose: PropTypes.func,
     create: PropTypes.bool,
     infrastructure: PropTypes.object,

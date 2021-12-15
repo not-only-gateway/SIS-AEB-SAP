@@ -44,7 +44,8 @@ export default function ComponentForm(props) {
                             create: props.create
                         }).then(res => {
                             if (props.create && res.success) {
-                                props.onCreationSuccess(res.data)
+                                if(props.onCreationSuccess)
+                                    props.onCreationSuccess(res.data)
                                 props.handleClose()
                                 clearState()
                             }
