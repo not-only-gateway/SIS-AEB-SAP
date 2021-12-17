@@ -6,8 +6,8 @@ import PropTypes from "prop-types";
 import submit from "../../utils/submit";
 
 import projectKeys from "../../keys/projectKeys";
-import FormTemplate from "../../templates/FormTemplate";
-import formOptions from "../../templates/formOptions";
+import FormTemplate from "../../../../addons/FormTemplate";
+import formOptions from "../../../../addons/formOptions";
 import {Form, FormRow, SelectField, TextField} from 'mfc-core'
 
 export default function RiskForm(props) {

@@ -7,8 +7,8 @@ import NoteForm from "../forms/NoteForm";
 
 import getQuery from "../../utils/getQuery";
 import workPlanKeys from "../../keys/workPlanKeys";
-import useList from "../../templates/useList";
-import ListTemplate from "../../templates/ListTemplate";
+import useList from "../../../../addons/useList";
+import ListTemplate from "../../../../addons/ListTemplate";
 import {List, Switcher, useQuery} from 'mfc-core'
 
 export default function NoteList(props) {

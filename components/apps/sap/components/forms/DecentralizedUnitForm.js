@@ -6,8 +6,8 @@ import EntitiesPT from "../../locales/EntitiesPT";
 import submit from "../../utils/submit";
 
 import associativeKeys from "../../keys/associativeKeys";
-import FormTemplate from "../../templates/FormTemplate";
-import formOptions from "../../templates/formOptions";
+import FormTemplate from "../../../../addons/FormTemplate";
+import formOptions from "../../../../addons/formOptions";
 import {Form, FormRow, TextField} from "mfc-core";
 
 export default function DecentralizedUnitForm(props) {

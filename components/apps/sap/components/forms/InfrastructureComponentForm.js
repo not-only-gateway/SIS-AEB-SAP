@@ -6,7 +6,7 @@ import associativeKeys from "../../keys/associativeKeys";
 import getQuery from "../../utils/getQuery";
 import submit from "../../utils/submit";
 
-import FormTemplate from "../../templates/FormTemplate";
+import FormTemplate from "../../../../addons/FormTemplate";
 
 import {Form, FormRow, Selector, useQuery} from "mfc-core";
 import ComponentForm from "./ComponentForm";

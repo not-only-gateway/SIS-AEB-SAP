@@ -8,8 +8,8 @@ import associativeKeys from "../../keys/associativeKeys";
 import submit from "../../utils/submit";
 import UnitForm from "./UnitForm";
 import projectKeys from "../../keys/projectKeys";
-import FormTemplate from "../../templates/FormTemplate";
-import formOptions from "../../templates/formOptions";
+import FormTemplate from "../../../../addons/FormTemplate";
+import formOptions from "../../../../addons/formOptions";
 import {
     useCopyToClipboard, useFile,
 

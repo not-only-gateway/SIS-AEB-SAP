@@ -10,8 +10,8 @@ import getQuery from "../../utils/getQuery";
 
 import projectKeys from "../../keys/projectKeys";
 import tedKeys from "../../keys/tedKeys";
-import useList from "../../templates/useList";
-import ListTemplate from "../../templates/ListTemplate";
+import useList from "../../../../addons/useList";
+import ListTemplate from "../../../../addons/ListTemplate";
 import {List, Switcher, useQuery} from 'mfc-core'
 
 export default function WorkPlanList(props) {

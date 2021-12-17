@@ -3,5 +3,8 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/components/addons" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/components/charts" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/components/core" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/components/cube" vcs="Git" />
   </component>
 </project>

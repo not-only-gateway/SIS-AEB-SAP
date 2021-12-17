@@ -28,8 +28,8 @@ import {
 
 } from 'mfc-core'
 
-import useList from "../../templates/useList";
-import ListTemplate from "../../templates/ListTemplate";
+import useList from "../../../../addons/useList";
+import ListTemplate from "../../../../addons/ListTemplate";
 
 
 export default function TedList(props) {

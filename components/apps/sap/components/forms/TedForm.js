@@ -12,9 +12,9 @@ import DecentralizedUnitForm from "./DecentralizedUnitForm";
 import ActionForm from "./ActionForm";
 
 
-import FormTemplate from "../../templates/FormTemplate";
+import FormTemplate from "../../../../addons/FormTemplate";
 import tedKeys from "../../keys/tedKeys";
-import formOptions from "../../templates/formOptions";
+import formOptions from "../../../../addons/formOptions";
 import {DateField, Form, FormRow, SelectField, Selector, TextField, useQuery} from 'mfc-core'
 
 export default function TedForm(props) {

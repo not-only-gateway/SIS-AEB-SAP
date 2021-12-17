@@ -7,8 +7,8 @@ import SOCForm from "../forms/SOCForm";
 import associativeKeys from "../../keys/associativeKeys";
 
 import getQuery from "../../utils/getQuery";
-import useList from "../../templates/useList";
-import ListTemplate from "../../templates/ListTemplate";
+import useList from "../../../../addons/useList";
+import ListTemplate from "../../../../addons/ListTemplate";
 import {List, Switcher, useQuery} from 'mfc-core'
 
 export default function SOCList(props) {

@@ -7,8 +7,8 @@ import {Form, FormRow, SelectField, TextField} from "mfc-core";
 import submit from "../../utils/submit";
 
 import associativeKeys from "../../keys/associativeKeys";
-import FormTemplate from "../../templates/FormTemplate";
-import formOptions from "../../templates/formOptions";
+import FormTemplate from "../../../../addons/FormTemplate";
+import formOptions from "../../../../addons/formOptions";
 
 
 export default function NatureExpenseForm(props) {

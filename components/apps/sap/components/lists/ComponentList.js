@@ -8,8 +8,8 @@ import getQuery from "../../utils/getQuery";
 import InfrastructureComponentForm from "../forms/InfrastructureComponentForm";
 import submit from "../../utils/submit";
 import ComponentForm from "../forms/ComponentForm";
-import useList from "../../templates/useList";
-import ListTemplate from "../../templates/ListTemplate";
+import useList from "../../../../addons/useList";
+import ListTemplate from "../../../../addons/ListTemplate";
 import {List, Modal, Switcher, useQuery} from 'mfc-core'
 import SOCForm from "../forms/SOCForm";
 

@@ -7,6 +7,10 @@ export default function getHRPages(props) {
             basePath: 'index',
             asIndex: true,
             content: dynamic(() => import("./pages/Index"))
+        },
+        {
+            basePath: 'vacancy',
+            content: dynamic(() => import("./pages/Vacancy"))
         }
     ]
 }

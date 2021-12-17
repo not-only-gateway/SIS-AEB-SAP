@@ -33,8 +33,8 @@ import BudgetPlanForm from "./BudgetPlanForm";
 import InfrastructureForm from "./InfrastructureForm";
 
 import workPlanKeys from "../../keys/workPlanKeys";
-import FormTemplate from "../../templates/FormTemplate";
-import formOptions from "../../templates/formOptions";
+import FormTemplate from "../../../../addons/FormTemplate";
+import formOptions from "../../../../addons/formOptions";
 
 
 export default function WorkPlanForm(props) {

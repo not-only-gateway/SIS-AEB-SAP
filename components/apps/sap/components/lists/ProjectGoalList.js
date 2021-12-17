@@ -7,8 +7,8 @@ import {DeleteRounded} from "@material-ui/icons";
 import projectKeys from "../../keys/projectKeys";
 
 import getQuery from "../../utils/getQuery";
-import useList from "../../templates/useList";
-import ListTemplate from "../../templates/ListTemplate";
+import useList from "../../../../addons/useList";
+import ListTemplate from "../../../../addons/ListTemplate";
 import {List, Switcher, useQuery} from 'mfc-core'
 
 export default function ProjectGoalList(props) {

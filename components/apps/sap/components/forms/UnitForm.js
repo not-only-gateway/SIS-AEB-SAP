@@ -8,8 +8,8 @@ import getQuery from "../../utils/getQuery";
 
 import submit from "../../utils/submit";
 
-import FormTemplate from "../../templates/FormTemplate";
-import formOptions from "../../templates/formOptions";
+import FormTemplate from "../../../../addons/FormTemplate";
+import formOptions from "../../../../addons/formOptions";
 import {Form, FormRow, Selector, TextField, useQuery} from 'mfc-core'
 
 export default function UnitForm(props) {
@@ -19,7 +19,7 @@ export default function UnitForm(props) {
     return (
         <FormTemplate
             keys={associativeKeys.responsible}
-            endpoint={'unit'}
+            endpoint={'unit'} service={'hr'}
             initialData={props.data}
         >
             {({setOpen, formHook, asDraft, asHistory}) => (

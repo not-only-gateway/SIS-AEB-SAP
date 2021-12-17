@@ -1,3 +1,5 @@
+import getHostAddress from "../../../addons/getHostAddress";
+
 export default function Host(){
-    return 'http://192.168.0.211:80/api/'
+    return `${getHostAddress()}/api/cgp/`
 }

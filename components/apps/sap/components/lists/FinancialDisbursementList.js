@@ -25,9 +25,9 @@ import {
 import {DeleteRounded} from "@material-ui/icons";
 import FinancialDisbursementForm from "../forms/FinancialDisbursementForm";
 import getQuery from "../../utils/getQuery";
-import useList from "../../templates/useList";
+import useList from "../../../../addons/useList";
 import workPlanKeys from "../../keys/workPlanKeys";
-import ListTemplate from "../../templates/ListTemplate";
+import ListTemplate from "../../../../addons/ListTemplate";
 
 
 export default function FinancialDisbursementList(props) {

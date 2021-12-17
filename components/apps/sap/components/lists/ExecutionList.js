@@ -8,8 +8,8 @@ import ExecutionForm from "../forms/ExecutionForm";
 import getQuery from "../../utils/getQuery";
 
 import workPlanKeys from "../../keys/workPlanKeys";
-import useList from "../../templates/useList";
-import ListTemplate from "../../templates/ListTemplate";
+import useList from "../../../../addons/useList";
+import ListTemplate from "../../../../addons/ListTemplate";
 
 export default function ExecutionList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)

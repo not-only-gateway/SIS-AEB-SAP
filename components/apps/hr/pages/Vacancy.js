@@ -4,6 +4,7 @@ import Head from "next/head";
 import PropTypes from 'prop-types'
 import styles from '../styles/Shared.module.css'
 import PersonList from "../components/lists/PersonList";
+import VacancyList from "../components/lists/VacancyList";
 
 export default function Index(props) {
     return (
@@ -13,7 +14,7 @@ export default function Index(props) {
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
             <div className={styles.contentWrapper}>
-                <PersonList redirect={id => props.redirect('/sap/?page=project&id=' + id, '/sap/?page=project&id=' + id, {})}/>
+                <VacancyList redirect={id => props.redirect('/sap/?page=project&id=' + id, '/sap/?page=project&id=' + id, {})}/>
             </div>
         </>
     )

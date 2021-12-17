@@ -27,8 +27,8 @@ import {
 import submit from "../../utils/submit";
 
 import workPlanKeys from "../../keys/workPlanKeys";
-import FormTemplate from "../../templates/FormTemplate";
-import formOptions from "../../templates/formOptions";
+import FormTemplate from "../../../../addons/FormTemplate";
+import formOptions from "../../../../addons/formOptions";
 
 export default function ActionItemForm(props) {
     const lang = OperationPT

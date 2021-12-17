@@ -28,7 +28,7 @@ export default function EndpointForm(props) {
             handleSubmit={(data, clearState) => {
                 submit({
                     suffix: 'endpoint',
-                    pk: data.url,
+                    pk: props.initialData?.url,
                     create: props.initialData.url === undefined,
                     data: {
                         ...data,

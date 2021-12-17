@@ -1,5 +1,7 @@
-import Host from "./host";
+
 import Cookies from "universal-cookie/lib";
+import Host from "./host";
+
 
 
 export default function getQuery(suffix, relations = {}, deep_relations = []) {
@@ -23,10 +25,15 @@ export default function getQuery(suffix, relations = {}, deep_relations = []) {
             }
             value.filters = [...value.filters, ...deep_relations]
             value.filters.forEach((e, index) => {
-                if (e.type === 'object' && e.value && typeof e.value === 'object')
-                    value.filters[index] = {...e, value: e.value.id}
+                let newObj
+                if (e.type === 'object' && e.value && typeof e.value === 'object') {
+                    newObj = {...e, value: e.object_identifier ? e.value[e.object_identifier] : e.value.id}
+                }
                 else
-                    value.filters[index] = {...e, value: e.value}
+                    newObj = {...e, value: e.value}
+
+                delete newObj.query
+                value.filters[index] = newObj
             })
 
             return value

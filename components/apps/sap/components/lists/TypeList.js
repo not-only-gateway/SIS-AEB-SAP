@@ -25,8 +25,8 @@ import {DeleteRounded} from "@material-ui/icons";
 import TypeForm from "../forms/TypeForm";
 import associativeKeys from "../../keys/associativeKeys";
 import getQuery from "../../utils/getQuery";
-import useList from "../../templates/useList";
-import ListTemplate from "../../templates/ListTemplate";
+import useList from "../../../../addons/useList";
+import ListTemplate from "../../../../addons/ListTemplate";
 
 export default function TypeList(props) {
     const [currentEntity, setCurrentEntity] = useState(null)

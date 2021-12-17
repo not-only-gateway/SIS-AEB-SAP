@@ -1,11 +1,16 @@
 
 .modal {
     position: absolute;
-    top: 50%;
-    left: 50%;
-
-    transform: translate(-50%, -50%);
+    top: calc(50% - calc(60vh / 2));
+    left: calc(50% - calc(50vw / 2));
+    width: 50vw;
+    height: 60vh;
+    overflow: hidden;
     border-radius: 5px;
+    -webkit-font-smoothing: subpixel-antialiased;
+
+
+    background: var(--mfc-background-primary);
 
 }
 

@@ -11,8 +11,8 @@ import submit from "../../utils/submit";
 import ActionForm from "./ActionForm";
 
 import {Form, FormRow, Selector, TextField, useQuery} from "mfc-core";
-import FormTemplate from "../../templates/FormTemplate";
-import formOptions from "../../templates/formOptions";
+import FormTemplate from "../../../../addons/FormTemplate";
+import formOptions from "../../../../addons/formOptions";
 
 
 export default function BudgetPlanForm(props) {

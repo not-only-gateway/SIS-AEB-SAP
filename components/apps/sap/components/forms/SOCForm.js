@@ -9,8 +9,8 @@ import getQuery from "../../utils/getQuery";
 import submit from "../../utils/submit";
 import ComponentForm from "./ComponentForm";
 
-import FormTemplate from "../../templates/FormTemplate";
-import formOptions from "../../templates/formOptions";
+import FormTemplate from "../../../../addons/FormTemplate";
+import formOptions from "../../../../addons/formOptions";
 
 import {Form, FormRow, SelectField, Selector, useQuery} from 'mfc-core'
 

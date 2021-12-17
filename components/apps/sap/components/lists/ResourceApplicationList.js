@@ -27,8 +27,8 @@ import {
 import ResourceApplicationForm from "../forms/ResourceApplicationForm";
 import workPlanKeys from "../../keys/workPlanKeys";
 import getQuery from "../../utils/getQuery";
-import useList from "../../templates/useList";
-import ListTemplate from "../../templates/ListTemplate";
+import useList from "../../../../addons/useList";
+import ListTemplate from "../../../../addons/ListTemplate";
 
 
 export default function ResourceApplicationList(props) {

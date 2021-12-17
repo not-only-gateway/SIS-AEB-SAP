@@ -7,8 +7,8 @@ import submit from "../../utils/submit";
 import Host from "../../utils/host";
 import deleteEntry from "../../utils/delete";
 import workPlanKeys from "../../keys/workPlanKeys";
-import FormTemplate from "../../templates/FormTemplate";
-import formOptions from "../../templates/formOptions";
+import FormTemplate from "../../../../addons/FormTemplate";
+import formOptions from "../../../../addons/formOptions";
 import {
     useCopyToClipboard, useFile,
 

@@ -1,30 +1,39 @@
+
 import Cookies from "universal-cookie/lib";
 import Host from "../utils/Host";
 
-const cookies = new Cookies()
 
-export default function getQuery(suffix, relations={}){
+export default function getQuery(suffix, relations = {}, deep_relations = []) {
+
     return {
-        url: Host() + 'list/'+suffix,
-        headers: {'authorization': cookies.get('jwt')},
+        url: Host() + 'list/' + suffix,
+        headers: {'authorization': (new Cookies()).get('jwt')},
         parsePackage: pack => {
+
             let value = {...pack}
-            if(relations !== null && relations !== undefined && pack && pack.fields) {
-                if (relations) Object.keys(relations).forEach(e => {
-                    value.fields.push({
+            value.filters = typeof value.filters === 'string' ? JSON.parse(value.filters) : value.filters
+            if (relations !== null && relations !== undefined && pack && pack.filters) {
+
+                Object.keys(relations).forEach(e => {
+                    value.filters.push({
                         key: e,
-                        value: relations[relations],
+                        value: relations[e],
                         type: 'object'
                     })
                 })
-
             }
-
-            value.fields?.reduce(e => {
-                if(e.type === 'object' && typeof e.value === 'object')
-                    return {...e, value: e.value.id}
+            value.filters = [...value.filters, ...deep_relations]
+            value.filters.forEach((e, index) => {
+                let newObj
+                if (e.type === 'object' && e.value && typeof e.value === 'object') {
+                    console.log('OBJECT',{...e, value: e.value.id})
+                    newObj = {...e, value: e.object_identifier ? e.value[e.object_identifier] : e.value.id}
+                }
                 else
-                    return e
+                    newObj = {...e, value: e.value}
+
+                delete newObj.query
+                value.filters[index] = newObj
             })
 
             return value

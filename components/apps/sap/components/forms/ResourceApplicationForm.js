@@ -9,8 +9,8 @@ import associativeKeys from "../../keys/associativeKeys";
 import getQuery from "../../utils/getQuery";
 
 import workPlanKeys from "../../keys/workPlanKeys";
-import FormTemplate from "../../templates/FormTemplate";
-import formOptions from "../../templates/formOptions";
+import FormTemplate from "../../../../addons/FormTemplate";
+import formOptions from "../../../../addons/formOptions";
 import {Form, FormRow, SelectField, Selector, TextField, useQuery} from 'mfc-core'
 
 export default function ResourceApplicationForm(props) {

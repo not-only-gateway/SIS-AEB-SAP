@@ -11,8 +11,8 @@ import TedForm from "../forms/TedForm";
 
 import submit from "../../utils/submit";
 import ProjectTedForm from "../forms/ProjectTedForm";
-import useList from "../../templates/useList";
-import ListTemplate from "../../templates/ListTemplate";
+import useList from "../../../../addons/useList";
+import ListTemplate from "../../../../addons/ListTemplate";
 import {List, Switcher, useQuery} from 'mfc-core'
 
 export default function ProjectTedList(props) {
