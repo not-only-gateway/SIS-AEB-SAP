@@ -30,6 +30,7 @@ import {
 import Notification from "../components/addons/notifications/Notification";
 import Host from "../utils/Host";
 import Loader from "../components/addons/loader/Loader";
+// import {Fabric} from "@f-ui/core";
 
 export default function SisAeb({Component, pageProps}) {
 
@@ -54,126 +55,128 @@ export default function SisAeb({Component, pageProps}) {
 
     return (
         <ProfileContext.Provider value={profile}>
-            <MfcWrapper onDark={darkTheme} className={styles.wrapper} language={'pt'}>
-                <Loader loading={loading}/>
-                <Modal
-                    open={openAuthentication}
-                    handleClose={() => {
-                        if (cookies.get('jwt') && requiresAuth)
-                            setOpenAuthentication(false)
-                        else if (!requiresAuth)
-                            setOpenAuthentication(false)
-                    }}
-                    defaultBackground={true}
-                    className={styles.modal}
-                    blurIntensity={.25}
-                    animationStyle={"fade"}
-                >
-                    <Authenticator
-                        setManager={setManager} setProfile={setProfile}
-                        redirect={() => {
-                            setOpenAuthentication(false)
-                            router.reload()
-                        }} open={openAuthentication}
-                    />
-                </Modal>
 
-                <div className={styles.contentWrapper}>
-                    {router.pathname === '/' ?
-                        null
-                        :
-                        <NavigationRail>
-                            <RailActionWrapper styles={{display: 'flex', justifyContent: 'center'}}>
-                                {(extended) => (
-                                    <img style={{width: extended ? '50%' : '85%'}}
-                                         src={extended ? (darkTheme ? './dark.png' : './light.png') : darkTheme ? './dark-small.png' : './light-small.png'}
-                                         alt={'AEB'}/>
-                                )}
-                            </RailActionWrapper>
+                <MfcWrapper onDark={darkTheme} className={styles.wrapper} language={'pt'}>
+                    <Loader loading={loading}/>
+                    <Modal
+                        open={openAuthentication}
+                        handleClose={() => {
+                            if (cookies.get('jwt') && requiresAuth)
+                                setOpenAuthentication(false)
+                            else if (!requiresAuth)
+                                setOpenAuthentication(false)
+                        }}
+                        defaultBackground={true}
+                        className={styles.modalWr}
+                        blurIntensity={.25}
+                        animationStyle={"fade"}
+                    >
+                        <Authenticator
+                            setManager={setManager} setProfile={setProfile}
+                            redirect={() => {
+                                setOpenAuthentication(false)
+                                router.reload()
+                            }} open={openAuthentication}
+                        />
+                    </Modal>
 
-                            {sidebar.filter(e => e.position !== 'bottom').map((b, i) => (
-                                <React.Fragment key={'top-' + i}>
-                                    <RailActionWrapper place={"start"}>
-                                        {/*<Button variant={'minimal-horizontal'} className={styles.button}>*/}
-                                        {/*    {darkTheme ? <Brightness3Rounded/> : <BrightnessHighRounded/>}*/}
-                                        {/*</Button>*/}
+                    <div className={styles.contentWrapper}>
+                        {router.pathname === '/' ?
+                            null
+                            :
+                            <NavigationRail>
+                                <RailActionWrapper styles={{display: 'flex', justifyContent: 'center'}}>
+                                    {(extended) => (
+                                        <img style={{width: extended ? '50%' : '85%'}}
+                                             src={extended ? (darkTheme ? './dark.png' : './light.png') : darkTheme ? './dark-small.png' : './light-small.png'}
+                                             alt={'AEB'}/>
+                                    )}
+                                </RailActionWrapper>
+
+                                {sidebar.filter(e => e.position !== 'bottom').map((b, i) => (
+                                    <React.Fragment key={'top-' + i}>
+                                        <RailActionWrapper place={"start"}>
+                                            {/*<Button variant={'minimal-horizontal'} className={styles.button}>*/}
+                                            {/*    {darkTheme ? <Brightness3Rounded/> : <BrightnessHighRounded/>}*/}
+                                            {/*</Button>*/}
+                                            <RailActionButton {...b}/>
+                                        </RailActionWrapper>
+                                    </React.Fragment>
+                                ))}
+                                {sidebar.filter(e => e.position === 'bottom').map((b, i) => (
+                                    <RailActionWrapper place={"end"}>
                                         <RailActionButton {...b}/>
                                     </RailActionWrapper>
-                                </React.Fragment>
-                            ))}
-                            {sidebar.filter(e => e.position === 'bottom').map((b, i) => (
-                                <RailActionWrapper place={"end"}>
-                                    <RailActionButton {...b}/>
-                                </RailActionWrapper>
-                            ))}
-                            <RailActionWrapper place={'end'}>
-                                <Dropdown
-                                    align={"top"} justify={'start'}
-                                    options={[
-                                        {
-                                            label: 'Reportar problema',
-                                            icon: <ArrowForwardRounded/>,
-                                            onClick: () => window.open('https://newgit.aeb.gov.br/sis-aeb/sis-aeb-backend/issues/new')
-                                        },
-                                        {
-                                            label: 'Visualizar problemas',
-                                            icon: <ListRounded/>,
-                                            onClick: () => window.open('https://newgit.aeb.gov.br/sis-aeb/sis-aeb-backend/issues')
-                                        }
-                                    ]}
-                                >
-                                    <BugReportRounded/>
-                                    <ToolTip content={'Reportar erro'} align={'middle'} justify={'end'}/>
-                                </Dropdown>
-                            </RailActionWrapper>
-                            {profile && Object.keys(profile).length > 0 && router.pathname.includes('sap') ?
+                                ))}
                                 <RailActionWrapper place={'end'}>
-                                    <Notification host={Host('api')}/>
+                                    <Dropdown
+                                        align={"top"} justify={'start'}
+                                        options={[
+                                            {
+                                                label: 'Reportar problema',
+                                                icon: <ArrowForwardRounded/>,
+                                                onClick: () => window.open('https://newgit.aeb.gov.br/sis-aeb/sis-aeb-backend/issues/new')
+                                            },
+                                            {
+                                                label: 'Visualizar problemas',
+                                                icon: <ListRounded/>,
+                                                onClick: () => window.open('https://newgit.aeb.gov.br/sis-aeb/sis-aeb-backend/issues')
+                                            }
+                                        ]}
+                                    >
+                                        <BugReportRounded/>
+                                        <ToolTip content={'Reportar erro'} align={'middle'} justify={'end'}/>
+                                    </Dropdown>
                                 </RailActionWrapper>
-                                :
-                                null}
+                                {profile && Object.keys(profile).length > 0 && router.pathname.includes('sap') ?
+                                    <RailActionWrapper place={'end'}>
+                                        <Notification host={Host('api')}/>
+                                    </RailActionWrapper>
+                                    :
+                                    null}
 
-                            <RailActionWrapper place={'end'}>
-                                <Button onClick={() => setDarkTheme(!darkTheme)}>
-                                    {darkTheme ? <Brightness3Rounded/> : <BrightnessHighRounded/>}
-                                    <ToolTip content={'Tema'} align={'middle'} justify={'end'}/>
-                                </Button>
-                            </RailActionWrapper>
-                            <RailActionWrapper place={"end"}>
-                                <Apps
-                                    buttons={apps.map(e => {
-                                        return {...e, onClick: () => router.push(e.path, e.path)}
-                                    })}
-                                />
-                            </RailActionWrapper>
+                                <RailActionWrapper place={'end'}>
+                                    <Button onClick={() => setDarkTheme(!darkTheme)}>
+                                        {darkTheme ? <Brightness3Rounded/> : <BrightnessHighRounded/>}
+                                        <ToolTip content={'Tema'} align={'middle'} justify={'end'}/>
+                                    </Button>
+                                </RailActionWrapper>
+                                <RailActionWrapper place={"end"}>
+                                    <Apps
+                                        buttons={apps.map(e => {
+                                            return {...e, onClick: () => router.push(e.path, e.path)}
+                                        })}
+                                    />
+                                </RailActionWrapper>
 
-                            <RailActionWrapper place={"end"} styles={{maxWidth: '100%', overflow: 'hidden'}}>
-                                <Profile
-                                    highlight={router.query.page === 'profile'}
-                                    openAuth={() => setOpenAuthentication(true)}
-                                    profile={profile}
-                                    redirect={o => {
-                                        if (o === 0)
-                                            router.push(router.pathname + '?page=profile')
-                                        else {
-                                            if (router.query.page === 'profile')
-                                                router.push(router.pathname, router.pathname)
-                                            setOpenAuthentication(true)
+                                <RailActionWrapper place={"end"} styles={{maxWidth: '100%', overflow: 'hidden'}}>
+                                    <Profile
+                                        highlight={router.query.page === 'profile'}
+                                        openAuth={() => setOpenAuthentication(true)}
+                                        profile={profile}
+                                        redirect={o => {
+                                            if (o === 0)
+                                                router.push(router.pathname + '?page=profile')
+                                            else {
+                                                if (router.query.page === 'profile')
+                                                    router.push(router.pathname, router.pathname)
+                                                setOpenAuthentication(true)
 
-                                            cookies.remove('jwt')
-                                            sessionStorage.removeItem('profile')
-                                            setProfile({})
-                                        }
-                                    }}
-                                />
-                            </RailActionWrapper>
+                                                cookies.remove('jwt')
+                                                sessionStorage.removeItem('profile')
+                                                setProfile({})
+                                            }
+                                        }}
+                                    />
+                                </RailActionWrapper>
 
-                        </NavigationRail>
-                    }
+                            </NavigationRail>
+                        }
 
-                    {router.query.page === 'profile' ? <ProfilePage/> : <Component {...pageProps} theme={darkTheme} setTheme={setDarkTheme}/>}
-                </div>
-            </MfcWrapper>
+                        {router.query.page === 'profile' ? <ProfilePage/> : <Component {...pageProps} theme={darkTheme} setTheme={setDarkTheme}/>}
+                    </div>
+                </MfcWrapper>
+
         </ProfileContext.Provider>
     )
 }

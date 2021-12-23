@@ -1,7 +1,5 @@
-
 import Cookies from "universal-cookie/lib";
 import Host from "./host";
-
 
 
 export default function getQuery(suffix, relations = {}, deep_relations = []) {

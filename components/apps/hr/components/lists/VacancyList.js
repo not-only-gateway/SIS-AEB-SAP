@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import {DeleteRounded} from "@material-ui/icons";
 import PropTypes from "prop-types";
 import useList from "../../../../addons/useList";
 import ListTemplate from "../../../../addons/ListTemplate";

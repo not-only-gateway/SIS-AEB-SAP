@@ -9,32 +9,12 @@ import ActivityStageList from "../components/lists/ActivityStageList";
 import GoalList from "../components/lists/GoalList";
 import WorkPlanForm from "../components/forms/WorkPlanForm";
 import {fetchEntry} from "../utils/fetchData";
-import {
-    useCopyToClipboard, useFile,
-
-    Empty,
-    request, Alert, ToolTip,
-
-    Selector, Form, FormRow, DateField,
-    SelectField, MultiSelectField,
-    TextField, Button, Checkbox, CheckboxGroup,
-    FileField,
-
-    ThemeContext, MfcWrapper, Ripple,
-
-    ScrollStepper, StepperWrapper,
-    Tab, Tabs, VerticalTabs, Modal, Breadcrumbs,
-    Carousel, DynamicRoutes, Switcher, RailActionButton,
-    RailContext, NavigationRail, Dropdown, RailActionWrapper,
-
-    List,  Feed, FeedCard, Filter,
-    useInfiniteScroll, useQuery
-
-} from 'mfc-core'
+import {Breadcrumbs, Button, Tab, ToolTip, VerticalTabs} from 'mfc-core'
 import {CategoryRounded, HomeRounded} from "@material-ui/icons";
 import StatusList from "../components/lists/StatusList";
 import PermanentGoodsList from "../components/lists/PermanentGoodsList";
 import FinancialDisbursementList from "../components/lists/FinancialDisbursementList";
+import WorkPlanDashboard from "../components/WorkPlanDashboard";
 
 export default function WorkPlan(props) {
     const [workPlan, setWorkPlan] = useState({})
@@ -111,6 +91,7 @@ export default function WorkPlan(props) {
                     <Tab label={'Dados'} className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <WorkPlanForm data={workPlan}/>
                     </Tab>
+
                     <Tab label={'Status'} group={'Informações adicionais'} className={shared.tabWrapper} styles={{padding: '0 10%'}}>
                         <StatusList workPlan={workPlan}/>
                     </Tab>

@@ -1,39 +1,16 @@
 import React, {useMemo} from "react";
 
 
-
 import PropTypes from "prop-types";
 
 
 import PermanentGoodsPT from "../../locales/PermanentGoodsPT";
 import submit from "../../utils/submit";
 
-import {
-    useCopyToClipboard, useFile,
-
-    Empty,
-    request, Alert, ToolTip,
-
-    Selector, Form, FormRow, DateField,
-    SelectField, MultiSelectField,
-    TextField, Button, Checkbox, CheckboxGroup,
-    FileField,
-
-    ThemeContext, MfcWrapper, Ripple,
-
-    ScrollStepper, StepperWrapper,
-    Tab, Tabs, VerticalTabs, Modal, Breadcrumbs,
-    Carousel, DynamicRoutes, Switcher, RailActionButton,
-    RailContext, NavigationRail, Dropdown, RailActionWrapper,
-
-    List,  Feed, FeedCard, Filter,
-    useInfiniteScroll, useQuery
-
-} from 'mfc-core'
+import {DateField, Form, FormRow, SelectField, TextField} from 'mfc-core'
 import workPlanKeys from "../../keys/workPlanKeys";
 import FormTemplate from "../../../../addons/FormTemplate";
 import formOptions from "../../../../addons/formOptions";
-
 
 
 export default function PermanentGoodsForm(props) {

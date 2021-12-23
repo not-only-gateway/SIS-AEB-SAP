@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {Form, FormRow, Modal, Selector, TextField, useQuery} from "mfc-core";
+import React from "react";
+import {Form, FormRow, Selector, TextField, useQuery} from "mfc-core";
 import PropTypes from "prop-types";
 
 import submit from "../../utils/submit";
@@ -7,9 +7,7 @@ import FormTemplate from "../../../../addons/FormTemplate";
 import {commissionedKeys, personKeys, unitKeys, vacancyKeys} from "../../keys/keys";
 import formOptions from "../../../../addons/formOptions";
 import getQuery from "../../queries/getQuery";
-import InstrumentForm from "./InstrumentForm";
 
-import styles from '../../../../../styles/Wrapper.module.css'
 export default function VacancyForm(props) {
     const commHook = useQuery(getQuery('commissioned'))
     const unitHook = useQuery(getQuery('_unit'))

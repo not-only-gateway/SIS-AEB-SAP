@@ -3,7 +3,6 @@ import Head from "next/head";
 
 import PropTypes from 'prop-types'
 import styles from '../styles/Shared.module.css'
-import PersonList from "../components/lists/PersonList";
 import VacancyList from "../components/lists/VacancyList";
 
 export default function Index(props) {

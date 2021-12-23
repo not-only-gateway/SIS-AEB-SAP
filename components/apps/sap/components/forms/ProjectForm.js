@@ -10,28 +10,7 @@ import UnitForm from "./UnitForm";
 import projectKeys from "../../keys/projectKeys";
 import FormTemplate from "../../../../addons/FormTemplate";
 import formOptions from "../../../../addons/formOptions";
-import {
-    useCopyToClipboard, useFile,
-
-    Empty,
-    request, Alert, ToolTip,
-
-    Selector, Form, FormRow, DateField,
-    SelectField, MultiSelectField,
-    TextField, Button, Checkbox, CheckboxGroup,
-    FileField,
-
-    ThemeContext, MfcWrapper, Ripple,
-
-    ScrollStepper, StepperWrapper,
-    Tab, Tabs, VerticalTabs, Modal, Breadcrumbs,
-    Carousel, DynamicRoutes, Switcher, RailActionButton,
-    RailContext, NavigationRail, Dropdown, RailActionWrapper,
-
-    List,  Feed, FeedCard, Filter,
-    useInfiniteScroll, useQuery
-
-} from 'mfc-core'
+import {Form, FormRow, SelectField, Selector, TextField, useQuery} from 'mfc-core'
 
 export default function ProjectForm(props) {
     const lang = ProjectPT

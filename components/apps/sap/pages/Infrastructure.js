@@ -6,28 +6,7 @@ import SOCList from "../components/lists/SOCList";
 import {fetchEntry} from "../utils/fetchData";
 import InfrastructureForm from "../components/forms/InfrastructureForm";
 import {CategoryRounded, LinkRounded} from "@material-ui/icons";
-import {
-    useCopyToClipboard, useFile,
-
-    Empty,
-    request, Alert, ToolTip,
-
-    Selector, Form, FormRow, DateField,
-    SelectField, MultiSelectField,
-    TextField, Button, Checkbox, CheckboxGroup,
-    FileField,
-
-    ThemeContext, MfcWrapper, Ripple,
-
-    ScrollStepper, StepperWrapper,
-    Tab, Tabs, VerticalTabs, Modal, Breadcrumbs,
-    Carousel, DynamicRoutes, Switcher, RailActionButton,
-    RailContext, NavigationRail, Dropdown, RailActionWrapper,
-
-    List,  Feed, FeedCard, Filter,
-    useInfiniteScroll, useQuery
-
-} from 'mfc-core'
+import {Breadcrumbs, Button, Tab, VerticalTabs} from 'mfc-core'
 import InfrastructureComponentDescriptionList from "../components/lists/ComponentList";
 
 
