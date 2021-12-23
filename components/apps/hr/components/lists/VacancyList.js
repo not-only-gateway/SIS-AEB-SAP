@@ -46,7 +46,7 @@ export default function VacancyList(props) {
                     }}
                     keys={vacancyKeys}
 
-                    title={'Itens / Ações'}
+                    title={'Comissionados'}
                 />
             </Switcher>
         </>

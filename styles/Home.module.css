@@ -1,0 +1,55 @@
+.redirectButton {
+    width: 50%;
+    height: 50%;
+    font-size: 1.3rem !important;
+    font-weight: bold;
+    background: var(--mfc-background-primary) !important;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+}
+
+.logo {
+    /*width: 100%;*/
+    /*margin: auto;*/
+    max-height: 25%;
+    width: fit-content;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 15%;
+
+}
+
+.themeButton {
+    position: fixed;
+    padding: 0;
+    width: 45px !important;
+    height: 45px !important;
+
+    top: calc(100% - 32px);
+    left:  calc(100% - 32px);
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, .7) !important;
+
+    color: white !important;
+}
+.themeButton:hover, .themeButton:active{
+    color: #0095ff !important;
+}

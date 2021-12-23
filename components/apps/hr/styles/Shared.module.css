@@ -1,43 +1,64 @@
-.header{
-    color: var(--mfc-color-secondary);
-    font-size: 1.3rem;
-    font-weight: 600;
-    padding: 0 10%;
 
-    background: var(--mfc-background-primary);
-}
+.wrapper {
 
-.contentWrapper{
-    padding: 0 10%;
+    height: 100%;
+    max-height: 100%;
+
+    gap: 8px;
+
     width: 100%;
+    padding: 8px 10%;
+    overflow: hidden;
+    box-sizing: border-box;
+    /*over*/
 }
 
-.button{
-    outline: none;
-    background: none;
-    border: none;
+.modal {
+    background: var(--mfc-background-primary);
+
+    width: 20%;
+    height: 100vh;
+
+    padding: 16px;
+    display: grid;
+    justify-items: center;
+
+    align-items: flex-start;
+    align-content: flex-start;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    gap: 8px;
+}
+
+.header {
+    color: var(--mfc-color-secondary);
+    text-align: center;
+    margin: 0 0 1.5rem;
+}
+
+.list {
+    color: var(--mfc-color-secondary);
+    font-size: .9rem;
+    background: var(--mfc-background-secondary);
+
+    width: 100%;
+    height: 35px;
+    padding: 8px;
     border-radius: 5px;
-    font-weight: 600;
-    font-family: Roboto;
-    color: var(--mfc-color-secondary);
 
-    cursor: pointer;
-
-    transition: 150ms linear;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
 }
 
-.button:hover{
-    text-decoration: underline;
-}
-.button:active{
-    text-decoration: underline;
-    background: var(--mfc-background-quaternary);
-    color: #0095ff;
-}
-
-.button:disabled{
-    cursor: unset;
-    background: none;
-    color: var(--mfc-color-secondary);
-    text-decoration: none;
+.field{
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: var(--mfc-color-tertiary);
+    font-size: .8rem;
 }

@@ -1,18 +1,32 @@
 import {useRouter} from "next/router";
-import React, {useEffect} from "react";
-import getIntranetPages from "../components/apps/intranet/getIntranetPages";
-import {DynamicRoutes} from "mfc-core";
+import React from "react";
+import {Button, ToolTip} from "mfc-core";
+import styles from '../styles/Home.module.css'
+import {Brightness3Rounded, BrightnessHighRounded} from "@material-ui/icons";
 
-export default function index() {
+export default function index(props) {
     const router = useRouter()
-    const query = router.query
-    useEffect(() => {
-        router.push('/sap', '/sap')
-    }, [])
+    console.log()
+
     return (
-        <></>
-        // <DynamicRoutes routes={getIntranetPages()} ready={router.isReady} path={query.page} componentProps={{
-        //     redirect: (url, asUrl, params) => router.push(url, asUrl, params), query: router.query
-        // }}/>
+        <>
+            <Button className={styles.themeButton} onClick={() => props.setTheme(!props.theme)}>
+                {props.theme ? <Brightness3Rounded/> : <BrightnessHighRounded/>}
+                <ToolTip content={'Tema'} align={'middle'} justify={'end'}/>
+            </Button>
+
+            <div className={styles.content}>
+                <img src={!props.theme ? './light.png' : './dark.png'} alt={'SIS-AEB'} className={styles.logo}/>
+                <div className={styles.wrapper}>
+                    <Button className={styles.redirectButton} onClick={() => router.push('/hr')}>
+                        Ramais e RH
+                    </Button>
+                    <Button className={styles.redirectButton} onClick={() => router.push('/sap')}>
+                        Gestão de portifólios
+                    </Button>
+                </div>
+
+            </div>
+        </>
     )
 }

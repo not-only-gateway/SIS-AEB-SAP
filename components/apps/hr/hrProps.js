@@ -7,13 +7,13 @@ export default function hrProps(redirect, path, query = {}) {
         appName: 'Recursos humanos',
         sideBarButtons: [
             {
-                label: "Colaboradores",
+                label: "Ramais",
                 icon: <PeopleRounded/>,
                 onClick: () => redirect('/hr/?page=index'),
                 highlight: (path === '/hr' && !query.page) || query.page === 'index'
             },
             {
-                label: "Vagas",
+                label: "Comissionados",
                 icon: <WorkRounded/>,
                 onClick: () => redirect('/hr/?page=vacancy'),
                 highlight: (path === '/hr') && query.page === 'vacancy'

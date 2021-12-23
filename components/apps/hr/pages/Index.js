@@ -12,7 +12,7 @@ export default function Index(props) {
                 <title>Ramais</title>
                 <link rel='icon' href={'/LOGO.png'} type='image/x-icon'/>
             </Head>
-            <div className={styles.contentWrapper}>
+            <div className={styles.wrapper}>
                 <PersonList redirect={id => props.redirect('/sap/?page=project&id=' + id, '/sap/?page=project&id=' + id, {})}/>
             </div>
         </>

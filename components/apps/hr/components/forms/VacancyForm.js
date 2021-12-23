@@ -19,26 +19,9 @@ export default function VacancyForm(props) {
     pKeys.splice(2, 1)
     pKeys.splice(2, 1)
     pKeys.splice(3, 1)
-    const [openForm, setOpenForm] = useState(false)
 
-    const [data, setData] = useState(null)
     return (
         <>
-            <Modal open={openForm} className={styles.modal} handleClose={() => setOpenForm(false)}>
-                <InstrumentForm handleClose={() => setOpenForm(false)} submitVacancy={() => {
-                    submit({
-                        suffix: 'vacancy',
-                        pk: data.data.id,
-                        data: data.data,
-                        create: props.create
-                    }).then(res => {
-                        if (props.create && res.success) {
-                            props.handleClose()
-                            data.clearState
-                        }
-                    })
-                }}/>
-            </Modal>
             <FormTemplate
                 keys={vacancyKeys}
                 endpoint={'vacancy'}
@@ -54,14 +37,20 @@ export default function VacancyForm(props) {
                             setOpen: setOpen,
                             create: props.create
                         })}
-                        title={props.create ? 'Nova vaga' : 'Vaga'}
+                        title={props.create ? 'Nova distribuição de comissionados' : 'Distribuição de comissionados'}
                         create={props.create}
                         returnButton={true} handleClose={() => props.handleClose()}
                         handleSubmit={(data, clearState) => {
-                            setOpenForm(true)
-                            setData({
+                            submit({
+                                suffix: 'vacancy',
+                                pk: data.id,
                                 data: data,
-                                clearState: clearState
+                                create: props.create
+                            }).then(res => {
+                                if (props.create && res.success) {
+                                    props.handleClose()
+                                    data.clearState()
+                                }
                             })
                         }}
 
@@ -111,9 +100,9 @@ export default function VacancyForm(props) {
                                 </FormRow>
                                 <FormRow>
                                     <TextField
-                                        placeholder={'formal_name'}
+                                        placeholder={'Nome completo cargo'}
 
-                                        label={'formal_name'}
+                                        label={'Nome completo cargo'}
                                         handleChange={event => {
                                             handleChange({
                                                 event: event.target.value,
@@ -124,9 +113,9 @@ export default function VacancyForm(props) {
                                         disabled={true}
                                         required={true} width={'100%'}/>
                                     <TextField
-                                        placeholder={'name_m'}
+                                        placeholder={'Nome cargo'}
 
-                                        label={'name_m'}
+                                        label={'Nome cargo'}
                                         handleChange={event => {
                                             handleChange({
                                                 event: event.target.value,
@@ -137,9 +126,9 @@ export default function VacancyForm(props) {
                                         disabled={true}
                                         required={true} width={'100%'}/>
                                     <TextField
-                                        placeholder={'role'}
+                                        placeholder={'Cargo'}
 
-                                        label={'role'}
+                                        label={'Cargo'}
                                         handleChange={event => {
 
                                             handleChange({
