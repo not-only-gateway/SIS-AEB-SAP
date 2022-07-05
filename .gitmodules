@@ -1,0 +1,3 @@
+[submodule "components/core"]
+	path = components/core
+	url = git@github.com:FacoBackup/mfc-core-src.git

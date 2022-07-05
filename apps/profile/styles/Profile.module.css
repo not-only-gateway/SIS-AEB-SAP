@@ -1,0 +1,90 @@
+.header {
+    height: 10vh;
+    width: 100%;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+}
+
+.headerLabels {
+    display: grid;
+    justify-content: flex-start;
+    align-content: space-between;
+
+    padding: 8px 0 8px 8px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--mfc-color-secondary);
+}
+
+.secondaryLabel {
+    font-weight: normal;
+    font-size: .8rem;
+    color: var(--mfc-color-quaternary);
+}
+
+.content {
+    height: 100%;
+    background: var(--mfc-background-secondary);
+    /*padding: 8px;*/
+    border-radius: 5px 5px 0 0;
+    border: var(--mfc-border-primary) 1px solid;
+
+}
+
+
+
+
+.pageWrapper {
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    background: var(--mfc-background-primary);
+    height: 100%;
+    width: 100%;
+}
+
+.pageContent {
+    padding: 8px 10%;
+    /*align-self: stretch;*/
+    display: flex;
+    flex-flow: column;
+    align-content: stretch;
+    height: 100%;
+    width: 100%;
+    /*max-height: 100%;*/
+    overflow: hidden;
+    box-sizing: border-box;
+
+    background: var(--mfc-background-secondary);
+
+    border-radius: 5px 5px 0 0;
+    border: var(--mfc-border-primary) 1px solid;
+
+}
+
+.wrapper {
+    height: 100%;
+    max-height: 100%;
+
+    display: grid;
+    gap: 8px;
+    align-content: stretch;
+    grid-template-rows: min-content;
+    width: 100%;
+    padding: 8px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.tabWrapper {
+    width: 100%;
+    padding: 0 10%;
+
+    height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+

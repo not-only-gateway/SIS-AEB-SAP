@@ -1,0 +1,23 @@
+.buttonContainer {
+
+    width: 100%;
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    align-content: center;
+
+    gap: 8px;
+    height: 100%;
+    padding: 8px;
+    position: relative;
+}
+.indicator{
+    position: absolute;
+    top: 8px;
+    right: 8px;
+
+    width: 8px;
+    height: 8px;
+    background: #ff5555;
+    border-radius: 50%;
+}

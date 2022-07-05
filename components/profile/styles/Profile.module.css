@@ -1,0 +1,30 @@
+
+.buttonContainer {
+    max-width: 100%;
+    overflow: hidden;
+    width: 100%;
+    display:  grid;
+    /*flex-direction: column;*/
+
+    justify-content: center;
+    /*justify-items: center;*/
+    /*justify-content: center;*/
+
+    gap: 8px;
+    height: 100%;
+    padding: 8px 2px;
+
+
+}
+
+.overflowEllipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    text-align: left;
+    max-width: 100%;
+    width: 100%;
+
+    color: var(--mfc-color-primary);
+}
