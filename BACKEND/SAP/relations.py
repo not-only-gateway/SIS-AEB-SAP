@@ -1,0 +1,55 @@
+from app import db, app
+from ted.models import Ted
+from project_ted.models import Teds
+from project.project.models import ActivityProject
+from structural.models import Unit
+from workplan.operation.models import OperationPhase
+from workplan.resource.models import ResourceApplication
+from workplan.followup.models import FollowupGoal
+from workplan.goods.models import PermanentGoods
+from workplan.financial.models import FinancialDisbursement
+from workplan.execution.models import Execution
+from workplan.note.models import CommitmentNotes
+from workplan.status.models import WorkPlanStatus
+from workplan.action.models import ActionItem
+from workplan.workplan.models import WorkPlan
+from workplan.goal.models import Goal
+from workplan.activity.models import ActivityStage
+from project.goal.models import ProjectGoals
+from project.risk.models import Risks
+from associative.action.models import Action
+from associative.classification.models import Classification
+from associative.type.models import ClassificationType
+from associative.decentralized_unit.models import DecentralizedUnit
+from associative.budget_plan.models import BudgetPlan
+from associative.components.models import Component
+from associative.nature_of_expense.models import NatureOfExpense
+from associative.infrastructure.models import Infrastructure
+
+relations = [
+    {'key': 'ted', 'instance': Ted},
+    {'key': 'activity_project', 'instance': ActivityProject},
+    {'key': 'responsible', 'instance': Unit},
+    {'key': 'operation_phase', 'instance': OperationPhase},
+    {'key': 'resource_application', 'instance': ResourceApplication},
+    {'key': 'followup_goal', 'instance': FollowupGoal},
+    {'key': 'permanent_goods', 'instance': PermanentGoods},
+    {'key': 'financial_disbursement', 'instance': FinancialDisbursement},
+    {'key': 'execution', 'instance': Execution},
+    {'key': 'commitment_note', 'instance': CommitmentNotes},
+    {'key': 'work_plan_status', 'instance': WorkPlanStatus},
+    {'key': 'action_item', 'instance': ActionItem},
+    {'key': 'work_plan', 'instance': WorkPlan},
+    {'key': 'goal', 'instance': Goal},
+    {'key': 'activity_stage', 'instance': ActivityStage},
+    {'key': 'project_goal', 'instance': ProjectGoals},
+    {'key': 'risk', 'instance': Risks},
+    {'key': 'action', 'instance': Action},
+    {'key': 'component_classification', 'instance': Classification},
+    {'key': 'classification_type', 'instance': ClassificationType},
+    {'key': 'decentralized_unit', 'instance': DecentralizedUnit},
+    {'key': 'budget_plan', 'instance': BudgetPlan},
+    {'key': 'component', 'instance': Component},
+    {'key': 'infrastructure', 'instance': Infrastructure},
+    {'key': 'nature_of_expense_field', 'instance': NatureOfExpense},
+]
